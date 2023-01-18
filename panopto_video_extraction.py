@@ -59,12 +59,12 @@ def get_video_info(oauth2, requests_session, folder_id):
 
 
 def output_json(output_dict):
-    with open("output.json", 'w', encoding="utf-8") as file_obj:
+    with open("output_with_caption_url/output.json", 'w', encoding="utf-8") as file_obj:
         json.dump(output_dict, file_obj, indent=2)
 
 
 def panopto_video_extraction():
-    root_folder_id = "54c36bf0-010c-45e7-949e-af810125d039"
+    root_folder_id = "00000000-0000-0000-0000-000000000000"
     requests_session = requests.Session()
     requests_session.verify = False
     oauth2 = PanoptoOAuth2(server, client_id, client_secret, False)
@@ -84,8 +84,9 @@ def panopto_video_extraction():
                 folder_list.append(child_folder['Id'])
 
         # check videos in the folder
-        videos = get_video_info(oauth2, requests_session, cur_folder)
-        video_list += videos
+        if cur_folder != "00000000-0000-0000-0000-000000000000":
+            videos = get_video_info(oauth2, requests_session, cur_folder)
+            video_list += videos
 
     output_dict = {"Results": video_list}
     output_json(output_dict)
