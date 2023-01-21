@@ -1,0 +1,1111 @@
+1
+00:00:08,570 --> 00:00:12,240
+Hello, welcome to this
+lecture covering inference,
+
+2
+00:00:12,240 --> 00:00:14,655
+for binary and
+categorical outcomes.
+
+3
+00:00:14,655 --> 00:00:17,760
+In this lecture, we'll focus
+on what binary data are,
+
+4
+00:00:17,760 --> 00:00:21,280
+and how we compute
+proportions from these data.
+
+5
+00:00:21,280 --> 00:00:23,750
+Now investigating
+health outcomes,
+
+6
+00:00:23,750 --> 00:00:25,470
+in communities and populations,
+
+7
+00:00:25,470 --> 00:00:27,290
+it's certainly one of
+the most common forms of
+
+8
+00:00:27,290 --> 00:00:29,495
+analysis we use in public health.
+
+9
+00:00:29,495 --> 00:00:31,140
+We're often interested in seeing
+
+10
+00:00:31,140 --> 00:00:32,570
+whether the proportion of people
+
+11
+00:00:32,570 --> 00:00:35,765
+with a disease is greater in
+one group versus another,
+
+12
+00:00:35,765 --> 00:00:37,160
+and therefore we
+know where to put
+
+13
+00:00:37,160 --> 00:00:40,084
+valuable resources toward
+addressing health disparities,
+
+14
+00:00:40,084 --> 00:00:41,780
+and hopefully reduce
+the burden of
+
+15
+00:00:41,780 --> 00:00:43,775
+disease in our communities.
+
+16
+00:00:43,775 --> 00:00:46,610
+Now there are many ways to
+categories health outcomes.
+
+17
+00:00:46,610 --> 00:00:48,860
+For example, the
+ultimate outcome in
+
+18
+00:00:48,860 --> 00:00:51,815
+life is that someone is
+either dead or alive.
+
+19
+00:00:51,815 --> 00:00:53,840
+We could also consider
+a study in which
+
+20
+00:00:53,840 --> 00:00:55,835
+we categorize people
+as having a stroke,
+
+21
+00:00:55,835 --> 00:00:58,850
+a heart attack, some other
+cardiovascular event
+
+22
+00:00:58,850 --> 00:01:01,605
+or perhaps, no
+cardiovascular event.
+
+23
+00:01:01,605 --> 00:01:03,140
+In a study of a disease,
+
+24
+00:01:03,140 --> 00:01:05,240
+we might categorize each
+person's outcome as either
+
+25
+00:01:05,240 --> 00:01:08,195
+being mild or moderate or severe.
+
+26
+00:01:08,195 --> 00:01:10,330
+So in this module,
+we'll work through
+
+27
+00:01:10,330 --> 00:01:12,130
+how we estimate a probability or
+
+28
+00:01:12,130 --> 00:01:14,200
+a proportion of the population
+
+29
+00:01:14,200 --> 00:01:15,880
+that exists in each category,
+
+30
+00:01:15,880 --> 00:01:17,890
+and this will prepare
+us next to test,
+
+31
+00:01:17,890 --> 00:01:22,010
+whether those proportions
+are different across groups.
+
+32
+00:01:22,010 --> 00:01:24,120
+Our learning objectives are;
+
+33
+00:01:24,120 --> 00:01:25,445
+first to understand what
+
+34
+00:01:25,445 --> 00:01:28,090
+a population probability
+or proportion is,
+
+35
+00:01:28,090 --> 00:01:29,860
+then to understand how we compute
+
+36
+00:01:29,860 --> 00:01:32,080
+a sample probability
+or proportion,
+
+37
+00:01:32,080 --> 00:01:34,690
+to then use a contingency
+table to summarize
+
+38
+00:01:34,690 --> 00:01:37,720
+binary outcomes that we collect
+on two groups of people,
+
+39
+00:01:37,720 --> 00:01:40,870
+at last to understand how
+we use the data to compute
+
+40
+00:01:40,870 --> 00:01:42,909
+a 95 percent confidence interval
+
+41
+00:01:42,909 --> 00:01:46,160
+for a single
+population proportion.
+
+42
+00:01:46,160 --> 00:01:50,320
+As an example, imagine we
+have two groups of infants.
+
+43
+00:01:50,320 --> 00:01:52,060
+We have a group of infants who
+
+44
+00:01:52,060 --> 00:01:54,085
+have a control given to them,
+
+45
+00:01:54,085 --> 00:01:55,910
+and we have a population of
+
+46
+00:01:55,910 --> 00:01:58,099
+infants who are given
+an intervention,
+
+47
+00:01:58,099 --> 00:01:59,915
+and after two years,
+
+48
+00:01:59,915 --> 00:02:03,365
+we wonder if the probability
+of caries or cavities,
+
+49
+00:02:03,365 --> 00:02:06,290
+differs between the population
+of infants who were given
+
+50
+00:02:06,290 --> 00:02:08,720
+the intervention versus
+the population of
+
+51
+00:02:08,720 --> 00:02:09,830
+infants who were not given
+
+52
+00:02:09,830 --> 00:02:12,260
+the intervention and
+received the control.
+
+53
+00:02:12,260 --> 00:02:15,565
+Set another way, we
+ask after two years,
+
+54
+00:02:15,565 --> 00:02:18,635
+does the proportion of
+infants with caries differ
+
+55
+00:02:18,635 --> 00:02:23,100
+between the intervention and
+the control populations?
+
+56
+00:02:23,100 --> 00:02:25,725
+Now in the control population,
+
+57
+00:02:25,725 --> 00:02:28,565
+we have a single
+population parameter P_1.
+
+58
+00:02:28,565 --> 00:02:31,200
+If you recall, with
+continuous outcomes,
+
+59
+00:02:31,200 --> 00:02:32,760
+every population had
+
+60
+00:02:32,760 --> 00:02:35,455
+a population parameter
+for the mean mu.
+
+61
+00:02:35,455 --> 00:02:37,070
+We have binary outcomes,
+
+62
+00:02:37,070 --> 00:02:39,710
+we do not focus on
+a population mean,
+
+63
+00:02:39,710 --> 00:02:42,200
+but instead a
+population proportion.
+
+64
+00:02:42,200 --> 00:02:45,410
+So P_1, indicates
+the probability of
+
+65
+00:02:45,410 --> 00:02:48,815
+caries in the control
+population of infants.
+
+66
+00:02:48,815 --> 00:02:51,230
+Correspondingly, it
+is the proportion of
+
+67
+00:02:51,230 --> 00:02:54,460
+control population
+infants who have caries.
+
+68
+00:02:54,460 --> 00:02:56,685
+For the intervention population,
+
+69
+00:02:56,685 --> 00:03:00,070
+we have a corresponding
+population parameter P_2,
+
+70
+00:03:00,070 --> 00:03:02,330
+which represents
+the probability of
+
+71
+00:03:02,330 --> 00:03:04,505
+caries in this population,
+
+72
+00:03:04,505 --> 00:03:07,010
+which is equivalent to the
+proportion of infants in
+
+73
+00:03:07,010 --> 00:03:10,670
+the intervention population
+who have caries.
+
+74
+00:03:10,670 --> 00:03:13,319
+For each of these infants,
+
+75
+00:03:13,319 --> 00:03:16,295
+we have an outcome which
+is carries, yes or no.
+
+76
+00:03:16,295 --> 00:03:18,320
+We will represent
+this through a zero,
+
+77
+00:03:18,320 --> 00:03:20,180
+representing no carries, and
+
+78
+00:03:20,180 --> 00:03:23,930
+a one for every infant
+who has caries.
+
+79
+00:03:23,930 --> 00:03:28,190
+So therefore, P_1 is the
+proportion of all of
+
+80
+00:03:28,190 --> 00:03:29,780
+the infants in the
+control population
+
+81
+00:03:29,780 --> 00:03:32,330
+who have a one for their outcome,
+
+82
+00:03:32,330 --> 00:03:36,020
+and P_2 thereby represents
+the proportion of all infants
+
+83
+00:03:36,020 --> 00:03:37,615
+in the intervention population
+
+84
+00:03:37,615 --> 00:03:39,880
+who have a one for their outcome.
+
+85
+00:03:39,880 --> 00:03:42,800
+Now we do not know the
+values of P_1 and P_2,
+
+86
+00:03:42,800 --> 00:03:47,020
+so we will draw a sample of
+infants from each population,
+
+87
+00:03:47,020 --> 00:03:49,040
+and we have a control
+sample of infants and
+
+88
+00:03:49,040 --> 00:03:52,835
+an intervention sample of
+infants who then give us data.
+
+89
+00:03:52,835 --> 00:03:57,200
+The data in the control
+sample is summarized by n_1 ,
+
+90
+00:03:57,200 --> 00:04:00,170
+which is the number of
+infants in the sample.
+
+91
+00:04:00,170 --> 00:04:02,130
+We then count up the
+number of infants
+
+92
+00:04:02,130 --> 00:04:03,885
+in the sample who have caries,
+
+93
+00:04:03,885 --> 00:04:05,805
+that number is m_1,
+
+94
+00:04:05,805 --> 00:04:07,370
+and therefore an estimate of
+
+95
+00:04:07,370 --> 00:04:09,394
+the population parameter P_1,
+
+96
+00:04:09,394 --> 00:04:11,600
+is the value P_1 hat,
+
+97
+00:04:11,600 --> 00:04:14,240
+and this is the proportion
+of infants in the sample
+
+98
+00:04:14,240 --> 00:04:16,735
+of data who develop
+carries within two years,
+
+99
+00:04:16,735 --> 00:04:20,630
+and that is simply the
+ratio of m_1 to n_1.
+
+100
+00:04:20,630 --> 00:04:23,680
+Likewise the data in the
+intervention sample,
+
+101
+00:04:23,680 --> 00:04:25,040
+are summarized first by
+
+102
+00:04:25,040 --> 00:04:27,565
+the number of infants
+in this sample n-2.
+
+103
+00:04:27,565 --> 00:04:29,960
+M_2 is the total
+number of infants
+
+104
+00:04:29,960 --> 00:04:32,225
+in the sample who
+developed carries,
+
+105
+00:04:32,225 --> 00:04:33,800
+and therefore an estimate for
+
+106
+00:04:33,800 --> 00:04:35,765
+the population parameter P_2,
+
+107
+00:04:35,765 --> 00:04:37,790
+is the value P_2 hat,
+
+108
+00:04:37,790 --> 00:04:39,500
+which is the proportion
+of infants in
+
+109
+00:04:39,500 --> 00:04:41,635
+the sample who developed caries,
+
+110
+00:04:41,635 --> 00:04:46,250
+and that is m_2 divided by n_2.
+
+111
+00:04:46,250 --> 00:04:49,040
+Now imagine I had a
+study in which I had
+
+112
+00:04:49,040 --> 00:04:51,545
+36 infants in the control sample,
+
+113
+00:04:51,545 --> 00:04:53,180
+and I found that 10 of them
+
+114
+00:04:53,180 --> 00:04:55,340
+developed carries
+within two years.
+
+115
+00:04:55,340 --> 00:04:57,525
+I therefore have an
+estimate P_1 hat,
+
+116
+00:04:57,525 --> 00:05:02,010
+which is equal to 10
+divided by 36 or 0.28.
+
+117
+00:05:02,010 --> 00:05:04,710
+Now notice that the value 10,
+
+118
+00:05:04,710 --> 00:05:07,070
+is the sum of all
+of the zeros and
+
+119
+00:05:07,070 --> 00:05:10,895
+ones in the total 36
+infants in my sample,
+
+120
+00:05:10,895 --> 00:05:14,825
+and that sum is then
+divided by n_1, 36.
+
+121
+00:05:14,825 --> 00:05:16,760
+So therefore, we have a sum of
+
+122
+00:05:16,760 --> 00:05:19,130
+outcomes divided by
+the sample size.
+
+123
+00:05:19,130 --> 00:05:21,230
+This is exactly what
+a sample mean is,
+
+124
+00:05:21,230 --> 00:05:22,640
+this is the formula we saw when
+
+125
+00:05:22,640 --> 00:05:25,085
+we had continuous outcomes.
+
+126
+00:05:25,085 --> 00:05:27,080
+Likewise, suppose I had
+
+127
+00:05:27,080 --> 00:05:29,510
+68 infants in the
+intervention sample,
+
+128
+00:05:29,510 --> 00:05:32,320
+six of whom developed
+carries within two years,
+
+129
+00:05:32,320 --> 00:05:37,875
+giving me an estimator
+proportion of 6 over 68 or 0.09.
+
+130
+00:05:37,875 --> 00:05:39,950
+Again, the value six is
+
+131
+00:05:39,950 --> 00:05:41,840
+the sum of all the
+zeros, and ones,
+
+132
+00:05:41,840 --> 00:05:43,160
+in the 68 infants in
+
+133
+00:05:43,160 --> 00:05:45,875
+the sample divided
+by the sample size.
+
+134
+00:05:45,875 --> 00:05:49,235
+So again, this number
+looks like a sample mean.
+
+135
+00:05:49,235 --> 00:05:50,990
+I emphasize this last fact,
+
+136
+00:05:50,990 --> 00:05:52,190
+that both of these numbers are
+
+137
+00:05:52,190 --> 00:05:55,400
+sample means because the
+central limit theorem,
+
+138
+00:05:55,400 --> 00:05:58,070
+is a theorem we apply
+to sample means,
+
+139
+00:05:58,070 --> 00:05:59,990
+and we'll prove very
+valuable when we
+
+140
+00:05:59,990 --> 00:06:03,230
+analyze binary outcomes
+in future lectures.
+
+141
+00:06:03,230 --> 00:06:05,690
+Now the data, from the study,
+
+142
+00:06:05,690 --> 00:06:07,190
+can also be summarized in what
+
+143
+00:06:07,190 --> 00:06:08,740
+we call a contingency table,
+
+144
+00:06:08,740 --> 00:06:12,160
+and I show you the contingency
+table here on this slide,
+
+145
+00:06:12,160 --> 00:06:14,900
+is comprised of two
+rows and two columns.
+
+146
+00:06:14,900 --> 00:06:18,200
+The rows indicate who belongs
+to the intervention sample,
+
+147
+00:06:18,200 --> 00:06:20,210
+and who belongs to
+the control sample,
+
+148
+00:06:20,210 --> 00:06:22,340
+and the columns
+indicate which babies
+
+149
+00:06:22,340 --> 00:06:25,405
+developed carries
+and which did not.
+
+150
+00:06:25,405 --> 00:06:28,370
+So therefore, the first
+row of this table there's
+
+151
+00:06:28,370 --> 00:06:31,130
+a total of 68 infants in
+the intervention sample,
+
+152
+00:06:31,130 --> 00:06:33,245
+six of them developed carries,
+
+153
+00:06:33,245 --> 00:06:35,270
+and 62 did not.
+
+154
+00:06:35,270 --> 00:06:37,175
+Likewise the second row,
+
+155
+00:06:37,175 --> 00:06:39,490
+we have 36 total
+infants in the sample,
+
+156
+00:06:39,490 --> 00:06:41,145
+10 of whom have caries,
+
+157
+00:06:41,145 --> 00:06:43,350
+and 26 who did not,
+
+158
+00:06:43,350 --> 00:06:46,560
+and then we can add up the
+column totals and we see
+
+159
+00:06:46,560 --> 00:06:49,610
+that in all 104
+infants in my sample,
+
+160
+00:06:49,610 --> 00:06:54,650
+16 had carries, and 88 did not.
+
+161
+00:06:54,650 --> 00:06:58,700
+We therefore can compute
+sample proportions from
+
+162
+00:06:58,700 --> 00:07:01,220
+a contingency table
+by simply taking
+
+163
+00:07:01,220 --> 00:07:03,860
+the first value in
+the first column,
+
+164
+00:07:03,860 --> 00:07:06,895
+and dividing by the corresponding
+total for that row,
+
+165
+00:07:06,895 --> 00:07:09,150
+so that end of the
+control sample, again,
+
+166
+00:07:09,150 --> 00:07:10,665
+we have 36 infants,
+
+167
+00:07:10,665 --> 00:07:12,335
+10 of whom had carries,
+
+168
+00:07:12,335 --> 00:07:15,350
+the ratio of those
+two numbers is 0.28.
+
+169
+00:07:15,350 --> 00:07:17,660
+In the first row
+we had a total of
+
+170
+00:07:17,660 --> 00:07:20,110
+68 infants in the
+intervention sample,
+
+171
+00:07:20,110 --> 00:07:21,935
+six of them developed carries.
+
+172
+00:07:21,935 --> 00:07:28,570
+So we have a proportion
+of 6 over 68 or 0.09.
+
+173
+00:07:28,570 --> 00:07:32,240
+Now that we have estimates for
+the population parameters,
+
+174
+00:07:32,240 --> 00:07:35,140
+we also need standard
+errors for those estimates.
+
+175
+00:07:35,140 --> 00:07:36,915
+For binary outcomes,
+
+176
+00:07:36,915 --> 00:07:39,050
+the formula needed for
+the standard error of
+
+177
+00:07:39,050 --> 00:07:40,760
+the estimate is different than
+
+178
+00:07:40,760 --> 00:07:43,070
+the formula that I showed
+you in previous lectures,
+
+179
+00:07:43,070 --> 00:07:46,070
+for the sample mean of
+continuous outcomes x-bar.
+
+180
+00:07:46,070 --> 00:07:48,855
+I show you the formula
+here on this slide,
+
+181
+00:07:48,855 --> 00:07:51,220
+and from this standard error,
+
+182
+00:07:51,220 --> 00:07:53,330
+I can then compute
+standard errors
+
+183
+00:07:53,330 --> 00:07:56,735
+corresponding to the data I
+collected in each sample.
+
+184
+00:07:56,735 --> 00:07:59,449
+So in the control sample,
+
+185
+00:07:59,449 --> 00:08:01,180
+I have 36 infants.
+
+186
+00:08:01,180 --> 00:08:04,055
+The estimator proportion
+was 10 over 36,
+
+187
+00:08:04,055 --> 00:08:07,640
+and therefore I have 10
+over 36 divided by 36,
+
+188
+00:08:07,640 --> 00:08:10,220
+times 1 minus 10
+over 36, and again,
+
+189
+00:08:10,220 --> 00:08:13,640
+I take the square root
+of this and get 0.07.
+
+190
+00:08:13,640 --> 00:08:16,640
+The corresponding computation
+for the intervention sample
+
+191
+00:08:16,640 --> 00:08:20,335
+leads to a standard
+error of 0.03.
+
+192
+00:08:20,335 --> 00:08:23,390
+We use these standard
+errors to compute
+
+193
+00:08:23,390 --> 00:08:26,030
+confidence intervals for
+the population parameters,
+
+194
+00:08:26,030 --> 00:08:29,030
+like we did when we had
+continuous outcomes.
+
+195
+00:08:29,030 --> 00:08:31,820
+The concept for a 95 percent
+confidence interval,
+
+196
+00:08:31,820 --> 00:08:34,160
+for a population parameter P,
+
+197
+00:08:34,160 --> 00:08:36,740
+is the same as the
+formula we used when we
+
+198
+00:08:36,740 --> 00:08:40,265
+wanted a 95 percent confidence
+interval for the mean mu.
+
+199
+00:08:40,265 --> 00:08:42,215
+It is simply the estimate,
+
+200
+00:08:42,215 --> 00:08:44,975
+plus or minus two
+standard errors.
+
+201
+00:08:44,975 --> 00:08:46,375
+So in this case,
+
+202
+00:08:46,375 --> 00:08:48,080
+a 95 percent confidence interval
+
+203
+00:08:48,080 --> 00:08:49,715
+for the population proportion,
+
+204
+00:08:49,715 --> 00:08:52,145
+is the estimator
+proportion P-hat,
+
+205
+00:08:52,145 --> 00:08:56,390
+plus or minus two times its
+corresponding standard error.
+
+206
+00:08:56,390 --> 00:08:59,270
+Applying this to the
+control population,
+
+207
+00:08:59,270 --> 00:09:00,890
+you can see that a 95 percent
+
+208
+00:09:00,890 --> 00:09:03,230
+confidence interval for P_1,
+
+209
+00:09:03,230 --> 00:09:05,300
+is the estimator proportion
+
+210
+00:09:05,300 --> 00:09:08,195
+0.28 plus or minus
+2 standard errors,
+
+211
+00:09:08,195 --> 00:09:12,395
+giving me an interval
+of 0.14 to 0.42.
+
+212
+00:09:12,395 --> 00:09:15,180
+Therefore, in the
+population of control
+
+213
+00:09:15,180 --> 00:09:17,850
+infants my data suggests that,
+
+214
+00:09:17,850 --> 00:09:19,280
+the probability of developing
+
+215
+00:09:19,280 --> 00:09:23,800
+caries ranges from 0.14 to 0.42.
+
+216
+00:09:23,800 --> 00:09:27,075
+Likewise, a 95 percent
+confidence interval
+
+217
+00:09:27,075 --> 00:09:29,775
+for P_2 in the
+intervention population,
+
+218
+00:09:29,775 --> 00:09:32,590
+is the estimated proportion 0.09,
+
+219
+00:09:32,590 --> 00:09:34,750
+plus or minus 2 corresponding
+standard errors,
+
+220
+00:09:34,750 --> 00:09:40,390
+which was 0.03, giving me
+an interval of 0.3 to 0.15.
+
+221
+00:09:40,390 --> 00:09:42,960
+Again, this means
+that my data suggests
+
+222
+00:09:42,960 --> 00:09:45,260
+that in the intervention
+population of babies,
+
+223
+00:09:45,260 --> 00:09:48,020
+the probability of developing
+carries could be as low as
+
+224
+00:09:48,020 --> 00:09:52,220
+0.03 or as high as 0.15.
+
+225
+00:09:52,220 --> 00:09:54,750
+So at this point for
+any binary outcome,
+
+226
+00:09:54,750 --> 00:09:56,810
+we're now able to first estimate
+
+227
+00:09:56,810 --> 00:09:59,200
+the population proportion
+from our sample,
+
+228
+00:09:59,200 --> 00:10:01,750
+and then to provide a 95
+percent confidence interval
+
+229
+00:10:01,750 --> 00:10:04,225
+for that population proportion.
+
+230
+00:10:04,225 --> 00:10:06,245
+Now, of greater interest,
+
+231
+00:10:06,245 --> 00:10:08,490
+is to assess whether
+two populations
+
+232
+00:10:08,490 --> 00:10:10,770
+have different proportions.
+
+233
+00:10:10,770 --> 00:10:12,840
+In other words, we
+wonder if there is
+
+234
+00:10:12,840 --> 00:10:14,440
+an association between
+
+235
+00:10:14,440 --> 00:10:16,730
+a person's probability
+of the outcome,
+
+236
+00:10:16,730 --> 00:10:19,115
+and which population
+they belong to.
+
+237
+00:10:19,115 --> 00:10:20,770
+To answer this question,
+
+238
+00:10:20,770 --> 00:10:22,580
+we'll use a new hypothesis test
+
+239
+00:10:22,580 --> 00:10:23,900
+known as a chi-squared test
+
+240
+00:10:23,900 --> 00:10:27,560
+of association that will be
+covered in a future lecture.
+

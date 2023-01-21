@@ -1,0 +1,2792 @@
+1
+00:00:00,570 --> 00:00:05,490
+And despite the fact that you can take courses on measurement and multilevel models
+
+2
+00:00:05,700 --> 00:00:10,350
+and mediation and categorical normative models or generalize on your model,
+
+3
+00:00:11,160 --> 00:00:14,940
+there's still just a small portion of the types of analysis that we might include.
+
+4
+00:00:16,140 --> 00:00:20,250
+I actually think there are a few that we've borrowed from places like epidemiology and
+
+5
+00:00:20,250 --> 00:00:27,480
+public policy and education that can be readily applied to public health types of problems.
+
+6
+00:00:27,780 --> 00:00:32,579
+And so I asked Alice to come in and talk about one example survival analysis,
+
+7
+00:00:32,580 --> 00:00:38,190
+which I think is going to be relevant to some of the folks who are working, especially in health care spaces.
+
+8
+00:00:38,820 --> 00:00:42,840
+But I think you can use in a variety of interesting ways in social sciences, too.
+
+9
+00:00:43,260 --> 00:00:48,510
+So the good news is we'll still have time or this week to cover some structural question on stuff.
+
+10
+00:00:48,780 --> 00:00:53,610
+I did post a video lecture and some other materials for folks to take a peek at this week.
+
+11
+00:00:53,970 --> 00:00:59,460
+But we'll go through an example on Thursday as well and give you a little bit time to play around with it.
+
+12
+00:01:00,090 --> 00:01:05,110
+And then that particular subject, that's two courses, folks.
+
+13
+00:01:05,670 --> 00:01:12,450
+You want to become an expert researcher, presumably you're probably taking at least a course, of course, in a half hour because it is so encompassing.
+
+14
+00:01:12,450 --> 00:01:17,759
+But the big theme from what we'll spend Thursday doing is that it's really just combining some
+
+15
+00:01:17,760 --> 00:01:23,010
+of the same sort of ideas that we've been using all semester long the measurement pieces,
+
+16
+00:01:23,010 --> 00:01:25,290
+the structural pieces, the regression pieces,
+
+17
+00:01:25,590 --> 00:01:31,560
+it's all just going to come together in this pretty elegant framework to allow us to do a lot of stuff at the same exact time.
+
+18
+00:01:31,950 --> 00:01:35,819
+But then again, your toolkit will continue to expand.
+
+19
+00:01:35,820 --> 00:01:42,060
+And I want folks to know that just because I didn't touch on it this semester and maybe I'll pull up a slide of some other common,
+
+20
+00:01:42,300 --> 00:01:46,650
+commonly used techniques that I didn't have a chance to cover.
+
+21
+00:01:46,980 --> 00:01:55,410
+This would be like advanced advanced quantitative methods around things like survival analysis or lean class analysis or,
+
+22
+00:01:56,280 --> 00:02:02,040
+I don't know, time series or all sorts of other Bayesian analysis,
+
+23
+00:02:02,310 --> 00:02:08,790
+all sorts of different things that even if you just have a basic foundation, you might be able to apply and use a little bit of that in the field.
+
+24
+00:02:08,790 --> 00:02:15,510
+Or more importantly, you can be conversant when we're engaging with people who are sharing those sorts of results and analysis.
+
+25
+00:02:15,840 --> 00:02:18,870
+So this is a good one to cover and delighted that these can be here.
+
+26
+00:02:19,080 --> 00:02:23,370
+Thank you. One more time for joining us this semester, and I'm looking forward to hearing what you get.
+
+27
+00:02:24,090 --> 00:02:28,919
+And just something really humble. I'm like one who goofed and put the date wrong on my calendar.
+
+28
+00:02:28,920 --> 00:02:36,660
+So I showed up to it. I was like, Oh, and just is like, Oh, you're here. So thank you for letting me present, even though this is not planned.
+
+29
+00:02:38,430 --> 00:02:42,570
+So as I just mentioned, we're going to talk a little about survival analysis today.
+
+30
+00:02:43,440 --> 00:02:48,240
+And you know what? We're just going to jump right in with asking you all, what do you think survival analysis is?
+
+31
+00:02:48,600 --> 00:02:52,010
+That's me. Oh, this is like the way we interact in the class.
+
+32
+00:02:52,030 --> 00:02:59,069
+Did you did you start recording? I did, yes. Six guesses are and I apologize.
+
+33
+00:02:59,070 --> 00:03:02,640
+I didn't put the slide I normally have in there about like classroom norms.
+
+34
+00:03:03,300 --> 00:03:06,830
+I was doing this thing on the fly last night after a kind of a crazy conference week last week.
+
+35
+00:03:06,840 --> 00:03:12,660
+So I but the norms, of course, are that we talk about classroom are like, you know, being gentle with ourselves.
+
+36
+00:03:12,930 --> 00:03:19,740
+And if we have critiques critiquing ideas, not people, and then yeah, just being courageous and guessing if we need to.
+
+37
+00:03:24,460 --> 00:03:30,890
+I don't think I have that. Something that comes to mind is like kaplan-meier curves are spot on.
+
+38
+00:03:30,890 --> 00:03:34,610
+Yes, we're going to be talking about half of markers really soon. Fantastic.
+
+39
+00:03:37,590 --> 00:03:41,190
+Hello. Welcome. You know, you're great.
+
+40
+00:03:41,880 --> 00:03:45,600
+What? Like, what do we think that the purpose of the survival analysis is?
+
+41
+00:03:46,050 --> 00:03:49,170
+Any guesses? Any content on this? Any knowledge?
+
+42
+00:03:51,970 --> 00:03:55,960
+Even from the like what is it called in terms of survival analysis?
+
+43
+00:03:57,340 --> 00:04:13,440
+Hedging guesses is highly encourage. I mean, that's exactly what it says.
+
+44
+00:04:13,950 --> 00:04:19,680
+But at the rate of survival just from population stuff.
+
+45
+00:04:20,550 --> 00:04:25,680
+Great. Yeah. So you're matching rates, which would imply some sort of fraction.
+
+46
+00:04:25,680 --> 00:04:32,550
+And the idea that we're looking at a certain number of outcomes relative to time.
+
+47
+00:04:32,670 --> 00:04:40,319
+Yes. Awesome. So those are all really important things of general description or the general definition
+
+48
+00:04:40,320 --> 00:04:44,850
+would be studies examining the timing of certain events relative to a starting time.
+
+49
+00:04:45,000 --> 00:04:48,000
+So you guys were spot on on the right.
+
+50
+00:04:48,240 --> 00:04:55,170
+The right hand side is the kaplan-meier curves. So we mentioned that on the left hand side is a visualization of what these things sometimes
+
+51
+00:04:55,170 --> 00:04:58,950
+look like and how we would portray these things and as as we think through these concepts.
+
+52
+00:05:02,280 --> 00:05:09,450
+So continuing to hedge some guesses what types of questions we want to answer using survival analysis.
+
+53
+00:05:15,950 --> 00:05:32,780
+And again, it's rates of an outcome relative to time. Yep.
+
+54
+00:05:33,190 --> 00:05:42,020
+Great American achievement, contrasting treatments and understanding the amount of time, for example, to actually survive.
+
+55
+00:05:44,360 --> 00:05:53,220
+Perfect. But if you use it to look bad.
+
+56
+00:05:59,620 --> 00:06:03,140
+So I love that you're thinking about like comparison of medication to placebo.
+
+57
+00:06:03,160 --> 00:06:12,430
+The term efficacy is kind of a really big one. I think you could use a survival analysis to bolster the argument for efficacy, but I don't know.
+
+58
+00:06:12,430 --> 00:06:18,460
+And Justin, maybe you can chime in. I don't know that you could make an entire claim about efficacy based on just a survival analysis.
+
+59
+00:06:22,890 --> 00:06:36,910
+But I don't know. If one of your if one of your covariates was a program and you're looking at differential rates by program,
+
+60
+00:06:37,270 --> 00:06:42,070
+and that would be as a as a quasi experimental design as what it is.
+
+61
+00:06:42,190 --> 00:06:46,800
+All right. So yes. And I don't know, I'm always thirsty like this.
+
+62
+00:06:47,950 --> 00:06:51,580
+I guess the next one, I that's a good question.
+
+63
+00:06:52,840 --> 00:06:57,760
+So I also want to we've noticed some things relative to disease and survival,
+
+64
+00:06:58,270 --> 00:07:04,240
+as you guys correctly identified, was originally formulated to measure outcomes relative to death.
+
+65
+00:07:04,840 --> 00:07:12,550
+But we can also think of survival, like moving away from the actual definition of the survival term to think about just outcomes of any sort.
+
+66
+00:07:12,880 --> 00:07:23,190
+So time to give an outcome. So an example could be like time to taking a given course within a college, right?
+
+67
+00:07:24,520 --> 00:07:29,590
+Time to, you know, relative to the years of of being in college or semesters being in college.
+
+68
+00:07:30,640 --> 00:07:42,310
+Time to getting a driver's license relative to years and then looking at covariates, including socioeconomic status, state morality, things like that.
+
+69
+00:07:42,310 --> 00:07:51,450
+Right. And we can think about those types of things as outcomes and other outcomes that may not be death that you all are interested in.
+
+70
+00:07:51,450 --> 00:07:55,240
+And then you're given contents areas.
+
+71
+00:08:04,140 --> 00:08:07,650
+Justin Grant program, implementation program in Plantation.
+
+72
+00:08:07,760 --> 00:08:27,730
+Right. Yeah. Others. What are some of the things you guys are interested in terms of outcomes, health outcomes?
+
+73
+00:08:36,250 --> 00:08:43,180
+Smoking cessation. Okay, so time to a cessation in that population.
+
+74
+00:08:43,420 --> 00:09:05,680
+Yeah. What else are y'all interested in?
+
+75
+00:09:28,750 --> 00:09:32,080
+Injury prevention. Okay. Yes.
+
+76
+00:09:32,620 --> 00:09:37,089
+A-plus in the cause. All right.
+
+77
+00:09:37,090 --> 00:09:46,239
+So we could think of like if we are looking at a like a yoga community or a sample of high risk, like a high risk community.
+
+78
+00:09:46,240 --> 00:09:52,000
+Right. In terms of exposure to gun violence, looking at the age of first exposure to weapon.
+
+79
+00:09:52,360 --> 00:09:56,380
+Right. Or age of first exposure to the gun violence, outcome of interest.
+
+80
+00:09:56,470 --> 00:10:01,770
+That could be an example where it's not death, but it is a negative and health risk.
+
+81
+00:10:01,780 --> 00:10:09,190
+Right. So the major concepts in survival analysis are time events and this thing called sensory.
+
+82
+00:10:11,970 --> 00:10:19,620
+And I will let you guys participate some more. So we're going to use the poll because people are being a little shy today.
+
+83
+00:10:19,620 --> 00:10:27,570
+So please log in. You can either text or you can buy a computer, log in and let us know what is time.
+
+84
+00:10:49,490 --> 00:10:58,940
+I want to we're going to have. I have like multiple sclerosis and she's like three people.
+
+85
+00:11:00,470 --> 00:11:06,110
+Oh, interesting. MINKOFF Question is, how much time do have this place?
+
+86
+00:11:09,090 --> 00:11:18,510
+Uh huh. All right, now, how about now? I guess I like this idea of pool everywhere, but I don't know that I actually like the functionality.
+
+87
+00:11:55,930 --> 00:12:00,000
+I think. Okay.
+
+88
+00:12:03,370 --> 00:12:10,750
+A lot of people are thinking about it being a measure. Definitely feeling that all the time.
+
+89
+00:12:12,700 --> 00:12:20,950
+Yeah. So it's this construct of, you know, some sort of measurement of temporality, which is of course,
+
+90
+00:12:20,950 --> 00:12:24,050
+like, you know, using the definition in the definition is the word definition.
+
+91
+00:12:25,420 --> 00:12:28,630
+You know, a number of moments in a given span. Hi.
+
+92
+00:12:31,170 --> 00:12:36,610
+So. Within survival analysis.
+
+93
+00:12:36,880 --> 00:12:44,200
+Time is our outcome. It's the dependent variable. And we want to know, you know, as we've kind of been getting out.
+
+94
+00:12:44,230 --> 00:12:49,110
+At what point does our study population generally start to experience a human event?
+
+95
+00:12:51,220 --> 00:12:55,900
+And it's really useful. You know, these personalities are very useful for understanding the longitudinal relationship
+
+96
+00:12:55,900 --> 00:12:59,140
+between link time and outcomes and in terms of like the health outcome.
+
+97
+00:12:59,830 --> 00:13:02,980
+But in our actual models, time is our dependent variable.
+
+98
+00:13:03,790 --> 00:13:06,850
+So there are two types of time.
+
+99
+00:13:08,110 --> 00:13:11,000
+There is calendar time, which is also known as secular time.
+
+100
+00:13:11,350 --> 00:13:19,870
+That's the kind of time we are most generally familiar with in terms of it is 10:00 or it's right now it's 8:50 a.m. on December six,
+
+101
+00:13:19,930 --> 00:13:27,490
+2022 or in 3 hours, you know, it'll be 11:50 a.m.
+
+102
+00:13:28,690 --> 00:13:32,379
+But then there's clinical course time. Clinical, of course.
+
+103
+00:13:32,380 --> 00:13:40,920
+Time is not calendar time. It's not secular and it's entirely dependent upon our start value and it's measured relative to the start value.
+
+104
+00:13:40,930 --> 00:13:47,259
+So for example, we could say our zero and our three hour nine,
+
+105
+00:13:47,260 --> 00:13:51,159
+those would all be clinical time point because you have a starting value of zero and then
+
+106
+00:13:51,160 --> 00:13:55,330
+you have the subsequent time periods that aren't dependent upon a clinical calendar.
+
+107
+00:13:55,780 --> 00:14:03,220
+It could be a year, it could be six months, but again, it's not dependent upon the actual day or time, it's dependent upon that start value.
+
+108
+00:14:04,300 --> 00:14:13,030
+And that's really critical in our survival analysis as we go through and in our in our lives, we're talking about survival analysis.
+
+109
+00:14:13,300 --> 00:14:18,190
+Time is going to be numeric. It's going to include time zero, and then it's going to be to the end of the study.
+
+110
+00:14:18,190 --> 00:14:21,879
+And again, it's not clinical. It's not like, you know, from January 1st.
+
+111
+00:14:21,880 --> 00:14:28,060
+It's not when we put an RB application. We're going to start from January 1st, 2020 or through January 1st, 2024.
+
+112
+00:14:28,060 --> 00:14:36,160
+No, that's not what it means. It means we're going to do the study from time zero up through two years and collect data at three month intervals.
+
+113
+00:14:36,310 --> 00:14:41,380
+That's clinical time. Questions about clinical versus calendar.
+
+114
+00:14:44,760 --> 00:14:57,080
+Okay. So looking at this display, how much time do you think is in this display?
+
+115
+00:14:57,090 --> 00:15:00,540
+And I'm going to again open up. Oops.
+
+116
+00:15:00,720 --> 00:15:12,750
+So I think. So your options are three, four and five, and I'm going go back to the slide so you can see this.
+
+117
+00:15:17,280 --> 00:15:20,479
+I suppose the fact that you think. Well, I'm sat here. Let me in the place.
+
+118
+00:15:20,480 --> 00:15:24,410
+Sure. Yes. Or at least if I can put these like side by side, I can.
+
+119
+00:15:24,410 --> 00:15:28,430
+You see that? You know. It's like text.
+
+120
+00:15:28,490 --> 00:15:31,910
+It is 20912, two, two, three, three, three, three.
+
+121
+00:15:32,100 --> 00:15:36,620
+Know it's like really tiny or something bigger and.
+
+122
+00:15:39,550 --> 00:15:42,610
+Oh, it's covered up. Oh, [INAUDIBLE].
+
+123
+00:15:42,670 --> 00:16:10,390
+Sorry to. So we're kind of having a split between three and four.
+
+124
+00:16:11,470 --> 00:16:14,860
+Again, we don't have a label for the time.
+
+125
+00:16:15,670 --> 00:16:21,580
+Like that's the kind of back to the clinical and the labels relatively irrelevant and.
+
+126
+00:16:24,170 --> 00:16:28,850
+At this moment in terms of interpretation becomes very relevant. But for right now, it's kind of irrelevant.
+
+127
+00:16:36,410 --> 00:16:39,810
+Okay. So in this.
+
+128
+00:16:40,930 --> 00:16:47,850
+Oops. Yeah. And it's just like we can see that the time ranges from 0 to 4.
+
+129
+00:16:48,420 --> 00:16:50,520
+And the answer, honestly, it's a bit tricky.
+
+130
+00:16:51,580 --> 00:16:58,230
+It's kind of a trick question because it could be four, but it also depends on whether you're going to include your baseline.
+
+131
+00:16:58,260 --> 00:17:01,980
+So can some people have the event at baseline?
+
+132
+00:17:03,180 --> 00:17:04,680
+Generally, when we're doing recruitment,
+
+133
+00:17:04,680 --> 00:17:11,970
+we would want to have inclusion or exclusion criteria that would deal with whether or not people have the event already at baseline.
+
+134
+00:17:12,300 --> 00:17:18,000
+And it's not super helpful to include someone in a study where they have even a baseline because then it's like,
+
+135
+00:17:18,000 --> 00:17:21,420
+okay, well they already have the event that's done, but that would give us a prevalence at baseline.
+
+136
+00:17:21,420 --> 00:17:25,860
+And if you were looking at relative to a clinical diagnosis or something, that could be helpful, I'll be like,
+
+137
+00:17:26,100 --> 00:17:33,450
+well, a clinical diagnosis or sorry, not diagnosed, but got clinical intake of this population.
+
+138
+00:17:33,450 --> 00:17:41,940
+X percent had already the outcome of interest. And then, you know, six months later, you know, it was this proportion that would be kind of helpful.
+
+139
+00:17:42,240 --> 00:17:44,850
+But generally when you're doing survival analysis in this time analysis,
+
+140
+00:17:44,850 --> 00:17:50,880
+you're going to be having your you're not going to include people who already have the diagnosis generally.
+
+141
+00:17:50,970 --> 00:17:52,200
+It just depends on your site design.
+
+142
+00:17:52,230 --> 00:18:00,570
+So I would have said for probably as well, but again, it's kind of a tricky question and it'll depend on your inclusion and exclusion criteria.
+
+143
+00:18:03,410 --> 00:18:08,600
+Okay. So the event is the outcome of interest.
+
+144
+00:18:08,630 --> 00:18:16,250
+This could be the person gets the disease. For my work, it's like someone reports perpetrating dating violence of some sort.
+
+145
+00:18:18,800 --> 00:18:27,310
+Generally speaking, when we do a survival analysis, once an event occurs, that person, we don't need to really collect more data about them.
+
+146
+00:18:27,350 --> 00:18:30,920
+The events happened. We have the timing of the event.
+
+147
+00:18:31,340 --> 00:18:34,970
+That's all we're looking to find out when we're doing this survival analysis.
+
+148
+00:18:36,800 --> 00:18:40,500
+However, it's not the only thing that might stop someone to contribute.
+
+149
+00:18:40,910 --> 00:18:44,840
+Stop someone's time. Okay, so this is where we're going to start going into censoring.
+
+150
+00:18:46,160 --> 00:18:51,500
+So here we can see we have a number of events. And on the left hand side is the subject's we have seven subjects in this example.
+
+151
+00:18:52,290 --> 00:18:57,559
+And we have time from 0 to 4. No one has the event at time zero.
+
+152
+00:18:57,560 --> 00:19:04,520
+So in this study, either the exclusion criteria was they couldn't have the amount yet or they just had a population or no one's had it.
+
+153
+00:19:06,590 --> 00:19:11,150
+And we can see, like as we check out, we can see kind of like the following across time.
+
+154
+00:19:11,240 --> 00:19:21,049
+So. For example, observation one this person or this person or view of the place,
+
+155
+00:19:21,050 --> 00:19:26,390
+whatever it is that as our subject had the occurrence right before time one,
+
+156
+00:19:26,630 --> 00:19:33,920
+you see that and then for example, three has it at time three, four as onset time two,
+
+157
+00:19:34,040 --> 00:19:38,450
+etc. This would reflect if we actually have a call of real exposure.
+
+158
+00:19:38,750 --> 00:19:41,790
+This doesn't necessarily reflect one. We're going to collect that data. Okay.
+
+159
+00:19:45,370 --> 00:19:51,370
+Instead. This is when the events would be recorded, right? These would be at the times of clinical or ad evaluation rate.
+
+160
+00:19:51,380 --> 00:19:54,520
+So you have time point four, three, two and one has a zero.
+
+161
+00:19:54,820 --> 00:20:00,810
+And you can see like we collected the occurrence here, here,
+
+162
+00:20:00,820 --> 00:20:06,460
+even though the first happened back here and then at 10.4, for example, does that make sense?
+
+163
+00:20:07,360 --> 00:20:11,820
+And I think three and four like the yellow and blue are unfortunately overlapping on that one.
+
+164
+00:20:11,830 --> 00:20:15,070
+Sorry about that. That's kind of poor representation.
+
+165
+00:20:16,720 --> 00:20:20,800
+Questions about this as of right now. We're going to talk a bit more about it.
+
+166
+00:20:22,360 --> 00:20:28,599
+But any questions you have now? Yes. Your survival analysis doesn't have to be like the one discrete event.
+
+167
+00:20:28,600 --> 00:20:32,960
+Or could there potentially be like a multiple like multiple occurring events that occur?
+
+168
+00:20:33,850 --> 00:20:42,160
+So generally for survival analysis, for the actual analysis, you can have one event in a study design if you're going be collecting data anyways,
+
+169
+00:20:42,670 --> 00:20:46,690
+it's probably helpful to collect for multiple many correlating events.
+
+170
+00:20:46,690 --> 00:20:51,849
+It just depends on the study question and the purpose of the study as well as resources in the amount of time and survey fatigue.
+
+171
+00:20:51,850 --> 00:20:56,889
+All those pieces are kind of balancing out, but generally you have like this one event.
+
+172
+00:20:56,890 --> 00:21:01,719
+Now if you want to say like there's a cumulative event that you're like, well, they have to have one, two and three.
+
+173
+00:21:01,720 --> 00:21:05,260
+And once they have one, two and three, that's when we're going to time the event.
+
+174
+00:21:05,650 --> 00:21:10,000
+That could be a criteria, but the actual timing, it's a one shot timing.
+
+175
+00:21:10,330 --> 00:21:17,290
+They're going to you're going to collect the amount of time up until your defined event, which, again, event is just a term.
+
+176
+00:21:17,560 --> 00:21:24,700
+It could be anything, you know, it could be a series of events that you're checking along or it could be a diagnosis of a singular occurrence.
+
+177
+00:21:25,990 --> 00:21:34,860
+Great question. So these different like ten points is just like, okay, this is what I'm collecting my three month data.
+
+178
+00:21:34,860 --> 00:21:39,390
+So I'm going to ask them, how do you experience this in the last three months about your event?
+
+179
+00:21:39,630 --> 00:21:49,020
+Yeah, potentially. Right. So we can have actual, for example, like a like collection of self-reported events.
+
+180
+00:21:49,290 --> 00:21:56,340
+We could also potentially do something like through our electronic health record and just look at what time points people are having.
+
+181
+00:21:58,710 --> 00:22:05,700
+The time does need to be. If you're using an E, R, which is more observational,
+
+182
+00:22:06,810 --> 00:22:12,180
+there is a bit of potential confounding in that when people come in might be kind
+
+183
+00:22:12,180 --> 00:22:16,130
+of relative to like it might not be exactly the point of X of their timing.
+
+184
+00:22:16,140 --> 00:22:21,810
+Again, like the blue is like the true like if we were all knowing it, right, that would be the true timing.
+
+185
+00:22:21,960 --> 00:22:26,740
+But the yellow is when it's like identified within our study. So that could be based on that.
+
+186
+00:22:26,750 --> 00:22:32,880
+Each are based on like we sample people every three months and if they report at that three month period that that's when we'd say,
+
+187
+00:22:32,910 --> 00:22:36,060
+Oh, they've had the event. Two good questions.
+
+188
+00:22:40,870 --> 00:22:45,930
+You can also think about this not just person, but you could think about this at a more macro level.
+
+189
+00:22:45,940 --> 00:22:54,459
+So if you're interested, for example, I do some cannabis work, right we can look at by year and states who are legalizing medicinal marijuana as
+
+190
+00:22:54,460 --> 00:22:59,110
+compared to recreational marijuana and time to event right time like by year,
+
+191
+00:22:59,170 --> 00:23:06,430
+for example. So you could look at that at the state level and then your subjects would just be each state, you know, 5050 generally, right?
+
+192
+00:23:06,430 --> 00:23:10,389
+Most years there's other things to think about what include you see versus what regards to like that.
+
+193
+00:23:10,390 --> 00:23:13,810
+But yeah, generally, yes, not Puerto Rico at all.
+
+194
+00:23:14,240 --> 00:23:24,790
+The other questions feel free to resentence into for confused.
+
+195
+00:23:25,150 --> 00:23:37,780
+So what do you guys think about two and six? Not the exposure.
+
+196
+00:23:39,460 --> 00:23:52,080
+They haven't had the exposure. So just experience the event.
+
+197
+00:23:52,620 --> 00:23:56,820
+Perfect. How much time do you think that would quantify the man's?
+
+198
+00:24:01,760 --> 00:24:09,610
+Great. So our real you are observed that I think the real experience is greater than for our time.
+
+199
+00:24:09,730 --> 00:24:14,790
+A study ends at four. So we would we would give them you.
+
+200
+00:24:14,860 --> 00:24:20,620
+They wouldn't have experienced the events at time for and you're exactly right, they'd have for periods of time or they hadn't experienced the event.
+
+201
+00:24:20,770 --> 00:24:24,760
+We don't know if they're going experience it in the future, so we can't account for that, of course.
+
+202
+00:24:26,200 --> 00:24:37,120
+So this is where we get into censoring. So censoring happens to an individual that never reports an event.
+
+203
+00:24:38,500 --> 00:24:41,660
+And this could be due to two reasons, right?
+
+204
+00:24:41,680 --> 00:24:46,150
+One is that they truly never experienced the event during, say, during the study.
+
+205
+00:24:47,320 --> 00:24:57,100
+The second is that the second is that, you know, when we collect data, are we always have missing data problems, right?
+
+206
+00:24:57,430 --> 00:25:04,560
+And so you have two options for doing that. You could say we're only going to include people who have no missing data, which might really, you know,
+
+207
+00:25:04,660 --> 00:25:10,870
+kind of skew your findings or bias your results, or you say, okay, we're going to handle our missing data by using censoring.
+
+208
+00:25:12,190 --> 00:25:15,310
+So there's two forms of sensing right and left.
+
+209
+00:25:15,550 --> 00:25:22,900
+And the purpose of censoring is so that you can count the time periods that you have of that individual, even if you don't know their outcome status.
+
+210
+00:25:25,560 --> 00:25:29,780
+So these are the two observations you talked about. Two and six are called.
+
+211
+00:25:29,790 --> 00:25:30,950
+They're called, right, censored.
+
+212
+00:25:30,960 --> 00:25:38,220
+That means that we don't know their outcomes after a certain period, but that they have time up until our cutoff point.
+
+213
+00:25:39,030 --> 00:25:47,730
+So we sent we kind of like censor their data in that we never have an event, but we have information about them throughout the entire period.
+
+214
+00:25:55,860 --> 00:25:59,460
+So I'm going to hop back to this guy.
+
+215
+00:26:00,710 --> 00:26:13,380
+I know he kind of already got at it, but let's just do a quick comprehension check of how much time is contributed by two schools.
+
+216
+00:26:23,050 --> 00:26:26,260
+So observation to how much time would be contributed in our study.
+
+217
+00:26:30,620 --> 00:26:33,879
+I think it has been minus the one. The last question. Oh, shoot.
+
+218
+00:26:33,880 --> 00:26:38,670
+I'm sorry. Let's go. So I guess.
+
+219
+00:26:41,570 --> 00:26:51,570
+Four. Great. This is actually no funny.
+
+220
+00:26:56,070 --> 00:26:57,090
+I could.
+
+221
+00:27:07,590 --> 00:27:15,090
+So in this study we have four clinical timepoints points because again, we don't have people who are experiencing time zero and counting time zero.
+
+222
+00:27:15,750 --> 00:27:27,060
+So we can account for up to four time chunks. So people so individuals two and six would contribute for chunks of time having no event.
+
+223
+00:27:38,960 --> 00:27:43,220
+Okay. Now to get let me ask for we less than ten questions about rates.
+
+224
+00:27:43,220 --> 00:27:52,830
+I'm sorry. We're about to get a little bit more confusing for adolescents when they say just if they don't want the event after that.
+
+225
+00:27:54,470 --> 00:27:57,560
+Well, they might have the event. We don't we don't know what happens to them.
+
+226
+00:27:57,560 --> 00:28:03,410
+Right. So this is like the blues, like all knowing. Right. But the, you know, yellow was before what actually happened.
+
+227
+00:28:03,410 --> 00:28:08,090
+So they might have the amendment right right after the end of the study. We just don't know because we're no longer collecting data.
+
+228
+00:28:08,090 --> 00:28:11,960
+We're looking for following them. So this is all unknown.
+
+229
+00:28:12,800 --> 00:28:19,490
+It could be that they keep on forever and never have that. But because we don't collect data on it, we can't we can't predict that.
+
+230
+00:28:19,820 --> 00:28:23,690
+I mean, we could estimate a prediction, but we don't have that within our model.
+
+231
+00:28:26,870 --> 00:28:30,360
+So this great sense, you mean you just have to see.
+
+232
+00:28:30,680 --> 00:28:34,520
+But you didn't have an event during your study? Mm hmm. Exactly.
+
+233
+00:28:35,270 --> 00:28:38,570
+And there are some studies that will only include people who have the event.
+
+234
+00:28:39,260 --> 00:28:42,590
+So they wouldn't do right. Sensory, they would just remove those observations.
+
+235
+00:28:42,950 --> 00:28:46,519
+But if we're doing more kind of observational or trying to get population level estimates,
+
+236
+00:28:46,520 --> 00:28:50,000
+we'd want to include people who never had the event because that's our real world.
+
+237
+00:28:50,480 --> 00:28:55,110
+The only event that you know, the only true event that, you know,
+
+238
+00:28:55,160 --> 00:29:01,850
+people would always have at some point is death, but it might not be due to whatever, whatever the causes.
+
+239
+00:29:01,880 --> 00:29:05,630
+So if you were to follow people throughout their entire lives and were able to collect full data on everyone,
+
+240
+00:29:05,630 --> 00:29:12,410
+which again is really hard to do, you'd have an outcome for everything, but most of the outcomes don't.
+
+241
+00:29:12,830 --> 00:29:16,490
+Not everyone experiences, right? Very few experience.
+
+242
+00:29:16,700 --> 00:29:20,930
+Very few events are universal. Separate death and virtually.
+
+243
+00:29:23,880 --> 00:29:34,090
+Questions or questions about this. Okay.
+
+244
+00:29:34,800 --> 00:29:38,380
+So let's talk about licensing and make it a little more complicated.
+
+245
+00:29:39,970 --> 00:29:46,480
+So again, this is like could include like the screening out of individuals who already had exposure at baseline.
+
+246
+00:29:46,990 --> 00:29:51,100
+And again, we want to ask the question of like in my study kind of subjects, time to that be zero.
+
+247
+00:29:51,940 --> 00:29:59,670
+It's not super useful to have people who have the time at like at the time these zero in your your survival analysis.
+
+248
+00:29:59,680 --> 00:30:04,660
+It's not going to give you much information, but it could give you the prevalence of the event at a given start point,
+
+249
+00:30:04,990 --> 00:30:07,510
+which would be helpful potentially, depending what your question is.
+
+250
+00:30:09,040 --> 00:30:15,070
+So let's answer is like the event has already happened before, the subject is included in the study, but it's not known what it occurred.
+
+251
+00:30:16,600 --> 00:30:20,110
+So it began prior to the time, the starting time and again,
+
+252
+00:30:20,620 --> 00:30:25,540
+we're not talking about time in the secular sense of talking about time in the clinical sense or start time.
+
+253
+00:30:27,610 --> 00:30:34,750
+Licensing affects the way that time is calculated as well, because insights about less censoring time can equals zero.
+
+254
+00:30:36,640 --> 00:30:40,270
+But in studies that have less and less, censoring time cannot equal zero.
+
+255
+00:30:47,640 --> 00:30:51,550
+Let me go back. So questions about that left censoring versus right censoring.
+
+256
+00:30:53,800 --> 00:30:58,090
+And I'm sorry, what's up here? The part where it cannot be told.
+
+257
+00:30:58,990 --> 00:31:03,820
+Right. So in it, it cannot equal zero.
+
+258
+00:31:04,030 --> 00:31:08,590
+If the study has left, censoring means you're removing everyone.
+
+259
+00:31:12,390 --> 00:31:15,770
+Yeah. Yeah. I wasn't sure if you'd like. Okay.
+
+260
+00:31:18,210 --> 00:31:21,390
+But if you don't have left something, your time can equal zero.
+
+261
+00:31:23,890 --> 00:31:27,310
+The first get the applicable zero part versus nine.
+
+262
+00:31:29,110 --> 00:31:32,500
+It's confusing. Yeah.
+
+263
+00:31:33,730 --> 00:31:40,450
+Oh, yeah, that's okay. So if your time can equal zero, I'm in.
+
+264
+00:31:40,510 --> 00:31:47,350
+Make sure I do this right. So I'm going to use you. So time can equal zero if you don't have left.
+
+265
+00:31:47,350 --> 00:31:57,400
+Censoring. Left censoring is when you remove anyone who has had the event prior to the start or who has the event at the start.
+
+266
+00:32:00,490 --> 00:32:05,170
+So you'd remove those people and you'd only have people who have not had the event in clinical trials.
+
+267
+00:32:06,430 --> 00:32:14,480
+They always use less than three. They want to know about people who develop something after starting to use a given drug, for example.
+
+268
+00:32:14,530 --> 00:32:18,010
+They do not care about how they already have it. That's just not going to make them money.
+
+269
+00:32:18,280 --> 00:32:26,110
+Yes. After doing that with a clinical trial, do they then have to repeat it and not life sentences or so it's applicable to the real world?
+
+270
+00:32:28,570 --> 00:32:34,780
+I don't actually know the answer to that. And my guess is no. But the FDA, the question.
+
+271
+00:32:35,470 --> 00:32:40,690
+My guess would be no. Okay. Because again, like the it's the regulations that kind of get into that.
+
+272
+00:32:41,490 --> 00:32:47,620
+You know, we're very capitalistic society, very capitalism.
+
+273
+00:32:47,920 --> 00:32:54,720
+Yeah, that's more of a problem question, I would say. Yeah, another question.
+
+274
+00:33:03,260 --> 00:33:06,440
+All right. We have more questions, something we can come back to this.
+
+275
+00:33:08,060 --> 00:33:16,340
+So let's talk about people who are missing. So this is a common issue that we have in any sort of data set.
+
+276
+00:33:17,000 --> 00:33:25,760
+It's very rare to have complete data. It's very, very, very frankly suspect if you have complete data, given the real world implications.
+
+277
+00:33:25,760 --> 00:33:29,290
+But maybe you're collecting data from an easily engaged population.
+
+278
+00:33:32,120 --> 00:33:37,250
+So in this image, right, we can see that Subject five has some missing data.
+
+279
+00:33:38,300 --> 00:33:41,360
+And missing this, of course, can occur for a variety of reasons. Right.
+
+280
+00:33:41,780 --> 00:33:45,169
+We could have lost a follow up. We could have withdrawal.
+
+281
+00:33:45,170 --> 00:33:48,980
+Now, I should say, like lost of all, up is the most common reason.
+
+282
+00:33:49,490 --> 00:33:54,350
+If you had someone who withdraws from the study and indicates that they want all of their data withdrawn,
+
+283
+00:33:54,350 --> 00:33:57,620
+you'd be removing them entirely so you wouldn't be dealing with their missing data.
+
+284
+00:33:57,620 --> 00:34:02,270
+They would just be removed. But if they decide they want to stop the study, but they're not withdrawing all of their data.
+
+285
+00:34:02,420 --> 00:34:05,420
+Depending on how your IRB is written and your study procedures are written,
+
+286
+00:34:05,420 --> 00:34:08,990
+you might be able to include some of their data, but they would then be lost to follow up.
+
+287
+00:34:09,380 --> 00:34:13,940
+Right. Okay.
+
+288
+00:34:14,060 --> 00:34:19,970
+So let's assume that this person is due to loss of follow up so that we don't have to completely pull out their data.
+
+289
+00:34:24,790 --> 00:34:27,610
+So when we have missing this, we have more censoring.
+
+290
+00:34:29,020 --> 00:34:37,660
+And so within study management subjects, I would be considered lost to follow up at time three because we have data for them at time two,
+
+291
+00:34:38,410 --> 00:34:44,320
+but we lose them at time three because again, this is like the blue lines are the real,
+
+292
+00:34:45,010 --> 00:34:48,760
+you know, the real like if we were able to know everything about the world, right?
+
+293
+00:34:49,900 --> 00:34:55,120
+They participate in time, too. But between time of two and three, there decide if this is no longer for me.
+
+294
+00:34:55,240 --> 00:34:56,590
+I'm getting too busy. I don't like it.
+
+295
+00:34:56,590 --> 00:35:01,570
+Whatever, whatever the reason is or they move or and they don't send information, whatever it is, we just lose them.
+
+296
+00:35:01,720 --> 00:35:07,810
+Okay. So we have info for them at times zero one and two, but not at time three.
+
+297
+00:35:09,580 --> 00:35:15,700
+So statistically, subject five contribute time from time zero to time two.
+
+298
+00:35:17,080 --> 00:35:21,820
+Then we don't know what happens to them. So we can we can't assume that they didn't have the event.
+
+299
+00:35:21,850 --> 00:35:25,990
+We can't just be like, Oh, well, they're probably fine. They never have the event. Instead,
+
+300
+00:35:26,080 --> 00:35:35,200
+we can just attribute the two time units that they did contribute without the event while leaving the other two time units as a kind of as an unknown.
+
+301
+00:35:35,620 --> 00:35:42,220
+But we can say like, you know, we know that person two like up through time two they didn't have the event and they can contribute that time.
+
+302
+00:35:42,970 --> 00:35:47,200
+So we can keep them in the study for those, those time period that we have.
+
+303
+00:35:48,820 --> 00:35:53,049
+While like not indicating that whether or not they had event because we don't know but we know
+
+304
+00:35:53,050 --> 00:35:57,340
+that at least four at time one in time to time zero one and two they did not have the event.
+
+305
+00:35:58,390 --> 00:36:02,350
+Does that make sense? Even if we don't know about event by time for they did or didn't?
+
+306
+00:36:05,530 --> 00:36:12,399
+So that feels great because you know after the second you complete.
+
+307
+00:36:12,400 --> 00:36:17,049
+Yeah that's perfect. I was to ask you guys. Yes that's right country great job.
+
+308
+00:36:17,050 --> 00:36:22,190
+Yeah. But you just don't really have you know, it's like okay if I question right.
+
+309
+00:36:22,210 --> 00:36:31,440
+Yeah, that's right. So I'm sorry. Awesome. All right.
+
+310
+00:36:34,020 --> 00:36:40,490
+Dodgy. Still a reality. Okay, so here's another example of, you know,
+
+311
+00:36:40,500 --> 00:36:50,660
+this grid that we're using and another example of kind of like our is what is it called in your all knowing, omnipresent ambition.
+
+312
+00:36:51,030 --> 00:36:51,630
+Yeah. Okay.
+
+313
+00:36:52,110 --> 00:37:00,900
+So this is like if we are mission versus what we're actually observing within our study so we can see that the, the blue that's filled in is an event.
+
+314
+00:37:01,260 --> 00:37:04,370
+The blue that's not filled in is an unobserved event.
+
+315
+00:37:04,380 --> 00:37:08,460
+Again, like we don't know it happened for whatever reason an X is censoring.
+
+316
+00:37:08,820 --> 00:37:16,500
+So you can see at the start of study we have four subjects. How many of these subjects do we lose to follow up before the end of the study?
+
+317
+00:37:21,470 --> 00:37:26,570
+One. Great. How many events are observed within the study?
+
+318
+00:37:27,140 --> 00:37:31,850
+Two to bottom. How many events are unobserved during the time of the study?
+
+319
+00:37:33,050 --> 00:37:39,050
+One. And then how many of events are unobserved outside the study?
+
+320
+00:37:39,710 --> 00:37:46,160
+One. Awesome. Great. And the censoring would be.
+
+321
+00:37:49,390 --> 00:37:56,430
+Which side? Right or left? Sensory. Right. Do you think that left censoring might have been applied here based on what we're seeing?
+
+322
+00:37:59,040 --> 00:38:02,800
+Yes. Okay.
+
+323
+00:38:03,580 --> 00:38:07,210
+Okay. Now we're going into the Kaplan-meier curve and the controversial hazards models.
+
+324
+00:38:07,900 --> 00:38:14,590
+So I'm going to go really briefly over this. And then because I know you guys, there's no testing on this, okay?
+
+325
+00:38:14,830 --> 00:38:17,920
+Yeah. Okay. You're like, hey, no way.
+
+326
+00:38:18,220 --> 00:38:22,840
+So I'm not going to go over like this, like the super in-depth, our code or the like, math behind it.
+
+327
+00:38:23,620 --> 00:38:26,170
+You guys have a lot going on, so I just want to show you some examples.
+
+328
+00:38:27,880 --> 00:38:34,540
+But yeah, so like we're going to come back to we talked earlier in the semester about a study that Justin and I both worked on,
+
+329
+00:38:35,200 --> 00:38:44,120
+looking at electronic forms of dating violence. So we did a number of studies using this data as a reminder.
+
+330
+00:38:44,140 --> 00:38:47,200
+We it was a cohort study, so we followed two cohorts.
+
+331
+00:38:47,470 --> 00:38:49,810
+The first cohort was starting in sixth grade.
+
+332
+00:38:50,080 --> 00:38:55,660
+The second cohort was starting in ninth grade and we followed them for four years and collected data annually.
+
+333
+00:38:55,840 --> 00:39:08,750
+So we had potentially four periods of time that we could have for an event to occur in this kaplan-meier survival curve.
+
+334
+00:39:08,770 --> 00:39:13,149
+This, as you're seeing it with the two cohorts. So we have cohort one and cohort two.
+
+335
+00:39:13,150 --> 00:39:16,870
+Cohort one is the younger cohort. Cohort two is the older cohort.
+
+336
+00:39:18,310 --> 00:39:23,530
+And as we know, based on their previous lecture, but also not expecting you guys to remember that because it was a while ago,
+
+337
+00:39:24,550 --> 00:39:29,830
+but generally what we saw was that the risk of electronic dating violence increases throughout
+
+338
+00:39:29,830 --> 00:39:35,830
+adolescence as they get older with kind of a p almost like a peaking point at around age 16.
+
+339
+00:39:36,040 --> 00:39:38,190
+And we talked about some of the structural reasons why that might be.
+
+340
+00:39:38,740 --> 00:39:48,610
+And this is different from like from those curves, because, again, once someone's experienced a given outcome, we stop collecting time.
+
+341
+00:39:48,610 --> 00:39:52,960
+They've had the outcome. They they are young. We've I checked the box like, yep, they had it.
+
+342
+00:39:53,410 --> 00:39:54,850
+We don't need to collect more time on them.
+
+343
+00:39:55,450 --> 00:40:03,309
+So we don't see a curving fashion of like, oh, well at time three which would be the fourth year this the way that our, the way I did our graphs.
+
+344
+00:40:03,310 --> 00:40:09,460
+So we're sorry. But time three is actually time for they are the fourth year of data collection.
+
+345
+00:40:11,080 --> 00:40:16,900
+So at that time, you know, it might be that fewer people are experience are reporting it within that year,
+
+346
+00:40:17,080 --> 00:40:21,489
+but because they've reported it in a prior year, we've already indicated them as having experienced it.
+
+347
+00:40:21,490 --> 00:40:25,870
+So they would be still the survival probability would be lower as a result.
+
+348
+00:40:26,560 --> 00:40:31,390
+Okay. So again, once an event occurs, it doesn't matter if it keeps occurring or not.
+
+349
+00:40:31,960 --> 00:40:36,130
+It's already happened. The survival, they're no longer cohort surviving in our analysis.
+
+350
+00:40:37,350 --> 00:40:46,390
+Okay. And as you can see, like a lot of youth, you know, this is specifically for sexual coercion.
+
+351
+00:40:46,400 --> 00:40:52,210
+This is not for all of the types of dating violence. This is a really it's also called coercive sexting,
+
+352
+00:40:52,480 --> 00:41:01,090
+but it's the idea of like trying to manipulate someone in order to get them to message or send pictures or videos that are explicit in nature.
+
+353
+00:41:01,450 --> 00:41:07,989
+And we know that this form of coercive sexting is has a lot of negative implications for youth in terms of their mental health,
+
+354
+00:41:07,990 --> 00:41:13,060
+their delinquency, things like that. So this is a really important problem that we're trying to understand a little bit more about.
+
+355
+00:41:16,120 --> 00:41:34,219
+Questions about this. And then we have a COX Proportional hazards models so consequential hazards.
+
+356
+00:41:34,220 --> 00:41:38,380
+Whereas. So whereas KAPLAN-MEIER is just going to give you descriptive statistics about, you know,
+
+357
+00:41:38,510 --> 00:41:45,470
+what proportion of your population experiences an event at a given time and you can look at it by a categorical variable like cohort.
+
+358
+00:41:46,370 --> 00:41:52,250
+The COX Proportional Hazards help us understand the predictors of the timing of events.
+
+359
+00:41:52,790 --> 00:42:02,059
+So if, for example, we see here that ACES, which are adverse childhood experiences at our first wave of data collection,
+
+360
+00:42:02,060 --> 00:42:09,470
+which would be times zero, the greater a report of those is predictive of less time.
+
+361
+00:42:10,100 --> 00:42:14,180
+So the timing of event is closer to wave one, which is time zero.
+
+362
+00:42:14,570 --> 00:42:22,520
+And again, I'm sorry that the the graph or the graph in the last slide doesn't match up in terms of the timing in that way.
+
+363
+00:42:25,100 --> 00:42:28,760
+We can also see. Mm hmm. Yes.
+
+364
+00:42:29,240 --> 00:42:40,170
+Oh, sorry. So in this model, we'd also included physical forms of violence and terms of perpetration.
+
+365
+00:42:40,440 --> 00:42:43,380
+So if students reported perpetrating violence against the teacher,
+
+366
+00:42:43,620 --> 00:42:49,110
+that was highly predictive of seeing a report of perpetrating or experiencing sexual coercion.
+
+367
+00:42:49,380 --> 00:42:53,220
+And same with school or school. Me perpetrating violence against the school.
+
+368
+00:42:53,220 --> 00:42:58,510
+Me. Questions about this.
+
+369
+00:43:07,290 --> 00:43:13,420
+Okay. So I put in my slides and resources in case anyone does want to dive into the code.
+
+370
+00:43:13,440 --> 00:43:15,959
+You're welcome to I'm not going to go over this closely,
+
+371
+00:43:15,960 --> 00:43:21,420
+but if you want some examples of code and like how to produce these things, that resource would be helpful.
+
+372
+00:43:22,260 --> 00:43:32,400
+And then I'll turn it over to you all to get to apply what we've learned. Would you go back to Spencer just like that for when?
+
+373
+00:43:32,610 --> 00:43:34,200
+The code. Oh, my. Sorry.
+
+374
+00:43:42,930 --> 00:43:52,450
+So even I mean, even if you haven't seen this package before, are you recognizing that some of the pieces that were probably to right.
+
+375
+00:43:52,470 --> 00:43:55,680
+You probably can infer we have some variables.
+
+376
+00:43:55,950 --> 00:43:57,990
+We have a data set it's going to need. Right.
+
+377
+00:43:58,080 --> 00:44:05,250
+You can start at least she's together and the arguments and the functions that you're going to need if we do have time.
+
+378
+00:44:05,280 --> 00:44:12,620
+And would it be possible just to even briefly talk through what are some of the specific variables that you need in the destruction dataset then?
+
+379
+00:44:12,960 --> 00:44:16,310
+Yeah, and that's what we're going to have the class work on that. But I'm sorry.
+
+380
+00:44:16,380 --> 00:44:22,140
+That's right. Yeah, sorry. You know, this is a good question. Do you want me can we go back to the code once we have a because I don't know.
+
+381
+00:44:22,140 --> 00:44:25,140
+I mean you're you're the professor. I'm the poser.
+
+382
+00:44:26,640 --> 00:44:32,250
+Okay, so I'm going to have you guys work together or you can do a solo or in small groups sometimes.
+
+383
+00:44:32,250 --> 00:44:37,220
+I was like horrified of professors, but I always think you work in small groups so it's whatever your preferences I'm
+
+384
+00:44:37,980 --> 00:44:41,969
+unless you guys to identify research question that's interesting to you so again think
+
+385
+00:44:41,970 --> 00:44:45,870
+about the types of events you'd be interested in learning more about and what you do
+
+386
+00:44:45,930 --> 00:44:50,219
+to design the data collection and sketch out an example access with observations,
+
+387
+00:44:50,220 --> 00:44:52,650
+events and note right and left censorship.
+
+388
+00:44:53,070 --> 00:44:57,210
+And then we're going to present up to the rest of class and we'll talk, then loop back and talk about the code.
+
+389
+00:44:57,900 --> 00:45:03,180
+And there's a Google doc I have emailed to you, but I don't think it got sent out to the class yet.
+
+390
+00:45:03,660 --> 00:45:09,240
+Is there a way to email that name might be. I'll let you I'll let you go for that.
+
+391
+00:45:09,900 --> 00:45:14,400
+And I have some Google slides that you guys can if you guys want an example.
+
+392
+00:45:14,430 --> 00:45:18,089
+Otherwise you can use the board if someone wanted to.
+
+393
+00:45:18,090 --> 00:45:22,220
+They want to use this for the pen or a piece of paper or anything.
+
+394
+00:45:22,230 --> 00:45:31,400
+Piece of paper. Sorry, but. And we'll take like maybe like 25 minutes to ask you questions right now.
+
+395
+00:45:33,450 --> 00:45:36,870
+Just until 950.
+
+396
+00:45:36,960 --> 00:45:44,220
+Okay. So we'll take like 10 to 12 minutes. In fairness, is this class ever ended in 1950?
+
+397
+00:45:44,220 --> 00:46:21,930
+But. It's awesome.
+
+398
+00:46:23,390 --> 00:46:33,820
+So you guys out with this online? You're welcome to use it or create your own however you want to grab one of the slides and go after it.
+
+399
+00:46:34,510 --> 00:46:40,200
+I don't know. Sorry.
+
+400
+00:46:40,850 --> 00:46:44,020
+No, you're good. That was great. Well, I got a chance to talk to the coach.
+
+401
+00:46:44,120 --> 00:46:51,980
+Something that you put on your mind about, you only slides up.
+
+402
+00:46:52,430 --> 00:46:58,460
+Yeah, absolutely. Which slide would be helpful if you were talking about what you're doing?
+
+403
+00:46:58,970 --> 00:47:16,730
+Oh, yeah. Oh, sorry. One more thing got carried around for Caroline, and if you have questions, feel free to flag me or slide Justin.
+
+404
+00:47:16,910 --> 00:47:23,300
+I mean, home. Feel free to flag me.
+
+405
+00:47:25,200 --> 00:47:29,630
+Yeah, I enjoy it, sir. You're all still in the semester. It must feel so good.
+
+406
+00:47:30,290 --> 00:47:48,050
+You know, I think, like I used to do this last year, both in front of me and get more descriptive,
+
+407
+00:47:48,860 --> 00:47:52,790
+since that does are very different than I think in practice.
+
+408
+00:47:52,880 --> 00:47:56,430
+Yeah. And then we can see something. Stuff.
+
+409
+00:47:56,990 --> 00:48:03,020
+Yeah. I felt like a lot of people end up taking Andy, Greg and Kayla's classes because he does like dated as an art and then a couple others.
+
+410
+00:48:03,020 --> 00:48:05,150
+And it'd be cool to have more of that in the school public health.
+
+411
+00:48:05,540 --> 00:48:10,729
+But it's weird because I know like 20 students already have a lot on their plates as like every other student.
+
+412
+00:48:10,730 --> 00:48:18,260
+But pulling presents from other departments from school public health into our classes seems to be tricky in most years.
+
+413
+00:48:19,700 --> 00:48:24,320
+And I think the big one is now you're out next semester next year.
+
+414
+00:48:24,800 --> 00:48:27,950
+Yeah. So be careful.
+
+415
+00:48:27,950 --> 00:48:31,240
+But yeah, I mean like how many different courses we can potentially politically.
+
+416
+00:48:31,350 --> 00:48:35,240
+Yeah. Okay. I mean, I think I'll be good using this, right?
+
+417
+00:48:35,760 --> 00:48:41,230
+Yeah. I think the idea of healthy, not expensive. I was going to say,
+
+418
+00:48:41,240 --> 00:48:51,950
+but I'm I'm actually not talking about whether or not there's a space for other supplements or and parallel course that is more out there.
+
+419
+00:48:51,950 --> 00:48:58,189
+Focus. Sure. Yeah. I would love to teach like an LP course and I don't know where I would like because like I know
+
+420
+00:48:58,190 --> 00:49:02,470
+that we have like I don't feel like at my level and I feel like the computer science level,
+
+421
+00:49:03,170 --> 00:49:06,709
+but just thinking through like because a lot of students from engineering and stuff reach out there like,
+
+422
+00:49:06,710 --> 00:49:11,360
+I wanna learn more about this, but I don't know where they're I don't know, I don't know where to take it.
+
+423
+00:49:11,360 --> 00:49:15,139
+So I don't know which department to go to be like, Hey, so this is an important course.
+
+424
+00:49:15,140 --> 00:49:25,430
+We should do it like this is. So there's, there's like one, but they have an entire I think they, I don't know if this one specific MLP,
+
+425
+00:49:25,430 --> 00:49:30,440
+but they definitely have different courses that engage with like all different algorithmic stuff.
+
+426
+00:49:30,710 --> 00:49:35,810
+I'm less excited about like delving into the algorithms because like that math is so far above me.
+
+427
+00:49:35,870 --> 00:49:38,120
+Like I'm never going to get there. That's not true.
+
+428
+00:49:38,120 --> 00:49:43,930
+I could try it, but I'm more excited about like applications and like like taking kind of the data.
+
+429
+00:49:43,950 --> 00:49:53,720
+Like, how do we even sexualize so much of what the work I've seen coming out of this is like statistically correct, but it has very little.
+
+430
+00:49:53,900 --> 00:49:54,290
+Right.
+
+431
+00:49:54,470 --> 00:50:02,690
+Like, it's very hard to make make applied decisions based on it because there isn't a theoretical framing or like really applicability that's really,
+
+432
+00:50:02,690 --> 00:50:06,799
+really thought through. So a paper that really came out that was really cool to see.
+
+433
+00:50:06,800 --> 00:50:08,940
+But like I was kind of like left wondering.
+
+434
+00:50:09,290 --> 00:50:14,629
+Someone was looking at narratives on Reddit about birthing stories, particularly birthing stories that were tricky.
+
+435
+00:50:14,630 --> 00:50:18,860
+And, and I try to figure out what those stories like and they rather computationally do it,
+
+436
+00:50:19,190 --> 00:50:25,610
+but they're like kind of like net takeaways were not super helpful in terms of like, okay, well, what can we change?
+
+437
+00:50:26,690 --> 00:50:30,379
+So then I think it's worth pursuing.
+
+438
+00:50:30,380 --> 00:50:37,520
+I think even it surprised me how students can take this, you know, complex material.
+
+439
+00:50:37,520 --> 00:50:40,640
+And that's something that you don't need to have in front of me.
+
+440
+00:50:40,760 --> 00:50:45,719
+I'm not as well. Yeah, I would imagine the same thing.
+
+441
+00:50:45,720 --> 00:50:53,670
+You might not be super advanced, but in a position one to do something you have to learn a little bit more about it if you're really engaged, right?
+
+442
+00:50:53,720 --> 00:50:56,720
+Yeah. It's kind of like an oxymoron. Dangerous, right?
+
+443
+00:50:57,050 --> 00:51:01,940
+Exactly. Exactly. Yeah. Well, see, it's called other like HB she's thinking through.
+
+444
+00:51:01,970 --> 00:51:05,660
+Is the entire school rethinking school? Is that a big deal?
+
+445
+00:51:05,660 --> 00:51:09,200
+And then she goes, I sure never lose it here. Oh, cool.
+
+446
+00:51:09,200 --> 00:51:12,620
+That's amazing. I only see ourselves, like, really well.
+
+447
+00:51:12,710 --> 00:51:17,150
+Or is it still too early? Like, I can remember CTC or else.
+
+448
+00:51:17,510 --> 00:51:19,730
+Yeah, you know, whoever's the keeper here, like. But yeah,
+
+449
+00:51:20,000 --> 00:51:26,000
+but they seem really well positioned to support an initiative like that given all the trainings and the kind of materials they have access to.
+
+450
+00:51:27,440 --> 00:51:28,760
+But professors plainly don't love it.
+
+451
+00:51:29,030 --> 00:51:36,890
+I mean, they're in retail cause they're designing and that's working out and just trying to figure out how to do things with it.
+
+452
+00:51:37,310 --> 00:51:40,950
+Mm hmm. Yeah. Cool.
+
+453
+00:51:41,350 --> 00:51:46,270
+So you're teaching injury on this course. Do you teach other courses? Are you able to research?
+
+454
+00:51:47,110 --> 00:51:51,640
+Okay, cool. Yeah, I saw that Libby is going to be teaching.
+
+455
+00:51:52,030 --> 00:51:59,040
+Yeah. This.
+
+456
+00:52:04,310 --> 00:52:17,530
+Maybe we should. But I want to be sure that you're going to have people to talk about it.
+
+457
+00:52:17,830 --> 00:52:22,450
+Yeah. You and your. Yes, sir.
+
+458
+00:52:22,540 --> 00:52:25,620
+Are you one who recommended me for that? By the way, I.
+
+459
+00:52:25,860 --> 00:52:33,090
+I told the department that I was good to see you make it, but I was not doing is.
+
+460
+00:52:33,100 --> 00:52:36,730
+It is a big question but I mean.
+
+461
+00:52:36,740 --> 00:52:43,000
+ALL Yeah, super nice. We were able to work it out with my post-doc, so that was surprising.
+
+462
+00:52:43,290 --> 00:52:46,500
+I didn't think, Oh, that's great. It's going to be interesting.
+
+463
+00:52:47,380 --> 00:52:56,290
+I'm excited, he said. I'm nervous, but that classes and it's been around for a long time, you can make it pretty easily.
+
+464
+00:52:56,530 --> 00:53:00,370
+Yeah. So, you know. So yeah, I'm excited.
+
+465
+00:53:00,370 --> 00:53:05,990
+Like it seems like it's a good course I'll still be project based of like students take that question going about the survey and everything
+
+466
+00:53:06,400 --> 00:53:12,790
+and you know those who really want it are interested can potentially even use it for like a thesis if they wanted to a plan on dissertation.
+
+467
+00:53:12,790 --> 00:53:21,310
+But I don't think I might have a pretty level students that wouldn't be afraid if they're in places like the public schools really like it.
+
+468
+00:53:21,970 --> 00:53:26,190
+I think they're going through so much their expectations in substantive.
+
+469
+00:53:26,670 --> 00:53:32,190
+Yeah so I think those are very have actually you know like this in practice for hundreds of years.
+
+470
+00:53:32,320 --> 00:53:37,230
+Yeah absolutely. And I'm excited that [INAUDIBLE] be cool to.
+
+471
+00:53:37,510 --> 00:53:43,000
+Yeah. So twice a week or 3 hours, one day, 3 hours, one day for the long chunk.
+
+472
+00:53:43,150 --> 00:53:53,760
+Which day. I think Mondays are going to be office on Mondays I will come back here with Johnson coming back to public.
+
+473
+00:53:53,800 --> 00:54:01,060
+I it is it. Yes. I think that this puts actually really good in that like it's going to be a lot of exposure to other things.
+
+474
+00:54:01,270 --> 00:54:05,330
+And I think it's also made me a lot clearer about like where I stand in the world with you right now.
+
+475
+00:54:05,690 --> 00:54:10,160
+Yeah, I'm right back to you.
+
+476
+00:54:11,620 --> 00:54:20,080
+Didn't get that. So hey, by the way, not to pressure you, but what if I'm just gaslighting people.
+
+477
+00:54:20,770 --> 00:54:25,299
+Yes, I saw your is like I apologize.
+
+478
+00:54:25,300 --> 00:54:34,750
+I will look after my. Yes, I'm just trying to get it out just because you know what I'm thinking.
+
+479
+00:54:34,780 --> 00:54:47,770
+Yeah, I just yeah. I still think that if anything, you was, I don't know, did not mention inside.
+
+480
+00:54:47,820 --> 00:54:55,510
+And it makes the agents or the peers yesterday just because my Twitter and I've got like really focus on my time, which is kind of a bummer.
+
+481
+00:54:55,750 --> 00:55:03,399
+It was in the second housing project because I felt but didn't make mention to you that we're working on an analysis using my data.
+
+482
+00:55:03,400 --> 00:55:07,980
+She's going to leave. I, I'm, I'm doing analysis. She's going to leave the last week.
+
+483
+00:55:08,630 --> 00:55:14,290
+That's great. Yeah. So she's going to try it for the Depression Iceberg Depression conference.
+
+484
+00:55:14,290 --> 00:55:18,630
+Yeah. We're going to send an abstract to that because she was right.
+
+485
+00:55:18,990 --> 00:55:22,059
+Yeah. So an easier conference to get to and present out.
+
+486
+00:55:22,060 --> 00:55:26,680
+I think we also do like a day and a half free workshop for us.
+
+487
+00:55:26,680 --> 00:55:33,370
+Workshop as well. I figure I was teaching my agent. I thought it was just it's college student depression in general.
+
+488
+00:55:33,580 --> 00:55:37,060
+Right. Okay. Yeah, right.
+
+489
+00:55:37,090 --> 00:55:37,480
+Okay.
+
+490
+00:55:37,780 --> 00:55:45,070
+So is there an opportunity to create like a workshop on HMS specifically to try to get the word out there and get more people working with the data?
+
+491
+00:55:45,220 --> 00:55:55,300
+Yes. And Sarah, what Americans, Sarah, are planning to say, I mean,
+
+492
+00:55:55,330 --> 00:56:04,260
+maybe even though in this case for liberty and savior of USA versus everybody, just say, hey, Sarah, everything.
+
+493
+00:56:04,300 --> 00:56:09,370
+I'm sorry for Saber, for listening to the Depression, see if there's going to be an LP stuff on Reddit.
+
+494
+00:56:09,370 --> 00:56:14,450
+So I don't think that's as relevant or what they were to we.
+
+495
+00:56:14,470 --> 00:56:26,470
+Oh, we never did. Yeah, but we never run of the things like that it'd be just tell Sarah and everybody are still here so it's cool.
+
+496
+00:56:26,980 --> 00:56:30,430
+Yeah, I think it's worth it. We can't I think is our I know that Midas is also doing that.
+
+497
+00:56:30,910 --> 00:56:38,940
+Oh yeah. It's 93 thing space. All right. Like maybe like a 1 to 2 more minutes and then we'll present out those.
+
+498
+00:56:39,160 --> 00:56:46,120
+Someone's right here, right now. Make room to present to help us.
+
+499
+00:56:48,070 --> 00:56:53,830
+I think we're in a flip over, ready as they are ready to let us know what the issues are for their careers.
+
+500
+00:56:53,830 --> 00:56:59,140
+They want to I don't know if it's just an updated or what.
+
+501
+00:56:59,500 --> 00:57:06,489
+So it was only so we were doing it. It's like, oh, I'm sorry, I wish of a bummer now.
+
+502
+00:57:06,490 --> 00:57:09,650
+Kind of. Yeah, I don't know. I thought I said this is right.
+
+503
+00:57:09,830 --> 00:57:17,510
+Because it's drive like it always does. And so we were drawing our eyes and we had a great I'm glad you guys took initiative and figured it out.
+
+504
+00:57:18,110 --> 00:57:22,459
+Oh three. Okay, I'll give you three more minutes. That remarkable.
+
+505
+00:57:22,460 --> 00:57:25,580
+Come in. Here he is.
+
+506
+00:57:26,110 --> 00:57:30,370
+The Ambassador theory. I did.
+
+507
+00:57:30,470 --> 00:57:40,250
+I did a lot of targeted ads for it, too.
+
+508
+00:57:40,360 --> 00:57:45,979
+Yeah, if you guys want to. If you created it in a Google and you wanted to put in here, it should not be at all.
+
+509
+00:57:45,980 --> 00:57:53,600
+But also totally fine. It's just depending on how you want to share it to yours or you going to share it directly with me if you want also.
+
+510
+00:57:53,600 --> 00:58:00,579
+And I can put it up. Yeah.
+
+511
+00:58:00,580 --> 00:58:07,210
+I think I guess I could be the place that to go for like each of us if we really wanted to.
+
+512
+00:58:08,710 --> 00:58:14,530
+Because they do. But what's the aging and retirement say that RCAF is like?
+
+513
+00:58:14,920 --> 00:58:21,610
+Yeah, I think they have a there's definitely a step like a short course on that he wasn't coming out and about that and I think someone has one.
+
+514
+00:58:22,990 --> 00:58:27,380
+So. It's a nice way to like get laid out. But also instructors, I believe, do get paid.
+
+515
+00:58:27,400 --> 00:58:32,710
+So like if people need to fill in but they have sentiments that are open, that could be an option.
+
+516
+00:58:33,520 --> 00:58:39,670
+Yeah. So yeah. So just to, to up Sarah and Sarah know I'm sure she would be.
+
+517
+00:58:39,850 --> 00:58:44,590
+Is it Sarah's Estelle? Well, no. Oh, okay.
+
+518
+00:58:47,050 --> 00:58:57,890
+So you might've acted differently if you.
+
+519
+00:58:58,210 --> 00:59:05,970
+It was the best line here.
+
+520
+00:59:06,100 --> 00:59:09,880
+I'll hide it for now. No, no pressure.
+
+521
+00:59:10,480 --> 00:59:18,440
+No. Okay. I would be horrified also to be live trying to put together a weight zero.
+
+522
+00:59:18,720 --> 00:59:24,520
+Oh, man. So Sarah will be coming then for the Depression.
+
+523
+00:59:24,910 --> 00:59:31,299
+From Boston? Yeah, it's a because it bookends.
+
+524
+00:59:31,300 --> 00:59:34,540
+The Depression happens. There's usually pretty good attendance. Awesome.
+
+525
+00:59:35,470 --> 00:59:40,299
+That's great. I mean, we make an effort to train students or trainees.
+
+526
+00:59:40,300 --> 00:59:44,120
+So there are other people that, you know, I think they might be able to identify.
+
+527
+00:59:46,420 --> 00:59:51,370
+And I don't know, I know all of my even doing for one a day.
+
+528
+00:59:51,720 --> 00:59:56,740
+No, no. You know, I did have someone tell me recently of too many first author pubs.
+
+529
+00:59:57,260 --> 01:00:01,149
+It's not. It's not. Yes, I know.
+
+530
+01:00:01,150 --> 01:00:06,219
+It's on, you know, who's like pretty senior. But they were like, you're going to burn out, you have to buy more flowers.
+
+531
+01:00:06,220 --> 01:00:14,410
+And I'm like, No, no, that's true. Yeah. I was like, I don't know how to do that, but I just like, I don't know how to do that.
+
+532
+01:00:14,410 --> 01:00:18,380
+How do I like? I don't know. I don't have a good collaborator know.
+
+533
+01:00:19,810 --> 01:00:22,690
+I just think that I get I get like lost in all the things I'm doing.
+
+534
+01:00:22,690 --> 01:00:31,460
+And so, like, if it's not like, I don't know, like, I don't know, I think, you know, running or not.
+
+535
+01:00:32,230 --> 01:00:36,910
+Right. Yeah. Already season results which I'm happy.
+
+536
+01:00:36,910 --> 01:00:44,049
+I'm always happy. Right. Methods and results go for everything from your work so fast.
+
+537
+01:00:44,050 --> 01:00:49,240
+But I used to work for know next year and I feel like I've slowed down substantially
+
+538
+01:00:49,240 --> 01:00:54,879
+and like it's hard to get into that and learning all the new methods.
+
+539
+01:00:54,880 --> 01:00:59,140
+It's just been brutal. Like absolutely brutal. I wouldn't recommend people do it this way.
+
+540
+01:00:59,140 --> 01:01:03,330
+Oh, they went on to ask my opinion about it, which is.
+
+541
+01:01:03,460 --> 01:01:08,860
+Oh yeah, that's fine with that.
+
+542
+01:01:08,870 --> 01:01:12,230
+Very long. There anything?
+
+543
+01:01:12,940 --> 01:01:17,850
+A lot. Yeah.
+
+544
+01:01:17,960 --> 01:01:21,560
+I to know that.
+
+545
+01:01:30,250 --> 01:01:36,280
+Someone needs to give you a fresh draft.
+
+546
+01:01:36,820 --> 01:01:41,320
+Maybe another minute. And then I'm going.
+
+547
+01:01:47,130 --> 01:01:54,150
+No. And one in.
+
+548
+01:01:56,400 --> 01:02:09,150
+I think you did everything right. So, you know, the ask is like if there's an offer, do training on H&R BLOCK.
+
+549
+01:02:09,420 --> 01:02:16,320
+So I understand understand that there's a workshop around the Depression conference.
+
+550
+01:02:16,740 --> 01:02:28,180
+I was talking to the other they the show having conversations and how they're going to do it with everything else.
+
+551
+01:02:29,440 --> 01:02:35,040
+I mean, yeah, I mean, I haven't seen the I haven't seen their agenda yet.
+
+552
+01:02:35,180 --> 01:02:44,430
+I'm not sure. But, you know, I think you get to this being your mentee just in that goal line and this being your mentee.
+
+553
+01:02:44,430 --> 01:02:49,200
+And I think it's one that I don't know.
+
+554
+01:02:49,780 --> 01:02:55,680
+But again. And another one as nice as.
+
+555
+01:03:05,520 --> 01:03:09,390
+Oh. And you just say, all righty.
+
+556
+01:03:10,950 --> 01:03:16,140
+Right. In an effort to not go too much over 950, maybe we can start presenting out.
+
+557
+01:03:17,160 --> 01:03:21,340
+And does the first rule want to go first? Sure. Justin said you really did.
+
+558
+01:03:21,360 --> 01:03:27,480
+So is it one of these ones or slide five?
+
+559
+01:03:27,660 --> 01:03:31,830
+Boom, that one you knew. All righty.
+
+560
+01:03:31,850 --> 01:03:34,770
+Pitch us your idea. Tell us what you guys are going to do.
+
+561
+01:03:35,790 --> 01:03:45,360
+We're going to look at states that adopted a policy to allow undocumented immigrants their driver's license.
+
+562
+01:03:47,840 --> 01:03:52,660
+And so we have Texas up there.
+
+563
+01:03:52,710 --> 01:03:57,930
+We're pretending like they're never going to happen again.
+
+564
+01:03:58,740 --> 01:04:03,170
+We're hoping will be voting on things on this exact or saying that they adopted it later.
+
+565
+01:04:03,180 --> 01:04:06,210
+And we're in California, adopted it way back when.
+
+566
+01:04:07,050 --> 01:04:11,400
+Okay, cool. So talk to me about your time. What are the what is it like?
+
+567
+01:04:11,400 --> 01:04:17,610
+Is it times? What is time? Zero one, two, three. Is it years that it's legislative sessions?
+
+568
+01:04:17,820 --> 01:04:21,420
+Okay, cool. So, like, roughly every two years.
+
+569
+01:04:21,660 --> 01:04:26,970
+Okay, cool. And then are you going to left censor or are you not censoring?
+
+570
+01:04:27,420 --> 01:04:30,660
+We are going to the left of center. So California's going to drop out?
+
+571
+01:04:30,900 --> 01:04:34,160
+Yes. Because they have already adopted. Okay, cool.
+
+572
+01:04:35,010 --> 01:04:39,830
+Which. Okay, cool. I like it. And then do you have any censoring?
+
+573
+01:04:40,170 --> 01:04:46,260
+I mean, even looks less than ten, but you have, right? Censoring as well that we could with Texas.
+
+574
+01:04:46,420 --> 01:04:53,780
+It's within our time measurement that has not been adopted in our hypothetical world that we could potentially very concerned about.
+
+575
+01:04:53,920 --> 01:04:57,440
+But we don't want to do this about 5050. Well, yes.
+
+576
+01:04:57,510 --> 01:05:02,220
+Don't have it because I know that's. Yeah.
+
+577
+01:05:02,240 --> 01:05:06,610
+Sample size would be great and not do but you know you might build around a model.
+
+578
+01:05:06,660 --> 01:05:09,880
+It wouldn't be very accurate. All right. Awesome. Thanks.
+
+579
+01:05:10,660 --> 01:05:15,540
+All right. Next group. What slide? You want to find one group?
+
+580
+01:05:16,480 --> 01:05:20,860
+Oh, there you go. Nice. Thank you for bringing that.
+
+581
+01:05:24,030 --> 01:05:30,090
+Okay. So we want to look at timing of first contraceptive use.
+
+582
+01:05:30,960 --> 01:05:35,820
+Okay. So we're looking like a fleet of mercury ages 10 to 20.
+
+583
+01:05:35,820 --> 01:05:42,240
+So around like teenage years. Well, a little bit beyond that, too.
+
+584
+01:05:42,780 --> 01:05:48,480
+And we will recruit people in doctor's offices and but some surveys quarterly.
+
+585
+01:05:50,310 --> 01:06:00,630
+Okay. Because we thought like once a year might be too little and we might lose money that way rather than like sending electronic surveys.
+
+586
+01:06:01,140 --> 01:06:06,450
+Water at the tennis court is in.
+
+587
+01:06:09,660 --> 01:06:11,570
+We use left and right censoring.
+
+588
+01:06:11,580 --> 01:06:19,970
+So we don't want to include people that are thinking contraception and we want included in that is going to have to be here.
+
+589
+01:06:19,980 --> 01:06:26,040
+That happened after the city. Cool. Okay. So tell me a little bit more about your event and how you're defining it.
+
+590
+01:06:28,620 --> 01:06:33,270
+I would say that event is starting some sort of contraception.
+
+591
+01:06:34,050 --> 01:06:40,470
+Could it be any contraception? And what about like mechanistic slash, behavioral, like pulling out?
+
+592
+01:06:40,620 --> 01:06:46,079
+Is that a form of albeit a not incredibly efficient form?
+
+593
+01:06:46,080 --> 01:06:55,880
+Say, like, here's what I was thinking is probably any sort of like, oh, or like medical, but like I feel like condoms would count to your opinion.
+
+594
+01:06:56,290 --> 01:06:59,550
+Okay, so like implant IUD. Yeah.
+
+595
+01:06:59,850 --> 01:07:04,880
+Because otherwise you're really focusing on.
+
+596
+01:07:09,500 --> 01:07:12,620
+I think it might be important to include in that.
+
+597
+01:07:13,190 --> 01:07:20,150
+Okay. But more so than using them is more clear that.
+
+598
+01:07:21,100 --> 01:07:26,230
+Things like birth control. So that's an interesting aspect of it.
+
+599
+01:07:30,270 --> 01:07:34,440
+I like it. Okay, cool.
+
+600
+01:07:37,200 --> 01:07:40,940
+I will go to the next group and I'll maybe have a little more chat about this thing.
+
+601
+01:07:40,950 --> 01:07:45,480
+Okay. But I would just, like, urge you for all presentation three.
+
+602
+01:07:47,580 --> 01:07:53,610
+Oh, cool. Love this. You have cool technology.
+
+603
+01:07:55,900 --> 01:08:07,270
+Time to work around. Yeah. So we were thinking about having just like looking and I guess our outcome is death.
+
+604
+01:08:07,270 --> 01:08:12,760
+But in this case, we have to understand there's two things that are important for your children.
+
+605
+01:08:13,590 --> 01:08:18,659
+So sometimes you have like surgery to try to combination with surgery.
+
+606
+01:08:18,660 --> 01:08:24,840
+Question The next level, looking to see the outcome of an incident or face survive.
+
+607
+01:08:25,710 --> 01:08:31,260
+And so if you remember a time and you didn't specify years and or different subjects.
+
+608
+01:08:31,670 --> 01:08:48,400
+We see the people die. Every time we are here since six P like I guess that's where markers of understanding between persons are I guess.
+
+609
+01:08:48,410 --> 01:09:01,760
+But okay. So there's one that treated looks to me like maybe two chunks of time before they are either lost, followed or whatever happens.
+
+610
+01:09:02,420 --> 01:09:05,820
+So they are two years of survival. Awesome.
+
+611
+01:09:07,720 --> 01:09:12,640
+Cool. So I, like you guys, included the subgroups as well.
+
+612
+01:09:13,150 --> 01:09:19,720
+And thinking about a couple of the other studies proposed today for the reproductive group.
+
+613
+01:09:20,740 --> 01:09:28,090
+You could look at survival by type of reproductive technology, be it condoms.
+
+614
+01:09:28,090 --> 01:09:29,350
+You know, you do things like that.
+
+615
+01:09:29,590 --> 01:09:35,890
+And looking at the differences in timing of survival, for example, and survival, of course, being the timing to use.
+
+616
+01:09:37,270 --> 01:09:45,910
+And then for the first group you guys could think about, either political, there's some kind of more of a structural I'm getting.
+
+617
+01:09:45,940 --> 01:09:49,569
+I guess the question being this looks like you're looking at structural potential
+
+618
+01:09:49,570 --> 01:09:53,260
+pieces of as most structural variables that could play into that in terms of,
+
+619
+01:09:54,100 --> 01:09:57,790
+you know, who minority versus majority of a given state.
+
+620
+01:09:58,690 --> 01:10:02,139
+What's tricky about the some of the survival analysis and just maybe you can turn on this,
+
+621
+01:10:02,140 --> 01:10:06,730
+I don't think it's possible to have time varying variables as covariates.
+
+622
+01:10:07,000 --> 01:10:16,930
+I think every time invariant for the for the Cox proportional hazards models or for the categorical there's no crossing over.
+
+623
+01:10:16,930 --> 01:10:25,930
+I don't believe of those. I can't give an example, but I also I'm not sure why you necessarily couldn't.
+
+624
+01:10:27,190 --> 01:10:30,570
+I will actually look that up because I don't want to be I don't know either.
+
+625
+01:10:30,580 --> 01:10:34,920
+I've never seen anything like that. And I like the maths.
+
+626
+01:10:34,930 --> 01:10:40,270
+You have me think that in my head right now. So yeah, that would be, I think some things to think about.
+
+627
+01:10:40,690 --> 01:10:46,210
+The other thing I wanted to throw out there is the number of time points selected.
+
+628
+01:10:46,810 --> 01:10:49,950
+Then the more time what you have, the more mRNAs potentially you have.
+
+629
+01:10:49,960 --> 01:10:55,930
+And so one thing that's tricky is if, for example, if you had something like 20 time points,
+
+630
+01:10:56,500 --> 01:10:59,350
+you're going to have a good amount of mRNAs probably at different time points.
+
+631
+01:10:59,350 --> 01:11:06,010
+And so the question is if someone if you miss if someone misses a given time point but then is available for the next time point,
+
+632
+01:11:06,250 --> 01:11:12,760
+are you going to retrospectively try to collect data from the prior time point to understand or are you going to say, well,
+
+633
+01:11:12,760 --> 01:11:19,870
+even though we capture them again at time six, if they have had the event since their last report at time four,
+
+634
+01:11:20,380 --> 01:11:26,530
+are we going to right send to them at time for being like, well, we know that they didn't have the event then, but they since then had the event.
+
+635
+01:11:26,530 --> 01:11:31,090
+So we're not we're not able to capture that exactly as to when that happened versus the time five versus time six.
+
+636
+01:11:32,590 --> 01:11:37,930
+If you at time six found that they did not have the event, you would then be able to be like,
+
+637
+01:11:37,930 --> 01:11:41,230
+well, they still haven't had the event, so we can extrapolate the data back.
+
+638
+01:11:41,440 --> 01:11:43,450
+The only thing is that's going to bias the results a little bit,
+
+639
+01:11:43,450 --> 01:11:49,350
+because that means that you're systematically not including events that happened versus those that did.
+
+640
+01:11:49,360 --> 01:11:56,290
+So those are things to think about. Even that's technically not completely incorrect in that like the time to event is still accurate.
+
+641
+01:11:57,310 --> 01:11:58,870
+You know, that's just something to think about,
+
+642
+01:11:59,920 --> 01:12:07,360
+especially if there is like confounding reasons to why individuals who would have an event might miss a data collection point.
+
+643
+01:12:07,360 --> 01:12:10,630
+But if it's missing at random and less of a problem. Yes.
+
+644
+01:12:10,930 --> 01:12:14,040
+Are you ready for the example? Is there a rule of thumb?
+
+645
+01:12:14,050 --> 01:12:19,710
+I don't know if there is about how many observations you need to have the company statement, I don't know one, but I.
+
+646
+01:12:19,720 --> 01:12:25,620
+Yeah, that's a good question. So you can try look up like a time series as a 2025 observations like regulation,
+
+647
+01:12:25,660 --> 01:12:32,229
+weather or per variable or just total this total like more than 25, whatever, like obs.
+
+648
+01:12:32,230 --> 01:12:35,680
+Yeah. I think it's going to be there's going to be some ratio between the number of observations,
+
+649
+01:12:35,680 --> 01:12:40,150
+the number of time points, but I don't know what the ratio is. And I can I can try to look up and find it.
+
+650
+01:12:40,510 --> 01:12:45,300
+That's a great question, though. Okay.
+
+651
+01:12:45,420 --> 01:12:49,290
+And quickly getting back to I know we're almost at time, but quickly getting back to that.
+
+652
+01:12:49,800 --> 01:12:53,310
+Oops. Where's the code? The code. Okay. So you guys have kind of talked about this.
+
+653
+01:12:53,550 --> 01:12:55,770
+You're going to need to have some calculation of time.
+
+654
+01:12:56,010 --> 01:13:00,420
+This is a headache to calculate sometimes because you are thinking about your inclusion versus exclusion criteria of like,
+
+655
+01:13:00,690 --> 01:13:03,329
+well, there are missing at this data point, but they were available at this data point.
+
+656
+01:13:03,330 --> 01:13:06,550
+So what do we interpolate in terms of like, oh, well, maybe they didn't, you know,
+
+657
+01:13:06,570 --> 01:13:11,350
+they did whatever it is that something else to think about relative to study design.
+
+658
+01:13:11,400 --> 01:13:15,240
+Like what if someone does miss? Do you want to retrospectively try to collect?
+
+659
+01:13:15,360 --> 01:13:20,220
+At what point do they have that exposure? That may be very important for the efficacy of your study.
+
+660
+01:13:21,120 --> 01:13:24,210
+You also so we can see like, oh man.
+
+661
+01:13:24,510 --> 01:13:27,710
+So the time equals share at a time. That's the time variable.
+
+662
+01:13:27,720 --> 01:13:30,510
+And that is the again, it's going to be a quant.
+
+663
+01:13:30,540 --> 01:13:36,480
+You're going to quantify that number from a range of zero to whatever the number of time points you have.
+
+664
+01:13:36,510 --> 01:13:42,360
+This is, again, clinical time, not the type of time on your clock, for example.
+
+665
+01:13:42,720 --> 01:13:49,799
+Right. And that's when you calculate. We didn't get really into the calculations, but it's you can think about like in our examples,
+
+666
+01:13:49,800 --> 01:13:52,620
+we've seen how many who contribute, what amount of time.
+
+667
+01:13:53,070 --> 01:13:59,780
+You just can't calculate that per person, per observation state, whatever it is, you have the event status.
+
+668
+01:13:59,790 --> 01:14:03,790
+So that's how this is going to be a binary size, a zero and or a one.
+
+669
+01:14:04,140 --> 01:14:09,120
+That time is going to reflect the amount of time that someone did not have a reported event,
+
+670
+01:14:10,050 --> 01:14:13,920
+whereas the status is going to be whether or not they had a reported event or not.
+
+671
+01:14:14,310 --> 01:14:16,720
+So remember how he said if someone goes, you know,
+
+672
+01:14:16,770 --> 01:14:23,160
+is lost to follow up but they have to time chunks we'd have the time equals to and the event would be an unknown
+
+673
+01:14:24,420 --> 01:14:29,250
+or say yeah the event would be the event would be no because you have to time points without the event.
+
+674
+01:14:32,180 --> 01:14:36,060
+I added a cohort variable in here to have the two different that's a categorical
+
+675
+01:14:36,180 --> 01:14:40,460
+variable has two levels of the younger cohort versus the older cohort.
+
+676
+01:14:40,470 --> 01:14:44,910
+You could again do more than that. It's going to impact the number of observations you're going to need.
+
+677
+01:14:45,120 --> 01:14:48,150
+I don't know the ratio I've taught my head. I can get that back to you guys about that.
+
+678
+01:14:49,050 --> 01:14:54,750
+And then the data is the dataset there. So the time is a created variable.
+
+679
+01:14:55,530 --> 01:14:59,370
+It's something, you know, you have to sit through and kind of think through like, okay,
+
+680
+01:14:59,370 --> 01:15:06,300
+well I'm going to calculate the number of waves the person has data for and then going to look at what way do they first have an event,
+
+681
+01:15:06,420 --> 01:15:12,540
+especially if it's not a non death event or an event that would preclude someone from contributing more data in the future.
+
+682
+01:15:13,680 --> 01:15:16,799
+And then you're gonna have to think through some of those inclusion versus exclusion of like,
+
+683
+01:15:16,800 --> 01:15:20,700
+okay, well if they missed one data point, but we have another one, what do we do about that?
+
+684
+01:15:21,090 --> 01:15:24,960
+And those are study procedure questions as well as prior to collecting the data,
+
+685
+01:15:25,800 --> 01:15:32,310
+having clear intentions of like how to handle missing data and then making sure that those replicate into the analysis.
+
+686
+01:15:34,710 --> 01:15:38,100
+And then of was everyone. All right.
+
+687
+01:15:38,850 --> 01:15:42,960
+So if you do not. All right.
+
+688
+01:15:42,990 --> 01:15:47,090
+Thanks, guys. Fairness questions. Feel free to chat.
+
+689
+01:15:47,100 --> 01:15:52,319
+And then Justin will be very nicely sending out a survey to you all to give me feedback on teaching,
+
+690
+01:15:52,320 --> 01:15:57,410
+as I am very much an instructor and feedback is really helpful to understand what's useful,
+
+691
+01:15:57,420 --> 01:16:03,239
+what's like less useful and is like, you know, negative and constructive feedback is both very, very helpful.
+
+692
+01:16:03,240 --> 01:16:07,590
+So we'll be setting that out if you guys don't mind filling it out to help me prepare for next semester.
+
+693
+01:16:07,740 --> 01:16:12,719
+So I'll be teaching up a lot of things. All right, everyone, I will see you on Thursday.
+
+694
+01:16:12,720 --> 01:16:21,600
+If you could do me a favor and spend just like 15 minutes, scan through the lecture on the overview, lecture on structure equation.
+
+695
+01:16:21,810 --> 01:16:25,680
+And it's just to get the lingo, just get the jargon so that we can talk about it.
+
+696
+01:16:25,680 --> 01:16:30,300
+But you already know 65% of what you need to know about structure, equation models.
+
+697
+01:16:30,600 --> 01:16:34,360
+I can teach you the right of the other 35% on Thursday, but thank you all.
+
+698
+01:16:34,400 --> 01:16:38,730
+Take more time to read the great day.
+

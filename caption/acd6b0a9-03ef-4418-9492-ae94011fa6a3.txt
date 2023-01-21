@@ -1,0 +1,992 @@
+1
+00:00:03,240 --> 00:00:08,515
+As we will see, marginal structural models are especially useful
+
+2
+00:00:08,515 --> 00:00:14,651
+to establish causal inferences and causal effects with longitudinal data.
+
+3
+00:00:16,340 --> 00:00:21,123
+We have considered thus far the effect of the treatment at a single point in
+
+4
+00:00:21,123 --> 00:00:24,683
+time as well as the outcome at the single point in time.
+
+5
+00:00:24,683 --> 00:00:29,652
+Let's consider some real world epidemiological studies and
+
+6
+00:00:29,652 --> 00:00:36,030
+medical studies were instead both three million outcome unveiled over time.
+
+7
+00:00:36,030 --> 00:00:38,207
+They are longitudinal.
+
+8
+00:00:38,207 --> 00:00:43,784
+HIV/AIDS patients may or may not receive treatment for
+
+9
+00:00:43,784 --> 00:00:51,861
+their condition at each visit depending on side effects and on CD4 cell counts.
+
+10
+00:00:52,940 --> 00:00:57,834
+Particular CD4 cell counts would be a biological measure that helps us
+
+11
+00:00:57,834 --> 00:01:01,761
+understanding whether the treatment is working or not.
+
+12
+00:01:03,440 --> 00:01:08,486
+In the field of psychiatry, we might be interested in the cumulative
+
+13
+00:01:08,486 --> 00:01:14,761
+effects of loneliness, which varies over time on the clinical state of depression.
+
+14
+00:01:17,240 --> 00:01:21,278
+In order to investigate say the causal effects of heart,
+
+15
+00:01:21,278 --> 00:01:24,139
+the cumulative effects of loneliness,
+
+16
+00:01:24,139 --> 00:01:29,451
+we need the first to review a couple of principles of confounding control.
+
+17
+00:01:33,540 --> 00:01:37,640
+Suppose we wish to estimate the total effect of the exposure on the outcome.
+
+18
+00:01:37,640 --> 00:01:42,340
+Then the first principle of causal inference states the following.
+
+19
+00:01:42,340 --> 00:01:46,499
+If a covariate C is a common cause of the exposure for
+
+20
+00:01:46,499 --> 00:01:51,451
+treatment A and the outcome Y, then we should control for C.
+
+21
+00:01:53,440 --> 00:01:58,547
+If we do not control for C, then the association that we observed between A and
+
+22
+00:01:58,547 --> 00:02:04,940
+Y would be a spurious association, that is we wouldn't have a true causal effect.
+
+23
+00:02:04,940 --> 00:02:10,911
+This is effectively explained by this graph that I will talk about more later.
+
+24
+00:02:10,911 --> 00:02:13,395
+This is a direct reciprograph.
+
+25
+00:02:13,395 --> 00:02:19,438
+So in this direct reciprograph, we observe three letters.
+
+26
+00:02:19,438 --> 00:02:22,302
+These are also called the nodes and
+
+27
+00:02:22,302 --> 00:02:27,255
+these are the variables that we care about in our analysis.
+
+28
+00:02:27,255 --> 00:02:30,833
+In particular A is our exposure of interest,
+
+29
+00:02:30,833 --> 00:02:35,446
+Y is our outcome of interest, and with an arrow from A to Y,
+
+30
+00:02:35,446 --> 00:02:40,560
+that's how we represent in the graph the causal effect of A on Y.
+
+31
+00:02:40,560 --> 00:02:44,351
+This arrow that is directed with an edge pointing into Y.
+
+32
+00:02:46,240 --> 00:02:51,432
+We see that there is another way to connect A to Y which
+
+33
+00:02:51,432 --> 00:02:57,104
+is not a causal effect, which is not the directed arrow.
+
+34
+00:02:57,104 --> 00:03:02,164
+But it's actually what is called the backdoor path.
+
+35
+00:03:02,164 --> 00:03:10,861
+Information from Y to A can flow backwards through C.
+
+36
+00:03:12,940 --> 00:03:18,051
+C has a particular characteristics.
+
+37
+00:03:19,740 --> 00:03:24,416
+It's precedent with respect to both A and Y.
+
+38
+00:03:24,416 --> 00:03:27,546
+It causes both A and Y.
+
+39
+00:03:29,125 --> 00:03:32,951
+That's why we call C a pretreatment.
+
+40
+00:03:34,940 --> 00:03:39,651
+Now if we don't control for C, then the association between A and
+
+41
+00:03:39,651 --> 00:03:44,276
+Y will capture partly the true causal effect, the arrow from A to
+
+42
+00:03:44,276 --> 00:03:49,261
+Y plus a spurious relationship channel through C, our confounder.
+
+43
+00:03:50,440 --> 00:03:55,702
+So in order to isolate our causal effect from A to Y, we need to adjust for
+
+44
+00:03:55,702 --> 00:04:00,551
+the covariate C blocking this spurious channel of association.
+
+45
+00:04:03,640 --> 00:04:07,891
+Another very important principle in causal inference states that if
+
+46
+00:04:07,891 --> 00:04:11,540
+there is an intermediate valuable between A and Y.
+
+47
+00:04:11,540 --> 00:04:16,793
+We should not control for such intermediate variable because that would
+
+48
+00:04:16,793 --> 00:04:22,061
+block part of the relationship or all the relationships between A and Y.
+
+49
+00:04:24,240 --> 00:04:29,934
+This is represented by this graph where L is our intermediate factor.
+
+50
+00:04:29,934 --> 00:04:34,791
+And it looks like all the effect of A on Y operates
+
+51
+00:04:34,791 --> 00:04:38,313
+through L such that if we adjust for
+
+52
+00:04:38,313 --> 00:04:42,572
+L, then we block all the effect of A and Y.
+
+53
+00:04:42,572 --> 00:04:46,695
+So we should not want to adjust for
+
+54
+00:04:46,695 --> 00:04:51,270
+L if this is the true causal diagram.
+
+55
+00:04:51,270 --> 00:04:55,866
+Let's consider an example where this graph could fit.
+
+56
+00:04:55,866 --> 00:05:04,102
+Let's say that A is the assignment to the treatment that is if A is equal one,
+
+57
+00:05:04,102 --> 00:05:09,250
+it means that my doctor told me to take the pill,
+
+58
+00:05:09,250 --> 00:05:12,500
+a pill to treat my condition.
+
+59
+00:05:12,500 --> 00:05:16,061
+Let's say an antipsychotic to treat my schizophrenia.
+
+60
+00:05:17,140 --> 00:05:22,980
+My outcome Y is my symptom score for schizophrenia.
+
+61
+00:05:22,980 --> 00:05:25,740
+Let's say a pound symptoms.
+
+62
+00:05:25,740 --> 00:05:30,810
+And L is the indicator of whether I listened to my doctor and
+
+63
+00:05:30,810 --> 00:05:33,097
+I actually take the pill.
+
+64
+00:05:33,097 --> 00:05:39,713
+So we can think that the only way my doctor by administering the pill to me is
+
+65
+00:05:39,713 --> 00:05:44,851
+gonna improve my symptoms is if I actually take the pill.
+
+66
+00:05:46,540 --> 00:05:51,380
+So let's say that I designed a study where I collect the data on both
+
+67
+00:05:51,380 --> 00:05:55,530
+whether I received the recommendation to take the pill,
+
+68
+00:05:55,530 --> 00:05:59,871
+which is the variable A and whether I also collected it on L.
+
+69
+00:06:01,040 --> 00:06:04,135
+So if I collected data on L and I adjusted for that,
+
+70
+00:06:04,135 --> 00:06:07,551
+then I should not find any association between A and Y.
+
+71
+00:06:08,640 --> 00:06:13,311
+Whereas it could be that the recommendation of
+
+72
+00:06:13,311 --> 00:06:17,751
+taking a pill actually improves my scores.
+
+73
+00:06:21,340 --> 00:06:26,591
+Now let's consider a more complex scenario where we want to know what
+
+74
+00:06:26,591 --> 00:06:31,947
+the effects of interventions on loneliness say at time 0 and time 1.
+
+75
+00:06:31,947 --> 00:06:35,981
+And we denote them by A0, A at time 0 and
+
+76
+00:06:35,981 --> 00:06:40,871
+A subscript 1 which is now the exposure time 1.
+
+77
+00:06:40,871 --> 00:06:48,375
+Now the subscripts mean the time are on depression at the time 2 denoted by Y.
+
+78
+00:06:48,375 --> 00:06:53,778
+And let's say we denote our covariance either C are our
+
+79
+00:06:53,778 --> 00:07:01,195
+baseline preexposure covariates whereas L are intermediate variables.
+
+80
+00:07:01,195 --> 00:07:04,412
+We clearly need to control for
+
+81
+00:07:04,412 --> 00:07:09,176
+covariate C because these are common causes
+
+82
+00:07:09,176 --> 00:07:13,951
+of the treatment at time 0 and the outcome.
+
+83
+00:07:15,840 --> 00:07:21,181
+But should we control for L ,we will understand better
+
+84
+00:07:21,181 --> 00:07:26,310
+what to do once I introduce directly reciprograph.
+
+85
+00:07:26,310 --> 00:07:29,861
+But let's now just think about it a little bit more informally.
+
+86
+00:07:31,240 --> 00:07:36,747
+Well if we don't control for L, then we have an uncontrolled confounder
+
+87
+00:07:36,747 --> 00:07:42,190
+because L is a common cause of the treatment A at time 1 and the outcome.
+
+88
+00:07:42,190 --> 00:07:44,432
+So if we don't control for L,
+
+89
+00:07:44,432 --> 00:07:49,140
+we would violate the first causal inference principle.
+
+90
+00:07:49,140 --> 00:07:55,151
+Because there is a spurious relationship between A1 and Y operating throughout.
+
+91
+00:07:56,740 --> 00:07:59,330
+But what happens if we do control for L?
+
+92
+00:07:59,330 --> 00:08:03,745
+So if we do control for L, then we have control for
+
+93
+00:08:03,745 --> 00:08:07,800
+an intermediate factor between A0 to Y.
+
+94
+00:08:07,800 --> 00:08:13,140
+So we would block part of the effect of A0 and Y.
+
+95
+00:08:13,140 --> 00:08:16,651
+And this would violate the second principle of causal inference.
+
+96
+00:08:19,340 --> 00:08:23,201
+Now the two causal inference principles are in conflict.
+
+97
+00:08:23,201 --> 00:08:29,825
+Because there are in these scenarios where more than one time point of exposure out
+
+98
+00:08:29,825 --> 00:08:36,361
+of interest where a variable can be both a confounder as well as an intermediate.
+
+99
+00:08:37,640 --> 00:08:42,095
+This is what we call a problem of time varying three men
+
+100
+00:08:42,095 --> 00:08:45,561
+that induces time varying confounding.
+
+101
+00:08:47,140 --> 00:08:51,223
+So instead of regression, we will use marginal
+
+102
+00:08:51,223 --> 00:08:55,823
+structural models to account for confounding here.
+
+103
+00:08:55,823 --> 00:09:00,990
+Let's say that now we want to recover what would be
+
+104
+00:09:00,990 --> 00:09:08,743
+the mean of the potential outcome has everyone been exposed to level A0 and
+
+105
+00:09:08,743 --> 00:09:13,312
+A1 for the exposures at time 0 and time 1.
+
+106
+00:09:13,312 --> 00:09:17,266
+If we fitted a regression a model that adjusts for
+
+107
+00:09:17,266 --> 00:09:22,089
+covariates and let's say we were only willing to adjust for
+
+108
+00:09:22,089 --> 00:09:29,340
+baseline covariates not to violate the second principle of causal inference.
+
+109
+00:09:29,340 --> 00:09:33,044
+Then this regression parameters beta naught and
+
+110
+00:09:33,044 --> 00:09:36,667
+beta 1 will not have a causal interpretation.
+
+111
+00:09:36,667 --> 00:09:40,882
+Again because we have an appropriately adjusted for
+
+112
+00:09:40,882 --> 00:09:45,393
+the confounders of the relationship between A1 and Y.
+
+113
+00:09:45,393 --> 00:09:52,137
+With marginal structural model instead, we have a way to correctly adjust for
+
+114
+00:09:52,137 --> 00:09:57,361
+confounders of both the A0 and Y and A1 and Y relationship.
+
+115
+00:09:58,640 --> 00:10:01,536
+That's how we are gonna do it.
+
+116
+00:10:01,536 --> 00:10:06,722
+First, we start by eliciting what are the conditional
+
+117
+00:10:06,722 --> 00:10:11,908
+independence assumption that the liver as the balance
+
+118
+00:10:11,908 --> 00:10:16,994
+of the exposure assignments across response types.
+
+119
+00:10:16,994 --> 00:10:23,560
+In order to identify the causal effect of the exposure at time 0 on the outcome,
+
+120
+00:10:23,560 --> 00:10:29,140
+we need to make sure that condition on the baseline coverage C.
+
+121
+00:10:29,140 --> 00:10:34,207
+Assignment to the exposure at time 0 is independent
+
+122
+00:10:34,207 --> 00:10:40,089
+of the response types according to the levels of A0 and A1.
+
+123
+00:10:40,089 --> 00:10:44,309
+When then we want to identify the effect of A1,
+
+124
+00:10:44,309 --> 00:10:51,181
+the exposure time 1 on the outcome Y, we need a different set of covariates.
+
+125
+00:10:51,181 --> 00:10:57,229
+We need to account for the baseline covariates, the exposure at time 0 and
+
+126
+00:10:57,229 --> 00:11:01,551
+that intermediate factor between A0 and Y that is L.
+
+127
+00:11:04,240 --> 00:11:09,507
+So you see that in order to identify the joint causal effect of the exposure at two
+
+128
+00:11:09,507 --> 00:11:14,942
+time points, you need to be able to adjust for two different sets of confounders.
+
+129
+00:11:14,942 --> 00:11:20,627
+And this is what marginal structural models allow us to do.
+
+130
+00:11:20,627 --> 00:11:25,443
+Again, let's revisit why we have two different sets of confounding
+
+131
+00:11:25,443 --> 00:11:26,945
+adjustment needed.
+
+132
+00:11:26,945 --> 00:11:31,565
+Because the spurious relationship between A0 and
+
+133
+00:11:31,565 --> 00:11:37,161
+Y only originates by this link from Y to C to A0 and that's it.
+
+134
+00:11:38,240 --> 00:11:43,340
+These are the only three exposure factors that affect us to the outcome.
+
+135
+00:11:43,340 --> 00:11:48,028
+Whereas for A1, there are actually multiple spurious pathways that these
+
+136
+00:11:48,028 --> 00:11:53,240
+pathways that are not what we care about the direct arrow from A 1 to Y.
+
+137
+00:11:53,240 --> 00:11:56,085
+One is the arrow that goes through L.
+
+138
+00:11:56,085 --> 00:12:00,275
+Another one is an arrow that goes through A0 and
+
+139
+00:12:00,275 --> 00:12:04,440
+another path that goes from Y to C to A0.
+
+140
+00:12:04,440 --> 00:12:10,651
+So we need to adjust for C A0 and L to isolate the true causal effect of A1 on Y.
+
+141
+00:12:12,640 --> 00:12:17,473
+So Robins showed that under these non-measure confounding assumptions,
+
+142
+00:12:17,473 --> 00:12:22,227
+we can obtain consistent estimators for all the parameters of our marginal
+
+143
+00:12:22,227 --> 00:12:25,717
+structural models that I write on the top of the slide.
+
+144
+00:12:25,717 --> 00:12:30,280
+Where each of these objects is weighted by the product of two weights.
+
+145
+00:12:30,280 --> 00:12:32,743
+The first weight allows us to adjust for
+
+146
+00:12:32,743 --> 00:12:36,740
+confounders of the exposure at time 0 and the outcome.
+
+147
+00:12:36,740 --> 00:12:40,316
+And the second weight allows us to adjust for
+
+148
+00:12:40,316 --> 00:12:45,551
+confounding of the exposure at the first time .point A1 and Y.
+
+149
+00:12:49,240 --> 00:12:53,140
+Once we have constructed these weights, we take the product of them.
+
+150
+00:12:53,140 --> 00:12:58,402
+And then in order to obtain this, we need to fit to regressions one for
+
+151
+00:12:58,402 --> 00:13:03,053
+the propensity of the exposure at time 0 given the various.
+
+152
+00:13:03,053 --> 00:13:09,071
+And the second at the propensity of the exposure at time 1 adjusted for
+
+153
+00:13:09,071 --> 00:13:11,723
+the baseline covariates, but
+
+154
+00:13:11,723 --> 00:13:16,938
+in addition the exposure at time 0 and the the L covariates.
+
+155
+00:13:22,740 --> 00:13:29,809
+We can also consider stabilized version of these weights where in the numerator,
+
+156
+00:13:29,809 --> 00:13:35,861
+we introduce a model that is marginal with respect to the covariate C.
+
+157
+00:13:39,340 --> 00:13:43,940
+Note that this approach extends to more than two times.
+
+158
+00:13:43,940 --> 00:13:49,831
+But if you have more than two times, than an additional set of weights for
+
+159
+00:13:49,831 --> 00:13:52,738
+each new treatment type is needed.
+
+160
+00:13:52,738 --> 00:14:00,814
+Let's use this strategy to study the effect of loneliness on depression.
+
+161
+00:14:00,814 --> 00:14:05,978
+And revisiting the study conducted by a group in the University
+
+162
+00:14:05,978 --> 00:14:10,169
+of Chicago that studied the effect of self reported
+
+163
+00:14:10,169 --> 00:14:14,952
+loneliness on the depression in the longitudinal study.
+
+164
+00:14:14,952 --> 00:14:19,569
+This longitudinal study lasted for three years and
+
+165
+00:14:19,569 --> 00:14:24,186
+they're all they're quite diverse population in
+
+166
+00:14:24,186 --> 00:14:28,820
+terms of like race, ethnicity represented a bit.
+
+167
+00:14:28,820 --> 00:14:34,561
+And these people were born between 1935 and 1952 in Illinois.
+
+168
+00:14:36,840 --> 00:14:41,315
+Data was available on age, gender, ethnicity, marital status,
+
+169
+00:14:41,315 --> 00:14:45,871
+education, income at baseline and also depression, loneliness,
+
+170
+00:14:45,871 --> 00:14:51,540
+subjective well being, psychiatric condition and medications at baseline.
+
+171
+00:14:51,540 --> 00:14:57,712
+And for each of the subsequent four years of follow up for all the participants.
+
+172
+00:14:57,712 --> 00:15:03,165
+Psychiatric instruments were used to diagnose the loneliness and
+
+173
+00:15:03,165 --> 00:15:05,999
+the depressive symptomatology.
+
+174
+00:15:05,999 --> 00:15:09,498
+And these where validated questionnaires so
+
+175
+00:15:09,498 --> 00:15:14,755
+that all these variables can be considered continuous variables.
+
+176
+00:15:14,755 --> 00:15:18,765
+Loneliness could range from a score of 20 to 80 and
+
+177
+00:15:18,765 --> 00:15:22,161
+depressive symptomatology from 0 to 60.
+
+178
+00:15:25,240 --> 00:15:30,225
+This directive reciprograph represents the study throughout the five years
+
+179
+00:15:30,225 --> 00:15:32,040
+of follow up.
+
+180
+00:15:32,040 --> 00:15:36,325
+At the first time point, baseline covariates were collected.
+
+181
+00:15:36,325 --> 00:15:41,695
+In the first time point, we also include the baseline levels of loneliness,
+
+182
+00:15:41,695 --> 00:15:47,440
+baseline levels of depression and then people were followed over time.
+
+183
+00:15:47,440 --> 00:15:52,514
+And then at time 2, 3 and 4, we measure levels of exposures and
+
+184
+00:15:52,514 --> 00:15:57,959
+at level 2, 3 and 4, we measure levels of time varying confounders
+
+185
+00:15:57,959 --> 00:16:03,534
+which includes the levels of depression prior to the final timepoint.
+
+186
+00:16:03,534 --> 00:16:10,312
+Which is why Y is our depressing symptomatology measured at tier 5.
+
+187
+00:16:10,312 --> 00:16:16,835
+Here I provide to you the code in SAS that was used by the investigators
+
+188
+00:16:16,835 --> 00:16:23,240
+to build the weight for the marginal structural on model.
+
+189
+00:16:23,240 --> 00:16:27,161
+Again this UCLA variable is our loneliness score.
+
+190
+00:16:28,840 --> 00:16:32,460
+Let's say that we dichotomize, this loneliness variable.
+
+191
+00:16:32,460 --> 00:16:38,104
+Then we feed the logistic regression for like saying being lonely yes or
+
+192
+00:16:38,104 --> 00:16:42,431
+no at time two adjusting for the baseline loneliness,
+
+193
+00:16:42,431 --> 00:16:47,630
+the baseline depression, the baseline subjective well being.
+
+194
+00:16:47,630 --> 00:16:52,208
+The baseline psychiatric medication, psychiatric conditions, age,
+
+195
+00:16:52,208 --> 00:16:55,140
+gender, race, income in years.
+
+196
+00:16:55,140 --> 00:16:59,610
+So this is the wait for the first exposure time point.
+
+197
+00:16:59,610 --> 00:17:04,369
+And then you see that as we move at the third and the fourth time points,
+
+198
+00:17:04,369 --> 00:17:08,820
+we accumulate a larger set of variants that we need to adjust for.
+
+199
+00:17:08,820 --> 00:17:12,812
+For each of these regressions, we obtain the predicted probability.
+
+200
+00:17:12,812 --> 00:17:18,650
+And we use that in the next slide here to compute the scores and
+
+201
+00:17:18,650 --> 00:17:26,940
+the weights for each levels of loneliness say loneliness yes and loneliness no.
+
+202
+00:17:26,940 --> 00:17:30,714
+And then we take the product of these weights.
+
+203
+00:17:30,714 --> 00:17:35,712
+WW Is the product of the inverse of the probability of feeling
+
+204
+00:17:35,712 --> 00:17:38,261
+lonely at times 2, 3 and 4.
+
+205
+00:17:40,040 --> 00:17:46,126
+Once we have constructed this weight, we can fit the linear regression for
+
+206
+00:17:46,126 --> 00:17:49,314
+depression at times 5, adjusting for
+
+207
+00:17:49,314 --> 00:17:54,349
+the loneliness scores at the three time points prior to that.
+
+208
+00:17:54,349 --> 00:17:59,154
+Waiting the subject so that we can balance loneliness for
+
+209
+00:17:59,154 --> 00:18:04,771
+status across baseline covariates and time varying covariates.
+
+210
+00:18:06,840 --> 00:18:10,571
+Note that loneliness is continuous.
+
+211
+00:18:10,571 --> 00:18:15,266
+So it's much better to use all the data rather than dichotomize it.
+
+212
+00:18:15,266 --> 00:18:18,326
+And so I provide here also the code that you would fit to
+
+213
+00:18:18,326 --> 00:18:21,794
+construct the generalized propensity score weights that is
+
+214
+00:18:21,794 --> 00:18:25,132
+the weights when you wanna keep the exposure continuous.
+
+215
+00:18:30,340 --> 00:18:36,415
+So, once you fit the analysis of this marginal structure model,
+
+216
+00:18:36,415 --> 00:18:39,512
+you get this out that we see here.
+
+217
+00:18:39,512 --> 00:18:46,234
+That is this marginal structural model will report three coefficients for
+
+218
+00:18:46,234 --> 00:18:51,033
+the loneliness at time 2, loneliness at times 3 and
+
+219
+00:18:51,033 --> 00:18:57,561
+loneliness at time 4 and how these are related to depression at time 5.
+
+220
+00:18:59,540 --> 00:19:00,744
+What do we find?
+
+221
+00:19:00,744 --> 00:19:06,364
+We find that had the person reported to feel lonely the year
+
+222
+00:19:06,364 --> 00:19:11,754
+before relative to say not been lonely the year before,
+
+223
+00:19:11,754 --> 00:19:20,253
+then the person would display a higher level of depression score of .0.26 points.
+
+224
+00:19:20,253 --> 00:19:24,551
+And this would be statistically significant.
+
+225
+00:19:26,240 --> 00:19:31,182
+The effect of loneliness appears to be persistent
+
+226
+00:19:31,182 --> 00:19:36,241
+in time as even the loneliness force two years prior
+
+227
+00:19:36,241 --> 00:19:42,440
+would have a harmful effect on depression at year 5.
+
+228
+00:19:42,440 --> 00:19:47,302
+However, loneliness 3 years prior doesn't seem to deliver the same strength
+
+229
+00:19:47,302 --> 00:19:51,510
+of the relationship, but it's actually negatively associated and
+
+230
+00:19:51,510 --> 00:19:53,771
+non-statistically significant.
+
+231
+00:19:56,240 --> 00:20:01,398
+So, this analysis suggests that a hypothetical intervention to change
+
+232
+00:20:01,398 --> 00:20:06,809
+loneliness by one point at visit 3 and by one point at visit 4 would decrease
+
+233
+00:20:06,809 --> 00:20:11,561
+depressive symptomatology by about 0.6 points at visit five.
+
+234
+00:20:13,140 --> 00:20:18,377
+And then we can also revisit this considering more clinically
+
+235
+00:20:18,377 --> 00:20:23,209
+relevant change, say of about 10 points in loneliness
+
+236
+00:20:23,209 --> 00:20:28,340
+that would lead to a 6 depression score at year 5.
+
+237
+00:20:28,340 --> 00:20:33,340
+The magnitude of the fact is very large, but it's also persistent.
+
+238
+00:20:33,340 --> 00:20:38,592
+And this would indicate that definitively loneliness has a persistent
+
+239
+00:20:38,592 --> 00:20:44,631
+effect on depression and our analysis and causal interpretation would be valid,
+
+240
+00:20:44,631 --> 00:20:49,111
+provided that the non-measure confounding assumptions.
+
+241
+00:20:52,340 --> 00:20:55,625
+So here we have considered the use of marginal structural models and
+
+242
+00:20:55,625 --> 00:20:58,797
+inverse probability of training, waiting for total effects and
+
+243
+00:20:58,797 --> 00:21:01,140
+the effects of time bearing exposures.
+
+244
+00:21:01,140 --> 00:21:05,177
+And later in the course, we will consider the use of marginal structural models for
+
+245
+00:21:05,177 --> 00:21:09,171
+influence about direct and indirect effects and inference about interactions.
+
+246
+00:21:10,840 --> 00:21:13,841
+One further tool that we will be using throughout the course
+
+247
+00:21:13,841 --> 00:21:16,791
+are diagrams that we had actually started using already.
+
+248
+00:21:16,791 --> 00:21:18,921
+So that's what I'm gonna introduce next.
+

@@ -1,0 +1,335 @@
+1
+00:00:07,910 --> 00:00:10,305
+After watching this video,
+
+2
+00:00:10,305 --> 00:00:11,700
+you will be able to describe
+
+3
+00:00:11,700 --> 00:00:15,300
+the multiple imputation methods
+to handle missing data.
+
+4
+00:00:15,300 --> 00:00:18,740
+These are the methods to
+deal with missing data.
+
+5
+00:00:18,740 --> 00:00:20,295
+They're not so good ones,
+
+6
+00:00:20,295 --> 00:00:22,080
+but very often use.
+
+7
+00:00:22,080 --> 00:00:24,045
+Are Complete Case Analysis.
+
+8
+00:00:24,045 --> 00:00:25,860
+What you did this
+so far, just delete
+
+9
+00:00:25,860 --> 00:00:28,680
+the observations with missing
+data, and this is fine.
+
+10
+00:00:28,680 --> 00:00:30,810
+If they're missing
+completely at random.
+
+11
+00:00:30,810 --> 00:00:32,445
+Then the Missing Indicators,
+
+12
+00:00:32,445 --> 00:00:34,980
+you create an indicator
+or dummy variable
+
+13
+00:00:34,980 --> 00:00:37,860
+for the missing data and
+enter that in the model.
+
+14
+00:00:37,860 --> 00:00:39,450
+This one can be biased
+
+15
+00:00:39,450 --> 00:00:41,715
+even if missing
+completely at random.
+
+16
+00:00:41,715 --> 00:00:43,720
+Then the single
+imputation of the mean,
+
+17
+00:00:43,720 --> 00:00:45,140
+which can also be biased
+
+18
+00:00:45,140 --> 00:00:47,050
+even if missing
+completely at random.
+
+19
+00:00:47,050 --> 00:00:48,690
+The good ones are,
+
+20
+00:00:48,690 --> 00:00:51,045
+multiple imputation
+and others like
+
+21
+00:00:51,045 --> 00:00:54,025
+using maximum likelihood
+or weighting.
+
+22
+00:00:54,025 --> 00:00:55,475
+In this course, we will focus
+
+23
+00:00:55,475 --> 00:00:58,615
+exclusively on
+multiple imputation.
+
+24
+00:00:58,615 --> 00:01:01,395
+I'm quoting from
+the sales manual.
+
+25
+00:01:01,395 --> 00:01:04,340
+"Multiple imputation does not
+
+26
+00:01:04,340 --> 00:01:07,520
+attempt to estimate each
+missing values through
+
+27
+00:01:07,520 --> 00:01:10,250
+simulated values but rather to
+
+28
+00:01:10,250 --> 00:01:14,435
+represent a random sample
+of the missing values.
+
+29
+00:01:14,435 --> 00:01:16,160
+This process results in
+
+30
+00:01:16,160 --> 00:01:18,800
+valid statistical inferences that
+
+31
+00:01:18,800 --> 00:01:22,445
+properly reflect the uncertainty
+due to missing values.
+
+32
+00:01:22,445 --> 00:01:24,590
+For example, confidence
+intervals with
+
+33
+00:01:24,590 --> 00:01:27,079
+the correct
+probability coverage."
+
+34
+00:01:27,079 --> 00:01:30,995
+We are not making up
+data, believe me.
+
+35
+00:01:30,995 --> 00:01:35,135
+Multiple imputation using
+SAS involves three steps.
+
+36
+00:01:35,135 --> 00:01:38,105
+First, you impute using PROC MI.
+
+37
+00:01:38,105 --> 00:01:40,400
+Imputing those values,
+the rule of thumb is
+
+38
+00:01:40,400 --> 00:01:42,515
+that you will use 25 data sets.
+
+39
+00:01:42,515 --> 00:01:44,870
+That's what SAAS uses by default.
+
+40
+00:01:44,870 --> 00:01:49,235
+Then you have to do the
+analysis in every data set.
+
+41
+00:01:49,235 --> 00:01:51,050
+You have to do your PROC REG,
+
+42
+00:01:51,050 --> 00:01:53,240
+if you are doing linear
+aggregation or PROC LOGISTIC,
+
+43
+00:01:53,240 --> 00:01:55,885
+if you are doing logistic
+regression and so on.
+
+44
+00:01:55,885 --> 00:01:58,160
+You use the by underscore
+
+45
+00:01:58,160 --> 00:02:00,770
+imputation underscore
+variable in the procedure.
+
+46
+00:02:00,770 --> 00:02:04,150
+You calculate 25 point estimates.
+
+47
+00:02:04,150 --> 00:02:06,470
+Finally, the first step is to
+
+48
+00:02:06,470 --> 00:02:10,280
+combine the result
+using PROC MIANALYZE.
+
+49
+00:02:10,280 --> 00:02:14,305
+You combine the 25 estimates
+into a unique one.
+
+50
+00:02:14,305 --> 00:02:18,140
+This is a visual representation
+of the previous steps.
+
+51
+00:02:18,140 --> 00:02:20,735
+From the original data
+set with missing values,
+
+52
+00:02:20,735 --> 00:02:23,060
+you will generate a
+number of imputing
+
+53
+00:02:23,060 --> 00:02:26,510
+data sets and SAS by
+default will do 25.
+
+54
+00:02:26,510 --> 00:02:31,015
+Then you will analyze every
+single imputing data set.
+
+55
+00:02:31,015 --> 00:02:32,450
+In the final step,
+
+56
+00:02:32,450 --> 00:02:34,565
+you will pull all the results
+
+57
+00:02:34,565 --> 00:02:37,700
+into a unique final estimate.
+
+58
+00:02:37,700 --> 00:02:40,955
+The process itself is
+not that complicated,
+
+59
+00:02:40,955 --> 00:02:43,330
+but how do you
+impute those values?
+
+60
+00:02:43,330 --> 00:02:45,560
+Well, you need to
+choose variables
+
+61
+00:02:45,560 --> 00:02:48,265
+that will help you to
+impute the missing data.
+
+62
+00:02:48,265 --> 00:02:51,980
+The idea as a general rule
+is to use anything that you
+
+63
+00:02:51,980 --> 00:02:53,360
+think it will help you to
+
+64
+00:02:53,360 --> 00:02:55,570
+predict the missing
+values in your variables.
+
+65
+00:02:55,570 --> 00:02:58,625
+For example, if you have
+missing in the income variable,
+
+66
+00:02:58,625 --> 00:03:00,890
+you can use a location,
+
+67
+00:03:00,890 --> 00:03:02,525
+you can use age,
+
+68
+00:03:02,525 --> 00:03:05,500
+sex, area residents, etc.
+
+69
+00:03:05,500 --> 00:03:07,635
+In summary, in this video,
+
+70
+00:03:07,635 --> 00:03:09,950
+we learned about the
+multiple imputation method
+
+71
+00:03:09,950 --> 00:03:11,405
+to handle missing data.
+
+72
+00:03:11,405 --> 00:03:13,700
+In the next video, we
+will continue with
+
+73
+00:03:13,700 --> 00:03:17,355
+an example in SAS using
+PROC MI and PROC MIANALYZE.
+

@@ -1,0 +1,3308 @@
+1
+00:00:04,170 --> 00:00:07,799
+Michael Akira Lee Hayashi: Most folks you actually wanted to this afternoon.
+
+2
+00:00:08,280 --> 00:00:17,670
+Marisa Eisenberg: yeah yeah yeah so yeah questions from any of the earlier stuff on the last day, so we can kind of across the board questions kinds of things.
+
+3
+00:00:19,380 --> 00:00:23,160
+Rishi Chanderraj: as well, first, I just want to start by saying I thought was amazing class.
+
+4
+00:00:24,810 --> 00:00:30,120
+Rishi Chanderraj: yeah so very, very grateful to you guys, I thought I learned a ton.
+
+5
+00:00:31,140 --> 00:00:37,140
+Rishi Chanderraj: So um one thing that I was curious about was, I think both of you guys have talked about parallelization.
+
+6
+00:00:39,060 --> 00:00:40,470
+Rishi Chanderraj: Because it seems like.
+
+7
+00:00:42,630 --> 00:00:49,470
+Rishi Chanderraj: This is like really, really heavy on some of these like when these things get very complicated, they can be very, very.
+
+8
+00:00:50,550 --> 00:01:05,670
+Rishi Chanderraj: resource intensive so are there, good like ways to learn about how to best like best practices and stuff are good resources that you guys would recommend about learning a little bit about personalization.
+
+9
+00:01:06,600 --> 00:01:08,460
+Michael Akira Lee Hayashi: yeah i'm actually we could.
+
+10
+00:01:08,790 --> 00:01:12,240
+Marisa Eisenberg: versa, maybe, if we want a slip it yeah yeah.
+
+11
+00:01:12,540 --> 00:01:15,690
+Michael Akira Lee Hayashi: What about like computers and things about computers.
+
+12
+00:01:15,930 --> 00:01:22,500
+Marisa Eisenberg: yeah so we can do like questions in general, and then we had my God I just talked before the start of that we were thinking, maybe we do.
+
+13
+00:01:22,860 --> 00:01:27,630
+Marisa Eisenberg: Like we do part of this on the sort of project proposal, but then maybe part of it on like.
+
+14
+00:01:28,110 --> 00:01:33,420
+Marisa Eisenberg: Michael has a good set of slides on like computers and how to like like the computing aspect of.
+
+15
+00:01:33,720 --> 00:01:41,430
+Marisa Eisenberg: A lot of this work and then i've got some example code for parallel ization and how to like sort of use some of the packages to do parallel programming in our so.
+
+16
+00:01:41,730 --> 00:01:54,630
+Marisa Eisenberg: Maybe we'll do that, first, because i'm betting like the yeah we'll save the project proposal piece to the very end, that if you yeah that sounds good okay excellent and then, but other questions before we dive into any of that stuff yeah.
+
+17
+00:02:02,970 --> 00:02:04,380
+let's wait an awkwardly long time.
+
+18
+00:02:07,560 --> 00:02:12,960
+Marisa Eisenberg: Okay, if not other questions, then yeah do you want to kick us off Michael and then we can yeah.
+
+19
+00:02:13,530 --> 00:02:15,240
+Michael Akira Lee Hayashi: Sure um let me.
+
+20
+00:02:15,390 --> 00:02:18,030
+Michael Akira Lee Hayashi: Let me preface this by saying that what i'm going to show you is.
+
+21
+00:02:18,390 --> 00:02:27,420
+Michael Akira Lee Hayashi: Not even lightly adapted, it is literally material that I made for a caster T corps workshop that I gave on using some of the computing systems that.
+
+22
+00:02:27,930 --> 00:02:33,300
+Michael Akira Lee Hayashi: That I built and maintained at at at university of Michigan School of Public Health for.
+
+23
+00:02:33,900 --> 00:02:47,640
+Michael Akira Lee Hayashi: For folks on those projects to use basically to run large data analysis large simulations and things of that type, so I apologize that these are not new unique slides, but I think they have some stuff that might be might be of interest here.
+
+24
+00:02:49,020 --> 00:02:51,660
+Michael Akira Lee Hayashi: So let me see where I want to start.
+
+25
+00:02:57,810 --> 00:02:58,380
+Michael Akira Lee Hayashi: So.
+
+26
+00:02:59,940 --> 00:03:08,520
+Michael Akira Lee Hayashi: i'll start talking about parallel ization and then i'll take a step back and talk a little bit more about sort of working on different kinds of computing environments in general.
+
+27
+00:03:10,020 --> 00:03:13,680
+Michael Akira Lee Hayashi: So let me figure out which slides are best here.
+
+28
+00:03:24,780 --> 00:03:33,420
+Michael Akira Lee Hayashi: Alright, so again, these are slides that are that are that are used for a slightly different purpose part of part of how these were designed was to get people.
+
+29
+00:03:33,960 --> 00:03:43,560
+Michael Akira Lee Hayashi: on board and using some of those systems, but they're big multi core systems, so any work on them it's sort of naturally paralyzed work so.
+
+30
+00:03:44,640 --> 00:03:50,490
+Michael Akira Lee Hayashi: let's um let's kind of start with a little bit of a breakdown of what's going on in your computer and.
+
+31
+00:03:50,520 --> 00:03:53,160
+Michael Akira Lee Hayashi: why it is that some tasks will.
+
+32
+00:03:53,490 --> 00:03:59,820
+Michael Akira Lee Hayashi: will slow down and where you get performance bottlenecks and how to assess them in ways that let you think about things like.
+
+33
+00:04:01,080 --> 00:04:04,170
+Michael Akira Lee Hayashi: Like when to paralyze your work and things like that so.
+
+34
+00:04:05,400 --> 00:04:14,220
+Michael Akira Lee Hayashi: A computer more or less can be thought of as being composed of three or four kind of core parts there's the cpu or the processor.
+
+35
+00:04:14,550 --> 00:04:19,380
+Michael Akira Lee Hayashi: that's basically the computers brain, this is where it does all of its math and logical calculation so.
+
+36
+00:04:19,650 --> 00:04:30,780
+Michael Akira Lee Hayashi: Every every line of code you write every program that you run gets executed basically on the cpu all of the instructions get fed their calculations get performed and then that gets sent out.
+
+37
+00:04:31,950 --> 00:04:40,260
+Michael Akira Lee Hayashi: The computer stores programs and data in two different places there's memory, or what what's often called Ram.
+
+38
+00:04:40,710 --> 00:04:44,820
+Michael Akira Lee Hayashi: And you can think of that kind of like short term working memory for a person, this is where.
+
+39
+00:04:45,000 --> 00:04:59,850
+Michael Akira Lee Hayashi: A computer is going to store any active program that it's running so you're our studio session when that's running that's in memory that's sitting in your Ram somewhere, this can also explain why sometimes if you're working on a computer like a wee baby laptop.
+
+40
+00:05:00,330 --> 00:05:03,720
+Michael Akira Lee Hayashi: MAC books are a little bit notorious for this, because they tend to be Ram starved.
+
+41
+00:05:04,560 --> 00:05:16,170
+Michael Akira Lee Hayashi: You might find that some analyses either crash or can't finish completely because you're trying to store too much too much data in Ram and.
+
+42
+00:05:16,890 --> 00:05:25,230
+Michael Akira Lee Hayashi: Your system just might not have that we have more and more and more data available to ourselves so it's not uncommon to be working with data files that are like gigabytes big.
+
+43
+00:05:25,410 --> 00:05:35,430
+Michael Akira Lee Hayashi: And if all your computer has is like eight gigs of memory, then you're going to eat that really quick and then your system can try to do things to keep working but.
+
+44
+00:05:36,330 --> 00:05:44,430
+Michael Akira Lee Hayashi: it's going to lose performance, the other place that a computer stores information is it's hard drive storage or just kind of storage nowadays, this is going to be.
+
+45
+00:05:44,700 --> 00:05:51,360
+Michael Akira Lee Hayashi: A combination of spinning magnetic drives and solid state drives which are much faster generally more reliable.
+
+46
+00:05:52,320 --> 00:06:02,310
+Michael Akira Lee Hayashi: And this is what I like to think of as long term memory, so when you have a file in your like your documents folder whatever that is stored in your systems, storage, not in memory.
+
+47
+00:06:02,520 --> 00:06:11,760
+Michael Akira Lee Hayashi: Because your system is using it for anything, so this is just kind of the systems repository of all this stuff that it needs to to store in order to run programs to.
+
+48
+00:06:12,390 --> 00:06:22,830
+Michael Akira Lee Hayashi: To use data for things, and when you execute a program when any program at all runs whether it's zoom or the chrome browser or or a script that you yourself Britain.
+
+49
+00:06:23,910 --> 00:06:30,930
+Michael Akira Lee Hayashi: What happens, more or less is that program is stored as essentially a text file in your in your hard drive somewhere.
+
+50
+00:06:31,560 --> 00:06:36,570
+Michael Akira Lee Hayashi: With that's full of instructions So the first thing your computer is going to do is.
+
+51
+00:06:36,960 --> 00:06:44,640
+Michael Akira Lee Hayashi: load that program into memory so it'll transfer data and any instructions and things from park drive storage into memory.
+
+52
+00:06:45,000 --> 00:07:00,030
+Michael Akira Lee Hayashi: And then it'll feed those to the cpu so that the processor can actually do the math that it needs to do to make that program go so when your script is running What that means is your computer's read all the instructions that needs into memory and then it's feeding those to the cpu.
+
+53
+00:07:01,140 --> 00:07:12,180
+Michael Akira Lee Hayashi: This also means that there's a little bit of transfer time in all of these steps so it can take a moment to load a program from storage to memory and then to start feeding the instructions in the computer.
+
+54
+00:07:12,570 --> 00:07:23,160
+Michael Akira Lee Hayashi: It can take a bit to feed instructions and data back and forth between memory and the processor, because, while the processors calculating stuff it's sending those results back into memory.
+
+55
+00:07:24,150 --> 00:07:32,310
+Michael Akira Lee Hayashi: Where where you store intermediate results and final results and things like that so each of these transfer stages can introduce a certain amount of.
+
+56
+00:07:34,050 --> 00:07:39,570
+Michael Akira Lee Hayashi: compute time or latency is what I would call this and that can be a potential performance bottleneck.
+
+57
+00:07:40,080 --> 00:07:46,170
+Michael Akira Lee Hayashi: Of the rest of the stuff here is more or less just about making sure that you the user can see what your computer did so some computers have.
+
+58
+00:07:46,440 --> 00:07:55,200
+Michael Akira Lee Hayashi: Dedicated graphics cards that that handle very specific sets of calculations, like the graphics card, basically, is designed so that.
+
+59
+00:07:55,500 --> 00:08:05,580
+Michael Akira Lee Hayashi: It can render what you see on your screen more efficiently than your processor could because your processor might have four to 64 cores your graphics card might have.
+
+60
+00:08:05,880 --> 00:08:13,950
+Michael Akira Lee Hayashi: Like thousands of tiny little cores that can only do a little bit of work but that's really all they need to do really all they need to do is tell your display.
+
+61
+00:08:14,520 --> 00:08:26,010
+Michael Akira Lee Hayashi: What color and what intensity, should this pixel be and that's basically just a gigantic matrix and so your gpu having thousands of teeny tiny little cores that basically say.
+
+62
+00:08:27,120 --> 00:08:36,330
+Michael Akira Lee Hayashi: How do I update this matrix can do that more efficiently in the processor, and then, of course, all of that comes out to the display where it tells you that your programs crashed and and now you need to fix it.
+
+63
+00:08:37,920 --> 00:08:46,410
+Michael Akira Lee Hayashi: So what this means is that your code whatever you're doing whether it's running a program playing a video game.
+
+64
+00:08:47,130 --> 00:08:55,980
+Michael Akira Lee Hayashi: writing a model, using a script can get slowed down or bottleneck in very different places, some tasks or cpu bound, which means that.
+
+65
+00:08:56,190 --> 00:09:05,880
+Michael Akira Lee Hayashi: They take a lot of mathematical calculations, in order to finish things like the gillespie simulation method or agent based simulations are often cpu bound because.
+
+66
+00:09:06,330 --> 00:09:12,540
+Michael Akira Lee Hayashi: In order for an agent based simulation to run, you have to calculate so much at every time step and you might have to run.
+
+67
+00:09:12,960 --> 00:09:18,060
+Michael Akira Lee Hayashi: Hundreds of thousands of time steps and then you might have to run the simulation hundreds of thousands of times.
+
+68
+00:09:18,270 --> 00:09:32,490
+Michael Akira Lee Hayashi: And all of these things cause a calculation every time you force your computer to add two numbers together that's one calculation that your cpu has to perform, so the more and more and more of those your program accumulates, the more likely it is to become cpu bound.
+
+69
+00:09:33,780 --> 00:09:40,860
+Michael Akira Lee Hayashi: You can have memory bound programs where you need to store a lot of data for that program to work and.
+
+70
+00:09:41,430 --> 00:09:52,170
+Michael Akira Lee Hayashi: What this can cause is two things one is that, by default, in general, if your computer tries to load something into memory, which is too big for its total amount of actual memory.
+
+71
+00:09:52,590 --> 00:09:59,700
+Michael Akira Lee Hayashi: it'll shift some of that onto the hard drive and it'll treat the hard drive kind of like memory, which is okay from one perspective in that.
+
+72
+00:10:00,090 --> 00:10:10,920
+Michael Akira Lee Hayashi: It keeps your computer running and it prevents your computer from just killing a lot of tasks whenever it runs out of memory, on the other hand, your hard drive even a solid state drive is way slower than memory.
+
+73
+00:10:11,310 --> 00:10:19,920
+Michael Akira Lee Hayashi: It takes much more time to read and write data to that storage than it does to read and write to your memory, for a number of reasons, and so.
+
+74
+00:10:21,360 --> 00:10:25,800
+Michael Akira Lee Hayashi: The bigger things you have to start memory, the more you expose yourself to this problem of potentially.
+
+75
+00:10:26,010 --> 00:10:35,820
+Michael Akira Lee Hayashi: consuming the available memory on the system and eating into what's called virtual memory or swap space, depending on the operating system which will slow performance down monumentally.
+
+76
+00:10:36,390 --> 00:10:39,480
+Michael Akira Lee Hayashi: The other way that you can get a subtly memory bound program is, if you.
+
+77
+00:10:39,780 --> 00:10:51,060
+Michael Akira Lee Hayashi: If you have to process a big chunk of data all at once, because what that means is that the system has to take that big chunk of data and move it from your system memory, to the processor for the processor to work on.
+
+78
+00:10:51,420 --> 00:11:01,950
+Michael Akira Lee Hayashi: The processor itself has a little bit of memory sitting basically On top of that processor, but it's not very big it's like it's like 64 kilobytes if you're lucky and.
+
+79
+00:11:02,790 --> 00:11:08,010
+Michael Akira Lee Hayashi: We often work on data files that are megabytes two gigabytes big so as you might imagine what ends up happening.
+
+80
+00:11:08,820 --> 00:11:20,100
+Michael Akira Lee Hayashi: Is the system, then has to stream that data into the processor from memory, the more data, you have the longer it takes to stream to and from the process and that can cause another kind of memory bound problem.
+
+81
+00:11:22,320 --> 00:11:35,760
+Michael Akira Lee Hayashi: An input output bound program or an output bottleneck usually is something that is reading or writing frequently from your hard drive storage and i've said, this is slow right the hard drive is the slowest part of your computer.
+
+82
+00:11:36,090 --> 00:11:42,900
+Michael Akira Lee Hayashi: Essentially, well, besides the use the besides the user, the hard drive is probably the slowest thing in the system and so.
+
+83
+00:11:43,770 --> 00:11:48,150
+Michael Akira Lee Hayashi: If if, for some reason you wrote a data analysis script that.
+
+84
+00:11:48,930 --> 00:11:58,050
+Michael Akira Lee Hayashi: saved intermediate copies of your data set a lot during its workflow like suppose every iteration of a for loop that's that's I don't know that's that's.
+
+85
+00:11:58,350 --> 00:12:07,410
+Michael Akira Lee Hayashi: calculating a different statistical model you save the entire data set to your hard drive well that'd be incredibly slow, because the computer would have to stop and right.
+
+86
+00:12:07,770 --> 00:12:16,140
+Michael Akira Lee Hayashi: I don't know megabytes two gigabytes to a hard drive and even if that operation only takes a few seconds that's a few seconds out of every iteration of the loop.
+
+87
+00:12:16,530 --> 00:12:21,360
+Michael Akira Lee Hayashi: So often, we try to avoid input output found problems by.
+
+88
+00:12:21,810 --> 00:12:33,390
+Michael Akira Lee Hayashi: Only writing data to storage, at the very last minute, when you absolutely need it when everything else is done so that you don't incur this performance penalty in the middle of your script which can get really frustrating.
+
+89
+00:12:34,200 --> 00:12:38,070
+Michael Akira Lee Hayashi: A kind of silly example of an input output bound thing too is that.
+
+90
+00:12:39,750 --> 00:12:44,250
+Michael Akira Lee Hayashi: I know I advocate very aggressively for studying your code print statements, because this is how you.
+
+91
+00:12:44,760 --> 00:12:54,660
+Michael Akira Lee Hayashi: debug and diagnose and keep track of what's going in and out, however, printing something to console does take a little bit of time, so what you might find that.
+
+92
+00:12:54,960 --> 00:13:03,780
+Michael Akira Lee Hayashi: If you're doing hundreds of thousands of simulations with hundreds of thousands of times steps in each simulation if you told your computer to print out just.
+
+93
+00:13:03,990 --> 00:13:14,130
+Michael Akira Lee Hayashi: The time step for every one of those timestamps that total simulation run would take meaningfully more time to finish, and if you hadn't told it to print it all, because that that single.
+
+94
+00:13:14,520 --> 00:13:19,230
+Michael Akira Lee Hayashi: Incredibly, simple little input output step takes just enough time that.
+
+95
+00:13:19,680 --> 00:13:34,590
+Michael Akira Lee Hayashi: amortized over the entire run to you've now added a shocking amount of time to run so sometimes you get these weird little performance concerns that you just wouldn't expect on the basis of it doesn't seem like it should take very long to print something to your screen right.
+
+96
+00:13:35,970 --> 00:13:45,930
+Michael Akira Lee Hayashi: Oh, a case that is less common, but if you work in like web applications, or if you have to work on a remote system, you might run into is a network bound problem.
+
+97
+00:13:46,230 --> 00:13:51,810
+Michael Akira Lee Hayashi: So this is a case where your program has to communicate frequently over the Internet to another system and.
+
+98
+00:13:52,620 --> 00:14:04,140
+Michael Akira Lee Hayashi: The degree to which this is going to slow you down is going to be dependent essentially on the speed and reliability of your Internet connection so because we live in a shockingly backwards country about Internet.
+
+99
+00:14:04,860 --> 00:14:14,640
+Michael Akira Lee Hayashi: The best a lot of us have is maybe gigabit Internet if we're willing to Shell out an arm and a leg, and what this means is that you can maybe transfer like 100 megabytes per second or so.
+
+100
+00:14:15,810 --> 00:14:22,920
+Michael Akira Lee Hayashi: If that doesn't sound terribly fast it's not that is even slower than the transfer rate between the hard drive and the processor.
+
+101
+00:14:23,250 --> 00:14:29,190
+Michael Akira Lee Hayashi: And it's league slower than anything, the processor itself can do so if you have to send data over a network.
+
+102
+00:14:29,970 --> 00:14:39,630
+Michael Akira Lee Hayashi: Now you've got to be ready to incur even more time transferring So if you if you're if the data that you're working from happens to be stored say on a remote server.
+
+103
+00:14:40,110 --> 00:14:53,580
+Michael Akira Lee Hayashi: Every time you use that data if you're not allowed to keep a local copy of it, you have to transfer that data from the remote server to your system's memory, so you incur this transfer time that can slow things down further.
+
+104
+00:14:54,570 --> 00:15:07,320
+Michael Akira Lee Hayashi: On the whole, this is probably the least of your worries for most of our purposes, these two things are most likely to cause performance bottlenecks in modeling and other kinds of data analyses.
+
+105
+00:15:09,000 --> 00:15:19,170
+Michael Akira Lee Hayashi: And when I talk about program performance and when I, and when I talk about why you should paralyze something or sometimes couch this in the idea of.
+
+106
+00:15:20,580 --> 00:15:28,560
+Michael Akira Lee Hayashi: what's called big O notation or computational complexity is another way this is called this is more or less a description of kind of how.
+
+107
+00:15:29,070 --> 00:15:41,460
+Michael Akira Lee Hayashi: Well, or poorly the performance of your code scales, based on the size of the input it's receiving So if you see if you see big O notation use like this to describe a fast algorithm.
+
+108
+00:15:42,480 --> 00:15:55,560
+Michael Akira Lee Hayashi: Bingo have some function is the dominant the F event is the dominant scaling function for for some large size data Center and it's the size, the data set so as an example, if you have something that, just like.
+
+109
+00:15:57,000 --> 00:16:07,590
+Michael Akira Lee Hayashi: ads every element of a vector to the previous element, this would have what's called linear scale, because the amount of time it takes scales linearly in the amount of elements of the vector.
+
+110
+00:16:08,790 --> 00:16:12,690
+Michael Akira Lee Hayashi: Something like matrix multiplication where you take a matrix multiply it by another one.
+
+111
+00:16:12,870 --> 00:16:29,370
+Michael Akira Lee Hayashi: This is what's called an O n cubed calculation or a way another way of saying this is the amount of time this thing takes increases in the cube of the amount of stuff in the matrix so the matrix has 100 elements, then going from 100 to 1000 elements is like is is a.
+
+112
+00:16:30,360 --> 00:16:34,080
+Michael Akira Lee Hayashi: Is an exponential increase or a polynomial scaled increase.
+
+113
+00:16:35,850 --> 00:16:43,950
+Michael Akira Lee Hayashi: Generally speaking, if we can get something that scales in like quadratic time or some kind of polynomial time like n squared and cubed.
+
+114
+00:16:44,520 --> 00:16:50,190
+Michael Akira Lee Hayashi: or faster polynomial linear log linear that's really good That means we have a good performing algorithm.
+
+115
+00:16:50,520 --> 00:16:59,400
+Michael Akira Lee Hayashi: A lot of times we don't get that and we get something that's worse than polynomial or exponential scaling So you can see, for some of these things right, even for like an n squared scaled.
+
+116
+00:16:59,850 --> 00:17:07,170
+Michael Akira Lee Hayashi: thing your amount of time spent on the operation rises really fast at the amount of data gets bigger, this is why.
+
+117
+00:17:07,710 --> 00:17:22,920
+Michael Akira Lee Hayashi: Processing larger and larger data sets can take an unexpectedly large amount of time because it's not just that the calculation time increases linearly in the amount of data, it might be increasing in the square of the amount of data or the cube of the amount of data or.
+
+118
+00:17:24,330 --> 00:17:28,440
+Michael Akira Lee Hayashi: To the power of the amount of data, which would be really bad and really slow.
+
+119
+00:17:29,640 --> 00:17:35,400
+Michael Akira Lee Hayashi: Why is this important to keep in mind for parallelization purposes, because, while the scaling of your.
+
+120
+00:17:35,850 --> 00:17:42,810
+Michael Akira Lee Hayashi: of your computational performance matters, sometimes the absolute amount of time matters to, even if I have something that's in linear time.
+
+121
+00:17:43,290 --> 00:17:48,840
+Michael Akira Lee Hayashi: If if I have something that takes 100 seconds to complete on one processor, if I could break that up.
+
+122
+00:17:49,140 --> 00:17:58,080
+Michael Akira Lee Hayashi: Among 50 processors, then we should think that the total operation would take about two seconds and that's a whole ton better in real time spent waiting for this thing to complete.
+
+123
+00:17:58,710 --> 00:18:12,630
+Michael Akira Lee Hayashi: We don't always get that we don't always get the optimal scaling for parallelization to get a performance improvement, but we can often get pretty close and that means that we can take advantage of the full power of our modern computers so.
+
+124
+00:18:13,350 --> 00:18:20,700
+Michael Akira Lee Hayashi: say a little bit more about this your computer nowadays even even your phone like pretty much any modern processor.
+
+125
+00:18:21,000 --> 00:18:27,390
+Michael Akira Lee Hayashi: has more than one core in it so it's almost like a modern processors made of multiple independent processors.
+
+126
+00:18:27,660 --> 00:18:35,640
+Michael Akira Lee Hayashi: If if you see a company like Intel advertising 12 cores That means that there are essentially 12 independent units in that chip.
+
+127
+00:18:36,060 --> 00:18:52,710
+Michael Akira Lee Hayashi: Each of which can do pretty much the full work of a processor, this is awfully cool if you can break your problem down into discrete independent chunks that you can send to each core So if I have four cores and I want to.
+
+128
+00:18:53,520 --> 00:19:03,120
+Michael Akira Lee Hayashi: I don't know color in a map like suppose I want to take this map and change the color of every pixel in this in this map of Michigan well.
+
+129
+00:19:03,630 --> 00:19:11,490
+Michael Akira Lee Hayashi: The color of any any given pixel the color of a pixel over here is totally independent the color of a pixel over here is totally independent of over here and over here.
+
+130
+00:19:11,670 --> 00:19:24,180
+Michael Akira Lee Hayashi: What this means just that, instead of processing this entire map and sequence, which would mean like start here and then go like this, all the way through this whole thing which could potentially be a slow operation.
+
+131
+00:19:25,590 --> 00:19:35,610
+Michael Akira Lee Hayashi: Instead, what I can do is this I chopped the data up into four chunks and send each chunk along with instructions for how to process that jump to one of the cores on my computer.
+
+132
+00:19:36,990 --> 00:19:54,480
+Michael Akira Lee Hayashi: And that means that if my operation scales nicely i'll be able to finish my tasks in about a fourth of the time, as I would have had to wait if I was just running this on one processor, or even only one core of your processor.
+
+133
+00:19:55,170 --> 00:20:10,440
+Michael Akira Lee Hayashi: The caveat, of course, is that when you write code that code does not necessarily tell your computer to use all of its available course if I any of the code that we've written in class so far is really treating your processor, as though it only has one core.
+
+134
+00:20:12,360 --> 00:20:28,890
+Michael Akira Lee Hayashi: it's not intrinsically paralyzed so in order to take advantage of those extra course, you have to do, additional coding work in order to force the program to split the data up split the calculations up and send them to all the cores that you have available to you.
+
+135
+00:20:29,910 --> 00:20:39,810
+Michael Akira Lee Hayashi: Now, modern processors do often have a little bit of special sauce in them where if they know that you're really only loading one of their cores they'll ramp the power.
+
+136
+00:20:40,200 --> 00:20:48,690
+Michael Akira Lee Hayashi: usage of that core up and basically speed it up like they'll they'll they'll jam the accelerator on that one core and make it run fast and hot so that.
+
+137
+00:20:49,140 --> 00:20:59,790
+Michael Akira Lee Hayashi: You try to you try to make up for the fact that you're only using one core the overall performance of a processor, have a chip is largely determined by how much power, you can push through it before it cooks itself.
+
+138
+00:21:00,630 --> 00:21:15,810
+Michael Akira Lee Hayashi: thermal limits heat limits go a long way to bottleneck in a systems computational performance anyone that Scott, if anyone has ever seen a surface book laptop that Microsoft tablet thing that has a detachable keyboard those things are notorious.
+
+139
+00:21:16,890 --> 00:21:22,950
+Michael Akira Lee Hayashi: notorious cpu cookers because they try to cram a lot of hardware in a small space with not a lot of cooling awkward.
+
+140
+00:21:23,550 --> 00:21:31,110
+Michael Akira Lee Hayashi: And it turns out the processors run pretty hot because they are pushing a lot of electricity to do what they do so.
+
+141
+00:21:31,800 --> 00:21:40,920
+Michael Akira Lee Hayashi: If you have a laptop that's prone to getting hot when you're running something on it, what that means is that your computer essentially is running right up against its thermal limits.
+
+142
+00:21:41,310 --> 00:21:48,330
+Michael Akira Lee Hayashi: and possibly slowing itself down, so it doesn't literally cook itself, so this is also why, when we do work on.
+
+143
+00:21:48,750 --> 00:22:02,580
+Michael Akira Lee Hayashi: On big parallel systems those systems, often have well they're big for one and they often have gigantic really loud fans in order to keep that system running at peak performance, even if you've completely loaded that system.
+
+144
+00:22:04,110 --> 00:22:15,450
+Michael Akira Lee Hayashi: So that so that the computer doesn't actually cook itself and when your computer's able to keep itself, stable and use all of its cores that's when you're going to get that maximum performance increase so.
+
+145
+00:22:15,690 --> 00:22:24,870
+Michael Akira Lee Hayashi: What you probably would not want to do, for example, is fully parallelize a data analysis that you're running on a MAC book that's on battery power, instead of plugged into a see.
+
+146
+00:22:25,200 --> 00:22:38,160
+Michael Akira Lee Hayashi: hey you're going to drain your battery in about 15 seconds be it's actually going to take way longer than it needs to to complete that operation because the computer is trying to avoid maxing its power usage both to conserve battery.
+
+147
+00:22:38,370 --> 00:22:43,200
+Michael Akira Lee Hayashi: And so it doesn't cook itself wallets wallets not getting like AC charge.
+
+148
+00:22:45,030 --> 00:22:51,480
+Michael Akira Lee Hayashi: So this this doesn't mean sometimes that if we're thinking of doing more computationally intensive work like.
+
+149
+00:22:51,780 --> 00:23:02,940
+Michael Akira Lee Hayashi: Like heck if we want to do machine learning or really big agent based models are big stochastic models, or even really big regressions or Beijing stuff especially Markov chain Monte Carlo methods really computationally intensive.
+
+150
+00:23:03,210 --> 00:23:16,140
+Michael Akira Lee Hayashi: We want to spend some time thinking about the systems we have at our disposal to use for do we have do we have access to a big multi core server somewhere when we're buying our laptops if that's going to be our primary computing device.
+
+151
+00:23:17,640 --> 00:23:29,760
+Michael Akira Lee Hayashi: You probably don't want to buy something that is a bunch of stuff crammed in a tight package because it's not going to be able to cool that and you're not going to get the performance you, you need out of that particular system.
+
+152
+00:23:31,140 --> 00:23:31,920
+Michael Akira Lee Hayashi: That aside.
+
+153
+00:23:33,450 --> 00:23:33,870
+oops.
+
+154
+00:23:37,200 --> 00:23:49,140
+Michael Akira Lee Hayashi: Why would we paralyze program in the first place well like I said so that we can take advantage of the fact that modern processors basically cram a bunch of different independent processors into one package.
+
+155
+00:23:49,500 --> 00:24:05,790
+Michael Akira Lee Hayashi: And that means that if we have a cpu bound application that we can break up into a bunch of independent chunks, then we can maximize our performance, out of a given processor and save ourselves a lot of time, unfortunately, like I also like I mentioned.
+
+156
+00:24:06,930 --> 00:24:17,460
+Michael Akira Lee Hayashi: code doesn't come intrinsically paralyzed so we have to actually write that explicitly and it can be harder to write paralyzed code, because we have to do the heavy lifting of thinking about.
+
+157
+00:24:17,730 --> 00:24:33,120
+Michael Akira Lee Hayashi: How do I break up my application of my data, such that it does form independent chunks to shift off to all of the processing course sometimes too you don't always get the performance gains that you might like for a number of different reasons you won't necessarily attain that like.
+
+158
+00:24:34,650 --> 00:24:37,680
+Michael Akira Lee Hayashi: Total time divided by the number of cores improved.
+
+159
+00:24:38,730 --> 00:24:45,030
+Michael Akira Lee Hayashi: A lot of the reason for this can actually be a memory bound problem, one of the secret things that happens here is, if you send.
+
+160
+00:24:45,330 --> 00:24:52,410
+Michael Akira Lee Hayashi: If you send a bunch of jobs to a bunch of different cores well, you also have to send copies of the data or chunks at the data to each core.
+
+161
+00:24:52,830 --> 00:25:04,680
+Michael Akira Lee Hayashi: But when your systems done what does it have to do well, it has to take that data and put it back together, which means that it has to transfer those chunks of data from your processor back to memory, where Where do they get assemble.
+
+162
+00:25:05,310 --> 00:25:18,450
+Michael Akira Lee Hayashi: And if you have to do this, a lot if, for example, what you do is you send your data out you do a parallel calculation you send your data back you put it back together, then you send it out again and and back and forth you kind of randall Duke of York it then.
+
+163
+00:25:19,530 --> 00:25:31,800
+Michael Akira Lee Hayashi: you're you're imposing a surprising number of memory transfer operations right, so instead of just being able to shovel the data onto the processor, and let it chug on it until it's finished, if you force it to.
+
+164
+00:25:32,370 --> 00:25:38,040
+Michael Akira Lee Hayashi: paralyze pull things back together split up put it back together split up put it back together every iteration.
+
+165
+00:25:38,490 --> 00:25:48,810
+Michael Akira Lee Hayashi: Then you're going to incur a really big memory costs and memory time costs which might actually overwhelm the performance benefit that you got from parallelization in the first place.
+
+166
+00:25:49,080 --> 00:25:57,960
+Michael Akira Lee Hayashi: On one of the one of the covert software project I worked on, we ran into this because we're processing gigabytes of data every single day.
+
+167
+00:25:58,470 --> 00:26:08,280
+Michael Akira Lee Hayashi: And we're trying to make this process more efficient, so we parallelized some of the data analysis and processing of it, but we found that it actually took so much time to send out and reassemble the data.
+
+168
+00:26:08,580 --> 00:26:18,270
+Michael Akira Lee Hayashi: That we We walked some of the parallel ization back and didn't see any kind of major performance change because we were dealing with a particularly difficult problem.
+
+169
+00:26:19,200 --> 00:26:32,040
+Michael Akira Lee Hayashi: For a lot of for a lot of simulation modeling problems like running stochastic models or agent based models you do actually get a really big speed up because the case where you tend to get the best speed up is where you can send stuff to the processors.
+
+170
+00:26:32,550 --> 00:26:40,860
+Michael Akira Lee Hayashi: Let them percolate on it until they're done and then bring it back so if you think about a single simulation run as the thing you send out to a given core.
+
+171
+00:26:41,250 --> 00:26:54,030
+Michael Akira Lee Hayashi: That takes meaningful time to complete so that means that you can blast a bunch of these out for your cores out to your course wait for them to all finished and then bring it back and in expectation, the transfer time and the reassembly time for the data if.
+
+172
+00:26:54,780 --> 00:27:09,540
+Michael Akira Lee Hayashi: it's going to be well less than the actual computation time for the operations and that's often a rule of thumb is if it takes me longer to transfer data to the processors than it does for a given processor, to finish working on a particular task.
+
+173
+00:27:09,960 --> 00:27:19,110
+Michael Akira Lee Hayashi: Then i've probably got a memory bound problem and parallel ization is not going to take me out of that hole where if the thing that I send it to cpu takes a while to run on the cpu.
+
+174
+00:27:19,500 --> 00:27:24,930
+Michael Akira Lee Hayashi: Then that's probably a task that cpu bound, and I might be able to get performance gains from paralyzing it.
+
+175
+00:27:26,850 --> 00:27:33,690
+Michael Akira Lee Hayashi: There are multiple types of parallelization if you look up coursework on and like introductory things on parallel ization you'll see.
+
+176
+00:27:34,140 --> 00:27:41,130
+Michael Akira Lee Hayashi: two kinds described there's thread based and process based parallel ization and more or less the only distinction is.
+
+177
+00:27:42,030 --> 00:27:47,910
+Michael Akira Lee Hayashi: How small a number of calculations are getting bundled up and sent out to a given core.
+
+178
+00:27:48,210 --> 00:28:03,870
+Michael Akira Lee Hayashi: So thread based parallel ization sends out clusters of operations were an operation is like plus minus times equals if then right it's it's a small operation that you that defines a single mathematical calculation.
+
+179
+00:28:05,190 --> 00:28:09,270
+Michael Akira Lee Hayashi: process based parallel ization is basically like taking.
+
+180
+00:28:09,900 --> 00:28:12,330
+Michael Akira Lee Hayashi: One copy of your whole Program.
+
+181
+00:28:12,660 --> 00:28:21,600
+Michael Akira Lee Hayashi: and sending it to a core so instead of breaking that program down into little operation chunks like let's take these five multiple locations and send them to one core.
+
+182
+00:28:21,780 --> 00:28:30,960
+Michael Akira Lee Hayashi: These for addition send it to another core instead we say i'm going to send one simulation run to one core another simulation run to another core and so on.
+
+183
+00:28:31,230 --> 00:28:40,650
+Michael Akira Lee Hayashi: So process based parallel ization essentially executes larger chunks of code in parallel across your processors, as opposed to really small chunks.
+
+184
+00:28:41,610 --> 00:28:48,870
+Michael Akira Lee Hayashi: Batch processing is more or less another term for parallel processing where you send multiple copies of one job all at once.
+
+185
+00:28:49,080 --> 00:28:57,720
+Michael Akira Lee Hayashi: And those get distributed so a way you can kind of secretly or stupidly paralyze maybe would be if you opened five separate.
+
+186
+00:28:58,020 --> 00:29:08,580
+Michael Akira Lee Hayashi: Instances of our studio and ran your analysis and each of those, this is actually secretly a process based parallel workflow because each of those instances of our studio.
+
+187
+00:29:08,790 --> 00:29:18,300
+Michael Akira Lee Hayashi: is running in its own space in memory and on the processor, and each time you each one of those more or less gets allocated a core So if you really wanted.
+
+188
+00:29:18,630 --> 00:29:25,410
+Michael Akira Lee Hayashi: You could start up however many instances of our studio you wanted on your system up to the number of cores your computer has.
+
+189
+00:29:26,250 --> 00:29:37,170
+Michael Akira Lee Hayashi: And then you could run a thing I need you, I don't recommend that, because that is monumentally cumbersome to solve a problem but probably shouldn't be that cumbersome, but it is possible, the less stupid version of this is.
+
+190
+00:29:38,040 --> 00:29:41,160
+Michael Akira Lee Hayashi: If you have a script that you run through the command line.
+
+191
+00:29:41,730 --> 00:29:48,690
+Michael Akira Lee Hayashi: You can start multiple iterations of that script right, like you, you start six terminal windows and you run one of them in each and.
+
+192
+00:29:49,020 --> 00:30:00,120
+Michael Akira Lee Hayashi: That actually paralyzed because each of those is running on one court, and as long as you're not using up all of the rest of your system resources, you are probably actually going to see a total performance gain because.
+
+193
+00:30:00,480 --> 00:30:05,070
+Michael Akira Lee Hayashi: You have effectively broken your problem down into smaller chunks, each of which is running on a core.
+
+194
+00:30:07,230 --> 00:30:19,800
+Michael Akira Lee Hayashi: So in our there are a few different ways to paralyze so one of the core packages is called parallel which basically isn't isn't API that that gives an interface to do.
+
+195
+00:30:21,360 --> 00:30:25,830
+Michael Akira Lee Hayashi: process based parallel ization a lot of the High Level languages that we work with.
+
+196
+00:30:26,550 --> 00:30:33,690
+Michael Akira Lee Hayashi: tend to do process based parallel ization because thread based parallel ization means you need more granular control over.
+
+197
+00:30:33,930 --> 00:30:45,930
+Michael Akira Lee Hayashi: Over the cpu and memory and things so like Python doesn't allow you to do thread based parallel ization at all, you might be able to hack it in our if you really wanted to, but for for almost all intents and purposes.
+
+198
+00:30:46,350 --> 00:31:04,110
+Michael Akira Lee Hayashi: We don't really need to do that, like thread based parallel ization is kind of a final stage optimization phone you got want to get really crunchy and like aggressively dig into the like bottlenecks near code and write it in something like C word or something low level like that.
+
+199
+00:31:05,610 --> 00:31:07,230
+Michael Akira Lee Hayashi: are also has a couple of.
+
+200
+00:31:08,340 --> 00:31:08,640
+Michael Akira Lee Hayashi: Of.
+
+201
+00:31:09,720 --> 00:31:21,000
+Michael Akira Lee Hayashi: packages, so the main one that I think is really useful as this for each package, this is basically a replacement or an equivalent replacement for a for loop which.
+
+202
+00:31:21,810 --> 00:31:30,300
+Michael Akira Lee Hayashi: process based paralyzes every iteration of that forward so for loops are often good cases for parallel section, because each iteration of the for loop.
+
+203
+00:31:30,600 --> 00:31:37,950
+Michael Akira Lee Hayashi: may not actually depend on any other one sometimes they do right sometimes sometimes integration of a for loop does look at what happened before it.
+
+204
+00:31:38,670 --> 00:31:44,760
+Michael Akira Lee Hayashi: And so you can't you can't quite break that up, but sometimes if you're if you're parallel ization or if your.
+
+205
+00:31:45,180 --> 00:31:56,040
+Michael Akira Lee Hayashi: application is like just run my stochastic simulation 150 times and then average them well what I do is right, for I am one to 150 run the simulation.
+
+206
+00:31:56,340 --> 00:32:00,360
+Michael Akira Lee Hayashi: and none of those depend on each other, so I could use the for each package to make.
+
+207
+00:32:01,200 --> 00:32:11,100
+Michael Akira Lee Hayashi: A paralyzed simulation this uses the do parallel back end which is just like again that's an interface between are in your computer to tell your computer hey.
+
+208
+00:32:11,580 --> 00:32:17,430
+Michael Akira Lee Hayashi: When you see this for each syntax treat that as process based parallelism and distribute texts.
+
+209
+00:32:18,270 --> 00:32:36,360
+Michael Akira Lee Hayashi: So these four H is nice because it's really easy to use in your existing workflows because it basically looks like like a for loop and Murcia imagine us your code gets at some of these so will, this will be a good segue once once a once I shut up here for a bit.
+
+210
+00:32:38,340 --> 00:32:44,280
+Michael Akira Lee Hayashi: But most land so so some languages will include personalization functionality.
+
+211
+00:32:44,520 --> 00:32:57,150
+Michael Akira Lee Hayashi: In kind of the base language so Python has a multi processing package that just part of its like based language specification for are these are third party packages that have been written as some of these I think are third party one parallel might be intrinsic to our these days.
+
+212
+00:32:58,980 --> 00:33:01,890
+Michael Akira Lee Hayashi: matlab, for example, has a parallel computation package.
+
+213
+00:33:03,120 --> 00:33:16,890
+Michael Akira Lee Hayashi: One further complication is that I I said earlier that your gpu is basically just good for pushing pixels that's kind of old a modern graphics card can actually do a whole lot more than that modern graphics card is actually a really good matrix processor.
+
+214
+00:33:17,880 --> 00:33:21,720
+Michael Akira Lee Hayashi: And they can do a surprising amount of general purpose processing now.
+
+215
+00:33:23,340 --> 00:33:38,010
+Michael Akira Lee Hayashi: So you may also find that, as you get more into this and, as you get more computationally able, you might run into occasional coding problems where you can get an incredible speed up by pushing the thing to the graphics card.
+
+216
+00:33:39,120 --> 00:33:47,940
+Michael Akira Lee Hayashi: Because if if what your thing is, is to do a crap load of matrix multiplication like say you have a market model with a big matrix.
+
+217
+00:33:48,270 --> 00:34:00,480
+Michael Akira Lee Hayashi: And you want to you want to interactively solve for the stationary distribution of Markov model well that's a matrix vector multiplication but a matrix vector multiplication is an operation that a gpu is really fast.
+
+218
+00:34:00,900 --> 00:34:06,540
+Michael Akira Lee Hayashi: So if you need to do like 300 of those, then you might actually be able to get.
+
+219
+00:34:06,870 --> 00:34:19,980
+Michael Akira Lee Hayashi: an even bigger speed up by paralyzing those to the graphics card as opposed to paralyzing them traditionally on the cpu so sometimes this additional processor can be an extra resource to keep in mind.
+
+220
+00:34:20,400 --> 00:34:31,440
+Michael Akira Lee Hayashi: Some of the obvious applications are things like image processing, because they are almost literally designed to do that so as you might imagine they're very fast at working their way through.
+
+221
+00:34:32,220 --> 00:34:43,650
+Michael Akira Lee Hayashi: An image file, which is just a grid of numbers, basically, but some some languages will also have packages that allow you to interface with the graphics card, if your computer has a discrete one.
+
+222
+00:34:45,330 --> 00:34:56,100
+Michael Akira Lee Hayashi: matlab has one I think are had R and Python both have ways, you can shim graphics card programming and, and this is further complicated programming because sending data.
+
+223
+00:34:56,340 --> 00:35:04,110
+Michael Akira Lee Hayashi: to and from your main system to the graphics card is its own little task, like the graphics card is almost like a mini computer on its own, it has its own memory.
+
+224
+00:35:04,290 --> 00:35:11,280
+Michael Akira Lee Hayashi: So you have to move stuff from system memory, to the processor, the graphics memory, to the graphics cores and back and forth, so you can.
+
+225
+00:35:11,850 --> 00:35:23,190
+Michael Akira Lee Hayashi: you're you're like computational analysis of your thing gets more complicated because you have to figure out if you get yourself bottlenecks between your system and the graphics processor, you also have to start, you have to.
+
+226
+00:35:23,940 --> 00:35:31,620
+Michael Akira Lee Hayashi: interface with more complicated programming api's like the general purpose gpu programming api's just tend to be partner to work with them.
+
+227
+00:35:32,100 --> 00:35:39,930
+Michael Akira Lee Hayashi: Some of the stuff that will see here so that is to say when you're thinking about performance enhancements for your code, you often want to balance.
+
+228
+00:35:40,380 --> 00:35:50,970
+Michael Akira Lee Hayashi: What can I do quickly and easily that will get me a big speed up versus am I going to end up wasting a lot of time doing optimization that I could have just spent waiting for a run to come in, if i'd been a little more patient so.
+
+229
+00:35:51,780 --> 00:36:05,280
+Michael Akira Lee Hayashi: Like I often there are certain use cases were all default to parallel ization because I just I know they're going to be really slow, I know I already have code to do the parallel ization, so why not and there's others where i'm like no.
+
+230
+00:36:07,140 --> 00:36:17,220
+Michael Akira Lee Hayashi: i'm going to write a serial process first and then paralyzed at once, I get frustrated with how long it takes after i've demonstrated that it works and that's that's usually my workflow.
+
+231
+00:36:19,620 --> 00:36:25,080
+Michael Akira Lee Hayashi: There are, I found a couple of sites that I liked that have kind of.
+
+232
+00:36:26,310 --> 00:36:28,230
+Michael Akira Lee Hayashi: different degrees of of.
+
+233
+00:36:29,670 --> 00:36:46,200
+Michael Akira Lee Hayashi: of notes about parallel processing, so I think these are fun to check out they think they come at the parallel processing question different ways this one this particular site focuses on using our so for people who develop Stockholm syndrome about our than you can you can use this.
+
+234
+00:36:47,940 --> 00:36:49,950
+Michael Akira Lee Hayashi: Similarly, this is also an our thing with.
+
+235
+00:36:51,300 --> 00:37:02,640
+Michael Akira Lee Hayashi: With more with like a little bit more code examples and a couple different methods of of parallelization using our packages, so if one of these doesn't work for your brain the other one might.
+
+236
+00:37:03,240 --> 00:37:10,200
+Michael Akira Lee Hayashi: expect I find that's often the way it is learning programming sometimes one presentation of a topic works, particularly well and other one doesn't.
+
+237
+00:37:12,000 --> 00:37:16,620
+Michael Akira Lee Hayashi: So use us what use what makes most sense to you.
+
+238
+00:37:19,170 --> 00:37:27,780
+Michael Akira Lee Hayashi: Before we before we do the DEMO or talk through a little bit more of when they're when you might have good use cases for power, a little is parallelization.
+
+239
+00:37:28,950 --> 00:37:42,420
+Michael Akira Lee Hayashi: i'm usually you can expect to speed up when you need to do some computationally intensive tasks a bunch of times like if you actually needed to calculate a convenient oryx term like and use them.
+
+240
+00:37:43,110 --> 00:37:57,180
+Michael Akira Lee Hayashi: that's a computationally intensive tasks, and if you have to do it a lot, and you can't avoid it, you should probably paralyzed that you should send each and choose em calculation to a separate course that they can chug on it before you get your answer back.
+
+241
+00:37:58,410 --> 00:38:08,160
+Michael Akira Lee Hayashi: Moreover, you while you can paralyze code, where the chunks depend on each other, and you can make them talk to each other, and you can transfer data.
+
+242
+00:38:08,520 --> 00:38:15,900
+Michael Akira Lee Hayashi: This is obviously a much more complicated programming problem and you sometimes accidentally bottle your bottleneck yourself, because if.
+
+243
+00:38:16,290 --> 00:38:26,670
+Michael Akira Lee Hayashi: If what if the chunks of the program that you sent to each co core have to talk to each other well now you got to wait for them to talk to each other and you better hope that they complete.
+
+244
+00:38:27,210 --> 00:38:38,760
+Michael Akira Lee Hayashi: In in kind of similar amounts of time so that it's not that one is waiting a long time for another one to actually transfer data it's a slow fast Walker problem right you're a fast talker and you're often with the slow Walker.
+
+245
+00:38:39,840 --> 00:38:46,920
+Michael Akira Lee Hayashi: You have to slow yourself down so that the slow after doesn't yell at you and that's that can happen if you have to transfer data between cores.
+
+246
+00:38:49,260 --> 00:38:56,880
+Michael Akira Lee Hayashi: Another thing to often keep in mind is that in almost every high level language, a for loop or a while loop those looping constructs are slow.
+
+247
+00:38:57,240 --> 00:39:08,790
+Michael Akira Lee Hayashi: They do not execute fast at all, so they will often create performance bottlenecks, when you profile your runtime and you'll see like I spent this amount of time just.
+
+248
+00:39:09,150 --> 00:39:23,940
+Michael Akira Lee Hayashi: Calling the for loop itself like like calling the bits of code that make the for loop go independent of anything else in that loop So if you have a lot of for loops in your code, if you have nested for loops if you have for loops especially to do one of these things.
+
+249
+00:39:25,110 --> 00:39:29,130
+Michael Akira Lee Hayashi: you're probably going to get a speed up from parallel ization and almost certainly going to be worth it.
+
+250
+00:39:30,060 --> 00:39:33,390
+Michael Akira Lee Hayashi: I did mention that you can bump into some unexpected problems like.
+
+251
+00:39:33,900 --> 00:39:43,260
+Michael Akira Lee Hayashi: If you if you're trying to transfer an enormous amount of data back and forth a lot through the personalization process well you're going to get yourself memory bound and you're not really going to see performance gains.
+
+252
+00:39:43,590 --> 00:39:54,630
+Michael Akira Lee Hayashi: another kind of awkward problem can happen if you are working with a big data set and you have to make a bunch of copies of that data set in order to paralyze your work so suppose I have an eight gigabyte data set.
+
+253
+00:39:54,990 --> 00:40:01,260
+Michael Akira Lee Hayashi: which you can get, if you like, a sufficiently big three dimensional image or a sufficiently big genomic data sets going to be bigger than that even.
+
+254
+00:40:02,820 --> 00:40:10,050
+Michael Akira Lee Hayashi: What happens if I need to perform a calculation, on the whole data set multiple times and I want to paralyze that well.
+
+255
+00:40:10,680 --> 00:40:15,870
+Michael Akira Lee Hayashi: In order to process based paralyzed this thing i've got to send the instructions for the work.
+
+256
+00:40:16,170 --> 00:40:28,830
+Michael Akira Lee Hayashi: And a full copy of the data set to every core i've got a stream those in so how much data do I have to start in memory now well, if I have two cores and I have an eight gig data set now I need to store 16 gigabytes of data.
+
+257
+00:40:29,250 --> 00:40:39,630
+Michael Akira Lee Hayashi: If I have four cores and an eight gig data set, and that is 32 gigs of data and so on, so the scaling of the amount of data stored can explode really quick and.
+
+258
+00:40:39,840 --> 00:40:47,490
+Michael Akira Lee Hayashi: I don't know about you, but even big computers often don't have more than like 16 to 32 gigs of memory, so if you're working on a big data set that you have to.
+
+259
+00:40:47,760 --> 00:40:57,990
+Michael Akira Lee Hayashi: That you might have to make copies of in order to paralyze, then you should be prepared to bump into a another kind of memory bound problem or.
+
+260
+00:40:58,410 --> 00:41:05,280
+Michael Akira Lee Hayashi: You might need to know that you need to get a computational resource that has more memory, this also happened to the coven project, I was working on.
+
+261
+00:41:05,700 --> 00:41:13,350
+Michael Akira Lee Hayashi: In the process of paralyzing our work, we ran into exactly the same problem we had to distribute about four gigs of data for every.
+
+262
+00:41:13,740 --> 00:41:23,400
+Michael Akira Lee Hayashi: chunk that we that we ran and a little bit more than that because there's additional overhead when the thing calculates output table and all that stuff so you not only have to consider the size of the input table.
+
+263
+00:41:23,580 --> 00:41:27,120
+Michael Akira Lee Hayashi: But the size of the output data as well, when you think about this kind of memory dump.
+
+264
+00:41:27,840 --> 00:41:37,980
+Michael Akira Lee Hayashi: And while it might seem very impressive to have 64 cores and 128 gigabytes of Ram on a system well how much Ram does each core get.
+
+265
+00:41:38,520 --> 00:41:47,370
+Michael Akira Lee Hayashi: Two gigabytes and that isn't going to cut it if your data on its own, as four gigs you're going to consume the entire system memory and then crash your process so.
+
+266
+00:41:47,610 --> 00:42:00,450
+Michael Akira Lee Hayashi: Sometimes you can also encounter an awkward problem where you've got scads of cores in your computer, but not enough memory per core to actually get fully efficient parallel ization so.
+
+267
+00:42:01,890 --> 00:42:09,630
+Michael Akira Lee Hayashi: You want to you want to kind of keep these things in mind and keep the balance of these things in mind when you're thinking about do I want to try to paralyze it given Program.
+
+268
+00:42:10,050 --> 00:42:16,920
+Michael Akira Lee Hayashi: Sometimes to adding another core is not going to get you that linear speed up for adding another core for a number of reasons.
+
+269
+00:42:17,130 --> 00:42:24,750
+Michael Akira Lee Hayashi: Part of it is that modern processors are much more complex things than they used to be modern systems are much more complex things and they used to be.
+
+270
+00:42:25,020 --> 00:42:35,730
+Michael Akira Lee Hayashi: Sometimes, adding more cores can create a memory bound problem, sometimes on a lot of computers, now they will report effectively doubled the numbers, of course, then they have because they do a thing called.
+
+271
+00:42:36,570 --> 00:42:46,380
+Michael Akira Lee Hayashi: Intel called hyper threading it's a kind of it's a kind of multi threading implementation on the processor that tries to make a single processor act like more than one.
+
+272
+00:42:47,220 --> 00:42:55,140
+Michael Akira Lee Hayashi: But isn't really like what it takes advantage of is the fact that a modern core can actually do more than one calculation at once a modern core can do like eight to 16.
+
+273
+00:42:55,800 --> 00:43:04,260
+Michael Akira Lee Hayashi: edition operations at once, so if you're not using all of those it can take all those other ones and let them do something else.
+
+274
+00:43:04,860 --> 00:43:11,460
+Michael Akira Lee Hayashi: And to your operating system, this will look like you have doubled the course and the processor will report itself is having doubled course but.
+
+275
+00:43:11,910 --> 00:43:17,310
+Michael Akira Lee Hayashi: If I have a system that has for physical cores and for logical cores.
+
+276
+00:43:18,210 --> 00:43:26,760
+Michael Akira Lee Hayashi: After I split my program into for each additional core that I use is going to be using those kind of fake logical cores.
+
+277
+00:43:27,120 --> 00:43:39,150
+Michael Akira Lee Hayashi: And i'm not actually going to get the same degree of speed up and at some point, if I consume all of the physical and logical course I might actually see worse performance, because now i'm running all of my cores really hot.
+
+278
+00:43:39,420 --> 00:43:51,210
+Michael Akira Lee Hayashi: Which means they slow down, so they don't cook themselves so when you're when you're implementing your power parallelization you want to have some understanding of kind of the.
+
+279
+00:43:51,630 --> 00:44:00,630
+Michael Akira Lee Hayashi: The architectural nature of the computer you're running on as well as doing some benchmarking to see if I split my thing into for.
+
+280
+00:44:01,080 --> 00:44:08,670
+Michael Akira Lee Hayashi: How much faster is that if I split it into eight how much faster, is it and so on, and often what i'll do is i'll look at the maximum number of physical cores on a system.
+
+281
+00:44:09,030 --> 00:44:16,770
+Michael Akira Lee Hayashi: And i'll start by throwing that many processes at it if i've got a 64 core system i'm going to throw 64 processes at it and i'll do that.
+
+282
+00:44:17,160 --> 00:44:32,730
+Michael Akira Lee Hayashi: Then i'll scale it back to like 32 and then 16 and eight and i'll look at how the time skills as i've added or removed processors and try to give myself a feel for where is my best balance of performance there like where do I actually get the highest speed up so.
+
+283
+00:44:34,020 --> 00:44:40,680
+Michael Akira Lee Hayashi: It can help to develop a certain amount of literacy surrounding what computer you're actually running things on is it.
+
+284
+00:44:40,920 --> 00:44:51,960
+Michael Akira Lee Hayashi: Is it a laptop it's using a mobile processor, which tend to be particularly power efficiency optimized is it a server that's using big server class processors, which are literally designed to run long and hot.
+
+285
+00:44:52,320 --> 00:45:03,870
+Michael Akira Lee Hayashi: For years, at a time constantly under load, is it something in between, is it like a gaming optimized processor that's that's designed to make one of its core is hot and fast, but not really put a lot on the others.
+
+286
+00:45:04,530 --> 00:45:14,460
+Michael Akira Lee Hayashi: This gets axed this becomes more complicated, with new new technology, like if any of you have Max that have the one or two processors for one.
+
+287
+00:45:14,880 --> 00:45:19,320
+Michael Akira Lee Hayashi: Incredible architecture really, really cool really, really fast really power efficient.
+
+288
+00:45:19,980 --> 00:45:27,690
+Michael Akira Lee Hayashi: But also kind of weird because I said I said a modern processor is basically like having a bunch of independent processors glued together.
+
+289
+00:45:28,530 --> 00:45:32,730
+Michael Akira Lee Hayashi: Things like the M one and some of the new Intel processors that have come out are like that.
+
+290
+00:45:33,150 --> 00:45:43,380
+Michael Akira Lee Hayashi: But not all the processors, are the same, they have a few cores that are big fast hop cores and then a bunch of course that are little slow cool cores and what those processes tried to do.
+
+291
+00:45:44,070 --> 00:45:57,930
+Michael Akira Lee Hayashi: Is is make the operating system send it performance tasks that go to the hot course the big ones and little tasks like background tasks and things like that go to the little course but.
+
+292
+00:45:58,680 --> 00:46:11,610
+Michael Akira Lee Hayashi: Again, the processor will report itself is having the maximum number of cores that it actually has to your system, so if your computer has an m one processor what it probably has is something like too fast cores and for slow ones, for example.
+
+293
+00:46:12,330 --> 00:46:23,400
+Michael Akira Lee Hayashi: So if you treat that as having six cores well for of the jobs, you just send are going to get sent a little slow course two of them are going to go too fast ones, and that means that you have the fast and slow Walker problem.
+
+294
+00:46:23,760 --> 00:46:31,290
+Michael Akira Lee Hayashi: Your program time is largely going to be governed by the amount of time expense dithering about in the slow course instead of.
+
+295
+00:46:31,500 --> 00:46:39,900
+Michael Akira Lee Hayashi: Those big fast cores where, if you write something that's a little more optimized to try to only run on the fast course then you're going to see a better speed up so.
+
+296
+00:46:40,530 --> 00:46:50,220
+Michael Akira Lee Hayashi: Unfortunately, our world is even more complex, with regard to computational architecture, now that can mean that sometimes you start to get counter intuitive results when you implement parallel ization.
+
+297
+00:46:50,460 --> 00:46:57,390
+Michael Akira Lee Hayashi: And sometimes even you even get some weird results when you implement parallelization and fairly controlled conditions like when I did this DEMO.
+
+298
+00:46:57,540 --> 00:47:07,800
+Michael Akira Lee Hayashi: For the T corps folks it was rather embarrassing because some of my examples are actually meaningfully slower and it was because they were getting memory and execution bottlenecks, instead of cpu bottleneck because.
+
+299
+00:47:08,550 --> 00:47:19,710
+Michael Akira Lee Hayashi: I had literally so many cores at my disposal that they could complete a calculation stupidly fast relative to the transfer time so that was that ended up being.
+
+300
+00:47:20,400 --> 00:47:28,380
+Michael Akira Lee Hayashi: A good demonstration of some of the caveats and this surprisingly awkward demonstration of the actual performance improvements here so um.
+
+301
+00:47:29,340 --> 00:47:40,650
+Michael Akira Lee Hayashi: I have, I have thoughts about usage cases for parallel ization and a bunch of different areas, but I think this is a good time to shut up and pass things off to marissa so we can look at some some examples of parallel execution.
+
+302
+00:47:41,340 --> 00:47:45,990
+Marisa Eisenberg: awesome yeah yeah no I mean whatever so that they examples are super simple um.
+
+303
+00:47:46,080 --> 00:47:46,650
+Michael Akira Lee Hayashi: I have.
+
+304
+00:47:46,920 --> 00:47:54,930
+Marisa Eisenberg: I can, I can show some stuff here, let me see so um I actually I wonder.
+
+305
+00:47:56,280 --> 00:47:57,930
+Marisa Eisenberg: wonder if it would be worthwhile.
+
+306
+00:47:59,190 --> 00:48:13,500
+Marisa Eisenberg: To I have a couple of examples in our I have some more examples in Python I like wonder slightly if it be worthwhile to do a little bit of both and just because you know you may find for a lot of the agent based modeling stuff I know the class has been in our but.
+
+307
+00:48:14,640 --> 00:48:31,380
+Marisa Eisenberg: yeah I Michael i've been as i've been doing a vm stuff and things like that i've been doing a lot of examples in Python anyway, just because that's where I have them, and so you know any help so so so maybe we'll do a little bit of both um so let me see here, so the.
+
+308
+00:48:31,560 --> 00:48:34,350
+Michael Akira Lee Hayashi: One day i'll get this class to be taught in Python.
+
+309
+00:48:34,710 --> 00:48:39,030
+Marisa Eisenberg: hahaha i'm not opposed, I mean a lot of the stuff I already.
+
+310
+00:48:39,090 --> 00:48:40,200
+Michael Akira Lee Hayashi: Have in both okay to be.
+
+311
+00:48:40,200 --> 00:48:40,860
+Michael Akira Lee Hayashi: Honest it's.
+
+312
+00:48:41,070 --> 00:48:45,930
+Michael Akira Lee Hayashi: Just the only language that does everything in this course in itself.
+
+313
+00:48:46,380 --> 00:48:53,340
+Marisa Eisenberg: yeah yeah yeah it's true, I mean you can do everything in this course in our it's just not always the most convenient way to do it and.
+
+314
+00:48:53,610 --> 00:48:54,150
+Michael Akira Lee Hayashi: I, and I.
+
+315
+00:48:54,330 --> 00:48:57,240
+Michael Akira Lee Hayashi: cut a carrot with a spoon but I don't really want to do that.
+
+316
+00:48:58,920 --> 00:49:03,270
+Marisa Eisenberg: Well Okay, maybe, yes, this is true, I I don't I find.
+
+317
+00:49:03,420 --> 00:49:07,680
+Marisa Eisenberg: I don't know I don't have a strong preference between the two, really, but there are certain things that are.
+
+318
+00:49:08,070 --> 00:49:15,270
+Marisa Eisenberg: easier in Python I one thing I did want to also just note Michael talked about this briefly, but I just wanted to kind of like.
+
+319
+00:49:15,870 --> 00:49:24,120
+Marisa Eisenberg: be a reminder, sometimes we get a little too caught up in I can get a five X speed up if I do this or I can you know I can.
+
+320
+00:49:24,420 --> 00:49:28,830
+Marisa Eisenberg: Be thoughtful about which parts of your code are actually taking the time to run.
+
+321
+00:49:29,160 --> 00:49:40,380
+Marisa Eisenberg: And because it may be that a two X speed up on the worst part is actually more helpful than a five X beat up on the part that's not really taking that long, to begin with right, and especially when you account for sort of.
+
+322
+00:49:40,860 --> 00:49:49,860
+Marisa Eisenberg: how long it takes for us as Derby humans to figure out how to make the parallel citation work and code it up and get it to run.
+
+323
+00:49:50,160 --> 00:50:02,130
+Marisa Eisenberg: You know that, like there's that as an overhead to all of that time spent coding your parallelization and getting it to behave with like a gpu or whatever could also be spent just letting the thing run in the background right and so.
+
+324
+00:50:02,790 --> 00:50:17,310
+Marisa Eisenberg: You know so just I find sometimes that if you're like me, you can get a little obsessed with optimization in a way that then is maybe not as useful as just getting the job done and So yes, I thought that might be something useful to mention.
+
+325
+00:50:18,210 --> 00:50:25,350
+Michael Akira Lee Hayashi: To add on really quickly to I think when writing code like Melissa said, it is really easy to get hung up on specific components of writing.
+
+326
+00:50:25,590 --> 00:50:33,810
+Michael Akira Lee Hayashi: A program and whether that's optimization or different ways of implementing a specific thing, and I think my guiding principle is always.
+
+327
+00:50:34,920 --> 00:50:42,690
+Michael Akira Lee Hayashi: When I when I start to feel like i'm going down into those to kind of slap myself and be like no write something that works first.
+
+328
+00:50:42,870 --> 00:50:47,820
+Michael Akira Lee Hayashi: Go back and fix it later, but make it work to start with, because.
+
+329
+00:50:48,030 --> 00:50:56,400
+Michael Akira Lee Hayashi: I don't always i'm not always good at predicting where my bottlenecks, are going to be either so if i'm trying to architect, the thing all the way at the start to be the most efficient thing possible.
+
+330
+00:50:56,610 --> 00:51:04,170
+Michael Akira Lee Hayashi: Well, to be honest i'm probably going to do a terrible job of it because i'll miss a thing that I should have thought about that actually bottlenecks my thing.
+
+331
+00:51:04,410 --> 00:51:11,700
+Michael Akira Lee Hayashi: Where if I just written it then run it profile the execution time to see where it's actually slowing down.
+
+332
+00:51:12,300 --> 00:51:16,020
+Michael Akira Lee Hayashi: I probably would have saved myself time and hassle through that whole process so.
+
+333
+00:51:16,350 --> 00:51:28,110
+Michael Akira Lee Hayashi: try not to get bogged down on like Oh, I could do this thing a little bit better right make it work, you can come back and fix your web sees later you're never gonna like anything that you write, but right like I hate everything that I write.
+
+334
+00:51:28,290 --> 00:51:33,840
+Michael Akira Lee Hayashi: with very few exceptions, I hate everything that I make with very few exceptions, because there's always something wrong with it, but.
+
+335
+00:51:35,670 --> 00:51:37,320
+Marisa Eisenberg: At least you get it done yeah exactly.
+
+336
+00:51:37,890 --> 00:51:38,490
+Rishi Chanderraj: yeah yeah.
+
+337
+00:51:38,940 --> 00:51:42,630
+Rishi Chanderraj: So going into like a process that you're going to do, is it.
+
+338
+00:51:42,750 --> 00:51:43,470
+Rishi Chanderraj: Is it like.
+
+339
+00:51:44,610 --> 00:51:57,060
+Rishi Chanderraj: You do know beforehand Okay, like, I know that this part of the based on you know what the sooner, you know, like what the math actually is this part will be slower than that part or do you just.
+
+340
+00:51:57,810 --> 00:52:06,180
+Rishi Chanderraj: Put it together and then and then benchmark it and see and just just look and see where where it's slow down like do you guys have a sense of.
+
+341
+00:52:06,210 --> 00:52:19,530
+Marisa Eisenberg: A bit of both yeah you build you build an intuition of like you, you get used to like Okay, yes, this the odd part is going to run fast the stochastic model part is going to be slows balls like you gotta you get sorry but.
+
+342
+00:52:19,830 --> 00:52:25,410
+Marisa Eisenberg: You get used to like kind of what pieces are going to typically be slow and.
+
+343
+00:52:26,070 --> 00:52:31,680
+Marisa Eisenberg: And you even get used to like okay if you're running an odd with the following kinds of properties that's going to run slow to.
+
+344
+00:52:31,860 --> 00:52:40,620
+Marisa Eisenberg: Like you'll as you work on a lot of these models you build an intuition, for which things are going so, but then you also definitely want to benchmark sometimes there are surprising things.
+
+345
+00:52:40,890 --> 00:52:50,730
+Marisa Eisenberg: It turns out that the odd piece that you thought was fast is running in a region of parameter space where the system is stiff, and so the differential equation like solver.
+
+346
+00:52:51,330 --> 00:53:03,180
+Marisa Eisenberg: takes a long time, and many steps for it to integrate so then Okay, I thought that was gonna be the best part but I guess not like you know, so you do a lot of benchmarking too so it's kind of a bit of both.
+
+347
+00:53:03,900 --> 00:53:11,130
+Michael Akira Lee Hayashi: And there are there are some tasks, but as you as you gain familiarity with writing them, and if you take.
+
+348
+00:53:11,610 --> 00:53:22,830
+Michael Akira Lee Hayashi: If you expose yourself to more like sort of computer science II coursework you will often see that specific things are known to be fast or slow, depending on the application right so.
+
+349
+00:53:24,030 --> 00:53:38,790
+Michael Akira Lee Hayashi: So, like sorting things sorting a list of things different implementations of sorting are faster or slower and usually, when you're when you call a sorting function it's trying to implement a fast version of that so there's some things where.
+
+350
+00:53:39,420 --> 00:53:45,960
+Michael Akira Lee Hayashi: If you see if you if you see a particular line of code or you see a particular thing like you see a matrix multiplication right you're like oh.
+
+351
+00:53:46,200 --> 00:53:57,630
+Michael Akira Lee Hayashi: I know how this scales right, this is an n cubed, this is no n cubed operation, so this is it's not the fastest in the world it's not the slowest in the world if I see a convenient torques term i'm like that slow.
+
+352
+00:53:57,960 --> 00:53:59,280
+Michael Akira Lee Hayashi: If I see a for loop that's.
+
+353
+00:53:59,340 --> 00:54:06,120
+Michael Akira Lee Hayashi: chock full of random number draws that slow, so you you build experience, both through.
+
+354
+00:54:07,320 --> 00:54:12,330
+Michael Akira Lee Hayashi: Like profiling your own work, but also kind of doing a little bit of due diligence to dig into.
+
+355
+00:54:13,110 --> 00:54:27,930
+Michael Akira Lee Hayashi: Is the particular operation i'm trying to do intrinsically fast or slow and yeah and some of this is so, this is kind of wrote knowledge right like a good sorting algorithms are, I want to say log n in time they're they're actually really fast.
+
+356
+00:54:29,160 --> 00:54:36,990
+Michael Akira Lee Hayashi: Were matrix multiplication or n cubed solving a linear regression is roughly an n cubed operation because it's a it's more or less than matrix.
+
+357
+00:54:37,230 --> 00:54:38,550
+Marisa Eisenberg: matrix operation really.
+
+358
+00:54:39,090 --> 00:54:46,290
+Michael Akira Lee Hayashi: yeah a lot of statistical models are secretly effectively matrix operations, so they will tend to be kind of an qb.
+
+359
+00:54:47,820 --> 00:54:49,470
+Michael Akira Lee Hayashi: Up to exponential in time.
+
+360
+00:54:50,850 --> 00:54:53,520
+Michael Akira Lee Hayashi: Markov chain Monte Carlo is slow.
+
+361
+00:54:54,060 --> 00:54:55,080
+Really slowly.
+
+362
+00:54:56,310 --> 00:55:07,410
+Marisa Eisenberg: yeah yeah I mean you build up you build up the intrusion, you also build up like things that you know you should like little things that you know, will give you a little bit of a speed up so like, for instance.
+
+363
+00:55:08,100 --> 00:55:16,350
+Marisa Eisenberg: I use a lot I do a lot of quests on maximum likelihood because it's a lot of count data that I work with right numbers of people numbers of cases that kind of thing.
+
+364
+00:55:16,650 --> 00:55:24,000
+Marisa Eisenberg: And so I know that, while I could count calculate my likelihood using the default deep was that's built into our.
+
+365
+00:55:24,360 --> 00:55:32,610
+Marisa Eisenberg: intrinsic in the plus on is a bunch of factorial terms that are constants that you're just calculating again and again for nothing they don't give you anything.
+
+366
+00:55:32,910 --> 00:55:43,410
+Marisa Eisenberg: And so I will hand code my plus on instead because I want to drop that junk it's too it's it takes a long time to run and i'm going to be evaluating the likely that a bajillion times.
+
+367
+00:55:43,620 --> 00:55:51,480
+Marisa Eisenberg: And so there's like little things that you'll get used to like Okay, this will run faster if I do it this way and it, you know it's a lot of is just experience but.
+
+368
+00:55:51,570 --> 00:55:59,970
+Michael Akira Lee Hayashi: there's there's two very general things to that I think are almost always true performance wise one is that an explicit loop is going to be slower than.
+
+369
+00:56:00,180 --> 00:56:08,790
+Michael Akira Lee Hayashi: calling a function, which is implemented an implicit loop at a lower level language and what I mean by that is whenever Whenever someone says vector eyes in our right like.
+
+370
+00:56:09,120 --> 00:56:16,050
+Michael Akira Lee Hayashi: Inevitably, if you've worked with our you've heard someone talk about vector eyes to functions, what a vector is function is is basically a function.
+
+371
+00:56:16,500 --> 00:56:24,900
+Michael Akira Lee Hayashi: that's written like, if you look at the source code for that function there's a for loop in there and the for loop to iterate over the elements of the vector that you're working on.
+
+372
+00:56:25,260 --> 00:56:36,780
+Michael Akira Lee Hayashi: But why did the vector is functions perform better than an explicit for a loop that does the same thing, because the function itself was written in like fortran or C, and so the loop.
+
+373
+00:56:37,140 --> 00:56:45,060
+Michael Akira Lee Hayashi: goes really fast, because the loop is essentially compiled low level code, so those vector is functions will always.
+
+374
+00:56:45,420 --> 00:56:56,370
+Michael Akira Lee Hayashi: I would say, literally always work faster than an explicit loop Britain to perform the same task, and you want this is also someone asked a question earlier on about when do I write my own thing versus when do I use an existing package function.
+
+375
+00:56:56,850 --> 00:57:06,480
+Michael Akira Lee Hayashi: Performance can be one of those where if i'm like I know i'm going to need to write my own function with a bunch of explicit looping in order to do this, but I also know there's a package that has a function pre written.
+
+376
+00:57:07,260 --> 00:57:11,370
+Michael Akira Lee Hayashi: i'm probably going to use the package function because it's going to be more performance than my own.
+
+377
+00:57:11,700 --> 00:57:19,860
+Michael Akira Lee Hayashi: and, generally speaking, my own handwritten functions unless i'm writing them in a low level language and compiling them for use by that length by the higher level language.
+
+378
+00:57:20,670 --> 00:57:24,960
+Michael Akira Lee Hayashi: A language rich function written in pure are or pure Python is slow.
+
+379
+00:57:25,740 --> 00:57:33,390
+Michael Akira Lee Hayashi: And I and that much I always know whenever I write a custom function never write an object in Python with class methods for that object.
+
+380
+00:57:33,600 --> 00:57:47,430
+Michael Akira Lee Hayashi: I know that i'm taking a performance hit to do that so there's a few other bits like that to where like if you're writing your own function to do something, or if you're using an explicit loop, you know you're incurring a certain performance hit to do that yeah yeah yeah.
+
+381
+00:57:47,670 --> 00:57:52,830
+Marisa Eisenberg: And we even saw a couple of we didn't do the timing, but we saw a couple of examples on the very first day.
+
+382
+00:57:53,070 --> 00:58:01,350
+Marisa Eisenberg: When we had remember when we had some of those little media examples with for loops and if statements and stuff and then we wrote the like one line version that used a built in.
+
+383
+00:58:01,590 --> 00:58:09,420
+Marisa Eisenberg: function in our that was vector eyes, you know those will run faster than than the way we wrote it, you know in class.
+
+384
+00:58:10,410 --> 00:58:23,850
+Marisa Eisenberg: Okay, so for this, this is like a small simple example so we're going to use the for each and do parallel packages and then we're going to use a tick tock is just for keeping track of how long.
+
+385
+00:58:24,570 --> 00:58:29,580
+Marisa Eisenberg: Different parts of the code are going to take and La chess is our Latin hyperloop sampling package.
+
+386
+00:58:30,240 --> 00:58:45,810
+Marisa Eisenberg: This is kind of going to be a very simple kind of Derby example just to illustrate, and so the way that the for each and do parallel package combo kind of works is that you make a like virtual cluster out sort of like fake cluster.
+
+387
+00:58:46,710 --> 00:58:55,710
+Marisa Eisenberg: That is is built, that is made out of the cores in your system, and so the first thing you probably want to do when you're setting up the sort of parallel back end, for your.
+
+388
+00:58:56,100 --> 00:59:10,020
+Marisa Eisenberg: For your run is you want to figure out how many cores do you have you probably already know, but you want to check now notice here, it says, I have eight cores on this machine I don't have eight physical course I have for physical course on this machine but.
+
+389
+00:59:10,590 --> 00:59:22,590
+Marisa Eisenberg: The the for each do parallel package system will will work with the hyper threading so that basically each each physical core acts like two cores.
+
+390
+00:59:23,430 --> 00:59:33,900
+Marisa Eisenberg: And the the computer will sort of decide how to distribute the tasks and have it act like to course you won't get the same performance as you would from to physical course.
+
+391
+00:59:34,170 --> 00:59:47,790
+Marisa Eisenberg: But you do get better performance than if you just acted as though you only had well if you can get better performance than if you act as if you only had four course, so we have eight total course to work with virtual and physical and.
+
+392
+00:59:48,360 --> 00:59:53,310
+Marisa Eisenberg: And then usually I leave a core to free when I make a cluster.
+
+393
+00:59:53,910 --> 01:00:02,400
+Marisa Eisenberg: Although as Michael noted earlier, you might want to use only your number of physical cores you can do different things it's not going to make a difference for this particular example but.
+
+394
+01:00:03,000 --> 01:00:10,260
+Marisa Eisenberg: So i'm going to make a cluster and leave to course free to run other things in case I you know, want to do something else with this computer while it's running.
+
+395
+01:00:11,250 --> 01:00:25,710
+Marisa Eisenberg: And so, so now I run this line, and now I have a cluster here of you can just got a bunch of stuff in it, but it's got six cores that that are in this little sort of fake cluster that i'm going to run on my computer and I.
+
+396
+01:00:26,010 --> 01:00:39,540
+Michael Akira Lee Hayashi: Do this also both out of superstition and and because, again modern processors are they're really complex things and I, I obviously i'm not a like.
+
+397
+01:00:40,290 --> 01:00:50,610
+Michael Akira Lee Hayashi: Architecture expert, so I don't know the ins and outs of everything to do, but what you do often see is, if you don't fully load your system, sometimes it'll juggle tasks from core core.
+
+398
+01:00:50,910 --> 01:00:59,790
+Michael Akira Lee Hayashi: And what this is basically doing is making sure that it keeps the whole package kind of temperature regulated so that, if one core is getting too hot it POPs a task off and on to another one.
+
+399
+01:01:00,060 --> 01:01:10,260
+Michael Akira Lee Hayashi: So he's sometimes you can get a little bit of extra extra oomph out of your system by letting it juggle a bit so that it can keep itself under its thermal limits so.
+
+400
+01:01:10,350 --> 01:01:12,180
+Marisa Eisenberg: that's good yeah okay excellent.
+
+401
+01:01:12,420 --> 01:01:18,570
+Marisa Eisenberg: yeah I also sort of it's like a it's a habit, you know you just you always leave a little extra window space.
+
+402
+01:01:19,170 --> 01:01:24,930
+Marisa Eisenberg: But so anyway so okay so then we're going to register our little flaky cluster with our do parallel package.
+
+403
+01:01:25,200 --> 01:01:36,660
+Marisa Eisenberg: And then now what we're gonna do is we're going to make up a like completely stupid example to run, so this example is built as as a as a sort of template for if you were wanting to run.
+
+404
+01:01:37,080 --> 01:01:43,500
+Marisa Eisenberg: A large Latin hyper few sample and then and then like run your model for each value of the lab hyperloop sample.
+
+405
+01:01:43,710 --> 01:01:48,810
+Marisa Eisenberg: But our model in this case is going to be you take a mean have some numbers like it's not it's not a real model.
+
+406
+01:01:49,050 --> 01:01:54,630
+Marisa Eisenberg: But um but but let's just say as an example, so as an example suppose that we have 10 parameters.
+
+407
+01:01:54,870 --> 01:02:01,440
+Marisa Eisenberg: And we'd want to draw 100 parameter sets let's say and run our quote model on each parameter set.
+
+408
+01:02:01,680 --> 01:02:12,180
+Marisa Eisenberg: So we've got 10 parameters 100 parameter sets so we're going to generate a Latin hyper few samples so let's run this little chunk here, so we generate a Latin hyper keep samples, and now we've got.
+
+409
+01:02:12,750 --> 01:02:22,020
+Marisa Eisenberg: A big pile of 100 different parameter sets each of all 10 of our parameters so eat we're going to run basically.
+
+410
+01:02:22,620 --> 01:02:29,640
+Marisa Eisenberg: If we were running this serially not parallel parallel Lee and then we would run the model for this.
+
+411
+01:02:29,940 --> 01:02:36,900
+Marisa Eisenberg: parameter set this one, this one, this one, this one and, instead, what we're gonna do is we're going to hand this whole pile of parameter sets to.
+
+412
+01:02:37,140 --> 01:02:48,960
+Marisa Eisenberg: The for each package, and it is going to hand out different rows two different cores and then, as each row finishes it hands it a new one, so it's going to basically sort of act like a big.
+
+413
+01:02:49,770 --> 01:02:59,040
+Marisa Eisenberg: I don't know I don't know what the right analogy is here whenever lunch lady or something that is like giving out food or you know tasks to each of the different.
+
+414
+01:02:59,580 --> 01:03:13,020
+Marisa Eisenberg: cores as they finish so i'm okay I don't know why I, maybe i'm hungry i'm not sure anyway okay so so we've got our big list of samples and then what we're gonna do we're gonna run the loot two ways we're going to run it.
+
+415
+01:03:13,560 --> 01:03:23,130
+Marisa Eisenberg: As a as a parallel loop so in the parallel loop it's notice that the syntax so this tick and talk or just for checking how long it took.
+
+416
+01:03:23,700 --> 01:03:35,400
+Marisa Eisenberg: But notice that the syntax here is almost like a for loop right when we would do a for loop, we would say, for I you know in one through blah, and then a bracket, and this is what you do.
+
+417
+01:03:35,580 --> 01:03:48,270
+Marisa Eisenberg: The same syntax is here it's just that the formatting is a little bit different so here what we're going to do is you do this for each you say you know how many iterations you need to do this little do par.
+
+418
+01:03:48,750 --> 01:03:54,150
+Marisa Eisenberg: thing as part of the do parallel package, and then you run your, this is what each.
+
+419
+01:03:54,690 --> 01:04:03,300
+Marisa Eisenberg: Core is going to run for each iteration of our loop, and what happens is that if the final thing that you have the the system do here.
+
+420
+01:04:03,540 --> 01:04:14,100
+Marisa Eisenberg: and get spat back into whatever variable you place here so results is going to capture all of the various and you know.
+
+421
+01:04:14,670 --> 01:04:23,970
+Marisa Eisenberg: answers that each of each core does as it runs on each of our samples so are we're gonna do we're gonna run this as though our model.
+
+422
+01:04:24,300 --> 01:04:34,320
+Marisa Eisenberg: Our model is just going to take the mean median and, apparently, the product of all of our our our parameter values and that's what the model is going to be and.
+
+423
+01:04:34,950 --> 01:04:39,750
+Marisa Eisenberg: that's not a very exciting model, in reality, you would put whatever function, you have.
+
+424
+01:04:39,930 --> 01:04:45,960
+Marisa Eisenberg: That runs your actual model here so maybe an odd solver or whatever function, it is that you use to run your model.
+
+425
+01:04:46,140 --> 01:04:52,830
+Marisa Eisenberg: And that's what you would put here, but for our purposes we're going to do this now I picked this so we're going to run it once parallel.
+
+426
+01:04:53,130 --> 01:05:00,240
+Marisa Eisenberg: And then we're going to run it once non parallel So if you change do par to just do it runs it serially.
+
+427
+01:05:00,720 --> 01:05:04,620
+Marisa Eisenberg: So we're going to run it once as a parallel loop once as a non parallel loop.
+
+428
+01:05:04,830 --> 01:05:16,470
+Marisa Eisenberg: You could also write this just as a standard for loop, and it would be the same thing, but it's just easy to just change this from do par to just do, and then you know you just copy paste your code so we'll run it both ways now.
+
+429
+01:05:17,070 --> 01:05:29,460
+Marisa Eisenberg: Michael talked about the parallel ization overhead and oh good good yeah Michael talks about the parallel ization overhead earlier and I deliberately did this, this one will not.
+
+430
+01:05:30,570 --> 01:05:34,950
+Marisa Eisenberg: Essentially, this is too cheap of a calculation for parallelization to be worth it.
+
+431
+01:05:35,220 --> 01:05:42,930
+Marisa Eisenberg: it's going to end up you'll see it's probably going to end up being I mean I don't know it depends on when I run it and what have you but it's probably going to end up being.
+
+432
+01:05:43,410 --> 01:05:58,260
+Marisa Eisenberg: cheaper to run it non parallel because the overhead involved in handing out this to all my various cores then they have to hand it back etc blah blah blah all of that is just too it's too involved and so it's going to end up not being that.
+
+433
+01:05:59,220 --> 01:06:05,520
+Marisa Eisenberg: That good, but then, what we can do is, we can play with by using this command if we uncommon this will do this in a minute.
+
+434
+01:06:05,760 --> 01:06:17,820
+Marisa Eisenberg: We can play with how long does each run need to take before it starts to become worthwhile to run this in parallel so let's let's just run it this way first and see what we see and then we'll explore okay so.
+
+435
+01:06:18,720 --> 01:06:32,040
+Marisa Eisenberg: here's a parallel version point oh six two seconds, how long it took to do that, and if you look at results so um you get a bunch of different things right um so.
+
+436
+01:06:33,240 --> 01:06:40,920
+Marisa Eisenberg: let's see, I wonder if this number of do part I think it can return things out of order right.
+
+437
+01:06:41,880 --> 01:06:43,170
+Michael Akira Lee Hayashi: Yes, Jim.
+
+438
+01:06:44,010 --> 01:06:47,040
+Marisa Eisenberg: In this case it didn't because it's too fast, so they all finish up.
+
+439
+01:06:47,340 --> 01:06:49,950
+Marisa Eisenberg: just fine, and so it won't but we may see it.
+
+440
+01:06:50,160 --> 01:06:54,150
+Marisa Eisenberg: I have a fact that index to just in case, so that we can order it.
+
+441
+01:06:55,410 --> 01:07:03,540
+Michael Akira Lee Hayashi: Properly I thought the for each function attempts to return like reassembles in order I think um but.
+
+442
+01:07:05,130 --> 01:07:08,610
+Michael Akira Lee Hayashi: I don't I don't know if that's guaranteed behavior.
+
+443
+01:07:09,030 --> 01:07:24,150
+Marisa Eisenberg: Okay, it may so sometimes so one of the things that you'll find when you run like it, you know, depending on what you run so we'll do some Python examples in a minute to and depending on how you run it and sometimes you.
+
+444
+01:07:24,720 --> 01:07:36,630
+Marisa Eisenberg: Your your system, you know different cores may take different amounts of time on different runs so let's say I had to the first core the first simulation the second part, the second simulation and a third quarter third simulation.
+
+445
+01:07:36,990 --> 01:07:47,610
+Marisa Eisenberg: Maybe, but they don't necessarily all finished in that order so it might be that the third simulation finishes and now you have a third quarter just waiting you don't want it to just sit there so.
+
+446
+01:07:47,640 --> 01:07:49,590
+Marisa Eisenberg: What most of these kind of.
+
+447
+01:07:50,430 --> 01:08:02,580
+Marisa Eisenberg: parallelization things will do is they'll hand it another simulation to run, but what that means is that the answers don't necessarily come back in order, and so, depending on how your thing is coded up, it may or may not sort of.
+
+448
+01:08:02,850 --> 01:08:12,390
+Marisa Eisenberg: reorder them to be in the appropriate order at the end, so I always make sure that I return the index of which one i'm working on, just in case.
+
+449
+01:08:12,900 --> 01:08:22,380
+Marisa Eisenberg: Because a lot of the different packages do this differently and so anyway OK, but so this one to point oh six two seconds so let's try it non parallel just to compare.
+
+450
+01:08:23,100 --> 01:08:31,950
+Michael Akira Lee Hayashi: you're probably most likely to see cases that return out of order, if you use some of the implicit personalization functions like like an apply like there's.
+
+451
+01:08:32,040 --> 01:08:47,220
+Michael Akira Lee Hayashi: A parallel apply style function that's kind of like a vector eyes version of a parallel ization function both Python and I think our have one of these, and I am pretty certain that those do not guaranteed results return and are assembled in the order they were submitted.
+
+452
+01:08:48,510 --> 01:08:54,120
+Michael Akira Lee Hayashi: Think, more often than not, this style of paralyzed for loop does return in order so.
+
+453
+01:08:54,420 --> 01:08:55,200
+Michael Akira Lee Hayashi: Something that's.
+
+454
+01:08:55,590 --> 01:08:58,620
+Michael Akira Lee Hayashi: um but don't quote me because, maybe it won't.
+
+455
+01:08:59,070 --> 01:09:00,150
+Marisa Eisenberg: yeah yeah.
+
+456
+01:09:01,470 --> 01:09:04,110
+Marisa Eisenberg: Okay So here we go, so the non parallel version.
+
+457
+01:09:04,170 --> 01:09:14,490
+Marisa Eisenberg: You can see actually finishes faster, the non parallel version 2.0 to nine the parallel version 2.062, neither of which is all have long.
+
+458
+01:09:14,820 --> 01:09:22,920
+Marisa Eisenberg: And would be fine, but you can see that it actually is faster to run it serially then parallel Lee so let's try it, what if we change.
+
+459
+01:09:23,580 --> 01:09:35,130
+Marisa Eisenberg: This so now we're going to have the system sleep for half a second for every run that it does so this is basically to mimic a process we're running the model takes at least a half a second each and so.
+
+460
+01:09:35,610 --> 01:09:44,520
+Marisa Eisenberg: If we do this let's try now how long it takes to run each one so now if we run the parallel loop can see it takes a little bit of time it's thinking about it.
+
+461
+01:09:45,540 --> 01:09:47,460
+Marisa Eisenberg: Oh no eventually.
+
+462
+01:09:49,560 --> 01:09:54,540
+Marisa Eisenberg: There we go eight point something five a four seconds, and then the.
+
+463
+01:09:55,110 --> 01:10:10,050
+Marisa Eisenberg: actually just just think about it for a second how many did we run we run 100 samples right and and and 100 samples, where the system had to sleep for half a second each right if you ran that i'm.
+
+464
+01:10:10,440 --> 01:10:25,860
+Marisa Eisenberg: On on a serious thing it's not possible for that to take 8.5 seconds right, it has to take longer than that because just running a half a second of 100 100 times is more than eight right that's like 50 right so um.
+
+465
+01:10:26,310 --> 01:10:35,310
+Marisa Eisenberg: So it should take quite a bit longer when we run it this way now, this also kind of reveals that probably the system is cheating a little bit here.
+
+466
+01:10:35,580 --> 01:10:47,880
+Marisa Eisenberg: And in that if the core isn't doing anything because it's sleeping it's probably running something else with the virtual cars, I would be willing to bet that it's doing a bit of cheating there, so this is probably not the level of.
+
+467
+01:10:48,270 --> 01:10:59,070
+Marisa Eisenberg: Speed up that you might get from a real thing where you're actually running something, but just as an illustration so okay So here we go, so now we sit and we wait for a while.
+
+468
+01:11:00,870 --> 01:11:03,570
+Marisa Eisenberg: it's probably going to take a minute roughly.
+
+469
+01:11:04,260 --> 01:11:12,360
+Michael Akira Lee Hayashi: And we can kind of back of the envelope calculate how long we expect this to take already because, in this particular example the calculation being performed.
+
+470
+01:11:12,660 --> 01:11:24,990
+Michael Akira Lee Hayashi: In expectation takes way less time than the sleep, so the sleep dominates the amount of time per iteration, which means that if you want to know about how long you should take paralyzed it'd be 100 iterations divided by six divided by two.
+
+471
+01:11:25,260 --> 01:11:28,230
+Michael Akira Lee Hayashi: and gives you eight ish right so.
+
+472
+01:11:28,290 --> 01:11:28,950
+Michael Akira Lee Hayashi: So you can see.
+
+473
+01:11:29,580 --> 01:11:37,230
+Michael Akira Lee Hayashi: That, in fact, the calculation is whatever is happening in up for the is indeed being dominated by the.
+
+474
+01:11:38,580 --> 01:11:51,600
+Michael Akira Lee Hayashi: By the sleep stage yeah and so you have some sense from that of about how long it's going to take otherwise, and I think this other one will probably give a feel for how the system might be cheating a little bit about the sleep.
+
+475
+01:11:51,840 --> 01:12:00,090
+Marisa Eisenberg: yeah yeah so here's some more cheats because this should take at least 50 seconds, we ran 100 things and we waited a half a second on each.
+
+476
+01:12:00,330 --> 01:12:07,860
+Marisa Eisenberg: But it doesn't but you know close enough at any rate, you can certainly see the speed up that you get from parallelization in this case.
+
+477
+01:12:08,070 --> 01:12:22,530
+Marisa Eisenberg: As soon as your thing I mean, and we could play with this to see you know sort of like how much speed up, you know how how much How long does the thing have to run for it to be worthwhile to do the parallelization you know.
+
+478
+01:12:23,670 --> 01:12:33,090
+Marisa Eisenberg: Whatever you have to get down to some so it doesn't take that much like it would be well under a second for you to find wherever they're equal right and so.
+
+479
+01:12:33,570 --> 01:12:48,210
+Marisa Eisenberg: You know it doesn't take that much for it to to be worthwhile to to run the parallel ization for something that's as easy to parallelize as running your model on separate course but um, but it also you know.
+
+480
+01:12:49,020 --> 01:12:57,180
+Marisa Eisenberg: it's also not the case that it is guaranteed to be worth it, you know if you do something that runs really fast it's probably better to just run it seriously.
+
+481
+01:12:57,840 --> 01:13:04,170
+Marisa Eisenberg: So anyhow so that's sort of how you do this with our at the end don't forget to stop your cluster.
+
+482
+01:13:04,380 --> 01:13:18,360
+Marisa Eisenberg: And I mean once you quit our it'll stop automatically But until then you're just like dangling this cluster in the ether so um so anyway so stop your cluster at the end and the code for this um he's here.
+
+483
+01:13:20,580 --> 01:13:20,730
+that's.
+
+484
+01:13:23,250 --> 01:13:23,790
+Michael Akira Lee Hayashi: What the song.
+
+485
+01:13:24,180 --> 01:13:28,740
+Michael Akira Lee Hayashi: was, to a certain extent, is that waiting and thinking, are not the same thing to a computer.
+
+486
+01:13:30,150 --> 01:13:40,860
+Michael Akira Lee Hayashi: If a processor is just idling for a bit that it will do other things with itself, where, if a processor is thinking it's using electricity and it's generating heat and so.
+
+487
+01:13:41,400 --> 01:13:54,900
+Michael Akira Lee Hayashi: If you if you found a calculation that took the same amount of time is that sleep operation like suppose you know that some calculation takes about a quarter of a second to finish, and you replace the sleep state, and with that you would see markedly different performance because.
+
+488
+01:13:55,560 --> 01:13:58,170
+Michael Akira Lee Hayashi: The computers thinking, instead of sitting.
+
+489
+01:13:58,830 --> 01:14:06,840
+Marisa Eisenberg: Exactly yeah so that is that's a that yeah exactly so you can kind of get a rough sense from using something like sleep but it's not the same thing.
+
+490
+01:14:07,980 --> 01:14:12,900
+Marisa Eisenberg: And then I didn't know if it would be helpful to talk a little bit about parallelization in Python.
+
+491
+01:14:14,160 --> 01:14:24,120
+Marisa Eisenberg: It For those of you who think you might use Python Python has a like a interesting different kind of setup that affects how you do parallel ization so.
+
+492
+01:14:24,720 --> 01:14:32,340
+Marisa Eisenberg: Python has what's called the global interpreter lock or the Gill, which is the bane of many people, a lot of people really hate the Gal.
+
+493
+01:14:32,910 --> 01:14:37,080
+Marisa Eisenberg: But you it's too it's built in to do now so.
+
+494
+01:14:37,620 --> 01:14:46,500
+Marisa Eisenberg: We can we can go back so so essentially only one thread, so one core essentially virtual or otherwise one one thread.
+
+495
+01:14:46,740 --> 01:14:56,400
+Marisa Eisenberg: can control the Python interpreter so whatever the Python, whatever your Python script is doing operating running only one thread is allowed to control that at a time.
+
+496
+01:14:56,670 --> 01:15:03,240
+Marisa Eisenberg: Which is really helpful for memory management and avoiding memory leaks, but makes it really difficult to do parallelism because the whole point.
+
+497
+01:15:03,420 --> 01:15:14,940
+Marisa Eisenberg: is to give the thing to multiple threads at the same time, so there's a there's a module in Python called multi processing that is really nice and gets around this by using multiple processes, instead of.
+
+498
+01:15:15,180 --> 01:15:23,280
+Marisa Eisenberg: Multiple threads I honestly i'm like Michael probably would know more about this tonight, but there's it's a it's a nice way of doing it, the only.
+
+499
+01:15:23,700 --> 01:15:32,520
+Marisa Eisenberg: bummer about it is that because each process gets its own interpreter the overhead for the Multi processing packages package can be large and so.
+
+500
+01:15:33,060 --> 01:15:48,870
+Marisa Eisenberg: it's that same thing that we just saw with our where there's some penalty for doing the parallelization and so, if your individual tasks don't take long enough it's probably not worth the hassle and so that that's an issue for Python as well, and perhaps.
+
+501
+01:15:48,930 --> 01:15:50,730
+Marisa Eisenberg: more so because of the guilt, but yeah.
+
+502
+01:15:51,330 --> 01:16:01,800
+Michael Akira Lee Hayashi: yeah I think this captures the major gist of it often the way you kind of see this manifest is you know you know, a programming language or a program is using process based.
+
+503
+01:16:01,980 --> 01:16:09,600
+Michael Akira Lee Hayashi: Multi processing instead of thread based if, when you paralyze a task if you haven't been watching your system, monitor, to see what tasks are happening.
+
+504
+01:16:09,840 --> 01:16:16,080
+Michael Akira Lee Hayashi: you'll see like eight copies of Python show up in your in your list of current running programs because.
+
+505
+01:16:16,410 --> 01:16:20,790
+Michael Akira Lee Hayashi: The multi processing package spawns independent Python interpreter sessions for each of those.
+
+506
+01:16:21,090 --> 01:16:29,940
+Michael Akira Lee Hayashi: are, I think, is quite similar if you do our process based parallelism you'll see it spawn a bunch of different our processes one of each for one of which for each.
+
+507
+01:16:30,180 --> 01:16:40,020
+Michael Akira Lee Hayashi: iteration of the paralyzed thing where if you've got something that is able to do thread based parallelism like if you wrote c++ code, for example, that were thread based paralyzed.
+
+508
+01:16:40,260 --> 01:16:52,440
+Michael Akira Lee Hayashi: You just see one instance of the program that you're running and it would consume like eight threads on your system, but you wouldn't see eight copies of that instance the program like when I play a video game which is multi process if i'm playing like.
+
+509
+01:16:52,830 --> 01:17:01,080
+Michael Akira Lee Hayashi: city skylines your total or whatever I don't see like eight instances of total war on my computer because they're thread based paralyzed.
+
+510
+01:17:02,670 --> 01:17:15,390
+Michael Akira Lee Hayashi: And that because, and in that case that's an awfully good thing because, if I did run a separate instances of total war, I would crash my computer crashed literally any computer I possibly had access to.
+
+511
+01:17:16,080 --> 01:17:25,020
+Marisa Eisenberg: So yeah so any rate, I mean it's not so dissimilar from making like eight copies of our studio and running them, except that you don't have the interface.
+
+512
+01:17:25,770 --> 01:17:32,790
+Marisa Eisenberg: But you know so so anyway so so that's the thing the the the Multi processing package has a bunch of Nice.
+
+513
+01:17:33,240 --> 01:17:42,630
+Marisa Eisenberg: features, you can you can have you can pass individual processes and kind of get much more fine grained with multi processing about how you do your parallelization.
+
+514
+01:17:43,350 --> 01:17:48,090
+Marisa Eisenberg: But for the most part, it really actually works very similarly to kind of how the.
+
+515
+01:17:48,420 --> 01:18:00,150
+Marisa Eisenberg: way we just did the our example you set up a pool of cores that you're going to run tasks on and then there's a bunch of different functions that you can use that basically kind of replace loops.
+
+516
+01:18:00,720 --> 01:18:11,550
+Marisa Eisenberg: For Python as well, so there's a bunch of some of them there's a whole lot of details about synchronous and asynchronous and how they're working, we can actually sort of skip most of this and go here.
+
+517
+01:18:12,900 --> 01:18:15,510
+Marisa Eisenberg: God, I did this in restless mind I do this and.
+
+518
+01:18:16,860 --> 01:18:25,020
+Marisa Eisenberg: i'm suppose that's fine anyway, I maybe I have it in just a second everybody sorry.
+
+519
+01:18:30,420 --> 01:18:32,100
+Marisa Eisenberg: There we go we're going to do this instead.
+
+520
+01:18:34,500 --> 01:18:36,930
+Marisa Eisenberg: So it's a similar kind of idea.
+
+521
+01:18:38,760 --> 01:18:54,150
+Marisa Eisenberg: you're you're going to set up, you know you can so now i'm running it on Google stuff so i'm going to get way fewer course i'm sure, so I only get to want love, but uh but anyhow, so you can you can set up your, but I also don't care if I use them all so i'm not going to save one.
+
+522
+01:18:55,170 --> 01:19:02,490
+Marisa Eisenberg: So we're gonna we're going to run this on just to chorus so it's not going to show as much of the benefits of parallelization but.
+
+523
+01:19:02,850 --> 01:19:12,360
+Marisa Eisenberg: Basically, you can kind of play with this i'll post this this code to the chat as well, and you can you can we're going to set up a little model and then.
+
+524
+01:19:12,690 --> 01:19:22,740
+Marisa Eisenberg: we're going to pretend we're doing a sensitivity analysis I just pick some random values for these parameters and so you can run the model without parallelization.
+
+525
+01:19:23,340 --> 01:19:29,700
+Marisa Eisenberg: Some of these actually take quite a long time, so I may not run them all right yeah shoot I shouldn't have done this.
+
+526
+01:19:30,690 --> 01:19:41,850
+Marisa Eisenberg: hahaha Okay, so we all have to wait, but this takes a little while I don't remember what it said before, I ran it i'm going to actually maybe treat this like a cooking show and not actually run the rest of them, but i'll just show us what we get.
+
+527
+01:19:42,390 --> 01:19:51,480
+Marisa Eisenberg: and bring out, you can see, it takes quite a while to run it without parallelization and and then we can run it in a bunch of different ways.
+
+528
+01:19:52,260 --> 01:20:02,430
+Marisa Eisenberg: there's there's a bajillion different sort of ways to run it with parallelization and and so you can see let's see still still not.
+
+529
+01:20:03,090 --> 01:20:16,170
+Marisa Eisenberg: My heavens Come on, you can do it well, you can see that it certainly takes less time than running it without the parallel ization so one point something seconds, you know point eight seconds there's a bunch of different versions in.
+
+530
+01:20:17,250 --> 01:20:25,530
+Marisa Eisenberg: In multi processing for running parallel ization and I have some of the details in the slides that I can post in the.
+
+531
+01:20:25,800 --> 01:20:39,420
+Marisa Eisenberg: On the on the page and in the chat most of the time I tend to use i'm APP and I don't know if other that seems to I mean multi processing has a bajillion different flavors of how to do parallel processing but i'm APP seems to work very well.
+
+532
+01:20:40,650 --> 01:20:47,610
+Marisa Eisenberg: And so that's that's the kind of usual one that most of the people I know seem to use it seems to be the fastest, some of them are quite.
+
+533
+01:20:48,330 --> 01:20:51,480
+Marisa Eisenberg: As you can see here that's 25 seconds versus point eight.
+
+534
+01:20:52,350 --> 01:21:01,800
+Marisa Eisenberg: So you can try out some of these different approaches and fiddle around with them, I put examples of all the here, I also put some examples of how, if you chunk.
+
+535
+01:21:02,070 --> 01:21:08,850
+Marisa Eisenberg: Your runs if they're too fast, instead of handing single runs to your different cores you can jump them.
+
+536
+01:21:09,360 --> 01:21:18,000
+Marisa Eisenberg: And so, if running the model once is too fast, to make parallelization worthwhile, but you need to run 10,000 of them can doubt chunks of 100 you know.
+
+537
+01:21:18,240 --> 01:21:29,730
+Marisa Eisenberg: To each of your course don't run individual runs one, at a time, so you can do things like this, so this this little code might be useful as an example of how to do some of that stuff but, for the most part.
+
+538
+01:21:31,080 --> 01:21:31,920
+Marisa Eisenberg: never finish.
+
+539
+01:21:32,670 --> 01:21:36,600
+Marisa Eisenberg: hey you did it took 50 seconds okay there we go so 50 seconds.
+
+540
+01:21:36,630 --> 01:21:45,120
+Marisa Eisenberg: In non parallel when we ran this model, a bunch of times versus point eight five if you paralyze it so and that's with only two courts so.
+
+541
+01:21:45,720 --> 01:22:00,780
+Marisa Eisenberg: It definitely it definitely can help when you're running this is, in this case, we ran an actual little model, you know it's just a an exponential growth model, but you know it's a it's a it's an actual model, so you can see kind of how it actually operate so anyhow.
+
+542
+01:22:00,840 --> 01:22:02,910
+Marisa Eisenberg: i'll post this in the chat kind of.
+
+543
+01:22:02,940 --> 01:22:05,340
+Michael Akira Lee Hayashi: Two things going on to your one is that the.
+
+544
+01:22:05,700 --> 01:22:14,910
+Michael Akira Lee Hayashi: The personalization does speed you up, but why is it that the parallelization speed you up by like a factor of 10 200 over the original thing we part of this could actually be that.
+
+545
+01:22:15,210 --> 01:22:25,020
+Michael Akira Lee Hayashi: The explicit looping in the non parallel version consumes so much time that avoiding it by using the implicit loops in all of the parallel functions.
+
+546
+01:22:25,230 --> 01:22:34,950
+Michael Akira Lee Hayashi: Actually buys you a lot of the speed up and then the personalization buys you the rest like I think what i'd wager that the main performance components years that I map implicitly loops.
+
+547
+01:22:35,160 --> 01:22:47,010
+Michael Akira Lee Hayashi: And the implicit loop is 100 times faster than the explicit loop, or maybe like 50 times faster and then the parallel with a mile two times speed up so yeah sometimes get it gets like that too.
+
+548
+01:22:47,910 --> 01:23:01,320
+Marisa Eisenberg: yeah I bet I bet that's true too yeah that that would make a lot of sense, but so at any rate, you can you can you can play with this this code I just posted it in the chat So if you if you think you may want to use Python for some of your work too.
+
+549
+01:23:02,070 --> 01:23:04,980
+Marisa Eisenberg: that's some examples of how to paralyze things that way.
+
+550
+01:23:05,460 --> 01:23:17,460
+Michael Akira Lee Hayashi: Both in Python and are especially Python I think it's it's often more explicit, but the parallel packages will often have a few different potential ways to paralyze the thing one would be what i'd call like a.
+
+551
+01:23:18,900 --> 01:23:31,710
+Michael Akira Lee Hayashi: an implicit loop that synchronous so an implicit synchronous loop would be you send all the tasks out, but you do wait until they finish up to bring them back so you don't kind of compile your results as they go.
+
+552
+01:23:32,340 --> 01:23:38,160
+Michael Akira Lee Hayashi: there's also an implicit loop that's asynchronous where it sends the results out and then it brings them back whenever they're done.
+
+553
+01:23:38,520 --> 01:23:44,040
+Michael Akira Lee Hayashi: Typically, an asynchronous method is going to be faster than a synchronous method, because.
+
+554
+01:23:44,280 --> 01:23:56,640
+Michael Akira Lee Hayashi: You can't usually guarantee that all your things are going to finish in about the same amount of time, so you want the asynchronous method there's also an explicit like job submission method where you like explicitly create the job.
+
+555
+01:23:57,450 --> 01:24:08,730
+Michael Akira Lee Hayashi: and submit it and then that will also come back either synchronously or asynchronously so one of those three styles is usually what you'll want to use do you ever recommend using our CPP when writing.
+
+556
+01:24:08,730 --> 01:24:10,050
+Michael Akira Lee Hayashi: Something occasionally intensive.
+
+557
+01:24:10,440 --> 01:24:30,090
+Marisa Eisenberg: yeah we did that with Kevin I have a former student now well now off to a very fancy job at Merck but uh but we've done when we've done very computationally intensive things and you're using our it can definitely help to be like nevermind moving this, he must.
+
+558
+01:24:32,010 --> 01:24:34,560
+Marisa Eisenberg: That that is yeah is a good thing to do, for sure.
+
+559
+01:24:35,040 --> 01:24:48,090
+Michael Akira Lee Hayashi: yeah my prayer is usually if there's literally no pre built function to do with thing that I want and that thing is so catastrophic Lee slow that I can't get around it then i'll consider writing it in the low level language.
+
+560
+01:24:48,120 --> 01:24:53,970
+Michael Akira Lee Hayashi: yeah I, I have a very feelings about kind of the sort of.
+
+561
+01:24:55,620 --> 01:24:58,890
+Michael Akira Lee Hayashi: kind of kinda sorta low level language shims that both.
+
+562
+01:24:58,890 --> 01:25:01,350
+Michael Akira Lee Hayashi: R and Python have like Python has.
+
+563
+01:25:01,440 --> 01:25:08,790
+Michael Akira Lee Hayashi: scythe on which can create a compiled version of Python code to be honest, I often find that that is not quite worth the hassle because, if I have to.
+
+564
+01:25:09,060 --> 01:25:16,440
+Michael Akira Lee Hayashi: carefully format my Python code to get performance optimizations through that compilation system, I should probably just write c++ and suck it.
+
+565
+01:25:16,440 --> 01:25:16,890
+Marisa Eisenberg: again.
+
+566
+01:25:17,310 --> 01:25:22,290
+Michael Akira Lee Hayashi: yeah so so sometimes sometimes when you're considering performance, you want to think about.
+
+567
+01:25:22,500 --> 01:25:30,570
+Michael Akira Lee Hayashi: At what point do I just kind of throw up my hands and be like no this language isn't going to do it for me i'm just going to write my whole workflow in a lower level language versus.
+
+568
+01:25:30,870 --> 01:25:44,190
+Michael Akira Lee Hayashi: How much time, am I willing to invest using kind of a shim where I might get specific performance benefits in certain contexts, but I might have to do a little bit more like sometimes things like our CPP or site on.
+
+569
+01:25:45,240 --> 01:25:50,370
+Michael Akira Lee Hayashi: cost me more work than just writing and C plus plus because I don't just have to think about okay.
+
+570
+01:25:50,520 --> 01:25:51,660
+Michael Akira Lee Hayashi: i'm just going to slam out some.
+
+571
+01:25:51,660 --> 01:25:57,240
+Michael Akira Lee Hayashi: c++ functions and then spend three years figuring out where all the sake faults are coming from.
+
+572
+01:25:57,930 --> 01:26:00,240
+Michael Akira Lee Hayashi: No, no, I have to spend like three to five years.
+
+573
+01:26:00,510 --> 01:26:16,410
+Michael Akira Lee Hayashi: figuring out if my site on code is actually sensibly optimal like Is it actually going to take advantage of of the lower level speed ups right and and sometimes i'd rather spend my time debugging sake faults and trying to figure out if I actually got to speed up.
+
+574
+01:26:16,680 --> 01:26:23,700
+Marisa Eisenberg: You know it's totally true, I mean like the I just had this happen with a PhD student i'm working with now and we're doing a project where.
+
+575
+01:26:23,910 --> 01:26:35,730
+Marisa Eisenberg: we're running a bunch of models and evaluating how the choice of spatial scale when you build these models affects their output and when you're so that means essentially running a bunch of.
+
+576
+01:26:36,030 --> 01:26:46,140
+Marisa Eisenberg: Large grid spatial models, with different levels of Resolution on the grid and so it's an incredibly computationally intensive tasks that like.
+
+577
+01:26:47,220 --> 01:27:04,950
+Marisa Eisenberg: It just it, we ran it we did it in Python for a while and then like God fed up switch to c++ and got like 100 X speed up, I mean it just it's not worth it, like you, we just it wasn't even worth trying to do a site that you just just moved to c++ and do that and so yeah.
+
+578
+01:27:05,280 --> 01:27:06,630
+Michael Akira Lee Hayashi: that's that's very often.
+
+579
+01:27:06,630 --> 01:27:10,230
+Michael Akira Lee Hayashi: Orlando, especially more on site on than our CPP I think like.
+
+580
+01:27:10,680 --> 01:27:19,650
+Michael Akira Lee Hayashi: Because I, in some ways, I think our is actually a little bit more friendly to building your own kind of custom functions, using the lower level language and compiling them such the interface like.
+
+581
+01:27:19,950 --> 01:27:27,180
+Michael Akira Lee Hayashi: it's a little bit nicer about that Python you can do it, but i'm not like if i'm using Python i've already kind of given up on.
+
+582
+01:27:27,180 --> 01:27:28,830
+Michael Akira Lee Hayashi: Maximum performance, to be honest.
+
+583
+01:27:28,920 --> 01:27:29,280
+Like.
+
+584
+01:27:31,140 --> 01:27:37,350
+Marisa Eisenberg: This is where for any of you who do this, this is why I feel like I should learn Julia but I haven't gotten around to it.
+
+585
+01:27:38,250 --> 01:27:41,430
+Michael Akira Lee Hayashi: You know Julia is the language that i'm most often like.
+
+586
+01:27:42,870 --> 01:27:43,860
+Michael Akira Lee Hayashi: Oh, it looks so good.
+
+587
+01:27:44,850 --> 01:27:55,920
+Michael Akira Lee Hayashi: But like there there's that hanging but whenever I think about using Julian i'm like oh I don't know because it is, it is, it is faster than matlab Python.
+
+588
+01:27:56,400 --> 01:28:02,490
+Marisa Eisenberg: Are yeah it's like c++ levels of fast, but you write it like you would write a Python or in our kind of a thing.
+
+589
+01:28:02,970 --> 01:28:09,660
+Michael Akira Lee Hayashi: This point is that it doesn't have object oriented functionality and its scientific computing packages are a little weird honestly.
+
+590
+01:28:09,900 --> 01:28:12,060
+Marisa Eisenberg: they're weird and they're not totally stable I don't know.
+
+591
+01:28:12,090 --> 01:28:13,530
+Marisa Eisenberg: So I yeah.
+
+592
+01:28:14,040 --> 01:28:21,360
+Michael Akira Lee Hayashi: it's a language that I really want to like but I can't bring myself to use, I have the same problem with Ruby actually ruby's incredibly elegant and reasonably performance but.
+
+593
+01:28:22,050 --> 01:28:24,240
+Michael Akira Lee Hayashi: It just doesn't fit my use cases very well.
+
+594
+01:28:24,750 --> 01:28:26,730
+Michael Akira Lee Hayashi: we're at three o'clock aren't we we should.
+
+595
+01:28:28,080 --> 01:28:40,800
+Marisa Eisenberg: Really so we'll take a 15 minute break 15 minutes I think that's it right i'm sorry I have my mouth Swoboda we'll take a 15 minute break we'll come back and then we're going to do the project proposals show off.
+
+596
+01:28:41,640 --> 01:28:42,030
+If you haven't.
+
+597
+01:28:45,720 --> 01:28:59,100
+Marisa Eisenberg: So, for the last chunk of class we're going to do something a little different well, maybe first let's let's do questions again, are there any other questions like so that's kind of I think it for like the main materials that we were planning on going over.
+
+598
+01:29:00,270 --> 01:29:10,440
+Marisa Eisenberg: Are there like topics you feel like you want to talk about you know questions you have things you feel like we missed or something you know any of that kind of stuff that you want to do.
+
+599
+01:29:11,130 --> 01:29:22,590
+Michael Akira Lee Hayashi: This is a good time for free for all their stuff about a specific topic and application to your own research something that's kind of been bothering you through the entire course, do you want to know what my favorite battleship is.
+
+600
+01:29:22,770 --> 01:29:24,210
+Marisa Eisenberg: Anything you i'm very.
+
+601
+01:29:28,500 --> 01:29:28,920
+Good yeah.
+
+602
+01:29:38,310 --> 01:29:39,180
+Marisa Eisenberg: If not.
+
+603
+01:29:42,600 --> 01:29:44,610
+Marisa Eisenberg: Accurate analogy yeah exactly.
+
+604
+01:29:45,780 --> 01:29:49,710
+Michael Akira Lee Hayashi: it's very much this class all around for us to like it's very much like.
+
+605
+01:29:50,940 --> 01:29:54,870
+Michael Akira Lee Hayashi: Like trying to hold on to the fire hose not get like with around it's.
+
+606
+01:29:56,160 --> 01:30:08,760
+Marisa Eisenberg: Exactly it's it's a lot, I mean it's it's probably good that I guess it's all you get it all done really fast, but he's also like it's it's a lot man um but yeah um.
+
+607
+01:30:10,230 --> 01:30:21,120
+Marisa Eisenberg: yeah so I guess well, maybe you will help with the digesting one of the things we we wanted to do was this sort of little project proposal thing.
+
+608
+01:30:22,620 --> 01:30:32,190
+Marisa Eisenberg: And so I put the we put together this little Google drive folder which is here it's the link in the chat.
+
+609
+01:30:32,940 --> 01:30:43,440
+Marisa Eisenberg: And in it you'll find a link to this document, which is a template for a proposal, so you can go to the first link the Google drive folder.
+
+610
+01:30:43,710 --> 01:30:50,160
+Marisa Eisenberg: and make a copy of this document, this document is in the folder so you can also just Double Click on it when you open the folder.
+
+611
+01:30:51,090 --> 01:31:01,920
+Marisa Eisenberg: And what I was hoping everybody could do is maybe take a half an hour or so and sit for a little bit and just pick something you're interested in working on.
+
+612
+01:31:02,430 --> 01:31:09,990
+Marisa Eisenberg: And and start kind of going through this template make a copy in the in the folder and start going through and filling in.
+
+613
+01:31:10,500 --> 01:31:20,640
+Marisa Eisenberg: It this template is very long and you don't have to fill in all of it just kind of you know, some of it, you probably won't even know how to answer, yet, but just start to kind of think through.
+
+614
+01:31:21,810 --> 01:31:34,530
+Marisa Eisenberg: These different pieces of the of the template and start answering them, so you can you can basically make a copy of this document in the Google drive folder and then start entering for yourself, for your own.
+
+615
+01:31:35,070 --> 01:31:42,600
+Marisa Eisenberg: thing you know sort of what what kind what what your answers, would be to sort of each of these problems so i'm here to share.
+
+616
+01:31:43,950 --> 01:31:54,390
+Marisa Eisenberg: I mean you can all see it, but so, for instance, you know pick what public health problem, maybe you're interested in modeling tobaccos effects on I don't know what something.
+
+617
+01:31:57,300 --> 01:32:09,450
+Marisa Eisenberg: Well, I don't know whatever how did, how do, how do E cigarettes effects tobacco, you know quitting and and and starting smoking, or something you know for different kinds of things.
+
+618
+01:32:10,050 --> 01:32:22,080
+Marisa Eisenberg: So take don't don't don't write in this copy but make a copy of this document in your in the Google drive folder I should put a link to that in here to just in case you start here.
+
+619
+01:32:26,970 --> 01:32:40,320
+Marisa Eisenberg: um and so, and so, then you know you can start to kind of fill this out for your own problem at hand and then what we're going to do so we'll take 2030 minutes everybody can work on this for a little while and then what we're going to do is.
+
+620
+01:32:41,250 --> 01:32:55,830
+Marisa Eisenberg: break everybody into little groups of two or three something like that, and you can and and basically pair and share so you know show each other the the draft that you have talked through it talk through what questions you have and what issues you have.
+
+621
+01:32:57,120 --> 01:33:01,290
+Marisa Eisenberg: and Michael and I will kind of wander amongst the groups and sort of see what everybody's doing.
+
+622
+01:33:01,620 --> 01:33:08,490
+Marisa Eisenberg: And so we'll spend a little time doing that and then we'll come back all together and sort of talk through what are some of the issues or pitfalls.
+
+623
+01:33:08,700 --> 01:33:13,500
+Marisa Eisenberg: You know if you were going to start using some of these methods for a project that you're interested in.
+
+624
+01:33:13,830 --> 01:33:19,770
+Marisa Eisenberg: you'll as you start to fill in the template you'll probably quickly come to things that you're like I don't know actually what I would do here.
+
+625
+01:33:20,370 --> 01:33:27,750
+Marisa Eisenberg: You know, and so Those are the kinds of questions that everyone will probably have similar kinds of issues in that way and so we'll come back all together as a group.
+
+626
+01:33:28,050 --> 01:33:36,930
+Marisa Eisenberg: sort of talk through like what were the issues that came up when you started trying to think through the specifics of how you would actually do this with a real system, you know.
+
+627
+01:33:38,280 --> 01:33:44,670
+Marisa Eisenberg: it's not going to work I don't know how to use it for this I don't know what I would do so, and then we can kind of talk through it together so.
+
+628
+01:33:45,450 --> 01:33:52,890
+Marisa Eisenberg: Maybe everybody does everybody have access to the Google drive that all worked okay awesome okay good good good.
+
+629
+01:33:53,460 --> 01:34:01,440
+Marisa Eisenberg: So everybody take let's say let's say we'll wrap that part up at like four it's 326 maybe take a half an hour essentially to like fill out.
+
+630
+01:34:01,920 --> 01:34:09,690
+Marisa Eisenberg: The thing Michael and I will can come back and check in at like 345 15 minutes into it and make sure that it's kind of working for everyone.
+
+631
+01:34:10,140 --> 01:34:20,220
+Marisa Eisenberg: So take a half an hour fill this out and then we'll do the peer feedback and come back together and all that I don't know, maybe a half an hour's too long, maybe 20 minutes, do you think it probably doesn't need a whole half hour.
+
+632
+01:34:20,730 --> 01:34:22,530
+Michael Akira Lee Hayashi: To document it's decently long.
+
+633
+01:34:22,980 --> 01:34:26,700
+Michael Akira Lee Hayashi: I mean we could we could check in at 15 but maybe 30 might be good to.
+
+634
+01:34:27,330 --> 01:34:33,270
+Marisa Eisenberg: check in at 15 and then we'll see kind of where everybody's at and and and i'll you know i'm going to turn off my videos you're not just staring at.
+
+635
+01:34:36,330 --> 01:34:44,430
+Marisa Eisenberg: hello, I muted myself so you're just staring at me, but if you have questions Michael and I will also still be here, so you can just unmute and and and you know ask.
+
+636
+01:34:47,550 --> 01:35:01,470
+Adriana Perez: me hot pedometers so how to select that but I matures I mean, because one thing is that concept, but then I would have to take the literature, to try to see what parameters were to start going to and so since.
+
+637
+01:35:02,610 --> 01:35:07,320
+Adriana Perez: It will be more time can see me right, so you want to do it right.
+
+638
+01:35:10,830 --> 01:35:15,300
+Michael Akira Lee Hayashi: yeah I that is an aspect that I think will be particularly good to talk about both.
+
+639
+01:35:15,540 --> 01:35:15,960
+Michael Akira Lee Hayashi: In.
+
+640
+01:35:16,110 --> 01:35:25,440
+Michael Akira Lee Hayashi: small groups when you're when you're sort of peer reviewing because sometimes sometimes another student will have an idea of like Oh, you could you could try these particular parameters in your model.
+
+641
+01:35:26,730 --> 01:35:34,380
+Michael Akira Lee Hayashi: But also also going to come back for bigger discussion because that process is, I think one that a lot of folks find.
+
+642
+01:35:35,760 --> 01:35:52,020
+Michael Akira Lee Hayashi: difficult to get started with like it it's it's trying to is trying to nail down a few things from potentially a very large body of literature, so we can we can talk a little more detail about ways to kind of get yourself traction on that particular problem.
+
+643
+01:35:56,430 --> 01:36:00,000
+Adriana Perez: So what did you guys to besides, seeing that each of churn.
+
+644
+01:36:00,810 --> 01:36:06,630
+Marisa Eisenberg: yeah so I mean we can we can talk more about this like you know in groups and together, but.
+
+645
+01:36:06,990 --> 01:36:17,490
+Marisa Eisenberg: So the the kind of common tools one the literature, unfortunately, there is no substitute for hard work like right but classic whatever like.
+
+646
+01:36:17,790 --> 01:36:25,530
+Marisa Eisenberg: You know, some of it is just combing the literature, for you know existing kinds of parameters sets that are out there from other studies and things like that.
+
+647
+01:36:25,830 --> 01:36:36,600
+Marisa Eisenberg: But there's also like, so I think the three kinds of approaches that tend to happen and often you make use of all three in the same study is coming the literature, to find parameter values or parameter ranges.
+
+648
+01:36:37,560 --> 01:36:47,010
+Marisa Eisenberg: sampling from wide ranges or maybe literature informed ranges but you know sampling from ranges of parameter space and then exploring what your.
+
+649
+01:36:47,400 --> 01:36:59,160
+Marisa Eisenberg: model does across all the different samples that you that you tested and then parameter estimation, so if you have some data that is not parameter data, but is data about the.
+
+650
+01:36:59,460 --> 01:37:12,570
+Marisa Eisenberg: You know, one of the variables in your model and how your model, you know dynamic data or whatever some kind of data from one of the variables in your model, you can estimate the model parameters using that data So those are kind of the three ways I mean.
+
+651
+01:37:13,050 --> 01:37:17,370
+Marisa Eisenberg: there's there's it's kind of you know that's kind of the options, I think yeah.
+
+652
+01:37:18,660 --> 01:37:27,480
+Michael Akira Lee Hayashi: The only thing i'd add is that when you're starting off, particularly when you're designing a model from scratch and you're trying to figure out what do I include in the model and.
+
+653
+01:37:27,930 --> 01:37:43,050
+Michael Akira Lee Hayashi: How do I kind of how do I pick starting values that are going to get me something that works, even if they're not like the perfect final values, sometimes there's no substitute for a bit of domain expertise in the area that you're looking at, so if i'm trying to build a model of.
+
+654
+01:37:44,790 --> 01:37:45,090
+Michael Akira Lee Hayashi: Of.
+
+655
+01:37:46,320 --> 01:37:54,120
+Michael Akira Lee Hayashi: What am I what am I doing recently covered transmission and daycares, for example, I need to know a little bit about.
+
+656
+01:37:54,570 --> 01:38:09,660
+Michael Akira Lee Hayashi: How children in daycare interact with each other, I need to know a little bit about the pathogen that i'm interested in, so if i'm looking at flu that's a very different beast than norovirus, which is a different beast from like bacterial meningitis, for example, and so.
+
+657
+01:38:10,770 --> 01:38:16,950
+Michael Akira Lee Hayashi: Like Mirza said they're there in some senses no substitute for hard work of like if you're if you're starting a project on a.
+
+658
+01:38:17,700 --> 01:38:30,030
+Michael Akira Lee Hayashi: Disease topic or a health topic that you're less intrinsically familiar with it's often helpful to start with due diligence on just a broad survey of that disease topics, so that you get a feel for what the important aspects are so.
+
+659
+01:38:31,650 --> 01:38:38,310
+Michael Akira Lee Hayashi: norovirus is profoundly infectious like surfaces it survives on surfaces, it has a very long shedding period and.
+
+660
+01:38:38,640 --> 01:38:47,790
+Michael Akira Lee Hayashi: If you've if you've done your due diligence, these are things that are just kind of in your brain when you go to model norovirus and so, even if you don't necessarily know the exact value of some of those things you can be like.
+
+661
+01:38:48,120 --> 01:38:53,460
+Michael Akira Lee Hayashi: i'm going to need to model, the fact that norovirus is pretty persistent in the environment so it's.
+
+662
+01:38:53,970 --> 01:39:05,400
+Michael Akira Lee Hayashi: The decay rates and things like that for virus on surfaces are going to be slower than they would be if I was looking at something like flu so, even if I don't know the exact value, I might be like well.
+
+663
+01:39:05,640 --> 01:39:14,970
+Michael Akira Lee Hayashi: we'll say it's maybe on the order of days to weeks, instead of hours to days, and so you can gain a lot of traction by having enough domain knowledge to be able to kind of start.
+
+664
+01:39:15,270 --> 01:39:27,720
+Michael Akira Lee Hayashi: With a ballpark estimate in terms of kind of an order of magnitude like does a process happen on the order of seconds hours days months and often that is enough to get you going.
+
+665
+01:39:27,750 --> 01:39:31,680
+Michael Akira Lee Hayashi: Quite a lot pretty close to your final results just from.
+
+666
+01:39:31,950 --> 01:39:38,160
+Marisa Eisenberg: That kind of order of magnitude estimate your plots are going to look decent, even if they're not exactly right, you know right.
+
+667
+01:39:39,450 --> 01:39:53,790
+Michael Akira Lee Hayashi: Similarly, if i'm modeling something like toilet use, then I need to know something behaviorally about like how and why do people use the toilet right, I need to know some fundamental human biology like How often do people actually need to eliminate waste.
+
+668
+01:39:54,000 --> 01:40:01,920
+Michael Akira Lee Hayashi: Because that that is parameters right, those are literally the usage rate parameters there so sometimes.
+
+669
+01:40:02,580 --> 01:40:14,220
+Michael Akira Lee Hayashi: that's something you can work off to like usually you almost always start from intuitions or your own background and then you make that more rigorous by digging into the literature, to find out.
+
+670
+01:40:15,120 --> 01:40:23,070
+Michael Akira Lee Hayashi: If if your intuitions are reasonably supported or if there's other factors that you need to include in the model so it's a lot of kind of back and forth of.
+
+671
+01:40:23,490 --> 01:40:31,020
+Michael Akira Lee Hayashi: here's what I think a reasonable structure of my starting models should look like and here's how I might kind of initially parameter is.
+
+672
+01:40:31,020 --> 01:40:32,130
+Michael Akira Lee Hayashi: That and then.
+
+673
+01:40:32,400 --> 01:40:34,290
+Michael Akira Lee Hayashi: kind of intuitively working through.
+
+674
+01:40:35,430 --> 01:40:50,250
+Michael Akira Lee Hayashi: Like a large broad survey of the literature of colleagues or things like that to be like okay now how can I take this and improve on those initial kind of back of the envelope guests, but, but that is to say, also don't don't.
+
+675
+01:40:51,000 --> 01:41:01,500
+Michael Akira Lee Hayashi: don't discount your instincts and intuitions on a topic and don't discount that kind of back of the envelope work, because it will often get you a surprising amount of traction toward a final product.
+
+676
+01:41:02,040 --> 01:41:03,420
+Marisa Eisenberg: And like related to that.
+
+677
+01:41:03,480 --> 01:41:05,220
+Marisa Eisenberg: This is kind of similar to what.
+
+678
+01:41:05,310 --> 01:41:14,130
+Marisa Eisenberg: Michael was saying before about coding and kind of perfect being the enemy of good or really perfect thing to be done, and so like.
+
+679
+01:41:15,450 --> 01:41:29,190
+Marisa Eisenberg: I find often when some when I work with colleagues or students who are starting a new project it's easy to get caught up in spending a lot of time finding parameters and doing literature searches to figure out parameter values.
+
+680
+01:41:29,640 --> 01:41:40,290
+Marisa Eisenberg: When it might be more worthwhile to get a version of the model coated with total bs parameter values at first that are made up, but are kind of on the right order of magnitude.
+
+681
+01:41:40,680 --> 01:41:43,500
+Marisa Eisenberg: Just so that you can make sure that you have something that's working.
+
+682
+01:41:43,800 --> 01:41:49,110
+Marisa Eisenberg: And figure out, you know, because you can do some initial sensitivity analysis with that kind of thing and figure out that.
+
+683
+01:41:49,320 --> 01:41:57,780
+Marisa Eisenberg: Maybe a parameter that's really hard to find in the literature your model actually isn't that sensitive to that parameter anyway, so, is it really worth the time to like.
+
+684
+01:41:58,230 --> 01:42:07,740
+Marisa Eisenberg: You know, like like comb through forever to figure out that there's no estimates of it existing in the literature if it's not really going to make a difference to your model outcome anyhow so like.
+
+685
+01:42:07,980 --> 01:42:18,660
+Marisa Eisenberg: I find that it's often a good idea to get a rough cut version of the model coated, even if the parameter values are total bs just so that way you can kind of see like sort of roughly how does it work.
+
+686
+01:42:20,610 --> 01:42:23,070
+Michael Akira Lee Hayashi: I think we often find ourselves, especially.
+
+687
+01:42:23,460 --> 01:42:33,960
+Michael Akira Lee Hayashi: Especially folks coming from a particularly empirical place we often find it hard to kind of break away from the notion of I need to have empirical support for what i've put in the thing.
+
+688
+01:42:34,980 --> 01:42:42,840
+Michael Akira Lee Hayashi: And that it's true that you want to have good empirical support for what you build into your model, but when you're starting and when you're designing your model.
+
+689
+01:42:43,740 --> 01:42:52,530
+Michael Akira Lee Hayashi: You you often don't need as much as you might and tissue paper as long as you have some understanding of the system you're trying to model from a kind of.
+
+690
+01:42:53,490 --> 01:42:57,960
+Michael Akira Lee Hayashi: holistic or conceptual perspective and you almost certainly have thoughts about.
+
+691
+01:42:58,290 --> 01:43:09,840
+Michael Akira Lee Hayashi: how you think that system should work and why the system works in certain way, so I think it's it's often worthwhile to kind of pursue those to their logical end so if you think that there's a certain reason why people behave the way they do.
+
+692
+01:43:10,710 --> 01:43:17,550
+Michael Akira Lee Hayashi: build that into a model and test right but that's that's part of the in a lot of ways that's the beauty of this exercise, I think.
+
+693
+01:43:19,860 --> 01:43:23,490
+Adriana Perez: we're okay yeah that is very helpful, thank you.
+
+694
+01:43:25,710 --> 01:43:28,950
+Adriana Perez: So the other thing that i'm struggling is.
+
+695
+01:43:30,030 --> 01:43:42,150
+Adriana Perez: into market research, one of the concerns, so we have this in America moles is like you really find the categories, but sometimes we have.
+
+696
+01:43:43,080 --> 01:43:55,200
+Adriana Perez: Issues the way we look at the data Center, then the the the transitions are more complicated that what you were thinking grace so, for example, we started with.
+
+697
+01:43:55,710 --> 01:44:12,870
+Adriana Perez: Never users, if they became susceptible to a tobacco product candidates are using it, and then they they became pastor users, but then some of the order, some people, the transition to using two products and then now I have 16.
+
+698
+01:44:14,370 --> 01:44:27,780
+Adriana Perez: Product combination so two and then another combination of three that the market change their needs me to answer, because I have to really find the this pains.
+
+699
+01:44:28,170 --> 01:44:30,240
+Adriana Perez: Right any other.
+
+700
+01:44:30,270 --> 01:44:35,190
+Adriana Perez: solution for that new size pretty set up the seeds.
+
+701
+01:44:35,940 --> 01:44:36,330
+Marisa Eisenberg: I mean.
+
+702
+01:44:37,080 --> 01:44:38,010
+Michael Akira Lee Hayashi: I would i'm.
+
+703
+01:44:38,340 --> 01:44:39,570
+Marisa Eisenberg: Sorry, no.
+
+704
+01:44:40,890 --> 01:44:52,590
+Michael Akira Lee Hayashi: I I would maybe suggest that there's kind of two ways of coming at this and both of them exploit the fact that it's pretty cheap, to be honest in terms of time and effort to build any given model like it's not.
+
+705
+01:44:53,220 --> 01:44:57,780
+Michael Akira Lee Hayashi: Building a market model is a fairly straightforward thing right, like you, you define the states, the States.
+
+706
+01:44:58,170 --> 01:45:03,510
+Michael Akira Lee Hayashi: determine the size of the transition matrix and then you figure out how easy or hard it is to actually determine the.
+
+707
+01:45:03,870 --> 01:45:13,140
+Michael Akira Lee Hayashi: probabilities that fill out that transition matrix so you can exploit that facts to do one of two things you can either you can either start from the simplest possible model.
+
+708
+01:45:13,320 --> 01:45:24,870
+Michael Akira Lee Hayashi: That you think is going to do a halfway okay job of answering your research questions so if your question is, how does a certain policy influence initiation among adolescents, for example.
+
+709
+01:45:25,290 --> 01:45:28,890
+Michael Akira Lee Hayashi: Then you want it, you might start by building the very simplest model.
+
+710
+01:45:29,520 --> 01:45:35,190
+Michael Akira Lee Hayashi: That you possibly can, with the fewest number of states, the smallest number of transitions so that you can get something that.
+
+711
+01:45:35,430 --> 01:45:42,270
+Michael Akira Lee Hayashi: works and you'll almost certainly find while you're doing that you're like well Okay, this is really simple but it's also quite dumb because.
+
+712
+01:45:42,450 --> 01:45:53,100
+Michael Akira Lee Hayashi: This is wrong, this is wrong, this is wrong, this is wrong right like we saw some of that happened in real time to rebuild the game three model yesterday i'd say something that'd be like Well, this is really simple, we might come back to it later right but.
+
+713
+01:45:53,790 --> 01:46:03,330
+Michael Akira Lee Hayashi: In order to build something in the first place, I had to start from some set of assumptions and I usually personally I usually start from simple and then build up complexity from there.
+
+714
+01:46:03,570 --> 01:46:11,220
+Michael Akira Lee Hayashi: But you can also go the other way kind of start from the biggest thing that you think does the best job of including all the things that you want in the system.
+
+715
+01:46:11,790 --> 01:46:20,430
+Michael Akira Lee Hayashi: And then pruning it down as you find that certain aspects are effectively intractable to estimate, or like in the end, say, a poly tobacco case.
+
+716
+01:46:21,150 --> 01:46:32,820
+Michael Akira Lee Hayashi: You could it's not there's nothing bad about building a really big poly tobacco Markov model, and in fact that's probably good because, because there are all kinds of wacky transitions between usage states and things, but then.
+
+717
+01:46:33,180 --> 01:46:41,400
+Michael Akira Lee Hayashi: You may find fairly quickly that it's effectively impossible to estimate the transition probabilities empirically for that, because it's really big and we just don't have the data for that.
+
+718
+01:46:41,580 --> 01:46:52,140
+Michael Akira Lee Hayashi: Speaking from experience this this, this is a thing that happened right like I went to build a poly tobacco markup model and there was only so much granularity that existed in the data about.
+
+719
+01:46:52,560 --> 01:47:02,370
+Michael Akira Lee Hayashi: What those transition probabilities might be so, then I had to kind of step back and be like well how can I smash categories together to better reflect what actually is available and tractable.
+
+720
+01:47:03,000 --> 01:47:14,070
+Michael Akira Lee Hayashi: From from an empirical perspective so that ended up being more of an exercise of start big prune so depending on depending on whether you're kind of instinctively inclined toward.
+
+721
+01:47:14,880 --> 01:47:20,790
+Michael Akira Lee Hayashi: kind of a kitchen sink approach or start simple build up, you can use either one of those but.
+
+722
+01:47:21,360 --> 01:47:33,390
+Michael Akira Lee Hayashi: it's very much exploit the fact that it is really cheap to build another month right like it's not there's nothing wrong with building 15 different models and being like 14 of these suck and one of them's kind of okay.
+
+723
+01:47:33,600 --> 01:47:35,880
+Marisa Eisenberg: yeah just keep your file system but.
+
+724
+01:47:37,440 --> 01:47:39,660
+Michael Akira Lee Hayashi: file nicely and keep them keep them structured.
+
+725
+01:47:39,960 --> 01:47:46,800
+Marisa Eisenberg: yeah yeah but yeah but totally and and it's also This is also a situation where it sounds like it's probably worth doing some.
+
+726
+01:47:47,400 --> 01:47:59,790
+Marisa Eisenberg: Like pre processing of your data to look at just in your data what kinds of usage patterns and transition patterns, do you tend to observe, you know you could make some.
+
+727
+01:48:00,120 --> 01:48:12,150
+Marisa Eisenberg: Like basic kinds of histograms of poly tobacco usage and transitions that just simple transitions at this time point you were X and that the next wave of data collection, you are why.
+
+728
+01:48:12,360 --> 01:48:25,050
+Marisa Eisenberg: You know kinds of things that you observed and then use that to be able to say Okay, the most common polly tobacco usage patterns are this so maybe i'm not going to include every combination of poly tobacco that I could.
+
+729
+01:48:25,320 --> 01:48:33,930
+Marisa Eisenberg: i'm just going to include the five most common ones that you know or whatever three you know however many you can manage that that seemed to show up the most.
+
+730
+01:48:35,070 --> 01:48:38,400
+Marisa Eisenberg: And that way you keep your model from exploding completely.
+
+731
+01:48:39,360 --> 01:48:46,650
+Marisa Eisenberg: And so you have all the individual tobacco products, but then you make it so that people can't actually transition.
+
+732
+01:48:46,980 --> 01:48:54,030
+Marisa Eisenberg: You know, or like Michael was just saying, instead of transitioning from you know, maybe in the individual tobacco things you keep track of.
+
+733
+01:48:54,240 --> 01:49:09,570
+Marisa Eisenberg: Really specific sub products, but then, when they combine it just becomes any kind of E cigarettes plus cigarettes, you know, without any of the special you know specific details and so yeah I don't know things like that tend to be what happens.
+
+734
+01:49:09,690 --> 01:49:14,760
+Michael Akira Lee Hayashi: You can also you can also kind of guide yourself by by keeping a focus on.
+
+735
+01:49:15,960 --> 01:49:24,480
+Michael Akira Lee Hayashi: What your what your fundamental research question is so if if at the end of the day, what you want to do is assess poly tobacco usage patterns.
+
+736
+01:49:24,720 --> 01:49:35,340
+Michael Akira Lee Hayashi: because certain ones, lead to higher sort of uptake higher initiation into cigarette smoking, specifically, which has a specific set of health impacts that we care about.
+
+737
+01:49:35,640 --> 01:49:45,420
+Michael Akira Lee Hayashi: Then you can use that to focus yourself, so the things you care about most are the sorts of usage combinations that have meaningful transition pathways to.
+
+738
+01:49:45,780 --> 01:49:54,600
+Michael Akira Lee Hayashi: Cigarette smoking behavior later on, where maybe some kinds of some combinations just don't matter, maybe if you're a cigarette and a cigar smoker.
+
+739
+01:49:54,900 --> 01:50:02,910
+Michael Akira Lee Hayashi: Maybe you don't care so much about what the secondary product is besides cigarettes because that's the one that matters a lot so sometimes depending on.
+
+740
+01:50:03,480 --> 01:50:15,210
+Michael Akira Lee Hayashi: How your research questions framed and what kind of the major impact you're trying to look for is you can get away with reducing complexity in some aspects, because while they matter in the real world.
+
+741
+01:50:15,720 --> 01:50:35,190
+Michael Akira Lee Hayashi: Maybe maybe they're not really the major driver of the dynamics that you care about like experimental behavior probably matters, but if it doesn't lead to sustained use does it actually matter, do you really need to put it in your particular model so there's there's that aspect as well.
+
+742
+01:50:37,350 --> 01:50:38,190
+Michael Akira Lee Hayashi: yeah exactly.
+
+743
+01:50:39,600 --> 01:50:40,230
+Marisa Eisenberg: well.
+
+744
+01:50:41,280 --> 01:50:44,670
+Marisa Eisenberg: Does everybody feel like you got a chance to kind of fill in.
+
+745
+01:50:45,060 --> 01:50:51,990
+Marisa Eisenberg: At least I haven't I saw people made templates in the Google drive, but I haven't I didn't want to like be a weirdo and creep on you, while you're trying to write.
+
+746
+01:50:52,200 --> 01:50:57,780
+Marisa Eisenberg: So I haven't gone in and look, but does everybody feel like you got a chance to kind of write something and get a little bit of a start.
+
+747
+01:51:00,540 --> 01:51:01,200
+Okay.
+
+748
+01:51:02,910 --> 01:51:05,190
+Nicolle Krebs: yeah I haven't coded anything but.
+
+749
+01:51:05,610 --> 01:51:18,570
+Marisa Eisenberg: Oh yeah oh yeah oh i'm Sorry, I think I forgot, I think I still have some like things like put your code here, if you have it, but no I don't expect anybody has code yeah that'd be impressive if you had it after half hour, but but yeah.
+
+750
+01:51:20,130 --> 01:51:33,300
+Marisa Eisenberg: Okay, if everybody feels like they kind of got a little bit of a start let's go ahead and we're going to split up into breakout sessions, and so I think Morgan put together groups of three.
+
+751
+01:51:34,350 --> 01:51:43,080
+Marisa Eisenberg: So maybe what we'll just do is I we went we were originally going to do two rounds of pairings, but I think instead let's just do one set of breakouts with.
+
+752
+01:51:44,100 --> 01:51:51,360
+Marisa Eisenberg: Groups of three and so what we'll do I think it's maybe groups of three and then a group of two or something i'm not sure we have the right number of people to make groups of three.
+
+753
+01:51:51,600 --> 01:52:00,030
+Marisa Eisenberg: But what i'd like you each to do is go around each of you kind of you could share your screen or whatever, let me make it so everybody can share their screen, they can already great.
+
+754
+01:52:00,360 --> 01:52:08,010
+Marisa Eisenberg: go around share your screen and look at each other's project proposals and talk through the projects that you were thinking of doing.
+
+755
+01:52:08,340 --> 01:52:20,730
+Marisa Eisenberg: And and talk about what hurdles, you know what challenges you kind of came across how far you got which parts of the of the project proposal template were confusing you know all of those kinds of things and.
+
+756
+01:52:21,120 --> 01:52:25,350
+Marisa Eisenberg: spend a little time looking at each other's project proposals and kind of see.
+
+757
+01:52:25,860 --> 01:52:34,080
+Marisa Eisenberg: I want you to kind of keep an eye for what pieces of the model building process still seem confusing what pieces of the model building process.
+
+758
+01:52:34,410 --> 01:52:48,240
+Marisa Eisenberg: Did you get sort of hung up on where you're like I don't know how I would fill in this portion of it that kind of thing share information and then we'll do that for 20 minutes, maybe 15 maybe I don't know what do you think.
+
+759
+01:52:51,180 --> 01:52:54,810
+Adriana Perez: Something so before we go oh go ahead.
+
+760
+01:52:56,310 --> 01:53:00,000
+Michael Akira Lee Hayashi: Oh no I was just saying 15 or 20 minutes seems reasonable to me that was all.
+
+761
+01:53:00,450 --> 01:53:13,950
+Marisa Eisenberg: yeah we can we can bopper will will have between different groups, and so, depending on how the discussion is going, we can, if everyone is kind of wrapped up by 15 minutes we'll pull everyone back together, if not, then, then we'll let you we can kind of let it keep going.
+
+762
+01:53:14,520 --> 01:53:16,050
+Marisa Eisenberg: No, you were gonna say something sorry.
+
+763
+01:53:16,470 --> 01:53:33,930
+Adriana Perez: yeah the questions that I have some muscle thing outcomes are we have been discussing our discreet and then we'll The outcome is continues, like, for example, the amount of nicotine, that is a spell out on all of that.
+
+764
+01:53:36,300 --> 01:53:45,690
+Adriana Perez: I don't think that we have, I mean that's the continuous function and right that you will start on Mondays and Tuesday on Tuesday to go over those.
+
+765
+01:53:47,520 --> 01:53:54,270
+Adriana Perez: he's got i'm also considered part of the dynamics here that we can model.
+
+766
+01:53:54,780 --> 01:54:06,600
+Marisa Eisenberg: yeah continuous outcomes are great I mean when we did the examples, this morning, for instance, you know, one of our outcomes of interest was the peak prevalence of the epidemic that's a continuous variable you know.
+
+767
+01:54:06,690 --> 01:54:09,090
+Marisa Eisenberg: Maybe in our case, it was a network so.
+
+768
+01:54:09,090 --> 01:54:21,870
+Marisa Eisenberg: Technically it can only take on specific values but, in general, that would be when we ran the odd version that's a continuous variable that can take on any number so continuous variables are perfectly good you can totally work with those two.
+
+769
+01:54:22,650 --> 01:54:31,620
+Michael Akira Lee Hayashi: yeah and from from maybe like a nicotine exposure market model framework which is just maybe what I suspect you're working with here.
+
+770
+01:54:32,730 --> 01:54:39,300
+Michael Akira Lee Hayashi: there's a lot of different ways to come at it, even if some of the process model itself is discrete like you're moving through specific kinds of usage states.
+
+771
+01:54:40,200 --> 01:54:49,140
+Michael Akira Lee Hayashi: there's nothing that says that you can't also bolt on additional layers we kind of talked about this on Tuesday, about the idea of like you can have a slightly modular model where.
+
+772
+01:54:49,440 --> 01:54:56,070
+Michael Akira Lee Hayashi: A person who is a cigarette user, for example, or a user of cigarettes and E cigarettes, they do have a certain.
+
+773
+01:54:56,340 --> 01:55:07,020
+Michael Akira Lee Hayashi: amount of exposure to nicotine due to their usage patterns, so what you could do is make one part of the model that's the market model to say what products they're using over some amount of time.
+
+774
+01:55:07,320 --> 01:55:09,630
+Michael Akira Lee Hayashi: And then another kind of bolt on that's like.
+
+775
+01:55:10,080 --> 01:55:19,500
+Michael Akira Lee Hayashi: Okay, so in this year, where a person's using E cigarettes and cigarettes i'm going to have some parameters that tell me how much of each they use what the rate they what the rate they use either is.
+
+776
+01:55:19,890 --> 01:55:29,610
+Michael Akira Lee Hayashi: And then also calculates the exposure from that usage pattern so it's like I used cigarettes and E cigarettes at fairly high intensity for a year which maps to.
+
+777
+01:55:30,360 --> 01:55:34,890
+Michael Akira Lee Hayashi: Either a random or deterministic amount of nicotine exposure for that time.
+
+778
+01:55:35,250 --> 01:55:45,120
+Michael Akira Lee Hayashi: And then that's something that you can quantify in your model it's it's just that you may have had to add kind of an additional layer onto one part of the model structure in order to get this sort of.
+
+779
+01:55:45,420 --> 01:55:59,220
+Michael Akira Lee Hayashi: Additional bit out, but this is totally legal there's nothing wrong with mixing and matching in that way because it's just kind of some parts of the model might be more discreet, some might be more continuous and and that's Okay, then that's good in a lot of cases, you have a lot of.
+
+780
+01:55:59,640 --> 01:56:02,610
+Marisa Eisenberg: A common yeah yeah you can totally squash.
+
+781
+01:56:02,670 --> 01:56:04,590
+Marisa Eisenberg: model frameworks and things like that.
+
+782
+01:56:04,830 --> 01:56:16,410
+Marisa Eisenberg: there's lots of examples where you might run an agent based model where within each individual there's an odd that runs like you can do a lot of this kind of thing it's it's not it's not a problem um but yeah okay.
+
+783
+01:56:17,670 --> 01:56:24,090
+Marisa Eisenberg: Does the plan for peer feedback make sense to everybody everybody knows what we're up to next.
+
+784
+01:56:28,470 --> 01:56:42,930
+Marisa Eisenberg: Okay, good see thumbs up, and in that case, then let's go ahead and do the let's do the breakout rooms, I think, Morgan will invite you to the various breakout rooms and then we'll give you like 510 minutes to kind of.
+
+785
+01:56:43,890 --> 01:56:50,880
+Marisa Eisenberg: First, have your initial discussion and then Michael and I will start kind of wandering around and seeing you know how it goes.
+
+786
+01:56:54,780 --> 01:56:57,540
+Marisa Eisenberg: i'm sorry if I interrupted.
+
+787
+01:56:59,580 --> 01:57:08,910
+Marisa Eisenberg: Five minutes, so my as well um yeah well we're back it sounds it seems like I think everybody had some good productive conversations.
+
+788
+01:57:09,600 --> 01:57:17,040
+Marisa Eisenberg: So that's good wanted to kind of pull us back together were there any common themes that you notice, as you were talking.
+
+789
+01:57:17,280 --> 01:57:27,150
+Marisa Eisenberg: questions that you have that are still thinking about sort of how to how you would tackle the model you're working on in your project proposals and things like that that are any, just like.
+
+790
+01:57:28,200 --> 01:57:31,380
+Marisa Eisenberg: Things that came up in your conversation that might be useful to the larger group.
+
+791
+01:57:32,580 --> 01:57:33,030
+Marisa Eisenberg: yeah.
+
+792
+01:57:42,750 --> 01:57:43,680
+Nicolas Rodriguez Alegria: Can you hear me.
+
+793
+01:57:45,150 --> 01:57:48,690
+Marisa Eisenberg: Oh yeah now I can it for it for a minute, you were quiet, but it seems to be.
+
+794
+01:57:48,690 --> 01:57:49,170
+Fine.
+
+795
+01:57:50,790 --> 01:57:52,020
+Nicolas Rodriguez Alegria: and
+
+796
+01:57:53,280 --> 01:57:55,020
+Nicolas Rodriguez Alegria: Thank you for this opportunity.
+
+797
+01:57:57,030 --> 01:58:05,850
+Nicolas Rodriguez Alegria: Other information, I appreciate the material, the information in Columbus the.
+
+798
+01:58:06,870 --> 01:58:08,430
+Nicolas Rodriguez Alegria: Different presentation.
+
+799
+01:58:09,900 --> 01:58:14,220
+Nicolas Rodriguez Alegria: My approach is more from the social epidemiology so.
+
+800
+01:58:16,350 --> 01:58:25,530
+Nicolas Rodriguez Alegria: he's able to have a more skill and tools to study and.
+
+801
+01:58:27,690 --> 01:58:35,280
+Nicolas Rodriguez Alegria: yeah I need to I need to organize my ideas in but thank you for.
+
+802
+01:58:36,510 --> 01:58:39,450
+Nicolas Rodriguez Alegria: For for the classes, or the.
+
+803
+01:58:40,620 --> 01:58:43,530
+Nicolas Rodriguez Alegria: ratio the mother our preparation in.
+
+804
+01:58:44,610 --> 01:58:50,190
+Nicolas Rodriguez Alegria: Using to have in these schools yeah Thank you.
+
+805
+01:58:50,940 --> 01:58:53,010
+Marisa Eisenberg: awesome well, thank you i'm glad.
+
+806
+01:58:53,070 --> 01:58:56,010
+Marisa Eisenberg: i'm glad it was cool um yeah.
+
+807
+01:58:57,270 --> 01:59:04,170
+Marisa Eisenberg: I don't know some of the things I went to rooms, two and three, and definitely I noticed some common themes across both of them are sort of like.
+
+808
+01:59:05,580 --> 01:59:06,090
+Marisa Eisenberg: sort of.
+
+809
+01:59:07,320 --> 01:59:15,450
+Marisa Eisenberg: figuring out how to do the details and then also sort of wrangling between complexity and simplicity and like how that affects what.
+
+810
+01:59:15,780 --> 01:59:25,920
+Marisa Eisenberg: model framework you choose and those kinds of questions seem to be common themes I don't know if my goal if you in the room, one folks had any of that stuff too.
+
+811
+01:59:26,580 --> 01:59:43,410
+Michael Akira Lee Hayashi: I think that's accurate I think there's there's also sometimes an aspect of how to how to kind of get yourself to think in a mechanistic modeling style, which I think can be a bit of an adaptation so so i'm glad to see that we're having discussions kind of toward that character of.
+
+812
+01:59:45,120 --> 01:59:49,770
+Michael Akira Lee Hayashi: How does this fit in our toolbox, what does it mean to think about building a model in.
+
+813
+01:59:50,220 --> 01:59:59,580
+Michael Akira Lee Hayashi: That that's a mechanistic model, instead of a statistical model, for example, I know we've talked about this at various points, but I think sometimes that is kind of a paradigm shift of ways to think about.
+
+814
+01:59:59,940 --> 02:00:06,900
+Michael Akira Lee Hayashi: What you're doing so i'd hope that maybe that's something that you continue to think about and maybe like.
+
+815
+02:00:07,980 --> 02:00:14,340
+Michael Akira Lee Hayashi: start to come to more sort of personal conclusions on that front of what each of those endeavors means.
+
+816
+02:00:15,660 --> 02:00:20,910
+Marisa Eisenberg: Excellent well it's 457 and that sounds like a perfect note to end things on so.
+
+817
+02:00:21,900 --> 02:00:28,020
+Marisa Eisenberg: If you have more questions Michael and I will, are you know, going to be around feel free to email us.
+
+818
+02:00:28,320 --> 02:00:37,200
+Marisa Eisenberg: And in my case, in particular, I have a like an inbox that is basically sort of a dumpster fire So if you don't hear from me, the first time, please don't feel weird about sending a.
+
+819
+02:00:37,410 --> 02:00:45,630
+Marisa Eisenberg: pink to sort of be like Hello pushing this to the top of your inbox but i'm happy to answer questions if you if you're run into any issues and things like that.
+
+820
+02:00:45,900 --> 02:01:01,530
+Marisa Eisenberg: And the as we sort of mentioned earlier the canvas materials will continue to be available, so you can watch the recordings or you know, use the code all of that kind of stuff will still be there and yeah and I guess any last thoughts Michael anything else, she heard.
+
+821
+02:01:02,100 --> 02:01:08,700
+Michael Akira Lee Hayashi: i'm not really i'm we've covered a lot and there's lots of digest I spect.
+
+822
+02:01:09,030 --> 02:01:14,760
+Marisa Eisenberg: yeah yeah exactly, so thank you all for sticking with it all the way to the end 5pm on a Friday, so yeah.
+
+823
+02:01:14,910 --> 02:01:15,330
+anything.
+
+824
+02:01:16,650 --> 02:01:21,330
+Michael Akira Lee Hayashi: else, please do that and feedback is important so so please do those things.
+
+825
+02:01:22,560 --> 02:01:27,870
+Michael Akira Lee Hayashi: But we like to see them and thanks for thanks for sticking with us this week, this was fun.
+
+826
+02:01:28,350 --> 02:01:30,720
+Marisa Eisenberg: yeah exactly awesome cool Thank you.
+
+827
+02:01:32,640 --> 02:01:33,210
+Nicolas Rodriguez Alegria: Thank you.
+

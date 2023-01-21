@@ -1,0 +1,2368 @@
+1
+00:00:02,953 --> 00:00:09,643
+That's great. So we're happy to have Andrew Tang here, who is currently an associate professor at Duke University.
+
+2
+00:00:09,643 --> 00:00:13,243
+Sir Andrew got his Ph.D. from University of Pennsylvania.
+
+3
+00:00:13,933 --> 00:00:20,262
+He spent some time at Madison, University of Wisconsin, Madison as a junior a couple of years ago.
+
+4
+00:00:20,263 --> 00:00:22,513
+And he's worked on lots and lots and lots of different things.
+
+5
+00:00:22,513 --> 00:00:30,013
+And so he's worked on high dimensional statistical inference tensor data analysis, which I guess we're going to hear about today.
+
+6
+00:00:30,013 --> 00:00:34,303
+Functional data analysis, non convex optimization, electronic health records,
+
+7
+00:00:34,303 --> 00:00:42,463
+compressed sensing and matrix recovery with applications in imaging, genomics, microbiome, single cell sequencing, lots, lots of things.
+
+8
+00:00:43,213 --> 00:00:48,073
+This is a very broad perspective of tensor learning in this decade.
+
+9
+00:00:48,103 --> 00:00:52,843
+So welcome. Thanks so much for the nice production.
+
+10
+00:00:52,993 --> 00:01:00,163
+It's a huge honor to be here to talk about my recent work conference focus.
+
+11
+00:01:01,303 --> 00:01:10,713
+The only surprise is, first of all, it's basically our listeners are also veterans.
+
+12
+00:01:11,143 --> 00:01:18,343
+And I mentioned something referred to as the work as the jinx.
+
+13
+00:01:18,883 --> 00:01:29,203
+And the focus of this talk is not about them. It's mostly about the tens of ways, three ways or higher amounts or the three tens or higher.
+
+14
+00:01:29,983 --> 00:01:34,783
+We can visualize it as huge well, each cell containing value.
+
+15
+00:01:35,743 --> 00:01:45,993
+So we say that tens of all those three or higher high order tenses and through all this talk we use these code laughing letter like this eight notes.
+
+16
+00:01:46,303 --> 00:01:49,633
+And this eight here is sort of a few tensor because it has two ways.
+
+17
+00:01:49,993 --> 00:01:57,403
+And and one of the ways as well in Chinese for a one week mark is from 1 to 3.
+
+18
+00:01:58,423 --> 00:02:06,523
+So you may wonder why we call about answers. First of all, to serve directly appears as a datasets in many scientific applications.
+
+19
+00:02:06,973 --> 00:02:14,323
+For example, a new image. They know that this in order to understand how our brain was found and how our brain was functioning,
+
+20
+00:02:14,773 --> 00:02:19,823
+scientists invented a lot of the same techniques to model the brain activities.
+
+21
+00:02:20,953 --> 00:02:25,723
+So they went like the C, T and line is Islam, Heidi, G and so on.
+
+22
+00:02:25,723 --> 00:02:38,293
+So of course, because our brain have a 3D spatial structure, the usual MRI image is 3D and the other image, youtube.com, also be put into a tensor.
+
+23
+00:02:40,393 --> 00:02:43,393
+So another application actually is real occasional.
+
+24
+00:02:43,393 --> 00:02:50,053
+Having confidence in collaboration is what is the image, the noisy computational image.
+
+25
+00:02:50,863 --> 00:02:56,353
+And suppose we're interested in the consistency and that structure of this material.
+
+26
+00:02:56,973 --> 00:03:03,883
+What is that you like the actual microscope and once I of the material for the to the camera
+
+27
+00:03:04,363 --> 00:03:11,533
+to the say you know from probe to show the natural and the natural will and the truth of Iraq.
+
+28
+00:03:11,923 --> 00:03:16,533
+The other side of the camera to receive the information passage.
+
+29
+00:03:17,113 --> 00:03:26,813
+As you can imagine for each location of this probe, we will see it's a two inch as the location of the probe say we can have is wall is
+
+30
+00:03:27,053 --> 00:03:32,473
+the moving up and down the left and right in the end the will have to deal to the
+
+31
+00:03:32,473 --> 00:03:38,712
+images that's a 4D image so that's why this technology is called the for this then for
+
+32
+00:03:38,713 --> 00:03:44,053
+the scan interest the actual microscope because the resulting image is the fourth.
+
+33
+00:03:44,113 --> 00:03:56,113
+So on the of using other publications magazines like sequencing single cell the microbiome we do see a lot
+
+34
+00:03:56,113 --> 00:04:04,692
+of see the measurements made by race in the form of tensor resample and this is the microbiome datasets.
+
+35
+00:04:04,693 --> 00:04:11,353
+Well there's three ways different subjects, the different variables in general.
+
+36
+00:04:11,953 --> 00:04:15,493
+And these are the size of the body of this subject.
+
+37
+00:04:16,213 --> 00:04:25,153
+That's a tensor. And another application I just want to mention is the high progress that we know in the Facebook network.
+
+38
+00:04:25,963 --> 00:04:32,623
+You can be denoted by a regular graph where the connection is between two nodes on two subjects.
+
+39
+00:04:33,163 --> 00:04:36,583
+But the real life, the situation can be very complicated.
+
+40
+00:04:36,973 --> 00:04:41,833
+For example, for all of us can read the paper together, six of us can go to the team together.
+
+41
+00:04:42,343 --> 00:04:51,373
+And then the connection happens not only to subjects but to multiple three or more and to nodes such a high.
+
+42
+00:04:52,283 --> 00:05:03,563
+And we we need a high tensor to it, for example, adjacency tensor to represent a slightly different of our related topic of Dynamic Network.
+
+43
+00:05:04,253 --> 00:05:09,203
+And we also know that to add the single time point of the Facebook network code,
+
+44
+00:05:09,683 --> 00:05:14,753
+then you can be denoted as a regular graph and the encoded adjacency matrix.
+
+45
+00:05:15,203 --> 00:05:20,903
+We are subject and subject j often to each other, not the one they are otherwise all but zero.
+
+46
+00:05:21,213 --> 00:05:34,933
+Okay. This is only for single snapshots saying that if we have multiple networks, if we try to stack them together, imagine it is a stack of matrices.
+
+47
+00:05:35,363 --> 00:05:44,933
+And now the attention that Tezos appears, for example, unification nine times the Matrix Value Time series.
+
+48
+00:05:45,063 --> 00:05:50,123
+I mean, just sitting, for example, are the financial metrics of among different companies.
+
+49
+00:05:50,753 --> 00:05:56,303
+All of a sudden in time, immediately you'll see that that is tensor, not the matrix.
+
+50
+00:05:56,843 --> 00:06:05,603
+And you were very interested in, for example, you see the correlations even among different companies.
+
+51
+00:06:06,053 --> 00:06:09,683
+They'll be a covariance matrix. Covariance matrix.
+
+52
+00:06:09,833 --> 00:06:20,123
+Now, if you own a 4% and then zoom directly up here on another example dimension, it's related to my recent research.
+
+53
+00:06:20,543 --> 00:06:29,453
+So all the multivariate automation logic do with the specific examples that each are the verbal measurements, those are answers.
+
+54
+00:06:29,873 --> 00:06:35,123
+And you see that we just take a look at this, this, this picture.
+
+55
+00:06:35,243 --> 00:06:40,913
+We have seen different subjects. And for each subject we have different type of measurements.
+
+56
+00:06:41,213 --> 00:06:44,723
+And these measurements are taken over a certain period of time.
+
+57
+00:06:45,633 --> 00:06:57,273
+And we only have intensified the dataset from, well, you know, another set of old occasions that they are said that does not direct comment sometimes.
+
+58
+00:06:57,863 --> 00:07:03,203
+Well, but transforming the problem with answers, these can be cleaner and easier to solve.
+
+59
+00:07:03,833 --> 00:07:11,723
+I would like to measure a lot of situation is a file image by image image analysis by image analysis.
+
+60
+00:07:12,083 --> 00:07:15,683
+So crime is the Nobel Prize winning technique.
+
+61
+00:07:17,003 --> 00:07:21,503
+It's a very important techniques to take to reconstruct the protein structure.
+
+62
+00:07:21,923 --> 00:07:24,113
+For example, we have different the protein.
+
+63
+00:07:24,473 --> 00:07:37,813
+And in this in this specimen and using the prime M technique, basically, I observe to the same projection of this to the 3D structure of.
+
+64
+00:07:39,313 --> 00:07:49,093
+Okay. Well, unfortunately, we cannot say handle without all the controls and the rotation and the orientation of each of the proteins here.
+
+65
+00:07:49,543 --> 00:07:55,843
+So in the end, you can see that the student's t proteins are oranges in very different directions.
+
+66
+00:07:56,503 --> 00:08:04,593
+Okay. And then how to handle that? If we are a lack of this orientation, we can use the metal console called the mantle of the moment.
+
+67
+00:08:04,843 --> 00:08:12,963
+The idea is very simple. We take each patch of this protein that causes it to calculate its moments.
+
+68
+00:08:13,523 --> 00:08:17,303
+Then we've run the rotation of the same the protein structure,
+
+69
+00:08:17,303 --> 00:08:23,682
+and can be encoded into the low rank structure of this protein and sometimes a lower anticommunism.
+
+70
+00:08:23,683 --> 00:08:33,283
+And those funds of volunteerism, as implied by this ends, are usually the first moments of the observations, which is a vector.
+
+71
+00:08:33,463 --> 00:08:37,813
+The second the moment of this observation, which is the matrix, are not sufficient.
+
+72
+00:08:38,083 --> 00:08:41,562
+We need the higher moments vector times, better times vectors.
+
+73
+00:08:41,563 --> 00:08:50,083
+Again, that's the tensor and the intensity composition will be applied to solve this type of problem in a protein reconstruction problem.
+
+74
+00:08:50,653 --> 00:08:59,023
+And I also want to mention that it is matter of moment tensor not only are useful for problem image reconstruction,
+
+75
+00:08:59,293 --> 00:09:04,123
+but also useful in other types of statistical machine only problems.
+
+76
+00:09:04,273 --> 00:09:12,123
+I just want to mention of you here because from all those talking modeling, you and others as we're all going to be doing,
+
+77
+00:09:12,163 --> 00:09:19,182
+just since I don't go into more detail the reference to this for each topic of each each instances
+
+78
+00:09:19,183 --> 00:09:25,693
+of this topic another because I want to measure here is of other highly rational skills.
+
+79
+00:09:26,803 --> 00:09:31,843
+Let's take a look at this. What I consider zero plus the main factor.
+
+80
+00:09:34,273 --> 00:09:43,153
+We know in a lot of scenarios, we not only have the means, but also the interaction like lapel as action.
+
+81
+00:09:44,653 --> 00:09:54,283
+For example, if we don't want to consider housing corrections and then we want to say, well, let's come up, which is the matrix problem delivery.
+
+82
+00:09:54,943 --> 00:10:02,693
+And if we want to further say take into account the interaction amongst three or you are more of the covariance,
+
+83
+00:10:03,153 --> 00:10:10,823
+then we want to incorporate a high ordering. This looks very complicated, but we have a very clean form.
+
+84
+00:10:11,263 --> 00:10:19,693
+What I was doing, the product of tensor intensive plus first line is that we just need to take a look at this picture.
+
+85
+00:10:20,173 --> 00:10:26,442
+And B, here is basically the how the interaction effects turn that encode of all the
+
+86
+00:10:26,443 --> 00:10:32,653
+problems of interesting this is not a figure in a zero with eyes that come up.
+
+87
+00:10:32,983 --> 00:10:42,942
+And the example here is a transit tricycle where it's basically is start to pull out of that after and lingers and we start using this after all the
+
+88
+00:10:42,943 --> 00:10:52,753
+product myself was three times and then we kind of use the as a regression problem to solve this other than using to solve this the origin of model.
+
+89
+00:10:54,013 --> 00:10:58,333
+So why a tensor here or why is just in y is just a scan?
+
+90
+00:10:58,333 --> 00:11:08,353
+Why is a schema an x is of a tenses? Here the x exists gather and this x is a vector and the this calligraphic text is a tense.
+
+91
+00:11:09,713 --> 00:11:13,193
+Okay. They have Daniel's presidents.
+
+92
+00:11:15,903 --> 00:11:22,923
+All right. So I was also want to mention that Tensor is quite popular in modern machine learning and so revolves around,
+
+93
+00:11:23,043 --> 00:11:28,473
+for example, the prototypical model of reinforcement learning, so called Markov decision process.
+
+94
+00:11:29,593 --> 00:11:38,223
+It can be understood as a tensor because after each agents, violence and extraction occur,
+
+95
+00:11:38,273 --> 00:11:42,573
+the system would jump to another system according to a certain amount of transition.
+
+96
+00:11:43,153 --> 00:11:46,842
+So what if you just stack all the different?
+
+97
+00:11:46,843 --> 00:11:50,373
+The Markov decision kernels together. There's one that's a tensor.
+
+98
+00:11:51,093 --> 00:11:59,803
+Now we can basically the same applies on a cards insurance for something meaning that entry so that we can just at
+
+99
+00:11:59,813 --> 00:12:07,953
+the top of the compilation we can't do if there is a type of information and we can utilize that and can learn this,
+
+100
+00:12:08,613 --> 00:12:16,323
+this whole entity is a much quicker. And the tension is also very powerful in doing that.
+
+101
+00:12:16,513 --> 00:12:22,953
+And that's why we have this TensorFlow, because the whole listen to the queries, answers and the results.
+
+102
+00:12:23,293 --> 00:12:28,393
+We we also provide a schematic plot for this convolutional neural network.
+
+103
+00:12:28,903 --> 00:12:33,763
+We can already see that all the many of the intermediate arrays tenses.
+
+104
+00:12:35,323 --> 00:12:36,163
+More importantly,
+
+105
+00:12:36,163 --> 00:12:45,313
+I will say that tensor just provided a very important testing of these very complicated phenomena and results for the machine learning example.
+
+106
+00:12:45,973 --> 00:12:52,063
+The deep learning is like a mystery and the general deep learning is very hard to analyze.
+
+107
+00:12:52,543 --> 00:12:59,623
+So many people think to observe some sort of phenomenon like that or prime that they should help.
+
+108
+00:12:59,743 --> 00:13:04,543
+And these are defined as these are regularization and during class, this type of phenomenon.
+
+109
+00:13:05,203 --> 00:13:09,253
+And they could improve this in the very general improvement work.
+
+110
+00:13:09,733 --> 00:13:14,593
+Then we take one step back and consider the terms of decomposition problem that will improve them.
+
+111
+00:13:14,923 --> 00:13:23,893
+And then these two radical results can shed light to the harshness of the general phenomena of the intensity of doing your network.
+
+112
+00:13:24,943 --> 00:13:31,663
+And so that's why Intense also is very popular in this radical computer science, theoretical machine learning to society.
+
+113
+00:13:32,983 --> 00:13:36,852
+I would say terms is charming. Just let's take a look at this.
+
+114
+00:13:36,853 --> 00:13:42,283
+Two pictures. I would say this 3D baby is cuter than this to the baby.
+
+115
+00:13:43,043 --> 00:13:47,743
+But I also want to say I'm very biased because this to the baby is my son.
+
+116
+00:13:48,613 --> 00:13:54,863
+And I think my son is looking at reality. It's not a single, by the way.
+
+117
+00:13:54,863 --> 00:14:00,703
+And so my son is much bigger now. This is the same baby is bigger.
+
+118
+00:14:00,703 --> 00:14:05,683
+Brother of a sister. The picture was a few years ago.
+
+119
+00:14:06,973 --> 00:14:13,963
+I just want to also want to mention that of the child intensive province, just like the heart of the baby, it's much harder to think of.
+
+120
+00:14:15,553 --> 00:14:20,772
+And because the tens of problems are far more than extensions from which is the heart of babies,
+
+121
+00:14:20,773 --> 00:14:29,563
+of course is following the decision of the father to animate is the tensor usually you will have more structures as well illustrate if you can
+
+122
+00:14:29,563 --> 00:14:40,443
+goes on with the to just focus on the to do the just and the just makes that tends to be objects then we lose the structure and that's okay.
+
+123
+00:14:40,573 --> 00:14:47,953
+It's just supporting results and themselves and coming out the maturity and that brings a lot of combination of issues.
+
+124
+00:14:48,463 --> 00:14:58,533
+For example, you I'm saying, and my image is about 100 by 100 by 100 dimensional is already asked is 1 million cells,
+
+125
+00:14:58,693 --> 00:15:08,683
+although it is not super high resolution, but nonetheless many same mathematical concepts are not tenses,
+
+126
+00:15:10,783 --> 00:15:20,112
+although they are widely used of for matrices. They are not well-defined though I mean collecting such examples of a single wide examination,
+
+127
+00:15:20,113 --> 00:15:24,073
+eigenvalue, decomposition spatter on all nuclear now and so on.
+
+128
+00:15:24,073 --> 00:15:27,193
+So a collision, a lot of a lot beast.
+
+129
+00:15:28,453 --> 00:15:35,293
+So after working on this topic for a few years, I think of this is my one sentence summary in this topic.
+
+130
+00:15:35,803 --> 00:15:42,223
+My memory are I think is a very important interdisciplinary topic of modern data
+
+131
+00:15:42,223 --> 00:15:47,893
+science and all of them that the problems are motivated by the DOM in large equations.
+
+132
+00:15:48,703 --> 00:15:52,873
+And if we just extracted them into a mathematical statistical problem,
+
+133
+00:15:52,873 --> 00:15:59,893
+then naturally this study will overlap with of the lot of say it must apply mathematical sciences disciplines,
+
+134
+00:16:00,103 --> 00:16:01,393
+high dimensional statistics,
+
+135
+00:16:02,013 --> 00:16:08,843
+original probability noncommercial optimization information is the Iranian-American Analysis Theory of Computing Horizontal Force.
+
+136
+00:16:09,343 --> 00:16:13,663
+After I started working on science, I realized that I can communicate to different people.
+
+137
+00:16:14,593 --> 00:16:22,333
+I think that this is one part of one aspect of the one thing I size all the different fields I want to ask the same.
+
+138
+00:16:22,333 --> 00:16:30,823
+It's okay. So there were a lot of attention on each province choosing to tell you about all of them.
+
+139
+00:16:31,153 --> 00:16:36,793
+I want to just tell you to represent your ones as and to describe some say briefly.
+
+140
+00:16:37,183 --> 00:16:41,743
+The first I want to talk about of this, how to do a speed of sensors.
+
+141
+00:16:43,123 --> 00:16:52,053
+So one is a speed. Yeah, I think for this audience, I really have to explain and it is one of the most important tools to do an introduction.
+
+142
+00:16:52,723 --> 00:17:04,183
+And so we have the origin of interesting huh applies within only compositing you know loading matrix on another component matrix.
+
+143
+00:17:05,533 --> 00:17:11,123
+And the is video is closely related to the principal component now.
+
+144
+00:17:11,803 --> 00:17:16,622
+To find one or more people directions that explain most of the various occupations.
+
+145
+00:17:16,623 --> 00:17:23,433
+That's supposedly how they see the clouds and the destruction things the most of their instruments.
+
+146
+00:17:23,493 --> 00:17:28,143
+First is the second piece See a viola.
+
+147
+00:17:28,173 --> 00:17:36,963
+The major difference between Sweetie and PC was that when you do a PC, you have to centralize it and you get the variance to speed.
+
+148
+00:17:37,023 --> 00:17:40,293
+You don't have to do that really.
+
+149
+00:17:40,293 --> 00:17:45,793
+The other two handle the harder majority and also the structure of your datas adds in those institutions.
+
+150
+00:17:45,813 --> 00:17:47,923
+I'd much as I introduce a lot of say,
+
+151
+00:17:47,943 --> 00:17:59,643
+variance of the speedy and PC for example this boss PC Speedy on to handle the sparsity sense robots of Siena as we now apply
+
+152
+00:17:59,643 --> 00:18:11,013
+the tool to handle the the outliers and heavy tail of the noise and then robots the PC and these e the colonel PC and speedy.
+
+153
+00:18:11,253 --> 00:18:18,713
+They are used to handle the not in the arity in this accommodation, but those are mostly a focus on the matrix data.
+
+154
+00:18:19,143 --> 00:18:25,893
+Well, how about something? At least a few years ago this problem was not well understood or soft.
+
+155
+00:18:26,793 --> 00:18:33,603
+So you may wonder why we can't see that speed for intensity that I house all the reasons why we want to do that.
+
+156
+00:18:33,873 --> 00:18:35,733
+I want to give you a really example.
+
+157
+00:18:35,853 --> 00:18:44,343
+Real application I have encountered in collaborating with you assigned exactly what happened that is still about it is what is done image the noisy.
+
+158
+00:18:46,023 --> 00:18:52,073
+So we have this material on one side on material focus the actual truths,
+
+159
+00:18:52,443 --> 00:19:01,262
+the intentions and then we get the fraction per the image is we stack all these images together and we have this
+
+160
+00:19:01,263 --> 00:19:11,013
+raw image and you can imagine that those images are very noisy and this is not for the average government,
+
+161
+00:19:11,043 --> 00:19:14,403
+this is the fault of the system because of physical constraints.
+
+162
+00:19:14,763 --> 00:19:21,033
+And those images are usually very noisy because we cannot shoot too many laterals.
+
+163
+00:19:21,033 --> 00:19:24,633
+That same lines then to drain the material runs out of the material.
+
+164
+00:19:25,443 --> 00:19:34,773
+So those photos that raw images are frozen, limited and highly noisy and to them to have added venting organizing is very important.
+
+165
+00:19:35,553 --> 00:19:44,853
+Unfortunately, if we just stagger all of this, their volume, which is in two or three, the array it has forms a very interesting console structure.
+
+166
+00:19:45,333 --> 00:19:52,443
+Those whole video by this sensation medium method to keep noise up or this stack of the images at the same time.
+
+167
+00:19:54,003 --> 00:19:58,333
+So we just formulated this problem into a mathematical model.
+
+168
+00:19:58,353 --> 00:20:02,253
+Very simple one observer y equals Z, the y.
+
+169
+00:20:02,253 --> 00:20:07,683
+Here is our history tensor is old division, for example, is a stack of, say, noisy images.
+
+170
+00:20:08,403 --> 00:20:17,273
+And the X here is some sort of for example, it could be the stack of C one shows images and these the difference between is two and
+
+171
+00:20:17,303 --> 00:20:23,253
+it is the voice and noise here is is reasonable would you assume randomness and our goal
+
+172
+00:20:23,253 --> 00:20:31,832
+is to recover say this X the high the measure lower and stretch all these x and y we want
+
+173
+00:20:31,833 --> 00:20:38,053
+to assume x is low rank and because for these different images stack them together,
+
+174
+00:20:38,193 --> 00:20:43,403
+they show the similar pattern. And this remnant panel will translate to right ratings.
+
+175
+00:20:44,973 --> 00:20:50,522
+Okay so how to define hello right tensor and this is different very different from
+
+176
+00:20:50,523 --> 00:20:54,993
+defining a lower and matrix because dividing lower a matrix is usually one way,
+
+177
+00:20:54,993 --> 00:21:01,503
+but for lower intensities is so many ways in the literature one of the most popular definitions.
+
+178
+00:21:01,503 --> 00:21:11,313
+So talk, drink. If you have this p one by p 23 tensor x here we say it has carpet accommodation.
+
+179
+00:21:11,613 --> 00:21:19,503
+It can be decomposed to meet your audience as well to apply all three dimensional and three loading matrices.
+
+180
+00:21:19,503 --> 00:21:24,572
+You y you to one you speak. I see the actions of a mathematical formula.
+
+181
+00:21:24,573 --> 00:21:27,583
+We write it in as x equals two s becomes.
+
+182
+00:21:27,603 --> 00:21:30,953
+You want to run the first? I showed you two all on the second anniversary.
+
+183
+00:21:31,293 --> 00:21:37,983
+So interaction and this cognitive composition can be seen as the extension of the matrices.
+
+184
+00:21:37,983 --> 00:21:48,663
+We now basically know if a matrix X and the X can be written as a diagonal matrix as our value matrix and time.
+
+185
+00:21:48,763 --> 00:21:54,603
+So it's the matrix you want. And where is the matrix more to to the actress then?
+
+186
+00:21:54,603 --> 00:22:00,083
+This is just a 3D extension. Is that okay?
+
+187
+00:22:00,093 --> 00:22:04,803
+So is this the way that the technician finds a formula?
+
+188
+00:22:05,443 --> 00:22:10,833
+Follow you y equals x position and the x here has.
+
+189
+00:22:11,373 --> 00:22:14,463
+Relations of this type of low rank and Z here.
+
+190
+00:22:14,883 --> 00:22:22,023
+As for simplicity, you assume it's because it is so variously muscular and zero.
+
+191
+00:22:22,773 --> 00:22:30,873
+Of course, this assumption can be generalized to other noise, like a puzzle negative binomial to handle possible accounting.
+
+192
+00:22:32,013 --> 00:22:36,633
+And then our goal is to estimate this exercise manipulate the three.
+
+193
+00:22:39,343 --> 00:22:43,153
+And this year is the most is Chanukah. And the questions are one.
+
+194
+00:22:44,283 --> 00:22:48,633
+So is this model identifiable your value to your three? Good question.
+
+195
+00:22:48,903 --> 00:22:56,133
+You aim to use three as a matrix that are not identifiable by the subspace they correspond to is identifiable.
+
+196
+00:22:56,853 --> 00:23:04,953
+So basically the UI you do to see and they find for up to a rotation matrix of to the right just like a regular PC.
+
+197
+00:23:06,873 --> 00:23:10,743
+So you have to interpret X and you want you to use three.
+
+198
+00:23:10,743 --> 00:23:14,723
+In a practical sense, you got to learn something. Are you? Yes, very.
+
+199
+00:23:15,843 --> 00:23:21,603
+Okay, so next, these are how we solve this problem as this stage are.
+
+200
+00:23:21,613 --> 00:23:26,723
+We don't know how to do some intricacies yet, but we know how to do matrix.
+
+201
+00:23:27,543 --> 00:23:31,503
+So the first step is to transform the problem, to image problem.
+
+202
+00:23:32,373 --> 00:23:36,903
+Imagine this is a light. And so you have the imagine as the big potato.
+
+203
+00:23:37,563 --> 00:23:45,063
+You can cut this because they're going to run the French fries because the potato has three ways, three ways to cuts.
+
+204
+00:23:45,573 --> 00:23:55,883
+And then we rely on this as a so called the fibers of, say, three major says those three matrices have three different dimensions of each of them.
+
+205
+00:23:55,893 --> 00:24:05,613
+We can calculate that the single value combination is a matrix that is feeding the into the outcome, which you think has zero and the case for 1 to 3.
+
+206
+00:24:06,903 --> 00:24:15,183
+Here the UK has zero. Here is a good starting point, but so usually we are not in the optimal solution.
+
+207
+00:24:17,403 --> 00:24:23,642
+The reason is that at this stage it was still trying to be trying to use matrix was to try to formulate
+
+208
+00:24:23,643 --> 00:24:31,053
+the problem matrix and solve its and how to utilize the the how to utilize the tensor structure.
+
+209
+00:24:31,293 --> 00:24:35,133
+And then we have to apply this iteration procedure.
+
+210
+00:24:36,003 --> 00:24:37,503
+And the idea is like following,
+
+211
+00:24:38,163 --> 00:24:48,813
+we have this tensor y here now we wish to update the loading on this structure to the cells using the whole tensor to do this job.
+
+212
+00:24:49,083 --> 00:24:54,833
+We want to project this tensor y here onto the subspace expand the value to on that you
+
+213
+00:24:54,863 --> 00:25:04,143
+see up to that we can reduce that in these times image that is calculated by measuring.
+
+214
+00:25:04,143 --> 00:25:08,193
+We use the matrix for this one and it's updated.
+
+215
+00:25:08,673 --> 00:25:15,473
+So you want to hit two plus one and next time then we update that you two had been using.
+
+216
+00:25:15,483 --> 00:25:21,243
+You want to have the industry hat and then update you see has using one and two respectively.
+
+217
+00:25:22,023 --> 00:25:29,943
+Okay now here is damage reduction. By doing this projection, why don't you expand by three?
+
+218
+00:25:30,603 --> 00:25:41,133
+We logically presume the second part, which is the x part of the dataset because I'm interested reduced and the Z times are they become reduced.
+
+219
+00:25:41,583 --> 00:25:47,763
+And then that's the why we associate like the idea of this organism.
+
+220
+00:25:48,903 --> 00:25:52,623
+So how iteration can we find based on this.
+
+221
+00:25:54,393 --> 00:26:01,622
+Now here let's take a look has also recognizes results and will you the signal to noise ratio and those sigma and I'm not
+
+222
+00:26:01,623 --> 00:26:10,623
+here the signal stress is defined as the least amount zero singular value of each initialization of this x and sigma.
+
+223
+00:26:10,623 --> 00:26:16,503
+Here is a noise level and it basically is the center division for each energy of this tendency,
+
+224
+00:26:17,613 --> 00:26:21,273
+though, we can prove that when the signal to noise ratio is strong,
+
+225
+00:26:21,783 --> 00:26:28,833
+larger than this threshold that you two or three for this then we have the following is a rate for recovery of
+
+226
+00:26:28,833 --> 00:26:38,063
+the loadings of X when further introduce the information theoretical about this show and this is for optimal.
+
+227
+00:26:38,823 --> 00:26:47,543
+What happened here is basically the typical reason that the complexity and times of the standard deviation of difference.
+
+228
+00:26:49,023 --> 00:26:53,583
+Okay, so due to the time limits hang out. I want to skip all the proof details.
+
+229
+00:26:53,853 --> 00:26:58,773
+For this reason I just want to have several comments about this theory here.
+
+230
+00:26:59,553 --> 00:27:01,473
+First of all, for simplicity reason,
+
+231
+00:27:01,473 --> 00:27:08,743
+we illustrate our results theory for or three months as by the similar result applied to a general of the intensities.
+
+232
+00:27:09,323 --> 00:27:17,883
+So what happens is that when the signal when the signal to noise ratio lambda of sigma is greater than or equal to the rate of peak,
+
+233
+00:27:18,243 --> 00:27:26,132
+for then we can have efficient noise reason to optimally solve this problem to
+
+234
+00:27:26,133 --> 00:27:31,193
+estimate the loadings of X when the level of sigma is less than C to have.
+
+235
+00:27:31,743 --> 00:27:36,273
+But I'm told that no other reason can consistently recover any loadings.
+
+236
+00:27:36,753 --> 00:27:40,583
+X Well now with all the sigma is of between those two thresholds.
+
+237
+00:27:40,623 --> 00:27:42,753
+P to have to perform for.
+
+238
+00:27:43,823 --> 00:27:54,113
+We're going to let the employee and I think MAXINE would like to go ask her why we have to, because remember how much time we have.
+
+239
+00:27:54,413 --> 00:27:58,102
+We can write down the likelihood of and solve the optimization problem in
+
+240
+00:27:58,103 --> 00:28:04,463
+theory and find out that really the more we can prove this is a very good idea.
+
+241
+00:28:04,943 --> 00:28:12,713
+But the only can be translated into a non Cemex optimization problem to solve the exact time you may require.
+
+242
+00:28:12,733 --> 00:28:24,813
+So super polynomial time is not really practical, even if the peak is like 10th and if we restrict ourself to the polynomial time formalism,
+
+243
+00:28:25,223 --> 00:28:36,623
+we actually find out that this problem is as hard as some of the well-known condition of heart problems, which is why we planning corrective action.
+
+244
+00:28:37,433 --> 00:28:43,443
+So it's very, very likely that no polynomial always outcome performs consistently well.
+
+245
+00:28:43,463 --> 00:28:48,203
+Your signal to noise ratio is not too strong or not too weak in this range.
+
+246
+00:28:48,743 --> 00:28:55,583
+Okay. And the question yeah, the question of what is efficient mean and what is optimal mean,
+
+247
+00:28:56,573 --> 00:29:04,013
+it's more efficient means is polynomial time and the optimal here is that in the sense of C,
+
+248
+00:29:04,443 --> 00:29:09,083
+C, minimax optimal and c it yielding information C radical elements.
+
+249
+00:29:11,153 --> 00:29:14,573
+Okay. So it's asymptotically equivalent to maximum likelihood?
+
+250
+00:29:14,933 --> 00:29:21,453
+Yes, exactly. So came back to page 24.
+
+251
+00:29:21,753 --> 00:29:26,283
+So I'm imagine that when sample size increases that your error bump should be reduced.
+
+252
+00:29:26,523 --> 00:29:31,323
+How do I see that from this recovery sort of inequality?
+
+253
+00:29:32,163 --> 00:29:40,233
+You know, in this study, we actually did have a sample size of the samples as encoded in the signal to noise ratio.
+
+254
+00:29:41,343 --> 00:29:46,203
+So what is the p? P is a dimension of each side.
+
+255
+00:29:47,073 --> 00:29:57,783
+So the largest dimension you have, if you want to use great summation, our largest the year, it's the largest of the three largest.
+
+256
+00:29:59,043 --> 00:30:03,843
+So these are the noisy problem and we don't have this sample size.
+
+257
+00:30:04,293 --> 00:30:12,633
+We observe only already with two to be doing three things we know as the signal part of plaza noise part.
+
+258
+00:30:14,193 --> 00:30:19,743
+So in principle, what what are the ways that you can reduce this error?
+
+259
+00:30:20,253 --> 00:30:32,853
+But so so when the imaging becomes more and more dimensions higher and higher than you, your method can have lower bound or higher.
+
+260
+00:30:33,753 --> 00:30:46,022
+Can you explain the upper bulk? Yeah. Okay. So as long as you have more copy of your images, then the signal parts will increase by the noise.
+
+261
+00:30:46,023 --> 00:30:50,133
+Part of sigma will not increase. So you have more and more copies.
+
+262
+00:30:50,133 --> 00:30:53,433
+Basically, you increase your peace rate. Is that what you're saying? Yeah.
+
+263
+00:30:53,793 --> 00:30:54,213
+Okay.
+
+264
+00:30:54,393 --> 00:31:04,393
+So piece like you have matrices, then you stack them together and when you do that, then piece three will increase to have larger and larger image.
+
+265
+00:31:04,413 --> 00:31:07,593
+That's also helps. Oh, I see.
+
+266
+00:31:08,433 --> 00:31:11,643
+So. So you are wired to our three hour fixed. Yeah.
+
+267
+00:31:12,193 --> 00:31:18,243
+Okay. Here. Well, in this final series here, we allow this are one or two to grow.
+
+268
+00:31:18,243 --> 00:31:21,933
+SB It does not have to be fixed.
+
+269
+00:31:22,543 --> 00:31:28,323
+Yeah, basically Iowa Artois three our parameter space parameters is I know what you want,
+
+270
+00:31:28,323 --> 00:31:35,583
+but it will be as simple as something like Yes, I'm doing 3 hours of a dimension of a reduced size.
+
+271
+00:31:36,003 --> 00:31:40,713
+Yes. Is that predefined by our own request?
+
+272
+00:31:41,163 --> 00:31:45,203
+Yes. So far, we assume is not is nano.
+
+273
+00:31:45,213 --> 00:31:49,743
+We can apply this APC adherent to to select.
+
+274
+00:31:51,813 --> 00:31:59,823
+So that's where the sparsity come in. So you predefined the decomposition is assumed that decomposition exists?
+
+275
+00:32:01,323 --> 00:32:05,973
+Yes. Yes. Oh, so this part is so far we didn't talk about sparsity.
+
+276
+00:32:06,393 --> 00:32:14,103
+There is a small study we have to do sort of thresholding to take into account that the decomposition exists.
+
+277
+00:32:15,203 --> 00:32:21,073
+Yes. Very last year quality went y p increase.
+
+278
+00:32:21,073 --> 00:32:26,833
+I saw the Palmer increase. Do you want to divide it up? You want to privatize?
+
+279
+00:32:26,833 --> 00:32:30,103
+Also increased. You mean what you're trying to fix?
+
+280
+00:32:30,313 --> 00:32:35,743
+For example, just assume you have a fixed rate R2, R3 and you just increase piece rate.
+
+281
+00:32:36,163 --> 00:32:39,613
+It seems like you have found that you to do a lot to divide it by that.
+
+282
+00:32:40,053 --> 00:32:45,123
+Yeah, I think many people will try to consider this a normalized department.
+
+283
+00:32:45,573 --> 00:32:55,923
+And because this sensor has few unknowns, people basically just want to divide this pipeline into a constraint that if that's the case,
+
+284
+00:32:55,933 --> 00:32:59,563
+then those pieces are all in the denominator. Yeah, that makes sense.
+
+285
+00:33:00,083 --> 00:33:02,802
+Yeah, it's possible to have a law,
+
+286
+00:33:02,803 --> 00:33:10,513
+but because I operate on basically about what the maximal arrow like you could have this so deep noise and process button.
+
+287
+00:33:10,873 --> 00:33:20,293
+How do you control this? There is like, what's the minimal arrow that you could have, like build up a lower bound for this?
+
+288
+00:33:20,583 --> 00:33:24,703
+Yeah, we have a low bound result. Oh, you have a lower.
+
+289
+00:33:24,913 --> 00:33:28,423
+We have a lullaby. I've seen something in the paper showing here.
+
+290
+00:33:28,763 --> 00:33:36,733
+So basically the lower bound matches this. And I think in the lower bound, the matches the rate of these arguments.
+
+291
+00:33:36,823 --> 00:33:43,593
+Oh, I see. All right.
+
+292
+00:33:44,553 --> 00:33:49,063
+So this is all the results for the general, the DE and speedy.
+
+293
+00:33:49,593 --> 00:33:59,553
+I just want to say that let's imagine what they used to say when these tool, the taser becomes a matrix and the tens of as we measure it is.
+
+294
+00:34:00,603 --> 00:34:05,823
+And then when these tool is to have an action to aim for that same.
+
+295
+00:34:06,213 --> 00:34:10,953
+So we don't have this moderate change. What does this mean?
+
+296
+00:34:11,073 --> 00:34:16,652
+It means that for matrix asymmetry, we just don't have this mother modernizing along with racial origin.
+
+297
+00:34:16,653 --> 00:34:19,383
+And we don't have this so called the compositional studies of all cats,
+
+298
+00:34:20,433 --> 00:34:25,923
+which is in this case we are being calculating matrix, as we did for many years.
+
+299
+00:34:26,593 --> 00:34:30,003
+Never heard of a trade off as a statistical combination.
+
+300
+00:34:30,813 --> 00:34:37,143
+Let's say you say we move out from the matrix and into the times of selling we have to do is this gap.
+
+301
+00:34:37,803 --> 00:34:43,863
+And the tension is which is not only statistical challenging but also conditional challenging.
+
+302
+00:34:44,493 --> 00:34:51,183
+And I think that's one aspect of you're really excited by the terms of research because it brings is a lot of losses.
+
+303
+00:34:51,573 --> 00:34:57,133
+It's a different topic theory of computing together and to characterize the whole region.
+
+304
+00:34:58,953 --> 00:35:02,313
+Okay, Ms. Let's move back to the real application.
+
+305
+00:35:02,613 --> 00:35:09,913
+I mentioned visual imaging to noise, and I recall we have a stack of say for example,
+
+306
+00:35:10,683 --> 00:35:19,623
+there are two types of depends on how you formulates this image and you've laid the whole position based on that piece of paper.
+
+307
+00:35:19,623 --> 00:35:23,673
+There's a very weak list, a circle type of image.
+
+308
+00:35:23,853 --> 00:35:31,143
+If we let the pixel thanks to the pro for this very little this so on the mosaic type things.
+
+309
+00:35:32,063 --> 00:35:36,783
+Okay. So those are the raw images. Applied tensor is video always.
+
+310
+00:35:38,013 --> 00:35:47,403
+And those are words here. And this is the summary of having no forebrain is really happy about the results because
+
+311
+00:35:47,553 --> 00:35:52,563
+we only use the low randomness of using a sense we call we neither use any smoothing.
+
+312
+00:35:52,563 --> 00:35:58,803
+We didn't use kernel, we do not use wavelet and the result is smooth and the beautiful.
+
+313
+00:36:00,633 --> 00:36:06,533
+Really, our coverage is very happy about this outcome. What is our one and all two and all three here?
+
+314
+00:36:08,243 --> 00:36:13,083
+You mean you just done that? Oh, you mean this raw, real DNA example?
+
+315
+00:36:13,113 --> 00:36:20,403
+Yeah, the single I didn't quite remember. It's like 20 or so, something like that.
+
+316
+00:36:21,303 --> 00:36:29,433
+And the damage of this, the holy images, will be about 200 by 200 or 300 or something like that.
+
+317
+00:36:30,633 --> 00:36:34,083
+But I have to check out from there. Yeah. After going home.
+
+318
+00:36:36,723 --> 00:36:41,543
+Okay. So those are the real DNA from. And then we have some simulation.
+
+319
+00:36:42,323 --> 00:36:49,173
+And based on the help of my collaborator and the first that comes into the simulation,
+
+320
+00:36:49,173 --> 00:36:55,953
+something that mimics the crystal structure of the strikes on Titan, these important materials.
+
+321
+00:36:56,853 --> 00:37:06,663
+And then those are the true image and noisy images generated by the residual and gather the noise, the images.
+
+322
+00:37:07,363 --> 00:37:12,473
+Now we're going to see that the toy image and the noise, the images here are very close to each other.
+
+323
+00:37:12,893 --> 00:37:22,293
+You just continue to structure a similar index measure and it says I and is a very commonly used quantity in computational imaging.
+
+324
+00:37:23,373 --> 00:37:28,643
+The Y means the perfect noise and it's just like a correlation statistics.
+
+325
+00:37:29,253 --> 00:37:39,443
+Okay, the value of the synthesis and from this to images of pretty close to one, which means that the noise performance is pretty good.
+
+326
+00:37:41,973 --> 00:37:51,813
+Now we also can see that none of the sizing nominees are monochrome crystalline silicon with an anomaly inside of two.
+
+327
+00:37:52,533 --> 00:37:55,683
+And those are the true they not at the end of the noisy day, not again.
+
+328
+00:37:56,253 --> 00:38:04,442
+The noise the thing is on within the procedure we can still company this structure estimating next measure and the
+
+329
+00:38:04,443 --> 00:38:11,673
+value here is probably worse than the previous setting because of the imperative of structuring your material,
+
+330
+00:38:12,183 --> 00:38:17,333
+whether the general performance is still very reasonable based on this procedure.
+
+331
+00:38:17,503 --> 00:38:24,602
+Naturally, I just use this data as a motivating example written by various publishing channels or statistics,
+
+332
+00:38:24,603 --> 00:38:30,303
+and you want to transition that information theory and then we can help the collaborators to write.
+
+333
+00:38:30,303 --> 00:38:35,893
+Those scientific journals are published in the microscopic journals at the end of both.
+
+334
+00:38:35,913 --> 00:38:42,873
+AP Okay. And then that's all I want to say for the first example, any questions so can go back.
+
+335
+00:38:43,153 --> 00:38:50,522
+All right. So, so in this image of the high intensity region, actually not irregular shape, it's not any type of like a regular box, right.
+
+336
+00:38:50,523 --> 00:38:58,863
+So you can compute up to outside the intensity region like a zero by a pyromancer or you can see as junior.
+
+337
+00:39:00,753 --> 00:39:04,562
+So for the second row you have a circle right height as you reducing circle.
+
+338
+00:39:04,563 --> 00:39:11,643
+So I would say a circle around there. All right. Okay. That's why you do the tent hazard accommodation if you have irregular shape image.
+
+339
+00:39:12,003 --> 00:39:17,043
+So you out how you put that in a 3D for like a 40 tensor sorry.
+
+340
+00:39:17,053 --> 00:39:21,543
+On the low side you can see but usually rises and first of all,
+
+341
+00:39:21,563 --> 00:39:29,913
+usually in the circle it must the the designing the circle because the circle is the best for so far.
+
+342
+00:39:30,603 --> 00:39:34,293
+And secondly, even this shape is irregular.
+
+343
+00:39:35,163 --> 00:39:40,233
+And I will see that you probably need to do this sort of as a deep formalization.
+
+344
+00:39:40,923 --> 00:39:46,652
+Maybe that can help to noise, they can be much better. But that's a very great question.
+
+345
+00:39:46,653 --> 00:39:50,353
+I haven't thought about that before. Okay.
+
+346
+00:39:52,833 --> 00:39:57,133
+Okay. Then we move on to another example on how the clustering.
+
+347
+00:39:59,253 --> 00:40:00,963
+What is also an analysis.
+
+348
+00:40:01,473 --> 00:40:11,283
+It's a very important, unsupervised learning technique to discover the homogeneous patterns that sets in our usual countries.
+
+349
+00:40:11,293 --> 00:40:15,433
+The clustering was performed on methods unit multivariate factors.
+
+350
+00:40:15,633 --> 00:40:18,453
+Data points comes as a bunch of vectors.
+
+351
+00:40:19,173 --> 00:40:26,883
+For example, we have this two dimensional sets of data points that they actually use the data points between the two dimensional vector.
+
+352
+00:40:27,873 --> 00:40:33,663
+And then by applying clustering algorithm, we identify this cluster, this cluster, this culture.
+
+353
+00:40:34,053 --> 00:40:42,243
+And so this corresponds to all known population, the typical always and to perform clustering,
+
+354
+00:40:42,843 --> 00:40:46,603
+Siemens hierarchical clustering and special closing and so on.
+
+355
+00:40:48,873 --> 00:40:54,092
+Nowadays we are seeing more complicated and costly analysis.
+
+356
+00:40:54,093 --> 00:40:59,073
+The clusters exist as a product of the several modules of clusters.
+
+357
+00:40:59,553 --> 00:41:12,003
+And let's take a look how this company is simply turning the single cell history so before and so runs a reasonable permutation with rows of columns.
+
+358
+00:41:12,123 --> 00:41:16,023
+And this is going to be a new car, so it's just a random cloud.
+
+359
+00:41:16,533 --> 00:41:26,523
+And then by applying this, by crossing the sample, perform, pull some on the rows together and pull some of the columns together.
+
+360
+00:41:27,333 --> 00:41:35,793
+And in the end, we have, say, one colleagues fashion this one called a construction module,
+
+361
+00:41:36,213 --> 00:41:40,593
+and the second one drive by constant sort of drive by concern and so on and so forth.
+
+362
+00:41:41,343 --> 00:41:45,363
+And now it becomes a very hot topic in single cell data analysis.
+
+363
+00:41:45,753 --> 00:41:55,083
+So a few years ago and such example not only exists in the single cell, well, not two dimensional rates for cell and genes.
+
+364
+00:41:55,503 --> 00:41:59,702
+Interestingly, usual applied to the microbiology study.
+
+365
+00:41:59,703 --> 00:42:05,483
+Well, we have the tens of individual tons tissue that's microbes and online clicks from data
+
+366
+00:42:05,513 --> 00:42:11,793
+that uses time by sometimes time and the multi modality brain connected also to example,
+
+367
+00:42:11,793 --> 00:42:15,573
+I want to mention details at the end of this talk. Okay.
+
+368
+00:42:16,713 --> 00:42:25,353
+So then we want to consider this so called causes the first, first of all, the second order even the sort of the higher order clause rules.
+
+369
+00:42:25,713 --> 00:42:28,743
+Okay, the objective data is intensive.
+
+370
+00:42:29,733 --> 00:42:38,522
+So after we observe a matrix, for example, tens of data, for example, it was like this we want to promote the missing,
+
+371
+00:42:38,523 --> 00:42:44,463
+this, this, this and this, this and this in a right way, such that in the end we have this block structure.
+
+372
+00:42:44,853 --> 00:42:55,803
+So now how to quantify that and the want to introduce this model called the tensor block model, which is denoted by this equation.
+
+373
+00:42:56,043 --> 00:43:03,303
+Why is observation into a blog and costs mean I'm plus the epsilon which is a
+
+374
+00:43:03,303 --> 00:43:08,193
+visual noise and then let me explain the notation here the same objects and of
+
+375
+00:43:08,913 --> 00:43:15,423
+the interests of the visual tensor and the this is the block me also mean tensor
+
+376
+00:43:15,723 --> 00:43:22,682
+c k is the marginal of the clustering membership and z y equals to two means.
+
+377
+00:43:22,683 --> 00:43:28,613
+That's the first thing this is belongs to the second and epsilon is limited.
+
+378
+00:43:29,553 --> 00:43:34,443
+So it all goes like this. We observe a rather than like y on this one.
+
+379
+00:43:34,683 --> 00:43:42,003
+We want to produce in a right way such that we can recall from the call this tensor,
+
+380
+00:43:42,693 --> 00:43:47,953
+which is equivalent to say we can recover the label each say in this.
+
+381
+00:43:49,503 --> 00:43:56,523
+Okay. And fortunately actually this model corresponds to the type of the composition we have mentioned at the beginning of this talk.
+
+382
+00:43:57,033 --> 00:44:05,733
+We observe y plus equals x, y, z, where x here is the portions as and one in the first direction and the second direction
+
+383
+00:44:05,733 --> 00:44:14,213
+and due to the loss of direction and here this and K is a01 tensor which is equal to one.
+
+384
+00:44:14,223 --> 00:44:21,443
+If one only is the I in this is of this z k in equals two.
+
+385
+00:44:21,453 --> 00:44:24,873
+Okay, so in mathematic formula we can see.
+
+386
+00:44:25,383 --> 00:44:35,013
+So using this way as times one and two and three along this regression and the for each of these and not one interesting points you want of a zero.
+
+387
+00:44:36,903 --> 00:44:44,163
+Okay. So if you feel, for example, this looks familiar, I want to give you a few other comparison.
+
+388
+00:44:44,553 --> 00:44:52,893
+When the is equal to zero, the is actually corresponds to the mixture though that we find widely used.
+
+389
+00:44:53,223 --> 00:45:02,343
+Y equals two and this plus epsilon. And this means that member m is the membership matrix as is the cluster mean.
+
+390
+00:45:03,093 --> 00:45:11,943
+And when these the two actually corresponds to the famous bipartite stochastic block model, one is equal to membership along its left and right.
+
+391
+00:45:12,213 --> 00:45:18,633
+You feel what kind of a community that action is model is actually commonly considered and that what we
+
+392
+00:45:18,633 --> 00:45:25,173
+consider in here is the tens of block model can be roughly seen as extension from the first of two scenarios.
+
+393
+00:45:27,273 --> 00:45:29,853
+Okay, now how we can approach this problem.
+
+394
+00:45:30,213 --> 00:45:40,473
+And first of all, I want to talk about the traditional algorithm to solve this univariate and really marriage, the clustering problem which is famous.
+
+395
+00:45:40,953 --> 00:45:49,113
+I suppose we have a lot of some details as to why I want to apply and they say you are looking for they are
+
+396
+00:45:49,593 --> 00:46:00,483
+centroid such that the summation of this each point to the closing the centroid some squares is minimized.
+
+397
+00:46:00,963 --> 00:46:08,493
+Okay payment means basically aims to solve this this problems I have here is the process and choice.
+
+398
+00:46:08,793 --> 00:46:11,313
+Let's see how. Here is the classic label.
+
+399
+00:46:11,973 --> 00:46:19,743
+And then the traditional reason is called the law is the reason and can be illustrated this onto other reasons.
+
+400
+00:46:19,743 --> 00:46:31,322
+But the idea is like this that each step we we want to go through this two procedures first of all and we won't use,
+
+401
+00:46:31,323 --> 00:46:35,883
+I think, average of all points belonging to the same group.
+
+402
+00:46:36,123 --> 00:46:45,333
+And if you know that those the average as new centroid because the the average can minimize the sum of the norms.
+
+403
+00:46:46,293 --> 00:46:55,173
+And secondly then after we update to this centroid then we update to the label points and then we search again,
+
+404
+00:46:55,173 --> 00:47:00,573
+which whether this this point in points is closer to a new centroid.
+
+405
+00:47:00,933 --> 00:47:11,313
+If that's the case, we allocate to another. So basically the void always a means that we iterate among this two procedures and the law is always,
+
+406
+00:47:11,313 --> 00:47:18,153
+always established a while ago as a just an algorithm that works well in practice.
+
+407
+00:47:18,573 --> 00:47:24,632
+What this statistical framework and also the guarantees was actually only discovered
+
+408
+00:47:24,633 --> 00:47:29,583
+recently on the thousand meters from all of this actually say this event.
+
+409
+00:47:30,913 --> 00:47:37,453
+Okay. So now let's move out and move from the regular classroom to the classroom.
+
+410
+00:47:39,223 --> 00:47:43,933
+The straightforward idea is that we want to minimize this lost function.
+
+411
+00:47:44,173 --> 00:47:50,112
+Basically, after we produce the array in the right order,
+
+412
+00:47:50,113 --> 00:48:00,123
+such that that the sum swells minimized and the unfortunately this is something to ensure planning and the actually to find that.
+
+413
+00:48:00,223 --> 00:48:07,243
+Exactly minimalism and you are. And there were ten of these strategies used in the high of the Lloyd arguing point.
+
+414
+00:48:08,473 --> 00:48:12,223
+And we need to indigenization our little corner of the special classroom.
+
+415
+00:48:13,303 --> 00:48:19,183
+Okay. And I want to just point out, as briefly mentioned, the algorithm yet again.
+
+416
+00:48:20,263 --> 00:48:26,743
+So this is the foundation problem. It has D plus Y arguments, S and Z up to it,
+
+417
+00:48:26,743 --> 00:48:34,993
+which is a D fortunately one d out of this d plus one from the fixed rasta to minimize
+
+418
+00:48:34,993 --> 00:48:41,113
+the risk back to the rest reason is a complex problem which can be simply optimized.
+
+419
+00:48:41,623 --> 00:48:47,503
+So then ideas like this for each iteration refers to the opting the block.
+
+420
+00:48:47,503 --> 00:48:51,643
+Meaning by taking the average of all points belongs to the same cluster.
+
+421
+00:48:52,063 --> 00:48:55,653
+Then we back to the labels of each saying this.
+
+422
+00:48:55,663 --> 00:49:02,773
+This from the first thing is a four on the first direction to the second direction to a third direction on signs of logarithm,
+
+423
+00:49:03,523 --> 00:49:07,513
+maybe essentially similar to the pattern. That means avoidance.
+
+424
+00:49:08,623 --> 00:49:16,963
+Okay. Then we talk about the how to visualize. And the idea is about is based on the so-called a high of the spectrum.
+
+425
+00:49:17,953 --> 00:49:26,893
+Okay. And then we need to use a very important formula of the breakthroughs of the five and the Y.
+
+426
+00:49:27,133 --> 00:49:30,223
+The exponential Y is equal to all the tens of product.
+
+427
+00:49:30,823 --> 00:49:36,343
+Then if we recall it, and we call that, we have to find that image that they show.
+
+428
+00:49:37,113 --> 00:49:41,283
+So then this is why here we have this matrix decomposition entry.
+
+429
+00:49:41,293 --> 00:49:49,603
+And so the addition of this M1 and to take instead of all the products.
+
+430
+00:49:51,033 --> 00:49:55,053
+So then that how to the special castling procedure goes like this.
+
+431
+00:49:55,153 --> 00:50:02,613
+The first translation of this video and the production from TV plus pass them on to their own.
+
+432
+00:50:03,543 --> 00:50:09,843
+I know this slide is almost impossible to explain intuitively, so that's why we draw on picture to illustrate.
+
+433
+00:50:10,533 --> 00:50:14,713
+And then we have this one here, first of each, and that is the first.
+
+434
+00:50:15,823 --> 00:50:24,932
+Okay. This blue dots and represents one cluster and red dots represent another, if you will, and just cluster.
+
+435
+00:50:24,933 --> 00:50:27,723
+Umar This two is really hard to find in the boundary.
+
+436
+00:50:27,933 --> 00:50:37,503
+Maybe it will causing this where this may not look and then we just use this this I'll to you want to how you do have to reduce that
+
+437
+00:50:37,503 --> 00:50:49,123
+visual again to make sure that vision with you again this time the reason cost overruns and reduced the war is still hard to tell.
+
+438
+00:50:50,703 --> 00:50:58,143
+Now we do that again which is nice to calculate this and you I had to you do have projection and also
+
+439
+00:50:58,143 --> 00:51:05,253
+project on the street direction and again we've just this mutualization and overloading now this time.
+
+440
+00:51:05,253 --> 00:51:09,063
+Well we have a clear class between this two classes.
+
+441
+00:51:10,623 --> 00:51:20,383
+The central idea is that by doing this, the region and the entirety of production, we just try our best to reduce the cluster variance.
+
+442
+00:51:20,383 --> 00:51:26,133
+So the data points. Okay, so we don't have enough time to talk about the array.
+
+443
+00:51:26,193 --> 00:51:30,663
+And still in this time I want to introduce the signal to noise ratio.
+
+444
+00:51:30,723 --> 00:51:35,283
+Know when this problem is hard, when the source of the clustering is hard.
+
+445
+00:51:36,093 --> 00:51:44,873
+First of all, we divide this Dlamini function and if the two cluster are exactly the same to each other,
+
+446
+00:51:44,873 --> 00:51:47,763
+then there's no way we can tell the different ones apart.
+
+447
+00:51:48,213 --> 00:51:59,432
+So which means that we can define the delta mean as the minimum clustering separations among different in this and then the noise level is the same.
+
+448
+00:51:59,433 --> 00:52:05,613
+We just define the variance one as the variance intervention once and then we have that signal to noise
+
+449
+00:52:05,613 --> 00:52:13,442
+ratio and the the results from the theory reason a reason can be rethinking over maybe two or three pages,
+
+450
+00:52:13,443 --> 00:52:16,733
+but it can be summarized just in this feature we have the,
+
+451
+00:52:16,993 --> 00:52:26,583
+the dimension of the tensor as well as the signal to noise ratio when we see a low noise ratio is strong and in this region,
+
+452
+00:52:27,513 --> 00:52:34,983
+the exaggerated clustering can be achieved by efficient or reasonable combination while in this region B here,
+
+453
+00:52:35,253 --> 00:52:44,793
+and that's the weak signal to noise ratio. The data just does not have enough information to try to help us at scenes in clustering.
+
+454
+00:52:45,723 --> 00:52:51,963
+But what happened is that's why if we have a matrix by clustering problem that A and B region just formed everything.
+
+455
+00:52:52,623 --> 00:52:55,953
+But when we talk about the tensor and the we have this series.
+
+456
+00:52:56,163 --> 00:53:03,753
+Yeah. And based corresponds to noise ratio noise moderate Islam and in this region it is statistical
+
+457
+00:53:03,753 --> 00:53:08,973
+possible to solve this problem but only but computationally that's very challenging.
+
+458
+00:53:09,453 --> 00:53:16,713
+Again, we see this phase transition and that this can be validated by numerical studies into the time limits.
+
+459
+00:53:16,713 --> 00:53:24,303
+I was just few. And how much time we have 5 minutes, not 5 minutes.
+
+460
+00:53:24,513 --> 00:53:28,323
+Okay. So I just briefly go through some of the application.
+
+461
+00:53:28,323 --> 00:53:41,013
+First of all, the only pixel prediction and we have we collect of this is this table sets with three directions as users items times.
+
+462
+00:53:42,303 --> 00:53:46,123
+Our task is to perform the high order clustering on.
+
+463
+00:53:46,453 --> 00:53:55,803
+Please repeat it. So what happens is you observe at a certain time, say have a click on a certain item, you just put a line here.
+
+464
+00:53:55,803 --> 00:53:58,813
+Otherwise you could zero and perform.
+
+465
+00:53:58,953 --> 00:54:05,853
+In the sense of processing. We are hopeful to identify the subgroups within this users and subgroups.
+
+466
+00:54:06,063 --> 00:54:16,293
+We see this item here as a result and and the Y here we will take this y tensor that we should reduce the tensor rate.
+
+467
+00:54:16,653 --> 00:54:27,963
+We apply the algorithm on this way. Now here is that clustering all the time for the time on the cluster, we actually identify four of them,
+
+468
+00:54:28,293 --> 00:54:38,973
+which is from 12 a.m. to six m and 6 a.m. and 6 p.m. and 6 p.m. and 9 p.m. and 9 p.m. to try this corresponds to the early morning.
+
+469
+00:54:39,063 --> 00:54:47,853
+So say early morning and the daytime and the early evening on the late night and then which kind of makes sense.
+
+470
+00:54:48,103 --> 00:54:50,073
+We just calculate the average time.
+
+471
+00:54:50,503 --> 00:54:58,453
+On this instance of this four times, we can see that the user's behavior are very different from this full time point.
+
+472
+00:54:58,933 --> 00:55:04,693
+Our results kind of make sense here. Another application is about.
+
+473
+00:55:05,713 --> 00:55:08,963
+So what are the numbers in the table? Numbers.
+
+474
+00:55:08,983 --> 00:55:12,153
+Tables are on the meaning of the.
+
+475
+00:55:12,403 --> 00:55:14,643
+So basically is a likely. How likely is it?
+
+476
+00:55:14,683 --> 00:55:25,333
+For example, a subject that belongs to the first group we think of the item belongs to the first group at the time of 12 a.m. to 6 a.m.,
+
+477
+00:55:25,873 --> 00:55:30,283
+which is a pretty low. Right. Is one of the thousands. So you want as a group of people.
+
+478
+00:55:30,543 --> 00:55:37,583
+What I want is a group of items. Yes. So how do you write a like if you have mixture, right?
+
+479
+00:55:37,913 --> 00:55:41,303
+Why is zero one that you have items, you have time.
+
+480
+00:55:42,173 --> 00:55:47,933
+So do you use some normal distribution for the ah error term or what, what is the likelihood here.
+
+481
+00:55:48,383 --> 00:55:54,803
+Um well the like new here is like I said, even for the why binary.
+
+482
+00:55:54,983 --> 00:55:59,783
+Mm hmm. So I know this is probably not as rigorous.
+
+483
+00:56:00,413 --> 00:56:05,902
+Usually I feel that I'll send this to business clients about all of the models and areas.
+
+484
+00:56:05,903 --> 00:56:09,533
+Just make a make sense is practically. Almost.
+
+485
+00:56:12,003 --> 00:56:16,383
+And another application is about a flight route network.
+
+486
+00:56:17,383 --> 00:56:30,333
+And again, we we have a dataset containing many global file routes, information from 568 airlines and those 3409 outlets we connect.
+
+487
+00:56:30,513 --> 00:56:43,333
+We constructed tens of this way. If airlines aim to always have a direct flight from Appleby to APAC, we put an entry I want to this ABC entry.
+
+488
+00:56:43,353 --> 00:56:48,243
+Otherwise we put a zero. Okay. And then we construct the tensor.
+
+489
+00:56:48,243 --> 00:56:55,712
+And the plane is a three way clustering. And the here is an airline cluster where you have identified an apples clusters.
+
+490
+00:56:55,713 --> 00:57:01,893
+We have islands that make a lot of sense, as I know you do a few anywhere else.
+
+491
+00:57:02,133 --> 00:57:06,763
+I connect it to a two together ways and I do that.
+
+492
+00:57:06,883 --> 00:57:12,182
+And then all of the Chinese airlines are clustered together.
+
+493
+00:57:12,183 --> 00:57:16,713
+And this another airlines, these two Asian airlines and so on and so forth.
+
+494
+00:57:17,373 --> 00:57:20,523
+And the alcohol clustering sort of saying, of course,
+
+495
+00:57:21,123 --> 00:57:30,813
+is correlated is they're correlated to the than the spatial and the physical and the physical location of each of our phones.
+
+496
+00:57:33,093 --> 00:57:39,243
+Another application is actually going for God. I have a psychiatrist and a Jewish sleep.
+
+497
+00:57:39,603 --> 00:57:46,163
+And so so basically our collaborator have this cocaine users and mortality sensors
+
+498
+00:57:46,643 --> 00:57:51,023
+that collect data from the real data Hoffman collected from the Duke Hospital.
+
+499
+00:57:51,843 --> 00:57:54,203
+So these are the administration human subjects,
+
+500
+00:57:54,423 --> 00:58:02,553
+usual subjects that we construct a functional MRI matrix as well as structure in life, which is the stack.
+
+501
+00:58:03,243 --> 00:58:06,093
+They make sense together around human subject.
+
+502
+00:58:06,643 --> 00:58:15,093
+Then we get a tensor for functional structure and I refer to them to the results together because, well, that's all for tensor.
+
+503
+00:58:16,143 --> 00:58:28,323
+Then we apply this the terms of our to cross minimal present and to construct the until cost of the the the cluster or region of interest.
+
+504
+00:58:28,833 --> 00:58:32,793
+We try the different the number of clusters four, five, six,
+
+505
+00:58:33,183 --> 00:58:39,063
+seven and the cluster makes a lot of sense because they are physically constrained together.
+
+506
+00:58:39,363 --> 00:58:44,373
+Actually, when we apply this clustering algorithm, we never include any physical information,
+
+507
+00:58:44,763 --> 00:58:51,693
+but the resulting clusters are grouped together and physics naturally makes a lot of sense.
+
+508
+00:58:52,173 --> 00:58:58,562
+We also try to use this to reduce the mean and average mean tensor,
+
+509
+00:58:58,563 --> 00:59:04,623
+average tensor to do the prediction for whether this subject has cocaine use on us.
+
+510
+00:59:05,043 --> 00:59:11,253
+We achieve that. We do improve the prediction power of clusters and my tensor.
+
+511
+00:59:11,433 --> 00:59:17,193
+But because these ongoing work of detail to see numbers can be provided and maybe later.
+
+512
+00:59:18,873 --> 00:59:24,243
+Okay. And the summary over this part we can see the the how high the measure of how all the
+
+513
+00:59:24,243 --> 00:59:30,363
+crossing the algorithm and the theory and the applications of the some of the references.
+
+514
+00:59:30,693 --> 00:59:37,983
+I'm pretty sure this framework is used for the other now is multilayered on network especially application
+
+515
+00:59:37,983 --> 00:59:46,292
+in single cell and the sequence of the okay and I want to skip the other tensor works which I think
+
+516
+00:59:46,293 --> 00:59:54,092
+are equally interesting longitudinal microbiome data that is not just tens it's within that tree achieves
+
+517
+00:59:54,093 --> 01:00:01,083
+a very powerful crossing of subject and features and so all the problems like tensor regression,
+
+518
+01:00:01,353 --> 01:00:09,493
+ultra high order times, speedy reinforcement learning and there is a close connection between terms that in addition
+
+519
+01:00:09,873 --> 01:00:16,862
+to don't have known and I'm not going to talk about some details in addition to Tensor,
+
+520
+01:00:16,863 --> 01:00:22,053
+I just want to quickly mention that I also one will come from this for my future seasons.
+
+521
+01:00:22,263 --> 01:00:32,153
+My many welcome I mentioned is that I'm in the process of using modeling and after finishing that few seasons I will come to desert.
+
+522
+01:00:32,433 --> 01:00:34,713
+Recently I also got a very interesting thing.
+
+523
+01:00:34,713 --> 01:00:42,303
+This deep Genesis model is a model which is directly related to this charge of beauty and also this image.
+
+524
+01:00:42,603 --> 01:00:53,413
+So that image that is also false. And the my application say I also work on the electronic house record data recently on the first
+
+525
+01:00:53,493 --> 01:01:01,893
+paper published as the image examines my SO our proposal is currently under review at the age.
+
+526
+01:01:02,793 --> 01:01:07,503
+So basically that's all I'm just saying for today is much more attention.
+
+527
+01:01:07,923 --> 01:01:17,513
+I'm sorry I will be in around half the time. Since.
+
+528
+01:01:19,933 --> 01:01:29,323
+So so the clustering has this I think I feel a lot of these algorithms you feel and you know your initial
+
+529
+01:01:29,323 --> 01:01:39,282
+assignment initial starting point with software from a storm although also how about you show the clustering.
+
+530
+01:01:39,283 --> 01:01:47,083
+Yeah well we have this idea we find these useful things we say to index one to be large to
+
+531
+01:01:47,083 --> 01:01:53,412
+cluster one industry for belongs to a cluster to use the same as in the exponent who belongs
+
+532
+01:01:53,413 --> 01:01:59,352
+to you are not index so before us to cluster was so that's the label switch type of the
+
+533
+01:01:59,353 --> 01:02:05,443
+problem but I'm referring to so if you run the being cluster from different starting position,
+
+534
+01:02:05,443 --> 01:02:09,823
+you get completely different results. Yes, yes. And yet similar.
+
+535
+01:02:09,833 --> 01:02:15,153
+Here we have the same thing you should see in practice what we suggested, for example, number one.
+
+536
+01:02:16,363 --> 01:02:22,003
+Okay. So I'm just curious about the employee you have here so that the.
+
+537
+01:02:25,053 --> 01:02:28,923
+Okay. Explain a little bit of the week's worth of the results.
+
+538
+01:02:28,933 --> 01:02:32,953
+It's because it's not identify it now.
+
+539
+01:02:33,003 --> 01:02:37,263
+It makes sense here. Is there any kind of a global constraint on.
+
+540
+01:02:37,403 --> 01:02:46,113
+Okay. Well, so after you promote your cost, the label, you will still achieve the same value.
+
+541
+01:02:47,403 --> 01:02:55,023
+So the menu is unique up to the provision to the label for patients.
+
+542
+01:02:57,913 --> 01:03:03,123
+She has it right? I'm not sure that's right.
+
+543
+01:03:03,133 --> 01:03:04,333
+That was the load that mentioned.
+
+544
+01:03:04,333 --> 01:03:13,883
+If you pick one point out and then say this is the the your cluster that I'm the likelihood is and it's basically overflowed.
+
+545
+01:03:15,133 --> 01:03:22,663
+Right. So what we can discuss also. So there are some computational issue related to identify build.
+
+546
+01:03:25,383 --> 01:03:29,883
+So in the clustering analysis, how usually to determine the number of clusters?
+
+547
+01:03:30,843 --> 01:03:39,573
+Did you ever decide that in the clustering you decide in advance like there are two cluster or you have this number of cluster as of two?
+
+548
+01:03:41,013 --> 01:03:47,643
+Well, I think of a very of at least the my practice was works really well.
+
+549
+01:03:47,713 --> 01:03:58,963
+It's a spicy type of area because we have this we have this model and we have we can write on the likelihood of the law going through on campus.
+
+550
+01:03:59,543 --> 01:04:05,073
+Can see among all of the cluster selections, we select the ones automobiles.
+
+551
+01:04:05,673 --> 01:04:09,053
+So that's why you implement in your analysis. Yeah, that's right.
+
+552
+01:04:09,183 --> 01:04:12,963
+In practice, at least in my scenarios, it works reasonably well.
+
+553
+01:04:15,973 --> 01:04:20,413
+So your income, protein content, connectivity, example.
+
+554
+01:04:20,953 --> 01:04:26,313
+So you have a three dimensional or four dimensional tensor, right?
+
+555
+01:04:26,333 --> 01:04:32,623
+So and I assume you these 2 to 46 is a region.
+
+556
+01:04:32,713 --> 01:04:39,103
+Right, brain region. Yes. So now you have this sort of symmetric connectivity here.
+
+557
+01:04:39,343 --> 01:04:42,703
+Yes. So for both FMI my on this strong trauma.
+
+558
+01:04:42,733 --> 01:04:46,093
+So that's why you took aspirin. Did you take into account this map?
+
+559
+01:04:46,123 --> 01:04:50,353
+Yes, we do. I do. So how how could you take you to a combat?
+
+560
+01:04:51,163 --> 01:05:05,433
+Okay. So what we do is basically what we do after it's just a procedural block mean we updating the same way we update the labels.
+
+561
+01:05:06,363 --> 01:05:16,353
+We only update the one side of the image of interest, then the other side that we just don't want to just directly take the result from this site.
+
+562
+01:05:17,283 --> 01:05:21,183
+I mean, the cluster cost labels. But.
+
+563
+01:05:22,593 --> 01:05:26,403
+But how about the video out there? So do you keep that?
+
+564
+01:05:27,093 --> 01:05:30,433
+You want to keep that label symmetric? Yeah, we only keep the labels.
+
+565
+01:05:31,173 --> 01:05:34,833
+Then the meaning value will be automatically the same.
+
+566
+01:05:36,833 --> 01:05:40,603
+Okay. I see. I see your point. Cope.
+
+567
+01:05:43,893 --> 01:05:47,462
+Within the brain connected thing.
+
+568
+01:05:47,463 --> 01:05:51,513
+I mean, misnomers, you know, the brain scientists know about stuff, right?
+
+569
+01:05:51,543 --> 01:05:58,022
+I know about physical location and I know about, you know, these set of regions that relate to,
+
+570
+01:05:58,023 --> 01:06:02,603
+I don't know, speech and set of relation like a sound or something.
+
+571
+01:06:02,653 --> 01:06:08,342
+Right. So do you use that or you're sort of trying to ignore all the all the context and
+
+572
+01:06:08,343 --> 01:06:14,223
+just put it in a matrix in this analysis and we just ignore that prior information.
+
+573
+01:06:15,513 --> 01:06:23,193
+So how did you hold your branch of the order of things to to 46 region the order of your thoughts that the okay,
+
+574
+01:06:23,193 --> 01:06:28,143
+the order doesn't really matter to the outcome so you know union for data your
+
+575
+01:06:28,143 --> 01:06:33,842
+input data matrix your work tensor you didn't actually particular order those
+
+576
+01:06:33,843 --> 01:06:37,923
+are pretty region close together according to their function also so your
+
+577
+01:06:37,923 --> 01:06:43,563
+question is not along these are 246 orders that you to this different orders.
+
+578
+01:06:44,043 --> 01:06:56,853
+Yeah okay if we produce these orders if the always is right and implemented the out put we are the the output of the presentation.
+
+579
+01:06:57,783 --> 01:07:03,903
+So you're not so you're suggesting you maybe you could use be yeah you could a you could try to use from
+
+580
+01:07:04,113 --> 01:07:10,383
+to the order of dropping is to a 6 to 46 region can be grouped into a several brain function at work.
+
+581
+01:07:10,383 --> 01:07:17,133
+Right so I mean that it will be the same as no no matter how you and they always got clustering.
+
+582
+01:07:17,133 --> 01:07:20,283
+I mean that's can you get their algorithm. Good. I see. Yeah. Right.
+
+583
+01:07:20,433 --> 01:07:29,883
+Yeah you could. I guess some suggest can you revise your algorithm to sort of incorporate domain knowledge in some way or if you wanted to.
+
+584
+01:07:30,393 --> 01:07:37,663
+That's a great suggestion. I think it's I think the Matrix some actually got triggered here by this example of I think is great.
+
+585
+01:07:37,683 --> 01:07:41,283
+Yeah but I think you potentially can apply a similar trick if you don't.
+
+586
+01:07:41,283 --> 01:07:45,633
+So group structure, that could be a penalty function or object function, right.
+
+587
+01:07:45,633 --> 01:07:48,843
+You you sort of have certain.
+
+588
+01:07:50,263 --> 01:07:58,213
+Right. So you have some pre prior knowledge and you add something into either admin algorithm where you have this constraint,
+
+589
+01:07:58,483 --> 01:08:04,842
+you want to structure to have some kind of pre-specified solution to some level, right?
+
+590
+01:08:04,843 --> 01:08:12,023
+To solve this optimization. That's a sort of penalties that that could be way to adding this product information on the top of that, right?
+
+591
+01:08:12,073 --> 01:08:15,433
+Yeah. All right. I think we've got plenty of questions here, so thank you very much.
+
+592
+01:08:15,823 --> 01:08:18,395
+Thank you again.
+

@@ -1,0 +1,2496 @@
+1
+00:00:01,510 --> 00:00:11,130
+Look at all.
+
+2
+00:00:31,020 --> 00:00:34,220
+Are these?
+
+3
+00:01:00,710 --> 00:01:16,430
+Right. It's probably get started late.
+
+4
+00:01:17,310 --> 00:01:21,480
+We continue with their review of methods to condition.
+
+5
+00:01:24,250 --> 00:01:37,940
+You know, conditioning, controlling for confounding. And you may recall this diagram with a classification of the main methods for conditioning.
+
+6
+00:01:38,540 --> 00:01:41,630
+And we went through standardization already.
+
+7
+00:01:42,470 --> 00:01:51,500
+And today we will be tackling inverse probability weighting, which is relatively.
+
+8
+00:01:52,720 --> 00:01:58,780
+New development may be from the late 1990s or so.
+
+9
+00:02:00,680 --> 00:02:05,150
+By that, it's become really mainstream in a piecemeal.
+
+10
+00:02:06,610 --> 00:02:11,679
+Um. All right, so this is what we will be discussing.
+
+11
+00:02:11,680 --> 00:02:20,350
+And again, some of these may sound a little obscure, but as we move on, things should become clearer.
+
+12
+00:02:21,670 --> 00:02:30,130
+First, we will revisit standardization, but actually we will be standardizing the cumulative incidence.
+
+13
+00:02:30,160 --> 00:02:35,049
+I think last time maybe Anna asked whether we could do that.
+
+14
+00:02:35,050 --> 00:02:38,230
+So yeah, we could. And in fact they will.
+
+15
+00:02:38,560 --> 00:02:43,660
+We'll do it. We'll start with that to sort of prepare the train for what's coming.
+
+16
+00:02:45,810 --> 00:02:50,520
+And we'll be using all population weights or total population meaning.
+
+17
+00:02:51,880 --> 00:02:56,970
+Putting together the exposed and the unexposed. And using their wits.
+
+18
+00:02:58,270 --> 00:03:02,630
+Then we will. Present.
+
+19
+00:03:05,390 --> 00:03:08,840
+What standardization would look like if we were to.
+
+20
+00:03:10,360 --> 00:03:18,100
+Use counterfactuals and controversial notation. This is also interesting because you know in the.
+
+21
+00:03:19,410 --> 00:03:28,080
+Because the inference discussions, I guess some of you might have been disappointed that the whole counterfactual theories seem just too theoretical.
+
+22
+00:03:29,070 --> 00:03:35,380
+Well, that's not the case. So here we are. This is counterfactual stuff in Brat.
+
+23
+00:03:35,400 --> 00:03:39,900
+So we're actually going to put a time machine to use.
+
+24
+00:03:41,610 --> 00:03:44,790
+Except we would. We need assumptions.
+
+25
+00:03:45,420 --> 00:03:52,000
+Okay. And then we will move ahead on.
+
+26
+00:03:53,030 --> 00:03:56,530
+To inverse probability weighting. And.
+
+27
+00:03:59,390 --> 00:04:02,990
+These are the concepts we will have to explore.
+
+28
+00:04:03,920 --> 00:04:09,080
+Probability histories then estimate counterfactual risks.
+
+29
+00:04:12,510 --> 00:04:22,080
+From the exposure histories using or assuming conditional exchange ability, we will discuss the concept of pseudo population.
+
+30
+00:04:23,840 --> 00:04:31,550
+And finally. We will be relating some comparison between.
+
+31
+00:04:32,670 --> 00:04:42,989
+I understand the decision and you will see that there are actually many advantages to inverse mobility weighting over standardization.
+
+32
+00:04:42,990 --> 00:04:49,230
+And that's one of the reasons why it's become. Mainstream.
+
+33
+00:04:49,620 --> 00:04:53,380
+All right. You ready? Okay.
+
+34
+00:04:54,730 --> 00:05:00,790
+So let's go back to our favorite example of marijuana, smoking and Alzheimer's.
+
+35
+00:05:02,790 --> 00:05:08,440
+I guess we left it at that. We couldn't do a randomized intervention, right?
+
+36
+00:05:08,470 --> 00:05:15,600
+So we conducted instead a an observational study in which we found.
+
+37
+00:05:16,940 --> 00:05:26,929
+20 people per million people. If you want to do away with random portability who were my one is smokers and 27th day Adventists.
+
+38
+00:05:26,930 --> 00:05:32,729
+The marijuana smokers are exposed. Marijuana, the seventh day Adventist.
+
+39
+00:05:32,730 --> 00:05:37,700
+They're unexposed to marijuana. We followed them for the outcome.
+
+40
+00:05:37,700 --> 00:05:44,090
+Alzheimer's. And, you know, we got a few people with the outcome in each exposure group.
+
+41
+00:05:47,860 --> 00:05:53,620
+You may recall that we summarized the data in our usual two by two table,
+
+42
+00:05:53,860 --> 00:06:03,700
+and under the assumptions of a close cohort with complete follow up and no competing risks, we could estimate risk.
+
+43
+00:06:04,420 --> 00:06:12,970
+So the risk in the exposed is point for the risk in the unexposed is one in 30 years and then the cumulative incidence ratio is four.
+
+44
+00:06:16,470 --> 00:06:20,070
+But then in the confounding session we.
+
+45
+00:06:21,110 --> 00:06:24,750
+I realized that there was a lurking variable.
+
+46
+00:06:25,860 --> 00:06:31,100
+Um. Which was head trauma dichotomous.
+
+47
+00:06:31,110 --> 00:06:32,520
+He has no history of head trauma.
+
+48
+00:06:33,090 --> 00:06:41,850
+And as you may recall, we concluded that it could confound the association between marijuana smokers and Alzheimer's.
+
+49
+00:06:44,610 --> 00:06:47,939
+The reasons were that it was an independent predictor of outcome.
+
+50
+00:06:47,940 --> 00:06:56,780
+And we discussed that concept. It is not a consequence of exposure, but it may be a cause of exposure.
+
+51
+00:06:56,900 --> 00:07:01,370
+And again, that makes it a viable that lies in a bag or part.
+
+52
+00:07:03,010 --> 00:07:06,459
+It wasn't evenly distributed across exposure groups.
+
+53
+00:07:06,460 --> 00:07:14,770
+The probability of head trauma in marijuana smokers was higher than it was in the non marijuana smokers.
+
+54
+00:07:14,770 --> 00:07:18,550
+The Seventh Day Adventist. Boeing seven compared 2.2.
+
+55
+00:07:21,100 --> 00:07:24,580
+And therefore the exposure groups are not exchangeable.
+
+56
+00:07:24,700 --> 00:07:27,940
+With respect to head trauma history. Okay.
+
+57
+00:07:28,090 --> 00:07:33,370
+So let's just review now this cumulative incidence ratio,
+
+58
+00:07:33,370 --> 00:07:41,110
+which basically ignores the confounding by head trauma, does not have a causal interpretation.
+
+59
+00:07:42,280 --> 00:07:51,520
+So the actual effect of marijuana smoking on Alzheimer's disease is not for time risk increase.
+
+60
+00:07:54,080 --> 00:07:59,600
+Because we are ignoring the confounding by history of head trauma.
+
+61
+00:08:00,290 --> 00:08:04,310
+Right. Um. So what to do?
+
+62
+00:08:04,340 --> 00:08:07,489
+Well, during the confounding session, we need something.
+
+63
+00:08:07,490 --> 00:08:12,800
+Anybody recalls what we need to account for that confounding by L.
+
+64
+00:08:14,420 --> 00:08:18,860
+A drummer. Yes.
+
+65
+00:08:18,860 --> 00:08:22,250
+Andrea? Yes. Excellent. We stratified.
+
+66
+00:08:23,330 --> 00:08:28,969
+So we we went ahead and we separated people by whether they had had a history of
+
+67
+00:08:28,970 --> 00:08:33,770
+head trauma or not and estimated the cumulative incidence ratio within each group.
+
+68
+00:08:34,870 --> 00:08:44,470
+And I mean, some of you may have super memory, may recall that I guess in one stratum the military incidence ratio was something like 2.7.
+
+69
+00:08:44,920 --> 00:08:47,830
+In the other, it might have been something like two. Right.
+
+70
+00:08:48,730 --> 00:08:58,780
+So I guess we concluded that it was different from the and stratified which is four and therefore there was confounding.
+
+71
+00:09:00,700 --> 00:09:06,010
+So in fact, if we assume conditional exchange ability within levels of L,
+
+72
+00:09:06,340 --> 00:09:16,600
+the strength of the effect of marijuana smoking on Alzheimer's is actually less is weaker than we thought.
+
+73
+00:09:19,870 --> 00:09:29,590
+So that's one option. You know, you could stratify and you could present see are stratified by levels of your confounder
+
+74
+00:09:30,530 --> 00:09:36,910
+but you know there is a bit of a problem which is sometimes confounders have many.
+
+75
+00:09:38,230 --> 00:09:43,470
+More lives. More than two. Sometimes you have more than one fund.
+
+76
+00:09:44,200 --> 00:09:52,240
+So if you are going to stratify, you may end up with a set of results that consist of like, I don't know, 15 tables.
+
+77
+00:09:53,490 --> 00:09:58,920
+And 15 different estimates. So that's that's perhaps not very healthy for.
+
+78
+00:10:00,570 --> 00:10:10,710
+Getting across your message. So instead of stratifying, the other thing you could do is you could estimate a summary.
+
+79
+00:10:11,920 --> 00:10:19,540
+A summary measure of association across strata of your confounder confounders.
+
+80
+00:10:19,990 --> 00:10:25,940
+Right. And I guess under that premise, also last week, we went through standardization.
+
+81
+00:10:26,000 --> 00:10:30,290
+Standardization is one way to summarize.
+
+82
+00:10:31,400 --> 00:10:39,100
+Stratum specific. So we could also standardized.
+
+83
+00:10:40,270 --> 00:10:44,510
+Um. The community incidences here.
+
+84
+00:10:45,540 --> 00:10:50,600
+So that would allows us to close the backdoor pat conditioning on there.
+
+85
+00:10:51,150 --> 00:10:59,160
+So our task today for now is to compute the standardized cumulative incidence and the cumulative incidence rate.
+
+86
+00:11:00,240 --> 00:11:10,420
+Okay. So I have brought here a the same table is a little bit.
+
+87
+00:11:11,700 --> 00:11:17,220
+Summarized doesn't have all the numbers, but, you know, we don't really need everything.
+
+88
+00:11:18,090 --> 00:11:29,400
+And the thing is, though, that it is stratified because we have two rows, one for L equals zero and one for al equals one.
+
+89
+00:11:29,460 --> 00:11:37,560
+So we are going to first separate the estimates according to levels of the confirmed.
+
+90
+00:11:39,080 --> 00:11:48,710
+And for each exposure group within each stratum, we will have the total number of people and then the number of people who develop the outcome,
+
+91
+00:11:48,860 --> 00:11:51,890
+the total at risk and the ones who develop the right.
+
+92
+00:11:53,680 --> 00:12:02,950
+So how many people are exposed and have a value of l equals zero?
+
+93
+00:12:05,240 --> 00:12:08,430
+It's all these people. Six.
+
+94
+00:12:09,180 --> 00:12:15,960
+Right. Exposed with the value of equal zero. Out of those six, how many go to outcome one?
+
+95
+00:12:16,290 --> 00:12:21,910
+Right. Okay. Among the unexposed, how many have L equals zero zero?
+
+96
+00:12:21,930 --> 00:12:26,580
+The address is a 6060. And of them one good deal.
+
+97
+00:12:29,520 --> 00:12:35,670
+Now. How about. This treadmill equals one.
+
+98
+00:12:36,690 --> 00:12:43,860
+So we have among the exposed 14 people with a value of one four ill.
+
+99
+00:12:44,400 --> 00:12:51,040
+And of them seven got the outcome. And among the unexposed, we have four people with a value of equals.
+
+100
+00:12:51,060 --> 00:13:06,260
+One. And among them, one. Good deal. So it is a promise that we will conduct this standardization using whole population weights.
+
+101
+00:13:08,050 --> 00:13:13,430
+So. Which of what? What are we going to estimate weights of?
+
+102
+00:13:20,050 --> 00:13:25,300
+Hmm. Okay. Categories of what?
+
+103
+00:13:28,890 --> 00:13:33,750
+Of any. Excellent. Maria? Yes.
+
+104
+00:13:34,970 --> 00:13:42,650
+And because we are going to use whole population weights, we are going to put together the exposed and the unexposed.
+
+105
+00:13:43,350 --> 00:13:46,960
+Okay. So.
+
+106
+00:13:48,840 --> 00:13:55,950
+Basically we just have to estimate the proportion of everybody in the population who had a value of
+
+107
+00:13:55,960 --> 00:14:00,600
+L equals zero and the proportion of everyone in the population who had the value of L equals what?
+
+108
+00:14:02,380 --> 00:14:06,940
+So if you add up everybody with L equals zero, you have six plus 16.
+
+109
+00:14:06,940 --> 00:14:11,170
+That's 22 out of 40 people. That's point 55.
+
+110
+00:14:11,200 --> 00:14:17,530
+So the. The weight of the L equals zero stratum is 55%.
+
+111
+00:14:17,980 --> 00:14:30,500
+Right. And obviously, you know, the compliment of that 55 is going to be the weight for the L equals one stratum, which is 45% point four.
+
+112
+00:14:31,290 --> 00:14:35,460
+Right. So so far, it's just the same as we did last time.
+
+113
+00:14:38,890 --> 00:14:50,650
+Now. The next step is to apply those weights to the stratum specific cumulative incidence rate.
+
+114
+00:14:53,110 --> 00:14:57,080
+So. To estimate the overall.
+
+115
+00:14:58,470 --> 00:15:01,710
+Probability of the outcome among the exposed.
+
+116
+00:15:05,380 --> 00:15:09,850
+We have to add up to weighted estimates.
+
+117
+00:15:11,150 --> 00:15:18,590
+One among people with values of equals zero and the other among people with values of equals.
+
+118
+00:15:18,590 --> 00:15:18,830
+What?
+
+119
+00:15:19,790 --> 00:15:27,630
+And the weight that we are going to apply to each one of those conditional probabilities is going to be the ones that we have just calculated here.
+
+120
+00:15:27,650 --> 00:15:40,390
+Right. So the first part, the probability of y equals one among people were exposed but have a level of uh,
+
+121
+00:15:41,570 --> 00:15:51,080
+I have a value of zero in l it's going to be one divided by six and we are going to apply the weight for l equals zero to that.
+
+122
+00:15:52,890 --> 00:15:56,469
+Probability. And on the other hand,
+
+123
+00:15:56,470 --> 00:16:01,000
+the probability of the outcome among the exposed will have value of l equals one going to be
+
+124
+00:16:01,000 --> 00:16:06,940
+seven divided by 14 and we are going to apply the weight for l equals one to that straddle.
+
+125
+00:16:07,990 --> 00:16:14,890
+Right. So the standardized risk or cumulative incidence.
+
+126
+00:16:16,400 --> 00:16:19,500
+Among the exposed is .317.
+
+127
+00:16:19,520 --> 00:16:23,690
+In 30 years standardized to the whole population.
+
+128
+00:16:26,910 --> 00:16:33,690
+Next we have to do the same. But among the unexposed we have to standardize the risk for the unexposed.
+
+129
+00:16:34,440 --> 00:16:41,610
+So they proceeded is exactly the same. The probability of the outcome in the unexposed will have equal.
+
+130
+00:16:41,640 --> 00:16:50,340
+Zero is one divided by 16 and we apply the same weight for equal to zero and the probability of outcome in the
+
+131
+00:16:50,340 --> 00:16:57,090
+unexposed will have a value of l equals one is one divided by four and we apply the weight of l equals one.
+
+132
+00:16:57,900 --> 00:17:03,840
+So as before, the absolute condition is that we have to apply the same weights to both groups.
+
+133
+00:17:04,290 --> 00:17:12,780
+Right. In all fairness. And then the standardized risk in this group is point one, 47, 30 years.
+
+134
+00:17:15,590 --> 00:17:24,380
+So with those two standardized risks, we can calculate the standardized cumulative incidence ratio, which is 2.16.
+
+135
+00:17:25,420 --> 00:17:31,300
+So this is our summary mission of the two strata.
+
+136
+00:17:32,190 --> 00:17:42,790
+That takes into account the confounding effect of air. So as you can see.
+
+137
+00:17:44,050 --> 00:17:50,380
+Basically each risk in each stratum is a weighted average is a weighted average.
+
+138
+00:17:52,760 --> 00:18:00,590
+Of the risk. I mean, risk in each exposure group is a weighted average of the risk in each stratum of the.
+
+139
+00:18:03,380 --> 00:18:16,290
+Potential confounding by. Weighted average is an average because we are adding up probabilities, but they are weighted by this size of.
+
+140
+00:18:18,970 --> 00:18:22,960
+The strata of the. A potential conflict.
+
+141
+00:18:25,970 --> 00:18:30,860
+So this is a summary of of the notation that we have just used.
+
+142
+00:18:30,860 --> 00:18:37,730
+Again, no need to, you know, sort of be afraid, fear or not, do not panic.
+
+143
+00:18:38,780 --> 00:18:44,839
+But if you use whole population. The whole population as a standard.
+
+144
+00:18:44,840 --> 00:18:53,540
+The cumulative incidences condition on an exposure. The weighted average is of the stratum levels of that specific cumulative incidences.
+
+145
+00:18:53,600 --> 00:18:58,430
+So this is exactly what we had in the previous slide for two levels of exposure.
+
+146
+00:18:58,790 --> 00:19:03,110
+And this is a generalization of of these expressions, right.
+
+147
+00:19:03,800 --> 00:19:07,280
+So a given level of a these means some over.
+
+148
+00:19:07,520 --> 00:19:14,720
+Right. Levels of L and each one is weighted by its corresponding level of L.
+
+149
+00:19:17,550 --> 00:19:22,760
+Their weights are equal to the proportions of people with given levels of OC.
+
+150
+00:19:25,820 --> 00:19:29,480
+Now, that was just a review of standardization.
+
+151
+00:19:29,900 --> 00:19:35,910
+And we just. Chose to standardize a different measure risk.
+
+152
+00:19:36,390 --> 00:19:40,740
+And we used all population weights. Now we are moving on.
+
+153
+00:19:42,060 --> 00:19:43,500
+There is an alternative approach.
+
+154
+00:19:45,110 --> 00:19:52,790
+If we assume conditional exchange ability, meaning the exposed and the unexposed are exchangeable within levels of l,
+
+155
+00:19:53,150 --> 00:19:57,220
+meaning there is no other confounders within levels of L.
+
+156
+00:19:59,550 --> 00:20:09,000
+We could estimate the counter-factual risks and their exposure and know exposure using information from the actual observational study.
+
+157
+00:20:12,020 --> 00:20:17,300
+So we are going to use the data we obtained in the observational study as our time machine.
+
+158
+00:20:19,940 --> 00:20:26,780
+And there are assumptions. You know, this is what epidemiology is all about, assumptions.
+
+159
+00:20:27,440 --> 00:20:32,780
+And to what extent are you willing to live by the assumptions you make?
+
+160
+00:20:36,610 --> 00:20:50,050
+So in other words, we could simulate what the outcomes would have been for the whole population had they all been exposed or all been unexposed.
+
+161
+00:20:50,770 --> 00:20:56,470
+Using the observed history of exposure probabilities for all possible outcomes.
+
+162
+00:20:57,040 --> 00:21:05,230
+And that last bit, which is the worthy part, will see with a really nice example.
+
+163
+00:21:07,530 --> 00:21:15,480
+Okay. But before getting there, we we have to introduce a little bit of more notation.
+
+164
+00:21:18,270 --> 00:21:23,490
+Which is how could we express standardization using counterfactual notation?
+
+165
+00:21:25,050 --> 00:21:36,629
+So our goal recall, our goal is to estimate marginal counterfactual probabilities because we will be passing the whole population,
+
+166
+00:21:36,630 --> 00:21:42,270
+which means both marijuana smokers and Seventh Day Adventists, the whole population.
+
+167
+00:21:42,660 --> 00:21:51,180
+We are going to be passing them through a damaging experiment, setting exposure to either marijuana or no marijuana.
+
+168
+00:21:53,230 --> 00:21:59,700
+But in reality we were using data from the observational study to obtain those probabilities.
+
+169
+00:21:59,710 --> 00:22:03,670
+But again, the goal is to compute marginal probabilities.
+
+170
+00:22:06,910 --> 00:22:13,149
+So those cognitive function probabilities will be the weighted average of this stratum.
+
+171
+00:22:13,150 --> 00:22:16,400
+A specific. Cumulative incidences.
+
+172
+00:22:17,660 --> 00:22:19,580
+So that means levels of L again.
+
+173
+00:22:20,450 --> 00:22:29,270
+So here, for example, you have the marginal probability of the outcome when we set the exposure to no exposure unexposed.
+
+174
+00:22:29,930 --> 00:22:30,350
+And again,
+
+175
+00:22:30,350 --> 00:22:40,460
+this is the weighted average of the conditional counterfactual probabilities according to levels of the confounder weighted by this size of.
+
+176
+00:22:42,220 --> 00:22:47,320
+The start of the confounded. And this ain't for the.
+
+177
+00:22:48,560 --> 00:22:51,760
+Marginal probability when we set exposure to. Yes.
+
+178
+00:22:51,770 --> 00:22:57,470
+Being exposed. This is a generalization, which is.
+
+179
+00:22:58,470 --> 00:23:00,780
+Analogous to what we saw in the previous light.
+
+180
+00:23:01,740 --> 00:23:09,390
+And again, the weights are going to be still equal to the proportion of everybody in the population with given values of at.
+
+181
+00:23:13,110 --> 00:23:19,410
+So let's do it. Let's implement this with the example that we have been.
+
+182
+00:23:20,540 --> 00:23:25,200
+Harry. So. This is what we saw.
+
+183
+00:23:25,230 --> 00:23:32,130
+This is the observational study and the first thing we need to do to perform inverse probability weighting.
+
+184
+00:23:32,460 --> 00:23:39,090
+Also to obtain at the very end a summary estimate of the incidence ratio.
+
+185
+00:23:39,200 --> 00:23:45,960
+That's the final goal is to, well, lay out.
+
+186
+00:23:50,860 --> 00:23:53,890
+The exposure probability histories over time.
+
+187
+00:23:55,010 --> 00:24:01,030
+Because. You can think of this process as you know, in this process.
+
+188
+00:24:02,910 --> 00:24:08,280
+All variables. Can be generically called exposures.
+
+189
+00:24:08,820 --> 00:24:15,780
+And we have one exposure of interest rate, which is a in this case these notation.
+
+190
+00:24:16,470 --> 00:24:21,330
+But all other variables connected to a in a way are exposures as well.
+
+191
+00:24:22,570 --> 00:24:28,000
+You know, like Al is actually an exposure for a right.
+
+192
+00:24:29,410 --> 00:24:34,360
+So we have to draw a dag that obviously respect the temporal.
+
+193
+00:24:35,560 --> 00:24:42,270
+Relations between variables. And in this case, I guess this is perhaps the.
+
+194
+00:24:43,180 --> 00:24:55,540
+Um, well, this is a simple example, but indeed that obviously it's helpful to first put represent the variable that happens first in time.
+
+195
+00:24:55,930 --> 00:25:05,540
+Right. And following from it, we represent all other variables again according to the temporal sequence of how we think.
+
+196
+00:25:08,130 --> 00:25:11,340
+The process happened. So we have assumed that.
+
+197
+00:25:12,320 --> 00:25:21,830
+Hit drama happens before marijuana smoking because it causes marijuana smoking and head trauma also happens before Alzheimer's.
+
+198
+00:25:22,580 --> 00:25:28,610
+This is what this drug is telling you. Marijuana smoking obviously happens before, I'd say.
+
+199
+00:25:30,000 --> 00:25:45,080
+Okay. Right. And now we are going to calculate or, you know, represent here the probabilities of each of these variables as they happen over time.
+
+200
+00:25:47,800 --> 00:25:58,000
+And all levels and all combinations of levels for this violence, respecting their relationships.
+
+201
+00:25:59,110 --> 00:26:02,800
+So again, was the first thing that was the first variable that happens in this that.
+
+202
+00:26:05,480 --> 00:26:09,160
+L. How many levels or categories?
+
+203
+00:26:10,230 --> 00:26:15,100
+Or Estrada has thus enough. To write.
+
+204
+00:26:16,120 --> 00:26:22,130
+That means. People may have a value of l equals one or a value of a zero.
+
+205
+00:26:23,280 --> 00:26:27,180
+And that can be expressed with two probabilities, right?
+
+206
+00:26:30,440 --> 00:26:35,940
+So the first one we can say. Is the probability of equals zero.
+
+207
+00:26:37,700 --> 00:26:44,840
+And when these 30 people were at the beginning of times and the first thing we evaluated was El.
+
+208
+00:26:47,650 --> 00:26:51,370
+22. The value of L equals zero. Out of the four.
+
+209
+00:26:51,400 --> 00:27:01,330
+So that's point 55. The second probability we can calculate is the probability of l equals one right?
+
+210
+00:27:01,840 --> 00:27:06,290
+Which obviously will be the complement of. L equals zero.
+
+211
+00:27:06,300 --> 00:27:11,610
+But, you know, with 18 people out of 40, 45.45.
+
+212
+00:27:15,190 --> 00:27:24,760
+Now. As we lay out these probabilities, we are going to visually place them and represent them on a structure called a tree.
+
+213
+00:27:26,990 --> 00:27:31,670
+And these were invented by Jamie Robbins back in.
+
+214
+00:27:32,770 --> 00:27:36,040
+1986 or 87.
+
+215
+00:27:36,670 --> 00:27:44,260
+Very few of us had been born. And it's interesting because it's it's a relatively obscure paper.
+
+216
+00:27:44,260 --> 00:27:49,989
+I mean, it's pretty obscure and it's published in a mathematical journal.
+
+217
+00:27:49,990 --> 00:27:56,260
+And it is, I don't know, like 200 pages. Um, but the thing is that, you know,
+
+218
+00:27:56,260 --> 00:28:06,910
+all of Jamie Robinson's genius is there and everything that he did thereafter and pretty much everybody else did and say,
+
+219
+00:28:07,270 --> 00:28:14,649
+Oh yeah, go to page these of that paper and yeah, that's there, you know, then depending on funding.
+
+220
+00:28:14,650 --> 00:28:20,710
+Yeah. That's there is yeah. Oh you know the perils of mediation analysis.
+
+221
+00:28:20,720 --> 00:28:26,530
+Yeah. You go to that because it's kind of, I haven't read the paper, I'm incapable because the math is very dense.
+
+222
+00:28:26,530 --> 00:28:34,809
+But but the trees are there. So let's, let's, let's take those helpful trees to represent this problem.
+
+223
+00:28:34,810 --> 00:28:39,340
+So the first thing is, you know, we have some sort of a root here for the tree.
+
+224
+00:28:39,910 --> 00:28:42,580
+And because there are two levels of variable L,
+
+225
+00:28:42,580 --> 00:28:49,210
+there are two lines and we are going to represent information for each stratum of L in each one of these lines.
+
+226
+00:28:49,750 --> 00:28:53,649
+So on the upper line, we have the probability for a equals zero.
+
+227
+00:28:53,650 --> 00:28:59,920
+And I guess by convention you can include the actual number of people with that level
+
+228
+00:28:59,920 --> 00:29:07,180
+under the line 22 And the second line is for people with a value of a equals one.
+
+229
+00:29:08,330 --> 00:29:13,280
+As 45% survive. And the number of those people is a dip, right?
+
+230
+00:29:15,480 --> 00:29:24,930
+Everybody okay with that so far? Okay. What's the next thing that happens in this causal system?
+
+231
+00:29:26,060 --> 00:29:43,410
+Then A Right. So then we have to represent the probabilities of a but the probabilities of a depend on levels of and because EL has already happened.
+
+232
+00:29:43,920 --> 00:29:47,160
+So the probabilities of a are all conditional on it.
+
+233
+00:29:47,940 --> 00:29:57,110
+Right. How many probabilities of a conditional probabilities of a do you anticipate we will have to estimate?
+
+234
+00:29:58,350 --> 00:30:03,450
+Four executive for because A has two levels and L has two levels.
+
+235
+00:30:03,570 --> 00:30:07,350
+Right. So let's begin with the first one, which would be.
+
+236
+00:30:10,330 --> 00:30:15,220
+A may not happen among people in whom l did not happen.
+
+237
+00:30:15,610 --> 00:30:22,330
+Right. Probability of equals zero given L equals zero. That's going to be 16 divided by 22.
+
+238
+00:30:22,570 --> 00:30:27,400
+16 divided by 16 plus six. That's 73.
+
+239
+00:30:29,380 --> 00:30:33,630
+The next one. Oh, okay. We can represent it here on the first branch.
+
+240
+00:30:35,070 --> 00:30:41,910
+So l will l equals zero will have two branches, one for equals zero, and the other four equals one.
+
+241
+00:30:42,060 --> 00:30:47,520
+Right. So the first one just estimate is equals zero. That's point 73 is probability.
+
+242
+00:30:47,790 --> 00:30:53,279
+And again, on the lower side of the branch, we represent the number of people.
+
+243
+00:30:53,280 --> 00:30:59,499
+G 16. Is next. The probability of equals zero given that l equals zero.
+
+244
+00:30:59,500 --> 00:31:12,310
+So we remain on the same branch of L, but now we are going to estimate parity of equals one that branch and it's six divided by 22 or point 27.
+
+245
+00:31:12,880 --> 00:31:25,480
+Okay. This six. So we represent them here on the next branch and now we can move down to the next branch of ALA in terms of what happens with a.
+
+246
+00:31:25,980 --> 00:31:32,460
+So the probability of equals zero given that L equals one is four divided by 18 4.22.
+
+247
+00:31:33,090 --> 00:31:39,210
+Right in the. And the last branch of that initial.
+
+248
+00:31:40,870 --> 00:31:51,490
+Level. It's going to be the of equals one, given that it equals one that's 14 divided by 18 or point 78 we represented in the last range.
+
+249
+00:31:53,450 --> 00:31:57,499
+And was the next and last thing that happens in this system.
+
+250
+00:31:57,500 --> 00:32:02,760
+What? But. Why?
+
+251
+00:32:04,590 --> 00:32:09,420
+Depends. On not only even one condition, but two.
+
+252
+00:32:10,610 --> 00:32:15,770
+Because why depends on what has happened with A and also with L.
+
+253
+00:32:16,880 --> 00:32:21,770
+So how many probabilities do you anticipate that we are going to have to estimate for white?
+
+254
+00:32:23,000 --> 00:32:29,659
+Eight. Right. So. The first one with a probability of y equals zero.
+
+255
+00:32:29,660 --> 00:32:34,430
+Given that equals zero and l equals zero. That's 15 divided by 16.
+
+256
+00:32:35,980 --> 00:32:43,420
+And because we are at the end of the tree, we represent the final number of people on each branch here outside to the right.
+
+257
+00:32:44,140 --> 00:32:49,690
+The next branch is probably of like was one given equals 001 divided by 16.
+
+258
+00:32:52,120 --> 00:32:55,900
+And then we move to the next branch where we do have y equals zero,
+
+259
+00:32:55,930 --> 00:33:03,580
+given equals one equals zero five divided by six, and then the next one will be one person remaining.
+
+260
+00:33:05,270 --> 00:33:09,799
+BOLLING 17. Then we move to the lower part of the tree.
+
+261
+00:33:09,800 --> 00:33:14,120
+Probability equals zero, unequal zero equals once two divided by four.
+
+262
+00:33:15,710 --> 00:33:26,000
+There is one remaining on that branch so that we the next 1.25 and the very last ramification here is equals zero,
+
+263
+00:33:26,000 --> 00:33:29,120
+equals one equals one seven divided by 14.
+
+264
+00:33:29,840 --> 00:33:35,390
+And the other seven will be the final ramification.
+
+265
+00:33:36,000 --> 00:33:47,120
+Right? So that's that's that's how the tree works graphically after laying out the history of exposure probabilities.
+
+266
+00:33:49,970 --> 00:33:53,600
+So this tree represents the observed data.
+
+267
+00:33:54,640 --> 00:33:58,660
+Right. This is the observational study we conduct.
+
+268
+00:33:59,920 --> 00:34:03,430
+What we are going to do next is to estimate those.
+
+269
+00:34:04,450 --> 00:34:09,420
+Counter-factual. Risks as if we had.
+
+270
+00:34:10,900 --> 00:34:20,559
+Passed all the. Exposed to one level of all the whole population to one level of the exposure and then the whole population to another
+
+271
+00:34:20,560 --> 00:34:31,360
+level of exposure and estimate those probabilities using our best guesses from what we have in the observational study.
+
+272
+00:34:32,510 --> 00:34:40,130
+So we can begin. To estimate, let's say first, the counter-factual risk of Alzheimer's.
+
+273
+00:34:40,580 --> 00:34:49,790
+Had everybody been exposed. So you can think of these as we are about to take the 40 people in our study.
+
+274
+00:34:50,830 --> 00:34:58,190
+Pass them through a time machine. But set our switch of exposure to being exposed.
+
+275
+00:34:59,160 --> 00:35:10,160
+And see what? Might have. So the first part, the treat, you know, these sort of these really doesn't change because.
+
+276
+00:35:12,500 --> 00:35:18,860
+People will still have a level of l that we are not experimenting.
+
+277
+00:35:20,020 --> 00:35:23,739
+And he's the same. But now see what happens.
+
+278
+00:35:23,740 --> 00:35:29,020
+And I'm going to start with the lowest branches to use for didactic purposes because it's it's easier.
+
+279
+00:35:32,620 --> 00:35:36,310
+We promise that we are going to pass everybody as if they were.
+
+280
+00:35:37,890 --> 00:35:42,360
+Exposed a equals one. So here is a question for you.
+
+281
+00:35:45,000 --> 00:35:52,290
+On this branch. How many people should be with levels of a equals one in our counterfactual expect?
+
+282
+00:35:53,900 --> 00:35:58,910
+18 because we said we are going to force everybody here to be exposed.
+
+283
+00:35:59,420 --> 00:36:06,390
+Right. Okay, good. 18. Now I'm going to ask you a question.
+
+284
+00:36:07,320 --> 00:36:12,810
+And. And they want you to do a poll.
+
+285
+00:36:15,430 --> 00:36:18,430
+Okay. So.
+
+286
+00:36:21,950 --> 00:36:25,280
+The question is based on this.
+
+287
+00:36:26,960 --> 00:36:35,960
+Tree representing the observed data. What is your best guess for the probability of?
+
+288
+00:36:37,460 --> 00:36:43,930
+Y equals one. Given that L is equal to one.
+
+289
+00:36:43,980 --> 00:36:54,650
+So I'm going to go back to the to the tree here. And basically ask.
+
+290
+00:36:56,040 --> 00:37:00,330
+Again if I were to draw my final ramification here.
+
+291
+00:37:01,290 --> 00:37:06,600
+And I wanted to know how many people I need to put.
+
+292
+00:37:07,930 --> 00:37:10,810
+On the branch that says Y equals one.
+
+293
+00:37:12,610 --> 00:37:22,180
+From the observational study, what would be your best guess as to what proportion of these 18 should be on that branch of y equals one?
+
+294
+00:37:22,930 --> 00:37:26,040
+Is the question understood? Yeah.
+
+295
+00:37:26,070 --> 00:37:31,130
+Okay. Are you voting? Yes.
+
+296
+00:37:31,510 --> 00:37:36,310
+Fantastic. Wow. I heard the responses.
+
+297
+00:37:36,320 --> 00:37:39,620
+Okay. All right. It's okay. You can change your mind.
+
+298
+00:37:39,770 --> 00:37:43,009
+Yeah, that's. That's. That's always a good thing.
+
+299
+00:37:43,010 --> 00:37:47,360
+In fact, the problem is to remain sort of stubborn.
+
+300
+00:37:48,560 --> 00:37:52,879
+The man said that may not be right. So I guess you all got it.
+
+301
+00:37:52,880 --> 00:37:58,250
+And I really congratulate you for that. This is this is the highest.
+
+302
+00:38:00,190 --> 00:38:03,760
+Correct answer to this question.
+
+303
+00:38:04,600 --> 00:38:08,680
+Well, in two years, they had a that's a very happy.
+
+304
+00:38:09,050 --> 00:38:15,400
+Okay. So yeah, so, you know, obviously because from the observational study here,
+
+305
+00:38:15,400 --> 00:38:22,700
+we saw that 50% of these guys got Y equals one that's assuming condition, conditional exchange ability.
+
+306
+00:38:22,810 --> 00:38:26,110
+That's our best guess as to the result of the counterfactual extreme.
+
+307
+00:38:26,110 --> 00:38:35,170
+Right. So yeah, so if you apply this 50% to these 18, you are going to get nine people on this branch, right?
+
+308
+00:38:35,350 --> 00:38:39,830
+How many on this branch? Well, if they're remaining right over nine.
+
+309
+00:38:40,150 --> 00:38:43,890
+Okay. Right. Aha.
+
+310
+00:38:44,130 --> 00:38:48,210
+Here is just a sort of reality check question.
+
+311
+00:38:49,740 --> 00:38:53,370
+How many people should there be on the branch?
+
+312
+00:38:53,400 --> 00:38:56,670
+A equals zero. Zero.
+
+313
+00:38:56,730 --> 00:39:01,680
+Yeah, of course. Because we had set everybody to being exposed here.
+
+314
+00:39:01,770 --> 00:39:11,030
+Oh, no. So on this branch also we are going to set all the 22 to have a value of eight equals one.
+
+315
+00:39:11,450 --> 00:39:16,190
+And what would be your best guess as to what proportion of these 22 will develop the outcome?
+
+316
+00:39:19,240 --> 00:39:29,049
+17% rate. So if we applied this 17% to these 22, we get 3.7 and it's okay to use, you know, half people and sort of decimals.
+
+317
+00:39:29,050 --> 00:39:39,129
+So. Right. And the remaining will be on the branch that people who did not experience the other and
+
+318
+00:39:39,130 --> 00:39:46,810
+finally the upper branch should be empty because we have forced everybody to be exposed here.
+
+319
+00:39:47,590 --> 00:39:52,480
+So these would be what our counterfactual outcomes would look like.
+
+320
+00:39:54,140 --> 00:39:57,760
+We passed everybody through the machine experiment and assumed.
+
+321
+00:39:59,490 --> 00:40:04,460
+Conditional exchangeable. What's next?
+
+322
+00:40:04,550 --> 00:40:09,650
+Well, we still have to do the experiment, setting our switch to.
+
+323
+00:40:10,740 --> 00:40:14,620
+Not being exposed to the unexposed right. So.
+
+324
+00:40:18,640 --> 00:40:28,060
+On this brunch, everybody will be in a equals zero because everybody is being forced to be exposed.
+
+325
+00:40:28,840 --> 00:40:35,920
+And our best guess from the observational study as to how many of these 22 develop the outcome would be.
+
+326
+00:40:39,450 --> 00:40:43,210
+How many? 6% of them rate.
+
+327
+00:40:44,050 --> 00:40:49,340
+This is this 6%. So if you applied this 6% to them, you get 1.4.
+
+328
+00:40:49,790 --> 00:40:53,860
+The remaining will be in the. Branch representing.
+
+329
+00:40:55,070 --> 00:41:05,270
+No. Right. The next branch should be empty because we have said everybody two equals zero on this branch of L.
+
+330
+00:41:05,270 --> 00:41:10,550
+We will have everybody of 18 and of them we expect that 25% will develop the outcome.
+
+331
+00:41:10,700 --> 00:41:14,800
+That's. 4.5. The rest will not develop.
+
+332
+00:41:14,810 --> 00:41:19,730
+Welcome. And finally, this branch should be empty.
+
+333
+00:41:22,500 --> 00:41:28,890
+So those are the results of the counterfactual experiment. When the switch is said to not be exposed.
+
+334
+00:41:34,910 --> 00:41:45,990
+I'm going to replace this tree with this one for the counter-factual experiment among the exposed hills, for ease of visualizing loss.
+
+335
+00:41:46,400 --> 00:41:49,650
+Right. Okay. You ready? So a.
+
+336
+00:41:53,330 --> 00:41:56,840
+Well, now we can estimate.
+
+337
+00:41:58,810 --> 00:42:03,460
+The marginal probability of the outcome in each group that need.
+
+338
+00:42:05,430 --> 00:42:10,230
+You know how we do that? Let's try the marginal probability of the outcome.
+
+339
+00:42:10,260 --> 00:42:19,050
+Marginal means as if we had passed the 40 to the it's been in the during the switch turn to exposed.
+
+340
+00:42:19,890 --> 00:42:23,460
+So how do we do that? How do we estimate that marginal probability?
+
+341
+00:42:24,150 --> 00:42:29,320
+Well, we have to use the data that we have on the street. Right. And.
+
+342
+00:42:30,830 --> 00:42:38,870
+How does he make them? How many people could the outcome in this that machine experiment?
+
+343
+00:42:41,900 --> 00:42:45,420
+3.7 less. Right?
+
+344
+00:42:45,850 --> 00:42:52,510
+Right. So that would be the numerator number of people who develop the ultimate and what would be the denominator?
+
+345
+00:42:54,920 --> 00:42:59,590
+Worthy because they hope. Right. So controversial probability.
+
+346
+00:42:59,600 --> 00:43:08,030
+And this tree is this. Two numbers in the numerator divided by 14, that's going 317.
+
+347
+00:43:12,060 --> 00:43:19,590
+What about? The counter-factual risk in the unexposed how many people develop the outcome?
+
+348
+00:43:21,800 --> 00:43:25,850
+This 1.4 and is 4.5.
+
+349
+00:43:25,850 --> 00:43:34,640
+So we go in the numerator and denominator is again 40 because we have passed everybody through the experiment and you get all in one for seven.
+
+350
+00:43:37,020 --> 00:43:40,500
+So now we can estimate the cumulative incidence ratio.
+
+351
+00:43:43,020 --> 00:43:48,760
+That has been. Inverse probability weighted.
+
+352
+00:43:50,770 --> 00:43:55,690
+And it's the ratio of these to numbers and it's 2.16.
+
+353
+00:43:57,330 --> 00:44:05,580
+As your summary measure that takes into account the confounding effect of L through inverse probability weighting.
+
+354
+00:44:08,740 --> 00:44:19,230
+Okay. Now I'm going to do something really amazing, which is I'm going to merge the two, three trees.
+
+355
+00:44:19,640 --> 00:44:23,630
+I'm going to do away with the zeros, the empty branches. Okay.
+
+356
+00:44:24,460 --> 00:44:37,140
+Ready for? I think somebody might have missed that, but I really get a kick out of doing that, so I'm going to do it again for her.
+
+357
+00:44:38,320 --> 00:44:50,830
+All right. So if I merge the two trees, I have created what's called a pseudo population.
+
+358
+00:44:51,870 --> 00:44:54,300
+Pseudo population. Right.
+
+359
+00:44:56,070 --> 00:45:03,540
+Because through those simulations that we conducted when we were doing the counterfactual experiments for each level of exposure,
+
+360
+00:45:04,500 --> 00:45:10,230
+we have basically created a population that is twice as large as the original.
+
+361
+00:45:10,500 --> 00:45:14,100
+Right? Because there are two levels of exposure.
+
+362
+00:45:21,600 --> 00:45:26,050
+Now. And this is.
+
+363
+00:45:31,060 --> 00:45:36,150
+This is this is the question that I like to us the most in this whole course.
+
+364
+00:45:36,160 --> 00:45:41,200
+And, you know, I really get emotional when somebody gets it right, because it's so easy.
+
+365
+00:45:42,460 --> 00:45:49,300
+I would like you to tell me or to, you know, express we have been doing this more or less since week one.
+
+366
+00:45:49,310 --> 00:45:54,280
+So by now, I don't want to hear other than the truth.
+
+367
+00:45:55,140 --> 00:45:59,450
+Hey. Police using these three.
+
+368
+00:46:01,680 --> 00:46:05,820
+Estimate numerically the association.
+
+369
+00:46:06,770 --> 00:46:11,430
+Between L and A. Go ahead.
+
+370
+00:46:11,490 --> 00:46:15,830
+If you have pen and paper right by then. Electronic band.
+
+371
+00:46:16,880 --> 00:46:21,080
+How would you express the association between.
+
+372
+00:46:22,320 --> 00:46:29,310
+L and a. First of all, how would you do that?
+
+373
+00:46:30,420 --> 00:46:34,570
+Okay. And you're shaking your head. You cannot.
+
+374
+00:46:34,910 --> 00:46:47,450
+Why not? Okay.
+
+375
+00:46:47,830 --> 00:46:53,200
+Well, I guess it's perhaps because I sometimes ask tricky questions.
+
+376
+00:46:53,650 --> 00:46:58,570
+But please forgive me. Let's assume this is not a tricky question because he's not.
+
+377
+00:46:58,990 --> 00:47:04,810
+So let's say yes, you can. I'm just saying, you know, we have created a pseudo population.
+
+378
+00:47:05,110 --> 00:47:13,300
+Here is the data. Go ahead and estimate the association between health and hey, how would you do that to begin?
+
+379
+00:47:30,480 --> 00:47:35,700
+Okay. Come on, guys. Let's assume a is an outcome, is an exposure.
+
+380
+00:47:36,090 --> 00:47:44,010
+A is some sort of a dichotomy, outcome one zero How do you express an association between how they go the most openly dichotomous exposure?
+
+381
+00:47:46,580 --> 00:47:53,720
+Yeah. You know, these we have been doing this from week one.
+
+382
+00:47:56,470 --> 00:48:04,230
+Yes. Sophie. Okay.
+
+383
+00:48:06,020 --> 00:48:12,709
+So let's estimate the conditional probability of the outcome by levels of the exposure outcome.
+
+384
+00:48:12,710 --> 00:48:18,620
+We are quote unquote calling it eight. So was the probability of, let's say, a equals one.
+
+385
+00:48:20,360 --> 00:48:24,980
+I want people with an equal zeal. Was that conditional probability?
+
+386
+00:48:30,810 --> 00:48:36,600
+How many people in this pseudo population has l equals zero was the denominator.
+
+387
+00:48:39,550 --> 00:48:45,910
+44. How many of those have a value of one on a?
+
+388
+00:48:47,290 --> 00:48:52,540
+22. So what's the conditional probability of a equals one among those with an equals zero?
+
+389
+00:48:54,040 --> 00:49:00,970
+50%. No. To estimate an association, you have to do it in the other level.
+
+390
+00:49:00,980 --> 00:49:05,820
+Right. So. Was the conditional probability of a equals one.
+
+391
+00:49:07,180 --> 00:49:11,800
+Come on, people with L equals one. Huh?
+
+392
+00:49:13,270 --> 00:49:22,690
+50%. How did you get that, Mario? 18 divided by 18 divided by 18 plus 1836.
+
+393
+00:49:23,080 --> 00:49:31,910
+Right. Look. How do those conditional probabilities compare to ensure they are the same?
+
+394
+00:49:32,210 --> 00:49:36,110
+Is there an association between L and A? No.
+
+395
+00:49:37,070 --> 00:49:42,550
+So. And here comes the punch line with this procedure.
+
+396
+00:49:44,000 --> 00:49:49,610
+In this population a becomes independent of any.
+
+397
+00:49:50,780 --> 00:49:55,520
+No. Little bit of. Recent memory.
+
+398
+00:49:58,590 --> 00:50:04,800
+Recall. If you can bring to your memory the mechanisms.
+
+399
+00:50:05,580 --> 00:50:11,640
+If you had a bag with l a on the way and you had the typical confounding.
+
+400
+00:50:12,830 --> 00:50:18,210
+Structure with the. There were two ways.
+
+401
+00:50:19,450 --> 00:50:23,790
+To close a backdoor path. By design.
+
+402
+00:50:25,220 --> 00:50:28,930
+Or through analysis. By design.
+
+403
+00:50:30,690 --> 00:50:35,130
+You could remove you could do away with confounding by doing a.
+
+404
+00:50:38,040 --> 00:50:46,970
+Randomized. Right. At the level of the analysis you're stuck with the arrows there were and you had to condition.
+
+405
+00:50:49,610 --> 00:50:58,390
+From a graphical point of view, if you recall. Which one of the two ways.
+
+406
+00:51:01,170 --> 00:51:07,470
+To do away with the backdoor path. Does this represent?
+
+407
+00:51:17,610 --> 00:51:21,210
+In the observational study. Can you remove any errors?
+
+408
+00:51:24,620 --> 00:51:31,180
+From that? No, you just have to. There is boxes around variables like condition.
+
+409
+00:51:31,960 --> 00:51:36,660
+How do you do away with confounding? In the randomized trial.
+
+410
+00:51:50,420 --> 00:51:55,220
+Right. But in a dog. In a dog that has, you know.
+
+411
+00:51:56,750 --> 00:52:00,260
+Uh, let me go back to the dog.
+
+412
+00:52:00,830 --> 00:52:04,760
+To her. These die on these.
+
+413
+00:52:04,760 --> 00:52:14,900
+That if this is a potential situation and you say, no, no, no, no, no, I'm going to avoid that by conducting a randomized trial.
+
+414
+00:52:16,030 --> 00:52:20,040
+What would happen. Which arrow will disappear.
+
+415
+00:52:21,480 --> 00:52:27,010
+From end to end. What does that say? They are independent.
+
+416
+00:52:27,670 --> 00:52:33,820
+Right. So let me go back to my failed associational question.
+
+417
+00:52:34,880 --> 00:52:42,030
+Huh? What mechanism does this represent?
+
+418
+00:52:44,000 --> 00:52:49,420
+Is the mechanism of a randomized trial. And this is why this theory is so beautiful.
+
+419
+00:52:50,440 --> 00:52:57,580
+Because basically what you have done is you can use your observational data to simulate what would happen in a randomized trial.
+
+420
+00:52:58,030 --> 00:53:03,800
+So this is not conditioning in this older population, you have conducted pretty much a randomized trial.
+
+421
+00:53:03,820 --> 00:53:12,460
+You have removed the arrows in coming from in this case L into a is in that just amazingly nice.
+
+422
+00:53:14,000 --> 00:53:25,610
+Wow. And to this day, really all the sort of cutting edge developments in epidemiology and causal inferences.
+
+423
+00:53:27,210 --> 00:53:37,570
+Basically. Whenever you have a problem, like a like a research question, you have to think of what your target trial would be,
+
+424
+00:53:38,350 --> 00:53:45,100
+because even if you are not going to conduct the trial, if you think of the problem as a trial, you might end up simulating it.
+
+425
+00:53:46,260 --> 00:53:52,149
+Using these methods. Yes.
+
+426
+00:53:52,150 --> 00:54:05,640
+And. Absolutely.
+
+427
+00:54:06,120 --> 00:54:14,040
+So the question is who then? There is still be other variables that make the exposure groups non exchangeable.
+
+428
+00:54:14,160 --> 00:54:18,960
+Is that a fair translation of your question? Yeah.
+
+429
+00:54:19,590 --> 00:54:30,330
+So the answer is yes. In this particular example, we can only get excited if we assume and are willing to live by the assumption that there is.
+
+430
+00:54:31,600 --> 00:54:38,620
+Conditional exchange ability, meaning that there are no other variables with the levels of ill that may havoc.
+
+431
+00:54:39,520 --> 00:54:46,490
+Right. So. Exposure levels, we have to assume are exchangeable within levels of at.
+
+432
+00:54:50,340 --> 00:54:58,810
+Yes. Well algebraically they are actually the same approaches.
+
+433
+00:55:01,250 --> 00:55:06,230
+But there are some differences in the way you get to the results.
+
+434
+00:55:08,010 --> 00:55:20,710
+And we will go through that at the resilience. Okay.
+
+435
+00:55:21,470 --> 00:55:30,330
+So if. If you remove the arrow. Is the question, could there still be affect modification?
+
+436
+00:55:33,750 --> 00:55:40,399
+There could still be. Yes, there could still. There are many types of flag modification.
+
+437
+00:55:40,400 --> 00:55:43,820
+This is a section called chapter on on its own.
+
+438
+00:55:43,970 --> 00:55:46,550
+Here, I just scratched the surface for you.
+
+439
+00:55:47,300 --> 00:55:54,380
+So to begin with, I have to confess, I told you another fib effect modification and interaction is really not the same.
+
+440
+00:55:55,100 --> 00:55:59,650
+This is like when you are told, you know. Santa Claus is the department's.
+
+441
+00:56:06,140 --> 00:56:10,640
+But so I guess, you know, long story short answer is yes.
+
+442
+00:56:11,210 --> 00:56:18,160
+When you have two variables independently pointing into an outcome, I guess like Nancy's point, you know, hey,
+
+443
+00:56:18,170 --> 00:56:22,879
+then if you remove the arrow and we'll have an arrow into way and we'll will
+
+444
+00:56:22,880 --> 00:56:26,690
+still have an arrow into into a is there a family vacation down the road and.
+
+445
+00:56:26,690 --> 00:56:31,300
+Yes. That type of communication, there's going to be an interaction.
+
+446
+00:56:32,990 --> 00:56:37,580
+So interaction is a double vilification when the two variables that causes.
+
+447
+00:56:38,680 --> 00:56:46,700
+Of the. Again for for our R lecture is still valid, for example, and so on.
+
+448
+00:56:46,700 --> 00:56:53,670
+And I feel sort of bad for having disclosed the truth here, but I guess I just want to,
+
+449
+00:56:53,840 --> 00:56:58,250
+you know, some of you might get really curious about this and maybe.
+
+450
+00:57:00,280 --> 00:57:04,990
+Then more. The thing is, you can also have an effect modification.
+
+451
+00:57:06,250 --> 00:57:09,970
+When one of the variables does not even have an arrow into the outcome.
+
+452
+00:57:10,420 --> 00:57:16,680
+Can you believe that? And that's what complicates the structural representation of a movie equation with that.
+
+453
+00:57:19,180 --> 00:57:26,530
+And guess what? You could have a family vacation, even when none of the two variables has an arrow in to the outcome.
+
+454
+00:57:27,400 --> 00:57:31,030
+Meaning none of them is a cause. That's cold. Oh, is that cold?
+
+455
+00:57:33,710 --> 00:57:39,590
+You're accountable for this. You should know this. That's called pure effect modification.
+
+456
+00:57:40,100 --> 00:57:43,870
+There are many types of modification. Yeah.
+
+457
+00:57:44,190 --> 00:57:47,830
+It's a very exciting meeting. All right.
+
+458
+00:57:48,310 --> 00:57:54,370
+Let's go back to this. So if you assume conditional exchange ability,
+
+459
+00:57:54,820 --> 00:58:02,260
+the exposed and unexposed become unconditionally exchangeable in this you the population because a is independent of health.
+
+460
+00:58:03,830 --> 00:58:12,660
+Right. This is the observed data. And.
+
+461
+00:58:15,060 --> 00:58:22,080
+What I would like to do now is to show you a shortcut as to how to obtained.
+
+462
+00:58:23,430 --> 00:58:33,329
+The data in this population, but directly applying the weights without having to do all the sort of laying out of the exposure,
+
+463
+00:58:33,330 --> 00:58:38,819
+probability histories, etc. So if you have your your tree with the, with the observed data,
+
+464
+00:58:38,820 --> 00:58:47,070
+you can basically apply weights to each of these numbers to obtain what at the end they showed you by merging.
+
+465
+00:58:48,680 --> 00:58:54,770
+The trees in the controversial extreme right set of the issue, the population.
+
+466
+00:58:56,480 --> 00:59:04,610
+Because. The weights. Basically what we have calculated in the sort of slow step by step measure,
+
+467
+00:59:05,070 --> 00:59:10,709
+the weights are the inverse of the conditional probability of the exposure level A equals A given.
+
+468
+00:59:10,710 --> 00:59:14,910
+Being at an exposure level of F are the inverse.
+
+469
+00:59:18,550 --> 00:59:22,780
+The notation for this, a more general notation is the weights for you.
+
+470
+00:59:22,930 --> 00:59:30,310
+Giving a level of exposure are one divided by the function because it is a very broad receiver as well.
+
+471
+00:59:30,360 --> 00:59:35,710
+It is not restrictive to dichotomous that was only can be used for other above.
+
+472
+00:59:35,720 --> 00:59:40,450
+So this is why it is a function. So if you'd say yes, no violence would be a probability, right?
+
+473
+00:59:40,910 --> 00:59:45,190
+But if you have a continuous VI, what is going to be a function and you can do it with continuous.
+
+474
+00:59:46,630 --> 00:59:52,270
+Of a conditional on error levels of OC.
+
+475
+00:59:53,730 --> 01:00:02,930
+So in this case, how would this work? What's one divided by the probability of a conditional on EB?
+
+476
+01:00:02,940 --> 01:00:10,950
+So for this level, for example, for, for this very first branch, l equals zero and equals zero is going to be.
+
+477
+01:00:12,090 --> 01:00:18,480
+The one divided by the probability of equals zero given which is one divided by 23.
+
+478
+01:00:19,560 --> 01:00:27,970
+So that's going to be the weight for this 15. And if you multiply this wait times, the number of people you get 20.6.
+
+479
+01:00:31,520 --> 01:00:36,410
+The same as when we. Need a long, longer process with the trees.
+
+480
+01:00:36,430 --> 01:00:42,110
+Okay. Here you apply the same weight because it's the same branch, right.
+
+481
+01:00:42,790 --> 01:00:51,250
+And you get 1.4 if you multiply this by one. For the next ranch equals one, given l equals zero.
+
+482
+01:00:51,280 --> 01:00:54,820
+The weight is one divided by point 27.
+
+483
+01:00:55,840 --> 01:01:05,229
+So you can apply that weight to each of these two values for the next one is probability of equals zero given l equals one,
+
+484
+01:01:05,230 --> 01:01:13,990
+that's one divided point 22. If you apply that weight to these two end points of this branch, you get these numbers.
+
+485
+01:01:14,410 --> 01:01:26,680
+And for the last one is going to be one divided by point 78 and you can apply them and get the same numbers that we got through the longer process.
+
+486
+01:01:28,530 --> 01:01:33,260
+Okay. Inverse probability weighting. We are waiting by the inverse.
+
+487
+01:01:33,530 --> 01:01:36,560
+One divided by of the probability of making it that.
+
+488
+01:01:37,960 --> 01:01:43,000
+That's what it is. All right.
+
+489
+01:01:43,960 --> 01:01:47,050
+Now, in comparison, I guess Portugal is asking about.
+
+490
+01:01:49,490 --> 01:01:54,080
+Both involve applying weights to estimate the measure of association that would be
+
+491
+01:01:54,080 --> 01:01:58,970
+observed in a population with that group's distribution of stratification factors.
+
+492
+01:02:00,740 --> 01:02:07,650
+Both assume conditional exchange ability. So this needs to be the assumption for both procedures.
+
+493
+01:02:08,550 --> 01:02:16,750
+In other words, both assume that there is no unmeasured confounding within levels of your control.
+
+494
+01:02:23,930 --> 01:02:35,000
+However, one of the key differences is that standardization and mobility weighting calculate different components of the joint distribution.
+
+495
+01:02:36,530 --> 01:02:44,060
+This is perhaps more technical detail. You shouldn't have to worry about this, but maybe you need to know that.
+
+496
+01:02:45,300 --> 01:02:56,530
+Algebraically they are equivalent, but that in reality they focus on different parts of the of the joint distribution.
+
+497
+01:02:57,270 --> 01:03:00,630
+So in inverse probability weighting you are basically.
+
+498
+01:03:01,690 --> 01:03:06,430
+If you will, modeling or predicting exposure.
+
+499
+01:03:07,520 --> 01:03:17,170
+Right. You are, you're focusing only on eight and by by applying the weights from the position of exposure,
+
+500
+01:03:17,230 --> 01:03:24,520
+then you calculate your summary measures adjusted for confined near standardization.
+
+501
+01:03:25,060 --> 01:03:30,970
+You have to also take into account the probability of the outcome.
+
+502
+01:03:32,970 --> 01:03:43,800
+Right. So I guess from a more General Barela point of view, you know, I feel that you can also be.
+
+503
+01:03:47,730 --> 01:03:57,090
+Classified. And there are some methods that of adjustment or conditioning that people call exposure prediction based methods.
+
+504
+01:03:57,390 --> 01:04:05,850
+Because here you are, you're predicting exposure and then you are using what you obtain from that prediction to weight your estimates.
+
+505
+01:04:06,630 --> 01:04:10,080
+Another exposure prediction method is.
+
+506
+01:04:11,840 --> 01:04:16,240
+Propensity scoring. Which we don't cover in this class.
+
+507
+01:04:21,310 --> 01:04:31,970
+Okay. Now again the two methods give algebraically equivalent results and.
+
+508
+01:04:35,130 --> 01:04:41,340
+If if you were to use total population weights as you as we did here.
+
+509
+01:04:42,150 --> 01:04:52,110
+So the one in the numerator actually of our AP w weights represents the fact that we have the total population as
+
+510
+01:04:52,110 --> 01:05:01,770
+the standard because the total population is one is I mean as a sort of 80 under the curve as a function is one,
+
+511
+01:05:02,250 --> 01:05:14,080
+right. But nothing would prevent us from using weights, let's say, from the exposed floor inverse probability weighting.
+
+512
+01:05:15,430 --> 01:05:20,400
+As we did as we could do standardization. Also using weights from the Expos, you remember.
+
+513
+01:05:20,410 --> 01:05:25,130
+How is that go? What type of standardization is that? Thank you.
+
+514
+01:05:25,160 --> 01:05:34,330
+Indirect standardization. Yes. And interestingly and I guess maybe, you know, I guess are more advanced themes.
+
+515
+01:05:34,330 --> 01:05:35,710
+But I appreciate it. But.
+
+516
+01:05:37,150 --> 01:05:46,479
+If you were to use weights from the explosive standardization, you have to change the corresponding weight in IP that you would need to change.
+
+517
+01:05:46,480 --> 01:05:51,640
+The numerator is no longer one, but is the probability of being exposed.
+
+518
+01:05:54,720 --> 01:06:01,760
+You know how those weights are called. You remember? These are called stabilized weights and they have.
+
+519
+01:06:03,120 --> 01:06:06,990
+Nicer statistical properties than the study means.
+
+520
+01:06:08,580 --> 01:06:17,760
+Except. And if you were to use weights from the unexposed in a standard decision you would have to use in the numerator of BW to get the same result.
+
+521
+01:06:18,800 --> 01:06:25,780
+The probability of. Being unexposed as a function of your confounder matrix.
+
+522
+01:06:27,610 --> 01:06:33,219
+Hey. Who? So used to, I guess.
+
+523
+01:06:33,220 --> 01:06:39,820
+I don't know. Maybe I was in a bit of a nerdy mood, so I decided to bring you here.
+
+524
+01:06:39,830 --> 01:06:46,920
+What would these numbers look like if we used? The weights from the exposed.
+
+525
+01:06:48,970 --> 01:06:57,130
+These would be those along changing use that numerator the probability of being exposed as a function of l right.
+
+526
+01:06:58,470 --> 01:07:05,459
+But obviously you get different numbers and the same if you use waste from the unexposed and replacing
+
+527
+01:07:05,460 --> 01:07:12,090
+the numerator with the probability of being unexposed given covariance and we get different numbers.
+
+528
+01:07:12,750 --> 01:07:22,680
+So the recall, the summary incidence ratio here was 2.16, which was exactly the same as we obtained with standardization using all population weights.
+
+529
+01:07:23,670 --> 01:07:27,720
+But if we use the exposures, we would get obviously a different answer.
+
+530
+01:07:29,230 --> 01:07:32,980
+And if we use weights from the unexposed, we will also get a different.
+
+531
+01:07:34,410 --> 01:07:40,110
+So it's the same concept. It depends on the way you use the absolute answer you might get.
+
+532
+01:07:40,290 --> 01:07:46,340
+My. Felt a little bit. Okay.
+
+533
+01:07:47,150 --> 01:07:54,350
+So. A few summary points on IP W and advantages.
+
+534
+01:07:56,150 --> 01:08:04,130
+One key advantage is that unlike standardization IP, the value can be applied in a regression framework.
+
+535
+01:08:04,790 --> 01:08:09,770
+Again, you may have not seen regression, but have you seen regression?
+
+536
+01:08:10,460 --> 01:08:15,010
+Logistic regression? I'm sure that's the first thing. So.
+
+537
+01:08:16,810 --> 01:08:20,920
+You could use a BW in the context of logistic regression.
+
+538
+01:08:21,160 --> 01:08:29,080
+Basically what you would do is you would estimate your weights and then in any statistical package for regression model,
+
+539
+01:08:29,080 --> 01:08:32,350
+there is an option that says weight. You just.
+
+540
+01:08:35,710 --> 01:08:42,550
+So this is excellent and a great advantage because integration is is.
+
+541
+01:08:43,680 --> 01:08:50,400
+Is straightforward to include potential confounders with more than two categories.
+
+542
+01:08:51,370 --> 01:08:56,110
+Right. Like there are so many or even potential confounders that are.
+
+543
+01:08:57,250 --> 01:09:01,690
+Continuous violence. You could not do standardization.
+
+544
+01:09:02,620 --> 01:09:08,260
+I mean, you could do standardization with confounders that have more than two levels.
+
+545
+01:09:08,440 --> 01:09:15,339
+You have been doing that with age, for example. Maybe it would become extremely tedious again if you had more than one confounder.
+
+546
+01:09:15,340 --> 01:09:22,580
+Right. What if you had continuous violence which continues that you cannot do standardization?
+
+547
+01:09:27,930 --> 01:09:33,480
+So yeah, I mean, if you have continuous confounders, the probabilities are replaced by probability density functions.
+
+548
+01:09:35,070 --> 01:09:42,300
+And guess what? These weights can also be applied to continuous outcomes because we have been dealing with.
+
+549
+01:09:42,960 --> 01:09:46,020
+Yes, no outcomes. Right. Developed Alzheimer's? Yes.
+
+550
+01:09:46,020 --> 01:09:51,569
+No. And diabetes? Yes. No. But hey, often times you also have continuous outcomes.
+
+551
+01:09:51,570 --> 01:09:54,030
+Like it's a continuous blood pressure. I don't know.
+
+552
+01:09:56,340 --> 01:10:05,760
+So you can use AP w to adjust for confounding when you are dealing with continuous outcomes as well.
+
+553
+01:10:06,840 --> 01:10:15,290
+Cannot do that with standardization. And also this is this is really moving.
+
+554
+01:10:15,530 --> 01:10:18,890
+This procedure can be used to control for all their biases.
+
+555
+01:10:19,460 --> 01:10:26,810
+And this is where, again, most of our day to day practice is in because, you know,
+
+556
+01:10:27,680 --> 01:10:33,830
+just conventional regression as you are being taught in both, that still works for most situations.
+
+557
+01:10:34,370 --> 01:10:39,870
+But there are at least two complex. Situations in which.
+
+558
+01:10:40,840 --> 01:10:43,959
+Those methods don't work. And that that, again,
+
+559
+01:10:43,960 --> 01:10:54,790
+is one of the main contributions so many of Jamie Roberts because he basically gave us a solution to a problem we knew we had and we couldn't solve.
+
+560
+01:10:56,600 --> 01:11:00,710
+And that problem is called time varying or time, depending confounding.
+
+561
+01:11:01,010 --> 01:11:04,379
+And it's it's it's it's a very messy problem, basically,
+
+562
+01:11:04,380 --> 01:11:13,100
+is when you have a mediator that might act also as a confounder at the same time and it usually opens up colliders, stratification, bias and so on.
+
+563
+01:11:13,670 --> 01:11:18,680
+But this method sorts out things like in Confound.
+
+564
+01:11:19,880 --> 01:11:24,320
+And also a bias that we will discuss next week, which is called selection bias.
+
+565
+01:11:24,950 --> 01:11:30,770
+You can use BW to adjust for selection bias.
+
+566
+01:11:33,110 --> 01:11:39,160
+All right. Any questions? Yes, Sophie.
+
+567
+01:11:44,310 --> 01:11:48,030
+Okay. What could be an example of a time where income from.
+
+568
+01:11:50,600 --> 01:11:55,760
+Those are variables that are those are typically variables that are measured.
+
+569
+01:11:59,270 --> 01:12:08,889
+Repeatedly over time. And there is one classic example from the HIV epidemiology literature,
+
+570
+01:12:08,890 --> 01:12:19,090
+and it was one of McLaren's dissertation papers published in 2000 because he was Jamie Robinson's student.
+
+571
+01:12:19,920 --> 01:12:32,880
+At the end. So suppose you have your exposure, his antiretroviral treatment among people with HIV infection.
+
+572
+01:12:33,030 --> 01:12:39,620
+Right. So. In in real life, you know, in in clinical practice,
+
+573
+01:12:40,100 --> 01:12:47,780
+antiretroviral treatment might be given depen depending on the levels of immunosuppression which can be measured
+
+574
+01:12:47,780 --> 01:12:56,390
+with the CD4 cell count is a type of detail that indicates how poorly and or how serious the HIV infection is.
+
+575
+01:12:57,490 --> 01:13:02,380
+So. CD4 measured at times zero.
+
+576
+01:13:03,990 --> 01:13:09,100
+Could be a confounder. Because for causes.
+
+577
+01:13:11,860 --> 01:13:17,170
+Initiating antiretroviral treatment, right? I mean, you would only initiated if they are under a given.
+
+578
+01:13:18,650 --> 01:13:24,290
+So it causes that. I know. I know. Usually it causes, let's say, death.
+
+579
+01:13:25,840 --> 01:13:29,020
+Right, because the more immunosuppressed you are, the more likely you are.
+
+580
+01:13:30,880 --> 01:13:38,620
+So suppose 80 are initiated somehow based on baseline CD 4 seconds, right?
+
+581
+01:13:41,040 --> 01:13:46,530
+Then after six months. Your doctors may want to check how the person is doing.
+
+582
+01:13:47,810 --> 01:13:51,920
+And guess which measure they are going to use to sell guns?
+
+583
+01:13:52,580 --> 01:13:58,360
+So then you have for sale counts measured at 10 to 6 months.
+
+584
+01:14:00,460 --> 01:14:07,600
+And then those four cell counts are going to be a consequence of the initial treatment.
+
+585
+01:14:08,230 --> 01:14:16,000
+They are also going to be a consequence of the initial CD4 cell count because they are all correlated and they are also going to cause the.
+
+586
+01:14:17,530 --> 01:14:25,600
+Not only they are only going to cause the outcome, but they are also going to cause the next decision as to what to do with antiretroviral treatment.
+
+587
+01:14:26,810 --> 01:14:30,710
+Whether people should continually take on the same, or they can stop.
+
+588
+01:14:31,010 --> 01:14:38,770
+Or they should change those or write. So if if you have been drawing that that.
+
+589
+01:14:39,850 --> 01:14:52,510
+You will realize that if you try to condition on CD4 for the effect of 80 on death at some point of the chain of events,
+
+590
+01:14:53,080 --> 01:14:56,170
+you are going to be conditioning on polite.
+
+591
+01:15:03,390 --> 01:15:13,020
+You got it, Sophie. Right. So in that case, CD4 cell count is a time dependent confounder.
+
+592
+01:15:14,900 --> 01:15:20,760
+And that problem you cannot resolve with conventional methods only with a penalty.
+
+593
+01:15:21,500 --> 01:15:26,890
+And do you think it's it's a it's a really uncommon problem. Is not.
+
+594
+01:15:27,310 --> 01:15:33,010
+And, you know, you can find examples of these pretty much in any field of knowledge.
+
+595
+01:15:34,190 --> 01:15:39,110
+In reproductive perinatal ability. We have, but we have many challenges.
+
+596
+01:15:39,140 --> 01:15:44,470
+But this is one of them as well. Now let. Consecutive pregnancies.
+
+597
+01:15:44,950 --> 01:15:50,400
+Stuff. Things that affect. Intermediate exposures and for adult onset.
+
+598
+01:15:50,410 --> 01:15:53,860
+So is really an extremely helpful tool.
+
+599
+01:15:55,970 --> 01:16:06,560
+Any other questions? All right.
+
+600
+01:16:06,580 --> 01:16:09,610
+So here's your progress report today.
+
+601
+01:16:09,790 --> 01:16:15,100
+You should be able you learn to perform standardization of the whole population using probability notation.
+
+602
+01:16:16,120 --> 01:16:24,910
+That was a bit of a review, but still comes. You should identify the steps of inverse probability weighting using counterfactuals.
+
+603
+01:16:25,660 --> 01:16:30,700
+So recall first everybody labeled the probability histories.
+
+604
+01:16:32,280 --> 01:16:41,280
+For everybody to be exposed and exposed. Estimate marginal probabilities and then each scenario and then merge.
+
+605
+01:16:43,390 --> 01:16:47,080
+Define a pseudo population when you merge.
+
+606
+01:16:48,260 --> 01:16:52,910
+The populations resulting from the counterfactual experiments in each level of exposure.
+
+607
+01:16:55,130 --> 01:16:58,430
+And if you if your exposure has two levels.
+
+608
+01:17:00,050 --> 01:17:04,350
+How many people are there in this population? Twice as many.
+
+609
+01:17:05,330 --> 01:17:17,180
+As in the original population. Right. Estimate waits in their supposedly waiting and actually even perform it in a simple scenario with one yes.
+
+610
+01:17:17,180 --> 01:17:22,880
+No outcome one is no exposure and one is no confounded.
+
+611
+01:17:24,120 --> 01:17:28,560
+Name one difference in the way I and standardization work.
+
+612
+01:17:29,340 --> 01:17:34,320
+So basically they focus on different portions of the joint distribution.
+
+613
+01:17:35,040 --> 01:17:44,060
+I BW is more a religion of exposure type of procedure, whereas standardization involves prediction of the outcome,
+
+614
+01:17:44,070 --> 01:17:48,180
+conditional probabilities of outcome weighted by levels of the confounding.
+
+615
+01:17:50,250 --> 01:17:53,940
+And name one advantage of IP w over standardization.
+
+616
+01:17:54,060 --> 01:18:02,670
+There are many, but you would make me happy if you said that it takes care of a messy, not so rare scenario.
+
+617
+01:18:02,910 --> 01:18:06,810
+Geological time varying because that is a real contribution.
+
+618
+01:18:08,060 --> 01:18:13,310
+And also of selection bias. You can apply two variables in order of screens, etc.
+
+619
+01:18:15,660 --> 01:18:19,230
+All right. So if there are no further questions.
+
+620
+01:18:24,090 --> 01:18:27,370
+Then I will see you Wednesday.
+
+621
+01:18:27,390 --> 01:18:35,580
+You have a very exciting lab coming up and the homework is due tomorrow around midnight.
+
+622
+01:18:36,570 --> 01:19:03,370
+And for me. Oh, yeah.
+
+623
+01:19:03,520 --> 01:19:10,860
+Chris Christie, right. Now.
+
+624
+01:19:45,070 --> 01:19:48,220
+What? That.
+

@@ -1,0 +1,2484 @@
+1
+00:00:04,790 --> 00:00:09,110
+All right. Good afternoon, everybody. So why don't we get started? A few logistics.
+
+2
+00:00:09,380 --> 00:00:12,770
+First homework. Three is going to be due in about a week.
+
+3
+00:00:13,610 --> 00:00:17,930
+If. We have the exact date. It's November 21.
+
+4
+00:00:18,980 --> 00:00:22,600
+And also on that same day, the proposal will be due.
+
+5
+00:00:22,610 --> 00:00:28,189
+And for those of you who have submitted our answers to your self on the back, good job.
+
+6
+00:00:28,190 --> 00:00:33,590
+And if you are still working on it, you still have one week to finish it.
+
+7
+00:00:33,890 --> 00:00:42,320
+And this is not only for people who are sitting here, but also for people who are watching the video there and we will have homework for.
+
+8
+00:00:42,320 --> 00:00:47,090
+But that will be optional. We will talk about the grading.
+
+9
+00:00:48,940 --> 00:00:53,110
+Early on. So for the.
+
+10
+00:00:54,630 --> 00:00:58,680
+And also we have posted midterm grades online today.
+
+11
+00:00:58,800 --> 00:01:05,760
+So please take a look. Otherwise, if we have any questions, have you answer them.
+
+12
+00:01:06,210 --> 00:01:10,720
+For those of you who are in the audience. All right.
+
+13
+00:01:11,870 --> 00:01:15,970
+Don't see any hands up. So let's go back to lecture.
+
+14
+00:01:16,390 --> 00:01:21,430
+And today's goal is trying to go through the marginal model case studies.
+
+15
+00:01:21,430 --> 00:01:25,570
+These are just examples. And I know some of you are working on your homework number three.
+
+16
+00:01:25,900 --> 00:01:30,040
+And essentially some of the code may be may be relevant.
+
+17
+00:01:30,040 --> 00:01:33,130
+So if you haven't started that homework. So.
+
+18
+00:01:35,150 --> 00:01:38,740
+We have. Two sets of examples.
+
+19
+00:01:39,010 --> 00:01:43,480
+One is the example of Muscatine, Carnegie Risk Factor and CRF study.
+
+20
+00:01:44,020 --> 00:01:49,360
+And there the goal is trying to illustrate how do we analyze repeated binary outcomes?
+
+21
+00:01:51,720 --> 00:01:58,020
+And there are these association parameters will be log odds ratios. The second example will be the treatment of leprosy.
+
+22
+00:01:58,020 --> 00:02:02,340
+And there are two antibiotics and one control group.
+
+23
+00:02:03,250 --> 00:02:10,750
+And the goal there is trying to analyze repeated count data and the association parameter will be pairs and
+
+24
+00:02:10,750 --> 00:02:19,180
+correlation and the primary emphasis will be just to illustrate the importance of accounting for over dispersion.
+
+25
+00:02:20,620 --> 00:02:27,250
+So in both examples, I would urge you guys to focus on the interpretation of regression coefficients.
+
+26
+00:02:27,820 --> 00:02:37,720
+And second, to grasp using these examples, the difference between the sandwich and model based on errors and how they are different.
+
+27
+00:02:39,950 --> 00:02:50,600
+Example, number one. So this example, as I said, is trying to study repeated binary outcomes and the association parameter will be log odds ratios.
+
+28
+00:02:53,040 --> 00:02:58,500
+Background. This is a study of school age children in Muscatine, Iowa.
+
+29
+00:02:58,740 --> 00:03:05,460
+And the goal is trying to examine the development and persistence of risk factors for coronary disease in children.
+
+30
+00:03:06,060 --> 00:03:19,440
+And we have a few of different assessments for each subject and 5 to 8 for kids who are initially aged 5 to 7.
+
+31
+00:03:20,370 --> 00:03:26,280
+And then we follow them. Essentially, when we have to specify age, we just specify the midpoint.
+
+32
+00:03:31,520 --> 00:03:38,210
+So this is how we will be coding the end of the time period or the occasion.
+
+33
+00:03:38,870 --> 00:03:45,920
+And in this data set, there will be 4800, about 4800 boys and girls.
+
+34
+00:03:46,730 --> 00:03:49,220
+And there are some incomplete data.
+
+35
+00:03:50,550 --> 00:03:58,970
+So what's the analysis we hope to do, given the outcome is a repeated measure of binary response indicating whether a child is obese.
+
+36
+00:04:00,720 --> 00:04:04,740
+Our goal is trying to determine whether the risk of abuse increases with age.
+
+37
+00:04:05,160 --> 00:04:10,530
+So age is one factor. And what is the pattern of change in the body?
+
+38
+00:04:10,710 --> 00:04:15,510
+The same for boys and girls. So sex is another factor.
+
+39
+00:04:15,760 --> 00:04:26,430
+And clearly, if you're investigating whether the pattern of change are the same between two sexes, you also encounter the use of interaction terms.
+
+40
+00:04:29,250 --> 00:04:32,620
+So this is the data. You know.
+
+41
+00:04:33,850 --> 00:04:37,360
+Some quick summary of data in the first column.
+
+42
+00:04:37,360 --> 00:04:43,720
+These are just sepsis and we have different age cohorts.
+
+43
+00:04:44,260 --> 00:04:49,510
+As a person grows older. So you can see that in general.
+
+44
+00:04:51,310 --> 00:04:55,270
+But girls in this particular study have a higher rate of obesity.
+
+45
+00:05:01,870 --> 00:05:10,959
+For example, these comparisons and to study the outcome of whether a person is obese or not.
+
+46
+00:05:10,960 --> 00:05:14,740
+At the particular occasion, we will be using a marginal model.
+
+47
+00:05:15,130 --> 00:05:18,190
+So if a marginal model, you will specify three things.
+
+48
+00:05:19,120 --> 00:05:24,140
+The first one is the mean structure, which can that's a of odds to a few predictors.
+
+49
+00:05:24,160 --> 00:05:27,830
+In our case, we are investigating. Gender.
+
+50
+00:05:29,710 --> 00:05:32,840
+H. The interruption term.
+
+51
+00:05:33,440 --> 00:05:37,480
+And we also added in the. Quadratic term.
+
+52
+00:05:37,930 --> 00:05:46,920
+So the goal here is trying to investigate whether these coefficients are important, not and also provide interpretations here.
+
+53
+00:05:46,930 --> 00:05:51,010
+I want to say that here the h i j has been centered.
+
+54
+00:05:51,700 --> 00:05:56,920
+So it is essentially the actual age -12 years.
+
+55
+00:05:57,610 --> 00:06:02,800
+So later I will be called centered h or cage centered h.
+
+56
+00:06:03,880 --> 00:06:08,620
+You will see these in the aka. So what's the model assumption?
+
+57
+00:06:09,040 --> 00:06:14,410
+The model assumption says the log odds of obesity changes curve linearly with age.
+
+58
+00:06:15,720 --> 00:06:19,350
+But the trend over time is allowed to be different for boys and girls. Okay.
+
+59
+00:06:19,770 --> 00:06:28,110
+So I got some feedback actually from the other section of 643 that people have difficulty understanding, interpreting the beta coefficients.
+
+60
+00:06:28,620 --> 00:06:29,850
+I want to say that's here.
+
+61
+00:06:30,150 --> 00:06:39,000
+If you're dealing with a log odds, what you will do essentially is to change the predictor for one unit and then compare the two long odds.
+
+62
+00:06:39,000 --> 00:06:44,790
+Right. And I think we talked about this when we were reviewing the tool that represents a difference in log odds
+
+63
+00:06:44,790 --> 00:06:50,400
+or long odds ratios when you have a unit change in the coverage with other covariates held constant.
+
+64
+00:06:51,450 --> 00:06:58,350
+So we will be using that interpretation. Well, this finishes the first margin model specification.
+
+65
+00:06:58,830 --> 00:07:01,830
+How do we link the coverage to the meaning of the outcome?
+
+66
+00:07:02,100 --> 00:07:05,160
+We do this through a link function.
+
+67
+00:07:12,350 --> 00:07:24,670
+Let's see. Now second component, we need to specify the variances of the first one.
+
+68
+00:07:26,110 --> 00:07:33,700
+Here you can see that we are saying the variance of YJ marginally follows a typical Bernoulli variance.
+
+69
+00:07:34,000 --> 00:07:40,300
+So it is the new i j times while minus my j where YJ is a success probability.
+
+70
+00:07:40,310 --> 00:07:43,870
+Well, you can call that success or somebody will not.
+
+71
+00:07:44,140 --> 00:07:50,050
+But in this example it is the probability of a person being called or being diagnosed as a B's.
+
+72
+00:07:51,100 --> 00:07:56,920
+So J is a number between zero one and YJ times one minus muli j is a typical binomial bearings,
+
+73
+00:07:57,310 --> 00:08:02,530
+and in this example we forcefully says the Phi Phi J to be one just an as an example.
+
+74
+00:08:02,530 --> 00:08:11,430
+Clearly you can make this to be unknown estimated. But our goal is trying to illustrate the margin model for binary outcomes.
+
+75
+00:08:12,420 --> 00:08:16,050
+Now, this is seven components to the variance. How about the association?
+
+76
+00:08:16,800 --> 00:08:24,720
+In our case, as we have alluded to earlier, we probably want to avoid the use of pairs and correlation because that will be
+
+77
+00:08:24,720 --> 00:08:30,480
+restricted in range by the margin of variance of the each of the two binary outcomes.
+
+78
+00:08:30,840 --> 00:08:41,159
+So if you have YJ and y k, the correlation between these two things will be restricted by the prevalence of Y and your prevalence.
+
+79
+00:08:41,160 --> 00:08:49,200
+Right. However, if you are dealing with a log odds ratio, so log odds of odds ratio, the range is not restricted.
+
+80
+00:08:49,410 --> 00:08:55,530
+So often we would prefer to use log odds ratio and imprecise format.
+
+81
+00:08:55,560 --> 00:09:03,270
+This is what we see here for every pair of measurements J and K from subject I, we have a parameter called Alpha Jake.
+
+82
+00:09:03,510 --> 00:09:07,650
+So it is it has two indices indicating for any pair it can be different.
+
+83
+00:09:08,430 --> 00:09:13,440
+And the definition essentially is that the probability of concordance divided.
+
+84
+00:09:13,560 --> 00:09:20,340
+Sorry, the probability of yes. Two concordant pairs divided by the probability of discordant pairs.
+
+85
+00:09:21,710 --> 00:09:30,310
+And this is also called a cross product ratio. And if you are going to stop here, then that's okay.
+
+86
+00:09:30,310 --> 00:09:34,090
+Because for margin models, that's all you need. The big structure.
+
+87
+00:09:35,880 --> 00:09:44,790
+The variance and the association. Admittedly, we have been we are dealing with a new way of specifying the associations through a log odds ratio.
+
+88
+00:09:45,180 --> 00:09:50,669
+Fortunately, there are some R packages that has been developed that can do this and that.
+
+89
+00:09:50,670 --> 00:09:58,350
+Our package essentially will have a function called or D, g, and it's in the path of G pack.
+
+90
+00:10:01,350 --> 00:10:03,659
+So here, basically,
+
+91
+00:10:03,660 --> 00:10:12,570
+first I'm reading the data and then I am removing all the missing data and then I see under the age and that created this standard H squared term,
+
+92
+00:10:13,170 --> 00:10:21,510
+a load package and then fit this model. I realize that I have some part of the code truncated, which is weird.
+
+93
+00:10:22,440 --> 00:10:28,340
+Mm hmm. I think I will try to update this slide after class.
+
+94
+00:10:30,640 --> 00:10:34,070
+But what do I want to say here? Here.
+
+95
+00:10:34,070 --> 00:10:41,210
+You will see actually it is called unstructured. I will update it slightly later.
+
+96
+00:10:42,300 --> 00:10:46,200
+Unstructured. And this is.
+
+97
+00:10:48,570 --> 00:10:52,600
+Squared. That's it.
+
+98
+00:10:55,550 --> 00:10:59,420
+Okay. So this function needs some attention.
+
+99
+00:10:59,840 --> 00:11:04,730
+Why is it called G? Essentially, this function is designed for outcomes that are ordinal.
+
+100
+00:11:05,060 --> 00:11:08,760
+Well, binary is also ordinal depending on how you would order them.
+
+101
+00:11:09,770 --> 00:11:12,850
+But it works in general for multiple levels.
+
+102
+00:11:12,860 --> 00:11:20,180
+Like if you have an outcome that says strongly disagree, disagree, neutral, agree, or strongly agree, that's a five level ordinal outcome.
+
+103
+00:11:20,730 --> 00:11:27,140
+And why do we need this, though? Well, because we specify the association in terms of long odds.
+
+104
+00:11:27,410 --> 00:11:33,350
+And for this kind of rdg function, it automatically takes in those long odds association specification.
+
+105
+00:11:34,430 --> 00:11:39,410
+We are taking that begun and apply this to this particular binary data and it works.
+
+106
+00:11:39,800 --> 00:11:44,510
+So I think that's the the comment I want to make when you you're reading the code.
+
+107
+00:11:46,650 --> 00:11:54,240
+So when you fit the when to fit the model, there are some results so we can practice our understanding of these results.
+
+108
+00:11:55,860 --> 00:12:00,630
+Can people, in fact, see these are not letters and numbers?
+
+109
+00:12:03,630 --> 00:12:08,900
+I'm trying to zoom in a little bit, but. Hopefully it's okay.
+
+110
+00:12:09,920 --> 00:12:18,330
+So this is a model we fitted and we are using a particular link, logic link and we have the results.
+
+111
+00:12:18,380 --> 00:12:29,030
+So essentially these are the beta hats and you can see the send, see essentially this is a diagonal elements of the B hat.
+
+112
+00:12:31,030 --> 00:12:35,570
+Had. This thing.
+
+113
+00:12:36,670 --> 00:12:41,890
+So these are the bread, meat and bread, but with the estimated quantities.
+
+114
+00:12:48,250 --> 00:12:55,970
+Let me check. Did I get it wrong? I think they should have that right. Yes.
+
+115
+00:12:56,090 --> 00:13:01,910
+So it is basically this formula with be replaced by their estimates.
+
+116
+00:13:03,970 --> 00:13:16,220
+This one. Okay. And Walton's essentially is just the estimate divided by the center and p value are the robust p value.
+
+117
+00:13:18,230 --> 00:13:22,250
+Okay, now how about this bottom block of things?
+
+118
+00:13:24,320 --> 00:13:27,320
+These are representing the log odds ratio estimates.
+
+119
+00:13:28,190 --> 00:13:34,190
+As you can see for we have three parameters Alpha one, alpha two of the three.
+
+120
+00:13:36,950 --> 00:13:43,980
+Essentially it is representing the log odds ratio. Between Y one.
+
+121
+00:13:45,540 --> 00:13:49,130
+I to. Why?
+
+122
+00:13:49,160 --> 00:13:52,729
+One Why. Three Why. Two and why.
+
+123
+00:13:52,730 --> 00:14:29,900
+Three Why? Why? I thought. Yes. And here in the bottom, essentially, you will see that there are a total number of clusters.
+
+124
+00:14:29,910 --> 00:14:34,860
+But by the word clusters, we really mean what is the idea?
+
+125
+00:14:34,890 --> 00:14:41,010
+What is number of unique IDs? So this means we have 4856 unique people.
+
+126
+00:14:41,700 --> 00:14:52,140
+Maximum cluster size three, which means that there will be, for any person a maximum of three measurements of whether a person is obese or not.
+
+127
+00:14:54,180 --> 00:14:59,820
+So previously we have specified this model and we have all these results.
+
+128
+00:15:00,660 --> 00:15:05,070
+And now let's look at these interpretations.
+
+129
+00:15:06,060 --> 00:15:11,340
+So I am just coming out these numbers. First, let's look at the association parameters.
+
+130
+00:15:12,210 --> 00:15:16,860
+You can see these are the estimates. These are actually exponential of the model's ratio.
+
+131
+00:15:16,890 --> 00:15:25,270
+So they are all positive. They're are relatively large and very similar are approximately equal to three,
+
+132
+00:15:25,270 --> 00:15:32,440
+indicating that the odds ratio for within subject association is approximately oh, actually I made a mistake.
+
+133
+00:15:32,440 --> 00:15:40,360
+This is actually not logged. So after you take the exponential actually log, the odds ratio is actually 20, which is huge.
+
+134
+00:15:41,500 --> 00:15:47,809
+So this is not really surprising because if you're going to ask whether a person is abused or not many times and there
+
+135
+00:15:47,810 --> 00:15:55,210
+it tends to be very similar because it takes heroic effort to to to change that status or for other changes happen.
+
+136
+00:15:58,740 --> 00:16:05,399
+So this will engender some questions like can we simplify the association structure going from
+
+137
+00:16:05,400 --> 00:16:13,800
+this total unstructured secured association to like exchangeable or to on top of its assumptions?
+
+138
+00:16:14,400 --> 00:16:18,900
+So we will study that. Number two, let's look at the beta coefficient estimates.
+
+139
+00:16:19,470 --> 00:16:25,410
+So these are the beta 1 to 3 of four.
+
+140
+00:16:26,160 --> 00:16:36,330
+Beta 5 to 6. Right. And for example, one question of interest is to test whether we need the interaction terms.
+
+141
+00:16:36,570 --> 00:16:44,460
+I do. We need do we do we need to assume that boys and girls have different patterns of change in terms of log odds?
+
+142
+00:16:45,130 --> 00:16:51,840
+Okay. So the null hypothesis basically is equivalent to whether beta five equals beta six equals zero.
+
+143
+00:16:53,220 --> 00:16:57,360
+But how do we do this? Well, this is something you have learned in 650.
+
+144
+00:16:57,870 --> 00:17:06,390
+First, it's an your hypothesis. So what you do is that you form this particular matrix where L is two by six.
+
+145
+00:17:07,710 --> 00:17:17,710
+With 000010000001, and you have the beta one up to beta six equals zero.
+
+146
+00:17:17,710 --> 00:17:31,070
+Right. So this is your null hypothesis. And then we can do some hypothesis testing.
+
+147
+00:17:31,820 --> 00:17:35,840
+So let's use what test as an example here.
+
+148
+00:17:36,260 --> 00:17:46,340
+The test statistic will be l beta transpose times the l variance part of data hat.
+
+149
+00:17:48,130 --> 00:17:51,430
+L transpose inverse and l beta hat.
+
+150
+00:17:53,040 --> 00:17:59,410
+Right. So this is the kind of multivariate version of world statistics.
+
+151
+00:17:59,420 --> 00:18:04,480
+Not really too surprising. And because the L matrix has a ring, too.
+
+152
+00:18:04,550 --> 00:18:07,760
+Well, essentially we are setting two coefficients to zero.
+
+153
+00:18:07,910 --> 00:18:13,880
+So asymptotically it will be approximately chi square distribution with two degrees of freedom.
+
+154
+00:18:15,820 --> 00:18:23,050
+Okay. Now, a key thing here is that for this one, you've got to use the, you know, what we call sandwich.
+
+155
+00:18:25,330 --> 00:18:29,610
+Sandwich variants. Estimate her.
+
+156
+00:18:31,530 --> 00:18:38,850
+If I may, helps you refresh your memory. This is what's also called robust variance or called empirical.
+
+157
+00:18:41,210 --> 00:18:47,360
+So they all the same thing. And then you can get these this particular test done.
+
+158
+00:18:50,180 --> 00:18:53,130
+So in the next slide, I'm just going to do that test. So I specify the.
+
+159
+00:18:53,930 --> 00:19:00,829
+I do this particular all test statistic calculation and I calculate the p value.
+
+160
+00:19:00,830 --> 00:19:08,930
+It is .65 pretty large. So we do not have enough evidence to reject the know that beta five equals beta six equals zero.
+
+161
+00:19:09,050 --> 00:19:18,080
+So it says that theta seems to be suggesting we do not need interaction term between the six and H terms.
+
+162
+00:19:19,310 --> 00:19:23,060
+So we just remove the interaction terms and do all these analysis again.
+
+163
+00:19:23,090 --> 00:19:27,380
+So in this particular analysis, you can see there will be no direction terms.
+
+164
+00:19:27,710 --> 00:19:37,510
+So these are just some results here. And we want the plot, the curves, i.e. the probability of being the bees.
+
+165
+00:19:37,930 --> 00:19:48,560
+So when you are when you have fitted a jean model, all you did was to specify g i j equals x i j t beta.
+
+166
+00:19:48,590 --> 00:19:56,210
+Right? And clearly you can do j cause g inverse oxide j t theta, right?
+
+167
+00:19:56,840 --> 00:20:00,830
+And to produce an estimate, you basically plugging all these things.
+
+168
+00:20:01,970 --> 00:20:05,840
+In our example, this is logit inverse, you know what that is.
+
+169
+00:20:06,380 --> 00:20:13,760
+And you know, excited j for everybody I show occasion you you can plug in all these beta has so you
+
+170
+00:20:13,760 --> 00:20:21,469
+will be able to get estimated probabilities and the in on slide 17 we basically just
+
+171
+00:20:21,470 --> 00:20:27,350
+did that where expert is the name for the inverse function of logit and f is the
+
+172
+00:20:27,500 --> 00:20:32,750
+function that takes in a particular person's covariates and then transform that into a.
+
+173
+00:20:34,980 --> 00:20:39,780
+A probability, and then we basically specify a grid of age.
+
+174
+00:20:41,100 --> 00:20:53,309
+From age six, age 18. And then we extract the beta from the model output and we produce two vectors y1y0 representing
+
+175
+00:20:53,310 --> 00:20:58,260
+the vector of probabilities of being obese for each of the sexes across these ages.
+
+176
+00:20:58,500 --> 00:21:05,280
+So in theory, you should see two curves. And this is shown on this particular slide where the x axis shows the ages,
+
+177
+00:21:05,280 --> 00:21:09,780
+the y axis shows the probability, estimated probability of a person being obese.
+
+178
+00:21:10,260 --> 00:21:13,710
+And the solid line for girls. The dotted line for boys.
+
+179
+00:21:13,950 --> 00:21:17,400
+As you can see, there are several findings we can for size.
+
+180
+00:21:18,690 --> 00:21:23,820
+First, the estimated effect of centered H squared is significant at the .05 level,
+
+181
+00:21:24,180 --> 00:21:31,739
+and these results provide evidence that long odds of obesity obesity increases first and then levels off and then declines.
+
+182
+00:21:31,740 --> 00:21:35,880
+Right. So this signifies the importance of non-linear terms.
+
+183
+00:21:36,480 --> 00:21:40,500
+And to see this, essentially, you just need to go back to this particular term.
+
+184
+00:21:40,500 --> 00:21:46,500
+You can see for the squared term, the p value is very small, so indicating that term is pretty important.
+
+185
+00:21:47,340 --> 00:21:53,130
+The second result is that although the rate of obesity is higher for girls at all ages,
+
+186
+00:21:53,400 --> 00:21:57,870
+the patterns of change in the rates of obesity over time do not depend on sex.
+
+187
+00:21:58,020 --> 00:22:01,260
+So this is basically to, um, you know,
+
+188
+00:22:01,590 --> 00:22:07,770
+refer back to the tests that we have done that we can now reject and all that beta five equals beta six equals zero.
+
+189
+00:22:08,850 --> 00:22:17,550
+So these are about the mean. And as promised, we can play with the association stuff, association specifications.
+
+190
+00:22:18,360 --> 00:22:24,390
+To be honest, when I was preparing this slide, these few slides on are very complicated for me to prepare.
+
+191
+00:22:24,750 --> 00:22:29,549
+And I think that the reason is because it's simply it's just much more awkward to specify
+
+192
+00:22:29,550 --> 00:22:34,050
+the association for long odds if you are just deviating away from standard choices.
+
+193
+00:22:34,590 --> 00:22:45,120
+So what I did here essentially is to give you an example of how to specify certain structured association for binary outcomes.
+
+194
+00:22:45,540 --> 00:22:52,680
+So in this case, just to give you a visual clue you have.
+
+195
+00:22:54,720 --> 00:22:59,850
+You have. Why one. Well I to my three.
+
+196
+00:23:03,530 --> 00:23:06,590
+Why one lied to lie. Three.
+
+197
+00:23:08,490 --> 00:23:11,700
+So we have specified this to be Alpha.
+
+198
+00:23:13,320 --> 00:23:16,690
+One Alpha to Alpha three.
+
+199
+00:23:16,710 --> 00:23:20,670
+So in the language of the of these parameters.
+
+200
+00:23:22,560 --> 00:23:31,200
+Now what I did in the following is trying to say, hey, you know what, if we do not need three separate parameters, what if we just need two?
+
+201
+00:23:32,130 --> 00:23:39,300
+So we have to reprioritizing the way that we can test a null hypothesis that two alpha is not good enough.
+
+202
+00:23:39,690 --> 00:23:46,740
+So what I did in that slide, which I haven't shown yet, is to reprioritize this by Alpha one star re prime and tries this by Alpha
+
+203
+00:23:46,770 --> 00:23:53,970
+two star and then reprioritize this by Alpha one star plus Alpha three star.
+
+204
+00:23:54,420 --> 00:23:58,320
+So then I can test whether Alpha three star is there or not.
+
+205
+00:23:58,930 --> 00:24:07,020
+Right. So if this null cannot be rejected, then we have a association structure that can be called TOEPLITZ.
+
+206
+00:24:07,020 --> 00:24:13,290
+Right. Because and this is the association between one into a sec, first and second occasion.
+
+207
+00:24:13,290 --> 00:24:15,930
+This is the association between the second and third.
+
+208
+00:24:16,200 --> 00:24:25,230
+If they're the same and because they're both a one time point apart, and that's the quintessential Toeplitz Association structure.
+
+209
+00:24:25,710 --> 00:24:30,600
+So I would not have you read all these code, but I'm just going to show you the results.
+
+210
+00:24:30,810 --> 00:24:34,560
+And I think for those ones who are interested in doing this, you can find this later.
+
+211
+00:24:40,850 --> 00:24:43,220
+So what I. What did I do here? Let's see.
+
+212
+00:24:46,840 --> 00:24:56,230
+So this is the estimate of Alpha three star, which is which is after the privatization, we want to test whether this is there or not.
+
+213
+00:24:56,920 --> 00:25:00,580
+So the p value actually is not smaller than .05.
+
+214
+00:25:00,820 --> 00:25:05,350
+So we can not reject in all that Alpha three star zero essentially.
+
+215
+00:25:07,090 --> 00:25:11,740
+The data seems to suggest it's adequate to assume the two association parameters,
+
+216
+00:25:12,100 --> 00:25:17,170
+the one between y one, y two and one between y two where three are similar.
+
+217
+00:25:17,490 --> 00:25:22,320
+Identical. The data seems to suggest it's okay. Again.
+
+218
+00:25:22,620 --> 00:25:31,350
+Before I move on, I want to say that what we have done is that we have tested this null hypothesis of Alpha three,
+
+219
+00:25:31,770 --> 00:25:36,900
+starting with zero, and we do not have enough information to reject a null.
+
+220
+00:25:37,320 --> 00:25:40,920
+Didn't say. Okay. I think it's probably 107.
+
+221
+00:25:41,100 --> 00:25:48,210
+Yeah. And we, we will be using topless pattern for this analysis.
+
+222
+00:25:52,600 --> 00:25:59,860
+Okay. Moving on, we will be using tablets association pattern, which means that we will have two parameters for the associations.
+
+223
+00:26:00,580 --> 00:26:05,570
+So this is the another model fit. Is there any difference?
+
+224
+00:26:05,590 --> 00:26:10,750
+Well, may effect for sex, age centered age, gender squared.
+
+225
+00:26:11,200 --> 00:26:15,370
+And the only thing that's different is the correlation structure or association structure.
+
+226
+00:26:15,820 --> 00:26:24,820
+It is user defined because there is not a simple way for Odg to produce a toeplitz association structure.
+
+227
+00:26:25,270 --> 00:26:30,100
+And also how is that specified? Is specified in Z 4.2.
+
+228
+00:26:30,850 --> 00:26:33,880
+I have defined this earlier in the previous slide.
+
+229
+00:26:34,420 --> 00:26:39,190
+So I all I'm going to say is that if you would trust me for a moment.
+
+230
+00:26:39,790 --> 00:26:45,769
+This is trying to fit a. Marginal model for binary outcomes.
+
+231
+00:26:45,770 --> 00:26:50,540
+That assumes the log odds ratios between pairs of measurements follow the Toeplitz assumption.
+
+232
+00:27:00,790 --> 00:27:04,600
+And these are the results.
+
+233
+00:27:04,930 --> 00:27:09,280
+And also, we can also add cubic terms for age.
+
+234
+00:27:09,640 --> 00:27:15,670
+And we can do a ton of diagnostic. But I think for the sake of time, I will not talk too much about it.
+
+235
+00:27:16,000 --> 00:27:24,010
+Essentially, you will encounter them in your project if your goal is trying to decide which order is needed when doing the remodeling.
+
+236
+00:27:25,460 --> 00:27:26,660
+So for this example,
+
+237
+00:27:26,660 --> 00:27:34,580
+I just want to provide a quick conclusion that this data analysis suggests that the rates of obesity are significantly higher for girls at all ages.
+
+238
+00:27:34,880 --> 00:27:39,350
+However, the overall pattern of change in long odds of obesity does not depend on gender.
+
+239
+00:27:39,800 --> 00:27:47,900
+And for both boys and girls, the rates of obesity increased sharply from 6 to 12 years, but then decline, albeit at a slower rate thereafter.
+
+240
+00:27:48,530 --> 00:27:57,440
+So essentially this concludes the first example where our focus is trying to teach you how to analyze repeated binary outcome.
+
+241
+00:27:57,830 --> 00:28:06,080
+And we said that we can use or dcgi to use the functionality to specify log odds ratio as association parameters.
+
+242
+00:28:06,380 --> 00:28:12,290
+And then we have quickly showed you that through the code on the slide,
+
+243
+00:28:12,290 --> 00:28:18,530
+we can do some testing regarding the association structure, but I have not talk about exact detail the code.
+
+244
+00:28:18,860 --> 00:28:24,350
+So if you're interested, you can review them. So through the through the slides.
+
+245
+00:28:25,590 --> 00:28:32,050
+Of. The second example is about the analyzed and repeated count data.
+
+246
+00:28:32,650 --> 00:28:35,740
+And as you can see, when you're dealing with count data,
+
+247
+00:28:35,740 --> 00:28:41,120
+there's always a concern whether you are going to use Poisson or some distribution that's more dispersed in person,
+
+248
+00:28:41,170 --> 00:28:48,249
+because Poisson has an assumption that the variance is going to be equal to the mean, which might be violated.
+
+249
+00:28:48,250 --> 00:28:51,550
+And this is the data example that suggests that's that's the case.
+
+250
+00:28:52,630 --> 00:29:03,760
+What's the background? So we have we have data from placebo controlled clinical trial of 330 patients with leprosy at the at this place.
+
+251
+00:29:04,120 --> 00:29:11,160
+And the participants were randomized into either two antibiotics called drug A and B.
+
+252
+00:29:11,650 --> 00:29:18,100
+Okay. So when we're doing analysis, we will first separate A and B and later on we will combine them.
+
+253
+00:29:18,100 --> 00:29:20,290
+Basically, we will test whether it's okay to combine them.
+
+254
+00:29:21,190 --> 00:29:27,640
+So the question is whether the antibiotics function similarly in reducing the number of leprosy.
+
+255
+00:29:28,180 --> 00:29:34,630
+And there's a final treatment arm placebo, we call that drug C and four.
+
+256
+00:29:35,770 --> 00:29:37,120
+How are the data collected?
+
+257
+00:29:37,390 --> 00:29:45,459
+So prior to receiving treatment based on data on the number of leprosy bacilli at six sides of the body where the best light tends to congregate,
+
+258
+00:29:45,460 --> 00:29:50,560
+we recorded for each patient. So essentially we have a baseline measurement for everybody.
+
+259
+00:29:50,980 --> 00:30:00,220
+After several months of treatment, the number of bacilli at six body size were recorded a second time and the outcome variable is the total amount,
+
+260
+00:30:00,820 --> 00:30:03,850
+so to count the number of leprosy bacilli at the six sites.
+
+261
+00:30:04,840 --> 00:30:12,070
+So essentially we'll have another one. Hopefully it goes down. So let me draw that direction because you're trying to reduce number of proxy bacilli.
+
+262
+00:30:12,700 --> 00:30:16,090
+So you have this one. This is the baseline.
+
+263
+00:30:17,310 --> 00:30:33,040
+This is a post baseline. And treatment is applied somewhere here and we can apply A or B or C, and we're going to ask whether the treatments work.
+
+264
+00:30:34,590 --> 00:30:41,630
+So everybody had to measurements and they maybe correlated. If you look at the data summary.
+
+265
+00:30:42,200 --> 00:30:46,579
+So we have three blocks of rows each corresponding to one treatment group.
+
+266
+00:30:46,580 --> 00:30:51,830
+Remember, they're a completely randomized so and B or antibiotics.
+
+267
+00:30:52,280 --> 00:30:56,540
+And if you compare the baseline and post-treatment or post baseline, you know,
+
+268
+00:30:56,600 --> 00:31:03,710
+the number the count of baseline seems to have reduced, right, except for the placebo is reduced a little bit, but not too much.
+
+269
+00:31:04,340 --> 00:31:08,569
+And in the parentheses, these are the sample variances.
+
+270
+00:31:08,570 --> 00:31:14,380
+How do we calculate them? Well, you have multiple people in drug a group at baseline, right.
+
+271
+00:31:14,390 --> 00:31:17,900
+Say ten people. You can take the average. You can also take the sample variance.
+
+272
+00:31:18,200 --> 00:31:21,230
+It turns out that the sample variance seems to be much bigger than the mean.
+
+273
+00:31:21,800 --> 00:31:26,510
+And this seems to be the case for all the drug groups and all the occasions.
+
+274
+00:31:27,200 --> 00:31:31,070
+Right. So this indicates a problem with the.
+
+275
+00:31:32,360 --> 00:31:41,210
+Usual place on assumption. The problem is that we have a much greater variability than what can be predicted by a person distribution.
+
+276
+00:31:41,870 --> 00:31:49,760
+So we will be using and this phenomenon is called over dispersion and we will be using marginal model to deal with it.
+
+277
+00:31:50,870 --> 00:31:58,410
+So clearly we will need to specify the variance with some dispersion parameter or scale parameter.
+
+278
+00:31:58,430 --> 00:32:09,460
+We will. And this is the variance function, right?
+
+279
+00:32:09,520 --> 00:32:12,760
+Variance function. But our.
+
+280
+00:32:13,840 --> 00:32:20,280
+Because we're dealing with accounts, data and a good variance function can just mimic person distribution, right?
+
+281
+00:32:20,680 --> 00:32:31,710
+That is just the mean. So these two things combined is called the margin of errors and a few questions may be raised.
+
+282
+00:32:32,120 --> 00:32:35,460
+PHI This Greek letter, it's representing scale.
+
+283
+00:32:35,670 --> 00:32:40,620
+Then why do we assume that this over dispersion is constant across occasions?
+
+284
+00:32:40,980 --> 00:32:45,690
+Maybe it's one level of dispersion at the first occasion and another level at the second occasion.
+
+285
+00:32:46,740 --> 00:32:50,730
+So this represents a modeling assumption, and we will be able to see.
+
+286
+00:32:52,470 --> 00:32:55,530
+We will have techniques to correct for this if this is grossly wrong.
+
+287
+00:32:56,040 --> 00:33:01,470
+But I think a remark one make is that you can choose to specify there.
+
+288
+00:33:02,250 --> 00:33:10,350
+You just have more unknowns to estimate. Most often in my experience, these fires are constant across occasions.
+
+289
+00:33:11,100 --> 00:33:15,270
+So in the code below, I will just illustrate using the past and find.
+
+290
+00:33:20,820 --> 00:33:26,309
+So the scientific question once again is that whether the treatment with antibiotics reduces
+
+291
+00:33:26,310 --> 00:33:31,140
+the abundance of the parasite bacilli at the six sites of the body when compared to placebo.
+
+292
+00:33:31,440 --> 00:33:46,090
+So you compare A and B to see. And you want to see whether drug A or B reduces the number of the prostate bacilli faster compared to placebo.
+
+293
+00:33:46,720 --> 00:33:50,410
+From what we saw an exploratory data table, that seems to be the case.
+
+294
+00:33:52,610 --> 00:33:59,270
+So the main model specification looks like this. The log of the main count is related to a few different variables.
+
+295
+00:33:59,870 --> 00:34:04,640
+The first one is time. So time is zero for the base time period.
+
+296
+00:34:05,030 --> 00:34:11,480
+Time is one for the post time based on period. Everybody only got measured at two occasions.
+
+297
+00:34:12,320 --> 00:34:15,450
+Treatment one i. So this is indicator for drug.
+
+298
+00:34:16,400 --> 00:34:17,690
+This is indicator of drug b.
+
+299
+00:34:19,990 --> 00:34:27,910
+Because you have three levels, you need two dummy variables to indicate the non to a non reference or to non placebo groups.
+
+300
+00:34:29,620 --> 00:34:36,880
+And a second thing you may notice is that we did not include the main effects for treatment indicators.
+
+301
+00:34:37,270 --> 00:34:42,670
+And this is following, you know, what we've done maybe in one of the earlier data examples.
+
+302
+00:34:43,690 --> 00:34:49,900
+When you have a treatment that's randomized, you can ignore that in them as it may, in fact, in model.
+
+303
+00:34:52,730 --> 00:34:58,620
+So this is specify the main structure. Previously specify the margin of error.
+
+304
+00:34:59,230 --> 00:35:08,080
+And there's one more thing to specify, which is the correlation or association here for counts, we are just using correlation.
+
+305
+00:35:08,680 --> 00:35:14,680
+So we specify that for the two measurements, we have a correlation alpha.
+
+306
+00:35:15,310 --> 00:35:21,760
+And because we only have two measurements per person, we really only need one association parameter here.
+
+307
+00:35:28,230 --> 00:35:31,650
+Now my favorite slide, probably the patient.
+
+308
+00:35:32,100 --> 00:35:39,690
+And I think that this is basically the slide all of us wants to grasp well in the model,
+
+309
+00:35:39,930 --> 00:35:45,990
+because all the covariance of dichotomous, we can just build a table like this.
+
+310
+00:35:46,290 --> 00:35:52,290
+Recall the model is what model is log of the expected count of the positive baseline.
+
+311
+00:35:54,450 --> 00:35:58,980
+At six sites of the body can be modeled like this.
+
+312
+00:36:10,470 --> 00:36:15,600
+So this is for Aaron and b the four time i.
+
+313
+00:36:15,600 --> 00:36:19,230
+J. Treatment to I.
+
+314
+00:36:19,510 --> 00:36:23,300
+This is for B. So let's look at drug, right?
+
+315
+00:36:23,350 --> 00:36:30,310
+It should be very simple. How do we look at people who are who are assigned drug at baseline?
+
+316
+00:36:30,340 --> 00:36:34,570
+Well, baseline means time. I j equals zero.
+
+317
+00:36:34,870 --> 00:36:38,830
+And treatment. I.
+
+318
+00:36:40,080 --> 00:36:44,370
+One equals one treatment two equals zero.
+
+319
+00:36:44,370 --> 00:36:49,300
+Right, because treatment y is the dummy variable for four drug.
+
+320
+00:36:50,190 --> 00:36:55,740
+So what we get will simply be what? Because all the terms except beta one are gone.
+
+321
+00:36:55,770 --> 00:37:02,250
+So we just have beta one here. If you're done with follow up, then the time.I j I essentially is one.
+
+322
+00:37:02,370 --> 00:37:05,990
+So you plug in the ones there, right?
+
+323
+00:37:06,060 --> 00:37:09,990
+And then because this person is in treatment group.
+
+324
+00:37:10,020 --> 00:37:16,620
+So the final term involving beta four is gone. So what you have essentially is the beta one plus beta two plus beta three.
+
+325
+00:37:17,670 --> 00:37:24,780
+So if you take the difference, this one will be beta two plus minus three, which represents the number,
+
+326
+00:37:24,990 --> 00:37:31,350
+the average number of reduction in the count of the the prostate bacilli right in the size of the body.
+
+327
+00:37:32,250 --> 00:37:35,460
+Okay. Now, if we repeat the same process, which you are now, do again.
+
+328
+00:37:36,210 --> 00:37:42,880
+This difference is going to be. It's going to be a two plus better format.
+
+329
+00:37:43,420 --> 00:37:50,530
+And if you do this for the placebo, this difference is going to be better to right now.
+
+330
+00:37:51,250 --> 00:37:57,190
+Beta two is shared by all the differences. So what's really different between the three groups in characterizing the post
+
+331
+00:37:57,190 --> 00:38:01,269
+and pre based and change are the two parameters beta three and beta four.
+
+332
+00:38:01,270 --> 00:38:04,030
+Right? So let's focus on beta three four now.
+
+333
+00:38:04,750 --> 00:38:12,310
+So Beta three represents the difference between a change in the log expected rates comparing drug aid to the placebo.
+
+334
+00:38:12,820 --> 00:38:19,600
+So if I were to go back to this because our model is on the log count scale.
+
+335
+00:38:22,650 --> 00:38:26,580
+This delay is representing a change in the law. How long the average count?
+
+336
+00:38:27,950 --> 00:38:31,070
+Between the post baseline, the baseline period.
+
+337
+00:38:31,280 --> 00:38:39,850
+Right. And they do further take these difference. This is going to be bittersweet.
+
+338
+00:38:40,420 --> 00:38:51,130
+So if Peter three is negative, then that means the antibiotics is so effective that it reduces much more than what the placebo can do.
+
+339
+00:38:52,060 --> 00:38:59,130
+Right because already better too is representing the reduction and beta is representing a further reduction caused by using treatment.
+
+340
+00:39:00,370 --> 00:39:06,849
+So similarly you can interpret better for but to put them in English a value of beta three less than zero indicates a
+
+341
+00:39:06,850 --> 00:39:14,080
+greater reduction in the rate of baseline from baseline than in a group randomized to drug when compared to placebo.
+
+342
+00:39:14,090 --> 00:39:18,400
+Similarly for beta for some of you may wonder why did I say right here?
+
+343
+00:39:19,510 --> 00:39:21,100
+Clearly when we were doing the modeling,
+
+344
+00:39:21,100 --> 00:39:30,250
+we were only modeling the log of the mean count because the period when we were counting the that the proxy bacilli are the same.
+
+345
+00:39:30,430 --> 00:39:37,330
+So if you have the same duration in which you're counting the outcome, then the rate counter exchange both when you're doing the modeling.
+
+346
+00:39:40,590 --> 00:39:47,730
+So let's find the model so we can read in the data and we're sure.
+
+347
+00:39:47,790 --> 00:39:55,140
+So this is basically the time in treatment, interaction, time and human interaction.
+
+348
+00:39:55,680 --> 00:40:05,729
+And this is another variable we will probably not use in that slide, but we will use a bit later is the time and the and the group interaction.
+
+349
+00:40:05,730 --> 00:40:11,160
+So this indicator is to say whatever, that's not placebo.
+
+350
+00:40:11,390 --> 00:40:14,850
+Okay. And we're creating an interaction between that in the time term.
+
+351
+00:40:18,630 --> 00:40:22,370
+Then we just use the function called G John.
+
+352
+00:40:22,890 --> 00:40:26,850
+Now you can notice this thing is different from what we have done before.
+
+353
+00:40:27,360 --> 00:40:37,919
+In previously we've been using our gear, which was to take as input log odds ratios, association parameters.
+
+354
+00:40:37,920 --> 00:40:42,960
+But here if you using correlation gauge alone would just do the job.
+
+355
+00:40:44,100 --> 00:40:45,840
+Here I am specify exchangeable.
+
+356
+00:40:45,870 --> 00:40:55,200
+Well that's okay because you only have two measurements per person and an error output and requesting send c sent representing sandwich.
+
+357
+00:40:56,010 --> 00:40:59,070
+And here in the bottom we're producing all these estimates.
+
+358
+00:41:06,190 --> 00:41:13,989
+So a few questions can be asked. First, does the treatment with the antibiotics significant reduces the abundance of leprosy bacilli at six
+
+359
+00:41:13,990 --> 00:41:22,300
+sites of the body recall if you go back to this particular slide when you're contrasting the effect.
+
+360
+00:41:24,040 --> 00:41:28,420
+Of a drug. Upon the reduction of Dr. Barzilai.
+
+361
+00:41:28,870 --> 00:41:34,269
+What's really being asked is whether Beta three and the Beta four zero appears to be in beta four zero.
+
+362
+00:41:34,270 --> 00:41:42,070
+Is that really the trajectory of the change does not seem to differ across drugs, which means the drugs are not effective.
+
+363
+00:41:42,670 --> 00:41:47,620
+So the null hypothesis naturally will be whether beta three equals metaphorical zero.
+
+364
+00:41:48,220 --> 00:41:52,690
+And that is the hypothesis we are going to do. Going to test on.
+
+365
+00:41:54,590 --> 00:41:58,730
+So here I am just being lazy. I'm just fitting a model without.
+
+366
+00:41:59,030 --> 00:42:02,510
+Without the. Let's see.
+
+367
+00:42:03,050 --> 00:42:07,590
+Only time without the treatment. Indicators up.
+
+368
+00:42:07,650 --> 00:42:20,920
+So then I did an over. And then we can get the P-value for this model comparison, which turns out to be .0025.
+
+369
+00:42:21,100 --> 00:42:28,270
+So the P value is less than 0.05 and we can reject in all that data three and beta four zero.
+
+370
+00:42:29,380 --> 00:42:35,740
+This is mostly unsurprising if you go back to this particular slide, right?
+
+371
+00:42:37,440 --> 00:42:44,950
+This particular slide, which is asking. Going from 9.3 to 9 5.3, a reduction of four.
+
+372
+00:42:45,580 --> 00:42:51,950
+Is that significantly different from. A reduction of 0.6.
+
+373
+00:42:56,300 --> 00:43:02,970
+Absolutely. You have to ask two questions that same time. Is it surprising for you to see?
+
+374
+00:43:04,470 --> 00:43:11,850
+That's a you have a four point drop roughly compared to 2.6 drop in average count.
+
+375
+00:43:12,880 --> 00:43:18,520
+And you can see this difference between the drug A and B versus C is pretty big.
+
+376
+00:43:19,000 --> 00:43:27,880
+So the model itself is doing its job to quantitatively tell you that, hey, the drugs are working.
+
+377
+00:43:29,130 --> 00:43:36,030
+Another finding we have essentially is about whether the two treatments are working at similar magnitude.
+
+378
+00:43:37,290 --> 00:43:43,890
+So the next question can be us. Are the two antibiotics equally effective in reducing the number of the prostate bacilli?
+
+379
+00:43:44,730 --> 00:43:47,280
+So this is trying to test whether beta three equals beta four.
+
+380
+00:43:47,700 --> 00:43:55,950
+If they're equal, be it A or B, the drugs are equally effective in reducing the average number of the product slug.
+
+381
+00:43:56,460 --> 00:44:01,200
+So what I did here is basically to create well, I have done this earlier,
+
+382
+00:44:01,200 --> 00:44:07,350
+but I have created a new indicator of treatment A or B and INTERREG with time.
+
+383
+00:44:07,860 --> 00:44:13,260
+So this is a model that's smaller or rather nested within the bigger model we started with.
+
+384
+00:44:14,160 --> 00:44:16,560
+Essentially, we're forcing beta three equals weight of four.
+
+385
+00:44:17,190 --> 00:44:22,680
+It is a sub model of the big model where beta three and beta four are free to vary on their own.
+
+386
+00:44:23,340 --> 00:44:29,070
+So we again did the test and the p value is bigger than point five.
+
+387
+00:44:29,640 --> 00:44:33,180
+Essentially, we do not have enough evidence to reject and all that.
+
+388
+00:44:33,360 --> 00:44:48,439
+These two drugs are working equally effective. So what's the interpretation of the calm estimate?
+
+389
+00:44:48,440 --> 00:44:57,380
+A long, long way ratio comparing post-treatment rate of baseline antibiotics group to placebo is point 5 to 8.
+
+390
+00:44:58,160 --> 00:45:05,899
+We have fitted a model that has grouped. They're going to be together and that's the rate ratio is 0.59.
+
+391
+00:45:05,900 --> 00:45:11,720
+What you did is you can do is just take exponential and the interval is 0.42.87.
+
+392
+00:45:12,140 --> 00:45:18,500
+So this indicates that the treatment with antibiotics significantly reduces the average number of bacilli when compared to placebo.
+
+393
+00:45:19,880 --> 00:45:26,210
+And in the placebo there is a non-significant reduction in average number of bacilli of approximate point 3%.
+
+394
+00:45:26,510 --> 00:45:31,250
+While in a antibiotics group there is a significant reduction of approximate 41%.
+
+395
+00:45:31,640 --> 00:45:39,469
+The way how you can get at this is to recognize that you need to plug all the betas in the model set, right?
+
+396
+00:45:39,470 --> 00:45:48,860
+So for example, if you're going to focus on the placebo group, how do you calculate the reduction in average number of baseline?
+
+397
+00:45:51,720 --> 00:45:56,370
+What you do is that you just get this particular estimate.
+
+398
+00:45:58,000 --> 00:46:01,900
+Right. This is the coefficient for the post baseline indicator.
+
+399
+00:46:04,310 --> 00:46:09,710
+And then you exponentially hit it, right? But because you're talking about reductions, so we just do one minor step.
+
+400
+00:46:10,900 --> 00:46:13,330
+And if you are talking about the antibiotics group,
+
+401
+00:46:14,020 --> 00:46:22,870
+you need to add these two terms together and then you take the exponential and the one minus that exponential, you got the reduction, which is 41%.
+
+402
+00:46:23,290 --> 00:46:30,159
+So these two numbers are now very obvious to suggest that the treatments be antibiotics,
+
+403
+00:46:30,160 --> 00:46:38,770
+A or B seems to be doing its job in reducing the number of average leprosy bacilli.
+
+404
+00:46:46,310 --> 00:46:52,330
+Finally some. Some comments about the association parameters.
+
+405
+00:46:52,910 --> 00:47:00,550
+Here we have two sets of what we have the correlation parameter, which is 0.74.
+
+406
+00:47:01,180 --> 00:47:05,110
+So this says that be it at post, not post baseline or be at a baseline.
+
+407
+00:47:05,470 --> 00:47:10,570
+The correlation seems to be higher at the pair of the pair of measurements are highly correlated.
+
+408
+00:47:11,060 --> 00:47:15,640
+And second, we have the five parameter and this five parameters estimated to be three.
+
+409
+00:47:16,600 --> 00:47:23,580
+Okay. So we usually write five hats equals 3.23 and impose on distribution five equals one.
+
+410
+00:47:23,590 --> 00:47:27,300
+And clearly that's very these two numbers are very different.
+
+411
+00:47:27,340 --> 00:47:34,810
+So this indicates that the margin of model has estimated or has accounted for the over dispersion.
+
+412
+00:47:36,890 --> 00:47:41,750
+Now we will be focusing on the over dispersion part.
+
+413
+00:47:42,050 --> 00:47:45,890
+And the way we do that is to talk about the.
+
+414
+00:47:46,880 --> 00:47:54,410
+Sandwich variance estimate versus the model based variance estimate using the leprosy study as an example of this part,
+
+415
+00:47:54,410 --> 00:48:03,740
+I believe is a little bit tricky because it is trying to have practice on understanding not only the meaning of these estimates,
+
+416
+00:48:04,130 --> 00:48:11,900
+but also different ways of adjusting for possibly mis specified variant structure, associated structure.
+
+417
+00:48:11,910 --> 00:48:16,580
+So this might be a bit tricky for some of you, so I hope I can be a bit slow here.
+
+418
+00:48:17,620 --> 00:48:25,540
+A disclaimer. So this is a disclaimer and I have to putting here because you know.
+
+419
+00:48:26,990 --> 00:48:35,330
+Because of our packages. You know, there's just so many packages that can do G and there is no official G package at the say.
+
+420
+00:48:37,400 --> 00:48:47,330
+So sometimes different functions give you slightly different estimates and this is likely due to different numeric optimization procedures used.
+
+421
+00:48:48,700 --> 00:48:56,390
+So what's the catch? Well, you have to have probably results from different function implementations to make sure that they are roughly similar.
+
+422
+00:48:58,360 --> 00:49:09,099
+And in in the slides to follow, I'm going to use G instead of the GS your n a y because G outputs the model based on errors and which is the thing
+
+423
+00:49:09,100 --> 00:49:16,240
+we need to demonstrate these differences between sandwich variance estimate our model base variance estimate.
+
+424
+00:49:17,620 --> 00:49:25,270
+So all these different functions, these are the fact that they exist is suboptimal.
+
+425
+00:49:26,020 --> 00:49:33,130
+But I have to strongly suggest that this should not interfere with our understanding of the main theme of this part,
+
+426
+00:49:33,220 --> 00:49:38,740
+which is to distinguish sandwich and model based errors centers.
+
+427
+00:49:40,650 --> 00:49:55,450
+So let's get started. Recall in the lab process study, we were we saw evidence that the variance is much bigger than the mean.
+
+428
+00:49:56,470 --> 00:50:00,340
+Right. And it's probably a stupid idea to fix five goals one.
+
+429
+00:50:01,150 --> 00:50:12,010
+But what if we do that forcefully? So here in this particular block of code, what I did is I do these two things.
+
+430
+00:50:12,970 --> 00:50:21,940
+I'm fitting the model of what the protocol regrets upon the time, which is post baseline or before at baseline.
+
+431
+00:50:22,240 --> 00:50:30,490
+And this time might be essentially is the treatment and group indicator times the interact with the time.
+
+432
+00:50:30,880 --> 00:50:35,470
+All right. So the main structure will be kept the same as the final model we saw before.
+
+433
+00:50:36,040 --> 00:50:41,810
+But here we are fixing five to be one skill dot six equals true scaled.
+
+434
+00:50:41,830 --> 00:50:46,840
+Our value equals one. We fit the model and these are the beat estimate.
+
+435
+00:50:48,280 --> 00:50:51,490
+These are the naive set error. What do I mean by that?
+
+436
+00:50:51,910 --> 00:51:02,350
+Essentially, these are beta heads. So this represents a fourth name that you would need to understand when you're dealing with variances.
+
+437
+00:51:02,360 --> 00:51:06,440
+It's called naive. Let's keep that for now. I'm going to explain what why it's gone.
+
+438
+00:51:06,980 --> 00:51:11,930
+So let's move this. And this essentially is the sandwich variance estimate or a hat.
+
+439
+00:51:14,720 --> 00:51:21,620
+And had we had their. So it is not surprising for you to see that these in general will not be equal.
+
+440
+00:51:21,860 --> 00:51:26,480
+Right. In fact, if you compare the second and third column.
+
+441
+00:51:27,670 --> 00:51:34,450
+By that I mean these two columns, you can see that these two columns have very different numbers.
+
+442
+00:51:36,010 --> 00:51:45,370
+And that's not surprising because the naive one this is using what is using what you told the program to do to use the scale of one.
+
+443
+00:51:45,850 --> 00:51:51,190
+But, you know, the data, the variance is much bigger than the mean in the robustness or is much bigger.
+
+444
+00:51:52,640 --> 00:51:56,120
+It is accounting for those observed over dispersion.
+
+445
+00:51:56,570 --> 00:52:01,040
+So that's the first observation. And.
+
+446
+00:52:03,850 --> 00:52:11,290
+Returning to the name naive. So I do not like the name naive, but it has a same meaning as model based.
+
+447
+00:52:11,920 --> 00:52:15,469
+Well, what's the naive way it is?
+
+448
+00:52:15,470 --> 00:52:18,550
+A naive. Well, we set fire to be one.
+
+449
+00:52:19,560 --> 00:52:23,670
+Well, to be honest, that's just a mountain to put forward, right? We put them on offer.
+
+450
+00:52:23,670 --> 00:52:27,600
+That may be a smart model or that may be a new model, but that's a model.
+
+451
+00:52:27,870 --> 00:52:32,670
+So that's a model based variance. So whenever you see now you equate that with the model based.
+
+452
+00:52:38,280 --> 00:52:43,440
+The reason why I don't like the word naive is because it almost always suggests I'm always stupid.
+
+453
+00:52:44,760 --> 00:52:52,050
+But that may not always be the case. So I'd prefer to use model based so I can talk to the also this package.
+
+454
+00:52:52,140 --> 00:52:55,710
+Hopefully I can convince him or her. All right.
+
+455
+00:52:59,980 --> 00:53:03,549
+Now this is the model with the fixed figures.
+
+456
+00:53:03,550 --> 00:53:06,880
+One. Right. How about we do five?
+
+457
+00:53:06,910 --> 00:53:10,990
+That's unknown. So how do we do that same structure.
+
+458
+00:53:11,380 --> 00:53:17,620
+But now I am not fixing. I am not fixing the scale.
+
+459
+00:53:17,650 --> 00:53:21,250
+Fixed are equals. True. Five was one. I do not do that.
+
+460
+00:53:21,610 --> 00:53:25,180
+I do not do that. So it will estimate that it actually you can extract that.
+
+461
+00:53:25,420 --> 00:53:29,530
+And that estimate is 3.405507.
+
+462
+00:53:29,920 --> 00:53:34,980
+Look, this is what I meant. Our number before was not this as with .32 or something.
+
+463
+00:53:35,290 --> 00:53:40,270
+So 3.2 or something. So that's the difference between if an R code.
+
+464
+00:53:41,410 --> 00:53:45,130
+So this FI estimate here is 3.41.
+
+465
+00:53:46,610 --> 00:53:50,770
+Now I'm going to ask you to calculate two things. Okay.
+
+466
+00:53:50,780 --> 00:53:54,090
+So the first one is what's the square root of 3.41?
+
+467
+00:53:55,550 --> 00:53:58,730
+And what is the. So let's look at this one.
+
+468
+00:54:00,080 --> 00:54:08,700
+What's the ratio of? Divided by point.
+
+469
+00:54:14,260 --> 00:54:17,460
+Okay. Let me make sure I'm talking about right number. Just a moment.
+
+470
+00:54:29,430 --> 00:54:41,050
+Uh. And the second number is 0.1536 divided by this.
+
+471
+00:54:41,620 --> 00:54:46,180
+How about how about we just calculate this? Because I know they they're saying that just you can just do that now.
+
+472
+00:54:54,200 --> 00:54:57,890
+So can anybody just do that on your own computer and give me a number?
+
+473
+00:55:20,980 --> 00:55:30,010
+What I have is a .03. I don't know what you have, but point three so now this number you have seen before, but you may not have remembered it.
+
+474
+00:55:30,640 --> 00:55:38,860
+Right? What I did is to take. Model based variance.
+
+475
+00:55:41,340 --> 00:55:47,850
+This one. Is this okay? And essentially the denominator is the square root of my hat.
+
+476
+00:55:48,510 --> 00:55:54,510
+So if I go back to the same location in the previous table, fitted with five plus one, guess what we have?
+
+477
+00:55:55,340 --> 00:55:58,720
+.8.083. Okay.
+
+478
+00:55:59,470 --> 00:56:05,660
+So essentially. By just looking at the naive or the model based stare.
+
+479
+00:56:06,700 --> 00:56:12,820
+There is some difference and it goes from point A to point three, 2.153.
+
+480
+00:56:13,600 --> 00:56:18,960
+And that is perfectly done by the scaling of square root of five.
+
+481
+00:56:19,960 --> 00:56:25,270
+And this says that if you are only looking at a naive center, that's going to be based on model.
+
+482
+00:56:25,600 --> 00:56:28,870
+But what's the difference between this model and the previous model?
+
+483
+00:56:29,230 --> 00:56:36,940
+Well, the previous model assumed five equals one. This model, I assume, relies on no one to be estimated, which was estimated to be 3.41.
+
+484
+00:56:37,600 --> 00:56:40,840
+So the model based naive center can.
+
+485
+00:56:42,050 --> 00:56:49,750
+Account for. This over dispersion so that Stainer will be a little bit more realistic.
+
+486
+00:56:50,290 --> 00:56:55,180
+But still, if you're going to compare these two columns, they're still not the same.
+
+487
+00:56:56,220 --> 00:57:00,540
+Right. We will comment on that. Actually, we will ask you why.
+
+488
+00:57:04,630 --> 00:57:17,320
+Another thing I want to look at is that I remember these numbers 2.37 minus .01 minus .51 if I scroll back exactly exact same thing.
+
+489
+00:57:17,530 --> 00:57:26,020
+Okay. So the beta had estimates did not change. Why is that?
+
+490
+00:57:26,920 --> 00:57:31,890
+Remember, we're using the G model. Right.
+
+491
+00:57:32,040 --> 00:57:43,040
+And where did the skill parameter appear? Where did his skill parameter appear?
+
+492
+00:57:44,260 --> 00:57:47,319
+In this count. We have often specified this as this.
+
+493
+00:57:47,320 --> 00:57:58,740
+Right. And A.I. equals what?
+
+494
+00:58:01,260 --> 00:58:07,110
+Variance of why I won. The variance of why I.
+
+495
+00:58:08,250 --> 00:58:12,590
+Let's just way too, because we only have two. Occasions here.
+
+496
+00:58:13,580 --> 00:58:21,310
+So in our specification we specified why a one equals five times write one.
+
+497
+00:58:22,040 --> 00:58:25,670
+So this file is either one or something that's unknown.
+
+498
+00:58:27,950 --> 00:58:35,670
+But when you plug in this whole thing to here. To solve this whole thing with you by equating that to zero.
+
+499
+00:58:35,850 --> 00:58:41,250
+Does it care whether you multiply a file or not? And it's just like, let's divide it by five here.
+
+500
+00:58:41,830 --> 00:58:46,810
+Doesn't matter. It doesn't matter when you're looking for the zero zeros of this equation.
+
+501
+00:58:47,200 --> 00:58:54,010
+So that's why regardless of what fi you fix it, the beta you solve will be the same.
+
+502
+00:58:57,960 --> 00:59:11,590
+And I will always be great in zero. Okay.
+
+503
+00:59:11,860 --> 00:59:16,150
+Now a second remark. That is what I alluded to.
+
+504
+00:59:19,000 --> 00:59:30,400
+This answers the question why is sandwich estimates are different from the naive center with the fine unknown.
+
+505
+00:59:35,470 --> 00:59:39,610
+This is because the sandwich spinners do not need a person.
+
+506
+00:59:40,540 --> 00:59:44,110
+Assumption or do not you assumption fi is constant across occasions.
+
+507
+00:59:44,470 --> 00:59:56,070
+While when we are doing the now you extend the error, we still assumed there is a particular specification which is variances five times mileage.
+
+508
+00:59:56,650 --> 01:00:01,690
+Right. While for sandwich stand error estimation, we do not make this assumption.
+
+509
+01:00:02,110 --> 01:00:07,840
+So it is extremely flexible. And that point is made in the slide.
+
+510
+01:00:09,850 --> 01:00:16,210
+It reflects the fact that the model based system errors are still based on an assumption of extra Poisson reliability.
+
+511
+01:00:18,560 --> 01:00:25,520
+And. If you specify a model with a constant fire across occasions,
+
+512
+01:00:25,940 --> 01:00:31,310
+that is only going to account for discretion to that degree for robust synergy estimates.
+
+513
+01:00:32,180 --> 01:00:36,830
+It is extremely flexible. You may account for different fly at different occasions.
+
+514
+01:00:47,240 --> 01:00:53,149
+So this is the final summary page of the Part three corrections.
+
+515
+01:00:53,150 --> 01:00:59,270
+Based on the Sandwich Burns estimate, it will allow for any departures from person viability when conditions are required for its use are met.
+
+516
+01:01:00,080 --> 01:01:07,920
+And number two, when the model based. Or naive stent errors and the sandwich standard is very similar.
+
+517
+01:01:08,250 --> 01:01:12,840
+It is a good indication that you have a working association model that is close to true one.
+
+518
+01:01:14,110 --> 01:01:22,120
+Which is to say that if you observe model based, which is a bread is approximately the same as the sandwich based.
+
+519
+01:01:25,790 --> 01:01:30,770
+This can only happen if b hat is roughly.
+
+520
+01:01:36,050 --> 01:01:44,780
+The hat is roughly am hat. Okay, so this means you have had a good guess of the true association structure.
+
+521
+01:01:46,140 --> 01:01:56,640
+Okay. So if I return to the previous slide. These two numbers are much closer if you assume fires are known and to be estimated.
+
+522
+01:01:57,120 --> 01:02:00,510
+But they're still not exactly the same. Okay.
+
+523
+01:02:01,770 --> 01:02:06,840
+But can you do better? Maybe you have different fires at different occasions.
+
+524
+01:02:07,470 --> 01:02:14,520
+But I haven't done that in this particular slide. So with that, I want to conclude the margin model.
+
+525
+01:02:15,770 --> 01:02:23,780
+Handouts and. Hopefully that's helpful for you to do your homework if you haven't done it.
+
+526
+01:02:25,070 --> 01:02:27,830
+So that's it's four or five is awkward time,
+
+527
+01:02:27,830 --> 01:02:34,130
+but I still want to use the 10 minutes after a break to at least start talking about generalized mnemonics models.
+
+528
+01:02:35,240 --> 01:04:05,220
+Yeah, let's come back for ten. In the start started.
+
+529
+01:04:31,560 --> 01:04:35,450
+Okay. I think it's right.
+
+530
+01:04:56,370 --> 01:05:15,790
+They were. So one.
+
+531
+01:05:38,480 --> 01:05:45,160
+I think it would not hurt. I do think that was here.
+
+532
+01:05:51,780 --> 01:05:57,420
+Here. Yeah.
+
+533
+01:05:57,640 --> 01:06:02,030
+This is the. Yeah.
+
+534
+01:06:10,790 --> 01:06:14,290
+I would say that. We have to be very specific.
+
+535
+01:06:18,810 --> 01:06:29,200
+So you go back to your. Straight out.
+
+536
+01:06:40,490 --> 01:06:44,800
+You just have to patch things. Look here.
+
+537
+01:06:48,920 --> 01:06:52,330
+It's a starting point. Yeah, I guess that. I guess.
+
+538
+01:08:13,630 --> 01:08:20,240
+Used as one. See.
+
+539
+01:08:23,670 --> 01:08:29,120
+I suppose. I don't know the answer.
+
+540
+01:08:29,120 --> 01:08:45,870
+Right. A laptop after. All right, so nine more minutes.
+
+541
+01:08:45,900 --> 01:08:52,410
+Let's go as far as we can. I want to the reason why I want to do this is because I sort of put on the syllabus that,
+
+542
+01:08:52,410 --> 01:08:56,190
+hey, you know, we're going to talk about generalizing a mixed model today.
+
+543
+01:08:56,190 --> 01:08:59,190
+And I just want to fulfill that promise by talking about a little bit.
+
+544
+01:08:59,700 --> 01:09:08,640
+And so for the generalized mixed model, that will represent the second way of extending children to deal with longitudinal outcomes.
+
+545
+01:09:09,060 --> 01:09:16,770
+The first way you have seen is G and we have had a lot of it and we will be doing something that's relevant for most of you,
+
+546
+01:09:17,070 --> 01:09:20,220
+at least for those one who are very familiar with the mixed models.
+
+547
+01:09:20,580 --> 01:09:30,300
+We will talk about introduction, interpretation, the inference, examples, and some contrast between modeling models and generalize and mixed models.
+
+548
+01:09:30,510 --> 01:09:37,740
+And after that, we will be having some luck guest lecture by my student and then some team presentations.
+
+549
+01:09:39,150 --> 01:09:42,210
+So. Introduction.
+
+550
+01:09:42,690 --> 01:09:44,280
+What's the learning objective for now?
+
+551
+01:09:44,760 --> 01:09:52,890
+This is just trying to define across the models for longitudinal, discrete or continuous data as I'll try it at the margin models.
+
+552
+01:09:53,160 --> 01:09:58,200
+So imagine the models we are integrating over whatever individual random effects we have.
+
+553
+01:09:58,560 --> 01:10:08,940
+But for this one, we're just going to explicitly write that down. And as you have, as I have explained when you were introduced, the mix effect model,
+
+554
+01:10:09,330 --> 01:10:16,220
+the reason why that is an advantageous is that it clearly separates the source of variability within subject subjects.
+
+555
+01:10:16,440 --> 01:10:20,670
+Same thing here. It is just done for the long continuous outcomes.
+
+556
+01:10:21,000 --> 01:10:27,380
+And number two, it provides a very flexible way of specifying the covariance structure, you know.
+
+557
+01:10:28,470 --> 01:10:33,840
+So when you are trying to ask yourself whether you have learned the materials firmly.
+
+558
+01:10:35,810 --> 01:10:39,860
+Can you ask can you formulate the exact model? Are you can you write down the Java man?
+
+559
+01:10:40,160 --> 01:10:46,549
+And second, can you write down the full set of distribution assumptions and most importantly,
+
+560
+01:10:46,550 --> 01:10:52,580
+trying to distinguish what's the difference between the assumptions made here and those in the margin models.
+
+561
+01:10:53,540 --> 01:10:53,989
+Number two,
+
+562
+01:10:53,990 --> 01:11:02,760
+I don't think we have time to cover them today is to have a clear understanding of the interpretations of the regression coefficients in July.
+
+563
+01:11:02,840 --> 01:11:08,480
+Then we will be talking about within subject time, varying covariates.
+
+564
+01:11:08,690 --> 01:11:14,179
+And this is particularly appealing because when we are specifying generalized and mixed model,
+
+565
+01:11:14,180 --> 01:11:17,420
+we always conditioned on the individual specific random effects.
+
+566
+01:11:17,600 --> 01:11:25,370
+Then you talk about, Hey, for this person, if you have seen if this person one year older and what's the change in the outcome?
+
+567
+01:11:25,590 --> 01:11:32,660
+Right. So that's within subject time bearing cover. And clearly you cannot avoid a cohorts that are between subject, for example,
+
+568
+01:11:33,350 --> 01:11:37,970
+if we're going to randomize people into different treatment groups once and for all.
+
+569
+01:11:38,000 --> 01:11:43,340
+Right. And then that treatment variable will be constant within the person.
+
+570
+01:11:43,340 --> 01:11:46,580
+So no change with the person, but there will be differences between people.
+
+571
+01:11:46,910 --> 01:11:49,100
+So that's what I meant by putting subject covered.
+
+572
+01:11:49,610 --> 01:11:59,060
+And Johanna will have some kind of extrapolation happening there because she is designed to deal with within subject covered changes.
+
+573
+01:11:59,780 --> 01:12:03,740
+So when you have a between subject covers, then clearly you have to be very careful.
+
+574
+01:12:03,980 --> 01:12:07,280
+What is your lab gives you of?
+
+575
+01:12:08,880 --> 01:12:17,680
+So because we just talk about us, I probably will just emphasize the final point as a recap, the margin,
+
+576
+01:12:17,680 --> 01:12:22,710
+the model did not fully specify that joint distribution of all measures from the same person.
+
+577
+01:12:23,280 --> 01:12:28,260
+Why? Well, we only specify the me, the variance and the association.
+
+578
+01:12:28,470 --> 01:12:31,710
+We never say said they are jointly, but normally or jointly, whatever.
+
+579
+01:12:31,960 --> 01:12:35,340
+I would never set that right because we never learn that formula in class.
+
+580
+01:12:35,700 --> 01:12:39,750
+Although as you can imagine, there are people who are developing these generalizations.
+
+581
+01:12:40,770 --> 01:12:44,580
+So g the marginal does not need a full distribution.
+
+582
+01:12:44,910 --> 01:12:54,150
+And to remedy that, the estimation approach called G provides a consistent seven ton normal beat estimate with correct variance estimate.
+
+583
+01:12:54,500 --> 01:12:59,500
+All right. So in margin models, no need for the for distribution specification.
+
+584
+01:12:59,520 --> 01:13:11,270
+Still G gives us good beta hat estimate. Of generalizing in a mixed model, on the other hand, is requiring a full joint distribution specification.
+
+585
+01:13:14,800 --> 01:13:19,790
+So. Let me see.
+
+586
+01:13:20,930 --> 01:13:26,249
+Did I pass this? Okay, this one. When we are specifying the generalize.
+
+587
+01:13:26,250 --> 01:13:37,860
+I mean, in this model, we are we have a goal to fully specify the joint distribution, the whys and everything we specify will be conditioned on.
+
+588
+01:13:39,340 --> 01:13:50,200
+The quantity that we call random effect by you have encountered this and this is exactly the same thing as you have encountered before the vis.
+
+589
+01:13:52,730 --> 01:14:04,610
+And just as a matter of terminology, we will be specifying the conditional distribution of y j given at side j and B eyes.
+
+590
+01:14:05,270 --> 01:14:10,639
+Previously we have been in, we have been integrating our bits.
+
+591
+01:14:10,640 --> 01:14:17,510
+But in these generalized mixed models, we don't we don't integrate them out.
+
+592
+01:14:23,120 --> 01:14:30,240
+Oh. I don't know how to cancel the previous option because I want to keep the there.
+
+593
+01:14:41,250 --> 01:14:44,550
+Why don't you start? Let's see.
+
+594
+01:14:45,560 --> 01:14:51,570
+Okay. There we go. Okay. So the distribution will be conditional digit distribution.
+
+595
+01:14:51,570 --> 01:14:58,560
+The variance will be conditional variance. And we will often specify through the exponential family distribution.
+
+596
+01:15:01,080 --> 01:15:10,650
+In more detail at the conditional distribution after this specified by the through the me first.
+
+597
+01:15:11,970 --> 01:15:15,150
+This is something you're familiar with in neither mixed model.
+
+598
+01:15:15,540 --> 01:15:21,450
+You just link the covariates. One set for fixed effects.
+
+599
+01:15:26,230 --> 01:15:35,180
+The other set for random effects. And we link that to the near predictor.
+
+600
+01:15:39,820 --> 01:15:52,490
+Right. And then you do the link function. So just as you have done and generalize and not steal them.
+
+601
+01:15:52,500 --> 01:15:58,170
+Right. Once you specify the need a predictor, once you specify a link function,
+
+602
+01:15:58,890 --> 01:16:12,900
+once you specify the distribution family like one of the exponential family, then you can specify the entire joint distribution of all the outcomes.
+
+603
+01:16:20,450 --> 01:16:23,680
+So we have been conditioned by them.
+
+604
+01:16:23,690 --> 01:16:30,230
+What's the distribution of by often we would assume bizarre following multivariate Gaussian?
+
+605
+01:16:30,500 --> 01:16:38,870
+That's the most common assumption. But actually in principle any multivariate distribution can be assumed for BI and.
+
+606
+01:16:41,850 --> 01:16:51,329
+In principle I can now right out of the range or in principle B I can follow an F any distribution,
+
+607
+01:16:51,330 --> 01:17:01,800
+but most commonly we have by following a multi very normal distribution with Q dimensions with mean zero and various cover energy,
+
+608
+01:17:02,160 --> 01:17:11,530
+just like what you have seen in mixed model. And often then we assume that the beaches are independent, the cupboards.
+
+609
+01:17:21,070 --> 01:17:26,620
+So in summary, when spouse finds a man, a few steps are needed.
+
+610
+01:17:28,110 --> 01:17:33,020
+Why j given by. And then by.
+
+611
+01:17:35,910 --> 01:17:40,890
+So when I'm writing the square brackets, this basically represents the.
+
+612
+01:17:42,170 --> 01:18:01,570
+Distribution of the quantity in their. So in the important one and two.
+
+613
+01:18:03,660 --> 01:18:09,510
+We specified a conditional variance and conditional meaning and also the distribution and here.
+
+614
+01:18:11,490 --> 01:18:17,970
+We specify the distribution for the API, which mostly is multilayer Gaussian here and.
+
+615
+01:18:19,760 --> 01:18:27,870
+Previous two slides. So.
+
+616
+01:18:30,230 --> 01:18:31,969
+When we will come back on Wednesday.
+
+617
+01:18:31,970 --> 01:18:39,260
+Essentially, we will be providing some examples of how to specify these components, especially the Y g given by parts.
+
+618
+01:18:39,770 --> 01:18:46,490
+And the to me, these are a little bit, you know, just a little bit repetitive compared to what we have done before.
+
+619
+01:18:47,090 --> 01:18:54,620
+So for the sake of completeness will still go through them and it will give you some examples of how to specify them.
+
+620
+01:18:55,100 --> 01:18:59,750
+And hopefully this set up the stage for comparing this against the margin models.
+
+621
+01:19:00,320 --> 01:19:04,640
+All right. That's what I have and see on Wednesday when we were talking about you again.
+

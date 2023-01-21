@@ -1,0 +1,2084 @@
+1
+00:00:00,120 --> 00:00:07,050
+Good afternoon, everybody. Welcome to the class. So today is going to be the first lecture on mixed models.
+
+2
+00:00:07,440 --> 00:00:15,990
+So I'm going to start with handout 078. Um, before I get started with the lecture note, do we have any burning questions from the student?
+
+3
+00:00:21,890 --> 00:00:30,500
+Okay. I don't see any. Oh, by the way. So I will have an office hour that's going to start at 430 because of a, you know, obligation to attend to.
+
+4
+00:00:30,980 --> 00:00:39,920
+I will be leaving on five, ten, 515. So please note that change so and homework is going to be due today, right?
+
+5
+00:00:40,010 --> 00:00:48,910
+1159 So make sure that you submit before that time and no later assignment is going to be accepted into seven eight.
+
+6
+00:00:48,950 --> 00:00:54,320
+So this is the one of the first lecture note about unit mix models.
+
+7
+00:00:54,560 --> 00:00:59,870
+And today's goal is trying to talk about the rationale of these models and why they matter.
+
+8
+00:01:00,400 --> 00:01:12,610
+Um. And we will work on the specific example with a random intercept and hopefully you can see the connection in terms of the covariance structure.
+
+9
+00:01:12,880 --> 00:01:16,150
+And we will see a familiar name based on that derivation.
+
+10
+00:01:17,510 --> 00:01:24,200
+So what are the learning objectives? So it is separated into a few and we will get it getting to each one of them first.
+
+11
+00:01:24,500 --> 00:01:30,500
+Our goal is trying to conceptually describe the strength and weakness of coherence models,
+
+12
+00:01:30,860 --> 00:01:36,560
+and we got to realize that for the coherence models we have seen so far,
+
+13
+00:01:37,220 --> 00:01:46,190
+they are not necessarily ideal for many empirical situations where you want parsimonious and time varying variances,
+
+14
+00:01:47,360 --> 00:01:54,230
+and there are many situations where you have measurements that were obtained at irregular timing.
+
+15
+00:01:55,760 --> 00:01:57,970
+Second, you know.
+
+16
+00:01:59,370 --> 00:02:10,200
+So to remedy that mix model essentially is going to have quite parsimonious specification of variances that can potentially change by time.
+
+17
+00:02:10,680 --> 00:02:14,190
+And we will see how how that will be formulated. And second,
+
+18
+00:02:14,670 --> 00:02:20,070
+it generally works for measurement occasions that are not common across people
+
+19
+00:02:20,280 --> 00:02:25,410
+and the spacings between the measurement timings do not need to be either.
+
+20
+00:02:27,250 --> 00:02:30,819
+Number two. The second goal is trying to, as I said,
+
+21
+00:02:30,820 --> 00:02:41,440
+work through a example that starts with a random effect or mix effect model formulation and derive a various comments,
+
+22
+00:02:41,440 --> 00:02:49,270
+pattern model that you have seen so far, which is based on random intercept and the comparison symmetry model.
+
+23
+00:02:50,630 --> 00:02:57,140
+And importantly, we will need to distinguish two sources variances.
+
+24
+00:02:57,170 --> 00:03:01,550
+One is that between subject variance, people are different.
+
+25
+00:03:01,580 --> 00:03:06,650
+So we need to model that difference between people and also within the person.
+
+26
+00:03:08,000 --> 00:03:12,110
+There are randomness in terms of measure, i.e. noises that can occur across time.
+
+27
+00:03:12,440 --> 00:03:16,760
+And those causes heterogeneity within a person.
+
+28
+00:03:17,060 --> 00:03:24,350
+So random mix effects model is very effective in distinguishing those two sources of variabilities.
+
+29
+00:03:25,460 --> 00:03:35,540
+So just to recap your goal, whenever you're reviewing these slides are trying to make sure that you can answer these questions.
+
+30
+00:03:35,540 --> 00:03:38,780
+How? What are the strengths and weaknesses of the covariance models?
+
+31
+00:03:39,320 --> 00:03:46,370
+And second, can can you derive a definite coherence pattern model from a mixed model formulation?
+
+32
+00:03:47,880 --> 00:03:55,710
+So let's get started. First, it is about the relative strength and weakness of coverage models.
+
+33
+00:03:56,460 --> 00:04:01,650
+So what do we have seen so far in terms of the coverage models?
+
+34
+00:04:01,980 --> 00:04:07,740
+They do not sort of have nuanced understandings of the source of variability.
+
+35
+00:04:07,740 --> 00:04:17,760
+Right. If you recall, when we were trying to do modeling, essentially, we just write out of the model in two parts where the expected value of y i.
+
+36
+00:04:18,790 --> 00:04:22,060
+A vector given covariates can be written as the.
+
+37
+00:04:24,930 --> 00:04:35,620
+The main part and. We then say that, hey, they have correlation that can be described by an overall or total variability.
+
+38
+00:04:43,250 --> 00:04:48,120
+Right. So this is what we have. We have separately talking about how to do modeling.
+
+39
+00:04:48,130 --> 00:04:51,880
+That's where we talk about like polynomial modeling, supply modeling.
+
+40
+00:04:52,300 --> 00:04:59,370
+And in the lectures that follows that, we talked about how to specify these sigma parameters.
+
+41
+00:04:59,370 --> 00:05:05,500
+So we talked about a few options like compound symmetry, autocorrelation or regressive.
+
+42
+00:05:05,530 --> 00:05:13,870
+Toeplitz And so on, so forth, right? So the first point of this slide is trying to make is that we just model the total.
+
+43
+00:05:15,780 --> 00:05:30,769
+Variance covariance. And in the mixed effects model, we will be able to decompose the sigma into between and within subject variability.
+
+44
+00:05:30,770 --> 00:05:34,010
+So that's something we'll do.
+
+45
+00:05:36,450 --> 00:05:42,970
+Number two. Most of these covariance models require.
+
+46
+00:05:44,540 --> 00:05:53,540
+Equally spaced measurement timings. For example, if you're considering the compound symmetry model, which assumes that for any pair of measurements,
+
+47
+00:05:53,540 --> 00:05:58,220
+regardless of how far, how far away they are, the the correlation will be the same.
+
+48
+00:05:59,100 --> 00:06:03,810
+And for the first and second save for the second, the third and the third and fourth and so on, so forth.
+
+49
+00:06:04,350 --> 00:06:07,260
+All of these measurements will have the same level of correlation.
+
+50
+00:06:07,290 --> 00:06:14,970
+ROE However, if you have distinct length of the intervals, that assumption may be less tenable.
+
+51
+00:06:16,140 --> 00:06:19,470
+So clearly you have learned one example.
+
+52
+00:06:20,400 --> 00:06:26,070
+It is called exponential correlation model that can explicitly take into account the measurement timings.
+
+53
+00:06:26,640 --> 00:06:32,130
+And if you recall, those correlations are generally parameterized by.
+
+54
+00:06:33,680 --> 00:06:36,860
+The actual gap in the measurement timings.
+
+55
+00:06:37,100 --> 00:06:46,820
+So this is one exception. But many of these models sort of require the equally spaced measurement data setup.
+
+56
+00:06:52,370 --> 00:07:03,980
+Number three. If you recall, we have been calling the compound symmetry model a homogeneous comparison model.
+
+57
+00:07:04,610 --> 00:07:10,909
+The reason why we did that is because we basically say, hey, the covariance can be specified,
+
+58
+00:07:10,910 --> 00:07:17,120
+as you know, say with three timings, you will have this kind of covered structure.
+
+59
+00:07:17,540 --> 00:07:23,240
+What if you don't believe this assumption that sigma squared is shared across all the three times?
+
+60
+00:07:23,870 --> 00:07:32,239
+Usually what you do is just to say, Hey, let's do sigma one squared, sigma two squared, sigma three squared.
+
+61
+00:07:32,240 --> 00:07:43,040
+Right? And you do say sigma one sigma two times rho sigma one sigma three times Rho Sigma, two sigma, three times Rho.
+
+62
+00:07:44,360 --> 00:07:49,939
+So this is how you would generalize the how does it relax the assumption that the
+
+63
+00:07:49,940 --> 00:07:55,099
+marginal variances are going to be constant across the occasions in this case,
+
+64
+00:07:55,100 --> 00:07:58,370
+three occasions. So this is kind of a you know.
+
+65
+00:08:00,150 --> 00:08:08,530
+Extremely flexible. Sometimes people don't want this sigma one sigma, two sigma squares to be completely flexible.
+
+66
+00:08:08,550 --> 00:08:16,920
+They want still some level of smoothing so that across time the variance may be increasing or maybe roughly constant or maybe a function of time.
+
+67
+00:08:17,640 --> 00:08:21,090
+So Kogan's kind of models does not easily do this,
+
+68
+00:08:21,090 --> 00:08:29,100
+and it will not be surprising that the mixed model will be able to do something like Sigma Square and depending on what
+
+69
+00:08:29,940 --> 00:08:39,509
+time we're talking about so that they can be put into these places to indicate that the variance is different across time,
+
+70
+00:08:39,510 --> 00:08:47,460
+but not in the extremely flexible way. It is only depending on the time, say, annually or quadratic.
+
+71
+00:08:51,890 --> 00:08:57,500
+Further many of the coverage models had the drawback that.
+
+72
+00:08:59,210 --> 00:09:06,320
+Depending on the gap between two measurements. If the gap between two measurements goes to zero, the correlation will be one.
+
+73
+00:09:08,090 --> 00:09:14,630
+If the gap between two measurements is going to infinite, infinite, that correlation is going to it a zero.
+
+74
+00:09:15,110 --> 00:09:18,890
+We have discussed this issue in the last lecture and we.
+
+75
+00:09:19,990 --> 00:09:28,820
+Claim that the solution is to build a hybrid covariance model so that a perfect correlation or zero coalition does not occur.
+
+76
+00:09:30,820 --> 00:09:42,910
+But that is a very ad hoc solution. So we would like to see a general solution where the correlation between two measurements will not go to 1 to 0.
+
+77
+00:09:43,480 --> 00:09:47,080
+And it turns out that, again, mixed model will be able to do this.
+
+78
+00:09:47,980 --> 00:09:59,080
+So to summarize all these two slides with four bullets where it is summarizing all the kind of drawbacks of covariance models and replication,
+
+79
+00:09:59,440 --> 00:10:04,690
+the first one is the inability to be nuanced about the source of variability.
+
+80
+00:10:04,720 --> 00:10:10,750
+It is modeling a single sigma rather than partitioning into between people and within subject.
+
+81
+00:10:11,200 --> 00:10:18,290
+The second drawback is that in general, in real data, the measurement timings are irregular.
+
+82
+00:10:18,340 --> 00:10:26,440
+However, the current models often require the measurement timings to be evenly spaced, with the exception of the exponential correlation model.
+
+83
+00:10:26,770 --> 00:10:35,590
+So we would like to ask other general general ways to deal with irregularly spaced measurement and still model the Covance structure in a good way.
+
+84
+00:10:36,430 --> 00:10:44,260
+The third drawback is that sometimes when we are trying to move away from the homogeneous variance assumption across our diagonals,
+
+85
+00:10:44,920 --> 00:10:52,120
+the relaxation will be extremely flexible. Sometimes people would want the variances to be a smooth function of time.
+
+86
+00:10:52,570 --> 00:10:55,570
+How do we do that? We cannot do that in the current kind of model.
+
+87
+00:10:55,900 --> 00:10:58,180
+So we will need to seek alternative.
+
+88
+00:10:58,510 --> 00:11:06,850
+The final drawback essentially is the empiric observation that regardless of how far away two measurements are or how close to measurements are,
+
+89
+00:11:06,880 --> 00:11:15,940
+the correlation will never approach zero one. We had hybrid current model as a temporary solution, ad hoc solution, but a more gentle one is needed.
+
+90
+00:11:16,750 --> 00:11:24,729
+So with those four complaints about convergence kind of models, people have been it is not recently,
+
+91
+00:11:24,730 --> 00:11:30,220
+I think it's starting from the 1970s or eighties that people started working on models.
+
+92
+00:11:30,550 --> 00:11:38,860
+That's called a mixed model. Just for the sake of introducing the model, we will be first talking about the notations.
+
+93
+00:11:40,390 --> 00:11:47,740
+So this leads us to part two, which is its formal introduction to Dynamics Effects model.
+
+94
+00:11:48,550 --> 00:11:59,090
+So in this, we just want to review ourselves that we have two components in general, right?
+
+95
+00:11:59,120 --> 00:12:05,560
+The main structure, how is the covered information related to the average outcome?
+
+96
+00:12:05,710 --> 00:12:11,410
+Through a beta. And that beta is common to everybody regardless of who this person is.
+
+97
+00:12:12,010 --> 00:12:20,110
+Right. And and we have repeatedly emphasized that you need to distinguish the parameter of interest and then the US parameter.
+
+98
+00:12:20,440 --> 00:12:24,969
+Then often in the study we care about the beta, right?
+
+99
+00:12:24,970 --> 00:12:32,410
+Because the speed can represent treatment effects or these beta can represent the strength of association between risk factor and the outcome.
+
+100
+00:12:33,910 --> 00:12:37,360
+The second component essentially is what I said earlier.
+
+101
+00:12:37,360 --> 00:12:43,419
+It is the variance covariance structure of whatever is in the residual, i.e. whatever.
+
+102
+00:12:43,420 --> 00:12:52,110
+We did not model in the main and we did not distinguish the different source of variability that may impact the coverage structure.
+
+103
+00:12:56,650 --> 00:13:04,840
+So. What is a a what is it what is an approach to deal with?
+
+104
+00:13:06,340 --> 00:13:08,500
+Two. How is it to partition a source of probability?
+
+105
+00:13:09,130 --> 00:13:18,490
+So what people have come up is that they want a subset of the regression parameters to vary randomly from one individual to another,
+
+106
+00:13:19,000 --> 00:13:22,870
+thereby accounting for sources natural heterogeneity in the population.
+
+107
+00:13:23,290 --> 00:13:26,470
+So this is a mouthful, I explain using the very single graph here.
+
+108
+00:13:27,550 --> 00:13:33,000
+If you draw a time axis. So time and the.
+
+109
+00:13:35,060 --> 00:13:39,030
+Y-axis represent the outcome. Measures.
+
+110
+00:13:39,040 --> 00:13:42,610
+Right. So suppose I'm going to draw like three people,
+
+111
+00:13:43,990 --> 00:13:52,720
+like crosses representing the actual values of a person's measurement at each of these six high points.
+
+112
+00:13:53,390 --> 00:13:56,590
+I'm going to do a same thing. But for the second person.
+
+113
+00:13:58,640 --> 00:14:05,720
+I can't. You do some random just deviations and I can draw a third person here.
+
+114
+00:14:06,060 --> 00:14:15,780
+Right. So this pattern is very, you know, sort of it is intuitive.
+
+115
+00:14:15,780 --> 00:14:25,710
+Something is happening here. And I think to put it put this in English, it just means that there seems to be some shifts in the intercept.
+
+116
+00:14:26,010 --> 00:14:33,720
+Right. Different people have started at different levels and then progress to have this outcome increased linearly over time.
+
+117
+00:14:34,140 --> 00:14:40,170
+Right. So what is a rough idea of the parameter that's that's shared across people?
+
+118
+00:14:47,640 --> 00:14:51,570
+I would say it is the slope of these.
+
+119
+00:14:54,770 --> 00:15:01,520
+Of these lines. So it is these data that's shared across people, at least visually.
+
+120
+00:15:01,940 --> 00:15:06,080
+But what is varying across people? Intercepts.
+
+121
+00:15:06,330 --> 00:15:11,459
+Right. So. The Intercept for the first subject.
+
+122
+00:15:11,460 --> 00:15:15,030
+The Intercept for the second subject, the intercept for the third subject.
+
+123
+00:15:15,930 --> 00:15:19,950
+So Peter is sure to cross people, but the intercepts are not.
+
+124
+00:15:21,060 --> 00:15:31,870
+So what if? We led the b1b to B three to be some random quantity following, say, a Gaussian distribution.
+
+125
+00:15:32,650 --> 00:15:36,730
+Then we will need to write down a model like this.
+
+126
+00:15:37,790 --> 00:15:43,010
+Expected value of y i j given exi j.
+
+127
+00:15:44,300 --> 00:15:47,900
+And by. It's going to be exi.
+
+128
+00:15:49,230 --> 00:15:52,340
+J t beta. Plus I here.
+
+129
+00:15:55,820 --> 00:16:06,850
+And we will assume that. Expected value of buy given by J and J is going to be zero.
+
+130
+00:16:07,850 --> 00:16:12,150
+And. Yeah.
+
+131
+00:16:16,240 --> 00:16:20,710
+So this is a direction we'll be going. So this term by.
+
+132
+00:16:22,940 --> 00:16:25,970
+Is the kind of intercept that we have.
+
+133
+00:16:26,330 --> 00:16:28,400
+Visualize here. It's random across people.
+
+134
+00:16:29,030 --> 00:16:36,410
+So in general, we will assume that by follows a normal distribution with zero and I don't know sigma B squared say.
+
+135
+00:16:38,030 --> 00:16:43,400
+Right. We will elaborate on this a.
+
+136
+00:16:45,350 --> 00:16:54,120
+So. What we had done visually, essentially, is that we assume everybody by themselves.
+
+137
+00:16:55,460 --> 00:17:03,100
+We'll have his or her own. Main trajectory, one person will have his own trajectory.
+
+138
+00:17:03,430 --> 00:17:09,250
+The trajectory differs in a particular way defined by the model and in the visualization here,
+
+139
+00:17:09,670 --> 00:17:13,540
+the trajectory is only different in terms of the intercepts.
+
+140
+00:17:15,180 --> 00:17:19,450
+So. What are the name?
+
+141
+00:17:19,490 --> 00:17:25,430
+What are terminologies? So in general, beta will represent the fixed effects.
+
+142
+00:17:25,430 --> 00:17:28,790
+It is shared across the population. Bye.
+
+143
+00:17:29,400 --> 00:17:35,760
+These are the random effects. These are going to be subject specific, for example, in the previous visualization.
+
+144
+00:17:36,120 --> 00:17:39,450
+It determines what level you're going to draw those lines.
+
+145
+00:17:40,580 --> 00:17:46,160
+Finally, when you take both together, you call this model mixed effects model.
+
+146
+00:17:46,670 --> 00:17:50,720
+That is to say, all the models you have learned in 650 and 651 are.
+
+147
+00:17:51,970 --> 00:17:52,990
+Fix it. That's models.
+
+148
+00:17:53,450 --> 00:18:01,660
+And so I believe I'm not saying you couldn't have, but I believe this is, first of all, my introduction in the series to talk about mixed models.
+
+149
+00:18:07,260 --> 00:18:28,280
+Any questions so far? So what are the utilities of these kinds of mixed effects models?
+
+150
+00:18:28,310 --> 00:18:32,270
+Again, this still might be a new name to you. What are utilities?
+
+151
+00:18:34,010 --> 00:18:42,020
+There are these are a few high level benefits of using the new mix of mix models.
+
+152
+00:18:43,990 --> 00:18:48,580
+First. You can always integrate over the random effects to obtain.
+
+153
+00:18:49,610 --> 00:18:53,180
+Just a model with respect to Peter, for example.
+
+154
+00:18:53,600 --> 00:18:57,410
+When you look at this particular conditional expectation, you don't see buy there.
+
+155
+00:18:57,530 --> 00:19:04,420
+Right. That has been integrated over. And that leads you to a model that depends on just data.
+
+156
+00:19:04,440 --> 00:19:10,100
+It turns out that it is the same as what we have seen before.
+
+157
+00:19:11,810 --> 00:19:19,460
+Number two, Nina makes models. It is very explicit in modeling different sources for our ability.
+
+158
+00:19:19,760 --> 00:19:24,680
+So as you will see later on, the actual model will be just like something like this, right?
+
+159
+00:19:25,010 --> 00:19:29,300
+Zero. I plus b one.
+
+160
+00:19:29,780 --> 00:19:45,750
+Sorry, Peter. All right, let me. Plus beta zero plus beta 1tj plus option i j right.
+
+161
+00:19:46,260 --> 00:19:52,380
+So this is what we saw in terms of the straight lines for everybody.
+
+162
+00:19:52,680 --> 00:19:56,780
+And these are the random effects. These are the fixed effects.
+
+163
+00:19:57,830 --> 00:20:01,580
+And these are the errors, right? These are errors.
+
+164
+00:20:02,390 --> 00:20:05,840
+And as you can see, this has variation.
+
+165
+00:20:07,880 --> 00:20:14,820
+Variation across people. Across people because it's indexed by eye.
+
+166
+00:20:15,240 --> 00:20:20,880
+Right. So if you think about it, any measurements from this person?
+
+167
+00:20:21,830 --> 00:20:27,230
+By, we'll be contributing to that measurement. So by B0, I is shared across all the time points.
+
+168
+00:20:27,740 --> 00:20:35,780
+If B0 is like very negative, then every value produced by this person in terms of the outcome is going to be small.
+
+169
+00:20:36,320 --> 00:20:43,820
+If B0 is large, then every measurements of the outcome will be very large across all vocations.
+
+170
+00:20:44,540 --> 00:20:52,220
+The second point, I believe this is very familiar to you. This is just how time X is explaining the change in the outcome.
+
+171
+00:20:52,700 --> 00:21:01,130
+And finally, these are the errors and it is these errors that's going to be called within person.
+
+172
+00:21:02,780 --> 00:21:08,610
+Within subject variation. Why do we call it?
+
+173
+00:21:08,640 --> 00:21:18,110
+Call it that way? Well, look, April, i j are the deviations between the outcome and what's your model?
+
+174
+00:21:18,390 --> 00:21:23,090
+Right. And those deviations can be, you know, varying over time.
+
+175
+00:21:23,100 --> 00:21:27,180
+For what reasons? Well, they can be due to measurement errors.
+
+176
+00:21:27,330 --> 00:21:31,890
+You cannot actually measure what is going on very precisely.
+
+177
+00:21:31,900 --> 00:21:35,940
+So, you know, if you measure this many times, you will see some variation.
+
+178
+00:21:36,420 --> 00:21:47,340
+And second, it could be because of certain biological process that will cause the fluctuation of the measured quantity, like the hormone levels.
+
+179
+00:21:47,340 --> 00:21:52,920
+If you measure that very frequently, then deviations likely will be correlated in some way.
+
+180
+00:21:58,070 --> 00:22:02,270
+And number three dynamics model,
+
+181
+00:22:02,270 --> 00:22:12,080
+we'll be able to use a relatively small number of parameters to describe a variance structure that's dependent about time.
+
+182
+00:22:12,350 --> 00:22:16,850
+And also, it can work with irregular or irregular timings of these measurements.
+
+183
+00:22:17,870 --> 00:22:24,560
+And number four, a very important benefit is about prediction.
+
+184
+00:22:24,920 --> 00:22:29,150
+So how would we do this? Well, this needs some getting used to.
+
+185
+00:22:29,240 --> 00:22:35,470
+So in your 650 or 651, all you did was just excite Peter, right?
+
+186
+00:22:35,480 --> 00:22:39,440
+You call this the predicted value of the outcome. All right.
+
+187
+00:22:40,100 --> 00:22:45,530
+However, now, if you use this one, you will need to use, say, b zero.
+
+188
+00:22:45,530 --> 00:22:53,450
+I had it is a prediction of the intercept in this case, plus the prediction of.
+
+189
+00:22:54,720 --> 00:22:56,850
+The fixed effects component, right?
+
+190
+00:22:57,330 --> 00:23:08,540
+So now you will have two component, two components as part of a production for a subject I so b0 I will be the random intercept prediction.
+
+191
+00:23:09,440 --> 00:23:17,629
+The second part will be the production of the overall oh the population main trend up and it is
+
+192
+00:23:17,630 --> 00:23:25,190
+because the prediction for subject eyes because your eye is going to be different across people.
+
+193
+00:23:25,400 --> 00:23:29,330
+So everybody will have a different line.
+
+194
+00:23:29,780 --> 00:23:38,570
+If you go back to the previous slide, you can see that these curves, although they can be produced by the same beater, have fits.
+
+195
+00:23:39,170 --> 00:23:45,920
+But depending on how you would predict one person's B B, you will have a different predicted trajectory.
+
+196
+00:23:45,920 --> 00:24:00,959
+So that's why I was trying to say here. So these are the high level reasons why I need to mix.
+
+197
+00:24:00,960 --> 00:24:08,170
+Models can be very useful and to fully grasp grasp of the meaning of these high level summaries.
+
+198
+00:24:08,220 --> 00:24:13,920
+It is useful for us to dig a little bit deeper into a special case.
+
+199
+00:24:14,400 --> 00:24:19,740
+We have looked at this special case in that visualization of three people.
+
+200
+00:24:20,460 --> 00:24:27,540
+So this one, especially the second bullet, we have written down every part of this special module.
+
+201
+00:24:28,350 --> 00:24:35,610
+First, it is called a random intercept model. As we have seen that the intercept, random intercept means that.
+
+202
+00:24:37,970 --> 00:24:44,300
+People deviate from the population just through the overall level, and that's denoted by the random intercept.
+
+203
+00:24:45,740 --> 00:24:50,270
+So here y j is a response.
+
+204
+00:24:51,690 --> 00:24:53,640
+For subject, I add the occasion.
+
+205
+00:24:54,540 --> 00:25:04,229
+Here it is the exigé that represents the colvera information you collected at the JTH occasion for such a I and Vader fits your facts.
+
+206
+00:25:04,230 --> 00:25:11,460
+These are the population level overall effects of how these covariates are related to the average outcome.
+
+207
+00:25:11,930 --> 00:25:21,270
+Okay, now in the spirit of mixed effects model, we need to introduce some between subject variability or random effects.
+
+208
+00:25:21,690 --> 00:25:26,610
+And this is what you can do. Just intercept.
+
+209
+00:25:26,700 --> 00:25:31,110
+You may be asking, Hey, can we add a random slope?
+
+210
+00:25:31,620 --> 00:25:39,839
+Yes, you can. But that will be more complicated. And we will use this simple example to just familiarize yourself with the idea of this kind of model.
+
+211
+00:25:39,840 --> 00:25:46,650
+And later on, we can make it fancier to say add random slopes, but we're not doing that now.
+
+212
+00:25:47,310 --> 00:25:53,340
+Finally, these are the measurement errors, and measuring errors can be independent over time or can be correlated over time.
+
+213
+00:25:54,540 --> 00:25:58,890
+And really the assumption will depend on the particular substantive context.
+
+214
+00:25:59,190 --> 00:26:03,130
+And you do have tools to, to use to choose these covariance structures.
+
+215
+00:26:03,180 --> 00:26:06,990
+What. Number two, we will need to.
+
+216
+00:26:07,560 --> 00:26:13,500
+Number three, we will need to place some assumptions upon these random quantities.
+
+217
+00:26:13,890 --> 00:26:18,330
+What are the random quantities? It is the second and the third quantity here.
+
+218
+00:26:19,280 --> 00:26:28,610
+So needless to say, we will need to use a different variability parameter or variance parameter for the random intercept.
+
+219
+00:26:29,540 --> 00:26:37,790
+So Sigma Squared is characterizing how people are differing from each other in terms of intercept.
+
+220
+00:26:38,240 --> 00:26:41,360
+So my question for you guys is that what if Sigma B equals zero?
+
+221
+00:26:46,300 --> 00:26:51,550
+So if sigma b equals zero, it means that there is no variability in ABI.
+
+222
+00:26:51,630 --> 00:26:58,810
+Right. So this goes back to set. This basically means that nobody knows no variation in the intercepts.
+
+223
+00:26:59,970 --> 00:27:08,880
+If you further assume that, if you further assume that the expected value of b ie is zero, these two assumptions will.
+
+224
+00:27:10,320 --> 00:27:17,910
+Indicate that all the. All the subjects will have zero intercept there.
+
+225
+00:27:18,630 --> 00:27:24,510
+So basically, you have decided not to do a random effects model.
+
+226
+00:27:24,810 --> 00:27:37,260
+Okay. And. Just as an aside, this afternoon is going to be a null hypothesis where you test whether sigma be squared zero or not.
+
+227
+00:27:37,710 --> 00:27:41,400
+And because sigma B squared is always going to be zero or positive, right?
+
+228
+00:27:41,430 --> 00:27:50,820
+Again, this is the situation where the null hypothesis is on the boundary of the parameter space and the same today, so albeit a bit complicated.
+
+229
+00:27:52,170 --> 00:27:56,600
+The second part is the variance for the measurement error.
+
+230
+00:27:56,610 --> 00:28:08,330
+So this is as usual as just like as you have seen 650 and they have a different variance and we do not put a index there, just Sigma Square.
+
+231
+00:28:09,230 --> 00:28:14,330
+And we assume the error will have zero mean, which is a reasonable assumption.
+
+232
+00:28:18,790 --> 00:28:24,940
+So in terms of the partitioning of the variability in general, we will call this.
+
+233
+00:28:28,300 --> 00:28:35,320
+Between subject. Variability.
+
+234
+00:28:37,060 --> 00:28:42,930
+The reason is purely because this number by is indexed by AI right.
+
+235
+00:28:42,940 --> 00:28:47,319
+So different people will have different value has it is indicating there are certain
+
+236
+00:28:47,320 --> 00:28:55,150
+level variation of this thing and for this one it is often called within subject.
+
+237
+00:28:58,010 --> 00:29:08,260
+Viability. That is the reason why we do this is because you look at the double indices here, it has an I has an J, right.
+
+238
+00:29:08,260 --> 00:29:15,550
+So the emphasis is going to be saying that, hey, if you look across time, Jay goes from one to 2 to 3 and so on, so forth.
+
+239
+00:29:15,940 --> 00:29:20,620
+These external issues will be different. So that causes some variation in the outcome.
+
+240
+00:29:21,040 --> 00:29:29,440
+So it is these two components of reliability that the mixed model is trying to decompose, and that's the beautiful part of the mix model.
+
+241
+00:29:40,840 --> 00:29:47,200
+After we have formulated this model, it's natural to ask a few questions, you know, what are the implications of this model?
+
+242
+00:29:47,680 --> 00:29:51,910
+So there's there are a few things we can do. The first one is that what is the mean?
+
+243
+00:29:51,940 --> 00:29:58,149
+Well, because the expected value of the errors if images are going to be zero.
+
+244
+00:29:58,150 --> 00:30:07,720
+So you just recover the main structure, which is the exaggerated prime time speeder, which is the fixed assets plus the random, if that's.
+
+245
+00:30:08,710 --> 00:30:17,260
+Now that's often called conditional, meaning the emphasis is not on it's not conditional j,
+
+246
+00:30:17,380 --> 00:30:22,510
+but rather it's conditional upon the by that, say, the random intercept.
+
+247
+00:30:23,560 --> 00:30:36,040
+In the second bullet we're talking about further integrating over the by here so that API does not appear in the resulting expectation.
+
+248
+00:30:36,430 --> 00:30:40,390
+So in there you get Exigé Prime Beta.
+
+249
+00:30:40,660 --> 00:30:46,090
+The reason why that's the case is because if you have learned iterated expectation,
+
+250
+00:30:46,840 --> 00:30:50,740
+I hope you have learned because it's required in one of the classes you've taken.
+
+251
+00:30:52,210 --> 00:30:56,440
+And it's going to be. That's right.
+
+252
+00:31:06,130 --> 00:31:11,790
+So because the anger. Quantity essentially is exigé.
+
+253
+00:31:12,700 --> 00:31:17,250
+Transpose past times beta. And you just know that.
+
+254
+00:31:23,280 --> 00:31:30,740
+Which is exaggerated. I. So this is the how we derive the second bullet.
+
+255
+00:31:34,600 --> 00:31:46,810
+Again, an emphasis on the terminology here conditional often is specifically referring to the conditioning upon by in the context of dynamics model.
+
+256
+00:31:47,440 --> 00:31:59,500
+And here the word marginal often means that we have integrated or marginalized over by to particularly focus on excite excite.
+
+257
+00:32:00,550 --> 00:32:06,880
+And I have to say that these words like conditional, marginal, these are really abuse words.
+
+258
+00:32:07,210 --> 00:32:14,760
+So sometimes you just have to be. You have to ask yourself, what does that mean in this particular context?
+
+259
+00:32:15,240 --> 00:32:22,920
+Personally, I felt very confused when I was first learning these words, especially for a non-native speaker.
+
+260
+00:32:23,370 --> 00:32:33,810
+And I think my suggestion for you is that in the mixed effects model context, I follow this kind of convention.
+
+261
+00:32:58,280 --> 00:33:04,760
+So some further comments on the notations. This is the model we have been considering so far.
+
+262
+00:33:05,480 --> 00:33:09,120
+It is trying to model the outcome as three parts the fixed fixed,
+
+263
+00:33:09,120 --> 00:33:14,540
+the model component fixed in that model component, the random effects and the measurement errors.
+
+264
+00:33:15,080 --> 00:33:23,150
+And if you note, if you have taken notice that now the measurement errors are denoted by the Epsilon AJ as a group letter,
+
+265
+00:33:23,990 --> 00:33:31,220
+it is different from that we have used before because the English letter E is just represented error.
+
+266
+00:33:31,670 --> 00:33:35,300
+It can be error owing to a very bad model fit.
+
+267
+00:33:36,800 --> 00:33:49,110
+So essentially this is the E part. So if you use this kind of correspondence between.
+
+268
+00:33:50,170 --> 00:33:58,870
+These are some, by and large to you. Basically, you can see that we are doing what we have been doing, the general model.
+
+269
+00:33:59,170 --> 00:34:08,680
+It is just now that we have decided to model this residual error component into a random intercept and a measured error.
+
+270
+00:34:19,130 --> 00:34:24,530
+Because we can talk about the variation of each. So often this whole thing is called total variance.
+
+271
+00:34:25,130 --> 00:34:28,460
+The variability will be corresponding to the total variability.
+
+272
+00:34:32,260 --> 00:34:39,370
+And that the variance corresponding to the by part it will be called between subject variability and
+
+273
+00:34:39,790 --> 00:34:46,030
+the variation corresponding to April i j part is going to be called within subject variability.
+
+274
+00:34:58,090 --> 00:35:19,510
+Any questions so far? Okay.
+
+275
+00:35:20,470 --> 00:35:28,020
+So. We then will need to move on to talk about parameter interpretation and that is quite important.
+
+276
+00:35:28,020 --> 00:35:35,940
+At least in statistics. You have to be able to interpret what are these meanings of these unknowns.
+
+277
+00:35:36,360 --> 00:35:44,670
+If you can ask them, you want to connect them to the substantive science, but in general better describes a pattern of change in response to the time.
+
+278
+00:35:45,240 --> 00:35:49,240
+And it is primarily characterizing the effects of covariance, right?
+
+279
+00:35:49,560 --> 00:35:55,020
+And because data is shared across all the people. So it is representing a population in fact.
+
+280
+00:35:56,030 --> 00:36:04,310
+On the other hand, the by the random effects or in this case of the random intercept, it is indexed by subjects, right?
+
+281
+00:36:05,480 --> 00:36:09,170
+So if you go back to the previous slide, look at the first two terms.
+
+282
+00:36:09,530 --> 00:36:13,900
+It is by plus something, right? So it is or the other way.
+
+283
+00:36:13,910 --> 00:36:18,850
+You know the excited prime data plus by. You see.
+
+284
+00:36:19,090 --> 00:36:24,960
+So by is really characterizing some deviation from the term here I.
+
+285
+00:36:26,240 --> 00:36:31,100
+So if by zero, then basically we're saying, hey, for this guy or girl.
+
+286
+00:36:32,070 --> 00:36:36,719
+The structure can be modeled just by the population exchange transpose.
+
+287
+00:36:36,720 --> 00:36:41,120
+HANS-PETER But what if a person has it by like 100, right?
+
+288
+00:36:41,340 --> 00:36:48,480
+So this indicates that for this particular guy, you know, the main response is going to be the population.
+
+289
+00:36:49,860 --> 00:36:56,340
+A pattern which is denoted by capital either plus 100, so indicates that it's deviating up.
+
+290
+00:36:57,330 --> 00:37:01,890
+If you have a negative number, the interpretation is going to be similar but in the other direction.
+
+291
+00:37:02,790 --> 00:37:15,140
+So it is fair to say that by. Is characterizing deviations in terms of the main trajectory patterns from the population average.
+
+292
+00:37:15,530 --> 00:37:22,399
+And this is very important because you now know that you always want to you
+
+293
+00:37:22,400 --> 00:37:27,440
+always want to interpret the random effects as deviation from a population mean.
+
+294
+00:37:27,800 --> 00:37:33,260
+And it really depends on how you model the population, meaning the BI will have different meanings.
+
+295
+00:37:35,840 --> 00:37:41,660
+In this case because we are only entertaining with a random intercept.
+
+296
+00:37:41,990 --> 00:37:48,139
+So all the deviation you can characterize is just how vertically at one person's trajectory
+
+297
+00:37:48,140 --> 00:37:53,420
+is going to be shifted from the population mean just in that to just that kind of deviation.
+
+298
+00:37:53,810 --> 00:37:58,520
+If you are willing to put in more random effects in there, say a random slope,
+
+299
+00:37:58,790 --> 00:38:03,919
+you will not only be able to characterize the vertical shifts from the population mean,
+
+300
+00:38:03,920 --> 00:38:09,920
+but you also be able to characterize, Hey, maybe it's going faster than population or going slower than the population.
+
+301
+00:38:10,220 --> 00:38:25,520
+We will have those examples later on. So this slide basically using some precise annotations to summarize what we have discussed.
+
+302
+00:38:25,790 --> 00:38:34,400
+It doesn't hurt that we're we go through this again. So this model is trying to represent the response in terms of three parts.
+
+303
+00:38:34,760 --> 00:38:39,080
+And often, you know, you have p covariates.
+
+304
+00:38:39,380 --> 00:38:44,840
+You can set the first one to be intercept. I don't care. You have a random intercept here, right?
+
+305
+00:38:45,410 --> 00:38:53,989
+How do you do the kind of interpretation in general you can just come by, um, this term and this term.
+
+306
+00:38:53,990 --> 00:39:02,980
+Suppose the first term is intercept. Right.
+
+307
+00:39:02,990 --> 00:39:07,430
+So basically, you. You will see that everything else will be the same.
+
+308
+00:39:08,030 --> 00:39:11,870
+Uh. But it is just that the intercept is different.
+
+309
+00:39:11,870 --> 00:39:17,600
+So that's why we call that random in the same model and by is characterizing the deviation in terms of intercept.
+
+310
+00:39:32,450 --> 00:39:39,440
+Again, let's use some visualization here and your task is trying to identify for two people.
+
+311
+00:39:40,490 --> 00:39:52,719
+A and B and for publishing me. What is that, b, b, a, b, b and a one or a two.
+
+312
+00:39:52,720 --> 00:39:58,640
+The da da a. One, two, three, four, five, six, seven, eight, nine, ten, 11.
+
+313
+00:39:59,990 --> 00:40:05,330
+You got to understand, you know how to.
+
+314
+00:40:06,980 --> 00:40:13,330
+Where to find where to find these quantities. I'm going to work with you on subject.
+
+315
+00:40:13,540 --> 00:40:18,490
+I will give you like one minute to digest or at least try for a subject which should be straightforward.
+
+316
+00:40:18,520 --> 00:40:25,390
+So let's get started. First, I want to say that this is the fixed effects.
+
+317
+00:40:29,720 --> 00:40:40,520
+It is for the population. So it does not care whether you are A or B, this is characterizing that in the entire population.
+
+318
+00:40:40,790 --> 00:40:49,640
+What's the trend in terms of men response? So in this case, it is reaching as bad as zero plus beta one times.
+
+319
+00:40:49,680 --> 00:41:03,999
+T Right. Clearly you would ask, how did we write that before we write that as Excite transpose beta, where Excite essentially is just the one.
+
+320
+00:41:04,000 --> 00:41:07,910
+And you write. Hopefully this is clear to you.
+
+321
+00:41:16,020 --> 00:41:20,190
+Now for subsidy, we need to figure out what's the random intercept.
+
+322
+00:41:21,450 --> 00:41:24,480
+Well, we're going to say that this part.
+
+323
+00:41:26,010 --> 00:41:32,820
+Is the VA because it is the deviation from the population trajectory.
+
+324
+00:41:33,330 --> 00:41:37,110
+It is representing a vertical shift. How about the error terms?
+
+325
+00:41:37,440 --> 00:41:45,630
+What you do essentially is try and you can just trying to move the population up to here that creates this,
+
+326
+00:41:46,500 --> 00:41:57,240
+you know, vague line here I am just outlining here and you can just compare the observed value and the line.
+
+327
+00:41:57,300 --> 00:42:01,200
+So these little segments represent errors, right?
+
+328
+00:42:02,180 --> 00:42:06,050
+For example, if this a 10th one, then this is a ten.
+
+329
+00:42:06,710 --> 00:42:10,340
+If this a third one, then this is the optional. A three.
+
+330
+00:42:10,520 --> 00:42:14,550
+I mean, the length. Okay. And so on and so forth.
+
+331
+00:42:15,180 --> 00:42:21,220
+So this is clearly a kind of conceptual visualization before you fit the model.
+
+332
+00:42:21,240 --> 00:42:25,710
+You would not know where these population trajectories will be.
+
+333
+00:42:26,190 --> 00:42:32,640
+But suppose you know the population trajectory.
+
+334
+00:42:32,790 --> 00:42:35,880
+And suppose you know the VA, and this is how you get the error term.
+
+335
+00:42:36,210 --> 00:42:41,820
+So I will give you like one minute to digest a little bit about this structure here.
+
+336
+00:42:42,180 --> 00:42:48,180
+And I would ask you to do the same exercise for subject B should be pretty straightforward, but I think it's worthwhile.
+
+337
+00:42:49,020 --> 00:42:52,200
+And we'll get you familiar with the concepts.
+
+338
+00:43:44,460 --> 00:43:56,740
+So in very brief. Very briefly, I'm just going to say that this part is the B, B, and these are the errors that you're going to.
+
+339
+00:43:58,830 --> 00:44:09,760
+Going to do here. So let me remind you guys that when you are being given a data, all the data are going to be visualized in terms of these circles.
+
+340
+00:44:10,140 --> 00:44:14,100
+Clearly, you will also have the information which circles belong to one person.
+
+341
+00:44:14,200 --> 00:44:19,270
+Right. So you know that these dots in the top will come from subject I.
+
+342
+00:44:19,680 --> 00:44:21,950
+The dots from the bottom will come from subject.
+
+343
+00:44:22,710 --> 00:44:33,270
+Now, your goal is trying to hey, you know, you fit the line with proper intercept and proper slope and also produce these ba,
+
+344
+00:44:34,380 --> 00:44:39,330
+ba and BS so that their shifts will fit there for the data well.
+
+345
+00:44:39,360 --> 00:44:48,000
+Right. So all the estimation algorithm is trying to do is to figure out how do we adjust these intercept slopes for the population,
+
+346
+00:44:48,180 --> 00:44:52,530
+which is a lie in the middle and also the B, A and B, B there.
+
+347
+00:44:53,010 --> 00:44:57,950
+How what are these values? So a data model fit is great, right?
+
+348
+00:44:58,770 --> 00:45:02,070
+So that's all the estimation algorithm is trying to do.
+
+349
+00:45:07,020 --> 00:45:15,270
+I propose we take a break because the next few slides will be about derivation, about variance, and we'll come back at three.
+
+350
+00:45:16,350 --> 00:45:38,200
+55. By the way, did you guys just.
+
+351
+00:51:02,640 --> 00:51:06,030
+Okay. If you can hear me, guys in the back. All right.
+
+352
+00:51:06,510 --> 00:51:09,840
+Okay. Let's get started with the rest of this particular panel.
+
+353
+00:51:10,200 --> 00:51:18,990
+Um, so, so far, we have been talking about the structure of a very simple, mixed model.
+
+354
+00:51:19,020 --> 00:51:22,320
+It is called the random intercept model.
+
+355
+00:51:22,500 --> 00:51:24,299
+And hopefully through this visualization,
+
+356
+00:51:24,300 --> 00:51:36,060
+you can see that there are some situations that the random intercept model might provide a good fit to the data through the use of a population mean,
+
+357
+00:51:36,300 --> 00:51:43,980
+which is the trajectory in the middle and also the individual deviation from that population mean, which we have called random intercepts.
+
+358
+00:51:44,790 --> 00:51:50,920
+So a few mathematical tests are do. The first one is what are the marginal variances?
+
+359
+00:51:50,970 --> 00:51:55,500
+So recall the word marginal here is to say that what is the variance called structure?
+
+360
+00:51:55,710 --> 00:52:00,300
+If we have integrated out, these are so let's work on this together.
+
+361
+00:52:00,660 --> 00:52:03,660
+Essentially, we know that this holds.
+
+362
+00:52:04,020 --> 00:52:09,030
+I do not need to do this again. We did this before. If you look at the conditioning event here,
+
+363
+00:52:09,360 --> 00:52:18,060
+the expectation conditions upon the exercise j you do not see any big by there is because that has been integrated over.
+
+364
+00:52:18,960 --> 00:52:22,290
+And you can see that just give us the population trajectory.
+
+365
+00:52:22,620 --> 00:52:25,499
+And number two, we will need to work on this variance.
+
+366
+00:52:25,500 --> 00:52:33,000
+And this is probably the first time you can see that the total variance can be decomposed into two
+
+367
+00:52:33,000 --> 00:52:38,520
+parts and it is not surprising that will be some of the two parts of the variance we have assumed.
+
+368
+00:52:38,580 --> 00:52:45,570
+One variance is sigma B squared, the other is sigma squared. But mathematically we need to be honest and see how this is derived.
+
+369
+00:52:46,260 --> 00:52:50,460
+So this is the quantity we care about. Again, this is called marginal variance.
+
+370
+00:52:50,970 --> 00:52:54,360
+Let me just hammer this on for you guys here.
+
+371
+00:52:54,360 --> 00:52:58,710
+We don't CPI here, so that's why we call it marginal. It is integrated over by.
+
+372
+00:52:58,920 --> 00:53:06,390
+So then the mathematical task is trying to write out a thing here that does depend on bi and then.
+
+373
+00:53:07,370 --> 00:53:11,910
+Integrating over. It is that simple.
+
+374
+00:53:12,150 --> 00:53:18,270
+So essentially you just put this in and because this is fixed, considered fixed in the frequentist framework.
+
+375
+00:53:18,690 --> 00:53:23,640
+So this has no variability whatsoever. So that does not appear in the next line.
+
+376
+00:53:24,090 --> 00:53:29,340
+And we just ignore the idea here for the sake of simplicity.
+
+377
+00:53:29,910 --> 00:53:39,390
+But everything that's done conditional. And if you're talking about these two variances, essentially you will just decompose them into two.
+
+378
+00:53:39,570 --> 00:53:45,330
+And here we need to use the assumption that by is independent of an issue.
+
+379
+00:53:45,960 --> 00:53:50,310
+I probably did not put it somewhere before, but I should have.
+
+380
+00:53:50,340 --> 00:53:56,380
+Let me see. Just give me a moment.
+
+381
+00:53:57,350 --> 00:54:03,290
+Uh oh. Actually, I do set it here that, by and large, I'm actually independent.
+
+382
+00:54:03,320 --> 00:54:05,810
+I did not emphasize this when I was covering this.
+
+383
+00:54:06,340 --> 00:54:14,180
+Essential it is to say that the measurement error will not be informative of whether a person is high responder or low responder.
+
+384
+00:54:14,720 --> 00:54:17,690
+Hence the independence between the BI and the IS.
+
+385
+00:54:18,920 --> 00:54:29,030
+So going back to this particular slide, as you can see, because by and large independent, the variance variance can simply be decomposing to a summer.
+
+386
+00:54:30,830 --> 00:54:36,470
+This is just a fact. I did not I would assume that you have run this in your first inference class.
+
+387
+00:54:36,680 --> 00:54:39,760
+So if you're not familiar, it is just a.
+
+388
+00:54:40,960 --> 00:54:53,290
+In general, it's b i plus the variance of each and i j plus the covariance of b i and i j because VII and actually independent,
+
+389
+00:54:53,560 --> 00:54:56,620
+this covariance is always zero. So that's a mathematical fact.
+
+390
+00:54:59,150 --> 00:55:05,630
+Okay. And because we have assumed the variance of sigma squared and the variance of error is a sigma squared.
+
+391
+00:55:05,900 --> 00:55:08,990
+Excuse me. It it just decomposed everything to sum.
+
+392
+00:55:09,680 --> 00:55:13,510
+So what name do we give it?
+
+393
+00:55:14,690 --> 00:55:20,060
+Is it between subject variability or within subject variability or the total variability?
+
+394
+00:55:22,120 --> 00:55:30,510
+It is a total variability, right? Because you just average over everything and in the calculation, you know.
+
+395
+00:55:33,260 --> 00:55:40,220
+You have two parts. By characterizing between subject Howson 80 and if some i j characterizing within subject heterogeneity.
+
+396
+00:55:41,210 --> 00:55:43,910
+Now this is variance. Let's look at the covariance.
+
+397
+00:55:44,300 --> 00:55:52,820
+So by kogan's I meant, you know, if you pick the JTH measurement and the case measurement from subject I what is a covariance given the information.
+
+398
+00:55:53,150 --> 00:55:59,020
+So. So I think that here you just plug in everything and.
+
+399
+00:56:01,320 --> 00:56:08,040
+It just so happens that it's sigma b squared. I don't want to go through this calculation because it's too tedious.
+
+400
+00:56:08,310 --> 00:56:15,600
+But I think the idea here is that you will get this particular various covariance matrix.
+
+401
+00:56:18,510 --> 00:56:26,430
+I'll let you stare at it. Hopefully you convinced that this is a result that's being constructed based on the previous two calculations.
+
+402
+00:56:30,790 --> 00:56:35,610
+So these are the. Marginal variance of y one.
+
+403
+00:56:35,880 --> 00:56:41,450
+Given xy1. And we knew that this one is.
+
+404
+00:56:42,810 --> 00:56:54,450
+A son. And for all these terms on the off diagonals, these are the covariance between y i j and y ik and these are going to be sigma b squared.
+
+405
+00:57:00,710 --> 00:57:07,130
+Now, how do you calculate correlation? Well, you just normalize the covariance, which is going to be this one, right?
+
+406
+00:57:07,130 --> 00:57:12,890
+Because the covariance is sigma B squared and then you normalize them by the variances.
+
+407
+00:57:13,370 --> 00:57:24,110
+So essentially it's the covariance of y j like divided by the square root of variance of y j and square root of variance.
+
+408
+00:57:24,830 --> 00:57:34,220
+Why i k here. You know, the numerator is sigma B squared, the denominator squared pretty much, you know,
+
+409
+00:57:34,940 --> 00:57:43,760
+this term is sigma B squared plus sigma squared and this term is also sigma squared, B sigma squared.
+
+410
+00:57:43,790 --> 00:57:48,819
+Right. So, you know. Even multiply two you will get.
+
+411
+00:57:48,820 --> 00:57:52,680
+The denominator is in the green circle here.
+
+412
+00:57:53,910 --> 00:57:57,150
+So this is a quantity that's between 0 to 1. Oh, sorry.
+
+413
+00:57:57,240 --> 00:58:03,370
+That's a has a yeah, it is between zero and one because it is it cannot be negative.
+
+414
+00:58:03,630 --> 00:58:12,180
+Right. Because the numerator is a square squared quantity and when it will be y.
+
+415
+00:58:14,390 --> 00:58:21,380
+One sigma squared is zero, right? So this will be one when sigma is zero.
+
+416
+00:58:21,980 --> 00:58:25,910
+But in general, what does Sigma Square represent?
+
+417
+00:58:29,350 --> 00:58:35,330
+Measurement error. So after you do have measurement error, so it's hard to have a perfect measure.
+
+418
+00:58:35,350 --> 00:58:39,460
+So in general, the correlation will be less than one and positive.
+
+419
+00:58:42,240 --> 00:58:49,650
+Some some of you would say, hey, Jim would kind of be zero. Yes, it can be zero when sigma B squared is zero.
+
+420
+00:58:50,340 --> 00:58:54,630
+As we have discussed earlier, what does Sigma B squared equaling zero mean?
+
+421
+00:58:55,290 --> 00:58:57,510
+It just means that there is no random effects.
+
+422
+00:58:58,050 --> 00:59:05,760
+Everybody can be fitted by a population line and that's a situation where you don't want to use mixed models.
+
+423
+00:59:06,630 --> 00:59:12,210
+So when you are in a context like this, like this one,
+
+424
+00:59:12,540 --> 00:59:19,350
+you do have subject A and such a B that have non-trivial deviation in terms of the intercepts from the population,
+
+425
+00:59:19,830 --> 00:59:23,820
+so that sigma B squared will not be zero.
+
+426
+00:59:24,240 --> 00:59:29,700
+And the resulting correlation here will be between zero and one in general.
+
+427
+00:59:34,590 --> 00:59:41,850
+So this characterizes the correlation. And I would say that it's extremely beautiful because.
+
+428
+00:59:46,670 --> 00:59:50,660
+It has a name. Can you tell me what's the name of this kind of cover and structure?
+
+429
+00:59:58,900 --> 01:00:07,400
+How many parameters are here? How many?
+
+430
+01:00:10,880 --> 01:00:14,800
+Too. Right? Okay. Are the off diagonal values the same?
+
+431
+01:00:18,740 --> 01:00:25,760
+Yeah. You should nod your head. Yes, they are the same. So to partners with and also other than the values the same.
+
+432
+01:00:25,770 --> 01:00:34,550
+Yes they are. So what's the name of this kind of structure? See us.
+
+433
+01:00:36,880 --> 01:00:45,070
+Compound symmetry. So that's the first pattern you've learned. So now you can see that.
+
+434
+01:00:47,330 --> 01:00:51,230
+By introducing a random mindset model you have.
+
+435
+01:00:52,780 --> 01:00:56,840
+We covered. The covariance of model compound symmetry.
+
+436
+01:00:57,760 --> 01:01:06,670
+So this is one example where the mix effects model can be connected perfectly to the coverage pattern model.
+
+437
+01:01:09,350 --> 01:01:17,260
+But it has some benefit because now you can actually do inference upon these bits so that you may have a higher intercept.
+
+438
+01:01:17,300 --> 01:01:24,590
+I may have a lower intercept, but previously if you just use a coverage pattern model, you will not have these quantities estimated.
+
+439
+01:01:24,710 --> 01:01:29,850
+Right? So that's the additional benefit. A second question.
+
+440
+01:01:29,910 --> 01:01:42,360
+Second question, I want you guys to develop some intuitive understanding about what drives this correlation value.
+
+441
+01:01:43,530 --> 01:01:50,670
+So I'll ask you to stare at this quantity a little bit. Right. So tell me when.
+
+442
+01:01:52,970 --> 01:01:58,540
+This coalition value is going to be very high. And I do need some of you to answer.
+
+443
+01:01:59,430 --> 01:02:02,920
+And I think this is kind of important tuition. Just give it a try.
+
+444
+01:02:02,940 --> 01:02:08,400
+There is no judgment there. When is this quantity?
+
+445
+01:02:09,540 --> 01:02:28,840
+Close to one or high. Okay to simplify the task.
+
+446
+01:02:30,130 --> 01:02:35,230
+How about we set Sigma Square to 1000 Sigma Square to one?
+
+447
+01:02:36,100 --> 01:02:43,900
+The other is this one. What's the correlation for the first setting?
+
+448
+01:02:50,690 --> 01:02:54,430
+Come on, now. This is. Should be straightforward.
+
+449
+01:02:54,460 --> 01:02:59,620
+Is it going to be high or low? It's going to be higher.
+
+450
+01:03:00,800 --> 01:03:05,420
+It's going to be high. Okay. So 1000 divided by 1001.
+
+451
+01:03:05,450 --> 01:03:09,420
+So about one. Okay, um, let's stop right there.
+
+452
+01:03:09,440 --> 01:03:13,680
+Okay. So why is this quotient so high? Why is that?
+
+453
+01:03:17,750 --> 01:03:24,520
+It is because sigma squared is so much. Bigger than sigma squared.
+
+454
+01:03:25,970 --> 01:03:32,920
+Yeah. Okay. So now what does it mean to have a sigma B squared so much bigger than sigma squared?
+
+455
+01:03:34,320 --> 01:03:48,880
+What is sigma b squared representing? Difference between people, right?
+
+456
+01:03:50,040 --> 01:03:53,220
+So that's the how variable those intercepts are.
+
+457
+01:03:57,630 --> 01:04:05,490
+So this simple calculation shows that if the between subject variability is so much more.
+
+458
+01:04:06,490 --> 01:04:09,940
+So, so much bigger than the within subject viability.
+
+459
+01:04:10,630 --> 01:04:15,100
+You will have a lot of correlations. Is that intuitive?
+
+460
+01:04:18,480 --> 01:04:25,800
+Let me ask you this question. So what makes your measurement of weight tomorrow similar to yours yesterday?
+
+461
+01:04:28,610 --> 01:04:33,770
+What makes mine a measurement of my weight tomorrow and today's and yesterday similar.
+
+462
+01:04:36,800 --> 01:04:40,790
+It's because we are so different, right? Suppose I have, you know.
+
+463
+01:04:40,870 --> 01:04:47,080
+Suppose. I suppose we are. I don't know. I need to compare it to the most reliable person here.
+
+464
+01:04:47,430 --> 01:04:54,280
+So for a much lighter person. He and myself are going to be so different whatsoever.
+
+465
+01:04:54,580 --> 01:04:59,290
+So the variability between that person, myself, it's going to be so much bigger.
+
+466
+01:04:59,320 --> 01:05:06,070
+We're so different, causing the measurements within each person to be so similar with each other.
+
+467
+01:05:07,680 --> 01:05:12,900
+This calculation we showed here is saying that in English.
+
+468
+01:05:14,150 --> 01:05:18,980
+Similarity within the person is equivalent to difference between people.
+
+469
+01:05:20,410 --> 01:05:28,360
+Let me say that again. Similarity between a person is equivalent to.
+
+470
+01:05:29,590 --> 01:05:42,160
+The variation. Between people. Anyway, this is kind of a, I would say, very high level intuition.
+
+471
+01:05:42,640 --> 01:05:51,610
+And I think that the math is right here. You know, I'm not trying to sell a very bad intuition at this very good intuition.
+
+472
+01:05:52,930 --> 01:06:01,149
+Now, let's do the second calculation, and I promise that we will give some time for discussion here, because this is pretty cool,
+
+473
+01:06:01,150 --> 01:06:09,250
+I would say, because sometime in your career you got to realize that the work you do is not only about mathematics.
+
+474
+01:06:10,810 --> 01:06:18,450
+It is also about how do you. Map from the data pattern to intuitively how these estimates will be.
+
+475
+01:06:18,810 --> 01:06:22,260
+And these are going to be important, although I am teaching using the numbers.
+
+476
+01:06:22,260 --> 01:06:25,530
+But as you can feel, I am teaching you some intuition here.
+
+477
+01:06:26,580 --> 01:06:30,990
+In the second situation, this coalition is going to be very low.
+
+478
+01:06:31,020 --> 01:06:34,480
+Right. It's like one over 1001.
+
+479
+01:06:35,580 --> 01:06:41,700
+So tell me now why? Is this coalition so low?
+
+480
+01:06:43,420 --> 01:06:50,050
+Which is to say that my measurements today is going to be almost uncorrelated with my measurements tomorrow.
+
+481
+01:06:51,690 --> 01:06:59,090
+In the second situation. And that they have tomorrow and the day after the next day.
+
+482
+01:07:00,250 --> 01:07:03,610
+Why is that? Clearly it has some.
+
+483
+01:07:05,480 --> 01:07:09,500
+It is caused by the relative magnitude of Sigma B and sigma.
+
+484
+01:07:09,510 --> 01:07:13,640
+Right. So tell it. Tell me, what does the sigma squared represent?
+
+485
+01:07:15,860 --> 01:07:21,500
+It's the variance of what? The M-word.
+
+486
+01:07:23,410 --> 01:07:28,390
+Mesmerize. And Sigma be is the variance of between subject variability.
+
+487
+01:07:30,430 --> 01:07:37,720
+If you just are if you are going to record a data for me every day if you just putting noise.
+
+488
+01:07:39,580 --> 01:07:46,020
+Or you just put in very lousy measurements today, tomorrow, the next day.
+
+489
+01:07:47,080 --> 01:07:50,950
+These are going to be totally useless because measurement is so bad.
+
+490
+01:07:52,150 --> 01:07:58,240
+It's causing that to the measurement for one person on one day is going to be not informative of the measurement on the second day.
+
+491
+01:07:59,640 --> 01:08:05,950
+This is the kind of. A way to think about the low correlation here.
+
+492
+01:08:08,160 --> 01:08:16,800
+So to summarize this formula that I showed here, the sigma squared divide by sigma b squared plus sigma squared.
+
+493
+01:08:17,850 --> 01:08:27,410
+This is telling us that. The strength of correlation for any two measurements within a subject is caused.
+
+494
+01:08:28,680 --> 01:08:31,920
+Or is determined by the relative magnitude of variability.
+
+495
+01:08:33,340 --> 01:08:36,920
+If between people. If people are very.
+
+496
+01:08:38,620 --> 01:08:47,500
+Unlike each other. When you collect the data, meaning you pick the measurements to measurements from person, they will seem to be highly correlated.
+
+497
+01:08:48,820 --> 01:08:55,920
+Okay. If you're going to have very high measurement errors, then, you know.
+
+498
+01:08:57,520 --> 01:09:02,500
+The measurements will be just useless or very lousy, and they are going to be roughly independent.
+
+499
+01:09:03,010 --> 01:09:13,390
+So I'm going to stop right there in terms of intuition, but hopefully this can give you some some something to consider.
+
+500
+01:09:14,290 --> 01:09:18,600
+And I'm going to write down that. Between.
+
+501
+01:09:19,840 --> 01:09:30,000
+Okay. Let me write down this. Within subject.
+
+502
+01:09:31,280 --> 01:09:37,870
+Correlation. Is equivalent.
+
+503
+01:09:41,400 --> 01:09:52,780
+To between subject. Between subjects.
+
+504
+01:09:54,850 --> 01:10:00,610
+Variation. I mean.
+
+505
+01:10:12,360 --> 01:10:16,670
+So this is intuition, by the way. Do not take this word for word just roughly.
+
+506
+01:10:16,680 --> 01:10:20,070
+This is what it means. Okay, so.
+
+507
+01:10:21,260 --> 01:10:26,989
+Finally, just want to have a few quick remarks. This is one of the most simple dynamics models.
+
+508
+01:10:26,990 --> 01:10:32,120
+And as you can see, it induces a very simplistic variance covariance model structure.
+
+509
+01:10:32,840 --> 01:10:35,780
+And as you'll learn starting from next lecture,
+
+510
+01:10:36,170 --> 01:10:45,710
+that this kind of annotation idea generalizes broadly to other unit mix effects model and finally interpretation.
+
+511
+01:10:46,310 --> 01:10:52,890
+Oftentimes in this particular set of notes, the j often conditional upon so of.
+
+512
+01:10:54,270 --> 01:10:58,140
+Because somebody's a lazy. We just don't type exigé there.
+
+513
+01:10:58,170 --> 01:11:01,380
+But with the understanding that Exigé is always there.
+
+514
+01:11:03,910 --> 01:11:14,110
+Okay. So that's pretty much what I have for today. And starting from the next lecture, we will be talking about General Dynamics model,
+
+515
+01:11:14,140 --> 01:11:19,660
+meaning we're not only going to have one single random intercept, we were going going crazy.
+
+516
+01:11:19,660 --> 01:11:23,680
+We're going to have like random slope, additional random quantities.
+
+517
+01:11:23,950 --> 01:11:27,069
+So that's a more general formulation. All right.
+
+518
+01:11:27,070 --> 01:11:30,100
+Hopefully this can give you like five more minutes to do the homework if you haven't.
+
+519
+01:11:30,100 --> 01:11:36,009
+But my office hour will be 432.
+
+520
+01:11:36,010 --> 01:11:41,770
+Or if you want to come to my office or after this, that's very fine, because I want to give you the chance to ask questions.
+
+521
+01:11:42,340 --> 01:11:45,220
+All right. Thank you, everybody. Good luck with the homework.
+

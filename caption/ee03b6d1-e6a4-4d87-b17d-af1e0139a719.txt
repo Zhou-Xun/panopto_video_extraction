@@ -1,0 +1,2448 @@
+1
+00:00:06,140 --> 00:00:18,780
+Good afternoon, everybody. So today we are going to continue to finish the Hannah five, which is about an example of the slides applied to data set.
+
+2
+00:00:18,800 --> 00:00:25,280
+Now, we are very familiar with the TLC trial and then we'll be moving on to hand out six a.
+
+3
+00:00:26,210 --> 00:00:29,540
+And and our six B will be just code.
+
+4
+00:00:29,660 --> 00:00:36,920
+So I will probably not cover this in the lecture, but the code there will be totally reproducible.
+
+5
+00:00:36,920 --> 00:00:40,670
+You can just copy the code and run it.
+
+6
+00:00:40,670 --> 00:00:44,840
+I think this also provide our code in the canvas so you can check the file.
+
+7
+00:00:45,740 --> 00:00:50,380
+Does that sound like a plan for today? All right.
+
+8
+00:00:51,580 --> 00:00:55,810
+So this is a handout of I.D. I'll give you some time to pull this out if you haven't.
+
+9
+00:01:08,270 --> 00:01:15,740
+All right. I'm going to start with this example. So this example is trying to illustrate to you how do we fit nine years by models?
+
+10
+00:01:15,890 --> 00:01:19,010
+We covered a lot of them in the last lecture.
+
+11
+00:01:19,010 --> 00:01:22,360
+But just for the sake of completeness, I'm going to start from here.
+
+12
+00:01:22,370 --> 00:01:26,910
+Yes. There you go.
+
+13
+00:01:27,390 --> 00:01:31,350
+That's a. Something that I can use some help from you guys.
+
+14
+00:01:34,960 --> 00:01:45,480
+Kolya was too happy about the weather, so I forgot about this. Okay.
+
+15
+00:01:45,660 --> 00:01:52,860
+It is working now. Hmm.
+
+16
+00:02:00,420 --> 00:02:12,090
+There we go. So this is the exemplar data we were looking at and we decided to fit a new spline model to the treatment group.
+
+17
+00:02:12,600 --> 00:02:18,600
+All right. And actually, we decided to fit a new model to the control group as well.
+
+18
+00:02:19,170 --> 00:02:23,560
+So this is the model we are going to fit.
+
+19
+00:02:23,580 --> 00:02:28,320
+And we have decided that we place a not as we equals one.
+
+20
+00:02:28,890 --> 00:02:37,230
+This is where we saw that elbow in the trajectories for the cases, for the treatment, for the people who are in the placebo group.
+
+21
+00:02:38,250 --> 00:02:45,360
+In coding this regression formula, you got to create a new term that's called Week J minus one.
+
+22
+00:02:45,690 --> 00:02:56,580
+And in this part of the code, we just did that in the first two rows where we created one variable called week one, which is to say that.
+
+23
+00:02:58,250 --> 00:03:03,830
+This term is only going to be nonzero if the weak is greater than or equal to one.
+
+24
+00:03:04,130 --> 00:03:12,530
+And if so, then that valley will be just the difference between the actual week minus the not value, which is one and other things are the same.
+
+25
+00:03:12,920 --> 00:03:21,800
+And in the next two blocks here we're just creating interaction terms between the group indicator ends and the newly created.
+
+26
+00:03:23,930 --> 00:03:29,450
+A splinter. Finally we are going to fit this model here.
+
+27
+00:03:29,460 --> 00:03:33,470
+Blood level is the outcome and we have a few terms.
+
+28
+00:03:34,100 --> 00:03:43,520
+We may in fact with one main stepped interaction between the treatment and the week and interaction between treatment and the supplied term.
+
+29
+00:03:44,420 --> 00:03:52,400
+So here different from before, we have used week as a continuous, continuous covariate.
+
+30
+00:03:57,060 --> 00:04:00,240
+So then when you fit this model, you get these estimates.
+
+31
+00:04:16,880 --> 00:04:27,050
+Okay. And when you get these estimates, you can plug them back in into the mean response formula for both the control group.
+
+32
+00:04:29,390 --> 00:04:34,010
+They received the placebo and the treatment group.
+
+33
+00:04:37,380 --> 00:04:44,080
+Right. So this is very simple. And we ended the last lecture on this slide,
+
+34
+00:04:44,080 --> 00:04:51,219
+which is trying to show you that a number not seeing the parentheses are the values fitted by the near SPI model,
+
+35
+00:04:51,220 --> 00:04:59,500
+and the values in the parentheses are the actual sample mean of the outcome for that group at that occasion.
+
+36
+00:04:59,920 --> 00:05:07,239
+And by eyeballing all these differences in the two numbers, you can see that they're pretty close.
+
+37
+00:05:07,240 --> 00:05:11,200
+So this represents a good fit, at least visually.
+
+38
+00:05:15,000 --> 00:05:18,330
+Then we are going to be more quantitative.
+
+39
+00:05:18,620 --> 00:05:26,490
+I think we are going to use certain hypothesis testing approaches so you evaluate the goodness of fit of these models.
+
+40
+00:05:26,970 --> 00:05:33,690
+So there are a few alternatives we can consider. The first model is called piecewise neuter by model.
+
+41
+00:05:35,670 --> 00:05:45,150
+So this is the model that we just fitted. The second model is a quadratic model where you just have the week and week squared into the model.
+
+42
+00:05:45,420 --> 00:05:54,600
+And the third one, the need track model basically is to say that regardless of which purview in the main trend will be a straight line.
+
+43
+00:06:00,140 --> 00:06:04,580
+So this brings us to the null hypothesis we care about.
+
+44
+00:06:05,960 --> 00:06:13,220
+For example, we can investigate whether the near trend models is appropriate.
+
+45
+00:06:13,430 --> 00:06:19,580
+I. Is it good enough to fit two separate straight lines to each of the two groups?
+
+46
+00:06:19,940 --> 00:06:27,080
+Right. So in that case, we got to identify under what specific values for what betas.
+
+47
+00:06:27,320 --> 00:06:30,350
+Can we recover the number of straight line models?
+
+48
+00:06:31,670 --> 00:06:37,950
+Hmm. So last in the last, I'm sure we asked you guys to consider a little bit about the parameters.
+
+49
+00:06:37,970 --> 00:06:44,600
+Right. Interpretation of the parameters. So the answer is here, but I like to work with you again on these interpretations.
+
+50
+00:06:45,680 --> 00:06:54,020
+So if you go back to this particular slide 24, this is, you know, with all the hats,
+
+51
+00:06:54,170 --> 00:07:00,350
+these are the fitted values for the means in the placebo group at each of the week.
+
+52
+00:07:01,420 --> 00:07:05,020
+And if you just look at this slide without looking at it has here.
+
+53
+00:07:05,410 --> 00:07:11,590
+So my question for you is when will this model become a straight line model?
+
+54
+00:07:14,300 --> 00:07:22,460
+So it is basically say that regardless whether it's before week one or after week one, they will be described by the same straight line.
+
+55
+00:07:22,730 --> 00:07:28,150
+So that's clearly. Going to be the case if you said, Peter, three equals zero, right?
+
+56
+00:07:28,510 --> 00:07:37,450
+So Peter three equals zero correspond to the situation where a straight line is sufficient for the placebo group's meaning trajectory.
+
+57
+00:07:37,870 --> 00:07:48,850
+And if you look at the model for the treated group, clearly you can see that we can figure out that the same set of nos.
+
+58
+00:07:51,880 --> 00:07:59,110
+How do we sets these two segments to be identical? Well, you said beta three equals better five to be zero, right.
+
+59
+00:07:59,470 --> 00:08:04,330
+So this combined with beta three equals zero in the previous slide.
+
+60
+00:08:05,260 --> 00:08:11,500
+We know that's the number of. Two straight lines been sufficient.
+
+61
+00:08:12,600 --> 00:08:17,460
+One per group is going to correspond to better three equals better five equals zero.
+
+62
+00:08:18,210 --> 00:08:23,340
+So this is the null hypothesis we're putting here and we are going to test the null.
+
+63
+00:08:24,630 --> 00:08:30,630
+Are you going to ask, does the data provide enough evidence against this not so able to reject this novel?
+
+64
+00:08:31,140 --> 00:08:35,160
+COATES Suggesting that the straight lines are not going to be good enough.
+
+65
+00:08:35,610 --> 00:08:39,900
+Right. And based on eyeballing those trajectory patterns,
+
+66
+00:08:40,260 --> 00:08:44,970
+it seems to me that there is strong evidence that two straight lines are not going to be good enough.
+
+67
+00:08:45,060 --> 00:08:54,770
+So let's see whether that's the case based on these tests. So the model is going to be consider is the model number one and model number three, right?
+
+68
+00:08:54,830 --> 00:09:00,140
+Because the first one is supply model. And you said beta three equals beta five zero.
+
+69
+00:09:01,220 --> 00:09:13,150
+You recover this model, right? So there are two additional parameters that's being used in the supply model relative to the straight line model.
+
+70
+00:09:14,110 --> 00:09:17,740
+Second, if we're going to conduct like a racial test.
+
+71
+00:09:17,980 --> 00:09:24,350
+Right, and. The null hypothesis is about beta is about the mean, right?
+
+72
+00:09:24,350 --> 00:09:30,080
+So we should not use an objective function that does not depend on beta.
+
+73
+00:09:30,680 --> 00:09:35,390
+So that means we need to use the maximum likelihood based objective function.
+
+74
+00:09:38,030 --> 00:09:42,080
+So if we do this calculation by having.
+
+75
+00:09:43,690 --> 00:09:49,990
+This minus this. You can get this like a racial statistic to be.
+
+76
+00:09:52,110 --> 00:09:58,860
+121.8 and the reference distribution will be chi square with two degrees of freedom and.
+
+77
+00:09:59,810 --> 00:10:04,270
+A Chi Square distribution with two degrees of freedom has a mean of two, right?
+
+78
+00:10:04,310 --> 00:10:08,030
+So this like a racial statistic is pretty large.
+
+79
+00:10:08,660 --> 00:10:12,350
+And it's true actually. You can have the p value, the p value extremely small.
+
+80
+00:10:12,710 --> 00:10:24,720
+So this means that based on this like ratio test. We reject the not I comparing the the straight line model and that supply model.
+
+81
+00:10:25,260 --> 00:10:31,890
+There is enough evidence that the straight line model does not fit the data as well as the supply model.
+
+82
+00:10:39,330 --> 00:10:45,870
+So just a side note. So at this point, it will be in the midterm exam 100%.
+
+83
+00:10:47,370 --> 00:10:55,740
+But there is a kind of I have heard a few questions about why do we use a maximum like it here?
+
+84
+00:10:56,880 --> 00:11:00,330
+So in general, you have a few different kinds of test. You have wall test.
+
+85
+00:11:00,780 --> 00:11:04,140
+I'm just going to compare it to, like, a racial test. Right.
+
+86
+00:11:05,890 --> 00:11:15,550
+Mm hmm. And you have the, uh, the goal is trying to test, say, beta three equals beta five equals zero.
+
+87
+00:11:15,560 --> 00:11:18,970
+Right. So for like a racial test.
+
+88
+00:11:23,780 --> 00:11:28,070
+Hmm. For like a racial test.
+
+89
+00:11:28,100 --> 00:11:35,390
+You can only use this one because the objective function corresponding to Rummel does not contain beta.
+
+90
+00:11:37,880 --> 00:11:47,480
+If you need some review, basically. The entire reason we introduced Rimmel is because we want to.
+
+91
+00:11:48,470 --> 00:11:51,770
+Consider the fact that Bita itself is unknown.
+
+92
+00:11:53,030 --> 00:12:00,970
+So the objective function for Remo estimation is based on a transforming data.
+
+93
+00:12:01,130 --> 00:12:05,990
+That data transform there does not depend on has a distribution that does not depend on data.
+
+94
+00:12:05,990 --> 00:12:11,240
+So the objective function in Remo contains no information about data,
+
+95
+00:12:11,330 --> 00:12:17,450
+so does not make sense to use Remo objective function to do the like appraisal test.
+
+96
+00:12:18,560 --> 00:12:26,990
+On the other hand, for maximum likelihood, that is a objective function that depends on beta and sigma.
+
+97
+00:12:27,080 --> 00:12:30,950
+So it contains information about data and we need to use that.
+
+98
+00:12:32,730 --> 00:12:38,280
+If you look at a wall test. So all testing, general, essentially is like Peter had.
+
+99
+00:12:39,760 --> 00:12:44,260
+Times, whatever. Like the variants of beta had.
+
+100
+00:12:46,280 --> 00:12:52,080
+And you do the inverse and then do this right. So this is all you need.
+
+101
+00:12:52,120 --> 00:12:57,640
+And then you compare this to what? To Chi Square distribution with however many say.
+
+102
+00:13:00,380 --> 00:13:04,850
+Parameters. You're welcome. Any constraints you have any independent concerns you have?
+
+103
+00:13:06,160 --> 00:13:12,460
+So here, Peter, we can use Peter Hart's email or we can use Peter Hart.
+
+104
+00:13:12,490 --> 00:13:21,400
+Remo. But now you're going to ask Genco why now it's okay to use MLB ammo?
+
+105
+00:13:21,830 --> 00:13:25,940
+Well, as you know, that it is just written as something like this, right?
+
+106
+00:13:29,670 --> 00:13:39,910
+Which is to say that as long as you plug in a good or reasonable sigma estimate that Peter had itself can be obtained.
+
+107
+00:13:40,380 --> 00:13:43,470
+And because of all test does not rely on any likelihood.
+
+108
+00:13:43,470 --> 00:13:47,160
+It's just using this particular quadratic form here.
+
+109
+00:13:48,870 --> 00:13:52,320
+You can just use that particular whatever beta estimates.
+
+110
+00:13:53,190 --> 00:13:58,320
+But if you're going to ask me to choose, I'm going to suggest this is likely going to be better.
+
+111
+00:14:00,190 --> 00:14:03,360
+Why? Well. For any test we conduct.
+
+112
+00:14:03,360 --> 00:14:07,090
+It's in finite samples. And Peter had Remo.
+
+113
+00:14:07,110 --> 00:14:11,280
+It's going to be less pious. And Sigma had run. Was going to be less biased.
+
+114
+00:14:11,820 --> 00:14:18,720
+So even if in the world test situation you can use either, I would still suggest use Remo.
+
+115
+00:14:20,360 --> 00:14:27,349
+So in this case, this creates a seemingly similarly conflict suggestion in the lack of racial tests.
+
+116
+00:14:27,350 --> 00:14:31,400
+We recommend using email and the Walters recommends using Ramo.
+
+117
+00:14:32,120 --> 00:14:40,760
+That's that's why I say seemingly conflict. The entire reasoning is basically depends on the design of the test, like a racial test.
+
+118
+00:14:40,800 --> 00:14:52,129
+Use the like to use the objective function and you want to have the objective function depend on beta and only an objective function depends on beta.
+
+119
+00:14:52,130 --> 00:14:58,300
+So you use ml while for well test the design of what test only depends on point estimates.
+
+120
+00:14:58,300 --> 00:15:03,140
+So you want to get good point estimates and which one is better? The ramp estimates are better.
+
+121
+00:15:03,710 --> 00:15:10,430
+So I'm going to pause here for 30 seconds just to see if you guys have any burning question on this point.
+
+122
+00:15:13,280 --> 00:15:46,850
+So hopefully this answer some of the questions you guys raise. Yes.
+
+123
+00:15:54,670 --> 00:15:58,900
+Can you catch this? I don't think it will hurt, but I'm going to try.
+
+124
+00:15:59,240 --> 00:16:09,649
+Already? But to clarify.
+
+125
+00:16:09,650 --> 00:16:15,920
+So in like the R code that like the the default is remo.
+
+126
+00:16:16,550 --> 00:16:22,570
+So can you choose between the world test and t test even if the test is telling you to use email.
+
+127
+00:16:22,610 --> 00:16:26,210
+But we. Parameterized using Remo.
+
+128
+00:16:27,110 --> 00:16:32,980
+I see. So I'm just going to repeat the question because there will be people rely on the recording and they may not hear a question.
+
+129
+00:16:32,990 --> 00:16:37,760
+So the question is when we are fitting the model in the right.
+
+130
+00:16:38,850 --> 00:16:45,450
+And by default it's using Ramo. And can we extract those EML like values?
+
+131
+00:16:45,900 --> 00:16:52,410
+The answer is yes you can. So you basically have to realize that for the reason, for the purpose of doing the test,
+
+132
+00:16:52,830 --> 00:16:58,920
+using like a racial test, you've got to let's say that as a function to use the EML option.
+
+133
+00:16:59,880 --> 00:17:05,280
+And there you will be able to obtain, uh, the lack of log likelihood.
+
+134
+00:17:05,670 --> 00:17:08,690
+Yeah. Thank you. Yeah, of course.
+
+135
+00:17:09,200 --> 00:17:11,720
+You can keep it there and just pass around if you have a question.
+
+136
+00:17:12,050 --> 00:17:16,040
+Yeah, I'm just going to keep the I hopefully this will encourage people to ask questions. Any more questions?
+
+137
+00:17:24,420 --> 00:17:30,899
+Okay. So, like a racial test can only work when you have a smaller model nested within a bigger one.
+
+138
+00:17:30,900 --> 00:17:36,420
+Right. As you know, based on the discussion we just had by setting beta three equals beta five equals zero,
+
+139
+00:17:36,750 --> 00:17:40,290
+we go we have, you know, focused on the straight line model.
+
+140
+00:17:41,310 --> 00:17:45,810
+So these are nested models. One.
+
+141
+00:17:45,810 --> 00:17:49,350
+It's let me erase this.
+
+142
+00:17:51,530 --> 00:17:55,390
+Three is nested. Within.
+
+143
+00:17:56,790 --> 00:18:07,360
+What? So that's the fact. Now a second comparison, which is to compare the linear supply model.
+
+144
+00:18:09,470 --> 00:18:16,280
+And the quadratic trend model. So for quadratic trend model, you have the week and you have the quadratic term for the week.
+
+145
+00:18:17,030 --> 00:18:20,689
+So they are not nested. And this is important fact.
+
+146
+00:18:20,690 --> 00:18:27,050
+I want to I want you to think about this for 30 seconds and consider if this is true.
+
+147
+00:18:27,530 --> 00:19:04,100
+They are not nested. By that, I mean, you cannot set sort of parameters in one model to specific values and achieve the other model.
+
+148
+00:19:04,430 --> 00:19:15,740
+So let's just use the placebo group as an example. You have the new j equals beta zero plus.
+
+149
+00:19:17,630 --> 00:19:35,190
+Hmm. OnePlus paid a two.
+
+150
+00:19:36,750 --> 00:19:43,120
+Times a week, J. Plus Beta three.
+
+151
+00:19:44,600 --> 00:19:48,890
+We? I j minus one plus.
+
+152
+00:19:50,390 --> 00:19:53,990
+Right. So for the placebo group, for the quadratic trend.
+
+153
+00:20:01,050 --> 00:20:07,290
+How do we do this? Well, it's basically assuming that Mila J equals one plus B to two.
+
+154
+00:20:08,490 --> 00:20:14,350
+Week. I. J. Plus three times a week.
+
+155
+00:20:15,280 --> 00:20:19,290
+I. J. Square.
+
+156
+00:20:21,070 --> 00:20:25,720
+To distinguish that these are actually two sets of data. Let me just add asterisk to them.
+
+157
+00:20:26,730 --> 00:20:35,280
+So as you can see that for both models, the split display model has three parameters in the main for the placebo group.
+
+158
+00:20:35,730 --> 00:20:38,850
+While for the quadratic trend model, it also has three parameters.
+
+159
+00:20:39,300 --> 00:20:44,070
+There is no way you can conclude that one model is nested within another.
+
+160
+00:20:51,010 --> 00:20:55,840
+Some of you may argue that hey Tim Cook can you said beta 3 to 0 and below three start a zero.
+
+161
+00:20:56,650 --> 00:20:59,740
+But that's not fair. You know, you've got to only operate on one model. Yeah.
+
+162
+00:21:02,250 --> 00:21:06,780
+So in those situations, can we do anything to select the model? And yes, we can.
+
+163
+00:21:06,780 --> 00:21:10,140
+We can use some numeric criteria.
+
+164
+00:21:10,830 --> 00:21:22,230
+So one criteria you can use basically is AC or Big C and here because as you will see, ACP depend upon number of parameters.
+
+165
+00:21:22,590 --> 00:21:28,290
+These two models have the exact same number of parameters. So we can just compare the maximized likelihoods.
+
+166
+00:21:28,710 --> 00:21:38,490
+So by looking at these two numbers, it seems to me that's the minus two times log likelihood is smaller for the spline model.
+
+167
+00:21:38,490 --> 00:21:45,730
+Right. Which means that the supply model is better using the maximize likelihood.
+
+168
+00:21:53,480 --> 00:21:58,940
+And the reason why went for the smaller one is because we have a minus two in front of the log likelihood.
+
+169
+00:22:18,850 --> 00:22:23,620
+Okay. So all these will be the code for all these models.
+
+170
+00:22:24,370 --> 00:22:28,390
+I believe this code also answers your question about how to obtain these likelihoods.
+
+171
+00:22:29,020 --> 00:22:33,370
+As you can see that I basically recreate these values from that table.
+
+172
+00:22:33,760 --> 00:22:39,160
+I will not talk about them. But the point here is that we have used.
+
+173
+00:22:40,660 --> 00:23:01,020
+ML to obtain the likelihoods. A final point I would like to make before we conclude this particular handout is the
+
+174
+00:23:01,860 --> 00:23:09,180
+relatively nuanced issue of the interdependence between the ME model and the covariance model.
+
+175
+00:23:11,260 --> 00:23:18,520
+What do I mean by that? Suppose your data looks like this.
+
+176
+00:23:26,980 --> 00:23:32,350
+So what I drew here are just mimicking the TLC data, the crosses for the placebo group.
+
+177
+00:23:32,800 --> 00:23:39,370
+The empty circles are for the treated group. We have seen that we can send in a spy model.
+
+178
+00:23:39,370 --> 00:23:46,880
+And you have seen that fits pretty well, right? What if we forcefully fit two straight lines?
+
+179
+00:23:47,450 --> 00:23:55,500
+Maybe it's okay for the first one. But it's going to be gross, under fit or misfit for the treated group.
+
+180
+00:23:57,310 --> 00:24:06,370
+And the point of the slide is that if you do this, you will inflate or you will cause issues in various estimation.
+
+181
+00:24:07,390 --> 00:24:12,030
+Why is that? That depends on how you would interpret the coherence.
+
+182
+00:24:12,730 --> 00:24:16,940
+Right? Because look. Now the residues are here.
+
+183
+00:24:17,000 --> 00:24:27,200
+Here, here and here. These are relatively thick because not because of variability, but because you just want to fit a straight line.
+
+184
+00:24:28,410 --> 00:24:37,200
+Relative to a model. If I use the blue line, which is going to be something like this and you can see the red is a pretty small right,
+
+185
+00:24:37,290 --> 00:24:42,840
+clearly you can see the magnitudes or variabilities of these variants is going to be smaller.
+
+186
+00:24:44,430 --> 00:24:52,320
+So we were going to see that phenomena. And to see this, we're going to fit the Greek model, i.e. two straight lines, one per group.
+
+187
+00:24:53,010 --> 00:24:58,560
+So in this code, I'm going to zoom in a little bit so you guys, you can see in the back here.
+
+188
+00:25:01,880 --> 00:25:07,220
+This is the model number one. This is based on the.
+
+189
+00:25:09,380 --> 00:25:16,580
+Analysis being profiles. The second model, which is the Greek model here.
+
+190
+00:25:17,990 --> 00:25:24,670
+This is basically. To treat weak as continuous variable is and there is no spleen term.
+
+191
+00:25:24,670 --> 00:25:31,420
+There's no quadratic terms. For all the other specifications.
+
+192
+00:25:32,500 --> 00:25:37,730
+We just did unstructured variance clearances. For both method,
+
+193
+00:25:37,740 --> 00:25:44,580
+both models we're going to use Remo and a quick note that look here I specify the
+
+194
+00:25:44,580 --> 00:25:49,710
+method equals Remo and this is really redundant because by default it's using Remo.
+
+195
+00:25:50,400 --> 00:25:57,540
+So in the second model, if I did not specify that option with the understanding that by default Remo was done.
+
+196
+00:25:59,400 --> 00:26:03,960
+So now I will draw your attention to these two matrices.
+
+197
+00:26:04,980 --> 00:26:08,250
+They'll they're small. So, again, I'm going to zoom in a little bit.
+
+198
+00:26:09,670 --> 00:26:13,390
+You can see that, hey, these numbers are very different.
+
+199
+00:26:17,700 --> 00:26:26,499
+So what do these two numbers mean? Well, the. Second in value is basically the estimate of the reservations.
+
+200
+00:26:26,500 --> 00:26:29,980
+At the second occasion, that was estimated to be.
+
+201
+00:26:31,260 --> 00:26:35,010
+44. However, that same number was estimated to be 94.
+
+202
+00:26:37,400 --> 00:26:46,520
+So this should not be really surprising given that you have no you have no familiarize yourself with the data in that in in the second occasion,
+
+203
+00:26:46,520 --> 00:26:53,060
+that's where the elbow occurred. Right. So it's kind of your grocery is fitting the data.
+
+204
+00:26:55,010 --> 00:26:58,130
+I will not go into the third diagonal, but the stories are same.
+
+205
+00:26:59,480 --> 00:27:05,270
+So this brings us to the general remark here. Indeed, you have seen that if you have a.
+
+206
+00:27:08,330 --> 00:27:12,410
+Misfit in the main. Right. And also, you have seen through like a racial test.
+
+207
+00:27:12,950 --> 00:27:16,620
+Right. The 99 year old model wins. Right.
+
+208
+00:27:16,670 --> 00:27:22,730
+So clearly there is indication. By the data that the straight line model is not good fit.
+
+209
+00:27:23,960 --> 00:27:30,290
+And this kind of example illustrates the interdependence between the mean model and Coburn's model.
+
+210
+00:27:33,230 --> 00:27:38,170
+So. In the next handout.
+
+211
+00:27:39,360 --> 00:27:44,620
+When our focus will be on various causes. What should we do about Memorial?
+
+212
+00:27:46,770 --> 00:27:50,250
+We're going to make that maximal, maximally flexible.
+
+213
+00:27:51,700 --> 00:27:55,990
+Fix that and entertain with different options of various governance model.
+
+214
+00:27:57,470 --> 00:28:04,610
+So at least when you're choosing between different options or various governance model, you have the same main model to start with.
+
+215
+00:28:08,530 --> 00:28:15,250
+So to summarize, this hand out of idea touches a few points.
+
+216
+00:28:15,280 --> 00:28:22,090
+The first one is we can use parametric curves to do parsimonious modeling of the main trajectories.
+
+217
+00:28:22,480 --> 00:28:26,500
+And this has been shown to be saving the number of parameters.
+
+218
+00:28:27,400 --> 00:28:31,480
+And this is going to be particularly appealing when you have a small longitudinal study.
+
+219
+00:28:33,150 --> 00:28:42,360
+And we have also introduced the need supply modeling and the central idea of introducing spline terms into modeling is that.
+
+220
+00:28:43,500 --> 00:28:48,330
+Polynomial models. If they are of high degree, they are hard to understand, harder to interpret.
+
+221
+00:28:49,210 --> 00:28:57,730
+If lower degree polynomials like linear terms can be concatenated together to produce piecewise linear fets,
+
+222
+00:28:58,240 --> 00:29:03,340
+then we're going to go for that simpler one. All right. So that's why spline models have been used.
+
+223
+00:29:04,890 --> 00:29:12,990
+And it also has the benefit that we do now require the measurement times from all the subjects to be common.
+
+224
+00:29:13,440 --> 00:29:17,610
+So you can have your sets of measurement times and I can have my.
+
+225
+00:29:20,360 --> 00:29:29,810
+And some of you may be wondering how you did not show us an example where the measurement times are not common.
+
+226
+00:29:30,380 --> 00:29:34,100
+That's true. We were going to deal with those situations later.
+
+227
+00:29:35,150 --> 00:29:43,580
+So I have a disclaimer here. We have been illustrating these parametric curve ideas using super balanced data.
+
+228
+00:29:44,060 --> 00:29:50,150
+But as you can see, this model will be applicable to, on balance, longitudinal data.
+
+229
+00:29:50,750 --> 00:30:02,570
+So this concludes this particular handout and. And I'm going to be happy to answer any burning questions right now before we switch to the handout.
+
+230
+00:30:03,110 --> 00:30:28,480
+068. Okay.
+
+231
+00:30:28,540 --> 00:30:35,890
+So do you guys have the handouts? Okay, ready? Okay.
+
+232
+00:30:36,520 --> 00:30:40,540
+All right. I'm going to switch that one, that if you need more time, let me know.
+
+233
+00:31:03,530 --> 00:31:07,549
+Okay. Okay. So this is about modeling the cover.
+
+234
+00:31:07,550 --> 00:31:11,060
+And so we have been talking a lot about modeling the at speed apart.
+
+235
+00:31:11,750 --> 00:31:20,510
+And there is this coherence part that is new to you guys at least going come in from 650 and 651.
+
+236
+00:31:20,840 --> 00:31:23,390
+So this is going to introduce a lot of new technologies.
+
+237
+00:31:23,840 --> 00:31:34,280
+So my just my suggestion is that after you have finished watching, you know, watching the videos or after this class,
+
+238
+00:31:34,700 --> 00:31:41,120
+try to have some quick review of these terms, because later on we will be using these terms quite frequently.
+
+239
+00:31:41,480 --> 00:31:50,100
+And it would be great if you can sort of link that words to the actual covering structure conceptually or visually.
+
+240
+00:31:50,120 --> 00:31:53,000
+And I think they'll be helpful. I will go through them carefully today.
+
+241
+00:31:53,900 --> 00:32:00,980
+So there are four objectives for this particular discussion about various governance modeling.
+
+242
+00:32:02,030 --> 00:32:14,010
+The first one is more of a review because we need to be convinced that it benefits us to model the various programs.
+
+243
+00:32:14,030 --> 00:32:18,439
+Otherwise, why do we spend so much time or so many slides talking about this?
+
+244
+00:32:18,440 --> 00:32:26,840
+Right. The got it got to be some benefits. And it turns out that by carefully utilizing utilizing these correlations,
+
+245
+00:32:27,200 --> 00:32:32,870
+we can improve the efficiency with which we estimate betas, which are the parameters of interest.
+
+246
+00:32:33,530 --> 00:32:42,020
+Number two, if once you are convinced that this is a good idea to do a model in the various quadrants, then what are the options?
+
+247
+00:32:42,050 --> 00:32:46,220
+Show me the menu. Right. These are the few items, a few items you can choose from.
+
+248
+00:32:47,090 --> 00:32:52,790
+These are going to be frequently encountered if you later are going to be doing longitudinal data analyzes.
+
+249
+00:32:54,710 --> 00:32:59,540
+So the first is called compound symmetry. It also has a name called a exchangeable.
+
+250
+00:33:06,030 --> 00:33:09,330
+The second one is called Toeplitz. The third one, auto regressive.
+
+251
+00:33:11,570 --> 00:33:14,420
+If you think you have seen this before from Time series,
+
+252
+00:33:14,420 --> 00:33:20,120
+the literature is not surprising because many of these techniques were borrowed from a time series literature.
+
+253
+00:33:20,480 --> 00:33:32,300
+Number four, abandoned. Number five exponential. Number six hybrid is trying to reap the benefits of each of the models we introduced prior to that.
+
+254
+00:33:34,230 --> 00:33:38,580
+And once you are shown with these menus and you want to choose which one you choose from.
+
+255
+00:33:40,020 --> 00:33:44,100
+There are like, again, like a racial test you can do.
+
+256
+00:33:44,280 --> 00:33:54,060
+There are AICPA so you can use. So the idea is that we want to have some experience to choose among these models.
+
+257
+00:33:54,150 --> 00:33:57,870
+Number four, we are going to show you one example of how we do this.
+
+258
+00:33:58,950 --> 00:34:02,550
+All right. So everybody with the objectives. Right.
+
+259
+00:34:06,460 --> 00:34:11,980
+Okay. So let's get started with the conceptual level. Why do we need to model various currents?
+
+260
+00:34:16,050 --> 00:34:23,190
+So there are lots of words in here. So the goal is that if you're only going to look at the slides, hopefully they're self contained.
+
+261
+00:34:24,210 --> 00:34:32,280
+So that's why there are lots of words in here. My goal is trying to go through them with you in detail because I really want to
+
+262
+00:34:32,280 --> 00:34:35,490
+convince you guys that this is an important feature of a longitudinal study.
+
+263
+00:34:36,900 --> 00:34:42,000
+So what is the important reason for doing various programs modeling?
+
+264
+00:34:42,300 --> 00:34:47,100
+It is that we want to obtain correct certain errors for better.
+
+265
+00:34:50,330 --> 00:34:53,690
+You want to get this correct? Right. And you want to have.
+
+266
+00:34:54,020 --> 00:34:59,370
+You know. Good intervals you want to have correct p values, so on and so forth.
+
+267
+00:34:59,370 --> 00:35:02,650
+Right? And.
+
+268
+00:35:04,780 --> 00:35:09,820
+I want to say that this award inference in general is very broad.
+
+269
+00:35:11,380 --> 00:35:15,790
+Over the years, I've come to realize that by using the word inference instead of estimation.
+
+270
+00:35:17,830 --> 00:35:26,110
+We are trying to emphasize that we care about intervals. So when you're talking about inference, it's primarily about intervals.
+
+271
+00:35:28,770 --> 00:35:34,660
+Or confidence intervals, if you will. Or standard errors.
+
+272
+00:35:35,740 --> 00:35:38,980
+If you're Bayesian, you're going to protest. Try to win the votes then.
+
+273
+00:35:40,670 --> 00:35:44,590
+Number two, what are the benefits?
+
+274
+00:35:44,600 --> 00:35:49,330
+It will likely increase the statistical efficiency of estimating beta.
+
+275
+00:35:50,470 --> 00:36:01,110
+So compared to a person who has not learned 653 you will have tools to produce a better estimate that has a smaller standard deviation but valid.
+
+276
+00:36:04,960 --> 00:36:09,910
+And the intuition is that we often are interested in the change within the person.
+
+277
+00:36:10,090 --> 00:36:16,240
+Right? It's like using your past as a control. So whatever that's similar across time, I'm going to be subscribe that way.
+
+278
+00:36:16,390 --> 00:36:22,630
+Right. So that is going to create a good situation where the contrast.
+
+279
+00:36:24,070 --> 00:36:31,660
+Between two time points for a single person, it's going to have a smaller variance compared to treating those two numbers independent.
+
+280
+00:36:34,400 --> 00:36:40,250
+Finally, this is a more subtle point. I don't believe that you all need to be concerned about this in this particular lecture.
+
+281
+00:36:40,760 --> 00:36:50,750
+But in general, when you encounter missing data, you will want to use a good variance coherence model to do the imputation.
+
+282
+00:36:51,230 --> 00:36:56,990
+I will leave that discussion that much later. But this is another important practical reason.
+
+283
+00:37:00,860 --> 00:37:12,440
+So let's look at some specifics. What do we mean by the benefit of correlation among measurements obtained from the same subject?
+
+284
+00:37:21,730 --> 00:37:27,610
+So in many real studies, the repeated measurements are often positively correlated.
+
+285
+00:37:29,080 --> 00:37:33,550
+And we want to take advantage of it. This is a calculation.
+
+286
+00:37:34,560 --> 00:37:38,610
+I believe we saw this in the first lecture. So why?
+
+287
+00:37:38,610 --> 00:37:41,610
+Two represents the second measurements from subsidy.
+
+288
+00:37:41,640 --> 00:37:47,250
+Why one? The first subject? First, a measurement of the same subject.
+
+289
+00:37:48,120 --> 00:37:53,319
+Suppose we are interested in the change. So that's why I want y to mine as y one.
+
+290
+00:37:53,320 --> 00:37:58,480
+If you calculate that variance because that y to y one now are not independent.
+
+291
+00:37:59,230 --> 00:38:03,370
+So you will need to have the third additional term here which captures the correlation.
+
+292
+00:38:04,260 --> 00:38:08,400
+Now with a correlation, mostly in longitudinal studies positive.
+
+293
+00:38:09,060 --> 00:38:12,480
+So this final term is going to be a negative term.
+
+294
+00:38:19,880 --> 00:38:27,020
+And it's good to have a negative term here because that means the variance of this contrast is going to be a smaller variability.
+
+295
+00:38:27,920 --> 00:38:34,399
+Now consider an alternative situation where you conduct a cross-sectional study at Timepoint one, you recruit,
+
+296
+00:38:34,400 --> 00:38:41,330
+say, 100 people at time, point to recruit another 100 people, not the same, not the same set of people.
+
+297
+00:38:41,720 --> 00:38:49,910
+And you just label one 200 at each occasion and then you say, hey, for the person labeled number one in the first cohort,
+
+298
+00:38:50,570 --> 00:38:56,719
+for the person, number labeled number one, the second cohort, let's just consider that difference, right?
+
+299
+00:38:56,720 --> 00:39:00,290
+So y two minus yy1.
+
+300
+00:39:02,840 --> 00:39:07,510
+Two different people who happened to be labeled both as I write.
+
+301
+00:39:08,850 --> 00:39:17,010
+And now you can see, because these are two independent people, the veterans are going to be just the sum of the two marginal guernseys.
+
+302
+00:39:21,030 --> 00:39:28,560
+So there will be a reduction. And this reduction essentially is going to be characterized by the correlation.
+
+303
+00:39:30,020 --> 00:39:30,920
+Which is shown here.
+
+304
+00:39:32,270 --> 00:39:38,990
+So the ratio of the two variances provides an index of the precision of the within subject differences when compared to between subject differences.
+
+305
+00:39:39,080 --> 00:39:39,340
+Right.
+
+306
+00:39:40,160 --> 00:39:50,750
+So just to recap, this is the one where you are contrasting the Y obtained from the first and second time point, but from totally different people.
+
+307
+00:39:51,320 --> 00:39:58,760
+So I call this cross-sectional and this one is longitudinal where you follow one person longitudinal,
+
+308
+00:39:59,330 --> 00:40:05,059
+you follow one person for two timepoints and the variance will be smaller if
+
+309
+00:40:05,060 --> 00:40:08,390
+you're using the longitudinal comparison when the correlation row is positive.
+
+310
+00:40:34,020 --> 00:40:35,639
+So this is a very simple calculation,
+
+311
+00:40:35,640 --> 00:40:45,630
+but the implication is that we can be quite wrong in terms of the variability if we just choose to forget about that row there.
+
+312
+00:40:45,900 --> 00:40:50,610
+Right. We may be overestimating the variance when actually the variance is much smaller.
+
+313
+00:40:52,750 --> 00:40:56,950
+So that means that we do need to account for these correlations.
+
+314
+00:40:57,610 --> 00:41:02,500
+But as you recall, these variances are not our primary parameters of interest.
+
+315
+00:41:03,010 --> 00:41:06,610
+These are nuances. It has to be part of the modeling process.
+
+316
+00:41:08,080 --> 00:41:09,130
+It cannot be ignored.
+
+317
+00:41:10,070 --> 00:41:21,050
+And by modeling these various currencies, we are able to conduct valid inferences, sometimes much better at positioning, estimating the the betas.
+
+318
+00:41:30,140 --> 00:41:39,020
+So this brings us to the question then how do we do modeling of the various currencies in general at a very high level?
+
+319
+00:41:39,050 --> 00:41:45,040
+There are two sets of approaches. Approach number one and approach number two.
+
+320
+00:41:45,050 --> 00:41:51,500
+Here, I'll go through them. So far we have been doing the unstructured variance covers.
+
+321
+00:41:52,070 --> 00:41:55,130
+Hopefully you have understood what that means.
+
+322
+00:41:55,250 --> 00:42:01,160
+Basically, we do not put any restrictions upon the parameters in the sigma.
+
+323
+00:42:03,410 --> 00:42:06,410
+When we do want to put some constraints, how do we do that?
+
+324
+00:42:07,340 --> 00:42:11,330
+The first one is to use very clever padded models.
+
+325
+00:42:12,860 --> 00:42:22,190
+Right. We have seen that menu compound symmetry, triplets, auto regressive and so on, so forth and many of these ideas.
+
+326
+00:42:22,850 --> 00:42:31,060
+Again, as I said, what borrowed from time series. So we just specify the pattern itself.
+
+327
+00:42:32,760 --> 00:42:37,380
+As you can see, this is a very explicit way of modeling the various programs.
+
+328
+00:42:39,400 --> 00:42:45,730
+However, there is another approach which we are going to learn in this class, which is called mixed models.
+
+329
+00:42:47,710 --> 00:42:51,390
+It's a big thing and I think we will spend a lot of time there.
+
+330
+00:42:56,290 --> 00:42:59,440
+Do they have any connections? Yes, they do.
+
+331
+00:42:59,470 --> 00:43:03,580
+They have connections at certain specific situations.
+
+332
+00:43:04,750 --> 00:43:08,780
+So to. May I?
+
+333
+00:43:09,140 --> 00:43:10,430
+I'm going to make two remarks.
+
+334
+00:43:12,510 --> 00:43:23,610
+The first one is that we have been talking about the modeling of expectation of the response vectors, given the covariate information.
+
+335
+00:43:25,790 --> 00:43:34,650
+We model that as exhibitor. And then we also modeled why I give an Z.
+
+336
+00:43:36,510 --> 00:43:48,630
+Sigma I. By Corberan's pattern model, we basically say that Sigma needs to follow certain patterns.
+
+337
+00:43:52,220 --> 00:43:57,900
+In the second approach. People are going to introduce certain random effects.
+
+338
+00:44:04,460 --> 00:44:10,970
+Z I'd I here so z I will be the design matrices for the random effects and by other.
+
+339
+00:44:11,930 --> 00:44:19,650
+Actual random effects. And for the sake of accuracy, we are going to put by after the conditioning event.
+
+340
+00:44:21,900 --> 00:44:25,380
+Okay. So these are called random effects.
+
+341
+00:44:30,320 --> 00:44:37,100
+I will refrain myself from talking too much about this model until a little bit later when we touch the special case.
+
+342
+00:44:38,280 --> 00:44:46,500
+Random effects. But this is where our journey.
+
+343
+00:44:48,650 --> 00:44:54,230
+Alarm makes model go. So to approach this right cover and try models and random effects.
+
+344
+00:44:55,040 --> 00:44:58,220
+Now let's start with the cover speed of model.
+
+345
+00:45:04,540 --> 00:45:13,090
+We will be counting the number of parameters a lot. So let's just start with these simple displays of the structure of various runs.
+
+346
+00:45:13,570 --> 00:45:18,280
+Let's get our head straight about how many parameters are there.
+
+347
+00:45:19,400 --> 00:45:28,490
+So for our structure, various governance. If you have NN occasions, so the various covenants will be of dimension in that.
+
+348
+00:45:30,460 --> 00:45:37,370
+How many unique parameters are here? The answer is end times, end plus one divided by two.
+
+349
+00:45:43,690 --> 00:45:48,490
+How do we get this? Well, you have dn on the diagonal.
+
+350
+00:45:52,670 --> 00:45:56,480
+And you have all these pairs. Right.
+
+351
+00:45:57,020 --> 00:46:00,200
+How many pairs of you have? You have measurements, so. And shoes to.
+
+352
+00:46:04,130 --> 00:46:08,630
+And if you can do mental math, then this essentially is the is this one.
+
+353
+00:46:23,410 --> 00:46:27,549
+So the advantage of doing this is that we do not place any assumptions.
+
+354
+00:46:27,550 --> 00:46:38,170
+And the disadvantage clearly is that the number of various programs parameters can grow radically and can quickly exceed the actual sample sizes.
+
+355
+00:46:39,250 --> 00:46:44,020
+And it is going to be particularly problematic if you have measurements that are mis timed.
+
+356
+00:46:44,380 --> 00:46:53,290
+So what do I mean by that? If you are going to draw three timelines and three people are going to be sampled at completely different timings.
+
+357
+00:47:00,400 --> 00:47:05,020
+All right, three people. So you will need sigma. One Sigma to.
+
+358
+00:47:06,110 --> 00:47:10,660
+She must weigh. And needless to say, this is a nightmare, right?
+
+359
+00:47:10,690 --> 00:47:13,900
+If you're going to do this for everybody, you'll have too many parameters.
+
+360
+00:47:14,320 --> 00:47:20,740
+And also, how can you, even if you're going to say all these sigma i's are going to be insane?
+
+361
+00:47:21,100 --> 00:47:24,910
+How can you be sure that the convergence between these two from the first person
+
+362
+00:47:25,360 --> 00:47:30,820
+is going to be the convergence between these two outcomes with the second person?
+
+363
+00:47:31,780 --> 00:47:35,570
+Right? Well, because the time gap is simply different.
+
+364
+00:47:35,590 --> 00:47:42,880
+Right. The gap for the first person seems to be much larger than the gap between the two measurements for the second person.
+
+365
+00:47:43,360 --> 00:47:51,790
+So forcing sigma size to be the same sigma with all structured covariance again is not to realistic.
+
+366
+00:47:57,480 --> 00:48:06,990
+So logically, we want to do something that's that can handle unbalanced data, that can handle a lot of time points.
+
+367
+00:48:08,090 --> 00:48:11,810
+So here we go. We are going to introduce COBRA as part of panel models.
+
+368
+00:48:13,040 --> 00:48:32,030
+Now let's show you the menu. So before we show the actual menu, we're going to still talk about.
+
+369
+00:48:36,700 --> 00:48:41,080
+The level of complexity of all these various covariance structures.
+
+370
+00:48:42,940 --> 00:48:48,460
+As we have seen, the most flexible option is the whole structure, various covers.
+
+371
+00:48:50,030 --> 00:48:55,820
+According to point number one, if there is too little structure there in the model for the various currents,
+
+372
+00:48:56,450 --> 00:49:05,049
+there will be too many parameters to estimate. This will often result in weaker inference about data and it will eat away at the information.
+
+373
+00:49:05,050 --> 00:49:07,880
+In the data. Right. However, on the other hand,
+
+374
+00:49:08,870 --> 00:49:17,720
+you don't want to be grossly wrong about variance clearance model that runs the risk of potential covariance model specification.
+
+375
+00:49:18,500 --> 00:49:26,480
+And if you get that wrong, it could sometimes get to your bad inference about better run stand errors,
+
+376
+00:49:26,690 --> 00:49:32,390
+run p values and those are going to lead to mis misleading scientific findings.
+
+377
+00:49:33,420 --> 00:49:42,150
+So clearly there is a tradeoff we need to make. We want to have fewer parameters to save the degrees of freedom in data.
+
+378
+00:49:42,510 --> 00:49:51,810
+We don't want to restrictive the model so that we Mississippi's five versions covariance model resulting in a bad inference verbatim.
+
+379
+00:49:55,000 --> 00:50:00,250
+That balance will be as strike struck using certain model selection criteria.
+
+380
+00:50:01,090 --> 00:50:09,770
+But before we go there, we just need to show you what the options. So the options will be here.
+
+381
+00:50:10,700 --> 00:50:15,170
+I want to sort of do a quick historical review here.
+
+382
+00:50:19,880 --> 00:50:27,810
+Longitudinal data analyzes. Became popular at around 1970s.
+
+383
+00:50:28,970 --> 00:50:32,840
+Before that, people are familiar with data collected over time.
+
+384
+00:50:33,560 --> 00:50:35,060
+They just call that time series.
+
+385
+00:50:38,980 --> 00:50:46,150
+So now a natural question is what's the difference between time series data structure and longitudinal data structure?
+
+386
+00:50:47,990 --> 00:50:52,400
+It is about the shape four time series.
+
+387
+00:50:53,240 --> 00:51:08,980
+You measure many times. For one one particular subject.
+
+388
+00:51:10,830 --> 00:51:17,220
+But usually how how do a time series model even work if you have only one sample?
+
+389
+00:51:18,500 --> 00:51:24,840
+Don't you guys think that's a magic? It may appear so.
+
+390
+00:51:26,430 --> 00:51:30,030
+You know, on the surface you just have only one time series.
+
+391
+00:51:30,630 --> 00:51:35,340
+But in Thomas's analyzes they do assume that the data here.
+
+392
+00:51:37,590 --> 00:51:41,310
+Almost, almost independent from data here.
+
+393
+00:51:42,150 --> 00:51:46,110
+So they are, you know, relatively uncorrelated to cabbies.
+
+394
+00:51:46,560 --> 00:51:52,620
+You can gather information. That's a high level intuition that's not required for this class.
+
+395
+00:51:52,650 --> 00:52:01,370
+Just for those of you who are. Curious because I do believe it's powerful to have some intuitions for longitudinal data analysis.
+
+396
+00:52:02,120 --> 00:52:06,310
+They are. Often structured like this.
+
+397
+00:52:08,000 --> 00:52:25,080
+Short. But for many people. So each time it's error represents a time line of one subject.
+
+398
+00:52:25,740 --> 00:52:34,720
+So you have many people that you have short. Repeated a small number of repeated measurements.
+
+399
+00:52:36,180 --> 00:52:42,450
+Same question. How are we able to conduct inference in this case?
+
+400
+00:52:42,480 --> 00:52:46,150
+It's much more intuitive. You just have many independent people.
+
+401
+00:52:46,860 --> 00:52:50,730
+And each of them, if they're following a certain common pattern or common dynamics,
+
+402
+00:52:51,120 --> 00:52:55,200
+hopefully all these independent people can provide you with that information.
+
+403
+00:52:57,330 --> 00:53:01,910
+So it is in this particular context. This class is centered around.
+
+404
+00:53:04,100 --> 00:53:09,770
+But because time series models do have to consider very carefully how to make the correlation
+
+405
+00:53:09,770 --> 00:53:14,030
+between pairs of measurements decay as the gap between two measurements increases.
+
+406
+00:53:14,600 --> 00:53:19,760
+They have invented a lot of different kind of cover covariance pattern models.
+
+407
+00:53:21,890 --> 00:53:28,430
+So this leads us to these simple but very effective choices.
+
+408
+00:53:29,420 --> 00:53:35,300
+The first one compels symmetry. The second one, TOEPLITZ Through a regressive bend, it expands a hybrid.
+
+409
+00:53:36,140 --> 00:53:40,840
+So let's go through them one by one. Actually.
+
+410
+00:53:40,840 --> 00:53:45,400
+Why don't we take a break and come back and forth? Because I realize that it's 355 now.
+
+411
+00:55:03,330 --> 00:55:07,620
+And it's not like it has to be a pure gold standard.
+
+412
+00:55:11,720 --> 00:55:19,010
+Just. Basically that.
+
+413
+00:55:20,120 --> 00:55:24,329
+I didn't think too much about this. There's going to be more.
+
+414
+00:55:24,330 --> 00:55:38,470
+Some more. So if you're waiting as it is this, I think.
+
+415
+00:55:39,510 --> 00:55:48,490
+I would not be surprised if I one way to. Suppose over average income tax cuts for the past few days.
+
+416
+00:55:49,000 --> 00:55:53,770
+You're going to ask what's the average? Are they going to be above me or will?
+
+417
+00:55:55,150 --> 00:56:01,090
+Because you don't have a lot of time to change the world, so you don't have to measure.
+
+418
+00:56:02,920 --> 00:56:07,080
+Late on suicide. We will have to.
+
+419
+00:56:08,190 --> 00:56:13,260
+So both of these attributes. In the same direction.
+
+420
+00:56:14,120 --> 00:56:19,010
+So if you consider that definition, here's a quote. I was inspired by this piece.
+
+421
+00:56:20,540 --> 00:56:25,470
+So it comes out to. Differences over the same amount.
+
+422
+00:56:36,740 --> 00:56:46,060
+Oh. You can't be in that office.
+
+423
+00:56:47,650 --> 00:56:57,190
+I think it's. I would like to.
+
+424
+00:57:05,580 --> 00:57:11,200
+Like, you know, like. But it.
+
+425
+00:57:18,430 --> 00:57:25,400
+Yeah. Yeah. Need.
+
+426
+00:57:30,350 --> 00:58:23,910
+But it run. Okay.
+
+427
+00:58:28,070 --> 00:58:33,230
+The five minute break is always so short. Okay.
+
+428
+00:58:33,890 --> 00:58:41,740
+All right. So let's get back to work. Hopefully you can hear me in back arm as promised in the next 20 minutes.
+
+429
+00:58:41,750 --> 00:58:50,360
+I will go as far as I can. But as you can see, my goal is trying to just try and introduce to you what are these menu items and
+
+430
+00:58:50,630 --> 00:58:59,420
+hopefully this will be specific enough for you to understand first compound symmetry.
+
+431
+00:58:59,870 --> 00:59:02,910
+So as you can see, this is comprised of two parameters.
+
+432
+00:59:02,930 --> 00:59:08,510
+The first parameters here are sigma squared. The variance and this is common to every occasion.
+
+433
+00:59:08,540 --> 00:59:15,470
+How do I know that? Well, if you do the math here, you can see all these thousand elements are one.
+
+434
+00:59:15,500 --> 00:59:21,200
+So regardless of which occasion n, we assume the variability of the residuals are going to be constant.
+
+435
+00:59:21,440 --> 00:59:23,690
+So when you plot out those spaghetti plots,
+
+436
+00:59:23,870 --> 00:59:32,420
+you don't you will not see an increasing or decreasing of the variabilities that will roughly be of the same level of variability.
+
+437
+00:59:32,780 --> 00:59:44,930
+The second parameter is here wro a special assumption here is that we assume the row is going to be the same regardless of what time we're looking at.
+
+438
+00:59:45,170 --> 00:59:53,390
+So if you need some visual here, so I'm going to draw like say three time points occasion number 1 to 3.
+
+439
+00:59:54,740 --> 01:00:01,220
+It is to say that regardless of which pair you're looking at, all these correlations are going to be row, right?
+
+440
+01:00:01,460 --> 01:00:08,240
+So this is the assumption. In English it says we have the constant variance across occasions.
+
+441
+01:00:08,450 --> 01:00:12,920
+And number two, we have identical correlation between any pair of repeated measurements.
+
+442
+01:00:25,230 --> 01:00:31,070
+So for the next slide, I'm going to return to this one where we have introduced everything else.
+
+443
+01:00:31,190 --> 01:00:36,079
+So. Because I was looking at my notes.
+
+444
+01:00:36,080 --> 01:00:42,320
+It's like two page of notes. So I want to finish talking about all the copyrights patents.
+
+445
+01:00:49,620 --> 01:00:57,660
+The second OP's own. Sorry, this should be remarked here because my nose is broken down here so I can not see that.
+
+446
+01:00:59,130 --> 01:01:03,510
+So remark about this model. Right? It looks very parsimonious.
+
+447
+01:01:03,510 --> 01:01:09,149
+You only have two parameters a sigma squared and the row and it's a rather strong assumption.
+
+448
+01:01:09,150 --> 01:01:14,430
+First, you assumed the variability of the outcome to be constant of a time, right?
+
+449
+01:01:15,660 --> 01:01:21,389
+If you say you're going to measure the net worth of a person going from middle school,
+
+450
+01:01:21,390 --> 01:01:27,660
+high school to college, years to graduation, yeah, good luck with the variability being constant.
+
+451
+01:01:28,680 --> 01:01:30,390
+So I think it's a rather strong assumption.
+
+452
+01:01:30,900 --> 01:01:35,490
+And secondly is assumes a correlation are going to be the same regardless which pair you're going to choose from.
+
+453
+01:01:37,260 --> 01:01:39,749
+That again is a strong assumption.
+
+454
+01:01:39,750 --> 01:01:49,110
+For example, if you go back to this particular illustration here, occasion one, occasion three, they are two gaps away, right?
+
+455
+01:01:49,110 --> 01:01:53,790
+Well, for one and two, two and three, they're just closer in time. So it's imaginable.
+
+456
+01:01:53,790 --> 01:02:02,850
+There are some kind of situations where the correlation between a one and three will be smaller than a correlation between one, two and two and three.
+
+457
+01:02:03,090 --> 01:02:08,220
+So you can imagine very reasonably, there are situations where this assumption will appear very strong.
+
+458
+01:02:12,390 --> 01:02:15,090
+So that's the remark now, second option.
+
+459
+01:02:15,330 --> 01:02:23,880
+TOEPLITZ Actually, I don't know whether I think this is mathematician's name, but the key idea here is to remember this pattern.
+
+460
+01:02:24,270 --> 01:02:28,080
+So how do we define this pattern?
+
+461
+01:02:28,470 --> 01:02:36,250
+So essentially, you just draw. Lines parallel to the main diagonal and you draw them.
+
+462
+01:02:37,660 --> 01:02:41,610
+Like this. Like this.
+
+463
+01:02:41,770 --> 01:02:51,130
+Right. So. If I'm going to give you one example, it's going to be 11.9.
+
+464
+01:02:54,310 --> 01:02:56,860
+Point seven, say, and point six.
+
+465
+01:02:57,160 --> 01:03:08,440
+So the key idea here is that you have these structures where if they falls into the same force in the same line, they are of exact the same value.
+
+466
+01:03:08,980 --> 01:03:16,150
+So this is called Toeplitz. English. It says that any pair of responses that are equally space and time have the same correlation.
+
+467
+01:03:16,880 --> 01:03:24,360
+Okay, what does that mean? Well, if you have four occasions, as you can see, that this one is element number one.
+
+468
+01:03:25,650 --> 01:03:31,020
+Column number two. Right. So this is measuring the correlation between the first, but in the outcome at the first occasion,
+
+469
+01:03:31,440 --> 01:03:35,760
+an outcome the second occasion, the gap between these two occasions is one.
+
+470
+01:03:38,050 --> 01:03:39,040
+Same thing here.
+
+471
+01:03:39,280 --> 01:03:47,440
+This is measuring the correlation between the second occasion and the third occasion, because it appears on the second row and third column.
+
+472
+01:03:47,830 --> 01:03:55,480
+Again, the gap is three, minus two is one. Same here it is on the third row, fourth column.
+
+473
+01:03:56,050 --> 01:04:02,110
+So this is basically representing the correlation between the outcome at the third occasion.
+
+474
+01:04:02,110 --> 01:04:13,070
+The fourth occasion and the gap again is one. So the three numbers circle has the commonality that they represents correlations one step away.
+
+475
+01:04:14,450 --> 01:04:18,020
+If you do this one, hopefully you can see this.
+
+476
+01:04:19,070 --> 01:04:23,600
+This is the first occasion and 30 occasions. So the gap is two.
+
+477
+01:04:24,080 --> 01:04:27,890
+Here it's for the second occasion and the fourth occasion.
+
+478
+01:04:28,000 --> 01:04:30,440
+Right. So the gap is. Two.
+
+479
+01:04:30,880 --> 01:04:38,440
+So again, for the two numbers point seven, they are both representing the correlation of when two measurements were obtained,
+
+480
+01:04:38,470 --> 01:04:43,870
+two time steps away and same thing for the point six but four three times steps away.
+
+481
+01:04:44,820 --> 01:04:53,170
+All right. So in English, again, it is assuming that as long as two measurements were obtained with the same time gap,
+
+482
+01:04:53,170 --> 01:04:58,420
+they're going to have the same correlation value. Now, how many parameters do we have here?
+
+483
+01:04:59,670 --> 01:05:03,130
+Well, first we don't forget to count this. Yeah.
+
+484
+01:05:04,220 --> 01:05:09,850
+Good status. And don't forget to count the sigma squared. How many more parameters?
+
+485
+01:05:15,410 --> 01:05:20,000
+Here. Right. Minus one. So one plus and minus lights and parameters.
+
+486
+01:05:24,490 --> 01:05:29,830
+Now, clearly, this is more flexible than.
+
+487
+01:05:32,230 --> 01:05:35,620
+Compound symmetry. Right. How do we recover the compound symmetry?
+
+488
+01:05:39,340 --> 01:05:42,400
+Well, it doesn't hurt the visualization here. So.
+
+489
+01:05:44,020 --> 01:05:47,120
+I'm going to use another color. Hmm.
+
+490
+01:05:49,490 --> 01:05:53,780
+The most difficult part of teaching this class is find a space to draw on the visualization.
+
+491
+01:05:54,170 --> 01:06:00,050
+So here I'm going to show you three occasions, Toeplitz says.
+
+492
+01:06:00,860 --> 01:06:07,820
+These are going to have roll one correlation. These are going to have.
+
+493
+01:06:10,280 --> 01:06:20,240
+Row three correlation. Actually, I'm going to do another one because I figure that's probably more effective.
+
+494
+01:06:20,780 --> 01:06:28,170
+So. Erasers.
+
+495
+01:06:30,010 --> 01:06:35,410
+So all the green arcs representing represents the pair of measurements that are once time step away.
+
+496
+01:06:35,890 --> 01:06:39,610
+All the red arcs are representing measurements that are two times steps away.
+
+497
+01:06:40,390 --> 01:06:50,500
+What is a column using? Okay. Right. So these are going to be wrote to round two finally for the only pair and that's three step away.
+
+498
+01:06:50,800 --> 01:06:53,950
+It is going, Oh, it's not better. It's rolling.
+
+499
+01:06:57,790 --> 01:07:03,330
+It's row three. Okay. So can you reduce this to the compound symmetry?
+
+500
+01:07:05,800 --> 01:07:09,660
+Yeah. You should nod your head. Yes, you can. Well, by setting.
+
+501
+01:07:13,230 --> 01:07:17,330
+By setting rule one to. Equal to row two.
+
+502
+01:07:17,660 --> 01:07:25,540
+Equal to row three. That, then that reduces the topless model to the compelled submission model.
+
+503
+01:07:26,900 --> 01:07:33,380
+So using the. Work on using the word nested.
+
+504
+01:07:33,400 --> 01:07:37,390
+We can see we can say that the compound symmetry I use sees.
+
+505
+01:07:37,450 --> 01:07:45,180
+Okay, compound symmetry is nested within Toeplitz. Okay.
+
+506
+01:07:45,690 --> 01:07:51,870
+So that's the kind of said this set the stage for doing like racial tests later on.
+
+507
+01:07:56,800 --> 01:08:00,010
+Moving on. The third option is called auto regressive.
+
+508
+01:08:00,760 --> 01:08:06,730
+And if you have ever heard about this word, you probably heard it from time series, literature class.
+
+509
+01:08:07,660 --> 01:08:12,520
+So in this particular variant convergence pattern, again, we are.
+
+510
+01:08:14,250 --> 01:08:17,700
+Having two parameters. So Sigma Square and Rho.
+
+511
+01:08:19,130 --> 01:08:26,950
+Okay. So it is going to be very a very economical representation of the various governments model.
+
+512
+01:08:31,920 --> 01:08:37,650
+Still, we're going to visualize this by drawing lines like what we have done with Toeplitz.
+
+513
+01:08:43,060 --> 01:08:46,270
+So what's special about ultra aggressive and other aggressive structure?
+
+514
+01:08:46,480 --> 01:08:51,910
+It is basic to say that. Row two above.
+
+515
+01:08:53,110 --> 01:08:59,710
+Equals. Row one squared.
+
+516
+01:09:00,160 --> 01:09:06,310
+Row three. Above equals. Wrote one critic.
+
+517
+01:09:20,230 --> 01:09:24,310
+Which is to say that. Auto regressive model.
+
+518
+01:09:24,520 --> 01:09:33,190
+First is a topless model and it is it is a special case which says that the higher order
+
+519
+01:09:33,190 --> 01:09:41,800
+correlation are going to be represented by powers of the first order or correlation.
+
+520
+01:09:44,940 --> 01:09:50,520
+Often Roe is positive. And as you know, Roe is smaller than or equal to one.
+
+521
+01:09:50,580 --> 01:09:54,720
+Right. So often this is going to be.
+
+522
+01:09:58,900 --> 01:10:04,400
+Having this kind of relationship. Suppose that's the case, right?
+
+523
+01:10:05,730 --> 01:10:14,370
+So this is very natural. Yeah. Because Row two represents the correlation between two outcomes obtained with 210 steps away.
+
+524
+01:10:15,300 --> 01:10:20,790
+And that correlation is all squared and it is assumed to be smaller than row one,
+
+525
+01:10:21,060 --> 01:10:26,190
+which is the correlation for two measurements obtained that are one step away.
+
+526
+01:10:28,350 --> 01:10:31,970
+And if you look at zero three, that's a cubic term.
+
+527
+01:10:31,980 --> 01:10:39,090
+So the same interpretation applies. Now we can draw another nesting structure here.
+
+528
+01:10:44,620 --> 01:10:49,140
+So. Auto regressive model is going to be nested.
+
+529
+01:10:52,920 --> 01:10:58,120
+Everyone in this case a1 a. It's going to be nested within Toeplitz.
+
+530
+01:11:00,800 --> 01:11:07,760
+So this presents another situation where if you're going to choose between the one model,
+
+531
+01:11:07,850 --> 01:11:14,990
+auto regressive model with auto one and the TOEPLITZ model, you can use the like ratio test when choosing the various scoring structure.
+
+532
+01:11:16,750 --> 01:11:20,069
+Now trick question. Or maybe not.
+
+533
+01:11:20,070 --> 01:11:27,260
+True question. Ah, the comparison emission model and auto regression model nested with each other.
+
+534
+01:11:37,560 --> 01:11:42,510
+So the answer should be no because compound symmetry model has two parameters and one has to parameters.
+
+535
+01:11:43,230 --> 01:11:47,550
+There's no way that you can make them nested within each other.
+
+536
+01:11:55,080 --> 01:11:59,100
+Here is a slide of theoretical justification, which I'll return to this later.
+
+537
+01:12:09,520 --> 01:12:20,170
+Moving on. We have been using the assumption that the variances are going to be the same regardless of what occasion we're talking about.
+
+538
+01:12:20,180 --> 01:12:24,650
+Right. Clearly, there are relaxations in this slide.
+
+539
+01:12:25,190 --> 01:12:29,420
+You can see that we have introduced one variance parameter per occasion.
+
+540
+01:12:29,510 --> 01:12:33,079
+Sigma one. Sigma two. Sigma three.
+
+541
+01:12:33,080 --> 01:12:38,390
+Up two. Sigma N. Right. So here now you have n plus one parameters.
+
+542
+01:12:42,100 --> 01:12:46,720
+If you have sigma one equals sigma two equals sigma n, then that.
+
+543
+01:12:47,980 --> 01:12:52,570
+Recovers the. Ultra regressive first class model.
+
+544
+01:13:23,010 --> 01:13:27,930
+Okay. Now a fourth option it.
+
+545
+01:13:28,630 --> 01:13:33,430
+So here it is basically trying to set certain values to zero.
+
+546
+01:13:33,970 --> 01:13:39,800
+Here you can see that we have. These two.
+
+547
+01:13:41,810 --> 01:13:48,740
+Lines. They are one position off the main diagonal, so they are parameters by one single parameter.
+
+548
+01:13:48,740 --> 01:13:57,010
+So that's the spirit of. Toeplitz Let's model. However, we said everything beyond that line to be all zeros.
+
+549
+01:13:59,110 --> 01:14:02,560
+Right. So, again, this is a special case of Toeplitz.
+
+550
+01:14:13,370 --> 01:14:22,460
+And because all the values that I shaded here represents pairs of measurements that were obtained more than.
+
+551
+01:14:23,510 --> 01:14:32,060
+Or equal to two times steps away. It is to say that the only correlation that can happen is when two measurements were adjacent to each other.
+
+552
+01:14:32,990 --> 01:14:37,550
+If you pick two measurements and not adjacent to each other, they are going to have zero correlation.
+
+553
+01:14:38,330 --> 01:14:48,940
+This is what this correlation structure is assuming. And how many premiers do we need here in this case, Sigma Square and Rho?
+
+554
+01:14:49,600 --> 01:14:50,500
+So two parameters.
+
+555
+01:14:50,920 --> 01:15:01,360
+And clearly it's imaginable that if you want to put occasion specific variances like Sigma one squared up to Sigma and squared, you can do that too.
+
+556
+01:15:01,690 --> 01:15:05,200
+And that will increase the number of parameters and potentially be more flexible.
+
+557
+01:15:06,040 --> 01:15:15,800
+But that's a simple modification. So in essence, this assumption is assuming that the the car is decayed very quickly.
+
+558
+01:15:16,190 --> 01:15:30,520
+It goes from real one to nothing. Yeah. So far as you can see, I have not even talked about the actual timings of these measurements.
+
+559
+01:15:30,820 --> 01:15:36,790
+I always talk about the occasions. So what if you do want to consider events,
+
+560
+01:15:36,790 --> 01:15:45,430
+cover and structure that needs to take information about when those measurements were taken within the subject?
+
+561
+01:15:46,180 --> 01:15:54,530
+So that's where this general exponential. Various corporate structure can come to help.
+
+562
+01:15:56,040 --> 01:16:01,320
+So this is especially effective for dealing with non-nuclear space to measure measurement occasions.
+
+563
+01:16:02,100 --> 01:16:06,990
+Suppose we have the measurement occasions indicated denoted by t one up to ten.
+
+564
+01:16:08,150 --> 01:16:16,650
+Here I have said the number of occasion to be just n and clearly this can be different across people.
+
+565
+01:16:16,920 --> 01:16:21,480
+But for the sake of introducing what this idea is, I'm just going to say everybody has the same n.
+
+566
+01:16:23,270 --> 01:16:27,620
+We assume for the purpose of illustrating the structure that the variants are going
+
+567
+01:16:27,620 --> 01:16:32,030
+to be custom here and we assume the correlation is going to be specified this way.
+
+568
+01:16:49,810 --> 01:16:57,130
+Which is to say that if you draw a timeline here, the correlation between these two outcomes will be Roe.
+
+569
+01:17:01,500 --> 01:17:05,880
+ti1 sorry, one minus t two.
+
+570
+01:17:06,390 --> 01:17:11,220
+And the correlation between these two will be row ti2 minus t three.
+
+571
+01:17:12,990 --> 01:17:19,450
+Because the second gap is going to be bigger. Then the first gap.
+
+572
+01:17:20,360 --> 01:17:26,240
+And you put them into the power. So the correlation for the second arc is going to be smaller.
+
+573
+01:17:27,230 --> 01:17:32,570
+And this is how we take into account of the irregular timings of these measurements.
+
+574
+01:17:37,200 --> 01:17:43,349
+So what we just talk about is correlation. We do need to talk about the coherence.
+
+575
+01:17:43,350 --> 01:17:48,900
+And usually we just we just calculate the coherence, which is just multiply the variance here.
+
+576
+01:17:49,650 --> 01:17:57,090
+And sometimes we want to estimate a parameter that's on the real line for row.
+
+577
+01:17:57,300 --> 01:18:00,850
+Indeed, it's unknown, but it is range restricted.
+
+578
+01:18:00,870 --> 01:18:07,500
+For many optimized optimization solvers, they're going to have no range constricted restrictions.
+
+579
+01:18:07,860 --> 01:18:12,870
+So it's a good idea to talk about, to transform into a parameter that is not restricted.
+
+580
+01:18:15,070 --> 01:18:26,780
+So that's why people would usually represent this way. And in essence, we have transformed Roe into a.
+
+581
+01:18:29,910 --> 01:18:46,790
+A real not a real parameter. So this is what we call exponential.
+
+582
+01:18:46,800 --> 01:18:50,220
+This is the fifth option or the fifth?
+
+583
+01:18:50,760 --> 01:18:55,270
+I think it's the fifth. Right. Fifth year.
+
+584
+01:18:55,960 --> 01:18:59,470
+So what are its properties? There are a few properties.
+
+585
+01:18:59,800 --> 01:19:08,200
+The first one is if we do need a transformation, a time scale, we still will obtain an exponential version, score and structure.
+
+586
+01:19:08,800 --> 01:19:19,180
+Let's see how it's done. So for the exponential structure, if you do the time transformation, you sometimes would do that, like centering the time.
+
+587
+01:19:20,590 --> 01:19:29,090
+Um. And move around the measurements a little bit because you change the baseline time.
+
+588
+01:19:29,930 --> 01:19:35,420
+So if you do this right, this is to say that after the time has been transformed linearly.
+
+589
+01:19:35,930 --> 01:19:46,340
+What is this correlation? You can write out this whole thing by what row b times t j minus t i j prime.
+
+590
+01:19:46,640 --> 01:19:50,490
+Right. So if you define.
+
+591
+01:19:51,380 --> 01:19:54,950
+Ro Star Equals Road to the Beast Power.
+
+592
+01:19:56,650 --> 01:20:02,100
+Then you will get this whole thing. As t j minus.
+
+593
+01:20:02,100 --> 01:20:13,580
+T j prime. So again, this is a exponential barrons current structure where it's simply simply the ROE has been changed.
+
+594
+01:20:17,400 --> 01:20:20,730
+So that's the first probably, Chuck. Number two.
+
+595
+01:20:23,110 --> 01:20:26,920
+When two measurements are increasingly closer to each other.
+
+596
+01:20:27,220 --> 01:20:31,210
+Because now we're dealing with continuous time so we can move them closer and closer.
+
+597
+01:20:31,990 --> 01:20:38,650
+What is that limit value? Well, this can be easily seen from this calculation.
+
+598
+01:20:41,810 --> 01:20:48,680
+What does it go to when t j minus t j prime goes to zero?
+
+599
+01:20:52,960 --> 01:20:56,920
+Continuous mapping theorem that says it goes to one, right?
+
+600
+01:20:57,550 --> 01:21:04,900
+So if you have two measurements that are closer, closer and eventually becomes two measurements up to the same time.
+
+601
+01:21:05,350 --> 01:21:08,350
+This model says the correlation must be one.
+
+602
+01:21:09,510 --> 01:21:14,040
+Which is a strong assumption. We will realize this later, but this is what this model says.
+
+603
+01:21:16,160 --> 01:21:23,480
+That's the point number two. Point number three is what would happen.
+
+604
+01:21:25,180 --> 01:21:30,430
+If you have the time gap between the two measurements goes to infinity.
+
+605
+01:21:33,280 --> 01:21:45,680
+What this correlation will be. Zero.
+
+606
+01:21:47,310 --> 01:21:56,480
+Which is to say that. If if Roe is smaller than one.
+
+607
+01:22:02,040 --> 01:22:08,610
+Which is to say if you have two measurements of further for the for the part, ultimately the correlation will decay to zero.
+
+608
+01:22:09,870 --> 01:22:14,760
+Which again may not be empirically true in many studies.
+
+609
+01:22:15,800 --> 01:22:26,490
+So I will be stopping here. From the next lecture, it will be continue to talk about hybrid models that can move away from these limit values.
+
+610
+01:22:26,850 --> 01:22:31,560
+So when two measurements are were obtained a same time, they're not going to be perfect correlated.
+
+611
+01:22:31,950 --> 01:22:37,019
+When two measurements are obtained very far away, they are not going to be completely uncorrelated.
+
+612
+01:22:37,020 --> 01:22:42,450
+So it is going to strike a balance between the two. All right, thanks, everybody, and see you next week.
+

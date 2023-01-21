@@ -1,0 +1,3188 @@
+1
+00:00:03,250 --> 00:00:07,720
+Okay. Good morning, everyone.
+
+2
+00:00:24,400 --> 00:00:32,920
+Three more weeks of the semester I can give you. How is the project when light talked to many of you?
+
+3
+00:00:39,530 --> 00:00:46,020
+Love to. They've been all working diligently even during the holidays.
+
+4
+00:00:49,420 --> 00:01:03,710
+But. Yeah. Feel free to reach out. And, you know, like, as I have done several of you, like, better.
+
+5
+00:01:05,520 --> 00:01:09,000
+Just schedule of weeks. Sweet corn dog.
+
+6
+00:01:09,420 --> 00:01:14,800
+Usually that's the most efficient. Or, you know, kind of stopping by.
+
+7
+00:01:16,220 --> 00:01:19,640
+It was okay. Hmm.
+
+8
+00:01:20,520 --> 00:01:25,770
+Any questions for me? Okay.
+
+9
+00:01:25,770 --> 00:01:34,800
+So today the plan is to kind of wrap up.
+
+10
+00:01:39,350 --> 00:01:49,520
+These sort of topics on the extensibility application diagnostics today, we are going to kind of do an extension of that,
+
+11
+00:01:49,640 --> 00:01:58,160
+talk about influenza diagnostics and also like that's the first half and the second half to talk about some bipolar diagnostics.
+
+12
+00:02:00,350 --> 00:02:08,180
+So some of the ideas we talk about today are what you have already seen before,
+
+13
+00:02:09,200 --> 00:02:16,250
+but this is more of formally dying those ideas and formalizing some of those sub concepts.
+
+14
+00:02:17,330 --> 00:02:29,270
+Okay. So today, again, like we are going to sort of carry through our discussion of regression diagnostics.
+
+15
+00:02:29,270 --> 00:02:37,429
+We are going to formally talk about outliers who have sort of heard about outliers in module again also earlier.
+
+16
+00:02:37,430 --> 00:02:45,890
+But we are going to formalize that. We are going to talk about influence and connection with leverage,
+
+17
+00:02:47,150 --> 00:02:57,830
+and we are going to look at the impact of all of these on regression coefficients and variance estimated and so on, the examples for module end.
+
+18
+00:02:58,090 --> 00:03:06,590
+And so the influence diagnostics and the multi-core linearity,
+
+19
+00:03:07,820 --> 00:03:20,270
+we will ask the facilitators and the GSI is to kind of do okay, carry through the example.
+
+20
+00:03:20,370 --> 00:03:30,620
+So we do basically an extension of the again the full length regression diagnostics example that we did.
+
+21
+00:03:31,490 --> 00:03:38,060
+So adding a couple more sort of slides and analysis.
+
+22
+00:03:38,360 --> 00:03:44,470
+And in terms of looking at the influence and also looking at some of the multi cooling entity,
+
+23
+00:03:45,050 --> 00:03:53,120
+but that's that's something that the G sides and the facilitators will do with you this week.
+
+24
+00:03:54,890 --> 00:03:58,820
+Okay. So this is chapter six of the text.
+
+25
+00:03:59,210 --> 00:04:03,170
+Now, I'm going to start with this picture.
+
+26
+00:04:03,170 --> 00:04:09,200
+So in a perfect world, if we had data like this, you know,
+
+27
+00:04:09,200 --> 00:04:21,349
+where all the lines kind of align along, all are really tightly aligned along a straight line.
+
+28
+00:04:21,350 --> 00:04:25,610
+And, you know, clearly this orangish line gives you the best line fit.
+
+29
+00:04:25,610 --> 00:04:37,460
+And as you can see that the this is the this straight line gives a very, very nice description of the scatter of Y versus X.
+
+30
+00:04:37,880 --> 00:04:46,040
+And pretty much the points all fall either fall on the line or are very close to the line.
+
+31
+00:04:46,430 --> 00:04:56,299
+So what would you expect here? That the residuals will be zero or very small?
+
+32
+00:04:56,300 --> 00:05:00,200
+Nearly zero or small. Right. So this is the perfect way.
+
+33
+00:05:00,290 --> 00:05:03,740
+But of course, life is not perfect.
+
+34
+00:05:04,280 --> 00:05:18,320
+So in the reality scenario, we could have points like some that are outside the the the mean scatter and we could have points like this being point.
+
+35
+00:05:22,460 --> 00:05:31,280
+This Green Point or this blue point or this orange one.
+
+36
+00:05:31,550 --> 00:05:35,090
+Okay, there is this red one.
+
+37
+00:05:35,420 --> 00:05:40,520
+So there is this black one which was there originally in the dataset.
+
+38
+00:05:40,520 --> 00:05:45,799
+But this black one point is very close to the best line.
+
+39
+00:05:45,800 --> 00:05:51,800
+And as you can imagine that the residual for this is going to be really small.
+
+40
+00:05:52,970 --> 00:06:01,670
+Okay. So the red and blue points are but referred to as high leverage points.
+
+41
+00:06:02,660 --> 00:06:07,760
+And again, will more formally define this. This is where the X value.
+
+42
+00:06:08,270 --> 00:06:18,020
+This is like a y versus x scatter. Should consider, as if we have only one predictor one for variable x and it is the.
+
+43
+00:06:20,180 --> 00:06:23,930
+These are high leverage points. Sorry.
+
+44
+00:06:25,190 --> 00:06:30,050
+The blue and the red here. Here is the blue and here is the red.
+
+45
+00:06:30,800 --> 00:06:38,570
+These are a high level red in the sense that they have an extreme value of x.
+
+46
+00:06:39,320 --> 00:06:48,650
+Extreme value is a value of X that is sort of very outlined in the X space.
+
+47
+00:06:48,830 --> 00:06:51,650
+Okay, mark my word, it's space.
+
+48
+00:06:53,120 --> 00:07:05,149
+So these points are really in fact, the variance estimates because remember, variance of data head is what Sigma Square Times X transpose x inverse.
+
+49
+00:07:05,150 --> 00:07:15,640
+So due to the x transpose x inverse and because these points are outlined in the x space, they will impact the variance estimate there.
+
+50
+00:07:16,250 --> 00:07:21,620
+They may or may not impact big the had the oil as estimated.
+
+51
+00:07:21,830 --> 00:07:26,030
+And we will see now when they mean and when they may not.
+
+52
+00:07:27,380 --> 00:07:38,500
+What about the green and the blue points? The green point and the blue point basically are far removed from the best line fit.
+
+53
+00:07:38,960 --> 00:07:44,060
+And if you think about residuals for these,
+
+54
+00:07:45,110 --> 00:07:53,900
+basically here would be the residual for the Green Point and here would be the residual for the Blue Point.
+
+55
+00:07:54,080 --> 00:08:03,760
+Right. So they are outliers because they have extreme values of the residuals being vertical distance from the best line.
+
+56
+00:08:05,660 --> 00:08:14,270
+They are outliers because they have large residuals, so they are outlying in that aspect.
+
+57
+00:08:15,830 --> 00:08:18,350
+They may impact Sigma Head Square. Why?
+
+58
+00:08:18,350 --> 00:08:27,890
+Because what is Sigma head scratching my head square, I estimate by some of the epsilon impact squares, right sum of squares of the residuals.
+
+59
+00:08:28,190 --> 00:08:39,200
+So if you know the residuals are large, then of course they will impact sigma hats where they again may or may not in fact be correct.
+
+60
+00:08:39,470 --> 00:08:42,560
+And we will see in which situations they do end with situation.
+
+61
+00:08:43,310 --> 00:08:46,910
+The middle blue.
+
+62
+00:08:47,780 --> 00:09:00,920
+The blue point is the most interesting or most noteworthy here is that blue point.
+
+63
+00:09:01,130 --> 00:09:08,060
+And this blue point has an extreme X psi as well as an extreme epsilon.
+
+64
+00:09:08,060 --> 00:09:17,360
+I had. So it's extreme or it's outline in the X space and it's also applying because of the large residual it has.
+
+65
+00:09:18,800 --> 00:09:30,980
+So this is a point that will impact big the have the estimate of beta in addition to the sigma head squared and the variance estimates.
+
+66
+00:09:32,420 --> 00:09:41,630
+Okay. So now before I go to the next slide, let me ask you a question about this red point.
+
+67
+00:09:42,560 --> 00:09:47,629
+I'm going to get this red point again.
+
+68
+00:09:47,630 --> 00:09:53,450
+You tell me with this red point have haven't have an impact on data have.
+
+69
+00:09:57,530 --> 00:10:03,690
+Just argue from intuition. No, not really.
+
+70
+00:10:03,700 --> 00:10:06,980
+Can you tell me why? Because if you like, you can.
+
+71
+00:10:07,030 --> 00:10:12,440
+If you think about it, mentally draw. Yeah.
+
+72
+00:10:12,560 --> 00:10:22,340
+So another way of thinking of it like that, they point, block it off and pretend as if you are dropping that.
+
+73
+00:10:22,820 --> 00:10:25,880
+Do you think the street planning permission would change?
+
+74
+00:10:26,870 --> 00:10:31,610
+No. Okay. Now look at the blue point.
+
+75
+00:10:32,570 --> 00:10:42,430
+The blue point is the one here that has that is outlined both in terms of the EC space as well as the residual.
+
+76
+00:10:42,440 --> 00:10:52,099
+So the blue point. Do you think it will? It will change the straight efficient.
+
+77
+00:10:52,100 --> 00:10:56,010
+Yes. And Jack. Jack was showing like this.
+
+78
+00:10:56,220 --> 00:11:06,290
+Yes. So basically, the the keeping the blue board and what the do what we do is we try to build the line towards itself.
+
+79
+00:11:07,320 --> 00:11:16,690
+Right. So it will have an impact on read up and more formally coming what that indicates.
+
+80
+00:11:16,710 --> 00:11:27,480
+So this is a point that we will call the blue point is a point that we will call influential because it impacts the big that the red point.
+
+81
+00:11:27,480 --> 00:11:36,930
+On the other hand, although it has high leverage but it is not influential, it will not change that in any way.
+
+82
+00:11:38,070 --> 00:11:44,220
+Okay, so now let's come to outliers.
+
+83
+00:11:46,230 --> 00:11:57,390
+So outliers are basically where we observe data points of this form, why this is a multiple linear regression setting.
+
+84
+00:11:57,810 --> 00:12:03,240
+Why is equal to a study by x?
+
+85
+00:12:03,240 --> 00:12:10,200
+I want inside to excite B so I have or variance and I have I from one to n.
+
+86
+00:12:10,200 --> 00:12:15,480
+So in subjects in the study and we observe data of this form, right?
+
+87
+00:12:16,950 --> 00:12:24,810
+The values of the I, the individual, as you saw, can be extreme in several ways.
+
+88
+00:12:25,890 --> 00:12:34,650
+You saw how an observation can be extreme or outline in the X space by virtue of its x value.
+
+89
+00:12:34,950 --> 00:12:42,179
+Now in in the previous slide, we were kind of in a single linear, simple linear regression domain.
+
+90
+00:12:42,180 --> 00:12:48,270
+So a single video now mean we are in the multiple linear regression building, so we have multiple covariates.
+
+91
+00:12:48,600 --> 00:12:54,660
+So basically now I'm talking about outline this as a vector, correct?
+
+92
+00:12:55,620 --> 00:13:03,809
+So it's extreme in the X space and it can also be extreme by virtue of its outcome.
+
+93
+00:13:03,810 --> 00:13:14,700
+Y is extreme and all of this can potentially lead to a large residual relative to epsilon.
+
+94
+00:13:15,510 --> 00:13:23,370
+The vector of residuals, by definition an outlier is an observation with a large residual.
+
+95
+00:13:24,900 --> 00:13:33,810
+And another way of thinking about it is an outlier is a point that does not fit the model.
+
+96
+00:13:34,320 --> 00:13:40,680
+It's kind of like by virtue of having a large residual means that it's somewhere in some way,
+
+97
+00:13:40,680 --> 00:13:48,000
+either in the positive or the negative direction it's averaged with relative to the best line.
+
+98
+00:13:49,020 --> 00:14:01,379
+Okay. Often it is difficult to detect outliers in X space visually unless you are in the simple linear regression domain,
+
+99
+00:14:01,380 --> 00:14:05,820
+like in the simple linear regression domain. When there is only one more variable,
+
+100
+00:14:05,820 --> 00:14:15,389
+you can detect outlying missing the x space because basically saying it's an it has an it is a large value of x, extreme value of things.
+
+101
+00:14:15,390 --> 00:14:28,110
+But when you are in the multiple linear regression domain, when your X is a vector or your design matrix is a matrix,
+
+102
+00:14:29,120 --> 00:14:35,040
+and then it is visually difficult to detect outliers in the X space.
+
+103
+00:14:36,180 --> 00:14:42,960
+So we have to find a way to sort of reflect that outline missing the X space.
+
+104
+00:14:45,540 --> 00:14:48,479
+And that's where the concept of leverage comes.
+
+105
+00:14:48,480 --> 00:15:03,360
+How do we detect outlying ness in the X space when we have multiple covariates, when we have really not multiple linear regression sort of setting?
+
+106
+00:15:04,440 --> 00:15:10,889
+So that's where the concept of leverage comes in.
+
+107
+00:15:10,890 --> 00:15:24,209
+Do comes handy. So leverage is outlining this in the X space where remember now x is a matrix.
+
+108
+00:15:24,210 --> 00:15:36,210
+So we are in the MLR domain and the leverage for the eye of the individual is
+
+109
+00:15:36,210 --> 00:15:47,720
+denoted as h subscript I and it is the albeit diagonal element of the hat made.
+
+110
+00:15:47,850 --> 00:15:55,470
+Trix. Remember our hat matrix? Good old friend, that matrix, the matrix, the projection matrix.
+
+111
+00:15:57,060 --> 00:16:06,600
+So the projection matrix is it's a really, really important quantity, right, in the linear regression model.
+
+112
+00:16:06,600 --> 00:16:14,900
+So you saw that basically y you had these AIDS times y food projects and you know,
+
+113
+00:16:14,910 --> 00:16:29,489
+like it also projects the columns of X itself and the value of diagonal element of the hat matrix is what gives the
+
+114
+00:16:29,490 --> 00:16:38,550
+leverage of the eye of the individual because it reflects the outlying ness of the individual in the space calculation.
+
+115
+00:16:39,600 --> 00:16:49,830
+Again, again, using sort of the definition of the hat matrix that meant, which is x x transpose, that's inverse x transpose.
+
+116
+00:16:49,860 --> 00:16:53,460
+So the diagonal element is of course, given by.
+
+117
+00:16:59,000 --> 00:17:06,020
+Is given by excise transport time.
+
+118
+00:17:06,020 --> 00:17:15,980
+So it's a it's an orbiter time six transport accident bus SRT OC as a special case in the SLR.
+
+119
+00:17:16,370 --> 00:17:17,600
+And come to your question,
+
+120
+00:17:18,380 --> 00:17:33,230
+you can sort of simplify this expression and it reduces to a quantity like this one over N plus IXI minus X squared divided by six as you can see.
+
+121
+00:17:33,770 --> 00:17:39,410
+Why, why am I saying that it reflects the outlying this in the space?
+
+122
+00:17:39,680 --> 00:17:42,919
+Because look at the numerator Exane minus x bar.
+
+123
+00:17:42,920 --> 00:17:58,280
+So the farther a particular individual takes value is from the center of the x data, the more outlying that individuals.
+
+124
+00:17:59,120 --> 00:18:08,700
+So to understand why they have introduced x x x x to the quality calculation in terms of x x.
+
+125
+00:18:17,190 --> 00:18:20,649
+Yeah. So what is Excite? Tell me what takes in the design matrix?
+
+126
+00:18:20,650 --> 00:18:34,320
+What's. What is Excite? I know the x matrix is in class B, right?
+
+127
+00:18:35,280 --> 00:18:41,970
+The X matrix is interesting. What does each column of that design matrix?
+
+128
+00:18:42,760 --> 00:18:47,430
+The values of the. You should. People want to buy.
+
+129
+00:18:49,370 --> 00:18:54,310
+It represents one in about a thousand projects if it's owned by people.
+
+130
+00:18:58,670 --> 00:19:02,120
+It's at my peak, so. It was called.
+
+131
+00:19:02,180 --> 00:19:11,170
+Yes. And those people so acts as so so that some the columns of the were.
+
+132
+00:19:12,370 --> 00:19:20,710
+As an individual. Exactly. And what is what is the if it had me tweets, what is the dimension of that?
+
+133
+00:19:22,580 --> 00:19:29,660
+And by and by. M Right. So each diagonal element is for a subject.
+
+134
+00:19:30,710 --> 00:19:35,180
+So that's what, that's why you have the exceptions for the crime.
+
+135
+00:19:35,360 --> 00:19:41,300
+So it is p preventing each subject, not a predictor.
+
+136
+00:19:42,020 --> 00:19:47,219
+Okay. And so now let's look at the high leverage points.
+
+137
+00:19:47,220 --> 00:19:55,310
+So high leverage points basically may have disproportionate impact on bid.
+
+138
+00:19:55,310 --> 00:20:09,139
+That's why because and we'll see that again more formally because remember, what is the variance of epsilon?
+
+139
+00:20:09,140 --> 00:20:16,670
+I had variance of Epsilon. I had this uh, one minus H.I times sigma spoke squared.
+
+140
+00:20:16,670 --> 00:20:25,100
+We, we saw it from our matrix algebra like when we were looking in module G at the properties of the residuals.
+
+141
+00:20:25,100 --> 00:20:35,240
+The variance for variance matrix for the residuals is given by I minus E times sigma squared.
+
+142
+00:20:35,360 --> 00:20:45,590
+Right? So if the leverage is large, if H II is large, then the field will be forced to be close to white.
+
+143
+00:20:47,270 --> 00:20:53,750
+So in other words, it will impact the model effect.
+
+144
+00:20:53,780 --> 00:21:04,730
+It will impact the estimates of. But it does a few more facts and interpretation about leverage.
+
+145
+00:21:05,330 --> 00:21:24,220
+So leverage HHI has bombs and we kind of proved this in module K because it is symmetric and positive definite h lies between zero and one.
+
+146
+00:21:24,740 --> 00:21:33,770
+Um, if you remember, like we kind of, we prove this because it is symmetric and positive definite.
+
+147
+00:21:34,100 --> 00:21:43,220
+So h i is equal to summation h idea squared.
+
+148
+00:21:46,690 --> 00:21:55,090
+We took as h i squared plus some over h.
+
+149
+00:21:55,220 --> 00:21:59,800
+I do square I not equal to G.
+
+150
+00:22:02,560 --> 00:22:10,450
+Okay. So basically this is sum of two squared to positive quantity.
+
+151
+00:22:10,460 --> 00:22:16,090
+So it has to be greater than equal to zero. Okay.
+
+152
+00:22:17,240 --> 00:22:25,070
+Another way of seeing it is now if you pick H, I minus h, I square.
+
+153
+00:22:27,290 --> 00:22:30,739
+Okay. I kind of maybe skipped it.
+
+154
+00:22:30,740 --> 00:22:33,760
+But you you see why this is true, right?
+
+155
+00:22:33,770 --> 00:22:39,260
+Because it is it important. So it is equal to eight square.
+
+156
+00:22:39,770 --> 00:22:50,510
+So that's why I got that first step. So h i minus e j squared is once again sum of a positive quantity.
+
+157
+00:22:50,520 --> 00:23:01,610
+So it's greater than equal to zero, meaning h ii times one minus h i is greater than equal to zero.
+
+158
+00:23:06,180 --> 00:23:17,550
+I know HIV is positive. So one minus HIV also has to be positive to know the words HIV is less than equal to one.
+
+159
+00:23:19,590 --> 00:23:23,670
+Okay. So it is it has both lies between zero and one.
+
+160
+00:23:24,750 --> 00:23:33,680
+The sample mean each bar of the diagonals of the head matrix is given by one of our end summation II.
+
+161
+00:23:34,290 --> 00:23:38,009
+What is the sum of the diagonal elements of the matrix?
+
+162
+00:23:38,010 --> 00:23:43,979
+It's the trace of the head matrix trace of H and I know it is symmetric.
+
+163
+00:23:43,980 --> 00:23:49,920
+Symmetrical importance of trace of H is equal to the end of age and rank of it is equal to the end of the effects.
+
+164
+00:23:50,310 --> 00:23:55,200
+So its be over in f b predictors and in subjects.
+
+165
+00:23:56,250 --> 00:24:01,740
+So there are some criteria for assessing outlining this in the x space.
+
+166
+00:24:01,770 --> 00:24:05,129
+This is again, once again we have multiple predictors.
+
+167
+00:24:05,130 --> 00:24:16,020
+So it's a vector. And so one criterion that is used is H II is greater than two H bar, which comes from here.
+
+168
+00:24:18,840 --> 00:24:27,030
+And then between if it lies between point two and point five, we see a, you know, it's moderate influence.
+
+169
+00:24:27,930 --> 00:24:31,669
+If it's moderate leverage, if it's greater than point five,
+
+170
+00:24:31,670 --> 00:24:42,360
+we say it's large leverage and often it would be useful to rank that each area is in addition to applying the criterion.
+
+171
+00:24:43,350 --> 00:24:50,010
+If you if you ask me like where you know, these are kind of like rules of thumb that are used.
+
+172
+00:24:50,250 --> 00:24:58,770
+There is no distribution, no reference for these cutoffs.
+
+173
+00:24:59,370 --> 00:25:05,730
+These are in some way ad hoc and and do ad hoc rules of thumb.
+
+174
+00:25:06,930 --> 00:25:13,500
+So sometimes it might be useful to rank the leverage values in addition to applying the criterion.
+
+175
+00:25:13,740 --> 00:25:23,610
+But these are some commonly used criteria in the in the literature and that are used as defaults in several softwares.
+
+176
+00:25:25,260 --> 00:25:33,510
+So basically that's all I want to talk about leverage.
+
+177
+00:25:34,620 --> 00:25:35,630
+Um,
+
+178
+00:25:37,290 --> 00:25:53,220
+and so the take home message is the leverage help to identify observations with extreme poverty values observations that are outlined in the X space.
+
+179
+00:25:53,520 --> 00:26:00,420
+Okay. And as you can see, all of that we did through the hat matrix.
+
+180
+00:26:00,810 --> 00:26:06,389
+So here is one of my very favorite cartoons that I like to share.
+
+181
+00:26:06,390 --> 00:26:12,900
+So hats off to the hat matrix. We saw the use of hat matrix in so many different settings.
+
+182
+00:26:12,900 --> 00:26:17,820
+It's a key, very important one being in linear regression.
+
+183
+00:26:17,820 --> 00:26:27,000
+So hats off. And now let's go to the impact of outliers.
+
+184
+00:26:27,900 --> 00:26:45,660
+So outliers and you saw that, you know, these are observations that well, have a large residual outliers can detect outliers.
+
+185
+00:26:45,670 --> 00:26:58,680
+Again this store sigma had squared white because sigma had squared is estimated by one over ten minus B summation epsilon I had squared.
+
+186
+00:26:58,680 --> 00:27:01,050
+So it's the sum of squares of the residuals.
+
+187
+00:27:02,940 --> 00:27:13,230
+So if, if an observation has a large residual, of course it's not a surprise that it would distort Sigma had split.
+
+188
+00:27:15,490 --> 00:27:22,210
+Outliers can also distort. Beta J hats.
+
+189
+00:27:27,470 --> 00:27:40,700
+So outliers can also be stored between heads or the estimates of all of the regression coefficients to recall.
+
+190
+00:27:40,700 --> 00:27:48,320
+One way to think about it is sample means you know are sensitive to outliers.
+
+191
+00:27:48,830 --> 00:28:00,520
+Right. Medians are not. So one way of seeing why outliers can distort the study hat is think about Big Daddy hat.
+
+192
+00:28:00,530 --> 00:28:07,890
+What is it? It is. Or think about bet that it is extra for vaccine versus X transpose Y, correct?
+
+193
+00:28:14,200 --> 00:28:27,279
+So you can think about meta hat as a we did sample mean of the wise right and if
+
+194
+00:28:27,280 --> 00:28:35,679
+so this is kind of like here's my y and the vector of y gives me the outcome.
+
+195
+00:28:35,680 --> 00:28:45,069
+For the responses for that I would want to end subjects and Peter Head can be taught off as as
+
+196
+00:28:45,070 --> 00:28:52,420
+a weighted sample mean of the wise but the weights are given by elements of the design matrix.
+
+197
+00:28:52,420 --> 00:28:55,420
+It's a function of, of the, of the design matrix.
+
+198
+00:28:56,110 --> 00:29:11,920
+And so if the if a why is is it, you know, if a Y is large relative to what I had that is predicted by the models,
+
+199
+00:29:12,490 --> 00:29:18,760
+then basically a better hat would be impacted.
+
+200
+00:29:19,180 --> 00:29:31,360
+So it can distort the absolute an observation that as a large residual can be stored beta hacked as well.
+
+201
+00:29:32,650 --> 00:29:42,270
+So it can impact the the estimate as well as the variance estimate to.
+
+202
+00:29:46,590 --> 00:29:53,390
+Summary. Generally, we are not interested in formal test of applying.
+
+203
+00:29:53,520 --> 00:30:01,770
+So, you know, we talked about based on the the different versions of residuals, we talked about the raw residuals,
+
+204
+00:30:01,770 --> 00:30:10,050
+the standardized as it was, the internally standardized assiduous, the externally student or the jackknife residuals.
+
+205
+00:30:10,530 --> 00:30:21,510
+And we we kind of gave you like sort of once again, kind of heuristic cutoffs based on approximate normal distributions and so on.
+
+206
+00:30:22,650 --> 00:30:31,950
+But we are not interested in formal hypothesis test because and the power of existing
+
+207
+00:30:31,950 --> 00:30:41,759
+tests is often driven by the sample size and there is very little power for small sample.
+
+208
+00:30:41,760 --> 00:30:52,319
+So it's, it's meaningless also to think about hypothesis test for outliers because it is it is precisely in this small sample spread,
+
+209
+00:30:52,320 --> 00:30:56,160
+the outliers will have the maximum impact.
+
+210
+00:30:56,220 --> 00:30:59,850
+When it's a large sample, you know,
+
+211
+00:31:00,840 --> 00:31:07,919
+outliers within the context of a large sample may have very little or no impact on
+
+212
+00:31:07,920 --> 00:31:17,820
+the overall regression line or some of the variance of the big does big perhaps.
+
+213
+00:31:18,960 --> 00:31:22,830
+So in the context where the outliers are going to.
+
+214
+00:31:23,310 --> 00:31:33,959
+In fact, just small samples. Some of the existing tests are lousy because they they actually have very, very poor power.
+
+215
+00:31:33,960 --> 00:31:40,650
+So we generally don't do formal tests of hypotheses of our blindness.
+
+216
+00:31:40,680 --> 00:31:53,610
+Instead, we use those coins to sort of signal or to flag large residual or large leverage points.
+
+217
+00:31:55,590 --> 00:32:05,100
+Really, should outliers be discarded? Appropriate efforts should be made to ensure that the outliers really do represent the process under study,
+
+218
+00:32:05,100 --> 00:32:09,509
+and it's not the result of data collection of being it or discarding.
+
+219
+00:32:09,510 --> 00:32:15,329
+Outliers may change the population to which the analysis conclusions can generalize.
+
+220
+00:32:15,330 --> 00:32:19,110
+So this is, again, a very important point.
+
+221
+00:32:19,830 --> 00:32:23,520
+Often times students will come and ask me, especially when they're doing the project.
+
+222
+00:32:23,520 --> 00:32:26,940
+So like, what do I do here? Is is an outlier?
+
+223
+00:32:26,940 --> 00:32:37,260
+Do I just simply discarded? The answer is no. I mean, the sort of as a as a conscientious analyst, your job should first be to,
+
+224
+00:32:38,040 --> 00:32:45,480
+you know, basically go back and see was it a data hoarding error, data collection error?
+
+225
+00:32:45,990 --> 00:32:52,410
+Is that observation truly reflective of of the design?
+
+226
+00:32:52,770 --> 00:32:57,690
+Or is is it is it saying something about the underlying mechanism?
+
+227
+00:32:58,110 --> 00:33:01,499
+Often. Sometimes I shouldn't say often.
+
+228
+00:33:01,500 --> 00:33:15,150
+Often times sometimes actually outliers can, in fact value a very sort of unusual feature of the data.
+
+229
+00:33:15,510 --> 00:33:25,350
+So discarding outliers as sort of a solution that is solution is not the right approach.
+
+230
+00:33:25,560 --> 00:33:29,520
+And again, a very powerful cartoon here.
+
+231
+00:33:30,300 --> 00:33:37,970
+So here is here is a model fit.
+
+232
+00:33:37,980 --> 00:33:43,590
+Here is an outlier. And of course, it doesn't fit the model.
+
+233
+00:33:43,920 --> 00:33:47,430
+So do we automatically remove it?
+
+234
+00:33:48,480 --> 00:33:52,350
+And the outlier is saying, no, no, wait, your theory is wrong.
+
+235
+00:33:52,560 --> 00:33:56,490
+So go back and investigate.
+
+236
+00:33:59,340 --> 00:34:08,070
+Investigate this point. Okay. So that's sort of the story about outliers.
+
+237
+00:34:08,110 --> 00:34:15,179
+Now, if we talked about leverage, we talked about large residuals.
+
+238
+00:34:15,180 --> 00:34:19,560
+We saw we talked about both outlined this in the space and in the white space.
+
+239
+00:34:20,040 --> 00:34:27,449
+How do they form? And I and I said with those with the with that hypothetical data, with those blue,
+
+240
+00:34:27,450 --> 00:34:36,000
+red and green points that I showed you, the high leverage points I showed you the high residual points.
+
+241
+00:34:36,630 --> 00:34:42,750
+But I said that, you know, as and you pointed out that, well, you know, that was a high leverage point,
+
+242
+00:34:42,750 --> 00:34:47,850
+but it's kind of benign, whether it stays or both, you won't think that.
+
+243
+00:34:48,240 --> 00:34:53,880
+But there was a point, the blue point that definitely would have an impact.
+
+244
+00:34:53,890 --> 00:35:01,260
+So how do we assess all of these high leverage, highly secured points which are benign and which are not?
+
+245
+00:35:03,450 --> 00:35:08,520
+So that's what we will formally assess to influence diagnostics.
+
+246
+00:35:09,960 --> 00:35:16,470
+High insurance points, by definition, are ones that have high leverage as well as high residual.
+
+247
+00:35:17,790 --> 00:35:27,680
+So the blue point here is one where it has both high leverage as well as high residual.
+
+248
+00:35:27,690 --> 00:35:45,150
+So here is so it is outlining the expense as well as outlined in the Epsilon hat space because it has a large departure from the trend.
+
+249
+00:35:45,630 --> 00:35:55,620
+And in contrast to the red one and the green point, the blue point will tend to have the largest influence on the model results.
+
+250
+00:35:59,200 --> 00:36:06,760
+Other influential points, there could be the influence.
+
+251
+00:36:06,940 --> 00:36:15,070
+By definition, is a aggregate effect of a high leverage as well as a high residual.
+
+252
+00:36:15,460 --> 00:36:27,990
+But the influence of the experts outliers and also depends on the residual need ones that have a high leverage but not outline in the Epsilon space,
+
+253
+00:36:28,000 --> 00:36:40,890
+for example. The great point here in this line, you told me that, well, you know, whether the redpoint stays there or goes will not impact the model.
+
+254
+00:36:40,990 --> 00:36:43,120
+It will not impact the estimates.
+
+255
+00:36:43,120 --> 00:36:58,659
+So you can see that, you know, for a point to be highly influential, it has to have bought the high leverage as well as a high residual just alone.
+
+256
+00:36:58,660 --> 00:37:07,820
+Having a high leverage may not make it a highly influential observation, as is true with the redpoint,
+
+257
+00:37:09,850 --> 00:37:17,469
+so that it won't have the influence the variance of beta had, but not influence beta the head or seat.
+
+258
+00:37:17,470 --> 00:37:28,000
+But with conversely, if appointees outlining the residual space,
+
+259
+00:37:31,120 --> 00:37:37,300
+whether it will have whether it will be highly influential or not depends on their leverage.
+
+260
+00:37:39,310 --> 00:37:55,390
+The Green Point in the previous slide word is an example of a point with the High Epsilon hat, unusual Epsilon hat, unusually large Epsilon hat.
+
+261
+00:37:55,990 --> 00:38:00,160
+But it is not a high leverage point.
+
+262
+00:38:00,250 --> 00:38:04,960
+It is very much within the sort of the range of the X values observed.
+
+263
+00:38:05,500 --> 00:38:14,320
+So this point, as you can see, what will it do at at most it may impact the beta not hacked,
+
+264
+00:38:14,920 --> 00:38:26,470
+but it will not impact the slope and it will not impact the the you know, the variance estimate there.
+
+265
+00:38:26,800 --> 00:38:36,280
+So it has very small leverage to influence the estimation of the models.
+
+266
+00:38:36,940 --> 00:38:48,700
+So key takeaway points from these two slides are that for for an observation to be highly influential and influential in what aspect that matters.
+
+267
+00:38:49,120 --> 00:38:56,830
+But in order for it to be highly influential, it has to have bought a high leverage as well as a high residual.
+
+268
+00:38:58,420 --> 00:39:07,450
+So influence diagnostics refers to the impact of the ite observation on the estimated beta had Gideon's meta hat and the prediction.
+
+269
+00:39:07,450 --> 00:39:17,859
+So these are key quantities that in the regression model that we what we would be interested in in assessing whether an
+
+270
+00:39:17,860 --> 00:39:29,170
+observation has influence on these quantities and the whole concept of influence diagnostics is actually it's quite simple.
+
+271
+00:39:29,770 --> 00:39:36,969
+The idea is just like be I told you block of the break point and tell me will the straight line in question time you are
+
+272
+00:39:36,970 --> 00:39:47,410
+not so that generalized that idea generalized that concept but you have respect for the right point it won't affect.
+
+273
+00:39:50,570 --> 00:40:04,720
+But it. Know, it will it will not it will not affect the straight line feed at all, but it might affect the radiance of bitter with the hat.
+
+274
+00:40:05,080 --> 00:40:13,690
+Right. So so, yes, there might be a kind of a textbook example by when I get the inference because of the variance.
+
+275
+00:40:14,230 --> 00:40:26,170
+But again, it's it's a judgment or it's a compromise between how big of an average point it is because clearly it's residual is zero.
+
+276
+00:40:26,260 --> 00:40:29,440
+Right. Because was exactly on the on that straight line.
+
+277
+00:40:31,990 --> 00:40:35,510
+Any other questions? Okay.
+
+278
+00:40:35,510 --> 00:40:41,510
+So let's generalize step one, step number of the right point and see, does it impact.
+
+279
+00:40:42,950 --> 00:40:48,679
+So what we will do is we will measure the influence by comparing the results of the model
+
+280
+00:40:48,680 --> 00:40:57,049
+with all observations considered through the model that results with the right observation.
+
+281
+00:40:57,050 --> 00:41:09,650
+We did a big with them. So this is called the leave one out sort of method and throughout we will use the subscript minus
+
+282
+00:41:09,830 --> 00:41:16,040
+oh I within parentheses to denote a vector are estimated with the eye observation taken out.
+
+283
+00:41:17,630 --> 00:41:28,130
+Okay, so that's the idea. So we are going to talk about four commonly used measures of the influence of subject on.
+
+284
+00:41:28,700 --> 00:41:34,429
+The first one is called dear friends. And conceptually, what am I doing?
+
+285
+00:41:34,430 --> 00:41:48,560
+I'm saying that the effects measure the influence of the I subject on y I had y hat is the predicted y for the eye its subject.
+
+286
+00:41:49,040 --> 00:41:55,790
+The second one is called the f b does, and with the substance of k comma,
+
+287
+00:41:55,790 --> 00:42:02,839
+I basically am going to look at the influence of the eye subject on B dark hat.
+
+288
+00:42:02,840 --> 00:42:11,060
+The barometer estimates the third and the most popular is hooks distance the eye,
+
+289
+00:42:11,480 --> 00:42:22,400
+which measures the influence of the eye, its subject on the entire estimated beta.
+
+290
+00:42:22,700 --> 00:42:26,809
+So influence of the eye subject on beta hat.
+
+291
+00:42:26,810 --> 00:42:33,440
+This beta hat is a vector. On the entire victor.
+
+292
+00:42:34,130 --> 00:42:42,450
+And then finally, gold ratio measures the influence of the subject on the variants of great black.
+
+293
+00:42:44,600 --> 00:42:50,730
+So each measure reflects the idea is we will look at the difference between subject
+
+294
+00:42:50,900 --> 00:42:57,170
+being included in the model fitting versus not included in the model fitting.
+
+295
+00:42:58,280 --> 00:43:06,020
+It's as simple an idea as that. And there are recommended cutoffs for each of these.
+
+296
+00:43:06,290 --> 00:43:15,770
+But they are in no way absolute rules. I mean, similar to the leverage, similar to HHI, the heuristic cutoffs we sort of proposed.
+
+297
+00:43:16,670 --> 00:43:21,139
+And they are these cutoffs also should be taken in the same spirit.
+
+298
+00:43:21,140 --> 00:43:25,550
+In no way are the absolute rules.
+
+299
+00:43:26,360 --> 00:43:40,550
+Okay. So let's first talk about DFS, the the standardized difference in the created values or the predicted values.
+
+300
+00:43:44,530 --> 00:43:50,460
+So to measure the influence of the individual I on my head, what am I doing?
+
+301
+00:43:50,470 --> 00:43:53,830
+I'm going to speak the model with all the end subjects.
+
+302
+00:43:54,430 --> 00:43:58,149
+Then I'm going to fit the model with the AI subject,
+
+303
+00:43:58,150 --> 00:44:12,490
+taking out the AI observation taken out and the estimate that I get for data head without the eye subject.
+
+304
+00:44:13,210 --> 00:44:23,770
+You can write it like this. So again, you are doing a regression now and with n minus one subjects instead of end subjects, right?
+
+305
+00:44:24,040 --> 00:44:28,570
+So your design metrics will be of dimension in minus one cross speed.
+
+306
+00:44:29,770 --> 00:44:32,979
+So you can estimate the beat ahead without guide subject.
+
+307
+00:44:32,980 --> 00:44:40,030
+And now what do you do to get the predicted value for the highest subject?
+
+308
+00:44:40,180 --> 00:44:43,810
+But from a model that did not include the subject,
+
+309
+00:44:44,110 --> 00:44:52,570
+what do you do is you just take the rate that had to be what from the model that excludes tired subject and use that to predict.
+
+310
+00:44:54,490 --> 00:44:58,050
+Okay. And what is the effects?
+
+311
+00:44:58,540 --> 00:45:06,479
+It's basically the standardized difference between the predicted values for the I.
+
+312
+00:45:06,480 --> 00:45:15,190
+It's subject based on a model that includes all in subjects versus a model that excludes the diet subject.
+
+313
+00:45:16,090 --> 00:45:24,760
+So conceptually, it's very, very simple. Do you all agree it couldn't be any simpler than this and you just standardized that difference
+
+314
+00:45:24,760 --> 00:45:32,829
+with respect to the quantity like Sigma Head Square without diet subject time feature.
+
+315
+00:45:32,830 --> 00:45:36,969
+Yeah. Why do you standardize using that. Because of of the variance formula.
+
+316
+00:45:36,970 --> 00:45:40,780
+Because I know the variance of white hat is sigma squared times eight.
+
+317
+00:45:41,530 --> 00:45:45,239
+Therefore the variance of why eight had two sigma square times each year.
+
+318
+00:45:45,240 --> 00:45:48,760
+So that is what I use. Square root of that one thing the denominator.
+
+319
+00:45:52,030 --> 00:45:58,109
+Some have got off heuristic cut off that it used is two times square root of B
+
+320
+00:45:58,110 --> 00:46:02,840
+overran once again comes from like the same argument that we use for leverage.
+
+321
+00:46:03,750 --> 00:46:12,950
+So this would be considered highly influential. There is an alternative calculation.
+
+322
+00:46:12,950 --> 00:46:23,390
+But once again, you know, in this day and age of computing hardly matters because if you stare at this quantity, you might think, oh my gosh.
+
+323
+00:46:23,720 --> 00:46:28,100
+So if an is large enough and is above, let's say 50.
+
+324
+00:46:28,460 --> 00:46:36,080
+So you are telling me that I have to delete one subject at a time and defeat the model, right?
+
+325
+00:46:36,080 --> 00:46:41,480
+So in all, I have to feed one plus 50 regression models.
+
+326
+00:46:43,010 --> 00:46:48,680
+So, and you know that, that, that number grows as and grows larger.
+
+327
+00:46:49,730 --> 00:46:56,810
+So there is an alternative calculation that does not require you to repeat the model end times.
+
+328
+00:46:58,790 --> 00:47:09,889
+And you can show that the effects can be written as the product of the externally student.
+
+329
+00:47:09,890 --> 00:47:18,200
+Those residuals are had minus II Times Square root of HIV, one minus HIV.
+
+330
+00:47:19,370 --> 00:47:25,249
+So algebraically. This is an alternative expression for the aphids.
+
+331
+00:47:25,250 --> 00:47:30,680
+And as you can see, this does not require you to defeat the model end times.
+
+332
+00:47:30,890 --> 00:47:36,230
+But once again, as I mentioned, that in this day and age of computing, it hardly matters.
+
+333
+00:47:36,440 --> 00:47:39,799
+Yes, but externally, student base, residual.
+
+334
+00:47:39,800 --> 00:47:48,890
+And so yes, it implies that. But if you recall, go back to module K and see how we talked about externally digested due to how again,
+
+335
+00:47:49,340 --> 00:47:55,400
+you know, using matrix decomposition, you really don't have to be defeated end times.
+
+336
+00:47:55,700 --> 00:47:56,900
+So go back to module.
+
+337
+00:47:57,140 --> 00:48:05,690
+We talked about it in the context of externally student digested so so so there is an alternative expression but again as I said,
+
+338
+00:48:05,690 --> 00:48:08,360
+in this day and age of computing, it hardly matters.
+
+339
+00:48:08,660 --> 00:48:17,510
+I'm going to if you are curious about results like this and Jack, if you are kind of sort of curious about you algebra, there's a whole book.
+
+340
+00:48:17,510 --> 00:48:33,960
+I used to refer to it a lot when I was a graduate student by Bill Slee, who and bears and the name of the book is Regression Diagnostics.
+
+341
+00:48:33,990 --> 00:48:44,840
+It's all about regression diagnostics and it has all of these very cute results like algebra and y,
+
+342
+00:48:44,840 --> 00:48:48,040
+you know, you really don't need to repeat the model in time.
+
+343
+00:48:48,500 --> 00:48:55,520
+And it also sort of the derivation of those cutoffs like the heuristic of doesn't rely on any distribution or anything.
+
+344
+00:48:55,520 --> 00:48:58,940
+But but it has a lot of really cute algebraic results.
+
+345
+00:48:59,480 --> 00:49:03,170
+And if you're interested, curious about that, check out this book.
+
+346
+00:49:03,170 --> 00:49:08,959
+This is this is a classic textbook on regression diagnostics written many years back.
+
+347
+00:49:08,960 --> 00:49:13,340
+I don't remember when, but it's from widely.
+
+348
+00:49:14,480 --> 00:49:18,230
+I think it's in my office if anybody wants to borrow it.
+
+349
+00:49:19,880 --> 00:49:23,450
+Okay. So so that's the efforts.
+
+350
+00:49:24,650 --> 00:49:31,370
+What about the betas? So this is again, conceptually, we are going to do the same thing.
+
+351
+00:49:31,370 --> 00:49:41,629
+But now the quantity or the estimate that we are going to look at is the big duckie hack estimated for the
+
+352
+00:49:41,630 --> 00:49:51,680
+key predictor and to measure the influence of Subject II on the estimated regression would be that we had.
+
+353
+00:49:51,920 --> 00:50:01,459
+Once again we will define the numerator would be BTK had minus B that they had without diet subject and the
+
+354
+00:50:01,460 --> 00:50:13,610
+denominator would be basically the the suffer from the variance expression of BTK had recall the variance of BTK head.
+
+355
+00:50:13,610 --> 00:50:19,669
+Sorry there is a fact missing from that expression is the Keith diagonal element of sigma squared.
+
+356
+00:50:19,670 --> 00:50:23,360
+It's transpose x in verse. So in this expression,
+
+357
+00:50:23,360 --> 00:50:29,239
+the standardization in the denominator is with respect to sigma squared without the subject
+
+358
+00:50:29,240 --> 00:50:36,540
+times C gave a C kick is the key diagonal element of the example that's matrix picks,
+
+359
+00:50:36,620 --> 00:50:38,210
+transport vaccine versus matrix.
+
+360
+00:50:38,990 --> 00:50:50,180
+So again conceptually again the same the regression with all then subjects and then do another regression without side subjects.
+
+361
+00:50:50,690 --> 00:51:01,159
+Look at the difference in the BTK hat from those two regressions and standardized with respect to the variance of BTK,
+
+362
+00:51:01,160 --> 00:51:07,400
+have got us so in absolute value.
+
+363
+00:51:08,340 --> 00:51:14,730
+If Dev Peter is good, then two of us can defend and that is considered highly influential.
+
+364
+00:51:17,130 --> 00:51:23,800
+Okay, then once again, there's a fast method for computing the BSP of betas.
+
+365
+00:51:25,290 --> 00:51:32,490
+I did it and it involves sort of a matrix decomposition.
+
+366
+00:51:33,240 --> 00:51:46,680
+And again, you can show that the BSP does can be written as an expression, as a function of the externally standardized residuals and the leverage.
+
+367
+00:51:47,490 --> 00:51:56,380
+And it's a it's a weighted average of the wise with the weights are given to determine BTK.
+
+368
+00:51:56,760 --> 00:52:05,280
+Again, I'm not going to go into this in any detail because of those two factors.
+
+369
+00:52:05,300 --> 00:52:09,300
+One is, again, I mean, these are skewed results.
+
+370
+00:52:09,330 --> 00:52:13,710
+Nice results. Go back to bed sleep levels if you are interested.
+
+371
+00:52:14,100 --> 00:52:18,120
+But again, in this age and B of computing, it hardly matters.
+
+372
+00:52:18,760 --> 00:52:28,780
+Okay. Coexistence, the one that you're probably going to see and refer to most frequently.
+
+373
+00:52:29,110 --> 00:52:45,700
+So Cook's distance measures the influence of a subject on beta had a red beta had is the entire vector of estimated parameters again.
+
+374
+00:52:46,690 --> 00:52:55,540
+So it reflects another way of thinking about it is that coexistence reflects the
+
+375
+00:52:55,540 --> 00:53:02,230
+variance adjusted squared distance between beta hat and beta had without die subject.
+
+376
+00:53:03,220 --> 00:53:08,170
+So it's a summary of the subject eye's influence on the overall beta.
+
+377
+00:53:08,920 --> 00:53:17,620
+So how is it a summary or of the of the, of the subject's influence on the beta hot vector.
+
+378
+00:53:19,360 --> 00:53:27,740
+So once again regression with all in minus estimate that beta had from regression without
+
+379
+00:53:27,760 --> 00:53:33,520
+guide subject so that this won't be a beta hack minus beta hat without the I subject.
+
+380
+00:53:33,850 --> 00:53:40,090
+Nor that now this is a vector, right? Because I'm looking at the entire band director.
+
+381
+00:53:40,900 --> 00:53:48,400
+So take the transport of that and then you have a variance of beta had in
+
+382
+00:53:48,400 --> 00:53:54,219
+words multiplied by beta had minus beta had without the subject divided by p.
+
+383
+00:53:54,220 --> 00:53:57,580
+So this is a quadratic form.
+
+384
+00:53:57,580 --> 00:54:13,150
+You can think of it as a quadratic form in beta had minus beta had without diet subject and basically the standardization of this distance,
+
+385
+00:54:14,600 --> 00:54:19,540
+the squared distance between beta had been beta had without that subject is
+
+386
+00:54:19,540 --> 00:54:25,150
+with respect to the variance of beta had the estimated variance of beta had.
+
+387
+00:54:26,230 --> 00:54:37,630
+So that's called distance. And this is going to be greater than zero always because y because x transpose x is a positive definite matrix.
+
+388
+00:54:39,070 --> 00:54:43,180
+So, so this is always going to be zero.
+
+389
+00:54:43,210 --> 00:54:44,320
+What about start ups?
+
+390
+00:54:44,890 --> 00:54:54,250
+Typically, I think couple of couple people came to talk to me for the project and I mentioned just just use greater than one as a cutoff.
+
+391
+00:54:54,610 --> 00:55:00,909
+So that's the very standard that is used for false distance greater than one means.
+
+392
+00:55:00,910 --> 00:55:03,160
+It's influential in your textbook,
+
+393
+00:55:03,160 --> 00:55:16,690
+you will see that they also talk about using the alpha percentile point of F distribution with P and N minus p degrees of freedom.
+
+394
+00:55:16,990 --> 00:55:21,520
+I just want to point out for this that dawned.
+
+395
+00:55:21,820 --> 00:55:26,680
+Please do not think that the by the distance has an F distribution.
+
+396
+00:55:26,680 --> 00:55:38,409
+No, it doesn't. All it's saying is that if if alpha is point five, all it's saying or whatever point of 5.25,
+
+397
+00:55:38,410 --> 00:55:51,370
+all it saying is that deleting the either subject would move the estimated beta without dyad subject to the boundary of an approximate,
+
+398
+00:55:52,000 --> 00:56:00,969
+you know, 5% or 25% confidence region for for for beta based on the complete data set.
+
+399
+00:56:00,970 --> 00:56:14,080
+So that's so it is it is not distributed as an if it is again once again heuristic argument and sometimes people use that cutoff,
+
+400
+00:56:14,080 --> 00:56:26,379
+but most generally people lose that by greater than one and then SAS and are also use as did greater than four over N and so basically in in practical
+
+401
+00:56:26,380 --> 00:56:32,920
+applications you will see once again rank bordering the observations in terms of
+
+402
+00:56:32,950 --> 00:56:44,380
+these influence diagnostic measures is very very bum not only is very important,
+
+403
+00:56:44,770 --> 00:56:50,590
+but it helps you to kind of assess the relative influence of these variables,
+
+404
+00:56:50,980 --> 00:56:58,000
+all of these observations and then the last one that I'm going to talk about.
+
+405
+00:56:58,360 --> 00:57:05,979
+So I also have an alternative calculation. Maybe I should get rid of these alternative calculations because I keep on saying that, you know,
+
+406
+00:57:05,980 --> 00:57:17,320
+you don't need to live or do you need to defeat the model end times and the idea and algebraically you can show you don't need to.
+
+407
+00:57:18,310 --> 00:57:29,470
+So once again there is an. That's all that shows that existence can be written as an icebreaker over three times each year, minus one, minus each.
+
+408
+00:57:29,900 --> 00:57:33,970
+So instead of repeating the model, you can simply use this formula.
+
+409
+00:57:34,290 --> 00:57:38,110
+Well, all right. Now is the idea of the internal discipline.
+
+410
+00:57:38,740 --> 00:57:42,190
+This is this is fun algebra to show.
+
+411
+00:57:43,870 --> 00:57:50,060
+But once again. It doesn't matter much these days.
+
+412
+00:57:52,430 --> 00:57:57,680
+I'm going to to her end with this.
+
+413
+00:58:01,040 --> 00:58:04,100
+Last one called over here.
+
+414
+00:58:04,730 --> 00:58:17,900
+And essentially it is looking at the influence of the IT subject on the baby and will be with me six and two.
+
+415
+00:58:17,930 --> 00:58:37,940
+Towards that end, we are going to define the generalized variance of man as the determinant of the variance covariance matrix of back.
+
+416
+00:58:38,870 --> 00:58:43,520
+So this is referred to as the generalized variance.
+
+417
+00:58:44,810 --> 00:58:52,940
+And remember the variance will be the matrix of beta had is given by sigma squared times x transpose x inverse.
+
+418
+00:58:54,050 --> 00:58:57,890
+If you take the determinant of that and that that's a matrix, correct?
+
+419
+00:58:58,550 --> 00:59:09,320
+If you take the determinant of that, then you are basically taking a matrix and you are kind of summarizing and converting it into a scalar.
+
+420
+00:59:09,620 --> 00:59:20,270
+Right. So it sort of summarizes the variance of beta had into a scalar and that's the sort of advantage
+
+421
+00:59:21,230 --> 00:59:29,840
+a larger variances will mean larger DV So larger determinant of the variance covariance matrix.
+
+422
+00:59:31,130 --> 00:59:39,470
+And the reason you might ask, why do I care to look at this quantity or the influence of a subject on this quantity?
+
+423
+00:59:39,770 --> 00:59:51,229
+Because recall the other three measures that we talked about and specifically DFA does includes distance both to measure the impact of the
+
+424
+00:59:51,230 --> 01:00:03,800
+I of data point on BTK head and the entire better head vector and the fits measures the influence of the subject on the predicted line.
+
+425
+01:00:04,100 --> 01:00:16,460
+Right. So in contrast, the covariance ratio poverty show summarizes the influence of Subject II on the precision of estimation.
+
+426
+01:00:17,630 --> 01:00:21,650
+And what do I mean by precision of estimation?
+
+427
+01:00:21,770 --> 01:00:25,190
+Decision is tied to variance of the estimate.
+
+428
+01:00:25,190 --> 01:00:38,509
+The goal ratio is given by the ratio of the generalized variance without diluted subject to the generalized Fabian's,
+
+429
+01:00:38,510 --> 01:00:43,100
+including all the subjects in the estimation.
+
+430
+01:00:44,600 --> 01:00:57,889
+So DB hat is the determinant of the matrix sigma have spread times x transpose x inverse and DB had without diluted subject.
+
+431
+01:00:57,890 --> 01:01:02,150
+Once again you are running the regression without diet subject.
+
+432
+01:01:02,240 --> 01:01:10,069
+Basically on n minus one subjects you are estimating sigma had squared from that regression and it's the determinant
+
+433
+01:01:10,070 --> 01:01:18,160
+of sigma had squared with outside subject times the x transpose x without the hit subject inverse of that,
+
+434
+01:01:18,190 --> 01:01:21,739
+we do something to be doing that. So conceptually, again,
+
+435
+01:01:21,740 --> 01:01:34,010
+very simple written without doubt subject and you take that issue of this huge generalized variances cutoff that we use is greater than one.
+
+436
+01:01:34,910 --> 01:01:38,950
+If it's greater than one, then that observation increases precision.
+
+437
+01:01:38,960 --> 01:01:39,650
+In other words,
+
+438
+01:01:39,650 --> 01:01:54,110
+it would reduce the variance and it is influential if the con ratio is greater than one plus three B over N or less than one -50 or more.
+
+439
+01:01:54,500 --> 01:01:57,920
+So again, some heuristic cutoffs.
+
+440
+01:01:59,660 --> 01:02:06,680
+There's an alternative calculation. There's a simpler form, once again, involving the leverage.
+
+441
+01:02:06,680 --> 01:02:19,370
+Once again, as you can see, it's a function of the variance estimate of the masses from the model with all N subjects,
+
+442
+01:02:19,370 --> 01:02:25,210
+and they're missing from the model without doubt, subject times one over one minus HPI.
+
+443
+01:02:26,630 --> 01:02:34,880
+So if the MSE from the model written without the subject are the same,
+
+444
+01:02:35,300 --> 01:02:44,990
+then a high leverage by virtue of this star, one over one minus each area would increase the cooperation.
+
+445
+01:02:45,560 --> 01:02:48,740
+So including I will increase the position.
+
+446
+01:02:50,300 --> 01:02:59,180
+And one way to conceptually think about it is remember we had a question like the student in the test starting homework that in SL are.
+
+447
+01:02:59,590 --> 01:03:06,669
+Higher SSX reduces the variance of crater had so far to the range or larger the range effects.
+
+448
+01:03:06,670 --> 01:03:11,830
+It reduces the variance of that. So that's the same idea here.
+
+449
+01:03:12,610 --> 01:03:21,159
+And suppose each area is zero. So in other words, you know, it has zero leverage.
+
+450
+01:03:21,160 --> 01:03:31,390
+Then if the IT observation is an outlier, meaning it has a large epsilon I had so it would influence sigma had squared,
+
+451
+01:03:32,170 --> 01:03:34,810
+then cooperation would be less than one.
+
+452
+01:03:35,260 --> 01:03:47,800
+So including I will decrease the position y again from this expression you can see that if you are equal to zero, then including I what?
+
+453
+01:03:47,950 --> 01:03:53,710
+What will you have? You will have this ratio less than one.
+
+454
+01:03:54,760 --> 01:04:04,180
+So you know, in other words and taken to the power of B, it can be far, far less than one.
+
+455
+01:04:04,180 --> 01:04:09,940
+So including subject, I will decrease that position.
+
+456
+01:04:10,660 --> 01:04:18,850
+So I think that all I am going to stop here with making some summary comments.
+
+457
+01:04:21,100 --> 01:04:25,080
+It's best to use influence diagnostics as descriptive tools.
+
+458
+01:04:25,090 --> 01:04:29,889
+Don't try to overinterpret these diagnostics.
+
+459
+01:04:29,890 --> 01:04:33,410
+Don't try to test hypotheses.
+
+460
+01:04:35,710 --> 01:04:41,830
+And as I said, this is from a practical standpoint in real data analysis.
+
+461
+01:04:42,790 --> 01:04:50,080
+These should be used as descriptive tools because once defining influential should be applied with caution.
+
+462
+01:04:51,580 --> 01:04:57,120
+And they may be more it may be more useful than can list the subjects with high influence instead of,
+
+463
+01:04:57,130 --> 01:05:05,230
+you know, going by these values and then possibly investigate highly influential data points for accuracy.
+
+464
+01:05:06,190 --> 01:05:14,380
+Don't just throw them off, and you cannot justify exclusion of data plans based only on their influence.
+
+465
+01:05:14,800 --> 01:05:20,020
+So so those are some summary parting comments.
+
+466
+01:05:20,860 --> 01:05:27,910
+And with that, I'll see if you have questions. If not, we can take a break.
+
+467
+01:05:31,450 --> 01:05:38,650
+Questions. Comments.
+
+468
+01:05:43,130 --> 01:05:47,200
+So the Covishield thing in general is just to increase position.
+
+469
+01:05:48,860 --> 01:05:54,990
+Yeah. Yeah. Like it's not the ball is I shouldn't say the goal is to increase the precision.
+
+470
+01:05:55,000 --> 01:06:05,890
+The ball is to see whether keeping the observation, including the observation in the model fit, increases the precision or not.
+
+471
+01:06:06,790 --> 01:06:15,259
+Or in other words, conversely, with any. You know, has a larger baby.
+
+472
+01:06:15,260 --> 01:06:19,010
+And so not keeping it versus moving it.
+
+473
+01:06:30,110 --> 01:06:30,440
+Yeah.
+
+474
+01:06:30,680 --> 01:06:41,270
+So the the in general, like just based on the values, the character values and calibrating against the stock values, you shouldn't make a decision on,
+
+475
+01:06:41,810 --> 01:06:51,280
+you know, just dropping like that's why I showed that cartoon that, um, so the, the sort of there should be a careful investigation.
+
+476
+01:06:51,290 --> 01:06:55,969
+Is it holding it up? Is a data collection error? Is it happening fully by design?
+
+477
+01:06:55,970 --> 01:07:02,900
+If so, what is sort of is there a story behind that point or in that region?
+
+478
+01:07:02,900 --> 01:07:06,410
+I should say so that's the general idea.
+
+479
+01:07:06,530 --> 01:07:15,019
+Oftentimes, just as a general recommendation, what people do is let's say they they they make a list of the influential observations.
+
+480
+01:07:15,020 --> 01:07:22,470
+And as you can see, some may be benign like the red one, but some, like the blue point, may be influenced.
+
+481
+01:07:22,520 --> 01:07:28,010
+Should you use those cut offs, you you feel that important and you see, okay, behind us,
+
+482
+01:07:28,220 --> 01:07:34,970
+there are some, um, in fact, one of you showing a plot like that from your data analysis.
+
+483
+01:07:34,970 --> 01:07:40,190
+I don't know whether you guys did, but some, some group did, didn't bother.
+
+484
+01:07:40,190 --> 01:07:45,710
+And they saw that one was very large relative to the others.
+
+485
+01:07:45,950 --> 01:07:52,400
+But even the one that was large had a distance value of 0.04 or something.
+
+486
+01:07:52,550 --> 01:08:01,370
+So if again, everybody thinks it's not, but probably it's not going to make any difference.
+
+487
+01:08:02,560 --> 01:08:09,800
+And then as a as a that's kind of a I don't want it to sound like a fiction, but um,
+
+488
+01:08:10,340 --> 01:08:18,110
+sometimes what people do is that if they are really worried about an influential
+
+489
+01:08:18,110 --> 01:08:23,450
+point and it's been influential by all the means that you have consider,
+
+490
+01:08:24,620 --> 01:08:33,139
+but they still don't know whether it's a valid data point or whether it's like a 48 hour data collection or what
+
+491
+01:08:33,140 --> 01:08:42,560
+they do is they present the analysis with all data and then the present analysis without those influential points.
+
+492
+01:08:44,930 --> 01:08:50,600
+And there's a huge change in the bottom to the estimates and the sigma squared.
+
+493
+01:08:51,140 --> 01:08:59,510
+Then basically they report more the sense of fallacies and it's sort of open to further investigation of those data points.
+
+494
+01:08:59,510 --> 01:09:03,020
+So they kind of leave it at that. Sometimes people do that.
+
+495
+01:09:03,420 --> 01:09:13,160
+Once again, the move by better sleep coverage has sort of, you know, prescriptive solutions in place like that.
+
+496
+01:09:16,200 --> 01:09:27,269
+The bottom line is just because someone's going to fall off the reins based
+
+497
+01:09:27,270 --> 01:09:33,600
+on the plot points doesn't mean they simply just drop them or execute them.
+
+498
+01:09:35,160 --> 01:09:39,170
+Okay. Any other questions?
+
+499
+01:09:42,200 --> 01:09:46,370
+Okay. So let's take a break. 914, let's come back at 924.
+
+500
+01:10:11,570 --> 01:10:14,610
+Yes. Yes.
+
+501
+01:10:14,610 --> 01:10:20,770
+Taste, but. I heard wasn't.
+
+502
+01:10:26,640 --> 01:10:30,690
+You. I'm interested in.
+
+503
+01:10:35,020 --> 01:10:48,230
+So. I had 60%.
+
+504
+01:10:48,860 --> 01:10:55,700
+Because when you drive. One day.
+
+505
+01:11:02,470 --> 01:11:08,950
+Is there. And then look back to.
+
+506
+01:11:21,480 --> 01:11:26,910
+And then we said, you. Someone.
+
+507
+01:11:35,690 --> 01:11:45,420
+I can't really. That.
+
+508
+01:11:54,740 --> 01:11:58,460
+You cited some of them from earlier.
+
+509
+01:11:58,740 --> 01:12:04,630
+Pretty much that's. But there's a lot of that.
+
+510
+01:12:08,020 --> 01:12:16,659
+I think that's what you realize. This one and I can relate to this class of 1972 hours of this class is not $0.5 million.
+
+511
+01:12:16,660 --> 01:12:20,379
+Well, that's not easy.
+
+512
+01:12:20,380 --> 01:12:26,420
+But I was an insider. I do know that, you know.
+
+513
+01:12:28,660 --> 01:12:32,970
+To listen to their.
+
+514
+01:12:39,090 --> 01:12:43,530
+And I think that's what happens when you get.
+
+515
+01:12:44,770 --> 01:12:48,670
+3771.
+
+516
+01:12:56,070 --> 01:12:59,130
+Okay. This is just in time.
+
+517
+01:13:07,120 --> 01:13:14,310
+You know, everyone's. For us, it's been financial.
+
+518
+01:13:25,950 --> 01:13:33,960
+I got back on Sunday came. What does it say about your mindset?
+
+519
+01:13:36,010 --> 01:13:40,520
+Yeah. I thought it. They'll fall in love with us.
+
+520
+01:13:44,630 --> 01:13:54,500
+That's a little earlier today. Which is very important for someone who works on the 650.
+
+521
+01:13:56,800 --> 01:14:02,070
+I'm just looking at it and I don't want someone to slide or if I'm still on the same for.
+
+522
+01:14:03,460 --> 01:14:15,800
+Like I need to decide whether to change this. But the editor of the British tabloid is Simon.
+
+523
+01:14:17,280 --> 01:14:21,640
+I know. Well, yeah.
+
+524
+01:14:24,610 --> 01:14:33,260
+I just some. But they had other sources from Cincinnati.
+
+525
+01:14:34,260 --> 01:14:44,080
+Yeah. It's Cincinnati. Look, this. Yes.
+
+526
+01:14:44,270 --> 01:14:50,800
+Yes. But it's not about. When you go to.
+
+527
+01:14:55,060 --> 01:15:06,300
+There is. That was. It surprised me that.
+
+528
+01:15:08,120 --> 01:15:12,000
+Yeah. I don't know. I don't know. I was expecting a wedding.
+
+529
+01:15:12,290 --> 01:15:16,780
+I was expecting a lot of. You know.
+
+530
+01:15:18,520 --> 01:15:27,870
+That's true. That's part. I tried to.
+
+531
+01:15:33,440 --> 01:15:37,460
+Saying, I don't understand. It was like I said, it was like.
+
+532
+01:15:43,770 --> 01:15:49,230
+Some. I need a taxi.
+
+533
+01:15:53,310 --> 01:15:58,600
+You know, that was a great working country.
+
+534
+01:16:03,760 --> 01:16:08,580
+What do you think is going on here? Did you pull any punches on.
+
+535
+01:16:23,480 --> 01:16:30,500
+I did. I was just as old as I was. I was trying not to be.
+
+536
+01:16:31,640 --> 01:16:35,610
+They are reasonable as everyone else.
+
+537
+01:16:35,900 --> 01:16:42,830
+I'm not going to. What? You know for a new for next year.
+
+538
+01:16:46,270 --> 01:16:49,940
+Oh, no.
+
+539
+01:16:56,850 --> 01:17:20,610
+Time is. This was the beginning of the end.
+
+540
+01:17:24,840 --> 01:17:33,840
+I have a lot of. I feel like it's better than his best performance or to a small.
+
+541
+01:17:35,960 --> 01:17:44,020
+And I actually think that on the. The second day you lost a lot of.
+
+542
+01:17:48,960 --> 01:17:56,540
+Yeah. Well, yeah. I mean, I think. I don't really think it's like.
+
+543
+01:17:56,650 --> 01:18:00,410
+It's like because.
+
+544
+01:18:00,840 --> 01:18:04,420
+Yeah, but I suspect. You really?
+
+545
+01:18:07,970 --> 01:18:16,870
+At seven. I don't like them.
+
+546
+01:18:17,970 --> 01:18:21,560
+I don't like.
+
+547
+01:18:25,950 --> 01:18:37,080
+Yeah. No, I think it. Excuse me.
+
+548
+01:18:40,560 --> 01:18:47,630
+Okay. Because I'm going to give time.
+
+549
+01:19:22,630 --> 01:19:26,680
+Okay. So the last.
+
+550
+01:19:29,650 --> 01:19:44,650
+Some of these in this CDs is talking about multi-core linearity.
+
+551
+01:19:47,430 --> 01:19:58,680
+And once again, we are going to I gave you sort of hard month April you know the date informally
+
+552
+01:19:58,680 --> 01:20:03,990
+defined we talked about it in the context of multiple linear regression,
+
+553
+01:20:05,070 --> 01:20:15,629
+but today we are kind of formally going to quantify multi coding and we are going to talk about causes of Monday coloniality,
+
+554
+01:20:15,630 --> 01:20:22,620
+the impact on regression coefficients and what kind of remedial measures you could take.
+
+555
+01:20:24,420 --> 01:20:38,430
+So Malbec linear in MLR, we expect the Covidiots to be somewhat correlated, right?
+
+556
+01:20:39,450 --> 01:20:54,900
+Because you know, you are sort of measuring and intrinsically like some things about the same individual height, weight, BMI, blood pressure.
+
+557
+01:20:55,620 --> 01:21:01,410
+So you kind of expect that will be obedience in the first place to be somewhat correlated.
+
+558
+01:21:03,330 --> 01:21:15,060
+Multiple linearity refers to the situation when one or more columns of X is highly correlated with some of the remaining columns.
+
+559
+01:21:15,390 --> 01:21:20,040
+Highly correlated means end of almost linear dependency.
+
+560
+01:21:23,370 --> 01:21:32,990
+If you recall, we talked about linear dependency in the columns of the design metrics.
+
+561
+01:21:35,310 --> 01:21:37,080
+So basically, you know,
+
+562
+01:21:37,530 --> 01:21:48,060
+if if you can a linear dependency in the columns of a matrix means that you're going to express one column as a linear combination of other columns.
+
+563
+01:21:48,180 --> 01:21:51,570
+So you have a less than two round situation.
+
+564
+01:21:52,860 --> 01:21:59,820
+So here highly correlated means it's almost linear dependance pairwise.
+
+565
+01:22:00,270 --> 01:22:07,480
+That could happen. So there could be some ixi which is roughly equal to a d times.
+
+566
+01:22:07,510 --> 01:22:11,310
+XD in common education. I give an example.
+
+567
+01:22:12,040 --> 01:22:25,589
+Oftentimes it's highly correlated. There could also be almost linear dependency and with respect to multiple x stays,
+
+568
+01:22:25,590 --> 01:22:35,249
+so excite would be roughly equal to some of it, for some g for some of the predictors.
+
+569
+01:22:35,250 --> 01:22:43,229
+So basically it's it's a situation where the design matrix will be almost less than full.
+
+570
+01:22:43,230 --> 01:22:48,580
+Right. Okay. Income education is a classic example.
+
+571
+01:22:50,800 --> 01:22:57,070
+Um, what does pathetic li less than full rank mean?
+
+572
+01:22:58,090 --> 01:23:05,739
+You all know this that if if if you have a less than proven matrix, basically the extant physics is not being workable.
+
+573
+01:23:05,740 --> 01:23:21,430
+So you will not have unique solutions to better so better heard will not be unique solution.
+
+574
+01:23:23,590 --> 01:23:30,230
+So there's a problem. What does almost less than full length mean?
+
+575
+01:23:30,250 --> 01:23:32,140
+Like, technically it is full length.
+
+576
+01:23:32,950 --> 01:23:45,760
+So you can in vertex transpose x, but because of the almost linear dependency in some of the columns of X, you may still have problems.
+
+577
+01:23:47,650 --> 01:23:53,110
+So that's what multiple linearity technically means.
+
+578
+01:23:54,450 --> 01:24:03,849
+Okay, so mathematically x transpose x would x could still be full ranking spotless,
+
+579
+01:24:03,850 --> 01:24:11,950
+transpose x would still be in vertical, but logistically you may still have problems.
+
+580
+01:24:13,330 --> 01:24:16,510
+So instead of multiple, you need multiple linearity.
+
+581
+01:24:16,510 --> 01:24:23,040
+Me and I saw previous to this, the most common situation is where there is inadequate sampling,
+
+582
+01:24:23,050 --> 01:24:29,050
+like the sampling frame that leads to the study population with similar property values.
+
+583
+01:24:29,050 --> 01:24:43,000
+So one example would be, let's say you decide to, you know, look at the blood pressure as an outcome and you want to replace one identity.
+
+584
+01:24:44,050 --> 01:24:49,180
+Okay. But in the sampling frame, you only consider all these patients.
+
+585
+01:24:50,530 --> 01:24:55,030
+So basically, by nature of the sampling frame,
+
+586
+01:24:55,960 --> 01:25:04,990
+the height and weight in obese patients would be like very highly correlated, more so than in the general population.
+
+587
+01:25:06,550 --> 01:25:12,820
+So this could lead to the study population with like really, you know,
+
+588
+01:25:12,820 --> 01:25:19,030
+like since a similar covariance values in this example but very highly correlated covariate values.
+
+589
+01:25:19,510 --> 01:25:23,470
+And it's it's a result of inadequate sampling.
+
+590
+01:25:23,830 --> 01:25:28,420
+So that's one way that multiple unity may arise.
+
+591
+01:25:29,200 --> 01:25:34,179
+The second way that multiple linearity may arise is poor choice of model covariates,
+
+592
+01:25:34,180 --> 01:25:37,380
+including covariates which are measuring the same underlying entity.
+
+593
+01:25:37,390 --> 01:25:45,280
+For example, we've done BMI. BMI is a function of weight, so of course BMI and we could be highly correlated.
+
+594
+01:25:46,240 --> 01:25:51,610
+Incoming information I give, I have been giving that as an example and I gave it several times.
+
+595
+01:25:52,450 --> 01:25:55,710
+You know, often there is multiple.
+
+596
+01:25:57,580 --> 01:26:03,460
+So, so again, again, income in education.
+
+597
+01:26:03,470 --> 01:26:18,370
+I'm not going to say that it's poor choice of politics, but because functionality are not related but in real data are being very be related.
+
+598
+01:26:19,450 --> 01:26:23,079
+And then the third one is in condition covariates, for example,
+
+599
+01:26:23,080 --> 01:26:30,130
+categorical variables with very few subjects in a category of covariance with very little variability.
+
+600
+01:26:30,370 --> 01:26:40,879
+And this is referred to as sparseness. So a categorical variable because let's say, you know, let's consider race,
+
+601
+01:26:40,880 --> 01:26:45,890
+ethnicity, and you are studying a population and you have five levels of race,
+
+602
+01:26:45,890 --> 01:26:57,500
+ethnicity, but you have like very few Asian Pacific Islanders, whereas that is still valuable, had that as a category.
+
+603
+01:26:57,500 --> 01:27:08,209
+So you have predominantly Caucasian Americans, but you have this categorical variable with vacation Americans,
+
+604
+01:27:08,210 --> 01:27:12,080
+African-Americans, Asian Pacific Islanders, Hispanics, others.
+
+605
+01:27:12,410 --> 01:27:23,240
+But your population is predominantly Caucasian, so then you have an ideal condition for it because of the sparseness in the categories.
+
+606
+01:27:23,630 --> 01:27:32,959
+So that would also give rise to multiple unique consequences of multiple linearity.
+
+607
+01:27:32,960 --> 01:27:42,080
+There is going to be a major issue when the objective is estimation and or inference,
+
+608
+01:27:42,800 --> 01:27:53,180
+and oftentimes it gets reflected in the coefficients as well as the variances.
+
+609
+01:27:53,690 --> 01:28:02,929
+How does it get reflected? So the coefficients can be unstable, so the beta heads can be unstable.
+
+610
+01:28:02,930 --> 01:28:11,989
+And again, in real data applications, the way multiple linearity gets reflected and once again you learn this to experience
+
+611
+01:28:11,990 --> 01:28:20,510
+with analyzing more and more data is sometimes like the sign of the coefficient changes,
+
+612
+01:28:20,510 --> 01:28:24,740
+meaning like what we were expecting in terms of the association between lightness.
+
+613
+01:28:24,800 --> 01:28:30,680
+Maybe we're expecting a positive association based on what you know about both variables based on the literature.
+
+614
+01:28:30,680 --> 01:28:40,630
+And you see like the sign flipped, another really classic manifestation of mankind for humanity is huge variance,
+
+615
+01:28:40,640 --> 01:28:43,850
+this huge standard error, some of the worst effects.
+
+616
+01:28:44,360 --> 01:28:51,769
+So these are big flags. And immediately when you see things like this in your in output, in your results,
+
+617
+01:28:51,770 --> 01:28:59,070
+in the oh, wait a minute, like was there some kind of mathematical equation?
+
+618
+01:28:59,090 --> 01:29:06,739
+So these are classic ways in which my take on linearity gets reflected, not so unstable coefficients.
+
+619
+01:29:06,740 --> 01:29:12,650
+And as I said, the variances getting inflected gradients of greater had gets into amplitude.
+
+620
+01:29:13,280 --> 01:29:20,330
+If you tell me which one is more common, it's hard to generalize, but still,
+
+621
+01:29:21,410 --> 01:29:29,059
+this is the more common phenomenon that the variance gets inflated all in extreme situations.
+
+622
+01:29:29,060 --> 01:29:32,630
+The sign also can get flipped.
+
+623
+01:29:35,570 --> 01:29:42,410
+So it's a small peculiarity is a major issue when the objective is inference or estimation,
+
+624
+01:29:43,190 --> 01:29:51,230
+but it is lesser of an issue when the primary goal is prediction because predictions are based on the fitted model.
+
+625
+01:29:51,800 --> 01:29:59,780
+So they will be okay as long as the new observations have more varied values well within the data used to fit the model.
+
+626
+01:30:02,210 --> 01:30:08,210
+But you have to be within the range of the data to make predictions.
+
+627
+01:30:08,210 --> 01:30:12,620
+And even for slight extrapolation, you could get inaccurate predictions.
+
+628
+01:30:13,310 --> 01:30:28,830
+But bottom line is it's it's much more important for estimation, inference and less of an issue for prediction measure of multi community.
+
+629
+01:30:28,850 --> 01:30:38,750
+So to measure the impact of multiple linearity, we are going to use a quantity called the variance inflation factor.
+
+630
+01:30:39,770 --> 01:30:49,429
+And the variance inflation factor gets its name from the fact that the variance of beta
+
+631
+01:30:49,430 --> 01:30:54,680
+de hat I mean we know we derived the variance of better hard right it's sigma squared,
+
+632
+01:30:54,680 --> 01:31:03,110
+it's transport vaccine. So what is the variance of the j coefficient because we had is the digit diagonal
+
+633
+01:31:03,110 --> 01:31:06,979
+element of that big strong flu vaccine versus matrix multiplied by sigma squared.
+
+634
+01:31:06,980 --> 01:31:14,570
+So it's this quantity here. Okay, so sigma squared is gives me the variability in the errors.
+
+635
+01:31:16,130 --> 01:31:25,930
+It's the true variance or the variance of the two errors and extra from the x transpose x inverse.
+
+636
+01:31:26,780 --> 01:31:34,550
+But the digital element you can it can be shown algebraically that this is this reduces the.
+
+637
+01:31:35,090 --> 01:31:47,930
+A quantity like one of our ss x of the g ed multiplied by one over one minus r g squared,
+
+638
+01:31:48,620 --> 01:31:58,010
+but r g squared is the r squared from a model where we regress exactly on the remaining columns of x.
+
+639
+01:31:59,940 --> 01:32:07,860
+So let's understand this. Let's pause and take a deep breath and try to understand this.
+
+640
+01:32:07,860 --> 01:32:13,260
+So once again, if you recall, in the context of partial regression plots,
+
+641
+01:32:14,070 --> 01:32:24,330
+we talked about this kind of regression regressing exactly on either the remaining columns of the design matrix.
+
+642
+01:32:24,330 --> 01:32:32,280
+And I said like from an interpretation point of view, this regression doesn't have any sense and doesn't have any meaning.
+
+643
+01:32:33,330 --> 01:32:45,870
+So, so it's similar here. I'm guessing it's just on the remaining columns of the design base and are displayed is the R from that model.
+
+644
+01:32:48,150 --> 01:32:57,630
+So the variance of beta the head can be written as the product of C must be at times a product of these two quantities.
+
+645
+01:32:57,930 --> 01:33:05,460
+What is this x do? It captures the variability next to so it is it is left by itself.
+
+646
+01:33:05,910 --> 01:33:10,380
+And what about this quantity one over one minus R2 square?
+
+647
+01:33:10,890 --> 01:33:19,600
+This is what I saw. This thing is what I define as the v i f of the g predictor.
+
+648
+01:33:19,620 --> 01:33:33,540
+The variance inflation factor for digit predictor and R2 squared is the R squared from a regression model of x g on the remaining columns of x.
+
+649
+01:33:35,880 --> 01:33:45,840
+Why do I call it obedience inflation factor? So if our squared is large, what happens to this quantity?
+
+650
+01:33:47,100 --> 01:33:53,850
+If our square is large, basically conceptually or from an interpretation point of view,
+
+651
+01:33:53,850 --> 01:33:59,010
+I'm seeing that there is a near linear relationship between 60 and all the other covariance.
+
+652
+01:33:59,850 --> 01:34:03,370
+Right? Yes.
+
+653
+01:34:07,010 --> 01:34:14,899
+Our discover large means what? Because our discoveries that are spread from a model would be degree 60 on the remaining columns of sc5.
+
+654
+01:34:14,900 --> 01:34:26,990
+This word is large means it g can be almost perfectly explained by the other covariance in the model.
+
+655
+01:34:30,260 --> 01:34:35,840
+Okay. Which is what almost linear dependency means.
+
+656
+01:34:38,980 --> 01:34:46,150
+And how is it going to, well, pop up in this radiance formula?
+
+657
+01:34:46,750 --> 01:34:55,360
+Because if our square is large, then what happens to minus R squared?
+
+658
+01:34:55,360 --> 01:34:59,079
+That is small. What happens to one over one minus R squared?
+
+659
+01:34:59,080 --> 01:35:06,220
+That is large. So the variance of beta d hat gets inflated.
+
+660
+01:35:11,360 --> 01:35:17,780
+Yes. So that's why it gets its name as variance inflation factor.
+
+661
+01:35:22,160 --> 01:35:32,959
+Okay. So the variance inflation factor is one over one minus R squared.
+
+662
+01:35:32,960 --> 01:35:36,620
+It doesn't depend on Y. Correct.
+
+663
+01:35:36,650 --> 01:35:40,070
+This is a very, very important thing to realize.
+
+664
+01:35:40,070 --> 01:35:49,970
+It doesn't there's nothing about y here because our discipline is a regression of existing on the other four figures and very meaningful variables.
+
+665
+01:35:52,400 --> 01:36:02,090
+And it's best to even easiest to see kind of conceptually if you read log of PHI The Transform,
+
+666
+01:36:02,090 --> 01:36:07,909
+Y Fit and other models on Lower Phi, the value of remains the same.
+
+667
+01:36:07,910 --> 01:36:19,069
+And because Y doesn't even come into the picture in the calculation of Vaf, it's also invariant on the centering and scaling of all the covariance.
+
+668
+01:36:19,070 --> 01:36:31,400
+In other words, if you send if you create ZG by centering and scaling that exists, then the value would still remain the same.
+
+669
+01:36:32,390 --> 01:36:41,210
+So it doesn't change. And that's the second sort of critical information.
+
+670
+01:36:41,570 --> 01:36:45,810
+And then finally and again, cutoffs value.
+
+671
+01:36:46,060 --> 01:36:53,950
+Value is greater than equal to one that we are f is always going to be greater than equal to one Y because of this code.
+
+672
+01:36:53,960 --> 01:37:02,990
+It's an odd square, right? So it's it's kind of in the order squared is the estimated correlation.
+
+673
+01:37:02,990 --> 01:37:11,180
+Pearson correlation between I need to hat and because it's a square for Pearson correlation it will always be between zero and one.
+
+674
+01:37:14,390 --> 01:37:23,990
+So by definition is greater than equal to one. What happens if value is equal to one then are D squared?
+
+675
+01:37:25,280 --> 01:37:31,100
+Basically what I'm saying is that the variance does not get inflated.
+
+676
+01:37:31,610 --> 01:37:38,580
+The variance remains the same. So in other words, it stays uncorrelated with all other gradients.
+
+677
+01:37:39,820 --> 01:37:43,040
+And conversely, you can see if I've just got equal to zero.
+
+678
+01:37:43,220 --> 01:37:53,420
+So HD is not explained at all by very meaningful variance, then value is equal to one.
+
+679
+01:37:54,950 --> 01:37:59,479
+Right? What happens? What about the cutoffs?
+
+680
+01:37:59,480 --> 01:38:12,770
+When do we say the value of is large? And that cutoff is typically like in practice that is given by R set at ten.
+
+681
+01:38:13,070 --> 01:38:17,750
+So it values for the date predictor is greater than ten.
+
+682
+01:38:18,080 --> 01:38:22,730
+Then we say that is large effect of multiple infinity on the variance of create that effect.
+
+683
+01:38:23,570 --> 01:38:40,730
+So once again, use this as a rule of thumb cutoff but again doesn't have any appearance or any sort of doesn't do line this distribution or anything.
+
+684
+01:38:44,630 --> 01:38:51,560
+Okay, measure of multi-core linearity interpretation.
+
+685
+01:38:51,890 --> 01:39:00,320
+So we are if is the ratio, as you saw of the variance of B that they had in a dataset with correlations
+
+686
+01:39:00,320 --> 01:39:06,649
+among all variance versus the variance in an ideal dataset with the whole body,
+
+687
+01:39:06,650 --> 01:39:10,090
+it's are partly uncorrelated with the intent of it.
+
+688
+01:39:10,100 --> 01:39:17,210
+It's a perfectly uncorrelated with texture. Then basically our discipline is equal to zero.
+
+689
+01:39:17,900 --> 01:39:22,010
+So the one over one minus our disparate factor is one.
+
+690
+01:39:22,430 --> 01:39:26,360
+So the variance of beta they had would be sigma squared over 60.
+
+691
+01:39:27,200 --> 01:39:32,900
+Does everybody remember this guy from simple linear regression?
+
+692
+01:39:34,250 --> 01:39:45,360
+Yes. So if they're back and this was all sort of a question in the exam,
+
+693
+01:39:45,360 --> 01:39:53,070
+if the if they're perfectly uncoordinated, the whole body, it's perfectly uncorrelated amongst themselves.
+
+694
+01:39:54,850 --> 01:39:59,940
+The variance expression is basically like sigma squared.
+
+695
+01:39:59,940 --> 01:40:09,239
+It's a 60. The form looks like the variance expression from an SLR you your exam.
+
+696
+01:40:09,240 --> 01:40:14,100
+We asked you like a slightly different question because the estimation of the
+
+697
+01:40:14,100 --> 01:40:19,290
+sigma spread would would play a role here in the estimate of the variance.
+
+698
+01:40:19,740 --> 01:40:28,319
+But the form of the variance looks pretty much like an SLR and everything else remains the same.
+
+699
+01:40:28,320 --> 01:40:30,930
+So it's, it's you can interpret it as,
+
+700
+01:40:31,200 --> 01:40:40,959
+as the ratio of the variance in a data set with correlations among covidiots versus the variants in an ideal dataset with the covidiots apart,
+
+701
+01:40:40,960 --> 01:40:46,620
+strictly uncorrelated. And that's why you get this name variance inflation factor.
+
+702
+01:40:48,300 --> 01:40:59,280
+Oh, need for additional diagnostics value of stellar speech growth or efficient variances are being inflated due to multiple unique right.
+
+703
+01:40:59,520 --> 01:41:07,650
+So here is that expression. So if there is large proportion of variance of existing that is explained by the other covariates in the model,
+
+704
+01:41:08,070 --> 01:41:16,590
+then the variance of latency had to be large compared to when the columns effects are terminal, which is what we said in the previous slide.
+
+705
+01:41:16,980 --> 01:41:27,270
+However, variables do not tell us which of the remaining covariates are the ones that explain the variance of things.
+
+706
+01:41:27,510 --> 01:41:35,760
+So like if you do this exactly on the remaining columns of X and you get a high R squared, you know that there will be problems with multiple units,
+
+707
+01:41:35,760 --> 01:41:44,070
+but it doesn't explicitly tell you which amount that people really it's in the design matrix are the culprits.
+
+708
+01:41:47,550 --> 01:41:50,640
+Or our audit splitting. So that's it.
+
+709
+01:41:50,910 --> 01:41:55,380
+So you really don't know.
+
+710
+01:41:55,680 --> 01:42:01,709
+So again, what we believe that this in that piece we calculate like syslog.
+
+711
+01:42:01,710 --> 01:42:09,450
+If you request my continued diagnostics, it will actually generate the values for each predictor in the model.
+
+712
+01:42:10,080 --> 01:42:16,350
+And you can see backwards. And so you can clearly see patterns.
+
+713
+01:42:16,350 --> 01:42:26,100
+And if you can find which bits of quality undetected, then you can investigate why and maybe propose a corrective action.
+
+714
+01:42:26,100 --> 01:42:31,860
+And the simplest corrective action is you remove some of the column suffix.
+
+715
+01:42:32,100 --> 01:42:40,650
+So again, you know, if you are interested to see the text of Chapter nine, but once again, as a as a general like practice, what do you do?
+
+716
+01:42:40,860 --> 01:42:49,440
+I keep on talking about the medication because often in observational data you see these two variables so highly or linear.
+
+717
+01:42:49,680 --> 01:43:00,230
+Let's say you run a regression model and you see that the value is large for four for two variables, like, you know.
+
+718
+01:43:00,810 --> 01:43:05,130
+Need some medication. Then the easiest is basically drop one.
+
+719
+01:43:05,550 --> 01:43:14,700
+Which one would you draw? That depends on substantive knowledge of the substantive field.
+
+720
+01:43:15,000 --> 01:43:19,530
+So it. And what do I mean by that?
+
+721
+01:43:19,530 --> 01:43:28,010
+So is income a trickier variable to collect be down because of female confidentiality?
+
+722
+01:43:28,020 --> 01:43:33,350
+People may not want to be kind of. Or is it a vacation?
+
+723
+01:43:35,880 --> 01:43:43,410
+Is it do you expect more missing data in one variable that does it these kind of considerations.
+
+724
+01:43:43,410 --> 01:43:59,790
+But often the and the easiest remedy is you actually don't keep what those variables in the modern time multiplicity you drop one so
+
+725
+01:43:59,790 --> 01:44:13,500
+that's the standard and easiest remedy typically remove one or more of the commits involved in the call linearity problem as I mentioned.
+
+726
+01:44:13,890 --> 01:44:19,770
+And again. Income education.
+
+727
+01:44:21,150 --> 01:44:30,870
+If by choice of portfolios of poverty are to included both weight and BMI, weight, BMI,
+
+728
+01:44:31,440 --> 01:44:37,110
+then of course it would be strong for linearity between this and you may decide for this key BMI.
+
+729
+01:44:38,760 --> 01:44:45,270
+And so so these kind of subject matter considerations come into play.
+
+730
+01:44:45,270 --> 01:44:49,680
+But the bottom line is in remove one or more of the whole vignettes involving the full immunity problem.
+
+731
+01:44:51,510 --> 01:45:04,920
+You can fit, you know, the sort of like when you look at the regression, some of squares with, let's said, dropping one variable.
+
+732
+01:45:05,250 --> 01:45:10,770
+You will see that is this are or the some of corporate regression will likely not be notably
+
+733
+01:45:10,770 --> 01:45:19,320
+these deduce why once again if one covariate is almost linearly dependent with the other.
+
+734
+01:45:19,330 --> 01:45:24,330
+So essentially whatever it was explaining is being explained by the rest of the variable.
+
+735
+01:45:24,330 --> 01:45:27,930
+So the SSRI will not be notably reduced.
+
+736
+01:45:27,960 --> 01:45:37,980
+Often one company is eliminated at a time, so you will remove the excessive with the largest buyer from the model and check you know,
+
+737
+01:45:38,430 --> 01:45:47,700
+the molecule linearity issue has been dissolved or still is better than the next one.
+
+738
+01:45:48,330 --> 01:45:56,549
+Dawn Tom don't remove everything at the same time with large varying values and the
+
+739
+01:45:56,550 --> 01:46:01,140
+procedure is continued until the continuity problem has been has been resolved.
+
+740
+01:46:02,540 --> 01:46:10,860
+If you look at the concept of the root for the question is some time into that so so that sort of
+
+741
+01:46:11,700 --> 01:46:19,920
+yes can be likely to get no to do more than it did to try to find out which convenience it is.
+
+742
+01:46:21,780 --> 01:46:34,220
+Can we not try to work simply? You can go still. Anyone who had died determined based on their.
+
+743
+01:46:37,890 --> 01:46:42,090
+Yeah. You get hubristic over here, but it's not only about before it begins.
+
+744
+01:46:42,630 --> 01:46:46,170
+It's about like when, as I said,
+
+745
+01:46:46,170 --> 01:46:54,000
+I started with this letter saying that the Floridians will be somewhat motivated to start raising
+
+746
+01:46:54,540 --> 01:47:01,170
+again all of these discussion about prediction diagnostic sequence of six might they for linearity.
+
+747
+01:47:01,440 --> 01:47:10,169
+It's like life is not passing. These are we are living in dependency order.
+
+748
+01:47:10,170 --> 01:47:15,210
+Your friend will be there. There will be all drugs. There will be bullet hide everywhere.
+
+749
+01:47:15,510 --> 01:47:22,500
+But when those in fact lie more than only I hear, then only what I want one.
+
+750
+01:47:23,770 --> 01:47:30,509
+It doesn't need to be classic technical analysis of messages that really get in.
+
+751
+01:47:30,510 --> 01:47:33,630
+Johnson I mean, these are I don't know how it is.
+
+752
+01:47:34,800 --> 01:47:37,800
+We don't use that textbook. It's not spoken about improvement.
+
+753
+01:47:38,220 --> 01:47:43,110
+So we've got to really get involved since the title of the book is Analysis of Message.
+
+754
+01:47:43,290 --> 01:47:46,350
+So what all of these things, I mean, you know, you can really.
+
+755
+01:47:47,610 --> 01:47:55,140
+Yes. The question is, when do you clear away who will be what?
+
+756
+01:47:56,280 --> 01:48:00,479
+And yes, you can, but it's not just about the ordinary sense.
+
+757
+01:48:00,480 --> 01:48:04,080
+It's about like when you started pulling back.
+
+758
+01:48:04,080 --> 01:48:07,810
+My model is finished. That's the point.
+
+759
+01:48:08,140 --> 01:48:15,460
+And by looking at the videos of all the predicted, you actually can get a sense which one side.
+
+760
+01:48:16,590 --> 01:48:21,820
+Well, because you're a firework display looking at the vibe score on the predicted.
+
+761
+01:48:22,750 --> 01:48:28,060
+So. So yes. So that's.
+
+762
+01:48:28,300 --> 01:48:33,400
+So you continue the procedure until the culinary problem has been resolved.
+
+763
+01:48:34,060 --> 01:48:40,480
+So I kind of wanted to. That's that's all I wanted to talk about.
+
+764
+01:48:41,140 --> 01:48:51,580
+For multiple linearity. And as Jack was asking the they put in two last slides just to give an impression.
+
+765
+01:48:51,580 --> 01:48:59,380
+Again, you studied it regression probably much more extensively later on.
+
+766
+01:48:59,890 --> 01:49:02,560
+So this is an alternative to ordinary squares.
+
+767
+01:49:02,560 --> 01:49:10,389
+And oftentimes it comes in handy in the presence of multiple energy because in the presence of multiple linearity,
+
+768
+01:49:10,390 --> 01:49:16,030
+as I pointed out, a bit ahead from the ordinary square, some actually can be unstable.
+
+769
+01:49:17,530 --> 01:49:28,089
+But it would still be unbiased, although because of the inflation of the variance, it can be unstable.
+
+770
+01:49:28,090 --> 01:49:37,110
+And that instability, instability will be reflected in the large bid, the variance of bid that the means going at it of an estimate.
+
+771
+01:49:37,240 --> 01:49:40,480
+Have you talked about mean spirited yet in six or one?
+
+772
+01:49:41,410 --> 01:49:42,290
+No. Okay.
+
+773
+01:49:42,310 --> 01:49:51,790
+That's why I don't talk about previous read regression in kind of the main lecture for multiple, but this is just and of an outside interest.
+
+774
+01:49:52,120 --> 01:49:59,949
+So you will talk about means of often estimated and mean spirited of an estimated beta had is given by square of the
+
+775
+01:49:59,950 --> 01:50:14,859
+bias last the variance so that the you will derive this in in the later in six or one or maybe in six or do so.
+
+776
+01:50:14,860 --> 01:50:21,099
+What is the mean squared? It only reflects a compromise between bias ingredients and the key idea in Reached
+
+777
+01:50:21,100 --> 01:50:27,850
+Edition is that it may be possible to deduce the mean squared at or by introducing bias.
+
+778
+01:50:28,120 --> 01:50:35,260
+Beta had in presence of multiple linearity will still be unbiased, but it will be unstable.
+
+779
+01:50:35,770 --> 01:50:49,150
+So the idea of this regression can introduce a little bias in beta so that I get a smaller variance and increase the precision.
+
+780
+01:50:49,540 --> 01:50:56,880
+And overall I have improved or a reduction in the MSE.
+
+781
+01:50:56,900 --> 01:51:03,520
+That's the concept of leads regression. So you basically introduce a small bias.
+
+782
+01:51:03,880 --> 01:51:14,950
+So beta had the beta estimate that is, instead of x transpose x in vertex transpose y, it's x transpose x plus t times the identity matrix.
+
+783
+01:51:14,950 --> 01:51:20,770
+So this is you were introducing a small bias.
+
+784
+01:51:24,300 --> 01:51:27,400
+He's a small contact constant. How do you choose?
+
+785
+01:51:27,670 --> 01:51:34,910
+There are several methods for choosing. And here is one sort of choice.
+
+786
+01:51:37,260 --> 01:51:41,030
+And you could keep on updating sequentially.
+
+787
+01:51:42,750 --> 01:51:47,340
+So why? Why am I talking about tradition in this context?
+
+788
+01:51:47,940 --> 01:51:53,250
+The advantage is that you don't have to pick out people that you want to pick up any predictors.
+
+789
+01:51:54,000 --> 01:51:59,040
+The disadvantage is that the traditional inference may not be exact.
+
+790
+01:52:00,000 --> 01:52:12,960
+So just as an aside, I mean, I know you haven't talked about MSI, etc., but I means regression is often discussed as a remedy for my take.
+
+791
+01:52:16,050 --> 01:52:23,840
+But I want to make sure that I've seen where this came in, which is.
+
+792
+01:52:26,560 --> 01:52:31,840
+Yeah. Yeah, yeah. So that's that's also another reason people lose it in the pocket, something like that.
+
+793
+01:52:32,320 --> 01:52:36,760
+So I'm going to stop here because we have a class.
+
+794
+01:52:42,370 --> 01:52:47,440
+And thank you all. And I will see you on Thursday.
+
+795
+01:52:52,720 --> 01:52:58,270
+I wanted to think that the project would be a funny thing would be to send
+
+796
+01:52:58,270 --> 01:53:03,640
+would send me an email because I haven't really seen someone else hold it up.
+
+797
+01:53:04,150 --> 01:53:05,710
+Okay. Thank you.
+

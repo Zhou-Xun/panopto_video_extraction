@@ -1,0 +1,324 @@
+1
+00:00:09,000 --> 00:00:14,280
+Often we want to know the risk of getting an outcome over a certain period of time or
+
+2
+00:00:14,280 --> 00:00:19,110
+expressed another way how likely we are to be healthy by some certain time period.
+
+3
+00:00:19,830 --> 00:00:28,470
+For example, after experiencing a heart attack, I might ask my doctor, how likely is it that I will still be alive in another five or ten years?
+
+4
+00:00:29,220 --> 00:00:35,910
+Or if I've been born with a normal hyperplasia, which is basically a limited amount of normal on my teeth?
+
+5
+00:00:36,240 --> 00:00:39,360
+How likely is it in the next five years that I'll get a cavity?
+
+6
+00:00:39,780 --> 00:00:45,240
+Or how likely is it over the next 30 years that I'm still going to have all of my original teeth?
+
+7
+00:00:46,790 --> 00:00:53,000
+In previous lectures, we've talked a bit about how to use data on populations to identify risk,
+
+8
+00:00:53,510 --> 00:01:01,610
+but we noted that there can be serious challenges when the populations we're following are dynamic and people are lost over time due to migration,
+
+9
+00:01:01,610 --> 00:01:05,810
+death or disinterest in continued participation in our studies.
+
+10
+00:01:06,590 --> 00:01:13,640
+We've also talked about the use of incidence rates as a way to address these kinds of losses in participation over time.
+
+11
+00:01:14,600 --> 00:01:21,530
+However, the truth is there's a different interpretation for an incidence rate than an incidence proportion,
+
+12
+00:01:21,980 --> 00:01:26,990
+and there's times that we want that really nice interpretation of risk of an event.
+
+13
+00:01:27,830 --> 00:01:33,649
+Therefore, in this video, I'm going to talk you through a second approach that allows us to calculate
+
+14
+00:01:33,650 --> 00:01:40,129
+cumulative incidence as proportions or risks at certain time points and its analog,
+
+15
+00:01:40,130 --> 00:01:46,280
+the cumulative probability of being disease free or surviving up until a certain point in time.
+
+16
+00:01:47,340 --> 00:01:53,250
+This approach, which is called the Kaplan-Meier approach, is a very common one in epidemiology,
+
+17
+00:01:53,550 --> 00:01:58,650
+and its survival curves frequently appear in the published literature and in scientific reports.
+
+18
+00:01:59,710 --> 00:02:06,730
+As you'll learn in this video, the Kaplan-Meier approach is especially desirable because of its flexibility that allows for
+
+19
+00:02:06,730 --> 00:02:12,640
+changing incidence as well as lost to follow up of individuals for any reason over time.
+
+20
+00:02:13,830 --> 00:02:15,210
+So let's get started.
+
+21
+00:02:15,450 --> 00:02:24,510
+We'll begin with an example of what survival curves generated using the Kaplan-Meier approach look like in order to help get ourselves oriented.
+
+22
+00:02:25,500 --> 00:02:35,370
+This example shows the cumulative probability of staying alive or surviving on the Y axis and the time since diagnosis on the X axis.
+
+23
+00:02:36,180 --> 00:02:43,080
+These data reflect the experience of a population of people that have been diagnosed with non-Hodgkin's lymphoma of the liver,
+
+24
+00:02:43,410 --> 00:02:46,890
+a rare cancer of the lymphatic system focused on the liver.
+
+25
+00:02:47,790 --> 00:02:52,140
+As you can see, the authors have not just reported one survival curve,
+
+26
+00:02:52,590 --> 00:03:00,330
+but rather they've split their survival curves up by age group in order to compare how different people fare over time.
+
+27
+00:03:01,080 --> 00:03:08,520
+From these curves, you can see that the older groups have much more rapid decline in survival over time than those who are younger.
+
+28
+00:03:10,550 --> 00:03:14,209
+So how are these curves generated? Well, just as before,
+
+29
+00:03:14,210 --> 00:03:18,710
+the Kaplan-Meier approach assumes that there's some group of a fixed number of people
+
+30
+00:03:18,710 --> 00:03:23,900
+at risk that are being followed over time to see who develops the outcome of interest.
+
+31
+00:03:24,560 --> 00:03:29,720
+The outcome could be deaths or caries or really any other outcome that interests you.
+
+32
+00:03:30,740 --> 00:03:37,400
+As time progresses, the exact time can be recorded when individuals in the group develop the outcome.
+
+33
+00:03:37,880 --> 00:03:44,840
+In other words, they turn orange or they leave the study through what we call censoring the ascension.
+
+34
+00:03:44,840 --> 00:03:52,510
+Essential individuals are marked with gray. Now at each time point where a person gets the disease.
+
+35
+00:03:52,720 --> 00:03:58,180
+The investigator can update the population at risk based on who is still present in the study.
+
+36
+00:03:58,960 --> 00:04:02,860
+They then estimate the conditional probability of survival.
+
+37
+00:04:02,890 --> 00:04:10,900
+Up until that time point, meaning what's the probability of survival at that time, given that a person was still alive at that time?
+
+38
+00:04:11,890 --> 00:04:19,300
+Finally, the investigator calculates the cumulative probability of survival from the start of the study until that time point.
+
+39
+00:04:21,100 --> 00:04:28,419
+Now, the way in which investigators update the curve at every time that an event occurs is the cause of this characteristic
+
+40
+00:04:28,420 --> 00:04:35,590
+bumpiness of the kaplan-meier curve and the way in which we can accommodate changing incidents over time.
+
+41
+00:04:36,930 --> 00:04:44,460
+Let's walk through the step by step process by which we generate kaplan-meier curves to really help you understand the strategy.
+
+42
+00:04:45,290 --> 00:04:51,920
+To do so we're going to use the following data from a population of 50 people who've been followed for 24 months.
+
+43
+00:04:52,700 --> 00:04:58,340
+The data that I'm showing here represents the time to event for each person who got an outcome.
+
+44
+00:04:58,850 --> 00:05:02,210
+Or the time to censoring for people who are lost to follow up.
+
+45
+00:05:02,900 --> 00:05:09,170
+All other individuals were assumed to have made it to the end of the study without dying or being censored.
+
+46
+00:05:11,410 --> 00:05:20,050
+In the first step of generating a kaplan-meier estimate, we update the population at risk for each time when an event occurs.
+
+47
+00:05:20,680 --> 00:05:27,729
+How do we do this? Well, we take the number at risk at the previous time period and subtract off all
+
+48
+00:05:27,730 --> 00:05:32,650
+of those people who had an event or were lost since the last event occurred.
+
+49
+00:05:33,550 --> 00:05:37,570
+Note that while we're updating the number of people at risk due to censoring,
+
+50
+00:05:37,840 --> 00:05:42,700
+we actually only update these estimates at the time when an event occurs.
+
+51
+00:05:42,820 --> 00:05:50,960
+Not one censoring occurs. Next, we calculate the conditional probability of survival when each event occurs.
+
+52
+00:05:51,530 --> 00:06:00,080
+This is estimated as those without the outcome or the number at risk, minus the number of people who did get the outcome at that time.
+
+53
+00:06:00,440 --> 00:06:06,440
+Divided by the number of people at risk at that time, which is the number that we estimated in step one.
+
+54
+00:06:07,460 --> 00:06:12,680
+This estimate can also be imagined as one minus the incidence proportion.
+
+55
+00:06:13,820 --> 00:06:21,530
+In our third step, we now need to calculate the cumulative survival from the start of the study up until the time point of interest.
+
+56
+00:06:22,190 --> 00:06:29,660
+In other words, what's the chance that somebody stays alive in the current month as well as all other previous months?
+
+57
+00:06:30,620 --> 00:06:38,480
+Since we know that the probability of two things happening together is the multiplication of each of the individual probabilities,
+
+58
+00:06:38,960 --> 00:06:44,330
+you can see that we can estimate the human of survival by multiplying the conditional
+
+59
+00:06:44,330 --> 00:06:50,270
+survival at this time times the conditional survival at all times before that.
+
+60
+00:06:51,380 --> 00:06:55,370
+Excellent. Now we have generated our data for a kaplan-meier curve.
+
+61
+00:06:56,300 --> 00:07:01,790
+Here. I've plotted our numbers to obtain the kaplan-meier curve for this particular data set.
+
+62
+00:07:02,510 --> 00:07:08,000
+We can now use this graphic to extract the cumulative probability at any time point.
+
+63
+00:07:08,690 --> 00:07:14,270
+For example, you can see that the six month survival with this data is 96%.
+
+64
+00:07:15,430 --> 00:07:23,770
+Given that risk is the opposite of survival, we can estimate the cumulative risk by subtracting the cumulative survival probability from one.
+
+65
+00:07:24,460 --> 00:07:29,620
+In other words, we have a probability of survival at six months of 96%.
+
+66
+00:07:30,340 --> 00:07:34,840
+Therefore, we must have a cumulative risk at that same time of 4%.
+
+67
+00:07:36,550 --> 00:07:44,170
+Now that you've learned how to implement the Kaplan-Meier approach, I want to briefly touch upon a couple of assumptions that go into this estimation.
+
+68
+00:07:44,860 --> 00:07:50,380
+First, we assume that the reasons for censoring are unrelated to the risk of developing the outcome.
+
+69
+00:07:51,040 --> 00:07:53,800
+If they are not, then bias can ensue.
+
+70
+00:07:54,610 --> 00:08:02,680
+Imagine, for example, that people who are sicker and at higher risk of death are much more likely to drop out of our study or be censored over time.
+
+71
+00:08:03,490 --> 00:08:09,580
+In this case, the population being followed is going to become healthier and healthier as time progresses,
+
+72
+00:08:09,910 --> 00:08:14,710
+and the estimates of survival in this group will become less reflective of the true population.
+
+73
+00:08:15,560 --> 00:08:23,480
+Now when we use data that's been collected from people at different time periods, there's also an assumption of a lack of secular trend.
+
+74
+00:08:24,290 --> 00:08:29,419
+The reason that this is important is because the kaplan-meier curves allow
+
+75
+00:08:29,420 --> 00:08:34,970
+for individuals to contribute person time at different actual physical times.
+
+76
+00:08:35,510 --> 00:08:43,430
+In other words, the follow up time of zero could be for 2012, for one participant, and in 2014 for another.
+
+77
+00:08:44,030 --> 00:08:49,040
+Yet this method assumes that the data from each of those individuals is the same.
+
+78
+00:08:49,670 --> 00:08:53,600
+In order for this to be true. There must not be any secular trends.
+
+79
+00:08:55,100 --> 00:09:03,740
+Great. Congratulations. You've now calculated your very first chemother of survival estimates in dynamic populations using kaplan-meier curves.
+
+80
+00:09:04,520 --> 00:09:12,170
+Hopefully you've now seen how survival will decline over time and how this approach allows for flexibility in that decline over time.
+
+81
+00:09:12,830 --> 00:09:18,910
+You also should now know how to predict cumulative incidence at set time points using this approach.
+

@@ -1,0 +1,3580 @@
+1
+00:00:01,420 --> 00:00:07,150
+It's because you haven't seen somebody.
+
+2
+00:00:08,270 --> 00:00:14,360
+Yeah. All right. Hi, everyone. Welcome to our very last class session of the semester.
+
+3
+00:00:14,360 --> 00:00:17,960
+This time has flown by on me, and I have really enjoyed being here with you.
+
+4
+00:00:19,310 --> 00:00:28,580
+Couple announcements. Please remember to complete discussion posts on three separate threads so that not three posts on the same thread.
+
+5
+00:00:28,580 --> 00:00:35,690
+I can only give you one grade per thread. That's a canvas limitation and there are no late penalties for your assignments.
+
+6
+00:00:35,690 --> 00:00:43,430
+Please try to get those in and so that we can include them in class at the end of the course.
+
+7
+00:00:48,440 --> 00:00:52,690
+I realize my pacing has been a little bit off, so I'm going to drop the lowest homework score.
+
+8
+00:00:52,700 --> 00:00:56,960
+So if we don't get a regression and you don't want to do regression, no problem.
+
+9
+00:00:57,170 --> 00:01:03,080
+If you want to push yourself, if you're a little bit further along in the program and you want to have a guided exercise in regression.
+
+10
+00:01:03,680 --> 00:01:10,880
+Go right ahead. Okay. So any comments, questions, concerns about horse logistics and the wrap up here?
+
+11
+00:01:12,290 --> 00:01:23,630
+The main challenges I was experiencing. Also make reminder the teaching evaluations are open.
+
+12
+00:01:23,690 --> 00:01:29,540
+They closed on Friday. This is the primary metric the school assesses my performance.
+
+13
+00:01:29,540 --> 00:01:34,400
+And also, I don't know if you noticed this class. The software changes quickly.
+
+14
+00:01:34,580 --> 00:01:38,820
+You have the pleasure of experiencing the transition from our to posit.
+
+15
+00:01:39,320 --> 00:01:43,370
+So this is a rapidly evolving course and I hope to incorporate your feedback.
+
+16
+00:01:44,000 --> 00:01:48,410
+The class is tweaked every semester. Chance your voice heard.
+
+17
+00:01:51,370 --> 00:01:59,120
+Thank you. All right. We're going to recap class. We're going to do coding on hypothesis testing functions for hypothesis testing.
+
+18
+00:01:59,120 --> 00:02:05,870
+Take a break and then get into linear regression. I have some self-directed exercises you can do yourself.
+
+19
+00:02:07,990 --> 00:02:17,680
+All right. So what did we learn last time? We did essentially a conceptual review of your entire first semester of biostatistics in about ten months.
+
+20
+00:02:18,020 --> 00:02:21,910
+So who can remind you? What's the difference between an independent and a dependent variable?
+
+21
+00:02:24,560 --> 00:02:35,400
+Which ones? Which. Which means the exposure which once the outcome.
+
+22
+00:02:37,960 --> 00:02:41,380
+Yes. Get but independent would be the exposure.
+
+23
+00:02:42,190 --> 00:02:47,110
+Yeah. And then depending on your outcome. Yeah. So what's the one that you think depends on the independent one.
+
+24
+00:02:47,420 --> 00:02:51,400
+Okay. And so you as the analyst, have to set that with your research question.
+
+25
+00:02:52,330 --> 00:02:56,379
+Our software can do a lot of things, but you have to be in the driver's seat.
+
+26
+00:02:56,380 --> 00:02:58,690
+You have to be in charge of assessing. All right.
+
+27
+00:02:58,690 --> 00:03:06,130
+So when we're picking what hypothesis to do, our first step is to see which variables which we also want to see what are their shapes?
+
+28
+00:03:06,910 --> 00:03:11,770
+Are they continuous? Are they categorical? If they're categorical, how many categories do we have?
+
+29
+00:03:12,190 --> 00:03:15,370
+Okay. So we want to know which world, region. We want to know what are their shapes.
+
+30
+00:03:15,610 --> 00:03:18,250
+And this is a common theme I've seen that's come up throughout the class.
+
+31
+00:03:18,550 --> 00:03:21,970
+When we were doing our summary statistics, we had to figure out what's the shape of the variable.
+
+32
+00:03:22,180 --> 00:03:24,970
+When we're doing the graph, then we have to figure out what's the shape of the variable.
+
+33
+00:03:25,540 --> 00:03:30,290
+So all of those data management practices feed into our analytic plans.
+
+34
+00:03:33,220 --> 00:03:40,060
+The next choice you have to make for hypothesis testing is a is it a parametric or not parametric test appropriate?
+
+35
+00:03:40,300 --> 00:03:50,130
+I want to remind you what's the difference there? How are you evaluating that choice?
+
+36
+00:03:53,860 --> 00:03:58,090
+Parametric tests are making the assumption that your DNA is normal.
+
+37
+00:03:59,650 --> 00:04:05,710
+It's not. Yeah. So when we're doing parametric testing broadly, we're going in some kind of assumption for a continuous variable.
+
+38
+00:04:05,740 --> 00:04:11,260
+Oftentimes the assumption is about reality and non parametric tests make no such assumption.
+
+39
+00:04:11,590 --> 00:04:14,800
+So yeah. So it's up to you to make that judgment call about what's appropriate.
+
+40
+00:04:14,830 --> 00:04:20,110
+Sometimes you can even transform the variable to make that forget the assumptions of parametric testing.
+
+41
+00:04:20,770 --> 00:04:25,180
+So when you hear people long transform a variable that's often dealing with issues like this.
+
+42
+00:04:25,660 --> 00:04:31,990
+All right. So these are key decision points that you have to make as the analyst, figure out what's appropriate in that setting.
+
+43
+00:04:32,230 --> 00:04:38,500
+And then the next step will be how to implement it in our. So we'll see an array of functions for hypothesis testing.
+
+44
+00:04:39,160 --> 00:04:43,390
+The first example we walked through in the slides was correlation testing.
+
+45
+00:04:43,660 --> 00:04:49,030
+That's done in R with a function called core test. And it's the same function.
+
+46
+00:04:49,030 --> 00:04:54,999
+Whether you're doing parametric or observer metrics, you just change the option for the method,
+
+47
+00:04:55,000 --> 00:05:00,070
+whether you want it to be a spearman, if it's not parametric or Pearson, the default that's parametric.
+
+48
+00:05:00,400 --> 00:05:05,980
+So sometimes it'll be like this where the parametric and parametric are within the same function but with different options.
+
+49
+00:05:06,340 --> 00:05:10,749
+Other times they have slightly different range functions. So what the well will practice?
+
+50
+00:05:10,750 --> 00:05:18,040
+Those other types will also practice extracting meaning from the outputs of these functions.
+
+51
+00:05:18,280 --> 00:05:27,280
+Because you may remember that the output for that test is kind of like a brick of text and figuring out where is the relevant number.
+
+52
+00:05:27,460 --> 00:05:31,480
+What's most important to me takes a little bit of practice and I'll do that together.
+
+53
+00:05:32,640 --> 00:05:37,170
+Any other conceptual aspects with respect to hypothesis testing that we should
+
+54
+00:05:37,170 --> 00:05:40,950
+go over before we launch into actually coding hypothesis testing together.
+
+55
+00:05:47,110 --> 00:05:51,669
+All right. Fantastic. Thanks, folks. All right.
+
+56
+00:05:51,670 --> 00:06:00,940
+And as always, I hope beyond the constraints of this class, you hear my voice echoing in your head that we always want to logic check our work.
+
+57
+00:06:00,940 --> 00:06:05,230
+So especially in the case of hypothesis testing, but this has been all throughout this process.
+
+58
+00:06:05,560 --> 00:06:08,740
+So before we run a test, we want to have an idea of what do we expect?
+
+59
+00:06:10,020 --> 00:06:13,610
+Lastly, what do we get when we run the hypothesis test and then check if they match?
+
+60
+00:06:14,160 --> 00:06:20,850
+All right. Because our doesn't give us a ton of errors. I get excited when I get an error because it can come up so rarely.
+
+61
+00:06:20,860 --> 00:06:31,139
+So we have to be able to discern whether those results are logical or whether they're appropriate in the given context.
+
+62
+00:06:31,140 --> 00:06:35,920
+But by thinking them through a little bit. All right.
+
+63
+00:06:35,920 --> 00:06:38,160
+We're you get into coding with hypothesis testing.
+
+64
+00:06:38,170 --> 00:06:46,149
+You know this is the new link for that it switched from our studio cloud to posit cloud you should click on here.
+
+65
+00:06:46,150 --> 00:06:51,700
+And if you're still using the our studio cloud link, it should still redirect you.
+
+66
+00:06:54,280 --> 00:07:00,240
+All right. So I'm in the overall workspace for our class.
+
+67
+00:07:00,450 --> 00:07:04,950
+Nick Jackson is the administrator for the School of Public Health's Computing Department.
+
+68
+00:07:05,640 --> 00:07:11,770
+And what I'm going to do here is. Scroll down for the hypothesis testing class.
+
+69
+00:07:11,770 --> 00:07:19,210
+You'll see one for my instructor account for Mikulski. I click the plus sign to make your own copy so you can edit and play around in there.
+
+70
+00:07:21,190 --> 00:07:26,840
+Plus. Do I want to make my own copy and that it will deploy?
+
+71
+00:07:31,040 --> 00:07:34,260
+When I close out on the left hand side just to get a little more space here.
+
+72
+00:07:47,620 --> 00:07:51,520
+Is anyone having any challenges logging in, opening the project?
+
+73
+00:07:52,640 --> 00:07:58,060
+How we doing? Just transition to positive is going more smoothly than expected.
+
+74
+00:07:58,080 --> 00:08:12,610
+I'm very excited. You may notice I may.
+
+75
+00:08:12,610 --> 00:08:20,169
+I made this our project last week in anticipation and it was our vision for point to point
+
+76
+00:08:20,170 --> 00:08:26,320
+to when we open the regression one they already made a new version called our 4.3.1.
+
+77
+00:08:26,740 --> 00:08:36,399
+So our there are just changes and you can just start to become more OC with a
+
+78
+00:08:36,400 --> 00:08:40,420
+little bit of flexibility and coding and just documenting where you're at.
+
+79
+00:08:40,870 --> 00:08:49,530
+So you'll notice they'll be a couple changes in some of the packages as the software automatically updated for us for.
+
+80
+00:08:49,540 --> 00:08:55,240
+Right, I'm going to get over here, go to the environment. See, the environment is empty.
+
+81
+00:08:56,500 --> 00:09:03,160
+Okay. So we're ready to go. Our command prompt is active and ready has got three panels.
+
+82
+00:09:04,240 --> 00:09:09,850
+We're going to work on the hypothesis testing for class Q and file.
+
+83
+00:09:09,910 --> 00:09:11,740
+So this will be the file that we work through together.
+
+84
+00:09:15,270 --> 00:09:20,730
+So I clicked on the class hypothesis testing that Q on B file should have pop up in your upper left.
+
+85
+00:09:21,450 --> 00:09:26,190
+As usual, we're going to add our name so that we have some ownership over this.
+
+86
+00:09:28,770 --> 00:09:33,570
+And if you share it with folks, you know, lineage, right?
+
+87
+00:09:41,530 --> 00:09:48,160
+If you're working on your personal computer, you may need to install these packages on the on the lab group posit cloud.
+
+88
+00:09:48,670 --> 00:09:50,170
+This should already be done for you.
+
+89
+00:09:50,860 --> 00:09:59,350
+And we're avoiding running this every time by using the option after the hash pipe up here to say evaluate equals false.
+
+90
+00:09:59,590 --> 00:10:04,930
+That means don't run this code chunk when we click the render button at the end.
+
+91
+00:10:04,930 --> 00:10:11,680
+So this all essentially gets skipped. The reason I keep it in here is so that if somebody is working on their home computer, they can do that.
+
+92
+00:10:11,680 --> 00:10:18,010
+It was true and turn that off. So we have we have that record there for folks to adjust as needed.
+
+93
+00:10:19,560 --> 00:10:23,219
+What we do need to do every time is we need to load up those libraries.
+
+94
+00:10:23,220 --> 00:10:28,350
+We need to activate them and make them ready to go. So I'm going to run this whole code chunk.
+
+95
+00:10:28,350 --> 00:10:35,020
+I'll just hit that green play button to run the whole code chunk. See if I can't zoom in.
+
+96
+00:10:35,230 --> 00:10:38,350
+Is this font size big enough for the whole room?
+
+97
+00:10:40,780 --> 00:10:46,180
+All right, we load it all up. I've still got the command prompt ready to go.
+
+98
+00:10:50,570 --> 00:10:56,890
+All right. Next up, I'm going to load the data with hopefully becoming a little bit more familiar now.
+
+99
+00:10:57,100 --> 00:11:03,150
+And we have an enhanced data set top up with our expected number of observations and variables here.
+
+100
+00:11:17,660 --> 00:11:23,660
+All right. You may notice right here, I've got a little bit of a sidebar before we're even running our first hypothesis.
+
+101
+00:11:23,870 --> 00:11:32,780
+I'm going to check some relationships between variables so that we have a basis for those expectations so that we can help interpret output.
+
+102
+00:11:33,530 --> 00:11:40,880
+So what I'm going to do here is select just certain variables that were going to do hypothesis testing.
+
+103
+00:11:41,360 --> 00:11:46,010
+So now I'm taking the enhanced data set and piping it into the select function.
+
+104
+00:11:46,460 --> 00:11:52,490
+And these are all the variables I'm interested in. I'm using a function called pivot longer.
+
+105
+00:11:53,540 --> 00:11:56,930
+We'll see. It's going to change the dimensions of this data set.
+
+106
+00:11:57,290 --> 00:12:01,970
+So this data set is going to start out with 9200 rows.
+
+107
+00:12:02,540 --> 00:12:07,460
+When we're done, we're going to have a whole lot more rows and that. So I'm going to make this a much longer dataset.
+
+108
+00:12:10,800 --> 00:12:14,180
+Okay. What in the world? Look at that. We've got a lot of data.
+
+109
+00:12:14,180 --> 00:12:19,280
+So we've got 111,000 rows now with only two variables.
+
+110
+00:12:19,280 --> 00:12:32,070
+What does that look like at the top? How do we explora? So I would see each variable for each participant uniquely as in a row.
+
+111
+00:12:32,080 --> 00:12:42,310
+So here is I value for some participant one's age and years present value for participant one's poverty income ratio has a value of five.
+
+112
+00:12:42,910 --> 00:12:52,270
+So we've got a really long dataset and what this is going to allow me to do is some very efficient plotting.
+
+113
+00:12:53,260 --> 00:12:58,180
+So I'm going to make a series of plots.
+
+114
+00:12:58,540 --> 00:13:01,210
+Can anybody think through our graphing lecture?
+
+115
+00:13:01,450 --> 00:13:09,250
+What type of plot do you think we're making here with this long dataset sort of pipe, this longer dataset into the juju plot function?
+
+116
+00:13:10,060 --> 00:13:22,800
+What kind of plot are we going to make and how do you know? Yeah.
+
+117
+00:13:23,940 --> 00:13:32,760
+A group of density plots based on the specific variable that's listed in a longer dataset right now that we're going to make density plots,
+
+118
+00:13:32,770 --> 00:13:36,090
+we know we're making density plots. Give us the geometry that's set here.
+
+119
+00:13:37,080 --> 00:13:42,930
+And the esthetic value is going to be that second column of the longer data set.
+
+120
+00:13:42,930 --> 00:13:48,930
+So the value that's going to be on the X axis and that we're going to to wrap it by variable.
+
+121
+00:13:48,930 --> 00:13:52,820
+So we're going to have different density plot for each variable, right?
+
+122
+00:13:52,830 --> 00:14:01,700
+So you could go through and plot each of those one by one. But this is a way with a pivot longer of getting it so that they're all next to each other.
+
+123
+00:14:02,740 --> 00:14:05,920
+Here, let me do that option. So the shows up.
+
+124
+00:14:07,300 --> 00:14:14,130
+Trunk, output and console. This way we will be able to see the code and not plot side by side.
+
+125
+00:14:19,340 --> 00:14:22,590
+Right. So this is a way of.
+
+126
+00:14:24,940 --> 00:14:30,130
+In this space, of course, produce this many separate dead sea plots.
+
+127
+00:14:30,400 --> 00:14:35,350
+All right. So just giving you a little bit more of a preview, you can always make them one by one manually.
+
+128
+00:14:35,920 --> 00:14:42,070
+But if you find yourself with repeated tasks, there's ways and hour of automating this and speeding that up.
+
+129
+00:14:42,670 --> 00:14:46,360
+Why do we want to see the density plot shape here of each of these variables?
+
+130
+00:14:46,660 --> 00:14:52,030
+How is this going to factor into our type of decision making for hypothesis testing?
+
+131
+00:14:54,080 --> 00:15:00,830
+Yeah. Yeah. We want to see if the distributions meet our assumptions for parametric testing.
+
+132
+00:15:02,140 --> 00:15:08,530
+So on eyeball. Does anybody see any variables here who they would say over our relatively normal.
+
+133
+00:15:11,520 --> 00:15:14,540
+You were looking good. Yes. Second.
+
+134
+00:15:17,420 --> 00:15:21,230
+Yeah. I think this is the red blood cell count that looks pretty normal to me.
+
+135
+00:15:21,440 --> 00:15:26,149
+And really, I'm doing a judgment call here. I'm not doing you can do formal tests for normality.
+
+136
+00:15:26,150 --> 00:15:30,570
+Really? I'm just. I'm just going on assessment.
+
+137
+00:15:31,320 --> 00:15:37,600
+The iron one doesn't look too bad to me either. Well, a lot of these are really highly skewed, right?
+
+138
+00:15:37,650 --> 00:15:40,920
+Like cadmium is really highly skilled, and that makes sense.
+
+139
+00:15:40,920 --> 00:15:47,970
+Like, thankfully, very few people have high exposure levels to some of these toxic elements, and most people have values close to zero.
+
+140
+00:15:48,810 --> 00:15:55,590
+So so a lot of these variables are highly skewed. So for these ones that are highly skewed, what they mean are assumptions of parametric testing.
+
+141
+00:15:58,270 --> 00:16:02,500
+Now they're not going to meet, though, so we either need to transform them or do a non parametric test.
+
+142
+00:16:02,570 --> 00:16:07,710
+Okay. So these are the types of explorations I would do before I'm.
+
+143
+00:16:09,940 --> 00:16:17,740
+We can also. Now I'm going to plot on the x axis, not just the values on the plot, plot, the log transformation of the values.
+
+144
+00:16:17,980 --> 00:16:22,540
+So we'll see a log transforming the variables. Allow them to meet our assumptions.
+
+145
+00:16:27,860 --> 00:16:32,210
+All right. What are you see here? So this was the one that was already normally distributed.
+
+146
+00:16:32,960 --> 00:16:37,340
+It still looks pretty good, right? That if you log transform something that was already normal.
+
+147
+00:16:39,050 --> 00:16:46,280
+So does that hurt anything? What about have any of the other variables gotten better shape for you?
+
+148
+00:16:47,360 --> 00:16:53,240
+And I think it's more normally distributed based on your expert opinions as analysts.
+
+149
+00:17:03,610 --> 00:17:07,120
+Yeah. I'd say these, like neutrophil cell counts right here look pretty normal.
+
+150
+00:17:08,320 --> 00:17:14,360
+This bloodbath looks pretty normal to me. Neutrophil lymphocyte ratio looks pretty normal to me.
+
+151
+00:17:15,380 --> 00:17:18,670
+Arsenic. This one, the white blood cell.
+
+152
+00:17:18,690 --> 00:17:22,170
+Yeah. So? So. And you can make your own judgment assessment.
+
+153
+00:17:22,590 --> 00:17:28,890
+So now we have a number of variables that we could do parametric testing on after we if we do a lot of transformation first.
+
+154
+00:17:33,100 --> 00:17:36,190
+All right. So in your homework assignment, I'm going to ask you to do.
+
+155
+00:17:37,380 --> 00:17:40,500
+Hypothesis testing. But I'm not just going to tell you what test to do.
+
+156
+00:17:40,710 --> 00:17:45,420
+You have to assess what's the appropriate test to do and explain why.
+
+157
+00:17:45,450 --> 00:17:50,159
+So hey, I checked the distribution and this one looks normal or I want transformed.
+
+158
+00:17:50,160 --> 00:17:53,640
+It looks normal. So I'm going to do this kind of test.
+
+159
+00:17:57,070 --> 00:18:02,050
+That's the way it is when we write up methods, sections and manuscripts where we say what we're doing and we say, Why?
+
+160
+00:18:07,020 --> 00:18:11,850
+Right. All right, so we have some understanding of the distributions.
+
+161
+00:18:12,720 --> 00:18:19,420
+Now I want to do a correlation test. What is the variable shape of the two variables in a correlation test?
+
+162
+00:18:19,420 --> 00:18:22,590
+So a correlation test is testing a relationship between two variables.
+
+163
+00:18:23,100 --> 00:18:26,550
+Are they continuous? Are they categorical? Are they want of each?
+
+164
+00:18:27,630 --> 00:18:43,030
+What variables are appropriate for a correlation test? Yes, exactly.
+
+165
+00:18:43,050 --> 00:18:48,090
+Two continuous variables. And if they don't meet those normality assumptions, we could do a Pearson.
+
+166
+00:18:48,390 --> 00:18:52,380
+If they don't meet the normal assumptions within the experiment.
+
+167
+00:18:53,280 --> 00:18:56,760
+So let's look out. We'll do the core test. We can look it up in the Help viewer.
+
+168
+00:18:57,840 --> 00:19:00,930
+So again, put it in the help you see. What are the default settings?
+
+169
+00:19:04,830 --> 00:19:10,440
+All right. So this tells us that the court of press function is located in the staff package.
+
+170
+00:19:10,590 --> 00:19:14,880
+That is one of the base packages that get loaded up for us every time we turn on our.
+
+171
+00:19:17,500 --> 00:19:25,299
+And it's going to tell us in here. That was different methods available and the default method is going to be.
+
+172
+00:19:25,300 --> 00:19:28,840
+PIERSON But we can change that and type in.
+
+173
+00:19:29,410 --> 00:19:39,080
+Spearman if we want to. All right. So my first research question is, is there a relationship between the iron and red blood cells?
+
+174
+00:19:39,620 --> 00:19:44,120
+So let's do some assessment. Let's see back on our plotting.
+
+175
+00:19:47,860 --> 00:19:53,059
+All right, so this is the, um, transform values. So here's red blood cells.
+
+176
+00:19:53,060 --> 00:20:00,520
+I think this is the line you saw was pretty normally distributed. The irony actually is pretty good to see.
+
+177
+00:20:00,520 --> 00:20:03,830
+You could go forward probably with a Pearson test here.
+
+178
+00:20:04,420 --> 00:20:08,140
+So I'm testing our relationship between iron and red blood cells.
+
+179
+00:20:09,550 --> 00:20:14,140
+And again, you could make a different assessment there and determine that you want to do a different type of test.
+
+180
+00:20:15,680 --> 00:20:17,390
+All right, so let's read this output.
+
+181
+00:20:19,800 --> 00:20:27,750
+So we're testing to see is there a relationship between levels of iron in the blood and the number of red blood cells that are present in the blood?
+
+182
+00:20:28,350 --> 00:20:31,350
+And here's where you get for output. This is what I'm talking about.
+
+183
+00:20:31,360 --> 00:20:40,640
+But the output for R is not very. User friendly and try this home break of tax and let's practice talking our way through it.
+
+184
+00:20:41,480 --> 00:20:46,100
+So we'll notice there's a pattern typically up at the top. I'll tell you what test it performed.
+
+185
+00:20:46,520 --> 00:20:52,880
+So that's helpful in case if you forgot what you did or you want to double check what you did or you're not sure what the default settings were.
+
+186
+00:20:53,180 --> 00:20:57,290
+So this tells us, is it up here some test? That's the first thing it tells us.
+
+187
+00:20:58,100 --> 00:21:00,530
+Then it tells us what variables it performed it on.
+
+188
+00:21:01,100 --> 00:21:06,410
+So in the MP status that it did on the island variable and it did it on the red blood cell variable.
+
+189
+00:21:06,680 --> 00:21:09,560
+That's good. That's nice. That confirms what we were talking about.
+
+190
+00:21:11,420 --> 00:21:17,030
+Then I usually want to assess the magnitude of the association so we can find the magnitude
+
+191
+00:21:17,030 --> 00:21:20,810
+of the association all the way down here at the bottom and the correlation coefficient.
+
+192
+00:21:21,590 --> 00:21:24,890
+So this is saying a correlation coefficient is 0.14.
+
+193
+00:21:25,280 --> 00:21:29,570
+Can anyone help me put that in context? What's the null correlation coefficient?
+
+194
+00:21:31,560 --> 00:21:35,590
+If there was no relationship. I mean, zero.
+
+195
+00:21:35,890 --> 00:21:41,080
+And so these values are going to range from -1 to 1. So this is slightly positive, right?
+
+196
+00:21:42,010 --> 00:21:47,049
+Might you characterize this as like a weak, positive magnitude of correlation?
+
+197
+00:21:47,050 --> 00:21:50,620
+Right. It's a little bit bigger than zero. It's not quite all the way out to one.
+
+198
+00:21:51,910 --> 00:21:58,270
+So then I go in to look at the level of statistical significance of the association.
+
+199
+00:21:58,510 --> 00:22:03,580
+I generally like to start with the magnitude first and then get into the statistical significance.
+
+200
+00:22:03,830 --> 00:22:11,900
+But you can have your own pipeline, what works for you? So from this output, we have two ways of assessing level of statistical significance.
+
+201
+00:22:11,920 --> 00:22:23,360
+Can anybody help me find one of them? Yeah, go ahead.
+
+202
+00:22:24,420 --> 00:22:28,190
+Yeah. We can assess the p value and this has a really weird notation for a p value.
+
+203
+00:22:28,190 --> 00:22:33,440
+There's an E in it. What does it mean in R and in other places?
+
+204
+00:22:36,790 --> 00:22:41,020
+This is not talking about the constant e like a natural logarithm ten.
+
+205
+00:22:41,890 --> 00:22:52,960
+Yes, exactly. Perfect. So this is saying that the p value is less than 2.2 times ten to the -16.
+
+206
+00:22:54,240 --> 00:22:57,880
+So the P-value is less than 2.2 times ten to the -16.
+
+207
+00:22:58,170 --> 00:23:01,470
+We can dial in and get the exact number if we need to.
+
+208
+00:23:02,940 --> 00:23:09,450
+R is like a 16 bit language, so if it gets below that, it kind of just stops and keeps going.
+
+209
+00:23:09,450 --> 00:23:17,500
+We can force it to go past that. So how would you relate to if your P values cut off your alpha level was 0.5?
+
+210
+00:23:17,520 --> 00:23:22,730
+How would you assess this p value? Relative to the non-hybrid.
+
+211
+00:23:23,430 --> 00:23:25,160
+Yeah, I would say this one is significant.
+
+212
+00:23:25,730 --> 00:23:33,560
+So we would reject the null hypothesis in this case and say that this correlation coefficient is different from zero.
+
+213
+00:23:34,350 --> 00:23:38,840
+Right. So it's the magnitude small, but we have such a huge dataset, it's quite highly significant.
+
+214
+00:23:39,110 --> 00:23:43,490
+Can anybody talk me through what's the second way to find statistical significance from this output?
+
+215
+00:23:50,380 --> 00:23:54,230
+Please. Exactly.
+
+216
+00:23:54,230 --> 00:23:57,680
+And for me, I find confidence intervals a little more intuitive than p value.
+
+217
+00:23:57,680 --> 00:24:04,070
+So you can interact with this how you ask. So here it gives us a confidence interval around that correlation coefficient.
+
+218
+00:24:05,510 --> 00:24:07,760
+So the confidence interval,
+
+219
+00:24:07,760 --> 00:24:18,200
+the lower confidence interval is .11 upper confidence interval is .16 and we can logic check that see that our value of 0.14 falls right between that.
+
+220
+00:24:18,200 --> 00:24:25,040
+So there's nothing wonky happening and we can check to see do these values cross the zero point receive.
+
+221
+00:24:25,040 --> 00:24:29,660
+No, they're both positive. So again, we would reject the null hypothesis in this case.
+
+222
+00:24:31,090 --> 00:24:36,330
+So this is how I walk myself through it. I follow this pattern of checking the tests and the variables.
+
+223
+00:24:36,340 --> 00:24:37,750
+Make sure I do it on the right thing.
+
+224
+00:24:38,440 --> 00:24:44,230
+Because, again, it's not going to give you an error if you run it on a type in a different variable than you meant to.
+
+225
+00:24:44,590 --> 00:24:47,590
+So I check the tests and I check the magnitude.
+
+226
+00:24:48,600 --> 00:24:50,730
+Then I checked the level of significance.
+
+227
+00:24:51,120 --> 00:24:58,079
+That's kind of like the three steps that go through, and I look to see if that makes sense with my prior plotting.
+
+228
+00:24:58,080 --> 00:25:03,390
+Does that make sense with our prior descriptive statistics? It's all of us coming together.
+
+229
+00:25:03,810 --> 00:25:06,960
+So I might have any other comments or questions about this kind of output.
+
+230
+00:25:15,330 --> 00:25:20,970
+Let's check out a second correlation test. This time I pulled out two of our really weird variables.
+
+231
+00:25:22,000 --> 00:25:29,410
+So I pulled out poverty income ratio variable that is definitely not normally distributed and I pulled out.
+
+232
+00:25:31,070 --> 00:25:34,150
+We're in the age. Right here.
+
+233
+00:25:34,330 --> 00:25:42,640
+So this one is like kind of this flat shape. So in this case, both of these are you can't really make an argument for normality here.
+
+234
+00:25:42,970 --> 00:25:46,000
+And so how we're going to do a non parametric assessment.
+
+235
+00:25:46,240 --> 00:25:52,300
+I'm going to after a comma, specify the method here instead of the default Pearson method equals Spearman.
+
+236
+00:25:53,580 --> 00:26:05,110
+All right, let's run that through. The output is like. All right.
+
+237
+00:26:05,150 --> 00:26:10,970
+What do you see here? Can anybody talk my way through the output and see if they can pull any meaning out of here?
+
+238
+00:26:15,730 --> 00:26:23,650
+Yeah. You were shot. So the first thing is that great experience, perfect.
+
+239
+00:26:23,650 --> 00:26:29,260
+That's what we want to hear. The second thing is it's getting us to do more.
+
+240
+00:26:29,530 --> 00:26:35,950
+And those are the variables we wanted. So this is good. Yes. And then the third one would be the value.
+
+241
+00:26:36,920 --> 00:26:40,760
+I'm just sure we can look at the P-value next to the level of significance.
+
+242
+00:26:41,690 --> 00:26:44,690
+We also know that distrust is not close confidence.
+
+243
+00:26:45,200 --> 00:26:48,800
+Oh yeah. Not seeing that is expected. Mm hmm.
+
+244
+00:26:49,310 --> 00:26:52,310
+And then the correlation coefficient, which is we have.
+
+245
+00:26:52,810 --> 00:26:57,260
+Not just for.
+
+246
+00:26:58,700 --> 00:27:03,980
+Yeah. Nice shot of why put yourself through it. So our magnitude here is 0.15.
+
+247
+00:27:04,220 --> 00:27:14,450
+Again, this I would characterize this as a weak, positive magnitude and we see the p value of the same thing is less than 2.2 times ten to the -16.
+
+248
+00:27:16,970 --> 00:27:22,459
+We as you mentioned, we don't see a confident confidence interval because that's not what this test is for.
+
+249
+00:27:22,460 --> 00:27:28,820
+Run parametric testing. We often don't get those assessments up so that if that has any bearing on your.
+
+250
+00:27:30,070 --> 00:27:34,930
+Selection of whether to transform the variable or not or how to do your testing.
+
+251
+00:27:35,890 --> 00:27:41,680
+That is not value here. There is something here about some warnings, about time.
+
+252
+00:27:41,980 --> 00:27:43,660
+That's because these are ranked based tests.
+
+253
+00:27:43,660 --> 00:27:50,140
+So it's just letting us know that some people have the exact same age and the exact same income as each other.
+
+254
+00:27:50,860 --> 00:27:56,300
+So those are tied at 90. Any comments?
+
+255
+00:27:56,310 --> 00:28:06,130
+Questions? Here we did variables.
+
+256
+00:28:06,940 --> 00:28:14,380
+One at a time or pairs at a time. Sometimes we want to know what's the correlation between all the variables in our dataset.
+
+257
+00:28:14,800 --> 00:28:18,670
+We want to just get a quick glance, look at how everything is related.
+
+258
+00:28:19,420 --> 00:28:24,670
+In that case, we might consider making a correlation matrix. So here I make a matrix.
+
+259
+00:28:25,330 --> 00:28:28,750
+I am pulling out. Just. A few of them.
+
+260
+00:28:29,530 --> 00:28:38,230
+I'm pulling out Iron Man, cadmium, lead, white blood cells of red blood cells, and I'll put them in a new dataset I'm calling the chemical data set.
+
+261
+00:28:44,290 --> 00:28:52,260
+And then I'm running the core function on it. The core function is related to the core, not test function, except it.
+
+262
+00:28:52,960 --> 00:28:56,230
+Instead of giving you a p value, it just gives you the magnitudes.
+
+263
+00:28:57,890 --> 00:29:04,190
+So this one, I want to get all the magnitudes and I want to use that view, that matrix.
+
+264
+00:29:04,190 --> 00:29:11,610
+So what we did here. Was calculate the market chance of spearman correlation between every variable we albumin a matrix.
+
+265
+00:29:12,550 --> 00:29:22,360
+So iron is perfectly correlated with iron that has a correlation coefficient of one, but which we could look at the.
+
+266
+00:29:23,720 --> 00:29:30,270
+Here's the one we calculated earlier. Iron correlation with red blood cell count 0.15.
+
+267
+00:29:31,100 --> 00:29:36,980
+So you can pull those out individually. I find it hard to look at all of these numbers individually.
+
+268
+00:29:37,640 --> 00:29:42,370
+So I like to make a picture. So, for example,
+
+269
+00:29:42,940 --> 00:29:52,059
+this is a kind of like diagnostic plot all off and make early on with a data set where I'll have all of my variables on a matrix
+
+270
+00:29:52,060 --> 00:30:00,250
+and we can tell how highly correlated they are based on the color intensity and these numbers reflect the correlation coefficient.
+
+271
+00:30:00,640 --> 00:30:06,220
+So can anybody help me out here? What's this red square with 0.46 say here?
+
+272
+00:30:07,000 --> 00:30:11,830
+How do we interpret those values? What about what variables are being compared here?
+
+273
+00:30:12,220 --> 00:30:17,560
+And how would you characterize the strength of that correlation for that magnitude?
+
+274
+00:30:21,660 --> 00:30:26,040
+You can help me interpret this middle box. Well, sure.
+
+275
+00:30:27,030 --> 00:30:34,770
+I'm not sure. But is it about pollination between the queen bee and beekeeping?
+
+276
+00:30:35,280 --> 00:30:40,200
+Yeah. Yeah, I do exactly that. I look at the coordinates, so I see.
+
+277
+00:30:40,200 --> 00:30:44,100
+Okay, if I go straight down, this is the bloodline variable.
+
+278
+00:30:44,910 --> 00:30:48,870
+And if I go straight across, this is the blood cadmium variable.
+
+279
+00:30:49,320 --> 00:30:52,740
+So this is the pairwise correlation between cadmium and blood.
+
+280
+00:30:53,490 --> 00:30:56,700
+Exactly. And now what does this 0.46 and what does the red mean?
+
+281
+00:31:12,560 --> 00:31:16,700
+Yeah. So that's a correlation coefficient.
+
+282
+00:31:16,940 --> 00:31:20,710
+Yeah, that's pretty high. Yeah.
+
+283
+00:31:20,720 --> 00:31:29,320
+Cause we have a color bar here and the null if there was no if the correlation coefficient was zero, the color is white and it's red.
+
+284
+00:31:29,360 --> 00:31:34,160
+The closer the correlation gets to one and it's blue, the closer the correlation gets to negative one.
+
+285
+00:31:34,730 --> 00:31:35,330
+So I agree with you.
+
+286
+00:31:35,330 --> 00:31:43,880
+This is saying the Spearman correlation coefficient between these two variables is .46 and it's the most highly correlated variables in our dataset.
+
+287
+00:31:45,480 --> 00:31:51,120
+So these types of visualization tools, these approaches for looking at the relationships between a bunch of variables at a time,
+
+288
+00:31:51,120 --> 00:31:54,170
+can be a helpful way when you're exploring your dataset.
+
+289
+00:31:54,180 --> 00:31:59,010
+Trying to understand this has implications for regression modeling.
+
+290
+00:31:59,250 --> 00:32:04,710
+You may have heard this before. You don't want to put a bunch of highly correlated values in your regression model together.
+
+291
+00:32:04,860 --> 00:32:08,069
+Your your beta coefficients get really unstable.
+
+292
+00:32:08,070 --> 00:32:14,520
+So understanding the relationship between many variables in your dataset can be it can be helpful assessment.
+
+293
+00:32:15,440 --> 00:32:19,730
+Let's practice one more. Can anybody tell me what's going on in this blue box?
+
+294
+00:32:20,150 --> 00:32:46,190
+What's this value mean? What variables are we describing? Well, what to covariates are we describing here in this blue box?
+
+295
+00:32:53,660 --> 00:32:59,110
+I also. Yeah, exactly.
+
+296
+00:32:59,110 --> 00:33:02,410
+So I would look down and say, this is okay. This is the white blood cell variable.
+
+297
+00:33:02,660 --> 00:33:04,059
+We look across and see, okay,
+
+298
+00:33:04,060 --> 00:33:12,250
+this is the iron variable and there are negatively correlated here source or say a weak negative correlation between white blood cells and higher.
+
+299
+00:33:14,390 --> 00:33:17,060
+In this case, I've chosen just to plot the coefficients.
+
+300
+00:33:17,990 --> 00:33:25,220
+But if you want to do, you can plot the p values and said, you know, you can make this match your match needs for this study.
+
+301
+00:33:25,790 --> 00:33:30,260
+So let's let's see if we can do one ourselves. All right. So we're going to do a check, your understanding.
+
+302
+00:33:30,470 --> 00:33:36,140
+I want to know the relationship between the arsenate and neutrophil lymphocyte ratio.
+
+303
+00:33:36,680 --> 00:33:41,900
+All right. So I'll and that's your job as the analyst to figure out what type of variable are they?
+
+304
+00:33:43,370 --> 00:33:44,689
+What are their distributions?
+
+305
+00:33:44,690 --> 00:33:53,140
+So they meet your your parametric assumptions and run the appropriate correlation test there and try to interpret the output as well.
+
+306
+00:33:53,750 --> 00:33:57,380
+Feel free to work with your neighbors. Collaborate on this. Talk your way through it.
+
+307
+00:33:57,650 --> 00:34:42,440
+I will test the relationship between these two variables. Scott.
+
+308
+00:34:42,530 --> 00:35:28,080
+How? Who wants to help me out?
+
+309
+00:35:28,110 --> 00:35:38,430
+How are you going to get started here? Give ourselves a little bit of space.
+
+310
+00:35:40,050 --> 00:35:43,110
+We can make a new code chunk, we can do control.
+
+311
+00:35:43,110 --> 00:35:47,849
+I'll try to make a new code chunk or even use hit the C plus brand to make a new code.
+
+312
+00:35:47,850 --> 00:35:52,050
+Chuck All right. And how do we figure out what type of variable they are?
+
+313
+00:35:56,950 --> 00:36:01,120
+One function we've used other times in this class is the structure function.
+
+314
+00:36:02,080 --> 00:36:07,780
+So we can see what's the structure of the urinary arsenic variable.
+
+315
+00:36:08,920 --> 00:36:15,720
+See that one's numeric. Okay. We're going to ask, what's the structure of the neutrophil lymphocyte ratio?
+
+316
+00:36:22,840 --> 00:36:25,960
+That one's also numeric. Okay, so we've got two numeric variables.
+
+317
+00:36:26,290 --> 00:36:41,700
+We want to know what are their distributions. We could plot them individually so we could do it to our different and hands.
+
+318
+00:36:45,080 --> 00:36:50,630
+We're on the FedEx. Esthetics function.
+
+319
+00:36:51,000 --> 00:36:54,900
+And then on the x axis we could do urinary arsenic.
+
+320
+00:36:56,420 --> 00:37:07,540
+And then add the density. All right, so we can see this one is pretty broad.
+
+321
+00:37:07,660 --> 00:37:11,190
+All that's pretty skewed, right? Right. A very long right tail.
+
+322
+00:37:13,000 --> 00:37:16,960
+If we wanted to check the weather log, transforming makes it any better.
+
+323
+00:37:18,330 --> 00:37:21,330
+We can put a log in front of us.
+
+324
+00:37:27,270 --> 00:37:30,480
+What's your assessment on this? This looks pretty normal to you guys.
+
+325
+00:37:31,920 --> 00:37:36,390
+Yeah. So it looks like for our snack we can go forward if we log transform with a parametric test.
+
+326
+00:37:36,420 --> 00:37:40,990
+What about the other one? So did you plot?
+
+327
+00:37:45,550 --> 00:37:52,000
+And hands said X equals R.
+
+328
+00:37:53,730 --> 00:38:01,160
+And don't consider. All right.
+
+329
+00:38:01,170 --> 00:38:04,680
+That one is much better. So a little bit skewed.
+
+330
+00:38:05,460 --> 00:38:08,790
+So you can see. Yeah, there's like some judgment calls in terms of how you want to do it.
+
+331
+00:38:09,510 --> 00:38:14,130
+Did anybody get to the point where they are picking what tests are on? And if so, what test do they run?
+
+332
+00:38:16,140 --> 00:38:20,980
+What tests do you think was appropriate? Anybody come down on the side of Spearman test?
+
+333
+00:38:21,000 --> 00:38:28,500
+Pearson Tests. What do you think? Yeah.
+
+334
+00:38:29,290 --> 00:38:32,650
+I hope that this film attests to the tests or.
+
+335
+00:38:33,890 --> 00:38:40,640
+Through the first. Yes we could do experiment test the non parametric test on the on transformed variables.
+
+336
+00:38:40,650 --> 00:38:53,960
+That sounds great. So we could implement that with the core test function and run that on the donor or some variable comma and all our.
+
+337
+00:38:54,920 --> 00:38:59,990
+And to make it a spearman we go method equals experiment.
+
+338
+00:39:07,590 --> 00:39:11,580
+And what do you see in this output? You interpret in that output?
+
+339
+00:39:18,100 --> 00:39:21,700
+That tells us that Respiratoires here's a variable that ran on.
+
+340
+00:39:21,700 --> 00:39:28,980
+That's what we wanted. We got a correlation coefficient of 0.030 was very, very weakly positive.
+
+341
+00:39:28,990 --> 00:39:32,590
+It's almost zero. We got a p value of 0.12.
+
+342
+00:39:33,250 --> 00:39:40,840
+What's your assessment on that? Yeah, we failed to reject the null hypothesis is correlations not different from zero.
+
+343
+00:39:41,050 --> 00:39:45,730
+So then we had to take a different approach. Besides this one. You see that there's multiple ways you can.
+
+344
+00:39:45,830 --> 00:39:49,780
+You can go about this one. What else did somebody do? Yeah, please.
+
+345
+00:39:50,070 --> 00:39:53,780
+I just like to go back and.
+
+346
+00:40:00,600 --> 00:40:05,430
+You did the Spearman's test because you're using for.
+
+347
+00:40:08,410 --> 00:40:15,770
+Yeah. You can use these arrows to toggle back to the previous plots you made, or you can scroll up to see those previous plots.
+
+348
+00:40:15,800 --> 00:40:19,930
+Exactly. Yes. So if you've already made the plots, you can just.
+
+349
+00:40:21,050 --> 00:40:27,440
+Find those that are there. Exactly. Yeah. If you like, save for the other things.
+
+350
+00:40:28,190 --> 00:40:34,190
+Huh? If that had turned out with a lot. I'll be on with the paramedics.
+
+351
+00:40:34,520 --> 00:40:41,890
+Yeah. What happens if we log transformers and our. All three are all to me to.
+
+352
+00:40:43,670 --> 00:40:50,810
+So we've got another option. We can try the core dot test with the parametric version on the log.
+
+353
+00:40:52,060 --> 00:40:59,910
+Of the. And hence your ex and the log or the enhanced.
+
+354
+00:41:01,440 --> 00:41:06,059
+Now our and we don't have to say any method, we're going to do the default.
+
+355
+00:41:06,060 --> 00:41:11,520
+Pearson But if you want to be extra explicit or do method equals.
+
+356
+00:41:12,300 --> 00:41:15,900
+Pearson So I'm doing a different method and folks are I'm doing.
+
+357
+00:41:15,900 --> 00:41:18,060
+Pearson But I'm doing it on the log transformer.
+
+358
+00:41:20,140 --> 00:41:30,880
+So this can get you access to the confidence interval that we know is the value is a correlation coefficient pretty similar .04 as opposed to .03.
+
+359
+00:41:31,450 --> 00:41:38,920
+But our P values tick down a little bit. So your interpretation of these relationships can depend on your analytic choices.
+
+360
+00:41:39,280 --> 00:41:44,170
+So it's not always exactly the same, and it's not like there's one only one correct way.
+
+361
+00:41:44,380 --> 00:41:50,310
+That's why we want to be just like very clear about what methods we're using and what,
+
+362
+00:41:50,320 --> 00:41:54,880
+why, what criteria we use to pick those methods that report the output.
+
+363
+00:41:55,060 --> 00:41:59,020
+You may notice in your Iili that you you'll often do a bunch of sensitivity analysis.
+
+364
+00:41:59,440 --> 00:42:07,780
+So you might say, oh, my main analysis is like this. And as a sensitivity analysis I made a different choice and looked at that result.
+
+365
+00:42:07,930 --> 00:42:13,000
+So sometimes sometimes you're on the fence about what choices to make there.
+
+366
+00:42:15,790 --> 00:42:22,330
+All right. Nice job with the practice method there. Let's jump into the slides and we'll see a couple of other.
+
+367
+00:42:24,580 --> 00:42:31,450
+Hypothesis testing approaches besides correlation. So in this case,
+
+368
+00:42:31,450 --> 00:42:39,160
+we want to look more broadly at functions for hypothesis testing and be able to work with effect estimates and levels of significance.
+
+369
+00:42:41,080 --> 00:42:46,630
+So this is a reminder. We looked at this at the end of last class, so we spent a lot of time on this first row here.
+
+370
+00:42:47,320 --> 00:42:51,390
+If our two variables are independent and dependent, variables are continuous,
+
+371
+00:42:51,850 --> 00:42:55,330
+and then what are our different choices if it's parametric or non parametric?
+
+372
+00:42:55,900 --> 00:43:00,280
+Now I want to talk about these lower rows about what do we do if we have situations where
+
+373
+00:43:00,550 --> 00:43:04,870
+we have a categorical variable on a continuous variable or a categorical and categorical,
+
+374
+00:43:04,870 --> 00:43:09,160
+etc. and we'll see if there are some differences based on the numbers of category setter.
+
+375
+00:43:10,100 --> 00:43:17,140
+All right. So we'll talk about the different tests that are available here, see, that are as pretty much a separate function for most of this.
+
+376
+00:43:21,330 --> 00:43:31,110
+All right, so a t test is our option for parametric testing when our outcome variables continuous and our exposure variable has two levels.
+
+377
+00:43:32,750 --> 00:43:42,570
+Okay. So in this case. The way those questionnaires were assessed in this cycle of enhanced sex was assessed with two categories.
+
+378
+00:43:43,410 --> 00:43:47,910
+And we've seen our read are red blood variable is continuous.
+
+379
+00:43:48,000 --> 00:43:54,780
+So in this case, I've got a two level exposure variable and a continuous outcome variable.
+
+380
+00:43:55,320 --> 00:43:59,730
+And for many of these functions, R is going to use the same notation.
+
+381
+00:43:59,880 --> 00:44:07,440
+So it's going to say, what's the function here? So to that test, thankfully that's a pretty intuitive function and it's from the base.
+
+382
+00:44:07,440 --> 00:44:14,370
+R So it's queued up for you every time we turn our on and then we're going to put the output variable, the outcome variable.
+
+383
+00:44:15,680 --> 00:44:18,950
+Tilde the exposure variable. Right.
+
+384
+00:44:18,960 --> 00:44:24,620
+So it's a new symbol for us this Tilda it's going to separate the outcome and
+
+385
+00:44:24,620 --> 00:44:27,890
+the exposure and it's going to happen that way all the way throughout our.
+
+386
+00:44:29,350 --> 00:44:32,200
+Regression. So when we're doing like regression models,
+
+387
+00:44:32,650 --> 00:44:38,710
+this will be like your y variable and all of your predictor x variables are going to go to the right of the tilde.
+
+388
+00:44:39,340 --> 00:44:46,600
+So we'll get in the habit of this format of function and then outcome variable till the exposure variable.
+
+389
+00:44:47,620 --> 00:44:52,270
+I picked this test because this one was relatively normally distributed.
+
+390
+00:44:56,700 --> 00:45:03,680
+Here's what the output looks like. Again, another block of test text and we can pass our way through it.
+
+391
+00:45:03,690 --> 00:45:06,990
+So it starts by telling us what tests that are on it. T test, that's what we want it.
+
+392
+00:45:07,590 --> 00:45:10,680
+And then it tells us what variables are added on. That's what we want it.
+
+393
+00:45:11,830 --> 00:45:17,950
+And then I try to look for the magnitude and the way I find the magnitude here is all the way at the bottom.
+
+394
+00:45:19,470 --> 00:45:29,880
+So this is saying that the median red blood cell count in males is 4.9 and the median red blood cell count in females is 4.5.
+
+395
+00:45:31,130 --> 00:45:37,340
+A T test this is assessing is the difference in these means differ from zero.
+
+396
+00:45:38,300 --> 00:45:44,200
+So what's the difference between these two. What is it like point for this will be saying is 0.4 different than zero.
+
+397
+00:45:44,270 --> 00:45:52,829
+That's what we're testing. Now I've got two ways of assessing the statistical significance.
+
+398
+00:45:52,830 --> 00:45:56,219
+Can anybody find one of the ways of assessing statistical significance?
+
+399
+00:45:56,220 --> 00:46:12,490
+And here, what do you see? Any statistical significance from this output.
+
+400
+00:46:14,750 --> 00:46:19,620
+Yeah. Please devalue. Yeah, exactly.
+
+401
+00:46:19,710 --> 00:46:22,620
+That is really low p value again. And so we're starting to get familiar with this.
+
+402
+00:46:22,620 --> 00:46:27,990
+So this is saying that the P value is less than 2.2 times ten to the negative 16th power.
+
+403
+00:46:29,070 --> 00:46:35,610
+So this we would reject the null hypothesis here say that the difference between these two groups does not equal to zero.
+
+404
+00:46:36,840 --> 00:46:42,540
+The second way we can find the level of significance is the confidence interval,
+
+405
+00:46:42,540 --> 00:46:47,070
+and this is the confidence interval around the difference between these values.
+
+406
+00:46:47,880 --> 00:46:53,280
+So you'll be looking to see does this confidence interval cross zero? And we see here, you know, they're both positive.
+
+407
+00:46:53,310 --> 00:46:56,430
+So these are consistent internally consistent with each other.
+
+408
+00:46:56,700 --> 00:46:59,760
+The very small P value and the confidence interval that's nowhere near zero.
+
+409
+00:47:00,950 --> 00:47:05,960
+Okay. So this was testing to see the differences in red blood cell counts between these two groups.
+
+410
+00:47:08,060 --> 00:47:12,800
+And we're going to follow this format of outcome variable till the exposure variable.
+
+411
+00:47:19,910 --> 00:47:26,570
+If we have a similar scenario where we have a two level exposure variable and a continuous outcome variable,
+
+412
+00:47:27,470 --> 00:47:32,840
+but our data are really skewed, we can do a wilcoxon test that's a non parametric one.
+
+413
+00:47:32,840 --> 00:47:41,569
+So here I pulled out blood levels because those ones are pretty good and all we had to substitute was the name of the function.
+
+414
+00:47:41,570 --> 00:47:46,160
+So the last time the function was t that test that's well Cox that test.
+
+415
+00:47:47,360 --> 00:47:52,950
+And this is our outcome variable. Tilde the exposure variable.
+
+416
+00:47:53,310 --> 00:47:56,640
+So our continuous variable tilde are categorical variable.
+
+417
+00:47:59,850 --> 00:48:09,810
+Just like with the correlation test for non parametric tests, we got a condensed output because we don't get any confidence intervals.
+
+418
+00:48:10,740 --> 00:48:16,319
+It also doesn't actually provide us the means because we're not testing for a difference in means with this,
+
+419
+00:48:16,320 --> 00:48:24,520
+we're testing for a difference in ranking. So it starts out similar, gives us the name of the test, gives us the name of the variables we did.
+
+420
+00:48:26,620 --> 00:48:31,450
+And I just assess that with the level of significance so it doesn't give me a magnitude in the setting.
+
+421
+00:48:36,560 --> 00:48:42,890
+She had some questions about this type of scenario was very common where we have like a two level variable and a continuous variable comes up a lot.
+
+422
+00:48:49,060 --> 00:48:52,210
+We'll fire through a couple of other testing types.
+
+423
+00:48:53,170 --> 00:48:59,830
+So a NOVA is one of these parametric tests that we can use again when our outcome variable is continuous,
+
+424
+00:49:00,280 --> 00:49:03,580
+but now our exposure variable has three or more categories.
+
+425
+00:49:05,930 --> 00:49:13,879
+For some reason. And are you do this as a two step procedure? But it follows the same general structure.
+
+426
+00:49:13,880 --> 00:49:22,760
+So we have our outcome variable. The red blood cell, one that was pretty normally distributed, told us your exposure very well in this case.
+
+427
+00:49:23,060 --> 00:49:27,320
+I think we made an age group variable with like five or four categories, something like that.
+
+428
+00:49:28,100 --> 00:49:32,030
+So your continuous variable, tilde, your categorical variable.
+
+429
+00:49:33,660 --> 00:49:42,030
+And for whatever reason, it takes two functions. We have to do the analysis of variance first, and then we do that to calculate the actual P value.
+
+430
+00:49:42,030 --> 00:49:46,650
+Second, and we learn with R when you give it to functions.
+
+431
+00:49:47,460 --> 00:49:53,790
+So we going to do the innermost one first and then it'll perform the outermost one of the contents of the inner one.
+
+432
+00:49:55,990 --> 00:50:00,140
+So here's the outcome of that. Function.
+
+433
+00:50:02,510 --> 00:50:06,170
+So it's saying, here's your analysis of variance table,
+
+434
+00:50:06,710 --> 00:50:12,470
+here's your response variable or your outcome variable, and then here's your exposure variable.
+
+435
+00:50:12,560 --> 00:50:19,459
+It gives us some information about degrees of freedom and it gives us the p value for this age groups.
+
+436
+00:50:19,460 --> 00:50:24,230
+Variable animation. Yeah. What is that?
+
+437
+00:50:24,320 --> 00:50:28,970
+What does the ROV tell you? So we have a bunch of categories of age groups.
+
+438
+00:50:29,810 --> 00:50:33,110
+We have a very low p value. What is this actually?
+
+439
+00:50:33,200 --> 00:50:40,020
+What's an ANOVA actually telling you? Do you know which age groups are different?
+
+440
+00:50:40,050 --> 00:50:48,110
+Do we know anything about that? Not enough of us just telling you that somewhere among any of the groups there's a difference.
+
+441
+00:50:48,170 --> 00:50:54,670
+Right? So we want to follow that up. We can do pairwise to test to figure out where those differences are.
+
+442
+00:51:01,750 --> 00:51:11,320
+It's also very common to have two categorical variables. So if our exposure variable and our outcome variable are both categories.
+
+443
+00:51:14,380 --> 00:51:17,680
+I don't know why this has slightly different notation instead of the tilde.
+
+444
+00:51:18,550 --> 00:51:22,630
+It's similar to the correlation test where you just separate the variables with a comma.
+
+445
+00:51:23,770 --> 00:51:27,190
+But so if we want to do, we could do a chi square test.
+
+446
+00:51:28,160 --> 00:51:35,690
+Or we could do a Fisher's test if we wanted to do the non parametric version and we provide, provide those variables separated by a comma.
+
+447
+00:51:43,090 --> 00:51:50,650
+Probably one of our favorite things to do in epidemiology at this descriptive phase before before we get to like a multivariable analysis.
+
+448
+00:51:51,430 --> 00:51:59,530
+You may have noticed we'd love to make two by two tables. So whether that exposure is the number of participants that have that exposure present,
+
+449
+00:51:59,530 --> 00:52:04,840
+yes or not, and the number of participants who have that outcome, yes or no?
+
+450
+00:52:05,950 --> 00:52:16,030
+And we love to use those to calculate different statistics, including a risk ratio or an odds ratio.
+
+451
+00:52:16,930 --> 00:52:26,830
+And those are appropriate for use in different types of study designs and with different frequencies of how common are rare outcomes.
+
+452
+00:52:27,550 --> 00:52:35,470
+But I'll leave that for other classes in the department to go into more depth about assessing one, which is each of these is appropriate.
+
+453
+00:52:40,200 --> 00:52:50,430
+There's. A lovely package called Abbey Display that has produced a number of convenience functions for epidemiologists,
+
+454
+00:52:51,000 --> 00:52:57,150
+including the CC function where you provide your exposure and your outcome.
+
+455
+00:53:00,760 --> 00:53:09,209
+And it gives you all of the above. So it gives you the odds ratio, the confidence interval, the chi square test statistic, the Fisher's testing,
+
+456
+00:53:09,210 --> 00:53:16,890
+testing, and gives you a graphic to help interpret it all with this one tiny two two letter function.
+
+457
+00:53:18,090 --> 00:53:22,380
+So kind of a one stop shop for your epidemiology assessments.
+
+458
+00:53:22,740 --> 00:53:29,370
+And this is a type of figure it provides, kind of takes the step to be intuitive.
+
+459
+00:53:29,370 --> 00:53:33,270
+On the x axis, here are the two exposure categories.
+
+460
+00:53:34,520 --> 00:53:38,770
+In this case, I had the male and female groups and the y axis.
+
+461
+00:53:38,770 --> 00:53:42,510
+Is your odds of the outcome occurring in this case?
+
+462
+00:53:42,520 --> 00:53:46,480
+This is the odds of being iron deficient.
+
+463
+00:53:48,040 --> 00:53:53,530
+And so the odds of being iron deficient among the male category is pictured here with this plot.
+
+464
+00:53:54,460 --> 00:53:59,980
+The odds of being iron deficient among the female category appear is much higher.
+
+465
+00:54:00,280 --> 00:54:04,390
+And then the odds ratio is the difference between those two groups.
+
+466
+00:54:05,320 --> 00:54:09,100
+So we have the odds ratio, we get the confidence interval around the odds ratio.
+
+467
+00:54:10,770 --> 00:54:17,280
+So convenience function gets a ton of statistics that might be appropriate in your setting.
+
+468
+00:54:20,730 --> 00:54:28,470
+One of the ways that we'll often visualize multiple odds ratios and their confidence intervals is with something called a forest plot.
+
+469
+00:54:30,030 --> 00:54:34,830
+And we can make this and you can plot with the geometry of point range.
+
+470
+00:54:35,580 --> 00:54:44,130
+So we can if we calculate all these different odds ratios and we calculate these confidence intervals, we can plot them all together.
+
+471
+00:54:44,670 --> 00:54:48,000
+So we can see, here's the null hypothesis line.
+
+472
+00:54:48,570 --> 00:54:51,780
+Which one of our how are different values compared to that?
+
+473
+00:54:51,780 --> 00:55:00,120
+Not one. So once we spent some time learning the basics of this, there's a lot of ways you can add on features.
+
+474
+00:55:02,190 --> 00:55:07,710
+So to recap, if we're doing hypothesis testing, in this case testing the relationships between two variables,
+
+475
+00:55:08,790 --> 00:55:15,990
+we can make decisions for different types of tests based on the shapes of the variables and whether parametric testing is appropriate.
+
+476
+00:55:16,260 --> 00:55:23,880
+So if our exposure variable has two categories and our outcome is continuous, we can do a T test or a wilcoxon test.
+
+477
+00:55:26,360 --> 00:55:36,350
+If our exposure is three levels, we can do the ANOVA in this two step procedure or we can do a non parametric crew scale test.
+
+478
+00:55:37,970 --> 00:55:45,080
+And then if we have both categorical variables, we can pick whether we need to do a chi square in our Fisher's test.
+
+479
+00:55:45,410 --> 00:55:48,650
+If we want, we can do odds ratios and plotting.
+
+480
+00:55:49,430 --> 00:55:55,880
+So let's pause here, see how we're doing. This is a lot of statistical capability and a small amount of space.
+
+481
+00:56:05,600 --> 00:56:11,089
+And I hope you're starting to think through for your illy projects, for your general interest,
+
+482
+00:56:11,090 --> 00:56:16,160
+like what are the shapes of the variables that you're passionate about and what type of tests might be appropriate there?
+
+483
+00:56:19,790 --> 00:56:26,060
+All right. We're going to take a break. And when we come back, will do some of this coding in this area.
+
+484
+00:56:28,180 --> 00:56:36,410
+The. So we will come back at a couple of minutes after four and we'll do some coding.
+
+485
+00:56:46,790 --> 00:57:16,220
+And. Just complete the following.
+
+486
+00:57:20,890 --> 00:57:37,330
+More. Towards the top.
+
+487
+00:57:37,990 --> 00:58:03,920
+There you are. There. What?
+
+488
+00:58:09,210 --> 00:58:16,510
+You. Okay.
+
+489
+00:58:35,750 --> 00:58:38,850
+And a good time.
+
+490
+00:58:39,930 --> 00:58:43,160
+Yeah, yeah, yeah.
+
+491
+00:58:44,370 --> 00:59:15,360
+So, you know, I kind of wish that I could see, you know, if she goes over to all the way here in New York City as well.
+
+492
+00:59:17,910 --> 00:59:24,060
+So I started right there.
+
+493
+00:59:25,210 --> 00:59:35,730
+It's just. Oh, yeah, yeah, absolutely.
+
+494
+00:59:41,070 --> 00:59:46,130
+Yeah, yeah, yeah.
+
+495
+00:59:47,300 --> 00:59:56,340
+I mean, you have to be so lucky.
+
+496
+00:59:57,060 --> 01:00:01,710
+Oh, I hope so.
+
+497
+01:00:02,190 --> 01:00:07,060
+And, you know, I. Yeah, I know.
+
+498
+01:00:07,110 --> 01:00:29,550
+Know, I'm thinking it was really following that she was especially at the moment I was like, I don't know what you're going to do, this resolution.
+
+499
+01:00:30,720 --> 01:00:37,710
+Wow, I really I need to do it.
+
+500
+01:00:38,880 --> 01:01:07,080
+Well, I'm sure that myself, like a housekeeper, it just seems like it's actually a result table.
+
+501
+01:01:10,700 --> 01:01:14,250
+Oh, I'm also married.
+
+502
+01:01:17,250 --> 01:01:28,540
+Oh, my God. You know, I mean, what do you think?
+
+503
+01:01:28,910 --> 01:01:46,290
+Right. Well, I agree with law enforcement.
+
+504
+01:01:47,790 --> 01:01:53,630
+So you. Okay.
+
+505
+01:01:54,570 --> 01:02:06,480
+All right, let's jump into the coding. So this link over and turn us to our studio cloud environment related to hypothesis testing class.
+
+506
+01:02:14,220 --> 01:02:25,700
+Do you have? So in the first scenario, we've got one categorical variable and one continuous variable.
+
+507
+01:02:25,910 --> 01:02:34,130
+So here you're making the choice between a T test and Wilcoxon test, because our categories have just two levels.
+
+508
+01:02:34,970 --> 01:02:40,480
+So I'm going to develop an expectation before I even run the test.
+
+509
+01:02:40,490 --> 01:02:41,980
+So this might be a review.
+
+510
+01:02:41,990 --> 01:02:50,660
+Back matchups descriptive statistics level finally calculate the mean I are grouped by facts, so try to see what are the mean values.
+
+511
+01:02:57,970 --> 01:03:05,150
+So we see that the median iron levels among males are 93 and amongst the are 79.
+
+512
+01:03:05,170 --> 01:03:12,430
+So going in before we been running the test, I have an expectation that there's a difference between these two groups respecting the male nurse.
+
+513
+01:03:12,430 --> 01:03:16,000
+We have a female group, so now we can run that test.
+
+514
+01:03:16,420 --> 01:03:21,520
+Sorry to iron till the sex and see whether.
+
+515
+01:03:21,760 --> 01:03:27,489
+What do we get in the output? All right.
+
+516
+01:03:27,490 --> 01:03:34,540
+We get the tumor sample to test out, but it tells us the variables we're doing it on and it gives us those mean values.
+
+517
+01:03:34,540 --> 01:03:39,640
+So we're testing to see if the difference between them means equal to zero.
+
+518
+01:03:40,660 --> 01:03:47,230
+We see that difference between those mean is pretty far from zero. So the confidence interval is 12 and 16.
+
+519
+01:03:47,440 --> 01:03:51,430
+Not even close when we get that tiny, tiny p value again.
+
+520
+01:03:53,430 --> 01:03:59,280
+So to those values, this observation that we reject, the null hypothesis is that match your expectations.
+
+521
+01:04:01,410 --> 01:04:04,540
+Yeah. Based on our description, based on those mean values.
+
+522
+01:04:04,540 --> 01:04:09,030
+So this is internally consistent and we can go forward.
+
+523
+01:04:13,840 --> 01:04:20,620
+So far, we've been manually calculating these test statistics one by one and seeing that big,
+
+524
+01:04:20,620 --> 01:04:25,660
+messy output, trying to visually locate the values that are important.
+
+525
+01:04:28,160 --> 01:04:36,140
+We can also do this in kind of a streamlined way for producing products, for sharing with our colleagues.
+
+526
+01:04:36,800 --> 01:04:43,820
+So if you remember this function, the table summary function, we use that to build our univariate and bivariate tables.
+
+527
+01:04:44,660 --> 01:04:48,620
+So our first step will be to take the dataset, select the variables we want to put in the table.
+
+528
+01:04:48,620 --> 01:04:52,999
+In this case, I want to put sex in either. Are on the table.
+
+529
+01:04:53,000 --> 01:05:01,790
+Summary by sex. So here I would give it. The categories are split by and I can tell it to add a p value column.
+
+530
+01:05:02,630 --> 01:05:06,830
+So I'm adding a test statistic and I'm saying which test statistic do I want?
+
+531
+01:05:06,830 --> 01:05:13,730
+I want a T test. So if you want it, you can flip it over to a well sex test, test in that case.
+
+532
+01:05:13,790 --> 01:05:20,190
+And so let's give a shot. Hi.
+
+533
+01:05:25,810 --> 01:05:30,970
+So now we have this nice summary test statistics in a format that we can share with our colleagues.
+
+534
+01:05:31,300 --> 01:05:33,760
+Can anyone help me interpret this table?
+
+535
+01:05:34,900 --> 01:05:47,350
+So it takes a little bit more coding to mock up than the T test function, but we get an output that may be more readily shared with a wider audience.
+
+536
+01:05:47,530 --> 01:05:51,280
+So who can help me out right here? What's the what's happening in the columns?
+
+537
+01:05:55,970 --> 01:06:01,880
+We've got a column for the mail group. We've got a column for the female group, and we have a row for the iron values.
+
+538
+01:06:02,060 --> 01:06:05,530
+What is this, 94 and 36? Well, what are these values mean?
+
+539
+01:06:05,720 --> 01:06:10,120
+Yeah. Yeah.
+
+540
+01:06:10,130 --> 01:06:15,090
+And how do we know that? We see in the footnote that the values provided are mean and standard deviation.
+
+541
+01:06:15,330 --> 01:06:20,250
+So let me we've got a minister of Aviation for male group. I mean, it's energy aviation for the female group.
+
+542
+01:06:21,330 --> 01:06:27,670
+And what do we have in this last column out here? We are P-value.
+
+543
+01:06:27,670 --> 01:06:30,850
+For which test? For the T tests.
+
+544
+01:06:32,630 --> 01:06:38,510
+Here. They have a default different cut off so it doesn't go all the way out to the ten to the 16th.
+
+545
+01:06:38,510 --> 01:06:43,220
+In this case, it just says your P value is less than one times ten to the negative third.
+
+546
+01:06:43,610 --> 01:06:47,960
+But if you want, these are like adjustable settings. If you need to go up to four digits, you can.
+
+547
+01:06:51,020 --> 01:06:58,550
+So you can assess whether it's appropriate to put the coding effort in to make a pretty table.
+
+548
+01:06:58,820 --> 01:07:07,310
+If you're sharing with a wide audience versus if it's just internally for yourself, you might just use the quick code with the T test for yourself.
+
+549
+01:07:08,180 --> 01:07:10,600
+So kind of figuring out what's the situation,
+
+550
+01:07:10,880 --> 01:07:17,960
+who are you showing the output to might help you decide the level of effort you want to put in terms of making it presentable.
+
+551
+01:07:18,560 --> 01:07:23,600
+But this table summary function that we were first introduced to and descriptive statistics
+
+552
+01:07:23,600 --> 01:07:31,460
+lecture is it is very versatile and you can implement it here for hypothesis testing as well.
+
+553
+01:07:39,300 --> 01:07:44,190
+In this case we have a non normally distributed continuous variable so we can do
+
+554
+01:07:44,190 --> 01:07:49,980
+the Wilcox test in this case was skewed variable we had last time was blood lab.
+
+555
+01:07:51,370 --> 01:07:56,410
+Just look at that at an expectation before we even get started.
+
+556
+01:07:57,640 --> 01:08:04,340
+So you can see by sex. It looks like the male group has higher blood levels than a female.
+
+557
+01:08:05,120 --> 01:08:10,070
+And that's true whether we're looking at the lung values or the non transformed values.
+
+558
+01:08:14,500 --> 01:08:17,530
+So let's go ahead and run our test statistics.
+
+559
+01:08:17,800 --> 01:08:25,959
+We can either do a T test on the lab, transform blood, or we could do a wilcoxon test test on the untransparent and do the wilcoxon.
+
+560
+01:08:25,960 --> 01:08:33,040
+And we can look at the output because we haven't looked at it yet. Randall Wilcox.
+
+561
+01:08:33,060 --> 01:08:37,459
+And it tells us at the outset that we ran a process that tells us what variables
+
+562
+01:08:37,460 --> 01:08:42,110
+are being added on and it tells us the level of significance here is quite small.
+
+563
+01:08:42,830 --> 01:08:45,770
+That matches our expectation going in.
+
+564
+01:08:51,070 --> 01:08:56,400
+So you've got some options for if you want to compare the relationships between two variables that might be shaped.
+
+565
+01:08:56,410 --> 01:09:00,220
+So if you have a continuous and categorical with two levels.
+
+566
+01:09:08,580 --> 01:09:13,290
+Let's see a situation where we've got more than two levels here. I pulled out that age groups variable.
+
+567
+01:09:19,840 --> 01:09:25,930
+So what does it look like here? What do you see in the output? Does it look like an eyeball before we even run a statistical test?
+
+568
+01:09:25,930 --> 01:09:29,590
+Does it look like there's a relationship between word and the age group?
+
+569
+01:09:31,520 --> 01:09:36,290
+Yeah. So it looks like we have lower level levels with younger folks, higher level levels with older folks.
+
+570
+01:09:36,530 --> 01:09:42,920
+So before we even run a test statistic, we're expecting to see an association here like.
+
+571
+01:09:48,710 --> 01:09:55,550
+So we can run that ANOVA test on the log and check out the output word.
+
+572
+01:09:56,210 --> 01:10:01,700
+So here it's telling us we write ANOVA test. Here is our response variable or outcome variable.
+
+573
+01:10:02,110 --> 01:10:06,050
+And here and the rows of this table are exposure variables.
+
+574
+01:10:06,830 --> 01:10:11,899
+So we've got a low p value. Again, this is just such a large dataset.
+
+575
+01:10:11,900 --> 01:10:18,130
+Everything is coming up associated for us. Again.
+
+576
+01:10:18,210 --> 01:10:21,270
+Why then? Turnover. That's a test. Are any of the groups different?
+
+577
+01:10:21,780 --> 01:10:25,470
+We don't know which group. So we can follow that up with a pairwise t tests.
+
+578
+01:10:31,270 --> 01:10:40,840
+Hellboy interpret this output as a pairwise t test with that looking like what are these values with the square brackets here as zero comma 16.
+
+579
+01:10:41,810 --> 01:10:58,110
+I look familiar at all. These are across the across the columns and across the rows.
+
+580
+01:10:58,120 --> 01:11:03,930
+Here are our age categories. So this is our youngest age, category 0 to 16.
+
+581
+01:11:04,510 --> 01:11:11,110
+This is participants who are greater than or equal to age zero and less than or equal to age 16.
+
+582
+01:11:11,890 --> 01:11:16,690
+And the group we're comparing them to and a pairwise C test, is this group done here?
+
+583
+01:11:16,690 --> 01:11:20,350
+So folks who are older than age 16, a less than or equal to age 32?
+
+584
+01:11:20,830 --> 01:11:23,980
+And then what do you think this nine e -11 means?
+
+585
+01:11:34,510 --> 01:11:40,600
+Yeah. All these values in the interior of the table are p values describing the relationships between those two groups.
+
+586
+01:11:41,200 --> 01:11:45,190
+So this is saying that there is a significant difference between the.
+
+587
+01:11:46,220 --> 01:11:51,780
+I mean, log political levels between these two groups and between every other group.
+
+588
+01:11:51,780 --> 01:11:55,019
+Here is something that can come up.
+
+589
+01:11:55,020 --> 01:12:00,389
+If you're doing a lot of test statistics, you might want to do a multiple comparison adjustment here.
+
+590
+01:12:00,390 --> 01:12:08,490
+I just showed you an example that we can adjust for Bonferroni multiple comparison adjustments if that's coming up in your type of study design.
+
+591
+01:12:10,610 --> 01:12:14,570
+So. All right, let's pause for a second.
+
+592
+01:12:14,600 --> 01:12:23,080
+How are we doing with the ANOVA? With the T test? But the scenarios were one continuous variable and one categorical variable.
+
+593
+01:12:24,630 --> 01:12:29,930
+I feel uncomfortable implementing it and are. Check out the output.
+
+594
+01:12:34,940 --> 01:12:38,300
+The next scenario we've got, we've got two categorical variables.
+
+595
+01:12:39,590 --> 01:12:46,260
+So there we're going to do either. A high score, a tough parametric version or a.
+
+596
+01:12:48,120 --> 01:12:53,690
+Fisher tests for the non parametric version. So before I do it, I give it, give it a look.
+
+597
+01:12:53,700 --> 01:12:57,510
+So you see what's there. So in this case.
+
+598
+01:12:59,680 --> 01:13:04,240
+I think I was testing the relations. Very few categorical variables in the States.
+
+599
+01:13:04,360 --> 01:13:08,800
+But I was checking missing the relationship between sex and educational attainment.
+
+600
+01:13:08,920 --> 01:13:18,220
+We can look at those frequencies, see if we expect an association, and then we can implement a chi square test.
+
+601
+01:13:20,370 --> 01:13:26,129
+Right here we've got. Are there any differences between sex and any category of educational attainment.
+
+602
+01:13:26,130 --> 01:13:37,510
+And we see here this P values point oh for. If we'd like to format that for external audiences.
+
+603
+01:13:39,030 --> 01:13:43,470
+We can do that in the context of a table summary function.
+
+604
+01:13:43,560 --> 01:13:47,700
+So here we've got one of our categorical values and the columns,
+
+605
+01:13:48,300 --> 01:13:57,810
+and we have categories of our second categorical variable in the rows and how we interpret this value right here, this 1050 and 27.3.
+
+606
+01:13:57,810 --> 01:14:10,410
+What do these two numbers represent? Yeah, please.
+
+607
+01:14:10,590 --> 01:14:16,620
+It's our council. That's 15 males who have less than high school.
+
+608
+01:14:17,010 --> 01:14:22,470
+Mm hmm. Yeah. So you kind of like coordinator yourself area. 27% around.
+
+609
+01:14:25,330 --> 01:14:28,990
+Yeah. And which version is that, bro? Percentage.
+
+610
+01:14:29,020 --> 01:14:32,020
+No, it doesn't look like it. It looks like these are column percentages.
+
+611
+01:14:32,290 --> 01:14:38,080
+So this is saying that among all of the males, 27% have less than high school education.
+
+612
+01:14:39,630 --> 01:14:44,130
+And among all of the females, 25% have a less than high school education.
+
+613
+01:14:44,910 --> 01:14:48,390
+So what does p value in this last column is testing are all.
+
+614
+01:14:48,600 --> 01:14:57,360
+Are these proportions different between males and females? So here we've got that p value point of four and we know that what test statistic was done,
+
+615
+01:14:57,360 --> 01:15:02,040
+we can go look at the bottom of the table and see that interactive squared test for it.
+
+616
+01:15:07,360 --> 01:15:12,790
+If we want, we could do it, Fisher says. That's generally for smaller sample sizes.
+
+617
+01:15:13,810 --> 01:15:18,129
+We have a big, beefy sample size here, but I'll just do it, Fisher says.
+
+618
+01:15:18,130 --> 01:15:28,740
+It doesn't hurt. So I picked a variable, I think, iron status because at least one of the categories had relatively small values in it.
+
+619
+01:15:29,520 --> 01:15:36,030
+So we've got three levels of iron. So it's possible you could be iron deficient, you could have excessive iron levels,
+
+620
+01:15:36,030 --> 01:15:39,630
+which was kind of a small category, or you could have normal iron levels.
+
+621
+01:15:40,890 --> 01:15:47,590
+And we can run a Fisher's test on that, see what we get. All right.
+
+622
+01:15:47,590 --> 01:15:56,770
+So Fisher to give get that small P value showing we reject the null hypothesis there's a difference here between iron and six.
+
+623
+01:15:58,240 --> 01:16:01,810
+And to put it in our table summary, we encode that up.
+
+624
+01:16:03,860 --> 01:16:12,950
+And get a nice table here, looking at our different groups of three levels of iron status for those two sex groups.
+
+625
+01:16:12,960 --> 01:16:16,330
+And here's our fishers value here. She's.
+
+626
+01:16:20,150 --> 01:16:23,720
+Kind of a slick way of putting it on a table so that you can share it with other people.
+
+627
+01:16:26,490 --> 01:16:34,330
+Let's check in. Let's do an assessment. So. We've got two variables now that we want to test the relationship between education.
+
+628
+01:16:35,380 --> 01:16:40,660
+And poverty income ratio. So I want you to think about what shape of variable are each of them?
+
+629
+01:16:41,440 --> 01:16:46,370
+Do they meet your parametric testing assumptions? What statistical tests should you do?
+
+630
+01:16:46,390 --> 01:18:02,300
+And then let's talk about the output. What do you see there? I heard.
+
+631
+01:18:24,660 --> 01:19:02,120
+Yeah. Very good. I.
+
+632
+01:19:15,750 --> 01:19:19,050
+All right, so we can get this started by making a code chunk.
+
+633
+01:19:20,850 --> 01:19:26,800
+And how did you figure out what type of variables these were? Yeah.
+
+634
+01:19:26,830 --> 01:19:33,020
+We use the structure function. Vacation.
+
+635
+01:19:33,090 --> 01:19:41,490
+So we find out that this one is a factor variable with four levels and the property income ratio variable is that one.
+
+636
+01:19:44,920 --> 01:19:52,620
+Yeah. And I won't product here because we've done this previously, but that one was one of our really wacky ones.
+
+637
+01:19:52,630 --> 01:20:02,800
+Even transformation didn't save it. So we have a four level categorical variable and a continuous variable that is nowhere close to normal.
+
+638
+01:20:03,490 --> 01:20:07,180
+So what kind of test statistic do you want to calculate here?
+
+639
+01:20:07,450 --> 01:20:25,960
+What would be appropriate in this case? You know, always refer back to our, um, our table.
+
+640
+01:20:28,660 --> 01:20:31,330
+These are not things that I would necessarily memorize.
+
+641
+01:20:31,920 --> 01:20:40,450
+So we've got a situation where we have a continuous variable and we have a four level category variable and we don't hit parametric.
+
+642
+01:20:41,610 --> 01:20:45,540
+So I'm going to do a non parametric. Yeah, that's kind of how I walk it through.
+
+643
+01:20:46,290 --> 01:20:54,449
+So we're going to do a crucial test the the function for that and R is called Crisco test.
+
+644
+01:20:54,450 --> 01:20:58,170
+I just start typing in it appears. And so we can do our.
+
+645
+01:21:02,250 --> 01:21:06,390
+From PR till the education.
+
+646
+01:21:10,190 --> 01:21:14,260
+And see what we got. But in this case, we have a.
+
+647
+01:21:17,340 --> 01:21:19,950
+Attach the text like we're calculating between these relationships.
+
+648
+01:21:20,160 --> 01:21:24,270
+And before that, you could even set your expectations so you could do some plotting.
+
+649
+01:21:24,270 --> 01:21:32,550
+You could do do some summaries where you calculate the mean values per group so that you have some expectations and you can determine,
+
+650
+01:21:32,790 --> 01:21:39,690
+were you expecting this to be so highly significant there? Nice.
+
+651
+01:21:49,640 --> 01:21:52,970
+The next segment I walk through is for making odds ratios.
+
+652
+01:21:54,620 --> 01:21:59,720
+So I'm doing a little bit of prep work here just to drop ourselves down to two
+
+653
+01:22:00,140 --> 01:22:05,570
+groups of iron to make our lives a little easier than three groups of iron.
+
+654
+01:22:06,400 --> 01:22:10,070
+But if we want, we can calculate this with the table summary.
+
+655
+01:22:13,140 --> 01:22:16,200
+So here we've got here, we're tallying up our expectations.
+
+656
+01:22:16,980 --> 01:22:23,670
+It looks like we're going to probably see a pretty big difference in the odds of being iron deficient among male and female.
+
+657
+01:22:24,240 --> 01:22:33,570
+These proportions are pretty different here. We can use that CC function to get all kinds of information at once.
+
+658
+01:22:35,040 --> 01:22:38,190
+So it gives us a table, the frequency table.
+
+659
+01:22:39,180 --> 01:22:43,220
+It gives us the odds ratio. So this is the odds ratio of 2.5.
+
+660
+01:22:43,230 --> 01:22:48,120
+What's a null hypothesis for an odds ratio? One.
+
+661
+01:22:48,130 --> 01:22:54,970
+So this is this is pretty huge. We've got our confidence interval of 2.25 to 2.91.
+
+662
+01:22:54,970 --> 01:23:03,670
+So the level of the level of significance doesn't cross one.
+
+663
+01:23:04,270 --> 01:23:11,520
+We've got to this those function just gave up and said the p value is equal to zero, but we would never report a p value equal to zero.
+
+664
+01:23:11,530 --> 01:23:15,940
+We'd say it's less than the lowest value it's able to calculate.
+
+665
+01:23:16,240 --> 01:23:20,320
+And then we have our plot that shows us these relationships.
+
+666
+01:23:21,780 --> 01:23:24,900
+So one tiny function, we get a lot of output.
+
+667
+01:23:29,630 --> 01:23:33,560
+And then if you want to make a forest plot here, I give you some examples.
+
+668
+01:23:33,830 --> 01:23:37,070
+We didn't actually have any. Data yet.
+
+669
+01:23:37,080 --> 01:23:43,560
+So I made a series of made up data values.
+
+670
+01:23:43,950 --> 01:23:47,429
+So I make, um, I'm making a new variable.
+
+671
+01:23:47,430 --> 01:23:50,970
+I'm calling study a new variable I'm calling odds ratio.
+
+672
+01:23:51,600 --> 01:24:00,240
+The lower limit is on the ratio of upper limit. And then I'm stitching all of those factors together in a data forum I'm calling results.
+
+673
+01:24:00,630 --> 01:24:06,660
+So those are just made up data. This doesn't actually come from anywhere so that we have something we can plot.
+
+674
+01:24:10,530 --> 01:24:16,930
+Want to click on that. We can see we made this table where we have all of our different studies,
+
+675
+01:24:17,290 --> 01:24:21,760
+we have our odds ratios and we have a lower confidence interval in our upper confidence interval.
+
+676
+01:24:21,970 --> 01:24:25,480
+You could calculate these yourself or you could pull them from the literature.
+
+677
+01:24:25,780 --> 01:24:28,150
+All kinds of places you could get these values.
+
+678
+01:24:32,160 --> 01:24:40,260
+And now we're going to make a forest plot with the GM point range and give ourselves a way of visualizing these results.
+
+679
+01:24:49,350 --> 01:24:58,320
+So building on some of the skills we developed with Japan for energy density and GM point,
+
+680
+01:24:59,040 --> 01:25:05,490
+you can see how you can increase in complexity going forward and practice with different types of geometries.
+
+681
+01:25:06,240 --> 01:25:12,660
+Here we use jump point range. We saw our state x, so my x axis is the odds ratio variable.
+
+682
+01:25:13,290 --> 01:25:23,530
+The y axis is the study and I'm sitting on the x and we've got a minute a max for these, for these like error bars around it.
+
+683
+01:25:23,940 --> 01:25:28,530
+So we've got multiple X variables and then I set the color equal to study.
+
+684
+01:25:29,430 --> 01:25:33,450
+I changed the labels of the ballot, the axes.
+
+685
+01:25:33,780 --> 01:25:40,260
+I drew a vertical line at the null hypothesis, and I reversed.
+
+686
+01:25:41,710 --> 01:25:45,920
+The legend here comes by default. It was,
+
+687
+01:25:45,930 --> 01:25:51,000
+I'm putting the robe on at the top and the red one was down here and it was making me a little bit
+
+688
+01:25:51,540 --> 01:25:57,260
+disoriented to have the color gradient go in this direction and then have it flipped in the legend.
+
+689
+01:25:57,270 --> 01:26:04,600
+But that's a purely esthetic choice. So you can see how we can build build these plots out.
+
+690
+01:26:05,310 --> 01:26:10,350
+All right. So let's pause for a second. How are folks doing with hypothesis testing?
+
+691
+01:26:10,350 --> 01:26:14,150
+So here we were testing our relationships between two variables at a time.
+
+692
+01:26:16,000 --> 01:26:21,700
+I can't wait to hear what we'll do.
+
+693
+01:26:21,700 --> 01:26:26,400
+An introduction to regression modeling. So this is a logical extension.
+
+694
+01:26:26,410 --> 01:26:30,880
+Once we understand the relationship between two variables at the time we get curious about.
+
+695
+01:26:31,660 --> 01:26:33,480
+Well, now we want to add on a third variable.
+
+696
+01:26:33,490 --> 01:26:39,879
+I want to add an affordable I to add in a fifth variable in our has some nice tips and tricks, as you might imagine,
+
+697
+01:26:39,880 --> 01:26:46,900
+for making regression results table reproducible and presentable and sharable with your colleagues.
+
+698
+01:26:51,600 --> 01:27:00,340
+So transitioning back to slides. And we'll do an introduction to linear regression.
+
+699
+01:27:01,360 --> 01:27:09,010
+All right. So our goal in this section is to figure out how to perform simple linear regression and R and create a summary table of the results.
+
+700
+01:27:10,570 --> 01:27:15,520
+Learn more here. So as a reminder, before we get to running regression,
+
+701
+01:27:15,760 --> 01:27:23,919
+we always want to we want to check the relationships between things to have an idea conceptually of what's related,
+
+702
+01:27:23,920 --> 01:27:28,630
+what do we want to include in our models? So we're assuming that you've made all these plots ahead of time,
+
+703
+01:27:29,140 --> 01:27:34,930
+but when you're ready to do a regression in our the main function we're going to start with,
+
+704
+01:27:35,290 --> 01:27:40,450
+for us, linear regression is a function called Elm for a linear model.
+
+705
+01:27:40,840 --> 01:27:48,070
+Okay, so this is the base function for linear modeling and it's going to follow that same structure that we started to get used to.
+
+706
+01:27:48,100 --> 01:27:55,209
+So it's going to be an outcome variable. Tilda Our exposure variable or our Y variable?
+
+707
+01:27:55,210 --> 01:28:00,520
+Tilda Our X variable. You have the data set after the comma, after a comma.
+
+708
+01:28:01,510 --> 01:28:04,390
+And I often don't just look at the output of the linear model.
+
+709
+01:28:05,020 --> 01:28:14,800
+I often want to assignment as a new object because once you assign that model as an object, there's all kinds of things you can do with it.
+
+710
+01:28:14,980 --> 01:28:19,240
+You can perform a summary function on it. Where do we see the summary function before?
+
+711
+01:28:19,240 --> 01:28:28,070
+What is the summary function do in other contexts? Yeah.
+
+712
+01:28:29,060 --> 01:28:38,750
+I can't remember all of them, but if you put me in math, it was more or less that way.
+
+713
+01:28:39,020 --> 01:28:46,700
+So this function's pretty smart. It can tell what type of object it is, and if the object you provide is a numeric variable,
+
+714
+01:28:47,330 --> 01:28:52,110
+it'll calculate the minimum, the maximum, the mean, the meaning, and the quartiles.
+
+715
+01:28:52,130 --> 01:28:57,590
+Right. But if the object we provide is the result of a linear model, it will calculate.
+
+716
+01:28:57,590 --> 01:29:04,730
+We'll see on the next slide a whole bunch of test statistics for. So a lot of these functions we can use in multiple settings.
+
+717
+01:29:06,230 --> 01:29:11,330
+Another thing we could do with this model object, we could plot it if we wanted to see the plot of model.
+
+718
+01:29:11,810 --> 01:29:17,120
+So there's a lot of advantages to taking that output of the linear model and assigning it as a new object.
+
+719
+01:29:20,210 --> 01:29:27,300
+All right. So here's the summary of that linear regression output. And just like with hypothesis testing, it's intimidating at first.
+
+720
+01:29:27,380 --> 01:29:32,720
+So it can be a little intense to look at this output, but we'll practice talking our way through it.
+
+721
+01:29:34,500 --> 01:29:42,750
+So one of the first things I like to do, I start kind of like with those hypothesis testing, I start at the top and I double check what I ran.
+
+722
+01:29:43,680 --> 01:29:47,100
+So it starts out by telling me that you ran a linear model.
+
+723
+01:29:48,120 --> 01:29:51,330
+Your outcome variable was this white blood cell count.
+
+724
+01:29:52,110 --> 01:29:54,509
+And then after the tilde here, here's our exposure variable.
+
+725
+01:29:54,510 --> 01:30:04,770
+So I was testing to see iron levels predicting white blood cell levels and I provided the enhanced dataset and I told I what to do with.
+
+726
+01:30:06,030 --> 01:30:10,739
+Or this is the default setting, but if there is any missing, it will limit the missing.
+
+727
+01:30:10,740 --> 01:30:18,060
+So it'll ignore the missing and keep going. The second thing I usually look at once I.
+
+728
+01:30:18,550 --> 01:30:22,900
+I double check that I did the thing I meant to do. I checked the coefficients table.
+
+729
+01:30:23,740 --> 01:30:28,480
+All right, so we have one main predictor, but we have two coefficients.
+
+730
+01:30:29,450 --> 01:30:37,250
+Right. So we have our indoor stuff with our where it's crossing the Y axis and we have our slope for our variable here.
+
+731
+01:30:38,030 --> 01:30:46,490
+So what's the value of the intercept? What does this mean here? It's value, this estimate for the Y intercept of 7.9.
+
+732
+01:30:46,520 --> 01:31:00,490
+How do we interpret that? As long as the value of the outcome.
+
+733
+01:31:00,640 --> 01:31:05,590
+So the amount of white blood cells, if you're predictor, is zero.
+
+734
+01:31:06,840 --> 01:31:11,249
+So if somebody has zero iron, I don't think that's physiologically possible.
+
+735
+01:31:11,250 --> 01:31:16,890
+But if somebody M0 iron, the amount of white blood cells they would have would be 7.9, whatever the units are.
+
+736
+01:31:17,890 --> 01:31:22,650
+Who can help me out here. What's this? Here. This is the regression coefficients.
+
+737
+01:31:22,750 --> 01:31:26,440
+Effect estimate for iron in this model. What does this value mean?
+
+738
+01:31:26,440 --> 01:31:29,710
+This negative .07. How do we interpret that in words?
+
+739
+01:31:35,450 --> 01:31:38,980
+Yeah. For each one unit increase is higher.
+
+740
+01:31:39,410 --> 01:31:42,710
+White blood cells decreases by 307.
+
+741
+01:31:43,070 --> 01:31:47,180
+That was beautifully said. So for every one unit increase in iron.
+
+742
+01:31:48,730 --> 01:31:54,610
+We expect the white blood cell count to be 407 units lower.
+
+743
+01:31:55,440 --> 01:31:59,500
+So this is a slope. So if I'm drawing in my head and I wish I had a board.
+
+744
+01:32:00,130 --> 01:32:05,680
+But so our Y and our staff would be up at seven and then we have a slight negative slope.
+
+745
+01:32:06,720 --> 01:32:10,710
+Okay. So every increasing iron value except the white blood cells have to go down a little bit.
+
+746
+01:32:11,100 --> 01:32:16,890
+Then the next column is a standard error. This is a measure of how much wiggle room is there around this estimate.
+
+747
+01:32:17,780 --> 01:32:24,350
+So if those standard errors are much smaller than the estimates, we expect that to be a significant predictor.
+
+748
+01:32:25,160 --> 01:32:28,910
+And that's what I'm starting to see here, that this goes an extra zero less.
+
+749
+01:32:28,910 --> 01:32:31,640
+So the standard error is pretty small relative to this one.
+
+750
+01:32:32,820 --> 01:32:38,640
+Now we have a T test that is actually the values you can look up in the back of your textbook if you needed to.
+
+751
+01:32:39,300 --> 01:32:43,230
+But then here is our p value column. So they give us the p value and these are those.
+
+752
+01:32:43,770 --> 01:32:55,470
+The p value is less than two times ten of the -16. Lastly in the final call on big asterisks to indicate different levels of significance.
+
+753
+01:32:55,980 --> 01:33:00,960
+So if you have a huge table with a bunch of variables that kind of help draw your eyes to certain places.
+
+754
+01:33:02,300 --> 01:33:06,050
+So that's how I would talk myself through this regression coefficient output.
+
+755
+01:33:08,360 --> 01:33:13,580
+The null value here is testing whether this value differs from zero.
+
+756
+01:33:14,750 --> 01:33:19,670
+So these P values are telling us that we're seeing some difference from zero.
+
+757
+01:33:21,830 --> 01:33:26,810
+And then the other last thing I look at are some of the test statistics on the overall model.
+
+758
+01:33:27,890 --> 01:33:32,960
+So this is telling us the model overall has a large number of degrees of freedom.
+
+759
+01:33:34,160 --> 01:33:36,110
+We have the adjusted R squared.
+
+760
+01:33:36,110 --> 01:33:44,570
+So this is the proportion of variance in the outcome that's explained by the predictors that these kind of additional values.
+
+761
+01:33:46,810 --> 01:33:50,480
+This is, you know, just a standard posting.
+
+762
+01:33:50,600 --> 01:33:55,570
+Just read the summary function. This is the way I look at the output if I'm just looking at it myself.
+
+763
+01:33:56,290 --> 01:34:01,930
+But if I want to share this output with my colleagues, I use the table regression function.
+
+764
+01:34:02,800 --> 01:34:07,450
+The table regression function is made by the exact same people who made this table summary function.
+
+765
+01:34:08,260 --> 01:34:14,650
+So once you get familiar with the way they think, this one's a little bit easier to adopt.
+
+766
+01:34:15,700 --> 01:34:21,670
+So the way that this might be formatted, you have the predictors, the exposure variables in the rows.
+
+767
+01:34:22,150 --> 01:34:28,290
+We've got a column for beta coefficient. We noticed we've got column force confidence intervals.
+
+768
+01:34:28,300 --> 01:34:31,640
+Our last table didn't even have confidence intervals. It just had standard error.
+
+769
+01:34:31,660 --> 01:34:37,980
+So we would have had to calculate those ourselves. But this function can calculate them for us and it has the P values.
+
+770
+01:34:40,070 --> 01:34:46,250
+Similarly, this is smart enough if you have a situation where you're doing logistic or logistic regression,
+
+771
+01:34:46,550 --> 01:34:52,370
+so you need to exponential all of your coefficients to calculate odds ratios.
+
+772
+01:34:52,370 --> 01:35:01,610
+This function, I'll do it for you. So this is the strategy I use if I want to share the results of the regression with other folks.
+
+773
+01:35:04,160 --> 01:35:10,040
+So basically now we run the table regression function on the model object.
+
+774
+01:35:13,050 --> 01:35:18,540
+And I added that that first part would just be the default setting.
+
+775
+01:35:18,780 --> 01:35:27,510
+But I also piped it into a bland table, which adds some of these overall model summary statistics, if you want, like the adjusted hour square.
+
+776
+01:35:27,840 --> 01:35:31,770
+They I see in the number of observations you'll have to do that. That's just adding some more.
+
+777
+01:35:32,890 --> 01:35:39,600
+Context and information. There are also extensions for this table.
+
+778
+01:35:39,690 --> 01:35:43,239
+So here we just have one. Regression model here.
+
+779
+01:35:43,240 --> 01:35:47,620
+You may see in your research sometimes you want to compare two regression models to each other.
+
+780
+01:35:48,340 --> 01:35:56,709
+So you want to see what happens to my beta coefficient if I add another variable to the model or what happens to my adjusted r squared.
+
+781
+01:35:56,710 --> 01:36:01,660
+If I add another variable to model, this function can accept multiple models.
+
+782
+01:36:02,380 --> 01:36:08,050
+So you can have multiple models in there. See how they all stack up next to each other and compare them.
+
+783
+01:36:12,230 --> 01:36:19,640
+So to recap, when we're doing linear regression, we want to start out with an expectation of the pairwise relationships before we get the model.
+
+784
+01:36:21,250 --> 01:36:29,470
+We're going to perform Blair Regression the basics are going to use the linear model function go outcome tilde series of predictors.
+
+785
+01:36:31,520 --> 01:36:40,339
+We can get the basic results with the summary function or if we want to format it for professional reporting,
+
+786
+01:36:40,340 --> 01:36:54,460
+we can use the table regression function. In the last few minutes of class, we can open our sixth class.
+
+787
+01:36:56,420 --> 01:36:59,989
+Our Studio Cloud instance.
+
+788
+01:36:59,990 --> 01:37:03,620
+So this is the one for my instructor account.
+
+789
+01:37:03,620 --> 01:37:07,070
+We can make a new one for ourselves. The copy button.
+
+790
+01:37:09,610 --> 01:37:40,470
+Let's make some linear regressions. All right.
+
+791
+01:37:41,850 --> 01:37:46,170
+All right. So when I click to open, the quarto marked down for the linear regression class.
+
+792
+01:37:52,060 --> 01:37:57,130
+And my other name to the document.
+
+793
+01:37:59,690 --> 01:38:06,750
+We can load our packages. We can load our data.
+
+794
+01:38:15,500 --> 01:38:23,210
+All right. So essentially for this linear regression, we're going to test the relationship between white blood cells and iron.
+
+795
+01:38:23,510 --> 01:38:30,880
+And here's our analytic plan. So before we even.
+
+796
+01:38:32,620 --> 01:38:36,310
+Do a linear regression test. We could make some plots and check it up.
+
+797
+01:38:38,060 --> 01:38:45,670
+P What are all of the relationships between our variables? For me.
+
+798
+01:38:46,830 --> 01:38:59,000
+And this in the console. All right, so this is our primary relationship.
+
+799
+01:38:59,150 --> 01:39:03,110
+White blood cells and iron. I'm expecting a weak, negative relationship.
+
+800
+01:39:03,470 --> 01:39:08,750
+Some of the variables we might be curious about being confounders might include age or poverty and income ratio.
+
+801
+01:39:08,750 --> 01:39:15,080
+So we'll check out those as well. But now we're ready to do our simple linear regression.
+
+802
+01:39:15,440 --> 01:39:20,569
+So here's our little your model. What variables are exposure and what's our outcome?
+
+803
+01:39:20,570 --> 01:39:28,930
+And how do you know it's. But you can.
+
+804
+01:39:35,030 --> 01:39:39,110
+Yeah, please. The album is great.
+
+805
+01:39:40,290 --> 01:39:46,730
+Yeah. Yeah. Because this is going to follow this pattern of general linear model of the outcome.
+
+806
+01:39:47,090 --> 01:39:50,160
+So the exposure or dependent.
+
+807
+01:39:50,180 --> 01:39:58,520
+So that independent. And if I just highlight the first part of this, so if I just run the linear model and don't assign it as an object.
+
+808
+01:40:01,250 --> 01:40:09,670
+I see that the outcome of the linear model is kind of. It gives us the formula that we did and it gives us the effect estimates.
+
+809
+01:40:09,730 --> 01:40:13,840
+But we don't get a standard error. We don't get a P value, we don't get adjusted R squared anything.
+
+810
+01:40:14,320 --> 01:40:24,340
+So that's why I like to assign it as an object. So I'm expecting a new object to pop up in my environment and then we can look at the summary on it.
+
+811
+01:40:26,980 --> 01:40:31,840
+So our summary, we've got our formula at the top. I look at the coefficients.
+
+812
+01:40:31,840 --> 01:40:36,880
+So this is the value of white blood cells this time.
+
+813
+01:40:37,030 --> 01:40:45,040
+If somebody is iron is zero and this goes for each one unit increase in iron, we expect this many units to increase in white blood cells.
+
+814
+01:40:46,150 --> 01:40:49,660
+How would you assess the p value here for iron?
+
+815
+01:40:52,000 --> 01:40:55,900
+How do we interpret this 2.3 negative oh six mean?
+
+816
+01:40:57,910 --> 01:41:16,520
+That actual p value in words. I think this P-value is 2.3 times ten to the negative six.
+
+817
+01:41:17,300 --> 01:41:22,160
+So add a traditional alpha value or a cutoff value of 0.05.
+
+818
+01:41:22,640 --> 01:41:27,440
+Here we would reject the null hypothesis and say on this value.
+
+819
+01:41:28,750 --> 01:41:34,990
+It's not equal to zero. So even a magnitude of like pretty small thing saying this is not equal to zero.
+
+820
+01:41:36,270 --> 01:41:45,629
+Yeah. And that matches my expectations also on this plot.
+
+821
+01:41:45,630 --> 01:41:49,050
+That is a very slight negative association.
+
+822
+01:41:50,100 --> 01:41:57,290
+Yeah. We can make a table of those results. So there's a bunch of other statistics we can do on that.
+
+823
+01:41:57,300 --> 01:42:01,500
+So again, pull out just the Innova statistics from the summary.
+
+824
+01:42:02,830 --> 01:42:05,209
+We can pull out some glance statistics.
+
+825
+01:42:05,210 --> 01:42:14,620
+So this is a function that gives us all of those overall model set like the adjusted R squared and the HP MPI three.
+
+826
+01:42:15,060 --> 01:42:18,340
+You see that there's a number of functions we can perform on this object,
+
+827
+01:42:18,340 --> 01:42:24,579
+including that table regression and if we just do the default settings with the table regression function.
+
+828
+01:42:24,580 --> 01:42:31,030
+So here I just the, the default settings we got the beta coefficient, the confidence interval, the p value.
+
+829
+01:42:31,420 --> 01:42:37,880
+You can see what the default number of. Significant figures are the default number of digits.
+
+830
+01:42:38,540 --> 01:42:44,540
+All of these values are exactly the same, so we can't actually tell if there is any differences in there.
+
+831
+01:42:44,540 --> 01:42:52,620
+So probably. We need to change some of the default settings here, including I'm going to increase the number of digits.
+
+832
+01:42:57,400 --> 01:43:01,130
+So now we can tell that there is some difference this year in the confidence interval.
+
+833
+01:43:01,150 --> 01:43:05,620
+We've added some more significant figures are reporting.
+
+834
+01:43:06,980 --> 01:43:12,640
+Right. So you're going to take this step to make the outcome output a little bit more approachable, folks.
+
+835
+01:43:19,060 --> 01:43:26,230
+Let's see if y'all can do your first linear regression. So let's take a exposure variable cadmium.
+
+836
+01:43:27,530 --> 01:43:30,740
+And outcome variables. Neutrophil lymphocyte ratio.
+
+837
+01:43:31,490 --> 01:43:34,910
+So see if you can't run a linear regression between those two.
+
+838
+01:43:35,690 --> 01:43:40,940
+And talk me through the slope. So what do you think is the relationship between those two variables?
+
+839
+01:44:58,860 --> 01:45:02,460
+We can create a good chunk.
+
+840
+01:45:04,580 --> 01:45:10,790
+We got Florida if we wanted to set our expectations or just run the labor model here in the sake of time.
+
+841
+01:45:11,210 --> 01:45:15,380
+So we use the alarm function, which variable I'm going to put as the outcome.
+
+842
+01:45:15,380 --> 01:45:21,920
+I'm going to start with the NLR. Tilde, that will be X.
+
+843
+01:45:23,060 --> 01:45:27,500
+B, C, D and I comma data equals and hands.
+
+844
+01:45:30,320 --> 01:45:34,010
+So here, if we just run away or model, we just get those coefficients.
+
+845
+01:45:34,010 --> 01:45:37,579
+We don't get any P values or other output like that.
+
+846
+01:45:37,580 --> 01:45:41,090
+So I could assign this as an object.
+
+847
+01:45:41,300 --> 01:45:49,610
+You call it any thing you want, and then I can run the summary function on that.
+
+848
+01:45:52,400 --> 01:45:58,630
+Just check things out. So what do you observe?
+
+849
+01:45:59,350 --> 01:46:04,720
+What would you say about the magnitude, about the slope between these two variables?
+
+850
+01:46:15,880 --> 01:46:19,870
+It's positive. Yeah, because our north, our north slope is zero.
+
+851
+01:46:20,170 --> 01:46:26,200
+So here this is greater than zero. So we set up positive and we can interpret this for a one unit increase.
+
+852
+01:46:26,200 --> 01:46:32,830
+And cadmium is associated with 0.27 unit increase and neutrophil lymphocyte ratio.
+
+853
+01:46:33,700 --> 01:46:40,120
+Where do we find the P-value for that slope out here? This is a p values less than two times higher of the -16.
+
+854
+01:46:40,660 --> 01:46:43,780
+Did anybody else take a different approach to looking at the output?
+
+855
+01:46:45,280 --> 01:46:47,890
+We could try just running a table regression on it if we want.
+
+856
+01:46:56,390 --> 01:47:02,280
+And here's the default where we got the beta coefficients and the confidence intervals and the p value and if you want,
+
+857
+01:47:02,280 --> 01:47:17,010
+you can customize that with more test statistics. In the next section below I talk through what happens if we add multiple covariance.
+
+858
+01:47:17,410 --> 01:47:21,760
+So on the right hand side of the tiller, you can have as many variables as you want.
+
+859
+01:47:22,210 --> 01:47:24,040
+You just put them all in front of the comma.
+
+860
+01:47:24,850 --> 01:47:33,970
+So the entire formula of the regression model has to be to the left of the first comma and you separate additional covariance with a plus.
+
+861
+01:47:34,690 --> 01:47:39,970
+So here I'm saying what's the relationship between i r and white blood cells adjusting for age?
+
+862
+01:47:44,570 --> 01:47:55,639
+And check that summary out. And you notice that our table now, we still have the Y intercept, we have the iron and we have the h coefficient now.
+
+863
+01:47:55,640 --> 01:48:00,890
+So you can see I think this iron value attenuated a little bit.
+
+864
+01:48:01,490 --> 01:48:06,710
+So it's a little bit smaller than it used to be once we're accounting for some of the variability is due to age.
+
+865
+01:48:15,380 --> 01:48:19,400
+I went ahead and added a bunch of variables, including some categorical variables.
+
+866
+01:48:19,790 --> 01:48:33,399
+Now I can check that out, see how this table looks. You can see how like quite quickly you can get very large tables that may have many rows.
+
+867
+01:48:33,400 --> 01:48:38,410
+So hence these asterisks can be helpful to draw your eyes to certain positions here.
+
+868
+01:48:38,710 --> 01:48:44,680
+So we've gotten a lot of practice interpreting effect estimates for continuous variables.
+
+869
+01:48:45,490 --> 01:48:51,040
+Can anybody help me interpret an effect estimate for categorical variables?
+
+870
+01:48:51,040 --> 01:48:54,250
+So let's do the sex female here anyway.
+
+871
+01:48:54,260 --> 01:49:01,500
+How we interpret. Regression coefficient for sex female estimate is 0.13.
+
+872
+01:49:05,100 --> 01:49:09,870
+So you guys were doing an excellent job with continuous that was for a one unit increase and not exposure.
+
+873
+01:49:10,200 --> 01:49:16,140
+What is this talking about? Four categories. We don't necessarily have a one unit increase in a category.
+
+874
+01:49:18,390 --> 01:49:22,680
+Yeah. Well, sex female equals one.
+
+875
+01:49:22,950 --> 01:49:27,810
+Mm hmm. Is a 0.13% increase.
+
+876
+01:49:30,730 --> 01:49:38,110
+White blood cells. Yes, exactly. Excellent. So when we're comparing females relative to males.
+
+877
+01:49:38,350 --> 01:49:42,430
+So the one that's not listed is the referent group. And you can adjust how you want the reference to be.
+
+878
+01:49:42,730 --> 01:49:49,180
+We're saying we expect females to have a point one, three, three unit increase and white blood cell count.
+
+879
+01:49:51,140 --> 01:49:54,440
+And if we have a variable like this, you have many categories.
+
+880
+01:49:54,470 --> 01:49:59,630
+They're all relative to the reference group. In this case, I think that was non-Hispanic white.
+
+881
+01:50:00,200 --> 01:50:08,000
+And if you notice up in this equation, this is a difference between Sass and R.
+
+882
+01:50:08,810 --> 01:50:13,820
+I don't have to put in dummy variables. I just put in that factor variable.
+
+883
+01:50:14,770 --> 01:50:20,680
+So our knows that factor variables in the background creates dummy variables for all those levels.
+
+884
+01:50:21,850 --> 01:50:24,580
+So that's one step that you can save a little bit of time on.
+
+885
+01:50:25,270 --> 01:50:30,969
+And it's helpful to have done your data cleaning in advance of made these variables factor variables,
+
+886
+01:50:30,970 --> 01:50:34,690
+because then it helps your implementation later on once you get to the.
+
+887
+01:50:35,660 --> 01:50:46,340
+Regression coefficients. All right, so I invite you to explore, play around, try regression modeling.
+
+888
+01:50:46,580 --> 01:50:51,380
+Try making some of these summary tables to help share your findings with your colleagues.
+
+889
+01:50:53,200 --> 01:50:56,749
+I hope you're enjoying our I really, really enjoy it.
+
+890
+01:50:56,750 --> 01:51:00,170
+And I just find that you can you can keep growing with it.
+
+891
+01:51:00,170 --> 01:51:09,410
+So I hope I hope this is just a first step. And you've developed some problem solving tools, some familiarity with the help viewer,
+
+892
+01:51:09,560 --> 01:51:15,410
+so that you can continue in a spirit of curiosity and checking out some new functions.
+
+893
+01:51:15,690 --> 01:51:20,720
+So I want to thank you all for being a lovely class and feel free to stay in contact.
+
+894
+01:51:20,750 --> 01:51:27,230
+I'd love to hear about how your our journey is going and if we can all help each other with our projects going forward.
+
+895
+01:51:28,040 --> 01:51:30,050
+So thank you, everyone. Thank you.
+

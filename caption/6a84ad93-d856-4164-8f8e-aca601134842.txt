@@ -1,0 +1,329 @@
+1
+00:00:09,646 --> 00:00:13,067
+After watching this video, you will
+be able to transpose data to conduct
+
+2
+00:00:13,067 --> 00:00:17,040
+bivariate analysis for matched data.
+
+3
+00:00:17,040 --> 00:00:19,697
+First, let's remember our algorithm and
+
+4
+00:00:19,697 --> 00:00:23,698
+realize that now we're going into
+the right part of the figure.
+
+5
+00:00:23,698 --> 00:00:27,467
+As you can see, the tests used to
+analyze matched data are different
+
+6
+00:00:27,467 --> 00:00:30,970
+than the ones used for non-matched data.
+
+7
+00:00:30,970 --> 00:00:33,554
+But they have an equivalent one for
+each situation,
+
+8
+00:00:33,554 --> 00:00:38,210
+depending on the type of parameters.
+
+9
+00:00:38,210 --> 00:00:43,940
+The sample we're going to use for matched
+data is a matched case control study.
+
+10
+00:00:43,940 --> 00:00:47,765
+You're going to use this data for
+many of your exercises, so
+
+11
+00:00:47,765 --> 00:00:49,790
+I'll give more details later.
+
+12
+00:00:49,790 --> 00:00:54,304
+But briefly, in this study,
+cases were survivors of a first myocardial
+
+13
+00:00:54,304 --> 00:00:59,262
+infarction, and they were matched to
+population based controls by age, sex,
+
+14
+00:00:59,262 --> 00:01:00,890
+and county of residence.
+
+15
+00:01:00,890 --> 00:01:03,860
+They were matched 1:1,
+which means that for
+
+16
+00:01:03,860 --> 00:01:09,910
+every case there is a control with the
+same age, sex, and county of residence.
+
+17
+00:01:09,910 --> 00:01:14,434
+Importantly, there is a paired variable
+in the data set that identifies
+
+18
+00:01:14,434 --> 00:01:19,630
+this matching, so every case has
+the same matching ID as their control.
+
+19
+00:01:19,630 --> 00:01:24,351
+We are going to analyze the associations
+between myocardial infraction and smoking,
+
+20
+00:01:24,351 --> 00:01:27,130
+a categorical variable,
+and physical activity,
+
+21
+00:01:27,130 --> 00:01:31,460
+a continuous variable measured in mets or
+metabolic equivalents.
+
+22
+00:01:31,460 --> 00:01:35,986
+Our hypotheses are kind of obvious, since
+these are well known risk factors for MI.
+
+23
+00:01:35,986 --> 00:01:40,056
+We hypothesize that smoking is going to
+be positively associated with MI, and
+
+24
+00:01:40,056 --> 00:01:46,110
+physical activity is going to
+be inversely associated with MI.
+
+25
+00:01:46,110 --> 00:01:48,855
+As opposed to where we
+don't have much data,
+
+26
+00:01:48,855 --> 00:01:51,685
+that we did not have to
+do any data management.
+
+27
+00:01:51,685 --> 00:01:56,274
+The first thing we have to do now is to
+transpose our data because most likely it
+
+28
+00:01:56,274 --> 00:01:58,780
+won't come transposed.
+
+29
+00:01:58,780 --> 00:02:04,033
+Our data would likely come as shown
+in the rectangle named Temp.mi.
+
+30
+00:02:04,033 --> 00:02:06,347
+This is the temp.mi data set.
+
+31
+00:02:06,347 --> 00:02:10,275
+You will have one observation for
+each individual,
+
+32
+00:02:10,275 --> 00:02:13,310
+either be in a case or a control.
+
+33
+00:02:13,310 --> 00:02:18,023
+And what you really want to get is
+the data in the format called pair.
+
+34
+00:02:18,023 --> 00:02:22,700
+That is,
+you want to have one observation per pair.
+
+35
+00:02:22,700 --> 00:02:26,981
+Every observation, then, will have
+information for the case and the control.
+
+36
+00:02:26,981 --> 00:02:31,617
+Which means that you will have to have two
+variables for every original variable,
+
+37
+00:02:31,617 --> 00:02:34,740
+one for the case and one for the control.
+
+38
+00:02:34,740 --> 00:02:38,600
+In this example, or
+original variable is smoking.
+
+39
+00:02:38,600 --> 00:02:41,305
+And we need to create two variables,
+the one for
+
+40
+00:02:41,305 --> 00:02:47,040
+the case we'll still call it Smoking, and
+the one for the control will be Smoking2.
+
+41
+00:02:47,040 --> 00:02:51,030
+Clearly you can call them with different
+names, but we are doing it this way.
+
+42
+00:02:51,030 --> 00:02:54,980
+Now the steps to do that in
+SAS are shown on the left.
+
+43
+00:02:54,980 --> 00:02:59,483
+There are more elegant ways of doing this
+and there is even a prog that can do that,
+
+44
+00:02:59,483 --> 00:03:03,523
+but this is a simple way that will allow
+you to do what you want to do without
+
+45
+00:03:03,523 --> 00:03:05,600
+learning your code.
+
+46
+00:03:05,600 --> 00:03:08,603
+The three steps that you have to do are,
+
+47
+00:03:08,603 --> 00:03:13,730
+first separate cases and
+controls in two new datasets.
+
+48
+00:03:13,730 --> 00:03:16,759
+Second, in one of those,
+it can be the controls for
+
+49
+00:03:16,759 --> 00:03:19,018
+example, you rename the variables.
+
+50
+00:03:19,018 --> 00:03:23,220
+Here we have renaming,
+smoking as smoking2.
+
+51
+00:03:23,220 --> 00:03:28,161
+And third, finally, we will merge
+the data set by the matching variable.
+
+52
+00:03:28,161 --> 00:03:31,027
+So going one by one,
+we create a data set for
+
+53
+00:03:31,027 --> 00:03:36,047
+the controls of setting from the original
+data set using the if statement.
+
+54
+00:03:36,047 --> 00:03:41,030
+If MI=0 means that we will
+keep only the controls.
+
+55
+00:03:41,030 --> 00:03:45,900
+And here we also have renamed the variable
+smoking and call it smoking2.
+
+56
+00:03:45,900 --> 00:03:50,528
+Second, we do the same for the cases
+with a set from the original data set
+
+57
+00:03:50,528 --> 00:03:55,500
+using the if MI=1 statement,
+which will keep only the cases.
+
+58
+00:03:55,500 --> 00:03:57,963
+Now that we have these two pieces apart,
+
+59
+00:03:57,963 --> 00:04:01,513
+we are going to merge them
+again by the matching variable.
+
+60
+00:04:01,513 --> 00:04:05,374
+Remember that every time you want
+to use a bias statement in SAS,
+
+61
+00:04:05,374 --> 00:04:07,746
+you will need to sort by that valuable.
+
+62
+00:04:07,746 --> 00:04:10,718
+We sort both datasets by
+the matching variable.
+
+63
+00:04:10,718 --> 00:04:14,703
+And finally we're going to merge
+them by the matching variable.
+
+64
+00:04:14,703 --> 00:04:17,690
+This is the code to match
+datasets by a variable.
+
+65
+00:04:17,690 --> 00:04:22,451
+If we follow that code, we will end up
+with a data set called paired that has one
+
+66
+00:04:22,451 --> 00:04:27,400
+observation per matching
+pair as we wanted.
+
+67
+00:04:27,400 --> 00:04:31,962
+So In summary, in this video will learned
+how to transpose data to conduct bivariate
+
+68
+00:04:31,962 --> 00:04:33,519
+analysis for matched data.
+
+69
+00:04:33,519 --> 00:04:36,928
+In the next video we
+will start the analysis.
+

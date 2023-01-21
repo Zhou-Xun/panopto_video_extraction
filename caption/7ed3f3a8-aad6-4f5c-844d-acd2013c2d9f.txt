@@ -1,0 +1,587 @@
+1
+00:00:09,140 --> 00:00:12,210
+Hey, this is Matt Zawistowski.
+
+2
+00:00:12,210 --> 00:00:14,430
+In this lecture, we'll return to
+
+3
+00:00:14,430 --> 00:00:18,090
+our inferential analysis
+of the MPLS dataset.
+
+4
+00:00:18,090 --> 00:00:21,000
+This time, using a
+multi-model framework.
+
+5
+00:00:21,000 --> 00:00:24,000
+We'll compare multiple
+competing models for
+
+6
+00:00:24,000 --> 00:00:25,590
+the reading test scores and
+
+7
+00:00:25,590 --> 00:00:28,815
+identify a best
+approximating model.
+
+8
+00:00:28,815 --> 00:00:32,040
+We thoroughly analyze
+the effect of risk group
+
+9
+00:00:32,040 --> 00:00:33,330
+on the reading test scores
+
+10
+00:00:33,330 --> 00:00:35,280
+between fifth and eighth grades.
+
+11
+00:00:35,280 --> 00:00:37,020
+But there are other variables and
+
+12
+00:00:37,020 --> 00:00:39,465
+questions we might be
+interested in exploring.
+
+13
+00:00:39,465 --> 00:00:42,280
+For example, how
+student race plays into
+
+14
+00:00:42,280 --> 00:00:43,790
+test performance and what
+
+15
+00:00:43,790 --> 00:00:46,475
+the relationship is between
+race and risk group.
+
+16
+00:00:46,475 --> 00:00:48,275
+We can reasonably propose
+
+17
+00:00:48,275 --> 00:00:50,540
+numerous competing candidate
+models to describe
+
+18
+00:00:50,540 --> 00:00:53,480
+the data of which not
+all will be nested.
+
+19
+00:00:53,480 --> 00:00:55,220
+This type of analysis would
+
+20
+00:00:55,220 --> 00:00:57,905
+benefit from the
+multi-model approach.
+
+21
+00:00:57,905 --> 00:01:01,100
+We'll start by laying out
+various hypotheses for
+
+22
+00:01:01,100 --> 00:01:02,660
+the data and translating
+
+23
+00:01:02,660 --> 00:01:05,030
+the idea to a mixed effect model.
+
+24
+00:01:05,030 --> 00:01:07,640
+Note that we will keep the
+random effects structure
+
+25
+00:01:07,640 --> 00:01:10,535
+constant across the
+competing models.
+
+26
+00:01:10,535 --> 00:01:12,185
+In the first model,
+
+27
+00:01:12,185 --> 00:01:14,360
+we will assume that
+besides grade,
+
+28
+00:01:14,360 --> 00:01:15,905
+the only important variable
+
+29
+00:01:15,905 --> 00:01:18,325
+is risk with a constant effect.
+
+30
+00:01:18,325 --> 00:01:21,210
+Second, we assume
+student ethnicity
+
+31
+00:01:21,210 --> 00:01:24,010
+is the only important
+explanatory variable.
+
+32
+00:01:24,010 --> 00:01:27,485
+We might suppose that both
+risk and ethnicity have
+
+33
+00:01:27,485 --> 00:01:29,750
+independent effects
+on test scores and
+
+34
+00:01:29,750 --> 00:01:32,825
+should both be included
+as fixed effect terms.
+
+35
+00:01:32,825 --> 00:01:34,730
+Perhaps risk group is
+
+36
+00:01:34,730 --> 00:01:36,830
+the most important
+variable and that
+
+37
+00:01:36,830 --> 00:01:39,410
+the effective risk
+changes across grade,
+
+38
+00:01:39,410 --> 00:01:42,095
+necessitating an
+interaction term,
+
+39
+00:01:42,095 --> 00:01:46,175
+or ethnicity might have an
+interactive effect with grade.
+
+40
+00:01:46,175 --> 00:01:49,970
+Finally, we might propose
+a complex model in which
+
+41
+00:01:49,970 --> 00:01:51,680
+both risk and ethnicity are
+
+42
+00:01:51,680 --> 00:01:53,840
+important factors
+for test scores,
+
+43
+00:01:53,840 --> 00:01:56,375
+and that the effects are
+changing across grade level,
+
+44
+00:01:56,375 --> 00:01:59,180
+requiring two interaction terms.
+
+45
+00:01:59,180 --> 00:02:01,849
+The key idea is that
+we have translated
+
+46
+00:02:01,849 --> 00:02:04,190
+various competing
+hypotheses regarding
+
+47
+00:02:04,190 --> 00:02:07,070
+the data to competing
+mixed models that
+
+48
+00:02:07,070 --> 00:02:10,285
+we can now compare in terms
+of model fit and complexity,
+
+49
+00:02:10,285 --> 00:02:12,560
+and importantly,
+the models are not
+
+50
+00:02:12,560 --> 00:02:16,475
+nested and yet can still be
+simultaneously compared.
+
+51
+00:02:16,475 --> 00:02:19,940
+The six models are fit in
+the same manner as we have
+
+52
+00:02:19,940 --> 00:02:23,945
+previously done using the lmer
+function with each model,
+
+53
+00:02:23,945 --> 00:02:26,540
+including random
+intercepts and slopes.
+
+54
+00:02:26,540 --> 00:02:29,480
+The codes shown here
+will name our models,
+
+55
+00:02:29,480 --> 00:02:31,849
+extract the correct AIC values,
+
+56
+00:02:31,849 --> 00:02:34,250
+and neatly summarize
+them in a table.
+
+57
+00:02:34,250 --> 00:02:37,160
+The aictab function extracts
+
+58
+00:02:37,160 --> 00:02:40,585
+the AIC values from the
+fitted model objects,
+
+59
+00:02:40,585 --> 00:02:43,489
+and since we know our
+data is modest in size,
+
+60
+00:02:43,489 --> 00:02:45,995
+we'll want the small sample
+corrected version of
+
+61
+00:02:45,995 --> 00:02:51,680
+AIC indicated by the
+second.ord option being true.
+
+62
+00:02:51,680 --> 00:02:54,435
+Here's the output
+that has returned.
+
+63
+00:02:54,435 --> 00:02:56,330
+The table contains
+several metrics
+
+64
+00:02:56,330 --> 00:02:57,845
+for each of the six models,
+
+65
+00:02:57,845 --> 00:02:59,735
+including the number
+of parameters,
+
+66
+00:02:59,735 --> 00:03:01,640
+the corrected AIC value,
+
+67
+00:03:01,640 --> 00:03:04,265
+along with AIC effect
+size and weight.
+
+68
+00:03:04,265 --> 00:03:07,490
+Note that the models
+are sorted by AIC so
+
+69
+00:03:07,490 --> 00:03:09,200
+that the best approximating model
+
+70
+00:03:09,200 --> 00:03:10,955
+appears at the top of the list.
+
+71
+00:03:10,955 --> 00:03:12,680
+The cumulative weight column
+
+72
+00:03:12,680 --> 00:03:14,540
+gives the running sum of weights,
+
+73
+00:03:14,540 --> 00:03:18,170
+and log likelihood is a
+classic model fit measure.
+
+74
+00:03:18,170 --> 00:03:21,050
+It's convenient to
+have the table sorted
+
+75
+00:03:21,050 --> 00:03:23,825
+so that models are ranked
+in order of parsimony,
+
+76
+00:03:23,825 --> 00:03:26,300
+but that option would be
+turned off by setting
+
+77
+00:03:26,300 --> 00:03:29,770
+sort to false in the
+aictab function.
+
+78
+00:03:29,770 --> 00:03:33,380
+So model one is the best
+approximating model which
+
+79
+00:03:33,380 --> 00:03:34,850
+contain just risk group as
+
+80
+00:03:34,850 --> 00:03:37,615
+a predictor and no
+interaction with time.
+
+81
+00:03:37,615 --> 00:03:40,265
+This is a model we've
+seen numerous times
+
+82
+00:03:40,265 --> 00:03:43,009
+having fixed effect
+parameters for intercept,
+
+83
+00:03:43,009 --> 00:03:45,745
+grade effect and
+risk group effect.
+
+84
+00:03:45,745 --> 00:03:48,960
+Models four and three
+are next on the list.
+
+85
+00:03:48,960 --> 00:03:52,379
+Model three includes risk
+and ethnicity group effects,
+
+86
+00:03:52,379 --> 00:03:53,510
+and model four had
+
+87
+00:03:53,510 --> 00:03:55,820
+the interaction between
+risk group and grade.
+
+88
+00:03:55,820 --> 00:03:58,100
+Note that these are
+not nested models,
+
+89
+00:03:58,100 --> 00:04:00,350
+so direct comparison
+would not be possible
+
+90
+00:04:00,350 --> 00:04:02,945
+using the likelihood-ratio
+test approach.
+
+91
+00:04:02,945 --> 00:04:05,330
+The AIC values for models
+
+92
+00:04:05,330 --> 00:04:08,165
+three and four are similar
+to that of model one,
+
+93
+00:04:08,165 --> 00:04:10,910
+but it's more informative
+to compare the models using
+
+94
+00:04:10,910 --> 00:04:13,850
+a bar plot of their AIC weights.
+
+95
+00:04:13,850 --> 00:04:15,980
+Here we see that model one is
+
+96
+00:04:15,980 --> 00:04:17,600
+about three times more likely
+
+97
+00:04:17,600 --> 00:04:19,475
+to be the best
+approximating model
+
+98
+00:04:19,475 --> 00:04:21,710
+than either models three or four.
+
+99
+00:04:21,710 --> 00:04:24,050
+We can be reasonably
+confident that
+
+100
+00:04:24,050 --> 00:04:25,880
+model one is, in truth,
+
+101
+00:04:25,880 --> 00:04:27,890
+the best approximating
+model from among
+
+102
+00:04:27,890 --> 00:04:31,385
+our candidates given this
+discrepancy in weights.
+
+103
+00:04:31,385 --> 00:04:34,520
+Another notable piece of
+inference that can be taken from
+
+104
+00:04:34,520 --> 00:04:36,080
+this exercise is that
+
+105
+00:04:36,080 --> 00:04:37,370
+the two models containing
+
+106
+00:04:37,370 --> 00:04:39,275
+ethnicity have very low weights,
+
+107
+00:04:39,275 --> 00:04:41,570
+indicating that
+ethnicity likely has
+
+108
+00:04:41,570 --> 00:04:44,435
+little independent effect
+on reading scores.
+
+109
+00:04:44,435 --> 00:04:47,720
+Once we've arrived at a
+best approximating model,
+
+110
+00:04:47,720 --> 00:04:50,000
+we can do the usual
+interpretation that we've
+
+111
+00:04:50,000 --> 00:04:52,505
+already covered for
+fitted mixed models.
+
+112
+00:04:52,505 --> 00:04:55,040
+In this case, the
+already familiar model
+
+113
+00:04:55,040 --> 00:04:56,180
+containing grade and
+
+114
+00:04:56,180 --> 00:04:58,220
+risk group effects emerged as
+
+115
+00:04:58,220 --> 00:04:59,930
+the best approximating model
+
+116
+00:04:59,930 --> 00:05:02,600
+from a larger set of
+candidate models.
+
+117
+00:05:02,600 --> 00:05:06,110
+Multi-model inference provides
+an alternate technique
+
+118
+00:05:06,110 --> 00:05:08,195
+to compare fitted mixed models.
+
+119
+00:05:08,195 --> 00:05:10,985
+In contrast to the
+likelihood-ratio test,
+
+120
+00:05:10,985 --> 00:05:14,120
+it allows the comparison
+of non-nested models and
+
+121
+00:05:14,120 --> 00:05:17,680
+simultaneously compares more
+than just a pair of models.
+
+122
+00:05:17,680 --> 00:05:19,665
+In our MPLS data,
+
+123
+00:05:19,665 --> 00:05:21,690
+the multi-model
+approach identified
+
+124
+00:05:21,690 --> 00:05:23,040
+the model containing risk and
+
+125
+00:05:23,040 --> 00:05:25,670
+grade effects as the
+best candidate model
+
+126
+00:05:25,670 --> 00:05:28,619
+in fairly confident fashion.
+

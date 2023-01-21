@@ -1,0 +1,2104 @@
+1
+00:00:01,410 --> 00:00:05,710
+It's hot and humid.
+
+2
+00:00:07,030 --> 00:00:18,930
+Right now. It's kind of cool because the games and years of us, I mean, you know, we actually.
+
+3
+00:00:20,130 --> 00:00:27,150
+Yeah, exactly. Which seems like it was supposed to be finally where it should be, like.
+
+4
+00:00:28,190 --> 00:00:30,220
+All right. Right.
+
+5
+00:00:31,440 --> 00:00:40,170
+All right, everybody, we have hit a three week high, I think, you know, almost half this class here because we thought we were going to party.
+
+6
+00:00:41,910 --> 00:00:53,060
+I would have had a party had we had better turnout this semester. Honestly, I have plans and plans, but no, sorry for whatever.
+
+7
+00:00:53,290 --> 00:00:54,869
+You know, really, it's always job.
+
+8
+00:00:54,870 --> 00:01:04,380
+You know, you get a party next semester with a 699, you know that you are um, they have in the past, you have to work for it.
+
+9
+00:01:05,220 --> 00:01:09,270
+You had to present a poster for this sorry party.
+
+10
+00:01:10,200 --> 00:01:14,720
+I was like, What are you doing? All right, exam.
+
+11
+00:01:14,780 --> 00:01:20,580
+Exam is opening on Friday. Any last minute fears, requests, questions.
+
+12
+00:01:22,720 --> 00:01:23,990
+Again, four models.
+
+13
+00:01:24,010 --> 00:01:30,640
+Hopefully by now, you know what those four models are already you've already program them or have an idea of how you're going to program them.
+
+14
+00:01:31,120 --> 00:01:37,329
+There is nothing on the exam about missing data or the bootstrap, so it's all stuff you should have seen before.
+
+15
+00:01:37,330 --> 00:01:42,190
+You did see before Thanksgiving. So hopefully it won't be too painful.
+
+16
+00:01:44,590 --> 00:01:48,190
+All right. Last lecture for the semester. No class on Friday.
+
+17
+00:01:49,900 --> 00:01:54,160
+I did have a request to see the bootstrap, and I want to make my fans happy.
+
+18
+00:01:54,160 --> 00:01:58,270
+So I'm going to be requests here and I'm going to go through the slides that I had prepared.
+
+19
+00:01:58,270 --> 00:01:59,320
+Anyways, they're pretty short.
+
+20
+00:02:00,640 --> 00:02:07,870
+Go through some our code and how you might do this with some longitudinal data and then we will wrap it up the semester.
+
+21
+00:02:10,450 --> 00:02:18,519
+All right. So slides are on canvas. We're going to talk about, again, this this process called the bootstrap, which, again,
+
+22
+00:02:18,520 --> 00:02:22,330
+comes from the old the old phrase about pulling yourself up by your bootstraps.
+
+23
+00:02:23,170 --> 00:02:31,360
+So the idea was, is if you have this mess of data and you don't know what to do with it, can you somehow salvage something through some process?
+
+24
+00:02:31,360 --> 00:02:33,070
+And so look at the name, the bootstrap.
+
+25
+00:02:33,820 --> 00:02:40,600
+There is a related method called the Jack Knife, which is really old and I don't know if anyone really teaches it anymore.
+
+26
+00:02:41,050 --> 00:02:47,980
+That was another way to get to standard errors from the data that didn't require modeling and it resembles from the data.
+
+27
+00:02:47,980 --> 00:02:51,310
+We want to talk about that, but it's not as accurate.
+
+28
+00:02:51,640 --> 00:02:55,090
+And so it's sort of been replaced by the bootstrap. But if you ever hear of the jackknife.
+
+29
+00:02:55,090 --> 00:02:58,959
+Yes. The Jackknife name come from. Hey, that's a good question.
+
+30
+00:02:58,960 --> 00:03:00,490
+Why they call it the jackknife.
+
+31
+00:03:03,790 --> 00:03:11,080
+So again, the principle of the Jackknife is that you refit your model taking one observation out and fitting it to the rest.
+
+32
+00:03:12,650 --> 00:03:21,620
+And so you get an estimate from every observation being left out and that distribution of those values provides information about the standard errors.
+
+33
+00:03:21,950 --> 00:03:26,329
+It's about leaving out cross-validation, using cross-validation and something different.
+
+34
+00:03:26,330 --> 00:03:31,200
+But so where the jackknife falls into that sort of process, I have no idea.
+
+35
+00:03:31,220 --> 00:03:33,800
+That's a good question. No one's ever asked me where Legitimize came from.
+
+36
+00:03:35,750 --> 00:03:41,450
+It was started by, oh, statistician with a difficult to pronounce last name.
+
+37
+00:03:42,140 --> 00:03:47,930
+That's a lot of help. But anyway, if you take 685, we might talk about it.
+
+38
+00:03:48,230 --> 00:03:51,680
+Probably not all the time, but it's in there.
+
+39
+00:03:51,680 --> 00:04:00,590
+It's in the syllabus. All right. Everything we do with frequentist methods here is we make inferences using the sampling distribution of the estimate.
+
+40
+00:04:01,040 --> 00:04:04,819
+So there's a theory that tells us we don't have to do.
+
+41
+00:04:04,820 --> 00:04:09,020
+Repeated sampling theory tells us that from our data we know what the sampling
+
+42
+00:04:09,020 --> 00:04:14,360
+distribution is or might be asymptotically for any parameter that we're fitting.
+
+43
+00:04:15,920 --> 00:04:22,500
+So again, what can we expect? What does our data estimate look like across many, many samples of data?
+
+44
+00:04:22,520 --> 00:04:30,350
+That's what the sampling distribution is. How can we get to this idea of repeated sampling when we only have one sample?
+
+45
+00:04:32,090 --> 00:04:38,899
+To this point, the only thing we can rely upon is statistical theory and the large sample approximations that we all learn,
+
+46
+00:04:38,900 --> 00:04:46,100
+primarily the central limit theorem. For example, if we have a bunch of idea observations, again, one observation per person,
+
+47
+00:04:46,100 --> 00:04:50,570
+independent, identically distributed with some mean and some variance from a normal distribution.
+
+48
+00:04:51,290 --> 00:04:56,670
+Then we know right away. That the sample mean across many, many different samples.
+
+49
+00:04:57,120 --> 00:05:01,709
+All of those sample means would have a normal distribution with mean you and a
+
+50
+00:05:01,710 --> 00:05:05,730
+smaller variance sigma squared over in the sample size of each of the samples.
+
+51
+00:05:07,020 --> 00:05:11,190
+If those observations are ideal, but they are not normally distributed.
+
+52
+00:05:11,670 --> 00:05:18,809
+So again, when I say not adding normal, I mean independent and identical distributed but with a different distribution.
+
+53
+00:05:18,810 --> 00:05:25,940
+I should have been more explicit there. Then we know the central limit theorem says Ask them topically the sample mean of any sample.
+
+54
+00:05:27,180 --> 00:05:35,210
+Those sample means will have a sampling distribution that is also normal around the true mean and with standard deviation sigma squared over in.
+
+55
+00:05:36,440 --> 00:05:42,530
+Against such a limit. There is a really powerful, powerful thing that if we didn't have I don't know what we do with a lot of stuff.
+
+56
+00:05:42,530 --> 00:05:47,210
+We, we teach folks in introductory statistics for any linear function.
+
+57
+00:05:47,330 --> 00:05:50,240
+If I have the vector Y of the observations,
+
+58
+00:05:51,260 --> 00:06:04,850
+any linear combination of those Ys also has a normal distribution right with mean h mu and variance h sigma h transpose the old quadratic form.
+
+59
+00:06:05,200 --> 00:06:06,469
+All right. So again, that's a formula.
+
+60
+00:06:06,470 --> 00:06:12,740
+We know that if the waves are normally distributed, that a linear combination of those things also has a normal distribution.
+
+61
+00:06:13,730 --> 00:06:18,410
+But what do we do when we have an estimate here? We'll go through one, certainly with some R code.
+
+62
+00:06:18,740 --> 00:06:21,230
+What do we do when we have an estimate here and we don't know the theory,
+
+63
+00:06:22,130 --> 00:06:29,110
+we have no idea asymptotically or even exactly what this estimate might look like from sample to sample.
+
+64
+00:06:29,800 --> 00:06:35,690
+And that's when the bootstrap came along. So here's a picture of what we're talking about here.
+
+65
+00:06:35,690 --> 00:06:43,490
+So theoretically, when we talk about repeated sampling with individuals, right, there's that massive population, less U population out there.
+
+66
+00:06:44,450 --> 00:06:52,549
+And repeated sampling says, I draw a sample and from it I get an estimate of the parameter to have one and a bunch of other
+
+67
+00:06:52,550 --> 00:06:58,400
+people get their own samples and they get their own parameter estimates theta two through theta end.
+
+68
+00:06:58,400 --> 00:07:09,350
+And this is a really bad color for the screen, but it is all of those things that comprise the sampling distribution of data yet again.
+
+69
+00:07:09,350 --> 00:07:13,730
+This is nothing but an abstract concept because we don't have all of those.
+
+70
+00:07:14,300 --> 00:07:18,410
+We have the gold one, the first one. That's all we have at our disposal.
+
+71
+00:07:20,690 --> 00:07:27,379
+And so what the bootstrap, the non parametric bootstrap to be more specific, there are lots of bootstraps out there.
+
+72
+00:07:27,380 --> 00:07:31,730
+The most simple is called the non parametric bootstrap because it doesn't make any
+
+73
+00:07:31,730 --> 00:07:36,380
+parametric assumptions about what the distribution might be for my outcomes or my data.
+
+74
+00:07:37,530 --> 00:07:45,419
+The bootstrap says if sample one is a reasonable representation of the population, which it should be,
+
+75
+00:07:45,420 --> 00:07:51,030
+if it's a random sample, then why can't I pretend like sample one is the population?
+
+76
+00:07:52,170 --> 00:08:00,880
+Approximately. And so I'm going to take a sample, one that I have, and I'm going to draw a sample from those data.
+
+77
+00:08:02,710 --> 00:08:09,130
+And from that bootstrap sample, I will compute a parameter estimate the same parameter estimate sample mean regression parameter,
+
+78
+00:08:09,520 --> 00:08:11,800
+variance component, whatever we want to compute.
+
+79
+00:08:13,090 --> 00:08:22,300
+I go to my sample and many, many times I draw a bootstrap sample from the data and I get a bunch of different parameter estimates.
+
+80
+00:08:24,790 --> 00:08:31,870
+And the belief is that I now have exactly a sampling distribution, I have a bunch of replications of my parameter,
+
+81
+00:08:32,410 --> 00:08:38,320
+and this produces the sampling distribution of my statistic that I originally created, say, to one hat.
+
+82
+00:08:39,450 --> 00:08:47,190
+But. That's the bootstrap. It's very somewhat intuitive and very easy to do.
+
+83
+00:08:47,580 --> 00:08:51,150
+Very hard to prove, theoretically, that this is valid.
+
+84
+00:08:53,070 --> 00:09:00,270
+Features of these bootstrap samples. Each of the bootstrap samples has to have the same number of observations of relevance
+
+85
+00:09:00,270 --> 00:09:03,989
+as the original sample rate to draw on a sample size n from the population.
+
+86
+00:09:03,990 --> 00:09:06,090
+Every one of the research samples should be of size.
+
+87
+00:09:07,920 --> 00:09:15,090
+Each of the bootstrap samples, however, each element is drawn with replacement from the original sample.
+
+88
+00:09:15,600 --> 00:09:22,380
+So if I can do a one, go into my sample and I pull out individual three, I put them back in and they could be drawn again.
+
+89
+00:09:23,440 --> 00:09:30,430
+So each of the bootstrap samples has repeated observations from the same person from that sample.
+
+90
+00:09:31,330 --> 00:09:35,110
+We view them as independent. They are not correlated.
+
+91
+00:09:35,740 --> 00:09:42,100
+They are viewed to be replications of what I might see from the population an independent new draw.
+
+92
+00:09:43,540 --> 00:09:47,700
+The important thing to remember is that sampling is done at the level of independence.
+
+93
+00:09:47,710 --> 00:09:52,960
+You don't just go into a vector matrix of data and pull off pieces of the data.
+
+94
+00:09:54,070 --> 00:09:55,870
+In the instance of correlated data.
+
+95
+00:09:57,240 --> 00:10:07,410
+You have to pull off a person's data, not just their outcome, because the X's are correlated with the way the predictors are correlated with way.
+
+96
+00:10:07,620 --> 00:10:10,260
+They all have to come together. We don't want to break that correlation.
+
+97
+00:10:11,010 --> 00:10:14,370
+So whenever you bootstrap, you have to think where is the level of independence?
+
+98
+00:10:15,000 --> 00:10:21,390
+And in our class that's at the level of each individual. So all the time points have to come together when you draw that bootstrap sample.
+
+99
+00:10:21,660 --> 00:10:29,460
+You can't break them up. Now, in 601, this is a sampling with replacement.
+
+100
+00:10:31,020 --> 00:10:35,820
+There are very few applications of the first four weeks of 601, I think.
+
+101
+00:10:36,690 --> 00:10:44,850
+Don't really care how many balls in an urn there are. It's fun math, but this is one of the applications of 601 and sampling with replacement.
+
+102
+00:10:45,270 --> 00:10:51,329
+The number of unique bootstrap samples from a sample size and observations is two and minus one.
+
+103
+00:10:51,330 --> 00:10:56,000
+Choose N and that thing blows up very fast with n.
+
+104
+00:10:57,020 --> 00:11:02,760
+So if you want to exactly do the bootstrap, you should think of every possible bootstrap sample, right?
+
+105
+00:11:02,840 --> 00:11:07,250
+Even from a sample size three. Think of how many examples there are.
+
+106
+00:11:07,700 --> 00:11:11,380
+So again, that can be proved with the things we saw back in 661.
+
+107
+00:11:11,390 --> 00:11:17,330
+I couldn't do it right outside of my head. Sampling with replacement is the hardest one, but it's there.
+
+108
+00:11:17,360 --> 00:11:21,080
+So that's the number of bootstrap samples and it blows up very, very quickly.
+
+109
+00:11:21,090 --> 00:11:24,110
+So we don't try to enumerate every possible bootstrap sample.
+
+110
+00:11:24,380 --> 00:11:28,250
+We just draw bootstrap samples. Can we get enough of them?
+
+111
+00:11:29,330 --> 00:11:36,250
+And we just talk about what is enough. So exactly here is from the original sample, I'm going to call that X.
+
+112
+00:11:37,250 --> 00:11:42,530
+We compute some statistic and the statistic you might think of and we let x
+
+113
+00:11:42,650 --> 00:11:48,020
+sub superscript v denote a bootstrap sample from the original observations.
+
+114
+00:11:48,590 --> 00:11:54,290
+And again, Theta Hat B is the corresponding statistic that I computed from that sample.
+
+115
+00:11:55,580 --> 00:12:00,620
+And these values, as I just said, say to have I had subscript one superscript, one true capital B,
+
+116
+00:12:00,620 --> 00:12:06,709
+whatever B is capital B that represents the bootstrap distribution for my parameter.
+
+117
+00:12:06,710 --> 00:12:09,980
+It represents the sampling distribution for my parameter.
+
+118
+00:12:11,030 --> 00:12:20,060
+And therefore the bloodshed distribution gives us the chance to do in France. Specifically, the standard error is simply the standard deviation.
+
+119
+00:12:20,720 --> 00:12:29,000
+If I bootstrap sample so I get the mean of the bootstrap samples and I compute the sample variance formula.
+
+120
+00:12:30,580 --> 00:12:34,240
+And that's the sampling variance of the bootstrap distribution.
+
+121
+00:12:35,150 --> 00:12:39,979
+Again, I didn't say that theta has a normal distribution with that variance.
+
+122
+00:12:39,980 --> 00:12:46,400
+I just said it's variance is this. I don't know what the distribution, the form of the sampling distribution is.
+
+123
+00:12:46,400 --> 00:12:52,060
+I don't really care about that. All I want to know is what is the sampling distributions variance?
+
+124
+00:12:52,420 --> 00:12:56,740
+And it can be approximated by the sampling, a sample variance of the bootstrap samples.
+
+125
+00:12:58,160 --> 00:13:02,990
+No. Far and away, the bootstrap distribution is often very symmetric.
+
+126
+00:13:04,020 --> 00:13:09,330
+It is not a skewed distribution. And you might ask, is the bootstrap distribution normal for some cases?
+
+127
+00:13:09,840 --> 00:13:15,270
+And it probably is in large samples. But if we have a fairly symmetric distribution,
+
+128
+00:13:16,470 --> 00:13:23,130
+we might see a really nice approximate 95% confidence interval uses the standard normal formula I take.
+
+129
+00:13:23,280 --> 00:13:27,030
+Again, I don't take the mean of the bootstrap distribution.
+
+130
+00:13:27,840 --> 00:13:35,470
+I take my theta hat from the original data. And it's a plus or minus two standard deviations around that number.
+
+131
+00:13:36,070 --> 00:13:39,070
+And the standard deviation comes from the bootstrap distribution.
+
+132
+00:13:40,510 --> 00:13:45,100
+That should be a fairly decent to have fairly decent coverage 95% of the time.
+
+133
+00:13:45,100 --> 00:13:48,970
+Hopefully the true value of theta lies in that confidence interval and it actually does.
+
+134
+00:13:50,980 --> 00:13:57,250
+But if you worry about whether or not you remember this assumed symmetry, right, we want plus or minus to say deviations.
+
+135
+00:13:57,250 --> 00:13:59,890
+That's that's an idea of a symmetric distribution.
+
+136
+00:14:00,670 --> 00:14:06,930
+But if you don't want to rely upon that, we can come up with another variant of a confidence interval and it says,
+
+137
+00:14:06,940 --> 00:14:09,970
+just order the bootstrap sample from smallest to largest.
+
+138
+00:14:10,690 --> 00:14:13,840
+Find that two and a half percentile and the 97 and a half percentile.
+
+139
+00:14:14,080 --> 00:14:18,910
+And those two numbers form a 95% confidence interval for my parameter estimate.
+
+140
+00:14:19,480 --> 00:14:22,870
+And the second confidence interval doesn't necessarily equal the first.
+
+141
+00:14:24,180 --> 00:14:30,469
+They should be pretty close. Rarely do we get a good set distribution that's so wildly off from a symmetric
+
+142
+00:14:30,470 --> 00:14:34,460
+distribution that this these two produce distinctly different approaches.
+
+143
+00:14:35,780 --> 00:14:39,710
+So the bootstrap, again, is not an estimation method.
+
+144
+00:14:40,550 --> 00:14:45,590
+You already have your estimation method, the linear mixed model, the sample mean whatever it is.
+
+145
+00:14:46,700 --> 00:14:51,710
+We're done with estimation. Now we want to do inference. How do I get standard errors and confidence intervals?
+
+146
+00:14:52,280 --> 00:14:53,750
+That's where the bootstrap comes in.
+
+147
+00:14:55,130 --> 00:14:59,930
+Again, I think it's fairly intuitive and it's really easy to program, it's really easy to do, and that's part of the problem.
+
+148
+00:15:00,830 --> 00:15:06,140
+It's so easy to use that people use it all the time and it isn't always valid.
+
+149
+00:15:07,820 --> 00:15:11,810
+It is not perfectly valid for every for every statistic you can think of.
+
+150
+00:15:12,800 --> 00:15:15,980
+So I just said that we don't use the bootstrap for estimation.
+
+151
+00:15:17,270 --> 00:15:25,700
+We already have an estimate that the mean of the bootstrap distribution is only used for computing the sample variance, a limited set distribution.
+
+152
+00:15:26,420 --> 00:15:31,100
+As I said, the exact number of bootstraps is often computationally infeasible.
+
+153
+00:15:31,730 --> 00:15:37,220
+We're never going to compute all 101 million bootstrap elements of that which are distribution.
+
+154
+00:15:37,880 --> 00:15:43,070
+So the question is how many bootstrap should we do just randomly drawing bootstrap samples from a data half?
+
+155
+00:15:43,070 --> 00:15:52,910
+And should I do that? The number of 500 flips around a lot in the world if you just want to compute the variance or the standard deviation.
+
+156
+00:15:54,580 --> 00:16:02,870
+If you want to use this formula here, 500 is usually sufficient to get an estimate of the variance of the distribution.
+
+157
+00:16:04,100 --> 00:16:12,010
+But if you want to compute a confidence interval using the second approach, you need to get the tails pretty darn right.
+
+158
+00:16:12,220 --> 00:16:17,240
+Right. You're going to get out here far away in the tails. And that requires more than 500 usually.
+
+159
+00:16:18,320 --> 00:16:22,730
+And so then I hear I hear the number 2000. I think I'm going to do a thousand shortly.
+
+160
+00:16:24,190 --> 00:16:30,670
+There is no right answer here, but somewhere between 502,000 don't need to do 5000.
+
+161
+00:16:31,690 --> 00:16:32,350
+And most of the time.
+
+162
+00:16:32,680 --> 00:16:40,239
+But again, for four variances, you need fewer bootstrap samples than if you want to compute the quantile based a confidence interval,
+
+163
+00:16:40,240 --> 00:16:46,680
+then you need to get the tails pretty accurate. Since the butcher came out again.
+
+164
+00:16:46,680 --> 00:16:53,700
+I'm old enough that I remember a world without the bootstrap. I remember the first book that came out on The Bootstrap by Brett Ephron.
+
+165
+00:16:53,850 --> 00:16:57,750
+Hopefully you've heard that name still alive. He's really old.
+
+166
+00:16:58,320 --> 00:17:02,260
+He's still alive. There are lots of variants of the bootstrap.
+
+167
+00:17:03,360 --> 00:17:06,000
+So there's something called the bias corrected bootstrap.
+
+168
+00:17:06,870 --> 00:17:11,820
+There is something called the parametric bootstrap, which is extremely useful in a lot of situations.
+
+169
+00:17:12,330 --> 00:17:19,620
+And again, that is just the bootstrap with some parametric assumptions placed into it when you figure out when you think about the bootstrap samples.
+
+170
+00:17:20,430 --> 00:17:26,280
+Once again, everything I just told you was non parametric. I never told you anything about the distribution of the data.
+
+171
+00:17:26,280 --> 00:17:31,500
+From what you're drawing the bootstrap samples. There was no assumption of normality or Poisson or anything.
+
+172
+00:17:32,310 --> 00:17:35,370
+I just redraw. I just drew samples and computed a standard deviation.
+
+173
+00:17:36,990 --> 00:17:43,560
+There's something called the black bootstrap. Again, if you have time series, for example, anything that's correlated.
+
+174
+00:17:44,650 --> 00:17:47,710
+And you have one set of correlated data at a time series.
+
+175
+00:17:48,700 --> 00:17:55,120
+How do you re sample the Time series knowing that certain observations have to go together because they're correlated in the Time series?
+
+176
+00:17:56,350 --> 00:18:00,310
+There's something called the Black Bootstrap that has some valid approaches to it.
+
+177
+00:18:00,340 --> 00:18:09,730
+I have never used a black bootstrap. There's a wild bootstrap, which I don't know what that means, but it's probably not as cool as it sounds.
+
+178
+00:18:10,570 --> 00:18:16,330
+But there's lots of different. Again, it's the idea of re sample anything when you re sample from the data to get inference.
+
+179
+00:18:16,330 --> 00:18:22,030
+That is a bootstrap type approach and it's used more generally now for that that idea.
+
+180
+00:18:24,570 --> 00:18:29,830
+I think this is true. So I said the bootstrap is only valid for smooth functions of the data.
+
+181
+00:18:30,400 --> 00:18:35,690
+That is true to a certain extent, but I think the bootstrap can be used with the median.
+
+182
+00:18:35,710 --> 00:18:41,590
+The median of the B median is not a smooth function. It says, where is the 50th percentile?
+
+183
+00:18:42,100 --> 00:18:45,100
+And one piece of data can change that number drastically.
+
+184
+00:18:45,130 --> 00:18:48,370
+It isn't smooth with the data. It can jump very quickly.
+
+185
+00:18:48,970 --> 00:18:56,680
+And again, just taking out one observation changes the median very quickly from an odd number of observations to an even number of observations.
+
+186
+00:18:57,100 --> 00:19:02,290
+So Quintiles uniform statistics are uniform order statistics.
+
+187
+00:19:02,530 --> 00:19:06,400
+Remember the fun of order statistics, the uniform distribution?
+
+188
+00:19:07,630 --> 00:19:12,760
+Anything. Relying on order statistics throws problems into these methods a little bit.
+
+189
+00:19:13,420 --> 00:19:17,890
+So if your statistic is the maximum, for example, that's an order statistic.
+
+190
+00:19:19,090 --> 00:19:24,460
+The bootstrap can can possibly run into problems. But most of the things we do are smooth.
+
+191
+00:19:25,210 --> 00:19:27,910
+Anything in regression or any sort of means.
+
+192
+00:19:29,320 --> 00:19:36,670
+The bootstrap can be problematic with binary outcomes only because remember if you want to fit logistic regression.
+
+193
+00:19:37,880 --> 00:19:45,020
+You need zeros and ones. If everybody has a one, you can't figure out what the probability is because nobody has a zero.
+
+194
+00:19:45,470 --> 00:19:50,450
+And likewise. So you need a mixture of zeros and ones. So think of a bootstraps set of data.
+
+195
+00:19:51,080 --> 00:19:54,980
+If you have 100 people and five of the people have the outcome.
+
+196
+00:19:55,460 --> 00:20:02,360
+So you have five ones and 95 zeros. There's a decent chance that one of your bootstrap samples is going to have everybody with zeros.
+
+197
+00:20:03,550 --> 00:20:06,630
+You can't analyze those data. It's going to crash.
+
+198
+00:20:07,320 --> 00:20:15,450
+So you have to be careful with the bootstrap. When you have binary outcomes and you don't have a decent number of people with both zeros and ones.
+
+199
+00:20:17,920 --> 00:20:19,959
+Again, it's not a validity problem.
+
+200
+00:20:19,960 --> 00:20:26,680
+It's just that you're not going to get enough bootstrap samples if you keep running into samples that don't have what you can do to fit the model.
+
+201
+00:20:27,460 --> 00:20:31,210
+The bootstrap is computationally expensive, right?
+
+202
+00:20:31,270 --> 00:20:36,070
+Every time you draw a bootstrap sample, you have to compute your estimate.
+
+203
+00:20:37,240 --> 00:20:40,960
+If computing that estimate takes any amount of time and it may just be seconds.
+
+204
+00:20:42,070 --> 00:20:49,700
+Multiply that by a thousand. So if it takes one second to set a goal on them, didn't even take a second, I don't think.
+
+205
+00:20:49,700 --> 00:20:55,430
+But then a thousand bootstraps will require about 16 minutes for you to get your answer.
+
+206
+00:20:57,420 --> 00:21:02,159
+For those of you who are going to pursue a Ph.D. or maybe you're doing simulations now in your own research work,
+
+207
+00:21:02,160 --> 00:21:08,550
+now think about a simulation study in which you're going to set a goal imam, and use the bootstrap with it.
+
+208
+00:21:09,060 --> 00:21:17,640
+So one simulation takes 16 minutes. Now you're going to do a thousand simulations at 16000 minutes.
+
+209
+00:21:19,650 --> 00:21:22,290
+So the bootstrap is terrific.
+
+210
+00:21:22,740 --> 00:21:29,730
+But again, it can be computationally infeasible depending upon what you're trying to fit and how many observations you have.
+
+211
+00:21:30,510 --> 00:21:32,600
+If you have a data set with a million observations,
+
+212
+00:21:33,930 --> 00:21:40,110
+I don't know if you want to do a thousand bootstraps, you want to figure something else out, right?
+
+213
+00:21:40,710 --> 00:21:44,940
+And again, like I said, what do you do when it doesn't converge? Do you just throw that out?
+
+214
+00:21:45,810 --> 00:21:56,310
+Is it bounce or just throw that out? Because remember, if you have three zeros in 97 ones, a valid bootstrap sample is getting all one's.
+
+215
+00:21:57,500 --> 00:21:58,970
+It's a valid bootstrap sample,
+
+216
+00:21:59,270 --> 00:22:05,720
+but for some reason you're tossing it out when you have to think about if that does anything untoward to your inference.
+
+217
+00:22:07,760 --> 00:22:13,280
+And that's it for the bootstrap. Again, we could spend an hour on the theory behind this idea.
+
+218
+00:22:13,820 --> 00:22:20,840
+It is not trivial at all. Yes, sir. So it's like you said, if we have like a big dataset, like a million observations,
+
+219
+00:22:21,380 --> 00:22:27,300
+in what instance would we want to choose the bootstrap instead of making some sort of parametric assumption that that,
+
+220
+00:22:27,580 --> 00:22:30,290
+you know, if you can't make a parametric assumption.
+
+221
+00:22:31,650 --> 00:22:36,990
+If you can make a parametric assumption, there's probably some point where a formula is going to save you time over the bootstrap.
+
+222
+00:22:36,990 --> 00:22:45,510
+Right. But what if you don't have a formula? That's really if you're in a very complicated setting and you have no idea.
+
+223
+00:22:45,510 --> 00:22:51,800
+I mean, even if the data were normal. You might be looking at a parameter that no one's ever developed a theory for.
+
+224
+00:22:55,190 --> 00:22:57,410
+I would fall on the bootstrap as a lazy student,
+
+225
+00:22:59,000 --> 00:23:02,930
+but you may not be able to get away from it at a certain point because it just is going to take too long to run.
+
+226
+00:23:03,670 --> 00:23:08,960
+But I don't know of anybody who has a million observations, who's using the bootstrap, and maybe there is somebody,
+
+227
+00:23:10,100 --> 00:23:15,320
+but it's hard to scale up the bootstrap unless you think of some smarter way to deal with things.
+
+228
+00:23:18,410 --> 00:23:26,719
+So again, that's the bootstrap ahead. Can you just have a smaller are you said that you should have this and size bootstrap sample,
+
+229
+00:23:26,720 --> 00:23:31,160
+but can you scale up to larger data sets by having a smaller sample than.
+
+230
+00:23:31,160 --> 00:23:35,570
+Well, remember, the sampling distributions variance is a function of the sample size.
+
+231
+00:23:35,740 --> 00:23:42,170
+Oh yeah, that's right. So if you want to talk about a sampling distribution for a parameter based on a million observations,
+
+232
+00:23:43,160 --> 00:23:45,800
+you got to have observations that are based on samples of a million.
+
+233
+00:23:46,130 --> 00:23:51,260
+Now, there's probably some smart person out there who was addressing that very question.
+
+234
+00:23:51,980 --> 00:24:00,530
+You know what? If I only use a thousand, is there some way I can fix things to get the right mass and maybe you can get.
+
+235
+00:24:00,530 --> 00:24:04,879
+I've never had that problem. People I work with have 200 or 300 observations.
+
+236
+00:24:04,880 --> 00:24:09,790
+And so. It's not trivial computationally.
+
+237
+00:24:09,790 --> 00:24:16,509
+It's not trivial when you have a lot of data. And then just a few short slides here, again, longitudinal data.
+
+238
+00:24:16,510 --> 00:24:20,320
+Again, something that my cohort I remember in our qualifying exam,
+
+239
+00:24:20,530 --> 00:24:31,780
+we had longitudinal data and a number of people in my class I because I can remember I can't believe I remember this, but they just bootstrapped data.
+
+240
+00:24:32,530 --> 00:24:39,370
+They didn't think about the level of independence because we weren't really taught clearly on how to use this.
+
+241
+00:24:39,370 --> 00:24:43,450
+But anyway, bootstrap with longitudinal data.
+
+242
+00:24:43,510 --> 00:24:46,970
+As I said, remember that with Giles and G.
+
+243
+00:24:46,990 --> 00:24:50,940
+Let's go back to the methods we've learned. We had two variants estimated.
+
+244
+00:24:51,110 --> 00:25:00,459
+We had a model based from the formula, and if we didn't quite trust that we could use an empirical or a sandwich variance estimate or to use the
+
+245
+00:25:00,460 --> 00:25:04,930
+residuals to give us any more information about variability that might have been missed in our model.
+
+246
+00:25:06,640 --> 00:25:10,420
+And again, although less common, we could certainly use sandwich estimates for Adams.
+
+247
+00:25:10,420 --> 00:25:14,990
+We tried that in this class. You can get sandwich estimates for glimpse.
+
+248
+00:25:15,040 --> 00:25:19,479
+There's nothing programed that I could find and I don't really want to program it myself.
+
+249
+00:25:19,480 --> 00:25:26,770
+So. But you could, if you don't believe the model based variance estimates from linear mixed models that generalize in our models,
+
+250
+00:25:27,190 --> 00:25:30,370
+you could use a sandwich estimate to fix your inference.
+
+251
+00:25:32,650 --> 00:25:38,560
+If you don't want to do that, you now have a new way to get a non model based standard error.
+
+252
+00:25:39,700 --> 00:25:43,240
+And so again, because the bootstrap doesn't care about the model.
+
+253
+00:25:44,780 --> 00:25:51,670
+The assumption of normality or whatever. The bootstrap is a way for us to get standard error estimates that we can compare
+
+254
+00:25:51,690 --> 00:25:55,430
+to the model base standard errors and see if there are different or not so.
+
+255
+00:25:56,920 --> 00:26:01,720
+The Bootstrap is doing exactly what the sandwich distributors are doing.
+
+256
+00:26:03,070 --> 00:26:10,510
+They're using the available data to tell us what the sampling distribution variance might look like without making model assumptions.
+
+257
+00:26:11,640 --> 00:26:14,850
+So again, this is a way to compute a non model based variance estimate.
+
+258
+00:26:16,150 --> 00:26:23,680
+So for jail announced because we didn't have a sandwich variance estimate method every time we could have applied the bootstrap for
+
+259
+00:26:23,680 --> 00:26:31,840
+instance to homework number of five to get a non model based standard error from a regression parameter in a generalized linear baseline.
+
+260
+00:26:33,100 --> 00:26:38,290
+So it's a very powerful tool. Erm I go in with that.
+
+261
+00:26:38,300 --> 00:26:41,830
+All right. Very quick here. So again, regardless of the model we choose.
+
+262
+00:26:43,730 --> 00:26:48,020
+I could fit a marginal model. So again, that's g g along.
+
+263
+00:26:49,160 --> 00:26:56,390
+It's familiar for the test, a conditional or random effects model, whether it's a linear X model or a generalized linear mixed model.
+
+264
+00:26:57,290 --> 00:27:01,940
+We have two pieces of data for each individual. We have their vector of outcomes.
+
+265
+00:27:03,380 --> 00:27:11,410
+And we have their matrix of coherence. And that is the level of independence I is the level of independence.
+
+266
+00:27:11,830 --> 00:27:17,200
+So when I bootstrap, I don't just pull off one Y and one row of X rated person.
+
+267
+00:27:18,040 --> 00:27:21,460
+This person's data comes along and in one of the bootstrap draws.
+
+268
+00:27:24,120 --> 00:27:29,580
+Okay. So we can't break up the correlation between the exes nor the wives, nor between the exes and the wives.
+
+269
+00:27:31,020 --> 00:27:34,080
+So before we get to the bootstrap, though, we have our data.
+
+270
+00:27:35,310 --> 00:27:39,240
+I'm just going to put all the parameters into this parameter vector I call theta hat.
+
+271
+00:27:39,690 --> 00:27:45,030
+So for g or guys, you get the fixed parameter estimates, the regression parameters, beta hat.
+
+272
+00:27:45,630 --> 00:27:52,290
+And we typically had a correlation coefficient from the exchangeable correlation matrix or the auto regressive correlation matrix.
+
+273
+00:27:52,920 --> 00:27:59,010
+And for mixed models, we had the regression parameters and we had this D matrix again, the variance of the random intercept,
+
+274
+00:27:59,010 --> 00:28:06,120
+the variance of the random slope, maybe their covariance matrix, those are parameters we're estimating variances, right?
+
+275
+00:28:07,280 --> 00:28:11,060
+And we can generate a bootstrap distribution for every one of those parameters.
+
+276
+00:28:12,880 --> 00:28:16,950
+By simply drawing a sample of size and from the unique participant ideas.
+
+277
+00:28:16,960 --> 00:28:22,090
+Again, we're going to instead of bootstrapping from the data, I'm going to first bootstrap from the IDs.
+
+278
+00:28:23,960 --> 00:28:32,780
+And so I'm going to get a vector of size N with a one and a three and a one and a seven and a 27 and maybe 27 comes along again and maybe this.
+
+279
+00:28:33,050 --> 00:28:37,790
+So again, the bootstrap sample will contain some of the original data.
+
+280
+00:28:39,250 --> 00:28:45,520
+Some of the original data will appear more than once, and some of the people in the original data won't show up in the bootstrap sample at all.
+
+281
+00:28:46,660 --> 00:28:47,740
+That's a random sample.
+
+282
+00:28:48,700 --> 00:28:56,290
+So we get this new bootstrap sample of the IDs and then we pull out the whys and the access corresponding to those IDs into a new dataset.
+
+283
+00:28:58,040 --> 00:29:03,530
+And then we do our analysis, we fit our genome, we get a lot of parameter estimates, we save those.
+
+284
+00:29:04,200 --> 00:29:08,360
+And we do that many, many times, 500,000, 2000 times.
+
+285
+00:29:09,260 --> 00:29:12,470
+And then we can make inference for our original parameter estimates.
+
+286
+00:29:16,470 --> 00:29:23,670
+Where's Theta hat one? You should you stay to have one Thursday a happy start.
+
+287
+00:29:24,660 --> 00:29:31,050
+So again you do one bootstrap. Then I said repeat it and then you make inference using all of the theta hat with a superscript.
+
+288
+00:29:31,120 --> 00:29:34,379
+There's the first one you should use as well. Yeah. Where there.
+
+289
+00:29:34,380 --> 00:29:39,390
+Use 999 of them or a thousand of them probably doesn't matter, but it was not intentional.
+
+290
+00:29:39,390 --> 00:29:43,590
+The state of one should be down here along with its friends. I'm going to use all of them.
+
+291
+00:29:45,600 --> 00:29:55,530
+And that's it. That's what I wanted to show you about the bootstrap. How does any bootstrap estimate of variance compared to the sandwich?
+
+292
+00:29:55,740 --> 00:29:56,940
+That's what we're going to do right now.
+
+293
+00:29:58,020 --> 00:30:06,300
+Good segue way again, if the sandwich estimate is trying to use the data to fix what is not assumed by the model,
+
+294
+00:30:07,260 --> 00:30:14,790
+the bootstrap doing the same thing it's telling me use the data to figure out what the sampling distributions variances don't use the model.
+
+295
+00:30:15,810 --> 00:30:22,500
+And so again, if the sandwich variance is doing that, the bootstrap should produce a variance estimate close to the sandwich formula.
+
+296
+00:30:23,230 --> 00:30:27,810
+We're going to look at that right now. And thankfully that is what happens.
+
+297
+00:30:30,030 --> 00:30:42,059
+But it's closed. So in the past cloud, this is the last time I have to say positive cloud this semester out loud in the Homework six folder.
+
+298
+00:30:42,060 --> 00:30:46,140
+Originally you were going to fit the bootstrap to your data and just see what happens.
+
+299
+00:30:46,740 --> 00:30:50,850
+But again, we're out of time here. You don't have to do this for homework. Six over six is done.
+
+300
+00:30:51,240 --> 00:31:00,569
+All right. Do Friday, but done almost in the cosine dataset that I had was called Red Light.
+
+301
+00:31:00,570 --> 00:31:05,550
+That that and again, this was looking at intersections and how many accidents occur to intersections,
+
+302
+00:31:06,030 --> 00:31:12,989
+whether or not they were patrolled or not by police. The hope was, again, police presence would cause people to drive better and slow down.
+
+303
+00:31:12,990 --> 00:31:15,930
+Although if that people see a police maybe happens, they zip through the light, I don't know.
+
+304
+00:31:16,200 --> 00:31:21,419
+Anyway, we're hoping that being patrolled reduces the number of accidents and again,
+
+305
+00:31:21,420 --> 00:31:27,090
+the number of accidents that we're going to assume as a sign distribution. So.
+
+306
+00:31:35,260 --> 00:31:38,280
+And we have an eye for an intersection. Again, these aren't people.
+
+307
+00:31:38,790 --> 00:31:43,830
+These are actual intersections. The number of accidents that are currently one, two, three, four and five.
+
+308
+00:31:43,840 --> 00:31:49,880
+So there's five weeks. There's no week zero. So week one is sort of the baseline, whether they're patrolled or not.
+
+309
+00:31:49,890 --> 00:31:54,480
+And then we didn't use the other covariates, certainly the car level,
+
+310
+00:31:54,480 --> 00:32:01,710
+whether there are cameras monitoring individuals and whether someone's in a turn lane or not might or whether there's a turn lane in the intersection.
+
+311
+00:32:02,250 --> 00:32:09,600
+This could all may be predictive of accidents, but again, we're going to focus on time and whether or not the intersections are patrolled.
+
+312
+00:32:10,650 --> 00:32:14,150
+I'm going to use G.E. again. We could use geothermal here.
+
+313
+00:32:16,140 --> 00:32:23,220
+If I wanted to get a different approach to these data, we're going to fit a DJ model with exchangeable correlation.
+
+314
+00:32:23,640 --> 00:32:24,930
+This is what I've just chosen to do.
+
+315
+00:32:25,710 --> 00:32:33,090
+Again, I put some code around that just so I don't get that, that I'll put that the G formula unfortunately thinks is necessary to output every time.
+
+316
+00:32:33,810 --> 00:32:38,400
+So again, here is the model main effects of being patrolled in time.
+
+317
+00:32:38,400 --> 00:32:44,220
+No interaction to keep things simple for today. Exchangeable correlation to assign family.
+
+318
+00:32:44,760 --> 00:33:02,100
+And so that's. I hope to run away sometimes.
+
+319
+00:33:03,030 --> 00:33:07,780
+I just want to bring that up. Here we go. All right.
+
+320
+00:33:07,800 --> 00:33:12,330
+So here's the results of the data itself themselves.
+
+321
+00:33:13,140 --> 00:33:20,550
+I've got an intercept and patrol effect in a weak effect with 90 standard errors based upon an assumption of exchangeable correlation.
+
+322
+00:33:21,540 --> 00:33:25,290
+And then I have robust standard errors that go beyond exchangeable correlation.
+
+323
+00:33:25,710 --> 00:33:33,100
+If the residuals tell me so and so, we do see that maybe there is a slight discrepancy between the robust generators and the naive.
+
+324
+00:33:33,120 --> 00:33:40,990
+Not a whole lot. But again, this is one way to do is get the naive standard errors and then look at the robust emitters.
+
+325
+00:33:43,130 --> 00:33:49,580
+Another approach would be to see if I can get standard errors using the blood strip and see what they look like.
+
+326
+00:33:50,680 --> 00:33:55,690
+And so I'm going to do a thousand bootstraps do just that.
+
+327
+00:33:55,690 --> 00:34:03,650
+It seems to be running sufficiently fast. And then what I'm going to do is for every bootstrap,
+
+328
+00:34:03,770 --> 00:34:10,760
+I'm going to refit the model and get the coefficient estimates the first column of this table here.
+
+329
+00:34:11,060 --> 00:34:18,620
+So this is the observed estimates. Now I'm going to get bootstrap variations of those three numbers across bootstrap samples and I want to save them.
+
+330
+00:34:20,120 --> 00:34:23,390
+So I'm going to have this thing called Beta Boot one for model one.
+
+331
+00:34:24,620 --> 00:34:31,580
+We didn't talk about this in class, but what if I wanted a confidence interval for the correlation coefficient of assumed exchangeable correlation?
+
+332
+00:34:31,940 --> 00:34:37,940
+It's going to fit it for me, but maybe I want to. 95% confidence interval for what I think the correlation is within the person.
+
+333
+00:34:39,770 --> 00:34:43,200
+There's a formula out there. I don't want to figure it out.
+
+334
+00:34:44,460 --> 00:34:51,690
+Right. But I'm bootstrapping, so why don't I just keep the roll coefficient each time and look at its distribution and I'm done.
+
+335
+00:34:52,380 --> 00:34:58,050
+So again, I'm going to record the three regression parameters in a bunch of samples,
+
+336
+00:34:58,050 --> 00:35:01,980
+and I'm going to record the corresponding correlation coefficient that comes from each of those.
+
+337
+00:35:02,970 --> 00:35:09,670
+And so I have a loop here. Where did I start?
+
+338
+00:35:10,230 --> 00:35:13,780
+I guess. When to keep track again.
+
+339
+00:35:13,780 --> 00:35:17,680
+When we bootstrap correlated data like this, we're really bootstrapping the IDs.
+
+340
+00:35:18,640 --> 00:35:24,160
+So the first thing I did was make sure I have a vector of the unique IDs that's
+
+341
+00:35:24,160 --> 00:35:28,750
+truly willing to bootstrap from and then pull the data along with those IDs.
+
+342
+00:35:29,530 --> 00:35:34,810
+So it let's make sure I did that. Okay. So now I have a loop for and one, two end boots.
+
+343
+00:35:35,470 --> 00:35:43,240
+There is a bootstrap library in our I believe I'd like to program my own stuff again.
+
+344
+00:35:43,240 --> 00:35:52,270
+I'm of the old world where we programed everything. So I like to program my own bootstraps and there's just so I really know what I'm doing.
+
+345
+00:35:52,270 --> 00:35:53,950
+But I do believe there is a bootstrap.
+
+346
+00:35:54,400 --> 00:36:01,600
+If you would define the thing you're going to bootstrap our can do it for you more smartly, but anyway, not worth it in this case.
+
+347
+00:36:02,080 --> 00:36:10,000
+So far, for every bootstrap sample that I want, the first thing I'm going to do is get a sample of the unique IDs.
+
+348
+00:36:11,900 --> 00:36:14,990
+With the same length, same number of people have to be in the dataset.
+
+349
+00:36:15,860 --> 00:36:19,010
+But you have to remember the default in iris four is false.
+
+350
+00:36:20,330 --> 00:36:25,250
+If you just get if you leave this as false, you're just going to get back to the same vector of ideas that you started with.
+
+351
+00:36:25,940 --> 00:36:30,410
+And every bootstrap sample is just going to be your original data. That's not useful.
+
+352
+00:36:31,430 --> 00:36:36,440
+So make sure you say replace equals true right sampling with replacement.
+
+353
+00:36:45,350 --> 00:36:49,040
+So here you can see person number one showed up once in my bootstrap sample.
+
+354
+00:36:49,970 --> 00:36:53,990
+Person 21 No intersection 21 showed up four times.
+
+355
+00:36:53,990 --> 00:36:57,080
+There's going to be four rows in my bootstrap sample of that same intersection.
+
+356
+00:36:58,520 --> 00:37:03,030
+23 doesn't show up at all. 23 wasn't even drawn in a split strip.
+
+357
+00:37:03,060 --> 00:37:13,730
+Seven. Another piece of advice is that if you ever do use the boot strap in your research or with an investigator, make sure you set the seed first.
+
+358
+00:37:14,970 --> 00:37:20,190
+So that every bootstrap sample, every time you run your code, you get the same 1000 bootstrap samples.
+
+359
+00:37:21,270 --> 00:37:24,540
+Because if you don't, the numbers are going to be off by just a little bit.
+
+360
+00:37:25,530 --> 00:37:31,240
+And boy, people don't like it when numbers are off by just a little bit. And you can't explain why other than my.
+
+361
+00:37:31,350 --> 00:37:33,120
+It doesn't matter. It doesn't matter to us.
+
+362
+00:37:33,990 --> 00:37:40,760
+I don't care if the standard errors point oh to 3.0 to 4, but a lot of other people I've worked with seem to care, right?
+
+363
+00:37:40,980 --> 00:37:42,930
+Because you don't want to look like you don't know what you're doing,
+
+364
+00:37:43,740 --> 00:37:51,750
+but so make sure you set the seed up here when you start sampling bootstrap ideas or you're going to run into a lot of data on.
+
+365
+00:37:52,880 --> 00:37:58,960
+All right. So now that I have a bootstrap set of ideas, I now want to create a bootstrap set of data.
+
+366
+00:37:58,970 --> 00:38:05,600
+I want all of the data for intersection one. I want two replications of Intersection two and so forth.
+
+367
+00:38:06,110 --> 00:38:15,680
+So again, I'm just going to program this as a for loop. So for every ID in that sample, I'm going to pull off the data that correspond to that ID.
+
+368
+00:38:17,510 --> 00:38:20,900
+And then I'm just going to paste it into this bootstrap data thing that I started.
+
+369
+00:38:24,000 --> 00:38:35,559
+So here it is. It's empty. So booted.
+
+370
+00:38:35,560 --> 00:38:44,740
+It looks like the original data. Why did I type that? And so it looks like the original dataset, except it's different.
+
+371
+00:38:44,740 --> 00:38:49,270
+It's got a different sample and frequency of each of each thing, right?
+
+372
+00:38:49,300 --> 00:38:56,650
+I now have a bootstrap set of data. I'm going to fit the model that I originally set that I'm interested in computing parameters for it.
+
+373
+00:38:57,280 --> 00:39:06,580
+So that is a G, that's a G with the same main effects, exchangeable correlation and so forth.
+
+374
+00:39:06,850 --> 00:39:10,569
+The only difference now is it's being fit on the bootstrap. They're not the original data.
+
+375
+00:39:10,570 --> 00:39:22,000
+That's the only thing I change in my code. And so now I have fit my bootstrap data with g e.
+
+376
+00:39:27,030 --> 00:39:31,430
+Would you call this a good fit one? No, that is not what I want.
+
+377
+00:39:37,790 --> 00:39:44,750
+Okay. So here are the first elements in the bootstrap distribution for the intercept, the patrol coefficient and the weak.
+
+378
+00:39:45,060 --> 00:40:00,490
+Weak. These three numbers. And then there's a correlation coefficient, which is that on networks networking correlation, they want an update element.
+
+379
+00:40:01,150 --> 00:40:05,710
+So the correlation coefficient for that bootstrap sample was 0.307.
+
+380
+00:40:06,130 --> 00:40:09,970
+I'm going to save that and all the rest of us I don't care about.
+
+381
+00:40:11,000 --> 00:40:14,970
+Right. I don't want this. I want to get my own standard senators from the mainstream.
+
+382
+00:40:15,630 --> 00:40:23,010
+And so I save the coefficients, I save my correlation coefficient because I didn't do this a thousand times.
+
+383
+00:40:25,180 --> 00:40:32,350
+So let's do that. So, Dr. Brown.
+
+384
+00:40:32,380 --> 00:40:39,830
+Yes, sir. Like in the bootstrap dataset, do you set, like new unique ideas or what?
+
+385
+00:40:39,830 --> 00:40:44,510
+Those like the software. Huh?
+
+386
+00:40:45,330 --> 00:40:48,840
+Thank you. It certainly skipped over that line of my code.
+
+387
+00:40:49,770 --> 00:40:57,510
+So remember when I drew bootstrap samples from the data I had to draws from intersection to.
+
+388
+00:40:59,090 --> 00:41:06,890
+You can't leave the kid as two and two in the bootstrap sample because G is going to think those are from the same intersection,
+
+389
+00:41:07,520 --> 00:41:10,790
+but you want them to be different. When you analyze the data.
+
+390
+00:41:11,420 --> 00:41:16,650
+So there is a line in my code that does that. Right here.
+
+391
+00:41:18,270 --> 00:41:23,250
+So again, I pulled off intersection one, called it one.
+
+392
+00:41:23,280 --> 00:41:30,360
+The next one was maybe intersection two. I called that to pull that intersection to again, I call the intersection three.
+
+393
+00:41:31,590 --> 00:41:39,600
+Very important. You had to redo the IDs. So that thinks you have the same number of intersections as you had before.
+
+394
+00:41:40,300 --> 00:41:50,230
+Very important. So now that I have 100 bootstrap computation, that 100,000, I go to the distribution.
+
+395
+00:41:50,380 --> 00:42:00,200
+So what does beta look like? It's a thousand by three.
+
+396
+00:42:01,400 --> 00:42:08,960
+There's a thousand rows. So I had a thousand intercepts, a thousand coefficients for week and a thousand coefficients for patrol.
+
+397
+00:42:10,190 --> 00:42:12,950
+And for each of those columns, I'm going to get the standard deviation.
+
+398
+00:42:14,500 --> 00:42:22,810
+So this is going to produce three standard errors one for the intercept, one for the patrol coefficient and one for the weak coefficient.
+
+399
+00:42:26,090 --> 00:42:33,450
+And we're done. I want to do this.
+
+400
+00:42:33,450 --> 00:42:40,439
+I want to see AC one boots. So there are the standard errors for my regression coefficients based upon the bootstrap.
+
+401
+00:42:40,440 --> 00:42:52,250
+A thousand bootstrap samples. Let's go back to what the model based standard errors were shipped.
+
+402
+00:42:56,630 --> 00:43:02,150
+Okay. So they don't quite line up on the intercept, maybe closer with the patrol coefficient.
+
+403
+00:43:02,750 --> 00:43:09,380
+And a little bit different on the weak. So again, those standard errors are based upon a model assumption.
+
+404
+00:43:11,680 --> 00:43:15,570
+The Senators are the bootstrap or not, they're just least squares, right?
+
+405
+00:43:15,580 --> 00:43:19,809
+We just fit the old squares regression equation to get the parameter estimates.
+
+406
+00:43:19,810 --> 00:43:24,040
+And I read of that many, many times. Now, as I said, whenever you ask the question,
+
+407
+00:43:25,000 --> 00:43:31,780
+I would hope that the sandwich variance process and the butcher process are both ways to deal with the
+
+408
+00:43:31,780 --> 00:43:38,559
+extra variability in the data not accounted for in the model so that they have a better memory than I do.
+
+409
+00:43:38,560 --> 00:43:45,040
+But I showed this to these two units a second ago, but here they are.
+
+410
+00:43:48,820 --> 00:43:56,920
+So especially the weak the weak standard here, the bootstrap and the sandwich variants estimate are agreeing that they're different from the model.
+
+411
+00:43:57,010 --> 00:44:00,130
+Right. So. Yeah.
+
+412
+00:44:00,210 --> 00:44:06,960
+This doesn't mean every time you have an analysis, you should do a bootstrap just to get another standard error to choose from.
+
+413
+00:44:07,920 --> 00:44:12,030
+But this is a nice technique to use when nothing else is at your disposal.
+
+414
+00:44:12,540 --> 00:44:17,640
+When you don't have a formula, when you don't have there are some topics you don't have anything to approximate with.
+
+415
+00:44:19,230 --> 00:44:24,750
+As I said, I saved all the correlation coefficient estimates from GE across the thousand bootstrap samples.
+
+416
+00:44:26,010 --> 00:44:29,190
+And as I said in my notes, there's two ways to get a confidence interval.
+
+417
+00:44:29,190 --> 00:44:31,470
+Now, instead of a standard error, let's get a confidence interval.
+
+418
+00:44:32,880 --> 00:44:40,670
+When you get a confidence interval for the correlation coefficient first by using a normal approximation which says Take my estimate.
+
+419
+00:44:40,680 --> 00:44:44,280
+So this is the estimate of correlation from the original data.
+
+420
+00:44:45,430 --> 00:44:54,240
+Plus or minus. Essentially 21.96 times the standard deviation of the sample of the bootstrap distribution.
+
+421
+00:45:03,440 --> 00:45:06,590
+And what was the original? It's in the middle of this. The middle of that.
+
+422
+00:45:09,580 --> 00:45:15,959
+Contrarily. So the estimated correlation from the data was 0.36 and 95%.
+
+423
+00:45:15,960 --> 00:45:19,470
+Confidence intervals says it's as low as point to one as high as 4.5.
+
+424
+00:45:19,470 --> 00:45:27,510
+One useful way to get a confidence interval again for a parameter then I don't know what the formula is unless I want to use Fisher,
+
+425
+00:45:27,510 --> 00:45:32,910
+Z, transform or something else. That's one way to do it if you don't want to use the normal approximation.
+
+426
+00:45:33,660 --> 00:45:38,910
+The second way is to take all of the 1000 correlation estimates from the bootstrap
+
+427
+00:45:38,910 --> 00:45:43,350
+samples and find the two and a half percentile and the 97 half percentile.
+
+428
+00:45:44,010 --> 00:45:54,590
+And that's going to give you a 95% confidence interval. So it shifted a little bit to the left.
+
+429
+00:45:55,760 --> 00:46:02,239
+It's not necessarily symmetric around the estimated correlation because it's a little more non parametric, a little more non parametric.
+
+430
+00:46:02,240 --> 00:46:06,350
+It is non parametric. So 0.192.49.
+
+431
+00:46:07,730 --> 00:46:17,900
+Both of these should have 95% coverage. They're not necessarily the right confidence interval, but there are different confidence intervals.
+
+432
+00:46:17,900 --> 00:46:22,280
+They should have equal coverage probabilities in large samples.
+
+433
+00:46:23,390 --> 00:46:27,080
+And as one final example for you all before you go us.
+
+434
+00:46:28,230 --> 00:46:36,540
+Wiser than when you started. Let's talk about something that, again, we don't necessarily want to compute a formula for.
+
+435
+00:46:36,960 --> 00:46:40,740
+We just want to use the bootstrap because we already have all the bootstrap samples that are disposal.
+
+436
+00:46:41,280 --> 00:46:49,780
+Suppose I asked you. You look better.
+
+437
+00:46:51,380 --> 00:47:00,080
+Suppose you want to get a bootstrap confidence interval for the probability of no accidents for an intersection at week one that is patrolled?
+
+438
+00:47:02,340 --> 00:47:06,520
+So I don't necessarily want the parameters. I want some function of the parameters.
+
+439
+00:47:07,420 --> 00:47:13,750
+And specifically, I want to talk about an intersection that has it's been patrols and we're talking about the very first week.
+
+440
+00:47:14,500 --> 00:47:17,560
+And remember, for a place on distribution with parameter lambda.
+
+441
+00:47:17,920 --> 00:47:23,560
+What's the probability that Y equals zero. That's E to the negative lambda to the negative mean parameter.
+
+442
+00:47:24,640 --> 00:47:31,200
+Just comes from the density of the rest of the stuff becomes one. So I'm asking for a 95% confidence interval.
+
+443
+00:47:32,430 --> 00:47:38,100
+For what? E to the negative lambda is. And so we can do that very quickly with the bootstrap.
+
+444
+00:47:40,120 --> 00:47:43,720
+And again, for our model, remember, it was a porcine model.
+
+445
+00:47:43,730 --> 00:47:49,870
+It was intercept data one times, week one beta two times patrol the patrol as one.
+
+446
+00:47:50,380 --> 00:47:54,460
+So it's bad enough plus beta one plus beta two, that's log lambda.
+
+447
+00:47:54,700 --> 00:47:58,630
+The log of the mean is coefficients times covariance.
+
+448
+00:47:59,320 --> 00:48:03,190
+So log lambda is the sum of the three regression parameters.
+
+449
+00:48:05,000 --> 00:48:08,570
+And so let's compute our observed estimate of the probability that Y equals zero.
+
+450
+00:48:09,110 --> 00:48:12,470
+So again, the log lambda is the sum of the coefficients.
+
+451
+00:48:15,760 --> 00:48:20,770
+And so Lambda here is the X-Man exponential version of the log,
+
+452
+00:48:21,580 --> 00:48:30,250
+and the probability of that intersection having no accidents is the exponent of the negative lambda yet.
+
+453
+00:48:30,250 --> 00:48:35,260
+So there's two exponent steps that go here. And so from the fitted model,
+
+454
+00:48:41,680 --> 00:48:47,440
+these sorts of intersect one patrol x intersections have a probability of of a
+
+455
+00:48:47,440 --> 00:48:55,270
+.08 of having no accidents that reflect one a 95% confidence interval for that.
+
+456
+00:48:56,820 --> 00:49:01,800
+That can be done very quickly with the bootstrap because all I needed were the three coefficient estimates to do all this.
+
+457
+00:49:02,670 --> 00:49:09,900
+Right. I just took the three coefficients, added them up exponentially to that and then exponent negative that again.
+
+458
+00:49:10,900 --> 00:49:18,010
+So I have bootstrap samples of the three parameters, and that's going to give me bootstrap bootstrap distribution for the thing I'm interested in.
+
+459
+00:49:18,850 --> 00:49:23,980
+So again, Lambda Boot. Is again right here.
+
+460
+00:49:25,930 --> 00:49:32,889
+This is going across every bootstrap sample and adding up the three parameters the intercept beta one embedded two across each row.
+
+461
+00:49:32,890 --> 00:49:40,990
+Add those up there, gives me a log lambda for each bootstrap sample and then I want lambda so exponentially so.
+
+462
+00:49:41,190 --> 00:49:44,380
+So we now have a bootstrap distribution for my lambda parameter.
+
+463
+00:49:46,220 --> 00:49:49,970
+And therefore I have a bootstrap distribution for the probability that Y equals zero
+
+464
+00:49:50,270 --> 00:49:53,540
+because I simply have to exponentially rate the negative of all of those numbers.
+
+465
+00:49:56,420 --> 00:50:05,690
+And then I compute a confidence interval either through the quintiles, or I can use a normal approximation plus or minus two standard errors.
+
+466
+00:50:14,300 --> 00:50:24,800
+So there's one bootstrap based confidence interval for the probability of no intersections, somewhere between five and 14 probabilities 452.14.
+
+467
+00:50:25,310 --> 00:50:30,410
+Based on that confidence interval and based upon the normal approximation,
+
+468
+00:50:31,100 --> 00:50:36,110
+that's around Plato for a 2.13 shift at just one percentage point to the left.
+
+469
+00:50:36,900 --> 00:50:41,140
+Right. Again, I didn't have to know about right.
+
+470
+00:50:41,150 --> 00:50:46,010
+We talked about earlier in the class, if I have parameters and I want some linear combination of the parameters,
+
+471
+00:50:46,010 --> 00:50:48,650
+what's the variance of a linear combination of parameters?
+
+472
+00:50:49,220 --> 00:50:53,690
+Oh, I need their variance covariance matrix and it's a quadratic form and all of that fun stuff.
+
+473
+00:50:53,960 --> 00:50:59,330
+Right. I didn't have to do any of that the bootstrap data to give it to me automatically.
+
+474
+00:50:59,330 --> 00:51:02,330
+But what would the formula give us?
+
+475
+00:51:04,000 --> 00:51:18,070
+Right. So again. Let's go to the notepad here because there we go.
+
+476
+00:51:21,170 --> 00:51:24,170
+Here we go. So again, I wrote down the model here, the log of lambda.
+
+477
+00:51:24,180 --> 00:51:28,400
+I is the sum of these three things.
+
+478
+00:51:28,730 --> 00:51:35,840
+Time and being patrolled. So what's the probability that there are no I will explain equals one, not one probability zero.
+
+479
+00:51:38,550 --> 00:51:41,840
+For Week one given patrol. And again, why was sun.
+
+480
+00:51:43,710 --> 00:51:52,480
+And so what I want is. What is the variance of better or not, that was better.
+
+481
+00:51:52,480 --> 00:52:00,710
+One hat plus better two yet. That's going to give me the variance of the log of lambda that.
+
+482
+00:52:04,110 --> 00:52:08,210
+Right. So that's the variance of beta not yet squared plus.
+
+483
+00:52:08,270 --> 00:52:08,600
+Sorry,
+
+484
+00:52:08,610 --> 00:52:15,440
+the variance of the first one plus the variance of the second plus the variance of the third and all the correct two times on the covariance is.
+
+485
+00:52:18,950 --> 00:52:22,759
+That is equal to essentially taking the variance covariance matrix of these
+
+486
+00:52:22,760 --> 00:52:26,180
+three parameters and adding up all the terms of and variance governance matrix,
+
+487
+00:52:26,930 --> 00:52:30,650
+the variances along the diagonal and there's two of each of the variances.
+
+488
+00:52:31,670 --> 00:52:38,740
+And that's again just taking a linear combination of, of everything but uh, such from the count.
+
+489
+00:52:40,880 --> 00:52:45,800
+So I said that the variance of the log of lambda is the sum of all the elements,
+
+490
+00:52:45,800 --> 00:52:51,440
+and I'm going to use the robust variance estimate, or we could use the naive adjustment in which one you were going to rely upon.
+
+491
+00:52:52,820 --> 00:52:57,530
+So that's one of the formulas, a formula based variance for the log of lambda.
+
+492
+00:52:59,810 --> 00:53:00,920
+And then I would say, well,
+
+493
+00:53:00,920 --> 00:53:08,780
+a confidence interval for that is my estimate of log lambda plus or minus two standard deviations square root of the variance.
+
+494
+00:53:10,370 --> 00:53:14,060
+So now I have a 95% confidence interval on the log lambda scale.
+
+495
+00:53:14,540 --> 00:53:19,250
+I exponentially add those two bounds to get a confidence interval on the lambda scale.
+
+496
+00:53:21,350 --> 00:53:25,850
+And then I have to take the negative of those and exponentially hit them again to get a probability.
+
+497
+00:53:26,240 --> 00:53:30,860
+And because I'm taking the negatives, I've got to reverse the order of the two confidence interval bounce.
+
+498
+00:53:37,270 --> 00:53:44,700
+Very close to the formal vest. All right. So. And just the point is, is that we could spend time developing a formula.
+
+499
+00:53:44,700 --> 00:53:51,600
+And there's another asymptotic approximation that I've shown here to compute the concept of the confidence interval,
+
+500
+00:53:52,590 --> 00:53:57,390
+and it also produces confidence intervals that have a bound around point of five, around point one, 3.14.
+
+501
+00:53:58,350 --> 00:54:02,710
+So again. In this case, they're the same.
+
+502
+00:54:03,640 --> 00:54:07,620
+In other cases, they may be different. And again, we have the benefit of having a formula here.
+
+503
+00:54:08,590 --> 00:54:18,010
+Sometimes the formula is too complicated. Like I said, this didn't take a lot of thought when I was doing this last night, the bootstrap again.
+
+504
+00:54:18,010 --> 00:54:22,810
+Once I had the bootstrap down, it took me like a minute or two to program the bootstrap confidence interval.
+
+505
+00:54:24,010 --> 00:54:30,700
+To get the formula based, I had to take out a piece of paper. I had to write down everything and say, Yeah, this is I remember this this theory.
+
+506
+00:54:32,020 --> 00:54:36,790
+And of course, I programed it wrong. And they didn't match. And then I spent another hour trying to figure out why things were wrong.
+
+507
+00:54:36,790 --> 00:54:39,880
+Right? All the fun we usually go through with the equations.
+
+508
+00:54:41,050 --> 00:54:45,190
+So in this case, the bootstrap was a really quick way to get a kind of confidence interval.
+
+509
+00:54:45,400 --> 00:54:49,480
+So that's it. It's 4:00.
+
+510
+00:54:51,070 --> 00:54:55,750
+So good luck on the test. I'm available by email.
+
+511
+00:54:56,080 --> 00:55:00,430
+I will be around. I'm not disappearing yet. It seems very early in the semester to be saying goodbye to everybody.
+
+512
+00:55:02,230 --> 00:55:07,240
+But like I said, good luck on that. The exam is open until Tuesday.
+
+513
+00:55:08,110 --> 00:55:12,580
+You know, I should have grades done by the end of next week, as soon as possible.
+
+514
+00:55:14,080 --> 00:55:22,690
+I'm happy to discuss unhappiness with your heads to a point if you truly feel you've been mistreated.
+
+515
+00:55:22,700 --> 00:55:27,960
+I am always open to that and we can discuss my decisions.
+
+516
+00:55:27,970 --> 00:55:28,930
+I try to be fair.
+
+517
+00:55:30,210 --> 00:55:36,550
+Like I said, we will be talking between Junko and myself to make sure that these two classes don't have wildly disparate grade distributions.
+
+518
+00:55:37,180 --> 00:55:41,950
+So that doesn't come into play. Good luck in 699.
+
+519
+00:55:42,940 --> 00:55:46,210
+I hope you like it as much as I do as a teacher.
+
+520
+00:55:46,930 --> 00:55:54,160
+It's a very different experience as a student, but I think it's although it's an intense class, I really do hope you enjoy it.
+
+521
+00:55:55,150 --> 00:55:59,890
+It gives you an opportunity to see if what you've learned in class actually soaked in.
+
+522
+00:56:00,610 --> 00:56:02,980
+If you know what to do, they'll show you some new stuff.
+
+523
+00:56:05,530 --> 00:56:12,159
+And then I will see you at the end of this next semester when you show me all your posters and impress me with all that you learned.
+
+524
+00:56:12,160 --> 00:56:16,370
+So I have good luck with everything. Have a good break for you.
+
+525
+00:56:16,480 --> 00:56:21,880
+Learn something from me and I will see you around the house. You're welcome.
+
+526
+00:56:24,550 --> 00:56:28,360
+If you wish. You make me feel.
+

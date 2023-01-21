@@ -1,0 +1,568 @@
+1
+00:00:09,200 --> 00:00:11,910
+Hey. This is Matt Zawistowski.
+
+2
+00:00:11,910 --> 00:00:13,350
+Here to talk about testing for
+
+3
+00:00:13,350 --> 00:00:16,740
+group effects using linear
+mixed effect models.
+
+4
+00:00:16,740 --> 00:00:20,325
+Let's recall our goals for
+longitudinal data analysis.
+
+5
+00:00:20,325 --> 00:00:22,050
+First, we wanted to determine if
+
+6
+00:00:22,050 --> 00:00:24,510
+our outcome of interest
+changes over time.
+
+7
+00:00:24,510 --> 00:00:27,360
+We've showed how mixed models
+can accomplish this goal by
+
+8
+00:00:27,360 --> 00:00:30,430
+accounting for within subject
+correlation of the outcome.
+
+9
+00:00:30,430 --> 00:00:32,360
+The second goal was to identify
+
+10
+00:00:32,360 --> 00:00:34,280
+factors that affect the outcome.
+
+11
+00:00:34,280 --> 00:00:35,930
+Up to now, we've only included
+
+12
+00:00:35,930 --> 00:00:37,640
+one explanatory variable in
+
+13
+00:00:37,640 --> 00:00:40,690
+our mixed model to explain
+the outcome, time.
+
+14
+00:00:40,690 --> 00:00:43,460
+But a longitudinal
+analysis will usually
+
+15
+00:00:43,460 --> 00:00:46,025
+also collect data on
+additional variables,
+
+16
+00:00:46,025 --> 00:00:47,990
+and we want to determine
+if differences in
+
+17
+00:00:47,990 --> 00:00:49,700
+these variables are associated
+
+18
+00:00:49,700 --> 00:00:51,340
+with differences in the outcome.
+
+19
+00:00:51,340 --> 00:00:53,910
+A common example is
+group membership.
+
+20
+00:00:53,910 --> 00:00:56,750
+For example, the yellow
+lines in the plot could be
+
+21
+00:00:56,750 --> 00:00:59,075
+patients that received a
+novel medical treatment
+
+22
+00:00:59,075 --> 00:01:00,365
+in a clinical trial,
+
+23
+00:01:00,365 --> 00:01:02,030
+and the purple lines are patients
+
+24
+00:01:02,030 --> 00:01:03,455
+that received the placebo.
+
+25
+00:01:03,455 --> 00:01:04,790
+This would correspond to
+
+26
+00:01:04,790 --> 00:01:06,995
+a group variable
+based on treatment.
+
+27
+00:01:06,995 --> 00:01:09,380
+In this lecture, we will
+see how to formally
+
+28
+00:01:09,380 --> 00:01:12,515
+test group effects in the
+mixed model framework.
+
+29
+00:01:12,515 --> 00:01:14,450
+Let's think about how we approach
+
+30
+00:01:14,450 --> 00:01:17,150
+this problem in previous
+regression modeling.
+
+31
+00:01:17,150 --> 00:01:20,300
+Given two groups, we
+would add to the model a
+
+32
+00:01:20,300 --> 00:01:22,400
+binary variable
+that distinguishes
+
+33
+00:01:22,400 --> 00:01:24,475
+subjects in the groups.
+
+34
+00:01:24,475 --> 00:01:27,615
+For example, in standard
+linear regression,
+
+35
+00:01:27,615 --> 00:01:30,500
+the beta two term shown
+here differentiates
+
+36
+00:01:30,500 --> 00:01:32,150
+the regression lines
+for subjects and
+
+37
+00:01:32,150 --> 00:01:34,765
+group one for subjects
+in group two.
+
+38
+00:01:34,765 --> 00:01:38,060
+Beta zero is the intercept
+for the group one line.
+
+39
+00:01:38,060 --> 00:01:41,195
+Beta one is the shared
+slope between the groups,
+
+40
+00:01:41,195 --> 00:01:44,000
+and beta two is the group
+effects or difference in
+
+41
+00:01:44,000 --> 00:01:45,410
+intercepts between the group
+
+42
+00:01:45,410 --> 00:01:48,065
+two and group one
+regression lines.
+
+43
+00:01:48,065 --> 00:01:50,645
+This standard linear
+regression model,
+
+44
+00:01:50,645 --> 00:01:53,390
+of course, ignores the
+with-in subject correlation.
+
+45
+00:01:53,390 --> 00:01:55,100
+We want to account for that,
+
+46
+00:01:55,100 --> 00:01:56,720
+but the general concept of
+
+47
+00:01:56,720 --> 00:01:58,520
+a group effect parameter easily
+
+48
+00:01:58,520 --> 00:02:01,175
+translates over to the
+mixed model framework.
+
+49
+00:02:01,175 --> 00:02:04,055
+Starting with a standard
+linear regression model
+
+50
+00:02:04,055 --> 00:02:06,665
+containing time
+and group effects,
+
+51
+00:02:06,665 --> 00:02:08,750
+we can add random intercept and
+
+52
+00:02:08,750 --> 00:02:10,160
+random slope terms to
+
+53
+00:02:10,160 --> 00:02:12,865
+model subject-specific
+regression lines.
+
+54
+00:02:12,865 --> 00:02:15,560
+The model now has
+three population
+
+55
+00:02:15,560 --> 00:02:17,870
+level fixed effect parameters,
+
+56
+00:02:17,870 --> 00:02:20,615
+which define two population
+regression lines,
+
+57
+00:02:20,615 --> 00:02:22,295
+one for each group.
+
+58
+00:02:22,295 --> 00:02:26,030
+The random intercept and random
+slope terms model between
+
+59
+00:02:26,030 --> 00:02:29,420
+subjects variation in intercept
+and slope respectively.
+
+60
+00:02:29,420 --> 00:02:32,540
+Like before, inclusion of
+just the random intercepts in
+
+61
+00:02:32,540 --> 00:02:33,875
+the model may be sufficient
+
+62
+00:02:33,875 --> 00:02:36,095
+depending on the
+pattern of the data.
+
+63
+00:02:36,095 --> 00:02:39,560
+The population regression
+line for the first group is
+
+64
+00:02:39,560 --> 00:02:43,710
+defined by the fixed effect
+terms beta zero and beta one.
+
+65
+00:02:43,710 --> 00:02:46,700
+Subject-specific lines for group
+
+66
+00:02:46,700 --> 00:02:48,950
+one subjects are
+distributed about
+
+67
+00:02:48,950 --> 00:02:50,855
+the group one population line
+
+68
+00:02:50,855 --> 00:02:54,460
+based on the subject-specific
+random effect terms.
+
+69
+00:02:54,460 --> 00:02:58,460
+The group two population line
+is defined by beta zero,
+
+70
+00:02:58,460 --> 00:03:01,775
+beta one, and the group
+effect term, beta two.
+
+71
+00:03:01,775 --> 00:03:04,010
+Subject-specific lines for group
+
+72
+00:03:04,010 --> 00:03:05,660
+two subjects are randomly
+
+73
+00:03:05,660 --> 00:03:07,550
+distributed about this group
+
+74
+00:03:07,550 --> 00:03:09,865
+two population regression line.
+
+75
+00:03:09,865 --> 00:03:12,625
+The group effect term, beta two,
+
+76
+00:03:12,625 --> 00:03:15,170
+is the difference in intercept
+between the two groups.
+
+77
+00:03:15,170 --> 00:03:17,990
+A value of zero
+indicates no difference,
+
+78
+00:03:17,990 --> 00:03:19,280
+meaning the groups have the same
+
+79
+00:03:19,280 --> 00:03:21,410
+predicted outcome over time.
+
+80
+00:03:21,410 --> 00:03:23,615
+A positive value for beta two
+
+81
+00:03:23,615 --> 00:03:26,270
+indicates larger mean
+outcomes for group two,
+
+82
+00:03:26,270 --> 00:03:28,010
+and a negative value indicates
+
+83
+00:03:28,010 --> 00:03:30,320
+smaller mean outcomes
+for group two.
+
+84
+00:03:30,320 --> 00:03:32,480
+These interpretations
+are the same as
+
+85
+00:03:32,480 --> 00:03:35,335
+group effects in standard
+linear regression.
+
+86
+00:03:35,335 --> 00:03:37,790
+Once a model is fit to the data,
+
+87
+00:03:37,790 --> 00:03:40,610
+we will want to consider
+evidence for a group effect by
+
+88
+00:03:40,610 --> 00:03:42,215
+performing a hypothesis test
+
+89
+00:03:42,215 --> 00:03:44,665
+of the beta two
+regression parameter.
+
+90
+00:03:44,665 --> 00:03:46,400
+Just like when we looked at
+
+91
+00:03:46,400 --> 00:03:48,710
+the time effect parameter
+for mixed models,
+
+92
+00:03:48,710 --> 00:03:50,945
+we can examine the
+Wald test statistic
+
+93
+00:03:50,945 --> 00:03:52,250
+to understand how inference
+
+94
+00:03:52,250 --> 00:03:54,140
+might change for the
+group effect term
+
+95
+00:03:54,140 --> 00:03:56,650
+as compared to the standard
+linear regression.
+
+96
+00:03:56,650 --> 00:03:58,910
+Again, the effect
+size will be nearly
+
+97
+00:03:58,910 --> 00:04:01,580
+identical to that of
+standard regression,
+
+98
+00:04:01,580 --> 00:04:05,569
+but the standard error can
+change sometimes dramatically,
+
+99
+00:04:05,569 --> 00:04:07,130
+leading to changes in inference
+
+100
+00:04:07,130 --> 00:04:08,485
+regarding the group effect.
+
+101
+00:04:08,485 --> 00:04:10,430
+As a reminder, the
+Wald statistic is
+
+102
+00:04:10,430 --> 00:04:12,695
+a useful tool for this
+crude comparison,
+
+103
+00:04:12,695 --> 00:04:14,015
+but because it's sampling
+
+104
+00:04:14,015 --> 00:04:16,325
+distribution is not
+well-known for mixed models,
+
+105
+00:04:16,325 --> 00:04:19,765
+it is not recommended for
+the computation of p-values.
+
+106
+00:04:19,765 --> 00:04:22,580
+In this lecture, we
+introduced the concept of
+
+107
+00:04:22,580 --> 00:04:24,965
+group effects to
+mixed effect models.
+
+108
+00:04:24,965 --> 00:04:27,380
+It shouldn't come as too
+much of a surprise though,
+
+109
+00:04:27,380 --> 00:04:29,300
+because it's identical
+to how we handled
+
+110
+00:04:29,300 --> 00:04:32,350
+group effects in previous
+regression settings.
+
+111
+00:04:32,350 --> 00:04:34,490
+Importantly, we can now model
+
+112
+00:04:34,490 --> 00:04:36,270
+differences in outcomes
+between groups,
+
+113
+00:04:36,270 --> 00:04:39,305
+a major goal for
+longitudinal data analysis.
+
+114
+00:04:39,305 --> 00:04:42,020
+A fixed effect term
+distinguishing groups in
+
+115
+00:04:42,020 --> 00:04:43,160
+the data was easily
+
+116
+00:04:43,160 --> 00:04:45,485
+incorporated in the
+mixed model framework.
+
+117
+00:04:45,485 --> 00:04:47,419
+Like standard linear regression,
+
+118
+00:04:47,419 --> 00:04:49,190
+the concept is easily extended to
+
+119
+00:04:49,190 --> 00:04:51,920
+scenarios in which there
+are more than two groups.
+
+120
+00:04:51,920 --> 00:04:54,125
+The group effect mixed model
+
+121
+00:04:54,125 --> 00:04:56,000
+retain the random
+effect terms that
+
+122
+00:04:56,000 --> 00:04:58,040
+properly model the
+correlation among
+
+123
+00:04:58,040 --> 00:05:01,355
+repeated measurements
+in longitudinal data.
+

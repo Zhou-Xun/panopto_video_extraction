@@ -1,0 +1,861 @@
+1
+00:00:09,320 --> 00:00:12,075
+Hey, this is Matt Zawistowski.
+
+2
+00:00:12,075 --> 00:00:13,720
+In this lecture, we'll again
+
+3
+00:00:13,720 --> 00:00:15,820
+discuss inference
+for mixed models,
+
+4
+00:00:15,820 --> 00:00:17,810
+this time from a
+different perspective.
+
+5
+00:00:17,810 --> 00:00:20,385
+We'll be using a
+multi-model approach
+
+6
+00:00:20,385 --> 00:00:22,320
+based on the AIC metric.
+
+7
+00:00:22,320 --> 00:00:24,130
+It's philosophically
+different than
+
+8
+00:00:24,130 --> 00:00:26,620
+the classical hypothesis
+testing framework.
+
+9
+00:00:26,620 --> 00:00:29,020
+But depending on the
+goals of your analysis,
+
+10
+00:00:29,020 --> 00:00:31,790
+it could offer some
+distinct advantages.
+
+11
+00:00:31,790 --> 00:00:34,240
+Inferential analysis deals with
+
+12
+00:00:34,240 --> 00:00:36,265
+making decisions based on data.
+
+13
+00:00:36,265 --> 00:00:38,290
+We often approach inference using
+
+14
+00:00:38,290 --> 00:00:40,930
+the classical hypothesis
+testing framework,
+
+15
+00:00:40,930 --> 00:00:44,065
+in which we lay out null
+and alternative hypotheses,
+
+16
+00:00:44,065 --> 00:00:45,500
+and compute a p-value to
+
+17
+00:00:45,500 --> 00:00:47,875
+quantify evidence
+against the null.
+
+18
+00:00:47,875 --> 00:00:50,930
+We presented the
+likelihood ratio test as
+
+19
+00:00:50,930 --> 00:00:52,220
+a hypothesis test that is
+
+20
+00:00:52,220 --> 00:00:54,590
+well-calibrated for mixed models.
+
+21
+00:00:54,590 --> 00:00:57,965
+A drawback of the likelihood
+ratio test framework
+
+22
+00:00:57,965 --> 00:01:00,635
+is that it relies on
+comparison of nested models.
+
+23
+00:01:00,635 --> 00:01:03,590
+Meaning we can only compare
+two models at a time,
+
+24
+00:01:03,590 --> 00:01:06,460
+and one must be a proper
+subset of the other.
+
+25
+00:01:06,460 --> 00:01:08,150
+Our research question might
+
+26
+00:01:08,150 --> 00:01:10,039
+not mesh well with this approach,
+
+27
+00:01:10,039 --> 00:01:12,455
+so we present an
+alternative strategy
+
+28
+00:01:12,455 --> 00:01:14,884
+in multi-model inference.
+
+29
+00:01:14,884 --> 00:01:17,060
+As the name suggests,
+
+30
+00:01:17,060 --> 00:01:20,195
+multi-model inference
+simultaneously compare
+
+31
+00:01:20,195 --> 00:01:23,060
+several competing models
+to describe the data,
+
+32
+00:01:23,060 --> 00:01:25,390
+and does not require
+that they be nested.
+
+33
+00:01:25,390 --> 00:01:27,260
+An investigator will propose
+
+34
+00:01:27,260 --> 00:01:30,590
+multiple scientific hypotheses
+prior to data analysis.
+
+35
+00:01:30,590 --> 00:01:32,780
+Then translate the hypotheses
+
+36
+00:01:32,780 --> 00:01:35,150
+into a set of candidate
+regression models,
+
+37
+00:01:35,150 --> 00:01:36,650
+with fixed effect terms that
+
+38
+00:01:36,650 --> 00:01:39,320
+correspond to the
+scientific hypotheses.
+
+39
+00:01:39,320 --> 00:01:41,630
+Each model is fit to the data,
+
+40
+00:01:41,630 --> 00:01:43,520
+and a best approximating model is
+
+41
+00:01:43,520 --> 00:01:47,155
+determined by
+simultaneous comparison.
+
+42
+00:01:47,155 --> 00:01:49,620
+Let's consider an example of
+
+43
+00:01:49,620 --> 00:01:52,655
+the multi-model framework
+for reading test scores
+
+44
+00:01:52,655 --> 00:01:55,009
+collected in a
+longitudinal fashion
+
+45
+00:01:55,009 --> 00:01:58,195
+on students between the
+fifth and eighth grades.
+
+46
+00:01:58,195 --> 00:02:01,310
+We expect that the scores
+will increase over time.
+
+47
+00:02:01,310 --> 00:02:03,170
+But we might want to
+determine whether
+
+48
+00:02:03,170 --> 00:02:05,315
+factors such as SES risk,
+
+49
+00:02:05,315 --> 00:02:07,360
+or race affect the scores.
+
+50
+00:02:07,360 --> 00:02:11,390
+An investigator might lay out
+three candidate hypothesis;
+
+51
+00:02:11,390 --> 00:02:14,900
+that reading scores differ by
+risk in a constant fashion,
+
+52
+00:02:14,900 --> 00:02:16,880
+that reading scores
+differ by risk
+
+53
+00:02:16,880 --> 00:02:18,865
+with a difference
+changing over time,
+
+54
+00:02:18,865 --> 00:02:20,930
+and finally that a
+difference exists
+
+55
+00:02:20,930 --> 00:02:23,075
+between scores by risk group,
+
+56
+00:02:23,075 --> 00:02:25,595
+after controlling for
+student ethnicity.
+
+57
+00:02:25,595 --> 00:02:27,740
+These candidate hypotheses are
+
+58
+00:02:27,740 --> 00:02:29,180
+then translated to candidate
+
+59
+00:02:29,180 --> 00:02:30,650
+mixed models containing
+
+60
+00:02:30,650 --> 00:02:33,790
+the appropriate fixed
+effect parameters.
+
+61
+00:02:33,790 --> 00:02:36,395
+Given a set of candidate models,
+
+62
+00:02:36,395 --> 00:02:39,355
+how can we decide which
+one is the best model?
+
+63
+00:02:39,355 --> 00:02:41,970
+That's not an easy
+question to answer,
+
+64
+00:02:41,970 --> 00:02:44,839
+because the best model
+is a subjective concept.
+
+65
+00:02:44,839 --> 00:02:47,240
+Inherently, we view
+the best model as
+
+66
+00:02:47,240 --> 00:02:49,900
+some combination of providing
+a good fit to the data,
+
+67
+00:02:49,900 --> 00:02:52,430
+in doing so in the least
+complicated fashion.
+
+68
+00:02:52,430 --> 00:02:55,205
+There's no single
+definitive way to do this.
+
+69
+00:02:55,205 --> 00:02:58,070
+Instead, we can design a
+heuristic to arrive at
+
+70
+00:02:58,070 --> 00:03:00,350
+a parsimonious
+model that balances
+
+71
+00:03:00,350 --> 00:03:03,940
+model fit and complexity,
+and avoids overfitting.
+
+72
+00:03:03,940 --> 00:03:07,440
+We will describe a
+multi-model approach based
+
+73
+00:03:07,440 --> 00:03:11,015
+on the Akaike Information
+Criteria or AIC,
+
+74
+00:03:11,015 --> 00:03:12,320
+a concept based on
+
+75
+00:03:12,320 --> 00:03:15,760
+prediction accuracy in
+large-scale information theory.
+
+76
+00:03:15,760 --> 00:03:17,915
+You have likely
+already encountered
+
+77
+00:03:17,915 --> 00:03:19,460
+AIC and as a goodness of
+
+78
+00:03:19,460 --> 00:03:21,560
+fit measure for
+regression models.
+
+79
+00:03:21,560 --> 00:03:25,610
+AIC is a metric that assesses
+model fit and complexity,
+
+80
+00:03:25,610 --> 00:03:27,530
+by considering both
+the deviance and
+
+81
+00:03:27,530 --> 00:03:30,220
+the number of parameters
+in a regression model.
+
+82
+00:03:30,220 --> 00:03:33,710
+Since deviance decreases
+with improved model fit,
+
+83
+00:03:33,710 --> 00:03:36,125
+a smaller AIC value is better.
+
+84
+00:03:36,125 --> 00:03:38,000
+However deviance will always
+
+85
+00:03:38,000 --> 00:03:40,640
+decrease when parameters
+are added to a model,
+
+86
+00:03:40,640 --> 00:03:42,740
+so AIC penalizes models
+
+87
+00:03:42,740 --> 00:03:45,445
+based on the number of
+parameters they contain.
+
+88
+00:03:45,445 --> 00:03:50,000
+AIC essentially says, "Any
+parameter added to a model,
+
+89
+00:03:50,000 --> 00:03:52,220
+had better provide enough
+of an improvement in
+
+90
+00:03:52,220 --> 00:03:55,630
+the fit to justify the
+more complex model."
+
+91
+00:03:55,630 --> 00:03:58,860
+AIC is based on
+large sample theory,
+
+92
+00:03:58,860 --> 00:04:00,770
+so a corrected version designed
+
+93
+00:04:00,770 --> 00:04:03,020
+for smaller samples also exists,
+
+94
+00:04:03,020 --> 00:04:06,230
+called AIC sub c. Regardless,
+
+95
+00:04:06,230 --> 00:04:07,640
+both versions of AIC are
+
+96
+00:04:07,640 --> 00:04:10,360
+computed using statistical
+software such as R,
+
+97
+00:04:10,360 --> 00:04:13,825
+so you'd never need to compute
+these quantities by hand.
+
+98
+00:04:13,825 --> 00:04:16,795
+Let's return to our
+motivating example.
+
+99
+00:04:16,795 --> 00:04:19,390
+We've already translated
+the research questions
+
+100
+00:04:19,390 --> 00:04:21,695
+to corresponding mixed models,
+
+101
+00:04:21,695 --> 00:04:23,800
+and from those
+fitted models we can
+
+102
+00:04:23,800 --> 00:04:26,290
+extract the AIC values.
+
+103
+00:04:26,290 --> 00:04:28,660
+Since smaller AIC values
+
+104
+00:04:28,660 --> 00:04:30,685
+indicate more
+parsimonious models,
+
+105
+00:04:30,685 --> 00:04:32,290
+we can rank the models based on
+
+106
+00:04:32,290 --> 00:04:34,895
+AIC from smallest to largest.
+
+107
+00:04:34,895 --> 00:04:37,330
+The model with the smallest AIC
+
+108
+00:04:37,330 --> 00:04:39,505
+is called the best
+approximating model.
+
+109
+00:04:39,505 --> 00:04:40,900
+But how much better is
+
+110
+00:04:40,900 --> 00:04:43,255
+this model than the others
+that we considered?
+
+111
+00:04:43,255 --> 00:04:45,595
+Is it far and away
+the best option?
+
+112
+00:04:45,595 --> 00:04:48,995
+Or are all the competing
+models more or less the same?
+
+113
+00:04:48,995 --> 00:04:51,190
+That question is impossible to
+
+114
+00:04:51,190 --> 00:04:53,260
+answer by looking at AIC alone,
+
+115
+00:04:53,260 --> 00:04:56,040
+because AIC is a
+scaleless quantity,
+
+116
+00:04:56,040 --> 00:04:58,545
+meaning direct
+comparison is difficult.
+
+117
+00:04:58,545 --> 00:05:02,000
+What is a small difference
+in AIC for one dataset,
+
+118
+00:05:02,000 --> 00:05:04,505
+can be a large difference
+in a different dataset,
+
+119
+00:05:04,505 --> 00:05:07,700
+so we don't know how far
+apart different models are.
+
+120
+00:05:07,700 --> 00:05:09,500
+A solution to this,
+
+121
+00:05:09,500 --> 00:05:11,840
+is to put the AIC values on
+
+122
+00:05:11,840 --> 00:05:13,520
+an interpretable scale that
+
+123
+00:05:13,520 --> 00:05:15,805
+allows easy and
+direct comparison,
+
+124
+00:05:15,805 --> 00:05:18,855
+we'll do this using AIC weights.
+
+125
+00:05:18,855 --> 00:05:22,640
+First we compute something
+called the AIC effect size,
+
+126
+00:05:22,640 --> 00:05:24,080
+which is the difference between
+
+127
+00:05:24,080 --> 00:05:26,780
+the AIC from the best
+approximating model,
+
+128
+00:05:26,780 --> 00:05:29,330
+and the AIC of each
+competing model.
+
+129
+00:05:29,330 --> 00:05:32,270
+By definition, the best
+approximating model
+
+130
+00:05:32,270 --> 00:05:33,470
+has the minimum AIC,
+
+131
+00:05:33,470 --> 00:05:35,815
+and will have an
+effect size of zero.
+
+132
+00:05:35,815 --> 00:05:38,029
+For the other competing models,
+
+133
+00:05:38,029 --> 00:05:41,540
+larger values of the AIC
+effect size indicate
+
+134
+00:05:41,540 --> 00:05:43,280
+increasingly worst models in
+
+135
+00:05:43,280 --> 00:05:46,120
+comparison to the best
+approximating model.
+
+136
+00:05:46,120 --> 00:05:48,650
+The effect sizes are then put on
+
+137
+00:05:48,650 --> 00:05:51,965
+an interpretable scale using
+the equation shown here.
+
+138
+00:05:51,965 --> 00:05:53,915
+Importantly this equation gives
+
+139
+00:05:53,915 --> 00:05:57,200
+each competing model a
+weight between zero and one.
+
+140
+00:05:57,200 --> 00:06:00,380
+The best candidate model will
+have the largest weight,
+
+141
+00:06:00,380 --> 00:06:02,285
+and the sum of weights across
+
+142
+00:06:02,285 --> 00:06:04,765
+all competing models
+is equal to one.
+
+143
+00:06:04,765 --> 00:06:08,480
+The AIC weights can
+roughly be interpreted as
+
+144
+00:06:08,480 --> 00:06:10,955
+the probability that the
+given candidate model
+
+145
+00:06:10,955 --> 00:06:14,035
+is in truth the best
+approximating model.
+
+146
+00:06:14,035 --> 00:06:15,800
+A bar plot provides
+
+147
+00:06:15,800 --> 00:06:19,340
+an excellent visual comparison
+of the AIC weights.
+
+148
+00:06:19,340 --> 00:06:21,890
+Here we see a hypothetical
+example showing
+
+149
+00:06:21,890 --> 00:06:24,925
+the AIC weights for
+six competing models.
+
+150
+00:06:24,925 --> 00:06:27,230
+We see that one
+model number three,
+
+151
+00:06:27,230 --> 00:06:29,390
+has a weight of 0.95,
+
+152
+00:06:29,390 --> 00:06:32,240
+and is much larger than
+any competing models.
+
+153
+00:06:32,240 --> 00:06:34,610
+In this case, we can
+be very confident that
+
+154
+00:06:34,610 --> 00:06:37,825
+model three is superior to
+the other candidate models.
+
+155
+00:06:37,825 --> 00:06:40,970
+But the AIC weights might
+not always look like that.
+
+156
+00:06:40,970 --> 00:06:44,375
+Consider this alternative
+hypothetical example.
+
+157
+00:06:44,375 --> 00:06:46,700
+Again we have six
+competing models,
+
+158
+00:06:46,700 --> 00:06:48,380
+but the relationship
+of the weights is
+
+159
+00:06:48,380 --> 00:06:50,680
+very different from
+the first example.
+
+160
+00:06:50,680 --> 00:06:53,480
+There's still a best
+approximating model,
+
+161
+00:06:53,480 --> 00:06:55,550
+number three, but this time
+
+162
+00:06:55,550 --> 00:06:58,570
+the weight for this
+model is only 0.21.
+
+163
+00:06:58,570 --> 00:07:00,470
+Moreover two other models,
+
+164
+00:07:00,470 --> 00:07:02,165
+number one and number five,
+
+165
+00:07:02,165 --> 00:07:04,100
+have weights that
+are just less than
+
+166
+00:07:04,100 --> 00:07:06,670
+that of the best
+approximating model.
+
+167
+00:07:06,670 --> 00:07:09,290
+Although we could still
+claim that model number
+
+168
+00:07:09,290 --> 00:07:11,615
+three is the best
+approximating model,
+
+169
+00:07:11,615 --> 00:07:13,370
+we would be much less certain in
+
+170
+00:07:13,370 --> 00:07:16,990
+this claim based on the
+comparison of weights.
+
+171
+00:07:16,990 --> 00:07:19,820
+This lecture provided
+a different approach
+
+172
+00:07:19,820 --> 00:07:21,575
+to mixed model inference.
+
+173
+00:07:21,575 --> 00:07:26,185
+This one based on multi-model
+comparison using AIC.
+
+174
+00:07:26,185 --> 00:07:29,360
+The multi-model framework
+attempts to arrive at
+
+175
+00:07:29,360 --> 00:07:31,880
+a best approximating
+model that balances
+
+176
+00:07:31,880 --> 00:07:35,095
+model fit and complexity
+while avoiding overfitting.
+
+177
+00:07:35,095 --> 00:07:38,090
+A benefit is that the
+AIC weights provide
+
+178
+00:07:38,090 --> 00:07:40,760
+a method to state our
+confidence in the best model,
+
+179
+00:07:40,760 --> 00:07:43,285
+in comparison to the
+other competing models.
+
+180
+00:07:43,285 --> 00:07:45,350
+This multi-model framework is
+
+181
+00:07:45,350 --> 00:07:46,370
+an alternative to the
+
+182
+00:07:46,370 --> 00:07:48,665
+common hypothesis
+testing framework.
+
+183
+00:07:48,665 --> 00:07:51,050
+Which technique
+you use depends on
+
+184
+00:07:51,050 --> 00:07:53,600
+the philosophical preference
+of the investigator,
+
+185
+00:07:53,600 --> 00:07:57,333
+and the specific
+research question.
+

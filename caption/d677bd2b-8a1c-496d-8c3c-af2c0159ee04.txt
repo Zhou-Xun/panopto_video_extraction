@@ -1,0 +1,960 @@
+1
+00:00:01,140 --> 00:00:08,760
+Okay. That's really funny. Welcome to one more level five stealth strategy.
+
+2
+00:00:09,330 --> 00:00:14,840
+I probably shouldn't on it is because chances are you're not going to pay much attention.
+
+3
+00:00:14,850 --> 00:00:19,030
+But what we are reviewing today has nothing to do with the home.
+
+4
+00:00:19,050 --> 00:00:23,700
+But you have to go on Sunday. We are starting survival analysis.
+
+5
+00:00:23,700 --> 00:00:30,749
+That will be for our next call where everything you need for the homework on Sunday.
+
+6
+00:00:30,750 --> 00:00:38,780
+We are ready to review it because it's on the count. Why so models binomial negative binomial models are inflated models.
+
+7
+00:00:40,980 --> 00:00:46,020
+Therefore all these. The good news is that love is very, very short.
+
+8
+00:00:46,260 --> 00:00:52,680
+So I like try to cover everything. Well, true, but like very fast so you can just work on their homework in the meantime.
+
+9
+00:00:52,770 --> 00:00:59,940
+So sounds good. Okay, so this is the outline for today.
+
+10
+00:00:59,940 --> 00:01:03,960
+We are going to do a quick review about survival analysis.
+
+11
+00:01:04,560 --> 00:01:08,830
+We are going to talk about the data said we have and then throw out best first thoughts
+
+12
+00:01:09,210 --> 00:01:18,960
+and then survival package are okay so what is a survival analysis it's we try to we want
+
+13
+00:01:18,960 --> 00:01:25,170
+to estimate already the probability of an individual a subject in my dataset surviving
+
+14
+00:01:25,170 --> 00:01:31,499
+after time t the innovation we are going to use for the rest of the classes as follows.
+
+15
+00:01:31,500 --> 00:01:37,230
+I It's individuals from once when the AI is time to event for an individual.
+
+16
+00:01:37,650 --> 00:01:41,760
+I see AI is censoring time, which is a potential follow up time.
+
+17
+00:01:42,120 --> 00:01:46,380
+And then our observed time is the minimum between these things, these two things.
+
+18
+00:01:46,620 --> 00:01:50,910
+So remember that for each individual in my dataset I can have either two things.
+
+19
+00:01:51,270 --> 00:01:54,540
+Either they have the event, for example, let's say I'm talking about that.
+
+20
+00:01:54,540 --> 00:01:59,219
+So they have they died and I have like that time or I don't know what happened to them.
+
+21
+00:01:59,220 --> 00:02:07,260
+I only know that until, for example, time 15 I followed them 15 units of time and nothing happened.
+
+22
+00:02:07,620 --> 00:02:12,540
+Thus that is the CII on the observe time is the minimum between those things.
+
+23
+00:02:14,100 --> 00:02:19,980
+We also have something that we are going to call Delta AI, which is going to tell us which happens first.
+
+24
+00:02:20,280 --> 00:02:26,070
+Either the event happened first for that person or this entry time for that person.
+
+25
+00:02:26,430 --> 00:02:30,149
+So, for example, if they die, these are they'll die.
+
+26
+00:02:30,150 --> 00:02:32,520
+It's equal to one because the event happens first.
+
+27
+00:02:32,880 --> 00:02:40,200
+Or if this is equal to zero, it means that this entering time happened first rather than the actual event that we are looking at.
+
+28
+00:02:41,910 --> 00:02:45,960
+Okay. So to estimate some of our survival probabilities,
+
+29
+00:02:46,290 --> 00:02:57,150
+we are using something that is called a kaplan-meier estimated in order to build this estimate are we are going to like clearly do it in SAS or AI?
+
+30
+00:02:57,160 --> 00:03:03,120
+We're not doing these by hand. The first thing we're going to do is we are going to divide our observed time.
+
+31
+00:03:03,120 --> 00:03:09,959
+So let's say like half times between like for one unit and time until like 120 units.
+
+32
+00:03:09,960 --> 00:03:18,150
+Sometimes I'm going to divide those things into little ranges in which the event happened for at least one people.
+
+33
+00:03:18,630 --> 00:03:24,330
+Okay. So for example, let's say I have someone in my data said that died at time 15,
+
+34
+00:03:24,570 --> 00:03:31,170
+so I'm going to have one time interval between zero and 15 and then another between 15 and 22.
+
+35
+00:03:31,170 --> 00:03:37,410
+If I have time trying to do someone else die, so on and so forth until I cover all of my possible times.
+
+36
+00:03:38,400 --> 00:03:44,370
+Okay. Based on that we are going to create new variables.
+
+37
+00:03:44,970 --> 00:03:51,810
+Y sub j is the number of other people at each of those like r ranges that I have
+
+38
+00:03:51,810 --> 00:03:58,740
+here and the j is the number of failures or number of events that occur on that
+
+39
+00:03:58,740 --> 00:04:04,680
+time period based on these two things we supplemental one are for C remember
+
+40
+00:04:04,680 --> 00:04:11,370
+that SC is the probability of surviving after county is given by B's formula.
+
+41
+00:04:11,700 --> 00:04:20,549
+So these formula first, which is the product. So I am multiplying a lot of things and multiplying one minus y is one minus because it's survival.
+
+42
+00:04:20,550 --> 00:04:23,730
+So it's surviving after time. T And this is that one minus.
+
+43
+00:04:24,420 --> 00:04:28,230
+This is why you have one minus. And then I'm just dividing these two things.
+
+44
+00:04:28,470 --> 00:04:34,020
+The number of events that I observed in each range divided by the total number of people at risk.
+
+45
+00:04:34,230 --> 00:04:39,360
+And I multiply all of those probabilities. Any questions so far?
+
+46
+00:04:41,670 --> 00:04:46,950
+Okay. So the big, big question here is how do we call these in transport?
+
+47
+00:04:47,670 --> 00:04:49,710
+So we have a little example.
+
+48
+00:04:50,730 --> 00:05:00,809
+Let's say I have a data set with 25 patients that were diagnosed with myeloma, ptosis, which is a type of cancer in my dataset,
+
+49
+00:05:00,810 --> 00:05:07,230
+I have for random, for variables, duration, which is the absurd time that I have for every person.
+
+50
+00:05:07,290 --> 00:05:18,809
+But it's the minimum between B and C I work to is time driven and see I've seen since time to sensory so duration is the minimum is what
+
+51
+00:05:18,810 --> 00:05:27,690
+I observe is that those is that Delta II is going to tell us whether that person might either have the event in this case is that or not.
+
+52
+00:05:28,800 --> 00:05:35,700
+And I have two covariates. One covariates. It's just for a random assignment for two types of drug treatment.
+
+53
+00:05:36,120 --> 00:05:40,139
+And then another covariate is going to tell me it's an indicator,
+
+54
+00:05:40,140 --> 00:05:48,690
+but it's some indicator of categorical variable for the renal function of that person because we think that's probably something we want to like,
+
+55
+00:05:49,110 --> 00:05:53,760
+just for when we are calculating or estimating survival probabilities.
+
+56
+00:05:54,960 --> 00:06:00,450
+So our dataset looks something like these are what each row represents.
+
+57
+00:06:00,450 --> 00:06:06,180
+One subject in my dataset I have 25 rows because I have 25 patients.
+
+58
+00:06:07,530 --> 00:06:13,050
+For example, for this patient right here, I have that the observed time is 52.
+
+59
+00:06:13,380 --> 00:06:17,340
+So I follow that person until like times 52 times unit.
+
+60
+00:06:17,730 --> 00:06:25,980
+And the second column here is the Delta II. So this is an indicator function that is telling me which happens first either the event or b sensory.
+
+61
+00:06:26,280 --> 00:06:34,530
+So for this person, I know that they died because one event happened first they died at time 52,
+
+62
+00:06:34,980 --> 00:06:44,220
+and then they were assigned to the first group, their first drug treatment, and then their renal function is classified as one.
+
+63
+00:06:45,420 --> 00:06:51,450
+But for example, for this person right here, for this person right here,
+
+64
+00:06:52,260 --> 00:07:02,850
+I follow them on 1090 919 units of time IV until that moment, they didn't die.
+
+65
+00:07:03,000 --> 00:07:05,820
+So that's what I know about that person, because I have a zero here.
+
+66
+00:07:06,150 --> 00:07:12,450
+I also know they were assigned to the second group drug treatment and their renal function is classified as zero.
+
+67
+00:07:13,050 --> 00:07:17,700
+Is this clear how to read this table? Okay.
+
+68
+00:07:18,510 --> 00:07:25,739
+So in this particular lab, we are only going to work with the first on the second variable later on.
+
+69
+00:07:25,740 --> 00:07:30,180
+After the break, we are going to incorporate the covariates into the analysis.
+
+70
+00:07:31,500 --> 00:07:35,879
+Okay. So how do we estimate survival probabilities in size?
+
+71
+00:07:35,880 --> 00:07:38,880
+We are going to use something that is called the proc life test.
+
+72
+00:07:39,420 --> 00:07:45,210
+So I have proc like this here. Data is my dataset, my role, the asset that I have.
+
+73
+00:07:45,690 --> 00:07:51,690
+And then very important I want to say the survival plot and then I have CRL.
+
+74
+00:07:52,140 --> 00:07:57,630
+So I display not only the estimate but also the confidence interval and then these are
+
+75
+00:07:57,650 --> 00:08:02,010
+risk here is going to show you is going to show something very specific in the plot.
+
+76
+00:08:02,010 --> 00:08:11,550
+I will tell you later what that is of any estimate or remember that in survival analysis we are interested in estimating probabilities,
+
+77
+00:08:12,060 --> 00:08:20,370
+but that's just an estimation, which means that for every estimate that I have, I should also have a standard errors and confidence intervals.
+
+78
+00:08:20,370 --> 00:08:27,300
+Correct? It's just that we are estimating probabilities, but it is standard errors on confidence intervals.
+
+79
+00:08:27,660 --> 00:08:35,670
+So these are the things. Nelson and as the we are under error I giving need those things.
+
+80
+00:08:35,730 --> 00:08:46,950
+The confidence interval understands our errors. These last four outs are equal something it's saving the output of this survival function.
+
+81
+00:08:46,950 --> 00:08:59,490
+Okay, so this is to save the outcome. And finally, the very, very important part in the project test is this last line that I have here.
+
+82
+00:09:05,010 --> 00:09:12,450
+So remember when, for example, when we run up crowd logistic, I have a model and then my outcome equal, my covariance.
+
+83
+00:09:12,780 --> 00:09:20,820
+This is something very similar. Instead of model I have time because that's the variable I'm using to estimate my survival probabilities.
+
+84
+00:09:21,030 --> 00:09:28,530
+So I have like time and then I'm gonna use and then I'm gonna use the two variables that I need from my dataset.
+
+85
+00:09:28,830 --> 00:09:38,340
+So duration, which is the observed time and then it starts, which is telling me for each of our time whether that person was like dead or alive.
+
+86
+00:09:39,150 --> 00:09:48,980
+So that's the basic. That's the basic notation we're going to use instead of model, which is the thing that we are used to.
+
+87
+00:09:48,990 --> 00:09:53,700
+For example, when we write for registry here in life space,
+
+88
+00:09:53,700 --> 00:10:00,930
+we use time because time is the variable that it's going to allow us to like calculate probabilities of survival after time.
+
+89
+00:10:00,950 --> 00:10:06,930
+T And then the equation here is use duration, which is the observed time and then also use this.
+
+90
+00:10:06,940 --> 00:10:11,580
+Paxos because that's the variable that I'm like whether they are life or no.
+
+91
+00:10:12,150 --> 00:10:16,950
+And then you're probably asking about like this zero here. We are going to modify it up later.
+
+92
+00:10:17,310 --> 00:10:21,570
+Just remember that for these loop, I'm not introducing any covariates.
+
+93
+00:10:21,570 --> 00:10:27,420
+I'm like estimating probabilities in the simplest, simplest possible way,
+
+94
+00:10:27,420 --> 00:10:34,260
+which is just taking into account the times that I observe and whether people were alive or dead at that time.
+
+95
+00:10:34,500 --> 00:10:41,190
+However, I could introduce some covariates, for example, whether they are smokers, sex, gender or race.
+
+96
+00:10:41,760 --> 00:10:45,930
+So we are in that case, we will change that later here.
+
+97
+00:10:46,380 --> 00:10:55,840
+So that's why this zero practices that we have here. Okay, then we run this up frog life test and why now?
+
+98
+00:10:55,890 --> 00:11:00,990
+But the real answer is this huge table, which is like the table of our estimates.
+
+99
+00:11:01,500 --> 00:11:06,360
+How do we read this table? So for example.
+
+100
+00:11:14,700 --> 00:11:18,090
+Okay. So, for example, this is telling me this is the time.
+
+101
+00:11:18,630 --> 00:11:30,240
+So, for example, the probability of surviving after time 13 it's equal to 0.88 the probability of surviving
+
+102
+00:11:30,240 --> 00:11:37,260
+after time 13 is 0.8 on the probability of dying of the complement which is 0.12.
+
+103
+00:11:37,500 --> 00:11:44,000
+Okay, so that's how we read it. This is the time. Probability of surviving after time date is 0.88.
+
+104
+00:11:44,370 --> 00:11:51,720
+And then right here on there is time that errors. We have the standard error of that estimate, which in this case is 0.06.
+
+105
+00:11:52,560 --> 00:11:56,190
+We also have the cumulative hazard right here.
+
+106
+00:11:56,490 --> 00:12:02,070
+We also have at that point in time how many people have died and how many people are alive.
+
+107
+00:12:02,430 --> 00:12:06,540
+So, for example, remember in my dataset, I only have 25 subjects.
+
+108
+00:12:06,840 --> 00:12:15,180
+So this is telling me that by time 13 three people have already died in my data set and 22 are still alive.
+
+109
+00:12:15,780 --> 00:12:20,290
+Does that make sense? Do you guys have Jewish?
+
+110
+00:12:20,470 --> 00:12:24,190
+Any question about how to read this table?
+
+111
+00:12:29,390 --> 00:12:36,260
+Okay. We also have some summary some summary statistics.
+
+112
+00:12:38,060 --> 00:12:45,350
+Between the summarized statistics, there are two very important topics of the median underneath the mean.
+
+113
+00:12:45,440 --> 00:12:51,140
+I believe you haven't talked about this in class, so we will leave these for next lab.
+
+114
+00:12:51,500 --> 00:12:56,750
+However we can talk, we can and will do talk about the median in this case.
+
+115
+00:12:57,260 --> 00:13:13,400
+So the summary, a statistics table that I have here is telling me the probability of surviving after time 2000 until I remember that.
+
+116
+00:13:13,520 --> 00:13:20,690
+First of all, the median, you know, it's a 50%, it's equivalent to the median, which is a growing to like 0.5.
+
+117
+00:13:21,230 --> 00:13:33,440
+So these point estimate is telling me the following the probability of surviving after 2000 until units if units of time after 210 I'm sorry,
+
+118
+00:13:33,770 --> 00:13:37,580
+after 210 units of time, it's 0.5.
+
+119
+00:13:38,210 --> 00:13:44,840
+Does that make sense? That's how I read this date. The same goes for like these 25 that I have here.
+
+120
+00:13:44,900 --> 00:13:49,640
+This will be the probability of surviving after.
+
+121
+00:13:57,890 --> 00:14:02,840
+25. And so on and so forth. These value of the mean.
+
+122
+00:14:03,350 --> 00:14:12,050
+We'll talk about it later in the next class because this is something that we haven't covered in class.
+
+123
+00:14:12,530 --> 00:14:21,970
+And then finally, here we have just how many of our observations were censored on how many observations were actual?
+
+124
+00:14:21,980 --> 00:14:31,940
+That's in my dataset, but that's just a summary that you can kind of calculate by the very important output from Frog Life.
+
+125
+00:14:31,940 --> 00:14:36,920
+This is this graph. So this graph is just displaying the survival probability.
+
+126
+00:14:37,340 --> 00:14:45,200
+So for example, in this case, at times zero, this probability of survival is always one,
+
+127
+00:14:45,380 --> 00:14:49,580
+because at times zero, no, nobody have died, has died in my dataset.
+
+128
+00:14:49,910 --> 00:14:54,520
+And then we can see how is decreasing as time increases.
+
+129
+00:14:55,640 --> 00:15:06,890
+Okay. And then, for example, we were talking about that the median point five in the survival probability was something like 210.
+
+130
+00:15:07,370 --> 00:15:15,410
+So that just means that the value right here is close to 210.
+
+131
+00:15:17,090 --> 00:15:21,890
+Okay. That's just how I like we can visualize the value of the median.
+
+132
+00:15:22,160 --> 00:15:28,310
+So I have the probability of 0.5 here. And then if I draw a line, this will be 210.
+
+133
+00:15:30,290 --> 00:15:36,490
+The low shaded area is the confidence interval in this case is a 95% confidence interval.
+
+134
+00:15:36,500 --> 00:15:46,370
+B So vital probability here I have the time, of course, and then these values that we have in there are very small at risk.
+
+135
+00:15:46,400 --> 00:15:55,790
+So here I have 25, then seven is the number of observations, number of subjects in my dataset that are at risk in these like points in time.
+
+136
+00:15:56,090 --> 00:15:59,450
+Okay. Any questions so far?
+
+137
+00:15:59,900 --> 00:16:03,080
+Oh, just these are risk.
+
+138
+00:16:03,500 --> 00:16:11,180
+You can modify it whether you want it or not in your graph by just modifying these parameters here.
+
+139
+00:16:11,510 --> 00:16:18,170
+So if you include our risk there, it's going to display that like that number of people at risk.
+
+140
+00:16:19,690 --> 00:16:23,460
+Any questions so far on how to read or interpret these?
+
+141
+00:16:23,470 --> 00:16:26,620
+Take these graph this for. Yes.
+
+142
+00:16:27,040 --> 00:16:30,470
+How would you get the point from five? They could.
+
+143
+00:16:54,770 --> 00:16:58,940
+This is close to be 63. That's a good point.
+
+144
+00:16:59,690 --> 00:17:02,720
+Thank you for pointing that out. I didn't even notice it.
+
+145
+00:17:03,080 --> 00:17:06,560
+Thank you very much. This would be like the 63.
+
+146
+00:17:08,720 --> 00:17:13,360
+So this is actually displaying the.
+
+147
+00:17:15,000 --> 00:17:20,040
+The one minus is just like with the median one -0.5 is still 0.5.
+
+148
+00:17:20,760 --> 00:17:26,400
+So this is showing you like this 0.75 in the table in the graph here.
+
+149
+00:17:27,810 --> 00:17:30,820
+Does that make sense? Okay. Thank you.
+
+150
+00:17:32,980 --> 00:17:42,549
+And then just a little bit of lay home is probably just the only thing that is like maybe kind of hard
+
+151
+00:17:42,550 --> 00:17:49,930
+to in the graph that I have here is that these are these numbers may be confusing with the actual times.
+
+152
+00:17:50,230 --> 00:17:54,470
+So there there's some way to like change it to be below like right here.
+
+153
+00:17:54,490 --> 00:17:58,060
+So it's easier to read. And that's what I'm doing here.
+
+154
+00:17:58,930 --> 00:18:10,830
+So by setting outside equal zero, what we will do is just change that row of address to be right here, which is like maybe easier to understand.
+
+155
+00:18:10,840 --> 00:18:17,530
+And we kind of, we don't get confused with the actual duration or time that I have in the x axis,
+
+156
+00:18:17,920 --> 00:18:25,960
+but that's the only thing I'm doing, just changing that. I'm not modifying the survival probability or the graph itself.
+
+157
+00:18:27,490 --> 00:18:32,460
+Any questions so far? All right.
+
+158
+00:18:32,970 --> 00:18:38,820
+That's all for survival in. Now, the question is, how do I do it?
+
+159
+00:18:40,050 --> 00:18:45,190
+So in our the first thing, it's we need the survival package.
+
+160
+00:18:46,020 --> 00:18:54,780
+So make sure to first do install those packages survival and then hold the not very survival into your script.
+
+161
+00:18:56,430 --> 00:18:59,910
+Then what? What I'm doing here is just. I'm bringing my data.
+
+162
+00:19:00,180 --> 00:19:05,610
+Data set. In this case, the data side is the XP.
+
+163
+00:19:05,610 --> 00:19:10,080
+So I use the function rig table, but it can be any type of data set.
+
+164
+00:19:10,260 --> 00:19:15,610
+So I just read my data set. I know I have two columns X, which is the observer time data,
+
+165
+00:19:15,660 --> 00:19:26,309
+which is my the indicator variable and then my to correct some about Z and then to calculate the survival probabilities to estimate I'm sorry,
+
+166
+00:19:26,310 --> 00:19:30,210
+the survival probabilities I'm using. Probably it should change colors.
+
+167
+00:19:31,920 --> 00:19:36,270
+I'm using the function that is SQL Server. So Ft.
+
+168
+00:19:37,020 --> 00:19:42,740
+Okay. So Ft. There are a couple of things in this functions.
+
+169
+00:19:43,160 --> 00:19:51,530
+The first is that there are multiple ways to estimate survival probabilities in the.
+
+170
+00:19:52,690 --> 00:19:57,340
+Probably the most common used one is the couple in Mary's T mater.
+
+171
+00:19:57,730 --> 00:20:04,330
+So what I'm doing here is specifying that I want to use that estimate to estimate my probabilities.
+
+172
+00:20:04,630 --> 00:20:09,640
+So that's why I have here type problem there as well.
+
+173
+00:20:10,690 --> 00:20:18,640
+As we discussed before, since this is an estimate, I not only need the estimate but also the estimator errors and the confidence interval.
+
+174
+00:20:18,970 --> 00:20:23,590
+So here I'm just a specifying how do I want to calculate those errors?
+
+175
+00:20:23,890 --> 00:20:27,010
+And that is by using the green wood method. Okay.
+
+176
+00:20:28,270 --> 00:20:31,320
+So that's what I have here. And then my dataset.
+
+177
+00:20:32,590 --> 00:20:37,120
+Finally, the most important part in the survival function here.
+
+178
+00:20:37,630 --> 00:20:43,020
+It's how do I a specified model? The model.
+
+179
+00:20:43,030 --> 00:20:46,630
+It's just specify. In this.
+
+180
+00:20:50,960 --> 00:21:00,110
+In this part. So I'm using the function which is also included in this part, which is u r v for survival.
+
+181
+00:21:00,620 --> 00:21:07,309
+And then here, remember that to the minimum number of variables that I need to estimate,
+
+182
+00:21:07,310 --> 00:21:14,120
+survival probably are two times on my indicator variable of whether they were alive or not.
+
+183
+00:21:14,960 --> 00:21:22,010
+So that's what I have here. So I want, I estimate, the survival probability of these times given whether people were alive or not.
+
+184
+00:21:22,070 --> 00:21:25,150
+So those are my two variables. And then I have Delta.
+
+185
+00:21:25,190 --> 00:21:32,990
+In this case, I have. I'm sorry. This is still up. I have Steve by one because I don't I'm not using any I'm not using any covariance.
+
+186
+00:21:33,350 --> 00:21:40,490
+However, later on, when we introduce more covariance in total model, we are going to change this one by multiple covariance.
+
+187
+00:21:40,530 --> 00:21:47,430
+You know, remember, this is very similar to when you specify a model, for example, in the GLM.
+
+188
+00:21:47,780 --> 00:21:52,070
+So you have the outcome and then the event and then all of your variants.
+
+189
+00:21:52,700 --> 00:21:57,679
+This is basically the same structure is just that the outcome is a little bit bigger because I
+
+190
+00:21:57,680 --> 00:22:03,980
+have to specify it's a survival probability that is based on time on my indicator function.
+
+191
+00:22:04,220 --> 00:22:09,470
+And whatever comes after the host is called the.
+
+192
+00:22:11,210 --> 00:22:18,980
+These we are symbol are the covariance. But because this is the simplest possible example and we don't have covariance, I just only have a one here.
+
+193
+00:22:19,550 --> 00:22:30,010
+Does that make sense? Okay. When we run that, the outcome of the summary of my function is very similar to what I had in the US.
+
+194
+00:22:31,240 --> 00:22:35,710
+So I have multiple times. I have the number of people, I have respect each time.
+
+195
+00:22:36,040 --> 00:22:41,470
+I have the survival probability and the confidence become the standard errors on the confidence interval.
+
+196
+00:22:42,220 --> 00:22:48,220
+You interpret these graph these probabilities in this same way.
+
+197
+00:22:48,700 --> 00:22:58,510
+So for example, here. The probability of surviving after time 23 is 0.8.
+
+198
+00:22:59,230 --> 00:23:04,660
+Okay. And there were 21 people at risk of that moment.
+
+199
+00:23:04,960 --> 00:23:08,350
+And also the confidence interval around that time.
+
+200
+00:23:08,620 --> 00:23:14,440
+It's between 0.610.97. Any questions so far?
+
+201
+00:23:17,940 --> 00:23:25,230
+Okay. You may be also wondering, how can I get the hazard ratio ratios?
+
+202
+00:23:26,460 --> 00:23:30,630
+There is an easy way to do it and actually there are two ways to do it.
+
+203
+00:23:31,140 --> 00:23:35,840
+The first one is. Run this line.
+
+204
+00:23:36,370 --> 00:23:42,790
+So this is my survival function and then money symbol and then cumulative hazards.
+
+205
+00:23:43,240 --> 00:23:48,430
+Or there's another way you can alter your global environment in art.
+
+206
+00:23:48,940 --> 00:23:51,000
+And the global environment is not.
+
+207
+00:23:51,010 --> 00:24:00,460
+It's normally located at the right top part of your script where all of your variables are, and then you're going to find your function.
+
+208
+00:24:00,790 --> 00:24:06,279
+Survival data in this case. And there's like a little arrow.
+
+209
+00:24:06,280 --> 00:24:10,150
+If you click on that arrow, you can see all of the attributes for that function.
+
+210
+00:24:10,960 --> 00:24:18,940
+So, for example, I have how many people I have the different times of the number of respectful address people for each of the times.
+
+211
+00:24:19,330 --> 00:24:24,540
+The survival probability is this on that error on here I have the commodity cluster.
+
+212
+00:24:24,760 --> 00:24:28,270
+Okay. So that's another way to access the same information.
+
+213
+00:24:30,420 --> 00:24:34,580
+Any questions so far? Okay.
+
+214
+00:24:37,220 --> 00:24:47,090
+If we use the following command, which is print of my survival function, and then also print the arming equal draw,
+
+215
+00:24:47,510 --> 00:24:56,480
+I'm going to have those same 2550 unrestricted mean times that I have earlier in sorts.
+
+216
+00:24:56,810 --> 00:25:00,080
+So for example, these are mean is the restricted mean.
+
+217
+00:25:00,140 --> 00:25:06,670
+We will talk about that in the next class. But more importantly, I also have the medium we already talked about these.
+
+218
+00:25:06,720 --> 00:25:15,050
+Here is my 210. Okay. So the probability of surviving after I'm 50 because is the medium I'm sorry,
+
+219
+00:25:15,230 --> 00:25:22,730
+the probability of surviving after time 2000 and then is .5.5 because it's a medium and so on.
+
+220
+00:25:24,350 --> 00:25:30,320
+Okay. And then the most important part is, how do I love the survival probabilities?
+
+221
+00:25:31,430 --> 00:25:34,879
+Just use the function plot. So plot.
+
+222
+00:25:34,880 --> 00:25:41,540
+And then here I have my survival function. You can modify the level.
+
+223
+00:25:41,540 --> 00:25:46,260
+So if I use x amount time, I have time here.
+
+224
+00:25:46,280 --> 00:25:54,250
+So this is just for displaying the levels as well as I have survival probability here, which is the name that appears in the y axis.
+
+225
+00:25:54,810 --> 00:26:01,850
+And if you only do like blood sort of data, it's going to display these exact graphs.
+
+226
+00:26:01,850 --> 00:26:10,740
+You don't have to do anything else is going to do it for you. We can read and interpret this graph exactly as we did it for subs.
+
+227
+00:26:11,210 --> 00:26:14,510
+So here I have my survival probability.
+
+228
+00:26:15,050 --> 00:26:21,560
+Between the dashes lines, I have the 95% confidence interval.
+
+229
+00:26:22,070 --> 00:26:32,600
+And then in this case, I'm only I am only displaying one survival probability because I don't have covariates.
+
+230
+00:26:33,060 --> 00:26:37,100
+I'm treating all of my patients as if they had the same characteristics.
+
+231
+00:26:37,490 --> 00:26:43,970
+However, for example, let's say I want to compare how effective are through drugs are.
+
+232
+00:26:44,870 --> 00:26:54,320
+So I have a number of people that are in Group one and then I have another group of people that are in group two for the second drug treatment.
+
+233
+00:26:54,710 --> 00:27:03,770
+So what I could do, and we will do this next class is just instead of this plane, only one survival probability I could display to.
+
+234
+00:27:04,980 --> 00:27:10,290
+Sorry. Could this be another plot, something like this. And these will be, for example, foreign group, too.
+
+235
+00:27:10,290 --> 00:27:16,560
+And these will be, for example, from group one to control those things we can.
+
+236
+00:27:18,490 --> 00:27:22,960
+Include different groups, and that's the major part here.
+
+237
+00:27:23,320 --> 00:27:25,400
+But for now, you don't have to worry about that.
+
+238
+00:27:25,420 --> 00:27:32,229
+If we manage to display the survival plot like this, it's more than enough because we don't have any coffee.
+
+239
+00:27:32,230 --> 00:27:38,510
+It's for now. Does that make sense? Any questions so far?
+
+240
+00:27:42,680 --> 00:27:46,550
+Great. Well, that's it. So that's the good news. That's it.
+

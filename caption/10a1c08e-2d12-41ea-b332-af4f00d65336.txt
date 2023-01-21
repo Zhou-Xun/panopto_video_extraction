@@ -1,0 +1,3940 @@
+1
+00:00:01,200 --> 00:00:07,390
+All right. Good morning, everybody. So.
+
+2
+00:00:11,570 --> 00:00:15,250
+So where are we in the course? We are doing very well.
+
+3
+00:00:16,470 --> 00:00:25,600
+Getting through the material. So we've completed.
+
+4
+00:00:26,700 --> 00:00:30,599
+All of the information you need to do homework.
+
+5
+00:00:30,600 --> 00:00:39,989
+Six problems, one and two. And today, we're going to be covering material to help you do homework six.
+
+6
+00:00:39,990 --> 00:00:47,459
+Problem three. And this is the material that extends what we learned about modeling counts and
+
+7
+00:00:47,460 --> 00:00:56,130
+rates to the setting where you have dependent counts and or rates over time.
+
+8
+00:00:57,240 --> 00:01:03,230
+Sorry, just dependent doesn't necessarily have to be over time. And so we're going to.
+
+9
+00:01:04,490 --> 00:01:08,670
+Cover that today, it's possible we'll be able to start hand out 18.
+
+10
+00:01:08,690 --> 00:01:13,520
+So if you haven't done so already, download a handout 18 and be ready for that one as well.
+
+11
+00:01:16,150 --> 00:01:20,640
+The. Let's see. What else do I want to? Mentioned briefly.
+
+12
+00:01:22,930 --> 00:01:27,969
+I just noticed this myself that I had canceled class the Wednesday before Thanksgiving.
+
+13
+00:01:27,970 --> 00:01:32,860
+So I. That that's been there the whole time.
+
+14
+00:01:32,860 --> 00:01:37,900
+But I for some reason I had in my head that I still had to teach Wednesday, but no.
+
+15
+00:01:37,950 --> 00:01:42,100
+So no class Wednesday. We're ahead and have a great Thanksgiving break.
+
+16
+00:01:42,970 --> 00:01:47,890
+So I will see you on Monday. But Wednesday, I'm hoping you'll have everything you need to do.
+
+17
+00:01:47,890 --> 00:01:51,620
+Homework. Six. Before you leave.
+
+18
+00:01:54,130 --> 00:01:58,140
+All right. So let's go ahead and get to work. With.
+
+19
+00:01:59,700 --> 00:02:12,150
+Handout 17. All right.
+
+20
+00:02:12,190 --> 00:02:17,900
+It's been a while since we've talked about Poisson models and negative binomial models.
+
+21
+00:02:18,890 --> 00:02:27,380
+So I'm just going to briefly review those models as well as just review again the notation for dependent outcomes.
+
+22
+00:02:28,100 --> 00:02:37,370
+Some of this may be becoming, you know, a steady in your brain because the notation is very similar from the last few handouts.
+
+23
+00:02:37,370 --> 00:02:42,980
+But I think it's it's just useful to briefly go through it again just in case and to have that in every handout.
+
+24
+00:02:44,150 --> 00:02:47,420
+So first of all, what's the available software for this?
+
+25
+00:02:47,450 --> 00:02:53,149
+So for us, it's Project Gen Mod and it can fit G models.
+
+26
+00:02:53,150 --> 00:02:58,910
+So this is the same model type generalized estimating equations that we have already looked at
+
+27
+00:02:58,910 --> 00:03:04,820
+for normally distributed outcomes and it can handle dependent on distributed counts as well.
+
+28
+00:03:05,150 --> 00:03:08,660
+It can also fit models for dependent negative binomial.
+
+29
+00:03:09,570 --> 00:03:17,890
+Counts. What it cannot do yet is do zero inflated models.
+
+30
+00:03:17,920 --> 00:03:21,040
+So right now, there's no software available.
+
+31
+00:03:21,640 --> 00:03:29,200
+If you have excess zeros in your data set for modeling dependent counts, the method exists.
+
+32
+00:03:29,290 --> 00:03:37,840
+There's someone who's published a paper on it and it's possible to email that person for software, but it's not easily available.
+
+33
+00:03:39,920 --> 00:03:55,280
+And ah, there's the Jeep pack package with the GS function that I always want to say is and it can fit g models for dependent on distributed counts.
+
+34
+00:03:56,840 --> 00:04:04,639
+You need to have a large data set to use this easily because the inference in R depends on the
+
+35
+00:04:04,640 --> 00:04:10,570
+robust variance approach and it's very hard to get inference based on model base variances.
+
+36
+00:04:10,580 --> 00:04:18,379
+They're just not user friendly to apply. If you're if you're an advanced programmer and you know a little bit more statistical theory,
+
+37
+00:04:18,380 --> 00:04:21,590
+you can probably make it work with some extra programing. But it's not.
+
+38
+00:04:22,160 --> 00:04:30,740
+It's not user friendly. So what we're going to see is that SAS is going to win this little battle.
+
+39
+00:04:31,580 --> 00:04:43,700
+And in your homework, if you haven't been using SAS much today, your homework is going to require you do some SAS because R doesn't do.
+
+40
+00:04:44,890 --> 00:04:51,130
+Negative binomial models and that will be part of your homework to look at what how that how that works.
+
+41
+00:04:53,590 --> 00:04:57,160
+So this handout showcases SAS more than R because of these limitations.
+
+42
+00:04:57,700 --> 00:05:03,870
+I'll show you our results where I can. And code work again.
+
+43
+00:05:06,490 --> 00:05:12,580
+So these next few handouts are repeats from earlier material.
+
+44
+00:05:12,580 --> 00:05:19,120
+And I just want to remind you some of the you know, when I talk about a correlation or covariance matrix, what do I mean?
+
+45
+00:05:19,630 --> 00:05:29,110
+What are the different types again? So if this is something that you haven't quite committed to memory yet, this is the chance to do that live.
+
+46
+00:05:30,500 --> 00:05:43,600
+So in this slide I have two subscripts for the random variables of the wise I always use as outcomes, and I is the cluster or the person and j is the.
+
+47
+00:05:44,090 --> 00:05:49,150
+The. Measurements either within person or time or within cluster.
+
+48
+00:05:49,180 --> 00:05:55,079
+It's the repeats within the cluster. And so we're modeling the outcomes, right?
+
+49
+00:05:55,080 --> 00:05:59,130
+So example y32 is the second outcome from person three.
+
+50
+00:06:00,300 --> 00:06:06,570
+If you have paired outcomes, then you only have two of these YS capital j being the subscript over here is two.
+
+51
+00:06:07,470 --> 00:06:18,010
+And one of the things that's important and that is very easy to forget is that outcomes have to be ordered similarly across individuals when using G.
+
+52
+00:06:18,510 --> 00:06:25,530
+So if for instance, you have some people who are missing a second measurement at a second measurement time,
+
+53
+00:06:25,920 --> 00:06:31,530
+you have to put a missing DOT or an A depending on which package is.
+
+54
+00:06:31,530 --> 00:06:36,870
+You have to put a placeholder for the missing value so that the software package knows
+
+55
+00:06:37,140 --> 00:06:41,910
+which columns of outcomes to group together to do covariance is in correlations.
+
+56
+00:06:42,840 --> 00:06:48,390
+If you don't put a placeholder, it'll assume your third measure was measured at your second measurement time.
+
+57
+00:06:49,020 --> 00:06:54,060
+So you have some. Often when you get a data set, no one's given that any consideration,
+
+58
+00:06:54,510 --> 00:07:02,640
+and so you have to go through and curate your data set before you use these packages or you make it some mistakes in your inference.
+
+59
+00:07:04,740 --> 00:07:10,950
+So the correlation between two outcomes from person I am using this row,
+
+60
+00:07:10,950 --> 00:07:16,469
+it looks kind of like a piece and sometimes I'm going to have to just point out
+
+61
+00:07:16,470 --> 00:07:20,250
+that it's a row if there are also pieces on the page that we have to deal with.
+
+62
+00:07:21,460 --> 00:07:27,280
+And so it's the correlation between two outcomes that those j one and j two measurement times.
+
+63
+00:07:27,280 --> 00:07:37,150
+And we have talked about different correlation and covariance structures that that the different software packages recognize.
+
+64
+00:07:37,160 --> 00:07:43,440
+So for instance in SAS we have independence variance components which is, you know,
+
+65
+00:07:43,450 --> 00:07:50,650
+different variability is allowed for the different outcomes, but otherwise independent compound symmetry,
+
+66
+00:07:51,010 --> 00:07:58,390
+heterogeneous compound symmetry where you have a little bit more ability to have different variances for the different measurements over time,
+
+67
+00:07:58,720 --> 00:08:03,040
+but otherwise the correlation is similar between outcomes, etc.
+
+68
+00:08:03,340 --> 00:08:04,809
+And so I have a few more slides,
+
+69
+00:08:04,810 --> 00:08:12,190
+just kind of reminding you what these names are in South and are so that you can program them when you're analyzing your data.
+
+70
+00:08:16,010 --> 00:08:18,200
+So the independence is the easiest one.
+
+71
+00:08:18,200 --> 00:08:25,960
+So if you've got independence, your correlation matrix will look like this where the correlation between any measure itself is perfect.
+
+72
+00:08:25,970 --> 00:08:28,460
+So there's ones along all the diagonals.
+
+73
+00:08:28,850 --> 00:08:36,559
+Remember, this is just a placeholder that holds all the correlation terms that you that you have in your data set.
+
+74
+00:08:36,560 --> 00:08:50,030
+So each element is the correlation between Y for the row and Y for the column for within a person.
+
+75
+00:08:50,030 --> 00:08:54,439
+So this is why one's correlation with itself, y two's correlation with itself.
+
+76
+00:08:54,440 --> 00:08:58,790
+Y three is correlation with itself for measurements one, two, three.
+
+77
+00:08:59,450 --> 00:09:07,460
+And so all the off diagonal elements being zero means that there's no correlation between measures when you have one, a measure that's not itself.
+
+78
+00:09:08,500 --> 00:09:12,940
+So is there a correlation between when Y to zero correlation between y 1.3, etc.?
+
+79
+00:09:13,390 --> 00:09:23,230
+So here's the correlation matrix. It's Indy is the code for it in both SAS and R and type equals.
+
+80
+00:09:23,230 --> 00:09:32,380
+AVC. Is something that you could ask for for the covariance matrix that for the covariance matrix, remember,
+
+81
+00:09:32,890 --> 00:09:39,190
+has elements that are the same correlation but multiplied by the standard deviation
+
+82
+00:09:39,190 --> 00:09:43,270
+of the j first measure times the same deviation for the j second measure.
+
+83
+00:09:43,630 --> 00:09:47,510
+So the covariance matrix is also relevant.
+
+84
+00:09:47,650 --> 00:09:52,180
+It makes an assumption about the correlation structure, but it also has spread of the data.
+
+85
+00:09:52,390 --> 00:10:02,230
+Is trying to describe kind of the shape of the bell when you're in, you know, between the two measurements when you're in three d like how big it is,
+
+86
+00:10:02,830 --> 00:10:09,460
+how much of the data is spread around using the, the 3D model between any pair.
+
+87
+00:10:10,700 --> 00:10:15,219
+All right. So. So this is the easiest one.
+
+88
+00:10:15,220 --> 00:10:24,190
+And you assume this when you analyze data using, you know, all the methods that we learned before we got to dependent outcomes.
+
+89
+00:10:24,550 --> 00:10:32,200
+You always assumed that outcomes from different people were independent and so implicitly you were assuming something like this.
+
+90
+00:10:32,500 --> 00:10:39,490
+And this is now assuming that outcomes within a cluster are also independent, which is a strong assumption.
+
+91
+00:10:40,870 --> 00:10:54,320
+That's. Typically not true. So the opposite extreme is that you don't have any idea what the correlation or covariance is between anything.
+
+92
+00:10:54,740 --> 00:11:05,180
+And so for each pair of outcomes within a person or a cluster, you're letting them have their own parameter to describe that correlation.
+
+93
+00:11:05,600 --> 00:11:12,950
+And so that's called you kn in both SAS and R and for this when you check when it asks for a covariance matrix,
+
+94
+00:11:12,950 --> 00:11:20,000
+it's also called you when and it's allowing everything to be estimated from the data without assumptions about,
+
+95
+00:11:20,240 --> 00:11:23,630
+you know, shared parameters, covering the different patterns of correlation.
+
+96
+00:11:24,290 --> 00:11:30,559
+And this is a very tempting structure to assume we did we did break it once, though.
+
+97
+00:11:30,560 --> 00:11:40,490
+If you recall, we tried to use an unstructured covariance matrix when we were looking at the pancreatic enzyme study with six people.
+
+98
+00:11:41,460 --> 00:11:45,540
+And it wouldn't fit the model when you requested this correlation structure.
+
+99
+00:11:45,540 --> 00:11:50,249
+So it's tempting to go to it first. But for small data sets, it'll, it'll break.
+
+100
+00:11:50,250 --> 00:11:57,190
+And you have to know how to look to see if it's broken. And then there's some others here.
+
+101
+00:11:57,190 --> 00:12:01,400
+This is we've we've been using this one a lot. We're going to use it again today.
+
+102
+00:12:01,420 --> 00:12:06,850
+This is the correlation structure where you seem any pair of outcomes has the same correlation.
+
+103
+00:12:06,850 --> 00:12:10,660
+It doesn't matter whether it's the first and the second or the first and third or the second or third,
+
+104
+00:12:11,080 --> 00:12:13,630
+they're all being similar using the same parameter.
+
+105
+00:12:14,020 --> 00:12:22,090
+And for covariance matrices, there is a the overall one that also assumes variances are similar for all the outcomes.
+
+106
+00:12:22,600 --> 00:12:26,800
+But there's all there's one here where you can weaken that assumption a little bit
+
+107
+00:12:27,070 --> 00:12:31,330
+and have separate variability estimated for each of the outcomes that you know.
+
+108
+00:12:31,330 --> 00:12:36,670
+So you're not assuming this kind of equal variance deal.
+
+109
+00:12:38,730 --> 00:12:42,760
+So we're going to be leaning on this assumption today for the data set that I'm going over in class.
+
+110
+00:12:42,810 --> 00:12:48,480
+This is the one to be familiar with when I talk about compound symmetry or exchangeable correlation.
+
+111
+00:12:48,900 --> 00:12:57,100
+It's this pattern that I'm describing. And then there are other patterns that are out there that we we we haven't spent a lot of time playing with.
+
+112
+00:12:57,100 --> 00:13:04,509
+But you can also have correlation structures that assume that measures further apart are weaker, you know, have weaker correlations.
+
+113
+00:13:04,510 --> 00:13:18,669
+So this row squared gets smaller. And that is a model of using ar1 year trends for auto regressive and so R parenthesis one and says
+
+114
+00:13:18,670 --> 00:13:25,060
+R one in R for the correlation matrix and it has counterparts for the covariance matrices here to.
+
+115
+00:13:27,120 --> 00:13:28,740
+Okay. So that was the review of the.
+
+116
+00:13:29,730 --> 00:13:39,540
+Covariance correlation terms and how we're modeling those in G and so that those previous slides are common to now normally distribute outcomes.
+
+117
+00:13:39,540 --> 00:13:43,950
+We use that same storage system for correlation and covariance.
+
+118
+00:13:44,280 --> 00:13:51,630
+We're now using it for count models. You'll see it one more time for binary binary outcomes for the model for binary outcomes.
+
+119
+00:13:51,990 --> 00:13:55,020
+So those slides are just being repeated so that within every.
+
+120
+00:13:56,000 --> 00:14:02,930
+Topic. You have it handy, but I might go through it quicker and quicker since it's repeat.
+
+121
+00:14:04,430 --> 00:14:12,500
+So here this is also a pre or repeat slide of how to model count data when you have independent outcomes.
+
+122
+00:14:12,590 --> 00:14:23,569
+It's been a while. So let's refresh. I mean, this is a tricky type of model and typical outcomes that we've looked at are number of deaths per person,
+
+123
+00:14:23,570 --> 00:14:31,160
+year number of exacerbations during a year. Today we're going to have a totally different type of count outcome.
+
+124
+00:14:31,520 --> 00:14:39,600
+That's going to be the number of colony forming unit units on a plate for someone who's had a lung transplant.
+
+125
+00:14:40,550 --> 00:14:48,770
+And so that count is unique to a plate of cells that measure out a person.
+
+126
+00:14:49,070 --> 00:14:56,990
+And there's several samples taken from the patient over time so that you get these counts of colony forming units.
+
+127
+00:14:57,500 --> 00:15:04,010
+The first time they had a sample taken, the second time that a sample taken, and the third time that a sample taken.
+
+128
+00:15:04,730 --> 00:15:08,850
+So there's time is involved and when those counts are measured.
+
+129
+00:15:08,870 --> 00:15:13,840
+But today's example, you don't get more counts the longer you wait.
+
+130
+00:15:13,850 --> 00:15:17,120
+There's no like per year kind of scenario here.
+
+131
+00:15:18,340 --> 00:15:23,560
+So let's think about what we've done in the past and which version of this model we should be using
+
+132
+00:15:24,130 --> 00:15:33,460
+when we're modeling colony forming units from dependent plates measured over time in a person.
+
+133
+00:15:34,990 --> 00:15:39,280
+All right. So if you recall, we had a model that looked like this.
+
+134
+00:15:39,280 --> 00:15:45,540
+So the log of the mean count is kind of what this notation stands in for.
+
+135
+00:15:46,120 --> 00:15:52,689
+And we wrote the model this way where there's the piece that we model with covariates,
+
+136
+00:15:52,690 --> 00:15:58,840
+the betas and the X is we have our intercept here and the covariates times their parameters over here.
+
+137
+00:15:59,230 --> 00:16:06,550
+And then we have this thing we call an offset, and the offset is only needed in the model.
+
+138
+00:16:07,590 --> 00:16:15,389
+If that if the follow up is not the same for all the counts that you're getting.
+
+139
+00:16:15,390 --> 00:16:21,750
+So if there's ability to get more counts because you're watching some people or groups longer in the data set,
+
+140
+00:16:22,140 --> 00:16:25,470
+you need to put in that follow up time too,
+
+141
+00:16:25,590 --> 00:16:32,730
+to have a fair comparison in your data set between the counts in different groups with different follow up times.
+
+142
+00:16:33,300 --> 00:16:40,110
+So this over here. Is the log of the number of person years and group I,
+
+143
+00:16:40,140 --> 00:16:46,980
+which is only relevant if some of these counts are have an advantage of being watched for longer.
+
+144
+00:16:50,250 --> 00:17:01,590
+So for our data set, where we're looking at counts on a on a plate that are that have been cultured from a post transplant patient and
+
+145
+00:17:01,590 --> 00:17:06,780
+we're counting the colony forming units on each plate and we have multiple plates over time from the same person.
+
+146
+00:17:08,100 --> 00:17:18,260
+Do we need the offset or not? Which version of this model, of this data, which were version of this model is most appropriate for that data set?
+
+147
+00:17:24,280 --> 00:17:30,190
+There are some tells as an instructor when everybody looks down and takes notes furiously and avoids eye contact.
+
+148
+00:17:30,430 --> 00:17:37,000
+I can tell you don't know. I mean, and I'm just laughing because all of you are doing that right now.
+
+149
+00:17:37,510 --> 00:17:43,480
+So we each each plate has a count, but that count doesn't.
+
+150
+00:17:43,780 --> 00:17:49,450
+There's no there's no time measured for the plate.
+
+151
+00:17:49,480 --> 00:17:54,670
+Right. You have a count? Yes. And how many of the cells were colony forming units?
+
+152
+00:17:55,150 --> 00:18:01,230
+And that's it for that count. So there's no person time associated with that count.
+
+153
+00:18:02,510 --> 00:18:09,800
+Each count is its own creature that isn't dependent on the follow up time at which it was measured.
+
+154
+00:18:10,670 --> 00:18:15,830
+It's just you get the play, you do the experiment, you count the colony forming units down, you've got your count.
+
+155
+00:18:16,640 --> 00:18:19,760
+So there's no there's no relevant.
+
+156
+00:18:20,630 --> 00:18:30,480
+Person years variable here. To reflect this the cancer and, you know, different from one another over time.
+
+157
+00:18:32,860 --> 00:18:34,930
+Based on follow up or that sort of thing.
+
+158
+00:18:35,230 --> 00:18:43,960
+So we're just going to be modeling the log of the mean count of these colony forming units over time that are measured from the same person.
+
+159
+00:18:44,050 --> 00:18:47,170
+That's what's going to happen in today's. Example.
+
+160
+00:18:48,960 --> 00:18:52,650
+Right. Here's another slide that's kind of from your quiz.
+
+161
+00:18:52,650 --> 00:18:59,820
+One review, just to remind you, all these different models that we had for counties and the kind of questions that you ask.
+
+162
+00:18:59,820 --> 00:19:06,840
+And so one of the questions that we asked was, you know, should we be using a Poisson model or a negative binomial model?
+
+163
+00:19:07,290 --> 00:19:17,610
+And it's been a while, but the negative binomial model models a little extra term to describe the variability in the data.
+
+164
+00:19:17,970 --> 00:19:21,560
+That's what we learned before when we were learning how to model counts.
+
+165
+00:19:22,080 --> 00:19:28,229
+And so we had all these tools for looking to see which model is more appropriate.
+
+166
+00:19:28,230 --> 00:19:33,660
+And then we would look to see if there were excess zeros and do the wrong test,
+
+167
+00:19:33,660 --> 00:19:37,410
+just to see if we needed to model the excess zeros with the zero model.
+
+168
+00:19:37,800 --> 00:19:42,720
+And we had all these rules helping us pick which models the best.
+
+169
+00:19:43,710 --> 00:19:46,870
+So. That was so nice.
+
+170
+00:19:46,900 --> 00:19:55,060
+I hope you appreciate that you had that back then because G e does not have this generalized estimating equations.
+
+171
+00:19:56,050 --> 00:20:03,490
+You really don't have a good way to choose between the Poisson and the negative binomial.
+
+172
+00:20:03,490 --> 00:20:07,420
+They have very few tools to do that.
+
+173
+00:20:07,750 --> 00:20:14,110
+And so I'm going to take you through the analysis of the data and show you how I figure out which model to use.
+
+174
+00:20:14,590 --> 00:20:20,560
+But you don't have a nice likelihood ratio test. You don't have nice AIC to pick between these models.
+
+175
+00:20:20,830 --> 00:20:25,330
+And remember, for GC, we don't have a model that will deal with excess zeros.
+
+176
+00:20:25,810 --> 00:20:32,980
+So if you're worried about excess zeroes in your data set, you you kind of have a problem.
+
+177
+00:20:32,980 --> 00:20:38,650
+So I'm going to show you again with this data set how I explored it using a model that
+
+178
+00:20:38,650 --> 00:20:44,020
+assumed independence to to see what was going on with the excess zeros and then trying to,
+
+179
+00:20:44,410 --> 00:20:51,220
+you know, decide what results to present after all of these different things I looked at with this example data set.
+
+180
+00:20:53,090 --> 00:20:58,820
+So this seemed really complicated at the time. But I mean, appreciate that it was really helping you make choices.
+
+181
+00:20:59,780 --> 00:21:06,230
+And now we have to be a little bit more in tune with the data set to help decide what to do.
+
+182
+00:21:06,260 --> 00:21:09,320
+There are some protections in place that are nice that I'll show you as well.
+
+183
+00:21:11,300 --> 00:21:20,860
+So for dependent outcomes. You know, we have a similar model I've got now, both I and J.
+
+184
+00:21:20,890 --> 00:21:26,410
+I for the cluster or the person and J for the measurement within cluster or person.
+
+185
+00:21:26,890 --> 00:21:28,710
+So that's the only thing that's changed.
+
+186
+00:21:28,720 --> 00:21:37,570
+So when we get our data is estimated from your package, the way we talk about them in manuscript or these sentences, it's going to be the same.
+
+187
+00:21:37,990 --> 00:21:44,920
+So all that work you've done to learn Poisson and negative binomial models and how to write manuscript worthy sentences.
+
+188
+00:21:45,340 --> 00:21:54,550
+You will get to use that again. Now, if I recall, the most common mistake was saying odds ratio when this doesn't do anything with odds ratios.
+
+189
+00:21:54,850 --> 00:21:58,630
+So we get another chance to practice writing the right interpretation.
+
+190
+00:21:59,080 --> 00:22:03,790
+And here it's some multiplicative effect on the counts that we have when we look at you, the beta.
+
+191
+00:22:04,000 --> 00:22:12,960
+So we'll have a chance to review that as well. And this time, just like make yourself not say odds ratio for this model.
+
+192
+00:22:12,970 --> 00:22:21,610
+Just make it happen. Okay. So some of the covariates are going to be cluster level are measured only at baseline,
+
+193
+00:22:22,540 --> 00:22:26,710
+the same for all the outcome types in a particular cluster or person.
+
+194
+00:22:26,720 --> 00:22:34,000
+So you might have, you know, gender or race or ethnicity or something might be something like this.
+
+195
+00:22:36,530 --> 00:22:43,190
+Or a site where the cluster was sampled. Those might be the same, regardless of which outcome you're talking about.
+
+196
+00:22:44,000 --> 00:22:47,300
+But some of the cohorts, individual level, are time dependent.
+
+197
+00:22:47,870 --> 00:22:51,739
+So potentially different for different outcome types within a particular cluster person.
+
+198
+00:22:51,740 --> 00:22:56,630
+I. And the most common example of this is the time of the measure.
+
+199
+00:22:57,230 --> 00:23:02,690
+And so when we looked at the city for data set, that's also in your homework and that's been talked about in lab.
+
+200
+00:23:03,230 --> 00:23:08,900
+The time that variable was week. And in our data set that we're going to talk about today,
+
+201
+00:23:08,900 --> 00:23:18,080
+we're also going to have some measure that's related to how long after transplant this this colony forming unit was measured.
+
+202
+00:23:22,470 --> 00:23:27,630
+So variance for count outcomes depend on the mean. This is one of the features that we saw.
+
+203
+00:23:27,840 --> 00:23:36,300
+The reason we can't just use linear regression or random effects models for linear, you know, for normally to support outcomes,
+
+204
+00:23:36,810 --> 00:23:45,420
+the variance depends on the mean and that includes risk factors associated with the cluster and the outcome type j.
+
+205
+00:23:47,130 --> 00:23:54,450
+And in each case, when you're modeling dependent outcomes, there's an estimated dispersion parameter fee.
+
+206
+00:23:54,480 --> 00:23:59,310
+Now, this is something that we saw in our output, even when we only had one count outcome,
+
+207
+00:23:59,850 --> 00:24:07,560
+but we only used it before as something we had to find in the output and put in our one.
+
+208
+00:24:09,390 --> 00:24:14,550
+Remember, we did the long test to compare zero inflated models versus non-zero inflated models.
+
+209
+00:24:15,060 --> 00:24:19,380
+We had to kind of find this thing in the output and that's the only time we ever used it.
+
+210
+00:24:20,520 --> 00:24:28,290
+Now. G.E. is using it all the time, and it's using it in a way that I'm going to draw your attention to.
+
+211
+00:24:29,470 --> 00:24:35,560
+Okay. And so it's the main purpose is it's trying to fix that your variant so it's used to
+
+212
+00:24:35,560 --> 00:24:40,390
+inflate or deflate various terms for more confidence intervals in test statistics.
+
+213
+00:24:40,660 --> 00:24:44,320
+It's that scale row that comes right after the rows with all the babies in it.
+
+214
+00:24:44,980 --> 00:24:48,370
+And what's reported in sass is the square root of V.
+
+215
+00:24:48,370 --> 00:24:54,730
+I think our might report just FYI, that's a detail that probably isn't too critical, but you might see that in the output.
+
+216
+00:24:55,720 --> 00:25:04,450
+And so for the person distribution, even though the real test was on distribution, the variance is exactly equal to the mean.
+
+217
+00:25:05,080 --> 00:25:09,900
+Behind the scenes, the programs are just sticking in this extra parameter,
+
+218
+00:25:09,940 --> 00:25:16,090
+recognizing that that might not be exactly right and it wants to do something about it.
+
+219
+00:25:16,210 --> 00:25:25,030
+And so this will let the, you know, the data say whether the real variance of these counts is a little bit greater or a little bit less.
+
+220
+00:25:25,780 --> 00:25:32,540
+So it's a multiplicative term on that mean and it does this for you, whether you want it to or not, it's not a choice.
+
+221
+00:25:32,560 --> 00:25:38,410
+So before when you ask for Poisson model. It would just assume this was one.
+
+222
+00:25:39,640 --> 00:25:46,870
+And and assume we post on variants and now and g it'll just force this assumption on you, which is actually a good thing.
+
+223
+00:25:46,870 --> 00:25:51,430
+It's trying to protect you from having incorrect variance assumptions.
+
+224
+00:25:53,360 --> 00:25:57,350
+And for the negative binomial it's the same thing. So the negative binomial variance.
+
+225
+00:25:57,530 --> 00:26:05,890
+When we only had one outcome, we could have this extra piece that helped us, you know,
+
+226
+00:26:05,990 --> 00:26:10,880
+figure out if there was more variability than what the person would want or less.
+
+227
+00:26:11,300 --> 00:26:14,959
+And now because it can, the program is also saying, well,
+
+228
+00:26:14,960 --> 00:26:20,330
+let's just do one more little fix on top of that and see if that does a better job of the variance.
+
+229
+00:26:20,330 --> 00:26:23,570
+So these things are put in your variance terms, whether you want to or not,
+
+230
+00:26:23,780 --> 00:26:29,420
+and you'll be able to look in the code to see, you know, how close is that to a one?
+
+231
+00:26:30,320 --> 00:26:35,840
+If if the figure is close to a one, then the original variance assumption was probably okay,
+
+232
+00:26:35,840 --> 00:26:41,270
+but otherwise it's giving you a sense of how much trouble it's going to to fix up your assumption for you.
+
+233
+00:26:42,950 --> 00:26:47,600
+And that's something that I do look at when I'm trying to figure out what's going on in the different models.
+
+234
+00:26:49,420 --> 00:26:55,960
+So a one suggest the variance model that you asked to be fit is pretty okay.
+
+235
+00:26:59,960 --> 00:27:04,050
+So the correlation between outcome types.
+
+236
+00:27:04,070 --> 00:27:09,080
+J one and J two within person or cluster i is row j one.
+
+237
+00:27:09,080 --> 00:27:12,170
+J two. That's the same notation I did in the past.
+
+238
+00:27:12,170 --> 00:27:16,580
+And the corresponding covariance kind of looks like this over here.
+
+239
+00:27:20,260 --> 00:27:24,340
+Was that all I had to say? That just seems like a repeat from earlier slides.
+
+240
+00:27:25,870 --> 00:27:29,349
+So what are the G? Some options for regression of dependent outcomes.
+
+241
+00:27:29,350 --> 00:27:31,450
+And I'm going to talk about stats first.
+
+242
+00:27:31,450 --> 00:27:39,040
+So that allows the usual correlation matrix choices we've given in previous lectures, the ones that we reviewed earlier in this handout.
+
+243
+00:27:39,880 --> 00:27:44,260
+And the fewer parameters that you need to model the correlation, the better if your data set small.
+
+244
+00:27:44,260 --> 00:27:49,930
+So it's always the size of your data set. It's always something you have to think about because if you have a small data set
+
+245
+00:27:50,800 --> 00:27:54,340
+and you try to use a lot of parameters to model just the variable in the data,
+
+246
+00:27:54,340 --> 00:27:59,410
+you might break the software, I mean, not permanently, but you won't get your model.
+
+247
+00:28:00,760 --> 00:28:03,950
+And there's very limited model fit information available with G.
+
+248
+00:28:03,970 --> 00:28:08,290
+So we don't have likely to ratio tests, we don't have AIC values we can use.
+
+249
+00:28:08,740 --> 00:28:13,390
+So there's little guidance on choosing the right correlation structure.
+
+250
+00:28:13,870 --> 00:28:21,879
+There is something called. Q I see that software gives and some people recommend choosing correlation structure based on a smaller.
+
+251
+00:28:21,880 --> 00:28:27,940
+Q I see it's supposed to be like, well, you can't have AIC, but here's something we think might be.
+
+252
+00:28:28,970 --> 00:28:31,980
+Helpful. So it's smaller is better.
+
+253
+00:28:32,000 --> 00:28:35,600
+Just like I see smaller is better. It's.
+
+254
+00:28:35,600 --> 00:28:42,110
+It's a very weak piece of advice. So AIC is usually pretty good at nailing down the better model.
+
+255
+00:28:42,110 --> 00:28:51,950
+QIC is kind of so-so. So it's a it's a nice it's nice if you if it's a big difference, maybe, you know,
+
+256
+00:28:51,950 --> 00:28:56,300
+you go with the smaller one, but it's not as good as AIC at picking models.
+
+257
+00:28:58,530 --> 00:29:04,829
+And unfortunately, you know, getting the right correlation structure is is super important to get correct P values.
+
+258
+00:29:04,830 --> 00:29:11,639
+So choosing the correct correlation structure may increase the efficiency of parameter estimation when using model based variability estimates.
+
+259
+00:29:11,640 --> 00:29:15,150
+And it's kind of key that you get that right in a small dataset.
+
+260
+00:29:15,150 --> 00:29:18,660
+So your P values won't be right for large sample sizes.
+
+261
+00:29:18,660 --> 00:29:23,070
+There's G has this huge advantage over.
+
+262
+00:29:24,430 --> 00:29:26,409
+You know, other models for the data.
+
+263
+00:29:26,410 --> 00:29:36,160
+And that is that even if you kind of put in a correlation structure like compound symmetry, if it's in if that assumption is incorrect,
+
+264
+00:29:36,730 --> 00:29:42,340
+there's this empirical, robust sandwich estimation of the variability in terms that will give reasonable results.
+
+265
+00:29:42,790 --> 00:29:53,590
+So if you have a large data set, G is actually a tougher, harder to break model because it has this robust variability.
+
+266
+00:29:53,600 --> 00:29:57,100
+So even if you say you think the data is compound symmetry,
+
+267
+00:29:57,700 --> 00:30:03,970
+it is doing something behind the scenes to fix up everything so that your P values will be correct.
+
+268
+00:30:04,330 --> 00:30:11,020
+So when you have a large dataset G, if you can frame things in a correlation matrix, g is wonderful.
+
+269
+00:30:12,260 --> 00:30:20,870
+You know, it's actually it's actually preferred in that way to a model where you're assuming say normally distributed outcomes.
+
+270
+00:30:23,210 --> 00:30:29,720
+So huge advantage for large data, but for small data you have to get this variability right or your p values are off.
+
+271
+00:30:32,840 --> 00:30:35,239
+So in terms of Excelsior Accounts,
+
+272
+00:30:35,240 --> 00:30:41,460
+available software cannot simultaneously account for both access euros and correlation between accounts at this time.
+
+273
+00:30:41,990 --> 00:30:51,260
+And so, you know, every once in a while, you should Google and see if if things have changed because the theory exists,
+
+274
+00:30:51,260 --> 00:30:54,710
+it just hasn't made its way into mainstream software.
+
+275
+00:30:55,160 --> 00:31:00,350
+And it's just a matter of prioritizing that it triggered the various packages.
+
+276
+00:31:01,100 --> 00:31:08,719
+And I don't think they've prioritized that. So our access there is seen in proc gen what we're not using there, period statement.
+
+277
+00:31:08,720 --> 00:31:13,970
+I mean, that's something that you can do using the wrong independence assumption just to see
+
+278
+00:31:13,970 --> 00:31:18,200
+if it looks like it's a problem if you have the wrong assumption about variability.
+
+279
+00:31:18,210 --> 00:31:24,080
+So that's one trick that we're going to use on our data set today just to see what happens if we get the variability wrong.
+
+280
+00:31:24,080 --> 00:31:26,330
+But at least we're looking at the excess zeros.
+
+281
+00:31:27,290 --> 00:31:33,650
+If there are no significant covariates in the zero model, then G is likely okay without having to deal with excess zeros.
+
+282
+00:31:35,630 --> 00:31:41,480
+Do parameter estimates change much when using a zero inflated model framework versus the corresponding g framework.
+
+283
+00:31:41,750 --> 00:31:45,140
+If the parameter estimates aren't changing the science much,
+
+284
+00:31:45,470 --> 00:31:51,080
+you're probably going to be fine with the G framework and those P values and estimates will probably be fine.
+
+285
+00:31:53,380 --> 00:31:58,300
+GE does not typically alter model coefficients much only the variability estimates.
+
+286
+00:31:58,480 --> 00:32:08,830
+So if the model coefficients are similar with and without the zero inflation factor, when you're assuming independence, then the g is probably fine.
+
+287
+00:32:10,060 --> 00:32:14,950
+If the model estimates differ meaningfully though, then G is probably not fine.
+
+288
+00:32:15,250 --> 00:32:18,640
+It's giving you the wrong estimates because of the access zero problem.
+
+289
+00:32:19,570 --> 00:32:24,340
+But the zero planet model is also not fine because it's not accounting for the correlation and outcomes.
+
+290
+00:32:24,350 --> 00:32:28,330
+So this is the first time in the course where we've gotten to a situation where
+
+291
+00:32:28,810 --> 00:32:33,370
+software does not have a solution for you if your data has both of these problems.
+
+292
+00:32:33,940 --> 00:32:40,570
+And there's different interpretations for each of that, not perfect versions of the model.
+
+293
+00:32:41,380 --> 00:32:49,160
+This is when you were writing that grad student who did this thesis and saying, I need your software, teach me how to use it, you know?
+
+294
+00:32:49,180 --> 00:32:51,339
+And I don't know how easy that is.
+
+295
+00:32:51,340 --> 00:32:57,880
+Or maybe you can get, you know, somebody who's a really good programmer to help you figure out their software because graduate student software,
+
+296
+00:32:58,330 --> 00:33:01,959
+when you're writing this method stuff, it it's the grad student knows it.
+
+297
+00:33:01,960 --> 00:33:05,770
+And then it's not necessarily clear to everybody else what's going on with that code.
+
+298
+00:33:06,800 --> 00:33:12,360
+So it's there, but it's not easy. All right.
+
+299
+00:33:12,360 --> 00:33:18,810
+So here's our data set that I want to talk about today, the colony forming units, behavior post lung transplant.
+
+300
+00:33:19,110 --> 00:33:21,570
+And just to give you a little bit of background,
+
+301
+00:33:22,740 --> 00:33:31,350
+we're looking at mesenchymal colony forming units that are coming from bronchial alveolar lavage samples.
+
+302
+00:33:31,680 --> 00:33:42,000
+So this is something taken from the lung. And this was they were measured in lung transplant recipients under several different conditions.
+
+303
+00:33:42,920 --> 00:33:49,310
+And so the these colony forming unit counts are thought to be associated with scarring.
+
+304
+00:33:50,560 --> 00:34:00,970
+Related to lung injury. So they are higher when the lung is healing or or just getting some scar tissue going on.
+
+305
+00:34:01,540 --> 00:34:09,670
+And so right after the lung transplant, these numbers tend to be higher because the lung is kind of you just had a transplant rights.
+
+306
+00:34:09,680 --> 00:34:16,120
+The lung is trying to make its way and heal into your body and all the things that are supposed to happen when you have a new organ put in your body.
+
+307
+00:34:16,690 --> 00:34:22,120
+So they're typically present in the first 90 days after transplant when the lung is healing from the surgery.
+
+308
+00:34:23,380 --> 00:34:33,460
+But these CFU counts can also happen times at times of acute rejection when you have lymphocytic bronchitis.
+
+309
+00:34:34,730 --> 00:34:39,080
+When cultures are positive for bacteria or CMB.
+
+310
+00:34:40,050 --> 00:34:48,870
+And the research question that my collaborators had at the time I had I got this data set and we were trying to figure stuff out is
+
+311
+00:34:48,870 --> 00:34:56,190
+whether the colony forming units are also elevated at times when patients are diagnosed with bronchiolitis of litter and syndrome,
+
+312
+00:34:57,000 --> 00:35:02,610
+which is some people call cloud. Now, I think it's chronic lung allograft dysfunction or something.
+
+313
+00:35:02,620 --> 00:35:07,319
+People change names for stuff all the time. So at the time we wrote this paper, it was breast.
+
+314
+00:35:07,320 --> 00:35:10,540
+And now I think if you read Cloud, they're talking about more or less the same thing.
+
+315
+00:35:11,430 --> 00:35:22,739
+So the syndrome is kind of putting your lung back into a place where you you're having difficulty again and there is scarring involved.
+
+316
+00:35:22,740 --> 00:35:27,990
+And so the investigators kind of wanted to know if these colony forming units
+
+317
+00:35:27,990 --> 00:35:33,780
+could be used to predict someone who was on their way to getting this syndrome.
+
+318
+00:35:37,020 --> 00:35:44,169
+And so the dataset courtesy from our own VEBA Lamar at University of Michigan looks like this.
+
+319
+00:35:44,170 --> 00:35:49,890
+We have a patient ID and it's a variable ID and then here are the dependent count outcomes.
+
+320
+00:35:50,700 --> 00:35:58,320
+So they're called see a few and they're the means in Carmel, see if you count in that particular eyeball sample.
+
+321
+00:35:59,590 --> 00:36:06,760
+All right. So these samples are taken of over time in the same patient, under different conditions.
+
+322
+00:36:06,760 --> 00:36:12,160
+And so they're covariates that are related to when that sample was taken.
+
+323
+00:36:13,270 --> 00:36:22,239
+So there are some of the samples that were taken while a person had the U.S. is not everybody gets be U.S. but there were
+
+324
+00:36:22,240 --> 00:36:30,190
+some samples taken after a person was diagnosed with the U.S. so it's going to be a one for that time dependent covariant.
+
+325
+00:36:30,700 --> 00:36:38,110
+If that sample was taken at a period when they had already been diagnosed with biopsy and zero otherwise.
+
+326
+00:36:38,290 --> 00:36:44,590
+So this is something that can change over time and it is probably going to look like 000.
+
+327
+00:36:44,860 --> 00:36:48,040
+And then if they get by us, it's going to be one forever after.
+
+328
+00:36:49,120 --> 00:37:01,629
+You don't you don't get cured from being with. There is also a variable that says if the sample was taken while they were in acute rejection period,
+
+329
+00:37:01,630 --> 00:37:04,810
+so that's a one or a zero and you can bounce in and out of this.
+
+330
+00:37:06,160 --> 00:37:13,190
+A one if they had lymphocytic bronchitis at the time the sample was taken and you can bounce in and out of this as well.
+
+331
+00:37:13,940 --> 00:37:21,950
+BACTERIAL One of the presence of positive bacterial cultures are at the sample time and you can bounce in and out of that.
+
+332
+00:37:21,950 --> 00:37:30,439
+And so same thing for CMV. If one if they had presidents of positive positives in the culture and I think you
+
+333
+00:37:30,440 --> 00:37:34,130
+can bounce in and out of that I'm not really as familiar with C and D to be honest,
+
+334
+00:37:34,580 --> 00:37:42,310
+but I think you can bounce in and out of that as well. And then the last variable is the.
+
+335
+00:37:43,740 --> 00:37:47,700
+One of the most important variables in the analysis.
+
+336
+00:37:47,700 --> 00:37:54,780
+It's saying if the sample was taken 90 or more days after a lung transplant at that sampling time,
+
+337
+00:37:55,410 --> 00:37:59,310
+and so remember that the first 90 days your lung is still healing.
+
+338
+00:37:59,850 --> 00:38:07,380
+So independently of everything else that's going on with your lung, they expect these see a few counts to be high because your lung is healing.
+
+339
+00:38:08,310 --> 00:38:15,570
+And so after 90 days, if there's nothing else going on like none of these other things are happening,
+
+340
+00:38:15,930 --> 00:38:21,810
+then they expect these colony forming units to kind of go down to zero and be stable at zero.
+
+341
+00:38:22,380 --> 00:38:30,990
+And so after 90 days, if things are elevated, they want to know if it's because of post biopsy doesn't happen in the first 90 days.
+
+342
+00:38:30,990 --> 00:38:37,920
+So there's no chance of breast in that first 90 days. It earliest it tends to happen is six months.
+
+343
+00:38:37,920 --> 00:38:42,870
+It's but it's more often around a year. So we're going to see several of these measures within person over time.
+
+344
+00:38:44,220 --> 00:38:48,480
+And so here's what the data set looks like for just a couple of people in the dataset.
+
+345
+00:38:48,480 --> 00:38:52,290
+So Person one had a lot of measures done. Person two only had a couple of measures done.
+
+346
+00:38:52,590 --> 00:38:57,600
+Person three just had one measure. You know, you kind of get the idea of variable measures for person.
+
+347
+00:38:58,020 --> 00:39:02,209
+And this is the outcome to see if you. So.
+
+348
+00:39:02,210 --> 00:39:06,770
+Person one This was let's look at their post transplant.
+
+349
+00:39:06,770 --> 00:39:10,160
+So this was. Not.
+
+350
+00:39:10,170 --> 00:39:13,710
+It was in the first 90 days after transplant. They had a high C, a few.
+
+351
+00:39:14,160 --> 00:39:22,290
+So that's expected. And then once they're after 90 days, they're pretty much at 000.
+
+352
+00:39:22,320 --> 00:39:28,350
+It starts creeping up again towards the end. And there's no other covariance.
+
+353
+00:39:29,960 --> 00:39:34,550
+That are, you know, predicting it. So there's just natural variability as well.
+
+354
+00:39:36,750 --> 00:39:45,760
+All right, so let's see. So this person post-transplant are the interesting best ones.
+
+355
+00:39:45,770 --> 00:39:50,030
+Here's a beer. So this is the cover that's most interesting.
+
+356
+00:39:50,630 --> 00:39:58,100
+Whether they have breasts or not. And so here are two of the samples where the person had beer with at that time.
+
+357
+00:39:58,520 --> 00:40:07,040
+And, you know, it's it's really not clear based on two people, but this person seems to have,
+
+358
+00:40:07,430 --> 00:40:12,540
+you know, a somewhat high value considering that they're way out after transplant.
+
+359
+00:40:12,560 --> 00:40:20,440
+So we're going to just look at this data and see what we see. All right.
+
+360
+00:40:20,590 --> 00:40:23,860
+So Patient one contributes five staples. Patient two gives two samples.
+
+361
+00:40:24,310 --> 00:40:27,310
+Patient 35 Offer only one. Sample eight patients.
+
+362
+00:40:27,310 --> 00:40:30,770
+That gives three samples. This was not collected as part of a clinical trial.
+
+363
+00:40:30,790 --> 00:40:34,360
+This was very malama, just taking samples when patients came in.
+
+364
+00:40:34,570 --> 00:40:38,050
+So it's not the cleanest data set.
+
+365
+00:40:38,680 --> 00:40:46,540
+Later, she went on to collect nice, pretty clean data, but this is what she had at the time, and it was good enough data to show what was going on.
+
+366
+00:40:47,320 --> 00:40:50,770
+So we're going to start by looking at the porcine model.
+
+367
+00:40:52,200 --> 00:40:59,310
+And so it's very similar syntax to what we saw with the model with the normally distributed outcomes.
+
+368
+00:40:59,790 --> 00:41:08,669
+So you have the class statement, has your ID variable and then the repeated line is very important at telling what are which are
+
+369
+00:41:08,670 --> 00:41:13,950
+the outcomes that are dependent and what kind of correlation structure we're assuming for them.
+
+370
+00:41:14,460 --> 00:41:19,130
+So subject equals ID, it's whatever the variable is that identifies your cluster.
+
+371
+00:41:19,140 --> 00:41:25,440
+So here it's person and then here type is what your correlation structure.
+
+372
+00:41:26,780 --> 00:41:30,350
+Is is assumed to be and C.
+
+373
+00:41:30,380 --> 00:41:38,990
+S is for compound symmetry or exchangeable is the one with the same correlation regardless of which pair you're looking at.
+
+374
+00:41:40,090 --> 00:41:45,400
+That's what we're assuming here. And I think I have some maybe bubbles that come up.
+
+375
+00:41:45,410 --> 00:41:51,310
+Yeah. So identifies the correlated cluster of a few accounts that need to appear in both the class statement and repeated statement.
+
+376
+00:41:52,060 --> 00:41:56,620
+I think probably I have bubbles for all these things. So here's the model statement.
+
+377
+00:41:58,080 --> 00:42:04,060
+And. It's similar to what we used when we were assuming independent outcomes in Poisson regression.
+
+378
+00:42:04,080 --> 00:42:07,870
+So this looks just exactly like what we would have used before.
+
+379
+00:42:08,320 --> 00:42:10,990
+Distribution equals sign link equals log.
+
+380
+00:42:12,010 --> 00:42:19,930
+For this data set, we don't have an offset term that's appropriate, but you could have an offset term if you needed it.
+
+381
+00:42:20,950 --> 00:42:25,330
+We just don't for this for this example. And.
+
+382
+00:42:26,490 --> 00:42:33,720
+The repeated statement request the g e model with compound symmetry, correlation and code B in core beer,
+
+383
+00:42:34,050 --> 00:42:38,430
+covariance and correlation matrices for the parameter estimates, both model based and empirical.
+
+384
+00:42:39,120 --> 00:42:42,630
+I don't think I've taught you any reason to want to see these.
+
+385
+00:42:43,500 --> 00:42:49,890
+I like looking at them because if the parameters are highly correlated, I might be kind of worried about model stability.
+
+386
+00:42:50,320 --> 00:42:54,930
+But it's it's something that you can look at.
+
+387
+00:42:54,930 --> 00:42:58,530
+But I don't think that in this class I'm focusing too much on interpreting that.
+
+388
+00:42:58,830 --> 00:43:02,250
+I'll show you what they look like and then you can judge for yourself if they're useful.
+
+389
+00:43:02,940 --> 00:43:05,730
+Actually, do I show you what they look like? I guess we'll see. I don't remember.
+
+390
+00:43:06,570 --> 00:43:13,130
+And then Model C asks for the analysis of the parameter estimates via model based on empirical standard estimate.
+
+391
+00:43:13,150 --> 00:43:16,710
+So you have to put this in there to get your parameter estimate table.
+
+392
+00:43:18,400 --> 00:43:27,280
+And then I have some estimate statements. So we get to remember how to write and interpret these estimate statements.
+
+393
+00:43:27,760 --> 00:43:36,820
+And here I conveniently tell you what I'm doing, but let's just skip that temporarily and just look at what parameters I've asked for in this formula.
+
+394
+00:43:37,270 --> 00:43:44,590
+So I've said Intercept zero, boost one, and then everything else is a zero, including this post-transplant thing.
+
+395
+00:43:45,100 --> 00:43:50,920
+And so what is, what is this? Asking for.
+
+396
+00:43:52,740 --> 00:43:58,530
+And so it's it's clearly asking for something related to the U.S. perimeter, each of the bombs.
+
+397
+00:43:58,980 --> 00:44:02,160
+And so what does that what does that mean? So if you remember,
+
+398
+00:44:02,160 --> 00:44:10,200
+that is going to give us the multiplicative factor when you're comparing counts for someone who
+
+399
+00:44:10,200 --> 00:44:15,810
+was sampled while in the U.S. versus someone who was sampled when they were not in Boston.
+
+400
+00:44:17,260 --> 00:44:21,850
+So if this is if well, we'll turn it in a minute.
+
+401
+00:44:22,870 --> 00:44:26,349
+All right. So all of the. Parameter estimates.
+
+402
+00:44:26,350 --> 00:44:30,240
+When you take that parameter estimate, it has nothing to do with a multiplicative factor.
+
+403
+00:44:30,250 --> 00:44:35,389
+Remember how I'm trying to like. I bop you on that so violent.
+
+404
+00:44:35,390 --> 00:44:38,480
+But I feel like like I want to, like, jog your jog your memory.
+
+405
+00:44:38,480 --> 00:44:41,680
+That's nicer than, like, hitting you with something, right? To jog your memory.
+
+406
+00:44:41,690 --> 00:44:44,830
+Don't say odds ratio ever when you're using these count models.
+
+407
+00:44:44,840 --> 00:44:48,410
+No odds. No odds ratios. Multiplicative factors. Okay.
+
+408
+00:44:49,130 --> 00:44:53,420
+And then what's the second one doing? Oh, yeah.
+
+409
+00:44:53,730 --> 00:44:58,500
+It's nice to have words here so that you're going to get the confidence interval for each of the B-2 bombers,
+
+410
+00:44:58,710 --> 00:45:02,520
+which is the multiplicative term for how much higher c a few counts are for a boost
+
+411
+00:45:02,520 --> 00:45:08,370
+versus a non boost patient sample adjusting for other predictors in the models.
+
+412
+00:45:08,370 --> 00:45:11,609
+So it's the same interpretation we had when we didn't have dependent outcomes.
+
+413
+00:45:11,610 --> 00:45:14,730
+So this is we can lean on what we learned before for this part.
+
+414
+00:45:16,530 --> 00:45:17,990
+And then so what's this one doing?
+
+415
+00:45:18,000 --> 00:45:23,639
+So again, I'm going to just kind of sit by the title and just look at the parameters and try to remember what's going on.
+
+416
+00:45:23,640 --> 00:45:33,120
+So we have an intercept here. And remember, whenever we have an intercept, we're actually trying to estimate the outcome in some way, right?
+
+417
+00:45:33,150 --> 00:45:36,930
+Because whenever we do ratios, the intercepts cancel out.
+
+418
+00:45:37,260 --> 00:45:46,890
+So it's not going to be some multiplicative factor. It's energy C intercept one, it's estimating some some patient profile and what the outcome does.
+
+419
+00:45:48,220 --> 00:45:51,670
+So intercept one's boss one.
+
+420
+00:45:51,670 --> 00:45:56,350
+So whoever, whatever patient profile this is, they it's a biopsy sample.
+
+421
+00:45:57,100 --> 00:46:02,319
+They don't have acute rejection. They don't have any of these other features.
+
+422
+00:46:02,320 --> 00:46:05,590
+And post-transplant 90 is the one.
+
+423
+00:46:05,590 --> 00:46:11,050
+So this is talking about a sample that happened more than 90 days post transplant.
+
+424
+00:46:11,890 --> 00:46:15,969
+So now that we've kind of looked at that, let's read this and see if you count for a boost.
+
+425
+00:46:15,970 --> 00:46:20,050
+Patient at least 90 days post transplant with no other confounders.
+
+426
+00:46:21,290 --> 00:46:24,560
+That's what we're going to be asking to estimate.
+
+427
+00:46:25,950 --> 00:46:30,900
+With that estimate statement. And here it's kind of just written out.
+
+428
+00:46:31,410 --> 00:46:36,569
+This is the request for the estimate in the confidence interval for for this formula, which is a C,
+
+429
+00:46:36,570 --> 00:46:42,840
+if you count observed at least 90 days post-transplant for a U.S. patient all other potential
+
+430
+00:46:42,840 --> 00:46:48,660
+confounders for having a high C if you can or assumed absent because there are zeros in this formula.
+
+431
+00:46:51,170 --> 00:46:57,729
+So here is the output. And so it's telling you again what correlation structure.
+
+432
+00:46:57,730 --> 00:47:02,889
+And I just think it's so funny that we use the code for compound imagery, but it then it tells you it's exchangeable.
+
+433
+00:47:02,890 --> 00:47:06,260
+So it's using both the jargon and the same output.
+
+434
+00:47:06,280 --> 00:47:09,399
+Just weird. I just think that's strange means the same thing.
+
+435
+00:47:09,400 --> 00:47:11,709
+That's okay. There's the correlation.
+
+436
+00:47:11,710 --> 00:47:18,280
+When you use this particular model, it doesn't look like it's super high between measures that that could be a good thing.
+
+437
+00:47:19,120 --> 00:47:25,899
+We get more statistical information from the counts within person when they're not highly correlated.
+
+438
+00:47:25,900 --> 00:47:33,309
+So this means each measure is helping us with our power a little bit more than if we had correlation.
+
+439
+00:47:33,310 --> 00:47:36,560
+That was. Higher.
+
+440
+00:47:37,650 --> 00:47:41,910
+Potentially. Oh, and here's the coolest thing that I mentioned.
+
+441
+00:47:41,910 --> 00:47:49,260
+This is the I really would rather be a I see value that it prints out and we can look at it to see, you know,
+
+442
+00:47:49,350 --> 00:47:54,870
+how it compares between models and it it's trying to give you some advice on that, but it's not firm advice really.
+
+443
+00:47:55,800 --> 00:48:03,960
+So that's made a correlation outcomes is weak when you fit this model and the lower QIC can be used to choose between correlation models.
+
+444
+00:48:04,290 --> 00:48:09,929
+And so let's quickly peek at what what it would look like if we assumed independence,
+
+445
+00:48:09,930 --> 00:48:13,440
+which is a reasonable thing to peek at, especially since this correlation is low.
+
+446
+00:48:13,800 --> 00:48:21,180
+Let's just take a look and see what we see. So the only thing we change is the type of the correlation structure being I.
+
+447
+00:48:21,180 --> 00:48:31,809
+And nothing else has changed in this code. And when we look at the queue, I see this is the queue I see we had when we assumed compound symmetry.
+
+448
+00:48:31,810 --> 00:48:41,680
+This is the queue I see that we had from the independence output and the the queue I see is smaller, see how it's more negative.
+
+449
+00:48:41,680 --> 00:48:48,680
+So that counts as smaller. So it's saying you compound cemetery.
+
+450
+00:48:48,680 --> 00:48:57,790
+It's saying use the compound cemetery. And here's more output from the Poisson JE model a compound symmetry.
+
+451
+00:48:57,810 --> 00:48:59,730
+These are the model based parameter estimates.
+
+452
+00:49:00,000 --> 00:49:10,860
+And this dataset is large enough actually, where you could use either the model based or the empirical model, you know, parameter estimates.
+
+453
+00:49:11,340 --> 00:49:15,360
+Either one would be okay. And so we'll look at both.
+
+454
+00:49:17,370 --> 00:49:20,639
+And so what are we looking for here? So one thing that I like to do,
+
+455
+00:49:20,640 --> 00:49:26,520
+I'll show you in a minute is I like to see what the standard errors look like for my model
+
+456
+00:49:26,520 --> 00:49:32,790
+based assumption and what the standard errors look like for the empirical parameter table.
+
+457
+00:49:32,800 --> 00:49:37,050
+Because I want to see if they're kind of similar on the same scale.
+
+458
+00:49:37,050 --> 00:49:41,400
+I want to see if stacks broke, if they're vastly different either.
+
+459
+00:49:41,400 --> 00:49:46,950
+I've gotten my correlation structure from my model based table totally off, or I broke SAS.
+
+460
+00:49:47,700 --> 00:49:51,720
+And so that we'll look at that in a minute.
+
+461
+00:49:52,410 --> 00:50:01,570
+These parameter estimates are going to be the same. In it, whether I'm using the model based or the empirical standard errors.
+
+462
+00:50:01,960 --> 00:50:07,150
+So this this doesn't change this. It's the standard error and everything that involves the standard error.
+
+463
+00:50:07,150 --> 00:50:10,330
+So confidence limits will shift. P values will shift.
+
+464
+00:50:10,930 --> 00:50:16,030
+And let's just briefly to take a look also at the cover that was the most interest to these guys.
+
+465
+00:50:16,030 --> 00:50:20,740
+So the with covariate is statistically significant.
+
+466
+00:50:22,870 --> 00:50:26,280
+As well as a lot of these other things. But.
+
+467
+00:50:26,760 --> 00:50:30,240
+So what does this mean for us? Oh, and what's the scale?
+
+468
+00:50:30,540 --> 00:50:35,640
+Remember how I said that? Says, no matter what, will fix up your variability.
+
+469
+00:50:36,390 --> 00:50:43,080
+So if the scale was near one, then the Poisson variability assumption didn't need much fixing.
+
+470
+00:50:43,170 --> 00:50:50,579
+But it's going to fix it for you anyway. And so there was some over dispersion in the data that required adjustment.
+
+471
+00:50:50,580 --> 00:50:53,760
+And this is kind of like a big sister. That said, that was nice.
+
+472
+00:50:53,760 --> 00:50:57,200
+You really thought person was good. Well, I'm fixing it for you, honey.
+
+473
+00:50:57,210 --> 00:51:01,770
+You know, so I try not to use Big Brother because that's too government, you know?
+
+474
+00:51:01,980 --> 00:51:04,980
+But Big Sister's just trying to help. So this is.
+
+475
+00:51:05,010 --> 00:51:13,549
+This happened. And I've kind of Frankensteins this a bit together.
+
+476
+00:51:13,550 --> 00:51:23,090
+This is not does it do this for you? But I've kind of copied the model based standard error from the output and then the empirical standard
+
+477
+00:51:23,090 --> 00:51:28,370
+error that comes from a totally different table in the output and the P values from those two as well.
+
+478
+00:51:28,400 --> 00:51:33,110
+So you would actually have to compare two table side by side, but that's not easy to do in a single slide.
+
+479
+00:51:33,800 --> 00:51:43,010
+So what I do is look at these two columns of standard errors, and what I'm looking for is really huge differences in how the variability looks.
+
+480
+00:51:43,400 --> 00:51:51,080
+Remember when South broke, we got really weird numbers for one, two, four.
+
+481
+00:51:52,300 --> 00:51:56,150
+I think the empirical broke. I can't remember. I don't remember which one broke.
+
+482
+00:51:56,150 --> 00:52:02,380
+But there were very, very different. Here. They're kind of in the same I mean, they're not perfectly the same, but they're in the same ballpark.
+
+483
+00:52:02,440 --> 00:52:07,660
+There's nothing here that tells me something has gone obviously wrong with the model.
+
+484
+00:52:08,170 --> 00:52:12,100
+And in fact, I'm kind of comforted that they're they're not far off.
+
+485
+00:52:12,100 --> 00:52:15,310
+So probably my compound symmetry assumption was okay.
+
+486
+00:52:15,910 --> 00:52:24,970
+And then I'm also carefully looking at the P values and seeing if my science changes based on which variance assumption I use.
+
+487
+00:52:25,450 --> 00:52:34,870
+So I'm looking at both and I'm saying, okay, they're significant in both models, so my science is secure regardless of which column I put in my paper.
+
+488
+00:52:35,380 --> 00:52:42,100
+It doesn't change the science whether I use the model based assumption or the empirical assumption.
+
+489
+00:52:42,700 --> 00:52:48,939
+All right. So that's very reassuring. And there's a little bit of wiggle room in some of these.
+
+490
+00:52:48,940 --> 00:52:52,840
+But for the most part, the the sciences is very similar.
+
+491
+00:52:53,170 --> 00:52:57,250
+And so that makes me feel a lot more comfortable about what I'm putting in my paper.
+
+492
+00:52:59,130 --> 00:53:02,610
+So the main term of interest below us is significant in both cases.
+
+493
+00:53:03,450 --> 00:53:06,870
+There's some effect on the interpretation of confounders.
+
+494
+00:53:06,870 --> 00:53:12,659
+Bacterial is marginally significant when you looked at the model based table, but not significant being empirical.
+
+495
+00:53:12,660 --> 00:53:23,040
+So I'm looking at the difference between like a .07, which for me is like trending, you know, I get excited versus 0.16 where I usually lose interest.
+
+496
+00:53:24,530 --> 00:53:30,709
+So there's a little bit of wiggle room. But, you know, that wasn't even a variable.
+
+497
+00:53:30,710 --> 00:53:33,830
+I was that excited to interpret. So I'm not really upset.
+
+498
+00:53:33,830 --> 00:53:36,830
+I really wanted to know what's going on with both adjusts for these things.
+
+499
+00:53:39,340 --> 00:53:42,510
+And then the estimate statement results will look like this.
+
+500
+00:53:42,520 --> 00:53:47,600
+And I have to tell you right away that the P values are based on the sandwich estimate.
+
+501
+00:53:47,620 --> 00:53:53,319
+It is the robust sandwich estimate or stacked empirical three named type of standard error.
+
+502
+00:53:53,320 --> 00:54:01,309
+Empirical robust sandwich. So when you do these estimate statements, you are leaning on the empirical stuff.
+
+503
+00:54:01,310 --> 00:54:02,540
+So if you have a small data set,
+
+504
+00:54:02,540 --> 00:54:10,189
+you need to know that that is when you if you have to use a complicated formula to estimate things and you have a small data set,
+
+505
+00:54:10,190 --> 00:54:15,680
+these p values might not be perfect, but for this data set, I'm pretty comfortable with either set of P values.
+
+506
+00:54:16,190 --> 00:54:20,179
+So here is the the one that's talking about the effect of boost.
+
+507
+00:54:20,180 --> 00:54:25,610
+This is the one that I'm going to put in my manuscript worthy sentence here, over here for this first one.
+
+508
+00:54:25,880 --> 00:54:31,330
+I'm also going to write something to interpret this second thing, this actual estimate for the C,
+
+509
+00:54:31,340 --> 00:54:36,350
+if you count for a below a patient that's at least 90 days post-transplant with no other confounders.
+
+510
+00:54:37,280 --> 00:54:43,030
+So for the first one. This is how I would write a manuscript where the sentence I would say, See,
+
+511
+00:54:43,030 --> 00:54:51,100
+a few counts with boosts tend to be 1.89 times higher than those without o.
+
+512
+00:54:51,550 --> 00:54:56,560
+See how it's multiplicative. Need to write something and not say odds ratio in this sentence.
+
+513
+00:54:57,690 --> 00:55:05,610
+And that's adjusted for the presence of acute rejection, lymphocytic bronchitis, positive bacterial or CMV cultures and timing of the wall sample.
+
+514
+00:55:05,880 --> 00:55:12,270
+And I have the 95% confidence interval and the p value from this estimate statement.
+
+515
+00:55:12,750 --> 00:55:18,120
+So here the confidence limits that they came from here and here is the p value over here.
+
+516
+00:55:23,620 --> 00:55:33,370
+And. I think it's I didn't actually need to use an estimate statement here because I only had the single parameter.
+
+517
+00:55:33,380 --> 00:55:40,160
+So, you know, I thought I was comfortable citing empirical results here due to the sample sizing being reasonable large.
+
+518
+00:55:40,160 --> 00:55:43,490
+But an argument could be made for using the model based results as well.
+
+519
+00:55:43,850 --> 00:55:47,860
+And you would just take the results from the previous table exponentially,
+
+520
+00:55:47,900 --> 00:55:55,640
+the the beta for the boost exponentially the confidence limits that go along with that parameter and use the p value.
+
+521
+00:55:55,880 --> 00:56:05,450
+So you could have done it that way as well. And then for the second estimate statement, here's a manuscript where this sentence was patient.
+
+522
+00:56:05,450 --> 00:56:11,120
+At least 90 days post-transplant tends to have a C if you count of approximately 9.16 when
+
+523
+00:56:11,120 --> 00:56:16,430
+no other indications for increased C if you count our present confidence interval P value.
+
+524
+00:56:16,910 --> 00:56:20,260
+And so that came from this term.
+
+525
+00:56:20,270 --> 00:56:26,580
+So it's actually estimating the count now. And the congress limits and the p value.
+
+526
+00:56:26,910 --> 00:56:30,530
+And this was actually useful. To State.
+
+527
+00:56:31,590 --> 00:56:40,740
+In the paper in some way because they want to know, you know, how high how how do these look when someone has b U.S. so that when they're,
+
+528
+00:56:41,460 --> 00:56:49,320
+you know, colonizing from ball samples in the future, they'll know now what's really high for someone who doesn't have the U.S.
+
+529
+00:56:54,020 --> 00:56:57,440
+And there's our code for the Python model.
+
+530
+00:56:58,310 --> 00:57:07,310
+You know, it's kind of just reading in the data so far. But you can write your formula pretty much the same way you usually do and fit the formula.
+
+531
+00:57:07,520 --> 00:57:13,669
+This is doing the python model with the same covariance assumption here.
+
+532
+00:57:13,670 --> 00:57:17,450
+That's for exchangeable and looking at the fit.
+
+533
+00:57:17,840 --> 00:57:24,830
+And then we've done a lot of contrast statements. So remember, you have to have a value for each thing that's appearing in your model.
+
+534
+00:57:25,220 --> 00:57:32,570
+So the the intercept is always first and then this second one is this covariate box.
+
+535
+00:57:32,570 --> 00:57:36,680
+The third one is acute rejection and so on. You have to have a term for everything in your model.
+
+536
+00:57:38,430 --> 00:57:45,500
+And same thing over here. I have the intercept the boss term and then that post transplant by 90 days variable.
+
+537
+00:57:50,460 --> 00:57:59,160
+And then I just have some code together so that you can see the results in a pretty way with confidence intervals and P values like SAS gives you.
+
+538
+00:58:01,450 --> 00:58:10,550
+And so here is the output you get. All of this is assuming that sandwich empirical robust standard error.
+
+539
+00:58:10,570 --> 00:58:14,630
+It it will not show you the model based results in an easy way.
+
+540
+00:58:14,650 --> 00:58:19,660
+I mean, you can ask for the standard error and figure everything out by hand.
+
+541
+00:58:19,690 --> 00:58:24,990
+There's a there's some code to ask for the naive variability, but it's more work.
+
+542
+00:58:25,000 --> 00:58:31,630
+It's just not convenient. So for this dataset, that's fine because it's large enough.
+
+543
+00:58:32,080 --> 00:58:35,830
+So you can use our comfortably in this situation for this model.
+
+544
+00:58:37,150 --> 00:58:43,120
+And the results are pretty similar. This is the, the fee related thing.
+
+545
+00:58:43,120 --> 00:58:47,409
+I think this is reported on the squared scale in SAS.
+
+546
+00:58:47,410 --> 00:58:54,370
+It was like the square root of fee. This is fee. But this should be the square of what we saw from South.
+
+547
+00:58:55,480 --> 00:58:59,590
+And, uh, and it's saying here, it's giving you a p value.
+
+548
+00:58:59,600 --> 00:59:03,670
+Like, I really had to do something. It was really important. It's kind of giving a p value.
+
+549
+00:59:04,090 --> 00:59:08,560
+And then here's the estimate of the correlation we saw to it's fairly close to what we saw in South.
+
+550
+00:59:10,150 --> 00:59:15,940
+And then here are. Here's the code that I put together to get the.
+
+551
+00:59:16,970 --> 00:59:20,680
+Estimate the contrast statement information together for you.
+
+552
+00:59:20,690 --> 00:59:23,989
+So, I mean, you have to kind of know where to look for some of this stuff.
+
+553
+00:59:23,990 --> 00:59:27,410
+So this piece, how you code is kind of useful to get the P value right.
+
+554
+00:59:30,870 --> 00:59:35,580
+And the sentences that kind of correspond to the ones we saw from Seth.
+
+555
+00:59:35,590 --> 00:59:38,430
+But using the exact numbers from are here.
+
+556
+00:59:40,740 --> 00:59:48,840
+So just, you know, you can kind of find where I got the numbers from the output from the are using these sentences as a guide.
+
+557
+00:59:52,620 --> 01:00:01,030
+Okay. So we're going to. Take a break and then come back and see what do we do next?
+
+558
+01:00:01,520 --> 01:00:06,130
+What can we do next? And how do we make some decisions on what will go on the manuscript?
+
+559
+01:00:06,610 --> 01:01:03,960
+So let's meet at 910. Hey.
+
+560
+01:01:05,700 --> 01:01:09,480
+I'm good. You're open on my next, too. Oh, you're just getting stuff.
+
+561
+01:01:11,020 --> 01:01:15,170
+Oh, by the way, everybody get away. This thing is broke, and they're all going to dry out.
+
+562
+01:01:15,180 --> 01:01:21,209
+You should get a wipe in. Like, wipe your chair if you want. I mean, this will never close correctly again.
+
+563
+01:01:21,210 --> 01:01:27,910
+It's. It should be good because I just used one before class, but.
+
+564
+01:01:28,420 --> 01:01:32,460
+Yeah. I don't know.
+
+565
+01:01:32,480 --> 01:01:36,970
+Someone must have closed it, like, aggressively. It's really.
+
+566
+01:01:36,980 --> 01:01:41,720
+It's really hard to close again. Actually, I was, like, trying to take the lid off and close it from the inside and.
+
+567
+01:01:42,050 --> 01:01:45,500
+Yeah. Yeah. Wow. Yeah. So.
+
+568
+01:01:46,040 --> 01:01:53,220
+So. Feel free to wipe away with that if they're just going to dry out. All right.
+
+569
+01:01:53,490 --> 01:01:56,510
+I have a question here.
+
+570
+01:01:56,520 --> 01:01:59,980
+You can go ahead and put this up here so we can see that.
+
+571
+01:02:01,340 --> 01:02:07,130
+I need help with my disease variable. So I know you said ten years.
+
+572
+01:02:07,850 --> 01:02:11,500
+And I've been trying to do the ten years, but it's just not working.
+
+573
+01:02:14,880 --> 01:02:25,950
+Yeah. So one. So one way to do it is to, in your data step, just create a new variable where instead of age with the years unit,
+
+574
+01:02:26,100 --> 01:02:29,490
+you put age per ten years by just dividing by ten.
+
+575
+01:02:31,030 --> 01:02:34,560
+So go to your data step. Or do you have a data step?
+
+576
+01:02:34,570 --> 01:02:39,220
+You don't have a data steps and make a data step. So right after.
+
+577
+01:02:40,230 --> 01:02:45,600
+The Contest. Contents. Pit return and go data.
+
+578
+01:02:49,330 --> 01:03:00,740
+Homework. hw5 dot. And then hit semicolon and then type set H.W. five dot kidney.
+
+579
+01:03:05,350 --> 01:03:09,520
+And a semicolon. And now we're going to create the variable.
+
+580
+01:03:09,550 --> 01:03:16,730
+So why don't you just call it like age ten? Equals age divided by ten.
+
+581
+01:03:18,960 --> 01:03:21,960
+Semicolon and then hit run. Yeah.
+
+582
+01:03:22,050 --> 01:03:25,190
+I mean, you know, type run. So that should create the variable.
+
+583
+01:03:25,200 --> 01:03:31,180
+Go ahead and run that and see if it worked. Go check your output data to see if that new variable is there.
+
+584
+01:03:31,340 --> 01:03:38,420
+That was the original age. And then aged ten for every one year increase of this, it's going to correspond to a ten year increase.
+
+585
+01:03:38,440 --> 01:03:41,990
+Okay. And now you can just use that in your age.
+
+586
+01:03:43,250 --> 01:03:46,320
+Model. Yeah.
+
+587
+01:03:47,700 --> 01:03:56,300
+Thank you. Don't do it. Yeah.
+
+588
+01:03:56,510 --> 01:04:03,440
+Okay. I don't know why, because, I mean, if age is equal to bad and category error is also okay.
+
+589
+01:04:03,450 --> 01:04:06,890
+So. What were you trying to do? Maybe I can think through.
+
+590
+01:04:07,970 --> 01:04:16,250
+So I was trying to. So usually when I guess I was trying to recreate the age for me, if it's great.
+
+591
+01:04:17,870 --> 01:04:21,100
+If it's more than. Ten.
+
+592
+01:04:21,340 --> 01:04:26,140
+I don't know what I was. I guess I was just trying to. I could turn or for some reason.
+
+593
+01:04:26,510 --> 01:04:30,700
+Uh. Okay. Yeah.
+
+594
+01:04:30,700 --> 01:04:34,180
+Whenever you go to the events stuff you're kind of creating.
+
+595
+01:04:37,130 --> 01:04:49,250
+If I can range. So if you try to create a create a variable where you had age plus ten, that would be statistically it would fit the same way.
+
+596
+01:04:49,690 --> 01:04:52,899
+It would fit the same model scientifically.
+
+597
+01:04:52,900 --> 01:04:56,410
+Right. Because everybody's age shifted by ten when you do that variable.
+
+598
+01:04:57,400 --> 01:05:02,840
+Uh. It would you would have the same parameter estimate.
+
+599
+01:05:02,860 --> 01:05:09,579
+It wouldn't. It would be very unsatisfying. It wouldn't have moved from your original model, just age to the age plus ten.
+
+600
+01:05:09,580 --> 01:05:15,430
+It would give you the same hazard ratio would have been very unsatisfying for you to do that.
+
+601
+01:05:16,210 --> 01:05:27,340
+So here it's just about changing the units of the variable so that when you look for a one unit increase, the unit now is ten years.
+
+602
+01:05:28,300 --> 01:05:37,870
+And so you can always double check by looking at your data set and seeing, oh, before it was 40, 50, 60, and now it's four, five, six.
+
+603
+01:05:38,050 --> 01:05:41,530
+Okay. So each unit is really ten years of age changing.
+
+604
+01:05:42,690 --> 01:05:48,480
+So changing units is a great trick because in your manuscript, sometimes a one minute change is meaningless.
+
+605
+01:05:48,720 --> 01:05:54,450
+The, you know, so you have to kind of figure out what is the unit that's most scientifically relevant.
+
+606
+01:05:54,720 --> 01:06:02,190
+Okay. Okay. And so then when we're when we're doing the and go on residuals we use.
+
+607
+01:06:04,420 --> 01:06:10,580
+So in this case, I was to use the new. Variable that I created for age and had the.
+
+608
+01:06:12,990 --> 01:06:16,950
+I would use the new variable because you're trying to model the new variable.
+
+609
+01:06:16,950 --> 01:06:22,260
+But the beautiful thing is, regardless of which one you use, it will try to help you find the right cut for you.
+
+610
+01:06:22,650 --> 01:06:26,700
+It's just you're going to be using age terms as we use age ten.
+
+611
+01:06:27,300 --> 01:06:32,060
+Okay. Because when I when I did it without, like, without the.
+
+612
+01:06:34,560 --> 01:06:38,130
+It looked very different. I don't know. My graph just.
+
+613
+01:06:38,570 --> 01:06:41,840
+It just doesn't look right. This is what?
+
+614
+01:06:43,850 --> 01:06:47,430
+You know what? You need to have a Louis curve go through there. And I think.
+
+615
+01:06:48,910 --> 01:06:54,030
+That. It will choke and not do the lowest curve if you have too many points.
+
+616
+01:06:55,090 --> 01:07:00,889
+Um. Let me look that up.
+
+617
+01:07:00,890 --> 01:07:06,850
+I think that I think that you have to change the number of. Like increase the limit of points that you can use.
+
+618
+01:07:06,850 --> 01:07:14,060
+Let me look that up so I can find it. Okay. And you see get my laptop that you do it.
+
+619
+01:07:16,510 --> 01:07:19,700
+I might have to put an announcement out just to help with that. Okay.
+
+620
+01:07:20,440 --> 01:07:30,480
+Because I bet a lot of people are not seeing that. Well, I'm. I'll try to do that if I can, to get it done during the break, but I'll try.
+
+621
+01:10:11,450 --> 01:12:09,810
+Really? Okay.
+
+622
+01:12:10,200 --> 01:12:17,820
+Let's get back to work. So a question came up about homework five during the break and.
+
+623
+01:12:19,140 --> 01:12:22,280
+I've made a real quick announcement to help with this.
+
+624
+01:12:22,290 --> 01:12:26,189
+So it's turning out that the dataset for the homework is very, very large.
+
+625
+01:12:26,190 --> 01:12:32,970
+And when you try to plot the residual plots to the lowest lines that are supposed to help you interpret, the plots aren't showing up.
+
+626
+01:12:33,360 --> 01:12:37,290
+You're just seeing the dots and you're not seeing any pattern to help you with that.
+
+627
+01:12:37,650 --> 01:12:45,300
+And so there is a command where you can increase the ability of low to deal with this large data set.
+
+628
+01:12:45,310 --> 01:12:49,500
+So just before you do the plot, put some like odious graphics.
+
+629
+01:12:49,920 --> 01:12:53,610
+Lois Max ops equals. And then I just put some big large number.
+
+630
+01:12:53,610 --> 01:12:58,740
+You want to make sure that you check to see if that's big enough.
+
+631
+01:12:59,490 --> 01:13:03,330
+You might still have to increase it, but I don't think our data sets more than 10,000.
+
+632
+01:13:03,330 --> 01:13:08,280
+So I just kind of, you know, picked that number off the top of my head is something huge.
+
+633
+01:13:08,550 --> 01:13:12,720
+You might have to have a semicolon, I don't recall, but try this out and then you should.
+
+634
+01:13:12,960 --> 01:13:20,280
+If it works, you should see a smooth line to help you interpret what's going on with all of these residual plots in the homework.
+
+635
+01:13:21,180 --> 01:13:24,389
+So I hope that helps. Try it out and let me know if you've got your code open.
+
+636
+01:13:24,390 --> 01:13:31,750
+Yeah. Oh.
+
+637
+01:13:31,780 --> 01:13:35,139
+Okay. So. Yeah. So. So someone answered it on opposite too.
+
+638
+01:13:35,140 --> 01:13:44,160
+I think I missed that question completely. Awesome.
+
+639
+01:13:48,930 --> 01:13:55,560
+Okay. So great. So it works. Someone is saying that it worked on Piazza, so I think I missed that one.
+
+640
+01:13:55,890 --> 01:14:00,390
+Yeah, that's this one. Okay. I need to catch up on this.
+
+641
+01:14:00,990 --> 01:14:08,630
+All right. So should work. So let's go back to work on the handout.
+
+642
+01:14:12,260 --> 01:14:24,999
+So we just fit the porcine model. And you know, of course, we're used to having a lot more choices for count, so negative binomial g would be natural.
+
+643
+01:14:25,000 --> 01:14:25,780
+Ask about that.
+
+644
+01:14:26,050 --> 01:14:33,670
+One nice thing about g that big sister is helping you with is fixing up the variability of your percent assumptions wrong with that scale parameter.
+
+645
+01:14:34,300 --> 01:14:41,050
+So the negative binomial is also, you know, giving you a little bit more room to fix up stuff.
+
+646
+01:14:41,770 --> 01:14:43,329
+And so it's worth comparing them.
+
+647
+01:14:43,330 --> 01:14:52,000
+But I think what I've seen over and over again is that there's very little difference between fitting a g post on an egg in negative binomial.
+
+648
+01:14:52,690 --> 01:14:57,880
+Whatever minor shift happens after big systems fixed things up is very small.
+
+649
+01:14:58,570 --> 01:15:06,250
+So we're going to look at that. And then we're also, you know, we might have a lot of zeros in our data set because after a.
+
+650
+01:15:07,940 --> 01:15:10,339
+After 90 days post-transplant.
+
+651
+01:15:10,340 --> 01:15:18,380
+If there's nothing going on with the patient, we're expecting to see zero counts in these samples for the colony forming units.
+
+652
+01:15:18,890 --> 01:15:25,280
+And so we have to think about whether a zero inflation is needed to get a correct p value.
+
+653
+01:15:25,280 --> 01:15:29,030
+So we're going to look at that, but we don't have a way to do that with G.
+
+654
+01:15:30,200 --> 01:15:34,429
+So we'll look at all these different sort of things and then see how much science
+
+655
+01:15:34,430 --> 01:15:38,060
+is affected by the assumptions in our model and decide what to put out there.
+
+656
+01:15:40,430 --> 01:15:46,390
+So thoughts on the next steps the scale estimate was used to account for over dispersion in the pathology model,
+
+657
+01:15:46,400 --> 01:15:49,790
+but it's worth taking a look at the negative binomial g model and see how it compares.
+
+658
+01:15:49,790 --> 01:15:55,850
+And that's next. It's also worth checking a zero flat model to see if there's any reason for concern there.
+
+659
+01:15:56,090 --> 01:15:59,090
+Of course, we only are able to do that assuming independence,
+
+660
+01:15:59,480 --> 01:16:03,950
+so we can't account for the correlation and outcomes of zero inflated models and production model,
+
+661
+01:16:04,310 --> 01:16:08,840
+but we can see if excess zeros are evident and how they may be affecting statistical inference.
+
+662
+01:16:08,840 --> 01:16:13,879
+So it's important to take a look and see if the science about what both samples
+
+663
+01:16:13,880 --> 01:16:18,590
+look like is changing a lot when we get that assumption closer to true.
+
+664
+01:16:19,310 --> 01:16:29,510
+So I've got a couple of things here. In the code for SAS, the first model is fitting a negative binomial g assuming compound symmetry.
+
+665
+01:16:29,510 --> 01:16:33,890
+So this is the negative binomial part is the only thing that's changed from before.
+
+666
+01:16:34,460 --> 01:16:39,350
+And then for the second model and looking at independence,
+
+667
+01:16:39,350 --> 01:16:45,919
+just to show you what that looks like as well with negative binomial and then later I'm going to get to zero inflated models.
+
+668
+01:16:45,920 --> 01:16:51,500
+So these models are both looking at the data with the repeated statement.
+
+669
+01:16:52,560 --> 01:16:58,110
+And trying to see, you know, what does it look like when you assume compound symmetry versus independence?
+
+670
+01:17:01,300 --> 01:17:08,050
+And so here is the output from the negative binomial model assuming compound symmetry or exchangeable correlation.
+
+671
+01:17:08,530 --> 01:17:12,930
+And the correlation estimates increased a bit from what we saw with the Poisson model.
+
+672
+01:17:12,940 --> 01:17:18,040
+I'm not sure that's a significant increase in correlation, but it's something to pay attention to.
+
+673
+01:17:18,520 --> 01:17:23,739
+Here's the queue I see. And we can't use the Q I see to compare with the Poisson model.
+
+674
+01:17:23,740 --> 01:17:26,890
+It's not allowed. It's not on the same scale.
+
+675
+01:17:27,520 --> 01:17:30,550
+So the correlation slightly higher than we saw with the Poisson model.
+
+676
+01:17:31,150 --> 01:17:34,600
+But the Q I see is on a different scale for the Persan model entirely,
+
+677
+01:17:34,600 --> 01:17:38,799
+and it can't be compared to decide between the Poisson in the negative binomial models.
+
+678
+01:17:38,800 --> 01:17:42,880
+We just don't have that model checking feature available to us.
+
+679
+01:17:43,780 --> 01:17:52,599
+It can be used to compare independent correlation assumption to the compound symmetry assumption within the negative binomial framework.
+
+680
+01:17:52,600 --> 01:18:03,960
+And so that's how I'm going to use it. And if you fit the independent model that QIC is.
+
+681
+01:18:05,420 --> 01:18:11,080
+Minus seven, five, five, nine. So this is less negative than the one with compound symmetry.
+
+682
+01:18:11,090 --> 01:18:16,010
+So this this counts as smaller because it's a more negative value.
+
+683
+01:18:16,460 --> 01:18:21,290
+So the compound symmetry. Q I see is considered better using the.
+
+684
+01:18:21,290 --> 01:18:24,320
+Q using that Q I see criteria for what that's worth.
+
+685
+01:18:26,190 --> 01:18:31,409
+And here are the model based parameters for the negative binomial g and the standard errors.
+
+686
+01:18:31,410 --> 01:18:38,070
+And so again, I'm kind of eventually going to want to look at these compared to the sandwich estimates to see what's going on.
+
+687
+01:18:38,520 --> 01:18:41,910
+But in terms of the science, that's where my key interest was.
+
+688
+01:18:42,030 --> 01:18:46,160
+This was variable. So it's still statistically significant.
+
+689
+01:18:47,890 --> 01:18:52,840
+And it hasn't changed that much from the pathology model.
+
+690
+01:18:52,850 --> 01:19:00,440
+So that's actually very comforting. Um, a few of these have have shifted a bit, so bacterial wasn't significant before.
+
+691
+01:19:00,470 --> 01:19:05,470
+Now it is. But the direction of the parameters hasn't changed much.
+
+692
+01:19:06,930 --> 01:19:11,760
+And the scale row. When I look at it, this is actually closer to one.
+
+693
+01:19:12,210 --> 01:19:15,910
+So it's saying big sister didn't have to do too much work for this one.
+
+694
+01:19:15,930 --> 01:19:23,340
+The negative binomial variability was pretty close and it just nudged it a little bit further along.
+
+695
+01:19:27,690 --> 01:19:34,860
+And so here are the model based estimates comparing the Poisson to the negative binomial, and they're very close.
+
+696
+01:19:35,280 --> 01:19:39,150
+So for the best variable, that's the one that I'm most keenly interested in.
+
+697
+01:19:39,450 --> 01:19:44,220
+I'm looking to see, you know, how much that change and how much the P values changed.
+
+698
+01:19:44,610 --> 01:19:46,130
+And it's very, very similar.
+
+699
+01:19:46,140 --> 01:19:53,940
+So I'm getting more and more comfortable with my understanding of what's going on with the U.S. and colony forming units and.
+
+700
+01:19:56,460 --> 01:19:58,080
+Like I said, there's only a little bit of wiggle room.
+
+701
+01:19:58,080 --> 01:20:05,250
+So you also want to look for major things like sign changes when you're interpreting the variables and if the signs make sense and everything here,
+
+702
+01:20:05,580 --> 01:20:10,140
+it looks like it's sensible and it hasn't changed dramatically.
+
+703
+01:20:11,010 --> 01:20:21,450
+Maybe a little bit for this glimpse. Bronc has kind of become a bit stronger in this model, but the science is in the same direction.
+
+704
+01:20:27,290 --> 01:20:35,540
+And then, as usual, I want to look at the model based standard error and the robust standard error, and I'm doing that for both of these.
+
+705
+01:20:35,540 --> 01:20:41,359
+And so the model base standard error is shifted a little bit between these models,
+
+706
+01:20:41,360 --> 01:20:46,339
+but they're very they're even similar between the Poisson in the and the negative binomial.
+
+707
+01:20:46,340 --> 01:20:48,080
+They're they're really in the same ballpark.
+
+708
+01:20:50,210 --> 01:20:58,160
+And then, of course, within model, I'm always looking to see, you know, how close are these to the robust version of the estimates?
+
+709
+01:20:58,160 --> 01:21:05,120
+And they're it's pretty it's pretty close. So there's nothing here that said, choose this model.
+
+710
+01:21:05,600 --> 01:21:09,739
+There's nothing glaring that says you need to go to the negative binomial model.
+
+711
+01:21:09,740 --> 01:21:13,280
+The negative binomial model has one more parameter to deal with variability.
+
+712
+01:21:13,880 --> 01:21:23,180
+So in the absence of anything else, maybe that gives you an extra level of safety, but there's nothing really strongly recommending.
+
+713
+01:21:23,180 --> 01:21:26,360
+And of course, the more parameters you estimate, the more you stretch your data.
+
+714
+01:21:26,360 --> 01:21:32,180
+So there's a lot of variables here. We don't want to necessarily stretch our variability assumptions if we don't need to,
+
+715
+01:21:32,660 --> 01:21:40,549
+but I would feel comfortable using any of these results from any of these outputs.
+
+716
+01:21:40,550 --> 01:21:45,830
+The science will be the same and the assumptions seem okay in all of these.
+
+717
+01:21:49,240 --> 01:21:55,750
+So robust areas, assigning the binomial g models very similar very similar site stories from all of these.
+
+718
+01:21:57,620 --> 01:22:01,160
+So there's no real basis for choosing between the models that I've seen so far.
+
+719
+01:22:03,550 --> 01:22:07,810
+So here is the estimate statement with results from the negative binomial g.
+
+720
+01:22:08,800 --> 01:22:14,290
+So these are again using the robust to a p robust empirical variance p values.
+
+721
+01:22:14,290 --> 01:22:15,430
+I don't think we've seen these yet.
+
+722
+01:22:16,150 --> 01:22:26,049
+And this is actually this line here for the first time, the p value is not quite under .05, but within round off here it's .05.
+
+723
+01:22:26,050 --> 01:22:31,750
+So I still feel like the science is pretty close when you use the empirical P values over here
+
+724
+01:22:32,800 --> 01:22:37,990
+and the sentence that you would write has changed just based on the numbers from these tables.
+
+725
+01:22:37,990 --> 01:22:43,120
+So this is the same sentence we had before with the numbers coming from this negative binomial model.
+
+726
+01:22:43,360 --> 01:22:48,309
+So see a few counts with both as tend to be 1.95 times higher than those without b.
+
+727
+01:22:48,310 --> 01:22:52,540
+It was adjusted for the presence of acute rejection, lymphocytic bronchitis,
+
+728
+01:22:52,540 --> 01:23:02,350
+positive bacterial or CMB cultures and timing of the sample with the confidence limit from over here and the p value rounded off its .05.
+
+729
+01:23:02,800 --> 01:23:06,520
+That's actually like investigators are doing this for sure.
+
+730
+01:23:07,270 --> 01:23:15,940
+You know if it had been .055 that we would have been very upset, you know, just funny small changes and and what people react.
+
+731
+01:23:16,870 --> 01:23:21,309
+So empirical results are cited here, but an argument could be made for using the model based results and you can
+
+732
+01:23:21,310 --> 01:23:24,639
+get that from the other parameter table with the model base standard errors.
+
+733
+01:23:24,640 --> 01:23:31,450
+You just have to do more work to exponentially out the parameters in the confidence limits to get the the values you need.
+
+734
+01:23:34,070 --> 01:23:38,590
+And then for the second one to be patient, at least 90 days post-transplant tends to have a C if you can,
+
+735
+01:23:38,600 --> 01:23:43,669
+of approximately 8.04 when no other indications for increase to if you count or present.
+
+736
+01:23:43,670 --> 01:23:46,790
+And here is the comments that are on p value from over here.
+
+737
+01:23:47,060 --> 01:23:50,360
+So very, very similar. I think it was around nine when we had the Poisson model.
+
+738
+01:23:50,360 --> 01:23:53,630
+It's around eight. It hasn't changed a lot.
+
+739
+01:23:54,710 --> 01:23:57,770
+So more and more, I'm comfortable with the science.
+
+740
+01:23:59,230 --> 01:24:03,640
+So slightly lower estimate than the Pakistan model estimate of 9.16 that we had.
+
+741
+01:24:05,280 --> 01:24:11,399
+And so the last thing that I want to look at for this data set is this zero inflation issue.
+
+742
+01:24:11,400 --> 01:24:16,590
+And I can't do that in the framework. So I know this model's not going to be correct,
+
+743
+01:24:16,590 --> 01:24:22,380
+but I'm hoping it's going to inform me if there's something I need to worry about with my interpretation of the data.
+
+744
+01:24:22,950 --> 01:24:28,610
+So I'm using again proc gen mod, but I don't have a repeated statement that it will let me use.
+
+745
+01:24:29,460 --> 01:24:40,200
+So it's assuming independence and but here I can say distribution equals zero inflated negative binomial and I can put a zero model statement here
+
+746
+01:24:40,350 --> 01:24:50,520
+and behind the scenes I've played with the zero model and there is a significant relationship between if you're 90 days post-transplant or not,
+
+747
+01:24:50,790 --> 01:24:52,829
+and the number of zeros you see for these counts.
+
+748
+01:24:52,830 --> 01:25:00,750
+Remember that everybody's expecting to see more zeros after 90 days unless you've got an issue that's causing scarring or damage to the lung.
+
+749
+01:25:01,980 --> 01:25:10,740
+And so that is in the zero model. So I want to estimate the same kind of terms that we saw before and see how much they wiggle around.
+
+750
+01:25:12,480 --> 01:25:17,790
+But I can't interpret any P values from this model because the P values won't be correct.
+
+751
+01:25:17,790 --> 01:25:26,640
+They don't account for any dependance between the samples and the same person, even though the correlation was fairly low for these counts.
+
+752
+01:25:27,420 --> 01:25:31,410
+Depending on the model, it was either around .05 or .12.
+
+753
+01:25:32,610 --> 01:25:40,380
+It was still the P values will be affected here. So we're mainly looking at effects on the parameter estimates in the science.
+
+754
+01:25:40,800 --> 01:25:47,100
+So as again I've said that three times, that's currently can have both the zero model and the repeated statement at the same time.
+
+755
+01:25:48,180 --> 01:25:54,960
+But we do have a lot of zero counts in the data. It's worth checking out the parameter estimate for both when excess zeros are taken into account,
+
+756
+01:25:55,140 --> 01:25:57,930
+even if we haven't gotten the variability of the outcomes correct.
+
+757
+01:25:58,410 --> 01:26:06,270
+So standard errors and P values for this particular part of the handout are worthless because we haven't taken into account the correlation.
+
+758
+01:26:06,570 --> 01:26:10,020
+But here's what we see. This is just the zero model.
+
+759
+01:26:11,510 --> 01:26:20,100
+And so the odds of having an excess zero were higher and significantly so 90 days post-transplant.
+
+760
+01:26:20,120 --> 01:26:29,810
+So I don't I again we can't trust these P values so I don't know for sure if it's significant because this p value assumes independent counts.
+
+761
+01:26:30,350 --> 01:26:36,350
+So I'm not sure. But there's bit there's enough here to say, well, I want to look at it, you know.
+
+762
+01:26:37,530 --> 01:26:42,120
+So it's kind of a tricky thing here. And then so we're looking at the estimates.
+
+763
+01:26:42,660 --> 01:26:50,760
+This is going to be the estimates we get when we have zero inflated negative binomial and the wrong variability in the wrong p values.
+
+764
+01:26:51,240 --> 01:26:58,140
+Here, the estimates from the negative binomial g and here's the estimates from the Pearson G and I'm looking to see here,
+
+765
+01:26:58,380 --> 01:27:05,130
+you know, how much do my main estimates change when I take into account the excess zeros?
+
+766
+01:27:05,130 --> 01:27:10,020
+So again, the confidence intervals also will be worthless for the zero inflated model because
+
+767
+01:27:10,020 --> 01:27:13,650
+of the not being able to account for the dependent outcomes within person.
+
+768
+01:27:14,220 --> 01:27:24,480
+And so what I'm seeing is I compared to these other models, the multiplicative factor is slightly smaller and compared to these other models,
+
+769
+01:27:24,990 --> 01:27:32,820
+the CFA count when you're out past 90 days, goes up a bit more when you take into account the excess zeros.
+
+770
+01:27:33,330 --> 01:27:41,129
+And so, so this is actually helpful because these are the only models where I can rely on
+
+771
+01:27:41,130 --> 01:27:45,990
+the statistical significance of both and there wasn't a lot to choose between them.
+
+772
+01:27:45,990 --> 01:27:51,510
+So I think what we ended up doing for the manuscript was reporting these results because
+
+773
+01:27:51,510 --> 01:27:57,750
+this is kind of closer to the zero inflated model than the negative binomial model.
+
+774
+01:27:58,470 --> 01:28:05,250
+So I think we went with with these results over here and that I just felt very comfortable
+
+775
+01:28:05,250 --> 01:28:10,110
+because the the parameter estimates were slightly different but not dramatically different.
+
+776
+01:28:16,420 --> 01:28:22,209
+Okay. So final remarks. Zero four The negative binomial model suggests that there may be excess zeros in the samples
+
+777
+01:28:22,210 --> 01:28:27,040
+taken after 90 days post-transplant that aren't being handled by the methods under consideration.
+
+778
+01:28:27,670 --> 01:28:32,110
+And that affects the estimate of the Q counts that are expected for both patient at
+
+779
+01:28:32,110 --> 01:28:36,910
+least 90 days post-transplant with no other indications for increase do you see a few
+
+780
+01:28:36,940 --> 01:28:42,219
+count and so here where the again the second contrast statements from the various
+
+781
+01:28:42,220 --> 01:28:47,890
+models repeated here G models may be underestimating the curfew count a little bit.
+
+782
+01:28:49,610 --> 01:28:56,090
+But the only available influence with senators and P values comes from the G framework using existing software.
+
+783
+01:28:56,780 --> 01:29:01,040
+And so in this case, I suggest reporting the Poisson G empirical model results.
+
+784
+01:29:01,040 --> 01:29:04,159
+Those are closer to the estimate of the zero inflated counts above.
+
+785
+01:29:04,160 --> 01:29:08,810
+That was the reason for my choice. And in my own personal opinion,
+
+786
+01:29:09,590 --> 01:29:13,370
+the science didn't change enough for me to contact a graduate student and get
+
+787
+01:29:13,370 --> 01:29:16,900
+their software and figure out their software to do the cheesy or inflated model.
+
+788
+01:29:17,360 --> 01:29:26,229
+So I just reported this model. It might be worth mentioning the manuscript to see a few accounts estimated in these samples taken 90 days or more.
+
+789
+01:29:26,230 --> 01:29:33,370
+Post-transplant might be slightly underestimated by this model due to more zeros in the Poisson model, typically expected in the sampling period.
+
+790
+01:29:33,730 --> 01:29:41,890
+So it might be worth saying a sentence like that, knowing that you didn't have the perfect assumptions going on with that model, and that's it.
+
+791
+01:29:42,070 --> 01:29:49,540
+So we're going to I'm going to start the next handout and at least talk a little bit about that.
+
+792
+01:29:51,690 --> 01:29:55,680
+Before we go, but you never have enough to do homework. Six. Problem three.
+
+793
+01:29:57,390 --> 01:30:05,550
+And if, if you're working ahead of schedule, you know, for the final homework of the class, you were now ready to tackle that one.
+
+794
+01:30:09,110 --> 01:30:14,519
+So I'm going to go ahead and. Look at the next handout.
+
+795
+01:30:14,520 --> 01:30:18,390
+18 and this is the last handout.
+
+796
+01:30:19,390 --> 01:30:32,970
+That is covered on your final quiz. So you are almost done with the required elements of the course, which is amazing.
+
+797
+01:30:33,630 --> 01:30:36,600
+So you guys are working very hard and you are almost there.
+
+798
+01:30:37,780 --> 01:30:44,800
+So the first few slides of this handout are repeats and we've already kind of talked about them today, so I'm going to kind of skip them.
+
+799
+01:30:45,040 --> 01:30:50,290
+I don't see anything here. This is the notation and the different correlation matrix.
+
+800
+01:30:50,290 --> 01:30:56,560
+This is how you find them. It's exactly the same. This is new though, or at least it's a review.
+
+801
+01:30:57,250 --> 01:30:59,170
+So I'm going to start on Slide seven.
+
+802
+01:31:02,530 --> 01:31:09,250
+I might review them again on Monday because we won't have finished the handout and you'll maybe need another refresher.
+
+803
+01:31:09,880 --> 01:31:14,670
+So for the. We have two different models that we're going to look at.
+
+804
+01:31:14,760 --> 01:31:20,790
+When you have dependent binary outcomes and the first one I'm going over is, gee,
+
+805
+01:31:20,790 --> 01:31:28,590
+since we've been in this world for a few sessions, there's another setting called conditional logistic regression.
+
+806
+01:31:29,040 --> 01:31:32,790
+That is, we're going to have to learn when to use which model.
+
+807
+01:31:33,660 --> 01:31:42,690
+And so I'm definitely won't get to that today. But for JE, the model is the same as the usual logistic regression model.
+
+808
+01:31:43,350 --> 01:31:48,690
+The only thing I've changed here in this handout from logistic regression is that I and I
+
+809
+01:31:48,690 --> 01:31:54,600
+used to use P for the log of P over one minus P when I was describing logistic regression.
+
+810
+01:31:55,140 --> 01:32:01,050
+But we have rows now for correlation and the PS and the rows are too hard to tell apart.
+
+811
+01:32:01,380 --> 01:32:04,470
+And notice that, I mean, you have to be looking very closely.
+
+812
+01:32:04,830 --> 01:32:15,540
+And so just to avoid that problem in this handout for the probability of seeing a one versus a zero for person i time j I'm
+
+813
+01:32:15,540 --> 01:32:24,150
+using this notation py in set of P and it's only so that it's easier to tell the difference between a correlation term.
+
+814
+01:32:25,210 --> 01:32:33,690
+And it. Probability term. So this is the same model just using pies instead of the peas.
+
+815
+01:32:33,690 --> 01:32:39,600
+But everything else is the same. But we do have j measures from cluster or person i.
+
+816
+01:32:41,610 --> 01:32:49,110
+And again, some of the culverts are cluster level or time dependent, time independent and some very.
+
+817
+01:32:50,700 --> 01:32:54,470
+Within cluster. So we've seen these kind of examples before.
+
+818
+01:32:54,480 --> 01:32:58,950
+It's the same as we saw in the last handout where you might have person gender,
+
+819
+01:32:58,950 --> 01:33:07,950
+and that's a time invariant or time independent predictor and you might have some of the covariates that are changing over time as well.
+
+820
+01:33:07,950 --> 01:33:09,120
+So something about time,
+
+821
+01:33:09,120 --> 01:33:16,740
+I think in this handout age over time for kids that are being measured is something that we're treating as a surrogate for time.
+
+822
+01:33:20,420 --> 01:33:29,149
+And for binary outcomes, we have the variability that still kind of looks like P times one minus P,
+
+823
+01:33:29,150 --> 01:33:36,320
+except I'm using this pi notation and that depends on the logistic model that you're that you're using as well.
+
+824
+01:33:36,380 --> 01:33:45,440
+So this is the same that we would have seen before with one outcome per person, but it's the same if you have multiple zero one outcomes per person.
+
+825
+01:33:45,920 --> 01:33:50,090
+It's each measure still has its own variability. That depends on that p.
+
+826
+01:33:51,750 --> 01:33:57,780
+And the correlation between outcome types J one and J two within person or cluster is this thing.
+
+827
+01:33:57,780 --> 01:34:03,389
+And now you can finally see why I used PI's because we've got a correlation between the two
+
+828
+01:34:03,390 --> 01:34:11,400
+measures and then time is the standard deviation of the measure one in the measure two.
+
+829
+01:34:15,760 --> 01:34:25,450
+So that's the correlation term. And just reminding you that this is like our probability that the outcome at Measure J one is a one.
+
+830
+01:34:25,450 --> 01:34:29,889
+That's that probability. And this is the probability that outcome, that measure J two is one.
+
+831
+01:34:29,890 --> 01:34:38,920
+And those might be different over time. And I'm not sure how much you really need to focus on the details here.
+
+832
+01:34:38,920 --> 01:34:44,680
+Some of this is just technical details that's going on behind the scenes,
+
+833
+01:34:44,680 --> 01:34:49,380
+but just kind of repeating the analog of what we saw when we had one outcome per person.
+
+834
+01:34:49,390 --> 01:34:54,610
+It's very similar assumptions and set up when you have more than one outcome per person.
+
+835
+01:34:54,910 --> 01:35:03,400
+The main thing that's changing is that now we have to deal with correlation between measures over time, and we didn't have to do that before.
+
+836
+01:35:03,430 --> 01:35:09,790
+That's the main change between what we're doing now with G and what we had before with just logistic regression.
+
+837
+01:35:11,910 --> 01:35:17,100
+So both sides are allowed the usual correlation matrix choices that we've given in previous lectures.
+
+838
+01:35:17,580 --> 01:35:22,649
+And as usual, the fewer parameters needed to model that correlation, the better if you have small sample sizes.
+
+839
+01:35:22,650 --> 01:35:28,440
+So a lot of this is repeat from the what we saw with Count G is the normal distributed outcome.
+
+840
+01:35:28,440 --> 01:35:34,469
+G is so, so just repeating the same messages that I want you to be.
+
+841
+01:35:34,470 --> 01:35:39,180
+Take home messages for the course that choosing the correct correlation structure may increase
+
+842
+01:35:39,180 --> 01:35:43,710
+the efficiency of parameter estimation when using model based variability estimates,
+
+843
+01:35:44,460 --> 01:35:47,550
+and that can be particularly important for smaller data sets.
+
+844
+01:35:48,000 --> 01:35:49,739
+So model based variability,
+
+845
+01:35:49,740 --> 01:35:56,700
+trying to get that right in small data sets is really key and some recommend choosing correlation structure based on smaller.
+
+846
+01:35:56,700 --> 01:36:00,180
+Q I see. Right. So that's another repeat from the previous handout.
+
+847
+01:36:01,980 --> 01:36:07,620
+And SAS is recommended over r in this setting when fitting g models in smaller data sets,
+
+848
+01:36:07,620 --> 01:36:11,880
+since R does not easily allow for inference using model based variability estimates.
+
+849
+01:36:13,170 --> 01:36:23,400
+And so in your homework, I think. Actually for this for the last time.
+
+850
+01:36:23,410 --> 01:36:27,760
+A problem and problem for I think you can use either package, but for problem three with the counts,
+
+851
+01:36:29,140 --> 01:36:33,720
+you're going to end up having to use SAS because our won't fit the negative binomial key.
+
+852
+01:36:33,730 --> 01:36:35,740
+So just a heads up. If you're an R user,
+
+853
+01:36:35,740 --> 01:36:45,160
+you're going to need that extra time to figure out SAS since R won't fit some of the elements of that third homework problem for homework six.
+
+854
+01:36:47,500 --> 01:36:53,409
+All right. And then for large sample sizes, even if the specified correlation structure is incorrect,
+
+855
+01:36:53,410 --> 01:36:56,920
+empirical, robust, in which estimation of variability gives reasonable results.
+
+856
+01:36:56,950 --> 01:37:01,269
+So again, this is the same idea from the last handout.
+
+857
+01:37:01,270 --> 01:37:10,690
+If you've got a large sample size, G is great because it'll fix up your variability even if you use the wrong named correlation structure.
+
+858
+01:37:11,380 --> 01:37:16,960
+So whether you put in compound symmetry or independence for large sample size,
+
+859
+01:37:17,170 --> 01:37:24,879
+the stuff that comes out under the empirical rubber sandwich estimates that's going to be okay to use those p values are going to be good to use.
+
+860
+01:37:24,880 --> 01:37:27,940
+Somebody is fixing it up behind the scenes, even if you guessed wrong.
+
+861
+01:37:28,480 --> 01:37:34,600
+And that's the power of having a large sample size. It can figure it out for you what it's supposed to be.
+
+862
+01:37:37,010 --> 01:37:44,630
+So the dataset that I'm going to be talking about is this data set from the Muscatine study.
+
+863
+01:37:44,660 --> 01:37:49,800
+I'm not actually sure how you say that because I've never been there. And so I don't know how a local will say that.
+
+864
+01:37:49,880 --> 01:37:54,830
+So forgive me if you are from there, but I'm going to call it Muscatine.
+
+865
+01:37:55,220 --> 01:37:59,000
+And the outcomes were obesity outcomes measured over time.
+
+866
+01:37:59,000 --> 01:38:06,979
+So it was yes, no, obese over time and it was measured on kids are who were, you know,
+
+867
+01:38:06,980 --> 01:38:13,040
+kind of somewhere between eight and 16 I think we'll see in a minute with ages were.
+
+868
+01:38:14,090 --> 01:38:18,739
+And so the stent this particular study was designed to collect information on the
+
+869
+01:38:18,740 --> 01:38:23,060
+existence and persistence and persistence of risk factors for coronary heart disease.
+
+870
+01:38:23,420 --> 01:38:30,660
+And I was children. And one of the outcomes collected over time that we're focusing on was obesity status.
+
+871
+01:38:31,230 --> 01:38:35,740
+So obesity that outcome was noted for each child.
+
+872
+01:38:35,760 --> 01:38:40,530
+So child is the I subscript at several follow up times.
+
+873
+01:38:40,530 --> 01:38:46,590
+And so that's the J subscript and it's coded as a one if they were obese zero otherwise.
+
+874
+01:38:46,600 --> 01:38:50,460
+So a yes no outcome means we're doing a logistic regression.
+
+875
+01:38:50,940 --> 01:38:52,740
+But now in the g world.
+
+876
+01:38:55,700 --> 01:39:03,990
+And the correlation between those binary obesity outcomes measured in the same child at different times we need to take into account.
+
+877
+01:39:04,010 --> 01:39:11,210
+So if someone was started off as obese at a certain age, they're more likely to remain obese unless something happens, right?
+
+878
+01:39:11,540 --> 01:39:16,670
+And similarly, a child who's not obese is more likely to stay that way.
+
+879
+01:39:17,360 --> 01:39:19,280
+So there's correlation within kid.
+
+880
+01:39:19,520 --> 01:39:26,870
+I mean, you can bounce in and out of these statuses, but there's definitely a correlation about what what it was like for you the year before.
+
+881
+01:39:29,830 --> 01:39:32,670
+And the other variables that we have in the data set are the IDs.
+
+882
+01:39:32,740 --> 01:39:43,510
+So we know which measures are from the same child, the female, one of their female, zero male and current age to age in years of the obesity measure.
+
+883
+01:39:43,810 --> 01:39:47,700
+And this current age is kind of the variable that standing in for time.
+
+884
+01:39:47,710 --> 01:39:56,210
+So it's a time dependent variable. And so it's kind of a nice data set in the sense that there's only a few moving parts here.
+
+885
+01:39:57,170 --> 01:40:02,629
+The obesity, you know, outcome and then just a couple of covariates, one that doesn't change with time and one that does.
+
+886
+01:40:02,630 --> 01:40:06,200
+So we can kind of play around with this analysis and understand the model.
+
+887
+01:40:06,860 --> 01:40:09,410
+And so we'll look at age and gender patterns for obesity.
+
+888
+01:40:12,450 --> 01:40:19,530
+And so we're just going to have reading the data and take a quick peek at it and sort of look at.
+
+889
+01:40:20,460 --> 01:40:27,310
+What we've got for age, you know? And here is data for the first six children.
+
+890
+01:40:28,030 --> 01:40:31,360
+And each of them have three obesity outcomes measured.
+
+891
+01:40:31,750 --> 01:40:35,979
+And so this is the first person, their first measures at age six.
+
+892
+01:40:35,980 --> 01:40:41,080
+And then they have a measure at eight years and ten years female.
+
+893
+01:40:41,110 --> 01:40:47,200
+So this is the time dependent covariate. And the the time independent covariate.
+
+894
+01:40:47,200 --> 01:40:52,209
+And it looks like, at least for the first six kids, they're doing that same age range.
+
+895
+01:40:52,210 --> 01:41:00,130
+But the dataset itself, there's some kids that start, you know, much older.
+
+896
+01:41:00,130 --> 01:41:05,800
+And so, you know, you might have someone that's starts 14 and then gets measures at 16 and 18.
+
+897
+01:41:06,460 --> 01:41:10,270
+So we've got a big spread here and look how many data points we have.
+
+898
+01:41:10,270 --> 01:41:15,550
+So we have 935 data points in six year olds.
+
+899
+01:41:16,300 --> 01:41:25,930
+And so often when we're thinking about how to model data, we're trying to say, well, do we model as a linear term for age or categorical term for age?
+
+900
+01:41:26,170 --> 01:41:28,209
+We have an embarrassment of riches here.
+
+901
+01:41:28,210 --> 01:41:34,390
+So we're going to go ahead since there's plenty of data in each level of current age to model as a categorical predictor,
+
+902
+01:41:34,390 --> 01:41:43,090
+we will so that we can sort of see what this looks like with just this really easy, breezy, categorical assumption.
+
+903
+01:41:45,110 --> 01:41:50,270
+And we have to pick a reference value that's going to be something that we really.
+
+904
+01:41:50,450 --> 01:41:57,440
+The coding for categorical variables with G we're we're going to have to learn how to figure out the reference,
+
+905
+01:41:57,710 --> 01:42:03,760
+how to set it and how to interpret the parameters relative to the reference and do contrast statements.
+
+906
+01:42:03,770 --> 01:42:11,479
+That's going to be a bit of a bear. I don't know how often you've had to do that, but I decided to use age 12 as a reference group.
+
+907
+01:42:11,480 --> 01:42:18,290
+But that's a matter of taste only. It's not a mandate. And I just picked 12 because at least an organ transplant,
+
+908
+01:42:18,290 --> 01:42:24,109
+that's when they think your lungs are the same size since it's an adult and that no other reason than that.
+
+909
+01:42:24,110 --> 01:42:32,089
+I don't know how it affects obesity, but. But age 12 is like that cusp where a lot of the organs at least are the same size, and that's an adult.
+
+910
+01:42:32,090 --> 01:42:36,499
+And so that's where I'm moving. Sorry, I worked in transplantation for years.
+
+911
+01:42:36,500 --> 01:42:41,570
+I think in organs it's kind of gross but that's why is 12 you don't have to.
+
+912
+01:42:43,610 --> 01:42:53,479
+And so when you start off setting up your your model, a lot of this is going to be just like what we did for cats,
+
+913
+01:42:53,480 --> 01:43:00,320
+except we're going to have distribution equals bind for binomial linkage logit.
+
+914
+01:43:01,760 --> 01:43:05,989
+But the repeated statement looks very similar. And I have so much data here.
+
+915
+01:43:05,990 --> 01:43:12,559
+I'm going to go ahead and do that thing that we all really want to do and just say, I don't know what the covariance looks like.
+
+916
+01:43:12,560 --> 01:43:15,830
+Just assume unstructured covariance matrix.
+
+917
+01:43:15,830 --> 01:43:18,920
+Let the data tell me we have enough data. This is such a huge dataset.
+
+918
+01:43:18,920 --> 01:43:28,100
+We have enough data to lean on that. And so I'm to and then class we have to have idea in both the I probably have little.
+
+919
+01:43:30,080 --> 01:43:36,889
+I don't remember how many pop ups I have here. We need to have ID in both the class statement and in this repeated statement.
+
+920
+01:43:36,890 --> 01:43:40,160
+That's key. We need to know which outcomes are dependent.
+
+921
+01:43:41,690 --> 01:43:44,830
+And what are we doing for our MA or class here?
+
+922
+01:43:44,840 --> 01:43:51,170
+So I'm choosing zero for the reference group for this female variable.
+
+923
+01:43:51,260 --> 01:43:56,330
+So that's how I'm doing that here. And this is how I'm setting up the age reference group of 12.
+
+924
+01:43:57,680 --> 01:44:04,100
+In my class statement and then I'm going to look at model obese equals female and then current age,
+
+925
+01:44:04,100 --> 01:44:07,489
+categorical current age and then an interaction between those two.
+
+926
+01:44:07,490 --> 01:44:11,540
+So I should be able to get like little, you know, changes at every age.
+
+927
+01:44:13,480 --> 01:44:19,810
+All right. And so. So gentlemen does not have the same event equals one syntax.
+
+928
+01:44:19,820 --> 01:44:28,250
+Oh, that's actually important. This descending thing. So I put this descending here because part does not have the same event equals one syntax that
+
+929
+01:44:28,790 --> 01:44:34,220
+proc logistic has for identifying the level of the binary variant that is being modeled.
+
+930
+01:44:34,230 --> 01:44:36,560
+So there's a couple of ways to do that.
+
+931
+01:44:36,590 --> 01:44:42,890
+Descending is the one that's been around the longest, and so most of the time you'll see that's how they're there.
+
+932
+01:44:43,820 --> 01:44:47,840
+Having the event equals one being the outcome that's being modeled.
+
+933
+01:44:48,940 --> 01:44:55,030
+So that's what's happening here is telling says to model the outcome equals one event instead of the default outcome equals zero event.
+
+934
+01:44:57,040 --> 01:45:02,590
+And you can actually use the sending option in proc logistic in the same way.
+
+935
+01:45:02,600 --> 01:45:05,709
+In fact, you might have been taught it that way in your previous course. I don't know.
+
+936
+01:45:05,710 --> 01:45:12,700
+I prefer that using the event equals one syntax when you can, just because I really like naming these things.
+
+937
+01:45:13,390 --> 01:45:21,700
+Just recently I discovered that you can in the class statement put the outcome variable as well with a particular reference group.
+
+938
+01:45:21,700 --> 01:45:30,339
+So in the footnote, I have a different code where the obese outcome is also included in the class statement with the ref equals
+
+939
+01:45:30,340 --> 01:45:38,200
+zero pram equals ref and it by comparing them I it actually is choosing the reference group for the outcome,
+
+940
+01:45:38,200 --> 01:45:46,180
+even though I put it in the class statement correctly. So I felt confident because as I looked at it both ways and I thought it worked.
+
+941
+01:45:46,660 --> 01:45:52,780
+So I think you can do that more generally, but this is the way for sure that SAS tells you to do it.
+
+942
+01:45:57,930 --> 01:46:03,829
+And here. What am I doing here? Oh, this is probably where I have all my pop ups.
+
+943
+01:46:03,830 --> 01:46:08,420
+So there is it identifies the correlated obese outcomes from the same child.
+
+944
+01:46:11,040 --> 01:46:19,349
+And then there's type three. What's, what's that doing. So type three wild option request significant tests for categorical variables in the G model.
+
+945
+01:46:19,350 --> 01:46:23,190
+So remember in G, we don't have like the ratio tests or anything like that.
+
+946
+01:46:23,670 --> 01:46:27,600
+This is the only game in town for testing categorical variables.
+
+947
+01:46:29,490 --> 01:46:35,800
+But for the answers to be correct, we have to have those predictors in the class statement.
+
+948
+01:46:35,820 --> 01:46:38,970
+This is a bit of a glitch, I think in Sass.
+
+949
+01:46:39,630 --> 01:46:49,590
+Even female, even though female is already a01 variable, it has to be in the class statement or that the p values that are reported are incorrect.
+
+950
+01:46:49,620 --> 01:46:56,040
+So there's something SAS coders did that will give you the wrong answers unless you get this here,
+
+951
+01:46:56,790 --> 01:47:00,149
+and I haven't checked in a while to see if they fix that glitch.
+
+952
+01:47:00,150 --> 01:47:05,160
+So I just advise you to always have all variables that are categorical, even if they're just yes,
+
+953
+01:47:05,160 --> 01:47:09,330
+no binary things in the class statement to get these P values correct.
+
+954
+01:47:12,020 --> 01:47:18,900
+Yeah. So here, just even binary variables like female must be in this class statement for the correct type three wald effects.
+
+955
+01:47:19,160 --> 01:47:24,380
+Now the parameter estimates that come out automatically in your table, those p values will be correct.
+
+956
+01:47:24,830 --> 01:47:31,280
+So if you don't have a like if you didn't have female in your class statement, you might see two different p values for the same parameter.
+
+957
+01:47:31,610 --> 01:47:36,320
+And, and this one from the type three wald table will be the one that's wrong.
+
+958
+01:47:38,560 --> 01:47:41,920
+So hopefully South will fix this in the future.
+
+959
+01:47:42,880 --> 01:47:46,270
+But always check the well test results from the empirical parameter estimate
+
+960
+01:47:46,270 --> 01:47:49,479
+table to see if the P values matched the type through wild test statistics,
+
+961
+01:47:49,480 --> 01:47:55,690
+as they should for binary predictors. And if they're different, you know, it's the one that comes out in the parameter table.
+
+962
+01:47:55,690 --> 01:47:59,620
+That's correct. Okay. So finally.
+
+963
+01:48:01,470 --> 01:48:04,780
+I think we have time to peek at what this looks like.
+
+964
+01:48:04,800 --> 01:48:13,590
+This is one more bubble thing. Repeated statement request that she model U.N. request and structured correlation and kerkhove
+
+965
+01:48:13,590 --> 01:48:18,690
+being Corby request the covariance and correlation matrices for the parameter estimate.
+
+966
+01:48:18,690 --> 01:48:25,080
+So that's very similar to what we've seen before. Model SC asks for analysis of parameter estimates, the model based on empirical.
+
+967
+01:48:25,530 --> 01:48:30,540
+And so here's what the results look like. And I don't think we'll have time to go over these in great detail.
+
+968
+01:48:30,600 --> 01:48:39,390
+Let's just take a look. So these are the world statistics for the the parameters and.
+
+969
+01:48:40,940 --> 01:48:47,840
+So they're the ones that are going to be important. Here are these current age and the interaction between female and current age.
+
+970
+01:48:48,440 --> 01:48:55,730
+So this six degrees of freedom test is saying, are any of these six interaction terms needed in the model to predict obesity?
+
+971
+01:48:56,150 --> 01:49:01,280
+And there is an interaction with gender and age that appeared in the data according to this P value.
+
+972
+01:49:02,750 --> 01:49:08,750
+So the significant interaction between gender and age at the time of the obesity assessment comes from here,
+
+973
+01:49:08,990 --> 01:49:12,650
+and that means that we need to keep those terms in the model.
+
+974
+01:49:12,860 --> 01:49:18,110
+There's something about gender and how people age that is affecting obesity in these kids.
+
+975
+01:49:20,190 --> 01:49:27,659
+And so we'll look at ABC odds ratios comparing females to males by levels of current age using estimate statements.
+
+976
+01:49:27,660 --> 01:49:31,049
+And we'll do that soon. I don't think we'll have time to go over it today.
+
+977
+01:49:31,050 --> 01:49:33,900
+You need to have your in fact, I might stop here.
+
+978
+01:49:33,900 --> 01:49:40,080
+You need to have your brain fresh to figure out these estimates statements with categorical variables.
+
+979
+01:49:40,590 --> 01:49:49,680
+And so I think what we'll do is stop here and kind of go over this analysis next time.
+
+980
+01:49:50,190 --> 01:49:55,500
+So we'll finish up the G part and then I have a whole new part about conditional logistic regression
+
+981
+01:49:56,130 --> 01:49:59,790
+and how to choose between the two models that we'll go over next time to finish up this handout.
+
+982
+01:50:00,570 --> 01:50:08,760
+I also have some helpful slides towards the end about how to do the last homework problem for the course that's related to.
+
+983
+01:50:10,300 --> 01:50:13,480
+You know, the last homework six.
+
+984
+01:50:13,480 --> 01:50:19,370
+Problem four. And so you're going to need to come with your gut brain ready to go.
+
+985
+01:50:19,880 --> 01:50:37,790
+And I'll see you Monday. You.
+

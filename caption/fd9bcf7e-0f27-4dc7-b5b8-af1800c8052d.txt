@@ -1,0 +1,2536 @@
+1
+00:00:01,860 --> 00:00:07,420
+We would start with the Julie.
+
+2
+00:00:08,790 --> 00:00:20,480
+Yes. On Module D flight.
+
+3
+00:00:21,550 --> 00:00:36,185
+Oh, okay. Let me get this.
+
+4
+00:00:42,953 --> 00:00:50,003
+Okay. So here is an outline of the topics that we are going to cover.
+
+5
+00:00:51,233 --> 00:01:05,603
+So we will first we will introduce the model, the multiple linear regression model, interpret the model parameters.
+
+6
+00:01:07,883 --> 00:01:20,133
+So in the presence of an experience to explore what is the interpretation of the condition associated with that, fine.
+
+7
+00:01:20,153 --> 00:01:29,643
+Because now we have multiple parameters. Then we will go into the matrix representation of the multiple linear regression model.
+
+8
+00:01:31,043 --> 00:01:39,983
+And we will talk. And as a as a special case, I will also show you like in The Matrix representation.
+
+9
+00:01:42,383 --> 00:01:47,813
+What for? For a simple linear regression model, if I did in the form of a matrix.
+
+10
+00:01:48,323 --> 00:01:53,303
+I will also show you that everything that we have derived so far in the context of SLR,
+
+11
+00:01:53,783 --> 00:02:03,143
+how that sort of matches with what we did, what we opt in if we use the matrix representation in SLR.
+
+12
+00:02:03,863 --> 00:02:12,442
+And I'll try to convince you that, you know, how sort of tedious,
+
+13
+00:02:12,443 --> 00:02:25,193
+how kind of cumbersome the expressions become when we are in the context of multiple predictors and why the matrix representation is a much cleaner,
+
+14
+00:02:25,193 --> 00:02:29,363
+much something to be off in writing this model.
+
+15
+00:02:30,323 --> 00:02:40,933
+And then we'll talk about parameter estimation in MLA, the properties of the estimate there and some subsets squares.
+
+16
+00:02:41,963 --> 00:02:50,483
+So the sections from text are 3.1, 3.2 and 3.3.
+
+17
+00:02:50,483 --> 00:02:57,943
+These would be relevant readings from the textbook. So here is an introduction.
+
+18
+00:02:57,953 --> 00:03:08,423
+So if you recall in simple linear regression, we had the model Y equal to Paternot plus beta one inside plus Gentiloni.
+
+19
+00:03:09,293 --> 00:03:18,933
+And with all the sort of underlying assumptions on the error, some in the multiple linear regression model.
+
+20
+00:03:18,953 --> 00:03:25,102
+So the basic premise is that as in contrast to the simple linear regression model,
+
+21
+00:03:25,103 --> 00:03:33,213
+that there is only one predictor, one independent variable, one X on the right hand side of the equation.
+
+22
+00:03:33,213 --> 00:03:45,153
+I mean, the multiple linear regression context, we have multiple predictors, meaning like more than one, we have several independent variables.
+
+23
+00:03:46,553 --> 00:03:52,073
+And the let's see, in this model we assume that there are.
+
+24
+00:03:52,103 --> 00:04:05,333
+So I tried the model as be done y equal to beta knob plus some over the beta.
+
+25
+00:04:05,333 --> 00:04:10,823
+Okay. It's like you sum over K from one to B minus one plus Epsilon II.
+
+26
+00:04:11,273 --> 00:04:18,473
+So you are familiar with this guy, the beta not and you are also familiar with the Epsilon I from the SLR model.
+
+27
+00:04:19,313 --> 00:04:24,083
+And we can go back and talk about the assumptions on the errors, but they are the same.
+
+28
+00:04:25,943 --> 00:04:36,923
+So what is different now is that we have a term that involves a B minus one predictors in the model,
+
+29
+00:04:38,633 --> 00:04:45,823
+and each of the predators have a coefficient associated with that x.
+
+30
+00:04:46,583 --> 00:04:49,522
+So beta key, it's like b decades.
+
+31
+00:04:49,523 --> 00:05:02,603
+The coefficient associated with excited and what is exciting excited is the key predictor value for the highest subject in the study.
+
+32
+00:05:03,863 --> 00:05:12,983
+Okay. So I still denote subject or participant and key denotes the predictor.
+
+33
+00:05:16,613 --> 00:05:21,923
+Subscript. Okay. And they wrote in all P minus one predictors.
+
+34
+00:05:24,143 --> 00:05:36,833
+Multiple linear regression can accommodate more than one predictor, so more than one more videos and modeling is usually based on several covariates.
+
+35
+00:05:37,823 --> 00:05:47,753
+Okay. So you have see age, gender, BMI, income, and you are looking at your, you know, like outcomes.
+
+36
+00:05:47,783 --> 00:06:02,393
+I'm just thinking about systolic blood pressure. So your like age, gender, BMI, income, nutritional diet, lifestyle, alcohol intake, smoking.
+
+37
+00:06:03,173 --> 00:06:09,833
+So you have many, many predictors that you are trying to associate with the outcome.
+
+38
+00:06:11,003 --> 00:06:14,933
+And the modeling is usually based on we go with it, as I mentioned.
+
+39
+00:06:15,233 --> 00:06:23,602
+And interestingly, we are fortunate with many of the concepts that we learned in simple linear regression.
+
+40
+00:06:23,603 --> 00:06:27,893
+Extend well to MLR to multiple linear regression.
+
+41
+00:06:27,923 --> 00:06:37,493
+Yes. So you. Why is it saying B -40 instead of B?
+
+42
+00:06:38,543 --> 00:06:46,583
+Anybody wants to throw in a very good question and maybe we should clarify right now.
+
+43
+00:06:47,093 --> 00:06:51,563
+So can you tell me before I answer your question, in this model,
+
+44
+00:06:51,563 --> 00:07:00,833
+the value of the linear regression model and how many how weak that I'm going to guess are there?
+
+45
+00:07:04,763 --> 00:07:08,793
+We? Okay.
+
+46
+00:07:09,043 --> 00:07:17,083
+So that P crew sitting there said, okay so we can mark is also something that we need to estimate.
+
+47
+00:07:17,773 --> 00:07:23,773
+The number of predictors is T minus one, but we also have that additional intercept estimate.
+
+48
+00:07:24,103 --> 00:07:32,413
+So coming back to your question, there have be barometers, but the number of really fierce is feline, this one.
+
+49
+00:07:34,103 --> 00:07:43,853
+Okay. Makes sense. Okay. Now, many of the concepts that we learned in SLA extend to MLR.
+
+50
+00:07:45,473 --> 00:07:54,983
+Let's see how. So here is a simple example of, you know,
+
+51
+00:07:55,013 --> 00:08:05,993
+trying to explain the sort of the difference or the those the similarities conceptually
+
+52
+00:08:06,113 --> 00:08:09,743
+between the simple linear regression model and the multiple linear regression model.
+
+53
+00:08:10,283 --> 00:08:18,023
+Suppose we have a study of the association between rate. This is my response and height and it.
+
+54
+00:08:18,233 --> 00:08:21,413
+So now I have to go immediately to predictors, height and age.
+
+55
+00:08:22,073 --> 00:08:26,783
+And we are looking at a cohort of children aged 10 to 19 years.
+
+56
+00:08:28,693 --> 00:08:34,813
+Let's write this simple linear regression model only using age as the predictor.
+
+57
+00:08:34,813 --> 00:08:41,983
+So I did as w i the of the ide subject is equal to be done on plus though on e plus
+
+58
+00:08:41,983 --> 00:08:51,013
+epsilon I read e I is the age of the I type in the study and epsilon I is the,
+
+59
+00:08:51,153 --> 00:08:56,743
+you know, random matter noise sort of the assumptions that we made.
+
+60
+00:08:57,523 --> 00:09:01,602
+So then we know how to estimate this model, right?
+
+61
+00:09:01,603 --> 00:09:07,903
+We no truly squares method of least squared that big how to estimate this model.
+
+62
+00:09:07,903 --> 00:09:18,583
+And basically the mean of read given each now is going to be described by this linear function.
+
+63
+00:09:18,583 --> 00:09:26,623
+Better not. Plus the one I now consider two children, one age ten and another age 11.
+
+64
+00:09:27,253 --> 00:09:36,433
+So from the simple linear regression model, if you plug in the values ten and 11 in this conditional mean expression,
+
+65
+00:09:37,393 --> 00:09:51,913
+then you get for the child aged 11 the conditional mean or you know, in other words, average, we will be given by beta not plus 11 times beta one.
+
+66
+00:09:53,053 --> 00:09:56,172
+Okay. And for children ages,
+
+67
+00:09:56,173 --> 00:10:08,023
+then the average we would be given by beta not plus ten times we doing correct and we know through
+
+68
+00:10:08,023 --> 00:10:14,483
+the method of least squares how we estimate with an open beta one and we will just plug both the,
+
+69
+00:10:14,563 --> 00:10:28,003
+the, the values and be done. So if you now subtract equation two from equation one, then what happens?
+
+70
+00:10:28,003 --> 00:10:36,582
+The beta nodes cancel out and you have like 11 beta one minus ten bigger one.
+
+71
+00:10:36,583 --> 00:10:41,743
+So you get like beta one as the difference. And what is the interpretation of this?
+
+72
+00:10:42,073 --> 00:10:49,302
+What it's the difference of these two bytes and what is the difference of these two guys?
+
+73
+00:10:49,303 --> 00:10:57,853
+So basically it's saying veto on is the main difference in V for each one year higher age.
+
+74
+00:11:01,373 --> 00:11:07,762
+Right. That's the interpretation. We we are we are used to.
+
+75
+00:11:07,763 --> 00:11:12,923
+We are accustomed to. And that is what we want signifies.
+
+76
+00:11:13,403 --> 00:11:16,913
+Now, 11. that I will quickly mention here,
+
+77
+00:11:17,963 --> 00:11:24,123
+and we have talked about this a little bit in the context of I think when we are talking about module in module
+
+78
+00:11:24,133 --> 00:11:34,793
+Bible is not that how I do the interpretation of what I Lupita's mean difference in weight for each one year higher.
+
+79
+00:11:35,603 --> 00:11:39,503
+So once again I want to remind you about the design study design.
+
+80
+00:11:39,773 --> 00:11:45,873
+So like this is basically a that we have a cross section of study.
+
+81
+00:11:46,463 --> 00:11:58,193
+So basically each subject is, you know, in the study is of age between 10 to 19.
+
+82
+00:11:58,763 --> 00:12:08,793
+Again, we are recording that. It's not that for every subject we are recording there we at it is ten, 11, 12, 13 and so on.
+
+83
+00:12:08,813 --> 00:12:12,413
+So it's it's not a longitudinal design.
+
+84
+00:12:12,413 --> 00:12:23,393
+And that's why we really cannot talk about like strictly speaking, although like loosely, many times you see people using this interpretation.
+
+85
+00:12:23,633 --> 00:12:37,163
+But strictly speaking, we cannot talk about meaning increase in lead for each one year, increasing age or mean change in rate for each one year,
+
+86
+00:12:37,163 --> 00:12:43,193
+increasing age because that puts the population off like I think we can estimate change.
+
+87
+00:12:43,493 --> 00:12:52,552
+So I know it's sort of a subtle point, but I want you guys to assume you know the above mistakes.
+
+88
+00:12:52,553 --> 00:13:00,173
+Major So like you should be, you should be attention to the design considerations as well.
+
+89
+00:13:00,413 --> 00:13:10,733
+So this is like I know in many context people will tip or it's the mean increasing or maintained in weight for each one year increasing it.
+
+90
+00:13:11,243 --> 00:13:20,962
+But strictly speaking, that's not correct interpretation because it kind of gives the perception as if you can measure change here.
+
+91
+00:13:20,963 --> 00:13:24,263
+You really cannot measure change within a subject.
+
+92
+00:13:24,773 --> 00:13:29,453
+So that's kind of an insight point, but I wanted to bring your attention to that.
+
+93
+00:13:29,903 --> 00:13:34,643
+So in the insular model, we have ignored height.
+
+94
+00:13:35,303 --> 00:13:43,193
+Okay. No, we did not bring in any information about height.
+
+95
+00:13:44,123 --> 00:13:47,423
+Now let's go to the multiple linear regression model.
+
+96
+00:13:48,143 --> 00:13:52,733
+So now the we we note the multiple linear regression model.
+
+97
+00:13:54,383 --> 00:14:00,433
+Basically, we had the conditional o preferred.
+
+98
+00:14:04,033 --> 00:14:16,093
+So yeah. So the we so we are seeing the average read or the conditional mean we give in it in height.
+
+99
+00:14:16,513 --> 00:14:25,543
+You can write it as better, not less. Beta one EBA plus beta two HIV e corresponds to age and each corresponds to height.
+
+100
+00:14:27,283 --> 00:14:30,883
+Okay. And the subscript die. You know that I accept it.
+
+101
+00:14:37,623 --> 00:14:43,803
+Okay. So again, now consider two children aged ten and 11 years.
+
+102
+00:14:44,583 --> 00:14:55,322
+So for the 11 year olds, you can write the mean as beta, not plus 11.
+
+103
+00:14:55,323 --> 00:14:58,323
+Beta one plus beta two, each one.
+
+104
+00:15:00,513 --> 00:15:04,563
+I don't know what they tell you that, but I do have that.
+
+105
+00:15:04,563 --> 00:15:16,953
+Right. Right. And then for a ten year old, the condition mean is beta, not plus ten, beta one plus beta two H2.
+
+106
+00:15:18,273 --> 00:15:21,363
+Now we face subject for front three. What am I left with?
+
+107
+00:15:21,753 --> 00:15:26,733
+I'm left with an expression like this beta one plus beta two, each one minus H2.
+
+108
+00:15:28,833 --> 00:15:45,333
+So I have a term that involves the difference of the height of these two children or children like these do, I should say, of age ten and 11 years.
+
+109
+00:15:45,963 --> 00:15:50,553
+So now the question is how will you interpret beta one?
+
+110
+00:15:50,553 --> 00:15:57,333
+Because I don't have a beta one that is free of beta two.
+
+111
+00:15:58,053 --> 00:16:01,443
+So how how would I interpret beta one?
+
+112
+00:16:04,613 --> 00:16:15,262
+So here is what I do. Now suppose that the hides of the two children that I'm comparing are equal to another.
+
+113
+00:16:15,263 --> 00:16:21,683
+Let's see which one is equal to each two is equal to little each same height.
+
+114
+00:16:23,573 --> 00:16:27,443
+Then what happens to the constant mean expressions?
+
+115
+00:16:28,673 --> 00:16:38,213
+Basically I have bitterness plus 11 beta one plus beta two h and for the ten year old I have beta not plus then beta one plus beta to eight.
+
+116
+00:16:38,363 --> 00:16:45,293
+Again I subtract six from five and now let lower because what happens the beta notes
+
+117
+00:16:45,293 --> 00:16:52,193
+cancel out the beta two eight dance to cancel out and I'm left with the beta one.
+
+118
+00:16:54,263 --> 00:17:06,143
+So what is so and that the the difference is basically the difference of this conditional means the average rate of children like this.
+
+119
+00:17:06,713 --> 00:17:21,383
+So what is beta one now beat them on as you can see it is the mean difference in B for each one year higher rate with height held constant.
+
+120
+00:17:21,473 --> 00:17:25,853
+That's the crucial part of the statement.
+
+121
+00:17:27,323 --> 00:17:34,043
+Note here that I did not have to specify a particular value of height.
+
+122
+00:17:35,723 --> 00:17:48,493
+What I said is that the heights are equal, and other way of expressing this is that you are forming height on step.
+
+123
+00:17:50,913 --> 00:17:54,043
+Holding height one stand. We've got one now.
+
+124
+00:17:54,063 --> 00:17:59,003
+Equals the mean difference in weight for each one here higher each.
+
+125
+00:18:00,783 --> 00:18:06,993
+So this is the interpretation of beat up on a multiple linear regression model.
+
+126
+00:18:07,653 --> 00:18:17,113
+And based on that MLR model beta one is said to be an adjusted for height.
+
+127
+00:18:17,133 --> 00:18:20,793
+So once again, terminology, a very, very important terminology.
+
+128
+00:18:21,153 --> 00:18:30,123
+So whenever we are talking about it, rocking the context of multiple linear regression,
+
+129
+00:18:30,963 --> 00:18:43,413
+basically the effects are what the estimates that we get are said to be adjusted for the other predictors of other candidates in the model.
+
+130
+00:18:43,743 --> 00:18:54,663
+One thing to note that even if we don't know the height or the constant age, even if we don't know.
+
+131
+00:19:09,913 --> 00:19:20,593
+Even then, it would sort of be the one who have this interpretation because basically the devil, each part just cancels out.
+
+132
+00:19:23,503 --> 00:19:29,683
+So often times have been doing simple linear regression versus multiple linear regression.
+
+133
+00:19:30,463 --> 00:19:39,663
+You will hear terms like this in the context of simple linear regression, but there is only one goal.
+
+134
+00:19:39,663 --> 00:19:49,482
+We need only one predictor. If we go on is the main difference in why body you need piety it and it is
+
+135
+00:19:49,483 --> 00:19:57,223
+referred to as the root or unadjusted flow through the unadjusted coefficient.
+
+136
+00:19:57,463 --> 00:20:05,773
+So these are very, very important terminology in the literature and in MLA are what do you get?
+
+137
+00:20:07,273 --> 00:20:22,423
+MLA gives you the adjusted estimates or the adjusted proficient estimates and SLA gives you the through or on a tested.
+
+138
+00:20:24,343 --> 00:20:36,463
+And the war that just it comes from the fact that you are adjusting or holding the other cold periods in the model, other are in the model constant.
+
+139
+00:20:52,843 --> 00:21:05,713
+Okay. So in the multiple linear regression context, then once again now if I now generalize it to be minus one for various,
+
+140
+00:21:05,893 --> 00:21:12,972
+what would be minus one predictors in the in the model then beta one or for
+
+141
+00:21:12,973 --> 00:21:21,372
+that matter you can talk about any beta would be the mean difference in y y,
+
+142
+00:21:21,373 --> 00:21:29,863
+but you need higher in its okay with all the other x ds held constant.
+
+143
+00:21:32,233 --> 00:21:51,313
+Okay. Another way of seeing it is a mean difference in y, but you need higher x skew adjusting for or controlling for all other x ds in the model.
+
+144
+00:21:53,593 --> 00:22:01,843
+And like I said, there is nothing sort of you can you can make this interpretation for every predictor in the model.
+
+145
+00:22:02,053 --> 00:22:05,473
+So the idea when you are talking about the interpretation of beta one,
+
+146
+00:22:05,683 --> 00:22:11,923
+you are holding all the other parameters, beta two, beta feed beta for up to beta B minus one.
+
+147
+00:22:11,953 --> 00:22:20,262
+You are holding that constant. When you are talking about beta, do you are whole interpretation of beta?
+
+148
+00:22:20,263 --> 00:22:28,003
+Do you are holding beta what bigotry beta for up to be the p minus one, all of those constant and so on.
+
+149
+00:22:29,143 --> 00:22:32,413
+So in the model that you have each gender BMI.
+
+150
+00:22:36,713 --> 00:22:41,872
+In the city in interpreting the location for it.
+
+151
+00:22:41,873 --> 00:22:49,313
+You will be following gender BMI in the past and then interpreting the coefficient for gender.
+
+152
+00:22:49,583 --> 00:22:54,173
+You would be holding age, BMI and income constant and so on.
+
+153
+00:22:55,763 --> 00:23:02,153
+So that's the adjusted estimate.
+
+154
+00:23:03,023 --> 00:23:07,733
+Okay, questions, everybody. Fine. Okay.
+
+155
+00:23:07,973 --> 00:23:13,943
+So now some more fun facts.
+
+156
+00:23:15,683 --> 00:23:30,323
+The beat does from the from a SLR and MLR model are equal in some special cases.
+
+157
+00:23:30,743 --> 00:23:35,363
+I should really pause this as a question first before giving you the answers.
+
+158
+00:23:36,893 --> 00:23:46,223
+So when would the better from a simple linear regression model be equal to that?
+
+159
+00:23:46,403 --> 00:23:56,303
+The corresponding, you know, estimate from a multiple linear regression model that has additional predictors in the model.
+
+160
+00:23:57,653 --> 00:24:00,982
+There are some situations when that can happen.
+
+161
+00:24:00,983 --> 00:24:07,703
+One is at this point, you can even like like intuitively this this would make a whole lot of sense.
+
+162
+00:24:08,063 --> 00:24:15,593
+So if x2x3 up to x must be minus one, the additional covariates that you have added.
+
+163
+00:24:16,223 --> 00:24:33,053
+If all of those are uncorrelated with X1, then the coefficient for x1 from the SLR and a lot more of the same of the estimate that the.
+
+164
+00:24:34,613 --> 00:24:45,173
+Does that make sense? Like interestingly, you don't have to prove it formally, but let's ponder for a minute, does that make sense intuitively?
+
+165
+00:24:54,343 --> 00:24:59,293
+We also like you. Let's eat. We do random water quality foods.
+
+166
+00:25:00,613 --> 00:25:08,773
+Okay. Any water flow from the vessel corresponding to now?
+
+167
+00:25:09,073 --> 00:25:17,113
+You add gender BMI and suppose it is unwell related with gender BMI.
+
+168
+00:25:19,813 --> 00:25:23,203
+Cleaner market, the limited edition model with eight gender and BMI.
+
+169
+00:25:23,233 --> 00:25:28,593
+What will happen to the collection for eight? It be the same?
+
+170
+00:25:28,603 --> 00:25:34,423
+Why? Because that. And just when the two are talking about want to do anything.
+
+171
+00:25:39,333 --> 00:25:42,273
+Okay. So that's one instance where they can do the same.
+
+172
+00:25:42,303 --> 00:25:52,523
+The other instance where they maybe the C suppose that gender and BMI have no correlation with the outcome.
+
+173
+00:25:52,533 --> 00:25:58,623
+Why? So the data is so on.
+
+174
+00:25:58,623 --> 00:26:02,012
+In other words, like the you know, in the market, the linear regression model,
+
+175
+00:26:02,013 --> 00:26:07,683
+the coefficients associated with, you know, bigger to actually be a be minus one.
+
+176
+00:26:10,953 --> 00:26:26,753
+I'd zero. Then also the estimates from Disneyland and a lot more we need to see for the dollar because again, kind of arguing from inflation,
+
+177
+00:26:27,023 --> 00:26:37,102
+what we have been making them in our model and that the sort of in addition to the aid now you have included gender and BMI.
+
+178
+00:26:37,103 --> 00:26:46,433
+Any gender and BMI do not have any correlation with why should be similar, but not when we exclude any part of the variation in y.
+
+179
+00:26:47,333 --> 00:26:50,843
+So everything the whole onus is on it that same.
+
+180
+00:26:53,513 --> 00:27:02,723
+That bit in the summer when he's not ready for that, he's having less of a more pleasant, you know, contribution from Denver behind.
+
+181
+00:27:03,683 --> 00:27:11,363
+So once again, the the ones from the MLR want to be the same.
+
+182
+00:27:13,013 --> 00:27:19,463
+So that's one one kind of like fun fact and actually quite interesting for.
+
+183
+00:27:21,023 --> 00:27:35,243
+Secondly, you also have to acknowledge that typically the pool really it's been a logical linear regression model that you know,
+
+184
+00:27:36,623 --> 00:27:47,063
+that you will need to generally be really equally looked at to some degree because you're kind of studying,
+
+185
+00:27:51,773 --> 00:27:58,373
+you know, sort of characteristics in the same individual.
+
+186
+00:27:58,373 --> 00:28:02,723
+And, you know, like, for example, a classic example is income education.
+
+187
+00:28:04,503 --> 00:28:14,913
+Most of the times they are going to be highly, highly correlated with age, BMI, age.
+
+188
+00:28:20,423 --> 00:28:24,053
+I'm making it to maturity. So.
+
+189
+00:28:24,053 --> 00:28:34,553
+So basically in the violet scenario, usually that excuse will be uncorrelated.
+
+190
+00:28:36,593 --> 00:28:39,713
+So what's the problem then? Or is there a problem?
+
+191
+00:28:40,823 --> 00:28:52,683
+And that's where there's an interesting sort of interesting how basic point there.
+
+192
+00:28:54,683 --> 00:29:04,433
+We know that there would be some correlation between the excuse and most of the times we would be fine with that.
+
+193
+00:29:04,613 --> 00:29:13,733
+You know, that the the sort of the inherent correlation between the poor idiots thinking the predictors will in some way be benign.
+
+194
+00:29:13,853 --> 00:29:19,343
+Benign in the sense they won't really affect the model fitting the estimation.
+
+195
+00:29:20,153 --> 00:29:34,643
+But there are some instances where if the regression decree really does is extremely high and we refer to that as multiple equally nearly.
+
+196
+00:29:34,823 --> 00:29:39,803
+We will talk about multiple in unity I as a separate topic later on.
+
+197
+00:29:40,433 --> 00:29:50,513
+And in situations like that, you can actually have really great difficulties with respect to the interested in
+
+198
+00:29:50,543 --> 00:29:55,943
+a slightly different version or in other words like the extremely high point.
+
+199
+00:29:56,363 --> 00:30:03,663
+Between the egos, it can affect your estimation and model.
+
+200
+00:30:04,053 --> 00:30:07,733
+So we need to be to recognize that.
+
+201
+00:30:07,853 --> 00:30:16,113
+I know of the point that. Yes. So can you just.
+
+202
+00:30:16,383 --> 00:30:19,823
+I can't hear you. I can't. In fact, I.
+
+203
+00:30:25,933 --> 00:30:32,233
+Yeah. So that's that's the million dollar question at this point because as I said,
+
+204
+00:30:33,673 --> 00:30:39,793
+that can be a little bit beyond is the Apollo mission we think about for years.
+
+205
+00:30:40,333 --> 00:30:46,783
+How do we know which one to ignore or which one?
+
+206
+00:30:47,383 --> 00:30:50,623
+It was sort of hard, you know, more than 50.
+
+207
+00:30:51,673 --> 00:30:56,083
+So typically you really get access.
+
+208
+00:30:56,083 --> 00:31:08,532
+That coming back to your question with simple bio based correlations between the predictors that can not give you sufficient information
+
+209
+00:31:08,533 --> 00:31:20,473
+to diagnose which or what level of population is sort of harmful versus what like below which you can sort of close your eyes anymore.
+
+210
+00:31:21,463 --> 00:31:35,883
+And the way we detect how large is large is not to pairwise coalitions but to a quantity called variance inflation factor bias,
+
+211
+00:31:36,133 --> 00:31:40,203
+which is what we would study in the context of multiple linearity.
+
+212
+00:31:40,933 --> 00:31:44,053
+So we will have to sort of wait for that.
+
+213
+00:31:44,443 --> 00:31:57,313
+But I still want to answer your question because if somebody gives you all you look at the price for left unsaid and be done, no, that won't suffice.
+
+214
+00:31:58,453 --> 00:32:09,013
+Because then maybe and there are sort of examples with just the price correlation, like talking a 4.6.7.
+
+215
+00:32:09,283 --> 00:32:10,602
+But when you do that,
+
+216
+00:32:10,603 --> 00:32:21,883
+does it more pretty you see that the value is some the value of the value is below a threshold that you can kind of ignore and you can say,
+
+217
+00:32:21,913 --> 00:32:25,333
+oh yeah, it's they're like, you know, it's, it's there.
+
+218
+00:32:25,333 --> 00:32:30,253
+But it is not affecting my model, the estimation.
+
+219
+00:32:30,763 --> 00:32:40,753
+So then you keep it. So the real diagnostic is not correlation, be advice correlation.
+
+220
+00:32:40,753 --> 00:32:45,582
+The real diagnostic is that. Okay.
+
+221
+00:32:45,583 --> 00:32:51,103
+Any other questions? Oh.
+
+222
+00:32:51,693 --> 00:32:55,893
+Okay. So. So we will study multi-core linearity.
+
+223
+00:32:57,413 --> 00:33:04,913
+Now. We write the model.
+
+224
+00:33:11,633 --> 00:33:17,933
+So here is the multiple linear regression model in matrix notation.
+
+225
+00:33:19,913 --> 00:33:30,143
+And I first write the model kind of in the bread and butter formulation that you have seen for simple linear regression.
+
+226
+00:33:30,593 --> 00:33:44,873
+So basically, you know, again, the same sort of terminology and notation was the Y is the response from the I sub dev is equal
+
+227
+00:33:44,873 --> 00:34:04,853
+to be done not last bit 1x10i love beta to its two i plus beta three it's three I and so on.
+
+228
+00:34:05,483 --> 00:34:08,843
+Up to beat up B minus one.
+
+229
+00:34:10,523 --> 00:34:16,493
+XP minus one. Former.
+
+230
+00:34:19,433 --> 00:34:32,333
+Plus Epsilon Pi. So here is the model in the sort of our bread and butter formulation that we have.
+
+231
+00:34:32,663 --> 00:34:39,503
+So this is how we draw the SLR model, right? And the only difference is we did not have this extrude through.
+
+232
+00:34:43,953 --> 00:34:47,223
+We did not have this bar in the SLA model.
+
+233
+00:34:49,533 --> 00:34:54,183
+Okay. So the subscript, I still denotes the subject.
+
+234
+00:34:54,453 --> 00:34:59,133
+And what are these? X1. X2 x b minus one.
+
+235
+00:34:59,553 --> 00:35:02,913
+These are my different body. It could be.
+
+236
+00:35:02,913 --> 00:35:09,533
+This could be it. This would be gender.
+
+237
+00:35:12,023 --> 00:35:16,583
+This could be BMI, etc.
+
+238
+00:35:19,773 --> 00:35:27,603
+So it's one I is the age of the highest subject in the study.
+
+239
+00:35:28,173 --> 00:35:31,653
+X do y is the gender of the subject.
+
+240
+00:35:31,653 --> 00:35:40,713
+In this study, it's b minus one is the BMI of the person in the study.
+
+241
+00:35:42,243 --> 00:35:47,493
+Okay. And then I have why is the outcome for the AI subject in the study?
+
+242
+00:35:47,493 --> 00:35:54,663
+And if Phil and I, is that then a matter for the subject?
+
+243
+00:35:55,023 --> 00:36:02,013
+So that the form that you are accustomed to seeing the model reconnect.
+
+244
+00:36:02,313 --> 00:36:20,073
+No, I'm saying instead of guiding the model this way, what I want to do is I'm going to stack these observations with data for the end subject.
+
+245
+00:36:20,073 --> 00:36:26,073
+So I'm going to put the value on. And then we really try to do three by four up to Y.
+
+246
+00:36:26,073 --> 00:36:30,903
+Yeah. So I'm going to drive that stack to respond to the vector.
+
+247
+00:36:33,823 --> 00:36:38,143
+Everybody. Actually, everybody.
+
+248
+00:36:38,353 --> 00:36:44,273
+I was going to say everybody hearing me, I should say everybody looking at.
+
+249
+00:36:44,283 --> 00:36:49,963
+Yes. So that's what I'm doing now. Stacking. Okay.
+
+250
+00:36:50,923 --> 00:36:59,443
+So what does the stacking do? It creates a better. That's what I'm going to call mine.
+
+251
+00:36:59,953 --> 00:37:11,563
+Why? That is my why.
+
+252
+00:37:11,613 --> 00:37:21,553
+Do you see how I stack this? So why this bald faced?
+
+253
+00:37:21,553 --> 00:37:28,543
+Why now is a victor of dimension and plus one?
+
+254
+00:37:31,063 --> 00:37:34,632
+Similarly, I did the same thing with the epsilon, so I'm stacking.
+
+255
+00:37:34,633 --> 00:37:38,093
+Excellent. One, two, three, four. Them at CNN.
+
+256
+00:37:38,413 --> 00:37:48,823
+So again, Epsilon, the boldfaced epsilon again is a vector of dimension and plus one.
+
+257
+00:37:53,193 --> 00:37:57,933
+Now let's look at the. So I'm just stacking.
+
+258
+00:38:01,703 --> 00:38:17,922
+All the. Okay.
+
+259
+00:38:17,923 --> 00:38:22,243
+So now let's look at the Matrix X.
+
+260
+00:38:23,623 --> 00:38:26,983
+We call this the design matrix.
+
+261
+00:38:27,013 --> 00:38:37,273
+And let me just explain what this design says. So this design matrix is once again you are stacking, but now what are you starting?
+
+262
+00:38:37,273 --> 00:38:47,353
+You are stacking the data for the first, second, third, fourth and up to the next subject.
+
+263
+00:38:47,893 --> 00:38:53,883
+When I talk about stacking, the whole baby is stacking the data with respect to the whole baby.
+
+264
+00:38:53,893 --> 00:38:59,973
+It's for the end subjects. Now I have more than one pavilion, right?
+
+265
+00:38:59,983 --> 00:39:02,113
+So I have age, BMI, David, and so on.
+
+266
+00:39:02,683 --> 00:39:18,223
+So you can as you can see, each row of these matrix represents the covariance or the data for the eight subjects.
+
+267
+00:39:18,223 --> 00:39:25,813
+So each row is one subject. So the first row is I'll tell you why I hit the one in the first place.
+
+268
+00:39:28,063 --> 00:39:34,423
+But the second one is what? It's one. One is the age for the first subject.
+
+269
+00:39:34,903 --> 00:39:48,073
+What is x one do xy2 is the gender for the fourth subject, what is the the sorry?
+
+270
+00:39:48,433 --> 00:39:52,123
+What am I saying? You guys switch my notation.
+
+271
+00:39:55,793 --> 00:40:22,413
+Yeah. I switched my notations, so. Yeah.
+
+272
+00:40:22,423 --> 00:40:26,813
+This is. This is still the four that I saw.
+
+273
+00:40:26,953 --> 00:40:49,563
+Okay. So sorry I switched my. Did everybody see?
+
+274
+00:40:49,563 --> 00:40:53,433
+Like what? What? What? Tendonitis I had.
+
+275
+00:40:54,153 --> 00:41:03,903
+I had written the model. I do want to write the matrix in such a way that each law is one is a subject.
+
+276
+00:41:04,263 --> 00:41:08,523
+So I should write it as this should be, Ivan.
+
+277
+00:41:13,203 --> 00:41:18,513
+I do. And I B-minus one.
+
+278
+00:41:24,593 --> 00:41:32,963
+Yes. Nobody pointed that out.
+
+279
+00:41:35,603 --> 00:41:36,563
+Okay. So.
+
+280
+00:41:38,423 --> 00:41:54,923
+So basically it's one is the age of the I it subject it's I do is the gender of the subject X I'd be minus one is the BMI of the Iot subject.
+
+281
+00:41:55,163 --> 00:42:02,933
+So now look at the design matrix. The design matrix is 1x11x12x1, b minus one.
+
+282
+00:42:04,253 --> 00:42:07,672
+So the first rule is there's a there's the one.
+
+283
+00:42:07,673 --> 00:42:18,683
+And I'll tell you why. The age of the first subject, the gender of the fourth subject, the up to the BMI of the first subject.
+
+284
+00:42:18,683 --> 00:42:30,713
+What is the second draw? The second draw is the age of the second subject, the gender of the second subject, the BMI of the second subject, and so on.
+
+285
+00:42:31,013 --> 00:42:36,023
+So. E to draw the presence.
+
+286
+00:42:45,483 --> 00:42:53,673
+A subject. And how many laws would they have for this matrix?
+
+287
+00:42:54,033 --> 00:43:04,473
+What is the sample size in? Right. So the number of roles would be M what about the number of balance of the X matrix?
+
+288
+00:43:05,013 --> 00:43:12,213
+The number of columns would correspond to the number of there was a question, number of unknown parameters.
+
+289
+00:43:12,213 --> 00:43:25,953
+How many on there's a bit B, so the matrix X is a dimension in cross three and it is referred to as the design matrix.
+
+290
+00:43:27,693 --> 00:43:31,143
+Let's look at the meta vector.
+
+291
+00:43:31,773 --> 00:43:39,423
+So how many unknown balances do I have? I know you know, the qualifications for the p minus one will be the last thing.
+
+292
+00:43:39,843 --> 00:43:44,043
+So I have a total of like be unknown barometers.
+
+293
+00:43:44,433 --> 00:43:53,273
+So the big firm beta, bald faced beta is made up of once again, like you're stacking the parameters.
+
+294
+00:43:53,343 --> 00:43:56,883
+We cannot be the one we tested. We definitely have to be to be minus one.
+
+295
+00:43:57,213 --> 00:44:01,743
+So it's a question of dimension. It's a column vector of dimension.
+
+296
+00:44:01,773 --> 00:44:04,833
+The top one. Yes.
+
+297
+00:44:04,983 --> 00:44:17,103
+If you go to. Okay. So now can you tell me before I go go and sort of write all of these things succinctly together?
+
+298
+00:44:18,633 --> 00:44:30,573
+Now, if I I'm claiming that I can based on these definitions of Y, X, Biddle and Epsilon,
+
+299
+00:44:31,413 --> 00:44:42,003
+where Y meta and epsilon are vectors of respective dimensions and the matrix x is entropy.
+
+300
+00:44:42,393 --> 00:44:53,913
+I am claiming that I can write this model now succinctly as.
+
+301
+00:44:57,873 --> 00:45:08,343
+This equation in fixed notation. So it's y equal to x beta plus epsilon.
+
+302
+00:45:08,733 --> 00:45:22,233
+When X is of dimension in cross B and beta is a B, cross one vector and epsilon is an n cross one vector.
+
+303
+00:45:24,183 --> 00:45:27,463
+Let's first check. Do this.
+
+304
+00:45:28,293 --> 00:45:39,663
+When I write the model in this form, do these vector multiplications hold so x is n, cross p and beta is p cross one.
+
+305
+00:45:39,663 --> 00:45:50,013
+So yes, I can do the multiplication in Crosby with p plus one would give me R and cross one added to epsilon, which is an N across one.
+
+306
+00:45:51,693 --> 00:45:55,563
+So that would give me a n plus one vector for y.
+
+307
+00:45:56,373 --> 00:46:00,663
+So this this holds in matrix multiplication and addition.
+
+308
+00:46:02,973 --> 00:46:07,563
+And the assumption that I'm going to make is on epsilon.
+
+309
+00:46:08,703 --> 00:46:12,633
+But I can write the model in this fashion.
+
+310
+00:46:14,933 --> 00:46:22,373
+I want to see these hands for everybody.
+
+311
+00:46:22,973 --> 00:46:27,533
+If you agree or if you see that, how?
+
+312
+00:46:27,653 --> 00:46:29,182
+I mean, see transparently.
+
+313
+00:46:29,183 --> 00:46:39,683
+If not, please tell me and I will repeat again, because this is sort of forming the backbone of everything that we are going to do from here.
+
+314
+00:46:40,823 --> 00:46:50,433
+And if you if you sort of say yes, then I'm going to pause just one very simple question and let people forget.
+
+315
+00:46:52,283 --> 00:46:59,943
+So let me see. Everybody sort of see this.
+
+316
+00:47:01,443 --> 00:47:12,663
+Not a neat thing about. I can write them out of this.
+
+317
+00:47:12,903 --> 00:47:21,123
+Are you going to explain that message to them? The way I would be fine by a speed dial.
+
+318
+00:47:23,123 --> 00:47:26,683
+I'm not talking on the assumption. Yes.
+
+319
+00:47:27,473 --> 00:47:37,703
+Okay. So now here is my question. So the design mistakes, you see, I see these, you know, if one subject represents one subject,
+
+320
+00:47:38,183 --> 00:47:47,113
+but that first column is a column of 1111 number, maybe that coming from the speaker down from the up.
+
+321
+00:47:47,333 --> 00:47:59,633
+Right. So everybody each subject has that it has become so it's coming from that data so that these only things in a multiple linear regression model,
+
+322
+00:48:00,923 --> 00:48:11,453
+we always have the first column as one typical generation to the present the.
+
+323
+00:48:14,573 --> 00:48:23,363
+Okay. So let's take a break and we will be back at 908.
+
+324
+00:48:54,907 --> 00:49:12,027
+We are assuming. Superiors shoot me.
+
+325
+00:49:17,597 --> 00:49:30,447
+Passports will not talk about, you know, the distributional assumption or like the specific normality assumption.
+
+326
+00:49:30,467 --> 00:49:41,537
+So just as in SLR, we started with the assumptions that the Arabs have means zero and one.
+
+327
+00:49:41,657 --> 00:49:47,567
+Again, variants sigma squared and the arrows are uncorrelated.
+
+328
+00:49:48,677 --> 00:49:55,747
+We will simply start from there. So here is the assumption that we made on the errors.
+
+329
+00:49:56,207 --> 00:50:09,677
+So once again, what is epsilon? Epsilon is the vector of it set in plus one dimensional vector.
+
+330
+00:50:09,737 --> 00:50:18,107
+It's a problem vector. Right. So we are hoping that this does mean zero.
+
+331
+00:50:18,977 --> 00:50:25,966
+So this boldface zero and a substitute of end denotes the vector to zero of
+
+332
+00:50:25,967 --> 00:50:34,417
+dimension n plus one and the billions for BD and sweet treats of these errors.
+
+333
+00:50:34,457 --> 00:50:41,977
+I am writing it once again in matrix annotation as Sigma Square Times The Identity Matrix of Dimension in Cross.
+
+334
+00:50:42,017 --> 00:50:47,117
+And I want each of you to realize that y I can write that.
+
+335
+00:50:47,507 --> 00:50:58,787
+So when I see like in the, you know, in the sort of bread and butter formulation of MLR, I see that epsilon one excellent through epsilon feed.
+
+336
+00:50:58,787 --> 00:51:09,127
+They are mutually uncoordinated and the mean of Epsilon II is zero and the variance of epsilon I is sigma squared for all I.
+
+337
+00:51:09,287 --> 00:51:19,936
+Right. That was the assumption. Okay, so now let's write for this vector and let's write it's variants.
+
+338
+00:51:19,937 --> 00:51:24,107
+Convenience, experience, obedience matrix is written like this.
+
+339
+00:51:24,107 --> 00:51:29,087
+So I have the delay under Epsilon to denote that it is a vector.
+
+340
+00:51:30,797 --> 00:51:40,547
+So according to the assumptions that I have been making, it is Quan's and the excellence have a constant variance.
+
+341
+00:51:40,547 --> 00:51:50,357
+What does that mean? Variance of epsilon one equal variance of epsilon two equal to variance of epsilon and three up to n is equal to sigma squared.
+
+342
+00:51:50,807 --> 00:51:56,057
+So the diagonal elements of this matrix should be the sigma squared.
+
+343
+00:51:58,987 --> 00:52:04,117
+So I have sigma squared in the dialog all through.
+
+344
+00:52:04,927 --> 00:52:13,537
+What about the off diagonal elements? I assume that Epsilon II and Epsilon Zero are uncorrelated for all, are not equal to G.
+
+345
+00:52:14,557 --> 00:52:18,907
+So what are the of diagonal elements of this matrix?
+
+346
+00:52:18,967 --> 00:52:25,867
+Of diagonal elements of the covariance of epsilon and epsilon due for all I know, people who do.
+
+347
+00:52:28,207 --> 00:52:32,307
+Yes. What are the variances?
+
+348
+00:52:33,717 --> 00:52:38,637
+They're all zero. So I can write ab0 here and a big zero here.
+
+349
+00:52:38,637 --> 00:52:43,107
+Meaning that all of diagonal elements are equal to zero.
+
+350
+00:52:46,357 --> 00:52:49,477
+So this matrix is equal to.
+
+351
+00:52:49,477 --> 00:52:57,997
+I can write it succinctly as Sigma Square finds the identity matrix of dimension in cosine.
+
+352
+00:53:02,537 --> 00:53:08,237
+Okay. So now look how how I have.
+
+353
+00:53:08,247 --> 00:53:13,007
+Look, isn't this beautiful? Like the way now I'm writing the model.
+
+354
+00:53:13,007 --> 00:53:16,417
+It's. It's it's it's clean. It's beautiful.
+
+355
+00:53:16,787 --> 00:53:24,857
+All I am saying is. So this is my this is my sort of the model in its entirety.
+
+356
+00:53:26,087 --> 00:53:29,927
+So Y equal to x, beta plus epsilon.
+
+357
+00:53:30,227 --> 00:53:41,926
+That's my model. The assumptions I'm making are that epsilon has mean zero and variance covariance
+
+358
+00:53:41,927 --> 00:53:47,147
+matrix equal to sigma squared times the identity matrix of dimension and cross.
+
+359
+00:53:47,147 --> 00:53:53,537
+N So with that, what is the expected value of y?
+
+360
+00:53:53,927 --> 00:54:06,377
+The vector y I can write be as expected value of x peter plus epsilon x is fixed beta is the unknown parameter vector.
+
+361
+00:54:06,647 --> 00:54:19,307
+The only random part is the epsilon. So the basically this reduces to an expected value of epsilon and what is the expected value of.
+
+362
+00:54:19,637 --> 00:54:28,187
+So this reduces to x beat that last expected value of epsilon and what is the expected value of absolute zero?
+
+363
+00:54:28,427 --> 00:54:32,027
+So I get a expected value of y is equal to x better?
+
+364
+00:54:33,227 --> 00:54:40,337
+Yes. What about the variance of phi? So again, I can write variants of y as variance of x beta plus epsilon.
+
+365
+00:54:42,437 --> 00:54:48,707
+There is nothing random about big spender. So what happens to the variance?
+
+366
+00:54:48,917 --> 00:54:56,597
+The variances of x with a plus epsilon is equal to the variance of epsilon using variance
+
+367
+00:54:56,597 --> 00:55:01,277
+formula and the variance of epsilon is sigma squared times the identity matrix.
+
+368
+00:55:04,507 --> 00:55:17,007
+So now I can write this model as basically I know that I still haven't assumed normality or independence.
+
+369
+00:55:17,017 --> 00:55:23,737
+I have only assumed the uncorrelated errors. But I can right now.
+
+370
+00:55:23,737 --> 00:55:28,446
+Again, these three lines sort of combine.
+
+371
+00:55:28,447 --> 00:55:35,557
+And so simply as Y is distributed from our distribution,
+
+372
+00:55:36,007 --> 00:55:45,727
+we mean X meta and variance obedience matrix sigma squared times the identity matrix of dimension and cross end.
+
+373
+00:55:46,507 --> 00:55:51,007
+And note that we did not need normality or independence yet.
+
+374
+00:55:53,717 --> 00:56:11,897
+Okay. Just I want to mention at this point before we go too far, this like this matrix is we write it as variance of epsilon.
+
+375
+00:56:12,727 --> 00:56:21,287
+Um, but as you can see, it is made up of variances and for variances between, you know, sort of elements of the vector.
+
+376
+00:56:21,557 --> 00:56:24,707
+So sometimes it's a bit confusing that terminology.
+
+377
+00:56:26,507 --> 00:56:34,377
+So whenever I'm writing the variance of a vector, I am indicating the variance or variance matrix.
+
+378
+00:56:34,397 --> 00:56:44,777
+The probably it's or perhaps it is better to kind of remember this as the matrix of variances and for variances.
+
+379
+00:56:45,407 --> 00:56:49,997
+So this is a variance for radians.
+
+380
+00:56:54,837 --> 00:57:07,137
+Because it is not just built up of being physically able to beat up on audiences between peers off the air.
+
+381
+00:57:07,797 --> 00:57:17,667
+Okay. So now let's go to the simple linear regression model in matrix notation.
+
+382
+00:57:17,817 --> 00:57:23,577
+So here we have the straight line model.
+
+383
+00:57:25,767 --> 00:57:30,727
+This is what we had been working with Michael to denote Leslie Domain, except as excellent.
+
+384
+00:57:30,747 --> 00:57:38,257
+I am going to write this model in matrix notation.
+
+385
+00:57:38,277 --> 00:57:39,477
+So what is my y?
+
+386
+00:57:40,287 --> 00:57:52,467
+And the vector y once again is stacked outcomes for all then individual to end growth one vector with y one mode y in what is the design matrix?
+
+387
+00:57:52,497 --> 00:57:54,897
+Now I only have one predictor.
+
+388
+00:57:55,287 --> 00:58:04,227
+So the design matrix has the first column of one and the second column of the x values for the far second up to the end.
+
+389
+00:58:04,227 --> 00:58:17,457
+Its subject epsilon is again the stack letters and now the beta parameter vector is of dimension two plus one corresponding to beta not and beta one,
+
+390
+00:58:17,757 --> 00:58:22,237
+the intercept and the slope. What is this?
+
+391
+00:58:22,287 --> 00:58:33,937
+Is E s is e is if you remember from from simple linear regression, this is the sum of squares of the errors.
+
+392
+00:58:35,217 --> 00:58:46,587
+Or in other words, if I wrote the term and in terms of the sort of an algebraic expression for,
+
+393
+00:58:46,887 --> 00:58:52,797
+for this, so it's basically computed based on the estimated errors, the residuals.
+
+394
+00:58:53,367 --> 00:58:59,606
+So I have coming to you so I can I was writing it at summation.
+
+395
+00:58:59,607 --> 00:59:02,727
+I am one who in epsilon I had square.
+
+396
+00:59:04,227 --> 00:59:06,836
+Okay. So Epsilon one had squared.
+
+397
+00:59:06,837 --> 00:59:17,907
+It's two that squared and then add gamma and where the residuals are the epsilon I had are observe minus the predicted DI for the I.
+
+398
+00:59:18,507 --> 00:59:21,547
+Did you have a question. Yes you use epsilon the.
+
+399
+00:59:24,757 --> 00:59:29,877
+No, not not the excellence in the better form for this, because I'm writing the model.
+
+400
+00:59:30,537 --> 00:59:41,096
+So these are the errors. OFFICER two So the soldiers respect the no, no, the sum of squares, the way we would computing the sum of scopes.
+
+401
+00:59:41,097 --> 00:59:47,317
+Remember, it was based on the residuals. They think that when the ANOVA model, the partitioning that they showed you.
+
+402
+00:59:48,597 --> 00:59:51,867
+So it has to be computable based on our own data.
+
+403
+00:59:52,437 --> 00:59:56,937
+So the errors are not observable, but the residuals are.
+
+404
+01:00:00,367 --> 01:00:09,597
+And we're still confused a little bit because I can't see how you transpose timestamps on to the movie The Absence.
+
+405
+01:00:12,297 --> 01:00:15,356
+Howard. Oh, you're talking about excitement.
+
+406
+01:00:15,357 --> 01:00:19,587
+Yes. You're talking about this line. Yes. I thought you were talking about this line.
+
+407
+01:00:19,827 --> 01:00:30,437
+Oh, yes, you are right. You're right. You're right. Oh, I thought you were talking about here.
+
+408
+01:00:31,337 --> 01:00:36,877
+Yeah. Yes. Yes. Okay.
+
+409
+01:00:37,097 --> 01:00:41,517
+So some food supply. Yes. But not here.
+
+410
+01:00:41,567 --> 01:00:45,707
+I wouldn't put them here. Right. Because that's just that's the actual error.
+
+411
+01:00:46,307 --> 01:00:52,697
+These are the estimated errors. Okay. So this is these the sum of squares of the residuals.
+
+412
+01:00:54,187 --> 01:01:08,407
+No. Note that now I can write in vector notation the same quantity SSI as the nerd to order epsilon hac transpose epsilon hat.
+
+413
+01:01:09,827 --> 01:01:14,107
+So I'm writing if there's any that product. And when I do, there's an inner product.
+
+414
+01:01:14,127 --> 01:01:24,586
+Basically, I'm doing a vector multiplication. So epsilon hat transpose is basically I take this column vector and transform and get that
+
+415
+01:01:24,587 --> 01:01:33,497
+all vector of dimension one cross n and multiply with the n ros1 epsilon had vector.
+
+416
+01:01:34,607 --> 01:01:43,607
+So what do I have? And again, you know, these are as pointed out, these are the residuals, these are the estimated errors.
+
+417
+01:01:43,967 --> 01:01:50,057
+But the point is, I'm taking an inner product of these two vectors where I take any product of these two vectors.
+
+418
+01:01:50,067 --> 01:01:55,167
+So I have one person and I multiply it with the one in cross one.
+
+419
+01:01:55,187 --> 01:02:01,407
+What do I get? What do I get?
+
+420
+01:02:05,657 --> 01:02:10,327
+What is the dimension of necessity? One by one, right?
+
+421
+01:02:10,337 --> 01:02:13,727
+It's a scalar. It's a number. So I get a scalar there.
+
+422
+01:02:18,277 --> 01:02:23,947
+It's so but, you know, it's it's I want you to recognize that this is an inner problem.
+
+423
+01:02:25,357 --> 01:02:30,607
+Okay, now let's look at the ordinary list.
+
+424
+01:02:30,927 --> 01:02:39,097
+So we are going to do the exact same thing that we did to derive the oil is estimated in SLR,
+
+425
+01:02:39,097 --> 01:02:52,987
+but now we are going to walk in the matrix world and we are going to derive the normal equations solve for them using matrix algebra.
+
+426
+01:02:53,107 --> 01:02:59,227
+So we all are familiar with SNC and how big we start.
+
+427
+01:03:00,787 --> 01:03:03,847
+The method of least squares in SLR.
+
+428
+01:03:04,087 --> 01:03:11,767
+I showed you geometrically what's going on and I view that essentially what we have to do is to minimize that.
+
+429
+01:03:11,807 --> 01:03:17,527
+SSA blocking the squares estimates for beta, not in beta one.
+
+430
+01:03:18,667 --> 01:03:25,327
+So what we have to do is we solve this.
+
+431
+01:03:30,437 --> 01:03:40,697
+Equation or set of equations. With the iPad, I take the first derivative of sase with respect to Baker Head.
+
+432
+01:03:41,897 --> 01:03:51,257
+So if this is a number, it's a scalar. It's one by one, but beta happ is a vector of dimension B cross one.
+
+433
+01:03:52,397 --> 01:03:56,887
+So I'm using that very, very deep.
+
+434
+01:03:56,897 --> 01:04:08,447
+So, you know, like and actually nice thing is in the lecture today there was a question about that, like the vector of the derivatives.
+
+435
+01:04:09,317 --> 01:04:19,127
+So I am going to have to take vector derivatives of a CC equipped at zero and solve for the set of some of any questions.
+
+436
+01:04:19,487 --> 01:04:30,137
+So in the context of multiple linear regression, we'd be minus one four, but it's in the model.
+
+437
+01:04:30,707 --> 01:04:37,457
+Can you tell me before I start writing and solving, can you tell me how many questions will I get?
+
+438
+01:04:40,197 --> 01:04:43,447
+No, I'm talking about the simple linear regression.
+
+439
+01:04:43,467 --> 01:04:47,307
+Yes. Do I need the multiple linear regression with B minus one?
+
+440
+01:04:47,587 --> 01:04:54,746
+Well, with it I'll get fit with. Correct. So now let's let's come back to again the simple linear regression context.
+
+441
+01:04:54,747 --> 01:04:58,527
+But now I'm solving it with the matrix algebra.
+
+442
+01:04:58,947 --> 01:05:13,587
+So here is what's going on. So is this e I noted as the inner product that Epsilon hacked transpose and epsilon hack.
+
+443
+01:05:14,857 --> 01:05:20,107
+Hmm. So now I review it, so I kind of like it.
+
+444
+01:05:20,307 --> 01:05:23,787
+I found to deduce it, I sort of expanded I data.
+
+445
+01:05:25,527 --> 01:05:30,837
+I plug in. The definition of epsilon that epsilon had are my residuals.
+
+446
+01:05:34,997 --> 01:05:41,687
+Vector of residuals. Okay.
+
+447
+01:05:42,077 --> 01:05:46,607
+And what is Epsilon Hap? Epsilon hap is y minus y you have.
+
+448
+01:05:51,227 --> 01:05:57,887
+So I had y minus y head transpose multiplied by y minus y he had.
+
+449
+01:05:59,657 --> 01:06:03,197
+So y is in growth one vector.
+
+450
+01:06:05,447 --> 01:06:12,227
+So I am taking like an inner product for one growth and vector with n growth.
+
+451
+01:06:12,227 --> 01:06:18,257
+One vector I get get the one plus one scalar, which is my SC.
+
+452
+01:06:19,397 --> 01:06:36,137
+Okay, so now what happens to but now I plugged in y you had what is y you had y you had is x beta times beta hacked based on my model.
+
+453
+01:06:36,887 --> 01:06:46,967
+Correct. So I have y minus x with the had transpose of the whole thing multiplied by Y minus x the back.
+
+454
+01:06:49,717 --> 01:06:56,587
+Okay. Now I can write this because based on the model Y is x beta plus epsilon.
+
+455
+01:06:57,787 --> 01:07:06,497
+So Y you had this script. I had. Latex is entropy and data is just fine.
+
+456
+01:07:07,457 --> 01:07:16,277
+So now I basically use this result of transporter.
+
+457
+01:07:16,297 --> 01:07:22,397
+So E plus B transpose of the whole thing is h transpose plus B transpose.
+
+458
+01:07:23,147 --> 01:07:37,487
+So I write the first term as y transpose minus beta hot transpose, x transpose, and the second term stays as Y minus beta hat.
+
+459
+01:07:37,517 --> 01:07:39,887
+I actually use two results here.
+
+460
+01:07:40,157 --> 01:07:50,807
+I use this result and I also use the result that e times the product of that transpose of the whole thing is beta b transport times C transpose.
+
+461
+01:07:50,807 --> 01:07:53,447
+So you know, kind of the order gets swapped.
+
+462
+01:07:54,227 --> 01:08:01,877
+So I applied this to results and wrote that faster like y transpose minus beta had transport times six times both.
+
+463
+01:08:04,307 --> 01:08:14,977
+Multiply by minus six, make a high. So now I expand just, you know, simple algebra.
+
+464
+01:08:14,987 --> 01:08:29,296
+So I have y, transpose Y minus y, transpose x with that minus to head, transpose x,
+
+465
+01:08:29,297 --> 01:08:41,497
+transpose Y and plus minus minus gives me a plus plus b de hat transpose x transpose x beta hat.
+
+466
+01:08:43,677 --> 01:08:51,127
+Yes. So let's smell garlic dance.
+
+467
+01:08:52,597 --> 01:08:59,167
+So here is why. John Ford's why. And here is my beta hat transpose x Framingham State to hat.
+
+468
+01:09:00,187 --> 01:09:05,287
+So let's see what is y transpose. They expect that y is in plus one.
+
+469
+01:09:05,497 --> 01:09:14,317
+So y transpose is one plus n. You're multiplying that with the interest p matrix multiplied by a B across one vector.
+
+470
+01:09:14,317 --> 01:09:18,547
+So you have a one plus one for both of these done.
+
+471
+01:09:18,557 --> 01:09:28,457
+So these two are scalar. And one is the transport of another.
+
+472
+01:09:29,987 --> 01:09:33,347
+Yes. So they're equal. I'm just going to collect those two terms.
+
+473
+01:09:33,977 --> 01:09:40,407
+And together they make up my two dimes or negative two times greater had transpose.
+
+474
+01:09:40,427 --> 01:09:46,797
+Explain why. Okay.
+
+475
+01:09:48,777 --> 01:09:58,347
+So that's my SSD. Now I have to take the vector derivative of this with respect to beat that, equate that to zero and solve.
+
+476
+01:09:59,037 --> 01:10:03,927
+Let's do that. So I have to choose better how to minimize this quantity.
+
+477
+01:10:04,137 --> 01:10:14,787
+So what do I do? I take the delta beta ahead of SSD.
+
+478
+01:10:15,027 --> 01:10:27,057
+So this whole expression here be the derivative of that expression with respect to beat that equal to zero and false.
+
+479
+01:10:29,507 --> 01:10:40,757
+Okay. So here I'm going to use the various results of matrix and vector derivatives that we reviewed in module D.
+
+480
+01:10:41,297 --> 01:10:51,166
+And that's why I kept on saying, please make sure that, you know, you review those so that we can apply those results.
+
+481
+01:10:51,167 --> 01:11:00,647
+So let's let's do that. So here I'm going to do it to the movies.
+
+482
+01:11:01,607 --> 01:11:05,387
+So first, maybe I'm going to go directly.
+
+483
+01:11:11,837 --> 01:11:15,467
+Actually. Never mind. Let's let's do it in steps.
+
+484
+01:11:16,217 --> 01:11:23,477
+So first, we are going to look at, you know, take the vector derivative of this expression.
+
+485
+01:11:23,507 --> 01:11:26,867
+Let's look at each done one by one.
+
+486
+01:11:27,947 --> 01:11:37,307
+What is y, prime y? When I take the derivative of y prime y with respect to the head, what would that be?
+
+487
+01:11:42,827 --> 01:11:49,527
+What would be the. Sorry.
+
+488
+01:11:49,527 --> 01:11:52,527
+I'm used to writing the transports like that.
+
+489
+01:11:52,557 --> 01:11:59,937
+I think I mentioned the. He's going to make.
+
+490
+01:12:02,787 --> 01:12:07,157
+What is the game? What is the derivative of like then y with respect to better.
+
+491
+01:12:12,967 --> 01:12:16,897
+Yeah. Yeah. Louder. Zero.
+
+492
+01:12:18,277 --> 01:12:21,957
+Yes. Everybody.
+
+493
+01:12:24,657 --> 01:12:29,067
+Agreed. So I'm kind of taken care of the first one.
+
+494
+01:12:29,607 --> 01:12:33,027
+What about the second term, Pizza Hut prime.
+
+495
+01:12:33,057 --> 01:12:40,137
+Explain why. I think the derivative of that with respect to bitter hot.
+
+496
+01:12:41,607 --> 01:12:52,406
+So here I want to remind you of this result in the deleting the vector derivative.
+
+497
+01:12:52,407 --> 01:13:09,447
+So in module DVD view this that delta lacks of ex-prime e the inner product between ex any is E here take e as ex-prime y.
+
+498
+01:13:11,577 --> 01:13:18,507
+So building the beta hacked of beta had transpose x transpose.
+
+499
+01:13:18,507 --> 01:13:28,837
+Why is x transpose y? Everybody agree with me.
+
+500
+01:13:29,257 --> 01:13:32,827
+I'm just applying this to results here.
+
+501
+01:13:33,877 --> 01:13:40,687
+And we also have it here in the footnote.
+
+502
+01:13:41,077 --> 01:13:54,427
+So derivative of winner product x transpose a read is given by the likes of x transposes is e.
+
+503
+01:13:55,387 --> 01:14:01,687
+We are going to in the next slide we are going to use other vector derivative result.
+
+504
+01:14:02,137 --> 01:14:06,157
+But everybody agree with me for the second term.
+
+505
+01:14:09,307 --> 01:14:14,137
+Okay. Now, let's look at this third turn here.
+
+506
+01:14:14,347 --> 01:14:21,457
+We have become a hack prime x transpose x beta hack.
+
+507
+01:14:22,417 --> 01:14:27,067
+So we had given this kind of a name, special name.
+
+508
+01:14:27,277 --> 01:14:44,437
+This is a quadratic form. In the hack and we had reviewed this in module D that it is a square matrix.
+
+509
+01:14:45,697 --> 01:14:56,227
+Then the scalar, it's prime x is known as a quadratic form and build ellipse of its prime x is equal to two times e x.
+
+510
+01:14:56,227 --> 01:15:05,297
+And I had said this is kind of analogous to the scalar derivative version of.
+
+511
+01:15:06,537 --> 01:15:12,387
+Like if you had bought the Annex three skills, there's been a delay.
+
+512
+01:15:12,507 --> 01:15:16,287
+So it is important to do time savings.
+
+513
+01:15:17,877 --> 01:15:22,347
+So this is analogous to that scalar result, but not the vector word.
+
+514
+01:15:23,547 --> 01:15:27,537
+When it is a scalar, Alex is a vector.
+
+515
+01:15:27,597 --> 01:15:37,407
+So what than it would be vectors and I have a scalar matrix the scalar x.
+
+516
+01:15:37,617 --> 01:15:43,227
+But if the square matrix then the scalar expanded x is known as a quadratic form and then
+
+517
+01:15:43,227 --> 01:15:49,346
+the likes of extremities is frequency x and this is the result we reviewed in module B.
+
+518
+01:15:49,347 --> 01:16:01,467
+So I'm going to apply this result with E as this made to this ex-prime x matrix.
+
+519
+01:16:03,177 --> 01:16:17,937
+So now if I apply this result here, what would I get the little bit ahead of me to had prime its dynamics with the heart I'm going to get.
+
+520
+01:16:23,197 --> 01:16:28,127
+Say it again. 9296.
+
+521
+01:16:28,237 --> 01:16:33,147
+I mean, speak to her. Correct.
+
+522
+01:16:34,587 --> 01:16:40,857
+Okay. So now I put them together and collect this storm.
+
+523
+01:16:40,907 --> 01:16:44,637
+So here is my third term.
+
+524
+01:16:44,937 --> 01:16:49,557
+Here is my second term. And the first one is zero.
+
+525
+01:16:51,597 --> 01:16:56,607
+So what do I get? I get an equation like this.
+
+526
+01:16:57,567 --> 01:17:08,666
+I get the little bit. The heart of C is equal to minus two times x transpose y last two times.
+
+527
+01:17:08,667 --> 01:17:17,267
+Extreme sports x beta half. Okay.
+
+528
+01:17:18,177 --> 01:17:22,807
+I all I did is like in the previous slides, I did it down one by one.
+
+529
+01:17:23,157 --> 01:17:34,827
+Now I'm putting them together now to get the vector derivative of SC with this, but to get the height and how do I get ordinarily squares solutions.
+
+530
+01:17:35,277 --> 01:17:38,457
+So I would equate this to zero and solve.
+
+531
+01:17:42,807 --> 01:17:53,127
+Okay. So what does equating this to zero mean? Sipping delta less bitter ahead of this is equal to zero means I'm saying I'm
+
+532
+01:17:53,217 --> 01:18:05,487
+delighted here I'm seeing that it's a prime exhibitor had is equal to explain why the
+
+533
+01:18:05,487 --> 01:18:11,636
+negative two and the positive two just cancel so I mean the negative the negative two
+
+534
+01:18:11,637 --> 01:18:15,897
+when you take to the other side is a positive two and the two is just cancel out.
+
+535
+01:18:15,897 --> 01:18:18,957
+So I have experimented, I had difficulty explaining why.
+
+536
+01:18:20,457 --> 01:18:25,557
+So that's my normal equations.
+
+537
+01:18:27,767 --> 01:18:31,877
+The goal, the normal equation for the least squared situations.
+
+538
+01:18:42,297 --> 01:18:49,647
+And lo and behold, when I saw this.
+
+539
+01:18:49,887 --> 01:18:55,017
+What do I get from here to here?
+
+540
+01:18:55,407 --> 01:19:14,587
+What do I get? I get better her is equal to ex-prime Nixon versus ex-prime y provided ex-prime x is in workable.
+
+541
+01:19:18,867 --> 01:19:24,987
+We have convinced ourselves that primates is a square matrix because X is empathy.
+
+542
+01:19:26,247 --> 01:19:30,417
+So it's primates is a big rusty matrix.
+
+543
+01:19:37,207 --> 01:19:43,717
+But it's premix also has to be in vertical. And we've come to the to that in terms of rent.
+
+544
+01:19:44,227 --> 01:19:54,397
+But if it's prime, it is convertible, then we can get the square centimeters to hurt as ex-prime x inverse ex-prime y when
+
+545
+01:19:54,397 --> 01:20:03,637
+each beta I had where I from one to p is a linear combination of the y values.
+
+546
+01:20:08,427 --> 01:20:12,557
+Extreme X is the matrix of all variants.
+
+547
+01:20:13,317 --> 01:20:24,586
+Same here. And then. Here is my way. The only random part in this set of equations is coming through.
+
+548
+01:20:24,587 --> 01:20:34,187
+The contribution are coming from y, but each of these data i to the linear combination of the y.
+
+549
+01:20:36,257 --> 01:20:52,037
+Okay. So now let's do a simple example and going to, for example, suppose I have an equal to three and be equal to do.
+
+550
+01:20:52,667 --> 01:20:56,987
+And here is the data that we been given.
+
+551
+01:20:58,337 --> 01:21:01,517
+So I have y is 111.
+
+552
+01:21:02,267 --> 01:21:06,346
+Epsilon is Epsilon, multiple and two.
+
+553
+01:21:06,347 --> 01:21:09,707
+Ypsilanti and the bizarre matrix is like this.
+
+554
+01:21:10,577 --> 01:21:20,447
+The fourth, though, is one zero. The second rule is zero one, and the third one is zero zero and beta is beta not and beta one.
+
+555
+01:21:21,797 --> 01:21:35,327
+So if I do this in kind of plain algebra, then I can write one for the first subject, one equal to beta, not plus epsilon.
+
+556
+01:21:36,217 --> 01:21:47,627
+IX is zero, one is equal to the one plus Epsilon Epsilon two.
+
+557
+01:21:48,407 --> 01:21:54,777
+And then for the third, it's one equal to. There's just random noise.
+
+558
+01:21:55,067 --> 01:21:59,117
+So here is a kind of an arbitrary design matrix.
+
+559
+01:22:00,707 --> 01:22:05,596
+If I put it in the context of the of the matrix formulation.
+
+560
+01:22:05,597 --> 01:22:19,477
+So what if my experiments. My expression makes this so I turn X on its side and now I instead of a three by two matrix, I get a two by three matrix.
+
+561
+01:22:20,137 --> 01:22:31,987
+So I have 100010 and then multiplied by 1001, which included this matrix.
+
+562
+01:22:34,237 --> 01:22:39,127
+So what is experiments? Experiments is going to be a two by two matrix.
+
+563
+01:22:43,307 --> 01:22:46,337
+Yeah. I knew that question is going to come.
+
+564
+01:22:46,367 --> 01:22:50,627
+Like, are you asking? Like, I thought the first violence would be one.
+
+565
+01:22:50,777 --> 01:22:54,857
+Yeah. Yeah. So that's why I said this is kind of for me, for example.
+
+566
+01:22:56,927 --> 01:23:05,897
+And it's so it's just sort of a cooked up example to show you how the Matrix operations work.
+
+567
+01:23:05,897 --> 01:23:13,847
+But this is the end of year data. I mean, it's, it's kind of a weird example,
+
+568
+01:23:14,507 --> 01:23:24,197
+but I wanted to show you the and you will know it as soon as you write these questions because the card so the
+
+569
+01:23:24,197 --> 01:23:38,777
+first equation would be one equal to B tunnel lost its number one one equal to beta the beta one plus it's two.
+
+570
+01:23:40,607 --> 01:23:44,867
+And the third observation is one equal to Epsilon three.
+
+571
+01:23:49,147 --> 01:23:56,427
+So so it's it's sort of like it's a meaningless from in the applied context.
+
+572
+01:23:56,757 --> 01:24:01,257
+It's a by example for you kind of the matrix operations.
+
+573
+01:24:02,247 --> 01:24:19,617
+So what would be experiment's experiments would be 100 and one, which is the identity matrix of dimension two plus two.
+
+574
+01:24:22,987 --> 01:24:26,947
+Yes. What is.
+
+575
+01:24:26,957 --> 01:24:35,047
+Explain why. What is it from?
+
+576
+01:24:35,047 --> 01:24:39,907
+Why? One one.
+
+577
+01:24:42,847 --> 01:24:47,707
+Yes. So what is the expression in verse?
+
+578
+01:24:47,707 --> 01:25:13,717
+Explain one, which is my beat hat. Identity matrix multiplied by the vector one one.
+
+579
+01:25:14,677 --> 01:25:17,947
+So I get one one. So what does that mean?
+
+580
+01:25:18,577 --> 01:25:21,877
+We do not have this one. Beta one had this one.
+
+581
+01:25:25,237 --> 01:25:30,276
+And in a way you could sort of solid from the sky equations because you had one
+
+582
+01:25:30,277 --> 01:25:39,277
+equal you better not than one equal to better one and one equal two does better.
+
+583
+01:25:40,687 --> 01:25:44,537
+So. So that's the.
+
+584
+01:25:45,457 --> 01:25:48,937
+So that's how the matrix operation works.
+
+585
+01:25:49,267 --> 01:26:00,787
+Okay. So now let's talk about a couple more things.
+
+586
+01:26:01,237 --> 01:26:07,327
+I also want to point out one other thing in the previous slide.
+
+587
+01:26:07,837 --> 01:26:13,897
+So this is simple linear regression in the simple linear regression context.
+
+588
+01:26:15,757 --> 01:26:20,897
+Let's look at this. Explain why in extreme x inverse and.
+
+589
+01:26:24,237 --> 01:26:29,097
+Here. You take a guess. Like what?
+
+590
+01:26:31,527 --> 01:26:41,217
+In the simple linear regression context, what these matrixes correspond to, what kind of expressions these matrices my correspond to.
+
+591
+01:26:42,597 --> 01:26:46,917
+If you remember the. Maybe.
+
+592
+01:26:47,007 --> 01:26:59,487
+Maybe. Think about the flow estimated. The slope estimate for how good we are feeling or how we predicted it is assessed x, y.
+
+593
+01:26:59,487 --> 01:27:02,757
+You versus x. Yes.
+
+594
+01:27:05,307 --> 01:27:12,717
+Thus do these expressions depend upon can be kind of like it's this body is this is this explains is this.
+
+595
+01:27:16,837 --> 01:27:22,957
+Yes. So explain why is like you're is this x, y?
+
+596
+01:27:25,437 --> 01:27:39,567
+Some of the cross products and ex-Prime X is like your SS X Inverse Express magazine persons like your is a 16 books.
+
+597
+01:27:44,737 --> 01:27:59,496
+So that's the relationship between what we derived algebraically versus what we derived using the mediated operation.
+
+598
+01:27:59,497 --> 01:28:06,427
+So let's look at the, the sum of these, these matrix.
+
+599
+01:28:06,427 --> 01:28:12,267
+And so these are generalizations of you can think of it,
+
+600
+01:28:12,547 --> 01:28:31,116
+it's primates as a generalization of SSX and you can think of its expression y as generalization of SS.
+
+601
+01:28:31,117 --> 01:28:32,167
+It's y.
+
+602
+01:28:34,817 --> 01:28:46,666
+So it turns out that if you write the matrix of some of squares and cross products, then this would look in the simple linear regression model.
+
+603
+01:28:46,667 --> 01:28:52,847
+Then this would look like, I mean, the simple linear regression model.
+
+604
+01:28:52,847 --> 01:29:04,967
+It would be simpler because you only have one Paul vignette, but in the multiple linear regression model, if you use the same sort of calculation,
+
+605
+01:29:04,997 --> 01:29:20,217
+same sort of sum notation, then ex-prime x will be a because p matrix that looks like this and experiments will be gone.
+
+606
+01:29:20,217 --> 01:29:27,406
+And so I'm talking about MLR. So X remember is the design fix, right?
+
+607
+01:29:27,407 --> 01:29:39,407
+So X is one and given an x11x21 would be.
+
+608
+01:29:42,167 --> 01:29:50,297
+It's in one. X one.
+
+609
+01:29:50,317 --> 01:29:58,626
+B minus one. It's to be minus one.
+
+610
+01:29:58,627 --> 01:30:06,537
+And so. So if you pick the.
+
+611
+01:30:11,107 --> 01:30:18,037
+This X and do the experiments operation, then you will get a matrix like this.
+
+612
+01:30:19,897 --> 01:30:23,917
+It looks really tedious in the sum notation.
+
+613
+01:30:25,207 --> 01:30:31,027
+Very, very tedious. It's not difficult, but it looks very, very ugly.
+
+614
+01:30:33,307 --> 01:30:39,187
+Similarly, the generalization of its prime one will look like this.
+
+615
+01:30:44,817 --> 01:30:47,937
+The bottom line is the some location.
+
+616
+01:30:54,757 --> 01:30:59,237
+Look. Very tedious.
+
+617
+01:31:15,267 --> 01:31:23,847
+Whereas the same model in matrix notation is marked.
+
+618
+01:31:37,517 --> 01:31:50,737
+So as you can see. The reason why we kind of switched to the matrix notation is because the same expressions can
+
+619
+01:31:50,737 --> 01:31:59,347
+be not succinctly formulated in matrix notation and using matrix algebra matrix derivatives,
+
+620
+01:32:00,607 --> 01:32:04,987
+it becomes much more easier to handle this.
+
+621
+01:32:05,947 --> 01:32:09,877
+I'm going to stop here.
+
+622
+01:32:13,337 --> 01:32:19,067
+And see if there are any questions. I'm going to. Yeah, I want to stop here and we'll come back and pick up from here.
+
+623
+01:32:19,457 --> 01:32:24,527
+So one thing that I had mentioned that the FBI makes mistakes has to be inevitable,
+
+624
+01:32:25,187 --> 01:32:32,867
+and that is related to the drawing of the design matrix as we reviewed in module D.
+
+625
+01:32:33,257 --> 01:32:46,667
+So we will come back and talk about the requirement that in order to have unique solutions of the D squared estimates, we need a design.
+
+626
+01:32:46,697 --> 01:32:50,356
+We need the design matrix X to be all full.
+
+627
+01:32:50,357 --> 01:32:54,766
+That isn't that there is a question like is Paul Ryan going to be equal?
+
+628
+01:32:54,767 --> 01:33:00,317
+And I said that's the fundamental requirement, but it also has to be a square matrix.
+
+629
+01:33:00,647 --> 01:33:02,987
+So explaining by definition is a square,
+
+630
+01:33:03,827 --> 01:33:15,467
+but we also have to ensure that each has full that its time it's having to meet the design matrix x has to have full that.
+
+631
+01:33:15,527 --> 01:33:18,937
+What does that mean that the design matrix is in CrossFit.
+
+632
+01:33:19,517 --> 01:33:27,297
+So what I'm saying or what I'm beginning is that it has been linearly independent audience.
+
+633
+01:33:29,327 --> 01:33:34,957
+Okay. So we'll come back and pick up from here on.
+
+634
+01:33:35,417 --> 01:33:46,657
+On Tuesday. Just.
+

@@ -1,0 +1,444 @@
+1
+00:00:09,450 --> 00:00:16,770
+Hello and welcome to data management and visualization in healthcare. I'm Rahul Ladhania, and I will be your instructor for this course.
+
+2
+00:00:16,770 --> 00:00:20,340
+I'm an assistant professor at the University of Michigan School of Public Health.
+
+3
+00:00:20,340 --> 00:00:26,610
+I'm primarily affiliated with the Department of Health Management Policy, and I have a secondary affiliation with Biostatistics.
+
+4
+00:00:26,610 --> 00:00:32,010
+My research is in the area of machine learning and causal inference in healthcare and behavior science.
+
+5
+00:00:32,010 --> 00:00:33,150
+Broadly speaking,
+
+6
+00:00:33,150 --> 00:00:41,190
+I use data driven methods to learn the effects of public policies or technology based interventions on patient outcomes and behavior,
+
+7
+00:00:41,190 --> 00:00:45,570
+and to identify decision informing patterns from large datasets.
+
+8
+00:00:45,570 --> 00:00:50,220
+And that's why I am super excited to be teaching you this course, because at its core,
+
+9
+00:00:50,220 --> 00:00:59,170
+this course is about teaching you the tools to be able to efficiently and effectively manage data and to be able to tell interesting stories from it.
+
+10
+00:00:59,170 --> 00:01:05,680
+Imagine that you are a data entry administrator for a newly opened small primary care clinic.
+
+11
+00:01:05,680 --> 00:01:10,430
+The key responsibility is documenting and retrieving patient data.
+
+12
+00:01:10,430 --> 00:01:14,810
+A new patient, Kamala Johnson, shows up for her annual physical.
+
+13
+00:01:14,810 --> 00:01:20,990
+You record the visit data in a simple spreadsheet patient name, date of birth, date and reason for visit.
+
+14
+00:01:20,990 --> 00:01:25,480
+Among other details. Over time, your clinic takes off.
+
+15
+00:01:25,480 --> 00:01:32,380
+Other patients come in for a variety of reasons and you dutifully record their details in your spreadsheet.
+
+16
+00:01:32,380 --> 00:01:39,310
+Then our first patient, Kamala Johnson, really likes the clinic, and she's back in a month this time for another reason.
+
+17
+00:01:39,310 --> 00:01:46,970
+Moreover, she has moved to a new address and the always diligent you record the visit details with the new address.
+
+18
+00:01:46,970 --> 00:01:55,040
+A few months down the line, you have a visit from Miss Kamala Johnson, this time a different one than the original character in our tale.
+
+19
+00:01:55,040 --> 00:02:00,530
+And obviously, you'll recall their details too in the all in one place spreadsheet.
+
+20
+00:02:00,530 --> 00:02:02,870
+The final twist in the tale. Please bear with me, we're almost done.
+
+21
+00:02:02,870 --> 00:02:10,070
+Our original Kamala Johnson, let's call her Kamala-1 she calls the clinic for a prescription refill.
+
+22
+00:02:10,070 --> 00:02:13,670
+You're asked to check the system to be able to validate her information.
+
+23
+00:02:13,670 --> 00:02:22,400
+You go to your master spreadsheet and do a filter for all entries with the patient name Kamala Johnson, and you get this information.
+
+24
+00:02:22,400 --> 00:02:29,630
+What is the problem here or what are the problems here? Number one, conflicting values. Which Kamala is it?
+
+25
+00:02:29,630 --> 00:02:37,160
+Where does she stay? Whose information do you use? Do you ask her for more information to be able to uniquely identify her?
+
+26
+00:02:37,160 --> 00:02:45,140
+Number two, redundant information. Do you really need to save Kamala's name and DOB every single time she visits?
+
+27
+00:02:45,140 --> 00:02:52,850
+Then pulling all the data every time we run a search. Over time as the number of patients increase, these problems can escalate.
+
+28
+00:02:52,850 --> 00:02:58,460
+Mistakes can be costly and in healthcare, potentially life threatening. Patients get mixed up,
+
+29
+00:02:58,460 --> 00:03:04,290
+wrong medication or wrong treatment could be sent to the wrong patient. So what can we do about it?
+
+30
+00:03:04,290 --> 00:03:07,800
+Welcome to data management. In all organization systems,
+
+31
+00:03:07,800 --> 00:03:13,830
+big or small from the Googles and Amazons of the world to the local health system, a nonprofit,
+
+32
+00:03:13,830 --> 00:03:17,340
+there is some form of collection, storage, aggregation,
+
+33
+00:03:17,340 --> 00:03:23,790
+manipulation and visualization of data and most importantly, use of that data to make decisions.
+
+34
+00:03:23,790 --> 00:03:28,950
+Some important questions, then, are how do organizations process this much data?
+
+35
+00:03:28,950 --> 00:03:34,920
+How do they store it? How do they retrieve it? Take the example of a big health system like Michigan Medicine.
+
+36
+00:03:34,920 --> 00:03:38,460
+Think of the types and amount of data that is being collected and stored,
+
+37
+00:03:38,460 --> 00:03:43,920
+millions of clinical records, insurance claims, physician, resident nurse information, and so on.
+
+38
+00:03:43,920 --> 00:03:49,890
+How do all those various datasets come together when you show up for your annual physical at Michigan Medicine?
+
+39
+00:03:49,890 --> 00:03:56,220
+The nurse pulls out his fancy tablet, and all your allergies and past prescriptions get retrieved almost instantly.
+
+40
+00:03:56,220 --> 00:03:57,990
+How does that happen?
+
+41
+00:03:57,990 --> 00:04:05,160
+Is there one massive data set like that spreadsheet that you designed, which the nurse pulls it every single time they have you visiting?
+
+42
+00:04:05,160 --> 00:04:10,020
+For reasons we discussed above and others, you can see why that might not be the best idea.
+
+43
+00:04:10,020 --> 00:04:16,410
+Moreover, beyond data storage and retrieval, how do organizations use this data for decision making?
+
+44
+00:04:16,410 --> 00:04:21,390
+In the tale of Kamala Johnson's, we discussed what if you, the data entry administrator,
+
+45
+00:04:21,390 --> 00:04:28,320
+wanted to know the number of visits per week to ensure adequate staffing levels as your clinic grows and becomes more popular?
+
+46
+00:04:28,320 --> 00:04:32,000
+What are the most common reasons patients visit the clinic for?
+
+47
+00:04:32,000 --> 00:04:39,110
+This course will try to help answer these questions in this video first, I will introduce databases and database management systems.
+
+48
+00:04:39,110 --> 00:04:44,540
+I will then talk about data visualization and why that is useful for making sense of the data.
+
+49
+00:04:44,540 --> 00:04:50,000
+Finally, I will give you an overview of the structure we will be following in this course.
+
+50
+00:04:50,000 --> 00:04:54,320
+Efficient data management typically requires the use of a computer database.
+
+51
+00:04:54,320 --> 00:05:00,260
+Databases are specialized structures that allow computer systems to store, manage and retrieve data.
+
+52
+00:05:00,260 --> 00:05:05,150
+A database stores two things. First is what we call the end user data.
+
+53
+00:05:05,150 --> 00:05:09,740
+These are the raw facts of interest to the user in the tail of the two Kamala Johnson's.
+
+54
+00:05:09,740 --> 00:05:13,550
+That would be patient name, DOB date, and reason of visit.
+
+55
+00:05:13,550 --> 00:05:18,590
+Second, the database stores the metadata or the data about data.
+
+56
+00:05:18,590 --> 00:05:26,100
+The metadata describes the data characteristics and relationships that link the end user data found within the database.
+
+57
+00:05:26,100 --> 00:05:32,510
+In our example, that would be the type of values: patient name or address should it be stored as a text field,
+
+58
+00:05:32,510 --> 00:05:40,110
+along with the permissible number of characters for each of those fields. The date of the visit has to be stored as a date field and so on.
+
+59
+00:05:40,110 --> 00:05:43,380
+Next, what is the database management system?
+
+60
+00:05:43,380 --> 00:05:50,850
+So you have the database, we just described the DBMS, or the database management system is the actualization of that database.
+
+61
+00:05:50,850 --> 00:05:57,060
+It is the collection of programs that manages the structure and controls the access to the data stored in the database.
+
+62
+00:05:57,060 --> 00:06:01,440
+It is the intermediary, the one that speaks with you and with the database.
+
+63
+00:06:01,440 --> 00:06:08,190
+So if you're the end user and there is this big DB with hundreds of tables and data on how these tables interact with each other,
+
+64
+00:06:08,190 --> 00:06:13,070
+the only way for you to access that data is through the DBMS.
+
+65
+00:06:13,070 --> 00:06:16,730
+This image is an adaptation of a figure from the recommended book for the course.
+
+66
+00:06:16,730 --> 00:06:23,450
+It is the visualization of how the DBMS facilitates an interaction between the end users and the actual database structure.
+
+67
+00:06:23,450 --> 00:06:29,900
+So on the right is the database structure comprising the various tables, patients procedures, diagnoses.
+
+68
+00:06:29,900 --> 00:06:36,860
+The center is the DBMS which presents the end users on the left with a single integrated view of the data and the DB
+
+69
+00:06:36,860 --> 00:06:43,340
+and receives all application requests and translates them into the complex operations to fulfill those requests.
+
+70
+00:06:43,340 --> 00:06:49,050
+It hides much of the databases complexity from the application programs and users.
+
+71
+00:06:49,050 --> 00:06:54,660
+So now, assume we have figured out how to efficiently store, manage and retrieve our data.
+
+72
+00:06:54,660 --> 00:06:58,650
+What do we do with the data we have been able to efficiently and effectively retrieve?
+
+73
+00:06:58,650 --> 00:07:00,660
+How do we use it for decision making?
+
+74
+00:07:00,660 --> 00:07:07,050
+From the hospital systems perspective, there could be so many questions they want to answer or have specific needs that they need to be met.
+
+75
+00:07:07,050 --> 00:07:13,700
+How do we translate this data? Raw, unprocessed facts into information that is actionable.
+
+76
+00:07:13,700 --> 00:07:20,600
+The answer: data analysis, it is the process of systematically applying statistical techniques to describe and illustrate,
+
+77
+00:07:20,600 --> 00:07:26,030
+condense and recap and evaluate data. Data visualization is a form of data analysis where
+
+78
+00:07:26,030 --> 00:07:30,500
+you use graphs for representation of data by using visual elements like charts,
+
+79
+00:07:30,500 --> 00:07:36,260
+graphs and maps. Data visualization tools provide an accessible way to see and understand trends,
+
+80
+00:07:36,260 --> 00:07:41,310
+outliers and patterns in the data, which can then be used to inform decision making.
+
+81
+00:07:41,310 --> 00:07:45,750
+There are a variety of computational tools for data analysis and visualization.
+
+82
+00:07:45,750 --> 00:07:49,470
+The schematic here shows tools by increasing lateral complexity,
+
+83
+00:07:49,470 --> 00:07:54,900
+along with the flexibility we provide in doing intensive data analysis or visualization.
+
+84
+00:07:54,900 --> 00:07:58,800
+Tools like Microsoft Excel are helpful for lightweight individual analyses.
+
+85
+00:07:58,800 --> 00:08:03,690
+While programing languages such as C++ are useful for high performance analysis.
+
+86
+00:08:03,690 --> 00:08:10,500
+MS Excel has a neat user interface and a suite of user friendly tools which help in data analysis and visualization.
+
+87
+00:08:10,500 --> 00:08:18,120
+In many organizations, it's the most commonly used tool. The middle ground, where analysis is done by an individual on their own computer.
+
+88
+00:08:18,120 --> 00:08:26,850
+In an exploratory fashion, which can then be transferred to a server for advanced analytics is the domain of R, Python and other scripted languages.
+
+89
+00:08:26,850 --> 00:08:33,960
+In addition to transforming and analyzing data, languages like R can produce amazing graphics and reports with ease.
+
+90
+00:08:33,960 --> 00:08:41,160
+Here is an example of a plot that uses data from the 2018-19 Tobacco Use Supplement plotted as a grid.
+
+91
+00:08:41,160 --> 00:08:48,600
+It visualizes the prevalence of current cigarette use at the intersection of four demographic variables: age, gender, income and race.
+
+92
+00:08:48,600 --> 00:08:57,270
+This was plotted in R using the ggplot2 package. We can clearly see some patterns here, how lower the income, higher the cigarette prevalence.
+
+93
+00:08:57,270 --> 00:09:03,200
+Similarly, there are patterns linking age and race ethnicity with cigarette use also are displayed here.
+
+94
+00:09:03,200 --> 00:09:10,250
+What if I wanted to compare ages more directly? Here is a different view of that plot using the same data as the previous plot.
+
+95
+00:09:10,250 --> 00:09:14,660
+The difference is that you can within the panels now compare the age groups.
+
+96
+00:09:14,660 --> 00:09:20,460
+We could do this with a super minor tweak in the R code. Finally, here is View three,
+
+97
+00:09:20,460 --> 00:09:26,220
+it sorts all demographic combinations into one single plot to help identify which subgroup is
+
+98
+00:09:26,220 --> 00:09:31,890
+the most at risk of high cigarette use and which is the least. For some decision making context,
+
+99
+00:09:31,890 --> 00:09:37,140
+one type of plot might be most useful, while for others you might need something else.
+
+100
+00:09:37,140 --> 00:09:41,790
+Now coming to the course structure, the course is divided into two modules.
+
+101
+00:09:41,790 --> 00:09:49,830
+The first module will focus on databases and database systems. You will learn how to design and implement small to medium relational database systems,
+
+102
+00:09:49,830 --> 00:09:55,620
+learn structured query language or SQL, and how to perform data retrieval using sequel.
+
+103
+00:09:55,620 --> 00:10:03,470
+The second module is focused on data manipulation, analysis and visualization using R and/or Microsoft Excel.
+
+104
+00:10:03,470 --> 00:10:10,610
+You will learn how to use R or Excel to perform basic data manipulation, such as filtering, aggregating, organizing data sets,
+
+105
+00:10:10,610 --> 00:10:17,330
+and you'll learn how to produce specialized graphs to explore and visualize the data in a detailed and statistics oriented manner.
+
+106
+00:10:17,330 --> 00:10:20,240
+Finally, you will apply these techniques for analyzing,
+
+107
+00:10:20,240 --> 00:10:27,590
+interpreting and communicating data from real world datasets relevant to health care, which we will be doing through a class project.
+
+108
+00:10:27,590 --> 00:10:34,220
+Also, while the primary tool of visualization in this class would be R, and most of the course content in Module two will use that,
+
+109
+00:10:34,220 --> 00:10:39,070
+I will be dedicating some lecture videos and provide resources for using Excel too.
+
+110
+00:10:39,070 --> 00:10:45,640
+In summary, I'm excited to be beginning this journey with you, and I hope we can together make this an enjoyable and effective learning experience.
+
+111
+00:10:45,640 --> 00:10:48,789
+Thank you. And look forward to seeing you in the next video.
+

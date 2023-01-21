@@ -1,0 +1,3816 @@
+1
+00:00:01,870 --> 00:00:06,150
+All right. Good morning, everybody. So.
+
+2
+00:00:08,490 --> 00:00:16,050
+We are in October, believe it or not, and we are going to finish hand out seven.
+
+3
+00:00:17,550 --> 00:00:22,410
+That was a model where we were starting to look at how to do regression with count data.
+
+4
+00:00:23,820 --> 00:00:27,180
+And we're going to hopefully finish handing out aid as well.
+
+5
+00:00:27,630 --> 00:00:35,400
+Slightly shorter handout. So I think because it's been a while since we were here together.
+
+6
+00:00:36,400 --> 00:00:42,520
+We need kind of a refresher for where we were in Handout seven, so we ended up inside 56.
+
+7
+00:00:42,520 --> 00:00:46,600
+But I'd like to just briefly go backward to remind you what this dataset was.
+
+8
+00:00:47,350 --> 00:00:53,550
+So this dataset is. From.
+
+9
+00:00:59,420 --> 00:01:03,830
+A study among doctors. I'm trying to go so far back here.
+
+10
+00:01:08,470 --> 00:01:12,310
+Here we go. Maybe one more.
+
+11
+00:01:14,480 --> 00:01:14,890
+Yeah.
+
+12
+00:01:14,900 --> 00:01:27,020
+So it's from a study of male physicians who were listed in the British Medical Register, and we have a few variables that were collected on them.
+
+13
+00:01:27,020 --> 00:01:29,750
+So the outcomes that we're modeling are counts.
+
+14
+00:01:30,560 --> 00:01:39,230
+And in this example that the counts are collected in a variable called deaths, the number of lung cancer deaths that were observed during follow up.
+
+15
+00:01:39,710 --> 00:01:42,890
+And we also have this feature that.
+
+16
+00:01:44,650 --> 00:01:48,010
+The doctors were observed for different amounts of person years.
+
+17
+00:01:48,700 --> 00:01:55,239
+And so that's a feature that we have to deal with in this data that the longer you're watched,
+
+18
+00:01:55,240 --> 00:01:59,650
+the higher your chances of having an observed death during follow up.
+
+19
+00:02:00,190 --> 00:02:12,850
+And so instead of modeling the count of deaths, just as is when you have different amount of follow up for each person in the data set,
+
+20
+00:02:13,210 --> 00:02:18,520
+you also you kind of model instead of rate the number of deaths per some unit of person years.
+
+21
+00:02:18,880 --> 00:02:23,740
+And so this is something that we focused on with this doctors dataset,
+
+22
+00:02:24,670 --> 00:02:29,889
+but it's going to come up as something we always need to look at our people for.
+
+23
+00:02:29,890 --> 00:02:34,090
+Are these counts being collected over a similar follow up period or not?
+
+24
+00:02:34,750 --> 00:02:47,080
+And we have to make a decision on whether we're analyzing a mean count or a rate per certain follow up years.
+
+25
+00:02:47,650 --> 00:02:48,850
+So for this dataset,
+
+26
+00:02:49,690 --> 00:03:00,070
+we did have to have an offset term in our model that allowed us to model the rate per some unit of person years in the next handout.
+
+27
+00:03:01,330 --> 00:03:04,540
+The there was no record of different.
+
+28
+00:03:05,750 --> 00:03:09,379
+Follow up periods for the people in the data set.
+
+29
+00:03:09,380 --> 00:03:17,720
+And so we'll end up modeling the mean. But for this handout and also the lab data set this week and also the homework,
+
+30
+00:03:18,260 --> 00:03:22,729
+we will have different units of follow up for the people being for the people in the data set.
+
+31
+00:03:22,730 --> 00:03:33,760
+And so we will be having this offset term. So this dataset was a fairly simple data set, just in the sense that there are ten rows of data.
+
+32
+00:03:34,660 --> 00:03:38,830
+And there are five age groups and their smoking status.
+
+33
+00:03:38,830 --> 00:03:45,309
+So five rows of where they have different age groups and they're non smokers,
+
+34
+00:03:45,310 --> 00:03:51,790
+five rows of data for the age groups where they they had the alternate smoking status.
+
+35
+00:03:51,790 --> 00:03:55,239
+So it kind of looked like this. This is the entire data set.
+
+36
+00:03:55,240 --> 00:03:58,840
+Even though there's many, many people contributing data to this data set.
+
+37
+00:03:59,500 --> 00:04:05,400
+The deaths are being kind of reported in groups according to their age and smoking status.
+
+38
+00:04:06,070 --> 00:04:13,210
+And if you remember from last time, there's a couple of features that are quirky about this data set that we talked about last time,
+
+39
+00:04:13,690 --> 00:04:17,050
+and that is if you're in the oldest age group.
+
+40
+00:04:18,750 --> 00:04:29,340
+And you're a smoker. It turns out that that age group has a smaller death rate.
+
+41
+00:04:30,540 --> 00:04:33,749
+Then the same age group nonsmokers.
+
+42
+00:04:33,750 --> 00:04:40,010
+And we'd looked at a plot of that. Here's a plot of the raw data.
+
+43
+00:04:44,070 --> 00:04:47,370
+So I'm not really in present or your view yet, just trying to review.
+
+44
+00:04:47,850 --> 00:04:59,219
+And so there's this feature of the data where the smokers actually have a lower death rate per 100,000 person years than the non smokers.
+
+45
+00:04:59,220 --> 00:05:04,410
+We talked about that as being a survivorship property that if they'd lived that far
+
+46
+00:05:04,680 --> 00:05:10,550
+without succumbing to some smoking related mortality like lung cancer or cardiac,
+
+47
+00:05:10,710 --> 00:05:18,510
+just all the all the different ways smoking can take you out that the people who remain are more robust and hearty.
+
+48
+00:05:18,510 --> 00:05:22,049
+And each of you probably know someone like that in your life.
+
+49
+00:05:22,050 --> 00:05:25,470
+For me, it's my mother in law who's 90, smoked her whole life.
+
+50
+00:05:25,470 --> 00:05:29,100
+Nothing will kill her 99 years old.
+
+51
+00:05:29,700 --> 00:05:33,389
+So that's what's going over here.
+
+52
+00:05:33,390 --> 00:05:42,750
+And so when we're looking at the different models for the death rates per 100,000 person years, this is a feature of the data that's a bit hard.
+
+53
+00:05:43,680 --> 00:05:45,630
+And to fit well.
+
+54
+00:05:45,840 --> 00:05:53,490
+And we're going to keep checking it that those last two counts for the highest age group just to see how well each model's doing that.
+
+55
+00:05:54,060 --> 00:06:00,770
+And so what we've done last time. Maybe I just want to review one more time here.
+
+56
+00:06:03,730 --> 00:06:08,080
+That this is kind of what our model looks like when we're modeling counts.
+
+57
+00:06:08,710 --> 00:06:15,550
+And it's a bit of a programing feature that both Seth and our programmers want
+
+58
+00:06:15,550 --> 00:06:23,380
+to use the same code to fit models of these counts using the Poisson model,
+
+59
+00:06:23,770 --> 00:06:30,850
+and they want to use the same code, whether you do or do not have this different follow up per person.
+
+60
+00:06:31,860 --> 00:06:40,980
+And so the way they accomplish that is they write two models in one and they expect the user to know which one they're actually interpreting.
+
+61
+00:06:41,760 --> 00:06:54,780
+And so the model for the log count for our data set, the log number of lung cancer deaths is equal to this side,
+
+62
+00:06:55,320 --> 00:07:05,940
+the log of the number of person years of observation for the for the counts you're modeling plus the log of the rate per some unit of person years.
+
+63
+00:07:06,390 --> 00:07:10,410
+And so if this is called the offset, if you recall.
+
+64
+00:07:11,950 --> 00:07:19,809
+This is something that is not estimated by the model. This is data you provide about the law, the natural log of the person.
+
+65
+00:07:19,810 --> 00:07:25,640
+Years of follow up for that count. And.
+
+66
+00:07:27,100 --> 00:07:33,069
+When this is in the model as a required element because of the different number of person years of follow up,
+
+67
+00:07:33,070 --> 00:07:41,410
+what you end up interpreting is this log of the rate per some person years of follow up for the count that you're dealing with.
+
+68
+00:07:43,080 --> 00:07:48,240
+All right. And so, again, today, we're going to be analyzing this.
+
+69
+00:07:48,660 --> 00:07:53,979
+This rate. Of lung cancer deaths per some unit of person.
+
+70
+00:07:53,980 --> 00:08:01,959
+Years of follow up. But in the next handout we won't have this and this and I we won't have this different person.
+
+71
+00:08:01,960 --> 00:08:06,550
+Years of follow up for the data set will end up modeling the mean count.
+
+72
+00:08:07,870 --> 00:08:14,140
+So you, the user, have to know based on whether there's an offset term, whether you're interpreting the mean or the rate.
+
+73
+00:08:15,460 --> 00:08:20,710
+So that's one of the kind of tricky features of this model compared to things you've seen in the past.
+
+74
+00:08:24,510 --> 00:08:27,930
+All right. And so that's kind of the the review.
+
+75
+00:08:27,930 --> 00:08:40,270
+We had looked at a couple of models. Last time we looked at the model with The Intercept only we looked at the model with just the smoking status.
+
+76
+00:08:40,270 --> 00:08:44,380
+We'd looked at the model with smoking status adjusted for age.
+
+77
+00:08:46,220 --> 00:08:54,680
+And. In each case, we don't have a particular slide to focus on yet here where we go in here.
+
+78
+00:08:56,670 --> 00:09:00,090
+Let's go ahead and jump to 56 because that's where we're going to end up.
+
+79
+00:09:02,510 --> 00:09:13,400
+So in each case. We had this feature that we noticed that if we had the same number of parameters in the model.
+
+80
+00:09:14,560 --> 00:09:24,300
+That we had counts. That were possible to estimate, you know, using that that covariate that our model fit the data perfectly.
+
+81
+00:09:24,310 --> 00:09:27,760
+So for instance if we had just a covariant.
+
+82
+00:09:28,830 --> 00:09:37,710
+That was the intercept. No other covariates. The overall number of deaths per 100,000 person years was the same that we would get by hand.
+
+83
+00:09:37,740 --> 00:09:44,970
+So one overall estimate, one parameter better if we put in a smoker.
+
+84
+00:09:45,630 --> 00:09:49,230
+Yes. No. And the intercept. So to parameters.
+
+85
+00:09:50,130 --> 00:09:57,390
+That model perfectly predicted the number of lung cancer deaths per 100,000 person years in the nonsmoking group.
+
+86
+00:09:57,690 --> 00:10:05,240
+The number of deaths per 100,000 person years in the smoking group. So again, two possible rates and two parameters.
+
+87
+00:10:05,250 --> 00:10:09,810
+It fit the data perfectly. Now, when we got to the model with.
+
+88
+00:10:10,740 --> 00:10:15,620
+Just age. Categories and smoking status.
+
+89
+00:10:15,830 --> 00:10:21,360
+That was the first time. Here.
+
+90
+00:10:21,400 --> 00:10:23,320
+I like the stars output the best.
+
+91
+00:10:23,770 --> 00:10:35,790
+That was the first time where the rate per thousand person years, the rate of deaths per thousand person years did not match the death rates.
+
+92
+00:10:35,800 --> 00:10:38,290
+You could do by hand for the ten groups.
+
+93
+00:10:39,360 --> 00:10:48,240
+And this is something that I'm trying to teach you to expect because we didn't have ten parameters in our model.
+
+94
+00:10:48,250 --> 00:10:54,150
+We have ten different death rates now. For the different rows of data.
+
+95
+00:10:54,600 --> 00:10:59,040
+But we didn't use ten parameters in the model. Instead, you had.
+
+96
+00:11:03,520 --> 00:11:08,590
+How many? One, two, three, four, five, six parameters in the model.
+
+97
+00:11:08,950 --> 00:11:14,170
+So there were fewer parameters in the model than there were counts that you could estimate using these covariates.
+
+98
+00:11:14,560 --> 00:11:16,120
+So this didn't fit perfectly.
+
+99
+00:11:16,570 --> 00:11:25,480
+So the model that will fit the data perfectly is the model that adds in the extra four terms that are interactions between the trips and smoking.
+
+100
+00:11:29,310 --> 00:11:36,840
+All right. So now we're caught up to where we were and we're fitting that model with age by smoking.
+
+101
+00:11:37,500 --> 00:11:46,799
+And so the SAS code is to use proc gen mitosis at an overall proc that will do a lot of different models.
+
+102
+00:11:46,800 --> 00:11:52,230
+That actually is logistic regression is a special case as well. It has linear regression is a special case as well.
+
+103
+00:11:52,500 --> 00:12:01,500
+We're using it to model Poisson regression and then in the next handout, negative binomial and zero inflated models that will go over.
+
+104
+00:12:02,340 --> 00:12:07,470
+So when we're modeling Poisson regression, we use just equals Poisson.
+
+105
+00:12:09,160 --> 00:12:11,780
+Because we have different amounts of person years per follow up.
+
+106
+00:12:12,250 --> 00:12:22,000
+We had created this offset variable that we were calling log natural log of and I early in the handout and we had re scaled it.
+
+107
+00:12:22,900 --> 00:12:32,230
+So that it was so that the output could be interpreted in terms of event rates per 100,000 person years.
+
+108
+00:12:33,530 --> 00:12:37,639
+And so you can kind of look back in a few slides earlier where we created that variable for
+
+109
+00:12:37,640 --> 00:12:43,820
+the first time to see how you change the scale of the rate per some unit of person years.
+
+110
+00:12:45,920 --> 00:12:56,360
+We're saving the predicted values with this output statement and we'll end up using that later.
+
+111
+00:13:00,870 --> 00:13:12,300
+And so we're using it here. And this data step here is basically creating the modeled event of deaths per 100,000 person years.
+
+112
+00:13:12,840 --> 00:13:14,310
+And that's happening here.
+
+113
+00:13:14,730 --> 00:13:25,140
+And so this excavator that was saved from this model up here, because we had an offset, we have to subtract out the offset to get at that model rate.
+
+114
+00:13:27,720 --> 00:13:31,470
+And then here is the result. Here are the results here.
+
+115
+00:13:31,560 --> 00:13:35,550
+We have ten parameters now with those four extra interaction terms.
+
+116
+00:13:35,940 --> 00:13:38,940
+So this model, because we only have ten rows of data.
+
+117
+00:13:39,960 --> 00:13:45,190
+Ten parameters should fit perfectly. And in fact, that is what.
+
+118
+00:13:46,080 --> 00:13:51,590
+Happens. And when this happens, people use the terminology that it's a fully saturated model.
+
+119
+00:13:51,600 --> 00:13:54,600
+There's no other covariates that you could add to this model to predict better.
+
+120
+00:13:54,600 --> 00:14:01,990
+It's fully saturated. Okay.
+
+121
+00:14:02,110 --> 00:14:08,899
+And so. You know, a natural question is, is the model fine without the interaction?
+
+122
+00:14:08,900 --> 00:14:14,330
+And so this is where your previous knowledge of regression methods you can lean on.
+
+123
+00:14:14,750 --> 00:14:23,660
+So that is going to be, you know, the model without the interaction terms is nested within the model that has the interaction terms.
+
+124
+00:14:24,110 --> 00:14:30,920
+There's four parameters that were removed when you're when you want to test for that interaction being significant.
+
+125
+00:14:31,490 --> 00:14:35,240
+And so here over here is the model.
+
+126
+00:14:37,110 --> 00:14:45,659
+Where you have the binary smoking status and the categorical age alone and the summary statistics.
+
+127
+00:14:45,660 --> 00:14:54,120
+We'll look at it in a minute, a little more closely. And over here is the the model where you've also added in that age by smoker interaction.
+
+128
+00:14:55,350 --> 00:15:02,570
+All right. So I always look at the I see really quickly because it doesn't require math and so I can tell just based on that.
+
+129
+00:15:02,760 --> 00:15:06,219
+I see. And SAS is always so helpful.
+
+130
+00:15:06,220 --> 00:15:13,930
+They just tell you the small, they remind you smaller is better. In case you've forgotten, this model with the interaction fits better based on AIC.
+
+131
+00:15:15,350 --> 00:15:20,059
+And to get a p value, you can do an official liquid ratio test because these models are nested.
+
+132
+00:15:20,060 --> 00:15:27,920
+So like the ratio test, you have to multiply the two here because it's just reported on a log likelihood scale doesn't multiply two four.
+
+133
+00:15:27,920 --> 00:15:31,610
+You take the difference between those, you get your number here.
+
+134
+00:15:31,940 --> 00:15:35,599
+It's going to be distributed as a Category four degrees of freedom because that's the number of
+
+135
+00:15:35,600 --> 00:15:41,149
+predictors that were removed in the model and it's going to have a corresponding P value of 0.01.
+
+136
+00:15:41,150 --> 00:15:47,210
+So the interaction terms are significantly improving. The model fit at the 0.05 significance level.
+
+137
+00:15:53,410 --> 00:15:58,270
+And the similar the r code for this same situation is here.
+
+138
+00:15:58,660 --> 00:16:03,760
+And so the for me, I usually put the formula first because it can get very long.
+
+139
+00:16:05,080 --> 00:16:12,730
+That's equal smoker plus as factor age plus s factor age by smoker.
+
+140
+00:16:13,150 --> 00:16:20,469
+And then I for this model fit, I'm calling GLM and I'm also having this option offset to account for the different
+
+141
+00:16:20,470 --> 00:16:25,030
+number of person years that are followed according to the age smoking group.
+
+142
+00:16:28,010 --> 00:16:36,970
+Poisson with a log link you specify for the family. And you'll eventually get the coefficients and so on.
+
+143
+00:16:37,510 --> 00:16:44,980
+And here is just code for getting the observed and expected table that I kind of shown you in in SAS.
+
+144
+00:16:46,790 --> 00:16:51,680
+And R is very nice. It'll give you a good ratio test.
+
+145
+00:16:51,710 --> 00:16:56,240
+I'm using our dot test here to compare these two models.
+
+146
+00:16:56,240 --> 00:17:01,280
+We're going to see different packages for like good ratio tests that you might
+
+147
+00:17:01,280 --> 00:17:05,870
+have to lean into if you're not comparing models fit using the same package.
+
+148
+00:17:05,870 --> 00:17:10,440
+They're different ones that I'll end up using later. Okay.
+
+149
+00:17:10,490 --> 00:17:14,990
+And then this is just the same output that you had from statistics that the liquid ratio test is
+
+150
+00:17:14,990 --> 00:17:20,000
+completely done for you and or you don't have to remember how many degrees of freedom and so on.
+
+151
+00:17:23,750 --> 00:17:34,160
+Okay. So the rest of this handout we're going to go through fairly quickly and it's just kind of, you know, exercising that model fitting.
+
+152
+00:17:35,620 --> 00:17:43,360
+Brain muscle. It's what you've been using in your other regression models already, and we're just exercising it within this context.
+
+153
+00:17:43,370 --> 00:17:51,450
+So one thing that we might want to play with is, you know, can we model age as an ordinal variable?
+
+154
+00:17:51,460 --> 00:18:00,790
+So it had five categories before. Can we just assume linearly increasing age in in the main effect in the interaction?
+
+155
+00:18:01,240 --> 00:18:05,110
+And so we can certainly just do that in sense by removing the class statement.
+
+156
+00:18:06,410 --> 00:18:11,750
+And then or because we've got categories for age here.
+
+157
+00:18:12,380 --> 00:18:17,330
+Ordinal, the ordinal model is going to be nested within the categorical version of that model.
+
+158
+00:18:17,330 --> 00:18:20,750
+We learned that before with logistic regression.
+
+159
+00:18:20,750 --> 00:18:29,300
+It's the same here. So we can actually use like the ratio test to compare this model with ordinal age to the categorical version of age.
+
+160
+00:18:31,940 --> 00:18:39,560
+And I'm just going to, you know, print out the model rates again because I want to check on that largest age group to see how well it fits.
+
+161
+00:18:41,580 --> 00:18:48,120
+Here's some of the output. And so again, we can use the like Ali ratio test.
+
+162
+00:18:48,120 --> 00:18:55,260
+So we're going to end up looking at that later. Here is the the model parameter estimates many fewer parameters.
+
+163
+00:18:56,440 --> 00:19:02,860
+And we had before. And here is the observed death rates and what the model is saying is happening.
+
+164
+00:19:02,860 --> 00:19:09,190
+And looking at the largest age group, that's kind of the the group I'm paying attention to here.
+
+165
+00:19:10,240 --> 00:19:18,040
+They're claiming that old the oldest smoking group has a higher death rate per thousand person years than the non smokers.
+
+166
+00:19:18,040 --> 00:19:21,580
+And we we saw that that was not the case in the raw data.
+
+167
+00:19:21,970 --> 00:19:25,750
+And the raw data. It's the non smokers who have the higher death rate.
+
+168
+00:19:25,750 --> 00:19:29,110
+So I suspect this model won't fit as well.
+
+169
+00:19:30,490 --> 00:19:32,530
+But here's the official comparison.
+
+170
+00:19:33,070 --> 00:19:45,040
+Again, I see you can look at really quickly and the air sea is smaller when you have the the categorical version versus the original version.
+
+171
+00:19:45,050 --> 00:19:48,460
+So here's the categorical model for age. Here's the ordinal age.
+
+172
+00:19:48,910 --> 00:19:59,060
+Both have the interaction. And the AIC is actually much smaller when you have the categorical age and you can do the likelihood ratio test to
+
+173
+00:19:59,270 --> 00:20:06,350
+in this situation because their nested categorical age in normal age and you get a very highly significant P value.
+
+174
+00:20:06,360 --> 00:20:14,540
+So this is these tables could have been produced by any model and you're using the same tools you did before for logistic regression.
+
+175
+00:20:14,960 --> 00:20:21,560
+So this is stuff that, you know, you can lean on without feeling like you're learning a new skill in those things.
+
+176
+00:20:21,570 --> 00:20:26,420
+Those steps work for doing model fitting with the Poisson regression as well.
+
+177
+00:20:30,120 --> 00:20:33,960
+And here's some are code for accomplishing the same thing.
+
+178
+00:20:34,320 --> 00:20:42,630
+You're basically just removing the as dot fact factor part when you put an H and none of the other code has really changed substantially.
+
+179
+00:20:43,920 --> 00:20:48,480
+Right. Okay.
+
+180
+00:20:48,870 --> 00:20:58,740
+So I also try to age is an optional variable with a quadratic term trying to fit that highest age group a little bit better.
+
+181
+00:20:59,460 --> 00:21:03,030
+And so here is when you're creating new variables.
+
+182
+00:21:03,030 --> 00:21:12,870
+I usually in SAS do that in the data step. So I've just created this variable age as Q to be the squared age and put that in the model over here.
+
+183
+00:21:14,500 --> 00:21:19,570
+That's the only part of the code that's changed. Everything else is pretty much the same.
+
+184
+00:21:20,170 --> 00:21:27,070
+And so just peeking down here, that age square, it is highly statistically significant by the world test.
+
+185
+00:21:27,490 --> 00:21:35,140
+It's the only parameter that we added. So I can just quickly look at this world test and decide it was useful.
+
+186
+00:21:37,730 --> 00:21:41,030
+Here is the largest age group again.
+
+187
+00:21:41,030 --> 00:21:50,809
+And then finally, it's capturing the fact that smokers in the highest age group have a smaller death rate than the nonsmokers in this age group.
+
+188
+00:21:50,810 --> 00:21:54,620
+And if you look, it's actually fitting the model decently.
+
+189
+00:21:57,040 --> 00:22:03,550
+Here's the plot. And you can see that same survivorship thing that you see in the raw data when you put in this quadratic term.
+
+190
+00:22:06,430 --> 00:22:11,860
+And the title of this slide kind of has the question, but I've already answered it for you.
+
+191
+00:22:11,860 --> 00:22:16,750
+So select a ratio test appropriate to compare ordinal age with a quadratic.
+
+192
+00:22:16,900 --> 00:22:25,030
+Oh no, I haven't answered this one. Is the likelihood ratio test appropriate to compare all age with a quadratic term to a categorical age model?
+
+193
+00:22:27,640 --> 00:22:31,210
+So that actually I haven't addressed that. So that that's a real question.
+
+194
+00:22:32,230 --> 00:22:38,139
+And so the question could have been written, are these models nested?
+
+195
+00:22:38,140 --> 00:22:43,210
+And it's the same question. And so how do we tell the models necessary or not?
+
+196
+00:22:43,480 --> 00:22:50,680
+You have to be able to get from the fuller model to the reduced model algebraically
+
+197
+00:22:50,680 --> 00:22:55,690
+and there's just no way to do that here because of the quadratic term,
+
+198
+00:22:55,690 --> 00:23:03,310
+the quadratic term. It makes it difficult to go from the categorical to the ordinal age and quadratic.
+
+199
+00:23:03,550 --> 00:23:11,170
+So you have to lean on AIC in this case. And AIC is suggesting that the quadratic term term.
+
+200
+00:23:12,750 --> 00:23:22,229
+And used both, you know, with age and also the interaction is is working better than just the categorical model alone.
+
+201
+00:23:22,230 --> 00:23:25,290
+There's some kind of efficiency there. That's nice.
+
+202
+00:23:27,450 --> 00:23:32,130
+So the ordinal age with the quadratic term properly simplifies the model from the fully saturated model.
+
+203
+00:23:34,640 --> 00:23:40,969
+And just to note that I checked that square term to see if there was a helpful
+
+204
+00:23:40,970 --> 00:23:46,320
+interaction with smoking and none of the results suggest that that was helpful.
+
+205
+00:23:46,340 --> 00:23:50,330
+So quadratic, the quadratic term only appears as the main effect.
+
+206
+00:23:51,330 --> 00:23:58,530
+And so all of the things that you could possibly check sort of agreed with one another that that term wasn't helpful in the model.
+
+207
+00:24:00,400 --> 00:24:06,450
+All right. So here's something a little bit new that you haven't seen exactly before.
+
+208
+00:24:06,460 --> 00:24:12,970
+So it's a perk up moment, actually. So, you know, have been talking about when you can perfectly fit the data.
+
+209
+00:24:12,980 --> 00:24:22,150
+If you've got categorical data and you can do raw counts, you have enough people in each type of group to estimate a raw count or a raw rate.
+
+210
+00:24:23,200 --> 00:24:27,540
+There's a possibility of perfectly fitting that data with the saturated model.
+
+211
+00:24:27,550 --> 00:24:35,890
+So we saw that in this analysis where you if you had ten parameters, ten rows of data, you could fit the data perfectly.
+
+212
+00:24:36,460 --> 00:24:44,500
+So in that special case, when you've got data that can be fit perfectly, there's a goodness of fit tests that you can look at.
+
+213
+00:24:45,310 --> 00:24:48,470
+And, you know, what do you accomplish by looking at this?
+
+214
+00:24:48,490 --> 00:24:54,400
+Well, you can sort of see, does the current model fit well, compare to the perfect model, the fully saturated model?
+
+215
+00:24:55,910 --> 00:25:02,930
+So the row of output that you can use if you've got all categorical predictors, this this deviance row.
+
+216
+00:25:04,630 --> 00:25:20,470
+And so this is the model with ordinal age, uh, age squared, ordinal age squared and the interaction between age and smoking status.
+
+217
+00:25:20,590 --> 00:25:29,409
+That's the model. And we want to see if it is has good fit compared to the saturated model and if the model fits decent,
+
+218
+00:25:29,410 --> 00:25:37,810
+this deviance row and the value here, this 1.6354 should be distributed as a chi squared.
+
+219
+00:25:39,330 --> 00:25:42,810
+With the degree of freedom that's shown here. Five degrees of freedom.
+
+220
+00:25:44,490 --> 00:25:51,560
+And so it will actually you can get a p value from that by looking at the chi square with five degrees of freedom.
+
+221
+00:25:51,570 --> 00:25:59,340
+The P value here is 0.89. And when you have a p value that's pretty high like this, that means that the model fits pretty good.
+
+222
+00:25:59,340 --> 00:26:06,090
+I mean, the null hypothesis is that the current model fits it, you know, equally as well as the saturated model.
+
+223
+00:26:06,510 --> 00:26:14,909
+And so whenever this is a large value, you're happy that that means that your current model fits pretty well compared
+
+224
+00:26:14,910 --> 00:26:18,600
+to the perfect model that you could use all the parameters in the world for.
+
+225
+00:26:20,380 --> 00:26:24,490
+And so you would have to calculate the p value on your own.
+
+226
+00:26:24,490 --> 00:26:28,600
+It doesn't give that to you, but you can usually kind of eyeball it.
+
+227
+00:26:29,050 --> 00:26:37,930
+There's a kind of fun fact. Uh, it's really hard to say fun fact at this early in the morning when it comes to something like this.
+
+228
+00:26:37,930 --> 00:26:43,270
+But, you know, you just have to bear with me that a chi square statistic.
+
+229
+00:26:43,510 --> 00:26:47,200
+Chi square distribution. The mean is it's degrees of freedom.
+
+230
+00:26:47,200 --> 00:26:52,300
+So for this particular deviance with five degrees of freedom,
+
+231
+00:26:52,960 --> 00:27:02,530
+you know that the null hypothesis distribution should have a value that's roughly similar to its degrees of freedom.
+
+232
+00:27:02,530 --> 00:27:12,100
+That's the mean. And so they go ahead and they divide the value divided by the degrees of freedom for you so you can eyeball whether the
+
+233
+00:27:12,250 --> 00:27:18,550
+the deviant statistic is near the mean or not of what it would be under the null hypothesis when the model fits good.
+
+234
+00:27:19,120 --> 00:27:23,799
+And so it's they don't give you a p value, but they at least give you this value.
+
+235
+00:27:23,800 --> 00:27:27,520
+And so you're supposed to kind of see, does it seem like it's close to one?
+
+236
+00:27:28,030 --> 00:27:33,340
+Because if it's close to one, the value is not too far away from the mean at that distribution.
+
+237
+00:27:35,770 --> 00:27:39,880
+And so we have a p value to help us. But, you know.
+
+238
+00:27:41,110 --> 00:27:47,620
+You can certainly spot huge problems if this value is super, super small or super, super big.
+
+239
+00:27:48,460 --> 00:27:52,360
+But you always have a p value when when it's valid to even look at this.
+
+240
+00:27:52,360 --> 00:27:56,350
+You always have a p value you can look at to see, you know, if it seems okay.
+
+241
+00:27:57,520 --> 00:28:03,579
+So the dignity measure doesn't work. Well, if cell counts for the tabulated version of the data are small.
+
+242
+00:28:03,580 --> 00:28:08,440
+So as expected, cell counts are less than five. This won't work really well and you can't use it at all.
+
+243
+00:28:08,440 --> 00:28:12,219
+If you've got continuous predictors in the model, it's just not appropriate.
+
+244
+00:28:12,220 --> 00:28:15,220
+You'll see huge numbers of degrees of freedom. It'll look really weird.
+
+245
+00:28:15,940 --> 00:28:19,120
+So it's really just a special case like we had in this handout where you can
+
+246
+00:28:19,120 --> 00:28:24,790
+perfectly fit the data with a fully saturated model where this row is useful,
+
+247
+00:28:25,690 --> 00:28:34,220
+you will. In textbooks. They make a lot of this because, you know, I very rarely have to use this rule.
+
+248
+00:28:35,220 --> 00:28:37,500
+There are other ways to see if your data is fitting well,
+
+249
+00:28:37,500 --> 00:28:42,899
+but textbooks and other things that you might come across, they will be very, very excited about this row.
+
+250
+00:28:42,900 --> 00:28:47,880
+So you might hear a lot about this goodness of fit statistic and now you know what they're talking about.
+
+251
+00:28:48,390 --> 00:28:54,090
+So here's some R code where we're fitting the ordinal variable with the quadratic term in the interaction.
+
+252
+00:28:56,710 --> 00:29:04,450
+And so you can sort of see here's where the age squared variables being added to the smoking dataset.
+
+253
+00:29:04,870 --> 00:29:09,160
+Right. There's that text and then it's it's happening is being put in here.
+
+254
+00:29:09,520 --> 00:29:14,280
+But otherwise, the codes the same. All the other code is actually very similar.
+
+255
+00:29:14,290 --> 00:29:19,029
+And so in this case, we really do need to look at AIC values.
+
+256
+00:29:19,030 --> 00:29:22,630
+We don't have a good ratio tested. You can get those AIC values just like that.
+
+257
+00:29:22,810 --> 00:29:31,940
+Not hard at all. And here's the output. So that's the end of this handout.
+
+258
+00:29:31,950 --> 00:29:35,720
+So we just as this is a just a quick review.
+
+259
+00:29:36,690 --> 00:29:43,080
+And look how similar this is to inference on parameters that you've used with all other models.
+
+260
+00:29:43,110 --> 00:29:50,640
+So here the 95% confidence interval for the regression parameters, it looks like the same formula you've been using for every other regression model.
+
+261
+00:29:51,180 --> 00:29:52,680
+This is stuff you can recycle.
+
+262
+00:29:53,460 --> 00:30:02,850
+We are interpreting estimates for exponential parameters, so that formula looks the same, but the interpretation is different.
+
+263
+00:30:02,880 --> 00:30:11,550
+Now you have to pay attention to the interpretation. And logistic regression it was odds ratios was not the case for these count models.
+
+264
+00:30:12,030 --> 00:30:26,730
+Either the data is either going to be about the multiplicative impact on the rate per some unit person years or the count.
+
+265
+00:30:27,180 --> 00:30:35,580
+The mean count. It's always going to be a multiplicative effect and you have to pay attention to whether you've got an offset in your model or not.
+
+266
+00:30:36,000 --> 00:30:42,630
+That makes it an interpretation related to rates of events rather than mean counts of events.
+
+267
+00:30:42,990 --> 00:30:46,590
+So you can always tell based on whether there's an offset in your model or not.
+
+268
+00:30:47,600 --> 00:30:48,860
+Which one you're modeling?
+
+269
+00:30:49,980 --> 00:30:57,300
+So the interpretation is actually where you're doing the new work here to figure out how to use and write about these model results.
+
+270
+00:30:59,130 --> 00:31:05,150
+Hypothesis testing. I could have copied and pasted this from any regression model I've ever learned.
+
+271
+00:31:05,160 --> 00:31:11,880
+This is just, you know, the world statistic. It's the same you would have seen in logistic regression, linear regression, all that stuff,
+
+272
+00:31:12,510 --> 00:31:18,570
+and likelihood ratio tests also very similar to every other regression model you've learned.
+
+273
+00:31:18,900 --> 00:31:28,080
+If there are nested models, you can use a lock good ratio statistic where you're comparing the statistic to a chi square that has the same number of
+
+274
+00:31:28,080 --> 00:31:35,370
+degrees of freedom as parameters that you've removed from the model when you're comparing the fall versus the reduced model.
+
+275
+00:31:37,050 --> 00:31:43,290
+So everything here looks kind of the same, except you have to know what you're interpreting.
+
+276
+00:31:43,290 --> 00:31:49,290
+And so many script worthy sentences have to have the right interpretation in them, or they're just not correct.
+
+277
+00:31:49,470 --> 00:31:55,710
+Even if the numbers in the mall in your sentence are correct, if you don't have the correct interpretation.
+
+278
+00:31:56,960 --> 00:32:00,290
+Of what either the beta means. It's not a correct sentence.
+
+279
+00:32:00,290 --> 00:32:03,680
+So please, that's a perk up moment. You have to get that part.
+
+280
+00:32:04,700 --> 00:32:08,589
+Down. All right.
+
+281
+00:32:08,590 --> 00:32:21,000
+So it turns out that all the models we've learned so far are examples of what's called a broader class of models known as generalized linear models.
+
+282
+00:32:21,010 --> 00:32:28,240
+So that's why this handout is leaning on an approach called Gen Mod, because it's short for generalized linear models.
+
+283
+00:32:28,750 --> 00:32:31,840
+And so they're all special cases of the same thing.
+
+284
+00:32:32,920 --> 00:32:37,330
+That explains the name of the products and the functions that you use and are.
+
+285
+00:32:38,230 --> 00:32:44,020
+And we and these are the most famous the most popular in this class, that generalist in your models.
+
+286
+00:32:44,380 --> 00:32:46,750
+But there are additional models available in these packages.
+
+287
+00:32:46,750 --> 00:32:52,780
+We're going to be teaching three other new models that are generalized linear models in the next handout.
+
+288
+00:32:53,950 --> 00:32:56,860
+And there are others even that you can explore on your own.
+
+289
+00:32:57,550 --> 00:33:04,120
+So the general idea behind these models is that once you've identified the link function for the mean, you want to model.
+
+290
+00:33:05,110 --> 00:33:09,640
+So for instance, linear regression, it just models the mean itself.
+
+291
+00:33:10,570 --> 00:33:17,710
+And these Poisson regression models, we've modeled the log of the mean or the longer the rate depending on if you have an offset or not.
+
+292
+00:33:18,280 --> 00:33:23,560
+And logistic regression, we use the logit p, which is the mean of a Bernoulli.
+
+293
+00:33:24,460 --> 00:33:32,350
+And so if you know the link function that you want to use for the mean and you know that the
+
+294
+00:33:32,350 --> 00:33:37,780
+predictors are going to linear relate to this function of the mean and you have a pretty
+
+295
+00:33:37,780 --> 00:33:42,910
+good guess at the distribution of the outcomes to assume like normal for linear regression
+
+296
+00:33:43,520 --> 00:33:49,659
+Bernoulli or binomial for logistic regression and which are the count distributions here?
+
+297
+00:33:49,660 --> 00:33:51,399
+We've been talking about the Poisson distribution.
+
+298
+00:33:51,400 --> 00:33:56,920
+If you know if you know that distribution, then the mechanics of the model fitting are very similar.
+
+299
+00:33:57,510 --> 00:34:06,130
+Mean you can use maximum maximum likelihood for all of these models and for linear regression, maximum likelihood is the same as like squares.
+
+300
+00:34:06,160 --> 00:34:10,360
+So all of these models you've learned so far can be fit within this package.
+
+301
+00:34:12,500 --> 00:34:19,010
+And so. It's kind of early to take a break, but we do have to open that up.
+
+302
+00:34:19,680 --> 00:34:24,640
+Let's just take a ten minute break and then we'll dove right in to the next handout.
+
+303
+00:34:25,270 --> 00:35:17,630
+Okay. So 844. It's just.
+
+304
+00:37:36,960 --> 00:39:45,570
+And. You're sure?
+
+305
+00:39:45,870 --> 00:39:58,280
+We only have a couple of minutes, though. And I'm sorry to extrapolate what you got there.
+
+306
+00:39:59,870 --> 00:40:03,810
+It's the it was where you were talking about. If the money for these DC.
+
+307
+00:40:05,280 --> 00:40:10,460
+Then we should be able to divide. Something one.
+
+308
+00:40:13,780 --> 00:40:18,130
+Distribution is equal to the degrees of freedom.
+
+309
+00:40:18,670 --> 00:40:23,720
+Okay. Yeah. So. How does this value?
+
+310
+00:40:28,930 --> 00:40:31,980
+So the value is like the test statistic.
+
+311
+00:40:31,990 --> 00:40:40,370
+I didn't give you any formula for how? Right. It's calculated behind the scenes and it's just like any chi square.
+
+312
+00:40:40,760 --> 00:40:46,370
+It's actually any test statistic that should have a chi square distribution with the degrees of freedom that you're showing.
+
+313
+00:40:46,580 --> 00:40:51,380
+Okay. Okay. And so the so that value is like your goodness.
+
+314
+00:40:53,190 --> 00:41:02,850
+And if it has a distribution that's similar to a case group with that member degrees of freedom, then dividing it is like dividing votes in.
+
+315
+00:41:03,970 --> 00:41:07,410
+I see. And so then you kind of standardized it.
+
+316
+00:41:07,420 --> 00:41:14,750
+So it it's on average similar to a three the value of freedom, right.
+
+317
+00:41:14,860 --> 00:41:18,459
+Okay. And that's why it works. That's.
+
+318
+00:41:18,460 --> 00:41:25,750
+Yeah, that's why you see something when you glance out, you're looking to see if it's close to one because it should be a value divided by its name.
+
+319
+00:41:26,110 --> 00:43:46,950
+Okay. Okay. Thank you so much. Okay.
+
+320
+00:43:46,980 --> 00:43:50,460
+Let's get back to work. So you should.
+
+321
+00:43:50,670 --> 00:43:57,420
+First of all, you should give yourself a pat on the back for learning a new modeling framework in one hand out that,
+
+322
+00:43:57,810 --> 00:44:02,430
+you know, just remember how long it took you to learn modeling for your first regression model.
+
+323
+00:44:02,940 --> 00:44:11,370
+You learn a new model entirely new in one hand out and brace yourself, but you're about to learn three more in one hand out.
+
+324
+00:44:11,460 --> 00:44:14,880
+So you are now going to be really fast at learning stuff.
+
+325
+00:44:15,510 --> 00:44:22,560
+But that also means that this is kind of a fully perk up handout because you're learning a lot in a little amount of time,
+
+326
+00:44:23,430 --> 00:44:26,490
+but you will be able to do it. All right. So.
+
+327
+00:44:28,130 --> 00:44:32,930
+Let's get going. So we just talked about Poisson regression for modeling,
+
+328
+00:44:32,930 --> 00:44:44,690
+either meaning that the counts or the rate of the count per unit of person time, but the position distribution doesn't always fit well.
+
+329
+00:44:44,690 --> 00:44:50,450
+And so here are some examples of common violations of the Poisson distribution.
+
+330
+00:44:50,450 --> 00:44:59,929
+When you're modeling these count or rate outcomes, one is just called over dispersion, which means that you're not modeling the variance correctly.
+
+331
+00:44:59,930 --> 00:45:05,270
+There's more variability in the counts then the Poisson distribution is allowing for.
+
+332
+00:45:06,830 --> 00:45:17,059
+The other common issue is that there are a lot more zeros in your counts than what these distributions allow or assuming behind the scenes.
+
+333
+00:45:17,060 --> 00:45:20,420
+And so I'll show you examples of how to figure that out.
+
+334
+00:45:20,810 --> 00:45:24,800
+But this is in my own work. This is a very common issue.
+
+335
+00:45:25,740 --> 00:45:37,230
+So we'll discuss that. And so the fix is going to be looking at these three other possible ways to model your counter rate outcomes.
+
+336
+00:45:37,740 --> 00:45:44,370
+One being the negative binomial distribution and the negative binomial regression model that goes along with that.
+
+337
+00:45:44,760 --> 00:45:50,940
+And then there are two other models that are also kind of have this person or negative binomial regression label.
+
+338
+00:45:51,210 --> 00:45:54,380
+But there's this new term, zero inflated in front.
+
+339
+00:45:54,390 --> 00:45:59,820
+And so those are going to be two different other models that we can use for count data.
+
+340
+00:45:59,820 --> 00:46:03,480
+And we'll be learning when to use each of these models.
+
+341
+00:46:05,210 --> 00:46:14,150
+So again, a big thing that we need to really pay attention to is how to interpret the model parameters, because that is the, you know,
+
+342
+00:46:14,150 --> 00:46:20,420
+one of the most important things as you're writing your manuscript for these sentences is to interpret these model parameters correctly.
+
+343
+00:46:22,860 --> 00:46:26,860
+And the statistical inference for the parameters is going to feel very familiar.
+
+344
+00:46:26,880 --> 00:46:31,890
+So that's going to be the part where you're kind of like relaxing again.
+
+345
+00:46:32,260 --> 00:46:38,280
+They're going to be a couple of pick up moments there as we're figuring out how to choose a zero inflated versus other stuff.
+
+346
+00:46:38,700 --> 00:46:44,490
+But a lot of the statistical inferences are that skills you can lean on to a large degree.
+
+347
+00:46:45,360 --> 00:46:47,490
+And I'll have sass in our code, of course, throughout.
+
+348
+00:46:48,840 --> 00:46:57,870
+So the key assumption for the Wilson regression model is that, you know, the outcome of the count is distributed as a person random variable,
+
+349
+00:46:57,870 --> 00:47:08,070
+and that distribution has this weird kind of feature that the mean count is assumed to be the same as the variance of that count.
+
+350
+00:47:08,400 --> 00:47:11,340
+So you haven't had this before linear regression.
+
+351
+00:47:11,820 --> 00:47:18,600
+You had a whole different thing sigma squared that you used to identify that you were talking about variance in the Poisson model.
+
+352
+00:47:18,750 --> 00:47:22,440
+It's the same the mean and the variance are assumed to be the same.
+
+353
+00:47:22,800 --> 00:47:28,230
+And often this is true. But there are deviations.
+
+354
+00:47:28,500 --> 00:47:34,950
+It's a strong assumption that might not be true. So we have other alternative models that we can use instead when they're a problem.
+
+355
+00:47:35,460 --> 00:47:39,340
+So it's actually not uncommon to see that the variance is larger than the mean.
+
+356
+00:47:39,360 --> 00:47:49,940
+That's what we've been calling over dispersion. It's easier to spot with categorical predictors where the goodness of fit statistic is,
+
+357
+00:47:50,290 --> 00:47:55,370
+you know, based on the deviance we just had in the last slide is interpretable.
+
+358
+00:47:56,210 --> 00:48:01,160
+So it's easier to spot than it's harder to spot when you have continuous covariates.
+
+359
+00:48:02,270 --> 00:48:06,169
+When you have this situation with categorical predictors,
+
+360
+00:48:06,170 --> 00:48:15,860
+remember we just talked about how a symptom of over dispersion is the good is a statistic based on the deviance rejects h not for good fit.
+
+361
+00:48:16,040 --> 00:48:23,960
+So it has a significant p value and the deviance statistic over its degree of freedom has the observed value that's much larger than one.
+
+362
+00:48:25,350 --> 00:48:32,430
+It's actually possible to have something called under dispersion where the variability is much smaller than it should be.
+
+363
+00:48:32,730 --> 00:48:36,300
+This is actually very rare and it's kind of.
+
+364
+00:48:37,490 --> 00:48:47,990
+Suggests someone's been falsifying the data. So if you see under dispersion like random, the variability is much less than what you would expect.
+
+365
+00:48:49,190 --> 00:48:53,599
+You would see a value of a degree of freedom that is super tiny.
+
+366
+00:48:53,600 --> 00:48:58,460
+I mean, much, much tinier than one and.
+
+367
+00:49:00,020 --> 00:49:06,860
+It. If you see this ever happening, you probably should be a little suspicious about the data set.
+
+368
+00:49:07,160 --> 00:49:11,150
+This is how data falsification has been caught many times.
+
+369
+00:49:12,330 --> 00:49:21,810
+Because people tend to make up data that agrees with what they want to have happen, and they tend to do it in a way that's statistically detectable.
+
+370
+00:49:23,400 --> 00:49:29,700
+All right. So it's more often you'll see over dispersion and under dispersion.
+
+371
+00:49:29,700 --> 00:49:35,940
+But if you end up being one of these data detectives, this is a data detective's skill.
+
+372
+00:49:41,060 --> 00:49:48,260
+Little side note just to make things exciting. So there are consequences of ignoring over dispersion and analysis.
+
+373
+00:49:48,260 --> 00:49:54,260
+And this is just going to be a quick tick off list to emphasize how important it is to monitor your data correctly.
+
+374
+00:49:54,260 --> 00:50:03,319
+So if you have more variability than the Poisson distribution assumes, then the estimates of your parameter standard errors will be too small,
+
+375
+00:50:03,320 --> 00:50:09,710
+and that will have immediate consequences that the test statistic for the parameter estimates will be too large,
+
+376
+00:50:10,430 --> 00:50:14,149
+and that means that the significance of the parameter estimates will be too large.
+
+377
+00:50:14,150 --> 00:50:20,030
+So if you are ignoring over dispersion and using a Poisson regression model,
+
+378
+00:50:20,030 --> 00:50:25,190
+when you should be using one of these other three models instead, then account for the variability better.
+
+379
+00:50:25,550 --> 00:50:29,000
+You're going to have a higher type one error than you should.
+
+380
+00:50:29,270 --> 00:50:34,639
+And remember, I'm trying to teach you that type one error in lay terms is the probability you
+
+381
+00:50:34,640 --> 00:50:38,960
+will be embarrassed publicly later when someone can't validate your results.
+
+382
+00:50:39,740 --> 00:50:40,820
+That's type one error.
+
+383
+00:50:41,240 --> 00:50:50,479
+The type so the you've been taught in your intro classes, it's the probability that, you know, given the null hypothesis is true, it's the problem.
+
+384
+00:50:50,480 --> 00:50:53,300
+You still reject the null hypothesis, but practically speaking,
+
+385
+00:50:53,450 --> 00:50:59,120
+this is the probability you will be publicly embarrassed because your results can't be validated.
+
+386
+00:50:59,600 --> 00:51:08,150
+All right. So it's an important error. We want to have that error controlled to be 5% or less, or some people might even want it less than that.
+
+387
+00:51:10,030 --> 00:51:16,690
+So you don't want to think you're okay when really you're type one is like 20% because of mis modeling this variability.
+
+388
+00:51:19,990 --> 00:51:25,240
+And similarly, it kind of goes along with this that your confidence interval works will be way too small.
+
+389
+00:51:25,750 --> 00:51:29,020
+You'll think you have much more precision than you actually do.
+
+390
+00:51:29,770 --> 00:51:37,450
+For for what you're telling other people about. So that's the over dispersion problem we need to be careful about.
+
+391
+00:51:37,450 --> 00:51:43,509
+The other key essential for the Poisson model is that it has its assuming that you
+
+392
+00:51:43,510 --> 00:51:49,149
+have a certain probability of seeing zero counts and there's a formula for it.
+
+393
+00:51:49,150 --> 00:51:55,450
+So the probability of seeing a zero for the outcome is this formula E to the minus.
+
+394
+00:51:56,470 --> 00:52:01,150
+Mean count. So this movie is actually what you're modeling, right?
+
+395
+00:52:01,180 --> 00:52:04,560
+The mean or the rate which involves the mean.
+
+396
+00:52:05,520 --> 00:52:14,280
+And so you can kind of know roughly how many zeros are expected in your data set when you assume the Poisson distribution.
+
+397
+00:52:14,290 --> 00:52:22,050
+So what I've done here is a kind of got the columns where I'm assuming the mean count is one, the mean count is two, three, four.
+
+398
+00:52:22,860 --> 00:52:25,919
+You know, underlying the scenes, if if these are the mean counts,
+
+399
+00:52:25,920 --> 00:52:31,950
+then what the Python model is assuming is that the probability of having a zero for the count.
+
+400
+00:52:32,920 --> 00:52:39,880
+Are these numbers down here? So if you're mean, if if on average people are having a mean count of one,
+
+401
+00:52:40,180 --> 00:52:48,820
+you're going to see a lot of zeros that the person distribution is assuming 30, you know, roughly 37% zeros will happen in the data set.
+
+402
+00:52:49,120 --> 00:52:52,600
+And the bigger the mean gets, the smaller these probabilities get.
+
+403
+00:52:54,520 --> 00:52:59,740
+In my particular field. You know, I'm I'm looking at.
+
+404
+00:53:01,490 --> 00:53:08,450
+People with pulmonary disease. When I do all my collaborations and often they can't tell who's susceptible,
+
+405
+00:53:08,720 --> 00:53:15,650
+sick enough to be susceptible to having bad things like exacerbations happen.
+
+406
+00:53:15,650 --> 00:53:19,220
+So both in the lab and in your homework.
+
+407
+00:53:19,490 --> 00:53:29,209
+I've brought in data sets that I've really worked with, looking at pulmonary exacerbation counts per unit of time.
+
+408
+00:53:29,210 --> 00:53:34,760
+So you'll be using an offset in your lab and your homework because people are
+
+409
+00:53:34,760 --> 00:53:38,450
+watch for different amounts of times and the number of times they get hospitalized
+
+410
+00:53:38,450 --> 00:53:44,299
+with the exacerbations being modeled and it's it's a bit hard to predict who's
+
+411
+00:53:44,300 --> 00:53:48,260
+sick enough to be susceptible to getting hospitalized with these exacerbations.
+
+412
+00:53:48,260 --> 00:53:57,590
+So we might have datasets that come across my desk where 50% of the people are not sick enough to really get these events.
+
+413
+00:53:59,230 --> 00:54:03,850
+And so the question distribution just isn't even trying to model that feature.
+
+414
+00:54:04,980 --> 00:54:09,390
+Right. And I can't tell which of the 50% it is because it's hard to predict.
+
+415
+00:54:10,350 --> 00:54:19,590
+But if 50%, for example, of the patients are sick enough yet to get these events, none of these.
+
+416
+00:54:21,070 --> 00:54:28,590
+Columns will be reflecting that. So we'll have many more zeros in my data set than would be expected.
+
+417
+00:54:29,820 --> 00:54:32,960
+Using this assumption. So that's actually a big problem.
+
+418
+00:54:32,970 --> 00:54:39,900
+I feel like I myself, I can never use the porcine model for this data because this always comes up for me.
+
+419
+00:54:43,480 --> 00:54:46,900
+I've just told you the example. Counting pulmonary exacerbations during a year.
+
+420
+00:54:47,400 --> 00:54:52,290
+And patients with more advanced disease may have exacerbations that follow up with on distribution,
+
+421
+00:54:52,710 --> 00:54:58,830
+with the chance of seeing a zero captured well by that distribution if they're susceptible enough.
+
+422
+00:54:59,460 --> 00:55:04,920
+But early stage patients might not truly be susceptible to having exacerbations
+
+423
+00:55:04,920 --> 00:55:10,980
+giving zero counts that are way more than what would be implied by this table.
+
+424
+00:55:14,640 --> 00:55:21,030
+Okay. So again, the importance of modeling correctly, the data when you have these excess series,
+
+425
+00:55:21,040 --> 00:55:26,369
+if you ignore the excess zeros, the estimated counts based on the parameters will be inaccurate.
+
+426
+00:55:26,370 --> 00:55:30,450
+But I don't know for sure if you're going to be estimating too higher or estimating
+
+427
+00:55:30,840 --> 00:55:35,310
+too low and the type one error for detecting parameter sensors will be off,
+
+428
+00:55:36,120 --> 00:55:39,840
+but I'm not sure which direction they'll be on. I just know they will be off.
+
+429
+00:55:41,590 --> 00:55:45,430
+The power for detecting associations will also be affected.
+
+430
+00:55:45,910 --> 00:55:50,690
+But I have a little bit less sense of. In which direction.
+
+431
+00:55:50,810 --> 00:55:56,390
+So here you need to account for the accessories to get the best possible inference.
+
+432
+00:55:56,840 --> 00:56:02,419
+The clearest inference. And I know all of these things will be off.
+
+433
+00:56:02,420 --> 00:56:11,030
+I just can't predict data set to data set whether it'll be off with a smaller type linear or a larger type one error than you should have.
+
+434
+00:56:11,480 --> 00:56:18,889
+So in the first case that over dispersion, I know exactly how the bias is going to go here.
+
+435
+00:56:18,890 --> 00:56:24,140
+I'm not sure. Data, such a dataset, what will happen? All right.
+
+436
+00:56:24,150 --> 00:56:30,080
+So ironically. Because we're modeling everything but the Poisson distribution.
+
+437
+00:56:31,090 --> 00:56:38,480
+But we have an example of phishing data. So, you know, Poisson is French for fish, right?
+
+438
+00:56:38,930 --> 00:56:43,100
+So but that's the only model that's not appropriate for this data. So there's a little irony here.
+
+439
+00:56:43,100 --> 00:56:48,020
+I'm not sure this is definitely a textbook data set to teach you all the concepts.
+
+440
+00:56:48,020 --> 00:56:53,900
+I'm not sure who thought that this was cute, but somebody I think they were kind of laughing in their hand a little bit about this.
+
+441
+00:56:54,620 --> 00:57:03,110
+So the setting is 250 groups that went to a park and were asked how many fish they caught.
+
+442
+00:57:05,270 --> 00:57:08,899
+And the outcome. Again, this is a teaching example.
+
+443
+00:57:08,900 --> 00:57:13,150
+You get the exciting ones in the lab in your homework. Those are the real ones that I worked with.
+
+444
+00:57:13,160 --> 00:57:17,810
+So this is a bit of a canned dataset that's a little quirky, but, well, it's easy to learn from.
+
+445
+00:57:18,830 --> 00:57:24,930
+So the outcome is the number of fish caught. By these groups that went to the park.
+
+446
+00:57:24,930 --> 00:57:30,330
+And the predictors are there's three that we're looking at child persons and camper child is
+
+447
+00:57:30,690 --> 00:57:35,849
+counting the number of children in the group that can certainly affect how many fish you catch.
+
+448
+00:57:35,850 --> 00:57:39,509
+If you're a parent, you know this person's the number of people in the group.
+
+449
+00:57:39,510 --> 00:57:46,620
+So you would presume if you have a lot of people, maybe there are more people fishing, so you might catch more fish and then camper.
+
+450
+00:57:46,650 --> 00:57:48,870
+This is going to be the one we spend the most time looking at.
+
+451
+00:57:48,870 --> 00:57:53,040
+I'm going to focus, focus, attention here just so we have a focal point for the handout.
+
+452
+00:57:53,730 --> 00:58:00,150
+And this is whether or not they brought a camper to the park and that might be a surrogate for how long they were planning to stay at the park.
+
+453
+00:58:00,150 --> 00:58:09,030
+So that might mean they catch more fish because they stayed longer. What this dataset does not have is the amount of time they spent at the park.
+
+454
+00:58:11,060 --> 00:58:19,250
+So that if we did have that information, we could model like the number of fish caught per day or something.
+
+455
+00:58:19,280 --> 00:58:27,110
+But we don't have this variable. So Kemper is probably the surrogate for how long they were intending to stay at the park.
+
+456
+00:58:27,920 --> 00:58:33,440
+And because we don't have the variable, we can't use it. So we're going to be modeling the mean number of fish caught.
+
+457
+00:58:35,830 --> 00:58:42,100
+And instead of the rate per day, we're just going to be able to model the means so we won't have an offset term.
+
+458
+00:58:42,520 --> 00:58:47,349
+And this will be this example in this data set is all without the offset terms.
+
+459
+00:58:47,350 --> 00:58:50,790
+All the interpretations are going to be about the mean number of fish caught.
+
+460
+00:58:54,270 --> 00:58:58,740
+All right. So just reading the data and this is a data set that's on canvas you can play with if you want to.
+
+461
+00:58:59,310 --> 00:59:10,380
+And I wanted to just look at the data set to see if we see symptoms of over dispersion and inflated zeros in the data set.
+
+462
+00:59:10,980 --> 00:59:14,850
+And so we're going to do PROC means, kind of look at the means there.
+
+463
+00:59:15,330 --> 00:59:23,520
+And this isn't necessarily data that you would model categorically, but it certainly shows the average in the PROC means categorically.
+
+464
+00:59:23,940 --> 00:59:28,590
+And I want to just focus your attention on the column for mean in the column for variance.
+
+465
+00:59:31,380 --> 00:59:36,030
+And so all the analysis variables count.
+
+466
+00:59:37,430 --> 00:59:40,639
+And four different combinations of the covariates.
+
+467
+00:59:40,640 --> 00:59:50,420
+Sometimes you have very, very small numbers here. But let's look at the the combinations of risk profiles like rows that have a big.
+
+468
+00:59:50,420 --> 01:00:00,860
+And so here the first one is really easy to find with 22 people that didn't have a camper, they only had themselves and no children.
+
+469
+01:00:01,400 --> 01:00:06,920
+The mean number of fish that caught during their visit was less than one and the variance is bigger.
+
+470
+01:00:06,920 --> 01:00:14,780
+So remember, we're actually looking to see if the mean the variance are similar mean meaning the variance being similar.
+
+471
+01:00:14,780 --> 01:00:22,669
+That's what the Poisson distribution is, assuming it's not really clear from this first row here, but if because that could just be variability.
+
+472
+01:00:22,670 --> 01:00:28,879
+But if you look down the rows, almost always the variance is bigger than the mean for this dataset.
+
+473
+01:00:28,880 --> 01:00:32,150
+So and sometimes a lot bigger.
+
+474
+01:00:33,800 --> 01:00:40,790
+So just looking look at this situation where you've got these people have a camper and two people,
+
+475
+01:00:40,790 --> 01:00:50,149
+no kids, they're expected to catch something like 3.4 fish, but the variance is huge.
+
+476
+01:00:50,150 --> 01:01:00,080
+So just glancing at the data, it looks like this puts on assumptions probably violated that the variance tends to be a lot bigger than the mean.
+
+477
+01:01:00,080 --> 01:01:05,810
+And since the person wants those to be very similar, it's not going to work out for the person distribution.
+
+478
+01:01:05,840 --> 01:01:11,900
+That will be the case. But here's a way to look at it by eye and know that it's probably the case.
+
+479
+01:01:16,140 --> 01:01:21,260
+All right. And I'm also showing you a histogram of the counts.
+
+480
+01:01:22,710 --> 01:01:26,430
+Mainly because I want to take a look at the number of zeros.
+
+481
+01:01:26,520 --> 01:01:33,660
+Here's the histogram. I don't know what the heck these people were doing that caught so many fish, but they're pretty rare.
+
+482
+01:01:34,170 --> 01:01:38,700
+But there's a lot of zeros, right?
+
+483
+01:01:38,720 --> 01:01:40,110
+There's this huge spike.
+
+484
+01:01:40,620 --> 01:01:48,719
+And remember when we saw that table for the probability of a zero that the person distribution assumes what was the highest one when the mean was one,
+
+485
+01:01:48,720 --> 01:01:50,700
+it was in the in the 30 range. Right.
+
+486
+01:01:51,030 --> 01:01:59,550
+So there's a way, many more zeros than we saw in that table for what the Poisson distribution distribution would assume.
+
+487
+01:02:00,060 --> 01:02:03,960
+So it looks very much just at a glance that this is going to be an issue.
+
+488
+01:02:10,130 --> 01:02:17,360
+Okay. So the first alternative we're going to look at to the Poisson distribution is the negative binomial distribution.
+
+489
+01:02:17,360 --> 01:02:21,350
+And this is the model that is also first glanced at in your homework.
+
+490
+01:02:21,680 --> 01:02:28,430
+So you're actively learning things you can use for your homework now, except that in your homework you will need an offset term.
+
+491
+01:02:28,790 --> 01:02:34,790
+And in this example you don't have a variable that you can be used that can be used for that as much as you might want one.
+
+492
+01:02:37,460 --> 01:02:43,220
+So it's useful with over dispersed count data when the variable in the outcome conditional on
+
+493
+01:02:43,220 --> 01:02:47,360
+covariates in the model exceeds the mean of the outcome conditional on covariates in the model.
+
+494
+01:02:47,450 --> 01:02:55,340
+Kind of like what we saw in that table of counts by the various profiles of of people visiting the park.
+
+495
+01:02:57,780 --> 01:03:06,329
+And this is so negative binomial regression is a generalization of Poisson regression since it has the same mean structure as Poisson regression.
+
+496
+01:03:06,330 --> 01:03:14,850
+So the interpretation of what you're modeling is going to be very similar, but it has one extra parameter to model the over dispersion.
+
+497
+01:03:15,270 --> 01:03:23,330
+And so. Here's some technical details and I have technical details here, just in case that helps you.
+
+498
+01:03:23,350 --> 01:03:31,690
+I'm not necessarily asking you to know every single part of the technical detail side, but I think this one is useful.
+
+499
+01:03:32,170 --> 01:03:36,309
+So the mean of a negative binomial random variable is the same as for the plus sign.
+
+500
+01:03:36,310 --> 01:03:45,740
+So I'm using the new I. For the mean that you're modeling, but the variance that's done behind the scenes,
+
+501
+01:03:45,740 --> 01:03:52,129
+the part that you don't usually focus on too much when you have a negative binomial random variable,
+
+502
+01:03:52,130 --> 01:03:59,930
+they're allowing that to look like this the mean plus some constant k times the mean squared.
+
+503
+01:04:00,380 --> 01:04:10,520
+So this is allowing the variance depending on what cares if k zero you've got the Poisson distribution again because if K is zero,
+
+504
+01:04:10,820 --> 01:04:15,460
+it's assuming that the variance is more like Yeah, and that's what the Poisson distribution assumed.
+
+505
+01:04:15,710 --> 01:04:25,910
+But otherwise it's letting you either add or subtract some number depending on K can be positive or negative some number times the mean.
+
+506
+01:04:26,090 --> 01:04:29,810
+So it allows the variance to be either bigger or smaller than the mean.
+
+507
+01:04:31,100 --> 01:04:38,420
+And that that number K that's being fit behind the scenes is called the negative binomial dispersion parameter.
+
+508
+01:04:39,080 --> 01:04:42,979
+We'll be starting to see this in our output. I'll show you where it is.
+
+509
+01:04:42,980 --> 01:04:47,030
+And there's there's reasons to keep track of it that I'll go into.
+
+510
+01:04:49,430 --> 01:04:51,950
+But there's a couple of things that are important here.
+
+511
+01:04:51,980 --> 01:04:58,550
+One is this is the only parameter that makes the negative binomial distribution different from the Poisson distribution.
+
+512
+01:04:59,030 --> 01:05:01,790
+And what that's going to mean is that these models are nested.
+
+513
+01:05:02,330 --> 01:05:11,990
+So we'll be able to do a liquid ratio test to see whether you should be using the negative binomial or the Poisson distribution.
+
+514
+01:05:12,260 --> 01:05:18,590
+So this will be a choice that will be easy to make based on a likelihood ratio test of which model to use.
+
+515
+01:05:20,560 --> 01:05:24,430
+So if K0 reduces to the python distribution,
+
+516
+01:05:24,820 --> 01:05:31,629
+so it's nested within the negative binomial distribution and k greater than zero describes over dispersion.
+
+517
+01:05:31,630 --> 01:05:35,860
+That's the normal case. K Less than zero describes under dispersion.
+
+518
+01:05:35,860 --> 01:05:39,910
+If you're a super spy, you can catch people cheating with their data. One K is less than zero.
+
+519
+01:05:41,540 --> 01:05:47,719
+And so you can use like good ratio test to see if the negative binomial is needed versus the standard Poisson distribution.
+
+520
+01:05:47,720 --> 01:05:54,170
+And the degrees of freedom that you're using is one because K is a single parameter that you either have or don't have in your model.
+
+521
+01:05:57,680 --> 01:06:08,450
+So this slide is is to be helpful in case you're ever working with someone who was taught how to do regression for count, say, 20, 30 years ago.
+
+522
+01:06:09,410 --> 01:06:13,200
+This is like someone my age or older. Probably.
+
+523
+01:06:14,640 --> 01:06:25,230
+And they might talk to you about modeling the data using an approach that I'm calling the old school approach for handling over dispersion and SAS.
+
+524
+01:06:25,230 --> 01:06:32,790
+And so over or under dispersion can be handled by proc JANMAAT by using the scaling equals deviance option.
+
+525
+01:06:33,030 --> 01:06:40,019
+That's not what I'm teaching you how to do. I'm teaching you to use the negative binomial distribution, but someone might say,
+
+526
+01:06:40,020 --> 01:06:44,219
+Oh, you can just use Poisson distribution and use the scale equals deviance.
+
+527
+01:06:44,220 --> 01:06:47,580
+Option in this slide is meant to show you what the heck you're talking about.
+
+528
+01:06:47,580 --> 01:06:51,510
+It's just figure notes, not something I'm really spending a lot of time on.
+
+529
+01:06:52,260 --> 01:06:56,700
+Just something that you might need to know to look smart to an older person that you're working with.
+
+530
+01:06:57,630 --> 01:07:06,570
+And so the scale equals deviance option assumes that the variance of the person outcome is some number 50 times the mean.
+
+531
+01:07:06,720 --> 01:07:11,730
+So for the negative binomial we had some mu plus.
+
+532
+01:07:12,710 --> 01:07:16,910
+K times mus squared. It's slightly different here.
+
+533
+01:07:16,910 --> 01:07:20,870
+It has a number that it's multiplying by the mean that can make it bigger or smaller,
+
+534
+01:07:21,230 --> 01:07:25,660
+and that number is the deviance value over the degrees of freedom.
+
+535
+01:07:25,670 --> 01:07:31,790
+This is the same sort of thing that gets spit out of your output when you're looking at goodness of fit.
+
+536
+01:07:32,820 --> 01:07:38,340
+And so this is called the dispersion parameter. So it inflates or deflates.
+
+537
+01:07:38,340 --> 01:07:44,680
+The poussaint assumed a variance by fee, according to over or under dispersion observed in the data.
+
+538
+01:07:45,390 --> 01:07:54,900
+So the parameter estimates for the model are pretty much the same, but the p values and variances and covariance is of the parameter estimates.
+
+539
+01:07:54,900 --> 01:08:01,560
+Test statistics adjust the variability according to this observed dispersion rather than relying on the Poisson variance assumption.
+
+540
+01:08:02,010 --> 01:08:08,999
+So this is actually the way people used to deal with it before we had negative binomial models or zero inflated models.
+
+541
+01:08:09,000 --> 01:08:14,550
+This is how people dealt with the fact that the poor sign didn't fit well when data had too much variability.
+
+542
+01:08:14,910 --> 01:08:19,830
+And so you might run into someone who says, Just do this now you'll know what they're talking about.
+
+543
+01:08:19,830 --> 01:08:25,230
+You could say, Oh, well, now more modern people are using the numbers opposite in the nicest possible way.
+
+544
+01:08:26,500 --> 01:08:34,270
+All right. There's a row in the output that appears when you use this are the scale row.
+
+545
+01:08:35,310 --> 01:08:38,040
+You'll see something turn up in the app at the test scale.
+
+546
+01:08:38,370 --> 01:08:43,890
+The default is one, so we are actually seeing that row with our percent regression and just seeing a one.
+
+547
+01:08:44,220 --> 01:08:49,290
+If you had the scale equals deviance, it'll show up as the square root of this fee.
+
+548
+01:08:51,770 --> 01:08:56,210
+So it used to be a very common way to handle over dispersion, but it's not used much anymore at all.
+
+549
+01:08:57,660 --> 01:09:01,730
+All right. That's all I'm going to say about that. All right.
+
+550
+01:09:02,000 --> 01:09:09,650
+So the other alternatives to the Poisson regression model are ones that specifically take into account.
+
+551
+01:09:10,690 --> 01:09:18,790
+Extra zeros in your data set that are that go beyond what the Poisson model or the negative binomial model would predict.
+
+552
+01:09:20,320 --> 01:09:23,440
+And so you've got the persan model from the last handout.
+
+553
+01:09:24,400 --> 01:09:27,790
+You should. Acknowledge at this moment.
+
+554
+01:09:27,820 --> 01:09:31,959
+You've also just learned the negative binomial model in principle.
+
+555
+01:09:31,960 --> 01:09:38,140
+We're going to have examples soon. And now here's two more models that are coming up that account for the excess zeros.
+
+556
+01:09:39,010 --> 01:09:45,700
+So zeros inflated Poisson models account for the excess zeros beyond what we saw on distribution would usually predict.
+
+557
+01:09:47,510 --> 01:09:51,230
+And here's a huge perk up moment because this is something you've never seen before.
+
+558
+01:09:52,170 --> 01:09:56,520
+And that is a regression model that has to model statements.
+
+559
+01:09:59,220 --> 01:10:06,900
+Okay. So when you're doing a zero and platypus on model, you still have the model statement that is dealing with the counts.
+
+560
+01:10:07,870 --> 01:10:11,800
+But now you have a logistic regression model added to it.
+
+561
+01:10:12,370 --> 01:10:19,630
+That's modeling the excess zeros. What's the probability of an excess zero beyond what the person would assume?
+
+562
+01:10:20,140 --> 01:10:26,500
+It's being modeled with a separate logistic regression model simultaneously with the more standard Poisson model for the counts.
+
+563
+01:10:27,340 --> 01:10:36,700
+And so this is two model statements that you need to deal with, and the covariates can be different in the two models.
+
+564
+01:10:38,020 --> 01:10:41,470
+So the models that are helping you. So let's think about this data set.
+
+565
+01:10:41,710 --> 01:10:47,320
+So the the covers that are helping you model how many fish on average people are leaving the
+
+566
+01:10:47,320 --> 01:10:54,309
+camp with can be different from the covariates that predict the excess zeros in the dataset.
+
+567
+01:10:54,310 --> 01:10:55,330
+Like, you know,
+
+568
+01:10:56,380 --> 01:11:06,550
+this is basically trying to capture people who walked out of the camp with zero fish more often than would be expected by these count distributions.
+
+569
+01:11:07,360 --> 01:11:14,580
+All right. So this is, you know. This is trickier than you've done before, but it's not that bad.
+
+570
+01:11:14,700 --> 01:11:15,960
+We're going to get through it, don't worry.
+
+571
+01:11:16,860 --> 01:11:24,420
+So once the accessories are taken into account with that logistic model, the variability of the counts are that are,
+
+572
+01:11:24,810 --> 01:11:29,400
+you know, allowing for the normal amount of zeros are assumed to follow Poisson distribution.
+
+573
+01:11:31,650 --> 01:11:35,400
+So here's the technical details for for this particular model.
+
+574
+01:11:35,670 --> 01:11:40,020
+And again, I don't want to get too bogged down with the formulas. It's not the intent of this slide.
+
+575
+01:11:40,410 --> 01:11:43,950
+But I want to kind of show you some of the things that are going on behind the scenes,
+
+576
+01:11:43,950 --> 01:11:48,360
+just to give you some more intuition, if it helps you, if it doesn't help you, don't worry about this slide.
+
+577
+01:11:50,210 --> 01:11:54,650
+So the probability distribution of a zero inflated Poisson random variable looks like this.
+
+578
+01:11:54,660 --> 01:11:59,720
+So here this first line is the probability of seeing a zero count.
+
+579
+01:12:02,280 --> 01:12:13,019
+So we had this part e to the minus mirror that we had created a table for the probability of zero counts as the Poisson distributions.
+
+580
+01:12:13,020 --> 01:12:16,170
+True. So that term is here still.
+
+581
+01:12:16,650 --> 01:12:26,220
+Each of the minus m.y. But the zero inflated model is allowing for you to have more zeros than that from this term.
+
+582
+01:12:26,700 --> 01:12:33,269
+So it's a weighted average and then just the rest is formula I couldn't resist putting in here,
+
+583
+01:12:33,270 --> 01:12:38,130
+but this is probably having a count of equal to one or two or so on.
+
+584
+01:12:38,490 --> 01:12:48,720
+So the main thing that's been added is this kind of omega I, and if omega R is zero, you're back to the Poisson distributions.
+
+585
+01:12:49,890 --> 01:12:54,870
+Estimate for how many zeros you should have. It's either the minus m.y that we saw earlier.
+
+586
+01:12:55,590 --> 01:13:02,130
+So this Omega is what's making this different. Let's see what I hear.
+
+587
+01:13:02,160 --> 01:13:08,040
+So w omega is the probability of an excess zero's model by that logistic regression model.
+
+588
+01:13:09,000 --> 01:13:12,180
+So the model statements trying to get at this omega i.
+
+589
+01:13:14,610 --> 01:13:22,560
+And the rest of this part is this move to the y over y factorial in the last me.
+
+590
+01:13:22,590 --> 01:13:28,890
+I don't worry too much about what all that is doing, but it's similar to what the standard post on distribution would assume.
+
+591
+01:13:29,920 --> 01:13:36,730
+If you didn't have the money guy. So again, when Omega zero, both of these terms will look like the porcine distribution.
+
+592
+01:13:38,510 --> 01:13:41,840
+And MU is the mean counties model by Poisson regression model.
+
+593
+01:13:42,680 --> 01:13:52,040
+So. Here's a perk up moment, something you need to remember that is actually not intuitive.
+
+594
+01:13:53,050 --> 01:14:00,700
+But a poor sample is not nested within the zero inflated Poisson random variable.
+
+595
+01:14:01,870 --> 01:14:06,580
+Even though it's this Omega I that's kind of changing what's going on in the model.
+
+596
+01:14:08,030 --> 01:14:14,930
+It. It turns out they're not nested because you have a whole different regress, logistic regression, part of the model.
+
+597
+01:14:15,350 --> 01:14:25,100
+It's not just like you've added a parameter, you've added an entire new model statement, the logistic model to account for the excess zeros.
+
+598
+01:14:25,100 --> 01:14:34,460
+And because it has the second entire model added in not just a single parameter but a whole other model, it's not nested.
+
+599
+01:14:34,730 --> 01:14:38,480
+So we're not going to be able to choose between these models using standard.
+
+600
+01:14:39,410 --> 01:14:42,620
+Liquid ratio test. All right.
+
+601
+01:14:42,920 --> 01:14:47,510
+So we'll never be able to compare a model to a zero inflated counterpart with a likely
+
+602
+01:14:47,510 --> 01:14:52,070
+two ratio test because it has a whole other model added in not just a parameter.
+
+603
+01:14:57,960 --> 01:15:13,830
+So again, the for the zero and for the Poisson, it's allowing them the mean of the counts to, you know, have more zeros in the data set, you know.
+
+604
+01:15:13,830 --> 01:15:19,770
+So here's the mean. And then we're going to be modeling the the mean of the zeros.
+
+605
+01:15:20,910 --> 01:15:26,730
+I kind of think of this intuitively as the mean count among those who are susceptible to having counts.
+
+606
+01:15:28,870 --> 01:15:38,860
+And the variability is also being allowed to depend not just on the mean, but both this chance of having an excess zero and the mean.
+
+607
+01:15:41,380 --> 01:15:43,660
+And so again, here was that perk up moment.
+
+608
+01:15:43,690 --> 01:15:51,910
+Note that the Poisson regression model is not exactly nested within the zero and inflated Poisson model because you have an entirely.
+
+609
+01:15:53,080 --> 01:15:56,260
+Additional model statement for the excess zeroes.
+
+610
+01:15:56,650 --> 01:16:01,270
+So the liquid ratio test is not appropriate. Determine whether the zero inflation models needed.
+
+611
+01:16:01,650 --> 01:16:04,090
+This is going to be the case for all zero inflated models.
+
+612
+01:16:04,090 --> 01:16:09,970
+They always have a whole extra model in their note and you can't use liquid ratio test to choose.
+
+613
+01:16:10,600 --> 01:16:14,799
+So there is a little bit of help along these lines.
+
+614
+01:16:14,800 --> 01:16:19,540
+There's something called the Wang test. That's a common method for comparing these models.
+
+615
+01:16:19,540 --> 01:16:26,290
+So there's a Wong SAS macro. You'll be playing with this in your homework because I'm going to have you fit
+
+616
+01:16:26,290 --> 01:16:30,160
+a negative binomial model and a zero and played a negative binomial model.
+
+617
+01:16:30,550 --> 01:16:38,920
+And so the Wong test is a common method for choosing between the zero inflated model and it's in its non-zero inflated counterpart.
+
+618
+01:16:39,800 --> 01:16:43,010
+And it's not a perfect test.
+
+619
+01:16:43,670 --> 01:16:47,660
+I would say it's what every textbook would tell you to use.
+
+620
+01:16:48,320 --> 01:16:55,820
+But I recently noticed an article that talked about the boiling test in this particular
+
+621
+01:16:55,820 --> 01:16:58,970
+scenario where you're trying to decide whether to use a zero inflated model.
+
+622
+01:16:59,270 --> 01:17:01,310
+And it suggests that the P values weren't great.
+
+623
+01:17:01,610 --> 01:17:10,130
+So it's guidance, but it's not as statistically secure guidance as you usually have when you get a P value or the P values might not be reliable.
+
+624
+01:17:10,160 --> 01:17:17,809
+So I put the article on canvas if you're curious, but it's all the we've got for making these decisions.
+
+625
+01:17:17,810 --> 01:17:22,850
+But I'm not sure you should really rely on the p value alone for making that decision.
+
+626
+01:17:26,280 --> 01:17:33,360
+All right. So here's another alternative person regression count, and that's the zero templated negative binomial model.
+
+627
+01:17:33,720 --> 01:17:39,330
+And so this model is kind of the catchall. This is the model I use most often for my own work.
+
+628
+01:17:40,050 --> 01:17:46,080
+It counts for both over dispersion and excess zeros beyond what the Poisson distribution would usually predict.
+
+629
+01:17:46,080 --> 01:17:50,730
+And for my particular data sets and for the datasets you'll be using in lab and homework.
+
+630
+01:17:50,970 --> 01:17:56,520
+This is the model that usually wins. Usually, not always.
+
+631
+01:17:57,480 --> 01:18:05,130
+So accessories are modeled again with the logistic regression model simultaneously with that negative binomial model for the counts.
+
+632
+01:18:06,000 --> 01:18:08,940
+So the query again, it can be different in the two models.
+
+633
+01:18:09,750 --> 01:18:15,750
+There's nothing that says you have to use the same model for both the count model and the X0 model.
+
+634
+01:18:16,870 --> 01:18:23,110
+And so once accessories are taken into account, the variability of the counts seem to follow a negative binomial distribution.
+
+635
+01:18:24,740 --> 01:18:26,660
+And again, I have technical details here.
+
+636
+01:18:28,100 --> 01:18:34,640
+The main points we've kind of already covered there is this America that is dealing with the probability of an excess zero,
+
+637
+01:18:35,210 --> 01:18:39,800
+you know, so that is here as well.
+
+638
+01:18:39,800 --> 01:18:44,480
+And that's what you're modeling with the logistic regression that's within your product gen mod.
+
+639
+01:18:45,390 --> 01:18:51,000
+As well as the counts. And then the rest is modeled by negative binomial regression model.
+
+640
+01:18:54,170 --> 01:18:59,510
+So again, you have the Omega for the zero inflation part that you're dealing with,
+
+641
+01:18:59,520 --> 01:19:07,640
+but because you're modeling a negative binomial, you still have that K over dispersion parameter kind of in the mix here as well.
+
+642
+01:19:09,910 --> 01:19:16,809
+Try to color code everything just a little more. So the negative binomial model is not exactly nested within the zero inflated
+
+643
+01:19:16,810 --> 01:19:21,340
+negative binomial model because you've got this extra logistic model in the mix.
+
+644
+01:19:22,120 --> 01:19:26,800
+So the likely two ratio test is not appropriate to determine whether the zero inflation model is needed.
+
+645
+01:19:27,340 --> 01:19:31,809
+So if the four models we were covering in in the previous handout, in today's handout,
+
+646
+01:19:31,810 --> 01:19:39,850
+the only time you can use the likelihood ratio test is when you're comparing the Poisson model to the negative binomial model.
+
+647
+01:19:41,300 --> 01:19:43,970
+It's not appropriate with any of the zero inflated models.
+
+648
+01:19:46,970 --> 01:19:55,580
+And again, the wrong test is what we lean on for comparing a zero inflated model to its non-zero inflated counterpart.
+
+649
+01:19:56,770 --> 01:20:02,080
+Same note about not the p value may not be very reliable, but it's all we've got.
+
+650
+01:20:04,290 --> 01:20:07,740
+So let's go back to the fishing data set and kind of look at all of these models.
+
+651
+01:20:07,800 --> 01:20:09,300
+So we've got four now.
+
+652
+01:20:09,300 --> 01:20:15,570
+The one we learned in the last handout, the standard Poisson regression, negative binomial and then zero inflated versions of these.
+
+653
+01:20:18,450 --> 01:20:25,320
+And just to give you something to focus on for interpretations, I'm going to be focusing on that campus predictor.
+
+654
+01:20:26,420 --> 01:20:28,879
+To follow how the different models assess it.
+
+655
+01:20:28,880 --> 01:20:35,000
+And we're going to be having these script worthy sentence examples, too, that will focus on the predictor.
+
+656
+01:20:38,010 --> 01:20:46,080
+So the Poisson regression model with we've done the last handout modeling the number of fish count there's no offset here.
+
+657
+01:20:46,500 --> 01:20:51,540
+So I'm modeling the mean number of fish caught when they leave the park.
+
+658
+01:20:52,110 --> 01:20:54,809
+And we have the number of children, whether they're in a camper or not,
+
+659
+01:20:54,810 --> 01:20:59,160
+in the number of people in the group for the Poisson regression justice Poisson,
+
+660
+01:20:59,490 --> 01:21:03,719
+this is something we're going to be using projection mode for all of these in SAS.
+
+661
+01:21:03,720 --> 01:21:11,280
+And this just is what changes. All right. And we only have one model statement because we don't have any zero inflation here.
+
+662
+01:21:11,280 --> 01:21:20,370
+This is the regular Poisson. And it looks like I have something that I think is like our code that just appear down here.
+
+663
+01:21:20,700 --> 01:21:23,910
+And that's because I was about to show you our code and the animation didn't work.
+
+664
+01:21:23,920 --> 01:21:30,180
+So here is again, how did you put on regression and ah, so you saw this before.
+
+665
+01:21:31,720 --> 01:21:37,270
+Where you have your formula. The formula is very similar to the model statement up here and I'm assuming a person
+
+666
+01:21:37,270 --> 01:21:42,520
+family with link log and here's just the way to get pretty tabulated output.
+
+667
+01:21:45,150 --> 01:21:50,680
+And so here's the stars output that you see. This is very similar to the last handout.
+
+668
+01:21:51,070 --> 01:21:59,440
+And so here is the camper row. And remember, when we're interpreting parameters from Poisson regression, we are exponentially eating them.
+
+669
+01:22:00,010 --> 01:22:06,630
+So you can either do that by hand or you can use a contrast statement.
+
+670
+01:22:06,680 --> 01:22:14,370
+I must have had the code for the contrast statement. Here.
+
+671
+01:22:14,700 --> 01:22:19,950
+I had a quick estimate statement I just blew right by where I have each of the beta for camper.
+
+672
+01:22:19,950 --> 01:22:28,110
+Here's what's happening in this contrast statement. All right.
+
+673
+01:22:29,010 --> 01:22:33,810
+So we need to interpret this 2.5 number.
+
+674
+01:22:34,740 --> 01:22:37,500
+That's the idea. The data that we want to interpret in our manuscript,
+
+675
+01:22:37,500 --> 01:22:43,500
+where the sentence and the easy thing is you've got confidence limits and a p value right here to use.
+
+676
+01:22:43,980 --> 01:22:47,430
+So the hard part is how to word the interpretation.
+
+677
+01:22:47,730 --> 01:22:51,870
+It's not an odds ratio. It's some kind of a multiplicative factor.
+
+678
+01:22:52,930 --> 01:23:01,940
+And so. I'm just going to jump ahead to the interpretation and go back for the R code.
+
+679
+01:23:02,210 --> 01:23:13,460
+So groups with campers catch on average E to that parameter or 2.54 times more fish than groups without campers.
+
+680
+01:23:13,910 --> 01:23:17,270
+That's how you interpret that number in a manuscript where the sentence.
+
+681
+01:23:17,540 --> 01:23:21,110
+And of course we've got a confidence interval and the p value that goes with it.
+
+682
+01:23:21,860 --> 01:23:27,920
+So again, it's a multiplicative effect, 2.54 times more fish than groups without the camper.
+
+683
+01:23:35,620 --> 01:23:41,680
+All right. And then just a. Real briefly, the art output that I skipped past.
+
+684
+01:23:42,400 --> 01:23:50,729
+Very similar results here. All right.
+
+685
+01:23:50,730 --> 01:23:54,990
+So just looking at this Seth output.
+
+686
+01:23:56,310 --> 01:24:03,330
+And this, you know, it it looked almost like we had category decay, but not quite.
+
+687
+01:24:03,330 --> 01:24:08,040
+So this isn't really a great situation for using it kind as a statistic.
+
+688
+01:24:08,040 --> 01:24:10,890
+When we did the proc means for count,
+
+689
+01:24:11,160 --> 01:24:16,020
+we had a lot of small cell counts and this just doesn't behave well when you have a lot of small, small cell counts.
+
+690
+01:24:16,530 --> 01:24:27,260
+So you can usually tell the degrees of freedom looks crazy. So we strictly speaking aren't going to be coming up with P values and so on.
+
+691
+01:24:27,560 --> 01:24:34,940
+But just at a glance, the deviance over degrees of freedom, it doesn't look really close to one.
+
+692
+01:24:34,940 --> 01:24:40,460
+So it's not a great diagnostic, but it is a bit of a symptom of over dispersion.
+
+693
+01:24:43,750 --> 01:24:50,110
+So as a rule of thumb, you know, the closer this is to one, the better the model will fit.
+
+694
+01:24:50,110 --> 01:24:57,070
+But it's since we have such so many degrees of freedom here, it's not going to be the most reliable thing to look at.
+
+695
+01:24:57,080 --> 01:25:05,620
+We really need completely a possibility of a completely saturated model that will fit well to be able to rely on that.
+
+696
+01:25:07,210 --> 01:25:11,620
+So again, the deviants tested it for goodness if it's available for group categorical predictors.
+
+697
+01:25:12,070 --> 01:25:19,510
+So the same situation where you could do contingency table analysis without small cell count, that's when you're really going to be using this.
+
+698
+01:25:20,610 --> 01:25:23,970
+So it's not appropriate in this case is the model has continuous covariance.
+
+699
+01:25:24,540 --> 01:25:29,760
+But the technical calculation, if you were trying to force it, would look something like this.
+
+700
+01:25:29,770 --> 01:25:34,830
+But again, you can put like a red X over that because it's just not a good setting to rely on that.
+
+701
+01:25:36,260 --> 01:25:40,610
+So if it was valid that would be poor fit. But the p value isn't worth much in this case.
+
+702
+01:25:43,380 --> 01:25:50,040
+All right. So that was the model summary. So that's like the base, the base, the simplest model for the data.
+
+703
+01:25:50,340 --> 01:25:54,240
+So the next step up is to use the negative binomial model.
+
+704
+01:25:54,540 --> 01:26:03,480
+And this allows you to deal with the over dispersion, allows the variability to be either bigger or smaller than that with Poisson variability.
+
+705
+01:26:03,930 --> 01:26:12,420
+So the main difference in the code is just changing what the distribution is just equals and B or you can write it as neg buying as well.
+
+706
+01:26:13,640 --> 01:26:18,490
+That's the only change to the code. All right.
+
+707
+01:26:18,940 --> 01:26:22,090
+And similarly, the same animation problem down there.
+
+708
+01:26:22,480 --> 01:26:25,540
+Similarly in our.
+
+709
+01:26:26,840 --> 01:26:34,880
+Actually it isn't similarly because in all you have to use an entirely different package to fit the negative binomial model.
+
+710
+01:26:38,830 --> 01:26:47,680
+All right. So the formula is similar, the syntax is similar, but you have glm dot in b for the negative binomial model.
+
+711
+01:26:48,570 --> 01:26:53,860
+It's already assuming you're using negative binomial, so there's no more like family or anything like that here.
+
+712
+01:26:55,300 --> 01:26:58,330
+But the way you get the outputs very similar after that.
+
+713
+01:27:01,160 --> 01:27:04,370
+So here's the cells, the cells output that you have.
+
+714
+01:27:04,400 --> 01:27:13,129
+There's a lot going on here. So let's just focus on the cancer variable and its contrast statement in the estimates that we get from that.
+
+715
+01:27:13,130 --> 01:27:20,630
+So these are the numbers that are changing based on just allowing for the variability of the counts to be different from the Poisson.
+
+716
+01:27:21,230 --> 01:27:22,940
+So it had this much effect.
+
+717
+01:27:25,190 --> 01:27:34,069
+So I have a little note here that this dispersion parameter that's showing up here in the negative binomial is something that
+
+718
+01:27:34,070 --> 01:27:42,250
+we're going to need later when if we use the long macro or the wrong function and are the it's an input you have to put in.
+
+719
+01:27:43,860 --> 01:27:45,270
+When you're using those.
+
+720
+01:27:45,660 --> 01:27:53,690
+So this 2.1574 is going to show up later when we use the VAR macro, comparing the negative binomial to the zero inflated version of it.
+
+721
+01:27:57,780 --> 01:28:00,080
+All right. So this is just copied from the previous slide,
+
+722
+01:28:00,170 --> 01:28:11,520
+the numbers and the manuscript or the sentence that goes with it that groups with campers catch on average each of the point 6 to 1 one or 1.8,
+
+723
+01:28:11,520 --> 01:28:13,620
+six times more fish than groups without campers.
+
+724
+01:28:13,620 --> 01:28:19,830
+So this is changed a little bit and the confidence limits have changed a little bit and the p values change a little bit.
+
+725
+01:28:22,700 --> 01:28:26,900
+So the confidence intervals are wider than what was seen with the porcelain model.
+
+726
+01:28:28,180 --> 01:28:36,070
+So it's a little bit more accurate and it's a bit less statistically significant when you take into account the variability more appropriately.
+
+727
+01:28:36,940 --> 01:28:43,720
+This is all what we would expect if if you model the variability more appropriately and there's over dispersion.
+
+728
+01:28:45,640 --> 01:28:50,770
+So the negative binomial doesn't do anything about extra zeros seen in the data.
+
+729
+01:28:51,190 --> 01:28:56,350
+It's sort of assuming you have a similar amount of zeros as the sun would have expected.
+
+730
+01:28:56,890 --> 01:29:00,310
+So it's not handling that issue of extra zeros.
+
+731
+01:29:00,310 --> 01:29:05,860
+So we're going to do that next. Oh, and here's the output from R kind of same.
+
+732
+01:29:05,860 --> 01:29:10,260
+Looks the same. Right. Same manuscript where the sentence.
+
+733
+01:29:12,340 --> 01:29:16,510
+All right. So we're going to get to the zero inflated models soon.
+
+734
+01:29:16,930 --> 01:29:21,009
+But I just wanted to remind you that there is a likelihood ratio test if you're
+
+735
+01:29:21,010 --> 01:29:25,300
+trying to decide between the negative binomial and the Poisson regression.
+
+736
+01:29:25,780 --> 01:29:29,349
+And it's based on having one parameter extra in the negative binomial.
+
+737
+01:29:29,350 --> 01:29:31,899
+So here's the null hypothesis that the Poisson models.
+
+738
+01:29:31,900 --> 01:29:40,150
+Okay, because you're saying that over dispersion parameter equal to zero versus the alternative where you need something to model over dispersion.
+
+739
+01:29:40,720 --> 01:29:46,570
+And so you can compare the Poisson model in the negative binomial model, just like you would compare any nested models,
+
+740
+01:29:46,930 --> 01:29:51,790
+you can look at the AIC and boy, it's so much smaller for the negative binomial.
+
+741
+01:29:51,790 --> 01:30:01,690
+There's no contest here that smaller is better and negative binomial is much, much smaller AIC And then you can also do the likelihood ratio test.
+
+742
+01:30:03,800 --> 01:30:07,640
+Comparing those two numbers. The difference multiplied by two.
+
+743
+01:30:08,560 --> 01:30:12,400
+All right. So here's the likely ratio tests. Users have to do this by hand as usual.
+
+744
+01:30:12,760 --> 01:30:18,880
+It's a very large number compared to the Chi Square one distribution that is under the null hypothesis.
+
+745
+01:30:19,330 --> 01:30:24,910
+So it's very highly significant. So the negative binomial provides a much better fit than the standard Poisson model.
+
+746
+01:30:25,480 --> 01:30:34,060
+And once I see a result like this, I don't bother playing with the zero inflated plus size and even an option.
+
+747
+01:30:34,090 --> 01:30:41,380
+So the only reason I'm showing you the zero inflated Poisson model in this handout is so that you see examples of the code in the output.
+
+748
+01:30:41,770 --> 01:30:46,629
+But once I see that the negative binomial is vastly improved to the person,
+
+749
+01:30:46,630 --> 01:30:51,760
+I would just the next thing I would try as a zero inflated negative binomial in practice.
+
+750
+01:30:52,240 --> 01:30:57,100
+But I am going to show you the zero for the person just so you see the code and how to deal with it.
+
+751
+01:31:01,000 --> 01:31:11,440
+So in our you have to change the package to do the likely two ratio test because the lower test we had used before it.
+
+752
+01:31:11,440 --> 01:31:15,970
+It assumes you're using the same package and function to fit both models.
+
+753
+01:31:16,420 --> 01:31:22,660
+And now we have two different packages that are fitting the Poisson model, the negative binomial model and R,
+
+754
+01:31:23,110 --> 01:31:31,300
+but there is this package called LM test and a function LR test, so there's no dot here like there was before.
+
+755
+01:31:31,750 --> 01:31:37,930
+And these this as long as you load this package, you can use very similar syntax,
+
+756
+01:31:37,930 --> 01:31:42,309
+except there's no dot here and it'll do the likelihood ratio test for you.
+
+757
+01:31:42,310 --> 01:31:47,530
+The output is a little bit different looking, but it's, it's, it's fine and there's a warning message.
+
+758
+01:31:47,530 --> 01:31:50,230
+But don't worry about the warning message. The results are correct.
+
+759
+01:31:51,280 --> 01:31:57,849
+If you want to work the liquid ratio test by hand kind of the way they do in SAS, there's some alternate code for doing that.
+
+760
+01:31:57,850 --> 01:32:02,860
+In the footnote, if you decide to do the calculation using steps similar to SAS.
+
+761
+01:32:03,220 --> 01:32:10,030
+So if this warning really bothers you and you want to double check it for whatever reason I'm suggesting you don't have to, but if you wanted to,
+
+762
+01:32:10,420 --> 01:32:17,740
+you can save the, you know, the likely values and do the math and look at the P values from kind of like the way SAS does.
+
+763
+01:32:20,090 --> 01:32:23,770
+So that's in the footnote, if you want to try that out. All right.
+
+764
+01:32:23,770 --> 01:32:27,360
+So now page three, the zero inflated person.
+
+765
+01:32:27,370 --> 01:32:36,350
+So what changes here? So we're still within proc gen mod, but now we have it just equal zip for zero inflated person.
+
+766
+01:32:37,330 --> 01:32:42,610
+So that's new and we have a whole nother model statement and it and SAS needs
+
+767
+01:32:42,610 --> 01:32:46,419
+to be able to tell the difference between the count model and the zero models.
+
+768
+01:32:46,420 --> 01:32:51,760
+So the actual command here is for the statement.
+
+769
+01:32:51,760 --> 01:32:59,499
+Here is zero model. And the output will also have to be able to tell which parameter estimates we're seeing.
+
+770
+01:32:59,500 --> 01:33:03,550
+So zero model will be featured in the output too, so we can tell the difference.
+
+771
+01:33:04,270 --> 01:33:09,099
+And there's no reason you need to have the same covariance in this model statement
+
+772
+01:33:09,100 --> 01:33:13,990
+and the zero model statement I've just put in all three just to see what happens.
+
+773
+01:33:14,410 --> 01:33:17,980
+But you would model build them potentially differently.
+
+774
+01:33:20,880 --> 01:33:25,470
+Or and I don't know, I think again, my animations got messed up here.
+
+775
+01:33:25,470 --> 01:33:39,270
+So that's the last of the our output. But in ah you have yet another package that fits zero inflated question and so the formula is a bit odd.
+
+776
+01:33:39,510 --> 01:33:42,600
+So you have to kind of know what you're looking for here. The first part.
+
+777
+01:33:43,660 --> 01:33:49,120
+In front of this vertical pipe is the count model.
+
+778
+01:33:50,110 --> 01:33:53,800
+And after this vertical pipe is the zero model.
+
+779
+01:33:55,000 --> 01:33:58,960
+So this second bunch of stuff is for the Excelsior model.
+
+780
+01:34:00,580 --> 01:34:05,050
+And then the function is called zero in f l for zero inflated.
+
+781
+01:34:05,890 --> 01:34:13,000
+And here this same function is going to be used for both puts on zero for the person and zero five negative binomial.
+
+782
+01:34:13,270 --> 01:34:16,390
+So you do announce which distribution you're dealing with.
+
+783
+01:34:17,740 --> 01:34:18,820
+And here's some code.
+
+784
+01:34:19,150 --> 01:34:28,930
+This code is a little bit different from earlier code on how to get the P values because you've got r count p values and zero p values.
+
+785
+01:34:28,930 --> 01:34:34,509
+And there's a little bit of a. Shenanigans to get this to look right.
+
+786
+01:34:34,510 --> 01:34:41,670
+That is done for you. And so here's the sass output.
+
+787
+01:34:42,450 --> 01:34:49,530
+Again, I'm kind of focusing on the camper variable and I want you to look at the headings here.
+
+788
+01:34:49,890 --> 01:34:53,799
+The count model will still say something like analysis.
+
+789
+01:34:53,800 --> 01:34:57,280
+The maximum likelihood parameter estimates the zero inflated model.
+
+790
+01:34:57,300 --> 01:34:59,460
+I'm going to show you on the next slide what that looks like.
+
+791
+01:34:59,970 --> 01:35:08,510
+So this is the camper variable we've been interpreting so far and the contrast statement that's exponential weighting it.
+
+792
+01:35:08,520 --> 01:35:13,680
+So here's all the numbers and confidence intervals and P values you use for your sentence based on this model.
+
+793
+01:35:14,040 --> 01:35:17,220
+So that part, as long as you know where to find it.
+
+794
+01:35:18,180 --> 01:35:23,160
+You know, finding the numbers, you need to write your manuscript where they sense that's not going to be hard.
+
+795
+01:35:27,540 --> 01:35:31,140
+And this is just copied from the same from from before.
+
+796
+01:35:31,170 --> 01:35:34,469
+Just so we can write our manuscript for this sentence.
+
+797
+01:35:34,470 --> 01:35:37,610
+And so here I'm saying when excessive errors are accounted for.
+
+798
+01:35:37,620 --> 01:35:43,469
+And by the way, I don't actually put that in the manuscript. I just want you to know the difference between this sentence in there earlier is.
+
+799
+01:35:43,470 --> 01:35:45,299
+But when excessive is or accounted for,
+
+800
+01:35:45,300 --> 01:35:56,130
+groups with cameras catch on average each of the .7243 or 2.06 times more fish than groups without camper's confidence interval p value.
+
+801
+01:36:00,320 --> 01:36:07,010
+All right. So here's the zero model. And, you know, usually don't write about this model in your manuscript.
+
+802
+01:36:07,010 --> 01:36:12,440
+It's just to help the account model have its assumptions more correct.
+
+803
+01:36:12,920 --> 01:36:16,370
+So this is about is this is modeling excess zero.
+
+804
+01:36:16,380 --> 01:36:19,490
+So what can you see from this?
+
+805
+01:36:19,490 --> 01:36:28,640
+Well, all of the predictors were significant in this zero inflated Poisson model for catching excess zeros.
+
+806
+01:36:30,770 --> 01:36:41,719
+So it's really interpreted in the manuscript, mainly because if you wanted to talk about the probability of having zero fish, at the end of the day,
+
+807
+01:36:41,720 --> 01:36:49,640
+you would use a regular logistic model on its own that would model the probability of having any zero, not just an excess zero.
+
+808
+01:36:50,000 --> 01:36:53,660
+So the probability of having an excess zero is a bit artificial.
+
+809
+01:36:54,290 --> 01:37:02,990
+No one really thinks about or wants to know the probability of having an excess zero beyond what the distribution would have wanted.
+
+810
+01:37:04,380 --> 01:37:07,950
+So if you really want to interpret the probability of having zero fish.
+
+811
+01:37:09,560 --> 01:37:13,010
+You know, you use just a logistic regression model on its own.
+
+812
+01:37:13,280 --> 01:37:17,230
+So this is just kind of a table that helps you with model diagnostics.
+
+813
+01:37:17,240 --> 01:37:24,410
+So when I'm looking at this table, I'm saying, you know, did I need all of these predictors in my zero model?
+
+814
+01:37:24,740 --> 01:37:30,350
+You know, because I do want to get rid of the excess zeros so that my current model will be the most correct I can write about.
+
+815
+01:37:30,920 --> 01:37:34,040
+And so I'm looking to see, you know, are there significant variables here?
+
+816
+01:37:34,400 --> 01:37:38,330
+And do I need to model this so that I get this probability of having an excess zero?
+
+817
+01:37:38,330 --> 01:37:42,110
+Correct, mainly for the sole purpose of my count model being something.
+
+818
+01:37:42,110 --> 01:37:49,870
+That's correct. So it's a bit of an odd little creature and you can tell that it's a zero model
+
+819
+01:37:49,870 --> 01:37:54,010
+because it says analysis of maximum liquid zero inflation parameter estimates.
+
+820
+01:37:56,310 --> 01:37:58,800
+So this zero thing is appearing in the output.
+
+821
+01:37:59,310 --> 01:38:08,520
+So again, you don't really interpret this stuff because it's not really that interesting, although, I mean, it's not.
+
+822
+01:38:09,570 --> 01:38:18,410
+It's not something perfectly interesting on its own. But it's tempting to interpret it.
+
+823
+01:38:18,420 --> 01:38:25,910
+I might even say a couple of words in a minute, but the thing that you're interpreting is, again, the Kemper variable from account model.
+
+824
+01:38:26,190 --> 01:38:34,110
+So this is what it looks like an R output. So it'll have a separate thing that says dollar sign count and dollar sign zero.
+
+825
+01:38:34,410 --> 01:38:39,389
+And the dollar sign count is the stuff that you're interpreting for your manuscript and the dollar sign.
+
+826
+01:38:39,390 --> 01:38:46,560
+Zero stuff is the stuff that you are using to get rid of this excess zero problem.
+
+827
+01:38:47,810 --> 01:38:50,930
+In your data set so that this part of the model will be more correct.
+
+828
+01:38:53,410 --> 01:38:55,950
+All right. And then here are all the results together.
+
+829
+01:38:56,320 --> 01:39:04,980
+And they nicely put count in front of the the predictors from the count model and zero in front of the predictors from the zero model.
+
+830
+01:39:11,040 --> 01:39:19,450
+All right. So if you want to choose between a zero for the person model and the regular person model, there's this one test macro in SAS.
+
+831
+01:39:20,010 --> 01:39:24,870
+It's on canvas. You can download it and you can include it with its include statement.
+
+832
+01:39:26,230 --> 01:39:34,660
+And this is where okay, this is a bit of a perk up moment because the data handling here gets intense.
+
+833
+01:39:35,170 --> 01:39:41,860
+So you have to fit both models and save output from both models into a single data set to use this falling macro.
+
+834
+01:39:42,100 --> 01:39:46,950
+So that's the challenge we're doing here. So first, we're fitting the zero inflated Poisson model.
+
+835
+01:39:46,960 --> 01:39:52,050
+The way I've set this up, saving all the results in this dataset called out zip.
+
+836
+01:39:52,510 --> 01:39:58,600
+And in particular, I'm saving these things highlighted in yellow that the one macro wants.
+
+837
+01:39:58,600 --> 01:40:09,009
+So for the zero inflated Poisson model, predicted values are compared in press zip and the the p zero.
+
+838
+01:40:09,010 --> 01:40:12,430
+The probability of zeros is being fit over here.
+
+839
+01:40:13,030 --> 01:40:19,480
+So the wrong macro is trying to compare predicted values, you know, between the models to make its decisions.
+
+840
+01:40:21,000 --> 01:40:32,250
+All right. So here in Orange, the same data set with all the model results from the zero play puts on out zip I'm using as my input data set.
+
+841
+01:40:33,590 --> 01:40:41,120
+For the next gen mod. So everything that we fit using the zero play was on all of that.
+
+842
+01:40:41,120 --> 01:40:50,270
+Plus the original data set is in, it's in here and now we're modeling the regular Poisson distribution just equals Poisson.
+
+843
+01:40:50,510 --> 01:40:54,560
+I'm saving it into yet another data set in blue called out P.
+
+844
+01:40:54,830 --> 01:41:05,360
+That's going to be our final data set that has everything in it and the predicted outcomes are going to be saved into pred p,
+
+845
+01:41:05,360 --> 01:41:12,469
+so there's pred zip for predicted zero inflated poisson and pred p for predicted Poisson.
+
+846
+01:41:12,470 --> 01:41:17,060
+These are just variable names I made up to help it make it more clear to you what's going on in the code.
+
+847
+01:41:19,370 --> 01:41:27,200
+And so the viewing macro is starting off with this last data set out here in blue that we created.
+
+848
+01:41:28,300 --> 01:41:37,510
+And the responses account. And then these two lines for model one and model two, we're basically feeding in, you know, what type of model was it?
+
+849
+01:41:37,660 --> 01:41:43,180
+Model one was there implied Poisson. Model two was Poisson. Where are the predictive values for model one?
+
+850
+01:41:43,180 --> 01:41:52,659
+It was in principle. For Model two was pred p distribution scale here scale one scale for model one scale
+
+851
+01:41:52,660 --> 01:41:59,020
+for model two for the Poisson models there one when we moved to negative binomial,
+
+852
+01:41:59,230 --> 01:42:07,620
+we're going to have to fill in some numbers from the output. And then for the first model, we also have this probability of a zero that we saved.
+
+853
+01:42:09,030 --> 01:42:13,919
+We also have to feed it. How many parameters were used in model one and model two?
+
+854
+01:42:13,920 --> 01:42:18,030
+And that is a bit tricky because Model one has two models.
+
+855
+01:42:18,570 --> 01:42:25,680
+So you're counting the four parameters from the count model intercept persons camper.
+
+856
+01:42:26,950 --> 01:42:30,339
+Children was the last variable and the zero model.
+
+857
+01:42:30,340 --> 01:42:34,990
+We had the same four parameters intercept person camp for children.
+
+858
+01:42:36,270 --> 01:42:45,380
+So there's eight parameters total across the two models in the 0.2 person, but only four from the count model for the cosine.
+
+859
+01:42:45,390 --> 01:42:51,600
+So this is actually an important part here of the of using the wrong macros.
+
+860
+01:42:51,600 --> 01:42:54,990
+You have to do you have to count for it. You won't do it by itself.
+
+861
+01:42:55,230 --> 01:43:01,740
+It only has the predicted values. It it doesn't pay attention to how many covariates were used in creating those predictive values.
+
+862
+01:43:01,740 --> 01:43:06,690
+You tell it. All right.
+
+863
+01:43:07,290 --> 01:43:12,810
+And then here's what the output looks like. And the important part that we focus on is over here.
+
+864
+01:43:13,590 --> 01:43:18,770
+So it is giving you a p value. Again, I'm not sure how reliable the P value is.
+
+865
+01:43:18,780 --> 01:43:21,839
+So the most important column, honestly,
+
+866
+01:43:21,840 --> 01:43:30,150
+is which model it says is preferred because it say that that model came closer to the, you know, the true counts.
+
+867
+01:43:31,020 --> 01:43:36,660
+And so the one test is saying that the zero what it puts on is a better model fit than the standard Poisson,
+
+868
+01:43:37,800 --> 01:43:43,709
+and it's giving you a statistically significant P value. But again, I don't want you to be too married to what that P value is.
+
+869
+01:43:43,710 --> 01:43:52,570
+I don't know how trustworthy it is. And ah, the long test is very easy to use.
+
+870
+01:43:52,580 --> 01:43:59,020
+You know there's just Wong and then the, the two model fit outputs and it'll do it for you.
+
+871
+01:43:59,500 --> 01:44:04,420
+The the p value is a bit strange because it's only giving you a one sided p value.
+
+872
+01:44:04,420 --> 01:44:07,900
+So this is that model one is better than model two.
+
+873
+01:44:08,320 --> 01:44:13,210
+So to get the two sided p value, if you're really looking at that at all, you have to multiply by two here.
+
+874
+01:44:19,200 --> 01:44:21,660
+So if you want to get a divorce, you have to abide by two.
+
+875
+01:44:25,070 --> 01:44:34,280
+It's close but not identical to the SAS output and it is sort of saying that model one is better than model two.
+
+876
+01:44:34,310 --> 01:44:39,440
+That's kind of what this output is suggesting, that model one is its preferred model to.
+
+877
+01:44:41,910 --> 01:44:45,930
+And your model one was the first position here, the zero platypus on.
+
+878
+01:44:49,030 --> 01:44:53,319
+And the last approach, which is also appearing in your homework,
+
+879
+01:44:53,320 --> 01:44:59,110
+is that zero played a negative binomial and the mechanics here are going to be very similar to the zero inflated Poisson.
+
+880
+01:44:59,710 --> 01:45:06,700
+So the main difference is that you say just equals zero and B for zero inflated negative binomial.
+
+881
+01:45:07,780 --> 01:45:10,929
+I did do something a little bit different here with the zero model.
+
+882
+01:45:10,930 --> 01:45:18,430
+I only have child and persons. I don't have camper in this model mainly because when I tried to fit it, it didn't fit.
+
+883
+01:45:18,490 --> 01:45:22,870
+So the model would not converge when camper was also included in the zero model statement.
+
+884
+01:45:23,440 --> 01:45:28,630
+When I had this -0 point negative binomial, I'm guessing it was a result of overfitting.
+
+885
+01:45:28,990 --> 01:45:38,379
+So I just simplified the zero model to two predictors. And so here is the zero model with two predictors,
+
+886
+01:45:38,380 --> 01:45:43,240
+but I'll also look at the version of the zero model with this child in it, and I'll show you why in a minute.
+
+887
+01:45:44,600 --> 01:45:47,629
+So now each case, the count model, I still had all three predictors in it.
+
+888
+01:45:47,630 --> 01:45:55,390
+It's just a zero model I played with a little bit here. So here is the output for the count.
+
+889
+01:45:55,720 --> 01:45:59,140
+Part of the model analysis of max molecular parameter estimates.
+
+890
+01:45:59,410 --> 01:46:09,650
+Here's our Kemper variable and we've got a separate model here for the zero inflation parameter estimates right here.
+
+891
+01:46:09,670 --> 01:46:18,399
+So here's the model with child and persons in it. And if you look real quickly, the person's in the zero model isn't statistically significant,
+
+892
+01:46:18,400 --> 01:46:23,290
+which is why I'm showing you yet another bunch of output without persons in the zero model.
+
+893
+01:46:23,980 --> 01:46:30,160
+So because you've used the negative binomial distribution, it's actually accounting for the variability in the data a little bit better.
+
+894
+01:46:30,460 --> 01:46:34,570
+And so that's why you don't have everything significant anymore.
+
+895
+01:46:34,950 --> 01:46:41,530
+It's my guess. And so here is the output with just a child in the zero model.
+
+896
+01:46:43,900 --> 01:46:53,000
+Can't variable again. And we're going to need this dispersion parameter down here boxed in red for the long macro.
+
+897
+01:46:53,010 --> 01:46:58,830
+That's the. So I just have to write these down because otherwise I'll have to scroll back through my output to find it.
+
+898
+01:46:59,220 --> 01:47:02,880
+So when you're doing this zero play, the negative binomial or the negative binomial,
+
+899
+01:47:03,210 --> 01:47:08,460
+you're looking for this dispersion rule and you're running it down to the side so you can use it for the one macro later.
+
+900
+01:47:10,410 --> 01:47:13,440
+And here is the model for the zero inflation part.
+
+901
+01:47:13,560 --> 01:47:24,389
+Now, just a child in it, which is very significant. And so this is just copied so that we can write a sentence about it.
+
+902
+01:47:24,390 --> 01:47:26,940
+And so now when accessories are accounted for,
+
+903
+01:47:27,300 --> 01:47:34,590
+groups with campers catch on average E of the .5834 or 1.79 times more fish than groups without campers.
+
+904
+01:47:35,010 --> 01:47:45,180
+Confidence interval. P value. And I.
+
+905
+01:47:47,810 --> 01:47:55,250
+So you can use this one macro to compare the models in R as well using this blanket text.
+
+906
+01:47:55,490 --> 01:47:58,549
+It's a lot easier to use. I was sorry.
+
+907
+01:47:58,550 --> 01:48:05,940
+I was thinking r macro. This is still the SAS code with with the wrong macro that actually isn't easy to use.
+
+908
+01:48:05,960 --> 01:48:11,020
+R is much better for this in terms of ease of use for those who have spent time learning r it.
+
+909
+01:48:11,030 --> 01:48:19,180
+There's a real benefit here. So in SAS we're including that macro and we're doing that same game of saving everything into one data set.
+
+910
+01:48:19,190 --> 01:48:25,280
+So now I'm going to call the data set out Z and B for the zero inflated negative binomial setting.
+
+911
+01:48:25,280 --> 01:48:31,259
+My predicted values and my P zero stuff. And then I use that data.
+
+912
+01:48:31,260 --> 01:48:35,100
+Set an orange here when I fit. Now just the negative binomial model.
+
+913
+01:48:36,000 --> 01:48:43,830
+And so I'm collecting everything into this data set in blue out and b including the predicted values for the negative binomial.
+
+914
+01:48:44,160 --> 01:48:47,430
+And that's finally the data set that I use for the wrong macro.
+
+915
+01:48:48,000 --> 01:48:52,500
+So the second data set has everything from the first model fit and the second model fit.
+
+916
+01:48:53,130 --> 01:48:58,530
+And so I can talk about model one and model two. So model one being the zero implied a negative binomial.
+
+917
+01:49:00,150 --> 01:49:07,050
+I have the predicted values from this variable for model with the zero plot the negative binomial.
+
+918
+01:49:07,260 --> 01:49:11,040
+I've saved them into pred and B for the negative binomial model to.
+
+919
+01:49:12,360 --> 01:49:17,650
+And these scale variables are the numbers that I wrote down for that for that scale row.
+
+920
+01:49:18,120 --> 01:49:21,089
+Here's the one from the zero played a negative binomial output.
+
+921
+01:49:21,090 --> 01:49:25,440
+If you go back through the handout, this is the this is one of the numbers I boxed and read to remember.
+
+922
+01:49:25,680 --> 01:49:31,890
+And that's where it goes. And here is the same thing from the the negative binomial model.
+
+923
+01:49:32,430 --> 01:49:40,500
+And we again have to count the number of parameters. And so for the zero inflated model, we've got four parameters for the mean,
+
+924
+01:49:41,040 --> 01:49:53,099
+but just two parameters for the logistic because I just had camper an intercept, so four parameters for the mean plus two parameters for the logistic.
+
+925
+01:49:53,100 --> 01:49:58,620
+Plus because we're in the negative binomial situation, we have that extra k parameters.
+
+926
+01:49:58,620 --> 01:50:03,920
+So there's actually one more here. Because of the K parameter you use with the negative binomial.
+
+927
+01:50:04,640 --> 01:50:12,620
+And so in the negative binomial not 0.8, but the regular negative binomial, you've gotten rid of the zero models.
+
+928
+01:50:12,620 --> 01:50:18,110
+There's two parameters we lost their intercept and camper, so there's five parameters now.
+
+929
+01:50:21,640 --> 01:50:28,990
+And again, just to remind you, you have to put in the numbers here from the model fits the dispersion parameter roe.
+
+930
+01:50:30,670 --> 01:50:38,139
+And the output looks like this. And I realized I'm going over a little bit, so I might have to make some comments next time.
+
+931
+01:50:38,140 --> 01:50:42,550
+But the preferred model column is the column that's the most important.
+
+932
+01:50:42,560 --> 01:50:48,190
+It says that the zero inflated negative by model zero played a negative binomial models preferred.
+
+933
+01:50:48,790 --> 01:50:50,620
+The P value is not significant.
+
+934
+01:50:50,770 --> 01:50:59,020
+Again, I don't want you to overinterpret that, but it does sort of suggest there's it's it's the strength of which is preferred is a little weaker.
+
+935
+01:50:59,620 --> 01:51:05,560
+So there's no model that's a clear winner. But the one statistic recommends the 0.2 negative binomial model.
+
+936
+01:51:05,770 --> 01:51:12,490
+And I agree with that recommendation mainly because when we were fitting the zero model, we had a very significant result for children.
+
+937
+01:51:12,940 --> 01:51:17,259
+So when I see any cover, it's in the zero inflated model that are significant.
+
+938
+01:51:17,260 --> 01:51:23,020
+I want to use zero inflated version of these models, but an orbit command could be made for either model.
+
+939
+01:51:24,200 --> 01:51:30,420
+So there's our code that's very similar, except that the one statistic is so much easier to put together.
+
+940
+01:51:30,440 --> 01:51:35,630
+You don't have to store any dispersion parameters. It stores all that for you and figure it out for you.
+
+941
+01:51:37,650 --> 01:51:41,640
+And again similar output in our.
+
+942
+01:51:43,930 --> 01:51:48,060
+It's you know, I'm just going to keep you for one more one or two more matches to finish this hand out.
+
+943
+01:51:48,510 --> 01:51:54,820
+Just note that our did not flag the error when we had three predictors in the zero model.
+
+944
+01:51:55,030 --> 01:52:01,030
+The only symptom that something was going wrong in our was that we had these huge standard errors.
+
+945
+01:52:01,480 --> 01:52:07,270
+So staff actually told us that there was a problem with the model fit when we put all three predictors in the zero model.
+
+946
+01:52:07,270 --> 01:52:11,740
+But ah, didn't it expects you to figure it out from the large standard errors here.
+
+947
+01:52:12,580 --> 01:52:21,219
+So that's a bit of a problem for our. And the last thing I show here is some plots just in the privacy of a room, own room.
+
+948
+01:52:21,220 --> 01:52:26,950
+You can sort of see how the mean counts are changing according to child and camper.
+
+949
+01:52:26,950 --> 01:52:37,299
+And here these particular plots was sort of fixing persons at 2.5 just so that you could look at the effect of the number of children and campers.
+
+950
+01:52:37,300 --> 01:52:42,790
+So that is all that I'm going to. Really talk about here.
+
+951
+01:52:42,790 --> 01:52:48,280
+There's a little summary here, and I'm sorry I'm rushing this last slide, but I'd really just like to move on from here.
+
+952
+01:52:48,560 --> 01:52:53,050
+Maybe I'll come back to this and spend a moment on the last slide again next time, just so it doesn't feel so rushed.
+
+953
+01:52:53,860 --> 01:52:57,490
+That's it for today, and I will see you next time.
+
+954
+01:53:10,670 --> 01:53:10,870
+I.
+

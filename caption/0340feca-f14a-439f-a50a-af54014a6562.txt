@@ -1,0 +1,1892 @@
+1
+00:00:03,090 --> 00:00:09,719
+All right. Good afternoon, everybody. So why don't we get started? This is the a lecture in the week of Thanksgiving.
+
+2
+00:00:09,720 --> 00:00:13,830
+So it's understandable that we have much more even sparser audience.
+
+3
+00:00:13,830 --> 00:00:19,550
+But for those who are here, we're just going to continue talking about the margin model and condition model.
+
+4
+00:00:19,560 --> 00:00:25,500
+And my expectation is that it will not be as long as I as a previous few lectures.
+
+5
+00:00:25,500 --> 00:00:31,710
+So it may end early and you guys can take some time if you need those time of projects.
+
+6
+00:00:33,210 --> 00:00:39,120
+So first, do you have a do we have any burning questions regarding the homework or our proposals?
+
+7
+00:00:39,120 --> 00:00:42,870
+So we're still getting some comments or proposals, apologies.
+
+8
+00:00:43,020 --> 00:00:46,620
+We have a delay there, so hopefully we can send them out today.
+
+9
+00:00:52,500 --> 00:00:58,350
+All right. So for Handel Tendi, this is relatively more technical lecture.
+
+10
+00:00:58,620 --> 00:01:09,330
+And the goal here is to review a few results that I think will be pretty useful when late on you are considering building models and fit models.
+
+11
+00:01:09,690 --> 00:01:16,950
+And so you will see some mathematical notations, especially iterated expectations and iterated variances.
+
+12
+00:01:17,910 --> 00:01:23,010
+The idea will be try to connect generalize in a mixed model and marginal model.
+
+13
+00:01:24,000 --> 00:01:30,840
+So as the lecture title says, it's more examples and technical derivations.
+
+14
+00:01:31,590 --> 00:01:34,649
+So learning objectives, we have two parts.
+
+15
+00:01:34,650 --> 00:01:39,780
+The first part is trying to understand how do we do generalized the mixed model for common responses.
+
+16
+00:01:41,970 --> 00:01:51,570
+The second one is trying to focus on the mathematical derivation and some consequences of, you know, starting from generalized UNIX model.
+
+17
+00:01:51,570 --> 00:01:55,920
+And does that recover the interpretation you would obtain in a margin model setting?
+
+18
+00:01:56,430 --> 00:02:02,130
+And so let's get started. The first one, the generalized dynamics model example,
+
+19
+00:02:02,700 --> 00:02:08,999
+the background is that this study collected seizure data from 59 epileptics and the
+
+20
+00:02:09,000 --> 00:02:13,620
+number of epileptic seizures were recorded during a baseline period of eight weeks.
+
+21
+00:02:14,040 --> 00:02:17,340
+So I'm going to draw a timeline, hopefully that can help visualize the data.
+
+22
+00:02:17,940 --> 00:02:22,350
+So if this is a timeline and this will be type zero,
+
+23
+00:02:23,130 --> 00:02:31,950
+we have eight weeks prior to time zero and the number of seizures you observed would be called yy0.
+
+24
+00:02:32,490 --> 00:02:39,180
+So this is minus eight and this is week to week four, six and eight.
+
+25
+00:02:40,260 --> 00:02:46,800
+So for the epileptic seizures you counted in the first window, it'll be called Y one.
+
+26
+00:02:47,850 --> 00:02:52,080
+Similarly, you call this white two, y three and ay4.
+
+27
+00:02:52,350 --> 00:02:56,880
+Hopefully this clarifies the data collection protocol.
+
+28
+00:02:57,750 --> 00:03:03,840
+And if I use d zero to represent duration for the period of between the.
+
+29
+00:03:06,520 --> 00:03:10,320
+My minus eight weeks to week zero, which is the pre randomization period.
+
+30
+00:03:11,730 --> 00:03:21,750
+We can do similar things for other post romanization windows where the durations will be a constant of two two weeks.
+
+31
+00:03:24,290 --> 00:03:27,650
+Okay. So where does the randomization happen? The randomization happens here.
+
+32
+00:03:32,090 --> 00:03:35,870
+And we have to treatment. So two groups. One is the treatment.
+
+33
+00:03:36,380 --> 00:03:48,640
+The other is a control. And we also define the cover that's called oxide j so excited j equals zero.
+
+34
+00:03:48,640 --> 00:03:59,150
+It represents a pre randomization period. All right.
+
+35
+00:03:59,160 --> 00:04:05,580
+And we just love all the period after the brutalization to call that a post recommendation period.
+
+36
+00:04:09,060 --> 00:04:13,620
+Can you do x j equals 1234.
+
+37
+00:04:13,960 --> 00:04:16,560
+For post randomization period you can.
+
+38
+00:04:17,040 --> 00:04:25,440
+But I think this is just one simple example of trying to illustrate how do you fit the ampersand generalized meaning model?
+
+39
+00:04:28,080 --> 00:04:34,220
+Post randomization. It is j equals 1 to 3.
+
+40
+00:04:34,550 --> 00:04:39,110
+So as long as this post randomization exercise, there will be one.
+
+41
+00:04:40,960 --> 00:04:46,090
+All right. And for different windows, you will have different durations.
+
+42
+00:04:46,100 --> 00:04:52,000
+So we need to take that into account. And this slide basically summarizes all the notations we have just introduced.
+
+43
+00:04:53,050 --> 00:04:55,860
+We actually did not write down. Oh, actually, we did.
+
+44
+00:04:55,870 --> 00:05:03,450
+So y j is the number of seizures and I'm patient i education j and time i j the actual times degree
+
+45
+00:05:03,460 --> 00:05:10,420
+durations ty ty is the our treatment group indicator one being the person receiving the treatment,
+
+46
+00:05:11,140 --> 00:05:14,740
+zero being the person did not receive the treatment or other control, if you will.
+
+47
+00:05:15,130 --> 00:05:19,960
+Exigé is the pre post actually post randomization indicator?
+
+48
+00:05:20,200 --> 00:05:28,570
+We have 59 subjects. Each subject had five occasions, so in this example we were simply going to assume the three.
+
+49
+00:05:29,350 --> 00:05:38,629
+We're going to simply assume that this model is coming from a person family to specify generalizing a mixed model.
+
+50
+00:05:38,630 --> 00:05:43,490
+We always have to condition the. Random effect.
+
+51
+00:05:43,700 --> 00:05:47,300
+So here we're going to assume we just have one random intercept.
+
+52
+00:05:47,750 --> 00:05:51,230
+The person of and y j is the count.
+
+53
+00:05:51,440 --> 00:05:56,839
+And because depending on the window we have different durations, we have to take that into account.
+
+54
+00:05:56,840 --> 00:06:00,800
+So i j is the rates.
+
+55
+00:06:03,860 --> 00:06:08,480
+Of event. And. We don't.
+
+56
+00:06:09,760 --> 00:06:18,210
+JAY And the idea is just duration. Huh?
+
+57
+00:06:18,580 --> 00:06:22,130
+Duration. Okay. They would go.
+
+58
+00:06:24,490 --> 00:06:28,410
+So if you look at this particular model here. Um.
+
+59
+00:06:28,840 --> 00:06:32,170
+Remember, we call that a tie as a treatment indicator.
+
+60
+00:06:32,580 --> 00:06:37,210
+Exchanges are the post randomization you cater and you have the interaction here.
+
+61
+00:06:37,810 --> 00:06:43,480
+So this is the main model structure and we just have our names set.
+
+62
+00:06:43,720 --> 00:06:51,400
+And finally, we just assume that the random intercept will follow a Gaussian distribution with mean zero and variance sigma squared.
+
+63
+00:06:51,760 --> 00:06:57,820
+And customarily, we would also assume that the random effects are independent of the.
+
+64
+00:07:01,160 --> 00:07:05,990
+Treatment group indicator and post randomization indicator.
+
+65
+00:07:06,590 --> 00:07:12,499
+So by closing it is going to be independent.ie this easy because tie is random
+
+66
+00:07:12,500 --> 00:07:20,540
+randomization excel j independent of by and that is going to be a real assumption.
+
+67
+00:07:22,130 --> 00:07:25,459
+So based on this model, we are going to do some interpretations.
+
+68
+00:07:25,460 --> 00:07:27,830
+So all the answers will be provided in the next slide.
+
+69
+00:07:28,010 --> 00:07:33,560
+But because there are lots of words, I'm going to just show you how I would interpret this model.
+
+70
+00:07:33,770 --> 00:07:38,750
+Again, this might be quite straightforward to some of you, but for those of you who know, please bear with me.
+
+71
+00:07:39,500 --> 00:07:49,640
+I think my goal here is trying to help interpret a model with interruption in the context of generalizing a mixed model.
+
+72
+00:07:50,150 --> 00:07:56,900
+So the table is the trick I usually do. It is just a dumbed down version of doing interpretation.
+
+73
+00:07:57,260 --> 00:08:02,960
+So for two rows we are going to say that the first row represent the true two group,
+
+74
+00:08:03,080 --> 00:08:09,440
+the second row represent the control group and we have the pre randomization and post randomization.
+
+75
+00:08:09,440 --> 00:08:20,610
+Right. And in the cells, we're going to calculate, you know, the expected value of y j given by.
+
+76
+00:08:21,810 --> 00:08:24,840
+All right. So let's try to let's do that.
+
+77
+00:08:24,840 --> 00:08:29,190
+And I need to put I'll put all the ties in there, too.
+
+78
+00:08:30,180 --> 00:08:40,310
+So for the first cell. For treatment group because one and the premiumisation clearly what you can do is just to plug in t equals one.
+
+79
+00:08:41,730 --> 00:08:49,740
+And X equals zero, right? So the only terms you're going to have is zero plus one plus CPI.
+
+80
+00:08:50,610 --> 00:08:55,030
+So I'm going to call this one. So for other cells, it's rather easy to do.
+
+81
+00:08:55,050 --> 00:08:59,340
+So I'm not going to burden you with your calculation. So I'm just going to copy from my note.
+
+82
+00:09:00,150 --> 00:09:05,040
+These are the this is beta zero plus beta.
+
+83
+00:09:06,960 --> 00:09:11,520
+Now the first interpretation and task. How to interpret B to zero plus by.
+
+84
+00:09:16,060 --> 00:09:20,260
+Well it is for the control group and it is for the pre randomization.
+
+85
+00:09:20,680 --> 00:09:29,320
+So if I scroll down, well if you just try to interpret this some in this particular context,
+
+86
+00:09:29,890 --> 00:09:42,490
+I would say that it is zero exponential beta zero plus pi is the expected rate of seizures for a typical individual in the placebo group at time zero.
+
+87
+00:09:43,020 --> 00:09:54,490
+Right. So we have to add the qualifier qualifier to say that this is for a typical individual because we are considering a person's particular API.
+
+88
+00:09:54,820 --> 00:09:59,260
+So when you're talking about typical individual, the API needs to be set in zero.
+
+89
+00:10:00,580 --> 00:10:06,530
+So. If you're going to talk about for some July, then you just say, hey, you know,
+
+90
+00:10:06,530 --> 00:10:11,480
+this is the expected rate of seizures for a person with a random set of buy.
+
+91
+00:10:12,560 --> 00:10:19,370
+This would be the invitation for two. Now let's write down other conditional means.
+
+92
+00:10:19,520 --> 00:10:23,209
+So this cell would be below zero plus beta.
+
+93
+00:10:23,210 --> 00:10:26,360
+One was built to last me three plus.
+
+94
+00:10:26,360 --> 00:10:36,320
+We are here. Let's call this for. And similarly, this is going to be built a zero plus be added to plus VII.
+
+95
+00:10:36,380 --> 00:10:41,450
+Let's call this three. Right. Okay.
+
+96
+00:10:45,200 --> 00:10:53,350
+Now let's take some differences. Let's take some differences.
+
+97
+00:10:53,740 --> 00:10:58,390
+So if you do one, one, minus two, it will be beta one, right?
+
+98
+00:10:59,110 --> 00:11:07,960
+How do you interpret beta one? So if you take the difference between one and two, you have to cancel out the same by, right?
+
+99
+00:11:09,010 --> 00:11:15,730
+Same value at least. But because this is randomization, one person can only be assigned to one kind of treatment.
+
+100
+00:11:15,760 --> 00:11:24,850
+How would you do this interpretation? So this is related to what we talked about in the example in the oh nine Tennessee.
+
+101
+00:11:25,660 --> 00:11:31,420
+I think we said for two people that have this happen to have the same random effects.
+
+102
+00:11:32,140 --> 00:11:36,520
+Okay. One in the treated group. The other in the control group.
+
+103
+00:11:36,940 --> 00:11:42,370
+And what's the average difference in the outcome at the prevention fruit randomization period?
+
+104
+00:11:43,530 --> 00:11:47,050
+Right. So that's the gist of how you would do the invitation.
+
+105
+00:11:47,620 --> 00:11:52,450
+You have to force the two people into a treatment group to have the same random effect.
+
+106
+00:11:52,660 --> 00:12:00,010
+It's kind of a very, you know, twist kind of invitation, but that is mathematically correct.
+
+107
+00:12:03,840 --> 00:12:07,170
+So now let's do the second difference, which is four minus three.
+
+108
+00:12:08,720 --> 00:12:11,780
+So this would be one plus 3 to 3.
+
+109
+00:12:12,260 --> 00:12:16,489
+So I would not do that because that's just a similar interpretation.
+
+110
+00:12:16,490 --> 00:12:21,650
+But for the post randomization period. Okay.
+
+111
+00:12:21,680 --> 00:12:28,540
+Now let's do another difference. So if it's four by four minus one, what is that value?
+
+112
+00:12:29,080 --> 00:12:32,200
+It is going to be beta two plus beta three.
+
+113
+00:12:32,590 --> 00:12:37,450
+If you do three minus two, it is going to be in a two.
+
+114
+00:12:38,690 --> 00:12:43,670
+Okay. So first, how do we interpret exponential data to.
+
+115
+00:12:46,220 --> 00:12:51,049
+Recall that bill too. Here is the difference between the number in the box.
+
+116
+00:12:51,050 --> 00:12:59,650
+Three minus number in box two. So it can be representing the average outcome from the same person because you know,
+
+117
+00:12:59,870 --> 00:13:05,840
+we can have one person coming from the control group and we're just contrasting the post randomization and prioritization period.
+
+118
+00:13:06,920 --> 00:13:16,130
+So to interpret this would basically say that exponential of beta two is a ratio of expected seizure rate at time.
+
+119
+00:13:17,070 --> 00:13:25,470
+J equals 1234 IEEE post randomization as compared to two equals zero, i.e. the preferred position in a placebo group for a typical individual.
+
+120
+00:13:26,010 --> 00:13:34,290
+So here I have been using a typical individual, but clearly you can say for any particular individual that also works because this,
+
+121
+00:13:34,470 --> 00:13:38,340
+as long as you're talking about the same person to be able to cancel if you do three minus two.
+
+122
+00:13:40,440 --> 00:13:45,660
+Similarly, you can do better two plus three. The only difference is that you're focusing on the treatment group.
+
+123
+00:13:45,930 --> 00:13:51,690
+Now, let's take the final difference, which is let's call this thing eight.
+
+124
+00:13:52,140 --> 00:13:57,090
+It's called this thing nine. So let's do eight minus nine.
+
+125
+00:13:57,540 --> 00:14:03,630
+So you will have beta three. Yeah, bittersweet. So now the final task is how do you interpret beta three?
+
+126
+00:14:04,680 --> 00:14:16,350
+I recall beta three is simply just the interaction term. So this is a little bit mouthful, but I'm going to just read it.
+
+127
+00:14:16,460 --> 00:14:20,360
+Read this outloud with you. I think I have some typos here. I'm going to correct it first.
+
+128
+00:14:21,320 --> 00:14:29,410
+Um. So exponential beta three remember it is it is coming from the comparison between
+
+129
+00:14:29,410 --> 00:14:34,630
+the between the one subject in the treated group versus another subject in the.
+
+130
+00:14:35,750 --> 00:14:41,210
+A control group. But it is evaluating the changes post and pre baseline, right.
+
+131
+00:14:41,990 --> 00:14:51,920
+So exponential beta three is simply the ratio comparing the ratio of post premiumisation expected
+
+132
+00:14:51,920 --> 00:14:58,430
+seizure rates in the treatment group relative to that in the control group for a typical individual.
+
+133
+00:14:59,060 --> 00:15:03,530
+So you know, when you are trying to fit this model,
+
+134
+00:15:03,530 --> 00:15:13,819
+I think that your goal is trying to obtain these better estimates and then give the meaning to these rates like rates of what whatever cancer count,
+
+135
+00:15:13,820 --> 00:15:20,000
+cancer counts or seizure counts. And I think that's just a involves how to read the invitation beautifully.
+
+136
+00:15:20,300 --> 00:15:28,460
+So to sum it up, I usually use this kind of table to make sure I'm not incorrectly interpreting the coefficients.
+
+137
+00:15:37,590 --> 00:15:42,930
+So this brings us to the connection between the generalized.
+
+138
+00:15:44,180 --> 00:15:55,130
+Nina makes model to margin models. But before we do that, I want to talk about why people would consider generalizing in a mixed model.
+
+139
+00:15:55,400 --> 00:16:03,080
+So if you look at this particular model on the screen by is what's new to what you would call a percent regression, right?
+
+140
+00:16:03,770 --> 00:16:08,179
+But what's really been done here is that two things have been done here.
+
+141
+00:16:08,180 --> 00:16:13,520
+First, BI is introduced to reflect that there are some between subject heterogeneity.
+
+142
+00:16:15,300 --> 00:16:21,960
+And second, as a consequence, because of this heterogeneity, we have some variability.
+
+143
+00:16:22,500 --> 00:16:29,820
+So anything explained about that on that point, which is that by having individual specific random effects,
+
+144
+00:16:30,360 --> 00:16:35,430
+we are having a distribution margin with y, y, j, that's not exactly person.
+
+145
+00:16:36,060 --> 00:16:45,959
+So for that, we simply going to focus on the much simpler model, which is the beta zero plus high times beta one plus by.
+
+146
+00:16:45,960 --> 00:16:55,800
+So I'm removing all the gravitation post randomization data and just focusing on the data at the.
+
+147
+00:16:58,230 --> 00:17:07,110
+I would say that at the Premiumisation period, and it doesn't it doesn't matter if you put in more terms in here.
+
+148
+00:17:07,380 --> 00:17:10,590
+I think all I am trying to explain here is about the calculation.
+
+149
+00:17:11,040 --> 00:17:16,140
+So here, this is the model. And we also assume that the duration the same.
+
+150
+00:17:17,540 --> 00:17:24,620
+To simplify the calculation. So when we were supposed to have specified the generalized genomics model, the conditional mean looks like this.
+
+151
+00:17:24,800 --> 00:17:32,720
+Right. So we were specifying that the expected value of the outcome, given the random effects, follow this form.
+
+152
+00:17:35,150 --> 00:17:40,360
+How do we do that? Well, essentially, it is just a. Oh, actually we do have the duration apology.
+
+153
+00:17:40,780 --> 00:17:52,140
+The issue times alumni J and we have model alumni J equals the exponential of the zero plus T times beta one plus by here.
+
+154
+00:17:53,190 --> 00:18:02,220
+Okay. Now, from the condition I mean we can always use the iterated expectation to calculate marginal mean.
+
+155
+00:18:03,060 --> 00:18:06,600
+So. Okay. Let me summarize from here.
+
+156
+00:18:07,050 --> 00:18:11,940
+We have assumed that line j given by follows and on.
+
+157
+00:18:13,440 --> 00:18:26,310
+With the for some parameter being DOJ times lambda i j and we have the by file following the normal zero Sigma Square distribution.
+
+158
+00:18:28,610 --> 00:18:34,910
+Okay. Now, to calculate the marginal mean, we simply average over the pie.
+
+159
+00:18:35,450 --> 00:18:40,040
+So we plug in the form of the conditional mean, which is this one.
+
+160
+00:18:40,730 --> 00:18:48,830
+And then you simplify. It basically involves a term that's calculating the expectation of exponential.
+
+161
+00:18:48,830 --> 00:18:53,900
+By this I should be here and we can use a mathematical fact,
+
+162
+00:18:53,930 --> 00:19:01,940
+which is that if PI follows the Gaussian distribution with being zero and then Sigma squared, you simply will have this.
+
+163
+00:19:04,560 --> 00:19:12,420
+And this pretty much can be derived very quickly I think C can it's related moment function by setting T to be one.
+
+164
+00:19:13,330 --> 00:19:18,480
+So once you have this term, you can see that the module will be like this.
+
+165
+00:19:29,070 --> 00:19:33,190
+So. From this result, what is the conclusion we can draw?
+
+166
+00:19:33,940 --> 00:19:42,520
+So this is a purely algebraic calculation. But recall we started from a model with a conditional interpretation of beta zero.
+
+167
+00:19:42,970 --> 00:19:48,700
+Beta one, and this by which is randomly distributed is according to Gaussian.
+
+168
+00:19:49,150 --> 00:19:55,390
+After we have integrate over by again, magically, it still follows.
+
+169
+00:19:55,810 --> 00:20:08,200
+It still takes a form. You know, like the age times exponential, just, you know, matching what you have done in the conditional means specification.
+
+170
+00:20:08,770 --> 00:20:12,250
+But the only difference, as you would notice, is that, hey,
+
+171
+00:20:12,490 --> 00:20:19,780
+the buy here is gone because this individual over it has been replaced with an additional term called.
+
+172
+00:20:20,840 --> 00:20:28,130
+Sigma squared over two. So this means that the beta one itself has not changed at all.
+
+173
+00:20:29,150 --> 00:20:35,870
+By integrating all the bits. However, the intercept at Beta Zero has been shifted.
+
+174
+00:20:37,290 --> 00:20:40,020
+By amount of two sigma squared over two.
+
+175
+00:20:40,560 --> 00:20:47,880
+So this exercise shows that there are some extraordinary cases even when the link function is non-linear like log,
+
+176
+00:20:48,420 --> 00:20:51,420
+when you are integrating over Gaussian random effects.
+
+177
+00:20:52,200 --> 00:20:58,830
+If your most important coefficient is beta one, which is the coefficient in front of treatment,
+
+178
+00:20:59,190 --> 00:21:05,280
+that beta one will have the same value in either the treatment model.
+
+179
+00:21:05,550 --> 00:21:12,660
+So in the control model or the conditional model or the marginal model, however, the intercept will be changed.
+
+180
+00:21:13,500 --> 00:21:16,800
+Okay, so what does that mean?
+
+181
+00:21:16,830 --> 00:21:22,650
+If you have that data, you can fit a generalized new mixed model with the log link and you can get the beta one hat.
+
+182
+00:21:24,300 --> 00:21:30,000
+Okay. And or alternatively, you can use SIM data for 3G.
+
+183
+00:21:30,940 --> 00:21:35,889
+Using that margin model specification. You got another better one.
+
+184
+00:21:35,890 --> 00:21:42,390
+Have those two. A better one has will be the same. Maybe the variances will be different, but the better it will has will be the same.
+
+185
+00:21:43,230 --> 00:21:53,650
+So that's the theoretical prediction. Let's remove the discussion module media marginal medium.
+
+186
+00:21:53,730 --> 00:21:56,280
+I don't think it matters too much here.
+
+187
+00:21:58,200 --> 00:22:10,680
+So the point of this slide is to show that for some nonlinear link function you do can preserve the estimates of beta as long as not intercept.
+
+188
+00:22:12,810 --> 00:22:22,680
+The second point I want to make is about, you know, by introducing the CPI, we have introduced extra personal liability.
+
+189
+00:22:23,250 --> 00:22:27,300
+So how do we mathematically represent that?
+
+190
+00:22:27,540 --> 00:22:35,880
+Well, inputs on distribution, we know the marginal variance of J would equal the expectation the YJ right.
+
+191
+00:22:36,150 --> 00:22:39,510
+So this is a quintessential feature of Poisson distribution.
+
+192
+00:22:41,680 --> 00:22:45,070
+The variance equals expectation for extra.
+
+193
+00:22:45,190 --> 00:22:50,890
+For some variability, it means that variability can be bigger than the expectation.
+
+194
+00:23:06,260 --> 00:23:23,390
+Mm. This. So if you have this kind of form, then you will have extra person variability.
+
+195
+00:23:23,630 --> 00:23:32,930
+So to do that, we simply need to start from a general and generalize, need a model specification and then derive the marginal variance.
+
+196
+00:23:33,500 --> 00:23:38,000
+To do that, we basically have to invoke, I think it's called iterated variance,
+
+197
+00:23:38,000 --> 00:23:43,670
+but I could be wrong, it just resembles how you would do iterated expectations.
+
+198
+00:23:43,940 --> 00:23:53,120
+It is just that you have now two terms to worry about. So the variance of why J will be calculated as the variance.
+
+199
+00:23:55,690 --> 00:23:58,780
+Over by for quantity.
+
+200
+00:23:58,780 --> 00:24:01,330
+That's a conditional expectation.
+
+201
+00:24:03,470 --> 00:24:15,160
+And the second term is the expectation over the RBI, where the quantity to be averaged over is the variability of y j given by OC.
+
+202
+00:24:15,200 --> 00:24:21,530
+So let's take a look at these terms. The first term is to say that, hey, if you have a conditional mean,
+
+203
+00:24:21,830 --> 00:24:30,650
+let's plug that in and then calculate this variability when the by the thing being conditional upon is being very varied in the real life.
+
+204
+00:24:30,680 --> 00:24:34,010
+Right. So we know we specified this.
+
+205
+00:24:35,630 --> 00:24:40,130
+Which is what we called. Um. I'd be here.
+
+206
+00:24:41,380 --> 00:24:53,209
+Which essentially is what is, um, I believe it's digitimes exponential beta zero plus beta one times high plus beta.
+
+207
+00:24:53,210 --> 00:24:55,480
+Right. So that's the term inside here.
+
+208
+00:24:57,070 --> 00:25:05,980
+And then when you calculate the variance, clearly what's inside has one random quantity, which is by then you just have to calculate that variance.
+
+209
+00:25:06,250 --> 00:25:10,150
+Fortunately, we'll have a closed form, but that's the first term.
+
+210
+00:25:10,840 --> 00:25:17,110
+The second term essentially involves, you know, the variance of the conditional distribution.
+
+211
+00:25:17,110 --> 00:25:19,400
+But because we assume this Gaussian right.
+
+212
+00:25:19,420 --> 00:25:28,480
+So essentially, again, it is more like a B, but now for the second term, you only need to take the average over by.
+
+213
+00:25:28,840 --> 00:25:38,230
+Okay. And again, there is a clause for it. So using this formula, basically, I have gone through these this first step.
+
+214
+00:25:38,650 --> 00:25:46,120
+The margin of error can be the sum of these two terms. And when you further simplify, I probably want to save time.
+
+215
+00:25:46,270 --> 00:25:53,710
+But if you further simplify and use the results, the variance of.
+
+216
+00:25:55,490 --> 00:26:01,140
+Exponential buy is. Exponential.
+
+217
+00:26:01,160 --> 00:26:06,500
+Sigma Square minus one. Okay.
+
+218
+00:26:06,800 --> 00:26:12,620
+So if you use this result, then you can derive a closed form.
+
+219
+00:26:12,950 --> 00:26:19,780
+And you know a lot of you. Rearrange the terms you are, arrive at this thing.
+
+220
+00:26:20,500 --> 00:26:23,650
+So if you compare what I hope to achieve.
+
+221
+00:26:24,810 --> 00:26:29,580
+With what you got here. So essentially this term is basically the fight, right?
+
+222
+00:26:30,090 --> 00:26:34,830
+And because the fight is one plus the expectation times Carter.
+
+223
+00:26:35,250 --> 00:26:38,280
+Well, why is a pass is a non-negative value?
+
+224
+00:26:38,280 --> 00:26:41,399
+Because why is a count so expectation?
+
+225
+00:26:41,400 --> 00:26:53,580
+Y j is not non-negative. Kappa Kappa is this thing exponential is always greater than or equal to one.
+
+226
+00:26:53,730 --> 00:27:01,080
+So Kappa is greater than zero. So basically this term Phi here is going to be greater than or equal to one.
+
+227
+00:27:01,470 --> 00:27:04,500
+Most likely it's going to be greater than one.
+
+228
+00:27:04,890 --> 00:27:11,190
+So the margin of error is will have and will be bigger than the mean.
+
+229
+00:27:11,430 --> 00:27:20,550
+So it is through this calculation, we verified that the generalized mixed model can induce extra Poisson variability.
+
+230
+00:27:25,240 --> 00:27:33,580
+So. This is basically to say that even if when you were so recall that when you were specifying the generalized,
+
+231
+00:27:34,210 --> 00:27:38,960
+uh, estimating equation, you have to specify a variance margin of error.
+
+232
+00:27:38,960 --> 00:27:43,090
+And right in that margin of error. You had to specify a product two times.
+
+233
+00:27:43,390 --> 00:27:48,320
+One is a five, the other is a variance function which is V times the of G.
+
+234
+00:27:48,940 --> 00:27:57,340
+Right. So there that's the place in margin of model or G to introduce that extra variability in generalized mimics model.
+
+235
+00:27:57,820 --> 00:28:02,110
+We did not explicitly do that, but as a consequence, through this calculation,
+
+236
+00:28:02,110 --> 00:28:11,559
+you can see the margin of errors has been how to say relaxed to not follow exact Poisson variability.
+
+237
+00:28:11,560 --> 00:28:19,030
+Here it's extra resolved, extra percent reliability. Well then the question is, can you calculate model covariance?
+
+238
+00:28:19,040 --> 00:28:23,349
+It turns out you can. I will not calculate this again.
+
+239
+00:28:23,350 --> 00:28:30,230
+Should be a simple exercise if you know this formula and the formula before which involves expectation of exponential by.
+
+240
+00:28:30,730 --> 00:28:38,880
+So the bottom line is that the same kappa that we saw earlier also dictates the extra Poisson covariance.
+
+241
+00:28:39,340 --> 00:28:51,040
+So that is to say, uh, the same Kappa parameter controls both the extra Pascal marginal variance and extra Pascal coherence.
+
+242
+00:28:59,930 --> 00:29:05,090
+And what you see here in the matrix form essentially is the individual eyes,
+
+243
+00:29:06,620 --> 00:29:14,360
+marginal variances as a on the main diagonals and also all the currencies that are specified in the off diagonals.
+
+244
+00:29:14,930 --> 00:29:18,440
+As you can see, Kappa plays an important role in every entry.
+
+245
+00:29:30,000 --> 00:29:38,940
+So this concludes the example of the Poisson regression in the context of generalized the mixed model.
+
+246
+00:29:40,200 --> 00:29:45,720
+And I want to go back to handouts.
+
+247
+00:29:47,260 --> 00:29:56,770
+Ten be and hang out and see. To show two examples you have seen before to introduce the next part of the technical discussion.
+
+248
+00:29:57,340 --> 00:30:03,880
+So first, handout ten B, you don't have to pull out these slides because I would not write a new things.
+
+249
+00:30:04,210 --> 00:30:08,110
+I'm just going to show some calculation and remind you what they meant.
+
+250
+00:30:11,360 --> 00:30:18,920
+So in Handel, Timothy, we have this illustrative example of where I can help refresh your memory.
+
+251
+00:30:19,160 --> 00:30:24,230
+So in this table it has three rows corresponding to three kinds of people in the population.
+
+252
+00:30:24,590 --> 00:30:28,600
+Well, a population may have, say, 300 people. You know, we have 100.
+
+253
+00:30:28,610 --> 00:30:37,370
+It's like A, 100, like B, 100, like C. And for each person we have two time points, the baseline and the post baseline.
+
+254
+00:30:37,640 --> 00:30:40,460
+Here we are talking about binary outcomes disease.
+
+255
+00:30:41,000 --> 00:30:50,870
+And if you look at the number point eight, that can represent the chance, the risk for subject A to have a disease.
+
+256
+00:30:52,230 --> 00:31:00,030
+At baseline period. So that's point eight and post baseline, that risk drops to .67.
+
+257
+00:31:01,290 --> 00:31:08,010
+Often, you know, there's a drug being administered here or if there's no drug, but it's just because of the effect of time.
+
+258
+00:31:08,610 --> 00:31:13,830
+But anyway, this contrast we want to make is really between the post baseline baseline.
+
+259
+00:31:14,910 --> 00:31:21,180
+If we focus on the effect measure of the log odds ratio,
+
+260
+00:31:21,180 --> 00:31:27,750
+we have calculated that this drop in the disease risk can be characterized by a negative log odds ratio.
+
+261
+00:31:28,380 --> 00:31:34,440
+So this means that it's less likely to develop disease post baseline relative to baseline for subjects,
+
+262
+00:31:34,800 --> 00:31:41,610
+for subjects like we can do the same calculation for B and C and you can see for.
+
+263
+00:31:42,900 --> 00:31:49,080
+Subjects like beer, the subject sexy. The disease risk has also dropped in the lab odds ratio risk.
+
+264
+00:31:49,560 --> 00:31:56,820
+And what's different between all these three subjects? Well, they just have very different levels of disease risk at the baseline representing,
+
+265
+00:31:57,150 --> 00:32:02,100
+you know, likely subjects like a are sicker and subject like generally healthier.
+
+266
+00:32:06,500 --> 00:32:12,500
+If we do this within royal comparison and then average over A and B and C,
+
+267
+00:32:12,500 --> 00:32:19,760
+we've got a overall summary of the disease risk reduction in the population to be minus point six, nine, seven.
+
+268
+00:32:20,130 --> 00:32:28,790
+Okay. So this is what we meant by a kind of, you know, something that's like a beta in the conditional model.
+
+269
+00:32:29,000 --> 00:32:33,650
+Why? Because all the comparisons were made within the subjects.
+
+270
+00:32:33,920 --> 00:32:37,640
+All we did in terms of average is just trying to summarize that into a single number.
+
+271
+00:32:38,750 --> 00:32:43,220
+Alternatively, hey, because we're comparing post baseline baseline.
+
+272
+00:32:43,520 --> 00:32:48,530
+Why don't we just calculate the average risk at baseline across subjects that
+
+273
+00:32:48,650 --> 00:32:53,750
+had B and C and average disease risk at post baseline across all the subjects,
+
+274
+00:32:53,750 --> 00:32:59,810
+and then see how much reduction in risk disease which has happened as measuring levels ratio.
+
+275
+00:33:00,260 --> 00:33:09,440
+So this is what this is. The second way of calculating the effect has been doing point five is average baseline risk across all the people.
+
+276
+00:33:10,260 --> 00:33:13,910
+.37 is the average disease risk across all the people.
+
+277
+00:33:14,240 --> 00:33:18,020
+And then you can see, hey, the disease risk has again been reduced.
+
+278
+00:33:18,770 --> 00:33:27,090
+And that however. If you calculate all the odds ratio, it would be a minus point three, five, three, two.
+
+279
+00:33:28,320 --> 00:33:34,020
+So compared to. So this comparison is what we call the marginal comparison.
+
+280
+00:33:34,350 --> 00:33:44,040
+Why it is marginal? Well, we really do not care whether the comparison should be within subjects that are like first and then averaged over.
+
+281
+00:33:44,050 --> 00:33:47,490
+Right. We just say, hey, let's just average over everybody and then compare.
+
+282
+00:33:47,520 --> 00:33:53,820
+That's what we meant by marginal comparison. We don't care whether the person has higher or lower based on risks.
+
+283
+00:33:55,790 --> 00:34:05,120
+So this difference, as you observed in this very simplistic calculation, shows that there is a possibility for the attenuation to occur.
+
+284
+00:34:05,600 --> 00:34:19,550
+Right. Which is to say that if you compare the effect of the say in this case, time within the subject, first, that effect estimate will be about.
+
+285
+00:34:21,400 --> 00:34:24,440
+Should I say? What should I say the other way?
+
+286
+00:34:24,650 --> 00:34:31,520
+If I use the margin comparison, the effect estimates will be 25% smaller in magnitude.
+
+287
+00:34:32,210 --> 00:34:33,770
+So this represents a huge difference.
+
+288
+00:34:34,880 --> 00:34:46,280
+We have alluded to this phenomena when we were covering the slide and we did not say there is a better way of doing effect calculation.
+
+289
+00:34:46,850 --> 00:34:49,400
+Why? Well, you know, it depends on the situation.
+
+290
+00:34:49,730 --> 00:34:58,340
+If a patient cares about an effect, he or she probably cares about the beta see here because it is within subject comparison.
+
+291
+00:34:58,670 --> 00:35:02,650
+If I identified being a subject like PPI, then clearly, you know.
+
+292
+00:35:03,870 --> 00:35:13,710
+My best guess of the effect of the time will be -0.71, as measured in long odds ratio before health policy maker.
+
+293
+00:35:13,740 --> 00:35:20,280
+Right. You know, they care about the population. You know, if I do this policy, you know.
+
+294
+00:35:21,270 --> 00:35:25,890
+After baseline how much average reduction in disease risk we can observe.
+
+295
+00:35:26,310 --> 00:35:29,610
+So they don't really care about individual specific comparison.
+
+296
+00:35:30,280 --> 00:35:34,450
+They're trying to make what we call population average comparison or marginal comparison.
+
+297
+00:35:34,470 --> 00:35:42,380
+So they care about this. So to to to sum it up, there's no better if that measure.
+
+298
+00:35:42,390 --> 00:35:48,390
+It just depends on the question. Now, the technical part technical question is why this reduction?
+
+299
+00:35:48,570 --> 00:35:51,900
+Why the attenuation? And is it always attenuation?
+
+300
+00:35:52,290 --> 00:36:03,270
+Can you go up? So mostly you will be attenuation and I'm going to show you some technical details regarding the regarding the series.
+
+301
+00:36:03,550 --> 00:36:11,140
+Okay. So this is the simple example. I also said there's another example handout ANC that talks about this attenuation.
+
+302
+00:36:12,070 --> 00:36:18,160
+It is in the final slide. I'm not going to talk about this as ANC as we did in the simple example.
+
+303
+00:36:18,850 --> 00:36:28,240
+But in that in that calculation, when we fit a module model, we compare to the betas you got from a generalized model.
+
+304
+00:36:28,600 --> 00:36:34,060
+Often the estimates are small in magnitude. So this phenomena is very common.
+
+305
+00:36:34,240 --> 00:36:37,360
+And let me return to the handout. Ten D.
+
+306
+00:36:38,480 --> 00:36:43,550
+Here. So this is something you have learned in the previous lecture.
+
+307
+00:36:44,270 --> 00:36:50,750
+It concerns the relationship between the beta in the G and Beta C in Generalized Dynamics model.
+
+308
+00:36:51,120 --> 00:36:55,010
+All right. So we're going to because we're showing examples that they may be different.
+
+309
+00:36:55,980 --> 00:37:01,560
+And we're going to show you how different and are there extraordinary cases where they're going to be the same?
+
+310
+00:37:02,130 --> 00:37:09,690
+And indeed, in the first part of this particular lecture, we do see one example where the beta ones is going to be the same in the Poisson regression.
+
+311
+00:37:10,050 --> 00:37:18,520
+Right, even with a large length. Starting from the model specification.
+
+312
+00:37:18,520 --> 00:37:26,950
+So for gear you basically say, hey, the marginal mean is going to be linked to the Nino predictor via this particular form.
+
+313
+00:37:27,340 --> 00:37:34,750
+And I use beta M to represent that this beta was specified in the margin model.
+
+314
+00:37:35,020 --> 00:37:42,440
+Similarly, we do this, which is. How to say this we can do.
+
+315
+00:37:43,830 --> 00:37:51,330
+Generalized mixed model specification where we have to specify a conditional may and then to obtain the marginal mean,
+
+316
+00:37:51,510 --> 00:37:57,420
+we simply integrate over by as we have done. Now this is what we said, a technical constraint.
+
+317
+00:37:57,690 --> 00:38:05,010
+If these two things cannot switch the order right, we in general will not have the final equality.
+
+318
+00:38:06,750 --> 00:38:09,390
+If you can switch order period, that equality will hold.
+
+319
+00:38:09,870 --> 00:38:15,910
+But in general, if G is nonlinear, you cannot switch to order with an expectation by engineers.
+
+320
+00:38:17,010 --> 00:38:23,379
+So it is because of this reason. Peter, Maggi and Peter since July.
+
+321
+00:38:23,380 --> 00:38:26,500
+Man has very different interpretations as we have seen.
+
+322
+00:38:32,250 --> 00:38:35,260
+How about the magnitude of the debaters?
+
+323
+00:38:35,910 --> 00:38:40,080
+So for this slide, it is just showing something you have already known.
+
+324
+00:38:40,350 --> 00:38:47,399
+When G is near the expectation by inverse, the calculation can change.
+
+325
+00:38:47,400 --> 00:38:57,990
+Exchange order. So basically for the same data, regardless of whether you fit a margin model or generalize sorry dynamics model,
+
+326
+00:38:58,440 --> 00:39:04,800
+the beta estimates will be exactly, exactly the same. And you can choose to interpret beta in either way.
+
+327
+00:39:05,460 --> 00:39:12,180
+But clearly you have to respect what the scientific question is trying to ask.
+
+328
+00:39:12,540 --> 00:39:17,130
+And then you have to interpret in such a specific way or population average way.
+
+329
+00:39:19,230 --> 00:39:24,000
+What is the you know, the leg function G is non-linear.
+
+330
+00:39:24,570 --> 00:39:29,479
+So this is where things got interesting. Um. Here.
+
+331
+00:39:29,480 --> 00:39:34,190
+We're going to entertain with a model. That's what we call program model.
+
+332
+00:39:36,840 --> 00:39:42,090
+I believe that you have been introduced this model in generalized model classes 651 class.
+
+333
+00:39:43,470 --> 00:39:52,260
+But to sum it up, essentially you just do this link function transform the probability of y j equals one.
+
+334
+00:39:52,260 --> 00:39:55,830
+So it's a binary outcome and across multiple occasions.
+
+335
+00:40:01,120 --> 00:40:04,780
+Equals exi j. Transpose b to c.
+
+336
+00:40:05,940 --> 00:40:09,090
+Plus G.I. Joe transposed times by. Right.
+
+337
+00:40:09,870 --> 00:40:13,290
+So this is a pro mixed mixed effects? Not actually.
+
+338
+00:40:17,910 --> 00:40:24,810
+And this is different from logit model because you know, logit mixed model.
+
+339
+00:40:26,750 --> 00:40:31,460
+Because often this is just being replaced. To what? To load, to inverse.
+
+340
+00:40:32,390 --> 00:40:44,330
+Okay. Everything else will be the same. And this loadshedding was essentially just exponential of x divided by one minus one plus exponential size x.
+
+341
+00:40:45,650 --> 00:40:49,490
+So the only link function, the only difference is the link function change.
+
+342
+00:40:50,990 --> 00:40:56,150
+Now returning back to the main point, if we have started from this model,
+
+343
+00:40:56,810 --> 00:41:04,670
+then we know the conditional meaning we have specified is simply the oh, I have now introduces a capital far right.
+
+344
+00:41:04,700 --> 00:41:11,450
+This is the CDF. Community distribution function for a standard.
+
+345
+00:41:13,380 --> 00:41:17,940
+Standard normal distribution. Okay.
+
+346
+00:41:17,950 --> 00:41:28,600
+So it looks like this. Okay.
+
+347
+00:41:30,370 --> 00:41:35,650
+So when you do this particular expectation, you have to integrate over VR.
+
+348
+00:41:36,130 --> 00:41:38,590
+It turns out that just very interestingly,
+
+349
+00:41:38,860 --> 00:41:48,670
+you do have a closed form and this closed form can be written beautifully as the cumulative distribution function of the standard Gaussian.
+
+350
+00:41:50,860 --> 00:41:55,719
+With the argument being what's been the original specification for the fixed effects
+
+351
+00:41:55,720 --> 00:42:04,510
+exaggerated transverse conspiracy but with an and a factor that will cause the attenuation.
+
+352
+00:42:05,140 --> 00:42:09,940
+So that factor essentially is like this. CIJ.
+
+353
+00:42:10,180 --> 00:42:13,380
+As you know, these are the design matrix, you know.
+
+354
+00:42:15,290 --> 00:42:24,409
+Covariance for the random effects four subject I and de here essentially is the variance covariance for B sorry I was using G before,
+
+355
+00:42:24,410 --> 00:42:34,180
+but I get I think you got the meaning here. So in general, there would not be estimate of the zero or they can test whether it's zero,
+
+356
+00:42:34,180 --> 00:42:43,959
+but in general, you estimate that to be some non-zero number. So the denominator of the denominator essentially is one plus a quadratic form.
+
+357
+00:42:43,960 --> 00:42:53,450
+And D, if it's a. Variance matrix for the random effects, it will be a positive, definite matrix.
+
+358
+00:42:53,460 --> 00:42:57,030
+So the second term, the eyes are transposed 1060 times.
+
+359
+00:42:57,030 --> 00:43:00,900
+CIJ will be always what always greater than equal to zero.
+
+360
+00:43:01,890 --> 00:43:04,920
+So the the factor will.
+
+361
+00:43:06,330 --> 00:43:09,450
+Almost always we are less than one.
+
+362
+00:43:10,590 --> 00:43:14,280
+And if you multiply that factor to B2C, that explains the attenuation.
+
+363
+00:43:14,700 --> 00:43:17,790
+So if you fit this model problem model and.
+
+364
+00:43:20,460 --> 00:43:24,780
+In a context of generalized need, a mixed model, you get a better estimate.
+
+365
+00:43:25,140 --> 00:43:33,180
+If you forcefully estimate the model model using the proper link, you will get some attenuated estimates.
+
+366
+00:43:34,740 --> 00:43:47,990
+This is what we have here. And before I leave this slide, I just want to say that the real amazing thing is this closed form solution,
+
+367
+00:43:48,980 --> 00:43:53,810
+closed for correspondence, as a matter of fact, you know.
+
+368
+00:43:55,800 --> 00:43:59,750
+When? When I was learning generalized mimics model.
+
+369
+00:43:59,750 --> 00:44:04,610
+This is one midterm exam. Question two So can you please derive this particular.
+
+370
+00:44:07,600 --> 00:44:11,210
+Basically do have the first. First the equation.
+
+371
+00:44:11,990 --> 00:44:17,270
+So. You will not be able to assume it's given, but you have to drive it and I can.
+
+372
+00:44:17,270 --> 00:44:20,900
+So that question to you is not required. But how do you calculate that?
+
+373
+00:44:26,650 --> 00:44:29,860
+Now you may be wondering what would happen if we have a lose your leg.
+
+374
+00:44:30,220 --> 00:44:38,660
+So let's take a look. The same story applies here, but it will be approximately correct.
+
+375
+00:44:38,710 --> 00:44:47,470
+Sorry. So we wanted to calculate the marginal mean, but with the starting point of the logit mixed model.
+
+376
+00:44:47,830 --> 00:44:53,140
+So we have this conditional means specification.
+
+377
+00:44:53,350 --> 00:45:01,630
+After all, what should appear in term one is the conditional mean, i.e. the conditional probability of success given the random effects.
+
+378
+00:45:02,110 --> 00:45:06,250
+Now we can sort of approximate this result.
+
+379
+00:45:06,490 --> 00:45:13,540
+Unlike when we were having the Probit link, we have a we had a close one here.
+
+380
+00:45:13,540 --> 00:45:23,650
+We do not have a close form. All we have is an approximation. So again, what you see here is the term you have when you specify the logit mixed model.
+
+381
+00:45:24,370 --> 00:45:28,000
+This F is low logistic CDF.
+
+382
+00:45:29,950 --> 00:45:35,800
+You know, essentially it is just. Expert.
+
+383
+00:45:40,550 --> 00:45:47,150
+Now the factor here is well over something that's very similar to what we are seeing we have seen before.
+
+384
+00:45:47,840 --> 00:45:55,570
+The only difference is that now we have a sea squirt and that size is being calculated with that weird number .58.
+
+385
+00:45:56,510 --> 00:46:01,129
+It it just so happens that people found some kind of halo expansion formula and
+
+386
+00:46:01,130 --> 00:46:04,520
+then the proximity that it's not important for you to remember this number.
+
+387
+00:46:04,910 --> 00:46:11,120
+But they do have to know that it is an approximate approximately correct formula.
+
+388
+00:46:11,480 --> 00:46:18,800
+And the attenuation, you know. The degree of attenuation may be different from that in the probit regression.
+
+389
+00:46:22,940 --> 00:46:30,890
+Okay. So if I may, I point to point you to the example in handout.
+
+390
+00:46:34,690 --> 00:46:40,570
+Tempe. So this is the slide that shows we do have the attenuation.
+
+391
+00:46:40,870 --> 00:46:47,140
+And if I go back to this slide, this is the theoretical reason why we have the attenuation approximately.
+
+392
+00:46:53,040 --> 00:46:58,740
+So in the previous two slides, we have shown you examples where attenuation is can happen.
+
+393
+00:46:59,240 --> 00:47:04,230
+Okay. But are there extraordinary cases where attenuation simply does not happen?
+
+394
+00:47:04,710 --> 00:47:08,100
+And this is what we have seen in the lawsuit.
+
+395
+00:47:08,610 --> 00:47:11,940
+So in the labeling based a generalized genomics model.
+
+396
+00:47:12,900 --> 00:47:16,560
+So when we were specifying the labeling model.
+
+397
+00:47:17,620 --> 00:47:30,040
+This is the this is the expected rate write for unit time in the push on model and we have started from a conditional model.
+
+398
+00:47:30,040 --> 00:47:33,400
+So we have made it see we have the individual specif of random effects.
+
+399
+00:47:33,790 --> 00:47:42,220
+Now we can calculate this whole thing and then we can arrive at this particular closed form solution.
+
+400
+00:47:42,610 --> 00:47:52,100
+So when you take the log on both sides. Then you arrive at this particular, you know, person.
+
+401
+00:47:52,590 --> 00:47:56,310
+Sorry, log length regression, but without any random effects.
+
+402
+00:47:56,700 --> 00:48:00,060
+If you take a look at that. Right. It's amazing because.
+
+403
+00:48:01,390 --> 00:48:05,560
+You started from a generalized index model with a long link where you have a B2C.
+
+404
+00:48:06,600 --> 00:48:13,800
+Right. And that is kept there. And in the second term is point five times that quadratic form.
+
+405
+00:48:14,190 --> 00:48:18,569
+So if you're only dealing with a lot of random intercepts.
+
+406
+00:48:18,570 --> 00:48:22,070
+Right. The idea would be what? One. Right.
+
+407
+00:48:22,080 --> 00:48:30,720
+Because we only have one, you know, when in fact a D will be the variance of the random effect.
+
+408
+00:48:31,260 --> 00:48:35,190
+So if you look at the exercise j t times B to C term.
+
+409
+00:48:35,490 --> 00:48:40,170
+Well, if you put a, put an intercept into exaggerate then.
+
+410
+00:48:41,490 --> 00:48:46,590
+Which term will be impacted by that second term? Only The Intercept, right?
+
+411
+00:48:47,520 --> 00:48:58,860
+So this basically is a theory behind why in the long near regression, if only a random intercept has been introduced actually,
+
+412
+00:48:59,730 --> 00:49:03,990
+or other coefficients, except the intercept will have the same estimates.
+
+413
+00:49:04,320 --> 00:49:10,500
+Regardless whether you use the generalized new mix model or the marginal model fitted by G.
+
+414
+00:49:13,050 --> 00:49:22,380
+And more broadly, if you have some overlap in terms of covariance between the fixed effect covers and random effect culverts,
+
+415
+00:49:23,280 --> 00:49:35,640
+this kind of a relation will hold as well not only apply to intercepts, but also the other overlapping, you know, random effects and the fix effects.
+
+416
+00:49:37,630 --> 00:49:46,840
+The calculation just will be a lot more complicated. Okay.
+
+417
+00:49:47,020 --> 00:49:53,710
+So I think that is pretty much I want to talk about in this particular handout and.
+
+418
+00:49:55,430 --> 00:50:02,190
+For other notes. I think these are too technical and I think pretty much summarize all we have discussed.
+
+419
+00:50:02,540 --> 00:50:07,570
+So I'm going to stop here. Yeah.
+
+420
+00:50:08,320 --> 00:50:23,330
+Do you guys have any questions regarding this lecture? All right.
+
+421
+00:50:23,730 --> 00:50:29,940
+So how would you like a few more minutes to talk about the plan for the rest of the class?
+
+422
+00:50:29,940 --> 00:50:37,860
+And we will just end the class. That's all we have here. So we are here today.
+
+423
+00:50:38,250 --> 00:50:45,209
+And this lecture basically concludes that concludes all the discussion regarding the new models we call.
+
+424
+00:50:45,210 --> 00:50:49,830
+We have talk about generally the model with the quoted errors we have talking about the intermix model.
+
+425
+00:50:50,460 --> 00:50:59,520
+These are all for continuous outcomes. And then we moved on to talk about a review of GLM and then we talk about two kinds of extensions of time.
+
+426
+00:50:59,820 --> 00:51:04,530
+One is the margin model of feedback. The other is the generalized mix model.
+
+427
+00:51:05,190 --> 00:51:14,009
+As you have seen, that's all the introduction of the new models have been, you know, have specific objectives.
+
+428
+00:51:14,010 --> 00:51:17,040
+And also we have the theory, we have the examples.
+
+429
+00:51:17,250 --> 00:51:25,140
+So hopefully all these kind of notes will provide you with some basic tools for you to use in the projects.
+
+430
+00:51:26,130 --> 00:51:32,430
+There will be two more lectures. I think the goal there will be try to have some touch.
+
+431
+00:51:33,900 --> 00:51:38,310
+We'll touch on certain issues that we encounter in in longitudinal the analysis.
+
+432
+00:51:39,780 --> 00:51:42,840
+The first one is going to be the next Monday.
+
+433
+00:51:43,410 --> 00:51:51,930
+I will have extra i have posted these slides. These will be the missing data because it's so common in longitudinal data analysis.
+
+434
+00:51:52,200 --> 00:52:01,409
+So we hope to touch on that. The primary goal there will be to provide you with the more clear definition of the terminologies.
+
+435
+00:52:01,410 --> 00:52:06,780
+And some are useful techniques that some some of which were invented in this department.
+
+436
+00:52:07,860 --> 00:52:13,650
+Then in the on the next Wednesday, there will be two guest lectures.
+
+437
+00:52:14,280 --> 00:52:20,790
+So the first lecture, I will send out a notification about the link to the notes,
+
+438
+00:52:21,210 --> 00:52:24,810
+but the first guest lecture is going to talk about and the genetic issue.
+
+439
+00:52:26,070 --> 00:52:30,540
+This is a term that's pretty common, commonly encountered in econometrics.
+
+440
+00:52:31,260 --> 00:52:36,480
+But if you have, you know, longitudinal measure data and your goal is trying to do causal inference,
+
+441
+00:52:36,900 --> 00:52:41,220
+then the end of January is a pretty important issue to consider.
+
+442
+00:52:41,580 --> 00:52:47,940
+We have I have only very briefly talk about that and one of my excellent pieces you'll then
+
+443
+00:52:47,940 --> 00:52:54,870
+Bingley will be spending 40 minutes on the do a deep dive on that particular condition.
+
+444
+00:52:55,470 --> 00:53:02,190
+So that's the first guest lecture. The second guest lecture is based on mobile study, mobile health study.
+
+445
+00:53:02,460 --> 00:53:11,760
+So it will be providing some examples of what data are looking like and what mobile health studies with time varying interventions.
+
+446
+00:53:12,060 --> 00:53:22,200
+So another in my position here, I will be presenting for another 40 minutes about a one data example and some simple analysis she has done.
+
+447
+00:53:23,250 --> 00:53:31,590
+So hopefully the next three speakers, including myself, will provide you a proper conclusion of this class.
+
+448
+00:53:32,010 --> 00:53:35,700
+And then on December 5th and December 7th, on each day,
+
+449
+00:53:35,700 --> 00:53:45,180
+we will have six of six teams presenting and all the roles will have have already been specified here.
+
+450
+00:53:46,470 --> 00:53:51,660
+I probably will make some changes, but likely not.
+
+451
+00:53:51,690 --> 00:53:54,910
+I don't promise. I think we should have enough time.
+
+452
+00:53:54,930 --> 00:53:58,060
+Right. Yeah, I think 15 minutes.
+
+453
+00:53:58,080 --> 00:54:05,040
+Yeah. So basically, we will have to use the entire 90 minutes instead of just 80 minutes, as we usually do.
+
+454
+00:54:05,220 --> 00:54:10,290
+Well, sometimes I go overtime, but we will use the entire 90 minutes.
+
+455
+00:54:10,560 --> 00:54:12,800
+So for those of you who are here. Thank you.
+
+456
+00:54:12,810 --> 00:54:20,760
+For those of you who are watching the video, please try your best to come to the classroom, even if that's not your ideal presentation.
+
+457
+00:54:21,210 --> 00:54:25,110
+And I will try to send a note to everybody as well. And for the teams,
+
+458
+00:54:25,470 --> 00:54:33,870
+I strongly encourage again to put in the team names and we will be using those days to decide the date of presentation with some romanization.
+
+459
+00:54:37,070 --> 00:54:46,160
+Finally what are the what is the situation with homework four and the final report so homework for will be optional.
+
+460
+00:54:48,780 --> 00:54:55,540
+So I will assign them. Pretty much like today or tomorrow, maybe tomorrow.
+
+461
+00:54:56,530 --> 00:55:03,370
+And you have the option of doing it and the homework for will be about generalize and mixed model.
+
+462
+00:55:03,400 --> 00:55:07,120
+Clearly we have just cover them. So I couldn't assign them earlier.
+
+463
+00:55:08,080 --> 00:55:13,600
+So if you wanted practice homework for if you feel you're more confident to get higher score homework for go for that.
+
+464
+00:55:14,110 --> 00:55:17,770
+And if you submit homework for your homophobic it fully.
+
+465
+00:55:19,010 --> 00:55:22,910
+And they'll will count towards count towards a final grid for eight points.
+
+466
+00:55:23,270 --> 00:55:29,000
+And your final project will be graded with a total of 48 points in mind.
+
+467
+00:55:30,260 --> 00:55:37,100
+Okay. So final project report, it is going to be due on December 20th.
+
+468
+00:55:37,310 --> 00:55:45,650
+So it is going to be after the exam period. Hopefully this can provide you with some extra days to get the date analysis results together.
+
+469
+00:55:45,650 --> 00:55:51,320
+And hopefully, you know, it's not going to be in conflict with all the other exams you have to take.
+
+470
+00:55:52,070 --> 00:55:55,790
+And it is due by December 20th, midnight.
+
+471
+00:55:56,480 --> 00:56:00,770
+So that is all I have for today. And I'm happy to answer any questions if you guys have any.
+
+472
+00:56:00,770 --> 00:56:06,350
+But otherwise, I wish you guys a very happy Thanksgiving. We will not have a class on Wednesday.
+
+473
+00:56:06,620 --> 00:56:07,310
+Thanks very much.
+

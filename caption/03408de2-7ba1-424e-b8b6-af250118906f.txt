@@ -1,0 +1,2296 @@
+1
+00:00:01,110 --> 00:00:06,300
+Today we're going to be talking about age creating cohort models.
+
+2
+00:00:06,630 --> 00:00:13,950
+Before we dove into that, I just want to canvas for a second.
+
+3
+00:00:14,610 --> 00:00:21,450
+Sorry, I didn't realize I hadn't gotten this up until this morning, but the campus page for this week is now available.
+
+4
+00:00:22,500 --> 00:00:26,670
+And this week we're going to be describing trends in longitudinal data,
+
+5
+00:00:27,570 --> 00:00:36,360
+sort of epidemiological time series that have information by age over time and described as being in a cohort.
+
+6
+00:00:36,810 --> 00:00:41,950
+I'm going to visualize these epidemiological time series and use these corporate
+
+7
+00:00:41,970 --> 00:00:46,560
+models to evaluate these trends specifically and then visualize the model.
+
+8
+00:00:47,010 --> 00:00:48,870
+So that's the goal for this week.
+
+9
+00:00:49,690 --> 00:01:00,660
+And I included both the sort of technical reading and two example readings which are optional in the lecture and that are there in terms of timing.
+
+10
+00:01:00,840 --> 00:01:07,800
+I mentioned last week that next week we're going to be in the computer lab both days and they're both going to be work days.
+
+11
+00:01:08,880 --> 00:01:13,050
+And I also wanted to review assignment due dates.
+
+12
+00:01:14,790 --> 00:01:19,710
+So Lab four is going to be due on Monday.
+
+13
+00:01:20,820 --> 00:01:32,730
+Lab five Join Point is going to be due on Wednesday, although I might extend that Friday and Lab six will be due on the 21st.
+
+14
+00:01:32,970 --> 00:01:36,210
+So that's the material that we're starting today.
+
+15
+00:01:38,480 --> 00:01:43,520
+After fall break, we'll start with cancer survival and week seven.
+
+16
+00:01:43,880 --> 00:01:51,730
+So I know we're a little bit behind in lab versus the lecture and we may have another catch up day at some point, but kind of play it by ear.
+
+17
+00:01:54,680 --> 00:01:59,420
+Any questions about before anything back and forth get started?
+
+18
+00:02:01,730 --> 00:02:08,090
+If not, we'll dove right in. This is probably my favorite topic of this class age period for girls.
+
+19
+00:02:08,990 --> 00:02:15,110
+Um, and the goal is to think about epidemiological time series.
+
+20
+00:02:15,500 --> 00:02:24,200
+And this could be things like assessing the temporal trends or evolution in disease rates, and that can be things like incidence,
+
+21
+00:02:24,590 --> 00:02:30,770
+mortality, prevalence, other metrics that are relevant to public health, not just cancer.
+
+22
+00:02:31,710 --> 00:02:41,300
+Um, we get this allows for comparison between relative groups and how these affect are other time
+
+23
+00:02:41,300 --> 00:02:46,880
+series and it's understanding how sort of specific events in time may be related to that.
+
+24
+00:02:47,690 --> 00:02:56,040
+Um. We can also think about a sort of ecological analysis of the impact of public health interventions on disease outcome,
+
+25
+00:02:56,090 --> 00:02:59,180
+how those are impacting the population.
+
+26
+00:03:00,230 --> 00:03:05,300
+And these can also be a real source of hypotheses and ideas for testing,
+
+27
+00:03:05,510 --> 00:03:16,010
+modeling projections, so forth, and so particularly in longer duration time series.
+
+28
+00:03:16,370 --> 00:03:29,959
+It's often helpful to think about three different ways in which time impacts risk, and the first way is the most helpful age being one's current age.
+
+29
+00:03:29,960 --> 00:03:40,130
+How long you've lived? And age effects, when we think about them, are affecting everyone at the same age and may reflect age specific factors.
+
+30
+00:03:40,130 --> 00:03:47,990
+So we all age biologically and that can be things like accumulation of stress there, things like puberty,
+
+31
+00:03:48,590 --> 00:03:54,680
+menopause that kind of happen at different times over the life course, but really kind of thinking from a life course perspective.
+
+32
+00:03:56,650 --> 00:03:59,830
+Next is period, which is the current year.
+
+33
+00:04:00,490 --> 00:04:08,110
+And so things that that are period effects or calendar year effects are things that happen at a specific time.
+
+34
+00:04:08,680 --> 00:04:17,320
+And so from an epidemiological perspective that may reflect things like new treatments that are changing, so particularly in the cancer perspective,
+
+35
+00:04:17,530 --> 00:04:27,760
+as, for example, immunological based treatments have come around the last couple of years, you may see those affecting cancer survival, for example.
+
+36
+00:04:29,230 --> 00:04:35,680
+But sort of more broadly, you can think about things like war or economic crisis impacting other things.
+
+37
+00:04:36,040 --> 00:04:39,940
+Or we saw in the tobacco control specific regulations,
+
+38
+00:04:41,410 --> 00:04:51,010
+the more subtle but often more important is the cohort or birth cohort effects which have to do with the year of your birth.
+
+39
+00:04:52,000 --> 00:04:58,660
+So thinking about everyone who is born around the same time, basically this is a bit generational perspective.
+
+40
+00:04:58,990 --> 00:05:09,070
+And so, you know, we talk about the silent generation and the baby boomers, Gen X, generalized Gen Z, millennials and Zoomers.
+
+41
+00:05:09,460 --> 00:05:18,340
+Then we can think about how for that cohort, things like social attitudes have changed for something like a sexually transmitted infection,
+
+42
+00:05:18,610 --> 00:05:32,080
+sexual mores, basically mores around smoking, for example, and just sort of overall quality of living can all affect the cohort trends.
+
+43
+00:05:32,320 --> 00:05:47,730
+Yeah. Happy data stories. So I want us to take a little bit of time to brainstorm some possible things that could have an age period or cohort effect.
+
+44
+00:05:48,180 --> 00:05:53,550
+So take a couple of minutes to chat with your neighbors and then we'll write them down.
+
+45
+00:06:13,280 --> 00:06:23,638
+I have two different. Vertical facial fibers, for example, there's an interesting book.
+
+46
+00:06:24,903 --> 00:06:31,023
+Okay. So I'm hearing lots of good discussion. Let's come back as a group to think through them.
+
+47
+00:06:31,383 --> 00:06:35,883
+So I first going to just ask each group, for example, of one of each.
+
+48
+00:06:36,273 --> 00:06:44,643
+And then we'll come back and see if there are more than we want to talk about. So, Lauren and Emily, what age the fact that you came up with.
+
+49
+00:06:46,913 --> 00:06:51,303
+We are a little confused on the difference between like age and cohort.
+
+50
+00:06:51,323 --> 00:06:58,943
+Okay. We started the our first the first thing that we discussed was the pandemic and how that could have occurred.
+
+51
+00:06:58,943 --> 00:07:03,683
+That was a period where it could have affected people. Okay. So yeah.
+
+52
+00:07:03,953 --> 00:07:07,192
+And then we were kind of then getting a little confused,
+
+53
+00:07:07,193 --> 00:07:11,213
+thinking about the difference between like there's a cohort of people that were born into the pandemic.
+
+54
+00:07:11,603 --> 00:07:16,613
+And so I'm wondering if that could possibly affect their outcomes like later in life.
+
+55
+00:07:16,613 --> 00:07:25,493
+And that's something we're not sure about. And then now if we're confused, we can tie that back to the age.
+
+56
+00:07:26,873 --> 00:07:31,763
+Yeah, absolutely. Sorry.
+
+57
+00:07:31,773 --> 00:07:34,033
+No, that's not the answer. No, I think that's good.
+
+58
+00:07:34,323 --> 00:07:44,402
+I actually really like that example because it gets at this subtlety and sort of seeing an effect and being like,
+
+59
+00:07:44,403 --> 00:07:49,143
+well, do I attribute this, you know, thing that happened?
+
+60
+00:07:49,473 --> 00:07:54,453
+Is it true that it happened for everyone in these couple of years?
+
+61
+00:07:54,903 --> 00:08:01,533
+Or is it for the birth cohorts who were specifically born in these years?
+
+62
+00:08:02,043 --> 00:08:10,123
+You know, and so that there's this kind of subtlety in that we're going to get to in a couple of slides of the interaction between endemic and age.
+
+63
+00:08:10,163 --> 00:08:13,053
+It's not always clear which is the right way to interpret it.
+
+64
+00:08:14,043 --> 00:08:22,773
+But the way that I would that we want to think about it is a period of is going to affect all ages in this time period,
+
+65
+00:08:23,673 --> 00:08:31,743
+whereas a cohort effect is specifically these years in which people are born and following that across their entire lives.
+
+66
+00:08:32,013 --> 00:08:35,403
+So would a pandemic not be considered work either?
+
+67
+00:08:35,463 --> 00:08:39,003
+Also affected people that weren't born when it occurred?
+
+68
+00:08:39,393 --> 00:08:51,963
+So I would think of the cohort effect around the pandemic as like like pre pandemic versus post pandemic birth happens to be
+
+69
+00:08:51,963 --> 00:09:01,443
+like the pandemic really changed how we deal with mental health and that's like we had better mental health and post-pandemic,
+
+70
+00:09:03,153 --> 00:09:09,023
+better mental health services, post-pandemic. And that's like, you know, things have changed because of that.
+
+71
+00:09:09,033 --> 00:09:15,392
+That's a really optimistic view. But but that's the kind of thing that I might expect it could offset.
+
+72
+00:09:15,393 --> 00:09:19,803
+I think what you're getting at, though, is kind of like the babies they were born during the pandemic,
+
+73
+00:09:19,803 --> 00:09:25,262
+had a very specific issue and very specific issues around like what it's like
+
+74
+00:09:25,263 --> 00:09:31,003
+to be in a hospital or like higher or lower chances of hospital infections or.
+
+75
+00:09:33,183 --> 00:09:40,383
+But but something like the setback in education is probably a more of a period effect.
+
+76
+00:09:40,683 --> 00:09:44,613
+Yeah, but at the same time, there's probably kind of an interaction that,
+
+77
+00:09:44,763 --> 00:09:51,383
+that period of fact is mediated by your age because certain ages are going to bounce back from that better than others.
+
+78
+00:09:51,423 --> 00:09:56,793
+So there is, again, that subtlety. Um, let's see.
+
+79
+00:09:59,433 --> 00:10:04,223
+That is the group in the back. Tell me age period or cohort effect?
+
+80
+00:10:06,953 --> 00:10:13,553
+So one of the possible things that we talk about is an economic stimulus.
+
+81
+00:10:14,123 --> 00:10:20,753
+Okay. For example, student loan forgiveness and how that will have an impact on.
+
+82
+00:10:23,923 --> 00:10:29,502
+Individuals should ensure the introduction of the new policy announced that affecting health
+
+83
+00:10:29,503 --> 00:10:37,453
+outcomes affecting if those who will not directly but it's like the social determinants of health.
+
+84
+00:10:37,633 --> 00:10:45,883
+Sure. So downstream like economic impacts improve?
+
+85
+00:10:47,183 --> 00:10:54,853
+Yes. It could also, if people have more disposable income now that they're not paying off loans, they seek out more help.
+
+86
+00:10:55,183 --> 00:11:02,983
+Okay. Disposable income for neglected.
+
+87
+00:11:05,593 --> 00:11:11,072
+Health experts. That procedures, that kind of thing.
+
+88
+00:11:11,073 --> 00:11:17,763
+So all of a sudden people are like, Oh, time to go to the dentist for the first time now that I have my, um, great.
+
+89
+00:11:18,043 --> 00:11:22,053
+Um, sure. She and Erin, do you have something you'd like to share?
+
+90
+00:11:23,333 --> 00:11:28,833
+Oh, yeah. I think we talk about also the path of law and policies.
+
+91
+00:11:29,643 --> 00:11:34,463
+That was the screening program. Okay, I'll have that.
+
+92
+00:11:35,013 --> 00:11:41,213
+I'm not sure. And so do you think that's an age period or cohort effect period?
+
+93
+00:11:41,663 --> 00:11:46,013
+Probably a period effect for changes in screening guidelines.
+
+94
+00:11:52,193 --> 00:12:02,003
+And actually that makes it very challenging to analyze some types of cancers like prostate, breast, cervical,
+
+95
+00:12:02,213 --> 00:12:08,233
+because incidence of these depends very much on screening and the screening changes over the years.
+
+96
+00:12:08,243 --> 00:12:12,173
+It's very hard to understand whether incidence is actually changing. So that's a good one.
+
+97
+00:12:13,883 --> 00:12:17,032
+Did anyone have any age effects yet?
+
+98
+00:12:17,033 --> 00:12:20,783
+So they might have age effects. They'd like to share biology as your body.
+
+99
+00:12:22,073 --> 00:12:25,283
+Sure. That's sort of aging.
+
+100
+00:12:25,553 --> 00:12:29,183
+Aging biology. So we talked about like.
+
+101
+00:12:31,103 --> 00:12:34,193
+Puberty and menopause.
+
+102
+00:12:35,903 --> 00:12:43,263
+Just a accumulation. What?
+
+103
+00:12:44,293 --> 00:12:51,973
+So cancer potential, it's kind of vague. But, you know, the the idea of like DNA damage, I mean, that's a better way of saying that.
+
+104
+00:12:55,353 --> 00:13:00,773
+Oh, I don't have any other specific examples of aging.
+
+105
+00:13:01,263 --> 00:13:04,623
+Yeah, maybe I. Okay.
+
+106
+00:13:04,703 --> 00:13:08,223
+That's great access to, uh.
+
+107
+00:13:08,423 --> 00:13:09,953
+Let's just say, like.
+
+108
+00:13:11,393 --> 00:13:22,843
+Government services and because those contents change over time and they may be different for the US versus other other groups, they're great.
+
+109
+00:13:22,853 --> 00:13:26,033
+That's great that the non-biological one tried to have that.
+
+110
+00:13:27,023 --> 00:13:31,583
+Yeah. And screening also be in effect as in like the screenings only recommended for certain ages.
+
+111
+00:13:31,973 --> 00:13:48,433
+Yeah. We have another cohort one.
+
+112
+00:13:50,463 --> 00:13:57,393
+Like smoking additives and and other substance use.
+
+113
+00:13:59,853 --> 00:14:08,763
+And early life infectious disease exposures great currently life exposures.
+
+114
+00:14:09,213 --> 00:14:19,532
+So influenza but also things like pylori which really affects your stomach cancer risk or this is
+
+115
+00:14:19,533 --> 00:14:24,002
+another one where we kind of have like an overlap as we talked about like more time for the period.
+
+116
+00:14:24,003 --> 00:14:27,513
+But it would be like the cohort that was born in the years where they actually fought
+
+117
+00:14:27,963 --> 00:14:32,943
+in a war and were exposed to like potentially toxic chemicals or like PTSD like.
+
+118
+00:14:33,393 --> 00:14:37,263
+So it's kind of like that cohort in that specific period.
+
+119
+00:14:37,503 --> 00:14:48,093
+Yeah. So, so I think war against both a like the pandemic, both a period and COVID effects because you have the people that are affected by it,
+
+120
+00:14:48,093 --> 00:14:51,573
+I don't know, let's say something like nutrition shortages during the war,
+
+121
+00:14:52,443 --> 00:14:58,233
+but the people that were actually are like deployable age during the war may have had higher,
+
+122
+00:14:58,893 --> 00:15:03,543
+you know, exposures to like napalm in the Vietnam War or other chemicals potentially.
+
+123
+00:15:03,753 --> 00:15:07,923
+So. But you can definitely see ways in which war could be out there.
+
+124
+00:15:09,753 --> 00:15:16,213
+Any last ones anyone want to to share? Okay.
+
+125
+00:15:16,253 --> 00:15:16,963
+These are great.
+
+126
+00:15:16,993 --> 00:15:25,333
+Hopefully this gives you a little bit more of a sense of how we're thinking about the different effects and how we're kind of decomposing them,
+
+127
+00:15:26,623 --> 00:15:30,613
+and also how that there's some sort of subtlety and nuance here.
+
+128
+00:15:30,943 --> 00:15:38,203
+So one of the things that we were sort of beginning to notice is that they're not actually separate.
+
+129
+00:15:38,203 --> 00:15:41,922
+Right? Age is given by period minus birth cohort.
+
+130
+00:15:41,923 --> 00:15:44,473
+And so they're not separable.
+
+131
+00:15:44,833 --> 00:15:55,453
+You can always look at all these separately if you had a table and age and here you can always look along the diagonal to understand birth cohorts.
+
+132
+00:15:56,623 --> 00:16:04,603
+And so the traditional way of visualizing each growing cohort data are less diagrams.
+
+133
+00:16:04,903 --> 00:16:18,533
+So this is kind of the classic way. So you can imagine looking at like three individuals here that were born in 1910, 1915, 1920.
+
+134
+00:16:18,793 --> 00:16:26,203
+And you can sort of follow them as they age across time and place as they died at three points.
+
+135
+00:16:27,703 --> 00:16:33,133
+Here on the right, we have total U.S. population by age and calendar period.
+
+136
+00:16:34,513 --> 00:16:42,823
+And so you can say for any point, how many ten year olds were there in 1940, how many 50 year old through there in 1980?
+
+137
+00:16:44,263 --> 00:16:48,492
+And what you can see is that we do that.
+
+138
+00:16:48,493 --> 00:16:51,553
+A lot of the effects here are diagonal.
+
+139
+00:16:52,123 --> 00:16:59,653
+Right. And so these diagonal effects are actually related to how that one cohort is aging.
+
+140
+00:17:00,403 --> 00:17:05,923
+And so we have this very high cohort here in the late, late 1940s.
+
+141
+00:17:06,163 --> 00:17:11,443
+So here are baby boomers that we actually see as they progress sort of through time.
+
+142
+00:17:13,343 --> 00:17:19,783
+Um, and so when we look at Alexa's diagram, pure age effects are going to look horizontal,
+
+143
+00:17:20,173 --> 00:17:24,733
+pure period effects vertical and a few cohort effects as diagonals.
+
+144
+00:17:26,483 --> 00:17:28,063
+This, like I said, is the passageway.
+
+145
+00:17:28,393 --> 00:17:40,303
+There is actually a very recent trend towards using what are called hexa maps, and these were actually developed around 2020.
+
+146
+00:17:41,293 --> 00:17:46,573
+And they're an alternative to the Lexus diagram. You'll still see Lexus diagrams and they're still, of course, taught.
+
+147
+00:17:46,813 --> 00:17:52,433
+But I really like to promote the Hexa Map as a way of visualizing each period.
+
+148
+00:17:52,723 --> 00:17:57,943
+And the reason that they're nice is that they're actually giving age period or equal visual weight.
+
+149
+00:17:58,813 --> 00:18:07,563
+In the previous Lexus diagram. Age and year are primary and you have to kind of understand cohort by looking at the diagonal and the hexagon
+
+150
+00:18:07,563 --> 00:18:15,793
+and we have this think they're each on their own one of three axes and we give them equal weight in this way.
+
+151
+00:18:16,093 --> 00:18:24,673
+And so we can look at birth cohorts in this axis periods in this axis and features and the third axis.
+
+152
+00:18:27,443 --> 00:18:31,613
+And so I created some hexum maps for us to look at for lung cancer.
+
+153
+00:18:32,543 --> 00:18:37,343
+And I want to just take a couple of minutes to kind of really disentangle what's going on here.
+
+154
+00:18:37,973 --> 00:18:41,783
+So the ages, are these diagonals coming up like this.
+
+155
+00:18:42,083 --> 00:18:50,723
+So you can see that there's not much cancer incidence up to the ages here, but probably around 30, 35.
+
+156
+00:18:51,083 --> 00:19:02,483
+And it's very low start. It's really starting to increase around 65, probably in the highest incidence at the oldest ages, close to 85 over time.
+
+157
+00:19:02,903 --> 00:19:06,773
+Which are the verticals, we don't actually see very much difference.
+
+158
+00:19:06,773 --> 00:19:14,902
+Right. Each vertical slice looks about the same and then the cohorts are the other diagonals.
+
+159
+00:19:14,903 --> 00:19:22,403
+And we can say we take one slice that's a cohort. And so in our data when actually we saw this in Lab one, if you remember,
+
+160
+00:19:22,553 --> 00:19:28,933
+we have very different age ranges for this cohort as opposed to this cohort down here.
+
+161
+00:19:28,943 --> 00:19:32,873
+And so that's something we have to take into account in our data.
+
+162
+00:19:35,333 --> 00:19:45,983
+We the strongest effects here are very clearly by age, but there are some other sort of shapes forming that are worth investigating.
+
+163
+00:19:46,223 --> 00:19:52,043
+We actually see that shape a little bit more clearly for women here on the right where we have kind of this rounding effect.
+
+164
+00:19:52,883 --> 00:20:01,043
+And we'll probably want to investigate whether that's a period effect as we move this way or a cohort effect as we put this.
+
+165
+00:20:03,473 --> 00:20:07,793
+Any questions about interpreting the hexamer? Yes.
+
+166
+00:20:08,003 --> 00:20:11,653
+Could you explain the. Like how you visualize.
+
+167
+00:20:12,733 --> 00:20:22,123
+Yeah. So the court is any thing along this, um, sort of lower left, upper right diagonal.
+
+168
+00:20:22,453 --> 00:20:25,613
+So the cohort in 1987. Um.
+
+169
+00:20:27,963 --> 00:20:31,022
+So. That's right. I see.
+
+170
+00:20:31,023 --> 00:20:34,923
+Oh, this actually you say the reason is that I started age 39, age zero.
+
+171
+00:20:35,433 --> 00:20:44,643
+So in 1987, someone that's age 30 is going to be aged 30 and 2017.
+
+172
+00:20:45,243 --> 00:20:55,203
+Right. So we so we only have a single point in which we have data for them as opposed to the cohort in 1991.
+
+173
+00:20:57,513 --> 00:21:06,313
+They only show up in our dataset, which begins in 1975 at age 85 or 84, something like that.
+
+174
+00:21:06,333 --> 00:21:15,873
+And so how much data really depends until we rank cohort is a bit of a funny one because it kind of goes around this cake and the graph.
+
+175
+00:21:18,303 --> 00:21:24,873
+Often I like to draw lines.
+
+176
+00:21:28,143 --> 00:21:32,343
+On the grass so that I can say.
+
+177
+00:21:34,573 --> 00:21:39,523
+Look at this age effect here.
+
+178
+00:21:40,393 --> 00:21:52,263
+If there was a period of fact, it would look like. That's for example, that's a better color here.
+
+179
+00:22:04,763 --> 00:22:11,143
+And if I had a cohort effect. It'll look something like.
+
+180
+00:22:15,523 --> 00:22:24,853
+Yes. And so we would expect, as we move this way, to see changes as opposed to like this cynical bit more sense.
+
+181
+00:22:28,183 --> 00:22:38,223
+Other questions. Okay.
+
+182
+00:22:38,303 --> 00:22:48,893
+And so one of the things that we often first, due to diagnose what the trends even are, is to look at similar to what we did in Lab one.
+
+183
+00:22:50,603 --> 00:23:02,003
+In this case of four incidents, incidents by eight specific incidents grouped by cohort on the left or by period on the right.
+
+184
+00:23:02,873 --> 00:23:12,143
+So here we have the birth cohort of 1900, 1905, 1910, 1915, 1920, and so on.
+
+185
+00:23:12,743 --> 00:23:15,953
+Again, 1900 years, 1910, 1920.
+
+186
+00:23:16,643 --> 00:23:21,833
+And as you recall, we only have for the earliest cohorts a little bit at the end ages.
+
+187
+00:23:22,133 --> 00:23:24,953
+And for the most recent cohorts, we only have a little bit at the beginning.
+
+188
+00:23:25,703 --> 00:23:30,263
+And so they don't offer as much of us as much information on the overall specific trends.
+
+189
+00:23:32,393 --> 00:23:41,393
+But when we look by period here on the right, we get everybody along different years.
+
+190
+00:23:41,693 --> 00:23:48,113
+So you can kind of think that these are the same people who are falling over time, and each of these lines is completely different people.
+
+191
+00:23:49,103 --> 00:23:57,473
+And so we can look at how these these curves have really increased for women from 1975 up through 2005 to 15.
+
+192
+00:23:59,033 --> 00:24:05,003
+And we would like to diagnose whether these changes that we're seeing are by period or by.
+
+193
+00:24:08,333 --> 00:24:19,763
+What I said and the way that we start to think about this from a quantitative statistical perspective is what we call the age period cover model.
+
+194
+00:24:20,573 --> 00:24:24,713
+And we're going to look at that and we're going to think about the standard APC model, which works on incidence.
+
+195
+00:24:25,073 --> 00:24:33,833
+There are others in other generalizations, but our standard assumption is to assume that age period and cohort effects are multiplicative.
+
+196
+00:24:35,723 --> 00:24:43,973
+And so the incidence is some number of people at risk at some age period.
+
+197
+00:24:43,973 --> 00:24:52,703
+And cohort time is a baseline incidence rate that gets impacted by age effect, a period of fact and a cohort.
+
+198
+00:24:54,053 --> 00:25:09,063
+It's pretty straightforward, at least in theory. And so the way that we often think about this is to define an incidence rate.
+
+199
+00:25:09,183 --> 00:25:13,413
+So again, incidence is being number, incidence rate is the rate per population.
+
+200
+00:25:14,913 --> 00:25:23,613
+And so if I decide the incidence rates as lambda, then I can get that by incidence number, incidence divided by number of population.
+
+201
+00:25:23,943 --> 00:25:30,723
+And that leaves you with that base rate times the age effect, times the period of times the cohort effect.
+
+202
+00:25:32,193 --> 00:25:37,953
+And this is convenient because we like because we like linear models.
+
+203
+00:25:38,283 --> 00:25:47,823
+It's convenient to take the log of this. So that log of lambda is now some, some additive function of a baseline rate.
+
+204
+00:25:48,213 --> 00:25:55,773
+In age of fact, a period of vaccine appropriate effect when these are logs of the underlying effects.
+
+205
+00:25:57,573 --> 00:26:08,463
+So now we just have open enrollment. But a question is how do we specify the functions, these beta functions?
+
+206
+00:26:10,773 --> 00:26:14,373
+Normally, if you were just doing linear regression, we would just like get a single value.
+
+207
+00:26:15,243 --> 00:26:24,393
+But we don't necessarily want them to be actually linear because, uh, a good example of this.
+
+208
+00:26:25,383 --> 00:26:32,403
+Let's go back here. Um, this age cohort effect is clearly not linear, right?
+
+209
+00:26:32,433 --> 00:26:38,553
+It goes up and it goes down over time. And so we don't want to just be like birth is increasing back over linearly.
+
+210
+00:26:38,643 --> 00:26:46,053
+That's now. That's not what's happening. So we need to be able to specify other shapes for our effects.
+
+211
+00:26:46,923 --> 00:26:56,763
+And one, basically the default often is a step function every single year or every single age gets a different value.
+
+212
+00:26:58,683 --> 00:27:03,273
+And this is it is good, particularly if you have on off effects.
+
+213
+00:27:03,393 --> 00:27:06,903
+So if you're thinking about war time or thinking about pandemic,
+
+214
+00:27:07,473 --> 00:27:12,783
+it's either like there's no pandemic and there is a pandemic and then there's no pandemic, roughly speaking.
+
+215
+00:27:13,953 --> 00:27:17,223
+And so this kind of step function can be helpful.
+
+216
+00:27:18,243 --> 00:27:28,322
+Alternatively, there may be randomness in the effects if you're doing something like what flu strain circulated each year, is it H one and one?
+
+217
+00:27:28,323 --> 00:27:38,403
+Or is H3N2 while that is going to be random each year, we're not necessarily random, but it's it can be either or or both of them.
+
+218
+00:27:40,343 --> 00:27:44,393
+With challenging about step functions is that particularly for large data sets,
+
+219
+00:27:44,693 --> 00:27:54,173
+you have a lot of parameters to estimate and they don't necessarily represent continuous effects well because a lot of the effects,
+
+220
+00:27:54,443 --> 00:28:01,703
+particularly things on cohort, because they're changing societies changing slowly over time you really have you would expect
+
+221
+00:28:01,703 --> 00:28:09,533
+there to be continuous changes in the effect of birth cohort on cancer incidence for example.
+
+222
+00:28:09,923 --> 00:28:17,153
+And so especially for smaller data sets, step functions can kind of leap around a bit and don't represent continuous function as well.
+
+223
+00:28:19,013 --> 00:28:23,393
+An alternative are something called skylines.
+
+224
+00:28:23,933 --> 00:28:34,163
+So who is it encountered before at least some of us will work with finds that next week or the next lecture as well.
+
+225
+00:28:34,603 --> 00:28:46,523
+It's lines are piecewise continuous polynomials, so they're similar to joint points in that in the joint functions we did piecewise linear functions.
+
+226
+00:28:47,213 --> 00:28:51,723
+These are piecewise polynomial functions. Okay.
+
+227
+00:28:53,193 --> 00:28:57,963
+And because they're piecewise continuous polynomials, they're continuous,
+
+228
+00:28:58,323 --> 00:29:02,793
+which is nice because all of the effects that we're trying to estimate are continuous.
+
+229
+00:29:03,303 --> 00:29:06,483
+And so if we want continuous events, swines are a great choice.
+
+230
+00:29:08,193 --> 00:29:15,303
+They're tend to be fairly parsimonious in the sense that we don't need that many parameters to specify them.
+
+231
+00:29:16,653 --> 00:29:24,813
+And they tend to be a little bit better behaved down like really high degree males because you don't necessarily need a high degree of polynomial.
+
+232
+00:29:24,933 --> 00:29:34,773
+You don't need a temporary polynomial when any individual effect is only like cubic at most, and any time period it's cubic at most.
+
+233
+00:29:35,073 --> 00:29:40,913
+And so having a piecewise keeping it makes a lot more sense than trying to estimate a temporary polynomial over a longer period.
+
+234
+00:29:43,253 --> 00:29:46,823
+Challenges here include that spines are not always easy to work with.
+
+235
+00:29:48,083 --> 00:29:54,293
+Some clear how to assign the points at which you're sort of switching from polynomial to not every focus not.
+
+236
+00:29:55,973 --> 00:29:59,203
+Although one rule of thumb is to use one.
+
+237
+00:29:59,213 --> 00:30:10,263
+Not for ten years. I actually cannot remember how much spines I put in the lab, but if are there will work for them to get there.
+
+238
+00:30:13,233 --> 00:30:18,633
+Another challenge of working with the APC models is that they are not identifiable.
+
+239
+00:30:19,443 --> 00:30:28,163
+The estimates that you get for the values in the model are not unique and that's because of this interest.
+
+240
+00:30:28,443 --> 00:30:33,183
+The relationship between cohort and period, the cohort is period minus age.
+
+241
+00:30:33,573 --> 00:30:43,563
+So if we look at our function, it's incidence a function of age period and cohort if we rank cohort is period minus age when as a function of age,
+
+242
+00:30:43,833 --> 00:30:55,203
+period and period of minus age. And if you were to run right up here, your model matrix, the columns of your model matrix are not independent anymore.
+
+243
+00:30:55,833 --> 00:30:59,123
+And if they're not independent, then you don't have an identifiable model.
+
+244
+00:31:01,403 --> 00:31:07,133
+So what do we do about that? So there are two basic approaches for dealing with this issue.
+
+245
+00:31:07,643 --> 00:31:15,503
+The first one, which is the one that I favor, is to compare the models, each using only two effects.
+
+246
+00:31:17,303 --> 00:31:23,513
+Typically, we're going to include age because age almost always affects, especially for cancer risk.
+
+247
+00:31:24,503 --> 00:31:30,713
+And so you would specify the model that has age and period, but not cohort without an age period model.
+
+248
+00:31:31,073 --> 00:31:37,613
+And the model that has the aging cohort that up here in the age cohort model and you say which of these fits better,
+
+249
+00:31:38,153 --> 00:31:42,473
+which is sort of better, explains the data.
+
+250
+00:31:43,493 --> 00:31:47,303
+An alternative is to add a constraint in the model.
+
+251
+00:31:47,693 --> 00:31:51,473
+Usually that's to say that the cohort a period effects have to be zero and average.
+
+252
+00:31:51,893 --> 00:31:57,083
+That's enough of a constraint that you can get what you need to get.
+
+253
+00:31:57,683 --> 00:32:06,142
+Alternatively, and I think we'll see this later in the semester, you can put a constraint on like the shape of age.
+
+254
+00:32:06,143 --> 00:32:15,083
+So what will do well in the semester is say like there's a biologically reasonable shape to cancer incidence over time or over age.
+
+255
+00:32:16,193 --> 00:32:23,513
+And so if we fix our shapes to be to have those shapes, then period cohort become identifiable.
+
+256
+00:32:23,993 --> 00:32:25,643
+But we'll get to that later in the semester.
+
+257
+00:32:27,593 --> 00:32:34,973
+But I don't love about this constraint approach, though, that it can make the estimates sometimes difficult to interpret.
+
+258
+00:32:37,323 --> 00:32:47,193
+Okay. So back to this question. Are the trends that we're seeing in lung cancer incidence in metro women period or covering things?
+
+259
+00:32:48,343 --> 00:32:52,183
+Right. So let's think about what we're what we're saying here.
+
+260
+00:32:52,963 --> 00:32:58,863
+We're saying that, yes, even the fighting would be identifiable.
+
+261
+00:32:59,433 --> 00:33:08,653
+Yeah. So identifiable means that the parameter estimates are uniquely associated with the data, given the model.
+
+262
+00:33:09,283 --> 00:33:17,243
+So that. If you can, let's say.
+
+263
+00:33:19,493 --> 00:33:37,803
+She's here. So ip1 times age plus p two times period plus p three times cohort and I rewrite
+
+264
+00:33:37,803 --> 00:33:47,223
+this as you want a two times period plus three times a period minus age.
+
+265
+00:33:47,883 --> 00:34:00,663
+All of a sudden this becomes the P one minus three times age plus two plus p three times period.
+
+266
+00:34:02,733 --> 00:34:05,823
+P one minus p three should be identifiable.
+
+267
+00:34:06,493 --> 00:34:14,553
+It like if we think of this as being a linear model and we observe age and period and identify this similarity to identify P2 plus P three.
+
+268
+00:34:15,993 --> 00:34:18,813
+But that's two pieces of information for three parameters.
+
+269
+00:34:19,953 --> 00:34:25,442
+So based on a value of P three, we would get P1 to be two, but we don't have enough information.
+
+270
+00:34:25,443 --> 00:34:34,953
+So these individually are not at the individual age cohort and period of X are not identifiable.
+
+271
+00:34:35,643 --> 00:34:41,253
+We can identify their effect on the data collectively.
+
+272
+00:34:41,643 --> 00:34:45,423
+That's what's going on here. But we can separately separate them.
+
+273
+00:34:46,413 --> 00:34:56,753
+So make sense. So identify ability means the ability to make unique estimates of the parameters.
+
+274
+00:35:02,693 --> 00:35:09,773
+Okay. So back to this question. Are the trends that we're seeing here pure takeover effects?
+
+275
+00:35:10,433 --> 00:35:18,683
+Well, in our model, we are saying that log of incidents rate is additive.
+
+276
+00:35:20,893 --> 00:35:29,293
+And so we would expect. The log of incidents to be parallel to each other.
+
+277
+00:35:31,243 --> 00:35:38,443
+So that basically for a different period effect, you're just going to sort of translate the whole thing up or down, just up or down.
+
+278
+00:35:40,423 --> 00:35:50,562
+And we can start to see that one set or the other looks a little bit more like the
+
+279
+00:35:50,563 --> 00:35:58,033
+lines could be just vertically translated and there's the left to the right level.
+
+280
+00:35:58,033 --> 00:36:01,192
+More like it's a vertical translation than the other two.
+
+281
+00:36:01,193 --> 00:36:06,763
+You. It's not, like, perfectly obvious.
+
+282
+00:36:06,973 --> 00:36:12,283
+I'll grant you that. But one of them, I think, does look a little bit better.
+
+283
+00:36:15,903 --> 00:36:18,363
+Yeah. Left on the left. That's right.
+
+284
+00:36:18,373 --> 00:36:25,653
+And so these are basically kind of just like I can just imagine kind of switching them all up and they'll all kind of be the same line.
+
+285
+00:36:26,673 --> 00:36:30,843
+Whereas these you're going to get like they bend differently.
+
+286
+00:36:31,563 --> 00:36:35,223
+And so you can't just kind of like move them and get them on top of each other.
+
+287
+00:36:37,323 --> 00:36:40,383
+If you move them, these are all kind of crossing.
+
+288
+00:36:42,573 --> 00:36:49,563
+It's so it's it's less likely just by visual inspection that it's a period rather than a cohort effect.
+
+289
+00:36:51,713 --> 00:36:54,833
+And so. Right. So the question, which is parallel on the log scale.
+
+290
+00:36:57,733 --> 00:37:05,023
+The way that we're going to do that to cover models in this class is using the AP package.
+
+291
+00:37:06,403 --> 00:37:11,833
+So I, I like the think package in that it kind of makes this easier.
+
+292
+00:37:12,313 --> 00:37:15,972
+They do kind of science and stuff behind the scenes.
+
+293
+00:37:15,973 --> 00:37:24,523
+And so this is not what I used for my own research. I like to do it by hand and I'm happy to talk to anyone who's interested how to do this.
+
+294
+00:37:24,793 --> 00:37:31,873
+A little more flexibility. But the package is a nice way to kind of plug and play each pair of cover models.
+
+295
+00:37:32,503 --> 00:37:40,183
+And so here I've shown an age career cohort model analysis using the AP package for lung cancer.
+
+296
+00:37:40,703 --> 00:37:47,833
+And so what it's doing is it's, it's saying I'm going to fit an age model in a fit of age drift model.
+
+297
+00:37:48,193 --> 00:37:52,332
+Even talked about drift. I don't really use it much for anything.
+
+298
+00:37:52,333 --> 00:37:55,392
+It's more of a sort of technical concept, really.
+
+299
+00:37:55,393 --> 00:37:59,983
+It's any variation that could be equally well described by period or cohort.
+
+300
+00:38:01,243 --> 00:38:04,963
+And so the sense of like the pandemic, is it a period effect,
+
+301
+00:38:04,963 --> 00:38:10,603
+is it a cohort effect that kind of gets wrapped up into this idea of drift that we can't really tell the difference?
+
+302
+00:38:11,323 --> 00:38:22,393
+This often happens, particularly in smaller data sets where the like there's just not enough time range for you to really be able to distinguish.
+
+303
+00:38:23,263 --> 00:38:26,803
+So we're not going to work with that. But just so that, you know, when it pops up.
+
+304
+00:38:27,343 --> 00:38:34,273
+So if I take age model drift, I specify not drift, but cohort I do age period.
+
+305
+00:38:34,273 --> 00:38:37,723
+In cohort I would have to work just to age period.
+
+306
+00:38:38,323 --> 00:38:48,853
+And I go to each drift on the other side. And so we're really going to focus on comparing the age cohort each period and each period cohort models.
+
+307
+00:38:52,803 --> 00:39:01,233
+And we've talked a little bit about the information criterion before, but the AIC here refers to the information criterion,
+
+308
+00:39:01,803 --> 00:39:09,603
+which is defined as two times the negative one likelihood, which is the measure of fit and two times the number of parameters.
+
+309
+00:39:10,293 --> 00:39:18,333
+And so the information criterion is combining a penalty on bad fit with the penalty on overfitting.
+
+310
+00:39:19,473 --> 00:39:27,153
+And so this gives us a way to say what is the quote unquote best fit model.
+
+311
+00:39:28,203 --> 00:39:32,363
+That's a reasonable thing, although I kind of like to think about it as being.
+
+312
+00:39:32,393 --> 00:39:38,193
+And so we're not just throwing so many parameters at it that we can easily fit the data.
+
+313
+00:39:38,613 --> 00:39:47,013
+So what that might mean, for example, is you say, well, I'm going to use a step function and get every single cohort a different value.
+
+314
+00:39:47,313 --> 00:39:51,853
+And it can like kind of go jump around all over the place and fit the data really well.
+
+315
+00:39:52,683 --> 00:39:55,763
+But mechanistically, it's probably actually continuous.
+
+316
+00:39:55,773 --> 00:40:00,933
+And so we've really just over fit the data by letting it jump around a lot with a lot of parameters.
+
+317
+00:40:02,303 --> 00:40:08,723
+And so the information criteria is a good way to assess which of the models is getting better.
+
+318
+00:40:09,203 --> 00:40:24,293
+So if I highlight this is just an inset by highlight, the model I see and I look at my age cohort model and get 18 227 versus 24,455.
+
+319
+00:40:25,283 --> 00:40:28,733
+The age cohort model is really substantially a better fit.
+
+320
+00:40:32,013 --> 00:40:39,363
+Is this clear? This is kind of key to interpreting the facts in the models.
+
+321
+00:40:46,253 --> 00:40:49,523
+I could do the same for women and I'll see.
+
+322
+00:40:50,033 --> 00:40:54,173
+Similarly, a much smaller I see the age period covered.
+
+323
+00:40:54,473 --> 00:41:03,113
+This is primarily driven by the fear itself, the negative life likelihood, rather than the number of parameters in this case.
+
+324
+00:41:03,953 --> 00:41:09,033
+Question. So age period cohort still has a lower AC than age cohort.
+
+325
+00:41:09,563 --> 00:41:14,453
+Are you preferring age cohort because of the the former is not identifiable.
+
+326
+00:41:14,873 --> 00:41:24,143
+Correct. So in their age career cohort models, they're making the assumption that the cohort effects are on average a zero.
+
+327
+00:41:24,563 --> 00:41:28,733
+So they're only telling you you have cohort effects, which is fine.
+
+328
+00:41:29,243 --> 00:41:31,823
+And we'll look at those what those models look like in a second.
+
+329
+00:41:33,023 --> 00:41:41,993
+But my preference is, at least as a first step, is to really diagnose what is driving the event, do it.
+
+330
+00:41:42,023 --> 00:41:47,153
+Is it the cohort or is it the period or. Right, I guess I see like.
+
+331
+00:41:49,153 --> 00:41:52,783
+Kind of two questions like do the actual numbers matter?
+
+332
+00:41:53,053 --> 00:41:57,253
+Or is it more about comparing those values and like what is a significant.
+
+333
+00:41:57,693 --> 00:42:02,823
+Friends and relatives. Perfect. Great. So the first question is, do the actual values matter?
+
+334
+00:42:03,183 --> 00:42:07,053
+And basically, no, they do.
+
+335
+00:42:07,083 --> 00:42:14,193
+They like practically no. So practically speaking, you only care about the difference in the AC.
+
+336
+00:42:14,433 --> 00:42:25,743
+So actually when I like write papers about this, I almost always present relative AC with like an asterisk being like the baseline ac value is this.
+
+337
+00:42:25,953 --> 00:42:32,103
+But really, I only care about that. This one is like 200 words, actually 6000 more than the other one.
+
+338
+00:42:32,313 --> 00:42:39,093
+That's that's what I care about. The second question is how to interpret like one point of AC.
+
+339
+00:42:39,813 --> 00:42:48,633
+So one point of AC is essentially one parameter or or two parameters, rather.
+
+340
+00:42:49,743 --> 00:43:00,483
+And so the question is how many? So what I like to think about it is how many parameters do what I need to add to get one point better of AC.
+
+341
+00:43:01,233 --> 00:43:03,183
+And so if you look at the difference, you're like,
+
+342
+00:43:03,573 --> 00:43:15,963
+I need 6000 more period parameters or 3000 rather 3000 more period parameters to get at the same fit that my cohort model is getting.
+
+343
+00:43:17,253 --> 00:43:21,723
+And that's like ridiculous, right? And so that that's kind of helping us.
+
+344
+00:43:22,503 --> 00:43:28,383
+This one is very clear. Often you'll get ones that are kind of like, which way do I go with that?
+
+345
+00:43:28,623 --> 00:43:33,233
+And it becomes a more a difficult question. But those are both questions.
+
+346
+00:43:34,533 --> 00:43:46,783
+Other questions. So what do the fates of these models look like?
+
+347
+00:43:48,493 --> 00:43:58,873
+So this is an age cohort model with the period effects estimated from the residuals.
+
+348
+00:43:59,263 --> 00:44:04,063
+So what that means is I take an age cohort and model and I say, okay,
+
+349
+00:44:04,693 --> 00:44:12,733
+there's going to be some residuals and I'm going to regress my my residuals against my that calendar year and just see what that looks like.
+
+350
+00:44:13,483 --> 00:44:22,753
+In this case, the age cohort model, I had this shape of cancer incidence, lung cancer incidence.
+
+351
+00:44:23,173 --> 00:44:30,193
+This is a nine over time analog scale cohort.
+
+352
+00:44:30,583 --> 00:44:45,703
+What I see is a fairly flat cohort effect in terms of incidence up to about 1930, 1930 after 1938 begins to decrease.
+
+353
+00:44:47,023 --> 00:44:53,293
+Okay. And so what's happening around 1930 that is impacting my cancer incidence?
+
+354
+00:44:55,593 --> 00:45:00,633
+Surgeon general warning. Surgeon general warning happens in the 1960s.
+
+355
+00:45:01,443 --> 00:45:04,623
+But it's a good guess. But it is it is around smoking.
+
+356
+00:45:05,553 --> 00:45:17,402
+So the people that are born in 1930 are the people that are going to be influenced by the changes in smoking,
+
+357
+00:45:17,403 --> 00:45:22,383
+prevalence, new health warnings when they're a little bit colder.
+
+358
+00:45:23,223 --> 00:45:29,643
+And so oftentimes so this is one of the tricks in interpreting cohorts is that this is the year that they're born.
+
+359
+00:45:30,243 --> 00:45:33,693
+When do the health effects start? Right.
+
+360
+00:45:34,443 --> 00:45:42,093
+Because they're not smoking as soon as they're born. They are getting they're smoking when they're 16.
+
+361
+00:45:43,203 --> 00:45:48,303
+They are getting cancer when they're 50, 60, 70.
+
+362
+00:45:48,873 --> 00:45:50,493
+And so that's always something to keep in mind.
+
+363
+00:45:50,703 --> 00:45:58,113
+But we're seeing this very encouraging reduction and lung cancer incidence as a function of reduced health problems.
+
+364
+00:46:00,063 --> 00:46:05,073
+This period effect is actually very nice to see because this is saying actually
+
+365
+00:46:05,223 --> 00:46:12,243
+there's very little impact of calendar year on lung cancer incidence risk.
+
+366
+00:46:13,743 --> 00:46:21,693
+And that's suggesting that like like you don't smoke for one year, but then you go back to it or you're like isn't really making a difference.
+
+367
+00:46:21,933 --> 00:46:26,523
+It's this lifetime cumulative exposure. Okay.
+
+368
+00:46:26,733 --> 00:46:29,883
+But let's say that we don't we don't want the age cohort model.
+
+369
+00:46:30,063 --> 00:46:38,823
+We think the age period model is better. So again, we're going to take the what I don't want to hear.
+
+370
+00:46:42,973 --> 00:46:50,173
+Sorry. I forgot about this for a second. Let's just look at the age period cohort model.
+
+371
+00:46:51,073 --> 00:46:52,543
+In the age period model,
+
+372
+00:46:52,813 --> 00:47:03,913
+they're attributing the downward incidence to the period and that's saying that we have to have a cohort effect that peaks and then comes down.
+
+373
+00:47:05,353 --> 00:47:08,503
+It's plausible. It doesn't fit as well.
+
+374
+00:47:10,933 --> 00:47:15,613
+And it's really what's happening is that you have this idea of the cohort,
+
+375
+00:47:15,613 --> 00:47:21,223
+both the period and cohort effects kind of need to be contorted in order to make them better data.
+
+376
+00:47:21,463 --> 00:47:25,243
+And so from my perspective, it's a little less likely.
+
+377
+00:47:25,783 --> 00:47:36,223
+Um. The blue is the full age period cohort model where we have aging period and then the constrained cohort.
+
+378
+00:47:37,123 --> 00:47:41,683
+And what you can see is that you actually cannot even see the black except maybe a little bit here.
+
+379
+00:47:42,133 --> 00:47:48,253
+The age period cohort model is essentially fitting the same as the age cohort model.
+
+380
+00:47:48,823 --> 00:47:53,143
+These particular models fit in well and that gives us a little bit more,
+
+381
+00:47:53,743 --> 00:48:02,753
+even more and uh, looks certainly for evidence that cohort is really what's driving.
+
+382
+00:48:04,213 --> 00:48:14,173
+If I do this for women, I can get fairly similar effects where the cohort model is saying that there's not much period of effect,
+
+383
+00:48:15,013 --> 00:48:23,503
+but the cohort effects a little bit different. Here we have that similar kind of downward trend, but we have this kind of interesting upward trend,
+
+384
+00:48:24,763 --> 00:48:31,273
+and that's largely because tobacco use in women was lagging that of men for a long time.
+
+385
+00:48:31,573 --> 00:48:40,163
+And so it actually only peaked in around the 1930 birth cohort was increasing prior to that and decreasing afterwards.
+
+386
+00:48:40,273 --> 00:48:44,803
+So that's sort of interesting to happen on the same side.
+
+387
+00:48:46,563 --> 00:48:49,623
+New questions in interpreting these age period developments.
+
+388
+00:48:55,033 --> 00:49:03,612
+Okay. So yeah. So and here's what the ACP is in their AC DC and AP dash.
+
+389
+00:49:03,613 --> 00:49:07,843
+See it is is the first one the one where you have aging cohort.
+
+390
+00:49:08,473 --> 00:49:21,913
+Yes. So, so this is a this like this taxonomy or the best way of saying it is a very is very look at the package.
+
+391
+00:49:22,363 --> 00:49:31,153
+It's not really how I think about it more generally, but before the dash are the main effects and after the dash is the fetch residuals.
+
+392
+00:49:32,263 --> 00:49:43,093
+Okay, so it's agent core and the actual model and dash period means that period effects are estimated from different age period.
+
+393
+00:49:43,663 --> 00:49:47,673
+Cohort effects are estimated from there is of course, okay,
+
+394
+00:49:47,983 --> 00:49:53,233
+age period cohort of three are main effects, except you have a constraint on cohort to make it.
+
+395
+00:49:55,843 --> 00:50:04,243
+Actually it must be the on period because this is very obviously not averaging zero, um, averaging one in this case.
+
+396
+00:50:05,023 --> 00:50:08,563
+So, and I see the period effects are constrained to be one.
+
+397
+00:50:10,303 --> 00:50:19,153
+So you take away from that from the age cohort and each year cohort ones being similar with that it shows that cohort is responsible.
+
+398
+00:50:19,423 --> 00:50:28,963
+Yes. So you see not very much change in the shapes of the predicted values once you add period on top of cohort in this sense.
+
+399
+00:50:29,413 --> 00:50:36,223
+Yeah. So the period is not changing how the cohort is affecting the defense.
+
+400
+00:50:41,033 --> 00:50:46,133
+These, I would generally say, are the main outcomes, the main output of an APC.
+
+401
+00:50:46,133 --> 00:51:02,333
+Although I do like to verify that I'm actually getting a reasonable effect of the data by plotting the predicted incidence on a hexagon.
+
+402
+00:51:02,993 --> 00:51:06,083
+So that's what was happening here on the left. That's lung cancer for men.
+
+403
+00:51:06,323 --> 00:51:13,313
+Here's the APC model and we can see, you know, it's a pretty good pretty the fidelity is pretty good here.
+
+404
+00:51:13,583 --> 00:51:17,633
+I mean, it's not hitting like maybe exactly to fall over the nuances.
+
+405
+00:51:18,203 --> 00:51:24,323
+Um, there's a little bit sort of like darker red here maybe that's not quite being captured.
+
+406
+00:51:25,133 --> 00:51:29,612
+Um, but I think largely I'm quite happy with this.
+
+407
+00:51:29,613 --> 00:51:32,662
+But if we do for women,
+
+408
+00:51:32,663 --> 00:51:38,273
+we sort of similarly see they're being pretty good dense and the circular and we
+
+409
+00:51:38,273 --> 00:51:43,373
+can see that this kind of circular pattern was really being driven by cohort.
+
+410
+00:51:44,033 --> 00:51:50,723
+And so it's actually this diagonal trend that matters as opposed to the vertical trend.
+
+411
+00:51:55,583 --> 00:52:03,263
+So everything we've done so far is really focused on the cancer perspective because this is a cancer
+
+412
+00:52:03,263 --> 00:52:11,613
+modeling class for age group who are models really have nothing to do with cancer a priori or percent.
+
+413
+00:52:13,433 --> 00:52:23,933
+And so I want to spend some time going through some other examples because I think this is a technique that I use over and over again in my research.
+
+414
+00:52:24,263 --> 00:52:28,163
+And I think it's it's quite valuable to see other perspectives.
+
+415
+00:52:29,423 --> 00:52:33,383
+So this first one we're going to look at is HPV prevalence,
+
+416
+00:52:35,033 --> 00:52:43,822
+where we see prevalence in general HPV prevalence over time and relative general prevalence.
+
+417
+00:52:43,823 --> 00:52:50,843
+So these are cohort effects by cohort by race, ethnicity.
+
+418
+00:52:50,963 --> 00:52:59,203
+So black Americans, Hispanic Americans, white Americans, we can see that we have fairly similar trends and prevalence by age,
+
+419
+00:52:59,213 --> 00:53:04,723
+really kicking around the mid twenties, around that sort of sexual behavior peaks.
+
+420
+00:53:05,363 --> 00:53:13,493
+But we have a much higher prevalence for black Americans and the birth cohort effects are also quite similar.
+
+421
+00:53:13,833 --> 00:53:20,823
+We have just a decrease in prevalence in the birth cohorts from the 1940s through about 1970.
+
+422
+00:53:21,803 --> 00:53:25,643
+It's a little unclear. These really should have confidence intervals.
+
+423
+00:53:25,853 --> 00:53:29,273
+I did this when I was a graduate student, so like can forgive myself here,
+
+424
+00:53:29,453 --> 00:53:34,253
+but these are really have confidence intervals and to have a sense of like how real,
+
+425
+00:53:34,283 --> 00:53:45,203
+how and how concerning is this much higher increase and the effects for black women and is this going to continue to rise?
+
+426
+00:53:46,043 --> 00:53:52,513
+And so we see these racial disparities. But this is prevalence, right?
+
+427
+00:53:52,523 --> 00:54:01,493
+We have and I talked about how you do prevalence. And so we did that labeling for incidents.
+
+428
+00:54:01,793 --> 00:54:06,293
+And that's appropriate because a log link gives us only positive values.
+
+429
+00:54:06,653 --> 00:54:11,963
+We take the log that exponentially any number and it becomes positive.
+
+430
+00:54:12,953 --> 00:54:19,493
+And so that's appropriate for incidents, but it's not very prevalent because prevalence is constrained to you between zero and one.
+
+431
+00:54:20,423 --> 00:54:23,903
+And so we're going to do a logic link instead.
+
+432
+00:54:25,103 --> 00:54:31,193
+So for those of you who are familiar, the incidence is basically doing Poisson regression.
+
+433
+00:54:32,273 --> 00:54:38,492
+For prevalence, we're doing logistic regression. She might actually put those on the slides.
+
+434
+00:54:38,493 --> 00:54:42,983
+Both. All right, you want to.
+
+435
+00:54:43,293 --> 00:54:48,813
+So instead of prison regression, we're going to do logistic regression, the logic of prevalence.
+
+436
+00:54:49,053 --> 00:54:58,863
+So that's the log of P over one minus P. This allows us to transfer to transform between the entire real number line and a number of C0 and one.
+
+437
+00:54:59,133 --> 00:55:11,073
+That's our goal here. I will note that these models are a little bit funny for prevalence because they do some kind of like weird the way that they.
+
+438
+00:55:11,853 --> 00:55:19,353
+It's not just like a translation and kind of has to like throw them out and throw them in to the effects are a little bit funny.
+
+439
+00:55:20,093 --> 00:55:35,133
+Um, but it does work. And so this was a really influential paper on smoking prevalence by Ted Holford and Company.
+
+440
+00:55:35,543 --> 00:55:42,933
+This is smoking prevalence and you can see not only differences in shape and size,
+
+441
+00:55:43,173 --> 00:55:48,453
+not only size but shape in terms of smoking prevalence by birth cohorts.
+
+442
+00:55:49,413 --> 00:55:58,473
+And I think and for men and women. And so again, so actually here this is kind of interesting.
+
+443
+00:55:58,833 --> 00:56:04,833
+You see we see that the 1890 to 95 to these breath targets that were like a little bit before 1930,
+
+444
+00:56:05,073 --> 00:56:16,113
+they're really low and they kind of really ramp up to the 1930, 1935 cohorts here for women, whereas for men they were already pretty high.
+
+445
+00:56:18,903 --> 00:56:25,863
+So that is that's really a completely different analysis, but really comporting well with the reason for lung cancer incidence.
+
+446
+00:56:26,973 --> 00:56:37,053
+These shapes are kind of fun because they actually didn't do it on prevalence itself, but on smoking, initiation, smoking sets and smoking cessation.
+
+447
+00:56:37,533 --> 00:56:47,373
+And then you're having, you have this kind of, um, perspective of the, like we did in the nineties forerunner sort of in prevalence models.
+
+448
+00:56:47,673 --> 00:56:52,713
+So wondering how smoking initiation, smoking cessation change over time impacts smoking prevalence.
+
+449
+00:56:54,303 --> 00:56:58,863
+They also looked at cigarets per day and other aspects of smoking.
+
+450
+00:57:00,273 --> 00:57:07,383
+And so what you can do with this now is say, okay, I have my estimates of smoking prevalence,
+
+451
+00:57:07,803 --> 00:57:12,453
+I have what the cohort effects are telling me is going on.
+
+452
+00:57:12,813 --> 00:57:16,983
+If I project those cohort and period effects farther into time.
+
+453
+00:57:18,003 --> 00:57:23,813
+This gives me another way to do projection that's not simply or not.
+
+454
+00:57:24,153 --> 00:57:32,373
+I shouldn't say simply if that is alternative to that mechanistic perspective that we didn't make in this corner.
+
+455
+00:57:32,613 --> 00:57:40,803
+This is a much more statistical perspective that still allows us to do a fairly nice projection sort of moving forward.
+
+456
+00:57:41,283 --> 00:57:50,523
+Again, this is going to require us to have spines or another continuous function that allows for a smooth projection forward of the effects.
+
+457
+00:57:51,033 --> 00:57:56,163
+Because if you're if you're just estimating individual years, then you don't know what the future years are going to be.
+
+458
+00:57:56,523 --> 00:58:01,593
+So this is relying on that continuity. So that's what they did here, is that you can see models.
+
+459
+00:58:07,563 --> 00:58:11,343
+This is another one of my work that I get.
+
+460
+00:58:11,383 --> 00:58:22,253
+But the important lab here thinking about antibody patterns to influenza and trying to understand how these patterns of titers.
+
+461
+00:58:22,263 --> 00:58:29,793
+So who is who has antibodies to different influenza strains who care for different strains of influenza?
+
+462
+00:58:30,813 --> 00:58:35,613
+Wisconsin 2000 5901 and Texas 2012.
+
+463
+00:58:36,363 --> 00:58:44,403
+And understand how these affects. So you see a very different pattern here as opposed to these other three, which are very similar to each other.
+
+464
+00:58:46,593 --> 00:58:53,043
+And so we would like to know, for example, the cohort effects that we're seeing.
+
+465
+00:58:53,973 --> 00:59:04,113
+Are they for effects and B, do they depend on like people have generally thought, the birth cohort you're in when that virus first circulated,
+
+466
+00:59:04,593 --> 00:59:17,403
+so do your your titers to with companies that are five depend on your age relative to 25 do your titers to 79 depend on your age relative to 2000.
+
+467
+00:59:19,413 --> 00:59:25,053
+And on the left, this is what happens if you look at age, at introduction,
+
+468
+00:59:25,383 --> 00:59:29,283
+this is a cohort effect because it's age relevant relative to a certain year.
+
+469
+00:59:29,943 --> 00:59:35,543
+And what we see is that all of these viruses change.
+
+470
+00:59:35,883 --> 00:59:41,522
+The titers to the viruses had a very similar shape, but they're a little bit translated from each other.
+
+471
+00:59:41,523 --> 00:59:43,953
+They're not quite on top of each other.
+
+472
+00:59:44,133 --> 00:59:54,903
+And if we shift them so that they are, it turns out that this is essentially saying that it's not age X strain introduction,
+
+473
+00:59:55,563 --> 01:00:01,323
+but age at the introduction of what we call the antigenic cluster.
+
+474
+01:00:01,953 --> 01:00:08,793
+So these set of viruses related antigenic layer in their how they affect the immune system.
+
+475
+01:00:09,033 --> 01:00:12,332
+And so when I was doing this work, I was like, oh,
+
+476
+01:00:12,333 --> 01:00:19,893
+it's a little bit like obvious that if you have an antigenic cluster that's defined by how it's affecting antibodies,
+
+477
+01:00:20,443 --> 01:00:24,963
+you would expect them to depend on COVID effects to depend on antigenic cluster.
+
+478
+01:00:26,313 --> 01:00:29,633
+But what's interesting is that that is not isn't what people thought before.
+
+479
+01:00:31,653 --> 01:00:39,213
+And so what we see is that we see this consistency when we switch to the new antigenic cluster rather than the strain itself.
+
+480
+01:00:42,993 --> 01:00:47,583
+And then I think this is my last example. This is drug overdose death.
+
+481
+01:00:48,153 --> 01:00:52,683
+So this is this is the group that did that came up with hex maps for the first time.
+
+482
+01:00:52,923 --> 01:00:58,713
+So this is the paper that that that this was associated with.
+
+483
+01:00:58,893 --> 01:01:06,063
+I remember seeing them present at epidemics in 2019 and just being like, this is the coolest thing that they did.
+
+484
+01:01:06,303 --> 01:01:13,173
+Each period cohort on opioid overdose and national mortality data.
+
+485
+01:01:13,683 --> 01:01:22,623
+And so what they what the data show is that there's this really fairly large increase in overdose mortality, starting with the 1945 birth cohort.
+
+486
+01:01:23,853 --> 01:01:29,223
+So so we can see this really strong cohort effect here and a really strong age effect as well.
+
+487
+01:01:32,613 --> 01:01:41,773
+And so this is just the data here. We'd like to kind of explain it in terms of each period cohort and what they did.
+
+488
+01:01:42,123 --> 01:01:48,033
+They didn't use incidence. They didn't use prevalence specifically.
+
+489
+01:01:48,243 --> 01:01:59,673
+They came up with a fairly sophisticated model to describe mortality as normal curves or Gaussian curves as a function of age, height and people.
+
+490
+01:02:00,723 --> 01:02:06,723
+And so here there fits to certain cohorts. So you can see this sort of like y flat becoming more and more peak.
+
+491
+01:02:08,343 --> 01:02:17,283
+One drawback I would say is that it's a little unclear how well these are going to fit at older ages for these groups.
+
+492
+01:02:17,283 --> 01:02:20,643
+And so a little bit careful about overinterpreting these.
+
+493
+01:02:21,033 --> 01:02:29,883
+But overall, I think this is a really nice, uh, and clever way of thinking about the patterns here.
+
+494
+01:02:30,963 --> 01:02:41,313
+And what they found was very clear phases of how the peak age and the peak height changed over time.
+
+495
+01:02:42,333 --> 01:02:54,243
+And so if they plot birth cohort by birth cohort, the peak age of he height, they find this trend starting that like 1945 of increasing peak height.
+
+496
+01:02:55,323 --> 01:02:59,583
+So that's basically this stage here, the blue is becoming the green.
+
+497
+01:03:00,573 --> 01:03:10,083
+Then phase two, starting in the 1960s of the peak height staying the same, but people having earlier and earlier deaths.
+
+498
+01:03:10,863 --> 01:03:17,703
+So we have this kind of height, green height here, more or less staying the same, but it's moving to the left.
+
+499
+01:03:18,963 --> 01:03:29,983
+And finally, in 1980, we start getting a really higher another increase in overdose magnitude of the index.
+
+500
+01:03:30,043 --> 01:03:38,583
+So, again, from the orange to the red, no real change in the where the peak happens, but the peak height.
+
+501
+01:03:40,263 --> 01:03:45,813
+And so that's like you don't see that it's just by looking at the data.
+
+502
+01:03:46,113 --> 01:03:50,193
+This is really neat from my perspective analysis here.
+
+503
+01:03:51,483 --> 01:03:56,253
+And so this they really tie these to what's going on.
+
+504
+01:03:56,583 --> 01:04:06,243
+And each of the different generations of the baby boomers must really seeing this increase in overdose mortality for Gen Xers.
+
+505
+01:04:06,633 --> 01:04:11,163
+Decreasing age of millennials, again, increasing overdose mortality.
+
+506
+01:04:13,523 --> 01:04:20,273
+And if we look at what's going on for these different cohorts,
+
+507
+01:04:22,043 --> 01:04:28,663
+we can and kind of tying them to what's going on in terms of like the drugs that are available and policies.
+
+508
+01:04:28,813 --> 01:04:33,503
+TIME We can think about the first prescription opioid wave,
+
+509
+01:04:34,223 --> 01:04:42,713
+the heroin wave and the fentanyl wave because of how these these effects are affecting the different cohorts over time,
+
+510
+01:04:42,713 --> 01:04:47,123
+we're really seeing boomers mostly being affected by the first prescription opioids,
+
+511
+01:04:48,113 --> 01:04:53,483
+Gen-X with heroin, and then millennials starting to overtake in the fentanyl.
+
+512
+01:04:55,073 --> 01:05:02,123
+That's a lot becoming. So a really nice way of decomposing the data here.
+
+513
+01:05:05,133 --> 01:05:09,183
+Any questions? I mean, these examples are.
+
+514
+01:05:12,833 --> 01:05:20,383
+Just a couple of minutes left here, have some discussion questions that two questions.
+
+515
+01:05:20,393 --> 01:05:26,213
+The first is now that we have we understand age and period covered a little bit better.
+
+516
+01:05:26,453 --> 01:05:32,453
+We understand how they interact and some examples of each.
+
+517
+01:05:33,413 --> 01:05:40,643
+Can you think of a disease or a disease, a risk factor that would probably be best described as an age cohort model,
+
+518
+01:05:40,973 --> 01:05:44,183
+an age period model or a cohort period model?
+
+519
+01:05:44,963 --> 01:05:48,413
+We saw a cohort period model in the antibody titers.
+
+520
+01:05:49,733 --> 01:05:58,223
+And then the second question is a little bit more practical and and trying to head off potential issues in the lab six.
+
+521
+01:05:58,823 --> 01:06:05,123
+Suppose you are looking at your APC results and you're looking them maybe by sex and by race.
+
+522
+01:06:05,603 --> 01:06:13,793
+And you say that like, okay, well, some of the groups are better than by age cohort and some of the groups are greater than by age period.
+
+523
+01:06:14,813 --> 01:06:22,973
+What do you do? How do you think about that? What what sort of how do you proceed?
+
+524
+01:06:22,983 --> 01:06:29,783
+And in discussing the data and presenting the results?
+
+525
+01:06:30,273 --> 01:06:33,653
+Do you just say some of them are this, some of them are that?
+
+526
+01:06:33,803 --> 01:06:41,093
+I shrugged. That's what that's what the models say. Or how do you want to sort of put some more structure on?
+
+527
+01:06:41,573 --> 01:06:47,453
+So we'll pause here and let you chat about it.
+
+528
+01:06:47,453 --> 01:06:54,808
+We'll come together a little bit. For the first example, like let your mind run.
+
+529
+01:07:01,737 --> 01:07:07,767
+We have a age code, age cohort example that we would like to volunteer.
+
+530
+01:07:14,517 --> 01:07:17,816
+It's happening for some reason.
+
+531
+01:07:17,817 --> 01:07:23,337
+Lung cancer. So each. Sure. That's that's the that's sort of like classic 101.
+
+532
+01:07:23,337 --> 01:07:26,647
+That's not not lung cancer.
+
+533
+01:07:26,667 --> 01:07:33,937
+Not even cancer in general. Maybe shingles.
+
+534
+01:07:33,987 --> 01:07:42,087
+Okay, that's a good one. So, like, so the chicken pox, uh, virus.
+
+535
+01:07:42,327 --> 01:07:46,737
+And how this one's very interesting because you have both.
+
+536
+01:07:47,067 --> 01:07:55,377
+So childhood diseases are infected, fact are circulating, but also you have different vaccines for children and for adults.
+
+537
+01:07:55,377 --> 01:08:08,487
+And, um, I'm not a super expert on Duracell, but I think that that's a very interesting one, would probably like very complex effects that.
+
+538
+01:08:10,287 --> 01:08:14,006
+The thing I want to highlight about COVID effects is that this is typically going to
+
+539
+01:08:14,007 --> 01:08:21,477
+be diseases that have long exposures or long differences between the risk factor.
+
+540
+01:08:21,837 --> 01:08:26,337
+And how about each period you want to have a good age period.
+
+541
+01:08:34,637 --> 01:08:42,887
+Then we were talking for this one about the pandemic, just because it depended on your age and the period of the pandemic.
+
+542
+01:08:42,887 --> 01:08:48,016
+But we were talking more so about the people who were in nursing homes just because like
+
+543
+01:08:48,017 --> 01:08:51,166
+during this time the diaphragm was in the nursing home and like my mom talks about,
+
+544
+01:08:51,167 --> 01:08:53,117
+like go out there and have the gallbladder hear.
+
+545
+01:08:53,207 --> 01:08:58,277
+All the caretakers were saying that they're like the minds of the people in the nursing home were just like
+
+546
+01:08:58,577 --> 01:09:02,777
+completely like plummeting just because they had such a lack of social interaction during that period.
+
+547
+01:09:02,927 --> 01:09:08,477
+Okay. So so is the outcome like mental health or what it was like there?
+
+548
+01:09:08,627 --> 01:09:12,177
+Like patients dementia was getting worse. Okay. Okay.
+
+549
+01:09:12,257 --> 01:09:20,987
+So so dementia specifically. Okay. That said, that certainly seems plausible to me that you have dementia, certainly age related.
+
+550
+01:09:21,227 --> 01:09:27,147
+And it could be that in this specific time period, you have, of course, outcomes, this great cohort period.
+
+551
+01:09:27,147 --> 01:09:32,197
+This is the tricky one. I heard you guys talking about pollution.
+
+552
+01:09:32,207 --> 01:09:37,627
+I think that that's certainly plausible. I definitely kind of you know,
+
+553
+01:09:37,637 --> 01:09:47,377
+I was thinking like things like thalidomide or like drugs that were like banned at a certain point but really affected kind of developmentally.
+
+554
+01:09:48,167 --> 01:09:52,097
+That's something along these lines. So that's.
+
+555
+01:09:52,427 --> 01:09:55,607
+So lots of interesting ways that these kind of come up here.
+
+556
+01:09:55,907 --> 01:09:59,327
+And how about this APC results are different.
+
+557
+01:09:59,457 --> 01:10:03,497
+If you're just at the beginning, you're trying to diagnose age coworkers the age period as a starting point.
+
+558
+01:10:03,977 --> 01:10:09,257
+Some of them are some some of them out there where you go from here. So I heard you had one suggestion.
+
+559
+01:10:10,157 --> 01:10:15,767
+Oh, I mean, my suggestion was just to use the full APC model with the constraint in that case.
+
+560
+01:10:15,857 --> 01:10:20,057
+Okay. So so you're like, I can't it's not really deciding consistently.
+
+561
+01:10:20,297 --> 01:10:23,447
+Let me just put the whole model on there. I think that's reasonable.
+
+562
+01:10:23,657 --> 01:10:28,697
+I think the goal is to really be able to compare all of the models to to be able to to say,
+
+563
+01:10:28,697 --> 01:10:32,717
+like, I want to see how cohort is coming across all of them.
+
+564
+01:10:32,897 --> 01:10:44,147
+I see um, periods coming across all of them. Alternatively, another option would be to do a group AIC to be like,
+
+565
+01:10:44,147 --> 01:10:54,727
+I want to fit all four of the models simultaneously and add up their aces so that I can see whether as a whole age cohort or age period,
+
+566
+01:10:54,737 --> 01:10:58,847
+that's better because you really you really, really, I think care.
+
+567
+01:10:58,847 --> 01:11:05,447
+And you also said theoretically you want to pick a cohort probably in this case, maybe the other things for other cases.
+
+568
+01:11:05,447 --> 01:11:09,677
+But you want to you don't want to just be following the outputs of the models.
+
+569
+01:11:09,917 --> 01:11:15,457
+You want it to make sense in terms of the underlying concepts and you want to be able to compare.
+
+570
+01:11:15,587 --> 01:11:19,407
+So no one right answer, but those are the things I want.
+
+571
+01:11:19,607 --> 01:11:24,077
+But we'll stop there. I'll hang around for the next half an hour.
+
+572
+01:11:25,117 --> 01:11:29,237
+People have questions on the labs and then that will be in the lab,
+
+573
+01:11:29,597 --> 01:11:36,047
+computer lab next week to finish up joint point and maybe get started on the APC models.
+
+574
+01:11:38,877 --> 01:11:40,347
+I hope our ABC models.
+

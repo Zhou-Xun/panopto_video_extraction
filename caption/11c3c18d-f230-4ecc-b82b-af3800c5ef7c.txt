@@ -1,0 +1,3980 @@
+1
+00:00:00,950 --> 00:00:05,630
+Okay. So welcome back.
+
+2
+00:00:07,100 --> 00:00:12,910
+It's been a while since we've seen each other in person. And.
+
+3
+00:00:18,460 --> 00:00:21,580
+Let's go ahead and remind ourselves where we are in the course here.
+
+4
+00:00:26,450 --> 00:00:32,330
+So we are. Here October 24th.
+
+5
+00:00:33,730 --> 00:00:40,959
+And the last time we spoke about a handout was way back here October 10th.
+
+6
+00:00:40,960 --> 00:00:49,440
+So we were on hand out ten. We were on our second survival day to hand out.
+
+7
+00:00:49,720 --> 00:00:54,880
+But I imagine that your focus shifted a lot since October ten.
+
+8
+00:00:55,510 --> 00:01:00,710
+And so we'll need to kind of get back into thinking about this kind of data structure.
+
+9
+00:01:00,730 --> 00:01:01,720
+So we'll start there.
+
+10
+00:01:02,920 --> 00:01:16,989
+I also want to remind you that we have assignment for posted and that the due date is November 9th, which which seems like a far time away.
+
+11
+00:01:16,990 --> 00:01:23,380
+And that was intentionally done to give you a chance to catch your breath with all the courses that have been backing up.
+
+12
+00:01:24,340 --> 00:01:30,030
+So this homework for. This is what it looks like.
+
+13
+00:01:31,570 --> 00:01:36,130
+Is all about handouts. Nine and ten. We'll finish out ten today.
+
+14
+00:01:37,270 --> 00:01:46,780
+And even start handing out 11. And I mean, all the homeworks in this course are a lot of work because you're getting used to new ideas.
+
+15
+00:01:46,790 --> 00:01:51,170
+So this is no exception. But I will say that compared to some homeworks.
+
+16
+00:01:53,080 --> 00:01:56,300
+It's a little bit better. All right.
+
+17
+00:01:57,260 --> 00:02:03,079
+The main the main work is that this is such an entirely new topic for you that there's going to be a learning curve.
+
+18
+00:02:03,080 --> 00:02:06,350
+And so the assignment seems quite short.
+
+19
+00:02:06,350 --> 00:02:09,830
+But for many of you, the learning curve of what remained,
+
+20
+00:02:09,930 --> 00:02:14,990
+remembering what censored survival data is and kind of getting back in the groove is going to take some time.
+
+21
+00:02:15,500 --> 00:02:18,220
+So the lab this week is meant to help with this,
+
+22
+00:02:18,860 --> 00:02:28,160
+and I'm hoping that this will really help you get your your breath back after a really hard push through midterms.
+
+23
+00:02:29,180 --> 00:02:32,420
+But we need to get back into shape as quickly as we can.
+
+24
+00:02:33,050 --> 00:02:36,830
+So after this, homework, homework four, there are two more homeworks.
+
+25
+00:02:37,670 --> 00:02:43,970
+Homework five is going to be really focused more on regression models for censored survival data.
+
+26
+00:02:44,600 --> 00:02:47,360
+And so we're going to be with this topic for a while.
+
+27
+00:02:47,630 --> 00:02:55,400
+And then the final homework has to do with modeling dependent outcomes of various types, and it's a very, very long homework.
+
+28
+00:02:55,400 --> 00:03:02,180
+So you want to we're going to kind of build up two long homeworks again, four, five and six.
+
+29
+00:03:02,180 --> 00:03:09,120
+So just take this breath. And get caught up and then get ready to move again.
+
+30
+00:03:09,750 --> 00:03:14,080
+All right. All right.
+
+31
+00:03:14,090 --> 00:03:18,790
+What else should we update? So we had a we had a quiz.
+
+32
+00:03:19,540 --> 00:03:26,979
+And the quiz is that I've made a lot of progress on grading the quiz, but I haven't had a GSI meeting yet.
+
+33
+00:03:26,980 --> 00:03:28,990
+So the really they haven't had their hands on it yet.
+
+34
+00:03:29,920 --> 00:03:39,310
+So I've kind of just gotten it started for the year five, but we don't have our meeting until I think we have it tomorrow.
+
+35
+00:03:39,790 --> 00:03:45,490
+So you might get grades back as soon as Wednesday, but it might be the weekend as well.
+
+36
+00:03:46,730 --> 00:03:51,180
+Right. Okay. So let's go ahead and get started.
+
+37
+00:03:51,930 --> 00:04:01,290
+Let's go ahead and pull up your handout. Ten. And I think we need to have just a little bit of a reminder of what is going on with this kind of data.
+
+38
+00:04:01,300 --> 00:04:08,200
+So I'm going to even though we've made it pretty far through this handout just last time, I think we need a refresher.
+
+39
+00:04:13,000 --> 00:04:16,090
+All right. So there's a lot of notation involved with census survival times.
+
+40
+00:04:16,090 --> 00:04:23,860
+This is a situation now where we have for our outcome variable, we need two pieces of data.
+
+41
+00:04:25,600 --> 00:04:31,090
+So we have either individual. This is usually a subscript. That part's very similar to what's usual.
+
+42
+00:04:31,570 --> 00:04:35,410
+We have little T, which is study time.
+
+43
+00:04:35,800 --> 00:04:47,920
+You know, it's not a random variable, it is indexing, you know what date since the time zero where you began follow up is being talked about.
+
+44
+00:04:47,920 --> 00:04:54,579
+So I know that earlier on we use little t equals ten to stand in for what?
+
+45
+00:04:54,580 --> 00:04:59,140
+Survival at little T equals ten months or you know, things like that.
+
+46
+00:05:01,490 --> 00:05:03,229
+And then there's the random variables.
+
+47
+00:05:03,230 --> 00:05:12,600
+As usual, I'm using capital letters, so the random variable for the time to event that you really want to understand well is a capital T.
+
+48
+00:05:13,040 --> 00:05:19,220
+And so this is the some people call this a survival time, even if it's not about a time to death.
+
+49
+00:05:20,090 --> 00:05:30,110
+Ah, I will, whenever possible, try to use the longer time to event, but I will slip into the same situation.
+
+50
+00:05:30,110 --> 00:05:36,140
+I'm calling it a survival time sometimes when it's not a time to death just because it's called survival time analysis, you know.
+
+51
+00:05:37,370 --> 00:05:45,860
+And then the the feature that causes us problems with the analysis of survival data is that we don't get to see everybody's event time.
+
+52
+00:05:46,460 --> 00:05:51,830
+Usually a grant will end at four or five years. And so the last time we see them at four or five years,
+
+53
+00:05:52,370 --> 00:05:58,940
+we might only know that they hadn't had the event yet, that they were totally event three through follow up,
+
+54
+00:06:00,830 --> 00:06:08,270
+we can also have withdrawals or lost to follow up and all of that is kind of captured by this censoring random variable.
+
+55
+00:06:08,390 --> 00:06:16,370
+C So it's the potential follow up time we may or may not CCI If they die first,
+
+56
+00:06:16,370 --> 00:06:19,850
+we don't really have a good measure of how long we would have been able to follow them.
+
+57
+00:06:22,360 --> 00:06:27,190
+And similarly, if they're censored, we don't get to see their time to event.
+
+58
+00:06:28,120 --> 00:06:34,390
+So the dataset usually has two rating variables to summarize what we do know about their survival time.
+
+59
+00:06:34,510 --> 00:06:41,620
+IXI is the minimum of Tai Chi, so excite is the amount of time we watched them.
+
+60
+00:06:42,690 --> 00:06:48,990
+Or the observation time and Delta Eye is kind of the reason why we stopped watching them.
+
+61
+00:06:49,770 --> 00:06:53,969
+So if Delta is a one, it means that we stopped watching them.
+
+62
+00:06:53,970 --> 00:07:03,790
+At the moment, we observed a death. Delta One is the death indicator or event indicator.
+
+63
+00:07:03,790 --> 00:07:14,110
+If it's not a mortality situation and if Delta is equal to zero, that means the last time we saw them at time x they were still event free.
+
+64
+00:07:17,770 --> 00:07:22,510
+Suddenly B the grant ran out and that we didn't get. They were still bit free at the time the grant ran out.
+
+65
+00:07:23,950 --> 00:07:35,020
+So the assumption through much of this course is that the true event time you're interested in is independent of how long you were able to watch them.
+
+66
+00:07:35,960 --> 00:07:43,400
+For all individuals in the sample and it's dependent on which covariates you're using in the analysis generally.
+
+67
+00:07:46,410 --> 00:07:55,680
+So for Tuesday, protests. So first of all, what do we do in the first hand that we learn how to estimate survival curves with a kaplan-meier estimate?
+
+68
+00:07:55,710 --> 00:08:01,320
+We learned how to find confidence intervals and things like that in our output,
+
+69
+00:08:02,640 --> 00:08:12,450
+and we kind of learned how bias can creep in if you make assumptions about the data, about the censored values incorrectly.
+
+70
+00:08:12,630 --> 00:08:13,530
+So that was kind of.
+
+71
+00:08:13,890 --> 00:08:20,670
+So the last time it was Give me you intuition about how this data works and how to avoid bias when you're estimating things like survival.
+
+72
+00:08:21,300 --> 00:08:26,910
+So in this handout, we're going to go over the two sample tests that you can use with this kind of data.
+
+73
+00:08:26,910 --> 00:08:27,870
+And there's several.
+
+74
+00:08:30,510 --> 00:08:39,120
+So for Tuesday, April tests, we have pairs of outcomes for each person and group one pairs of outcomes for each person in group two.
+
+75
+00:08:40,170 --> 00:08:43,370
+And we don't have to have equal sample sizes than the two groups.
+
+76
+00:08:43,380 --> 00:08:48,120
+That's pretty usual. And so the first subscript is going to be the group indicator.
+
+77
+00:08:48,120 --> 00:08:51,090
+Second subscript is going to be the individual indicator.
+
+78
+00:08:54,540 --> 00:09:04,980
+It turns out that the main times we get different estimates, like when the kaplan-meier drops, it's always that observed event times.
+
+79
+00:09:05,220 --> 00:09:18,820
+And so it's convenient to order those. At the observed unique death times two 130 and so ended just think of it as the number of unique event times.
+
+80
+00:09:21,290 --> 00:09:29,390
+And it's pooled across the two groups being compared. And we had notation for the number at risk.
+
+81
+00:09:30,690 --> 00:09:34,559
+With with the letter y i. So it's like the not the denominator.
+
+82
+00:09:34,560 --> 00:09:38,129
+Everybody who could possibly have this event at time.
+
+83
+00:09:38,130 --> 00:09:41,880
+T j So this subscript j matches the subscript j.
+
+84
+00:09:43,930 --> 00:09:52,270
+And d1j. Is the number of people who had the event subscript being the the group number.
+
+85
+00:09:53,690 --> 00:10:00,310
+I'm calling it the sample here for some reason. And the j here for TJ matches this j here.
+
+86
+00:10:02,590 --> 00:10:06,489
+And again, here we're using this group information.
+
+87
+00:10:06,490 --> 00:10:09,870
+So the assumption shifts to tides independent of sea.
+
+88
+00:10:11,100 --> 00:10:18,790
+For all individuals conditional on group. So once you know which group they're in tears independent of.
+
+89
+00:10:18,790 --> 00:10:31,939
+See, I. And the two simple test hypotheses are generally that you've got two survival curves
+
+90
+00:10:31,940 --> 00:10:36,650
+that are behind the scenes and you want to know if they're different or not.
+
+91
+00:10:36,680 --> 00:10:42,260
+And so we kind of state the null hypothesis in this way where we have we have little t.
+
+92
+00:10:43,660 --> 00:10:49,149
+And here. And the alternative hypothesis is that the curves aren't equal.
+
+93
+00:10:49,150 --> 00:10:53,680
+And so there's some values of T where the curves kind of deviate from each other.
+
+94
+00:10:56,650 --> 00:11:00,120
+And the most popular test is the log write test.
+
+95
+00:11:00,120 --> 00:11:03,630
+And we we went over the log rank test last time.
+
+96
+00:11:05,130 --> 00:11:13,620
+So it's a version of the mental Hansell test where for each unique event time you have a two by
+
+97
+00:11:13,620 --> 00:11:20,249
+two table to sort of sound like you remember a little bit of this and each unique death time,
+
+98
+00:11:20,250 --> 00:11:26,220
+event time, you have a two by two table. That looks like this.
+
+99
+00:11:27,440 --> 00:11:33,440
+Where you are kind of categorizing the two groups through the rows and their status,
+
+100
+00:11:33,440 --> 00:11:40,069
+whether they're they they've had the event or not or the columns for that value of t j.
+
+101
+00:11:40,070 --> 00:11:49,639
+And so you sort of fill in these two by two tables and you perform a mental Hansell analysis to get the P value.
+
+102
+00:11:49,640 --> 00:11:52,820
+And that ends up being the same exact thing as log rank test.
+
+103
+00:11:53,720 --> 00:11:56,660
+And we kind of went through that last time, so I'm not going to repeat it.
+
+104
+00:11:57,170 --> 00:12:05,120
+So what I did to give you a little mental jog, so we kind of looked at how to do it by hand and we will eventually be getting that in software.
+
+105
+00:12:07,300 --> 00:12:16,810
+There's another concept that I think is good to review, and that is this notion of what a proportional hazard is and.
+
+106
+00:12:18,980 --> 00:12:26,880
+Wait a minute, I. So I don't think I reviewed what a hazard was yet.
+
+107
+00:12:27,390 --> 00:12:31,650
+Do you remember the do you remember the Princess Bride reference?
+
+108
+00:12:32,550 --> 00:12:35,730
+Okay. Does that help you remember what a hazard is? Okay.
+
+109
+00:12:36,360 --> 00:12:38,970
+That's that's why I always use that reference. Okay.
+
+110
+00:12:39,300 --> 00:12:47,130
+So for those of you who don't watch Princess Bride as a kid, you know, it's not it's not a culturally relevant, relevant movie for everyone.
+
+111
+00:12:47,820 --> 00:12:51,959
+There's a guy here. Well, I'll just skip straight to the definition of a hazard.
+
+112
+00:12:51,960 --> 00:12:58,680
+So it's the probability that something really horrible happens. And the next moment, given you were at risk right up until that moment.
+
+113
+00:12:59,310 --> 00:13:05,190
+And then there's a little bit of a division by Delta T and a limit as Delta goes to zero.
+
+114
+00:13:05,190 --> 00:13:10,440
+So it's actually very, very hard to interpret it.
+
+115
+00:13:11,560 --> 00:13:14,770
+Because of this dividing by Delta T thing.
+
+116
+00:13:15,370 --> 00:13:19,450
+So it's a kind of a probability per unit time.
+
+117
+00:13:20,740 --> 00:13:30,110
+Uh. But it since it's changing and each possible time it's very, very difficult to interpret unless this hazard is flat,
+
+118
+00:13:30,950 --> 00:13:35,089
+if the hazard is constant all the way throughout, this is a very strong assumption.
+
+119
+00:13:35,090 --> 00:13:38,450
+But if the hazard is very, very constant through all study time.
+
+120
+00:13:39,010 --> 00:13:47,480
+It it is something you can interpret easily. It's the probability you have the event in this window, given you were at risk just a moment ago.
+
+121
+00:13:48,110 --> 00:13:54,950
+Per unit time and it's interpretable because that whatever it is is supposed to be constant all the way through.
+
+122
+00:13:54,950 --> 00:14:00,049
+You can estimate it. But if it's changing over time and it's allowed to change over time,
+
+123
+00:14:00,050 --> 00:14:04,100
+you can have a really high infant mortality and then it gets stable and then you get really.
+
+124
+00:14:04,580 --> 00:14:09,110
+Mortality might increase and the hazard would kind of mimic that shape.
+
+125
+00:14:10,170 --> 00:14:19,440
+But there wouldn't be a real single number you could use to say what's the probability having event per unit time if it's changing so much?
+
+126
+00:14:20,100 --> 00:14:24,750
+So then that's why people just always call it a hazard instead of a rate.
+
+127
+00:14:26,590 --> 00:14:30,520
+So anyway, that's a brief review of what a hazard is.
+
+128
+00:14:30,940 --> 00:14:39,099
+And the log rate test is particularly well-suited for detecting differences between
+
+129
+00:14:39,100 --> 00:14:44,620
+groups when the hazards in the two groups are proportional to one another.
+
+130
+00:14:45,010 --> 00:14:54,639
+So whatever the hazard is in group one, if the hazard is different, but is more or less the same shape over time,
+
+131
+00:14:54,640 --> 00:14:58,840
+so that when you take the ratio of those functions at each time point you get the same number.
+
+132
+00:14:59,230 --> 00:15:06,700
+That's a proportional hazard. So here's a way of writing that mathematically, whatever that weird function is over time for the first group,
+
+133
+00:15:07,180 --> 00:15:14,050
+if you divide it by the second group at each of those points in time and you always get a constant that doesn't depend on time,
+
+134
+00:15:14,680 --> 00:15:18,640
+that's proportional hazards. And this constant could be anything.
+
+135
+00:15:19,950 --> 00:15:22,650
+And it would still be a proportional hazards situation.
+
+136
+00:15:23,130 --> 00:15:32,160
+In the next handout, we're going to be learning how to do regression with the whole model that was built up assuming proportional hazards.
+
+137
+00:15:33,320 --> 00:15:39,410
+And so we're going to come back to this. But for this handout, it's useful to know that the log rank test is very,
+
+138
+00:15:39,410 --> 00:15:44,390
+very good at detecting differences between groups if the hazards are proportional over time.
+
+139
+00:15:46,950 --> 00:15:54,300
+And for survival curves. I think we saw this last time, but we're a little we haven't looked at it in a while for survival curves.
+
+140
+00:15:55,380 --> 00:16:01,950
+The algebra of this ratio translates to something like this that one survival curve is the power of the other.
+
+141
+00:16:03,260 --> 00:16:11,570
+And we talked about how, you know, visually this means that if you've got proportional hazards, those curves are never going to cross.
+
+142
+00:16:11,600 --> 00:16:18,430
+There's always are you know, there's no crossing in the survival curves when you've got proportional hazards.
+
+143
+00:16:18,440 --> 00:16:25,250
+And so this is a really quick way to see if you've got proportional hazards without any other diagnostic cross you don't.
+
+144
+00:16:25,760 --> 00:16:32,420
+And if they start off, like, getting really far apart and then they come together so that you can almost see them about to cross.
+
+145
+00:16:32,840 --> 00:16:42,950
+Same story. They're not proportional hazards. And there's a plot that people use.
+
+146
+00:16:42,960 --> 00:16:48,300
+It's produced by software called the log minus log survival plot.
+
+147
+00:16:48,690 --> 00:17:00,570
+And we briefly mentioned last time, I'm not going to go through the algebra again that if the if these two functions of survival over time.
+
+148
+00:17:01,080 --> 00:17:08,740
+So here's for group one and here's for group two if they are kind of different by a constant throughout your plot.
+
+149
+00:17:08,760 --> 00:17:11,940
+That's another diagnostic for proportional hazards.
+
+150
+00:17:12,180 --> 00:17:14,040
+So you've got two right now.
+
+151
+00:17:14,640 --> 00:17:23,549
+One, if they cross, if the survival curves cross or they look like they're about to cross, you know, you don't have proportional hazards.
+
+152
+00:17:23,550 --> 00:17:29,940
+And then here's another one. If you do this diagnostic plot of log minus log survival for the two groups,
+
+153
+00:17:30,510 --> 00:17:34,950
+they are supposed to look roughly a constant part if you've got proportional hazards.
+
+154
+00:17:39,010 --> 00:17:41,410
+We also talked briefly about the Wilcoxon test,
+
+155
+00:17:41,800 --> 00:17:52,959
+which is looking at kind of emphasizing early differences in survival between groups and if you've got proportional hazards problems.
+
+156
+00:17:52,960 --> 00:18:01,600
+So proportional hazards doesn't really work. It'll try to get at the early differences that you see with more emphasis.
+
+157
+00:18:01,600 --> 00:18:07,510
+And sometimes that gives you a lot more power like you, the part where they're separating out in the beginning,
+
+158
+00:18:07,870 --> 00:18:10,509
+you're focusing on that and when they start coming back together,
+
+159
+00:18:10,510 --> 00:18:15,580
+the weights are small enough that you're still kind of getting a good idea of differences between the curves.
+
+160
+00:18:16,480 --> 00:18:23,139
+SAFT does this version the wilcoxon test? Ah, does something called the gain wilcoxon test which is very similar.
+
+161
+00:18:23,140 --> 00:18:29,050
+They also have a weight here that's bigger earlier in follow up and get smaller over time.
+
+162
+00:18:29,980 --> 00:18:31,950
+They're not algebraically the same, however.
+
+163
+00:18:31,960 --> 00:18:40,270
+So when I ask for a wilcoxon test or again wilcoxon test, SAS users will be looking for the wilcoxon test.
+
+164
+00:18:40,270 --> 00:18:43,809
+That's the one it does. Ah. Will do the game and wilcoxon test.
+
+165
+00:18:43,810 --> 00:18:47,139
+That's the one it does. And they're getting at the same idea.
+
+166
+00:18:47,140 --> 00:18:50,799
+But you won't be able to match up answers with your friend that does the other software package.
+
+167
+00:18:50,800 --> 00:18:54,870
+Exactly. All right.
+
+168
+00:18:54,870 --> 00:18:58,409
+I think that we are almost cut up. There's one more thing that we did.
+
+169
+00:18:58,410 --> 00:19:01,410
+We learned how to do last time that I just want to briefly review.
+
+170
+00:19:01,410 --> 00:19:05,580
+And that is, you know, what is the Tao restricted mean?
+
+171
+00:19:06,180 --> 00:19:07,380
+It's very jargony.
+
+172
+00:19:07,830 --> 00:19:15,000
+So you're pretty comfortable with mean if you didn't have any censoring and you wanted to know the mean event time or the mean survival time,
+
+173
+00:19:15,000 --> 00:19:19,680
+you would just you kind of an x bar kind of calculation with just the TS.
+
+174
+00:19:20,430 --> 00:19:24,509
+So when you have censoring, you don't have TS for everybody, you have exercise.
+
+175
+00:19:24,510 --> 00:19:31,710
+But that doesn't really help you figure out what that time is because the exercise has some censored values, then that doesn't really help.
+
+176
+00:19:32,280 --> 00:19:37,370
+So what we learned last time was that it turns out I.
+
+177
+00:19:38,660 --> 00:19:47,570
+You know if you do a Tao restricted mean up till we're towards some place where you have it's within the range of the data you observe.
+
+178
+00:19:48,410 --> 00:19:53,450
+So toe has to be somewhere within the range where the kaplan-meier curve is defined.
+
+179
+00:19:55,040 --> 00:19:58,280
+You can come up with a tower restricted mean and.
+
+180
+00:20:00,720 --> 00:20:03,600
+I'm going to I'm skipping through a lot of this.
+
+181
+00:20:04,470 --> 00:20:13,050
+But the for sensor data it turns out you can get that time restricted mean by looking at the area under the kaplan-meier curve.
+
+182
+00:20:14,430 --> 00:20:21,809
+So that you have to have a follow up period of interest where the curve is validly defined.
+
+183
+00:20:21,810 --> 00:20:29,370
+So whatever this Tao is that you're getting the area under the hammer curve up to that curve has to be validly defined at Tao.
+
+184
+00:20:33,770 --> 00:20:39,230
+All right. It's just coming back to you. Let me just back up a bit because I'm sort of seeing.
+
+185
+00:20:42,130 --> 00:20:47,020
+A little bit of confused faces. So just as an example.
+
+186
+00:20:49,160 --> 00:20:55,600
+Here was an. We kind of done this for uncensored data just to prove to you that if you don't
+
+187
+00:20:55,600 --> 00:20:59,710
+have any censoring the area under the kaplan-meier curve will give you t bar.
+
+188
+00:21:01,510 --> 00:21:08,380
+And here for the restricted me an example we were looking at the restricted mean at ten.
+
+189
+00:21:09,890 --> 00:21:17,150
+And we kind of are calculating this is the height of the kaplan-meier curve and the width at the time interval,
+
+190
+00:21:17,150 --> 00:21:20,540
+and this is a way by hand to get the area under the curve.
+
+191
+00:21:20,960 --> 00:21:23,930
+SAS will be doing this for you are we'll be doing this for you.
+
+192
+00:21:25,680 --> 00:21:39,060
+But the interpretation after doing this calculation is that the area under the curve up to ten years ended up being 8.5 years.
+
+193
+00:21:39,660 --> 00:21:47,370
+And so over ten years of follow up, on average, people were surviving 8.5 years.
+
+194
+00:21:48,940 --> 00:21:53,620
+And if you had instead done the area over the entire kaplan-meier curve.
+
+195
+00:21:54,800 --> 00:22:03,770
+That means survival time based on the censored the censored survival data set with 17.8 years so restricted
+
+196
+00:22:03,770 --> 00:22:10,970
+mean is sort of talking about a smaller duration of follow up potentially than the overall event time.
+
+197
+00:22:11,750 --> 00:22:22,880
+So for tower equals ten, 8.5 again is the average num average life time during the first ten years of follow up.
+
+198
+00:22:23,330 --> 00:22:24,890
+That would be a way of describing that.
+
+199
+00:22:28,430 --> 00:22:39,110
+And we were we also kind of got some practice on, you know, where is the Kaplan-Meier Meier curve really to find and when can we compare to curves?
+
+200
+00:22:40,410 --> 00:22:48,130
+And so. It's very useful to know that if the last event in the dataset is an observed failure time.
+
+201
+00:22:48,910 --> 00:22:52,510
+Then the kaplan-meier curve drops to zero at that last event time.
+
+202
+00:22:52,690 --> 00:22:58,650
+All right. It goes all the way down to zero. And it's going to be the probability of surviving past that last event.
+
+203
+00:22:58,660 --> 00:23:06,550
+Time is going to be zero forever after. So this is the case at the last event in the data sets observed failure time.
+
+204
+00:23:06,910 --> 00:23:13,570
+Then there's no restriction on what Tao is because the kaplan-meier estimate is defined at all time points.
+
+205
+00:23:16,650 --> 00:23:20,430
+And so we may estimate the means, arrival time or choose any follow up period of length.
+
+206
+00:23:20,430 --> 00:23:25,350
+Terran estimate the tower restricted me with no restriction on what town could be chosen to be.
+
+207
+00:23:27,160 --> 00:23:30,880
+But if the last event in the data sets a censored value.
+
+208
+00:23:32,570 --> 00:23:39,720
+Then we don't really know. We don't have a valid kaplan-meier estimate past that last censored value.
+
+209
+00:23:39,740 --> 00:23:45,350
+We don't know if the kaplan-meier curve is supposed to drop to zero or whether it stays the same for a while.
+
+210
+00:23:45,380 --> 00:23:50,630
+We have no knowledge of what that curve will do past that last censored event time.
+
+211
+00:23:51,670 --> 00:23:59,650
+And so we can't really do any areas under the curve past this last sensor.
+
+212
+00:24:00,190 --> 00:24:05,440
+We can't use a towel past that last sensor value and really know what the area under the curve is supposed to be.
+
+213
+00:24:08,180 --> 00:24:14,780
+So you can only report to restrict means for values that have less than or equal to that last censored follow up time.
+
+214
+00:24:19,050 --> 00:24:25,110
+And so for the two sample tests. So we've already done what to sample tests that we've already finished with the lab test.
+
+215
+00:24:26,380 --> 00:24:29,070
+Based on Manto Hansol method, like a mental Hansol test.
+
+216
+00:24:29,080 --> 00:24:36,970
+We did the gang test or know the Wilcoxon test and again Wilcoxon test that focused on early treatment differences.
+
+217
+00:24:37,570 --> 00:24:47,650
+So to simple test comparing time restricted means are basically looking at the area so it's more
+
+218
+00:24:47,950 --> 00:24:53,140
+restricted mean test compares the area between two kaplan-meier curves over total follow up years.
+
+219
+00:24:53,890 --> 00:25:01,090
+And this is a very intuitive visual. So when you think of this tower at the tower restricted mean test,
+
+220
+00:25:01,090 --> 00:25:08,020
+I want you to picture your two kaplan-meier curves for the groups and what's the area between them?
+
+221
+00:25:08,890 --> 00:25:12,040
+If survival is the same, the area between them is zero.
+
+222
+00:25:13,600 --> 00:25:18,400
+Right, because the curves are on top of each other and the area under them is the same.
+
+223
+00:25:19,650 --> 00:25:26,969
+So when the curves are really far apart, you can see that they're you know, the curves aren't lying on top of each other.
+
+224
+00:25:26,970 --> 00:25:30,990
+And you really kind of want to know, is that statistically significant or not?
+
+225
+00:25:35,020 --> 00:25:44,190
+So the terrorists are mean to us. Compares area between these kaplan-meier curves over ten follow up years and there's a nice interpretation of this.
+
+226
+00:25:44,200 --> 00:25:46,030
+If your time unit is years,
+
+227
+00:25:46,720 --> 00:25:53,470
+you know that it's the years of life saved during the Tao years of follow up for the group with the higher versus lower restricted mean.
+
+228
+00:25:58,900 --> 00:26:04,389
+So for each comparison group, the kaplan-meier curve must be valid from 0 to 2 to tell.
+
+229
+00:26:04,390 --> 00:26:06,550
+Otherwise the choice of test flexible.
+
+230
+00:26:06,910 --> 00:26:15,670
+So you need to figure out how far out can is your tao allow it to be and still really have a valid area between the curve that you can look at.
+
+231
+00:26:18,770 --> 00:26:23,430
+And so. I think that we had kind of.
+
+232
+00:26:25,630 --> 00:26:30,730
+Which side did we end? I think we were just a few more slides past this when we stopped last time.
+
+233
+00:26:30,730 --> 00:26:37,750
+Right. Let me just check. Make sure I know when I'm at a new place.
+
+234
+00:26:40,930 --> 00:26:45,459
+So it says we we finished lab 19. I think we're just about there.
+
+235
+00:26:45,460 --> 00:26:49,100
+Right. So we're in 16.
+
+236
+00:26:49,110 --> 00:26:57,790
+We're almost cut up to where we were when we last talked. Okay.
+
+237
+00:26:58,890 --> 00:27:09,330
+So. There's different. You can choose any tower of interest that's with in this range where each of the curves is defined.
+
+238
+00:27:09,340 --> 00:27:16,500
+So if you really want to talk about a one year difference in the years of life saved on the better treatment you can have,
+
+239
+00:27:16,510 --> 00:27:22,780
+tower equals one for one year. If you want to talk about a five year difference, maybe this would be a nice little table in a paper.
+
+240
+00:27:23,500 --> 00:27:27,640
+You can certainly estimate, you know how many years of life or gate of life.
+
+241
+00:27:28,700 --> 00:27:33,229
+How many years of life are gained during that first five years of follow up?
+
+242
+00:27:33,230 --> 00:27:35,150
+If you're on the better treatment, you can certainly do that.
+
+243
+00:27:35,710 --> 00:27:44,600
+And it's but it's very common to use the maximum valid follow up period available when you're doing this test statistic that's the most common.
+
+244
+00:27:46,150 --> 00:27:53,320
+And so last time we kind of gotten some practice with defining what the largest possible
+
+245
+00:27:53,320 --> 00:27:58,360
+tower is that you can use in your paper when you're comparing these areas between curves.
+
+246
+00:27:59,020 --> 00:28:02,499
+So we're going to do that again because that's more or less where we stopped.
+
+247
+00:28:02,500 --> 00:28:11,440
+And I just want you to be fresh. So example, one group, one's largest event time is an observed failure at 15 years.
+
+248
+00:28:12,310 --> 00:28:15,760
+So what's the largest possible tower? Just for group one.
+
+249
+00:28:26,250 --> 00:28:36,720
+So the key thing to notice is, is the last observed event of failure or not, such a key piece of information in the last observed event is a failure.
+
+250
+00:28:37,500 --> 00:28:43,470
+There's no restriction on tail because the curve will drop all the way down to zero and stay there forever.
+
+251
+00:28:44,100 --> 00:28:48,840
+And so you'll have a kaplan-meier estimate that you know throughout all time.
+
+252
+00:28:50,540 --> 00:28:53,749
+So try another one. So Group Two's largest event.
+
+253
+00:28:53,750 --> 00:29:00,320
+Time is a censored value at 12 years. So what's the largest possible tower for group to?
+
+254
+00:29:02,840 --> 00:29:06,830
+Do we know what happens after 12 years for the couple marker of.
+
+255
+00:29:07,750 --> 00:29:10,770
+No, it's not defined. It didn't drop down to zero.
+
+256
+00:29:10,780 --> 00:29:14,709
+If it's if the largest values the sensor time the curve doesn't drop down to zero.
+
+257
+00:29:14,710 --> 00:29:18,040
+So we don't really know what happens to it after 12.
+
+258
+00:29:18,940 --> 00:29:22,420
+So if we're trying to figure out the area between the two curves.
+
+259
+00:29:23,930 --> 00:29:31,460
+We can't go beyond 12 because the second group doesn't have a curve we can really define after 12.
+
+260
+00:29:32,060 --> 00:29:39,920
+So for example, one the largest possible tail is the smaller of the largest possible towers for these two groups.
+
+261
+00:29:40,490 --> 00:29:45,050
+So that's 12 because group two doesn't have a curve anymore after 12.
+
+262
+00:29:45,410 --> 00:29:49,010
+And that's as far as we can go if we're comparing the area between the two curves.
+
+263
+00:29:56,850 --> 00:29:59,930
+Good. All right.
+
+264
+00:30:00,440 --> 00:30:04,940
+So, example two Now this time I expect participation because you've been refreshed.
+
+265
+00:30:04,940 --> 00:30:09,390
+So. Just. Just to humor me. So, group one's largest event.
+
+266
+00:30:09,420 --> 00:30:13,680
+Time is an absurd failure. 15 years. So what's the largest possible town for Group one?
+
+267
+00:30:19,400 --> 00:30:26,830
+What's the key phrase you're looking at here? If it's an observed failure or not.
+
+268
+00:30:27,190 --> 00:30:32,650
+If it's if the largest event time is an absurd failure, what's the largest possible title for that group?
+
+269
+00:30:34,490 --> 00:30:42,200
+Anything. It's there's no largest hospital. It's all its rivals all the way through because it drops down to zero and stays there.
+
+270
+00:30:43,400 --> 00:30:50,480
+Okay. Group Two's largest event time is a censored value at 18 years was the largest possible Tao for group two.
+
+271
+00:30:52,970 --> 00:30:56,150
+18 years, right. The key phrase is it was a censored value.
+
+272
+00:30:56,150 --> 00:31:03,320
+So past that time we don't know what survival will be. So the largest possible Tao is 18 years for group two.
+
+273
+00:31:03,740 --> 00:31:06,920
+So what's the largest possible Tao for a test statistic?
+
+274
+00:31:08,250 --> 00:31:13,380
+Comparing the restrict the you know, the restricted mean times and groups one and two.
+
+275
+00:31:15,410 --> 00:31:21,110
+It has to be 18 because that's the you know, after 18, we don't know what's going on with group two.
+
+276
+00:31:21,110 --> 00:31:26,240
+So we can only compare the area between curves up to Tower of 18.
+
+277
+00:31:26,540 --> 00:31:31,970
+Great. All right. We only have a couple more of these, but these are going to go fast now because you're onto us.
+
+278
+00:31:32,050 --> 00:31:36,080
+You're, you know, the key thing to look for, whether it's sensitive, observed, and, you know,
+
+279
+00:31:36,080 --> 00:31:40,470
+how to figure out the tower for each group and you know how to see what sphere to compare.
+
+280
+00:31:40,490 --> 00:31:46,190
+So example three group one's largest event time is a censored value at 15 years.
+
+281
+00:31:46,190 --> 00:31:50,110
+What's the largest possible tower for Group one? 15.
+
+282
+00:31:50,120 --> 00:31:53,620
+Yeah, you guys got it. Group two's largest event. Time is a sense reality.
+
+283
+00:31:53,630 --> 00:31:59,820
+18 years. What's Group Two's? Maximum to 18 years.
+
+284
+00:31:59,850 --> 00:32:08,520
+Perfect. You guys are on to it. Okay. Now, what's the largest possible tell comparing these two groups 15 years, right?
+
+285
+00:32:08,520 --> 00:32:14,310
+Because that's the largest point in time where you can look at the area between the curves and know what's going on.
+
+286
+00:32:18,120 --> 00:32:23,040
+All right, last one. Group one largest event. Time is a failure time at 15 years.
+
+287
+00:32:23,040 --> 00:32:27,059
+What's the max possible tell? Whatever we want.
+
+288
+00:32:27,060 --> 00:32:30,590
+It goes all the way because it drops down to zero. We know it zero.
+
+289
+00:32:30,600 --> 00:32:33,929
+After that Group Two's largest event, time is a failure.
+
+290
+00:32:33,930 --> 00:32:37,620
+Time at 18 years was the largest pop of the school tower for Group two.
+
+291
+00:32:39,130 --> 00:32:43,870
+There's no maximum because it goes down to zero at 18 and is zero forever.
+
+292
+00:32:44,290 --> 00:32:47,590
+So what's the largest possible table comparing these two groups?
+
+293
+00:32:49,850 --> 00:32:57,920
+Whatever you want, there's no restriction. And so in this particular case, we can actually compare the means.
+
+294
+00:32:59,290 --> 00:33:03,370
+The median survival time in Group one, the mean survival time of Group two.
+
+295
+00:33:04,000 --> 00:33:08,620
+We don't even have to have a restricted mean test because we've seen all the curves drop down to zero.
+
+296
+00:33:09,160 --> 00:33:15,700
+And we know that the area under the whole survival curve is an estimate of the mean for that group.
+
+297
+00:33:16,630 --> 00:33:21,210
+So the largest possible Tao has no restriction. Whatsoever.
+
+298
+00:33:21,450 --> 00:33:23,279
+We don't even have to do a restricted mean test.
+
+299
+00:33:23,280 --> 00:33:28,920
+We can just do a comparison of the means using the same trick of looking at the area under these kaplan-meier curves.
+
+300
+00:33:32,620 --> 00:33:37,810
+So mean failure time or the unrestricted mean is possible to estimate in each group in this case.
+
+301
+00:33:40,600 --> 00:33:44,160
+All right, so now. We are now caught up.
+
+302
+00:33:44,180 --> 00:33:52,790
+Do you feel caught up a little bit? Some people are shrugging, some people are nodding, and some people just have smiley eyes.
+
+303
+00:33:52,810 --> 00:33:59,200
+That's a good thing for me to say so. So here's the two simple tests for the comparison of terror.
+
+304
+00:33:59,200 --> 00:34:04,690
+Restricted means the null hypothesis looks kind of like the null hypothesis from an intrastat class that
+
+305
+00:34:05,110 --> 00:34:10,780
+the mean time restricted time for group one is equal to the mean time restricted time for group two.
+
+306
+00:34:11,470 --> 00:34:15,070
+And so I'm going to even use you wanted me to almost like I mean but it's a
+
+307
+00:34:15,070 --> 00:34:19,450
+time restricted mean and the alternative hypothesis is that they're not equal.
+
+308
+00:34:19,720 --> 00:34:24,220
+So the test statistic is going to look like something you would have seen in an entire class,
+
+309
+00:34:24,220 --> 00:34:30,430
+except now the way you come up with these mu one hat to make two hats involves survival concepts
+
+310
+00:34:31,090 --> 00:34:37,330
+like area under kaplan-meier curves so that you're going to get an estimate for the mean,
+
+311
+00:34:37,360 --> 00:34:41,499
+the restricted mean and it's standard error from SAS in our output.
+
+312
+00:34:41,500 --> 00:34:47,290
+I'm going to have to show you how to do that. SAS is a little tricky because there are some typos in their code that will work.
+
+313
+00:34:47,380 --> 00:34:53,810
+There's work arounds. But it's going to be like the difference in the estimated areas under those kaplan-meier curves.
+
+314
+00:34:54,200 --> 00:34:58,549
+This part looks like the standard error of the tower structure mean for group one.
+
+315
+00:34:58,550 --> 00:35:01,160
+This is the standard error of the tower search. You mean for group two?
+
+316
+00:35:01,760 --> 00:35:05,660
+And this should behave like a normal zero one statistic when the null hypothesis is true.
+
+317
+00:35:06,410 --> 00:35:10,880
+Or if you prefer, you can square it and compare it to a chi scored one distribution.
+
+318
+00:35:12,340 --> 00:35:19,640
+Same p value. Okay. So the usual thing of some software packages will give you the z score and some will give you the chi square one score.
+
+319
+00:35:20,780 --> 00:35:26,900
+So we're going to end up putting this together by hand. And staff, I think, are we'll do it for you, which is quite nice.
+
+320
+00:35:29,410 --> 00:35:35,140
+Let's double check that in a minute. I might not be remembering that correctly, but remember, it's important that the same towel.
+
+321
+00:35:36,180 --> 00:35:40,830
+Is used for each restricted meaning you're doing area under the curve up to some time point.
+
+322
+00:35:42,790 --> 00:35:50,560
+And if there's if the last event time is an absurd value in each of the groups, then that time it could be out to like infinity.
+
+323
+00:35:50,570 --> 00:35:56,080
+But you have to think about the area under the curve up to some point in time when you do these tests.
+
+324
+00:35:58,500 --> 00:36:03,750
+So says proc live test and the our functions served if have nice output for
+
+325
+00:36:03,750 --> 00:36:07,950
+all of these test the ranked best tests such as log rank and wilcoxon test.
+
+326
+00:36:07,950 --> 00:36:14,429
+So going to show you some code in a minute. Proc live test also gives restricted mean estimates with standard errors,
+
+327
+00:36:14,430 --> 00:36:18,090
+but you must be careful how you obtain the restricted means and standard errors.
+
+328
+00:36:18,630 --> 00:36:23,250
+Some default output is still glitchy and linear.
+
+329
+00:36:23,280 --> 00:36:26,850
+He was a GSI actually, she was a GSI a couple of years ago.
+
+330
+00:36:27,300 --> 00:36:31,770
+Found some SAS code that's more reliable for getting these restricted mean tests.
+
+331
+00:36:31,770 --> 00:36:35,640
+So we're going to be using lenses. I still think of it as Lenny's trick.
+
+332
+00:36:38,020 --> 00:36:39,250
+Fortunately, our function,
+
+333
+00:36:39,580 --> 00:36:46,060
+the honor function surfeit does a very nice job with producing restricted means and standard errors without any glitches whatsoever.
+
+334
+00:36:46,900 --> 00:36:53,080
+The R function circuit also can also give log rate tests in a test that is similar but not exactly the same as the Wilcoxon test.
+
+335
+00:36:53,440 --> 00:37:04,370
+And it's called again, Wilcoxon test. So for this material in the handouts, I'm going to keep coming back to this example.
+
+336
+00:37:04,370 --> 00:37:08,449
+Data sets. This is going to we've looked at this example data set a little bit already,
+
+337
+00:37:08,450 --> 00:37:13,130
+but we're going to spend a little more time with it today and in the next handout as well.
+
+338
+00:37:13,640 --> 00:37:20,360
+So it's the outcome data is captured in the time variable, in the status variable.
+
+339
+00:37:20,380 --> 00:37:32,340
+So the time variable. Is the time in months from the diagnosis to the death or censoring time and 65 multiple myeloma patients.
+
+340
+00:37:32,940 --> 00:37:36,989
+So each patient, however long they were observed,
+
+341
+00:37:36,990 --> 00:37:44,070
+is being captured in the time variable and then status is telling us the reason we stopped observing them.
+
+342
+00:37:44,100 --> 00:37:49,680
+So if status is one, we stopped observing them because they died at that time, measured here.
+
+343
+00:37:50,490 --> 00:37:58,590
+And if status is zero, it means they were still alive as of the time that was recorded here in the time variable.
+
+344
+00:38:00,500 --> 00:38:05,210
+And then there are a lot of covariates, but we'll be coming back to these covariates in the next ten.
+
+345
+00:38:05,320 --> 00:38:15,560
+But for now, we're going to focus on this platelet variable. So platelet is a one if it's normal at diagnosis and zero if it's abnormal.
+
+346
+00:38:16,690 --> 00:38:24,350
+All right. And so these are the two groups that will be comparing. For the rest of the handout with the various tests we've seen.
+
+347
+00:38:26,130 --> 00:38:30,480
+And so here is the source code for just reading in the data set to this.
+
+348
+00:38:31,110 --> 00:38:34,830
+This data is actually available on canvas if you want to play with that.
+
+349
+00:38:37,940 --> 00:38:44,290
+And here is kind of the print over of the first few people in the data set just so you can sort of see.
+
+350
+00:38:44,300 --> 00:38:48,970
+So here's the time. The status variable.
+
+351
+00:38:48,980 --> 00:38:55,220
+So all of these people had events actually, and then we're going to ignore all the covariates except for the platelet variable.
+
+352
+00:38:55,880 --> 00:39:03,320
+So the oh shoot, which one was normal, one or zero, I think abnormal was one.
+
+353
+00:39:03,890 --> 00:39:09,500
+Let's just double check that because I'm going to be talking about that. Oh rats normals one so normal is one.
+
+354
+00:39:10,220 --> 00:39:16,370
+So a normal, normal, normal, abnormal, abnormal. Okay. And so those are the only three variables we're going to be using.
+
+355
+00:39:20,980 --> 00:39:25,930
+So here, this code is very similar to what we did last time.
+
+356
+00:39:25,930 --> 00:39:32,140
+So this is kind of nice review code because this is the same code we used to get survival plots and survival information.
+
+357
+00:39:32,650 --> 00:39:42,100
+The new part of this code is the strata. And the strata is saying, I want a curve for both platelet groups.
+
+358
+00:39:43,090 --> 00:39:54,250
+And I want to compare them. So this strain of command is giving you all the usual test statistics, like the logging test and the and the Gann test.
+
+359
+00:39:56,700 --> 00:40:00,810
+So we're going to ignore the graphic options because they're not really that interesting to me.
+
+360
+00:40:01,650 --> 00:40:06,510
+They're there if you want them. And so the plots is requesting the kaplan-meier plots.
+
+361
+00:40:06,800 --> 00:40:15,270
+And it's also this l f stands for log minus log survival, which is the plot that we use to see.
+
+362
+00:40:15,270 --> 00:40:22,860
+You know, the houses were proportional. They're supposed to be a constant apart across the the horizontal axis if if hazards are proportional.
+
+363
+00:40:22,860 --> 00:40:30,910
+So we'll look at that for this data set. The key word time is saying, you know, what are your outcome variables?
+
+364
+00:40:30,940 --> 00:40:35,710
+So we had time for our X variable and status for our Delta variable,
+
+365
+00:40:36,400 --> 00:40:43,990
+and we always put the number that corresponds to what a sensor value is in parentheses and it's almost always zero.
+
+366
+00:40:44,380 --> 00:40:50,410
+There's only a few cases you would ever change it to a one, but we don't really talk about those in this class.
+
+367
+00:40:52,910 --> 00:40:57,560
+And the straighter defines the groups to plot and compare via log rank and wilcoxon tests.
+
+368
+00:40:58,190 --> 00:41:02,450
+And so here is the the SAS output for the plot.
+
+369
+00:41:02,450 --> 00:41:05,780
+So the normal platelet group is the red.
+
+370
+00:41:05,930 --> 00:41:11,030
+The blue platelet group is the is the abnormal platelets.
+
+371
+00:41:11,510 --> 00:41:16,550
+I'm sorry. You need to kind of perk up myself to not be.
+
+372
+00:41:17,730 --> 00:41:23,879
+Just gibbering here. So it doesn't have different hash marks to tell you the difference of what's going on.
+
+373
+00:41:23,880 --> 00:41:26,970
+So if you printed this out in black and white for your own notes,
+
+374
+00:41:28,320 --> 00:41:32,920
+you wouldn't be able to tell the difference of which is which, because they both look black to you here.
+
+375
+00:41:32,940 --> 00:41:38,090
+Right. So I, I put in text boxes to tell you which group is which.
+
+376
+00:41:38,100 --> 00:41:43,710
+So that is not something fast. As for you, that's something I did to help you if you have black and white here.
+
+377
+00:41:45,120 --> 00:41:50,939
+All right. And you can tell it's not a huge dataset because you can see the steps.
+
+378
+00:41:50,940 --> 00:41:55,079
+And we know that this the drops happen only at observed event time.
+
+379
+00:41:55,080 --> 00:42:01,709
+So it looks like there's a lot fewer patients with abnormal platelets just by looking at this,
+
+380
+00:42:01,710 --> 00:42:07,590
+because I can see the steps so clearly, you know, whereas in the normal platelets group,
+
+381
+00:42:07,590 --> 00:42:12,990
+I see lots and lots of steps, which means that there were lots and lots of events in that group, larger group,
+
+382
+00:42:13,500 --> 00:42:19,950
+you can kind of get a sense the hash marks are standing in for a person who was censored there.
+
+383
+00:42:19,950 --> 00:42:28,950
+Follow up ended at that time and they were still alive when they had the their last observed interaction with the study team.
+
+384
+00:42:30,210 --> 00:42:36,630
+All right. All right. So notice that each kaplan-meier curve drops to zero, right?
+
+385
+00:42:37,820 --> 00:42:43,040
+Looking at the last observed event, time is always key and trying to figure out how to deal with restricted means tests.
+
+386
+00:42:43,670 --> 00:42:49,790
+So they both dropped down to zero. So how does that affect the largest possible table for restricted mean estimation?
+
+387
+00:42:54,150 --> 00:42:57,240
+So for this dataset, what's more, our maximum possible tail.
+
+388
+00:43:01,150 --> 00:43:04,720
+You guys had this down salute like 5 minutes ago.
+
+389
+00:43:05,950 --> 00:43:09,219
+So is there any restriction? No. Okay.
+
+390
+00:43:09,220 --> 00:43:14,350
+So, you know, you're just being shy, so there's no restriction on the maximum possible total here.
+
+391
+00:43:14,740 --> 00:43:19,719
+You can actually look at the area under this blue curve, and that's the main event time.
+
+392
+00:43:19,720 --> 00:43:23,410
+The mean death time in this date is set for someone with abnormal platelets.
+
+393
+00:43:23,740 --> 00:43:31,540
+And you can look at the area under this red curve. And that would be an estimate for the mean survival time for someone with normal platelets.
+
+394
+00:43:31,870 --> 00:43:37,720
+So the area between the curve is if you go all the way out here.
+
+395
+00:43:39,170 --> 00:43:45,440
+Jet to wherever this last drop is. The area between those two curves, including all this lovely space.
+
+396
+00:43:45,440 --> 00:43:50,000
+Here is the number of months.
+
+397
+00:43:51,300 --> 00:43:57,960
+That the normal platelet people live longer on average than the abnormal platelet people.
+
+398
+00:43:58,620 --> 00:44:06,659
+So that area between the curbs is something interpreted like the x bar, 11x bar to kind of thing you would have if you didn't have censoring.
+
+399
+00:44:06,660 --> 00:44:14,690
+It's estimated that same thing. All right.
+
+400
+00:44:16,890 --> 00:44:20,610
+Here's the log minus log survival plot. And again, it doesn't.
+
+401
+00:44:21,480 --> 00:44:27,120
+It's really hard to tell in black and white. So I've just put text boxes telling you which group is which.
+
+402
+00:44:27,570 --> 00:44:33,750
+But what you're looking for in this plot is to see if over time or here log time is fine,
+
+403
+00:44:34,530 --> 00:44:38,850
+whether the difference between the vertical difference between these plots.
+
+404
+00:44:39,030 --> 00:44:45,330
+So draw a line up and down vertically if it's that distance is roughly a constant.
+
+405
+00:44:46,600 --> 00:44:51,250
+No matter when you're drawing that up and down line. So this is.
+
+406
+00:44:52,520 --> 00:44:55,700
+Often diagnostic plots to me feel like personality tests,
+
+407
+00:44:55,700 --> 00:45:04,460
+because if you want to notice that this vertical distance is a lot bigger than this vertical distance and say and worry, you'll worry.
+
+408
+00:45:05,480 --> 00:45:14,420
+But honestly, as long as these things don't get real close together and touch across, most of the time it's okay.
+
+409
+00:45:14,960 --> 00:45:20,210
+So again, it'll feel like a personality test.
+
+410
+00:45:20,630 --> 00:45:24,220
+But this is actually not bad for proportional hazards.
+
+411
+00:45:26,370 --> 00:45:29,690
+So difference between curves is not quite constant but not far off.
+
+412
+00:45:29,700 --> 00:45:34,680
+So the lot like log rank test probably performs well in this setting.
+
+413
+00:45:36,760 --> 00:45:41,889
+I just wanted to warn you about this table, this table that comes out of excess output.
+
+414
+00:45:41,890 --> 00:45:49,690
+And I really dislike it mainly because it's reporting you know, it's reporting percentages.
+
+415
+00:45:49,690 --> 00:45:52,540
+I never want you to use single file.
+
+416
+00:45:53,640 --> 00:46:04,780
+So this is like a p hat for censoring, but it's not using any of the rules that we would want if we were doing the p hat of failure.
+
+417
+00:46:04,780 --> 00:46:09,790
+It's just, you know, using numbers instead of like adjusting for.
+
+418
+00:46:10,710 --> 00:46:14,910
+Different follow up times and censoring patterns in the patients over time.
+
+419
+00:46:14,920 --> 00:46:19,440
+So you kind of when you see this table, just kind of get a sense.
+
+420
+00:46:20,680 --> 00:46:28,540
+From this column, you know that you have some censoring in the data, but never report this column because this column is biased in the same way.
+
+421
+00:46:29,020 --> 00:46:34,840
+A rough percentage would be biased if we ignored the censoring in the data for failure times.
+
+422
+00:46:35,680 --> 00:46:39,399
+So don't report stuff from this table in any manuscript.
+
+423
+00:46:39,400 --> 00:46:49,680
+Honestly, just don't do it. This is what the output looks like for the two sample tests, the log rank and the wilcoxon test.
+
+424
+00:46:50,250 --> 00:46:57,030
+And so remember when we said the log rank test probably was okay based on the log minus log survival.
+
+425
+00:46:57,390 --> 00:47:03,340
+So it's kind of showing up here. The log in test is supposed to be the most powerful to sample test.
+
+426
+00:47:03,930 --> 00:47:12,839
+If you've got proportional hazards and it is looks like it has a little more statistical signal than the Wilcoxon test.
+
+427
+00:47:12,840 --> 00:47:19,440
+The Wilcoxon test is looking only at the early differences with high weights and it kind of peters off as you get later all.
+
+428
+00:47:20,600 --> 00:47:31,910
+Later on in follow up time. And you so you sort of seeing that here, the log rank test is not quite statistically significant.
+
+429
+00:47:32,510 --> 00:47:40,370
+And there's something that I. There's something I actually want to point out here that is a subtlety.
+
+430
+00:47:40,370 --> 00:47:44,570
+But if this is a perk up moment, so I think perk up moments are important.
+
+431
+00:47:45,530 --> 00:47:51,820
+The log rank test has the two by two tables at each of the unique event times.
+
+432
+00:47:51,830 --> 00:47:59,990
+Right. We kind of talked about how it was like a version of the mental Hansell test, but it turns out that any two by two tables.
+
+433
+00:48:01,180 --> 00:48:04,750
+In this range after this curve runs out of people.
+
+434
+00:48:05,170 --> 00:48:08,340
+So this person, this curve will not have anybody at risk anymore.
+
+435
+00:48:08,350 --> 00:48:13,600
+The blue curve turns out all the two by two tables based on any event,
+
+436
+00:48:13,600 --> 00:48:19,270
+times after this last curve is going down, it's going to contribute zero to the log rate test.
+
+437
+00:48:19,280 --> 00:48:29,620
+So really the best the log rank test can do is say what's going on between the two curves as of the time one of them runs out of people.
+
+438
+00:48:32,370 --> 00:48:39,760
+And. Their restricted mean test gets to use all this lovely information passed that.
+
+439
+00:48:41,410 --> 00:48:45,580
+So as a matter of fact, even if the hazards are proportional.
+
+440
+00:48:47,040 --> 00:48:49,700
+And a lawyer in Texas being supposed to be doing so well.
+
+441
+00:48:49,710 --> 00:48:55,440
+Well, the log rank test would be the best if all follow up was stopped here for the restricted mean.
+
+442
+00:48:55,830 --> 00:49:03,690
+But the restricted mean is actually able to use all this lovely extra information about how much higher the red curve was than the blue curve.
+
+443
+00:49:04,770 --> 00:49:13,440
+So we're so the log rate test for these two groups that do sort of look like proportional hazards, it's doing much better than the Wilcoxon test.
+
+444
+00:49:15,450 --> 00:49:20,760
+And if the restricted mean test stopped here, I think it would do better, although I don't think I did that example.
+
+445
+00:49:21,920 --> 00:49:25,670
+But because there are strict mean test kits to use all this lovely extra information,
+
+446
+00:49:25,790 --> 00:49:30,680
+it has a chance of getting statistical significance that maybe the log ranked test didn't have a chance to do.
+
+447
+00:49:32,850 --> 00:49:39,950
+So let's take a look at that and see if my memory is correct. So this slide has a big X on it.
+
+448
+00:49:39,960 --> 00:49:51,420
+So why is this what does this slide have a big X on it? So here's where are has the last time I checked it still had this problem where it will
+
+449
+00:49:51,420 --> 00:49:56,999
+report the mean and standard error and these are supposed to be like the restricted means.
+
+450
+00:49:57,000 --> 00:50:03,600
+In this case, it's the actual means those this 34.5 in the 18.8 or 18.9, rather,
+
+451
+00:50:03,930 --> 00:50:07,100
+those numbers are correct, but it does not get the standard errors correct.
+
+452
+00:50:07,110 --> 00:50:11,280
+There's some typo in there code that these numbers here incorrect.
+
+453
+00:50:11,760 --> 00:50:15,659
+And so there is some code that will give you the correct values.
+
+454
+00:50:15,660 --> 00:50:23,309
+But this is the default that comes out if you don't even ask for any restricted means and you can get into trouble if you use these standard error.
+
+455
+00:50:23,310 --> 00:50:31,290
+So I kind of have it filled in as if it is okay, but because the standard errors are incorrect, this is actually going to be incorrect.
+
+456
+00:50:31,290 --> 00:50:34,140
+So we're going to do a version of this slide. That's correct.
+
+457
+00:50:34,860 --> 00:50:40,590
+There's actually I'm not even going to go over the interpretation with the incorrect data, because we'll do it again with the correct data.
+
+458
+00:50:41,100 --> 00:50:46,170
+So when you see the output from the SAS that looks like this, don't use it.
+
+459
+00:50:46,710 --> 00:50:50,070
+Even though it looks like the mean in the standard error you might want, don't use it.
+
+460
+00:50:51,060 --> 00:50:57,690
+So here is the trick. This is Lynch's fix and that is to use the arms.
+
+461
+00:50:57,690 --> 00:51:02,880
+T So this stands for a restricted mean survival time option for proc life test.
+
+462
+00:51:03,450 --> 00:51:14,519
+And because we had both of our curves drop down to zero, we want to get all that lovely follow up time after the first group drop down to zero.
+
+463
+00:51:14,520 --> 00:51:19,710
+We want to use that in our test statistic. To do that, you have to run proc like test twice.
+
+464
+00:51:20,640 --> 00:51:28,500
+So this first set of code is running proc life test for the group only where platelet is equal to one.
+
+465
+00:51:28,950 --> 00:51:32,730
+That's the normal group, right? I think that was the one on top.
+
+466
+00:51:33,300 --> 00:51:37,680
+And so the code that is important is arms T.
+
+467
+00:51:38,670 --> 00:51:42,180
+Here and here. And.
+
+468
+00:51:43,630 --> 00:51:48,000
+So here I haven't put any extra parentheses tag equals numbers stuff,
+
+469
+00:51:48,010 --> 00:51:56,200
+but you can so you can specify a specific upper limit using a using arms t parentheses to w equals
+
+470
+00:51:56,200 --> 00:52:00,759
+and then some number as long as that number is in the range of the observed data for the group.
+
+471
+00:52:00,760 --> 00:52:09,370
+So for example, arm as t tower equals 92 would be okay for the platelet one group because we had data all out,
+
+472
+00:52:09,400 --> 00:52:12,340
+all the way out to 92 were dropped down to zero,
+
+473
+00:52:12,910 --> 00:52:22,990
+but it would not be okay for the platelet zero group because the zero group dropped down to 51 then had nobody else in it.
+
+474
+00:52:23,780 --> 00:52:29,569
+So. So this if you don't put any number, it'll go out as far as it can.
+
+475
+00:52:29,570 --> 00:52:35,660
+And that's actually what we want to do for each of the platelet groups who want to go all the way out to where it drops down to zero.
+
+476
+00:52:35,690 --> 00:52:38,270
+To compare the area under the whole curve.
+
+477
+00:52:39,050 --> 00:52:46,640
+But we could stop earlier if we wanted to, and you would have the same tower equals number that you would put for the the two groups.
+
+478
+00:52:47,930 --> 00:52:51,350
+So here's the proclivities for the political zero group.
+
+479
+00:52:51,350 --> 00:52:56,070
+Same kind of options here. And output looks like this.
+
+480
+00:52:56,080 --> 00:53:02,700
+So, you know, you've got the right output when it says r m s t analysis information.
+
+481
+00:53:04,640 --> 00:53:08,719
+So that so these are the same main estimates we saw earlier.
+
+482
+00:53:08,720 --> 00:53:16,430
+But the standard errors are correct here. And so you can use this stuff.
+
+483
+00:53:17,150 --> 00:53:21,440
+And by the way, this is just, you know, that says because the survival curve drops down to zero,
+
+484
+00:53:21,440 --> 00:53:27,970
+even though it says Tao equals 51, here it was the area between 51 and 92 was zero.
+
+485
+00:53:27,980 --> 00:53:35,930
+It was 20000 between those two numbers. So this is the area under the curve really all the way out to 92 for this platelet equals zero group.
+
+486
+00:53:38,200 --> 00:53:47,090
+And so you can do the algebra of plugging in these restricted mean values and their standard errors, and we just pull that from here.
+
+487
+00:53:47,110 --> 00:53:50,290
+So this is the restricted mean for the plate equals one group.
+
+488
+00:53:50,800 --> 00:53:55,270
+And we can stick that over here. Here is the restricted mean for the plate light equals zero group.
+
+489
+00:53:55,330 --> 00:54:00,700
+Stick that over here and we pull their corresponding standard errors from the output.
+
+490
+00:54:01,730 --> 00:54:04,730
+You have to do this by hand and staff, I'm sorry to tell you.
+
+491
+00:54:05,060 --> 00:54:13,400
+Okay, uh, you get a number, you look up the p value, and it turns out, look, you have statistical significance now.
+
+492
+00:54:13,410 --> 00:54:17,960
+So the area between those survival curves is significantly different from zero.
+
+493
+00:54:18,260 --> 00:54:24,649
+This is something very exciting for your paper because log rank, the best it could do is .06 scientifically.
+
+494
+00:54:24,650 --> 00:54:29,420
+Is that a big different conclusion? Not really, but journal articles?
+
+495
+00:54:29,420 --> 00:54:37,010
+Sure. Pay attention when P is less than 0.05. So remember how we interpret values at this point.
+
+496
+00:54:37,550 --> 00:54:45,440
+036 means that there's only a 3.6 chance the data would lay out this particular way if there was nothing going on between.
+
+497
+00:54:46,360 --> 00:54:54,919
+The two groups. All right. So there's not that much difference between a P value of .036 and a P value of 0.06.
+
+498
+00:54:54,920 --> 00:54:58,610
+It's just a 3% chance difference in data laying out that way.
+
+499
+00:54:59,030 --> 00:55:02,749
+But boy journal articles really do want this p values less than 0.05.
+
+500
+00:55:02,750 --> 00:55:05,960
+So this makes this makes everybody excited when they're writing their paper.
+
+501
+00:55:07,840 --> 00:55:15,820
+And really it's because you could use all that information past 51 and and get that extra area between the curves that really put it over the top.
+
+502
+00:55:18,280 --> 00:55:22,950
+And here's how you write a manuscript where the sentence, just based on what we learned so far,
+
+503
+00:55:22,950 --> 00:55:31,989
+is the average life time for multiple myeloma diagnosis was 34.5 versus 18.9 months.
+
+504
+00:55:31,990 --> 00:55:38,680
+For patients with normal versus abnormal platelets, respectively, p equals 0.036.
+
+505
+00:55:43,540 --> 00:55:49,740
+So that our survival package. I know we're due for a breakthrough.
+
+506
+00:55:49,760 --> 00:55:53,990
+And let's just sort of see if we can get this handout done before we take our break.
+
+507
+00:55:54,830 --> 00:56:01,130
+So there are several packets. Surfeit will do kaplan-meier restricted means and all that good stuff.
+
+508
+00:56:01,220 --> 00:56:04,670
+Serve div will do log rank and gain wilcoxon tests.
+
+509
+00:56:04,670 --> 00:56:07,940
+This is the closest we can get to the Wilcoxon test that's asked us.
+
+510
+00:56:09,130 --> 00:56:12,610
+And in or the plot capabilities are especially nice.
+
+511
+00:56:12,610 --> 00:56:16,300
+We've seen some of them already and we'll see them again today.
+
+512
+00:56:16,600 --> 00:56:22,540
+So this is the data set that I have on canvas with the same information, and we're focusing on the same variables.
+
+513
+00:56:24,260 --> 00:56:29,030
+We need to install the survival package. Here's just reading in the data.
+
+514
+00:56:30,920 --> 00:56:38,629
+And so in our we always set up formulas that we're going to put into our functions.
+
+515
+00:56:38,630 --> 00:56:43,580
+And so the way a survival formula looks is like this.
+
+516
+00:56:43,580 --> 00:56:52,159
+So here's the outcome. This capital S lowercase, you are B that is always there and you put your X variable here.
+
+517
+00:56:52,160 --> 00:56:56,510
+It was time comma your delta variable here that was status.
+
+518
+00:56:57,050 --> 00:57:04,580
+This is kind of like this tilde is kind of like an equals and we now have a covariate that we want to use platelet.
+
+519
+00:57:05,150 --> 00:57:14,450
+So that's the formula. And then to plot and look at the curves we use surfeit with that same formula.
+
+520
+00:57:14,900 --> 00:57:16,400
+We want the kaplan-meier estimate.
+
+521
+00:57:16,400 --> 00:57:23,270
+We're going to use the green with it's formula and the confidence type is the log minus log survival that we talked about in the last handout.
+
+522
+00:57:23,270 --> 00:57:28,490
+So this is nice. This will help even with your homework, even though it's kind of a review of code from the left hand out.
+
+523
+00:57:29,090 --> 00:57:32,570
+And then we look at a summary of the and what we've got there.
+
+524
+00:57:32,600 --> 00:57:40,430
+We'll see that soon to do the log rank test, you use the same formula and this is the key part.
+
+525
+00:57:41,060 --> 00:57:44,510
+This row equals zero asks for the log rank test.
+
+526
+00:57:45,470 --> 00:57:55,310
+The only thing that changes for the gain wilcoxon test is that you change row equal to one third row really contributes to which test you're doing.
+
+527
+00:57:56,270 --> 00:57:59,570
+Row equals zero is log rank. Row equals one is gain wilcoxon.
+
+528
+00:58:01,200 --> 00:58:05,770
+And the restricted mean test with the upper limit of 92.
+
+529
+00:58:05,790 --> 00:58:10,650
+That was the largest event time in the whole data set and it went down to zero.
+
+530
+00:58:11,040 --> 00:58:16,620
+You get from this command and it's very, very easy compared to all that SAS code we had to do.
+
+531
+00:58:19,100 --> 00:58:23,720
+So this is what the surface output is.
+
+532
+00:58:24,380 --> 00:58:28,490
+And so it's showing you here the KAPLAN-MEIER estimates for the two groups.
+
+533
+00:58:28,490 --> 00:58:37,130
+Remember how we knew, even just from the plot, that the the abnormal platelet group was really small compared to the normal got the confidence limits.
+
+534
+00:58:37,160 --> 00:58:41,750
+This is all stuff you would have seen in the past. Handout We were focused on kaplan-meier curves.
+
+535
+00:58:42,850 --> 00:58:46,600
+And here is the output of logging. This is something that I typed.
+
+536
+00:58:46,990 --> 00:58:52,080
+Okay. It doesn't tell you that. It just tells you you asked for row equals zero.
+
+537
+00:58:52,090 --> 00:59:00,450
+So you're going to have to know. That this with rho equals zero gives you the lawyering test because this is not promote provided by law in any way.
+
+538
+00:59:00,780 --> 00:59:05,999
+So here is the p value from the log rate test. Here is the p value from the gain wilcoxon test.
+
+539
+00:59:06,000 --> 00:59:13,950
+Again, I put in this text. You have to know that when row is equal to one, that's the gain wilcoxon test and you get this p equals 0.1.
+
+540
+00:59:15,930 --> 00:59:20,700
+So that would be an example of a cheat sheet thing because it's not well labeled in the output.
+
+541
+00:59:20,700 --> 00:59:23,790
+You have to remember to use either row equals zero equals one.
+
+542
+00:59:25,980 --> 00:59:29,790
+And then this is the output.
+
+543
+00:59:31,020 --> 00:59:34,349
+That income that comes from the restricted mean. Oh yeah.
+
+544
+00:59:34,350 --> 00:59:40,200
+I guess I was wrong. It doesn't do the test for you, but at least it gives you correct information for the mean and standard error.
+
+545
+00:59:40,200 --> 00:59:45,900
+I don't know why I thought it did the test for you and so you just fill it in in the same way.
+
+546
+00:59:46,830 --> 00:59:50,219
+So here are the restricted means and their standard errors film in the same way
+
+547
+00:59:50,220 --> 00:59:55,040
+you get the same two sided p value we did earlier and this is the same sentence.
+
+548
+00:59:55,050 --> 00:59:58,650
+I got the same sentence we had earlier from SAS interpreting the results.
+
+549
+01:00:01,220 --> 01:00:06,530
+Here is another plot for from our elty.
+
+550
+01:00:06,770 --> 01:00:09,950
+It has so many nice options, so we just want to plot the curves.
+
+551
+01:00:10,340 --> 01:00:16,640
+L t y equals 1 to 2 will create different line types for the groups that even in black and white, you can tell the difference.
+
+552
+01:00:17,060 --> 01:00:23,510
+This is really nice for journals because a lot of journals, you know, it costs more too, to get color.
+
+553
+01:00:23,870 --> 01:00:28,430
+And any time someone prints it out in black and white, if you can't tell the difference in the curves, it's very frustrating.
+
+554
+01:00:28,820 --> 01:00:33,280
+So this is a nice option that is very easy to do in R with this LTE.
+
+555
+01:00:33,290 --> 01:00:43,399
+Why the LE. Yes. Is a nice option that when you're printing access labels, the vertical axis numbers are more readable.
+
+556
+01:00:43,400 --> 01:00:53,090
+They're not like tilted 90 degrees in a weird way. So that's I always use that option and then you can put a legend as well.
+
+557
+01:00:54,350 --> 01:01:00,379
+I used this locator one command, which I think I mentioned last time.
+
+558
+01:01:00,380 --> 01:01:04,040
+You can sort of drag your mouse to where you want the legend to go and kind of click.
+
+559
+01:01:04,550 --> 01:01:08,990
+But if you're using our studio, some versions of it don't work well.
+
+560
+01:01:08,990 --> 01:01:15,500
+So the alternative is to put coordinates of X and Y here instead.
+
+561
+01:01:16,190 --> 01:01:21,079
+Kind of like what I've done here with the text for the various p values.
+
+562
+01:01:21,080 --> 01:01:32,370
+I put them right on the plot. So again, the locator command is supposed to wait for you to click on the figure and return coordinates.
+
+563
+01:01:34,470 --> 01:01:38,400
+Depending on your version of our study, it may work well or it may work just terribly.
+
+564
+01:01:38,400 --> 01:01:43,290
+So you might need to put in coordinates closer to two like this.
+
+565
+01:01:46,000 --> 01:01:49,989
+Six is another option that will let you control the size of your text.
+
+566
+01:01:49,990 --> 01:01:57,310
+So if your journal comes back to you and says they can't read your labels, you can change ceec to be bigger and it'll be more legible.
+
+567
+01:01:57,490 --> 01:02:01,330
+So that's nice to be able to do. So this is the plot that our gives you.
+
+568
+01:02:01,330 --> 01:02:04,659
+I think it's lovely and it has.
+
+569
+01:02:04,660 --> 01:02:07,149
+And you just, you know, you put all the text right on here.
+
+570
+01:02:07,150 --> 01:02:11,979
+Of course, if you're using a sass plot, you can always use text boxes to get something comparable.
+
+571
+01:02:11,980 --> 01:02:15,160
+So, you know, you can make anything you need to work that you need to.
+
+572
+01:02:15,160 --> 01:02:18,220
+But this is I really like the way our does these plots.
+
+573
+01:02:21,990 --> 01:02:30,830
+So, you know, in past in past years, I've talked about stratified tests to adjust for covariates.
+
+574
+01:02:30,840 --> 01:02:37,620
+There are stratified tests that are available to adjust for categorical confounders, but they're a little bit outdated.
+
+575
+01:02:37,620 --> 01:02:42,509
+And because you can do this sort of adjustment through the regression settings.
+
+576
+01:02:42,510 --> 01:02:46,469
+So even though these tests are available and you could use them,
+
+577
+01:02:46,470 --> 01:02:54,900
+it's very rarely needed to go through this route than just go through a regression model to adjust for covariates.
+
+578
+01:02:55,350 --> 01:02:58,050
+So I'm going to forego exploration of those stratified tests.
+
+579
+01:02:58,500 --> 01:03:03,330
+So it's more General Colvard adjustments available, the multivariate models for sense of survival data,
+
+580
+01:03:03,630 --> 01:03:07,500
+and we'll get to that in the proportional hazards handout instead.
+
+581
+01:03:07,830 --> 01:03:14,490
+So now we're going to finally, thanks for your patience. We're going to take our ten minute break now and we'll meet back at 913.
+
+582
+01:03:14,760 --> 01:03:17,880
+Go ahead and open up your next handout because that's what we're going to be looking at.
+
+583
+01:03:18,800 --> 01:03:23,790
+By the way, you now have enough to do your homework based on this lecture material.
+
+584
+01:03:23,810 --> 01:03:40,860
+The lab this week will also be helpful. So the question is where does the P value come from?
+
+585
+01:03:40,860 --> 01:03:45,090
+Which one? The restricted mean test.
+
+586
+01:03:45,120 --> 01:03:48,450
+Okay. So that's the one where you're doing it by hand, right?
+
+587
+01:03:49,920 --> 01:04:03,190
+So. This. So this 2.10, you need to compare to the null hypothesis distribution with zero one.
+
+588
+01:04:03,640 --> 01:04:13,750
+So however, you usually get P values when you're looking at a normal zero one test statistic, that's where this P values coming from,
+
+589
+01:04:14,530 --> 01:04:19,720
+whether you use tables or you have a special calculator for that, you're kind of figuring that out.
+
+590
+01:04:21,980 --> 01:04:24,980
+Yourself based on the normal zero one distribution.
+
+591
+01:04:26,330 --> 01:04:29,840
+So I think that, uh, I don't know.
+
+592
+01:04:29,840 --> 01:04:37,160
+What's your favorite method that you've used in other classes? Do you, do you use calculators of tables so you use software to program it?
+
+593
+01:04:41,800 --> 01:04:45,100
+Ah. Yeah. Yeah. So.
+
+594
+01:04:47,950 --> 01:04:56,859
+So in. Ah yeah, they have something like a PE norm, there's something like PE norm in the command to get a p value.
+
+595
+01:04:56,860 --> 01:05:00,040
+So there's probably code like that.
+
+596
+01:05:01,390 --> 01:05:10,060
+In in other handouts, I think it might be like one minus to P norm number, comma zero, comma one.
+
+597
+01:05:10,870 --> 01:05:18,549
+But look it up, it's something like that. I think there's something similar in SAS as well, but I don't have that one memorized.
+
+598
+01:05:18,550 --> 01:05:22,810
+But you know, in the old days when I was like a grad student,
+
+599
+01:05:22,810 --> 01:05:27,459
+we just looked at a table and figured out what we're doing, column of the table to figure it out.
+
+600
+01:05:27,460 --> 01:05:31,780
+But that's, you know, we barely we rub sticks together for fire in those days.
+
+601
+01:05:31,780 --> 01:05:57,890
+So, you know, you have better tools now. That's right.
+
+602
+01:05:58,490 --> 01:06:08,240
+Yeah, of course. Oh, did I miss.
+
+603
+01:06:08,570 --> 01:06:11,610
+Did I miss a passer rating?
+
+604
+01:06:12,060 --> 01:06:16,580
+Yeah, after that, I didn't. Okay.
+
+605
+01:06:16,700 --> 01:06:23,960
+So. The question is whether scaling up Greece's.
+
+606
+01:06:26,460 --> 01:06:33,040
+So they should match. Let you get a view into your logic, too.
+
+607
+01:06:33,220 --> 01:06:37,450
+Yeah, yeah, yeah. Oh, and I think I might have said something like, Show me what you see.
+
+608
+01:06:38,770 --> 01:06:46,620
+Okay, so you see what you see? With lots.
+
+609
+01:06:53,260 --> 01:06:56,370
+Okay. Had. When?
+
+610
+01:06:58,040 --> 01:07:03,630
+Yeah. When you had your data set. Did you scale the dataset?
+
+611
+01:07:04,030 --> 01:07:07,950
+Divide it. So.
+
+612
+01:07:09,040 --> 01:07:13,660
+So emphysema percent on its own also has been divided by five.
+
+613
+01:07:13,720 --> 01:07:16,990
+That's what the score of two five is.
+
+614
+01:07:16,990 --> 01:07:31,450
+Yes. Okay. And you do accidentally just double check that you didn't accidentally overwrite missing data and you did that.
+
+615
+01:07:32,360 --> 01:07:37,030
+If you just divide by five, it would. We just double checked you.
+
+616
+01:08:04,350 --> 01:08:10,620
+Okay. So I need to understand. The first point is the original code.
+
+617
+01:08:12,090 --> 01:08:31,200
+Without rescaling. So.
+
+618
+01:08:32,630 --> 01:08:37,270
+In your contract. That's your first one, right?
+
+619
+01:08:37,830 --> 01:08:41,990
+That's why you have five. Okay.
+
+620
+01:08:42,030 --> 01:08:46,790
+Um. All right.
+
+621
+01:08:46,920 --> 01:08:51,900
+And so. Next image since you changed and.
+
+622
+01:08:53,070 --> 01:08:57,240
+Probably two. One is right. Can you show me what your.
+
+623
+01:08:58,900 --> 01:09:16,070
+So you're exploring variables. Can you show me? Can we look at the raw data and make sure that.
+
+624
+01:09:18,620 --> 01:09:27,060
+Like the raw data with the New Times and. It should be in whatever your data set is, right?
+
+625
+01:09:31,140 --> 01:09:37,220
+And. Just to double check, you put that into the dataset that you're going to use.
+
+626
+01:09:41,740 --> 01:09:51,610
+I can put my mask on if you prefer. I checked with.
+
+627
+01:09:53,610 --> 01:09:59,210
+No. So this is the thing.
+
+628
+01:09:59,340 --> 01:10:03,040
+So five. That's the one that you rescale.
+
+629
+01:10:06,230 --> 01:10:25,930
+What's going on with the August indicator. Okay.
+
+630
+01:10:26,090 --> 01:10:34,000
+So. The zero sum flight only clicks on.
+
+631
+01:10:35,530 --> 01:10:42,400
+Once you get past. I'm just. It just so happens we're not seeing like this 11.
+
+632
+01:10:43,470 --> 01:10:51,380
+Over here. Shouldn't that be shouldn't that end up being a zero when unless you're past a lot of.
+
+633
+01:10:54,040 --> 01:11:07,830
+But that's about. That is. So the scale, the version where you divide it by five through double check is to order.
+
+634
+01:11:11,810 --> 01:11:22,540
+Actually, that's the. So right now.
+
+635
+01:11:23,860 --> 01:11:32,980
+That's supposed to be divided by. So this is this is a consumer rights group valued at 45.1.
+
+636
+01:11:36,640 --> 01:11:45,200
+I know. Yeah.
+
+637
+01:11:45,470 --> 01:11:50,980
+So you. You requiring us to. This is the form.
+
+638
+01:11:53,910 --> 01:11:59,150
+It seems to be a path to. So that.
+
+639
+01:12:07,060 --> 01:12:10,510
+You were supposed to be home to.
+
+640
+01:12:11,490 --> 01:12:21,430
+So it should be. Oh.
+
+641
+01:12:22,730 --> 01:12:35,680
+What's the what's the one? Which is not showing.
+
+642
+01:12:41,410 --> 01:12:48,340
+I can. But I won't be able to see this.
+
+643
+01:12:48,580 --> 01:12:52,960
+We'll have to be able to figure it out. I won't be able to figure it out because I won't be able to feel you're about to do that.
+
+644
+01:12:53,070 --> 01:12:56,480
+Yeah. So where's the column? Where that supposed to be? Seven.
+
+645
+01:12:57,950 --> 01:13:02,420
+Like that supposed to be this blurring to. So.
+
+646
+01:13:05,110 --> 01:13:08,259
+Plastic waste is also worth exploring. Ten.
+
+647
+01:13:08,260 --> 01:13:12,220
+That's ten divided by five. Yeah.
+
+648
+01:13:14,790 --> 01:13:17,960
+I don't see it's part of the answer, but.
+
+649
+01:13:19,670 --> 01:13:23,840
+Does that go with the mind? You should have something like a seven.
+
+650
+01:13:24,440 --> 01:13:28,220
+So let's check your code for typing for creating that variable.
+
+651
+01:13:30,430 --> 01:13:35,760
+Created. And. So it's not just that more.
+
+652
+01:13:37,180 --> 01:13:43,320
+Can't or won't know what that code does. I think there's an issue.
+
+653
+01:13:45,810 --> 01:13:55,010
+Maybe, but I checked and. Well, I'm just saying with the raw data.
+
+654
+01:13:55,910 --> 01:14:01,370
+In the raw data that the metric should be for the ten years because that's an.
+
+655
+01:14:09,180 --> 01:14:13,660
+So you have to have it added to the. Yeah.
+
+656
+01:14:13,930 --> 01:14:18,490
+And then you had the same thing. Yeah, that's how it was.
+
+657
+01:14:19,060 --> 01:14:22,330
+So you're right. I bet you're right. It should be exactly the same.
+
+658
+01:14:22,330 --> 01:14:27,000
+It's just that one little thing is never figured out. Okay.
+
+659
+01:14:28,610 --> 01:14:36,399
+Okay. Okay. All right. All right.
+
+660
+01:14:36,400 --> 01:14:42,340
+Sorry for the the long break, although I bet it was nice.
+
+661
+01:14:43,060 --> 01:14:51,980
+Let's get to work on hand out 11, though. Okay.
+
+662
+01:14:51,990 --> 01:14:57,910
+So this is time to get excited because we're going to get our.
+
+663
+01:14:58,620 --> 01:14:59,489
+Sorry, I'm a geek.
+
+664
+01:14:59,490 --> 01:15:07,260
+Maybe, but I love sensor survival data because it's always so impactful to learn about this kind of data, what's going on with people's health.
+
+665
+01:15:08,130 --> 01:15:12,480
+And we're going to learn how to get the regression models for this started.
+
+666
+01:15:13,460 --> 01:15:17,840
+All right. And so you're going to be so happy when you get this new skill.
+
+667
+01:15:17,840 --> 01:15:24,110
+And it's going to be just a couple of handouts, maybe three, before you can completely own this,
+
+668
+01:15:24,710 --> 01:15:28,700
+all because you've already learned how to do regression for other models.
+
+669
+01:15:28,700 --> 01:15:32,510
+So what do we need to pick up on? We need to perk up on.
+
+670
+01:15:33,480 --> 01:15:41,160
+Interpretation of the results because how to build the models, that's going to seem really familiar after all the regression you've done.
+
+671
+01:15:41,550 --> 01:15:44,310
+So we need to focus on how to interpret the results.
+
+672
+01:15:45,090 --> 01:15:54,660
+How to write manuscript worthy sentences and how to know if the model is if the model assumptions are correct and reliable.
+
+673
+01:15:55,140 --> 01:16:02,010
+So today we're going to get our feet wet with how these models are set up, and we'll get to other things down the line.
+
+674
+01:16:04,570 --> 01:16:11,320
+All right. We just we've already kind of reviewed the notation. It's very similar, except that now we're going to have a lot more covariance.
+
+675
+01:16:11,770 --> 01:16:15,099
+And for that's the regression model in teaching today,
+
+676
+01:16:15,100 --> 01:16:21,850
+the main assumption is that the event time you're interested in has to be independent of how long you were able to watch them,
+
+677
+01:16:23,710 --> 01:16:29,870
+given all the covariates in the model. All right.
+
+678
+01:16:29,870 --> 01:16:37,160
+So until now, sampled individuals were assumed to be independent and identically distributed maybe within a group.
+
+679
+01:16:38,360 --> 01:16:45,469
+So we did Kaplan-Meier estimation where everybody in the curve, we're assuming, has sort of a similar survival distribution.
+
+680
+01:16:45,470 --> 01:16:47,600
+And so they all can contribute to that estimate.
+
+681
+01:16:48,260 --> 01:16:54,740
+We did two simple tests comparing survival in different groups where we assumed they were independent, identically distributed within group.
+
+682
+01:16:56,330 --> 01:17:00,979
+And now individuals, they're still going to be independent in the next few handouts.
+
+683
+01:17:00,980 --> 01:17:05,000
+You know, one kind of peer outcome pair for each individual.
+
+684
+01:17:06,030 --> 01:17:11,520
+But we're going to allow their survival curves to be systematically different.
+
+685
+01:17:12,410 --> 01:17:18,660
+And so we're going to attempt to capture differences in survival probability across the individuals, the covariates.
+
+686
+01:17:19,620 --> 01:17:26,609
+So instead of just two kaplan-meier curves, we're going to make some modeling assumptions that let us think about a curve
+
+687
+01:17:26,610 --> 01:17:31,140
+for any recovery profile that has different combinations at these covariance.
+
+688
+01:17:35,560 --> 01:17:38,650
+Okay. So testing hypotheses versus survival estimation.
+
+689
+01:17:38,660 --> 01:17:44,530
+So. Estimating survival probability may be of secondary interest in many situations.
+
+690
+01:17:44,530 --> 01:17:50,350
+So you're interested in it, but mainly you just want to know if there are differences according to different risk profiles.
+
+691
+01:17:50,830 --> 01:17:56,979
+So instead, the primary interest often lies in determining factors that influence survival in some way.
+
+692
+01:17:56,980 --> 01:17:58,960
+Make it be higher. Make it be lower.
+
+693
+01:18:00,390 --> 01:18:07,350
+Quantifying the effects of covariates on survival, which are the most impactful for moving the survival curve around.
+
+694
+01:18:08,480 --> 01:18:16,190
+And after estimating regression parameters, the investigator may then want to predict survival for specific corporate patterns of interest.
+
+695
+01:18:16,200 --> 01:18:24,930
+But the main in the regression setting are figuring out what factors are important for describing survival is often the main focus.
+
+696
+01:18:24,950 --> 01:18:29,690
+What are the cover rates that are influencing it and are they statistically significant?
+
+697
+01:18:31,300 --> 01:18:42,430
+So there's something new that you've not had before, and that is that covariance when you're talking about outcomes,
+
+698
+01:18:42,430 --> 01:18:49,110
+you're measuring over time can be either time independent, so you measure them only at baseline and that's it.
+
+699
+01:18:50,940 --> 01:18:54,989
+Or they can be time dependent. You can measure certain biomarkers.
+
+700
+01:18:54,990 --> 01:19:00,210
+So you've got a proteomics outcome. That's a biomarker that's super interesting.
+
+701
+01:19:00,420 --> 01:19:05,370
+You can measure it over time and you're still waiting to see this time to event and survival.
+
+702
+01:19:05,640 --> 01:19:14,129
+So you could have a time dependent covariate. And this perk up moment is you need to understand when it's appropriate to use
+
+703
+01:19:14,130 --> 01:19:17,850
+a time dependent cover and when it's not appropriate to use the time to it.
+
+704
+01:19:18,210 --> 01:19:20,930
+And we haven't had that conversation in this class before.
+
+705
+01:19:22,300 --> 01:19:28,350
+So most survival analysis evaluate the effect of covariates known at time zero at the follow up period.
+
+706
+01:19:28,520 --> 01:19:31,960
+And we call them baseline covariates. All right.
+
+707
+01:19:33,820 --> 01:19:39,370
+So for example, if you're studying survival benefits of a new treatment versus an existing treatment,
+
+708
+01:19:40,120 --> 01:19:44,710
+we might have covariates in our models such as, you know, the treatment group,
+
+709
+01:19:45,280 --> 01:19:51,129
+which is known at baseline the age at the beginning of the study, the stage of the disease,
+
+710
+01:19:51,130 --> 01:19:57,260
+when you start the study, gender or other predictors of prognosis known at baseline.
+
+711
+01:19:57,280 --> 01:20:02,320
+And this is the most common thing that you'll see that you just have baseline covariates.
+
+712
+01:20:02,650 --> 01:20:06,400
+And based on those covariates, when you start following them, what happens,
+
+713
+01:20:06,670 --> 01:20:10,930
+you know, and how do we understand which of these is really related to survival?
+
+714
+01:20:12,040 --> 01:20:18,580
+Baseline covariates are these converts that you know when you start following them and aren't expected to change, you know,
+
+715
+01:20:18,610 --> 01:20:26,870
+or just actually scratch that last phrase covers, you know, at the beginning of follow up whether they can change later or not.
+
+716
+01:20:26,890 --> 01:20:30,490
+Those are called baseline covariates and they're considered time independent.
+
+717
+01:20:34,680 --> 01:20:42,180
+But now it's also possible to incorporate time dependent covariates into the model things that change after baseline.
+
+718
+01:20:42,420 --> 01:20:45,930
+So think of a biomarker gene expression level.
+
+719
+01:20:45,930 --> 01:20:51,420
+Just whatever your favorite one is, that can change after baseline in kind of a random way.
+
+720
+01:20:52,970 --> 01:20:58,250
+So it's now possible to incorporate them in the model, although you need careful consideration.
+
+721
+01:20:59,250 --> 01:21:04,139
+About the research question before doing so to see if it's appropriate or not.
+
+722
+01:21:04,140 --> 01:21:07,250
+So. Perk up, perk up, perk up. This is a perk up moment.
+
+723
+01:21:07,260 --> 01:21:14,160
+This is a very important intuition moment that it's subtle, but it's so important.
+
+724
+01:21:14,640 --> 01:21:24,270
+All right, so perk up. So if the main interest is that a particular predictor, like a biomarker and its association to survival,
+
+725
+01:21:25,170 --> 01:21:29,909
+then adding updated values of that biomarker to the model over time may be appropriate.
+
+726
+01:21:29,910 --> 01:21:35,190
+So you have your new sexy biomarker that you've discovered in your lab and you
+
+727
+01:21:35,190 --> 01:21:39,570
+want to keep the relationship between it and survival of current as possible.
+
+728
+01:21:39,900 --> 01:21:48,570
+Right? So updating it over time will allow that relationship between the biomarker that you've just measured and survival moving forward.
+
+729
+01:21:48,570 --> 01:21:56,580
+It'll allow it to be current and you'll be able to detect that association better if you update the covered over time.
+
+730
+01:21:56,910 --> 01:22:03,420
+The problem with biomarkers, if you only use them at baseline and you're trying to make ties to survival, is that it may be very,
+
+731
+01:22:03,420 --> 01:22:11,879
+very strongly tied to survival in the short term, but that marker becomes so out of date that the survival curve isn't really influenced by it.
+
+732
+01:22:11,880 --> 01:22:17,190
+After maybe six months, it needs to be updated to maintain that link.
+
+733
+01:22:19,840 --> 01:22:25,930
+All right. So that's case one, where your main interest is, is this biomarker.
+
+734
+01:22:27,050 --> 01:22:31,220
+Moving survival around is that tied to survival is associated with survival.
+
+735
+01:22:31,640 --> 01:22:35,550
+So all these things in different ways. All right.
+
+736
+01:22:36,930 --> 01:22:41,730
+Now, this is a famous example that I really.
+
+737
+01:22:43,400 --> 01:22:47,959
+It's the first example where 10% covariates were advertised.
+
+738
+01:22:47,960 --> 01:22:54,200
+But I think it has to this story has to be told very carefully because transplantation has changed over time.
+
+739
+01:22:54,920 --> 01:23:02,990
+And the same analysis that was appropriate for the Stanford heart transplant study would not be appropriate based on transplant data we see today.
+
+740
+01:23:03,000 --> 01:23:07,020
+So I'm going to have to take you through that thinking. All right.
+
+741
+01:23:07,030 --> 01:23:13,570
+So the famous example was the Stanford heart transplant study, where transplant status changed over time.
+
+742
+01:23:13,580 --> 01:23:19,840
+So they didn't know yet whether transplants, heart transplants were going to be good or bad for you.
+
+743
+01:23:20,470 --> 01:23:24,070
+These were the first in human kind of studies.
+
+744
+01:23:25,050 --> 01:23:29,160
+And so when they started following someone, they were still on.
+
+745
+01:23:29,280 --> 01:23:36,300
+You know, they hadn't had the transplant yet. And in those days, you know, the way the study would go,
+
+746
+01:23:36,460 --> 01:23:42,270
+they didn't have any particular factors that they would use to decide who goes first for the transplant, who goes second.
+
+747
+01:23:42,840 --> 01:23:44,850
+Today, that's changed. So we'll have to come back to that.
+
+748
+01:23:44,850 --> 01:23:54,120
+But they were just you know, they enrolled a person and when they could, they would transplant them, went to a donor organ, arrived and so on.
+
+749
+01:23:54,390 --> 01:23:57,660
+And so you would have this situation where a person would be like,
+
+750
+01:23:57,660 --> 01:24:05,490
+if their transplant variable was a01 variable, they would have 000 for the no transplant time points.
+
+751
+01:24:05,850 --> 01:24:09,540
+And then when a donor organ became available, if they were the, you know,
+
+752
+01:24:09,540 --> 01:24:14,969
+the person who was getting that transplant that day, they're there follow up time transplant cover.
+
+753
+01:24:14,970 --> 01:24:17,790
+It would go one one, one, one one forever after.
+
+754
+01:24:18,300 --> 01:24:25,530
+So it'd be like 000 for whether they had been transplanted or not until they got the donor organ implanted.
+
+755
+01:24:25,530 --> 01:24:30,180
+And then it would be one one, 111. And that was, you know, a time dependent covariate.
+
+756
+01:24:31,370 --> 01:24:37,999
+Right. So even with in person the you could contribute to the people without a transplant for part of
+
+757
+01:24:38,000 --> 01:24:44,900
+your follow up time and then contribute to the transplanted group once you entered that group.
+
+758
+01:24:46,930 --> 01:24:58,960
+All right. And the assumption that we always have is that the timing of transplant is independent of mortality risk, which was reasonable at the time.
+
+759
+01:24:59,010 --> 01:25:05,589
+So this has something to do with the censoring distribution. But we absolutely had to have that.
+
+760
+01:25:05,590 --> 01:25:11,500
+The timing of the transplant was not informative about how sick they were when they got the transplant.
+
+761
+01:25:12,570 --> 01:25:12,960
+All right.
+
+762
+01:25:13,290 --> 01:25:20,520
+So at the time of the Stanford heart transplant study, since no one knew there was equipoise at the time and whether this would help people or not,
+
+763
+01:25:21,030 --> 01:25:26,340
+there was no no real correlation to when they got their transplant and how sick they were.
+
+764
+01:25:30,720 --> 01:25:36,450
+So they could actually get a pretty good idea of what treatment effect was from the study.
+
+765
+01:25:36,450 --> 01:25:40,680
+But now I have a caution here. We can never use this analysis again.
+
+766
+01:25:42,060 --> 01:25:50,160
+Because now the way transplants are allocated is based on how sick people are and this assumption is violated.
+
+767
+01:25:50,640 --> 01:25:53,790
+So now they have a grading system for how urgent you are.
+
+768
+01:25:54,240 --> 01:25:57,270
+And depending on how urgent you are, you get your transplant faster.
+
+769
+01:25:58,680 --> 01:26:03,480
+And that violates this assumption that the Stanford heart transplant study could make and it was okay.
+
+770
+01:26:03,900 --> 01:26:07,170
+But now this analysis is it will be biased.
+
+771
+01:26:07,530 --> 01:26:14,849
+The people who were left on the wait list without a transplant tend to be healthier, all else equal,
+
+772
+01:26:14,850 --> 01:26:20,040
+than the people who get their transplant because they're making the sickest people get their transplant fast.
+
+773
+01:26:21,080 --> 01:26:23,840
+And so comparing those two groups isn't fair anymore.
+
+774
+01:26:25,230 --> 01:26:30,570
+Because by virtue of not having your transplant yet meant that you were not sick enough to need it yet.
+
+775
+01:26:31,870 --> 01:26:37,960
+All right. So we can't really do that. The same analysis is never going to be correct again in today's environment.
+
+776
+01:26:38,320 --> 01:26:42,520
+But it is and it is the first example of a time panic over it.
+
+777
+01:26:47,140 --> 01:26:51,520
+So. Again I'm still at this at the loan perk up moment,
+
+778
+01:26:51,520 --> 01:26:58,719
+but I'm still trying to get you this intuition for when do you include time covariates in your model.
+
+779
+01:26:58,720 --> 01:27:06,730
+So for including confounders in a survival model, it's almost always inappropriate to include these in a time dependent fashion.
+
+780
+01:27:09,540 --> 01:27:15,780
+So for example, the example that I think about the most that helps me understand is this is a clinical trial.
+
+781
+01:27:16,470 --> 01:27:19,080
+So suppose you have a clinical trial.
+
+782
+01:27:19,080 --> 01:27:27,260
+So the main interest is in whether the new treatment is extending lifetimes of cancer patients, in my example, compared to a standard treatment.
+
+783
+01:27:27,270 --> 01:27:35,339
+So you've got cancer patients, you've got a new treatment, you've got an existing treatment, and that's your main data that you want to interpret.
+
+784
+01:27:35,340 --> 01:27:38,610
+The end is treatment helping extend lifetimes.
+
+785
+01:27:41,840 --> 01:27:50,419
+So suppose that you've got a confounder that the initial tumor size, which, you know, treatments are attempting to shrink.
+
+786
+01:27:50,420 --> 01:27:55,340
+And so you can imagine that if you have a treatment that works pretty well.
+
+787
+01:27:56,360 --> 01:28:04,330
+It. May be that it's shrinking tumor size and then that afterwards is improving survival.
+
+788
+01:28:04,600 --> 01:28:09,549
+Or maybe it's directly improving survival, even independent of what happens to the tumor.
+
+789
+01:28:09,550 --> 01:28:16,480
+But these that's a can for sure. How big the tumor is when they start getting the treatment is a factor because big,
+
+790
+01:28:16,480 --> 01:28:22,150
+big tumors, usually pretty bad sign of advanced cancer compared to small tumors.
+
+791
+01:28:23,230 --> 01:28:32,230
+So. So what happens if you try to adjust for tumor size over time as it's changing?
+
+792
+01:28:32,260 --> 01:28:39,820
+Well, adjusting for tumor size at baseline helps prevent bias if tumor sizes are different at baseline in the two treatment groups.
+
+793
+01:28:40,510 --> 01:28:46,900
+So tumor size at baseline is appropriate to adjust for, but adjusting for tumor size over time.
+
+794
+01:28:48,290 --> 01:28:55,210
+Diminishes the ability to detect treatment effect. Since tumor shrinkage is part of the treatment effect.
+
+795
+01:28:56,280 --> 01:29:01,200
+So if it later time points, you're adjusting for tumor size and the treatment to shrink the tumor.
+
+796
+01:29:02,350 --> 01:29:03,999
+You know, you're comparing it.
+
+797
+01:29:04,000 --> 01:29:11,860
+You're trying to compare, you know, survival of people with similar tumor sizes, but the treatment actually made them similar.
+
+798
+01:29:11,860 --> 01:29:16,240
+You're adjusting a the treatment effect you're actually trying to figure out in the trial.
+
+799
+01:29:19,190 --> 01:29:26,390
+So when you've got a confounder and you're trying to understand what's going on with a particular predictor in the model,
+
+800
+01:29:27,020 --> 01:29:33,980
+and you've got a confounder that's related to both the predictor you're interested in as well as the outcome.
+
+801
+01:29:35,120 --> 01:29:43,250
+Then adjusting for time dependent changes in that confounder can wash away the association you're interested in in an appropriate way.
+
+802
+01:29:43,730 --> 01:29:50,470
+It's like stealing the statistical signal. From the relationship of the predictor interested in and the outcome.
+
+803
+01:29:52,510 --> 01:30:03,080
+Yes. I have.
+
+804
+01:30:07,050 --> 01:30:13,230
+Now, this is really interesting because so the question has to do with how do you draw this in dags?
+
+805
+01:30:13,520 --> 01:30:17,640
+And so this is really interesting because you are right.
+
+806
+01:30:17,700 --> 01:30:23,310
+But I don't think index the way epidemiologist students do because you grew up when you were trained dags.
+
+807
+01:30:23,430 --> 01:30:27,000
+There was no dags when I was a student. So I've learned that.
+
+808
+01:30:27,510 --> 01:30:32,870
+I learned the Durkin, you know, but you're better at it than I.
+
+809
+01:30:32,880 --> 01:30:42,290
+And this is a case where you're better at the jargon than I am. So I did describe the tumor shrinkage on the causal pathway in your little DAG.
+
+810
+01:30:42,300 --> 01:30:53,000
+Right. And so if you adjust for anything that's on the counsel pathway in your dad, you're you're stealing statistical juice, right?
+
+811
+01:30:53,020 --> 01:30:59,460
+So you're exactly right. All right.
+
+812
+01:30:59,490 --> 01:31:08,580
+Other questions. And I would say it's a mediator, even though I think a mediator is.
+
+813
+01:31:10,850 --> 01:31:14,060
+Well, no, no, it's it's exactly a mediator in this context.
+
+814
+01:31:15,910 --> 01:31:20,620
+Mm hmm. Yeah, because. But it need not be the only.
+
+815
+01:31:20,800 --> 01:31:27,330
+But you know that. Because you could have a line straight from the treatment to the outcome that doesn't go through tumor shrinkage.
+
+816
+01:31:28,410 --> 01:31:39,160
+You're exactly right. Okay.
+
+817
+01:31:39,310 --> 01:31:49,750
+So the general rule. Is that I go by without Dags, actually, although I think Dags are really doing well by my opinion.
+
+818
+01:31:49,750 --> 01:31:53,190
+Like students, it's teaching you these ideas. Well, I think that's good.
+
+819
+01:31:54,520 --> 01:31:59,230
+Is that if a confounder can separately be analyzed as an outcome over time,
+
+820
+01:31:59,500 --> 01:32:03,550
+then it should not be adjusted for with the form of a cover and survival model.
+
+821
+01:32:05,140 --> 01:32:08,799
+So in our cancer example, where we have tumor size,
+
+822
+01:32:08,800 --> 01:32:15,400
+you could do another analysis of tumor size over time and how it shrinks by treatment group and treated as an outcome.
+
+823
+01:32:15,790 --> 01:32:18,880
+And if you expect different things to show up by treatment group.
+
+824
+01:32:19,910 --> 01:32:28,310
+For tumor size over time, you shouldn't be adjusting for it in an analysis, trying to figure out what's going on with treatment effect on mortality.
+
+825
+01:32:30,890 --> 01:32:38,660
+That's how I always think about I don't think in terms of the causal pathway and the mediator lingo,
+
+826
+01:32:38,660 --> 01:32:47,510
+but I do think about this could it be a good outcome on its own to do a plot in a paper to see if there's a treatment effect?
+
+827
+01:32:47,630 --> 01:32:53,810
+And that's all I need to know if that's the case. I don't want to adjust for it because I'll be adjusting a way that same treatment effect.
+
+828
+01:32:57,110 --> 01:33:00,020
+So only it's based on information. The model is appropriate.
+
+829
+01:33:00,920 --> 01:33:07,549
+So a better approach would be to do with the survival analysis that adjusts for baseline tumor size to assess treatment effect on mortality,
+
+830
+01:33:07,550 --> 01:33:12,440
+and a separate analysis that we'll learn later in 523.
+
+831
+01:33:13,010 --> 01:33:17,780
+A mixed model approach to assess tumor shrinkage over time with treatment group is a covered in the model.
+
+832
+01:33:21,810 --> 01:33:25,170
+All right. So we've briefly reviewed hazards.
+
+833
+01:33:26,050 --> 01:33:27,830
+I remember here's the way we wrote about it.
+
+834
+01:33:27,840 --> 01:33:33,030
+So it's this probability of something awful happening in a short window given that they were at risk for the event.
+
+835
+01:33:33,540 --> 01:33:38,160
+And then there's this weird scaling of one over Delta, and you're trying to make Delta go very small.
+
+836
+01:33:38,610 --> 01:33:43,200
+So the hazard is not a probability. It's not really restricted between zero and one.
+
+837
+01:33:43,200 --> 01:33:48,810
+It can go anywhere greater than zero, depending on, you know.
+
+838
+01:33:51,640 --> 01:33:59,910
+How quickly the events are coming in. So it's not a probability because it's division by Delta.
+
+839
+01:34:00,660 --> 01:34:03,930
+It's a conditional rate of the failure time in that window.
+
+840
+01:34:03,930 --> 01:34:06,510
+Given that the failure has not occurred as of time t.
+
+841
+01:34:08,960 --> 01:34:14,720
+So the only condition for hazard is that it's greater than equal to zero for all time points during follow up.
+
+842
+01:34:16,560 --> 01:34:22,170
+So this handout is going to be talking about modeling the hazard function.
+
+843
+01:34:22,170 --> 01:34:26,760
+That's actually the regression model. It's a model of the hazard function over time.
+
+844
+01:34:27,180 --> 01:34:33,629
+And many researchers have a tough time interpreting a hazard, unless the hazard is constant over time,
+
+845
+01:34:33,630 --> 01:34:37,620
+which is just a very special case of what the hazard can do over time.
+
+846
+01:34:38,770 --> 01:34:44,610
+All right. But they do find it easier to understand the concept of a hazard ratio over time.
+
+847
+01:34:45,330 --> 01:34:50,160
+You know, if the two hazards like are the ratio is always constant,
+
+848
+01:34:50,640 --> 01:34:55,110
+then you know that the one with the higher hazard ratio is worse at every single time point.
+
+849
+01:34:55,110 --> 01:34:58,770
+So that's kind of easy to interpret easier.
+
+850
+01:34:59,490 --> 01:35:04,080
+And so we would like a model where for you to increase in the risk factor, you know,
+
+851
+01:35:04,080 --> 01:35:10,230
+a hazard ratio of one throughout time says that the two risk profiles are equivalent.
+
+852
+01:35:10,590 --> 01:35:14,309
+So whatever their risk profile is, as measured by covariance is equivalent.
+
+853
+01:35:14,310 --> 01:35:21,330
+If the hazard ratio is one and you want something where if the hazard ratio is greater than one that denotes increased risk,
+
+854
+01:35:21,870 --> 01:35:25,110
+and if hazard ratio is less than one that denotes decreased risk.
+
+855
+01:35:25,140 --> 01:35:33,390
+So we're trying to set it up so that it looks like all the other regression models that your null hypothesis is going to be a hazard ratio of one,
+
+856
+01:35:33,930 --> 01:35:37,770
+and that bigger than one is bad and less than one is good.
+
+857
+01:35:38,610 --> 01:35:41,940
+Kind of like it looks like an odds ratio, but please don't call it an odds ratio.
+
+858
+01:35:42,600 --> 01:35:49,409
+All right. And to capture this with only a limited number of parameters, say, a little more parameters,
+
+859
+01:35:49,410 --> 01:35:57,350
+we assume that hazard ratios comparing to cover profiles are constant across times at risk, whether it's one month, one year or five years.
+
+860
+01:35:57,360 --> 01:36:00,480
+The ratio of those hazards each of those times is the same.
+
+861
+01:36:03,470 --> 01:36:08,629
+So it's important to recognize that the shape of your hazards may change over time.
+
+862
+01:36:08,630 --> 01:36:12,860
+But in this model, you're assuming that whatever those hazards are doing over time,
+
+863
+01:36:12,860 --> 01:36:19,820
+any risk profile that you compare to any other risk profile based on different combinations of covariates at that,
+
+864
+01:36:20,390 --> 01:36:30,549
+the ratio of those hazards is constant. And so we're going to go back to our multiple myeloma example where we had really
+
+865
+01:36:30,550 --> 01:36:34,960
+before just looked at the platelet covariate and we're going to start there again.
+
+866
+01:36:36,280 --> 01:36:42,400
+But we have all these other Cooper is to play with and we'll kind of work our way into other covariates and model selection as we move forward.
+
+867
+01:36:42,970 --> 01:36:49,600
+For right now just think about this platelet Colbert we had before we got p values using the log rank test,
+
+868
+01:36:49,600 --> 01:36:53,110
+the gain or gain wilcoxon test and the restricted mean test.
+
+869
+01:36:53,680 --> 01:36:57,790
+This model is kind of an extension of the log rank test.
+
+870
+01:36:59,030 --> 01:37:04,340
+Because it's assuming proportional hazards in a logging test. We said it did it really well with proportional hazards.
+
+871
+01:37:04,880 --> 01:37:09,800
+So there's going to be a special case of the regression method that looks like a log rank test analysis.
+
+872
+01:37:12,150 --> 01:37:19,290
+So let's start off with a binary predictor where the predictor I'm going to call it Z,
+
+873
+01:37:19,290 --> 01:37:25,589
+this is the covariate is that we either have normal platelets or abnormal platelets at diagnosis, right?
+
+874
+01:37:25,590 --> 01:37:28,590
+So that's pretty much the cohort we had before.
+
+875
+01:37:29,070 --> 01:37:31,020
+One is normal. Zero is not normal.
+
+876
+01:37:32,440 --> 01:37:38,679
+And if we have proportional hazards, then what that's saying is that whatever the shapes of these hazards are all through time,
+
+877
+01:37:38,680 --> 01:37:45,070
+whether you have normal platelets, that's what the function, the hazard function for the normal platelets group looks like notation wise,
+
+878
+01:37:45,850 --> 01:37:54,819
+or whether you have abnormal platelets, which is what this hazard function looks like with a z equals zero behind this conditioning
+
+879
+01:37:54,820 --> 01:38:02,750
+line that that should only differ by a multiplicative constant C that doesn't depend on time.
+
+880
+01:38:03,490 --> 01:38:07,330
+So this is the way we write. The hazard for the Z equals one group.
+
+881
+01:38:07,330 --> 01:38:11,050
+We kind of condition on what that risk profile is for that one covariate.
+
+882
+01:38:12,710 --> 01:38:17,390
+And this is the way we write the hazard function for the Z equals zero group.
+
+883
+01:38:17,900 --> 01:38:21,920
+You know, behind this conditioning line, this is the risk profile based on that one covariate.
+
+884
+01:38:23,920 --> 01:38:29,890
+And we usually parameter rise this little C to look like E to the beta.
+
+885
+01:38:31,320 --> 01:38:37,649
+So we're going to start seeing in our models e to the beta one Z1 beta one the Z two eventually.
+
+886
+01:38:37,650 --> 01:38:45,900
+But for now, just whatever this constant is, we're going to call each of the beta and that is going to avoid negative estimated hazards down the line.
+
+887
+01:38:48,010 --> 01:38:55,750
+So just reorganizing terms to look closer and closer to the Cox proportional relations model.
+
+888
+01:38:56,230 --> 01:39:05,590
+This is our first Cox model, our first proportional hazards regression model that the hazard, if you have Z equals one, is equal to the hazard.
+
+889
+01:39:05,590 --> 01:39:08,620
+If you have z equals zero times this each of the beta.
+
+890
+01:39:12,700 --> 01:39:16,960
+All right. So I've just written this out again from the last slide,
+
+891
+01:39:17,410 --> 01:39:28,710
+and it turns out that whenever we have a hazard with all the culverts in the model set to zero, there's jargon for that.
+
+892
+01:39:28,720 --> 01:39:34,270
+It's called the baseline hazard. So if all the culverts in your model are all zero,
+
+893
+01:39:35,260 --> 01:39:44,830
+there's some curve for the hazard over time for that special culvert profile with all zero covariance that we call the baseline hazard.
+
+894
+01:39:45,340 --> 01:39:53,860
+And you have to live with this jargon. I'm not sure exactly why they chose the word baseline.
+
+895
+01:39:53,860 --> 01:39:57,610
+Baseline is really, really a tricky word because we're also using it for the cover.
+
+896
+01:39:57,610 --> 01:40:01,720
+It's measured at times zero baseline. And then I mean two different things.
+
+897
+01:40:01,930 --> 01:40:11,170
+So sorry for the the weird jargon, but baseline hazard is only referring to the fact that all the covariates are zero.
+
+898
+01:40:12,550 --> 01:40:19,940
+And so it's going to be this model's closest thing to an intercept term.
+
+899
+01:40:19,960 --> 01:40:27,520
+Remember, in regression models like linear regression, if all the covariates were zero, then the intercept was the mean.
+
+900
+01:40:28,830 --> 01:40:34,950
+Value for all converts being equal to zero. So now you don't have a single number.
+
+901
+01:40:36,120 --> 01:40:40,350
+For your reference. You have a whole curve.
+
+902
+01:40:41,340 --> 01:40:50,370
+That is a reference curve. So you have a whole curve hazard across all points in time that corresponds to all the corporates being zero.
+
+903
+01:40:53,610 --> 01:40:59,910
+Instead of a single number that you had for like a an intercept term and all the models you've learned so far.
+
+904
+01:41:00,780 --> 01:41:06,810
+So say your mind has to stretch a little bit here. All right.
+
+905
+01:41:07,350 --> 01:41:13,680
+And just like with intercepts, I mean, there might be some zero values for covariates that aren't biologically plausible.
+
+906
+01:41:13,690 --> 01:41:18,839
+So, for instance, you might have age in your model and an age of zero isn't a real person.
+
+907
+01:41:18,840 --> 01:41:27,120
+But you will still have a reference curve that's supposed to be standing in for Hazzard when all the covariates are zero.
+
+908
+01:41:27,570 --> 01:41:32,910
+So the action is this part of the model, the hazard ratio.
+
+909
+01:41:33,780 --> 01:41:38,759
+So the hazard ratio to try to capture how much higher or lower you are compared
+
+910
+01:41:38,760 --> 01:41:42,120
+to the reference curve when you have different risk profile covariates.
+
+911
+01:41:43,940 --> 01:41:47,240
+So that's what we need to practice here. So the interpretation of better.
+
+912
+01:41:48,550 --> 01:41:57,510
+Goes like this if data is zero. Then for our two groups that were looking at patients with normal and abnormal,
+
+913
+01:41:57,510 --> 01:42:03,030
+platelets at diagnosis have equal survival like their hazards are the same all across time.
+
+914
+01:42:03,870 --> 01:42:14,950
+If data is equal to zero, right? And if beta is greater than zero this year, the data will be bigger than one.
+
+915
+01:42:15,220 --> 01:42:17,650
+Right? So when this is bigger than one.
+
+916
+01:42:19,130 --> 01:42:28,020
+Then the hazard in the Z equals one group is going to be much bigger than the hazards equals zero groups when beta is zero.
+
+917
+01:42:28,040 --> 01:42:31,340
+Patients with normal platelets have worse survival.
+
+918
+01:42:32,480 --> 01:42:37,310
+Probability than those with abnormal platelets. So we have a higher hazard for the z equals one group.
+
+919
+01:42:38,660 --> 01:42:45,770
+And when data is less than zero, patients with normal platelets have better survival probably than those with abnormal platelets.
+
+920
+01:42:46,520 --> 01:42:50,000
+So this either the data is going to be what we interpret.
+
+921
+01:42:52,510 --> 01:42:54,940
+And we just so have in our first model,
+
+922
+01:42:55,300 --> 01:43:03,130
+this is a one unit increase in the value of the covariate that we're interpreting when we go from the normal group to the abnormal group.
+
+923
+01:43:04,280 --> 01:43:12,080
+So we've got a one unit increase and we've got this each of the B-2 thing that we use to interpret things, and that's the hazard ratio.
+
+924
+01:43:14,310 --> 01:43:23,190
+So we're going to get numbers from SAS and are actually in, you know, not too long from now and from states when we get our beat estimate,
+
+925
+01:43:23,190 --> 01:43:29,510
+it's going to look like minus point six, nine, four and e to that beta value is going to be point five.
+
+926
+01:43:29,520 --> 01:43:35,969
+So that hazard ratio is going to be point five. So when we interpret it, it'll be the normal platelet group.
+
+927
+01:43:35,970 --> 01:43:40,560
+Hazard is half that of the abnormal platelet group for all study time.
+
+928
+01:43:40,560 --> 01:43:46,540
+T That's the interpretation. All right.
+
+929
+01:43:46,540 --> 01:43:54,679
+We have a lot to chew on here. So I want to get you a little bit further into this, but we won't be able to finish this hang out today.
+
+930
+01:43:54,680 --> 01:44:01,640
+But I want to have your mind have enough to chew on between now and Wednesday, so you'll be ready for more Wednesday, because this is a lot already.
+
+931
+01:44:02,120 --> 01:44:05,870
+So here is the data that we've read this in before. So this is just reading it in.
+
+932
+01:44:06,440 --> 01:44:10,210
+We've even looked at this plot before the long, months, long survival plot.
+
+933
+01:44:10,220 --> 01:44:17,450
+So this is all stuff we've seen pretty recently. Hazards look approximately proportional, probably.
+
+934
+01:44:17,450 --> 01:44:21,499
+Okay. Depending on your personality. All right.
+
+935
+01:44:21,500 --> 01:44:26,900
+So here is another perk up moment, because if we want to look at what these curves look like.
+
+936
+01:44:28,420 --> 01:44:32,319
+For the two groups. And we want to do this through part, through the Cox model.
+
+937
+01:44:32,320 --> 01:44:36,280
+We have to set up this mini data set called that I called my career.
+
+938
+01:44:37,270 --> 01:44:41,299
+So the only Cooper we have in this model so far is the platelet covariance.
+
+939
+01:44:41,300 --> 01:44:49,959
+So the way this my career dataset is works is that for each row in the microbial dataset,
+
+940
+01:44:49,960 --> 01:44:57,490
+you're asking for a curve that will correspond to this risk profile in the first row and the risk profile in the second row.
+
+941
+01:44:57,490 --> 01:45:04,900
+So we only have one covariance. So the first rows risk profile is people who have the normal platelets.
+
+942
+01:45:05,320 --> 01:45:10,150
+And the second row is going to be the profile of people who have abnormal platelets.
+
+943
+01:45:11,270 --> 01:45:16,570
+All right. So that's going to get used. Is my COBRA data sets going to get used over here again?
+
+944
+01:45:16,990 --> 01:45:21,950
+So if we want to compare different curves or risk profiles of people, we fill it in here.
+
+945
+01:45:21,970 --> 01:45:24,310
+So if we wanted to add an age, we would have input,
+
+946
+01:45:24,310 --> 01:45:31,840
+platelet age and our data lines would have the the platelet variables and whatever age groups we wanted to compare.
+
+947
+01:45:31,850 --> 01:45:37,479
+So platelet equals one and age 50 we could do versus platelet cool zero and age 50.
+
+948
+01:45:37,480 --> 01:45:45,430
+We wanted to plot those two curves. All right. So here Patrick stands for proc proportional hazards regression.
+
+949
+01:45:45,730 --> 01:45:50,410
+So this is our our model or regression model also called the Cox model.
+
+950
+01:45:52,280 --> 01:45:57,499
+So this the data set, all that stuff looks like normal.
+
+951
+01:45:57,500 --> 01:46:03,840
+The model statement is almost the same as what we saw with life test.
+
+952
+01:46:03,860 --> 01:46:10,160
+So we've got the x variable which in our data sets time that delta variable which in our data set is status.
+
+953
+01:46:11,900 --> 01:46:15,190
+The number that indicates the censored value.
+
+954
+01:46:16,210 --> 01:46:21,910
+And we have on this side now we're mortal. So the only predictor we have on this side is platelets so far.
+
+955
+01:46:21,910 --> 01:46:28,420
+But just like with other regression procedures, space, corporate, next, and then you can make this a longer list.
+
+956
+01:46:29,350 --> 01:46:32,889
+Risk limits is going to be asking for confidence limits for hazard ratios.
+
+957
+01:46:32,890 --> 01:46:40,480
+So we're we want that in there. And then this baseline statement is saying, I want to save, you know,
+
+958
+01:46:40,480 --> 01:46:48,250
+estimates for these particular risk profiles of corporate combinations that I have in these rows.
+
+959
+01:46:49,060 --> 01:46:56,920
+So we'll be able to look at them. And so we we already looked at survival estimates using KAPLAN-MEIER estimates before.
+
+960
+01:46:56,920 --> 01:47:02,110
+Right? So now we're saying using the Cox model, what do the survival curves look like?
+
+961
+01:47:02,110 --> 01:47:08,650
+And I'm going to save them in this dataset called Serve and I'm going to plot them over here, x squared time, y serve.
+
+962
+01:47:08,950 --> 01:47:15,130
+I'm going to plot with the Cox model with this proportional hazard model says about survival over time for these two groups.
+
+963
+01:47:16,950 --> 01:47:20,970
+And I think these are all just notes of what I just said.
+
+964
+01:47:24,570 --> 01:47:30,450
+Yeah. This is just I said all this out loud, but hopefully this is showing up in your hand as well.
+
+965
+01:47:32,830 --> 01:47:41,830
+Yeah. Risk limits is getting confidence limits. So we did a site called Fit Fill that as Cox estimates, and then finally we get our output.
+
+966
+01:47:42,550 --> 01:47:52,420
+So this is an overall table about testing whether all the covariance parameters can be zero or not.
+
+967
+01:47:52,420 --> 01:48:01,630
+We only have the one parameter here for platelet and it turns out that this score test is very close to the log rank test.
+
+968
+01:48:02,020 --> 01:48:04,810
+It's the same if there's no tied event time.
+
+969
+01:48:04,830 --> 01:48:12,219
+So if there's no tide death times in this multiple myeloma data set, it would be exactly equal to the log rate test algebraically.
+
+970
+01:48:12,220 --> 01:48:15,370
+But when there are times that it bumps it around just slightly.
+
+971
+01:48:16,730 --> 01:48:23,390
+And we also have like the two ratio test. It's actually a partial liquid ratio test and we have a world test that will see.
+
+972
+01:48:24,390 --> 01:48:32,580
+And her output as well. This is the log rank test that we did using proc life test and you can see the P values
+
+973
+01:48:32,580 --> 01:48:38,040
+slightly different because there had to have been some ties in the event times in the dataset.
+
+974
+01:48:40,130 --> 01:48:43,930
+And here is a table for the parameter estimates.
+
+975
+01:48:43,930 --> 01:48:48,580
+So here is the data. And then it'll exponential it for you.
+
+976
+01:48:48,610 --> 01:48:52,720
+So this is the hazard ratio in the confidence limits that we got with risk limits.
+
+977
+01:48:54,420 --> 01:49:06,600
+In. Ah, the code is pretty much the same as we did before we set up this formula before to do the log rank test and we did plots,
+
+978
+01:49:06,960 --> 01:49:13,640
+you know, that we've seen before. So the new part is here for the Cox model.
+
+979
+01:49:13,670 --> 01:49:23,670
+So you have the function is Cox Page, it's in the survival package and use that same formula and there is a summary that it gives by default.
+
+980
+01:49:23,670 --> 01:49:35,850
+But there's also this if you do this code where you put this this fit, one that you saved through this code, it gives you beautiful output.
+
+981
+01:49:36,390 --> 01:49:42,600
+And so here is the log. Mine's like survival in. Ah, here is the output from the Cox model.
+
+982
+01:49:42,930 --> 01:49:51,839
+So it'll give you here's the beta, here is the each of the data set the hazard ratio and leave in giving each the minus data.
+
+983
+01:49:51,840 --> 01:49:58,200
+If you want to flip the hazard ratio for a sentence and it will give you confidence limits for the hazard ratio over here,
+
+984
+01:49:58,920 --> 01:50:02,100
+here's the likelihood ratio, world test and score test.
+
+985
+01:50:03,000 --> 01:50:06,030
+And this is a nice look how beautiful this is.
+
+986
+01:50:06,030 --> 01:50:10,799
+If you do this, run this code instead of picking all the places you need in your output,
+
+987
+01:50:10,800 --> 01:50:15,930
+it'll just put it all in there, just like you wouldn't a manuscript or sentence or a table.
+
+988
+01:50:16,830 --> 01:50:27,420
+And it's just gorgeous. So I am so sorry that I have to end here, but that will give you a little bit to chew on.
+
+989
+01:50:27,420 --> 01:50:36,030
+We're going to get more used to this kind of way of writing a map, a model, and we're going to generalized how to write it.
+
+990
+01:50:36,030 --> 01:50:40,739
+So this term will always be a baseline hazard for all the covariates being set to
+
+991
+01:50:40,740 --> 01:50:45,660
+zero and how to interpret when you have more than one covariate in this model.
+
+992
+01:50:46,170 --> 01:50:51,450
+So work that was your feet wet, but there's a lot to unpack here,
+
+993
+01:50:51,450 --> 01:50:56,640
+so let your brain kind of chew on that in your back brain while you're working on your homework for.
+
+994
+01:50:57,790 --> 01:51:01,410
+And we'll meet again next time. Everybody.
+
+995
+01:51:17,800 --> 01:51:18,090
+Six.
+

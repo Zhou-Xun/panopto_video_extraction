@@ -1,0 +1,2916 @@
+1
+00:00:00,150 --> 00:00:04,890
+We are going to get started. You're missing a lot of the class today.
+
+2
+00:00:05,440 --> 00:00:11,250
+Seems like people didn't make it back, which is unfortunate. I think this is actually one of the best classes in the SEC.
+
+3
+00:00:11,260 --> 00:00:19,990
+So one really Katie's favorite topic, I think in 601 doubts or directed graphs,
+
+4
+00:00:20,250 --> 00:00:23,190
+of course, we've got over them some already through kind of throughout the course.
+
+5
+00:00:23,190 --> 00:00:31,019
+But the purpose of this today is for it to go back over those details, to do some more like advanced tags.
+
+6
+00:00:31,020 --> 00:00:36,690
+And we run it a little bit more like a workshop, so we should hand out the worksheet.
+
+7
+00:00:36,720 --> 00:00:41,640
+So there are worksheets that will give you some examples throughout the class.
+
+8
+00:00:41,640 --> 00:00:45,090
+It'll probably be a bit it'll be less than 2 hours. It normally is.
+
+9
+00:00:45,090 --> 00:00:48,390
+Anyways, it must be really good this discussion.
+
+10
+00:00:48,400 --> 00:00:58,500
+So and by the end of this class, hopefully you'll be very comfortable with that if you weren't already.
+
+11
+00:00:59,050 --> 00:01:06,880
+Uh, and of course it is completely free game now on the final for us to have more
+
+12
+00:01:07,350 --> 00:01:15,390
+reasonably complex that which we've avoided up until this point in the class.
+
+13
+00:01:29,460 --> 00:01:38,760
+All righty. And I just want to give a little credit to Boston boosters, who was a student that I worked at, I worked with at Berkeley.
+
+14
+00:01:38,760 --> 00:01:45,730
+He's now at the NIH because he did a lot of the diagrams that are used in this.
+
+15
+00:01:47,610 --> 00:01:53,360
+He was trying to convince me to finish editing one of his papers, actually.
+
+16
+00:01:53,370 --> 00:01:56,940
+So we had we worked out a trade a few years back.
+
+17
+00:01:57,040 --> 00:02:09,599
+So anyways, um, all right, so lecture outline, we're going to go over our review of DAG preliminaries go over a review of DAG rules.
+
+18
+00:02:09,600 --> 00:02:17,310
+You've seen this before, right? We're going to go through some DAG examples, a review of confounding and the selection bias on DAG.
+
+19
+00:02:17,370 --> 00:02:25,590
+You've seen a bit of this already, information bias on dogs, and then we'll talk about some dogs for advanced AP topics.
+
+20
+00:02:26,790 --> 00:02:34,209
+So the review of DAG preliminaries, remember we were just going to talk about this, right?
+
+21
+00:02:34,210 --> 00:02:39,390
+But the data driven approach regarding confounding can lead to errors, right?
+
+22
+00:02:39,390 --> 00:02:51,810
+So suppose you want here want to know the total, the total effect of and y and you do two by two tables, right?
+
+23
+00:02:51,810 --> 00:02:54,510
+That's kind of the data driven approach. We're going to do two by two tables,
+
+24
+00:02:54,810 --> 00:03:05,430
+look for associations between A and C and Y and C and the data driven approach in that case with this particular DAG would say that,
+
+25
+00:03:05,430 --> 00:03:14,490
+yes, you know, C is a confounder you should control for C, but notice here there are no arrows, right?
+
+26
+00:03:15,150 --> 00:03:23,610
+So regardless of the direction of the arrows, you would get the same answer here if you do the data driven approach.
+
+27
+00:03:24,120 --> 00:03:30,689
+The problem is, though, that there's really three separate dags that you could have for that relationship.
+
+28
+00:03:30,690 --> 00:03:41,430
+So there's relationships, right? You can have here right where she is affecting a parent of a Y here.
+
+29
+00:03:41,880 --> 00:03:46,440
+Right. For here. And these are three different scenarios.
+
+30
+00:03:46,440 --> 00:03:46,710
+Right?
+
+31
+00:03:47,580 --> 00:03:55,500
+The first one, she is a confounder, you know, and so if you've done the data driven approach and this was truly the DAG, then you would be good.
+
+32
+00:03:55,500 --> 00:03:58,530
+You go, right, everything's fine. You should adjust for it.
+
+33
+00:03:59,430 --> 00:04:04,440
+What about the second one? What is this, a mediator?
+
+34
+00:04:04,440 --> 00:04:09,540
+Right. Do we want to adjust for mediators? No, we don't want to adjust for mediators.
+
+35
+00:04:09,540 --> 00:04:13,499
+Right. We can think about mediation analysis beyond the scope of six one.
+
+36
+00:04:13,500 --> 00:04:16,709
+No. All right. What about this one?
+
+37
+00:04:16,710 --> 00:04:21,300
+What is this, a collider? We want to adjust for colliders.
+
+38
+00:04:22,770 --> 00:04:26,490
+No, we don't want to adjust for colliders. Right. All right.
+
+39
+00:04:27,270 --> 00:04:34,830
+Quick question. Is the middle one functionally equivalent to if you drew the error from Y to see the C to A?
+
+40
+00:04:42,810 --> 00:04:48,110
+Yeah. It would be functionally equivalent. Okay.
+
+41
+00:04:49,130 --> 00:04:57,980
+So the conclusion here, though, is that the data driven approach. Right. Would lead to a correct analysis and one out of these three cases.
+
+42
+00:04:58,730 --> 00:05:03,889
+So you really need to have the structural information about the variables of interest in order
+
+43
+00:05:03,890 --> 00:05:10,820
+to prevent you from making an incorrect decision on the analysis carried by the students today.
+
+44
+00:05:10,910 --> 00:05:20,100
+Yeah. But it shouldn't you shouldn't go backwards in time like that.
+
+45
+00:05:20,700 --> 00:05:24,749
+But if it was like structurally, it would be the same.
+
+46
+00:05:24,750 --> 00:05:29,670
+But then you're setting your dog up wrong anyways, right? Essentially.
+
+47
+00:05:30,750 --> 00:05:35,640
+What do you. What do you think? I don't think you get fired or fired.
+
+48
+00:05:37,500 --> 00:05:41,340
+It wouldn't be. No, no, no, no. It's it's. But you're going in, like, as a mediator.
+
+49
+00:05:41,340 --> 00:05:52,180
+It's here. Yeah, I. But you should then have a at time point one at a time point to.
+
+50
+00:05:52,180 --> 00:05:57,170
+Right. And you would draw that down differently. Okay.
+
+51
+00:05:59,770 --> 00:06:04,180
+We got over the gnome creature before, but just to remind everybody is on the same page.
+
+52
+00:06:04,570 --> 00:06:08,230
+Right. A is going to be the exposure. Y is the outcome.
+
+53
+00:06:08,290 --> 00:06:12,639
+W is the measured variable. You as the unmeasured variable.
+
+54
+00:06:12,640 --> 00:06:18,210
+This is the most common nomenclature used for dags.
+
+55
+00:06:18,220 --> 00:06:22,690
+But if you go back particularly to some of the older papers, you will see other nomenclature being used.
+
+56
+00:06:22,690 --> 00:06:29,140
+So just don't be surprised. And remember, for dags, factors are going to be temporally ordered.
+
+57
+00:06:29,590 --> 00:06:34,810
+Right. So you've got a variable at time. Point one goes into a variable at time, point two and so on.
+
+58
+00:06:35,680 --> 00:06:39,970
+There are going to be no arrows from future factors back to past factors.
+
+59
+00:06:40,480 --> 00:06:45,160
+Right. Something that you can't go back in time. Okay.
+
+60
+00:06:46,690 --> 00:06:54,510
+The presence of an arrow between A and B denotes only denotes the possibility of its existence.
+
+61
+00:06:54,520 --> 00:07:01,990
+It doesn't mean that it's there. Right. It's just if you think it's possible that is there an arrow from A to B,
+
+62
+00:07:02,350 --> 00:07:09,850
+therefore does not mean that A definitely Cosby, only that A may or could have cause to be right.
+
+63
+00:07:10,510 --> 00:07:15,100
+But if there's no arrow between A and B, then it does.
+
+64
+00:07:15,100 --> 00:07:21,370
+To note that there are assumption is that there is no relationship between those variables.
+
+65
+00:07:21,370 --> 00:07:24,550
+Right. That they are independent in our study population.
+
+66
+00:07:27,960 --> 00:07:31,400
+This is when there's no arrow between them.
+
+67
+00:07:31,410 --> 00:07:34,860
+This is also called exclusion restriction. Okay.
+
+68
+00:07:37,200 --> 00:07:40,200
+So here we have a DAG that you've seen before in the class, right?
+
+69
+00:07:40,980 --> 00:07:50,370
+So the lack of an arrow from you to a here implies that we have assumed that the arrow does not exist based on real causal knowledge.
+
+70
+00:07:50,700 --> 00:07:56,429
+Mother's genetic risk of diabetes does not have a direct effect on low income.
+
+71
+00:07:56,430 --> 00:08:00,090
+It only works through the mother having diabetes.
+
+72
+00:08:03,310 --> 00:08:11,680
+Okay. So as we talked about before, right when we're thinking about dogs from dogs, you're going to use subject matter matter expertise,
+
+73
+00:08:12,010 --> 00:08:19,930
+you're going to talk to collaborators and hopefully in the end, you end up with a useful and correct tag.
+
+74
+00:08:20,470 --> 00:08:26,650
+Right. And remember, an incorrect dag is really meaningless because it's going to lead you down the wrong road for analysis.
+
+75
+00:08:28,510 --> 00:08:38,229
+Or at least so unmeasured variables that are common causes of your measured factors must be present in the DAG.
+
+76
+00:08:38,230 --> 00:08:46,420
+Remember, even if we're not going to be able to do anything about them with the information we have, we are going to draw them into our DAG.
+
+77
+00:08:52,330 --> 00:08:56,950
+So unmeasured confounding can lead to a spurious association even under the causal.
+
+78
+00:08:56,950 --> 00:09:00,070
+No, no. Right. So this is the causal null.
+
+79
+00:09:00,220 --> 00:09:03,130
+Right? Meaning there was no error between A and Y.
+
+80
+00:09:03,430 --> 00:09:15,040
+Low income here is not causing diabetes here we have mother has diabetes is causing both low income and diabetes.
+
+81
+00:09:16,360 --> 00:09:21,760
+Father has diabetes also related to low income and diabetes.
+
+82
+00:09:22,510 --> 00:09:30,560
+Right. You're going to control for mother has diabetes control for her father has diabetes.
+
+83
+00:09:31,160 --> 00:09:35,630
+Now, if this is your dad, this is your complete dag. Is there a relationship between and why here?
+
+84
+00:09:37,370 --> 00:09:44,240
+No. Right. Because we've controlled for that you before. Yes, that would be right, because we've got that backdoor path.
+
+85
+00:09:45,050 --> 00:09:52,610
+All right. However, if we have this unmeasured variable, right, mother's underlying health status and behavior.
+
+86
+00:09:53,390 --> 00:09:58,040
+Right, you can still have a serious association.
+
+87
+00:09:58,040 --> 00:10:01,910
+And so here you would detect a relationship between A and Y.
+
+88
+00:10:04,730 --> 00:10:08,660
+Even though there's no causal relationship directly between them.
+
+89
+00:10:12,060 --> 00:10:16,380
+And of course, we can have father's underlying health status and behaviors as well in their.
+
+90
+00:10:18,520 --> 00:10:31,780
+Okay. So, um, number seven, we're usually going to draw Dags in such a way that we're like really considering the time flows, right?
+
+91
+00:10:32,140 --> 00:10:38,350
+So we're going to do time flows from north to south, so from top to bottom and then from left to right.
+
+92
+00:10:38,800 --> 00:10:44,260
+And that's just going to make it easier for it to be drawn.
+
+93
+00:10:46,210 --> 00:10:58,300
+So arrows pointing up and to the left or this right or in common, cause then you're going backwards in time, essentially.
+
+94
+00:11:01,400 --> 00:11:12,709
+All right. So the status of each factor is is really going to be is going to be considered on each path, right?
+
+95
+00:11:12,710 --> 00:11:16,310
+So each path is considered separately.
+
+96
+00:11:18,740 --> 00:11:24,680
+So here, right, we have our black path, right?
+
+97
+00:11:24,680 --> 00:11:34,670
+And we have mother has a diabetes. So here w which is mother has diabetes is a confounder because it's a common cause of a and Y.
+
+98
+00:11:35,900 --> 00:11:43,190
+And so you're going to want to condition on W, right, in order to close that path, this black path here.
+
+99
+00:11:45,170 --> 00:11:48,710
+However, we also have a red path here. Right.
+
+100
+00:11:50,900 --> 00:12:01,910
+And in this red path, we go a to you, 1 to 2 to Y.
+
+101
+00:12:02,390 --> 00:12:06,350
+Right. W here is not a confounder right.
+
+102
+00:12:06,350 --> 00:12:09,800
+It's not a common cause of an Y in that pathway.
+
+103
+00:12:10,310 --> 00:12:21,290
+Instead, it's actually a collider. Right. So when we conditioned on W to close this pathway, we actually open a backdoor path here.
+
+104
+00:12:22,280 --> 00:12:26,390
+Right. So if these arrows were not here.
+
+105
+00:12:27,290 --> 00:12:31,430
+Right, we would not need a conditional w. Right. It's only because of the separate path.
+
+106
+00:12:36,110 --> 00:12:45,860
+So what you end up with is you conditional on w, but now you've got a selection bias being induced through this red pathway.
+
+107
+00:12:46,820 --> 00:12:49,910
+And does anybody know what this is called?
+
+108
+00:12:49,930 --> 00:12:55,130
+But the structure is called what type of bias? It's called M bias.
+
+109
+00:12:55,910 --> 00:13:04,610
+Right. So you look at your the big one.
+
+110
+00:13:04,760 --> 00:13:07,639
+Why don't you go through for some of these all kind of lead you through them for others.
+
+111
+00:13:07,640 --> 00:13:14,150
+I'm going to have you try to do the DAG first and then we'll go walk through the slides to kind of explain it.
+
+112
+00:13:28,170 --> 00:14:30,340
+You. Right.
+
+113
+00:14:30,900 --> 00:14:39,990
+So what is the name of the bias depicted in the dark? In in Biosphere one.
+
+114
+00:14:42,000 --> 00:14:49,709
+On what path is w a collider? So which one read path?
+
+115
+00:14:49,710 --> 00:14:53,730
+Right. This path from aid to you to w to you to y.
+
+116
+00:14:54,330 --> 00:15:02,879
+You know, if it's not coded, color coded, you just draw like an A with the arrow and the you the arrow in the direction that it's going.
+
+117
+00:15:02,880 --> 00:15:06,620
+Right. So that's how that's the easiest way to indicate what path something is on.
+
+118
+00:15:06,630 --> 00:15:12,060
+If you don't have that color coded, we would not color coded for you on an exam.
+
+119
+00:15:12,570 --> 00:15:17,070
+Obviously, she's like, No, we would like.
+
+120
+00:15:17,730 --> 00:15:24,510
+So that's what she would do, right? So you would just like we just do it this way, right?
+
+121
+00:15:25,110 --> 00:15:29,010
+We got a new one.
+
+122
+00:15:29,340 --> 00:15:38,790
+All right. That's not very flexible w you to y okay.
+
+123
+00:15:38,790 --> 00:15:46,990
+That's how you would indicate that path. But in this case, yes, you can say the red path.
+
+124
+00:15:47,800 --> 00:15:54,130
+All right. So how do we intervene on DAG one to achieve exchange ability?
+
+125
+00:15:55,420 --> 00:16:03,460
+What are we going to do for the stack? You two are both.
+
+126
+00:16:04,090 --> 00:16:11,860
+Yeah. Well, and. And let's pretend I don't have the box from W and W.
+
+127
+00:16:11,980 --> 00:16:15,700
+Right. Yeah. Yeah. So.
+
+128
+00:16:16,150 --> 00:16:25,510
+But the problem here, of course, is. So we would ideally like to conditional on W and either you one or you two or potentially both,
+
+129
+00:16:25,510 --> 00:16:28,840
+depending on how well we think these variables are measured.
+
+130
+00:16:29,770 --> 00:16:37,930
+Right. But of course, the issue here is that we don't have you one in YouTube, so we're not actually going to be able to achieve exchange ability one.
+
+131
+00:16:37,960 --> 00:16:40,790
+Would you want to finish on both sides, just one or the other? Kind of.
+
+132
+00:16:40,990 --> 00:16:44,830
+So you usually want to condition on the minimal set that you can possibly commission on.
+
+133
+00:16:44,830 --> 00:16:52,719
+Right. But if you know that they are imperfectly measured, which is often the case, and particularly for ones that might be really hard to measure,
+
+134
+00:16:52,720 --> 00:16:58,890
+like family income during childhood, that's going to be a hard one to measure.
+
+135
+00:16:58,900 --> 00:17:06,459
+Right? Like, you know, there are you could look at the number of years in poverty, you could look at the average income level.
+
+136
+00:17:06,460 --> 00:17:11,620
+You could just have them tell you what they think their income was.
+
+137
+00:17:11,620 --> 00:17:21,430
+Right. They might not really know that. That often tends to be very kind of related to the people around you, you know, base, you know, etc.
+
+138
+00:17:21,670 --> 00:17:28,239
+And then mother's genetic diabetes risk. I don't believe that we know all everything that goes into the genetics of diabetes.
+
+139
+00:17:28,240 --> 00:17:33,910
+So even if you had all of their genetic information right, it's probably going to be incomplete.
+
+140
+00:17:36,600 --> 00:17:40,360
+I have a question. Let's say that you want to do to our zone.
+
+141
+00:17:41,090 --> 00:17:48,130
+You suspect that the effects through one of the arms is much stronger than the other?
+
+142
+00:17:48,400 --> 00:17:51,610
+I would say that, like, because it doesn't matter.
+
+143
+00:17:52,930 --> 00:17:59,530
+I would I would go with the one that you think is best measured, easiest to measure, and only do one.
+
+144
+00:17:59,530 --> 00:18:05,170
+It doesn't really matter. Like the strength probably doesn't matter that much.
+
+145
+00:18:05,260 --> 00:18:09,680
+Okay. Like if one is really easy to measure and another one's difficult to measure.
+
+146
+00:18:10,840 --> 00:18:14,980
+Like, I always go with one. And a lot of times, like income or.
+
+147
+00:18:15,280 --> 00:18:22,540
+Yes, like that's a proxy for other things. Right. So if you have something other than that proxy to use and usually use that other thing.
+
+148
+00:18:23,080 --> 00:18:35,309
+Right. So. But of course, everything is probably mixed measure to some if there's some chance of this measurement to some degree.
+
+149
+00:18:35,310 --> 00:18:43,080
+Right. All right. So nine a dog is a simplified way of diagraming the relevant factors.
+
+150
+00:18:43,080 --> 00:18:46,290
+So remember, we're not going to put irrelevant factors into the dog.
+
+151
+00:18:47,640 --> 00:18:54,690
+So that means that we should not include factors that are only related to A or Y here.
+
+152
+00:18:55,440 --> 00:18:59,550
+Right. Or unrelated to our scientific question of interest.
+
+153
+00:19:00,240 --> 00:19:09,899
+So this example here, we've got a metro strike leading to a bike crash, in part also because of the metro strike,
+
+154
+00:19:09,900 --> 00:19:16,650
+the person decided to ride to work, which you know is part of why their bike crashed.
+
+155
+00:19:16,650 --> 00:19:22,580
+Maybe there was also more. You're you're wondering what's the drift outside of riding the bike?
+
+156
+00:19:22,590 --> 00:19:29,360
+Well, maybe there's a lot more traffic on the road because there's a metro strike rage and other things going on.
+
+157
+00:19:29,370 --> 00:19:35,070
+So, yes, if you didn't ride your bike to work, then you couldn't get into the bike crash for sure.
+
+158
+00:19:35,430 --> 00:19:44,280
+But there might be other effects of metro strike that that contribute to the bike crash outside of you just deciding to activate.
+
+159
+00:19:46,920 --> 00:19:54,330
+But, you know, it was also probably the fact that you that it was raining certainly contributed you think contributed to your bike crash,
+
+160
+00:19:54,960 --> 00:19:58,290
+but it did not contribute to the metro strike.
+
+161
+00:19:58,290 --> 00:20:01,800
+It only contributed to the bike crash. So we would not include that in our.
+
+162
+00:20:02,670 --> 00:20:07,260
+I would say, though, when you're thinking through these, you would you would write right down there.
+
+163
+00:20:07,260 --> 00:20:12,990
+You would draw it, draw the air to the bike crash. And then you'd think about the other factors that you're including.
+
+164
+00:20:13,530 --> 00:20:19,140
+Right. Your question, your main scientific question of interest, figure out if there is another area that should be there.
+
+165
+00:20:19,230 --> 00:20:25,230
+If there is not, then you know your race that we are bringing here.
+
+166
+00:20:27,360 --> 00:20:32,010
+But, you know, if for whatever reason rain is related to the scientific question, then you would keep it in the back.
+
+167
+00:20:33,780 --> 00:20:41,220
+Okay. So a backdoor path is a pathway from exposure to the outcome, not including the direct path of interest.
+
+168
+00:20:42,060 --> 00:20:47,070
+Closing the backdoor path is the entire point of confounder controls, right?
+
+169
+00:20:47,580 --> 00:20:50,400
+If to see if a back to a path is open,
+
+170
+00:20:50,820 --> 00:21:01,440
+it's usually kind of easier to assume the null that is kind of get rid of that arrow between A and Y and see if you can still get from A to Y, right.
+
+171
+00:21:05,100 --> 00:21:12,420
+If you cannot if you want to erase the direct arrow, if you can't get from A to Y, then you have some type of exchange ability.
+
+172
+00:21:16,260 --> 00:21:25,890
+To achieve conditional exchange ability, you must conditional on some set of factors so that you block all backdoor paths between A and Y.
+
+173
+00:21:27,300 --> 00:21:30,330
+That set of factors is going to be called an adjustment set.
+
+174
+00:21:31,800 --> 00:21:36,960
+A minimal adjustment set contains the fewest factors needed to block all backdoor paths.
+
+175
+00:21:38,310 --> 00:21:45,510
+Okay, so those are DAG preliminaries. They should sound familiar because we did that in the first class.
+
+176
+00:21:45,510 --> 00:21:49,230
+Second class we went through these.
+
+177
+00:21:49,560 --> 00:21:53,220
+Okay, so quick review of DAG rules.
+
+178
+00:21:54,660 --> 00:22:00,899
+So to get from 8ay through a backdoor path, you can move along any path regardless of the arrows.
+
+179
+00:22:00,900 --> 00:22:04,559
+Directional directionality. Okay.
+
+180
+00:22:04,560 --> 00:22:09,090
+So we can go from aid W to W2 to Y, right? That is a back to a path there.
+
+181
+00:22:10,740 --> 00:22:18,960
+So here a back to a path is open through the red arrows and the effect of a on y is is not going to be identified.
+
+182
+00:22:21,790 --> 00:22:25,110
+I don't know why this is dotted. I should probably fix that.
+
+183
+00:22:25,830 --> 00:22:33,390
+All right. Conditioning on a common cause of the exposure and the outcome closes the backdoor path.
+
+184
+00:22:34,080 --> 00:22:41,880
+Right? So here we're going from A to Y, we've conditioned on W one mother has diabetes,
+
+185
+00:22:42,330 --> 00:22:46,980
+probably because it's a little bit easier to measure than W2, which is unhealthy nutrition.
+
+186
+00:22:47,760 --> 00:23:01,170
+Right. So now we blocked that backdoor, backdoor path, that aid w one to W2 to Y and we're going to identify the the effect of A or Y.
+
+187
+00:23:04,290 --> 00:23:11,660
+But measured factors may still lead to confounding, right, even if you closed the backdoor path through those measured factors.
+
+188
+00:23:12,140 --> 00:23:17,840
+So here we're going to do see socioeconomic status as an unmeasured factor.
+
+189
+00:23:18,800 --> 00:23:22,250
+And now we once again have a backdoor path that is open.
+
+190
+00:23:22,250 --> 00:23:25,640
+Even though we've controlled one back for a half, the mother has diabetes.
+
+191
+00:23:28,310 --> 00:23:32,240
+So then the net result is the effect of A on Y is not identified.
+
+192
+00:23:35,870 --> 00:23:43,400
+Remember that the existence of a collider so we're not redrawing our or that little bit differently does block that fact or path.
+
+193
+00:23:44,450 --> 00:23:47,540
+Right. And so in this case, if this is your dog,
+
+194
+00:23:47,540 --> 00:23:54,860
+then the effect of A on Y is identified because w one is a collider and so you can't get through the back or path.
+
+195
+00:23:57,170 --> 00:24:00,260
+Conditioning on a collider will open up that back door path.
+
+196
+00:24:01,310 --> 00:24:09,320
+Right. And so when you do that, then the effect of A on Y is no longer identified.
+
+197
+00:24:11,000 --> 00:24:20,120
+And to explain that, I think we talked about the Bell example before, but just kind of explaining Rule five,
+
+198
+00:24:20,120 --> 00:24:29,210
+because it's one that people tend to have a little bit of difficulty with is suppose we have a DAG here and we're looking at the sidewalk being wet.
+
+199
+00:24:29,990 --> 00:24:39,380
+Okay. And we know there's two ways the sidewalk there's only two ways the sidewalk can get what either the sprinklers turned on or it rained.
+
+200
+00:24:39,950 --> 00:24:51,080
+Okay. So if we condition on knowing that the sidewalk is what we know, it's wet and we know that the sprinklers weren't on, then what do we know?
+
+201
+00:24:52,070 --> 00:24:55,280
+It must have rained, right.
+
+202
+00:24:57,590 --> 00:25:05,180
+Because the only way that the sidewalk could be wet if the sprinklers weren't on is that it rained okay and then vice versa.
+
+203
+00:25:05,180 --> 00:25:12,590
+Right. And so what happens then is by conditioning on the state of the sidewalk, the sidewalk being wet,
+
+204
+00:25:13,250 --> 00:25:18,610
+then we know and knowing something about D tells us something about it and vice versa.
+
+205
+00:25:18,620 --> 00:25:33,220
+Right? Thus conditioning on this collider, you're right, has induced an association between the sprinklers and rain that wasn't there before.
+
+206
+00:25:33,980 --> 00:25:40,490
+Gives us some information about the other variable. Okay.
+
+207
+00:25:42,470 --> 00:25:52,370
+So that's why we don't want a condition on a collider. So conditioning on a descendant of a collider also will open a backdoor path.
+
+208
+00:25:53,210 --> 00:25:58,220
+So here we've got medical care, right? Which is the descendant of this collider.
+
+209
+00:25:58,580 --> 00:26:02,240
+Mother has diabetes and we have conditioned on it.
+
+210
+00:26:05,990 --> 00:26:09,590
+So now we've opened up a backdoor path here.
+
+211
+00:26:12,450 --> 00:26:15,660
+And to kind of explain that. Right.
+
+212
+00:26:17,550 --> 00:26:24,030
+Suppose here, instead of conditioning on a sidewalk being wet, we're going to conditioned on sidewalk being slippery.
+
+213
+00:26:24,810 --> 00:26:28,320
+Right. But the only input into sidewalk being slippery here.
+
+214
+00:26:29,220 --> 00:26:33,090
+Right. Is sidewall being wet. Okay.
+
+215
+00:26:34,380 --> 00:26:39,420
+So still we didn't conditioned on sidewalk being wet, but we know the sidewalk is slippery.
+
+216
+00:26:39,420 --> 00:26:44,490
+Then we know the sidewalk was wet. And if we know the sprinklers weren't on, then we still know it rained.
+
+217
+00:26:45,030 --> 00:26:52,170
+Right. And vice versa. Okay.
+
+218
+00:26:52,830 --> 00:27:04,360
+So once again, it means conditioning, knowing something conditioning on down here is then going to induce a relationship between and E here.
+
+219
+00:27:04,380 --> 00:27:07,890
+So it's it's opening up a pathway between them. Right.
+
+220
+00:27:08,130 --> 00:27:12,270
+So we didn't conditioned here on this collider sidewalk as wet.
+
+221
+00:27:12,540 --> 00:27:16,050
+Instead, we conditioned on the descendent of a collider.
+
+222
+00:27:18,180 --> 00:27:21,450
+All right. So those are our rules.
+
+223
+00:27:22,590 --> 00:27:29,670
+You seem actually relatively straightforward. And then you start looking at really complex dogs, and it gets this gets a little bit more complicated.
+
+224
+00:27:30,930 --> 00:27:34,140
+All right. So now we're going to go through some dog examples.
+
+225
+00:27:36,090 --> 00:27:46,650
+So here we have a dog tag, too, although I think on your sheet, it might have some more things drawn in.
+
+226
+00:27:48,720 --> 00:27:55,920
+And we're kind of thinking through so do we have marginal exchange ability here in this bag?
+
+227
+00:28:00,540 --> 00:28:13,870
+Our interest is mosquito bites on Zika. It's a little bit harder.
+
+228
+00:28:15,040 --> 00:28:20,270
+Uh, so we have. We have unmeasured confounding here by sex.
+
+229
+00:28:23,400 --> 00:28:32,310
+Because it's acting on the mediator so that it has a relationship with the outcome.
+
+230
+00:28:33,630 --> 00:28:41,670
+All right. But we'll go ahead and draw this whole thing in. So if we if we did this, this was our our our dag.
+
+231
+00:28:42,330 --> 00:28:46,030
+You know, we've we've put location and age here.
+
+232
+00:28:46,060 --> 00:28:49,830
+These are both kind of clear confounders. Right. We're going to adjust for them.
+
+233
+00:28:51,150 --> 00:28:57,810
+Right. The question.
+
+234
+00:29:01,760 --> 00:29:08,020
+So for you, it isn't just about not good.
+
+235
+00:29:08,020 --> 00:29:15,950
+It's just great, even if it has another. Yeah.
+
+236
+00:29:15,960 --> 00:29:26,000
+You're going to still have to try to figure out a way to get. I mean, sometimes sometimes you can never achieve the changeability, right?
+
+237
+00:29:26,040 --> 00:29:27,390
+Or traditional instinct at all.
+
+238
+00:29:27,870 --> 00:29:36,090
+But yeah, if you had another arrow coming in the G, it would still give you some information, would still induce some association between DNA.
+
+239
+00:29:36,600 --> 00:29:39,660
+Okay. All right.
+
+240
+00:29:40,290 --> 00:29:43,859
+So here we're going to adjust for location, right?
+
+241
+00:29:43,860 --> 00:29:49,140
+Because it's a clearer confounder.
+
+242
+00:29:49,470 --> 00:29:54,720
+Right. I'll ask you to Zika symptoms, a clear confounder.
+
+243
+00:29:56,820 --> 00:30:01,380
+But we cannot achieve exchange ability because of the inability to control for you.
+
+244
+00:30:02,280 --> 00:30:05,429
+I would say that this is actually a slightly more complicated example.
+
+245
+00:30:05,430 --> 00:30:10,680
+You wouldn't want to just control for you here anyway. So but but there you go.
+
+246
+00:30:13,340 --> 00:30:16,610
+Meaning we will need to do more like a mediation analysis.
+
+247
+00:30:18,050 --> 00:30:21,680
+All right. What about DAG three?
+
+248
+00:30:22,110 --> 00:30:52,830
+What are we going to do on deck three? Who's controlling for what?
+
+249
+00:30:53,340 --> 00:31:17,989
+You can talk to each other. I just fix the formula on the way I was, what I was.
+
+250
+00:31:17,990 --> 00:31:21,260
+Which the formula. There's no solution. Yeah, yeah. It's okay.
+
+251
+00:31:21,260 --> 00:31:27,490
+I have my own, so. Okay. Yeah. I used to not provide a solution page to English.
+
+252
+00:31:27,620 --> 00:31:30,820
+We did it up here. Maybe.
+
+253
+00:31:30,980 --> 00:31:44,160
+Maybe last year. Previously it was reliant on people coming to class to fill it out.
+
+254
+00:31:44,160 --> 00:31:47,310
+Otherwise they were just staring, but just trying to figure it out.
+
+255
+00:31:49,780 --> 00:31:53,070
+And so what are we. What are we going to do on Dec three?
+
+256
+00:31:54,900 --> 00:31:58,260
+Nothing. Nothing. Right. Why aren't we doing anything?
+
+257
+00:31:59,280 --> 00:32:04,860
+Because there's no back door. Why is there no open back door? Because queue is a collider, right?
+
+258
+00:32:05,370 --> 00:32:13,620
+So remember, if you kind of erase this area or imaginary erase this area, you can't get from A to Y because.
+
+259
+00:32:13,620 --> 00:32:18,960
+Q because there's a collider on that path. All right.
+
+260
+00:32:19,050 --> 00:32:22,540
+So exchange ability is attained in the crude analysis.
+
+261
+00:32:23,040 --> 00:32:29,020
+So no confounding should be done. What about?
+
+262
+00:32:29,620 --> 00:32:39,850
+What about this deck that poor. How would we intervene to achieve exchange ability?
+
+263
+00:32:39,940 --> 00:33:13,930
+The same question. So what are, what are we going to conditioned on here.
+
+264
+00:33:14,640 --> 00:33:21,010
+Ah. Ah, yeah. So our other option would be R and Z.
+
+265
+00:33:21,470 --> 00:33:26,130
+Right. But we want that minimal set of factors.
+
+266
+00:33:26,140 --> 00:33:30,310
+So unless you had a really compelling reason to also conditional Z, which is conditional.
+
+267
+00:33:30,310 --> 00:33:36,310
+Ah, in this case what I don't want to hear is that you're conditioning on, on you one or you two.
+
+268
+00:33:36,910 --> 00:33:42,340
+Right. Because remember that is a signal for it being unmeasured and something that you can't actually conditional.
+
+269
+00:33:42,640 --> 00:33:47,680
+Plus you can go backwards in time and not remember to put that information into your survey
+
+270
+00:33:47,680 --> 00:33:53,020
+or collect that sample or whatever it is you need to actually measure that variable.
+
+271
+00:33:53,980 --> 00:33:59,290
+All right. So we've conditioned on, ah, so exchange ability is attained by conditioning on our alone.
+
+272
+00:34:02,710 --> 00:34:07,660
+So what about our next dag?
+
+273
+00:34:07,900 --> 00:34:11,650
+Dag five. This is the start of Dag five.
+
+274
+00:34:17,710 --> 00:34:38,580
+What would we want to condition on here? All that you have read through them.
+
+275
+00:34:38,940 --> 00:34:43,860
+So it is a little helpful to like imagine you being away, but you've also got the drawing of you.
+
+276
+00:34:43,860 --> 00:35:38,260
+Obviously the question asked you with and without using their. All right.
+
+277
+00:35:40,150 --> 00:35:46,150
+So what would we want to condition on here if this was what we were looking at?
+
+278
+00:35:46,700 --> 00:35:52,000
+No, you. S s and P, right.
+
+279
+00:35:52,730 --> 00:35:57,010
+Um, in fact, you could do S and P, or you could do s and.
+
+280
+00:35:57,010 --> 00:36:01,090
+Ah, right either way. Um.
+
+281
+00:36:04,150 --> 00:36:13,510
+So there we go. Now, if we have you here, now, what do we want to do?
+
+282
+00:36:24,220 --> 00:36:31,750
+How does that impact our analysis? We'll take our back away because regardless of whether it was there,
+
+283
+00:36:31,750 --> 00:36:36,400
+right the first one, we're going to want a condition on ASH because it's confounder.
+
+284
+00:36:37,180 --> 00:36:44,620
+Right. When you wasn't present, we already said we would do S and P or S and R, right.
+
+285
+00:36:44,620 --> 00:36:49,540
+You could really choose either one. What if you as present?
+
+286
+00:36:49,900 --> 00:36:53,320
+What do you need to condition on?
+
+287
+00:37:03,920 --> 00:37:10,410
+Oh, yeah. Definitely S P and P.
+
+288
+00:37:10,500 --> 00:37:20,970
+Yeah. Oh, I see. Yeah. So we're going to do S and we're going to do P and we're going to do that p r.
+
+289
+00:37:21,000 --> 00:37:28,829
+It's actually already up here on the slide. Anyways, um, we're going to do that to avoid a collider bias, right?
+
+290
+00:37:28,830 --> 00:37:33,060
+Because if we conditioned on our that more, then if we're inducing a collider bias there,
+
+291
+00:37:35,010 --> 00:37:38,670
+so the exchange ability then will be obtained after conditioning on S and P.
+
+292
+00:37:39,690 --> 00:37:48,720
+All right. So now we're going to go over a review and confounding of confounding and selection bias on does.
+
+293
+00:37:51,090 --> 00:37:55,680
+Right. So here is our causal structure example confounding right.
+
+294
+00:37:55,710 --> 00:38:00,330
+W is a common cause of both A and Y, right.
+
+295
+00:38:00,870 --> 00:38:07,680
+Therefore it is a confounder. So a backdoor path is open from 8ay.
+
+296
+00:38:08,700 --> 00:38:16,650
+So we don't have any form of extreme stability. And because of this common cause of and why we have confounding.
+
+297
+00:38:17,010 --> 00:38:27,660
+Right that's the structural basis for confounding here is the causal structure for selection bias.
+
+298
+00:38:28,590 --> 00:38:34,620
+Here we've got is conditioned, so we've got our low income diabetes bias.
+
+299
+00:38:35,520 --> 00:38:40,709
+Well, part of the bias again, right, we're conditioning on mother has diabetes.
+
+300
+00:38:40,710 --> 00:38:48,600
+It's a selection bias, right? So we're opening up a back path for the Y so we don't have exchange ability.
+
+301
+00:38:49,440 --> 00:38:57,930
+Um, there's no confounding present because, and y have no common causes in this diagram.
+
+302
+00:39:01,370 --> 00:39:07,690
+Right. So this is back to that tag on the bias.
+
+303
+00:39:07,730 --> 00:39:14,860
+Right. So W is a common cause of both. And why we conditioned on it.
+
+304
+00:39:14,870 --> 00:39:17,930
+But the problem here is, of course, that it's also a collider.
+
+305
+00:39:18,510 --> 00:39:19,940
+Right. We've got that back path.
+
+306
+00:39:20,260 --> 00:39:32,150
+Um, so by conditioning on w um, we have induced selection bias, but this is a causal structure that has both confounding and selection bias in it.
+
+307
+00:39:33,740 --> 00:39:39,980
+Okay. So some of the commonalities between confounding and selection bias,
+
+308
+00:39:40,370 --> 00:39:45,950
+both are going to be problematic because both imply and open back to a path from A to Y.
+
+309
+00:39:46,490 --> 00:39:51,860
+Right. Hence, in the presence of either or both of these phenomena, we're going to lose exchange ability.
+
+310
+00:39:53,540 --> 00:40:00,170
+Both are going to imply the need for modifications to the DAG in order to achieve exchange ability.
+
+311
+00:40:03,560 --> 00:40:10,490
+So examples of possible ways to modify a DAG and what people normally kind of think of as just, you know, statistical adjustment.
+
+312
+00:40:10,970 --> 00:40:14,990
+Right. But we can also modify that, DAG, by restricting the study population.
+
+313
+00:40:16,250 --> 00:40:20,220
+And you can do it by randomizing the treatment of interest.
+
+314
+00:40:21,440 --> 00:40:25,670
+So if it is something that you can minimize. All right.
+
+315
+00:40:28,340 --> 00:40:33,190
+So fundamentally, selection, bias and confounding arise from different causes, right?
+
+316
+00:40:34,220 --> 00:40:37,610
+Confounding is due to those common causes of A and Y.
+
+317
+00:40:38,690 --> 00:40:51,410
+So in the example global view one here, family income during childhood and W are confounders because they are both common causes of A and y.
+
+318
+00:40:51,530 --> 00:40:55,910
+Right. You through that pathway and w directly to that one.
+
+319
+00:41:01,760 --> 00:41:10,459
+So selection bias, on the other hand, can be due to several different factors.
+
+320
+00:41:10,460 --> 00:41:15,770
+It could be due to conditioning on common effects of a Y, right?
+
+321
+00:41:15,770 --> 00:41:23,419
+So here selection into the study is a common effect of both the exposure and the outcome, right?
+
+322
+00:41:23,420 --> 00:41:30,740
+So that's number one. Conditioning on the common effects can also be due to conditioning on common effects of causes of A and Y.
+
+323
+00:41:31,670 --> 00:41:37,639
+So here we're looking at a new drug and the relationship with heart disease got
+
+324
+00:41:37,640 --> 00:41:52,100
+Chagas disease in our eating habits here both common effects are causes of A and Y,
+
+325
+00:41:52,730 --> 00:41:56,960
+right. Or it is a common effect of causes of aging y, right.
+
+326
+00:41:57,560 --> 00:42:02,300
+So when we conditioned on this, we're once again inducing selection bias.
+
+327
+00:42:06,400 --> 00:42:15,910
+And then our third scenario here is when we're conditioning on the effect of either A or Y and the effect of the cause of the other.
+
+328
+00:42:16,120 --> 00:42:19,120
+Basically a combination of one and two, essentially.
+
+329
+00:42:19,510 --> 00:42:25,060
+Right. So here we've got our exposure, a outcome here, room status,
+
+330
+00:42:25,450 --> 00:42:31,420
+and then we've got pre disease symptoms leading to affecting our sensory status and the outcome.
+
+331
+00:42:35,130 --> 00:42:39,600
+So that's what that's a selection bias or where you would get selection bias occur.
+
+332
+00:42:40,650 --> 00:42:48,990
+Okay. So the next topic is information bias on drugs.
+
+333
+00:42:50,400 --> 00:42:57,690
+So information bias also called measurement bias or measurement error or it's result of measurement error occurs when
+
+334
+00:42:57,690 --> 00:43:04,860
+the association between and Y is weakened or strengthened as a result of how variables in the study were measured.
+
+335
+00:43:05,280 --> 00:43:13,109
+That is, as a result of measurement error. It's important to remember that information bias can occur in all settings.
+
+336
+00:43:13,110 --> 00:43:17,440
+Even in our case, people often think of our cases as being bias free.
+
+337
+00:43:20,130 --> 00:43:26,670
+Not the case, right? So it's important to understand the causes of information, bias and the effects when you're conducting a study.
+
+338
+00:43:29,370 --> 00:43:35,100
+So if you have exchange, ability hold because you don't have selection bias dealt with confounding, right?
+
+339
+00:43:35,370 --> 00:43:42,060
+But you still have information bias. It's going to be insufficient to get the causal factor on Y right.
+
+340
+00:43:42,990 --> 00:43:46,710
+So in short, even if you have exchange ability and even if you randomize,
+
+341
+00:43:46,980 --> 00:43:52,799
+you may still end up with mis measure variables and then computing the effect of miss measured
+
+342
+00:43:52,800 --> 00:43:59,940
+variables even after randomization or exchange ability will likely lead to an incorrect result.
+
+343
+00:43:59,940 --> 00:44:05,820
+And of course how measured they are will impact how incorrect that result is.
+
+344
+00:44:07,050 --> 00:44:11,970
+Introducing information, bias and attacks allows us to identify how it will affect our estimate.
+
+345
+00:44:16,350 --> 00:44:22,620
+So say we want to study the effect of cholesterol lowering drug A on the risk of liver disease.
+
+346
+00:44:22,620 --> 00:44:28,950
+Why? However, we know that A can be measured because some patients may not take the drug,
+
+347
+00:44:29,220 --> 00:44:33,570
+you know, so they get you're using a medical database, for example. So, you know, they got the prescription.
+
+348
+00:44:33,570 --> 00:44:39,630
+You don't know if they actually took it right. Or the doctor may forget to write down that the patient was prescribed the drug.
+
+349
+00:44:42,030 --> 00:44:50,730
+We're going to represent the true exposure of interest, which is taking the drug as a and the measured exposure as a prime here.
+
+350
+00:44:51,510 --> 00:44:58,500
+Right. Which will not necessarily equal the true A for a particular individual.
+
+351
+00:45:00,390 --> 00:45:03,990
+All right. So here we go.
+
+352
+00:45:04,020 --> 00:45:10,020
+Right. Got true drug use. Whether or not they actually took the drug on, whether or not they got liver disease.
+
+353
+00:45:10,500 --> 00:45:19,890
+But now we've got this measured drug use and there's some measurement error for a that is going into that.
+
+354
+00:45:23,700 --> 00:45:31,740
+So you a here are going to represent all the factors other than a which will determine the value of the drug is as measured in the study.
+
+355
+00:45:37,580 --> 00:45:47,450
+So in psychology a is called the construct and a prime abstracts is called the measure or the indicator.
+
+356
+00:45:50,240 --> 00:45:57,560
+The challenge is to use data on the measured indicator to derive inference on the effect of the unmeasured construct.
+
+357
+00:45:59,030 --> 00:46:05,830
+A on your outcome line. All right.
+
+358
+00:46:07,220 --> 00:46:13,490
+So. Do you want to go ahead and look at that six?
+
+359
+00:46:23,770 --> 00:46:28,990
+So in that six, right, we've got measurement error for our exposure, a drug.
+
+360
+00:46:29,440 --> 00:46:33,100
+We've also got measurement error for true liver disease.
+
+361
+00:46:51,820 --> 00:47:02,149
+Simply. What do you mean by systematic?
+
+362
+00:47:02,150 --> 00:47:05,800
+I mean, if it's differential. Yes, but is it just like.
+
+363
+00:47:07,570 --> 00:47:19,420
+Random variation versus. I don't think there's actually, like, a good way.
+
+364
+00:47:19,450 --> 00:47:22,689
+I mean, you would think through that. You might write it on there.
+
+365
+00:47:22,690 --> 00:47:25,480
+But I'm not thinking of a way.
+
+366
+00:47:27,220 --> 00:47:35,390
+I mean, you could say that, you know, unmeasured measurement error for you could indicate there that it's going to always overestimate potentially.
+
+367
+00:47:35,860 --> 00:47:43,149
+Right. The thing is, like, if it's always overestimating by £10, then it doesn't actually matter that much.
+
+368
+00:47:43,150 --> 00:47:52,210
+Rates are still attractive. Because it's going to be perfectly correlated or even like it sounds like.
+
+369
+00:47:53,750 --> 00:47:57,750
+There are six sizes and there's no differential.
+
+370
+00:47:59,510 --> 00:48:04,880
+There's no way they are in place or this is not differential.
+
+371
+00:48:07,850 --> 00:48:18,140
+Though you'll still see this through the season or you'll see at this stage you'll see an association.
+
+372
+00:48:18,620 --> 00:48:26,910
+I mean, if measurement error is extreme, you could actually see a very different association, in fact, because it does depend on where they are.
+
+373
+00:48:27,800 --> 00:48:34,010
+But this one. So that sense would still say you were not getting at the true effect of and why.
+
+374
+00:48:34,880 --> 00:48:40,490
+But how far off you are and in what direction does depend on as to the degree of measurement error.
+
+375
+00:48:47,230 --> 00:48:52,900
+You kind of think back to the particularly like the clinical AP lecture where we said like,
+
+376
+00:48:53,350 --> 00:49:00,340
+it's worse than this, like don't even bother using the test, right? Because you can really kind of invert your relationship.
+
+377
+00:49:02,080 --> 00:49:14,140
+All right. So and why are known as. What in psychology can structure and be a star and why should I call them?
+
+378
+00:49:14,440 --> 00:49:21,040
+Going forward, are known as a measure or an indicator.
+
+379
+00:49:21,230 --> 00:49:28,750
+Right. Okay. So does does exchange ability hold in the stock exchange?
+
+380
+00:49:28,750 --> 00:49:37,870
+It already holds. But is exchange ability sufficient to identify the causal effect of interest?
+
+381
+00:49:37,870 --> 00:49:42,569
+Why or why not? No, it's not sufficient.
+
+382
+00:49:42,570 --> 00:49:54,770
+Right? We've got marginal and strange ability here, but we're interested in the effects of A on Y where we only have a star.
+
+383
+00:49:54,770 --> 00:49:59,790
+And why star here? Because a star is not equal to a and y star is not equal to why?
+
+384
+00:49:59,790 --> 00:50:04,470
+There's no guarantee that we will get at that true causal effect.
+
+385
+00:50:09,090 --> 00:50:12,700
+So here we've got a question for the causal bias difference.
+
+386
+00:50:12,700 --> 00:50:16,020
+The superscript three here are going to indicate the counterfactuals.
+
+387
+00:50:16,740 --> 00:50:21,750
+Um, but this is really what we are looking at, right?
+
+388
+00:50:23,070 --> 00:50:31,170
+So since a star is not equal to a y, stars are equal to y, the causal risk difference and the association all risk difference.
+
+389
+00:50:31,170 --> 00:50:39,720
+I should probably put it in the little cursive B letters J usually used for causal, but uh,
+
+390
+00:50:40,470 --> 00:50:46,740
+and so generally speaking, this will be true for all measured associations, hence the presence of information bias.
+
+391
+00:50:48,120 --> 00:50:55,860
+Hence in the presence of information bias exchange ability is insufficient for the identification of the causal effect of interest.
+
+392
+00:50:58,820 --> 00:51:05,340
+Right. So that's information bias on dags.
+
+393
+00:51:05,790 --> 00:51:10,020
+Okay. So dags for advanced topics.
+
+394
+00:51:14,160 --> 00:51:21,809
+Just a quick summary though. Confounding arises because of common causes of and why selection bias arises because of
+
+395
+00:51:21,810 --> 00:51:29,760
+investigator induced selection on common effects or common causes of common effects of a and why.
+
+396
+00:51:30,000 --> 00:51:33,330
+And remember, it can also be a combination of those two things.
+
+397
+00:51:37,980 --> 00:51:39,770
+So what about information bias?
+
+398
+00:51:39,780 --> 00:51:48,960
+So we know that measurement error gives rise to information bias, but there's actually no single structure for dogs to summarize measurement error.
+
+399
+00:51:50,520 --> 00:51:57,809
+But we can still classify measurement error into four broad structural types based on considerations of two properties.
+
+400
+00:51:57,810 --> 00:52:02,639
+And so the two properties that will think about our independence and when we talk about independence,
+
+401
+00:52:02,640 --> 00:52:12,990
+we're talking about independence of you a the unmeasured the measurement error for A And you why the measurement error for why?
+
+402
+00:52:14,490 --> 00:52:18,660
+And so here we're saying the measurement errors are independent and we call that independence.
+
+403
+00:52:18,940 --> 00:52:22,440
+And then we can talk about something being differential or non differential.
+
+404
+00:52:25,140 --> 00:52:34,799
+So if the measurement error of A is and why or independent then other is non differential,
+
+405
+00:52:34,800 --> 00:52:46,350
+we're perspective why and if the measurement error of you, of your outcome and a are independent, then why is non differential in perspective a.
+
+406
+00:52:51,380 --> 00:53:01,100
+And we were going through. So here, tag six was an example of independence of measurement errors.
+
+407
+00:53:02,360 --> 00:53:14,740
+Right. And. And they're independent because we have colliders here which are blocking a backdoor pathway between the two.
+
+408
+00:53:17,980 --> 00:53:23,830
+All right, so why don't you look at that seven?
+
+409
+00:53:26,010 --> 00:53:30,780
+Can it get better? Go.
+
+410
+00:53:36,470 --> 00:53:44,610
+No hustle, Mr. French, though. But they always catch those little things.
+
+411
+00:53:44,640 --> 00:53:54,760
+I try to be really consistent and then, like, you know, from the, I guess, thousands of slides that are 600 slides are in six oh yeah.
+
+412
+00:53:56,240 --> 00:54:02,030
+So the numbers are all around like that much more complex than just certain numbers.
+
+413
+00:54:10,320 --> 00:54:14,070
+The first year I talked to someone, printed up the slides for all the students.
+
+414
+00:54:14,280 --> 00:54:19,730
+Like I thought, Oh God, what did you do?
+
+415
+00:54:19,740 --> 00:54:22,780
+Do you guys when people stop doing that, that.
+
+416
+00:54:23,740 --> 00:54:33,960
+Yeah, but I remember doing it. Yeah, I remember we had six, I think we had,
+
+417
+00:54:35,430 --> 00:54:45,390
+we got big interactive things like I started making opportunities on screen and I'm like, okay, well, I'm I wasting my time.
+
+418
+00:54:46,980 --> 00:54:50,370
+People are getting more and more used to not having paper.
+
+419
+00:54:50,550 --> 00:54:54,690
+Yeah. People just say on the computer. And so I was like, Have you ever heard outside maybe know what they're going to hear?
+
+420
+00:54:54,690 --> 00:55:02,190
+But yeah, no, I didn't buy them. So they, they were the problem, even if you can't fix them.
+
+421
+00:55:03,690 --> 00:55:10,989
+So I kind of. Okay.
+
+422
+00:55:10,990 --> 00:55:14,590
+So what is DAG seven to pick that DAG six does not.
+
+423
+00:55:16,450 --> 00:55:24,480
+What's the difference there? It's this UK y, right?
+
+424
+00:55:26,470 --> 00:55:32,110
+It's imperfect. We're calling it a retrospective recall of patients medical history.
+
+425
+00:55:32,560 --> 00:55:37,600
+And so now there's a dependance of those two medical there's two measurement errors.
+
+426
+00:55:38,380 --> 00:55:42,200
+Right. So that's what tags six or seven depicts.
+
+427
+00:55:42,200 --> 00:55:45,490
+But that 6% is the dependance between the measurement errors.
+
+428
+00:55:46,510 --> 00:55:50,980
+Does DAG seven display recall bias?
+
+429
+00:55:52,960 --> 00:55:58,930
+Why or why not? It is not right.
+
+430
+00:56:01,110 --> 00:56:06,810
+And that's because this is non differential, right? We call bias for the differential.
+
+431
+00:56:08,850 --> 00:56:13,020
+All right. So how would we classify the information present in Deck seven?
+
+432
+00:56:17,050 --> 00:56:22,660
+Remember, we're going to talk about whether it's differential or non differential and dependent or independent.
+
+433
+00:56:23,890 --> 00:56:28,720
+So is it differential or non differential? Non differential?
+
+434
+00:56:30,250 --> 00:56:39,600
+Is it dependent or independent? Dependent.
+
+435
+00:56:39,600 --> 00:56:44,250
+Right. So the measurement errors are related.
+
+436
+00:56:44,560 --> 00:56:46,650
+Right. So that's why it's not going to be independent.
+
+437
+00:56:46,920 --> 00:56:56,460
+But we don't have an arrow going from why here to a measurement error a or a to Y, and so thus it is non differential.
+
+438
+00:56:58,770 --> 00:57:07,600
+All right. So in both Dec six and seven, UK is independent of the true.
+
+439
+00:57:07,750 --> 00:57:13,120
+Why? That's why and you why is independent of the true a right.
+
+440
+00:57:13,120 --> 00:57:16,450
+We don't have a error going here. We don't have an error going there.
+
+441
+00:57:16,900 --> 00:57:19,900
+And that's why it is non differential.
+
+442
+00:57:30,930 --> 00:57:33,660
+All right. So how does independence differ from London?
+
+443
+00:57:33,690 --> 00:57:39,960
+Differential independence is about whether or not you a and you y are independent of each other.
+
+444
+00:57:40,960 --> 00:57:41,340
+Okay.
+
+445
+00:57:41,880 --> 00:57:50,940
+Non differential is really looking at whether or not the measurement error of your treatment or outcome is independent of the outcome or treatment.
+
+446
+00:57:50,950 --> 00:57:54,510
+So the measurement error of the treatment is that independent of the outcome?
+
+447
+00:57:55,440 --> 00:57:59,940
+Okay. And is the measurement error of the outcome independent of the treatment?
+
+448
+00:58:05,700 --> 00:58:07,779
+Okay. So we're going to be concerned with two properties,
+
+449
+00:58:07,780 --> 00:58:16,740
+three independence of why of the measurement error of the exposure and the measurement error of the outcome.
+
+450
+00:58:17,700 --> 00:58:21,209
+So at this point, we'll say that the measurement errors are independent.
+
+451
+00:58:21,210 --> 00:58:31,650
+If you air and you wire independent and then for non differential, we'll look at is the measurement error of our exposure related to our outcome.
+
+452
+00:58:33,660 --> 00:58:40,590
+So it's independent if it isn't and we'll say is non differential with respect to why and then the independence
+
+453
+00:58:40,590 --> 00:58:48,270
+of the measurement error for outcome and and our actual exposure with our true exposure that somebody got right.
+
+454
+00:58:48,750 --> 00:58:59,310
+So if that holds, then we'll say that UI or the measurement error of our outcome is non differential with respect to our exposure.
+
+455
+00:58:59,550 --> 00:59:08,910
+Or it could also be a treatment that. All right.
+
+456
+00:59:09,450 --> 00:59:22,710
+Do you want to look at 8.1 and see if you can take a stab at looking at the next lecture slides at what kind of bias is depicted in 8.1?
+
+457
+00:59:24,300 --> 00:59:27,780
+Is there any one but people?
+
+458
+00:59:28,130 --> 00:59:31,960
+Why is there? There's a point, but there's also an 8.2 as well.
+
+459
+00:59:34,020 --> 00:59:38,250
+Yeah. Yeah, it is. Because there's an 8.2 over.
+
+460
+00:59:38,310 --> 00:59:41,400
+There's no 8.2 on your worksheet. There's an 8.2 in my slide.
+
+461
+00:59:52,440 --> 00:59:58,340
+There doesn't need to be an 8.2. I'm you know same that down.
+
+462
+00:59:59,010 --> 01:00:03,030
+Mm hmm. I can't figure.
+
+463
+01:00:05,040 --> 01:00:10,590
+I have. I have the original version. Oh. I mean, I made it, so I had it somewhere.
+
+464
+01:00:11,340 --> 01:00:32,310
+They keep this for me. I've been looking at. Who can blame the prior GSA saw the original source supposed to be in the club.
+
+465
+01:00:32,620 --> 01:00:41,189
+Yeah. Just seems like it's really all my stuff. It's all the powerpoint is otherwise very pretty.
+
+466
+01:00:41,190 --> 01:00:46,670
+Like, it was like, here's a flash drive. Everything is on it. I put them in the files like that.
+
+467
+01:00:46,740 --> 01:00:50,130
+They're supposed to be in the files, but somebody went through and cleaned out the files.
+
+468
+01:00:50,700 --> 01:00:55,260
+Yeah. And all the PowerPoint or like one file on their own, you know?
+
+469
+01:00:55,420 --> 01:01:05,040
+Yeah. Yeah. Oh, really? Then maybe you could just keep the PowerPoint slides.
+
+470
+01:01:05,050 --> 01:01:09,210
+Yeah. 2022 birthdays.
+
+471
+01:01:09,460 --> 01:01:15,750
+Still in the old ones and. All right.
+
+472
+01:01:16,440 --> 01:01:25,950
+So what kind of bias is depicted in 8.1? I think I heard it.
+
+473
+01:01:26,610 --> 01:01:36,060
+Recall? Yeah. And how would we classify the information bias in 8.1?
+
+474
+01:01:47,130 --> 01:01:53,220
+Or is it okay? Is it independent or dependent?
+
+475
+01:01:55,030 --> 01:02:02,250
+Is independent. Right. Is it differential or non differential?
+
+476
+01:02:04,170 --> 01:02:07,709
+Differential, yes. So independent.
+
+477
+01:02:07,710 --> 01:02:12,540
+But differential measurement error is the problem with these slides is it gives away to me.
+
+478
+01:02:14,940 --> 01:02:21,360
+Yes. Does it have to like I'm thinking, for example, this could be like if somebody has true dementia,
+
+479
+01:02:21,360 --> 01:02:25,969
+maybe they're more likely to have drug abuse recorded in their chart.
+
+480
+01:02:25,970 --> 01:02:32,250
+So it's not necessarily color. It could.
+
+481
+01:02:32,670 --> 01:02:36,270
+Yes. That is that is very true.
+
+482
+01:02:37,440 --> 01:02:42,370
+Be like a surveillance bias. All right. So if y.
+
+483
+01:02:43,530 --> 01:02:49,410
+Here we go. Exposure, recall. So this is the causal this causal structure depicts recall bias.
+
+484
+01:02:49,650 --> 01:02:59,920
+Um, uh, but you're right, actually, that that could be something other than recall back and think of a better example for that now.
+
+485
+01:03:01,860 --> 01:03:06,100
+So the structure in Doug eight is not unique to recall bias, which is what you were calling out there.
+
+486
+01:03:06,450 --> 01:03:15,120
+Right. Depending on the study conditions and the variables, the same tag structure can be used to diagram other forms of information bias that
+
+487
+01:03:15,120 --> 01:03:19,120
+is going to apply to basically all the dogs that we cover for information bias.
+
+488
+01:03:20,130 --> 01:03:27,720
+So here we've got another, uh, dag, same dag 8.2 now.
+
+489
+01:03:27,990 --> 01:03:35,040
+Right? We switch not the variables. And in this case, this causal structure is depicting reverse causation.
+
+490
+01:03:35,970 --> 01:03:41,520
+So we're saying that that liver toxicity affects the amount of drug in the blood.
+
+491
+01:03:41,970 --> 01:03:46,980
+And investigators used measured drug levels in their blood analysis.
+
+492
+01:03:46,980 --> 01:03:55,230
+Right. So liver damage is affecting the amount of the drug in the blood and therefore, liver damage is affecting the measurement error for a.
+
+493
+01:04:00,690 --> 01:04:04,200
+There's this tedious thing about recoveries.
+
+494
+01:04:04,740 --> 01:04:08,690
+So when we talk about recoveries. Like you.
+
+495
+01:04:08,930 --> 01:04:12,050
+Like, for example, in the deck seven.
+
+496
+01:04:14,890 --> 01:04:21,580
+It is not a virtual recall, but the association is a firm.
+
+497
+01:04:21,580 --> 01:04:26,860
+Why start huge? Because of the recall. Is it still required?
+
+498
+01:04:28,180 --> 01:04:31,079
+No, because recall bias is always different.
+
+499
+01:04:31,080 --> 01:04:41,230
+So it's like it's always where having the condition or potentially not having the condition is causing you to be more or less likely specifically.
+
+500
+01:04:41,680 --> 01:04:55,030
+So it's always, always differential. In this time it's not differential. But this could be another bias.
+
+501
+01:04:55,270 --> 01:04:58,750
+Right. What bias would you be proposing here?
+
+502
+01:04:59,780 --> 01:05:02,800
+Because if it's if it's not recall bias.
+
+503
+01:05:06,340 --> 01:05:13,640
+Without them having more guards there, they're more likely to have drug use record,
+
+504
+01:05:13,720 --> 01:05:18,300
+is what she's saying, because they have dementia in their medical chart.
+
+505
+01:05:18,320 --> 01:05:23,660
+So that would probably be like a medical surveillance bias, right?
+
+506
+01:05:23,660 --> 01:05:29,380
+Like a bias for because people are going because this person is going into the.
+
+507
+01:05:29,720 --> 01:05:30,920
+I think that's what you were saying, right?
+
+508
+01:05:30,920 --> 01:05:36,620
+Because they're going into the doctor more so they're more likely to get that recorded into this medical chart.
+
+509
+01:05:39,850 --> 01:05:43,389
+Yeah, it's definitely some form of information.
+
+510
+01:05:43,390 --> 01:05:50,920
+Bias wouldn't be a detection bias, but I think it would be a surveillance bias as the possibility there.
+
+511
+01:05:51,370 --> 01:05:55,629
+All right. So anyways, remember that these tags are not going to be specific.
+
+512
+01:05:55,630 --> 01:05:59,170
+That's not you can't look at it. And they didn't tell you what the variables are.
+
+513
+01:05:59,170 --> 01:06:02,170
+You couldn't say like, oh, that's the recall bias tag, right?
+
+514
+01:06:02,170 --> 01:06:08,200
+You need to actually know what the the by what the variables are, what the scenario is to name the bias.
+
+515
+01:06:08,200 --> 01:06:13,239
+Otherwise you could just say that it's an information bias and you could tell me if it's dependent or independent.
+
+516
+01:06:13,240 --> 01:06:18,160
+Right. And differential or non differential. Something pointed out.
+
+517
+01:06:18,520 --> 01:06:22,840
+Okay, so we've got a Dagg nine.
+
+518
+01:06:27,250 --> 01:06:35,410
+Right. So the answer to what other bias shares the same causal structure as DAG 8.1 Reverse causation bias shows the same structure.
+
+519
+01:06:38,710 --> 01:06:40,720
+So here we have DAG nine.
+
+520
+01:06:41,200 --> 01:06:48,430
+So our situation here is we suppose that the doctors in an RCP believe that the assigned drug may actually be causing liver disease,
+
+521
+01:06:48,820 --> 01:06:52,680
+so they monitor the patients on the drug more closely than the placebo.
+
+522
+01:06:52,690 --> 01:06:56,710
+This results in a medical surveillance or a detection bias.
+
+523
+01:06:57,580 --> 01:06:59,500
+Right. So having the exposure here.
+
+524
+01:07:09,070 --> 01:07:23,110
+So how would we classify the information bias detected and says dab nine but it should say dark very reverse causation of the cyclical.
+
+525
+01:07:26,200 --> 01:07:35,300
+Like in terms of life a. Nobody wants to.
+
+526
+01:07:37,910 --> 01:07:43,670
+Yeah. I would still consider that a reverse causation bias because your outcome is still affecting your mood.
+
+527
+01:07:44,420 --> 01:07:52,250
+I realize it's affecting your measurement, not actually affecting the true drug use, but yeah, it's a reverse causation.
+
+528
+01:07:57,550 --> 01:08:06,060
+Oops. Okay. Four dead. Nine. How would we classify the information depicted on that?
+
+529
+01:08:06,070 --> 01:08:13,400
+Nine. The differential or non differential.
+
+530
+01:08:16,600 --> 01:08:19,890
+I heard both answers. I think differential, right?
+
+531
+01:08:19,900 --> 01:08:28,600
+This is because that our outcome, our exposure to drug use is having an effect on the measurement error for our outcome.
+
+532
+01:08:28,810 --> 01:08:34,000
+Why? So that's it is differential. Is it independent or dependent?
+
+533
+01:08:35,860 --> 01:08:44,290
+Independent, right. Because there is no direct pathway from the measurement error of a measurement error.
+
+534
+01:08:44,500 --> 01:08:49,659
+Why? You know, because we've got a collider right here as your drug is right.
+
+535
+01:08:49,660 --> 01:08:54,760
+There is a collider. Right. We don't have the errors up here letting the two.
+
+536
+01:09:01,820 --> 01:09:09,309
+All right. So why don't you go ahead and look at the Big Ten and write down what the what the
+
+537
+01:09:09,310 --> 01:09:16,480
+distinction between that 8.1 or 8.2 in death and ten is and then classify God ten.
+
+538
+01:09:44,920 --> 01:10:19,760
+So. So what's the difference between 8.1 plus two and Doug ten?
+
+539
+01:10:31,470 --> 01:10:35,310
+That's fair. Yep. Yeah. The measurement errors are correlated.
+
+540
+01:10:35,670 --> 01:10:42,780
+Right. So 8.18.2 were independent. Whereas in dark ten, it's not dependent.
+
+541
+01:10:43,740 --> 01:10:50,150
+So how would we classify the measurement error for the type of information bias depicted in data?
+
+542
+01:10:53,840 --> 01:10:59,360
+Differential or non differential? Differential and independent or dependent.
+
+543
+01:11:00,200 --> 01:11:02,320
+Dependent. Yeah. So here it is. Right.
+
+544
+01:11:02,330 --> 01:11:12,530
+So it's dependent because of this, the measurement errors are dependent upon one of each other and it's differential because our outcome,
+
+545
+01:11:12,530 --> 01:11:20,940
+true dementia is affecting our measurement error. So this is supposed to depict both imperfect recall.
+
+546
+01:11:21,440 --> 01:11:26,810
+Right. Which is this up here and recall bias occurring.
+
+547
+01:11:31,890 --> 01:11:41,710
+Or. So what's the distinction between Dag nine and DAG 11?
+
+548
+01:11:48,990 --> 01:11:59,299
+Same thing, right? Like nine independent or that 11 now is dependent because we've basically added this on this imperfect retrospective recall,
+
+549
+01:11:59,300 --> 01:12:07,470
+the patient's medical history. So here we have both imperfect recall and medical surveillance bias operating.
+
+550
+01:12:13,040 --> 01:12:24,380
+And how would we classify the information bias in DAC 11 differential non differential differential and dependent or non independent?
+
+551
+01:12:26,580 --> 01:12:33,299
+Dependent. Yeah. All right. So, summary deck six is independent.
+
+552
+01:12:33,300 --> 01:12:39,330
+Non differential fact seven is dependent on differential drag.
+
+553
+01:12:39,330 --> 01:12:42,470
+Eight and nine are independent differential and drag.
+
+554
+01:12:42,480 --> 01:12:48,000
+Ten and 11 independent differential. Um, why does it matter?
+
+555
+01:12:48,180 --> 01:12:55,050
+What? What do we care about this classification scheme? The structure of the measurement error determines the methods that are used to overcome it.
+
+556
+01:12:55,530 --> 01:12:58,590
+Independent non differential is really going to be the easiest to fix.
+
+557
+01:12:58,860 --> 01:13:01,560
+Independent differential is just the most difficult to measure.
+
+558
+01:13:04,560 --> 01:13:14,970
+So in addition to measuring our outcome in our exposure, of course we can also measure our confounders and our other variables.
+
+559
+01:13:15,660 --> 01:13:22,650
+Um, so here we've gone back, we've got a lack of health insurance leading to diabetes, and then we've got this confounder.
+
+560
+01:13:24,030 --> 01:13:27,810
+Yes. Um, let's say we don't have.
+
+561
+01:13:28,930 --> 01:13:32,409
+Oops. Expert.
+
+562
+01:13:32,410 --> 01:13:44,890
+Instead, we have parental educational attainment and it's being used here, as you could call it, either a surrogate confounder or as a proxy.
+
+563
+01:13:46,030 --> 01:13:50,530
+Right. SRS is already kind of a proxy so that we can have a proxy of a proxy.
+
+564
+01:13:51,130 --> 01:14:06,880
+But there you go. Okay. So should w start here, parental education attainment be adjusted for even though it's not on the causal path?
+
+565
+01:14:08,970 --> 01:14:19,560
+What do we think? Can we just for parental educational attainment or not for something that's assuming we don't have as yes.
+
+566
+01:14:19,570 --> 01:14:36,170
+As this is unmeasured. I'm sorry. That should have a you. But we just thought, yeah, we would adjust for the term we'd use to describe Debbie here.
+
+567
+01:14:36,180 --> 01:14:40,980
+Parental education attainment, as I already said, surrogate confounder or a proxy.
+
+568
+01:14:42,360 --> 01:14:48,100
+So here we go. We're going to adjust for Star.
+
+569
+01:14:52,020 --> 01:14:55,320
+What can this be thought of? This is an information bias.
+
+570
+01:14:58,710 --> 01:15:03,570
+But what does it result in? Yeah. You have residual confounding, right?
+
+571
+01:15:03,570 --> 01:15:09,660
+Because we've only adjusted for part of the effect of X. So if we had W, we conditioned on it.
+
+572
+01:15:10,110 --> 01:15:17,400
+But in this particular example, all we have is w start a mis measured version or partial measure of w.
+
+573
+01:15:17,820 --> 01:15:23,850
+So conditioning on w star does not solve our problem or lead to marginal exchange ability.
+
+574
+01:15:24,660 --> 01:15:30,600
+We still have suffer from some measurement or information bias and really kind of results in residual confounding here.
+
+575
+01:15:34,870 --> 01:15:42,040
+So this research, you can also view it as a problem of residual compounding due to having W star as a surrogate.
+
+576
+01:15:42,040 --> 01:15:51,370
+Confounder doesn't really make a practical difference as both cases still lead to a information bias.
+
+577
+01:15:53,760 --> 01:15:59,730
+So for surrogate confounders. Proxies for hard to measure variables like sex or called surrogates.
+
+578
+01:16:00,630 --> 01:16:02,520
+The question always comes up should we adjust for them?
+
+579
+01:16:03,990 --> 01:16:09,150
+We have a star here is not on the causal pathway so there's no confounding in that example by W Star.
+
+580
+01:16:09,930 --> 01:16:14,180
+However, since W and W Star are clearly associated,
+
+581
+01:16:15,030 --> 01:16:25,320
+adjusting for W Star may partially or indirectly adjust for the confounding effect of W and the way,
+
+582
+01:16:25,350 --> 01:16:28,709
+you know, the way I would think of this is kind of by adjusting for W Star,
+
+583
+01:16:28,710 --> 01:16:36,870
+you're adjusting for part of the effect of w how much of the effect of W really depends on how closely related those two variables are,
+
+584
+01:16:37,200 --> 01:16:49,690
+how closely correlated they're for that world. I'm unclear why the error doesn't go from w star to us and doesn't matter.
+
+585
+01:16:51,040 --> 01:16:57,720
+Um. It doesn't really matter.
+
+586
+01:16:59,880 --> 01:17:09,090
+So I guess it depends on when what when you're looking at sex versus parental education attainment.
+
+587
+01:17:09,310 --> 01:17:12,930
+Uh huh. Um. I think that part is.
+
+588
+01:17:12,930 --> 01:17:23,430
+Always has to be. Yeah.
+
+589
+01:17:23,440 --> 01:17:32,530
+This whole discussion. Uh huh. So that's the version of the Prop zero.
+
+590
+01:17:32,740 --> 01:17:39,790
+Mm hmm. But, yeah, I don't think they always have to be sentenced, but let me think about that a little bit more.
+
+591
+01:17:39,840 --> 01:17:40,840
+But, yeah, I agree.
+
+592
+01:17:40,840 --> 01:17:52,090
+The the arrow probably should be parental education attainment going into um, ex we were talking about how it's wrong to adjust for that.
+
+593
+01:17:53,650 --> 01:17:57,460
+Wonder if you can adjust for the of collider.
+
+594
+01:17:58,030 --> 01:18:02,859
+So like it's not technically off but this isn't a collider.
+
+595
+01:18:02,860 --> 01:18:14,130
+This is a confounder. Right? Right. But the idea of why we should adjust to this was like this.
+
+596
+01:18:19,840 --> 01:18:24,230
+Before I start, because it's about the. Yes.
+
+597
+01:18:24,830 --> 01:18:30,340
+Right. So it was instead that we started closing.
+
+598
+01:18:30,520 --> 01:18:39,880
+You know, you just heard w I mean, when you adjust for something that happens before, it doesn't actually.
+
+599
+01:18:42,450 --> 01:18:50,580
+I was still adjusting for I would say it would still be adjusting for part of what happened after.
+
+600
+01:18:53,940 --> 01:18:57,360
+But you're right. Yeah. The will change.
+
+601
+01:18:57,360 --> 01:19:02,130
+This will fix the error so that it is downward. And I'm going to think about the conversation a little bit more.
+
+602
+01:19:02,520 --> 01:19:07,340
+Right. You have it coming up?
+
+603
+01:19:07,840 --> 01:19:12,110
+Mm hmm. So.
+
+604
+01:19:12,650 --> 01:19:21,290
+Okay, we're saying. Okay, okay. But you're saying if parental educational attainment came before determining X,
+
+605
+01:19:21,300 --> 01:19:27,450
+then you wouldn't adjust for parental education attainment, but it would be really closely correlated.
+
+606
+01:19:27,450 --> 01:19:36,990
+So with that, yes. Yeah. So I don't know all of these percentages of whatever you're trying to get us.
+
+607
+01:19:38,390 --> 01:19:42,740
+Yeah. Yeah. Okay. So, yeah. So this is correct. We won't we will leave it.
+
+608
+01:19:42,740 --> 01:19:50,270
+But I, I'm going to I'm going to think about that one a little bit more because I still think technically you would still be adjusting for part of it.
+
+609
+01:19:50,480 --> 01:19:54,860
+But maybe it's a no. No, I was saying. But you had a whole thing about this.
+
+610
+01:19:55,720 --> 01:20:04,260
+I think it's very. So they were it apart on the other side.
+
+611
+01:20:04,470 --> 01:20:08,120
+Well, the doors taken apart inside side, but they said they should be done.
+
+612
+01:20:08,730 --> 01:20:13,260
+Okay. Um. Okay.
+
+613
+01:20:17,780 --> 01:20:21,020
+Okay. So sorry, confounders.
+
+614
+01:20:21,350 --> 01:20:28,470
+So if we imagine a situation where w star is equal to w minus one, so they are perfectly correlated, right?
+
+615
+01:20:29,540 --> 01:20:36,589
+They're not equal to each other, but perfectly correlated. The same degree of variation exists in W also exists in W as stars.
+
+616
+01:20:36,590 --> 01:20:45,680
+So therefore conditioning on W star is as if we had conditioned on W, which is kind of what I was mentioning a little bit like if it's perfectly,
+
+617
+01:20:45,680 --> 01:20:53,690
+if it's, if it's measurement error, but it's the perfect kind of same measurement error shouldn't matter.
+
+618
+01:20:53,690 --> 01:21:01,700
+It does depend on what sort of analysis you're doing a little bit though. But can you think about like like a play that a 2 to 1?
+
+619
+01:21:02,360 --> 01:21:10,870
+Mm hmm. Like this is like the scenario of not being just for a year left with association presented y so it doesn't actually just write.
+
+620
+01:21:12,150 --> 01:21:19,980
+Right. It doesn't matter at all because families will process and is usually a mediator.
+
+621
+01:21:20,490 --> 01:21:25,500
+Right. I'm going to look. I think we would to do it.
+
+622
+01:21:26,250 --> 01:21:33,090
+So we're talking about at least that is what you're saying, is that we saw opponents of you saying,
+
+623
+01:21:33,090 --> 01:21:41,550
+but what if you think about it and why does a single dad aim to provide evidence for a witness?
+
+624
+01:21:41,880 --> 01:21:43,690
+No, I agree with you on that. Yeah. Yeah.
+
+625
+01:21:44,550 --> 01:21:54,840
+So and the reason is because like the I mean, put it into a reflection and you put a is further away from trying.
+
+626
+01:21:55,140 --> 01:22:03,299
+You're left with the relationship between them and why, whereas it's never I agree with you on that.
+
+627
+01:22:03,300 --> 01:22:06,810
+But like, I'm still not convinced. You're still up with that sort of fact.
+
+628
+01:22:06,850 --> 01:22:12,899
+Right. I, I agree. But would it I guess the question is whether we can call it possibly.
+
+629
+01:22:12,900 --> 01:22:15,360
+But would it be better to address for it or not at all?
+
+630
+01:22:16,290 --> 01:22:22,050
+If there's solid if it's still there's a good amount of correlation and you don't have that variable that you would like to do,
+
+631
+01:22:22,530 --> 01:22:24,389
+is it the different like for the proxy variables?
+
+632
+01:22:24,390 --> 01:22:31,070
+We're just measuring another variables, but I'm saying cause each other we're just saying the correlated so it doesn't normally.
+
+633
+01:22:31,070 --> 01:22:40,530
+Yes but she but but we are saying for the for the gag rule and eight or this wasn't really tornado we
+
+634
+01:22:40,530 --> 01:22:47,320
+were just we were all the same just I have some of the same guys like why is it wrong why do you like.
+
+635
+01:22:47,340 --> 01:22:56,250
+I don't yeah. I don't think it's wrong, but. I'm going to read a few people, go back and read a few papers.
+
+636
+01:22:56,260 --> 01:23:00,640
+I still think they still think it's just that it's correlated and it doesn't matter.
+
+637
+01:23:00,790 --> 01:23:03,850
+And in a way, I mean, it matters a bit, I think.
+
+638
+01:23:04,270 --> 01:23:09,129
+I think it's still going to matter a little bit like how much how far away from
+
+639
+01:23:09,130 --> 01:23:13,630
+the true causal relationship are going to be potentially if it's a descendant or.
+
+640
+01:23:14,770 --> 01:23:20,319
+Yeah, or a parent. But I still think you're better off measuring it.
+
+641
+01:23:20,320 --> 01:23:24,070
+I would still call it a proxy, but this is the we start with one.
+
+642
+01:23:24,580 --> 01:23:36,070
+Yes, in the dog involved. Then adjusting for it will be the exact same as like getting the direct association between W and Y N.W.A.
+
+643
+01:23:36,490 --> 01:23:39,690
+Right. Like it would still have a confounding relationship with him.
+
+644
+01:23:41,380 --> 01:23:49,490
+Because, I mean. No, because you're partially adjusting for W so you don't have a name for like and Y, right?
+
+645
+01:23:49,510 --> 01:23:56,170
+The same. It's like if you does for a and y situation, you're not in the air at all.
+
+646
+01:23:56,590 --> 01:24:04,620
+We're just you're just saying no. Agreed. But it's this is a mediator and it determines if like you may be adjusting.
+
+647
+01:24:04,630 --> 01:24:15,220
+Like, I mean, it depends on what else is going into that mediator or what cause it is, you know, like there are other ones.
+
+648
+01:24:15,640 --> 01:24:21,880
+So these are important, you know, even that we would be easier in this scenario between them and y, right?
+
+649
+01:24:22,450 --> 01:24:27,950
+So. It's not saying that parental education causes this.
+
+650
+01:24:27,950 --> 01:24:34,010
+Yes, it's just saying it's proxy for speech and causing a proxy.
+
+651
+01:24:34,190 --> 01:24:39,210
+You'll still have a residual confounding for sure, but that's just like the is likely to measure.
+
+652
+01:24:40,010 --> 01:24:45,500
+No, I agree. I mean, it is possible that all the proxy.
+
+653
+01:24:45,620 --> 01:24:51,290
+So I think you can like write the same thing.
+
+654
+01:24:51,290 --> 01:24:57,269
+But instead of having us there, yes, you're going to say it's parental education attainment because that's just like how you're measuring essays,
+
+655
+01:24:57,270 --> 01:25:01,090
+which was just like showing you that like to measure assessment.
+
+656
+01:25:01,370 --> 01:25:03,230
+But. But you would. But you wouldn't. Yeah. No.
+
+657
+01:25:03,650 --> 01:25:11,450
+Yeah, but you would still you would still want to put X like what you're really wanting to measure, which is still like a proxy for many other things.
+
+658
+01:25:11,450 --> 01:25:21,050
+Right? Like, so there's that as well. Like, like you want to think about what the effect of you not actually having the measurement that you want has.
+
+659
+01:25:21,350 --> 01:25:25,580
+So when you draw the dag of what you did, yes, you're going to put parental education there.
+
+660
+01:25:25,880 --> 01:25:38,120
+But when you're thinking about the information bias that you're going to have, you you want to have your unmeasured SS here.
+
+661
+01:25:38,270 --> 01:25:49,190
+Right. As well as I have one slightly different question, which is if we understand parental education to be a proxy of us,
+
+662
+01:25:49,610 --> 01:25:59,210
+why are there no arrows from the proxy to the exposure outcome like we're where we don't think that parental education
+
+663
+01:25:59,270 --> 01:26:06,230
+attainment I guess you could argue that it does cause a lack of health insurance directly based on the on the job.
+
+664
+01:26:06,950 --> 01:26:11,480
+Right. But we don't have that in this, Dag. It's not in the the example.
+
+665
+01:26:13,250 --> 01:26:17,270
+I mean, I also try to make these examples a little bit simpler.
+
+666
+01:26:17,290 --> 01:26:23,029
+Like, I mean, most of the time dogs have they get quite complicated, right, a lot of the time.
+
+667
+01:26:23,030 --> 01:26:28,430
+So it does depend on your question, though. I actually find that often people make them more complicated than they need to be.
+
+668
+01:26:29,000 --> 01:26:37,340
+So, yeah, you're you're you're nodding. You're like, but yeah, but yeah, I mean, you could certainly like yeah.
+
+669
+01:26:37,340 --> 01:26:40,400
+Then you would have a direct impact on.
+
+670
+01:26:44,470 --> 01:26:49,840
+On lack of health insurance, assuming that parental educational attainment happened here first.
+
+671
+01:26:53,200 --> 01:26:57,880
+All right. So proxies for hard to measure variables like this are called surrogates.
+
+672
+01:26:58,630 --> 01:27:02,680
+Should we adjust for them? We're saying yes, we should adjust for them.
+
+673
+01:27:02,680 --> 01:27:12,370
+But when we adjust for them, we have to be extremely aware of the fact that we are not adjusting for that actual measurement, right.
+
+674
+01:27:12,370 --> 01:27:18,610
+Where we're adjusting for some part of what we truly like to adjust for.
+
+675
+01:27:21,400 --> 01:27:25,540
+Okay. I should have probably had to take a break.
+
+676
+01:27:25,560 --> 01:27:31,200
+I thought we were going to finish a little earlier. At this point, we are almost done, so I'm just going to continue to power through.
+
+677
+01:27:31,290 --> 01:27:35,400
+But it lets people. Does anybody really need a break? We could take like a five minute break.
+
+678
+01:27:36,420 --> 01:27:42,090
+Okay. Confounding measurement, error and unmeasured factors.
+
+679
+01:27:43,350 --> 01:27:49,590
+So here we've got symptoms causing us to take a drug, and then we have side effects.
+
+680
+01:27:50,430 --> 01:27:55,680
+Right? And then we have the symptoms that the patients report to the doctor.
+
+681
+01:27:56,550 --> 01:27:59,550
+Right? Because you don't always remember to report all your symptoms.
+
+682
+01:28:00,460 --> 01:28:07,950
+Um, and we have underlying genetics.
+
+683
+01:28:08,400 --> 01:28:13,080
+Underlying genetics will be related to symptoms and also to side effects here.
+
+684
+01:28:14,850 --> 01:28:19,559
+So the question is here, what do we want to adjust for?
+
+685
+01:28:19,560 --> 01:28:29,010
+S star the symptoms reported to the patients if s is not a confounder.
+
+686
+01:28:33,560 --> 01:28:55,340
+So what do you think? I remember wanting to go look at the effects of the drug.
+
+687
+01:28:55,590 --> 01:29:43,650
+On why. Right.
+
+688
+01:29:44,400 --> 01:29:49,670
+So se here is not a confounder, but it's part of you's confounding path.
+
+689
+01:29:49,680 --> 01:29:54,600
+It does depend a little bit on this situation. I will admit what you would end up doing in the end.
+
+690
+01:29:56,820 --> 01:30:00,480
+But here it's not a confounder right.
+
+691
+01:30:04,350 --> 01:30:09,390
+But it is you can get through a backdoor path here. So you would want to adjust for that.
+
+692
+01:30:09,690 --> 01:30:12,569
+There is a little bit of a question which I think is going to come up of like, well,
+
+693
+01:30:12,570 --> 01:30:16,710
+what if this is like an asthma drug and you're only taking the drug when you have the symptoms, right?
+
+694
+01:30:17,970 --> 01:30:25,680
+Then it gets a lot more complicated with the type of analysis that you would end up doing to deal with it.
+
+695
+01:30:25,680 --> 01:30:30,540
+But I'll assume that is that is not the case here for this step.
+
+696
+01:30:32,970 --> 01:30:37,050
+Or would you still want to commission on a star for that?
+
+697
+01:30:38,490 --> 01:30:41,850
+So you're going to have to be I mean,
+
+698
+01:30:43,050 --> 01:30:48,720
+you'd probably do some sort of like some sort of causal analysis or IPG w because what
+
+699
+01:30:48,720 --> 01:30:53,140
+you want to do is like it depends on like you're looking at like this asthma drug.
+
+700
+01:30:53,140 --> 01:30:54,680
+What does it really improve?
+
+701
+01:30:54,690 --> 01:31:03,870
+It's a little bit related to your question, I think, that you were interested in as well with suicide and taking particular drugs.
+
+702
+01:31:03,870 --> 01:31:12,270
+Right. But anyways, for at for asthma, what you could do is like sometimes people would use their inhalers even if they don't have the symptoms.
+
+703
+01:31:12,570 --> 01:31:19,440
+So there are ways to do a causal analysis and we would turn to a causal analysis for that.
+
+704
+01:31:19,530 --> 01:31:25,530
+But this this DAG could represent that, but it's not what it's meant to represent.
+
+705
+01:31:25,530 --> 01:31:31,920
+Here you have the symptoms and symptoms patients on those measures.
+
+706
+01:31:33,090 --> 01:31:39,720
+In this particular case, we don't have symptoms. And in each case, when we're looking at this kind of like this se or whatever star,
+
+707
+01:31:39,930 --> 01:31:43,110
+we're saying that we don't have the real measurement that we'd like to have.
+
+708
+01:31:44,220 --> 01:31:50,820
+And, and so we only have this other measurement, which is a proxy or a surrogate for.
+
+709
+01:31:51,240 --> 01:31:56,910
+So when you say your conditioning chart that we would condition on s star.
+
+710
+01:31:57,200 --> 01:32:00,410
+Okay. Sorry, I thought we said sorry.
+
+711
+01:32:00,420 --> 01:32:03,630
+I might have said conditional on, but I'm a conditional star.
+
+712
+01:32:04,440 --> 01:32:09,450
+But it does depend a little bit on what drug this is and what symptoms they are
+
+713
+01:32:09,450 --> 01:32:12,810
+and whether the symptoms how the symptoms are causing you to take the drug.
+
+714
+01:32:13,680 --> 01:32:17,640
+And if it's something that is more time limited than it gets, it gets more complicated.
+
+715
+01:32:18,090 --> 01:32:25,440
+All right. But in this case, we would condition it because it's part of U.S. compounding path.
+
+716
+01:32:26,580 --> 01:32:31,620
+All right. So Miss Measure, Ms. Measured colliders can also be an issue, right?
+
+717
+01:32:32,070 --> 01:32:37,530
+So here we've got a key.
+
+718
+01:32:37,530 --> 01:32:41,880
+Here is a collider. Probably draw that one a little bit better.
+
+719
+01:32:42,540 --> 01:32:48,660
+But and we're going to condition on his star which is a miss measured.
+
+720
+01:32:49,390 --> 01:32:52,590
+Collider So conditioning on a miss measure.
+
+721
+01:32:52,590 --> 01:33:03,690
+Collider still leads to selection bias because see Star is a descendant of C diagonal six which means see stars is a common effect of and Y.
+
+722
+01:33:06,000 --> 01:33:11,220
+So here we'll have both selection bias and information bias present,
+
+723
+01:33:13,830 --> 01:33:20,730
+although one would note that even if these are perfectly correlated and then you conditioned on it, you would still be inducing selection bias.
+
+724
+01:33:20,740 --> 01:33:29,130
+Right? We don't want to condition on a collider. All right.
+
+725
+01:33:30,440 --> 01:33:35,910
+So that was actually the end of the dog lecture.
+
+726
+01:33:35,930 --> 01:33:40,550
+Are there any questions other than the proxy question, which I'm going to look up?
+
+727
+01:33:42,740 --> 01:33:43,390
+Later.
+
+728
+01:33:44,150 --> 01:33:53,660
+The last slide here has all of the kind of different sources for a bunch of those tags if you want to kind of dig into them in more more detail.
+
+729
+01:33:57,890 --> 01:34:00,260
+Right. If there are no questions, then.
+

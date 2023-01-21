@@ -1,0 +1,615 @@
+1
+00:00:07,850 --> 00:00:10,215
+After watching this video,
+
+2
+00:00:10,215 --> 00:00:11,550
+you will be able to understand
+
+3
+00:00:11,550 --> 00:00:14,595
+basic concepts about
+survival analysis.
+
+4
+00:00:14,595 --> 00:00:17,580
+Remember this slide that
+I show a few videos
+
+5
+00:00:17,580 --> 00:00:19,200
+ago when I was introducing
+
+6
+00:00:19,200 --> 00:00:21,090
+the generalized
+linear model family.
+
+7
+00:00:21,090 --> 00:00:24,540
+Well, now it's to learn
+about the cat of the family.
+
+8
+00:00:24,540 --> 00:00:26,925
+The last model that we
+will learn in this course,
+
+9
+00:00:26,925 --> 00:00:29,640
+the Cox proportional
+hazards model.
+
+10
+00:00:29,640 --> 00:00:32,595
+Note, it does not
+belong to the family,
+
+11
+00:00:32,595 --> 00:00:35,535
+but you will see there are
+still things in common.
+
+12
+00:00:35,535 --> 00:00:37,995
+Remember also in this graph,
+
+13
+00:00:37,995 --> 00:00:41,390
+the survival analysis will
+give us another measure of
+
+14
+00:00:41,390 --> 00:00:45,415
+association hazards that we
+will interpret as rates.
+
+15
+00:00:45,415 --> 00:00:48,080
+Survival analysis
+is also called in
+
+16
+00:00:48,080 --> 00:00:52,040
+a more generalized way,
+time-to-event analysis.
+
+17
+00:00:52,040 --> 00:00:55,225
+This is because you can
+study time to any event.
+
+18
+00:00:55,225 --> 00:00:56,870
+It was originally called
+
+19
+00:00:56,870 --> 00:01:00,470
+survival analysis because the
+more study event was death.
+
+20
+00:01:00,470 --> 00:01:02,990
+But you can also study
+time to progression,
+
+21
+00:01:02,990 --> 00:01:04,070
+or time to relapse,
+
+22
+00:01:04,070 --> 00:01:06,970
+or actually time to
+anything that can happen.
+
+23
+00:01:06,970 --> 00:01:09,185
+Examples could be
+from survival of
+
+24
+00:01:09,185 --> 00:01:11,590
+electric bulbs to
+time to promotion,
+
+25
+00:01:11,590 --> 00:01:13,910
+time to divorce, you name it.
+
+26
+00:01:13,910 --> 00:01:17,655
+So now, our outcome
+variable is time.
+
+27
+00:01:17,655 --> 00:01:19,920
+You may be wondering,
+wait a minute,
+
+28
+00:01:19,920 --> 00:01:21,630
+time is a continuous variable.
+
+29
+00:01:21,630 --> 00:01:23,270
+So why cannot we model
+
+30
+00:01:23,270 --> 00:01:26,275
+survival failure time
+with linear regression?
+
+31
+00:01:26,275 --> 00:01:28,710
+Well, there are two main reasons.
+
+32
+00:01:28,710 --> 00:01:32,070
+First, time is hardly,
+normally distributed.
+
+33
+00:01:32,070 --> 00:01:34,610
+For example, in survival
+for cancer patients,
+
+34
+00:01:34,610 --> 00:01:36,770
+that is usually really skew,
+
+35
+00:01:36,770 --> 00:01:38,645
+but that's not the
+main reason because
+
+36
+00:01:38,645 --> 00:01:41,020
+that could be sorted out
+with a transformation.
+
+37
+00:01:41,020 --> 00:01:44,300
+The main reason is that
+now you have sensory,
+
+38
+00:01:44,300 --> 00:01:47,825
+which means that some of the
+ratios will be incomplete.
+
+39
+00:01:47,825 --> 00:01:50,510
+Let's go deep into the
+concept of sensory because
+
+40
+00:01:50,510 --> 00:01:53,545
+this is a key concept
+in survival analysis.
+
+41
+00:01:53,545 --> 00:01:56,210
+Although there are
+other types of sensory,
+
+42
+00:01:56,210 --> 00:01:59,045
+for the purposes of
+introducing survival analysis,
+
+43
+00:01:59,045 --> 00:02:02,180
+we're going to talk only
+about right censoring.
+
+44
+00:02:02,180 --> 00:02:05,030
+Right censoring happens
+either because of
+
+45
+00:02:05,030 --> 00:02:08,090
+loss to follow-up or because
+of study domination.
+
+46
+00:02:08,090 --> 00:02:09,305
+If you look at the graph,
+
+47
+00:02:09,305 --> 00:02:12,410
+you can see that the
+second and fourth patients
+
+48
+00:02:12,410 --> 00:02:14,360
+had the event during the study.
+
+49
+00:02:14,360 --> 00:02:16,475
+So time is complete for them.
+
+50
+00:02:16,475 --> 00:02:18,795
+But patient 3 and patient 6
+
+51
+00:02:18,795 --> 00:02:21,170
+were last to follow
+up during the study,
+
+52
+00:02:21,170 --> 00:02:23,995
+and we didn't know if they
+had the event later or not.
+
+53
+00:02:23,995 --> 00:02:26,780
+Furthermore, patients
+1 and 5 finished
+
+54
+00:02:26,780 --> 00:02:30,350
+their study after more
+or less 365 days,
+
+55
+00:02:30,350 --> 00:02:32,000
+and did not have the event.
+
+56
+00:02:32,000 --> 00:02:34,130
+But we don't know if they will
+
+57
+00:02:34,130 --> 00:02:36,560
+never had the event
+in their lives,
+
+58
+00:02:36,560 --> 00:02:38,645
+or they may have it much later.
+
+59
+00:02:38,645 --> 00:02:40,040
+So the nice thing about
+
+60
+00:02:40,040 --> 00:02:42,800
+survival analysis is
+that you can still use
+
+61
+00:02:42,800 --> 00:02:45,230
+that sensory information because
+
+62
+00:02:45,230 --> 00:02:47,770
+still person-time without event.
+
+63
+00:02:47,770 --> 00:02:50,820
+So when do you use time
+to event analysis?
+
+64
+00:02:50,820 --> 00:02:52,265
+Clearly you need follow-up.
+
+65
+00:02:52,265 --> 00:02:53,510
+So you cannot do that in
+
+66
+00:02:53,510 --> 00:02:55,100
+a cross-sectional study or
+
+67
+00:02:55,100 --> 00:02:57,965
+a case-control study,
+you're modeling time.
+
+68
+00:02:57,965 --> 00:03:00,110
+But you can do it
+in cohort studies
+
+69
+00:03:00,110 --> 00:03:01,790
+and experimental studies.
+
+70
+00:03:01,790 --> 00:03:05,180
+The typical representation of
+time-to-event analysis that
+
+71
+00:03:05,180 --> 00:03:06,380
+you have probably seen in
+
+72
+00:03:06,380 --> 00:03:08,930
+many papers are the
+Kaplan-Meier curves.
+
+73
+00:03:08,930 --> 00:03:11,705
+We will go back to this
+in the following videos.
+
+74
+00:03:11,705 --> 00:03:14,210
+But basically, this is
+a representation of
+
+75
+00:03:14,210 --> 00:03:16,660
+the survival experience
+of your groups.
+
+76
+00:03:16,660 --> 00:03:19,140
+As time goes by, more
+people are having
+
+77
+00:03:19,140 --> 00:03:21,720
+the event until eventually,
+
+78
+00:03:21,720 --> 00:03:24,390
+everyone has it or
+the study terminates.
+
+79
+00:03:24,390 --> 00:03:28,075
+Your goal is to compare which
+group has better survival.
+
+80
+00:03:28,075 --> 00:03:30,920
+As mentioned before,
+calling it survival is
+
+81
+00:03:30,920 --> 00:03:32,540
+relative since it depends
+
+82
+00:03:32,540 --> 00:03:34,505
+on the type of event
+you're studying.
+
+83
+00:03:34,505 --> 00:03:36,910
+But let's imagine
+these two examples.
+
+84
+00:03:36,910 --> 00:03:39,020
+One is a cohort study in which
+
+85
+00:03:39,020 --> 00:03:41,450
+we follow up two groups of people
+
+86
+00:03:41,450 --> 00:03:43,910
+that are identified at
+
+87
+00:03:43,910 --> 00:03:47,315
+baseline as the happy group
+and the unhappy group.
+
+88
+00:03:47,315 --> 00:03:49,280
+If I tell you that
+the graph below
+
+89
+00:03:49,280 --> 00:03:51,274
+represents their
+survival experience,
+
+90
+00:03:51,274 --> 00:03:54,500
+that is how the two groups
+die over the years,
+
+91
+00:03:54,500 --> 00:03:56,810
+do you think it makes
+sense that group 1
+
+92
+00:03:56,810 --> 00:03:59,530
+is the happy group and
+group 2 is the unhappy?
+
+93
+00:03:59,530 --> 00:04:01,850
+Well, if you believe
+that happiness is
+
+94
+00:04:01,850 --> 00:04:04,085
+associated to degrees
+overall mortality?
+
+95
+00:04:04,085 --> 00:04:05,740
+Definitely, yes.
+
+96
+00:04:05,740 --> 00:04:09,300
+How about the second example,
+the experimental one?
+
+97
+00:04:09,300 --> 00:04:10,930
+You have one clinical trial,
+
+98
+00:04:10,930 --> 00:04:12,664
+and the figure is represented,
+
+99
+00:04:12,664 --> 00:04:15,380
+the survival experience
+of the two groups
+
+100
+00:04:15,380 --> 00:04:17,480
+randomly assigned to the new drug
+
+101
+00:04:17,480 --> 00:04:19,375
+you're testing or the placebo.
+
+102
+00:04:19,375 --> 00:04:22,070
+Did you think that group
+1 is the new drug,
+
+103
+00:04:22,070 --> 00:04:23,890
+and group 2 is the placebo?
+
+104
+00:04:23,890 --> 00:04:26,900
+Well, if you have some
+faith in the new drug,
+
+105
+00:04:26,900 --> 00:04:28,300
+and you think that it has
+
+106
+00:04:28,300 --> 00:04:30,100
+an effect on reduced immortality?
+
+107
+00:04:30,100 --> 00:04:31,850
+Definitely, yes.
+
+108
+00:04:31,850 --> 00:04:35,019
+Now one final example
+taken from the literature.
+
+109
+00:04:35,019 --> 00:04:37,000
+You can see that you
+can use this type of
+
+110
+00:04:37,000 --> 00:04:39,425
+analysis in any type of study.
+
+111
+00:04:39,425 --> 00:04:43,415
+This was an experiment carried
+out in hospital wards.
+
+112
+00:04:43,415 --> 00:04:46,405
+The scientists left
+two different brands
+
+113
+00:04:46,405 --> 00:04:48,105
+of chocolates in wards.
+
+114
+00:04:48,105 --> 00:04:49,780
+They measure how long did it
+
+115
+00:04:49,780 --> 00:04:51,770
+take for the chocolate
+to disappear.
+
+116
+00:04:51,770 --> 00:04:54,175
+So what can you conclude
+from this graph?
+
+117
+00:04:54,175 --> 00:04:56,500
+Well, clearly, people working in
+
+118
+00:04:56,500 --> 00:04:58,840
+those hospital wards
+like the Roses branch
+
+119
+00:04:58,840 --> 00:05:00,280
+operate much better than
+
+120
+00:05:00,280 --> 00:05:01,830
+the Quality Street brand
+
+121
+00:05:01,830 --> 00:05:04,125
+because they are
+disappearing faster.
+
+122
+00:05:04,125 --> 00:05:06,600
+What are the things
+you can conclude?
+
+123
+00:05:06,600 --> 00:05:09,740
+Maybe that people have
+too much extra free time,
+
+124
+00:05:09,740 --> 00:05:12,470
+so they can conduct these
+type of experiments.
+
+125
+00:05:12,470 --> 00:05:14,270
+Well, this is actually one
+
+126
+00:05:14,270 --> 00:05:16,040
+of those things that
+are published in
+
+127
+00:05:16,040 --> 00:05:17,480
+the Christmas issue of
+
+128
+00:05:17,480 --> 00:05:21,610
+the VMJ that is actually
+devoted to finding things.
+
+129
+00:05:21,610 --> 00:05:23,610
+In summary, in this video,
+
+130
+00:05:23,610 --> 00:05:25,580
+we learned the most
+basic concepts
+
+131
+00:05:25,580 --> 00:05:27,259
+of our survival analysis.
+
+132
+00:05:27,259 --> 00:05:29,570
+In the next video, we
+will keep learning
+
+133
+00:05:29,570 --> 00:05:33,483
+some more basic concepts
+about survival analysis.
+

@@ -1,0 +1,3472 @@
+1
+00:00:00,060 --> 00:00:03,060
+Here we go. Okay. So.
+
+2
+00:00:04,670 --> 00:00:11,980
+We are. Gearing in towards the end of the course here.
+
+3
+00:00:12,880 --> 00:00:20,350
+And what I've done since last time is I split up, hand out night team into two pieces,
+
+4
+00:00:20,350 --> 00:00:30,340
+one of one topic of which we covered last time, and the rest that we didn't cover in the last handout I've put into a new handout 20.
+
+5
+00:00:30,700 --> 00:00:35,260
+So you can go ahead and download a handout too, if you haven't already.
+
+6
+00:00:36,250 --> 00:00:44,260
+It's very little has changed from the handout 19 material that I copied over.
+
+7
+00:00:44,260 --> 00:00:47,560
+But there's a couple of minor things that have changed.
+
+8
+00:00:49,120 --> 00:00:56,280
+Good morning. Hello.
+
+9
+00:00:58,300 --> 00:01:09,920
+So. With that said, let's go ahead and start talking about today's topics and we may very well finish early,
+
+10
+00:01:11,120 --> 00:01:16,840
+just depending on how many questions you have. But the topics are going to be.
+
+11
+00:01:19,700 --> 00:01:29,149
+You know modeling dependent times to event when you can actually observe these times to event for for all of the outcomes.
+
+12
+00:01:29,150 --> 00:01:32,750
+The last time we talked about competing risks where you don't get to observe.
+
+13
+00:01:34,000 --> 00:01:40,720
+Causes of death that are different within the same person, but you just get to see the one generally.
+
+14
+00:01:41,500 --> 00:01:50,950
+And today it's more of a structure where you might have paired times two event or maybe clustered times two event.
+
+15
+00:01:51,760 --> 00:01:59,260
+And also there's a case where you might be watching for events over time, and those are called recurrent events.
+
+16
+00:01:59,260 --> 00:02:09,430
+And we've actually looked at count regression models in this setting where you we analyzed exacerbations per year, I think.
+
+17
+00:02:09,910 --> 00:02:18,370
+But this is more of a time to exacerbation analysis where you can have multiple within a person and we'll talk about that as well.
+
+18
+00:02:18,670 --> 00:02:26,950
+It's a different way to analyze similar data. The assumptions are a little bit more robust if you can learn how to analyze data this way.
+
+19
+00:02:26,950 --> 00:02:35,800
+So if you have the actual times of recurrent events, this will be more useful than the count per year.
+
+20
+00:02:36,610 --> 00:02:45,969
+Just depends on how the data comes to you. And so, yeah, I think I just said all this stuff.
+
+21
+00:02:45,970 --> 00:02:50,620
+So focus in this hand is different from competing risk outcomes discussed in the last handout,
+
+22
+00:02:50,620 --> 00:02:57,070
+and this outcomes are all potentially observable and subject to an independent censoring mechanism.
+
+23
+00:02:59,000 --> 00:03:07,120
+And so this is going to be kind of a smorgasbord if people still use that word of methods.
+
+24
+00:03:07,130 --> 00:03:09,860
+And I'm going to start from two simple tests.
+
+25
+00:03:11,420 --> 00:03:19,120
+Either a Tuesday blog write tests for the different correlation structures or two sample restricted means arrival tests.
+
+26
+00:03:20,170 --> 00:03:30,909
+And then I'm going to take you through some modifications to Cox regression for censored survival endpoints to allow for paired,
+
+27
+00:03:30,910 --> 00:03:35,770
+clustered or a mixture of the two kind of correlation structures.
+
+28
+00:03:36,280 --> 00:03:41,200
+And then material for the recurrent events is how we'll kind of end up.
+
+29
+00:03:41,620 --> 00:03:46,179
+And I want you to appreciate that because you already know so much.
+
+30
+00:03:46,180 --> 00:03:48,250
+Now, at this point in the course,
+
+31
+00:03:48,970 --> 00:03:56,560
+I'm going to blow through all of this stuff and you're going to be able to get it in one handout rather than over the course of several handouts,
+
+32
+00:03:56,890 --> 00:04:06,980
+because you're now primed to learn things quickly. So so just a review of the idea of pairing.
+
+33
+00:04:06,980 --> 00:04:11,330
+We've been kind of talking about correlated data for quite some time with different types of outcomes,
+
+34
+00:04:12,080 --> 00:04:18,440
+and when you have paired data, you're kind of comparing two groups.
+
+35
+00:04:19,400 --> 00:04:29,210
+With respect to the same type of outcome. So in this handout, it's paired time to event outcomes and when you're comparing two groups.
+
+36
+00:04:30,210 --> 00:04:39,940
+That have correlated outcomes. This is a setting where you can minimize variability in figuring out group comparisons for those outcomes.
+
+37
+00:04:39,950 --> 00:04:46,500
+So in the very beginning, when you first had your first course, you learned pretty tests that had that feature.
+
+38
+00:04:46,980 --> 00:04:55,320
+And we've kind of taken that through mixed models and G methods and now we're applying it to time to event.
+
+39
+00:04:56,970 --> 00:04:59,100
+And so, just as with uncensored outcomes,
+
+40
+00:04:59,100 --> 00:05:05,770
+the key to using these methods properly is to account for the correlation structure in the data when calculating the variance.
+
+41
+00:05:06,090 --> 00:05:12,870
+And you don't need to calculate the rates by hand. You just have to know which package to use and how to request that.
+
+42
+00:05:15,430 --> 00:05:21,520
+The paired Lagrange tests have been developed, but as of yet there is no SAS macro available to compute them.
+
+43
+00:05:21,520 --> 00:05:27,639
+So we'll approach that type of analysis using proc rag with the single cover for
+
+44
+00:05:27,640 --> 00:05:32,530
+treatment parity and a request to calculate the more complex covariance required.
+
+45
+00:05:33,040 --> 00:05:40,870
+And it's actually a special case of the leeway, a model model that I'm going to come to later that does regression for these methods.
+
+46
+00:05:41,440 --> 00:05:51,520
+There are paired log rank tests and in or I can teach it because I've had my own
+
+47
+00:05:51,820 --> 00:05:56,290
+methods paper related to paired log rate tests and paired restricted mean tests.
+
+48
+00:05:56,740 --> 00:06:00,430
+So I have my own packets that can do them.
+
+49
+00:06:00,850 --> 00:06:04,270
+And so I'll go over those with you, show you how to use it.
+
+50
+00:06:08,320 --> 00:06:17,110
+And so and a reminder that it's so important to account for paired correlation structure correctly and the intuition
+
+51
+00:06:17,110 --> 00:06:22,659
+for this I would love you to take away because we've seen it many times with different types of outcomes.
+
+52
+00:06:22,660 --> 00:06:29,260
+So with positive correlation in pairs, that's taking into account an analysis.
+
+53
+00:06:29,260 --> 00:06:34,330
+One achieves higher power for telling the differences between these correlated groups.
+
+54
+00:06:35,380 --> 00:06:45,370
+When you have the same sample size compared to a design where the note there's no pairing across the groups you want to compare.
+
+55
+00:06:47,090 --> 00:06:50,090
+And so from a study design point of view.
+
+56
+00:06:51,510 --> 00:07:00,330
+You can learn a lot more with a smaller sample size than if you had a design where everybody had independent outcomes.
+
+57
+00:07:03,850 --> 00:07:08,620
+And in fact, if you used the logging test for independent samples,
+
+58
+00:07:09,040 --> 00:07:16,810
+when the data is actually from a paired structure where you have one pair member in each group you want to compare.
+
+59
+00:07:17,890 --> 00:07:27,280
+If you don't take into account that correlation correctly, you could actually lose power as a positive correlation between event times increases.
+
+60
+00:07:27,850 --> 00:07:34,389
+So using the wrong method, you know, you actually lose power.
+
+61
+00:07:34,390 --> 00:07:37,570
+Not just fail to gain power, but you lose power.
+
+62
+00:07:38,430 --> 00:07:44,459
+And the intuition behind this is that when you're estimating kaplan-meier curves
+
+63
+00:07:44,460 --> 00:07:50,520
+and you've got one pair member in each of the two curves that you're estimating,
+
+64
+00:07:50,910 --> 00:07:58,050
+you know, those two people tend to have those two correlate outcomes tend to move in tandem randomly, right?
+
+65
+00:07:58,380 --> 00:08:02,760
+If one of them's high or the other one tends to be higher, if one of them's low or the other one tends to be lower.
+
+66
+00:08:03,210 --> 00:08:06,540
+That makes the estimated curves kind of also move in tandem,
+
+67
+00:08:07,410 --> 00:08:18,270
+and that makes the observed differences smaller on average than a log rank test would expect if the if the outcomes were independent from one another,
+
+68
+00:08:18,540 --> 00:08:24,180
+because if the outcomes were independent from another, you would have randomly some of the, you know,
+
+69
+00:08:24,780 --> 00:08:29,850
+individuals would move apart like this in the curves rather than come together in the curves.
+
+70
+00:08:30,540 --> 00:08:37,770
+And so it just makes it harder for the regular laboratory test to reject if you don't take into account the correct correlation.
+
+71
+00:08:38,370 --> 00:08:42,600
+So that behind the scenes variance adjustment is actually critical.
+
+72
+00:08:44,030 --> 00:08:50,030
+And it means its impact is statistical money for finding answers to your research questions.
+
+73
+00:08:50,030 --> 00:08:59,730
+You're throwing it out if you don't use the right correlation structure. Singletons can contribute information in the paired settings as well.
+
+74
+00:09:00,210 --> 00:09:07,630
+And so that is, you know, is something that you can add to these methods.
+
+75
+00:09:07,630 --> 00:09:15,590
+So for low to moderate correlation. Single or unpaired values can added to the comparison groups can increase the parallel
+
+76
+00:09:15,590 --> 00:09:19,460
+log range test but these gains diminish is the correlation becomes very high.
+
+77
+00:09:20,120 --> 00:09:32,330
+So I've had situations where people were comparing within the same person person's mouth to teeth that had been given different dental sealant.
+
+78
+00:09:32,990 --> 00:09:43,520
+And so you wanted to see which type of sealant keeps the tooth protected longer, you know, and.
+
+79
+00:09:44,740 --> 00:09:48,450
+This, you know, usually you would have to teach, you could find in any person's mouth.
+
+80
+00:09:48,460 --> 00:09:57,220
+But if you're including very young patients, the same teeth in the same position or mouth, they might not have come in yet.
+
+81
+00:09:57,610 --> 00:10:03,759
+And it turns out that you can still get information from just having one tooth from a little kids mouth.
+
+82
+00:10:03,760 --> 00:10:07,540
+And that happened in the dental school study that I was working on way back when.
+
+83
+00:10:11,130 --> 00:10:21,060
+So if you have very, very high correlation, the single terms don't add much to the story and it's more efficient to just use the paired
+
+84
+00:10:21,060 --> 00:10:27,330
+values and avoid the extra variability that unpaired outcomes can add to these test statistics.
+
+85
+00:10:29,310 --> 00:10:38,350
+So there's a data set that I used when I was writing some of these papers on period log rank and paired restricted mean tests.
+
+86
+00:10:38,950 --> 00:10:42,540
+And it's a it's a pretty dramatically large study.
+
+87
+00:10:43,350 --> 00:10:46,409
+The there are a lot of diabetic retinopathy studies.
+
+88
+00:10:46,410 --> 00:10:50,190
+There's a different study later in the handout that I come back to as well.
+
+89
+00:10:50,850 --> 00:10:58,620
+But this study was remarkable because it was so large, 3711 patients, they all had mild to severe,
+
+90
+00:10:59,010 --> 00:11:04,620
+non proliferative or early proliferative diabetic retinopathy in both eyes.
+
+91
+00:11:05,100 --> 00:11:08,490
+And they were recruited over a five year period.
+
+92
+00:11:08,500 --> 00:11:20,340
+So it was an expensive trial. And I want to kind of emphasize how expensive it was, because at the time that they were enrolling the study,
+
+93
+00:11:20,340 --> 00:11:24,569
+there was no such thing as a paired log write test that was available.
+
+94
+00:11:24,570 --> 00:11:29,940
+There just wasn't. And so they were doing a design that couldn't take advantage of that.
+
+95
+00:11:30,910 --> 00:11:32,230
+Feature of the data.
+
+96
+00:11:34,150 --> 00:11:42,340
+And it turns out with the methods that are now available, they could have had a much smaller study, much, much, much smaller study.
+
+97
+00:11:42,370 --> 00:11:45,159
+So this is an immediate thing.
+
+98
+00:11:45,160 --> 00:11:54,370
+You can see, you know, that you save money, actual real money if you have the right statistic that takes into account correlation.
+
+99
+00:11:55,520 --> 00:11:58,459
+So the study design had one eye per patient,
+
+100
+00:11:58,460 --> 00:12:08,210
+randomized to early photo coagulation and the other I was randomized to deferred photo coagulation until there was some detection of high risk,
+
+101
+00:12:08,210 --> 00:12:13,940
+proliferative retinopathy, and the research question was quite important.
+
+102
+00:12:14,540 --> 00:12:23,660
+Do you treat as soon as you're as soon as someone has a little diabetic retinopathy, or do you wait till it gets worse before you treat?
+
+103
+00:12:24,750 --> 00:12:31,680
+And they wanted to know which one to do and they were willing to have a huge, expensive study to answer that question.
+
+104
+00:12:34,110 --> 00:12:42,209
+So the time to event, which, you know, I always default to calling it a survival endpoint because the field is called survival analysis.
+
+105
+00:12:42,210 --> 00:12:46,200
+But this is not a mortality event. It's just it's a time to event.
+
+106
+00:12:46,530 --> 00:12:48,900
+And here it was time to severe vision loss.
+
+107
+00:12:49,320 --> 00:12:55,860
+And they had a definition that went with that when they were following these patients and checking their eyesight over time.
+
+108
+00:12:56,340 --> 00:12:59,010
+And it's very subject to censoring because, you know,
+
+109
+00:12:59,490 --> 00:13:06,480
+these patients are guaranteed to lose their vision and in fact, only a small proportion of these patients.
+
+110
+00:13:07,160 --> 00:13:10,160
+Lost got it met this end point of severe vision loss.
+
+111
+00:13:10,160 --> 00:13:14,270
+The majority of the patients like over 90% of the patients in this study.
+
+112
+00:13:15,540 --> 00:13:21,360
+Remained with their vision, not meeting this end point at the end, even though it was quite a long study.
+
+113
+00:13:23,680 --> 00:13:32,810
+The study eventually detected a benefit. Of doing the photo coagulation early as opposed to waiting until the disease got worse.
+
+114
+00:13:32,820 --> 00:13:41,280
+So however, this study was designed long ago, they got their answer to do early, right?
+
+115
+00:13:43,120 --> 00:13:50,440
+And but they not only had a huge sample size, they had to wait for nine years of follow up to pass.
+
+116
+00:13:51,160 --> 00:13:55,810
+And even at that point, there were only 5.5% of patients that experienced the event.
+
+117
+00:13:56,290 --> 00:14:00,279
+So lots and lots of censoring. And so absolutely.
+
+118
+00:14:00,280 --> 00:14:03,280
+You want to get it more quickly.
+
+119
+00:14:03,550 --> 00:14:09,530
+This and it less cost, right? But this is the design that they.
+
+120
+00:14:11,050 --> 00:14:16,390
+Figured out they had two years to get the answer at this time with just an independent logging test.
+
+121
+00:14:17,940 --> 00:14:23,610
+So at the time of the study, the investigators did not have access to these tests for sensors to reveal data,
+
+122
+00:14:23,610 --> 00:14:27,960
+but they did recognize the statistical issues relating to the correlate structure of the data.
+
+123
+00:14:28,620 --> 00:14:35,010
+And some exploratory analysis on their part suggest that not taking into account that led to very conservative tests.
+
+124
+00:14:35,640 --> 00:14:42,720
+Here is a plot, just a kaplan-meier plot for each of the treatment groups that's being compared.
+
+125
+00:14:43,110 --> 00:14:53,820
+And remember there for each participant one I got the deferred photo coagulation and the other guy got the early photo coagulation.
+
+126
+00:14:54,450 --> 00:15:01,230
+And so that is introducing correlation between these curves.
+
+127
+00:15:03,870 --> 00:15:10,589
+So the you can sort of see I've already kind of got p values here for the paired
+
+128
+00:15:10,590 --> 00:15:15,030
+version of the restrictive mean survival test and the paired law grade test.
+
+129
+00:15:15,030 --> 00:15:20,700
+And it was very highly significant. And so I'm just going to sort of show you how to get those results.
+
+130
+00:15:23,300 --> 00:15:28,190
+And so here's a manuscript worthy sentence. If you just base it on p values,
+
+131
+00:15:28,190 --> 00:15:33,500
+that early photo coagulation significantly delayed time to severe vision loss compared to the
+
+132
+00:15:33,510 --> 00:15:39,740
+strategy of deferring photo coagulation until detection of high risk pluripotent retinopathy.
+
+133
+00:15:40,130 --> 00:15:44,600
+Paired log rank test p value paired researcher mean throttle test p value.
+
+134
+00:15:44,980 --> 00:15:51,320
+Right. That's how you would summarize the results if you didn't have any effect sizes.
+
+135
+00:15:51,320 --> 00:15:55,750
+You just had the p values. And but in fact,
+
+136
+00:15:55,750 --> 00:16:01,750
+if the original investigative team had been able to incorporate either of these paired sense or time to vet tests into their study design,
+
+137
+00:16:02,440 --> 00:16:08,469
+they could have shortened the enrollment period by two years and they could have reduced their sample size
+
+138
+00:16:08,470 --> 00:16:16,150
+by 75% and still detected a statistically significant improvement for that early fatal coagulation group.
+
+139
+00:16:16,330 --> 00:16:25,120
+So is the. Fairly dramatic impact of using the right test to get a more efficient design.
+
+140
+00:16:28,190 --> 00:16:35,810
+So this is all of this is kind of put on canvas, so you'll have access to all this stuff.
+
+141
+00:16:36,260 --> 00:16:46,520
+But this is me programing. So it's a little Frankenstein ish compared to the polished professional programmers that often put together these packages.
+
+142
+00:16:47,120 --> 00:16:51,230
+So the package is called Core Serve.
+
+143
+00:16:52,120 --> 00:16:59,019
+And ah you know it's, it's a function and are called pair test.
+
+144
+00:16:59,020 --> 00:17:03,340
+There's actually a few different things within this package besides protests.
+
+145
+00:17:04,700 --> 00:17:08,389
+But pair test is going to give you things like pared lawyering, intensity,
+
+146
+00:17:08,390 --> 00:17:15,350
+restrictive means, arrival time tests, and the data is in wide format, not long format.
+
+147
+00:17:15,360 --> 00:17:19,610
+So this is the X and the Delta for the group one that you want to compare.
+
+148
+00:17:19,610 --> 00:17:22,970
+And this is the X in the delta for the group two you want to compare.
+
+149
+00:17:24,090 --> 00:17:33,960
+And is the number of correlated participants and there's more description of these parameters on the next slide.
+
+150
+00:17:34,500 --> 00:17:41,399
+But the way the package is written, if you have singletons that don't have a corresponding pair member,
+
+151
+00:17:41,400 --> 00:17:46,680
+you can still put them in the x and delta, but it has to be after the correlated people.
+
+152
+00:17:47,130 --> 00:17:53,550
+So, you know, if you have one extra person that didn't have a matching pair, remember, but you want to use their data,
+
+153
+00:17:53,820 --> 00:17:58,440
+you would put their x and delta at the end of the of these two vectors, you know,
+
+154
+00:17:59,280 --> 00:18:04,680
+so that the package knows that the first and are correlated and there's a leftover singleton.
+
+155
+00:18:06,970 --> 00:18:15,430
+You can request other time points, but otherwise it's just going to use the time points that you feed in.
+
+156
+00:18:15,430 --> 00:18:24,770
+But if you have a desire to get output related to a specific other time port, you can kind of add that in here if you want to.
+
+157
+00:18:25,670 --> 00:18:32,720
+Uh, Max, how is. The same town that we've been talking about for restricted means, arrival times.
+
+158
+00:18:33,980 --> 00:18:40,250
+So you can set that. I have it set as a default to a really large number so that it'll just the package on
+
+159
+00:18:40,250 --> 00:18:46,760
+the inside will find the maximum possible tell by itself without your extra work.
+
+160
+00:18:46,760 --> 00:18:51,860
+But you can change that to be related to one year or five year, whatever you want.
+
+161
+00:18:52,840 --> 00:19:01,430
+And then honestly, I don't remember what the weights lift is, but I was probably experimenting and so I had a way to to change weights.
+
+162
+00:19:01,450 --> 00:19:05,860
+There's lots of weights that are printed out if even if you don't ask for them.
+
+163
+00:19:06,940 --> 00:19:12,669
+And I probably when I was exploring how these worked, I wanted to have a weighted to change up the weights.
+
+164
+00:19:12,670 --> 00:19:19,420
+However I wanted I don't know what left me, but you can put weights and if you want to, I guess.
+
+165
+00:19:20,380 --> 00:19:23,890
+And so this is a little bit more about the arguments.
+
+166
+00:19:25,880 --> 00:19:31,310
+But it's more or less what I said. And this is the discussion about how.
+
+167
+00:19:33,760 --> 00:19:37,270
+The data needs to be sorted so that the first and.
+
+168
+00:19:38,430 --> 00:19:45,240
+Correlated pairs happened first in the X's in the deltas, but you can have uncorrelated ones after that.
+
+169
+00:19:48,530 --> 00:19:53,930
+And so this is just an example. All of this stuff is on canvas.
+
+170
+00:19:54,350 --> 00:20:01,370
+But this is an example of how to get the package into ore and.
+
+171
+00:20:02,280 --> 00:20:11,790
+There's the the data is also there for you is part you know there's I think this very data set might be in the package.
+
+172
+00:20:12,960 --> 00:20:19,410
+So pair data is what is called and here's how to run.
+
+173
+00:20:20,160 --> 00:20:23,340
+The. The test. The pair test. Okay.
+
+174
+00:20:24,260 --> 00:20:31,820
+And so I didn't have any singletons in this dataset, but I did put the in there for the dataset anyway,
+
+175
+00:20:32,420 --> 00:20:36,290
+and I put the next tool for the analysis in there anyway.
+
+176
+00:20:38,100 --> 00:20:41,860
+And this is what my little Frankenstein output looks like.
+
+177
+00:20:41,880 --> 00:20:47,400
+So here is the result for the paired log rank test.
+
+178
+00:20:48,450 --> 00:20:54,179
+I also have a paired gain test. We learned about the gain and the gain wilcoxon tests earlier in the course that was appeared.
+
+179
+00:20:54,180 --> 00:21:03,330
+Version of that. There's a paired version of a test that hasn't become popular, but that's a sample called the pending Happy Fleming statistic.
+
+180
+00:21:03,540 --> 00:21:09,770
+It's one of these things that has a weird weight. And this is the paired restricted means survival test,
+
+181
+00:21:10,160 --> 00:21:15,110
+which at the time I wrote the package I really thought would have would be called the years of Life Statistic,
+
+182
+00:21:15,110 --> 00:21:20,450
+because I made up that name and I thought it was really cool. No one uses that. So this is a paired, restricted, mean survival test.
+
+183
+00:21:21,210 --> 00:21:30,260
+You make up things people don't doesn't catch on, but you also get the point estimate of the area between the two curves.
+
+184
+00:21:31,070 --> 00:21:34,520
+And so this is going to correspond to.
+
+185
+00:21:36,850 --> 00:21:42,970
+The day. I think the the timescale was day. So the days of site gained.
+
+186
+00:21:43,900 --> 00:21:47,650
+Over that whole follow up period here this many days.
+
+187
+00:21:48,310 --> 00:21:55,570
+So 50 days out of this many days were gained by doing early fetal coagulation instead of deferring.
+
+188
+00:21:56,020 --> 00:22:01,290
+And there's a confidence limit here. So.
+
+189
+00:22:04,390 --> 00:22:07,690
+Let me just back up one second to the plot.
+
+190
+00:22:09,490 --> 00:22:16,030
+All right. This plot look really cool, but did anybody notice that it started off at 90% to one?
+
+191
+00:22:16,600 --> 00:22:23,080
+So there. Yeah, right. You can make a plot look really exciting, even though this is not a lot of difference, so.
+
+192
+00:22:27,140 --> 00:22:34,640
+Very subtle difference in the probability of maintaining vision in the study because most people didn't have these end points.
+
+193
+00:22:35,590 --> 00:22:40,899
+So in in the deferred for accounting for thought coagulation group.
+
+194
+00:22:40,900 --> 00:22:48,040
+Even in that group, roughly 90 90% of the participants had met severe vision loss.
+
+195
+00:22:48,730 --> 00:22:52,030
+So the treatment differences between these are subtle.
+
+196
+00:22:52,480 --> 00:22:58,660
+You can imagine if these curves extended out over 20 years that it might add up more.
+
+197
+00:22:59,550 --> 00:23:09,870
+But, uh, it's really subtle. And if you look at P values, only that subtle illness could escape your attention.
+
+198
+00:23:10,140 --> 00:23:14,400
+Right. So this study was overpowered once you use the paired tests.
+
+199
+00:23:15,450 --> 00:23:21,360
+So these penalties look really, really extreme. But there was so much power to detect this.
+
+200
+00:23:21,630 --> 00:23:26,520
+They over they had such a huge sample size much more than these tests needed.
+
+201
+00:23:27,240 --> 00:23:32,570
+So. The effect size.
+
+202
+00:23:34,290 --> 00:23:37,350
+That you see here. 50 days.
+
+203
+00:23:38,670 --> 00:23:41,700
+Of of additional site.
+
+204
+00:23:43,320 --> 00:23:49,350
+Were observed in the early photo coagulation group compared to the deferred group over this follow up period.
+
+205
+00:23:49,350 --> 00:23:56,610
+That's pretty subtle, right? So that's kind of getting at the fact that these kaplan-meier curves that I blew up, you know,
+
+206
+00:23:56,610 --> 00:24:04,980
+in that little small scale, it's a really subtle treatment difference that they spent a lot of money to figure out.
+
+207
+00:24:05,890 --> 00:24:10,240
+And they got their answer. And it really might add up over 20 years.
+
+208
+00:24:11,020 --> 00:24:19,710
+But. That restrictive mean test gives you a much clearer sense when you look at the effect size of what's going on.
+
+209
+00:24:22,310 --> 00:24:27,440
+So here is here are some manuscript worthy sentences based on the methods.
+
+210
+00:24:27,440 --> 00:24:30,860
+So for the paired lock rate test where you don't have an effect,
+
+211
+00:24:30,860 --> 00:24:38,569
+size says after accounting for correlation repair times to severe vision loss and is followed from the same diabetic retinopathy patient.
+
+212
+00:24:38,570 --> 00:24:45,860
+The early fetal coagulation treatment strategy preserved vision better than the deferred approach with this huge significant p value.
+
+213
+00:24:45,860 --> 00:24:47,600
+But there's no effect size, right?
+
+214
+00:24:48,470 --> 00:24:58,340
+So without the plot or some other indication, this is a really exciting looking sentence, but it's the clinical significance is less.
+
+215
+00:24:58,980 --> 00:25:04,980
+Then what just kind of implies. So they're paired or researched means are able to sentence would say after accounting for
+
+216
+00:25:04,980 --> 00:25:10,350
+correlation between pair time to severe vision loss and eyes follow from the same diabetic
+
+217
+00:25:10,350 --> 00:25:16,110
+retinopathy patient the early photo coagulation treatment strategy preserved vision an
+
+218
+00:25:16,110 --> 00:25:24,240
+average of 50.4 days longer than the deferred approach over 3,287.25 days of follow.
+
+219
+00:25:25,900 --> 00:25:27,610
+With the confidence interval and p value.
+
+220
+00:25:31,950 --> 00:25:39,860
+Uh, this is just our code that went into the plot, you know, and how the P values were put on there and all that stuff.
+
+221
+00:25:39,960 --> 00:25:43,290
+That's interesting. And.
+
+222
+00:25:49,270 --> 00:25:55,129
+What is this? Oh.
+
+223
+00:25:55,130 --> 00:26:01,330
+Okay. I think that this is.
+
+224
+00:26:03,020 --> 00:26:06,919
+You know, this is clearly SAS, right? So in SAS,
+
+225
+00:26:06,920 --> 00:26:16,160
+you can get the analysis results for the period logging tests kind of by using proc drag and
+
+226
+00:26:16,370 --> 00:26:22,250
+you and having an I.D. that says which of the outcomes are coming from the same person.
+
+227
+00:26:22,940 --> 00:26:26,300
+But you have to put the data in long format.
+
+228
+00:26:26,330 --> 00:26:33,950
+So what I'm doing here is reading in the paired data that I had in wide format for my little R code and putting it into long format.
+
+229
+00:26:33,950 --> 00:26:37,399
+So that's what's happening here. Each for each pair,
+
+230
+00:26:37,400 --> 00:26:43,250
+I'm spitting out a row with the x and delta and the treatment indicator URL equals
+
+231
+00:26:43,250 --> 00:26:47,690
+one and the x and the delta in the treatment indicator for early equals zero.
+
+232
+00:26:47,960 --> 00:26:52,170
+So now we have for SAS to see what SAS can give us.
+
+233
+00:26:52,190 --> 00:26:55,850
+We have a long version of the data instead of a wide version of the data.
+
+234
+00:26:58,520 --> 00:27:04,280
+All right. And then, Greg, to get the.
+
+235
+00:27:05,370 --> 00:27:13,980
+The same or similar analysis for the paired log rank test, you have to use this code aggregate statement.
+
+236
+00:27:14,930 --> 00:27:23,080
+Here. This is asking for the robust sandwich variability that we have used in other programs like G.
+
+237
+00:27:23,720 --> 00:27:26,240
+So it's doing something similar in the background here.
+
+238
+00:27:28,100 --> 00:27:33,560
+There's actually a lot of detail that people spent years trying to figure out, but it's for us, it just it's feels the same.
+
+239
+00:27:34,310 --> 00:27:41,120
+Here's the model statement with the X and the Delta and the this is the early photo coagulation treatment indicator.
+
+240
+00:27:41,420 --> 00:27:48,380
+And then you need this ID statement so that they know which of these times to severe vision loss were in the same person.
+
+241
+00:27:52,020 --> 00:27:55,970
+Right. And so I think. Uh.
+
+242
+00:27:57,400 --> 00:28:02,470
+I think I mentioned all of these things. And so the sass output will look like this.
+
+243
+00:28:03,280 --> 00:28:11,889
+And because it's part of the page rank package, it will give you a hazard ratio and hazard ratio confidence limit.
+
+244
+00:28:11,890 --> 00:28:17,680
+So this is this p value is comparable to what we got for the paired logging test.
+
+245
+00:28:17,680 --> 00:28:24,580
+But this method will estimate the hazard ratio and confidence limits as well that take into account the paired nature.
+
+246
+00:28:25,210 --> 00:28:28,630
+And I want to kind of look at this hazard ratio for a minute, too.
+
+247
+00:28:29,380 --> 00:28:41,560
+So that hazard ratio kind of looks exciting as well, you know, so the hazard for early photo coagulation was 0.6, seven times the oh,
+
+248
+00:28:41,560 --> 00:28:44,770
+I think I have a written here accounting for the correlation between paired times
+
+249
+00:28:44,770 --> 00:28:49,150
+to severe vision loss and I split from the same diabetic retinopathy patient.
+
+250
+00:28:49,600 --> 00:28:54,969
+The severe vision loss hazard for the early photo coagulation group was 0.67 of
+
+251
+00:28:54,970 --> 00:29:00,430
+the hazard for the deferred vocab coagulation group competence in overall p value.
+
+252
+00:29:00,760 --> 00:29:10,089
+And this also looks super exciting. So this is one of the features of of looking at hazard ratios that is unattractive.
+
+253
+00:29:10,090 --> 00:29:20,230
+It's really hard to tell how clinically meaningful something is if you're looking at these hazard ratios because it's being applied to so few events.
+
+254
+00:29:21,280 --> 00:29:24,429
+That this it's not quite having of the hazard.
+
+255
+00:29:24,430 --> 00:29:30,640
+It's more like two thirds of the hazard. But it's still there's so few.
+
+256
+00:29:32,200 --> 00:29:40,090
+Severe vision loss events that are happening, that the clinical impact is still not great, but it looks great based on these statistics.
+
+257
+00:29:41,120 --> 00:29:50,839
+So I'm more and more trying to push the field of biostatistics towards doing more restricted mean stuff
+
+258
+00:29:50,840 --> 00:29:57,050
+where you can get point estimates that really are more clearly telling you how impactful the results are.
+
+259
+00:29:57,680 --> 00:30:07,380
+Because the sentence being read in the manuscript, if they don't look at the kaplan-meier figure, will make people's jaws drop.
+
+260
+00:30:07,640 --> 00:30:11,180
+It looks good when it's really a very subtle.
+
+261
+00:30:12,360 --> 00:30:18,079
+Situation. All right. So going just going through the other notes on this.
+
+262
+00:30:18,080 --> 00:30:24,210
+So this is a special case of a model that we're going to look at in other contexts called the Leeway model model.
+
+263
+00:30:24,810 --> 00:30:32,880
+So it counts accounts for the correlation between sets of survival outcomes using an empirical, robust sandwich estimation approach.
+
+264
+00:30:32,890 --> 00:30:36,990
+We've used that approach or talked about that approach in GTD as well.
+
+265
+00:30:37,290 --> 00:30:47,130
+It's trying to do the same thing. It's not quite as reliable as the paired log write test if you have a small sample size.
+
+266
+00:30:47,730 --> 00:30:58,440
+The paired lock rate test has some pretty cool things that are that do better when you have a small number of events.
+
+267
+00:30:58,440 --> 00:31:03,390
+But it. But this method is fine if you have a large number of events in your data set.
+
+268
+00:31:05,150 --> 00:31:11,120
+Okay. So if you're a SAS user and you have a large dataset and you have correlation,
+
+269
+00:31:11,120 --> 00:31:18,320
+this is a really flexible way to to program that and get those answers in a correct and a correct fashion.
+
+270
+00:31:19,760 --> 00:31:23,569
+All right. So that was prepared events.
+
+271
+00:31:23,570 --> 00:31:31,280
+And when I say paired events, I'm thinking of comparing groups with one paired outcome in each of the two groups.
+
+272
+00:31:32,000 --> 00:31:38,570
+So the other kind of correlation structure that we've we've kind of talked about is clustering.
+
+273
+00:31:38,840 --> 00:31:47,690
+So when I talk about clustered survival outcomes, it they're in the same group but correlated.
+
+274
+00:31:48,830 --> 00:31:55,129
+And the reason, the only reason that I'm trying to distinguish between the two is that intuition
+
+275
+00:31:55,130 --> 00:32:01,190
+about power and and having more or less of it changes in these two scenarios.
+
+276
+00:32:01,610 --> 00:32:09,560
+So if you're comparing two groups where one of the pair members is in group one, one of the pair members is in group two.
+
+277
+00:32:10,250 --> 00:32:13,910
+If you account for the correlation correctly, you gain a ton of power.
+
+278
+00:32:14,950 --> 00:32:19,660
+That doesn't happen to the same degree at all when you have clustered outcomes.
+
+279
+00:32:20,950 --> 00:32:30,370
+So clustered outcomes. Well, I probably say some of this, but but the general idea is that if you have clustered outcomes.
+
+280
+00:32:30,370 --> 00:32:36,350
+But they're all from the same group. If they're highly correlated.
+
+281
+00:32:37,430 --> 00:32:44,380
+In fact, if they were perfectly correlated. And you had the same covariate for everybody in that cluster.
+
+282
+00:32:45,340 --> 00:32:50,120
+You. You only needed one of them to get the statistical information out of that cluster.
+
+283
+00:32:50,140 --> 00:32:54,500
+If they were perfectly correlated. You would only need one.
+
+284
+00:32:54,500 --> 00:33:01,190
+And then the rest are like Xerox copies of the data. You're not getting anything extra because you don't have the covariates are all the same.
+
+285
+00:33:02,090 --> 00:33:09,919
+You know, so cluster data and the power game is quite different than paired data.
+
+286
+00:33:09,920 --> 00:33:14,540
+And the power game pair data, if they're very, very correlated,
+
+287
+00:33:14,810 --> 00:33:23,660
+you get that much more precise estimate of the difference between the groups and that gets you statistical money with clustering,
+
+288
+00:33:24,230 --> 00:33:24,770
+you know,
+
+289
+00:33:24,920 --> 00:33:36,230
+increasing the size of the cluster gains you little if they're highly correlated if they're weekly correlated you can still gain a lot of power.
+
+290
+00:33:37,170 --> 00:33:41,120
+All right. So I'm going to come back to this idea again and again in this handout.
+
+291
+00:33:41,720 --> 00:33:48,560
+But there but there is software available for the law grant for cluster data with this macro cluster.
+
+292
+00:33:48,600 --> 00:33:59,600
+LR But you can still use the leeway, a model approach for analyzing the data, whether it's paired, clustered or some mixture of the two.
+
+293
+00:34:01,560 --> 00:34:06,860
+So this. So in this case, with cluster data,
+
+294
+00:34:06,860 --> 00:34:14,360
+each cluster contributes statistical information somewhere between a sample size of one and the actual cluster size,
+
+295
+00:34:14,840 --> 00:34:16,850
+depending on the degree of correlation.
+
+296
+00:34:17,240 --> 00:34:23,510
+So if everybody in the cluster is completely statistically independent from one another in terms of the outcome.
+
+297
+00:34:24,560 --> 00:34:28,550
+The statistical information will be like the sample size of the cluster.
+
+298
+00:34:29,240 --> 00:34:35,240
+You know, you wouldn't even need to use the methods that account for the clustering if they were independent.
+
+299
+00:34:35,600 --> 00:34:42,590
+But if they're perfectly correlated, you only need one person from the cluster to completely own how that cluster behaves.
+
+300
+00:34:43,070 --> 00:34:51,150
+And it's an effective sample size of one. So somewhere between those two extremes.
+
+301
+00:34:52,180 --> 00:34:59,050
+And so higher correlation between members of the cluster makes statistical information on the treatment response team redundant.
+
+302
+00:34:59,410 --> 00:35:01,840
+Sample size acting more like an equals one.
+
+303
+00:35:03,730 --> 00:35:10,690
+Independence between members of the cluster is more useful in determining the behavior of the treatment of large numbers of individuals.
+
+304
+00:35:11,020 --> 00:35:14,350
+The sample size will act more like the cluster size in that case.
+
+305
+00:35:16,050 --> 00:35:25,380
+If you perform an analysis where you ignore the cluster correlation, that will increase your type one error rate quite a bit.
+
+306
+00:35:25,390 --> 00:35:36,390
+So you have to you have to know to correct this, use the right approach for analyzing the data or you'll have high type one errors.
+
+307
+00:35:37,760 --> 00:35:46,459
+And this is an example that came with the the cluster that log rank package and it's a simulated
+
+308
+00:35:46,460 --> 00:35:53,250
+example data set that's fairly comparable to situations where I've had to use this method.
+
+309
+00:35:53,660 --> 00:36:01,160
+So the data set mimics results from a randomized controlled trial to educate physicians on improved osteoporosis management.
+
+310
+00:36:01,640 --> 00:36:10,719
+So. The simulated data set has 458 physician clusters,
+
+311
+00:36:10,720 --> 00:36:17,410
+so the same physician is treating multiple patients and they were randomized to either
+
+312
+00:36:17,410 --> 00:36:22,180
+receive education on how to best prevent osteoporosis in high risk patients or not.
+
+313
+00:36:22,870 --> 00:36:32,679
+So the correlation is coming from the fact that the same physician who is receiving the education is treating several patients.
+
+314
+00:36:32,680 --> 00:36:45,520
+And so you can imagine if that physician acts completely the same every time with the same type of patient, that that correlation would be high.
+
+315
+00:36:46,300 --> 00:36:50,320
+But patients probably aren't going to be quite the same, so there will be variability there.
+
+316
+00:36:50,680 --> 00:37:00,760
+So the event is that the patient of an enrolled physician received a bone mineral density test or prescribed osteoporosis medication.
+
+317
+00:37:01,270 --> 00:37:06,880
+That's the event. And the patients were followed for a maximum of 296 days.
+
+318
+00:37:06,890 --> 00:37:19,330
+So there, you know, what was the time to getting such a prescription for for this bone mineral density test of prescribed osteoporosis medication?
+
+319
+00:37:20,290 --> 00:37:24,620
+Right. And these were high risk patients.
+
+320
+00:37:26,160 --> 00:37:32,010
+The patients are clustered by physician and there were eight patients per cluster that they simulated.
+
+321
+00:37:32,010 --> 00:37:40,020
+Again, I think they had a data set they weren't allowed to share and they did their best to simulate a comparable data set for this.
+
+322
+00:37:40,770 --> 00:37:48,179
+And so to use the cluster log rate SAS macro, you need a cluster identifier.
+
+323
+00:37:48,180 --> 00:37:51,600
+So I just called that Dr. I.D. or maybe that's what they call it.
+
+324
+00:37:51,600 --> 00:37:57,530
+I can't remember. Treatment group. Time to event and sensory indicators.
+
+325
+00:37:57,530 --> 00:38:02,630
+That's what these are the variables that were in this dataset that came with the macro.
+
+326
+00:38:03,440 --> 00:38:07,040
+And to call the macro, you would use some kind of a include statement.
+
+327
+00:38:08,470 --> 00:38:12,340
+So here is my include statement with the macro.
+
+328
+00:38:12,850 --> 00:38:20,320
+And then here is calling the macro. All of these little data sets are on the canvas page if you want to play with them.
+
+329
+00:38:21,430 --> 00:38:26,979
+And that output looks like this, see how pretty their output is compared to my Frankenstein stuff.
+
+330
+00:38:26,980 --> 00:38:29,140
+Professional programmers are awesome.
+
+331
+00:38:29,800 --> 00:38:37,690
+So this kind of just repeats back the number of clusters and the observations for each of the treatment groups that are being compared.
+
+332
+00:38:38,170 --> 00:38:48,220
+And the output will show the clustered variance that is correctly taking into account the correlation within physician groups and,
+
+333
+00:38:48,730 --> 00:38:52,570
+you know, the clustered log rank test and p values over here.
+
+334
+00:38:53,410 --> 00:38:56,740
+But it also shows you what you would have had for your variance.
+
+335
+00:38:57,450 --> 00:39:00,390
+If you incorrectly assumed independence.
+
+336
+00:39:01,020 --> 00:39:10,979
+And it has a noticeable effect here on the variability of the cluster variances, almost twice the UN clustered variance.
+
+337
+00:39:10,980 --> 00:39:17,010
+So you can sort of see how if you incorrectly assumed that the.
+
+338
+00:39:18,280 --> 00:39:21,910
+The Times to getting some kind of guideline appropriate care.
+
+339
+00:39:23,550 --> 00:39:27,420
+If you assumed in cricket that it wasn't correlated within physician, you would.
+
+340
+00:39:28,400 --> 00:39:34,430
+Have a much, much smaller variability and a much, much tinier p value.
+
+341
+00:39:34,430 --> 00:39:38,120
+In general, it's the case that you're your type one error.
+
+342
+00:39:38,120 --> 00:39:42,530
+You'll reject way more than you should if you ignore the correlation in a clustered structure.
+
+343
+00:39:43,620 --> 00:39:50,070
+Now. Fortunately, they did actually detect a benefit of educating physicians on how to treat their patients.
+
+344
+00:39:50,580 --> 00:39:59,850
+So that happened and I've had a few study designs I've been asked to work with where very
+
+345
+00:39:59,850 --> 00:40:08,790
+similar like a clinical practice is taught how to manage patients with some education module.
+
+346
+00:40:09,150 --> 00:40:13,530
+And you know, you have several practices that are included in the study.
+
+347
+00:40:13,950 --> 00:40:24,550
+And that's the same kind of idea how the outcomes of how the practice utilizes the information correctly are often these cluster designs.
+
+348
+00:40:24,570 --> 00:40:36,390
+So it just comes up strangely. I went for about 20 years with no cluster study designs hitting me and then over the past five or ten years.
+
+349
+00:40:37,810 --> 00:40:41,230
+Yeah, I'm that old that it's just really kicked in.
+
+350
+00:40:41,230 --> 00:40:45,970
+I've had several of these types of designs, so they're becoming much more active.
+
+351
+00:40:49,440 --> 00:40:55,860
+So the alternative way to perform clustered sensors fiber analysis is to use this leeway a motto approach again to
+
+352
+00:40:55,860 --> 00:41:00,720
+account for correlation between the sense and survival outcomes using empirical robust in which estimation approach.
+
+353
+00:41:01,200 --> 00:41:11,700
+And so again it's you can just go to drag uses Cove's aggregate statement and then do the model statement as usual.
+
+354
+00:41:11,700 --> 00:41:15,450
+So we only had one covariate here, the, the, the treatment group,
+
+355
+00:41:15,450 --> 00:41:21,959
+the education module and then the ID says which patients were treated by the same doctor and
+
+356
+00:41:21,960 --> 00:41:26,760
+here is the output again you get a hazard ratio and confidence limits as well as the p value.
+
+357
+00:41:27,090 --> 00:41:31,560
+And this p value seems quite similar to the clustered library test that was in the macro.
+
+358
+00:41:32,430 --> 00:41:37,800
+Here you get a hazard ratio and 95% confidence interval that are nice to report in addition to the p value.
+
+359
+00:41:38,250 --> 00:41:43,320
+And so that's here is as well. And are.
+
+360
+00:41:44,640 --> 00:41:49,740
+I. I found some r code that will do the leeway motto approaches well.
+
+361
+00:41:49,740 --> 00:41:57,090
+And so here's an example of how that looks. Very similar syntax to the Cox model.
+
+362
+00:41:57,960 --> 00:42:04,410
+Except you have this I.D. for the patient and the idea for the cluster.
+
+363
+00:42:06,650 --> 00:42:13,460
+I'm not sure what they do with this ID for the patient. You really just need the idea for the cluster, but they do seem to ask for it.
+
+364
+00:42:13,880 --> 00:42:17,990
+Um. And you get fairly similar results.
+
+365
+00:42:18,020 --> 00:42:22,249
+So here is the all of these are very, very close to what we saw on SAS.
+
+366
+00:42:22,250 --> 00:42:26,720
+The the hazard ratio, the confidence limits, the p value over here.
+
+367
+00:42:30,150 --> 00:42:32,070
+And so a manuscript worthy sentence.
+
+368
+00:42:33,360 --> 00:42:39,689
+Regardless of the package you use would be something like after accounting for correlation and outcomes for patients sharing,
+
+369
+00:42:39,690 --> 00:42:46,290
+the same physician patients had a higher hazard of receiving guideline appropriate care when treated by a
+
+370
+00:42:46,290 --> 00:42:53,580
+physician who received the education program versus a physician who did not receive the education program.
+
+371
+00:42:53,940 --> 00:43:00,630
+With the usual summary statistics hazard ratio confidence interval p value here parenthetically at the end of the sentence.
+
+372
+00:43:04,370 --> 00:43:10,850
+So here's another example that I'm going to kind of move forward with.
+
+373
+00:43:11,030 --> 00:43:15,140
+And it's another diabetic retinopathy study, but this one was much smaller.
+
+374
+00:43:16,440 --> 00:43:20,160
+And they these patients also had.
+
+375
+00:43:22,280 --> 00:43:26,300
+They were high risk patients, higher risk than the patients from the previous study.
+
+376
+00:43:28,710 --> 00:43:36,300
+And in this case, one Irish patient was randomized to laser photo coagulation and the other was just untreated.
+
+377
+00:43:36,300 --> 00:43:40,650
+It wasn't delayed. So just no treatment at all.
+
+378
+00:43:40,650 --> 00:43:45,390
+So this. Not sure why this.
+
+379
+00:43:47,880 --> 00:43:52,650
+They must have been using an old data set because this study had to happen before the other one.
+
+380
+00:43:53,160 --> 00:43:57,090
+And so they wanted to know if the laser treatment delayed time to severe vision loss.
+
+381
+00:43:57,540 --> 00:44:03,900
+And they also wanted to know if the age of the diabetes onset affected the time to severe vision loss.
+
+382
+00:44:04,290 --> 00:44:10,410
+So there's a covariate here other than treatment of coverage of juvenile versus adult onset.
+
+383
+00:44:10,830 --> 00:44:14,250
+And so we want to move to a regression and leeway.
+
+384
+00:44:14,250 --> 00:44:19,230
+A model method is the easiest way to move to a regression setting.
+
+385
+00:44:19,710 --> 00:44:23,430
+So we're kind of switching over there. So I have a question for you.
+
+386
+00:44:23,430 --> 00:44:31,210
+This is a bit of a tricky question to. So I've talked about paired outcomes and clustered outcomes.
+
+387
+00:44:31,220 --> 00:44:35,530
+So what do you think about this data set with these two covariates?
+
+388
+00:44:36,800 --> 00:44:41,540
+Is the data paired or clustered or some combination of the two?
+
+389
+00:44:42,230 --> 00:44:47,850
+When we think about these two covariates. So let's think about the treatment one first.
+
+390
+00:44:47,860 --> 00:44:54,240
+So the treatment is one IV. Each patient was randomized to laser or untreated.
+
+391
+00:44:54,630 --> 00:45:02,880
+So in terms of the treatment. Covariate Is this a paired or a clustered correlation structure?
+
+392
+00:45:06,720 --> 00:45:12,360
+It's paired, right, because the correlation is there.
+
+393
+00:45:12,990 --> 00:45:17,910
+But it's the the outcomes are split into the two groups that are being paired.
+
+394
+00:45:17,910 --> 00:45:24,780
+So that's paired. And you're going to get power for assessing treatment benefits when you take into account the correlation there.
+
+395
+00:45:25,810 --> 00:45:30,070
+All right. What about this age of diabetes onset variable?
+
+396
+00:45:30,190 --> 00:45:38,350
+Juvenile versus adult. Is that paired? We want to understand the effect of this juvenile versus adult onset variable.
+
+397
+00:45:38,710 --> 00:45:41,800
+Is that a paired or cluster kind of a predictor?
+
+398
+00:45:47,340 --> 00:45:51,790
+Okay. So the outcomes are. Eyes in the same person.
+
+399
+00:45:53,090 --> 00:46:01,460
+Those are correlated outcomes. And the predictor is, did that person have adult or juvenile onset?
+
+400
+00:46:03,480 --> 00:46:08,790
+So the covariate doesn't change. For the two eyes.
+
+401
+00:46:10,170 --> 00:46:16,410
+So now you've got two eyes from each person that are either juvenile or adult.
+
+402
+00:46:17,890 --> 00:46:24,550
+And so to answer whether age of diabetes onset affects time to severe vision loss.
+
+403
+00:46:25,540 --> 00:46:30,249
+It's like they haven't done it information for that particular predictor because
+
+404
+00:46:30,250 --> 00:46:34,750
+both sides are both eyes are juvenile and they're really tightly correlated.
+
+405
+00:46:35,080 --> 00:46:40,270
+You really only needed one eye. If they were like 100% correlated, you would only need one.
+
+406
+00:46:40,270 --> 00:46:47,930
+I'd answered that particular question. So that verb was going to act more like you have a cluster design.
+
+407
+00:46:48,290 --> 00:46:54,169
+And so you can have a once you move to regression where you have more than one predictor,
+
+408
+00:46:54,170 --> 00:46:58,730
+you can have some predictors that are benefiting from the correlation and some predictors that aren't.
+
+409
+00:46:59,420 --> 00:47:03,560
+And so, you know, you have to account for the correlation everywhere.
+
+410
+00:47:03,770 --> 00:47:11,180
+But you might see in this case, the design about the treatment question is really gaining power from this situation.
+
+411
+00:47:11,510 --> 00:47:14,570
+But you might not see much of a change for the other variable.
+
+412
+00:47:18,950 --> 00:47:24,800
+So here, here are the variables. And in this particular dataset, there's an idea that says which patient it is.
+
+413
+00:47:25,570 --> 00:47:32,440
+And then they have the time of follow up and whether severe vision loss was observed is like the delta variable.
+
+414
+00:47:33,330 --> 00:47:39,690
+And then the cover is our treatment, where one is the laser photo coagulation and then you have adult onset.
+
+415
+00:47:39,690 --> 00:47:46,410
+That is one. If they were, you know, they had adult onset disease.
+
+416
+00:47:47,310 --> 00:47:54,760
+And this is kind of what the data set looks like. So. Each person has two outcomes in the data set, right?
+
+417
+00:47:55,120 --> 00:48:00,310
+This was their follow up time. They did not have severe vision loss during follow up.
+
+418
+00:48:01,250 --> 00:48:07,010
+This person whose I.D. is 14. They have different follow up times.
+
+419
+00:48:07,250 --> 00:48:14,360
+Right. So for one of the eyes that I never had severe vision loss during follow up, but the other I did.
+
+420
+00:48:15,340 --> 00:48:21,580
+So you have you know, sometimes you only have one eye that has this severe vision loss.
+
+421
+00:48:23,200 --> 00:48:32,200
+All right. And then here are the covariance. And so here's the leeway tomato method again.
+
+422
+00:48:32,950 --> 00:48:40,240
+Again, this is just like rag. But you put this curbs aggregate statement in and you put this I.D variable in.
+
+423
+00:48:40,510 --> 00:48:45,610
+But otherwise the model statement looks very much like what we did with regression.
+
+424
+00:48:45,850 --> 00:48:52,840
+And behind the scenes, all the correlation is being fixed up and P values are being done correctly.
+
+425
+00:48:54,050 --> 00:49:02,210
+Right. So those are the key differences in the code when you've got this correlation in the data and here are the parameter estimates there.
+
+426
+00:49:02,230 --> 00:49:05,430
+There is actually in this model, there was treatment.
+
+427
+00:49:05,430 --> 00:49:09,149
+I kind of rushed right through this. There was treatment, there was adult onset.
+
+428
+00:49:09,150 --> 00:49:17,879
+And then looking at the interaction between the two. And so the standard errors here reflect correlation between the outcomes that those are.
+
+429
+00:49:17,880 --> 00:49:22,180
+Correct. Those are all good. And here are the P values.
+
+430
+00:49:22,180 --> 00:49:25,750
+We don't get a hazard ratio column because of the interaction term being there.
+
+431
+00:49:26,770 --> 00:49:30,970
+Nothing specific to this particular method, just that there's an interaction term.
+
+432
+00:49:31,540 --> 00:49:34,180
+And so it looks like a lot of this stuff is really significant.
+
+433
+00:49:34,270 --> 00:49:42,969
+So because this is a cool interaction model, we get more practice interpreting interaction stuff.
+
+434
+00:49:42,970 --> 00:49:50,110
+So this, even though this stuff isn't covered on the exam, you get the output looks the same, right?
+
+435
+00:49:50,110 --> 00:49:58,139
+So we can practice interpreting it. And so here is the estimated hazard for severe vision at time.
+
+436
+00:49:58,140 --> 00:50:04,680
+Little T, this is how you would write that hazard. So the hazard at time T is the reference hazard.
+
+437
+00:50:04,980 --> 00:50:08,520
+So the reference hazard, again, that's if all the predictors were zero.
+
+438
+00:50:08,850 --> 00:50:13,530
+So that means they were they got no treatment and they were juvenile onset.
+
+439
+00:50:13,860 --> 00:50:16,890
+That's that's what this baseline hazard would reflect.
+
+440
+00:50:17,760 --> 00:50:25,080
+And then here is the rest of the model with the parameter estimates and the covariance that's just taken from over here.
+
+441
+00:50:27,220 --> 00:50:32,330
+Right. And so all of our predictors here are binary.
+
+442
+00:50:32,340 --> 00:50:39,320
+So we can actually write out the hazards for the different cases you might be curious about.
+
+443
+00:50:40,100 --> 00:50:47,970
+And. Oh, and here I just ran the model again without the ID statement, just so that you can see.
+
+444
+00:50:48,900 --> 00:50:55,920
+The difference between the correct analysis that reflects correlation between outcomes because you have the ID
+
+445
+00:50:56,040 --> 00:51:04,690
+statement and the version and what it looks like if you assume independence without that I.D. line in there.
+
+446
+00:51:05,160 --> 00:51:15,810
+And so for the treatment group, the standard error is much smaller when you take into account the period nature of that treatment variable.
+
+447
+00:51:16,320 --> 00:51:19,590
+Not much changes with the adult onset variable.
+
+448
+00:51:20,820 --> 00:51:28,020
+Right, because the adult onset variable that was a cougar that was common within each correlated set of outcomes.
+
+449
+00:51:28,590 --> 00:51:34,590
+So you don't get much gain for that one, but you do get a little bit of gain for the interaction because again,
+
+450
+00:51:34,590 --> 00:51:37,440
+treatment is a paired looking kind of thing.
+
+451
+00:51:40,580 --> 00:51:47,299
+So parameters related to treatment have a smaller standard error due to the pair design when the correlation is accounted for correctly.
+
+452
+00:51:47,300 --> 00:51:56,780
+But there wasn't much impact at all on the adult onset variable, mainly because it was the same in each of the in each of the correlated.
+
+453
+00:51:58,240 --> 00:52:00,490
+Eyes in the thin people.
+
+454
+00:52:06,050 --> 00:52:14,120
+And so here's just writing out the overall model again and this is the day for practicing studying for our exam because the model doesn't.
+
+455
+00:52:14,840 --> 00:52:21,049
+These kinds of statements don't care about correlation. It's just interpreting the results of the parameter estimates.
+
+456
+00:52:21,050 --> 00:52:25,490
+And so here's the overall model and how you write out the hazard for severe vision loss.
+
+457
+00:52:26,210 --> 00:52:31,790
+And so for juvenile onset, that is the adult onset variable is equal to zero.
+
+458
+00:52:31,850 --> 00:52:35,569
+You plug in zero everywhere. It says adult onset.
+
+459
+00:52:35,570 --> 00:52:41,990
+So a zero here is zero here. And the only term that comes up is the treatment predictor.
+
+460
+00:52:43,020 --> 00:52:48,959
+And so exponentially, you know, plugging in a, you know,
+
+461
+00:52:48,960 --> 00:52:55,710
+a one for treatment on the numerator of a hazard ratio and a zero for treatment and the denominator of the hazard ratio,
+
+462
+00:52:56,070 --> 00:53:01,440
+this is what the hazard ratio will end up being. So for juvenile onset.
+
+463
+00:53:02,360 --> 00:53:08,920
+Patients. The hazard for severe vision loss is .65.
+
+464
+00:53:08,930 --> 00:53:18,530
+Comparing the early sorry mixing at my studies here, comparing the group that got any further calculation versus nothing.
+
+465
+00:53:20,130 --> 00:53:27,440
+And for the adult onset group. You plug in adult onset is equal to one here and here.
+
+466
+00:53:28,450 --> 00:53:34,569
+And so the hazard I'm just plugging in the one for the adult onset.
+
+467
+00:53:34,570 --> 00:53:37,750
+This is the formula for the hazard in adult onset group.
+
+468
+00:53:38,780 --> 00:53:43,280
+And so the hazard ratio comparing treatment equals 1 to 0.
+
+469
+00:53:43,820 --> 00:53:49,070
+Is this E to the treatment parameter again or point two weight.
+
+470
+00:53:49,070 --> 00:53:56,690
+So the hazard dropped a lot lower the hazard ratio sorry, dropped a lot lower for the adult onset group.
+
+471
+00:53:56,700 --> 00:54:02,030
+So in that group, the photo coagulation had an even stronger effect.
+
+472
+00:54:05,260 --> 00:54:08,700
+And. So here.
+
+473
+00:54:10,220 --> 00:54:15,830
+Awesome control statement. So this is the benefit of having professional programmers, you know,
+
+474
+00:54:15,830 --> 00:54:28,700
+so you can get your estimate statements done to get hazard ratios and confidence intervals that are specific to adult versus juvenile onset.
+
+475
+00:54:29,300 --> 00:54:38,390
+And so this first estimate statement is just doing the hazard ratio from the last page where it was E to the beta for treatment.
+
+476
+00:54:38,390 --> 00:54:42,620
+That was the hazard ratio. So you have to know how to get your formula.
+
+477
+00:54:43,690 --> 00:54:48,130
+Right. So this was the only parameter that was involved with that hazard ratio for juvenile.
+
+478
+00:54:48,640 --> 00:54:52,080
+But for the adult onset, we needed to parameter estimates.
+
+479
+00:54:52,090 --> 00:54:56,360
+It was the one for adult onset. Sorry.
+
+480
+00:54:57,190 --> 00:55:08,180
+Uh. Oh, no, no, no, no, no, no.
+
+481
+00:55:08,190 --> 00:55:11,780
+Sorry. This is after reducing the expression.
+
+482
+00:55:11,790 --> 00:55:15,540
+It's just that these numbers look so similar to one another.
+
+483
+00:55:16,020 --> 00:55:27,700
+So it was. We needed all three terms for the hazard, but the hazard ratio was just this this treatment again.
+
+484
+00:55:28,620 --> 00:55:34,380
+Where the the the treatment parameters were at this one and this one.
+
+485
+00:55:35,320 --> 00:55:41,620
+We're combined here to get this number. So our formula is going to need the parameter for treatment.
+
+486
+00:55:42,530 --> 00:55:48,620
+And the parameter for treatment times adult onset to get that hazard ratio in the adult group.
+
+487
+00:55:51,880 --> 00:55:54,510
+And so that code is here for the adult group.
+
+488
+00:55:54,520 --> 00:56:00,520
+So you need the treatment variable, you need one of them and you need one of the treatment by adult onset variables.
+
+489
+00:56:01,180 --> 00:56:04,659
+And here is the output for the estimate statements.
+
+490
+00:56:04,660 --> 00:56:10,270
+It looks it doesn't it looks no different than what you would see if you had all independent outcomes.
+
+491
+00:56:10,270 --> 00:56:13,480
+But I assure you the standard errors have all been done correctly.
+
+492
+00:56:13,930 --> 00:56:19,360
+So here is the hazard ratio in the juvenile group with confidence limits and the p value.
+
+493
+00:56:20,640 --> 00:56:27,030
+And here is the hazard ratio for the adult onset confidence interval and p value.
+
+494
+00:56:29,560 --> 00:56:39,250
+And so manuscript where these sentences would look something like this later laser photo coagulation was protective against severe vision loss in both
+
+495
+00:56:39,250 --> 00:56:50,320
+adult onset and I put all the summary statistics for the adults there and the juvenile onset with the summary statistics for the juvenile onset here,
+
+496
+00:56:50,740 --> 00:56:57,310
+diabetic retinopathy, patients. All right. So those came all the stuff came from the estimate statements that we just did.
+
+497
+00:56:57,850 --> 00:57:04,090
+And then the next sentence is going to be talking about the P value for the interaction term that we had.
+
+498
+00:57:04,420 --> 00:57:10,360
+And so the interpretation is this protective effect of laser photo coagulation was significantly
+
+499
+00:57:10,360 --> 00:57:16,660
+stronger in adult versus juvenile onset participants and this is the P value for the interaction term.
+
+500
+00:57:17,710 --> 00:57:21,530
+That we saw. Right.
+
+501
+00:57:23,650 --> 00:57:32,470
+So the difference is the difference in the hazard ratios is all tied to this one variable related to the interaction.
+
+502
+00:57:32,890 --> 00:57:36,730
+That's the only thing that made these hazard ratios different.
+
+503
+00:57:38,930 --> 00:57:43,100
+And so the P-value for the interaction term. Is that P value from the net from that.
+
+504
+00:57:43,840 --> 00:57:51,290
+Sentence. So I'm pulling it from here.
+
+505
+00:58:00,250 --> 00:58:12,650
+Okay. So this is a natural time for a break. So we can take a break or we can just plow through and end 10 minutes earlier and.
+
+506
+00:58:13,650 --> 00:58:17,340
+Which would you prefer because you guys are running the show today?
+
+507
+00:58:22,570 --> 00:58:26,960
+I. Keep going.
+
+508
+00:58:27,980 --> 00:58:32,540
+Okay. Then we'll finish that much sooner. All right. So recurrent events.
+
+509
+00:58:34,100 --> 00:58:35,690
+So were current events data.
+
+510
+00:58:36,710 --> 00:58:42,980
+It's a little bit different from these earlier data sets in the hand up, but they still have correlated times to event involved.
+
+511
+00:58:43,430 --> 00:58:52,520
+So usually what you have for each individual eye is several event times where something happened, usually something bad.
+
+512
+00:58:52,600 --> 00:59:00,700
+So in my own research with pulmonologists, these are might be time to hospitalization,
+
+513
+00:59:00,710 --> 00:59:05,330
+one time to hospitalization to for some pulmonary exacerbations.
+
+514
+00:59:05,840 --> 00:59:10,819
+So that's what this is trying to denote here,
+
+515
+00:59:10,820 --> 00:59:20,620
+that you have a time to each of these recurrent events and I's the same person and you can have up to say capital GI,
+
+516
+00:59:21,290 --> 00:59:26,450
+where that and total number of exacerbations can be different across patients that you see.
+
+517
+00:59:27,050 --> 00:59:30,950
+So that's what the data set kind of looks like.
+
+518
+00:59:30,950 --> 00:59:35,209
+And there is censoring that's possible for these patients.
+
+519
+00:59:35,210 --> 00:59:41,030
+You start following them at some point so that the last recurrent event time might be censored.
+
+520
+00:59:42,280 --> 00:59:48,520
+And so here's kind of what the data looks like if you were to plot it for a person.
+
+521
+00:59:48,580 --> 00:59:56,170
+So here are the event. Times of the recurrent of the at the hospitalization times may be the exacerbation
+
+522
+00:59:56,170 --> 01:00:07,080
+times groups and sometimes the data is summarized as gap times between the events.
+
+523
+01:00:07,090 --> 01:00:12,340
+So instead of saying the actual number of days from time zero.
+
+524
+01:00:13,740 --> 01:00:17,880
+That hospitalizations occurred. Sometimes gap times are used instead.
+
+525
+01:00:17,890 --> 01:00:21,990
+So you'll need to kind of be aware that people use both of this jargon.
+
+526
+01:00:22,470 --> 01:00:26,850
+And so the first gap time is the first recurrent event time.
+
+527
+01:00:27,480 --> 01:00:36,990
+But the second gap time is looking at the number of of time units between the first and the second gap time.
+
+528
+01:00:37,000 --> 01:00:44,970
+So for instance, if I was just to sorry, pressing the wrong arrow, so this is the first gap time.
+
+529
+01:00:45,480 --> 01:00:48,570
+That's the time to the first event. But for the second one.
+
+530
+01:00:50,210 --> 01:00:56,900
+The second gap time is, you know, the length of time after the first one happened until the second one happened.
+
+531
+01:00:57,680 --> 01:01:02,540
+And so, you know, the third gap time would be the time.
+
+532
+01:01:03,770 --> 01:01:07,930
+But that it took after the second event to get the third one and so on.
+
+533
+01:01:07,940 --> 01:01:13,880
+So different packages and different analysis methods for this kind of data.
+
+534
+01:01:14,780 --> 01:01:24,020
+We'll use either the TS that are all measured from time zero or they'll use the gap time kind of stuff.
+
+535
+01:01:26,050 --> 01:01:31,390
+So the methods vary as to whether gap times are assumed independent of one another or not.
+
+536
+01:01:31,420 --> 01:01:40,360
+So one issue that you need to be aware of is that when you look at these times to event and they're measured from the previous event time,
+
+537
+01:01:41,260 --> 01:01:44,950
+you have to have some assumptions about the correlation between these.
+
+538
+01:01:45,190 --> 01:01:50,570
+You have to have assumptions about the correlations between the TS as well within the same individual.
+
+539
+01:01:50,590 --> 01:01:59,860
+If you have kind of a person who's very, very ill has a prognosis for their disease that is more severe, they probably have more hospitalizations.
+
+540
+01:02:00,550 --> 01:02:09,520
+And so the time between hospitalizations is probably, you know, shorter for that type of person as opposed to a person who just got diagnosed.
+
+541
+01:02:10,030 --> 01:02:16,620
+They might not have any hospitalizations for a while, but if they do, the times between them are probably a lot longer.
+
+542
+01:02:16,720 --> 01:02:24,940
+That's where the correlation comes from that depending on the illness of the person, you'll have these events happen more quickly or not.
+
+543
+01:02:25,480 --> 01:02:30,520
+And so methods, when they were just trying to figure out how to analyze this data structure,
+
+544
+01:02:31,000 --> 01:02:35,920
+the easiest assumption was that they were all independent and you could do simple stuff.
+
+545
+01:02:36,460 --> 01:02:40,460
+And those packages are still out there that assume independent.
+
+546
+01:02:40,600 --> 01:02:44,290
+I'm going to be steering you away from those because it's not a real plausible.
+
+547
+01:02:46,280 --> 01:02:50,250
+Assumption. So I.
+
+548
+01:02:52,390 --> 01:03:02,140
+I'll mention those others as a cautionary tale, since they're very much in the software they were discovered or used earlier and time.
+
+549
+01:03:02,230 --> 01:03:05,320
+It takes time to get good methods into software packages.
+
+550
+01:03:05,320 --> 01:03:11,590
+And so these methods that assume appearance are there and explained, and if you don't know better,
+
+551
+01:03:11,590 --> 01:03:17,470
+you'll use them when really they're not realistic approaches now that we have better approaches.
+
+552
+01:03:20,180 --> 01:03:25,100
+So I'm afraid every student of these methods gets to learn about the bladder
+
+553
+01:03:25,100 --> 01:03:28,700
+cancer dataset because it's the one that all the packages used to teach it.
+
+554
+01:03:29,300 --> 01:03:36,470
+And so the data set is 86 patients who underwent bladder tumor excision.
+
+555
+01:03:36,470 --> 01:03:45,470
+And I feel terrible for bladder cancer patients because because of this data set, I'm learning that you have to get these tumors removed.
+
+556
+01:03:46,530 --> 01:03:49,800
+Regularly like they grow back and it's just awful.
+
+557
+01:03:49,830 --> 01:03:54,989
+So 48 of the patients were randomized placebo and the rest were randomized if
+
+558
+01:03:54,990 --> 01:04:00,200
+they had TPA or there was randomization and this is how they broke down with it.
+
+559
+01:04:00,400 --> 01:04:04,110
+There was an anti-cancer medication they were hoping would help with the bladder
+
+560
+01:04:04,110 --> 01:04:10,980
+cancer recurrences and so that these tumors regrow or recur after each removal.
+
+561
+01:04:11,280 --> 01:04:15,389
+I don't even know how you remove a bladder cancer tumor because I'm not a physician.
+
+562
+01:04:15,390 --> 01:04:19,560
+But does it sound pleasant? And every time they came in for a visit.
+
+563
+01:04:21,050 --> 01:04:24,830
+They got checked out and any tumor growths were removed.
+
+564
+01:04:25,490 --> 01:04:34,220
+So that is the recurrent data. And so baseline covariates for individual I included the number of initial tumors removed,
+
+565
+01:04:34,520 --> 01:04:38,210
+the size of the largest initial tumor and the treatment group.
+
+566
+01:04:38,960 --> 01:04:48,050
+And they want to see, you know, the main research questions about is the not helpful for these participants or not.
+
+567
+01:04:48,680 --> 01:04:50,930
+So because the primary interest is on treatment effect,
+
+568
+01:04:51,290 --> 01:04:57,350
+any time a bit of changes in covariates that could have been affected by treatment, are it appropriate to include as adjustment factors?
+
+569
+01:04:57,710 --> 01:05:05,300
+So only baseline covariates are used in this analysis, even though the outcomes are measured over time.
+
+570
+01:05:05,840 --> 01:05:09,210
+So you don't see, for instance, someone at this, you know,
+
+571
+01:05:09,230 --> 01:05:14,059
+updating that size of the largest tumor removed to visit to because they might have gotten
+
+572
+01:05:14,060 --> 01:05:17,780
+smaller if the treatment worked and you don't want to adjust the way that treatment effect.
+
+573
+01:05:18,200 --> 01:05:20,180
+So we've kind of seen that idea before.
+
+574
+01:05:22,330 --> 01:05:28,209
+So external cover such as surgeon performing the excision would have been okay to include as a time dependent covariate,
+
+575
+01:05:28,210 --> 01:05:34,300
+but no such predictors were described in the data source. So that's that.
+
+576
+01:05:34,750 --> 01:05:42,430
+So censoring these data sets tend to have censoring because you only follow patients for a finite amount of time.
+
+577
+01:05:42,430 --> 01:05:48,339
+So most often there's a single latent censoring time CI that's assumed for each
+
+578
+01:05:48,340 --> 01:05:56,230
+individual and that that is assumed to be independent of these recurrent event times.
+
+579
+01:05:56,410 --> 01:06:03,070
+And so the CI is usually administrative censoring related to when your grant ran out,
+
+580
+01:06:03,340 --> 01:06:07,930
+but occasionally C.I. can happen if they dropped out of the study for some other reason.
+
+581
+01:06:08,260 --> 01:06:14,860
+So it's the same censoring mechanism that we've been learning about with survival analysis this whole time,
+
+582
+01:06:15,160 --> 01:06:18,370
+even though it's a bunch of recurrent events to,
+
+583
+01:06:18,370 --> 01:06:23,710
+you know, event times when they're measured from time zero, there's only one censoring time that's affecting it.
+
+584
+01:06:26,020 --> 01:06:29,349
+So an observed recurrent event data for individual.
+
+585
+01:06:29,350 --> 01:06:40,060
+I would look like this where you're you know you have an X and a delta but now you have an X in adult for each recurrent event time.
+
+586
+01:06:40,570 --> 01:06:47,080
+That's the minimum of the time to the first recurrent event and C are the minimum of the
+
+587
+01:06:47,080 --> 01:06:50,950
+time to the second recurrent event and see where these are all measured from time zero.
+
+588
+01:06:52,480 --> 01:07:02,230
+And the delta is also updated, you know, depending on if that j recurrent event happened before the censoring happened.
+
+589
+01:07:02,800 --> 01:07:05,800
+So the notation is a bit more complicated,
+
+590
+01:07:06,940 --> 01:07:14,410
+but the centering mechanism is similar when you're measuring events from time zero with these recurrent events.
+
+591
+01:07:16,990 --> 01:07:23,770
+Now, if you are looking at the gap times, well, that gets more complicated.
+
+592
+01:07:25,020 --> 01:07:31,530
+So if you are looking at gap times, GI one, GI two, they are also censored.
+
+593
+01:07:31,890 --> 01:07:40,260
+But because you're measuring not from the time that they entered the study, but you're measuring from the last observed recurrent event time.
+
+594
+01:07:40,980 --> 01:07:44,650
+The censoring variables are changing here as well.
+
+595
+01:07:44,670 --> 01:07:49,290
+So for the first time, it's just being censored by C.I. as usual.
+
+596
+01:07:49,710 --> 01:07:58,170
+But when you go to the second gap time, the censoring variable is CI minus whatever the time to the first recurrent event was,
+
+597
+01:07:58,170 --> 01:08:03,450
+because you're starting from the last recurrent event and measuring that second gap time.
+
+598
+01:08:03,810 --> 01:08:07,830
+And so the censoring is also measured from that last recurring event time.
+
+599
+01:08:08,850 --> 01:08:15,360
+So that happens all the way through. So you have to kind of recalculate these censoring times as well as the gap times.
+
+600
+01:08:15,810 --> 01:08:20,270
+And this causes a statistical problem that is unfortunate.
+
+601
+01:08:20,280 --> 01:08:24,330
+It's not just that these gap times are correlated, but, uh,
+
+602
+01:08:24,720 --> 01:08:34,370
+remember that thing that we assume when we're looking at time to have an analysis that the censoring mechanism can't be dependent on the,
+
+603
+01:08:34,600 --> 01:08:39,720
+the event time we want to understand what we call the independent censoring assumption.
+
+604
+01:08:40,440 --> 01:08:47,430
+Well, if you rewrite these gap times in terms of the recurrent event times as measured from time zero,
+
+605
+01:08:48,030 --> 01:08:55,739
+I've kind of highlighted in yellow that the gap time and the censoring variable for the gap time,
+
+606
+01:08:55,740 --> 01:08:59,340
+they're correlated because they're all they're both subtracting from.
+
+607
+01:09:00,150 --> 01:09:05,400
+The previous gap time. So there's dependent sensory.
+
+608
+01:09:06,700 --> 01:09:13,930
+In gap times unless all the gap times are independent, which is not a plausible thing to assume.
+
+609
+01:09:15,990 --> 01:09:19,890
+This is a bit of a detail and to analyze data,
+
+610
+01:09:20,190 --> 01:09:30,780
+the the take home point is that if you're analyzing methods using a gap time approach in your software package,
+
+611
+01:09:31,200 --> 01:09:38,250
+you might be introducing bias unless that method accounts for this dependent censoring in some reasonable way.
+
+612
+01:09:39,790 --> 01:09:45,840
+All right. And it's not. Typical that it's done correctly.
+
+613
+01:09:47,390 --> 01:09:55,510
+So. If you can make a strong assumption that times are independent of one another,
+
+614
+01:09:55,510 --> 01:10:01,690
+then you you can assume that all of these are independent of one another.
+
+615
+01:10:01,720 --> 01:10:07,150
+You know, if two if tie two is independent of T1 one, then you still have independent censoring.
+
+616
+01:10:07,690 --> 01:10:12,640
+I just don't believe that assumption is ever true. Sorry.
+
+617
+01:10:12,850 --> 01:10:17,140
+Sick people have recurrences more often. Healthy people don't.
+
+618
+01:10:17,320 --> 01:10:24,580
+That's correlation. So I don't think you can ever get away with a gap time analysis.
+
+619
+01:10:24,820 --> 01:10:28,360
+Unless they're doing something fancy to correct this problem.
+
+620
+01:10:30,790 --> 01:10:36,190
+So. Otherwise, if get times are correlated, you have a dependent censoring issue that must be dealt with when modeling get times.
+
+621
+01:10:36,550 --> 01:10:41,110
+And I'm going to steer you to the approach that is that doesn't have this issue.
+
+622
+01:10:41,560 --> 01:10:50,200
+But there are readily available software that don't address this issue and will give you often bad results.
+
+623
+01:10:53,480 --> 01:10:58,700
+All right. So there's two early recurrent event modeling approaches that I just want to mention to you.
+
+624
+01:10:59,330 --> 01:11:04,110
+One is way linen Weiss spelled. This is a michigan team.
+
+625
+01:11:04,110 --> 01:11:09,470
+This was these people were all at the University of Michigan in everybody's department when they wrote this paper.
+
+626
+01:11:09,890 --> 01:11:14,690
+And so they developed methods to model the multivariate distribution of these
+
+627
+01:11:14,690 --> 01:11:19,610
+times to recurrent event when they're all measured from study entry time zero.
+
+628
+01:11:20,210 --> 01:11:28,910
+And you could have an arbitrary, arbitrary correlation structure between recurrent event times and their method is appropriate.
+
+629
+01:11:29,390 --> 01:11:36,760
+It's a little bit tricky to interpret sometimes, but I'll show you the example where the interpretation makes perfect sense.
+
+630
+01:11:36,770 --> 01:11:42,020
+So this is a method that can be used. It's not my go to method, but it's not a bad method.
+
+631
+01:11:42,020 --> 01:11:47,870
+And it's it's all over software. You'll find it in SAS and all that kind of stuff.
+
+632
+01:11:48,260 --> 01:11:54,379
+So it's called a marginal model since it's based on a model for these times two event measured
+
+633
+01:11:54,380 --> 01:12:01,640
+from Time zero and it doesn't conditioned on or take into account other recurrent event time.
+
+634
+01:12:01,640 --> 01:12:07,310
+So this is just an emphasis on the fact that it's not looking at the gap times between events,
+
+635
+01:12:07,310 --> 01:12:14,030
+it's just looking at each individual time from zero to the first event, from time zero to the second event and so on.
+
+636
+01:12:15,360 --> 01:12:23,190
+So get times might be correlated, but since we're not, this method doesn't use the gap time specifically.
+
+637
+01:12:24,030 --> 01:12:27,860
+There's no induced dependent censoring on the scale of the tag that they use.
+
+638
+01:12:27,920 --> 01:12:34,260
+They dodge this problem about dependent censoring of gap times by not using gap times.
+
+639
+01:12:35,370 --> 01:12:44,129
+The results are a bit tricky to interpret. There's this weird assumption that, you know, each recurrent event is assumed to be at risk from time zero,
+
+640
+01:12:44,130 --> 01:12:50,400
+which is slightly odd because, well, I guess I should just say because I don't have a bullet, so.
+
+641
+01:12:52,870 --> 01:13:01,270
+They'll have a time to the second record event for a person and they assume you could have that second recurrent event even at time just after zero.
+
+642
+01:13:01,570 --> 01:13:06,190
+So they're not using any information that you have to have a first recurrent event before you get a second one.
+
+643
+01:13:06,820 --> 01:13:10,110
+So there's some inefficiency there, some weirdness there.
+
+644
+01:13:13,890 --> 01:13:20,160
+And this is probably why it's not my go to method, but you can get some reasonable results from this method to.
+
+645
+01:13:22,170 --> 01:13:28,010
+Or innocent, Gil, is the method that I want you that I want you to have a heads up to avoid.
+
+646
+01:13:28,020 --> 01:13:31,020
+It was the first method ever that attempts to analyze this data.
+
+647
+01:13:31,020 --> 01:13:35,729
+So it's everywhere, but it is modeling gap time,
+
+648
+01:13:35,730 --> 01:13:42,230
+so it's modeling the intensity for the next event over time in a manner that requires conditional independence between the gap time times,
+
+649
+01:13:42,240 --> 01:13:47,069
+given the career it's in the model. So this Anderson Gill model is in software everywhere.
+
+650
+01:13:47,070 --> 01:13:55,580
+But that assumption I don't think is plausible. So I'll show you results for the bladder cancer for all of these methods, just that you can see them.
+
+651
+01:13:57,080 --> 01:14:00,280
+But this is if you want to have good notes, you know, a big,
+
+652
+01:14:00,470 --> 01:14:07,220
+big red x would be appropriate to write right here because I don't want to ever have you use innocent in guilt, even though it's everywhere.
+
+653
+01:14:07,400 --> 01:14:10,640
+If you see someone else using Anderson, and you also don't use Anderson in jail,
+
+654
+01:14:11,090 --> 01:14:14,420
+you know, just because it was the first method available does not mean it's the best.
+
+655
+01:14:17,400 --> 01:14:22,720
+So this gap time model must either include conditional independence assumptions on the gap times or address the dependent censoring issue.
+
+656
+01:14:22,830 --> 01:14:31,140
+After sitting, Gill does not do that. And I guess I have I'm repeating myself because this is important.
+
+657
+01:14:32,580 --> 01:14:39,840
+It seems unlikely that gap times between recorded events are conditionally dependent given covariates in the model, and because of that variability,
+
+658
+01:14:39,840 --> 01:14:47,040
+estimates based on assuming in independent gap times will typically be underestimated, generating a higher type one year than 5%.
+
+659
+01:14:47,250 --> 01:14:55,350
+So that's a consequence of using Andersen. And Gill's method is you'll probably have a much higher type one year than 5% when you use that method.
+
+660
+01:14:56,810 --> 01:15:04,310
+So the the model that I am pointing you to use that is available in software is this proportional means model.
+
+661
+01:15:05,560 --> 01:15:09,670
+Described by Lin Wei Yang and Yang. You'll notice this way.
+
+662
+01:15:09,670 --> 01:15:14,770
+Arthur is in a lot of these methods. This is this is the guy that was kind of leading the field.
+
+663
+01:15:14,770 --> 01:15:19,510
+Lin was his graduate student, but is now famous in his own right for these methods.
+
+664
+01:15:20,470 --> 01:15:23,980
+Both of these guys just these guys were both at University of Michigan.
+
+665
+01:15:23,980 --> 01:15:32,230
+So, yeah, Michigan. And so I'm going to be pointing you towards using the proportional means model as the go to model.
+
+666
+01:15:32,770 --> 01:15:38,410
+All right. It handles everything correctly and is interpretable.
+
+667
+01:15:39,430 --> 01:15:45,790
+I've got my own method. Just between you and me and everything I've published, I guess it's not really a secret because I publish this stuff.
+
+668
+01:15:45,790 --> 01:15:50,889
+But there's another method that I've come up with that I think is probably going to overtake this method.
+
+669
+01:15:50,890 --> 01:15:54,430
+But it's I program like Frankenstein.
+
+670
+01:15:54,760 --> 01:16:00,219
+So there is software at GitHub for my method,
+
+671
+01:16:00,220 --> 01:16:05,080
+but I'm not teaching it yet because it's not reasonable for you to deal with that Frankenstein code at this time.
+
+672
+01:16:06,700 --> 01:16:11,020
+It's a little better than my first stoneco because it was actually graduate students who programed it, but it's still not.
+
+673
+01:16:12,110 --> 01:16:19,340
+It's not good to go. So this is going to be the best method that you can easily use for recurrent events data.
+
+674
+01:16:22,230 --> 01:16:25,620
+So here's the bladder cancer data. So I'm going to take you through these various methods.
+
+675
+01:16:27,450 --> 01:16:36,810
+This is all in SAS though. So the dataset has the I.D. and it has the treatment group.
+
+676
+01:16:38,160 --> 01:16:43,170
+The number of initial tumors. So this is the baseline recovery for the number of initial tumors for the first
+
+677
+01:16:43,170 --> 01:16:51,030
+time was removed and the size of the largest of those tumors that were removed.
+
+678
+01:16:51,030 --> 01:16:56,930
+The big the biggest size. And so they had visits.
+
+679
+01:16:57,260 --> 01:16:59,330
+So I'm going to skip down here. They have visits.
+
+680
+01:16:59,870 --> 01:17:07,730
+And in this particular in the South package, they only tell us what happened at the first four visits.
+
+681
+01:17:08,540 --> 01:17:13,070
+And I think it's because they wanted to compare all the different methods that I mentioned.
+
+682
+01:17:13,640 --> 01:17:16,970
+But some of the methods are better at using.
+
+683
+01:17:18,970 --> 01:17:23,410
+An arbitrary number of is the proportional means model will actually let you use.
+
+684
+01:17:24,420 --> 01:17:31,920
+However many visits you want, but the way with an wasteful method, you need to have enough people who had a visit.
+
+685
+01:17:31,920 --> 01:17:41,260
+Five to be able to use visit five. And so there's some limitations of the way Lynn and Wise felt approach that won't show up in this example
+
+686
+01:17:41,260 --> 01:17:46,430
+because they restricted it to all the visits where they had sufficient data to use Wayland and Y spelled.
+
+687
+01:17:48,470 --> 01:17:57,170
+All right, so t one, two, two, three and four are the recurrent recurrence times for those four visits.
+
+688
+01:17:57,830 --> 01:18:03,230
+And, and that was variable across people because people came in for their visits at different times.
+
+689
+01:18:03,950 --> 01:18:06,710
+And so that there's a tie of follow up time here as well.
+
+690
+01:18:08,740 --> 01:18:18,190
+And because of the visits, they had these variables to start and stop to kind of carve up the follow up time around the visits.
+
+691
+01:18:18,610 --> 01:18:29,979
+So t start is kind of like the, the time of the, the last recurrence observed prior to that visit.
+
+692
+01:18:29,980 --> 01:18:40,110
+J. Or the entry time if it's the first visit or the follow up time otherwise and t stop
+
+693
+01:18:40,110 --> 01:18:45,120
+is the time of the j through occurrence for visit j or the follow up time otherwise.
+
+694
+01:18:45,120 --> 01:18:49,050
+So we'll see examples of this in a minute. So it'll be a little bit more clear what's happening here.
+
+695
+01:18:49,560 --> 01:18:57,150
+And the status is the censoring indicator at the time of the t stop.
+
+696
+01:18:58,760 --> 01:19:04,730
+So it's kind of hard to understand what's going on without an example. So here is how the data is set up.
+
+697
+01:19:05,180 --> 01:19:11,600
+If you have a patient with only one recurrence, that happened at six months and it was followed until month ten.
+
+698
+01:19:12,170 --> 01:19:18,650
+So they want values for four visits because of Wayland wife's builds approach.
+
+699
+01:19:19,070 --> 01:19:28,340
+Some of the approaches would only need you to stop at this visit too, because that's when they stopped having data.
+
+700
+01:19:29,180 --> 01:19:36,780
+But Whalen and Weiss full requires you to have. Stuff here to reflect, you know?
+
+701
+01:19:37,910 --> 01:19:43,630
+The third recurrent event information for recurrent event information, even if there weren't such events.
+
+702
+01:19:43,640 --> 01:19:48,620
+So the first at the first visit. They?
+
+703
+01:19:50,240 --> 01:19:57,440
+Had a recurrence at six months. So some bladder cancer tumors were removed at that visit.
+
+704
+01:19:58,130 --> 01:20:02,060
+And so its status is one because they actually had some tumors that were removed.
+
+705
+01:20:02,930 --> 01:20:12,830
+And then starting from that six month visit, this next carved up piece of the follow up is done.
+
+706
+01:20:13,400 --> 01:20:18,799
+And that follow up ended at month ten when they were censored.
+
+707
+01:20:18,800 --> 01:20:23,690
+They didn't actually have any bladder cancer tumors removed at that time.
+
+708
+01:20:24,860 --> 01:20:28,160
+So they were kind of event free during that follow up period.
+
+709
+01:20:28,550 --> 01:20:35,570
+And then these last two rows are placeholders so that you can use the software for, you know, only the programmer really knows why.
+
+710
+01:20:35,570 --> 01:20:44,150
+This is something that you need to do. But if you have to start anti stop start end at the same time with a censored indicator here,
+
+711
+01:20:44,720 --> 01:20:48,800
+these two rows don't really contribute in any meaningful way to the analysis,
+
+712
+01:20:49,190 --> 01:20:54,889
+but the programmers want you to have those in place so that their functions run correctly.
+
+713
+01:20:54,890 --> 01:21:01,550
+I don't know. It's a programmer thing, it's not a science thing, but you've got to have them to to run some of the methods.
+
+714
+01:21:03,820 --> 01:21:08,740
+So here's another example. In this time, you have a patient that was followed for 30 months.
+
+715
+01:21:09,310 --> 01:21:14,980
+They had three recurrences and the recurrence. This happened at months two, 17 and 22.
+
+716
+01:21:15,730 --> 01:21:18,850
+So, again, you're you're carving up the follow up time.
+
+717
+01:21:19,970 --> 01:21:30,950
+Between zero and 30 months. Where to start is when you start following them for the first visit and they had a recurrence at month two.
+
+718
+01:21:30,950 --> 01:21:35,900
+So that's the t stop and you get a one here because the recurrence happened at month two.
+
+719
+01:21:36,590 --> 01:21:42,350
+The next kind of follow up period that's being carved up starts at two.
+
+720
+01:21:42,380 --> 01:21:47,270
+So where this slipped up, you're starting again. And their occurrence happened at month 17.
+
+721
+01:21:47,270 --> 01:21:50,360
+So that's to stop and you get a one here because it was a recurrence.
+
+722
+01:21:50,990 --> 01:21:57,290
+Same here. You start wherever you left off for the third visit and the t stop is over here.
+
+723
+01:21:57,290 --> 01:22:03,790
+There was a recurrence at 22. So this is a one. But for the last part of the follow up, it was sensor.
+
+724
+01:22:03,800 --> 01:22:07,100
+There was no recurrence at month 30 when you stopped following them.
+
+725
+01:22:08,460 --> 01:22:15,540
+So this is how the visit, the T start, the t stop and the censoring is done.
+
+726
+01:22:18,400 --> 01:22:22,030
+So most of the work here is setting up the data set honestly.
+
+727
+01:22:22,030 --> 01:22:26,950
+And then once you have the data set, set up using the packages is pretty simple.
+
+728
+01:22:28,410 --> 01:22:33,450
+I say that right before a real busy slide. But what is it?
+
+729
+01:22:33,770 --> 01:22:39,759
+But it's not that bad, really. So Park Dragons is how you do it.
+
+730
+01:22:39,760 --> 01:22:45,940
+And I'm using this Cove's aggregate statement again that's taking into account the correlation within ID.
+
+731
+01:22:46,120 --> 01:22:55,570
+So we have our ID variable down here. It's, it's not highlighted, but you do need that to indicate the measurements that are correlated.
+
+732
+01:22:56,750 --> 01:23:03,220
+And then I have a pretty busy model statement that's this thing here.
+
+733
+01:23:03,230 --> 01:23:09,260
+So the model when you have this kind of recurrent event data has.
+
+734
+01:23:10,240 --> 01:23:16,600
+Teesta, which. Is this the Whalen Worsfold model?
+
+735
+01:23:21,520 --> 01:23:26,380
+I think this is for the Whalen Weiss field analysis, which I don't have marked here, but.
+
+736
+01:23:28,000 --> 01:23:31,000
+Uh. Yeah.
+
+737
+01:23:32,150 --> 01:23:37,960
+I only market in the output. But this is the way Lynn and Y spelled all that we're doing here.
+
+738
+01:23:38,230 --> 01:23:40,150
+So that model doesn't need to start.
+
+739
+01:23:40,150 --> 01:23:48,550
+You just need to start in the censoring indicator because it's it's analyzing that the t one, two, two, two, three, two, four kind of stuff.
+
+740
+01:23:49,240 --> 01:23:52,630
+So t stop is, is the only one you need here.
+
+741
+01:23:52,660 --> 01:23:59,770
+Other methods will need to t start in t start this one just uses t stop then here the covariate.
+
+742
+01:23:59,780 --> 01:24:03,460
+So we've got the the treatment and it's.
+
+743
+01:24:05,090 --> 01:24:11,150
+These are all kind of tiny credit covers that are being created within Page Rag.
+
+744
+01:24:11,660 --> 01:24:17,000
+So we kind of need to be aware of that. So these covariates aren't defined until we get down here.
+
+745
+01:24:17,050 --> 01:24:21,710
+So we have treatment one through four. So what are those? So this is a treatment indicator.
+
+746
+01:24:21,920 --> 01:24:33,130
+Times the visit. So for visit one, we're looking at the time to the first recurrent event and seeing if treatment.
+
+747
+01:24:34,390 --> 01:24:37,600
+Affected that for TR too.
+
+748
+01:24:37,840 --> 01:24:45,490
+We're looking at the time to the second recurrent event from time zero and if treatment affected that and so on.
+
+749
+01:24:47,050 --> 01:24:59,210
+And the number is another kind of covariate where this is the number of tumors that they had removed at the at the first visit.
+
+750
+01:24:59,230 --> 01:25:07,180
+Remember that baseline covariant? And they're sort of seeing again, did that covariate affect the first time to event?
+
+751
+01:25:07,180 --> 01:25:11,620
+The second time to event the third? And the fourth and size was the last covered.
+
+752
+01:25:11,620 --> 01:25:15,130
+It was the largest tumor size that was removed at the initial visit.
+
+753
+01:25:15,670 --> 01:25:26,170
+And you're looking for interactions of, you know, did that influence the T one variable, the T two variable, 2 to 3 verbal or T for variable?
+
+754
+01:25:28,260 --> 01:25:34,830
+And there is a straight a statement here. So they're allowing the times.
+
+755
+01:25:35,850 --> 01:25:39,209
+Two t 1 to 2 teeth. 3t4. Two two.
+
+756
+01:25:39,210 --> 01:25:47,070
+Not require proportional hazards. And then there's this last statement here that is new.
+
+757
+01:25:47,070 --> 01:25:51,629
+I don't think we've ever seen this one before in the course,
+
+758
+01:25:51,630 --> 01:25:57,870
+but it's kind of important to use for Whalen Weidenfeld to have an interpretable sentence for your manuscript.
+
+759
+01:25:58,350 --> 01:26:08,069
+So instead of reporting the treatment effects at all the different visits, you know, like what was the treatment effect for the first recurrent event?
+
+760
+01:26:08,070 --> 01:26:16,440
+What was the treatment effect for the second recurrent event? And so on. What they want to do is estimate the average treatment effect.
+
+761
+01:26:17,840 --> 01:26:20,570
+For the first, second, third and fourth recurrence.
+
+762
+01:26:21,200 --> 01:26:31,220
+So this is this statement is averaging all of the effects across those four recurrent events and reporting it, and that's what we end up interpreting.
+
+763
+01:26:32,060 --> 01:26:41,630
+So an average of 30 per, uh, you know, reduce the recurrent event time for the first, second, third and fourth event.
+
+764
+01:26:41,750 --> 01:26:47,360
+That's what Wayland Westfeldt is trying to accomplish with that line. So here's some of the sass output that you see.
+
+765
+01:26:47,720 --> 01:26:51,740
+This is kind of just to get a peek at the data.
+
+766
+01:26:51,740 --> 01:26:58,100
+I never report this this stuff because it's counts that don't account for censoring.
+
+767
+01:26:58,520 --> 01:27:09,440
+But it does tell you that of the 86 people, you know, 47 of them had one instance of a bladder tumor recurrence that was reported in the data set.
+
+768
+01:27:09,980 --> 01:27:18,530
+And there were 29 of those 86 people had a second recorded instance of a recurrent event.
+
+769
+01:27:19,190 --> 01:27:28,370
+22 people had a third instance of a recorded recurrent event, and 14 people had a fourth instance, a recurrent event.
+
+770
+01:27:28,820 --> 01:27:34,190
+And so there were other I'm sure there were, but we don't have access to them.
+
+771
+01:27:34,520 --> 01:27:38,610
+Additional recurrent events past the fourth in the dataset, but.
+
+772
+01:27:38,640 --> 01:27:45,590
+WAILIN And why spell requires you to have enough to be able to model that as a separate outcome and
+
+773
+01:27:45,590 --> 01:27:52,880
+so it can't take advantage of the other recurrent events if they're happening too infrequently.
+
+774
+01:27:53,540 --> 01:28:01,729
+So they stopped here and all the other methods are going to be kind of looking at these same numbers of recurrent events,
+
+775
+01:28:01,730 --> 01:28:07,730
+even though some of these methods can incorporate the later event times much more easily without having to have a lot of them.
+
+776
+01:28:09,440 --> 01:28:15,440
+So this is just kind of information, but information about more or less what this looked like.
+
+777
+01:28:16,260 --> 01:28:26,219
+And out of 86 patients, when you look at the percent centers, 45% were censored by the first instance of the bladder cancer recurrence.
+
+778
+01:28:26,220 --> 01:28:32,490
+So you didn't see any of them. And 66 were were censored by the second instance and so on.
+
+779
+01:28:33,600 --> 01:28:37,140
+Just so you kind of know what the century looked like here.
+
+780
+01:28:39,490 --> 01:28:43,870
+And then this is the output that is the most important for your paper.
+
+781
+01:28:44,550 --> 01:28:49,440
+Uh. This average effect of the treatment.
+
+782
+01:28:50,590 --> 01:28:58,870
+And average effective the treatment. They they do kind of have an estimate here's the P value that's important and.
+
+783
+01:29:00,340 --> 01:29:04,600
+They have this other test here, that's a four degree of freedom test.
+
+784
+01:29:04,930 --> 01:29:10,240
+That's not significant. And what this test is, is looking at.
+
+785
+01:29:10,780 --> 01:29:16,659
+It's like the ANOVA version of this statistic in a way.
+
+786
+01:29:16,660 --> 01:29:21,130
+It's like, was there a difference between treatment groups?
+
+787
+01:29:21,670 --> 01:29:27,639
+If you looked at the first and the second and the third and the fourth time to a recurrent event.
+
+788
+01:29:27,640 --> 01:29:35,700
+And you looked at all of those differences in one big test like ANOVA, it couldn't detect the treatment difference there.
+
+789
+01:29:35,710 --> 01:29:42,460
+So it was only when they looked at the average treatment effect averaging across all the different recurrent
+
+790
+01:29:42,460 --> 01:29:49,000
+event types that they could get their higher power version of the test and say that the ATP had a benefit.
+
+791
+01:29:52,360 --> 01:30:01,780
+So the four degrees of freedom world test p value of 0.4105 fails to detect the treatment effect of theater when simultaneously
+
+792
+01:30:01,780 --> 01:30:07,210
+testing that the vector of treatment parameters from the four separate recurrent event models is the null vector.
+
+793
+01:30:08,450 --> 01:30:13,400
+And so it was more powerful to perform the test for the average treatment effect across the four occurrence models.
+
+794
+01:30:13,440 --> 01:30:19,120
+And, and that one did did look much more significant.
+
+795
+01:30:19,130 --> 01:30:24,530
+So the parameter of the average treatment effect is -0.5489.
+
+796
+01:30:24,530 --> 01:30:27,799
+Standard error .2853 with the people 8.0543.
+
+797
+01:30:27,800 --> 01:30:31,910
+And that was marginally in favor of. Dottie Pepper.
+
+798
+01:30:33,740 --> 01:30:38,190
+Now here is this almost deserves a big red X over this slide.
+
+799
+01:30:38,610 --> 01:30:43,440
+But this is the Anderson Gill model and you know.
+
+800
+01:30:45,120 --> 01:30:45,950
+They're both here.
+
+801
+01:30:45,960 --> 01:30:52,740
+So I guess the proportional means model is the good one with the big green check and the Anderson Gill model is the one with the big red x.
+
+802
+01:30:53,400 --> 01:30:58,680
+So then it'll give you both results.
+
+803
+01:30:58,680 --> 01:31:02,250
+So you have to kind of find the correct results.
+
+804
+01:31:02,700 --> 01:31:10,200
+So here is the way both of these packages want you to code it.
+
+805
+01:31:10,380 --> 01:31:18,130
+I think that's right on. Let me just skip ahead. Yeah. So this is you kind of caught it all together and you get both results.
+
+806
+01:31:18,130 --> 01:31:26,980
+So the codes aggregate is still here and the model now involves both t start and stop.
+
+807
+01:31:28,720 --> 01:31:34,629
+All right. It has the cover. It's a little bit easier to deal with because it doesn't have all those time cover.
+
+808
+01:31:34,630 --> 01:31:42,650
+It says the baseline cover. It's here in the model statement. Here is the ID saying which of these events are correlated.
+
+809
+01:31:43,220 --> 01:31:53,540
+And they don't want to use those rows where t starting t stop or identical like that first example where it was ten,
+
+810
+01:31:53,540 --> 01:31:56,630
+ten, zero, you know, they had those extra rooms added in.
+
+811
+01:31:56,900 --> 01:32:00,530
+They don't want those rows. So they just sort of carve out with the statement.
+
+812
+01:32:02,960 --> 01:32:12,470
+And so here is the Anderson Gill model output that assumes working in two pairs correlation matrix for events from the same individual.
+
+813
+01:32:13,130 --> 01:32:19,940
+And so the treatment effect with this hazard ratio of 0.63, you know.
+
+814
+01:32:21,950 --> 01:32:32,050
+It has a P-value 0215. So they found a significant effect in theater, but they're not necessarily estimating the variability correctly.
+
+815
+01:32:32,060 --> 01:32:40,670
+So is this P value smaller than it should be because you didn't take into account the correlation?
+
+816
+01:32:40,670 --> 01:32:44,540
+Or is it really the theater that's driving this p value?
+
+817
+01:32:44,930 --> 01:32:49,489
+So you really. For me.
+
+818
+01:32:49,490 --> 01:32:52,880
+I don't want to look at the Anderson Gill model output at all.
+
+819
+01:32:54,440 --> 01:32:58,460
+I want to go straight to the proportional means model output.
+
+820
+01:33:00,100 --> 01:33:06,700
+And so this model based variance estimate is the output that's innocent, Gil.
+
+821
+01:33:08,260 --> 01:33:13,290
+And the sandwich variants estimate output is the proportional means model.
+
+822
+01:33:13,300 --> 01:33:16,630
+So the sandwich variants estimate is fixed up everything.
+
+823
+01:33:17,290 --> 01:33:23,200
+So you can kind of look at the standard errors and compare them to Andersonville and sort of see
+
+824
+01:33:23,230 --> 01:33:28,870
+how things have changed and the treatment effect has just squeezed out of statistical throughput.
+
+825
+01:33:28,870 --> 01:33:36,520
+It's interesting. This might be why they use this dataset to show these methods because it's all borderline around .05.
+
+826
+01:33:36,940 --> 01:33:44,409
+But the proportional means model for this particular analysis is now merely marginally significant,
+
+827
+01:33:44,410 --> 01:33:49,000
+but at least the correlation structure is more robust. So this is a trustworthy p value.
+
+828
+01:33:49,630 --> 01:33:56,080
+So you've seen that the WAYLAND works for the model, which is an appropriate analysis, kind of found significance.
+
+829
+01:33:58,350 --> 01:34:07,800
+Close to the .05 level by averaging the treatment effect across each of the separate times from zero to a recurrent event.
+
+830
+01:34:08,370 --> 01:34:15,360
+And the proportional means model is barely missing it.
+
+831
+01:34:16,710 --> 01:34:23,100
+But it's take into account the correlation correctly and the innocent gill model is finding significance,
+
+832
+01:34:23,100 --> 01:34:26,030
+but they don't make realistic assumptions about the correlation.
+
+833
+01:34:26,040 --> 01:34:35,099
+So either the Whalen or Whitewater, this approach would be fine, but I accept that it was already done in This is safe.
+
+834
+01:34:35,100 --> 01:34:42,959
+I wouldn't have tried. Whalen And why? So even though it's a UN group, the proportional means models also um group and there is overlap with LJ way.
+
+835
+01:34:42,960 --> 01:34:46,350
+So this is the one that I usually look at first.
+
+836
+01:34:48,830 --> 01:34:57,620
+And and to be continued, honestly, because when I realized that I probably would have time left today,
+
+837
+01:34:57,620 --> 01:35:01,340
+I thought maybe I should show some of my Frankenstein code, but I didn't add it in.
+
+838
+01:35:02,600 --> 01:35:09,940
+So you don't get to see my method. And I and I didn't set up the data, the bladder cancer data set for my method to compare.
+
+839
+01:35:09,950 --> 01:35:15,800
+So I'm kind of curious now how it would do in this data set. I have a separate data set that I that I've been using for that one.
+
+840
+01:35:16,520 --> 01:35:22,909
+So anyway, that's that's pretty much it. So there's just some summaries of the stuff we talked about today.
+
+841
+01:35:22,910 --> 01:35:32,450
+And one of the big takeaways is that this leeway, a modern method where you've got the coves aggregate and you've got the idea line in your SAS code,
+
+842
+01:35:32,750 --> 01:35:38,059
+it's quite flexible for handling correlation structures because we could deal with paired data,
+
+843
+01:35:38,060 --> 01:35:45,080
+we could deal with clustered data, or we could deal with multiple covariates where some kind of act appeared, some clustered.
+
+844
+01:35:45,560 --> 01:35:51,680
+And so if you don't want to chase down a million different packages that have slight benefits over one another,
+
+845
+01:35:52,010 --> 01:35:57,260
+leeway, amount of math is pretty good, you know, and it'll come for large data sets.
+
+846
+01:35:57,260 --> 01:36:03,020
+It's, it's, it's quite nice. So only when you have small data sets do you maybe need to chase down some
+
+847
+01:36:03,020 --> 01:36:08,870
+of these other kind of paired log rank or paired restricted mean test stuff.
+
+848
+01:36:08,870 --> 01:36:13,279
+But for large data sets, layaway, a motto is pretty decent.
+
+849
+01:36:13,280 --> 01:36:18,110
+You know, I just pointed a student to it the other day, even though kind of I have my own.
+
+850
+01:36:20,120 --> 01:36:25,069
+This is kind of in my turf. So I have my own little methods for analyzing this kind of data.
+
+851
+01:36:25,070 --> 01:36:29,720
+But I still wanted him to leave with a motto because it was faster to find and figure out the software.
+
+852
+01:36:31,310 --> 01:36:37,730
+So paired cluster case is both covered in the stars code syntax and the proportional means models.
+
+853
+01:36:37,730 --> 01:36:43,190
+Very good method for the analysis of recurrent event data. So of all the methods that that are available.
+
+854
+01:36:44,150 --> 01:36:48,860
+This proportional means model where you're again using curves aggregate.
+
+855
+01:36:49,070 --> 01:36:56,900
+You're only using the t stop. You know, it's very it's easier to put your data in for that model as well.
+
+856
+01:36:57,350 --> 01:37:00,560
+You don't need the t start t stop. You just need the T start.
+
+857
+01:37:01,580 --> 01:37:04,610
+It's a very good method for the analysis of recurrent event data.
+
+858
+01:37:04,850 --> 01:37:10,040
+I think it's it's still very good, even though I think my bet, my methods are going to overtake it.
+
+859
+01:37:10,550 --> 01:37:17,720
+It's still pretty good. So I would point you there as your go to method.
+
+860
+01:37:18,690 --> 01:37:22,840
+That's it, guys. So. We did.
+
+861
+01:37:22,850 --> 01:37:25,850
+We ended. I guess we did it.
+
+862
+01:37:25,970 --> 01:37:30,110
+You know what I use all the time? Because it's 38, so maybe I didn't have time for my method.
+
+863
+01:37:31,360 --> 01:37:35,470
+Because we would have ended on time if I'd just given you your break.
+
+864
+01:37:37,000 --> 01:37:41,230
+Oh, well, anyway, there's always more to learn.
+
+865
+01:37:41,320 --> 01:37:49,600
+So now I feel like if you have this kind of data, I've pointed you to really reasonable analysis for how to tackle this data.
+
+866
+01:37:50,380 --> 01:37:57,370
+And I run into this all the time. So I don't know what it'll be like for you.
+
+867
+01:37:58,590 --> 01:38:03,490
+But. Go for it. You know you can do it.
+
+868
+01:38:07,830 --> 01:38:09,070
+See and stop.
+

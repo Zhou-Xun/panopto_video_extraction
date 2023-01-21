@@ -1,0 +1,1446 @@
+1
+00:00:09,290 --> 00:00:12,090
+Hello. Welcome to this lecture on
+
+2
+00:00:12,090 --> 00:00:15,000
+hypothesis testing with
+continuous outcomes.
+
+3
+00:00:15,000 --> 00:00:16,440
+In this lecture, we'll focus
+
+4
+00:00:16,440 --> 00:00:18,585
+on two-sample hypothesis testing,
+
+5
+00:00:18,585 --> 00:00:21,990
+which is better known
+as a two-sample T-test.
+
+6
+00:00:21,990 --> 00:00:24,510
+Now, one of the biggest questions
+
+7
+00:00:24,510 --> 00:00:26,850
+that we have in public health is,
+
+8
+00:00:26,850 --> 00:00:30,195
+why do some people get sick
+and other stay healthy?
+
+9
+00:00:30,195 --> 00:00:32,715
+To begin to answer
+that big question,
+
+10
+00:00:32,715 --> 00:00:35,430
+we have to know how to
+test for associations
+
+11
+00:00:35,430 --> 00:00:39,240
+between exposures and
+corresponding health outcomes.
+
+12
+00:00:39,240 --> 00:00:41,810
+For example, is the
+average birth weight
+
+13
+00:00:41,810 --> 00:00:43,070
+of a baby born to women in
+
+14
+00:00:43,070 --> 00:00:45,665
+poverty different from
+the average birth weight
+
+15
+00:00:45,665 --> 00:00:47,765
+of a baby born to
+women not in poverty?
+
+16
+00:00:47,765 --> 00:00:50,390
+In other words, we're trying
+to figure out if poverty
+
+17
+00:00:50,390 --> 00:00:53,765
+has any association with
+lower birth weights.
+
+18
+00:00:53,765 --> 00:00:55,565
+We might also ask,
+
+19
+00:00:55,565 --> 00:00:56,960
+is the average birth level of
+
+20
+00:00:56,960 --> 00:00:59,090
+children living in
+Southeast Michigan
+
+21
+00:00:59,090 --> 00:01:01,475
+different from the
+average blood lead level
+
+22
+00:01:01,475 --> 00:01:04,105
+of children who live in
+Southwestern Michigan?
+
+23
+00:01:04,105 --> 00:01:05,690
+Now we're interested in
+
+24
+00:01:05,690 --> 00:01:07,310
+knowing whether or
+not where a child
+
+25
+00:01:07,310 --> 00:01:10,835
+lives has any association
+with their blood lead level.
+
+26
+00:01:10,835 --> 00:01:12,770
+Making decisions about whether
+
+27
+00:01:12,770 --> 00:01:15,110
+exposures had any
+association with
+
+28
+00:01:15,110 --> 00:01:17,255
+continuously distributed
+health outcomes
+
+29
+00:01:17,255 --> 00:01:18,740
+such as birth weight or
+
+30
+00:01:18,740 --> 00:01:22,970
+lead levels is facilitated
+through a two-sample T-test.
+
+31
+00:01:22,970 --> 00:01:25,190
+So our learning
+objectives are first to
+
+32
+00:01:25,190 --> 00:01:27,305
+apply statistical
+inference concepts
+
+33
+00:01:27,305 --> 00:01:29,300
+to one continuous outcome
+
+34
+00:01:29,300 --> 00:01:31,760
+that is measured on
+one group of people,
+
+35
+00:01:31,760 --> 00:01:34,190
+and therefore requires
+a one-sample T-test or
+
+36
+00:01:34,190 --> 00:01:37,100
+two groups of people using
+a two-sample T-test.
+
+37
+00:01:37,100 --> 00:01:38,780
+We'll then state the null,
+
+38
+00:01:38,780 --> 00:01:40,370
+and the alternative
+hypotheses that are
+
+39
+00:01:40,370 --> 00:01:42,460
+used in these two T-tests,
+
+40
+00:01:42,460 --> 00:01:44,210
+and then identify the statistics
+
+41
+00:01:44,210 --> 00:01:45,740
+that we use in one-sample,
+
+42
+00:01:45,740 --> 00:01:47,270
+and two-sample T-tests,
+
+43
+00:01:47,270 --> 00:01:49,580
+and then to comprehend
+how a P-value and
+
+44
+00:01:49,580 --> 00:01:51,860
+confidence interval
+both address how
+
+45
+00:01:51,860 --> 00:01:55,190
+a null hypothesis
+can be rejected.
+
+46
+00:01:55,190 --> 00:01:58,279
+So in one-sample
+hypothesis testing,
+
+47
+00:01:58,279 --> 00:02:00,665
+we are interested
+in one population,
+
+48
+00:02:00,665 --> 00:02:02,480
+and our example here is
+
+49
+00:02:02,480 --> 00:02:05,210
+babies born to women
+who live in poverty.
+
+50
+00:02:05,210 --> 00:02:07,120
+In this population, there is
+
+51
+00:02:07,120 --> 00:02:10,600
+a mean birth weight that we
+are interested in describing,
+
+52
+00:02:10,600 --> 00:02:12,720
+represented by the
+Greek letter Mu.
+
+53
+00:02:12,720 --> 00:02:15,070
+Perhaps, we have a
+null hypothesis that
+
+54
+00:02:15,070 --> 00:02:17,469
+the mean birth weight of
+these babies is 2,800
+
+55
+00:02:17,469 --> 00:02:20,050
+grams versus an alternative
+hypothesis that
+
+56
+00:02:20,050 --> 00:02:23,155
+it is something other
+than 2,800 grams.
+
+57
+00:02:23,155 --> 00:02:25,315
+To compare these two hypotheses,
+
+58
+00:02:25,315 --> 00:02:28,045
+we gather a sample of
+data from the population,
+
+59
+00:02:28,045 --> 00:02:29,470
+and from that sample,
+
+60
+00:02:29,470 --> 00:02:32,290
+we compute the mean
+sample birth weight.
+
+61
+00:02:32,290 --> 00:02:36,609
+We compare this number to 2,800
+as the level of evidence,
+
+62
+00:02:36,609 --> 00:02:39,700
+and then we scale this by
+the amount of skepticism,
+
+63
+00:02:39,700 --> 00:02:40,780
+or the standard error of
+
+64
+00:02:40,780 --> 00:02:43,105
+the mean that would
+occur from these data.
+
+65
+00:02:43,105 --> 00:02:45,340
+This produces the T-statistic,
+
+66
+00:02:45,340 --> 00:02:47,395
+which then leads to a P-value,
+
+67
+00:02:47,395 --> 00:02:49,900
+and allows you to
+either reject or not
+
+68
+00:02:49,900 --> 00:02:52,790
+reject the given null hypothesis.
+
+69
+00:02:52,790 --> 00:02:55,295
+Now, imagine I collected data,
+
+70
+00:02:55,295 --> 00:02:59,165
+and it resulted in a
+mean of 3,000 grams.
+
+71
+00:02:59,165 --> 00:03:00,560
+The 3,000 grams is
+
+72
+00:03:00,560 --> 00:03:02,465
+represented by the
+green vertical line,
+
+73
+00:03:02,465 --> 00:03:03,950
+and the null hypothesis of
+
+74
+00:03:03,950 --> 00:03:07,340
+2,800 is represented by
+the vertical orange line.
+
+75
+00:03:07,340 --> 00:03:10,730
+If I have a sample
+standard deviation of 700,
+
+76
+00:03:10,730 --> 00:03:12,529
+and a sample size of 25,
+
+77
+00:03:12,529 --> 00:03:15,050
+that leads to a standard
+error of the mean,
+
+78
+00:03:15,050 --> 00:03:17,030
+and leads to a histogram around
+
+79
+00:03:17,030 --> 00:03:19,280
+my sample mean that
+looks like this.
+
+80
+00:03:19,280 --> 00:03:21,080
+The question now is,
+
+81
+00:03:21,080 --> 00:03:22,520
+due to sampling variability,
+
+82
+00:03:22,520 --> 00:03:23,960
+is the distance between
+
+83
+00:03:23,960 --> 00:03:25,820
+the green line and
+the orange line big
+
+84
+00:03:25,820 --> 00:03:27,500
+enough for me to conclude
+that there would be
+
+85
+00:03:27,500 --> 00:03:30,155
+a difference in
+repeated sampling?
+
+86
+00:03:30,155 --> 00:03:31,790
+The answer is no.
+
+87
+00:03:31,790 --> 00:03:32,990
+The orange line is still
+
+88
+00:03:32,990 --> 00:03:35,170
+encompassed by enough
+of the histogram.
+
+89
+00:03:35,170 --> 00:03:37,740
+So it's also quantified
+by a T-statistic,
+
+90
+00:03:37,740 --> 00:03:41,925
+which is 1.43, which
+produces a P-value of 0.15.
+
+91
+00:03:41,925 --> 00:03:45,055
+The P-value is not
+less than 0.05,
+
+92
+00:03:45,055 --> 00:03:48,505
+and therefore, I will not
+reject the null hypothesis.
+
+93
+00:03:48,505 --> 00:03:51,650
+Now, in contrast,
+suppose my information
+
+94
+00:03:51,650 --> 00:03:54,515
+was actually collected
+from 100 babies.
+
+95
+00:03:54,515 --> 00:03:56,450
+In this case, the
+two vertical lines
+
+96
+00:03:56,450 --> 00:03:58,040
+remain at the same point,
+
+97
+00:03:58,040 --> 00:03:59,840
+but the histogram is
+more narrow now because
+
+98
+00:03:59,840 --> 00:04:02,305
+the standard error of the
+mean will be smaller.
+
+99
+00:04:02,305 --> 00:04:07,950
+The T-statistic is 2.86
+leading to a P-value of 0.004,
+
+100
+00:04:07,950 --> 00:04:10,155
+which is less than 0.05,
+
+101
+00:04:10,155 --> 00:04:12,140
+and I now would reject the null.
+
+102
+00:04:12,140 --> 00:04:14,015
+I believe that the
+population mean
+
+103
+00:04:14,015 --> 00:04:16,735
+must be something
+other than 2,800,
+
+104
+00:04:16,735 --> 00:04:19,430
+because the orange
+vertical line is way to
+
+105
+00:04:19,430 --> 00:04:21,470
+the left of the
+corresponding histogram
+
+106
+00:04:21,470 --> 00:04:23,270
+or on my sample mean.
+
+107
+00:04:23,270 --> 00:04:26,510
+Now, we also could have
+gotten a sample mean from
+
+108
+00:04:26,510 --> 00:04:30,460
+these 100 babies that was
+not 3,000, but 3,100.
+
+109
+00:04:30,460 --> 00:04:32,330
+What this does is
+move the histogram
+
+110
+00:04:32,330 --> 00:04:34,160
+to the right by 100 units,
+
+111
+00:04:34,160 --> 00:04:35,930
+so that the null
+hypothesis value for
+
+112
+00:04:35,930 --> 00:04:38,830
+the orange line is even further
+away from this histogram,
+
+113
+00:04:38,830 --> 00:04:41,900
+and the distance between
+my sample mean and
+
+114
+00:04:41,900 --> 00:04:45,830
+the null mean is so far relative
+to sampling variability,
+
+115
+00:04:45,830 --> 00:04:47,270
+that the T-statistic becomes
+
+116
+00:04:47,270 --> 00:04:50,215
+larger and the
+P-value even smaller.
+
+117
+00:04:50,215 --> 00:04:52,125
+I'm not giving you
+the exact P-value,
+
+118
+00:04:52,125 --> 00:04:54,920
+but it's certainly
+less than 0.001,
+
+119
+00:04:54,920 --> 00:04:58,100
+which is very strong
+evidence to reject the null.
+
+120
+00:04:58,100 --> 00:05:01,010
+Now, as I suggested earlier,
+
+121
+00:05:01,010 --> 00:05:03,700
+we are less often interested in
+
+122
+00:05:03,700 --> 00:05:05,300
+an hypothesis above the mean of
+
+123
+00:05:05,300 --> 00:05:08,150
+one population having
+a specific value.
+
+124
+00:05:08,150 --> 00:05:11,990
+Instead, we're more
+interested in knowing if
+
+125
+00:05:11,990 --> 00:05:15,695
+there is a difference in the
+means of two populations.
+
+126
+00:05:15,695 --> 00:05:17,030
+So I have just described
+
+127
+00:05:17,030 --> 00:05:19,940
+a one-sample T-test
+as a motivation for
+
+128
+00:05:19,940 --> 00:05:21,800
+the more interesting
+question which is
+
+129
+00:05:21,800 --> 00:05:24,485
+answered through a
+two-sample T-test.
+
+130
+00:05:24,485 --> 00:05:27,015
+So imagine our first
+population, again,
+
+131
+00:05:27,015 --> 00:05:28,460
+is women living in poverty,
+
+132
+00:05:28,460 --> 00:05:29,480
+and the birth weights of
+
+133
+00:05:29,480 --> 00:05:31,505
+those babies born to those women.
+
+134
+00:05:31,505 --> 00:05:32,900
+We have a mean birth weight for
+
+135
+00:05:32,900 --> 00:05:34,730
+those babies represented by Mu,
+
+136
+00:05:34,730 --> 00:05:38,050
+now the subscript one to
+indicate the first population.
+
+137
+00:05:38,050 --> 00:05:40,770
+Correspondingly, we now
+have a second population,
+
+138
+00:05:40,770 --> 00:05:42,230
+and these are babies
+born to women
+
+139
+00:05:42,230 --> 00:05:43,850
+who do not live in poverty.
+
+140
+00:05:43,850 --> 00:05:46,040
+Those babies have a
+birth weight represented
+
+141
+00:05:46,040 --> 00:05:48,350
+by Mu with a subscript two.
+
+142
+00:05:48,350 --> 00:05:50,090
+What I want to do is compare
+
+143
+00:05:50,090 --> 00:05:53,065
+the means of these
+two populations,
+
+144
+00:05:53,065 --> 00:05:54,970
+and ask the question on average,
+
+145
+00:05:54,970 --> 00:05:56,990
+does a mother's living
+in poverty have
+
+146
+00:05:56,990 --> 00:06:00,875
+an association with the
+birth weight of her newborn?
+
+147
+00:06:00,875 --> 00:06:02,780
+If there's no association,
+
+148
+00:06:02,780 --> 00:06:06,005
+then these two populations
+should have the same mean,
+
+149
+00:06:06,005 --> 00:06:07,745
+and so the null hypothesis
+
+150
+00:06:07,745 --> 00:06:09,110
+is that the two means are equal
+
+151
+00:06:09,110 --> 00:06:10,310
+to each other or
+
+152
+00:06:10,310 --> 00:06:12,425
+equivalently that their
+difference is zero.
+
+153
+00:06:12,425 --> 00:06:14,435
+If there is an association,
+
+154
+00:06:14,435 --> 00:06:18,020
+then these two means should
+be different from each other,
+
+155
+00:06:18,020 --> 00:06:21,260
+or their difference should be
+something other than zero.
+
+156
+00:06:21,260 --> 00:06:24,740
+So we begin to collect data
+from these two populations.
+
+157
+00:06:24,740 --> 00:06:26,240
+I go to the first population.
+
+158
+00:06:26,240 --> 00:06:28,010
+I gather a sample of data with
+
+159
+00:06:28,010 --> 00:06:29,780
+the sample mean, sample
+standard deviation,
+
+160
+00:06:29,780 --> 00:06:32,890
+and sample size often
+noted with subscripts one,
+
+161
+00:06:32,890 --> 00:06:35,390
+and I'll get corresponding
+values in our sample from
+
+162
+00:06:35,390 --> 00:06:38,375
+the second population
+with subscripts of two.
+
+163
+00:06:38,375 --> 00:06:41,570
+Now the difference in
+the two sample means is
+
+164
+00:06:41,570 --> 00:06:43,850
+our best estimate of
+the difference that we
+
+165
+00:06:43,850 --> 00:06:46,295
+might think exist
+in the population,
+
+166
+00:06:46,295 --> 00:06:48,950
+and the difference
+between their two means.
+
+167
+00:06:48,950 --> 00:06:51,325
+If this difference is big enough,
+
+168
+00:06:51,325 --> 00:06:52,650
+we're going to reject the null
+
+169
+00:06:52,650 --> 00:06:54,050
+hypothesis and conclude that
+
+170
+00:06:54,050 --> 00:06:57,245
+the two populations
+have different means.
+
+171
+00:06:57,245 --> 00:06:59,690
+However, we have to look at
+
+172
+00:06:59,690 --> 00:07:01,970
+the difference in the
+sample means relative
+
+173
+00:07:01,970 --> 00:07:06,110
+to the magnitude of the
+difference's standard error,
+
+174
+00:07:06,110 --> 00:07:09,290
+or the standard deviation of
+the sampling distribution.
+
+175
+00:07:09,290 --> 00:07:11,480
+Again, different
+studies will produce
+
+176
+00:07:11,480 --> 00:07:14,405
+different sample means
+for the two populations.
+
+177
+00:07:14,405 --> 00:07:17,360
+We want to know how variable
+these differences are.
+
+178
+00:07:17,360 --> 00:07:20,040
+We know already
+that if X bar one,
+
+179
+00:07:20,040 --> 00:07:21,660
+and X bar two are collected,
+
+180
+00:07:21,660 --> 00:07:23,615
+they have individual
+standard errors
+
+181
+00:07:23,615 --> 00:07:26,720
+represented by those
+two equations there.
+
+182
+00:07:26,720 --> 00:07:29,930
+Mathematically, it can be
+shown that the difference in
+
+183
+00:07:29,930 --> 00:07:31,550
+these two sample means has
+
+184
+00:07:31,550 --> 00:07:33,870
+the standard error
+that is equal to,
+
+185
+00:07:33,870 --> 00:07:37,220
+first, the sum of the
+squared standard errors,
+
+186
+00:07:37,220 --> 00:07:40,145
+and then the square
+root of that sum.
+
+187
+00:07:40,145 --> 00:07:42,515
+Now that we have
+this standard error,
+
+188
+00:07:42,515 --> 00:07:44,345
+I again compute a statistic,
+
+189
+00:07:44,345 --> 00:07:45,830
+which compares the difference in
+
+190
+00:07:45,830 --> 00:07:49,610
+the sample means relative to
+their sampling variability.
+
+191
+00:07:49,610 --> 00:07:51,620
+This is a ratio of the evidence
+
+192
+00:07:51,620 --> 00:07:53,150
+measured by the difference and
+
+193
+00:07:53,150 --> 00:07:54,335
+the amount of skepticism
+
+194
+00:07:54,335 --> 00:07:56,950
+represented by the standard
+error of the mean.
+
+195
+00:07:56,950 --> 00:07:58,770
+I emphasize, again, that
+
+196
+00:07:58,770 --> 00:08:01,000
+the denominator of
+this T-statistic,
+
+197
+00:08:01,000 --> 00:08:03,170
+the standard error
+for a difference of
+
+198
+00:08:03,170 --> 00:08:05,015
+two-sample means is not
+
+199
+00:08:05,015 --> 00:08:07,445
+the sum of the individual
+standard errors.
+
+200
+00:08:07,445 --> 00:08:09,410
+It's the sum of the square of
+
+201
+00:08:09,410 --> 00:08:12,995
+the standard errors
+then square root again.
+
+202
+00:08:12,995 --> 00:08:15,590
+So the statistic is
+then converted to
+
+203
+00:08:15,590 --> 00:08:18,500
+a P-value like it was
+in a one-sample t-test.
+
+204
+00:08:18,500 --> 00:08:20,540
+We use the P-value
+to decide whether or
+
+205
+00:08:20,540 --> 00:08:22,750
+not to reject the
+null hypothesis.
+
+206
+00:08:22,750 --> 00:08:24,260
+Once again, a value of
+
+207
+00:08:24,260 --> 00:08:26,750
+the statistic that's
+bigger than two or less
+
+208
+00:08:26,750 --> 00:08:28,430
+than negative two will give me
+
+209
+00:08:28,430 --> 00:08:31,415
+a P-value that is less than 0.05,
+
+210
+00:08:31,415 --> 00:08:34,910
+and allow me to reject
+the null hypothesis.
+
+211
+00:08:34,910 --> 00:08:39,050
+Now a 95 percent confidence
+Interval for the difference
+
+212
+00:08:39,050 --> 00:08:42,380
+in the two population
+means is computed by
+
+213
+00:08:42,380 --> 00:08:45,500
+taking the difference
+in the sample means and
+
+214
+00:08:45,500 --> 00:08:46,880
+simply adding or subtracting
+
+215
+00:08:46,880 --> 00:08:49,420
+two standard errors
+of their difference.
+
+216
+00:08:49,420 --> 00:08:51,980
+If this 95 percent
+confidence interval
+
+217
+00:08:51,980 --> 00:08:53,840
+does not contain zero,
+
+218
+00:08:53,840 --> 00:08:57,515
+then the P-value must
+be less than 0.05.
+
+219
+00:08:57,515 --> 00:09:00,560
+It's important to see
+how the T-statistic and
+
+220
+00:09:00,560 --> 00:09:02,960
+the 95 percent
+confidence interval all
+
+221
+00:09:02,960 --> 00:09:05,870
+use the same information in
+slightly different ways.
+
+222
+00:09:05,870 --> 00:09:07,900
+We use the difference
+in sample means,
+
+223
+00:09:07,900 --> 00:09:10,850
+we use the sampling variability
+of their difference,
+
+224
+00:09:10,850 --> 00:09:12,530
+and we use the critical value of
+
+225
+00:09:12,530 --> 00:09:15,475
+two that we got from a
+normal distribution.
+
+226
+00:09:15,475 --> 00:09:17,535
+So as an example,
+
+227
+00:09:17,535 --> 00:09:19,730
+I've pulled information
+from my manuscript
+
+228
+00:09:19,730 --> 00:09:22,700
+published by Pace and
+colleagues in 2017,
+
+229
+00:09:22,700 --> 00:09:24,230
+where they were
+interested in seeing if
+
+230
+00:09:24,230 --> 00:09:26,445
+the consumption of sugary
+beverages in adults
+
+231
+00:09:26,445 --> 00:09:30,010
+had any association with the
+level of calorie intake.
+
+232
+00:09:30,010 --> 00:09:32,870
+So the first population
+was all US adults who
+
+233
+00:09:32,870 --> 00:09:36,755
+reported consuming less than
+one sugary beverage per day,
+
+234
+00:09:36,755 --> 00:09:40,624
+and that population has a mean
+calories per day of Mu_1,
+
+235
+00:09:40,624 --> 00:09:43,010
+and the second population
+was all US adults who
+
+236
+00:09:43,010 --> 00:09:45,700
+reported consuming one to two
+sugary beverages per day,
+
+237
+00:09:45,700 --> 00:09:48,950
+and they had a mean
+calories per day of Mu_2.
+
+238
+00:09:48,950 --> 00:09:51,020
+Again, my hypotheses are first to
+
+239
+00:09:51,020 --> 00:09:54,230
+null that these two populations
+have the same mean,
+
+240
+00:09:54,230 --> 00:09:56,390
+and the alternative is
+that these two populations
+
+241
+00:09:56,390 --> 00:09:58,985
+have a different
+mean caloric intake.
+
+242
+00:09:58,985 --> 00:10:00,905
+From the first population,
+
+243
+00:10:00,905 --> 00:10:02,975
+they gathered a set of data from
+
+244
+00:10:02,975 --> 00:10:05,285
+just under 2,400 individuals.
+
+245
+00:10:05,285 --> 00:10:06,470
+You see the sample mean and
+
+246
+00:10:06,470 --> 00:10:08,705
+the sample standard
+deviation on the slide.
+
+247
+00:10:08,705 --> 00:10:10,475
+From the second population,
+
+248
+00:10:10,475 --> 00:10:12,830
+they gather data on a
+sample of just over 1,200
+
+249
+00:10:12,830 --> 00:10:15,560
+individuals with a
+corresponding sample mean,
+
+250
+00:10:15,560 --> 00:10:17,330
+and sample standard deviation.
+
+251
+00:10:17,330 --> 00:10:19,880
+I take these six
+pieces of information,
+
+252
+00:10:19,880 --> 00:10:22,870
+and I plug them into the
+formula for the T statistic.
+
+253
+00:10:22,870 --> 00:10:24,260
+You can see here that I get
+
+254
+00:10:24,260 --> 00:10:27,590
+a T-statistic of negative 10.4.
+
+255
+00:10:27,590 --> 00:10:30,980
+Again, the difference in
+the sample means could be
+
+256
+00:10:30,980 --> 00:10:32,615
+computed either by taking
+
+257
+00:10:32,615 --> 00:10:34,160
+the first mean minus the second,
+
+258
+00:10:34,160 --> 00:10:36,080
+or the second minus the first.
+
+259
+00:10:36,080 --> 00:10:38,590
+The ordering is irrelevant,
+because in the end,
+
+260
+00:10:38,590 --> 00:10:40,885
+we're interested in the
+magnitude of the statistic,
+
+261
+00:10:40,885 --> 00:10:43,280
+not the actual sign
+on the statistic.
+
+262
+00:10:43,280 --> 00:10:45,260
+Again, this statistic of negative
+
+263
+00:10:45,260 --> 00:10:48,635
+10.4 gives me a
+very small P-value.
+
+264
+00:10:48,635 --> 00:10:50,840
+Remember that the
+critical value is two,
+
+265
+00:10:50,840 --> 00:10:52,790
+and here we have a
+test statistic that is
+
+266
+00:10:52,790 --> 00:10:55,250
+very far to the left
+of negative two,
+
+267
+00:10:55,250 --> 00:10:58,445
+and therefore, produces
+a very small P-value.
+
+268
+00:10:58,445 --> 00:11:00,320
+From these data, we
+
+269
+00:11:00,320 --> 00:11:02,615
+conclude that we will
+reject the null hypothesis.
+
+270
+00:11:02,615 --> 00:11:04,490
+These two populations have
+
+271
+00:11:04,490 --> 00:11:07,160
+different mean calories per day.
+
+272
+00:11:07,160 --> 00:11:10,415
+We could also compute a 95
+percent confidence interval
+
+273
+00:11:10,415 --> 00:11:13,255
+for the two population
+means, and their difference.
+
+274
+00:11:13,255 --> 00:11:15,065
+From that formula, we plug in
+
+275
+00:11:15,065 --> 00:11:16,790
+the information from the data,
+
+276
+00:11:16,790 --> 00:11:18,590
+and I get a confidence
+interval of negative
+
+277
+00:11:18,590 --> 00:11:21,800
+268 to negative 182.
+
+278
+00:11:21,800 --> 00:11:24,680
+Again, this is a
+plausible range of values
+
+279
+00:11:24,680 --> 00:11:27,565
+for the difference in the
+population and the means.
+
+280
+00:11:27,565 --> 00:11:30,260
+The null value of zero
+for the difference is
+
+281
+00:11:30,260 --> 00:11:32,590
+not in this interval,
+and therefore,
+
+282
+00:11:32,590 --> 00:11:33,770
+my data tell me that
+
+283
+00:11:33,770 --> 00:11:36,260
+the actual difference
+is different from zero,
+
+284
+00:11:36,260 --> 00:11:39,920
+and I reject that null value.
+
+285
+00:11:39,920 --> 00:11:42,440
+So at this point, we
+have two pieces of
+
+286
+00:11:42,440 --> 00:11:43,970
+information to make
+a decision here.
+
+287
+00:11:43,970 --> 00:11:47,030
+We have a T-statistic
+of negative 10.4,
+
+288
+00:11:47,030 --> 00:11:49,040
+and a 95 percent
+confidence interval
+
+289
+00:11:49,040 --> 00:11:49,730
+for the difference in
+
+290
+00:11:49,730 --> 00:11:53,675
+the means of negative
+268 to negative 192.
+
+291
+00:11:53,675 --> 00:11:56,300
+So based upon these
+data, I ask you,
+
+292
+00:11:56,300 --> 00:11:58,235
+would you support a press release
+
+293
+00:11:58,235 --> 00:11:59,750
+that states that consumption of
+
+294
+00:11:59,750 --> 00:12:02,375
+sugary beverages
+is a direct cause
+
+295
+00:12:02,375 --> 00:12:04,595
+of higher caloric intake?
+
+296
+00:12:04,595 --> 00:12:06,835
+The answer to that
+question is no.
+
+297
+00:12:06,835 --> 00:12:09,340
+A t-test is used only to look at
+
+298
+00:12:09,340 --> 00:12:12,730
+the association between an
+exposure and an outcome.
+
+299
+00:12:12,730 --> 00:12:15,640
+It cannot be used to
+conclude that one might
+
+300
+00:12:15,640 --> 00:12:18,805
+be a causal impact on the other.
+
+301
+00:12:18,805 --> 00:12:22,245
+So concluding an
+association is appropriate,
+
+302
+00:12:22,245 --> 00:12:24,970
+including a causal
+relationship between these
+
+303
+00:12:24,970 --> 00:12:28,150
+two from a T-test
+is inappropriate.
+
+304
+00:12:28,150 --> 00:12:29,800
+So the true elegance of
+
+305
+00:12:29,800 --> 00:12:32,410
+a two-sample T-test
+is often lost in
+
+306
+00:12:32,410 --> 00:12:34,930
+the computations in the
+formulas that I've just shown
+
+307
+00:12:34,930 --> 00:12:37,900
+you but they are important
+for the computer to use.
+
+308
+00:12:37,900 --> 00:12:39,655
+So when a SQL to this lecture,
+
+309
+00:12:39,655 --> 00:12:40,540
+I would like to strip away
+
+310
+00:12:40,540 --> 00:12:42,310
+the mathematics and instead use
+
+311
+00:12:42,310 --> 00:12:43,960
+a visual heuristic that also
+
+312
+00:12:43,960 --> 00:12:47,867
+conveys how a two-sample
+t-test operates.
+

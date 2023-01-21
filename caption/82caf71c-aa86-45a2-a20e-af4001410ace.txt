@@ -1,0 +1,2476 @@
+1
+00:00:01,687 --> 00:00:07,777
+All right. So I'm going to go and get started here. I want to welcome our speakers today.
+
+2
+00:00:08,527 --> 00:00:14,257
+I've come here to thank who is joining us from the University of Rochester,
+
+3
+00:00:14,257 --> 00:00:19,177
+from the Department of Biostatistics and Computational Biology, where he's an associate professor.
+
+4
+00:00:20,137 --> 00:00:22,327
+He's been there since 2016.
+
+5
+00:00:22,327 --> 00:00:30,007
+And before that, a couple of post-docs, both at places close to my heart, one here at Michigan and then also at the University of Pennsylvania.
+
+6
+00:00:31,687 --> 00:00:32,737
+So anyway,
+
+7
+00:00:32,887 --> 00:00:42,187
+without any further ado and let us kind of kick it over and he's been talking about the data adaptive conditional on value functional estimations.
+
+8
+00:00:43,877 --> 00:00:50,487
+Right. But thanks for having me here.
+
+9
+00:00:50,517 --> 00:01:01,587
+It's a great pleasure to be back to the inaugural event. I recognize the driver who drove me from airport 11 years ago to the campus.
+
+10
+00:01:02,187 --> 00:01:06,447
+It's great to be here again. All right.
+
+11
+00:01:06,447 --> 00:01:12,687
+So I'm going to talk about this. It's really the talk has to two parts, two components.
+
+12
+00:01:14,187 --> 00:01:18,687
+I was just presenting one, but the other one depends on the first one.
+
+13
+00:01:18,897 --> 00:01:22,257
+So I go rather quickly, but I hope not too quick.
+
+14
+00:01:22,437 --> 00:01:29,877
+And the first part of my talk is about, you know, very simple thing that we all know.
+
+15
+00:01:29,877 --> 00:01:34,016
+I'm sure we all know it was cultivated as tomatoes. They have been around forever.
+
+16
+00:01:34,017 --> 00:01:37,257
+Harvest down to this tomatoes. Right. We all know it.
+
+17
+00:01:39,087 --> 00:01:44,726
+And we all also know that there are, you know, commonly used, very easy to use.
+
+18
+00:01:44,727 --> 00:01:49,527
+But there are some caveats. There are some efficiency, serious efficiency issues.
+
+19
+00:01:50,337 --> 00:01:57,806
+And I'm going to hopefully convince you that I will present a non politically efficient,
+
+20
+00:01:57,807 --> 00:02:02,877
+influenced English policy rated as tomatoes without knowing any efficiency purity.
+
+21
+00:02:04,047 --> 00:02:11,877
+So I never give this talk in front of Bush serious, but I don't think it would be my friend after I design this up.
+
+22
+00:02:13,437 --> 00:02:17,277
+But it really builds on all of those great work, of course.
+
+23
+00:02:17,577 --> 00:02:22,817
+So I have to acknowledge my great collaborators, Mark and Alan.
+
+24
+00:02:23,717 --> 00:02:28,227
+Look, that's why they're the candidate that you really botches their name on.
+
+25
+00:02:28,227 --> 00:02:33,687
+Hejazi He's at Harvard now and Brant Johnson, faculty in University of Rochester.
+
+26
+00:02:34,977 --> 00:02:38,877
+Would it be possible without any of these people's contribution to this work?
+
+27
+00:02:39,957 --> 00:02:46,497
+So again, going back, as I said in the intro, the ongoing risk quality weighted estimates, we all love them.
+
+28
+00:02:48,057 --> 00:02:54,327
+Easy to use, very easy to explain, to communicate and explain why they work and how they work.
+
+29
+00:02:55,227 --> 00:03:03,597
+But they are really several disadvantages that when we write a paper we like to to avoid and improve upon.
+
+30
+00:03:04,227 --> 00:03:11,877
+The first one is that, you know, it relies on the propensity score model or the wave function to be correctly specified.
+
+31
+00:03:12,207 --> 00:03:18,057
+And we know that they can be inefficient and also they suffer from curse of dimensionality,
+
+32
+00:03:18,057 --> 00:03:25,327
+meaning that the rate that you estimate your target parameter using this image
+
+33
+00:03:25,327 --> 00:03:31,137
+cultivated estimates are entirely rely on the rate you estimate your weight function.
+
+34
+00:03:31,977 --> 00:03:33,266
+So what does that mean?
+
+35
+00:03:33,267 --> 00:03:41,487
+It means that you cannot use data adaptive or non permission progression techniques if you are interested in root and rate estimates, for example.
+
+36
+00:03:41,997 --> 00:03:44,696
+So it's really outside the clinical trial.
+
+37
+00:03:44,697 --> 00:03:51,537
+The only way you can get a root and root and an esoteric linear estimate is out of opw is to use parametric models.
+
+38
+00:03:51,537 --> 00:03:56,427
+I don't do the parametric models and I don't think anyone should again outside clinical trials.
+
+39
+00:03:58,437 --> 00:04:03,537
+So of course there have been tremendous amount of important work around this area,
+
+40
+00:04:04,197 --> 00:04:11,127
+including the targeted IP w robust estimators of course, which I'm going to talk about a bit.
+
+41
+00:04:12,087 --> 00:04:20,037
+So this double robust estimate, those are great meaning that the the point being that the bias is second order bias.
+
+42
+00:04:20,637 --> 00:04:25,047
+So you can you rely on outcome model propensities and a propensity score.
+
+43
+00:04:25,227 --> 00:04:30,747
+So as long as you get each of them into quarter, you are good for good to go for a root and estimate.
+
+44
+00:04:33,847 --> 00:04:37,087
+But you still have to impose two models.
+
+45
+00:04:37,537 --> 00:04:41,707
+If you're for finite dimensional models, make parametric models for each of these models.
+
+46
+00:04:42,007 --> 00:04:45,397
+Again, you're going to be probably wrong again. Also, clinical trials.
+
+47
+00:04:45,787 --> 00:04:47,857
+So you'll have to deal with bias there.
+
+48
+00:04:48,307 --> 00:04:56,617
+And when you use data adaptive techniques like parametric regression methods, which you learning whatever you want to classify them into.
+
+49
+00:04:57,007 --> 00:05:00,157
+Then it's been shown that they can actually be quite irregular.
+
+50
+00:05:00,457 --> 00:05:04,347
+If you get one, you lose the double robust. This is not some normality.
+
+51
+00:05:04,777 --> 00:05:08,797
+Because if you get one of them wrong, the other one is only converting.
+
+52
+00:05:08,797 --> 00:05:15,277
+Happened to quite a rate. So it messes up the entire root and consistency theory for asymptotic linearity.
+
+53
+00:05:16,267 --> 00:05:22,837
+All right. So these are the problems that have been discussed. So we are trying to sort of overcome these issues.
+
+54
+00:05:23,047 --> 00:05:26,196
+And these papers by Mark and David.
+
+55
+00:05:26,197 --> 00:05:30,847
+Thank you, sir. They really get into TV and explain why this is a problem.
+
+56
+00:05:34,077 --> 00:05:38,417
+So I use highly adaptable law. So I just explain what it is.
+
+57
+00:05:38,427 --> 00:05:42,327
+You know, at a very high level, this is not covering the entire thing.
+
+58
+00:05:43,107 --> 00:05:48,177
+But my point being that I like to estimate the propensity score is too high deductible.
+
+59
+00:05:48,387 --> 00:05:51,777
+High deductible also is a feature expansion method.
+
+60
+00:05:52,347 --> 00:05:52,957
+It's last.
+
+61
+00:05:52,977 --> 00:06:01,797
+So it doesn't mean that I'm in a high dimensional confounding say no, I'm in a very simple, low dimensional w a y type of low confounding setting.
+
+62
+00:06:02,247 --> 00:06:10,827
+But a lawsuit comes in because high deductible so expands the feature and then selects among those expanded features.
+
+63
+00:06:11,217 --> 00:06:15,987
+Importantly, we know exactly how this highly adaptive lasso works in parts.
+
+64
+00:06:15,987 --> 00:06:24,027
+We know that the rate of coverage is faster than in the quarter or exactly into the Q range, then converting the cube rate.
+
+65
+00:06:25,347 --> 00:06:31,016
+And interestingly, this is regardless of dimensionality of P, so as long as the P dimension is fixed,
+
+66
+00:06:31,017 --> 00:06:37,797
+you get this rate, it doesn't declare the decay by by increasing the animation p again for a fixed fee.
+
+67
+00:06:38,517 --> 00:06:45,357
+And another interesting feature of hide out for lasso is that it doesn't it's so local a smoothness.
+
+68
+00:06:46,347 --> 00:06:49,707
+So your your function can be as bumpy as you want.
+
+69
+00:06:50,157 --> 00:06:55,047
+It is still guarantees the convergence at this rate and capturing the true function.
+
+70
+00:06:55,827 --> 00:06:59,817
+The only assumption it imposes this imposes global smoothness assumption.
+
+71
+00:07:00,147 --> 00:07:03,117
+The sexual variation norm has to be finite.
+
+72
+00:07:06,897 --> 00:07:15,206
+So the key objectives of the first part is I like to hope that I can convince you that we can build the leaders
+
+73
+00:07:15,207 --> 00:07:20,516
+motivated estimates that are asymptotically efficient that I'm talking about non parametric efficiency.
+
+74
+00:07:20,517 --> 00:07:26,967
+Everything's completely non parametric when the propensity score is estimated using unreasonable that highly doubtful awesome.
+
+75
+00:07:29,307 --> 00:07:35,787
+And of course I will propose a data dependent ADRs voting criteria as well.
+
+76
+00:07:36,177 --> 00:07:41,057
+So how do we do it when we define that data? How do we want to achieve that?
+
+77
+00:07:41,067 --> 00:07:54,567
+The goal we have? So again, kind of the significance of this work, I'd like to highlight these three points which summarizes what I said.
+
+78
+00:07:55,017 --> 00:08:00,957
+This in contrast to standard OPW estimate, it does not suffer from curse of dimensionality.
+
+79
+00:08:00,957 --> 00:08:05,967
+Because I just told you we can do a highly adaptive laser, which is an appropriate regression technique.
+
+80
+00:08:06,237 --> 00:08:11,547
+I simply drew that array in contrast to target the inverse policy weighted estimate.
+
+81
+00:08:11,787 --> 00:08:16,167
+It doesn't suffer from the irregularity issue that also our robust problems have.
+
+82
+00:08:17,097 --> 00:08:18,777
+And importantly,
+
+83
+00:08:18,957 --> 00:08:27,897
+the thing that you know is most interesting to me is that you can build an efficient estimate without derivation of efficiency plus function.
+
+84
+00:08:29,277 --> 00:08:35,487
+Right. So we all know that either a faulty weighted estimate or there's a if you want to gain efficiency,
+
+85
+00:08:35,487 --> 00:08:40,137
+you have to build this augmentation term that's built heavily on this efficiency theory.
+
+86
+00:08:40,347 --> 00:08:45,567
+And I'm just all I'm saying is that we don't need that. If you do it under smooth and highly adaptive optimizer.
+
+87
+00:08:47,727 --> 00:08:51,297
+So some locations, really what it matters the most is the green part.
+
+88
+00:08:51,387 --> 00:08:58,077
+Pretty simple setting is w a why point point estimate point treatment estimation w being the baseline.
+
+89
+00:08:58,737 --> 00:09:09,036
+G I use g general for, you know, nuisance probably because of weight function, the propensity score being IP w a propensity score it can be missing.
+
+90
+00:09:09,037 --> 00:09:13,097
+That comes down to can be so sorry whatever is of course setting because I mean
+
+91
+00:09:13,107 --> 00:09:19,737
+in general the rest are just for the sake of completeness for supporting a bit.
+
+92
+00:09:19,737 --> 00:09:23,847
+You have incomplete data. Incomplete data is a data that you have your counterfactuals.
+
+93
+00:09:23,847 --> 00:09:26,967
+Understood. Yeah. So that you can have the counterfactuals.
+
+94
+00:09:27,207 --> 00:09:31,497
+So you see it's the X is W Y is, you know, y what is your complete data?
+
+95
+00:09:31,537 --> 00:09:41,186
+Sometimes it lies in a non parametric model and then I have the even faulty mapping estimates done as I as I told you,
+
+96
+00:09:41,187 --> 00:09:45,687
+this is just the simple image quality way to estimate is that we all know the target parameters,
+
+97
+00:09:45,687 --> 00:09:49,527
+the expected value of y 1 to 10 by the time before treatment effect.
+
+98
+00:09:49,527 --> 00:10:00,687
+And so we can use for X, Y or Z if you want and this is are very well, you know familiar face of IP W estimates that I'm going to work but.
+
+99
+00:10:02,947 --> 00:10:08,007
+Right. So again, consistency coverage rate of these estimates without consistency,
+
+100
+00:10:08,007 --> 00:10:13,167
+coverage rate of estimate is up and that's what we were told and what we believe in so far.
+
+101
+00:10:15,507 --> 00:10:20,726
+We don't want to do find out dimensional models because they're likely to be wrong.
+
+102
+00:10:20,727 --> 00:10:23,907
+And the coverage rate case 2 to 0, our sample size increases.
+
+103
+00:10:23,907 --> 00:10:30,387
+So the coverage is basically zero for if, for example, if you define a sample, if you define it dimensional modeling.
+
+104
+00:10:31,527 --> 00:10:42,567
+So here is here's the you know, you know, kind of a simple math to show you why in general, when you have English automated estimates,
+
+105
+00:10:42,567 --> 00:10:46,797
+you cannot estimate the ways using non parametric regression techniques like random forest.
+
+106
+00:10:47,157 --> 00:10:50,967
+If you use random force for propensity score, you do that syntactic linearity.
+
+107
+00:10:51,297 --> 00:10:57,697
+And here is the here's basically the composition of this. So this is your let's say your site, your IP double estimate, okay?
+
+108
+00:10:57,717 --> 00:11:03,077
+This is your truth. This is just play this, you know, familiar game, empirical process theory.
+
+109
+00:11:03,387 --> 00:11:06,807
+You got to make this -0. You would zero.
+
+110
+00:11:07,047 --> 00:11:14,637
+This UGC is like the inverse quality weighted estimate over and the propensity score is known g zero means that the grade is known.
+
+111
+00:11:15,417 --> 00:11:18,807
+That's the that's just, you know, esoteric. You need a term.
+
+112
+00:11:19,317 --> 00:11:22,436
+Then I'm going to have this blue term, which is a second order term.
+
+113
+00:11:22,437 --> 00:11:23,697
+I'm not going to worried about it.
+
+114
+00:11:25,347 --> 00:11:32,666
+It's a second order and protocol process theory and consistency again to zero tells me that this is just the open to have negligible.
+
+115
+00:11:32,667 --> 00:11:41,037
+Asymptotically, the red guy is the problematic guy that is not going to be it's going to contribute in a non-trivial way.
+
+116
+00:11:41,707 --> 00:11:44,786
+Right. And I want to see if I can handle this.
+
+117
+00:11:44,787 --> 00:11:49,617
+We understand that height adaptive. So one step estimates also can do that.
+
+118
+00:11:51,437 --> 00:11:55,577
+So all that sintering linearity really relies on this guy, right?
+
+119
+00:11:56,207 --> 00:12:00,377
+And this is already entirety. So let's see what we can do with this PCR test.
+
+120
+00:12:00,557 --> 00:12:09,227
+By the way, PCR is standard notation. Protocol process theory is just the expectation of respect that the data generated distribution can zero.
+
+121
+00:12:10,547 --> 00:12:15,707
+Again, just a tiny bit of math. And remember, I'm trying to hand out this p zero time.
+
+122
+00:12:16,517 --> 00:12:22,577
+All it matters is that if I just play the same, you know, in some algebra,
+
+123
+00:12:22,577 --> 00:12:30,617
+I can show that I can write this p zero term as p and minus p0d car minus PND car problem, some stuff.
+
+124
+00:12:31,067 --> 00:12:36,197
+So this the car, if you look at it, it's your augmentation time, right?
+
+125
+00:12:36,617 --> 00:12:40,217
+It's the augmentation time you get augmented English quality weighted estimate.
+
+126
+00:12:41,177 --> 00:12:47,957
+And this guy, again, you have an extra term that it's not vanishing at a rate it's going to stick there.
+
+127
+00:12:48,227 --> 00:12:50,297
+It's going to destroy your asymptotic linearity.
+
+128
+00:12:50,927 --> 00:13:00,257
+So my point is that I'll try to basically kill that red term in order to regain asymptotic linear estimate.
+
+129
+00:13:00,467 --> 00:13:08,897
+By just that he was faulty rated. Again, my vehicle is just the augmented components of augmented because of the rate of speeders.
+
+130
+00:13:09,527 --> 00:13:15,557
+Okay, let's take a look at this. So remember, it's just I'm writing about gathering times together.
+
+131
+00:13:16,097 --> 00:13:19,217
+So this is the Opw contribution.
+
+132
+00:13:19,247 --> 00:13:24,927
+This is subtracting off the basically projection onto the newsstands of the space that I've mentioned.
+
+133
+00:13:24,927 --> 00:13:28,187
+He responded to this commanders and the read time. Right.
+
+134
+00:13:28,457 --> 00:13:34,967
+If I can show you that this red term I can kill it, meaning that I can make it to be open to half,
+
+135
+00:13:35,537 --> 00:13:43,937
+then it's not going to contribute at all because I'm interested in a route I read in France and then I'll all have this had minus size zero,
+
+136
+00:13:44,357 --> 00:13:54,407
+having this influence function plus negligible term and based on the canonical gradient of my functional parameter of interest.
+
+137
+00:13:54,767 --> 00:13:59,177
+I know that this guy is actually officially for this function or the canonical gradient.
+
+138
+00:13:59,897 --> 00:14:04,097
+Therefore I can just show that the CI had is an official estimate.
+
+139
+00:14:04,877 --> 00:14:08,777
+It has the same canonical gradient as augmented English, while the weighted estimate is.
+
+140
+00:14:11,807 --> 00:14:19,247
+All right. So how is it possible? How is it even possible to to just do it, which is unreasonable think a propensity score to get an efficiency.
+
+141
+00:14:22,007 --> 00:14:30,547
+Again, a quick review on how it because I need to explain how it works in order to get to the point that I can kill that right turn.
+
+142
+00:14:31,307 --> 00:14:35,567
+So as I said, how is it expand? It expands features.
+
+143
+00:14:35,807 --> 00:14:43,037
+So if P is your dimension of your capacity to expand it to this number of covariates, you see it goes more than ten.
+
+144
+00:14:43,307 --> 00:14:49,937
+So it becomes a 900 divided by problem. And then that's where Lasso comes in and select those extra features out.
+
+145
+00:14:50,897 --> 00:14:56,386
+So it's just a simple example I thought might be helpful. Suppose I have a single dimensional covariate.
+
+146
+00:14:56,387 --> 00:15:04,337
+Just w what? How does it create these bunch of indicator basis functions for any of the observe points?
+
+147
+00:15:04,637 --> 00:15:10,547
+So when you have just one continuous valuable, that creates an dimensional design matrix for you.
+
+148
+00:15:11,837 --> 00:15:24,727
+Okay. So again, under the hood you are estimating your propensity score using highly adaptive lasso.
+
+149
+00:15:25,087 --> 00:15:32,427
+So you are solving bunch of a score equations. And if you look at this guy, this is just the score equation of logistic regression.
+
+150
+00:15:32,437 --> 00:15:40,417
+Basically write this, this score, you can replace it by X if you are in a parametric world and that gives you the scoring question.
+
+151
+00:15:40,897 --> 00:15:49,627
+And now when I when I start under smoothing this guy, I can reduce I can shrink this to somewhat smaller value to error.
+
+152
+00:15:50,557 --> 00:15:56,167
+But the important thing is, as I smooth, I start solving more and more a score of questions.
+
+153
+00:15:56,767 --> 00:16:00,397
+Right? Because this might be like in a typical regression,
+
+154
+00:16:00,397 --> 00:16:07,686
+this would be like the p dimension of the score if you have a p dimensional covariate and this guy la so highly adaptable.
+
+155
+00:16:07,687 --> 00:16:12,187
+So it is just created that ginormous design matrix that I showed you.
+
+156
+00:16:12,667 --> 00:16:16,197
+So you start solving many, many scoring questions, right?
+
+157
+00:16:17,947 --> 00:16:23,077
+By just running the highly adaptive lasso on principle to guide adopted lasso, let's look at the de card.
+
+158
+00:16:23,467 --> 00:16:30,547
+So de card has, let's say, has the form of F.W. a minus gene, so have adopted lots of it.
+
+159
+00:16:31,027 --> 00:16:38,347
+Your f remember it was by construction, it was Q W over GW Q was outcome model divided by propensity score?
+
+160
+00:16:40,207 --> 00:16:52,087
+And we know that when F assuming that F has finite sexual variation norm, we can approximate F by sum of basis function, weighted basis function.
+
+161
+00:16:52,087 --> 00:16:57,457
+This is an existing result going back to yields I think 1995 and Mark Van Lab.
+
+162
+00:16:58,357 --> 00:17:02,677
+So as you see, you see you're solving many, many scoring questions for all of these.
+
+163
+00:17:02,947 --> 00:17:09,517
+JS So you will see you will also solve a weighted combination of these scoring questions.
+
+164
+00:17:10,477 --> 00:17:16,987
+Therefore you are actually solving this guide to them, to the, to the proximity you want o.p and you have.
+
+165
+00:17:18,457 --> 00:17:25,057
+So the augmented, augmented component of English motivated estimators has no contribution.
+
+166
+00:17:26,317 --> 00:17:31,477
+So just thing all the way that estimate to give you a where you want to be in terms of efficiency.
+
+167
+00:17:35,967 --> 00:17:40,567
+Is there any question in this? You have any questions that think.
+
+168
+00:17:43,567 --> 00:17:53,117
+Okay. So of course, there you know, we want to know how to underscore it, because if you underscore too much, it's going to start hurting you.
+
+169
+00:17:53,507 --> 00:17:59,627
+So you have to underscore just to do that sweet spot that gives you efficiency, nothing more, nothing less.
+
+170
+00:18:00,587 --> 00:18:08,387
+And one targeted manager, you can do that. You know, we are your goal is to minimize this because it was a red term that I showed you.
+
+171
+00:18:08,747 --> 00:18:18,316
+They just undress. Will continue on smoothing the field until this guy you can argue meaning you can minimize the impact their alarm does and
+
+172
+00:18:18,317 --> 00:18:24,677
+minimize their of this object that function as you think about it as you start solving more and more score to question this,
+
+173
+00:18:24,677 --> 00:18:29,566
+this curve goes down and as you start under under smoothing too much overfitting
+
+174
+00:18:29,567 --> 00:18:35,537
+so overfitting very badly because in the car it's one over g and term involves.
+
+175
+00:18:35,747 --> 00:18:40,967
+So the denominator starts hitting the boundaries so that therefore it starts jumping going up.
+
+176
+00:18:41,357 --> 00:18:45,557
+So there is really the, the minimum of this curve that you can capture.
+
+177
+00:18:46,007 --> 00:18:50,896
+And that's one way to think about it. The other way is the purely scoring equation.
+
+178
+00:18:50,897 --> 00:18:58,936
+This is just the scoring equation of eight minus G and that seems to be very well works very well in this case.
+
+179
+00:18:58,937 --> 00:19:08,867
+The difference between these two is that if you want to use this, that the top one to g car based one is you have to know the form of the car.
+
+180
+00:19:09,497 --> 00:19:15,527
+But what I said is what I promised is that you don't have to have that form of augmentation,
+
+181
+00:19:16,007 --> 00:19:20,627
+state augmentation, term and efficiency theory to build this estimate.
+
+182
+00:19:20,987 --> 00:19:24,856
+And this is where you get it. This is has nothing to do with efficiency.
+
+183
+00:19:24,857 --> 00:19:28,817
+First function is just this score function. It tells you how to respond.
+
+184
+00:19:28,817 --> 00:19:35,417
+The score function of your highly adaptive lasso with logic lens for your propensity score.
+
+185
+00:19:37,937 --> 00:19:44,207
+Just a quick simulation. I'm looking at the scale bias.
+
+186
+00:19:44,207 --> 00:19:49,337
+So this is a route and times as I had minus side was this I had is the opw estimated
+
+187
+00:19:49,337 --> 00:19:55,876
+hour and it's a this is a D car and they confident the coverage of course we are highly
+
+188
+00:19:55,877 --> 00:20:02,057
+interested in this guy the coverage you see that the the when when I undress with using
+
+189
+00:20:02,057 --> 00:20:07,887
+the the the method I explained the criteria and I explained the bias remains out.
+
+190
+00:20:07,997 --> 00:20:12,857
+The scale by the by bias does not explode is stays manageable.
+
+191
+00:20:13,157 --> 00:20:16,067
+And also the coverages are pretty good.
+
+192
+00:20:16,157 --> 00:20:23,777
+I we looked at thousand to 5000, but in the paper we also have lower sample sizes for about like think 460 and up.
+
+193
+00:20:24,827 --> 00:20:31,097
+And also what you see is that so the if you if you just pick up highly adaptive lot so using cross-party
+
+194
+00:20:31,097 --> 00:20:36,587
+data height adaptive glasses so not under smoothing this like picking random forest if you like,
+
+195
+00:20:37,067 --> 00:20:40,967
+this is the coverage that you get. So you get around 50% coverage rate.
+
+196
+00:20:41,447 --> 00:20:47,957
+So that's how much smoothing helps you to gain back the the asymptotic linearity.
+
+197
+00:20:48,197 --> 00:20:54,017
+So the reason the coverage is falling that much because of that red term that is contributing to bias,
+
+198
+00:20:54,437 --> 00:20:58,187
+your estimate is quite substantially biased if you don't.
+
+199
+00:21:00,527 --> 00:21:04,667
+Okay. So, so now I'm going to use that.
+
+200
+00:21:05,177 --> 00:21:10,727
+So the framework, you know, the focus of, of my talk here is just the time point.
+
+201
+00:21:11,207 --> 00:21:18,857
+Wbay But really the most important contribution of this could be in settings where you have longitudinal data,
+
+202
+00:21:19,247 --> 00:21:26,327
+where we know the form of efficient inference function can be quite complex and requires many, many model of specifications.
+
+203
+00:21:26,657 --> 00:21:32,957
+So it's not it might not be desirable to just go through modeling everything through a very long longitudinal study.
+
+204
+00:21:33,287 --> 00:21:39,407
+And this you can just undress, smooth and just use your very familiar IP estimate to get very well.
+
+205
+00:21:42,587 --> 00:21:52,327
+The next part of the talk. I use this under a smoothing idea to to build an optimal semi parametric decision rule.
+
+206
+00:21:53,117 --> 00:22:01,337
+I based off this opw estimate years and also I built a data adaptive estimate for conditional value function.
+
+207
+00:22:01,577 --> 00:22:08,117
+So value function is the expected value of outcome under a given treatment regime, right?
+
+208
+00:22:08,387 --> 00:22:14,327
+That's about it for me. That's how we define value function and conditional means that is the stratum based.
+
+209
+00:22:14,657 --> 00:22:22,727
+So for example, it would be expected value of Y under a treatment decision rule a d given certain variable v.
+
+210
+00:22:23,807 --> 00:22:28,907
+Right. This is a strong home base. We usually stay in a low dimensional, if you want.
+
+211
+00:22:29,057 --> 00:22:33,647
+It could be for example, it could be years of alcohol use at baseline.
+
+212
+00:22:34,247 --> 00:22:39,527
+So the complexity is that when you when you deal with conditional value function,
+
+213
+00:22:40,187 --> 00:22:44,837
+your target parameters, your target prompted become nine pathways differentiable.
+
+214
+00:22:45,347 --> 00:22:51,017
+When you have a known pathway differentiable function, you cannot have efficient if there is no canonical gradient.
+
+215
+00:22:51,257 --> 00:22:54,887
+So the inference for that objective just becomes extremely more difficult.
+
+216
+00:22:55,727 --> 00:23:02,147
+So of course, then you have to build some a smoothing idea around it to make it like a manageable target private.
+
+217
+00:23:02,237 --> 00:23:03,617
+That's what we're going to do.
+
+218
+00:23:06,617 --> 00:23:15,167
+And yeah, so we like to also understand, of course, okay, if you do this, how does this estimate out of this conditional value function?
+
+219
+00:23:15,467 --> 00:23:24,707
+Well, work. My margin structure models have been around for many years in model structure models.
+
+220
+00:23:25,007 --> 00:23:28,877
+Great tool. They work for longitudinal data, single stage data.
+
+221
+00:23:28,907 --> 00:23:37,307
+Again, I'm focusing on time point right now. What it gives you, it gives you exactly what I describe expected value of Y under a treatment regime.
+
+222
+00:23:37,817 --> 00:23:43,937
+You can have given V or you can have just the marginal expected value of y v that sides your decision rule.
+
+223
+00:23:44,877 --> 00:23:51,557
+Okay. What would have happened if you imposed to intervene in the population the treatment decision rule D for everyone?
+
+224
+00:23:52,967 --> 00:23:54,977
+Okay, so it can do it.
+
+225
+00:23:55,247 --> 00:24:03,887
+But much of the structure models, as you said, the model, it imposes finite dimension of model under this conditional expectation value.
+
+226
+00:24:04,577 --> 00:24:10,937
+Right. So, you know, if this correct, if this model is it's not going to be correctly specified,
+
+227
+00:24:11,237 --> 00:24:21,287
+but it's got to be you can kind of interpret it as a projection of the true underlying model, such a model onto this parametric model.
+
+228
+00:24:22,037 --> 00:24:29,237
+And it depends. You might be very far off from the true you might not even captured the minimize or optimizers of this function.
+
+229
+00:24:29,537 --> 00:24:33,377
+So there are problems with this model structural models, parametric models.
+
+230
+00:24:34,007 --> 00:24:38,537
+There are ways to estimate the parameters as poverty estimates, double robustness debaters.
+
+231
+00:24:38,747 --> 00:24:44,507
+No matter what, you have to deal with the marginal model that you're specifying at the beginning.
+
+232
+00:24:44,507 --> 00:24:49,097
+Otherwise you got to go wrong or, you know, the projection could be quite wrong.
+
+233
+00:24:51,257 --> 00:24:53,387
+So the idea is.
+
+234
+00:24:54,857 --> 00:25:06,347
+Let's do the English while he made it last function for sense but fit the MSM also using a non parametric a model using like highly adaptive lasso.
+
+235
+00:25:06,537 --> 00:25:12,526
+So again I'm building compression now parametric estimate are right there is nothing semi parametric nothing.
+
+236
+00:25:12,527 --> 00:25:17,367
+There is no parametric assumptions here. Yeah.
+
+237
+00:25:17,607 --> 00:25:21,917
+I talk about everything here. I guess so.
+
+238
+00:25:21,927 --> 00:25:27,146
+Mark and he's a student in 2007.
+
+239
+00:25:27,147 --> 00:25:32,277
+They have this documented module structure model, but it's not really known parametric.
+
+240
+00:25:32,907 --> 00:25:36,747
+They still they kind of redefined the concept as a projection,
+
+241
+00:25:37,077 --> 00:25:43,737
+better defined a projection so that they regain the causal interpretation of their mis specified model basically.
+
+242
+00:25:43,947 --> 00:25:47,007
+So again, under the hood is a parametric model that going on.
+
+243
+00:25:47,367 --> 00:25:56,667
+But they just explained that they can have this, you know, causal interpretation out of this possibly mis specified model.
+
+244
+00:26:02,387 --> 00:26:10,397
+So the other component that is related to the value function is, of course, the individual's treatment strategies and decision rules.
+
+245
+00:26:10,427 --> 00:26:13,727
+There are ways, different ways that are indirect methods, direct methods.
+
+246
+00:26:14,177 --> 00:26:16,757
+Indirect methods are, you know. Q Learning.
+
+247
+00:26:16,787 --> 00:26:23,627
+A Learning and maybe model structure model optimizer structure model also may be classified as an indirect method.
+
+248
+00:26:25,067 --> 00:26:29,956
+The direct methods are methods that the optimal the individual treatment strategy
+
+249
+00:26:29,957 --> 00:26:34,657
+directly using the value function and without specifying the outcome model basically.
+
+250
+00:26:35,897 --> 00:26:39,527
+A There are ways to estimate the parameters of the decision rule.
+
+251
+00:26:39,647 --> 00:26:48,407
+Again, IP, wdr robust estimate ers they in indirect methods we typically restrict our cost of rules to be, let's say, linear.
+
+252
+00:26:49,127 --> 00:26:56,837
+We look at linear class of rules and then we build on all this, you know, assuming that the without the specific costs of rules,
+
+253
+00:26:56,837 --> 00:27:02,297
+we build on your asymptotic theory and everything goes through, you can provide inference for those parameters.
+
+254
+00:27:04,067 --> 00:27:08,717
+The different approaches are can be completely non parametric, but again,
+
+255
+00:27:09,077 --> 00:27:14,207
+the inference gets really difficult because of the non parametric nature of this decision rules.
+
+256
+00:27:14,567 --> 00:27:17,476
+So that theory to them, to my knowledge, the theory,
+
+257
+00:27:17,477 --> 00:27:24,017
+existing theory around Fisher Fisher consistency and risk balance and coverage rate of the value function.
+
+258
+00:27:24,947 --> 00:27:26,957
+So far that's the existing result.
+
+259
+00:27:29,777 --> 00:27:40,877
+So I propose a dynamic modular structure framework that can be used to build this semi parametric optimal decision rules,
+
+260
+00:27:41,477 --> 00:27:49,547
+semi parametric meaning that it's parametric in some aspect and it's not parametric for some other variables.
+
+261
+00:27:49,847 --> 00:27:57,987
+And then explain why you can we can actually build this kind of decision tools on both the outcome model,
+
+262
+00:27:58,877 --> 00:28:04,937
+but it's called the marginal structure model and reduces parameters are estimated non parametric as I mentioned.
+
+263
+00:28:05,177 --> 00:28:14,717
+And we basically want to reframe this problem as a dose response curve problem where the parameters in your decision draw the role of your dose,
+
+264
+00:28:15,797 --> 00:28:22,936
+right? So you want to optimize the dollars, you want to optimize those parameters. There's a like a natural link between these two concepts.
+
+265
+00:28:22,937 --> 00:28:26,237
+Again, some notation I repeat some of these,
+
+266
+00:28:26,237 --> 00:28:33,106
+but I think the difference is really I although to be an L treatment is binary and also a little to be another way.
+
+267
+00:28:33,107 --> 00:28:37,787
+Of course, setting it can be so sorry and can be anything else, just for generality.
+
+268
+00:28:38,357 --> 00:28:43,277
+So there are two levels, of course, and here the decision rule look at this is linear.
+
+269
+00:28:43,277 --> 00:28:46,007
+So far it's just as is transpose theta.
+
+270
+00:28:46,367 --> 00:28:56,667
+There is a subset of you are based on variables the target parameters, the conditional value of function is defined in blue here, right?
+
+271
+00:28:56,837 --> 00:28:59,747
+So this is your conditional value function.
+
+272
+00:28:59,987 --> 00:29:06,527
+And of course if you optimize this, you can build an all parametric decision tool because it's a this is non parametric in V,
+
+273
+00:29:07,217 --> 00:29:09,637
+as I said, I'll offer the non parametric model for this.
+
+274
+00:29:11,957 --> 00:29:17,417
+So the assumption I'll make here is that this this function should fall into the class of count
+
+275
+00:29:17,427 --> 00:29:22,127
+like functions with finite sexual variation or so some kind of a smoothness you need to assume.
+
+276
+00:29:22,397 --> 00:29:32,237
+Again, global is smooth this not low power smoothness. So I bring down this is the full data loss.
+
+277
+00:29:32,417 --> 00:29:37,637
+Again, assuming that you observe all the outcomes for all of the possible decision roles, it's just a hypothetical thing.
+
+278
+00:29:38,447 --> 00:29:43,337
+This would be your full data loss and the theta v specific optimal decision rule.
+
+279
+00:29:43,337 --> 00:29:54,347
+As I said, you can define this theta V as ard max or argument define depending on the optimizer as the sine theta v right.
+
+280
+00:29:54,647 --> 00:30:00,167
+So this theta is a non parametric function of V, that's a non parametric component.
+
+281
+00:30:01,937 --> 00:30:05,687
+And again, these are just your just course setting mechanism.
+
+282
+00:30:05,687 --> 00:30:11,567
+And the Q I use the same kind of notation as the expected value of Y theta given.
+
+283
+00:30:11,567 --> 00:30:20,447
+W So this lost function, I believe it may be familiar to, to many of you is just, you know,
+
+284
+00:30:20,837 --> 00:30:27,587
+usual a square kind of lost function and this is the weighted IP W component because you don't
+
+285
+00:30:27,587 --> 00:30:32,956
+want to adjust for by stuff and the integral over theta is maybe the only different part.
+
+286
+00:30:32,957 --> 00:30:38,027
+And remember that theta was the parameter of your decision rule.
+
+287
+00:30:38,717 --> 00:30:42,107
+So there were lost tries to minimize your loss.
+
+288
+00:30:42,467 --> 00:30:48,287
+Your hope is to minimize the loss across all the possible decision rules popularized by theta.
+
+289
+00:30:49,157 --> 00:30:55,907
+Right. And this if theta is it can be very non informative distribution.
+
+290
+00:30:55,907 --> 00:30:59,747
+I think I do talk about it here. It can be like a multivariate normal.
+
+291
+00:31:00,107 --> 00:31:04,517
+To build large barriers or if you want to have a uniform distribution of market uniform.
+
+292
+00:31:06,477 --> 00:31:12,087
+And we know how to deal with this loss functions on our packages to do this using highly adaptive.
+
+293
+00:31:12,277 --> 00:31:20,637
+So let's say if you like. And so we defined a true PSI as a minimize it up this loss function and PSI and would be just hard
+
+294
+00:31:20,637 --> 00:31:26,817
+mean of this analogy and this just that what you estimate using data feeding into your software.
+
+295
+00:31:31,887 --> 00:31:39,657
+So as I said, this function is a is an honest more known pathways differentiable function for when you have a continuous V.
+
+296
+00:31:39,987 --> 00:31:46,137
+So if there is any hope to provide inference for, we need to put some kind of kernel on top of it to smooth it out.
+
+297
+00:31:46,377 --> 00:31:56,067
+And this is the final estimate that we have. So this is just a journalist with a version of your highly adaptable ISO estimating, right?
+
+298
+00:31:56,067 --> 00:31:59,547
+So to obtain this estimate, it's all there.
+
+299
+00:31:59,577 --> 00:32:04,107
+You know, we have packages already, our packages that we can use to get these estimates.
+
+300
+00:32:04,587 --> 00:32:14,726
+The point being that hotel we regain efficiency again by just looking at only inverse faulty way to type estimate hours in this case,
+
+301
+00:32:14,727 --> 00:32:19,927
+the lost function. The target of up parents could be size zero.
+
+302
+00:32:19,997 --> 00:32:24,376
+The actual true condition of any function or can be that true.
+
+303
+00:32:24,377 --> 00:32:29,657
+But the smooth that version of this it can be to define a target parameter for this.
+
+304
+00:32:32,337 --> 00:32:41,487
+So using again, it was a guess. I'll say primarily the theory that I kind of showed in the other part of the talk.
+
+305
+00:32:42,297 --> 00:32:51,087
+We can show that you can take a asymptotic linear estimate of for that a smoother version of your estimate around parameter.
+
+306
+00:32:51,447 --> 00:32:59,757
+If you Jane if you can solve the under smooth enough so that these equations are small enough negligible enough.
+
+307
+00:33:00,237 --> 00:33:04,556
+Here R is the dimension of your R of your V, right?
+
+308
+00:33:04,557 --> 00:33:12,147
+And this is just a typical rate that you expect to see when you have like a kernel density estimation, for example.
+
+309
+00:33:13,107 --> 00:33:20,997
+So again, if you look at this, it suggests that we need to understand that the core setting mechanism for for Delta,
+
+310
+00:33:21,177 --> 00:33:26,306
+it could be your censoring if you want to satisfy this quite to satisfy this equation,
+
+311
+00:33:26,307 --> 00:33:35,817
+to minimize this equation, you need to underscore the A, the G and the propensity score, the treatment mechanism model.
+
+312
+00:33:36,087 --> 00:33:41,007
+And also you need to understand your highly adaptive loss of field for the outcome model.
+
+313
+00:33:41,427 --> 00:33:46,016
+Right. So you have three level under smoothing that you need to go through in order to
+
+314
+00:33:46,017 --> 00:33:52,907
+make sure these these are playing the same role as the red red component red term.
+
+315
+00:33:52,917 --> 00:33:58,077
+In the more simplified version of the IP estimate, I present that the first part of the talk.
+
+316
+00:33:58,347 --> 00:34:02,427
+So if you don't make sure that they are negligible in this rate,
+
+317
+00:34:02,667 --> 00:34:11,607
+they will contribute to your bias and therefore you going to see all that very low coverage rates and high bias violates.
+
+318
+00:34:15,197 --> 00:34:23,327
+So theoretical, I just go through very quickly. So the point I'm trying to make here is that the estimate that you build with
+
+319
+00:34:23,327 --> 00:34:28,607
+this are sufficiently under a small third criterion you can have you can gain,
+
+320
+00:34:28,787 --> 00:34:32,537
+again, not politically efficient estimates, which they can only call this.
+
+321
+00:34:32,537 --> 00:34:35,267
+Is that going to chemical gradient, an artificial influence function distort?
+
+322
+00:34:35,657 --> 00:34:40,457
+And of course, you're going to have that bias because of the actual smoothing.
+
+323
+00:34:40,727 --> 00:34:47,657
+But then we show that if you slightly if you may, if you select your bandwidth for general smoothing in a proper rate,
+
+324
+00:34:47,897 --> 00:34:52,606
+you can actually get this this time to converge to a to a normal random variable.
+
+325
+00:34:52,607 --> 00:34:56,897
+So you get your asymptotic normality point wise with this.
+
+326
+00:34:56,897 --> 00:35:02,867
+Again, this rate is not it's kind of familiar with the current density estimation.
+
+327
+00:35:04,727 --> 00:35:14,477
+The other target parameter that I talked about was the size, you know, h when when you target the, the smoother version of size zero for this,
+
+328
+00:35:14,477 --> 00:35:21,016
+we have a stronger result of course because we are our estimate error is under it's a kernel smooth at the target price.
+
+329
+00:35:21,017 --> 00:35:25,457
+It is also very smooth. And so you can have the root and rate estimate.
+
+330
+00:35:25,457 --> 00:35:30,437
+Error is the root and it's an h r, you get a much faster rate,
+
+331
+00:35:30,527 --> 00:35:37,427
+root and rate and we actually can have the you just show also that this converges
+
+332
+00:35:37,427 --> 00:35:41,057
+to Gaussian process so you can build simultaneous confidence intervals,
+
+333
+00:35:41,287 --> 00:35:49,907
+you know, just point wise confidence intervals. We also have the uniform consistency resolve that I skip.
+
+334
+00:35:51,587 --> 00:35:58,316
+I think be one thing that we do really care about was let's say minimize or maximize
+
+335
+00:35:58,317 --> 00:36:04,457
+the of that expected value of y theta given V by the conditional value function.
+
+336
+00:36:05,177 --> 00:36:11,177
+Because we want to we wanted to find a rule that maximizes your value function and minimizes your value function.
+
+337
+00:36:11,507 --> 00:36:16,307
+So you need you have a theta that is the argument or arg max of that curve.
+
+338
+00:36:16,667 --> 00:36:21,887
+And now you want to understand, okay, we know how that conditional value function estimate our works,
+
+339
+00:36:22,247 --> 00:36:28,997
+it has asymptotic normality, everything good but does that minimize or optimize our or let's say optimize it up?
+
+340
+00:36:28,997 --> 00:36:34,997
+That function also converges to the true optimization of the underlying function, right?
+
+341
+00:36:35,267 --> 00:36:43,577
+That's the theta MH which is the large mean or arg max of the site and edge function that they estimate a conditional value function.
+
+342
+00:36:44,477 --> 00:36:46,637
+And we show that this has this body rate.
+
+343
+00:36:47,477 --> 00:36:57,046
+And of course this relies on this very famous margin assumption in classification that basically says you cannot have many,
+
+344
+00:36:57,047 --> 00:37:00,607
+many sample points on the boundary of the decision. All right.
+
+345
+00:37:00,667 --> 00:37:08,957
+So that that's the that's an underlying assumption. Big gap with this margin assumption, I think comes from retail paper 2007.
+
+346
+00:37:12,647 --> 00:37:22,007
+Another component, you know, one relatively complex thing in usually in kernel density estimation is how to get the optimal bandwidth.
+
+347
+00:37:22,457 --> 00:37:27,017
+We have the optimal bandwidth rate asymptotically, you know, we want it to behave.
+
+348
+00:37:27,407 --> 00:37:30,957
+But how do we selected in a finite sample? Right.
+
+349
+00:37:31,277 --> 00:37:35,747
+How do you get the right channel smoothing that you want to impose on top of your function?
+
+350
+00:37:36,407 --> 00:37:44,127
+It's a biased value is tradeoff. As you decrease, as you decrease your edge, the bandwidth bias goes down, various goes up, right?
+
+351
+00:37:44,477 --> 00:37:49,457
+So it's a bias that is tradeoff. It reminds us MSI High, we want to minimize MSI.
+
+352
+00:37:49,667 --> 00:37:58,037
+The problem is in MSI, you don't know the bias. So you cannot implement MSI type criteria when you're dealing with the real data, right?
+
+353
+00:37:58,607 --> 00:38:03,377
+So let's just write the definition of MSI and take it derivative.
+
+354
+00:38:03,377 --> 00:38:06,856
+So you want to minimize MSI, set the derivative equal to zero.
+
+355
+00:38:06,857 --> 00:38:09,767
+That's why that's what is happening here. Right.
+
+356
+00:38:11,027 --> 00:38:19,007
+But we can actually get read that this is the biased term that we don't know with data, that we can now basically use this criteria with that.
+
+357
+00:38:19,307 --> 00:38:22,577
+But we know that, you know, in kernel density estimation,
+
+358
+00:38:22,577 --> 00:38:30,917
+I'm going back to this point that the optimal bias variance tradeoff is when your bias is same order of your variance.
+
+359
+00:38:32,507 --> 00:38:36,097
+Right. So if you just replace this bias with the best of the various,
+
+360
+00:38:36,277 --> 00:38:42,637
+you can cross out this term with the bias term so everything becomes an estimable quantity.
+
+361
+00:38:44,577 --> 00:38:49,827
+What does it mean? It's much easier if I show you on a graph.
+
+362
+00:38:51,127 --> 00:38:54,727
+So this is your age. You want to find out optimal bandwidth.
+
+363
+00:38:55,057 --> 00:39:00,427
+Right. As age decreases, your value function goes higher.
+
+364
+00:39:00,817 --> 00:39:04,447
+Suppose it goes high. That goes to the true value function, right?
+
+365
+00:39:04,837 --> 00:39:14,217
+At the bias goes down. So the red is just the bias that it's just your cyan trying to reach to the size zero.
+
+366
+00:39:14,677 --> 00:39:19,387
+It has an increasing trend where the bias values tradeoff comes in.
+
+367
+00:39:19,777 --> 00:39:27,337
+So if you look at the lower confidence interval of this guide, which again, because we have this asymptotically negative result we can build,
+
+368
+00:39:28,207 --> 00:39:34,207
+you see that this the value down there, the bias values tradeoff is such that the bias is reading,
+
+369
+00:39:34,567 --> 00:39:39,847
+it's going up, but at some point the variance started exploding.
+
+370
+00:39:40,657 --> 00:39:48,427
+So the lower confidence interval will start dropping down just because the bias is improving, but the value is taking over.
+
+371
+00:39:49,267 --> 00:39:53,947
+So you're going to have this kind of maximum of the lower confidence bound
+
+372
+00:39:54,577 --> 00:40:00,837
+that you can use to find the optimal bias values tradeoff for the smoothing.
+
+373
+00:40:02,597 --> 00:40:06,337
+I tried again.
+
+374
+00:40:06,487 --> 00:40:09,127
+You know, I have just a simple simulation.
+
+375
+00:40:09,367 --> 00:40:16,717
+This time I'm looking at 240, so very low sample size that we usually think that things will start rage for now.
+
+376
+00:40:16,717 --> 00:40:21,477
+Parametric regression 240 sample size two level, of course, coarsening,
+
+377
+00:40:21,487 --> 00:40:27,157
+so that the observed sample size is actually pretty small because there are two way you can keep
+
+378
+00:40:27,157 --> 00:40:32,887
+out variables and diverse motivated estimates and all the way goes to 2400 for the sake of,
+
+379
+00:40:33,457 --> 00:40:36,787
+you know, see if the same target result holds up.
+
+380
+00:40:37,207 --> 00:40:42,127
+And I compare these under smoothing stuff here with the random forest.
+
+381
+00:40:42,667 --> 00:40:50,377
+So I just the only difference is that in one side I use other sort of highly adaptive lasso to estimate the weight function.
+
+382
+00:40:50,857 --> 00:40:53,977
+In the other one I just use random forest not under smoothing.
+
+383
+00:40:56,427 --> 00:41:00,116
+So this killed bias. And I'm looking at signs your age.
+
+384
+00:41:00,117 --> 00:41:04,197
+By the same age you see that these killed by history made.
+
+385
+00:41:05,127 --> 00:41:08,657
+Well it doesn't explode. It's a remember this is the scale bias.
+
+386
+00:41:09,117 --> 00:41:14,637
+The the the random forest seems to start diverging as you increase the sample size.
+
+387
+00:41:15,057 --> 00:41:19,557
+Again, it's because the red term is not going anywhere.
+
+388
+00:41:20,097 --> 00:41:23,457
+When you increase your sample size, actually, you start dominating the entire thing.
+
+389
+00:41:24,567 --> 00:41:31,227
+And the height of the coverage rate is pretty nice, more highly adaptive for random for as the coverage is start going down.
+
+390
+00:41:31,917 --> 00:41:36,017
+Right. And I'm looking at different bandwidth here.
+
+391
+00:41:36,057 --> 00:41:42,597
+Bandwidth, bandwidth. But what is what I have here is that this is the optimal rate.
+
+392
+00:41:43,017 --> 00:41:50,697
+So we also show that the optimized rate, asymptotic rate for edge is n2, kubrat and four and over one over three.
+
+393
+00:41:51,687 --> 00:41:59,217
+Okay. So anyway, I'm picking the rate the same, but I just changing the constant to see what's the effect of this constant.
+
+394
+00:41:59,527 --> 00:42:05,186
+You would expect that asymptotically constant don't play a role as you see here for a very large sample size.
+
+395
+00:42:05,187 --> 00:42:08,847
+If all the constants is basic by normal, coverage is great.
+
+396
+00:42:12,027 --> 00:42:20,757
+This one is actually the harder problem because it's targeting the size zero, not the not the smooth version of size, you know, the size zero itself.
+
+397
+00:42:21,117 --> 00:42:25,827
+And again, you see that the scale bias is start actually behaving very well.
+
+398
+00:42:26,307 --> 00:42:33,507
+The run forest, again, you see the very poor coverage, random forest, highly adaptive loss are performing pretty well,
+
+399
+00:42:33,507 --> 00:42:42,746
+especially our sample size increases even for 2 to 240 it is still performs pretty well for just yes please if you are you looking at have you
+
+400
+00:42:42,747 --> 00:42:52,167
+looked at the confidence interval with all root mean square out right here there's nothing here that you're showing that talks about efficiency.
+
+401
+00:42:52,167 --> 00:42:59,427
+Really. Oh yeah. Great point. The confidence intervals are built based on canonical gradient of the estimate.
+
+402
+00:43:00,057 --> 00:43:04,137
+So based on efficiency for this function. Yeah. But that that's not what I ask.
+
+403
+00:43:04,437 --> 00:43:07,917
+Have we looked at the width of the confidence intervals from the simulation.
+
+404
+00:43:08,697 --> 00:43:15,477
+I did not. But if if there if the confidence interval is shorter, it should show in the coverage.
+
+405
+00:43:15,477 --> 00:43:21,687
+Right. Well, I'd like to see the trade off between cover coverage versus width.
+
+406
+00:43:22,047 --> 00:43:26,277
+Right. Oh, I see. At a very wide interval, I could cover easily.
+
+407
+00:43:26,877 --> 00:43:31,557
+Yeah, I know. I see. I see what you're saying. That's right. I, I think that that could be added.
+
+408
+00:43:31,917 --> 00:43:40,227
+I agree. I agree. But just, just going back to the point, the coverage of it, hum, um, I'm calculating the, the, the,
+
+409
+00:43:40,407 --> 00:43:46,376
+the coverage rate is based on variance coming out of efficiently for this function for that given bandwidth.
+
+410
+00:43:46,377 --> 00:43:50,327
+But that's just theory for me. I want to see the results in a similar.
+
+411
+00:43:50,377 --> 00:43:54,027
+No, I agree. I think the coverage looks impressive. So I agree with you that.
+
+412
+00:43:54,627 --> 00:44:00,387
+Yeah, no, I totally agree. And I think we should it this this this is not published and it's not being under review.
+
+413
+00:44:00,577 --> 00:44:04,737
+This is the first time actually presenting. If I was referring to the next one, I don't know.
+
+414
+00:44:04,867 --> 00:44:08,787
+I would be happy to do that. Yeah, thank you. And sure, definitely.
+
+415
+00:44:08,877 --> 00:44:12,357
+I we have all the simulation results that should be we should be able to do that.
+
+416
+00:44:13,977 --> 00:44:18,427
+But so this is again, again, as Robert said, this is all on theory.
+
+417
+00:44:18,427 --> 00:44:22,227
+You know, it's on four different bandwidth. It's just on a rate.
+
+418
+00:44:22,527 --> 00:44:29,547
+But what if you do actually using the bandwidth selector and you say that here they the adaptive bandwidth selector
+
+419
+00:44:29,547 --> 00:44:35,786
+means events that I just talked about for highly adaptive lasso is doing pretty well even for a large sample.
+
+420
+00:44:35,787 --> 00:44:42,987
+240 I think here is about like 91, 92 here it goes down a bit about 89, 90.
+
+421
+00:44:43,407 --> 00:44:47,157
+But again, as soon as you increase the sample size, it goes where it should be.
+
+422
+00:44:47,847 --> 00:44:53,276
+So even if the data adaptive bandwidth selectors seems to be performing pretty well,
+
+423
+00:44:53,277 --> 00:44:59,457
+even for large sample anything above 90% competition, all parametric estimates with 240.
+
+424
+00:44:59,457 --> 00:45:06,026
+I think it's. Oak and Randall Forest.
+
+425
+00:45:06,027 --> 00:45:09,107
+You see the Randall Forest? Exactly the same thing. No.
+
+426
+00:45:09,117 --> 00:45:15,777
+Hundreds will say that coverage remains around 75% and doesn't go anywhere as the sample size increases.
+
+427
+00:45:16,857 --> 00:45:20,187
+So I think that's my 45 minutes. Thank you.
+
+428
+00:45:25,787 --> 00:45:37,777
+Okay. The questions. Have you ever consider to apply your method to actually real work data analysis or something like applications?
+
+429
+00:45:38,047 --> 00:45:44,857
+You have run simulations. That's right. Where are you going to apply your things to actual applications?
+
+430
+00:45:44,917 --> 00:45:49,986
+Yes. So this paper is not going to have application.
+
+431
+00:45:49,987 --> 00:45:53,647
+The second one. The first one has the second one doesn't have application.
+
+432
+00:45:53,797 --> 00:45:57,277
+It's just it's just a theory. The building the theory for this.
+
+433
+00:45:57,877 --> 00:46:05,887
+Now, what what as I mentioned, one of the exciting part of it from the applied point of view is when you have many,
+
+434
+00:46:05,887 --> 00:46:09,577
+many decision points and building that efficient, efficient,
+
+435
+00:46:09,577 --> 00:46:16,987
+efficient estimate or four dose setting can be quite complex because because of the canonical gradient derivation is complex,
+
+436
+00:46:17,317 --> 00:46:21,966
+you have so many uses prioritizing by what each step of random is that let's say it's not random.
+
+437
+00:46:21,967 --> 00:46:28,027
+I suppose observational studies that you have to estimate propensity score throughout the time it gets really complex.
+
+438
+00:46:28,297 --> 00:46:35,917
+But here it's just you have one shot up for positive score estimation, fit it into the previous cultivated estimate and boom get the result.
+
+439
+00:46:36,247 --> 00:46:41,616
+And the efficiency is important because the feeling knows in like for example multiple assignment
+
+440
+00:46:41,617 --> 00:46:47,497
+in the equities market randomized trials that we are trying to we are thinking to implement this.
+
+441
+00:46:48,037 --> 00:46:55,477
+The sample size is pretty small, so the efficiency is actually pretty big deal and you have like 50 or 70 decision points.
+
+442
+00:46:56,037 --> 00:47:02,377
+So getting that efficiency out of a very simple estimate are like it was all debated estimates there.
+
+443
+00:47:02,377 --> 00:47:05,587
+I think it's would be a pretty nice addition.
+
+444
+00:47:06,337 --> 00:47:11,607
+But so yes, we are thinking about to implement it in autumn like randomized trials.
+
+445
+00:47:12,177 --> 00:47:16,896
+So, you know, so the inverse of the estimate,
+
+446
+00:47:16,897 --> 00:47:24,577
+one one interesting aspect of Interpol this matters is that they are not plug in escalators, but they're not plug in escalators.
+
+447
+00:47:25,237 --> 00:47:32,767
+So if I tell you it's a randomized trial and you just use 0.5 in your propensity score, you lose a great deal of efficiency there.
+
+448
+00:47:33,787 --> 00:47:39,127
+So extra information, I tell you, it's going to hurt you. You have to go through the data estimated.
+
+449
+00:47:39,487 --> 00:47:45,187
+You gain some level of efficiency, if you will, estimate even using Andre so that you get full efficiency back.
+
+450
+00:47:45,547 --> 00:47:50,077
+So that's the difference between plug in non plug investigators and in the plug in estimate those.
+
+451
+00:47:50,077 --> 00:47:52,627
+If I tell those around and I try to just plug it right away to trial,
+
+452
+00:47:52,867 --> 00:47:59,497
+go ahead and you get whatever you want efficiency but not not like estimate as I think you can can have very
+
+453
+00:48:00,457 --> 00:48:07,177
+unexpected kind of behavior we didn't they don't like the extra information that they want you to dig into their.
+
+454
+00:48:10,937 --> 00:48:16,577
+Yes. So I don't particularly like in those weighted escalators I should stay.
+
+455
+00:48:16,577 --> 00:48:17,447
+That's something.
+
+456
+00:48:17,837 --> 00:48:31,157
+But I mean, I think one of the questions is how big does that and when does asymptotes kick in some so so there's this asymptotic efficiency results.
+
+457
+00:48:31,727 --> 00:48:36,407
+But when you do finite level simulations, I find particularly when these weights are very variable,
+
+458
+00:48:37,277 --> 00:48:41,177
+it's not as efficient as something else necessarily.
+
+459
+00:48:41,747 --> 00:48:48,377
+So if you look at finite sample performance, it doesn't necessarily match with the asymptotic theory.
+
+460
+00:48:49,007 --> 00:48:52,996
+And in some sense is the problem with this is when you talk give to my reciprocity theory,
+
+461
+00:48:52,997 --> 00:48:57,157
+we're really never know how large the sample has to be to apply.
+
+462
+00:48:57,167 --> 00:49:01,817
+So that's that's kind of a caveat. Okay. I agree with that.
+
+463
+00:49:02,267 --> 00:49:06,917
+But I want to add to it a bit. The way we are smoothing is data dependent.
+
+464
+00:49:07,367 --> 00:49:09,977
+Right. We want to estimate that, Peter. Okay.
+
+465
+00:49:10,067 --> 00:49:16,337
+So it's really dig into your data to the amount of data you have to find having something that is data dependent.
+
+466
+00:49:17,177 --> 00:49:24,827
+So and we did compare it with, you know, more classical, like a greater diverse quality rated as double robustness debaters.
+
+467
+00:49:25,427 --> 00:49:31,577
+And in finite sample, this one actually performs better, has lower bias because it kills the bias for your data.
+
+468
+00:49:32,297 --> 00:49:36,107
+Right. You should compare it with our message. With which method?
+
+469
+00:49:36,737 --> 00:49:41,657
+We have a method that doesn't involve weighting at all. It's doubly robust Bayesian actually.
+
+470
+00:49:41,657 --> 00:49:44,687
+So you might even like it because you've done some based on this.
+
+471
+00:49:44,987 --> 00:49:48,376
+Yeah. Yeah, sure. Well, that's another Bayesian invasion, right?
+
+472
+00:49:48,377 --> 00:49:57,097
+So yeah, I'm not a Bayesian, but I love I think, you know, I'm not done yet.
+
+473
+00:49:57,977 --> 00:50:02,957
+Yeah. So I'm just curious that this method address the no no paradox at all.
+
+474
+00:50:04,007 --> 00:50:07,247
+What is that of what? Just to make sure. No paradox.
+
+475
+00:50:07,637 --> 00:50:11,297
+Yeah, well I'm not doing the estimation, so there's no no paradox here.
+
+476
+00:50:11,687 --> 00:50:17,877
+It's just the English bothers me. And also for the first part, when you are.
+
+477
+00:50:19,817 --> 00:50:24,196
+So when you're doing the simulation, I want to do this, you compare this,
+
+478
+00:50:24,197 --> 00:50:34,557
+you do this under a very simple situation where you have a small number of covers and you actually can specify the differences for model and yeah,
+
+479
+00:50:34,587 --> 00:50:37,417
+right. Yeah, we did that. It's in the paper I then presented.
+
+480
+00:50:37,427 --> 00:50:43,667
+So if you look at the supplement, I think we have two scenarios in the main paper for the supplement.
+
+481
+00:50:43,847 --> 00:50:47,507
+We did look at the randomized trial correctly specified propensity score.
+
+482
+00:50:48,167 --> 00:50:56,657
+So as a part of the argument I was trying to make is also, even if I tell you just randomized, you still need to estimate it for to gain efficacy.
+
+483
+00:50:56,927 --> 00:51:03,257
+If I even if I tell you it is a parliamentary model, you should go beyond that and again underscore that model.
+
+484
+00:51:03,557 --> 00:51:11,537
+So if you fit the ideal quality weighted estimate, you know, using the parametric model, you get a route and rate estimate everything fine,
+
+485
+00:51:11,837 --> 00:51:18,227
+but the variance is higher then are going to decrease cultivated estimators and that's where they're at.
+
+486
+00:51:18,247 --> 00:51:24,807
+And I'm just saying that under smoothed one it's it goes along with augmented the first of all automated estimates.
+
+487
+00:51:24,837 --> 00:51:33,587
+So again you you gain efficiency any knowledge you have you just have to re fit the smoothing part to gain efficiency is not going to help.
+
+488
+00:51:35,987 --> 00:51:40,437
+Even if you have some variables that you know they are, they don't contribute in your support.
+
+489
+00:51:40,487 --> 00:51:46,637
+Even if I tell you that w one contributes to the propensity score w do with the outcome predictor, right.
+
+490
+00:51:47,207 --> 00:51:52,127
+If I want to underscore that, I have to include do I really want w to both in the propensity score.
+
+491
+00:51:52,877 --> 00:51:57,137
+Right. Because if I don't include W two, there's no way I can get efficiency.
+
+492
+00:51:57,347 --> 00:52:01,917
+So everything I have into the design matrix, there is no selection.
+
+493
+00:52:01,937 --> 00:52:05,627
+I'm completely blinded. I don't know what is relevant to prevent the score.
+
+494
+00:52:05,837 --> 00:52:09,677
+I called everything in there, underscore that I get that efficiency out of it.
+
+495
+00:52:11,387 --> 00:52:19,817
+That's true. Yeah. Just curious about your simulation setting that you're going to use when the mission W in the simulation, is that right?
+
+496
+00:52:20,177 --> 00:52:26,777
+I think I used to. But for the use of high dimensional W like C 50.
+
+497
+00:52:27,857 --> 00:52:30,617
+Did you rather that simulation like to.
+
+498
+00:52:30,617 --> 00:52:40,987
+I mean, I'm curious about the method when your confounding factor increased, you know, from 1 to 250 or something like that from.
+
+499
+00:52:42,047 --> 00:52:48,137
+So the rates, everything I have is independent of dimensional as I guess dimensional fixed.
+
+500
+00:52:48,527 --> 00:52:55,337
+In theory. In theory. But if you want to apply it, I have not tried on 50 dimensional.
+
+501
+00:52:55,847 --> 00:53:00,947
+The reviewers were kind enough to not ask for that, but we can definitely do it.
+
+502
+00:53:01,667 --> 00:53:10,157
+The thing is, the problem, say with height adaptive lasso is that for if you have a very large sample size and very large design metrics,
+
+503
+00:53:10,517 --> 00:53:13,757
+it becomes computationally very intractable.
+
+504
+00:53:14,357 --> 00:53:18,287
+But for 50, I assume it should work just fine.
+
+505
+00:53:18,617 --> 00:53:25,157
+But I've not done a simulation to verify that you want your method to be applied to observational studies.
+
+506
+00:53:25,217 --> 00:53:33,227
+Sure. Sure. So certainly that you could have dozens of covers as part of this propensity score calculation.
+
+507
+00:53:33,317 --> 00:53:37,217
+Absolutely. I totally agree with that. And that's where lasso wins, right?
+
+508
+00:53:37,267 --> 00:53:42,017
+I mean, I'm not sure about the adaptive flavor image, but you have your own covariance.
+
+509
+00:53:42,077 --> 00:53:46,187
+Only a small number are really important. That's right. So that's where the lasso comes in.
+
+510
+00:53:47,687 --> 00:53:54,227
+Yeah. So and also you made a comment that some of the importance W should be also included.
+
+511
+00:53:54,227 --> 00:53:57,227
+Unimportant, important outcome predictor. Right. Of course. Yeah.
+
+512
+00:53:57,397 --> 00:54:00,557
+So that. That could make the dimensionality even higher.
+
+513
+00:54:00,947 --> 00:54:06,947
+Yes. Yes. In reality, we don't really know outside randomized trials what is the field?
+
+514
+00:54:07,307 --> 00:54:13,427
+So my view is that we put everything in the propensity score model under a small set in
+
+515
+00:54:13,427 --> 00:54:19,546
+order to with the hope that we can kill the augmented term so that the user's motivated.
+
+516
+00:54:19,547 --> 00:54:22,667
+Estimated hours will be efficient, not premature. Efficient.
+
+517
+00:54:26,027 --> 00:54:30,077
+So you're saying you should include things that are well, that are important for that outcome?
+
+518
+00:54:30,107 --> 00:54:36,407
+Outcome. But that's because you're also focused on trying to get the argument, the focus, the why is that important?
+
+519
+00:54:36,407 --> 00:54:43,907
+And it's because. Yeah, so I didn't quite hear what you said when you said, yeah, what's important, what's unimportant, what you said unimportant.
+
+520
+00:54:43,907 --> 00:54:47,777
+What were you talking about? Sure, I'll, I'll clarify in a second.
+
+521
+00:54:47,987 --> 00:54:54,287
+Just let me find where was that term. Oh, oh, yeah.
+
+522
+00:54:54,407 --> 00:55:06,077
+Okay. So and so completely variables that are either predictor of the treatment or the outcome
+
+523
+00:55:06,077 --> 00:55:10,817
+should be included in the analysis if they are completed users we don't care about.
+
+524
+00:55:11,237 --> 00:55:14,927
+Okay, so. So what did you mean by unimportant. Ah.
+
+525
+00:55:14,957 --> 00:55:18,106
+Not, not being associated with outcome.
+
+526
+00:55:18,107 --> 00:55:27,677
+Okay. Yeah. Yeah. So, so like you said, so I was referring to variables that are associated with the outcome but not with a right.
+
+527
+00:55:28,337 --> 00:55:32,777
+So the point being that look at the scoring question, you're generating scores, right?
+
+528
+00:55:33,347 --> 00:55:39,227
+Well under is supporting this guide. So you start generating scores based on every valuable that you have in the model.
+
+529
+00:55:39,917 --> 00:55:42,977
+So I'm fine with what you're saying. Oh, great. Thank you.
+
+530
+00:55:43,277 --> 00:55:45,347
+So it's just I didn't hear that. So yeah.
+
+531
+00:55:46,367 --> 00:55:55,487
+So, so the reason you want to include outcome variables is because you want to approximate FWB is a function of conditional outcome model.
+
+532
+00:55:56,937 --> 00:56:03,537
+So in order to be able to captured this guy, you need to include them in a propensity score response for Escoffier.
+
+533
+00:56:04,317 --> 00:56:12,797
+Then you can just get rid of this guy, assuming that this is as a final sexual variation of a function which is a very, very big class of models.
+
+534
+00:56:13,667 --> 00:56:20,997
+I don't know. Happy to hear if you have an example that doesn't fit into has an infinite sexual variation.
+
+535
+00:56:21,157 --> 00:56:24,776
+I think both the function that you're dealing with, they do have sexual variation on finite.
+
+536
+00:56:24,777 --> 00:56:28,347
+So it's it's not a restrictive assumption. I don't see it at least myself.
+
+537
+00:56:28,767 --> 00:56:31,957
+So restrictive assumption. Yeah.
+
+538
+00:56:32,377 --> 00:56:40,177
+So I have a, just a suggestion that you probably can do some simulations.
+
+539
+00:56:40,177 --> 00:56:44,197
+Compare this method to the calibration of so-called calibration method.
+
+540
+00:56:44,287 --> 00:56:51,887
+Calibration for propensity score. Well I think calibration was done in survey samples.
+
+541
+00:56:51,907 --> 00:56:55,937
+Yeah, that's right. Kind of calibration. Yeah. So it's like.
+
+542
+00:56:58,017 --> 00:57:02,027
+You match because the permanent score is awaiting, right?
+
+543
+00:57:02,037 --> 00:57:03,287
+So it's a type of weight.
+
+544
+00:57:03,657 --> 00:57:12,327
+So the calibration in some assemblies is that you wait the observed variables to some unknown population value, like in this case.
+
+545
+00:57:12,357 --> 00:57:13,827
+Now, if you are talking about missing data,
+
+546
+00:57:13,827 --> 00:57:23,906
+then then the complexities are not the complete observer variables or the acts that could serve as your calibration variables,
+
+547
+00:57:23,907 --> 00:57:27,357
+where you can use the sample average to approximate a population meet.
+
+548
+00:57:27,667 --> 00:57:35,337
+And then you can you can you can wait for the complete guesses to match the you know that the sample average which are approximate.
+
+549
+00:57:36,297 --> 00:57:39,837
+I just have a hard time seeing where the efficiency comes in.
+
+550
+00:57:41,157 --> 00:57:49,886
+How is it different than I've been with you in terms of efficiency? Is it like propensity score matching or like purpose?
+
+551
+00:57:49,887 --> 00:57:57,897
+Stratification is a simple form, but. Okay. And if you had a if you have external information, it's just that you have, say,
+
+552
+00:57:57,897 --> 00:58:03,027
+categories, you have the distribution of age of the variables for the whole population.
+
+553
+00:58:03,447 --> 00:58:07,947
+Yeah. Then you match that. And is that variables related to the outcome you get again.
+
+554
+00:58:07,947 --> 00:58:11,457
+Efficiency. I see. I see. Okay. Yeah.
+
+555
+00:58:11,467 --> 00:58:14,757
+So the calibration that's a breaking is the generalization. Okay.
+
+556
+00:58:15,837 --> 00:58:21,386
+So based on my own experience, my personal experience, doing simulations and numerical studies.
+
+557
+00:58:21,387 --> 00:58:27,837
+So calibration is a very, very powerful method in terms of improving efficiency and in terms of reducing the bias.
+
+558
+00:58:28,527 --> 00:58:34,257
+So you, for example, if you build an outcome regression model,
+
+559
+00:58:34,617 --> 00:58:39,837
+you could use the outcome regression model either as argument in term in the EAW method another device,
+
+560
+00:58:40,257 --> 00:58:50,547
+or you could treat it as a quantity to calibrate it, like to calculate the calibration weights, calibrate on the quantity based on that your outcome.
+
+561
+00:58:50,857 --> 00:58:56,577
+I see I see that actually the result in weight has a very, very nice performance in the end.
+
+562
+00:58:57,147 --> 00:59:00,617
+That's right. So this doesn't suffer from curse of dimensionality.
+
+563
+00:59:00,647 --> 00:59:04,016
+It doesn't know it. It doesn't. It doesn't.
+
+564
+00:59:04,017 --> 00:59:10,527
+But you could apply certain techniques where you build an outcome regression model to do variable selection, for example.
+
+565
+00:59:10,707 --> 00:59:14,517
+So what I'm worried about is I'm not in a parametric world.
+
+566
+00:59:15,117 --> 00:59:20,217
+So if I fit a number metric model for queue, how does it impact my inference?
+
+567
+00:59:20,217 --> 00:59:25,597
+I just don't know how I like your Q outcome model.
+
+568
+00:59:25,617 --> 00:59:29,997
+I mean. Right. So if you're fitting parametric model, I see that root and right.
+
+569
+00:59:29,997 --> 00:59:35,757
+Just comes in. But if you go with a non parametric I just.
+
+570
+00:59:35,967 --> 00:59:44,007
+Yeah, but yeah. Okay, I agree, I agree that that sounds like a it's an interesting approach to to be exploited with even noncommercial regression.
+
+571
+00:59:44,007 --> 00:59:51,896
+I get to see the number of measures. I think you could I guess you could think of this way so you could match the moments of there.
+
+572
+00:59:51,897 --> 00:59:58,347
+But actually people have studied this, like I said, match at the moment of variables which would approximate distribution eventually.
+
+573
+00:59:58,407 --> 01:00:01,707
+I'm not sure if you allow the order of the moments to to increase.
+
+574
+01:00:01,777 --> 01:00:06,387
+I see. I see. So that you could then from this perspective, you might be able to view it as a non.
+
+575
+01:00:06,387 --> 01:00:09,767
+They're not trying to match the mean. I see. I see.
+
+576
+01:00:09,797 --> 01:00:13,017
+I see. Are you all right? Thank you. Can I just.
+
+577
+01:00:13,117 --> 01:00:18,627
+I was going to ask Peter's question, his first question. So but let me let me broaden it a little bit.
+
+578
+01:00:18,627 --> 01:00:24,917
+So you're in the non parametric world here. Are you always in the non parametric world or with the real problem?
+
+579
+01:00:25,497 --> 01:00:29,907
+You do parametric modeling or you saying that's always the wrong thing to do or.
+
+580
+01:00:30,477 --> 01:00:39,717
+So when do I decide if not? So if you're doing real problems, have you ever done non parametric progression in the real world?
+
+581
+01:00:41,877 --> 01:00:45,297
+I mean, you do consulting with medical folks. Yeah.
+
+582
+01:00:45,497 --> 01:00:50,876
+So we do our mentoring. I did so did nothing outside this.
+
+583
+01:00:50,877 --> 01:00:54,147
+It's not in response to estimates, but it was for a classification problem.
+
+584
+01:00:54,447 --> 01:00:57,757
+They want to classify symptoms.
+
+585
+01:00:58,047 --> 01:01:03,537
+Yeah. So for events and they want to build a classifier again.
+
+586
+01:01:03,837 --> 01:01:08,607
+The sample size was relatively small, especially it was a rare outcome type of situation.
+
+587
+01:01:09,087 --> 01:01:13,616
+What we saw was that in that case I used super, super learner,
+
+588
+01:01:13,617 --> 01:01:23,547
+which kind of mixes all type of parametric non parametric methods, but the super narrow works much better than that.
+
+589
+01:01:23,547 --> 01:01:31,287
+Just a linear model or even a random force alone. So, so to answer your question, if I if I'm in this situation, I want to do it.
+
+590
+01:01:31,587 --> 01:01:38,127
+Maybe I'm not in this case, but I think super nerdy does a great job because given the amount of data,
+
+591
+01:01:38,817 --> 01:01:41,847
+amount of information it can absorb from your data, it depends.
+
+592
+01:01:41,847 --> 01:01:46,406
+It decides how much weight to put in your parametric model and parametric model.
+
+593
+01:01:46,407 --> 01:01:51,897
+And if it's the data is really small, not much in it. It puts more weight in the parametric models, so plays their price.
+
+594
+01:01:52,137 --> 01:01:56,097
+This kind of like base bias values tradeoff for you but in this case.
+
+595
+01:01:58,317 --> 01:02:05,737
+I have. You can always make an argument against a parametric model, you know, box all parametric models or so.
+
+596
+01:02:06,417 --> 01:02:10,787
+So at some level, at some level and asymptotes, you're any parent.
+
+597
+01:02:10,917 --> 01:02:13,957
+So are you therefore saying that you should never use a parametric model?
+
+598
+01:02:14,117 --> 01:02:22,167
+My point. Oh, where are you in this Brian thing? So my point being that I like to get a good coverage.
+
+599
+01:02:23,037 --> 01:02:28,527
+My my parametric model. If it's off, it's going to give me also low barriers.
+
+600
+01:02:28,737 --> 01:02:32,817
+So I'm going to be really off. So it's a very high chance of.
+
+601
+01:02:35,337 --> 01:02:42,107
+You know, I used to have an answer. My question, do you ever use parametric models or are you telling us that we should never use parametric bullets?
+
+602
+01:02:43,707 --> 01:02:46,957
+My world is not black or white. I'm living in the grave.
+
+603
+01:02:46,957 --> 01:02:51,047
+And of asking you a black and white question, what if it's not black and white? So it's data dependent.
+
+604
+01:02:51,067 --> 01:02:54,617
+Give me your data and we can decide on it. But it's not.
+
+605
+01:02:54,637 --> 01:02:57,727
+I can tell you that this is right. This is wrong. I can't tell you that.
+
+606
+01:02:58,477 --> 01:03:03,607
+But I my personal favorite is and that has to be in our primary as possible.
+
+607
+01:03:04,057 --> 01:03:11,527
+If the data permits, if there's enough data. You know, I looked at even lower sample sizes still seems to be okay.
+
+608
+01:03:11,827 --> 01:03:15,117
+But real, real world situation is a different situation.
+
+609
+01:03:15,127 --> 01:03:20,337
+I agree with that. But just just think about it as marginally structural models.
+
+610
+01:03:20,347 --> 01:03:27,696
+If you have a long longitudinal data you have, you are compressing all this model into like the conditional model.
+
+611
+01:03:27,697 --> 01:03:31,477
+Just even based on variables do lots of things going on.
+
+612
+01:03:31,717 --> 01:03:37,567
+There is no way that a parametric model even gets close to the true underlying model
+
+613
+01:03:37,567 --> 01:03:45,037
+about 100 regression with 100 hundred cases and 30 variables non parametric for that.
+
+614
+01:03:46,057 --> 01:03:53,557
+Maybe I tried to play the game of trying to find two variables first that are important and then I have to deal with the post-election stuff.
+
+615
+01:03:53,947 --> 01:04:02,257
+But we should have lots of action stuff but bring the dimensionality to the manageable level and then do it if it's not possible.
+
+616
+01:04:02,437 --> 01:04:08,347
+I go with a linear model. As I said, I'm in a gray zone and now we're all in grace.
+
+617
+01:04:08,347 --> 01:04:12,426
+And yeah, I've no objection to that as I'm maybe Darren, I'm ignorant.
+
+618
+01:04:12,427 --> 01:04:15,757
+I'm a dark gray, but yeah.
+
+619
+01:04:15,817 --> 01:04:18,907
+All right, so I think we're a little over time, so let's give our speaker.
+

@@ -1,0 +1,948 @@
+1
+00:00:03,180 --> 00:00:11,520
+Okay. So the second to last lecture we're going to be talking about continue.
+
+2
+00:00:12,000 --> 00:00:21,900
+It's the last section on multistage clonal expansion models. I wrote multistate here, multistate kind of expansion models, topics and examples today.
+
+3
+00:00:22,620 --> 00:00:30,860
+Next week we're going to do a fitting and that will wrap up the lecture part of this course.
+
+4
+00:00:32,610 --> 00:00:35,160
+So just a reminder of what we've been talking about.
+
+5
+00:00:35,730 --> 00:00:45,300
+Last week, we developed the two stage colon cancer model created by William Carpenter Knutson around 1980,
+
+6
+00:00:45,750 --> 00:00:51,360
+which is this mathematical expression of Newton's hypothesis of the two hits
+
+7
+00:00:52,320 --> 00:00:56,879
+where you have one head that is sort of starting to create and initiated cells.
+
+8
+00:00:56,880 --> 00:01:00,990
+And then a second is what is required to get in cells,
+
+9
+00:01:00,990 --> 00:01:16,320
+hence being damage to the DNA or epigenetic changes or something that either removes tumor suppressors or promotes tumor promoters.
+
+10
+00:01:17,490 --> 00:01:21,510
+And so we follow this initiation progression progression paradigm.
+
+11
+00:01:23,430 --> 00:01:28,860
+And so what we did was we derive a set of differential patients for the two stage one extension model hazard.
+
+12
+00:01:29,070 --> 00:01:39,270
+That's for down here as a function of largely opaque if we are just kind of looking at it differential equations.
+
+13
+00:01:39,510 --> 00:01:47,490
+But we had to really kind of go into the guts and the details to understand how the instantaneous
+
+14
+00:01:48,960 --> 00:01:56,550
+transition probabilities associated with the multi state continuous time Markov chain,
+
+15
+00:01:59,730 --> 00:02:02,790
+how old those lead to these equations.
+
+16
+00:02:03,240 --> 00:02:11,310
+So it's hard to just kind of look at them, kind of have to go through the math and let Lab nine.
+
+17
+00:02:11,590 --> 00:02:17,130
+We started last week and I assume people will kind of work on more today. We're going to be simulating these,
+
+18
+00:02:17,190 --> 00:02:30,839
+comparing them to stochastic simulations and to the sort of looking for the constant close form forms from the lab this week, lab ten,
+
+19
+00:02:30,840 --> 00:02:41,280
+we're going to be using these for time varying exposures and exploring a little bit what carcinogen exposure means when you're 15,
+
+20
+00:02:41,610 --> 00:02:46,590
+when you're 50, when you're 75, sort of different parts of the age continuum.
+
+21
+00:02:46,860 --> 00:02:50,490
+And we're going to be doing that using simulation of the different configurations.
+
+22
+00:02:53,640 --> 00:03:04,900
+So what we found was we for constant parameters without these kind of important or marketed, let's say exposures, you can get, uh,
+
+23
+00:03:05,610 --> 00:03:13,830
+fat solution as a function of these three parameters which we will loosely associate with initiation, promotion and progression.
+
+24
+00:03:16,320 --> 00:03:24,390
+And so we're going to talk about a bit today is what if the parameters are changed at that?
+
+25
+00:03:24,810 --> 00:03:32,850
+And so that can mean things like specific exposures to carcinogens like benzene and talking about later.
+
+26
+00:03:34,230 --> 00:03:47,970
+But infectious agents like HPV or Epstein-Barr virus, which tend to have people at younger people, tend to have higher prevalence.
+
+27
+00:03:48,870 --> 00:04:00,900
+And if you don't clear these infections, they can destabilize, integrate into the genome and down the road cause cancer in certain circumstances.
+
+28
+00:04:03,090 --> 00:04:08,520
+The big exposure, of course, is tobacco and smoke.
+
+29
+00:04:10,530 --> 00:04:16,830
+And so cigarets per day has been an important example of a carcinogenic exposure,
+
+30
+00:04:17,820 --> 00:04:24,090
+occupation, very important things like benzene we'll talk about, but also arsenic, radon.
+
+31
+00:04:24,810 --> 00:04:28,139
+And these mean not even mechanics, occupational, but household.
+
+32
+00:04:28,140 --> 00:04:35,610
+So many people even here in Michigan have it's a high radon state and so many people
+
+33
+00:04:35,610 --> 00:04:41,060
+have radon reduction units that are blowing Ray Donovan basements out into the air,
+
+34
+00:04:43,200 --> 00:04:47,160
+maybe have exposure from city scans or x rays.
+
+35
+00:04:49,860 --> 00:04:54,180
+And so there are many different types of exposures that we might be interested in.
+
+36
+00:04:55,680 --> 00:05:01,470
+And so from an individual level perspective, we could reconstruct an exposure history.
+
+37
+00:05:02,760 --> 00:05:09,480
+These are both four cigarets per day. This person up top start smoking around age 20.
+
+38
+00:05:09,750 --> 00:05:15,180
+They're smoking 30 cigarets a day until age 41.
+
+39
+00:05:15,480 --> 00:05:20,940
+They quit for a couple of years, relax to about 20 cigarets a day, back up to 34.
+
+40
+00:05:20,940 --> 00:05:24,000
+But now we're at 20 again, quit for per bit.
+
+41
+00:05:24,450 --> 00:05:32,729
+Now we're back in an 8 to 10 or this person down below, they slowly ramped up from ten to 20 to 30 rib down.
+
+42
+00:05:32,730 --> 00:05:39,900
+They're trying to quit around age 50, 60 by and by the time that they die,
+
+43
+00:05:39,900 --> 00:05:53,580
+they actually have quit CIGARETS So if we then know if we can reconstruct these exposure histories and know if and when they have different cancers,
+
+44
+00:05:53,850 --> 00:06:00,750
+then we can connect exposure histories to the outcomes.
+
+45
+00:06:01,170 --> 00:06:08,219
+But as you may see or like, okay, well, how do I turn this into, you know,
+
+46
+00:06:08,220 --> 00:06:14,940
+I put it into my model and what were the connection that we need is dose response modeling.
+
+47
+00:06:15,540 --> 00:06:24,000
+And so if we have a history of exposure, we need to be able to connect that to changes in the underlying biological parameters.
+
+48
+00:06:24,600 --> 00:06:29,610
+So one question is which parameter or parameters does the carcinogen impact?
+
+49
+00:06:31,530 --> 00:06:39,089
+If we define X of T as the dose of h t, I need a functional form of how the dose impacts that parameter,
+
+50
+00:06:39,090 --> 00:06:42,629
+so probably would have been helpful if I actually put x's on this.
+
+51
+00:06:42,630 --> 00:06:54,300
+But if this is the dose and this and the y axis is the impact on the parameters, does the dose does that parameter change linearly with the dose?
+
+52
+00:06:54,930 --> 00:07:03,299
+Does it slowly increase? But then to have this kind of threshold effect where anything below the threshold is low,
+
+53
+00:07:03,300 --> 00:07:12,630
+anything above the threshold as high does it rather quickly, but then reach a plateau.
+
+54
+00:07:12,870 --> 00:07:21,149
+Does it just kind of increase exponentially? So lots of different possibilities of how dose response can look like.
+
+55
+00:07:21,150 --> 00:07:28,980
+And there is actually a huge literature on dose response functions, not even just in the carcinogen community,
+
+56
+00:07:29,190 --> 00:07:35,310
+but for lots of chemicals, for infection, infectious diseases and so on and so forth.
+
+57
+00:07:36,570 --> 00:07:44,820
+But it's typically used in this context is a power law relationship which is useful for its flexibility.
+
+58
+00:07:45,430 --> 00:07:56,160
+Um, so if 50 is the dose at age t, then, um, and if we take theta zero as the value of the Premier in the absence of the exposure,
+
+59
+00:07:56,490 --> 00:07:59,340
+so except t zero, this all just kind of goes away.
+
+60
+00:08:00,480 --> 00:08:07,390
+Then we have this power line relationship where we, we raise the dose to some power and we have a coefficient C.
+
+61
+00:08:07,770 --> 00:08:12,840
+So it's a fairly parsimonious approach to doing dose response relationships.
+
+62
+00:08:13,200 --> 00:08:21,360
+It's not the only way. But what we typically see in the multi-stage climate expansion world.
+
+63
+00:08:24,660 --> 00:08:31,380
+Okay. So if I had this time during exposure, how do I connect that to get high hazard?
+
+64
+00:08:33,000 --> 00:08:38,010
+While there do exist a close form recursion formula.
+
+65
+00:08:38,250 --> 00:08:52,430
+If we have piecewise constant parameters. So I believe this paper that this came from actually did say that while we had piecewise constant exposures.
+
+66
+00:08:52,770 --> 00:08:58,800
+Even though they kind of change relatively frequently, we can still have a piecewise constant hazard.
+
+67
+00:09:00,030 --> 00:09:00,839
+And you get this by.
+
+68
+00:09:00,840 --> 00:09:08,400
+And analytically, solving your differential equations on each segment backwards, making sure that your initial conditions make sense.
+
+69
+00:09:09,900 --> 00:09:13,590
+This the reason to do this is that it's more efficient for large datasets.
+
+70
+00:09:13,920 --> 00:09:17,400
+But if you don't have like computational constraints,
+
+71
+00:09:17,730 --> 00:09:24,590
+then and what we're going to do is solve our differential equations just computationally and not worry too much about.
+
+72
+00:09:26,180 --> 00:09:29,590
+Simple simplifying. Okay.
+
+73
+00:09:30,100 --> 00:09:42,880
+So most of what I want to talk about today are three examples of where multi-stage one extension models are used in three different contexts.
+
+74
+00:09:43,330 --> 00:09:47,250
+The first being a retrospective cohort study on individual level data.
+
+75
+00:09:48,040 --> 00:09:54,670
+The second a different cohort study, this time prospective individual level data again.
+
+76
+00:09:54,940 --> 00:09:59,650
+And then finally, a cancer registry analysis using population level data.
+
+77
+00:09:59,920 --> 00:10:04,150
+And this is going to be most similar to what we'll be doing in next week's lab.
+
+78
+00:10:06,820 --> 00:10:12,850
+Not that specifically. That's kind of that the type of modeling we're going to do at the population level.
+
+79
+00:10:13,390 --> 00:10:16,690
+But but just to show you the sort of flexibility of these models.
+
+80
+00:10:17,650 --> 00:10:24,790
+So this first one, which is the retrospective cohort study, here is the citation for your records.
+
+81
+00:10:25,000 --> 00:10:28,810
+The paper is on canvas linked there.
+
+82
+00:10:30,130 --> 00:10:35,470
+But this study was interested in the relationship between benzene, exposure and leukemia.
+
+83
+00:10:36,550 --> 00:10:43,870
+And the cohort was about 1700 workers split between three benzene plants in Ohio.
+
+84
+00:10:44,950 --> 00:10:50,980
+And these workers had to be employed at least one day between 1940 and 1965.
+
+85
+00:10:51,760 --> 00:10:59,230
+And they, the researchers, assessed whether they had died and the cause of death in 1996.
+
+86
+00:11:00,010 --> 00:11:11,430
+And so in this cohort of 1700, they had 16 deaths due to leukemia, which is not a lot, but probably more than the general population.
+
+87
+00:11:11,480 --> 00:11:21,430
+QUESTION They have to die of leukemia, or do they have to just have they died of leukemia?
+
+88
+00:11:21,430 --> 00:11:25,629
+Because that's the only way that they they didn't like this was a retrospective cohort.
+
+89
+00:11:25,630 --> 00:11:30,310
+So they weren't following didn't have addresses and contact information for all these folks.
+
+90
+00:11:30,580 --> 00:11:35,500
+They just went to the death records which are publicly available,
+
+91
+00:11:35,500 --> 00:11:46,239
+asterisk and or accessible with data use agreements typically and said like for each of the people that we had in this dataset, have they died?
+
+92
+00:11:46,240 --> 00:11:53,410
+And if they died and if they died. However, if you had more information, you could do this with incidence of leukemia and not just death.
+
+93
+00:11:54,220 --> 00:12:00,940
+Yeah, good question. So another question is like, where did this data even come from?
+
+94
+00:12:00,940 --> 00:12:08,559
+This data came from Nilesh National Institute of Occupational Safety and Health and not for the purposes of the study,
+
+95
+00:12:08,560 --> 00:12:12,940
+but just for typical regulatory things that they do.
+
+96
+00:12:13,150 --> 00:12:17,890
+So they actually had air sampling that provided estimates of benzene concentration.
+
+97
+00:12:18,340 --> 00:12:21,909
+I think I'm like an hourly or something ridiculous.
+
+98
+00:12:21,910 --> 00:12:25,600
+Maybe it was daily perspective.
+
+99
+00:12:25,600 --> 00:12:32,680
+And so they have just like constant analysis of how much benzene people would have been exposed to working at these plants.
+
+100
+00:12:33,460 --> 00:12:39,100
+And so if we have the job codes of each individual and the dates that they were working,
+
+101
+00:12:39,520 --> 00:12:44,440
+then we actually can get individual level exposure estimates for all these 1700 folks.
+
+102
+00:12:47,930 --> 00:12:52,790
+And so what this study did was to fit.
+
+103
+00:12:52,790 --> 00:13:00,080
+The first of what they did was they fitted two surgical an expansion model with fixed parameters and time varying parameters.
+
+104
+00:13:00,560 --> 00:13:05,750
+And so the first question is, you know, is there any connection to benzene at all?
+
+105
+00:13:05,870 --> 00:13:15,500
+Or can we just explain the the leukemia deaths as just, you know, kind of arising arising out of the population?
+
+106
+00:13:15,950 --> 00:13:25,580
+And so put in some parameters for best fit of the two stage one expansion model of fixed parameters.
+
+107
+00:13:26,030 --> 00:13:28,820
+And mostly what I wanna look at here is table four.
+
+108
+00:13:29,360 --> 00:13:44,810
+So this is the different cumulative exposure levels zero up to 1.7, 22.6 up to 117 depending on this one two quartiles here.
+
+109
+00:13:45,320 --> 00:13:54,770
+And so the baseline prediction is what is the number of leukemia deaths you would expect if there's no connection to the exposure?
+
+110
+00:13:56,120 --> 00:13:59,300
+Because these are quartiles they're kind of roughly around 2 to 3 each.
+
+111
+00:14:00,680 --> 00:14:09,530
+But if we do think that exposure to cumulative exposure matters, then the more exposure means more deaths.
+
+112
+00:14:10,190 --> 00:14:12,380
+And so this particularly the high quartile range,
+
+113
+00:14:12,740 --> 00:14:21,440
+has a really big difference in the model predictions and in fact much closer to what was actually observed in the data.
+
+114
+00:14:22,250 --> 00:14:25,910
+So again, can't do a ton with only 16, 17 deaths.
+
+115
+00:14:26,300 --> 00:14:33,560
+But even just in terms of these predictions, we can see that the exposure makes a big difference.
+
+116
+00:14:35,120 --> 00:14:50,210
+And so what they did was trying to understand what the risk of exposure was in terms of the impact on cancer depending on age.
+
+117
+00:14:50,660 --> 00:14:57,770
+So actually being exposed to benzene at fairly young ages was relatively smaller.
+
+118
+00:14:58,520 --> 00:15:05,240
+This is large relative risk here and increased over time as as we kind of went on.
+
+119
+00:15:06,830 --> 00:15:20,270
+And I think the reason for that we say here is because they think they they estimated it benzene as being a promoter carcinogen.
+
+120
+00:15:20,600 --> 00:15:31,850
+And so promoters typically have more impact at higher ages when folks already have initiated potentially initiating cells.
+
+121
+00:15:33,620 --> 00:15:42,019
+And then here is an example of the relative risk for two different people, depending on their exposure.
+
+122
+00:15:42,020 --> 00:15:49,490
+So I think these are hypothetical exposures. The first one, five parts per million and ten parts per million.
+
+123
+00:15:49,820 --> 00:15:58,010
+And what that looks like if they started working at age 20 and quit working at age 60.
+
+124
+00:15:58,340 --> 00:16:04,840
+And so what their relative risk compared to somebody that was not in events in fact looks like over time.
+
+125
+00:16:08,330 --> 00:16:19,570
+So three questions about this first. So connecting individual level exposures to individual level outcomes.
+
+126
+00:16:19,840 --> 00:16:32,290
+And then and by doing so, being able to say something about risk by age and what a risk might look like for actual workers and projected exposures.
+
+127
+00:16:35,020 --> 00:16:47,320
+The second one is a prospective cohort study in the sense that it was designed as such.
+
+128
+00:16:47,620 --> 00:16:55,150
+This analysis specifically ends up being retrospective because they had the data after fact.
+
+129
+00:16:56,770 --> 00:17:02,050
+But this is from the Nurses Health Study as one of the two studies here.
+
+130
+00:17:02,380 --> 00:17:05,770
+These are really both the nurses health study and health professional study.
+
+131
+00:17:06,010 --> 00:17:19,089
+It is really amazing. Data sets based in the U.K. Nurses Health Study was established in 1976 and followed 120,000 nurses who are
+
+132
+00:17:19,090 --> 00:17:28,390
+aged 30 to 55 and followed them over time to sort of continue to sort of assess their health and risk factors.
+
+133
+00:17:29,320 --> 00:17:32,660
+And they'd only lost 6% but by the year 2000.
+
+134
+00:17:32,680 --> 00:17:37,060
+So that almost 25 years later, only 6% attrition.
+
+135
+00:17:37,840 --> 00:17:44,740
+And they had detailed information on, for example, past and current smoking habits of history and diet.
+
+136
+00:17:46,750 --> 00:17:55,510
+I'm a little unclear on specifics of why they only included 100 or 4000 subjects in the lung cancer.
+
+137
+00:17:59,180 --> 00:18:09,379
+Analysis. Maybe just because they didn't have sufficient information to recreate the exposure or health professionals
+
+138
+00:18:09,380 --> 00:18:18,500
+study similar to the nurse nurses health started ten years later that 50,000 men aged 40 to 75.
+
+139
+00:18:18,800 --> 00:18:29,690
+Again, only 6% lost US follow up in 2000 to similar idea, detailed exposures and medical history.
+
+140
+00:18:30,140 --> 00:18:34,280
+And similarly they had an analysis of lung cancer here.
+
+141
+00:18:34,910 --> 00:18:41,780
+So this is connecting smoking to lung cancer. This is where the exposures that we talked about earlier came from.
+
+142
+00:18:43,230 --> 00:18:52,820
+Um, and what this group did was to investigate a dose response relationship between tobacco and lung cancer.
+
+143
+00:18:52,830 --> 00:19:04,700
+So we're using this power law relationship to investigate initiation, promotion and progression in both nurses health and health professional study.
+
+144
+00:19:06,380 --> 00:19:16,850
+What they found was they didn't see much impact on initiation, but it was more on promotion and conversion.
+
+145
+00:19:19,010 --> 00:19:29,840
+Personally, I am I think I would have been slightly suspect that you had an impact on limit conversion, but not initiation.
+
+146
+00:19:31,220 --> 00:19:40,010
+But this is a little bit due to the assumptions you make, for example, like, say, initiation when conversion rates are the same.
+
+147
+00:19:40,950 --> 00:19:47,720
+Um, but it's still an important investigation here.
+
+148
+00:19:48,680 --> 00:19:56,930
+And so what they found were they were able to model this very large differential risk of lung cancer by smoking status.
+
+149
+00:19:57,260 --> 00:20:06,320
+You keep an eye on the Y axis here for the lung cancer risk for never smokers, current smokers and former smokers.
+
+150
+00:20:06,920 --> 00:20:14,000
+So the y axis, you're going only up to 120 for current smokers and 500 for non smokers.
+
+151
+00:20:14,300 --> 00:20:22,550
+You still have this increase over time. And so what you can see in terms of if we want to go for smokers, non smokers,
+
+152
+00:20:22,970 --> 00:20:28,280
+they can you can actually see how your risk of lung cancer decreases over time when you're since
+
+153
+00:20:28,280 --> 00:20:36,290
+quitting that really big drop in that first year and a kind of a slow decay with your since quit.
+
+154
+00:20:36,770 --> 00:20:53,080
+Beyond that. Um, and so you can look at this kind of dose response relationship here between 20 cigarets and 40 cigarets and the relative risk.
+
+155
+00:20:53,260 --> 00:21:01,720
+So doubling your number of cigarets per day is actually like tripling your max risk.
+
+156
+00:21:05,080 --> 00:21:08,470
+And then we can see, depending on whether you're smoking 20 or 40,
+
+157
+00:21:08,740 --> 00:21:16,240
+you can say when you quit at age 30 or put at age 50, how does your relative risk of lung cancer decrease over time?
+
+158
+00:21:18,340 --> 00:21:24,260
+And so it looks like it doesn't make a huge difference whether you're smoking 20 or 40.
+
+159
+00:21:26,110 --> 00:21:30,370
+But it makes a big difference if you can quit at age 30 versus credit age 50.
+
+160
+00:21:33,540 --> 00:21:43,049
+Okay. So our last analysis for today is a cancer registry analysis looking at colorectal cancer in the US,
+
+161
+00:21:43,050 --> 00:21:50,340
+in the UK and we're going to compare subsets of colorectal cancer and think anyone's doing colorectal this year.
+
+162
+00:21:52,230 --> 00:22:01,560
+So a little bit of background. Colorectal screening is common in the US because it's recommended and covered by insurance, but it is not.
+
+163
+00:22:01,800 --> 00:22:13,120
+That is not the case in the UK. And there are these important differences in cancer incidence depending on what part of the large
+
+164
+00:22:13,120 --> 00:22:19,989
+intestine or colon we're talking about the proximal colon or right side colon versus the distal colon,
+
+165
+00:22:19,990 --> 00:22:24,910
+which is the left side, as well as the rectum, which is the bottom part.
+
+166
+00:22:25,960 --> 00:22:32,650
+And so we can see how proximal kind of starts out the lowest,
+
+167
+00:22:32,650 --> 00:22:40,750
+but then kind of crosses and jumps up at the end, whereas distal starts higher but increases more slowly.
+
+168
+00:22:41,720 --> 00:22:45,610
+We want to understand what the biological implications of these patterns are.
+
+169
+00:22:47,470 --> 00:22:56,710
+There also important differences by sex here, where we see a much greater specific incidence for men compared to men?
+
+170
+00:23:00,460 --> 00:23:09,140
+I also one thing I want to note here is that we see many in the tue on expansion model.
+
+171
+00:23:09,710 --> 00:23:15,230
+Our hazards tend to look like this leveling off.
+
+172
+00:23:15,710 --> 00:23:20,210
+You don't really see that so much. Well, what did we learn to cancer?
+
+173
+00:23:20,630 --> 00:23:25,490
+So we have to do a little bit more modeling here.
+
+174
+00:23:26,360 --> 00:23:33,560
+We're not going to cover this in this class, but in terms of getting into the mathematical details.
+
+175
+00:23:34,040 --> 00:23:38,810
+But colorectal cancer is not a two stage to head cancer.
+
+176
+00:23:39,110 --> 00:23:40,700
+It's actually a three have cancer.
+
+177
+00:23:42,440 --> 00:24:00,260
+And you have you have basically like inactivation of the APC gene to try to remove the Adenomatous Polyposis Coley gene at not a biologist here,
+
+178
+00:24:00,290 --> 00:24:11,930
+but that if you have two inactivation you start to get polyps and the colon and so called colonoscopy is are looking for these polyps.
+
+179
+00:24:12,200 --> 00:24:18,590
+They want to polyps are where the adenoma is the actual colorectal cancers arise.
+
+180
+00:24:18,800 --> 00:24:29,690
+So we get two hits to start developing an adenoma before it becomes a full blown colorectal cancer.
+
+181
+00:24:30,650 --> 00:24:38,780
+So rather than having the sort of one hit to initiation and then another to colorectal, we have to hit a pre initiated stage.
+
+182
+00:24:40,130 --> 00:24:43,370
+This has a different set of operations associated with it.
+
+183
+00:24:43,700 --> 00:24:48,200
+It's still solvable. Still. Still can write differential equations.
+
+184
+00:24:50,630 --> 00:24:56,760
+You can solve it exactly for fixed parameter and simulated for time, varying as a similar shape.
+
+185
+00:24:56,780 --> 00:25:03,470
+But the important part is that it doesn't actually achieve its asymptote for at least typical human ages.
+
+186
+00:25:03,890 --> 00:25:10,010
+So usually we just have this kind of straight line coming out.
+
+187
+00:25:10,010 --> 00:25:16,550
+So another cancer for which we typically see this pattern is pancreatic.
+
+188
+00:25:16,970 --> 00:25:21,890
+And then there's a couple of pancreatic being looked at this term.
+
+189
+00:25:28,580 --> 00:25:34,219
+So once the researchers did what they looked at,
+
+190
+00:25:34,220 --> 00:25:43,730
+they fit this three stage Qantas fashion model to the data in both sphere in the US and a registry in the UK.
+
+191
+00:25:45,620 --> 00:25:51,860
+And what I first want to focus on is these first two rows, so the adenoma initiation rate.
+
+192
+00:25:52,640 --> 00:26:03,020
+So I want to focus on the initiation rate being much higher for proximal colon compared to distal or the rectum.
+
+193
+00:26:04,520 --> 00:26:15,410
+We also see that very similar initiation rates in proximal for men and women, but for distal and rectum, we have a big difference in women.
+
+194
+00:26:16,280 --> 00:26:22,280
+Right. So these differences in initiation are driving some of the patterns that we're seeing.
+
+195
+00:26:23,540 --> 00:26:32,990
+And if we look at the growth rate, once the adenomas have been seeded, we see that the growth rates are actually higher for distal and rectum,
+
+196
+00:26:34,070 --> 00:26:35,390
+but lower for proximal,
+
+197
+00:26:35,480 --> 00:26:43,520
+even though proximal had a higher initiation rate and then tend to have slightly higher growth rates across the board compared to women.
+
+198
+00:26:45,080 --> 00:26:53,030
+Okay. So then how do these, uh, what are the implications of these for cancer incidence?
+
+199
+00:26:53,480 --> 00:26:59,090
+So if proximal cancer has a lower incidence initially but then overtakes distal
+
+200
+00:26:59,090 --> 00:27:07,910
+later in life due to having a lower growth rate but a higher initiation rate,
+
+201
+00:27:09,440 --> 00:27:12,710
+it's funny you might think, oh, higher initiation rate, it should be higher earlier,
+
+202
+00:27:13,430 --> 00:27:18,920
+but actually it just means that you're seeing a lot of things that later get to jump up.
+
+203
+00:27:21,690 --> 00:27:30,900
+All right. And then women, of course, are a little bit lower than that for distal and rectum,
+
+204
+00:27:31,200 --> 00:27:35,370
+but actually are very similar for proximal because they had similar initiation rates.
+
+205
+00:27:37,680 --> 00:27:45,420
+Okay. So big picture takeaways today are that these pension models are pretty flexible.
+
+206
+00:27:45,660 --> 00:27:48,630
+They can be used with a lot of different types of epidemiological data,
+
+207
+00:27:49,470 --> 00:27:54,820
+from cohort studies to cancer registries and more broadly interested in dealing with these
+
+208
+00:27:54,820 --> 00:28:01,770
+and all these digitalization models is connecting the data to underlying biological patterns.
+
+209
+00:28:02,100 --> 00:28:10,410
+And so thinking about how differences we see in population or individual level are really being driven by exposure differences,
+
+210
+00:28:10,920 --> 00:28:18,030
+differences by sites and sex. And so that's kind of the big picture of what we're trying to do with these models.
+
+211
+00:28:20,520 --> 00:28:23,670
+So I'm going to give you a bunch of time to work on Lab nine today.
+
+212
+00:28:24,060 --> 00:28:31,500
+But Lab ten on Wednesday is going to be focusing on how cancer incidence depends on different cancer exposures across the life course.
+
+213
+00:28:31,860 --> 00:28:36,300
+So if you have an initiator or promoter and how that depends.
+
+214
+00:28:36,870 --> 00:28:44,370
+If it was early in life, midlife or late in life, so extremely in labs, it should be fairly short.
+
+215
+00:28:45,870 --> 00:28:52,560
+We'll see if my expectations actually if I actually manage to do that.
+
+216
+00:28:54,330 --> 00:28:58,080
+But the last thing I want to talk about is the article review.
+
+217
+00:28:58,800 --> 00:29:01,380
+We talked a little bit about this the beginning of the semester,
+
+218
+00:29:02,430 --> 00:29:08,220
+but now we have kind of enough information to actually do the work that I want to follow up now.
+
+219
+00:29:08,240 --> 00:29:17,610
+So the assignment is to write a review, slash commentary on an article of your choice that uses multi-stage,
+
+220
+00:29:17,910 --> 00:29:21,780
+presented Genesis models or multi-stage transition models.
+
+221
+00:29:22,980 --> 00:29:29,670
+This will be due just about a month from today on our final period on December 14th.
+
+222
+00:29:29,710 --> 00:29:35,070
+You can, of course, turn it on earlier, if that if you would like.
+
+223
+00:29:35,580 --> 00:29:39,270
+It is not meant to be a super onerous assignment.
+
+224
+00:29:39,640 --> 00:29:41,490
+It should be less than 2000 words.
+
+225
+00:29:44,190 --> 00:29:55,650
+And I would like you to vet your articles with me just so that I'm not picking something that after you send it to me.
+
+226
+00:29:55,680 --> 00:29:59,339
+I'm kind of like, Oh, this isn't really what the assignment is.
+
+227
+00:29:59,340 --> 00:30:03,050
+So just just check in with me about the articles.
+
+228
+00:30:05,460 --> 00:30:09,210
+This is basically a distillation of the rubric.
+
+229
+00:30:09,630 --> 00:30:12,510
+The rubric at some point will be on canvas when I have time to put it up.
+
+230
+00:30:12,840 --> 00:30:17,640
+But you will be describing the basic research question, discuss the significance,
+
+231
+00:30:18,150 --> 00:30:22,920
+describe the model structure, discuss the modeling assumptions and whether they're reasonable.
+
+232
+00:30:23,520 --> 00:30:27,330
+Summarize and discuss the results, and provide an overall critique of the paper,
+
+233
+00:30:27,660 --> 00:30:31,710
+particularly highlighting the value of the study in the context modeling.
+
+234
+00:30:34,470 --> 00:30:37,230
+Questions about the article reveal.
+
+235
+00:30:39,470 --> 00:30:50,840
+He says mostly the all of the upper level AP modeling electives now have to have an article review because that's what we told security to do.
+
+236
+00:30:50,900 --> 00:30:56,000
+So that's what this is here. Okay.
+
+237
+00:30:57,260 --> 00:31:08,210
+There aren't any questions then. I'll go ahead and get started on nine and I'll be here to answer any questions.
+

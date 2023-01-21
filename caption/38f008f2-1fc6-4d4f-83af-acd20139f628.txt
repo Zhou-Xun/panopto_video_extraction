@@ -1,0 +1,1078 @@
+1
+00:00:09,290 --> 00:00:12,240
+Hey. This is Matthew Zawistowski.
+
+2
+00:00:12,240 --> 00:00:16,080
+In this lecture, we'll
+return to the MPLS dataset,
+
+3
+00:00:16,080 --> 00:00:18,300
+this time with an ion using
+
+4
+00:00:18,300 --> 00:00:21,000
+a mixed effect regression
+model to formally
+
+5
+00:00:21,000 --> 00:00:23,400
+test for a difference
+in reading test scores
+
+6
+00:00:23,400 --> 00:00:26,355
+between advantaged and
+disadvantaged students.
+
+7
+00:00:26,355 --> 00:00:28,890
+We'll also compare those
+results to those from
+
+8
+00:00:28,890 --> 00:00:31,290
+a standard linear
+regression model to
+
+9
+00:00:31,290 --> 00:00:33,509
+understand how
+ignoring correlation
+
+10
+00:00:33,509 --> 00:00:35,770
+can impact our results.
+
+11
+00:00:35,770 --> 00:00:38,675
+As a reminder, in
+previous lectures,
+
+12
+00:00:38,675 --> 00:00:41,300
+we have already fit
+a random intercept
+
+13
+00:00:41,300 --> 00:00:44,615
+mixed defect regression
+model to the MPLS data.
+
+14
+00:00:44,615 --> 00:00:46,740
+Recall that this
+model accounted for
+
+15
+00:00:46,740 --> 00:00:49,415
+the within subject
+correlation of test scores,
+
+16
+00:00:49,415 --> 00:00:52,130
+assuming a common slope
+among all students,
+
+17
+00:00:52,130 --> 00:00:53,930
+and provided strong evidence for
+
+18
+00:00:53,930 --> 00:00:56,660
+an increase in reading
+test scores over time.
+
+19
+00:00:56,660 --> 00:00:58,910
+In this lecture, we'll build on
+
+20
+00:00:58,910 --> 00:01:01,655
+this model to examine
+group effects.
+
+21
+00:01:01,655 --> 00:01:04,760
+The primary group difference
+we have examined in
+
+22
+00:01:04,760 --> 00:01:07,280
+the MPLS data is
+reading test scores
+
+23
+00:01:07,280 --> 00:01:10,225
+between advantaged and
+disadvantaged students.
+
+24
+00:01:10,225 --> 00:01:12,020
+Visually, it appears that
+
+25
+00:01:12,020 --> 00:01:14,359
+the test scores for
+advantaged students
+
+26
+00:01:14,359 --> 00:01:16,280
+appeared to be higher as a whole
+
+27
+00:01:16,280 --> 00:01:18,500
+than the scores of
+disadvantaged students,
+
+28
+00:01:18,500 --> 00:01:20,090
+but we have not yet formally
+
+29
+00:01:20,090 --> 00:01:22,795
+tested this using a
+statistical model.
+
+30
+00:01:22,795 --> 00:01:26,210
+We'll fit both the standard
+linear regression model and
+
+31
+00:01:26,210 --> 00:01:28,340
+a mixed effect
+regression model to
+
+32
+00:01:28,340 --> 00:01:31,564
+test for group effects
+and compare the results.
+
+33
+00:01:31,564 --> 00:01:34,040
+Let's first ignore
+the correlation
+
+34
+00:01:34,040 --> 00:01:36,350
+and pretend that test
+scores are all independent,
+
+35
+00:01:36,350 --> 00:01:38,515
+like from a
+cross-sectional study.
+
+36
+00:01:38,515 --> 00:01:40,520
+We would test for a
+difference in mean
+
+37
+00:01:40,520 --> 00:01:43,340
+test scores accounting
+for grade level by
+
+38
+00:01:43,340 --> 00:01:45,770
+the inclusion of a
+regression parameter for
+
+39
+00:01:45,770 --> 00:01:47,660
+the binary variable indicating
+
+40
+00:01:47,660 --> 00:01:50,540
+whether a student has a
+disadvantaged background.
+
+41
+00:01:50,540 --> 00:01:54,200
+This is the model and
+corresponding R code for
+
+42
+00:01:54,200 --> 00:01:56,210
+a standard linear regression with
+
+43
+00:01:56,210 --> 00:02:00,220
+parameters for both grade
+and being disadvantaged.
+
+44
+00:02:00,220 --> 00:02:03,500
+The Beta_2 term is interpreted
+as the difference in
+
+45
+00:02:03,500 --> 00:02:06,935
+intercept between a disadvantaged
+and advantaged student.
+
+46
+00:02:06,935 --> 00:02:09,575
+It's the term we would
+use for inference
+
+47
+00:02:09,575 --> 00:02:10,970
+regarding the group effect of
+
+48
+00:02:10,970 --> 00:02:13,490
+student background
+on test scores.
+
+49
+00:02:13,490 --> 00:02:15,740
+Here's the output when we fit
+
+50
+00:02:15,740 --> 00:02:17,990
+this model to the MPLS data.
+
+51
+00:02:17,990 --> 00:02:19,850
+We see that the fitted value for
+
+52
+00:02:19,850 --> 00:02:22,595
+Beta_2 is approximately
+negative 19,
+
+53
+00:02:22,595 --> 00:02:24,770
+indicating a mean
+test score that is
+
+54
+00:02:24,770 --> 00:02:28,129
+19 points lower among
+disadvantaged students.
+
+55
+00:02:28,129 --> 00:02:30,590
+There is very strong
+evidence to reject
+
+56
+00:02:30,590 --> 00:02:32,780
+the null hypothesis
+of no difference
+
+57
+00:02:32,780 --> 00:02:34,370
+between the groups based on
+
+58
+00:02:34,370 --> 00:02:38,030
+a p-value of approximately
+2e to the minus six.
+
+59
+00:02:38,030 --> 00:02:40,640
+This analysis is of course flawed
+
+60
+00:02:40,640 --> 00:02:43,685
+because we know that the test
+scores are not independent.
+
+61
+00:02:43,685 --> 00:02:45,335
+What's not clear though,
+
+62
+00:02:45,335 --> 00:02:48,280
+is how exactly are
+inferences flawed?
+
+63
+00:02:48,280 --> 00:02:51,575
+To determine how the
+independence violation
+
+64
+00:02:51,575 --> 00:02:53,105
+affects inference,
+
+65
+00:02:53,105 --> 00:02:55,490
+we'll properly analyze
+these data with
+
+66
+00:02:55,490 --> 00:02:58,540
+a mixed effect model and
+compare the results.
+
+67
+00:02:58,540 --> 00:03:01,760
+Just as we added the regression
+parameter to indicate
+
+68
+00:03:01,760 --> 00:03:05,210
+disadvantaged students to the
+standard regression model,
+
+69
+00:03:05,210 --> 00:03:06,680
+we can similarly add
+
+70
+00:03:06,680 --> 00:03:07,940
+the same parameter to
+
+71
+00:03:07,940 --> 00:03:10,415
+the random intercept
+mixed effect model.
+
+72
+00:03:10,415 --> 00:03:12,830
+Note that this group
+effect term is
+
+73
+00:03:12,830 --> 00:03:14,675
+a fixed effect parameter
+
+74
+00:03:14,675 --> 00:03:16,955
+and its interpretation
+is the same.
+
+75
+00:03:16,955 --> 00:03:19,940
+It's the difference in
+mean reading score between
+
+76
+00:03:19,940 --> 00:03:22,040
+a disadvantage and
+advantage student
+
+77
+00:03:22,040 --> 00:03:24,025
+at a fixed grade level.
+
+78
+00:03:24,025 --> 00:03:27,500
+The random intercept terms
+are what differentiate
+
+79
+00:03:27,500 --> 00:03:29,390
+the mixed effect regression model
+
+80
+00:03:29,390 --> 00:03:31,310
+from the standard
+regression model,
+
+81
+00:03:31,310 --> 00:03:32,690
+and account for the correlation
+
+82
+00:03:32,690 --> 00:03:34,580
+between student test scores.
+
+83
+00:03:34,580 --> 00:03:37,130
+Remember that we
+typically do not estimate
+
+84
+00:03:37,130 --> 00:03:39,560
+the individual random
+intercept terms,
+
+85
+00:03:39,560 --> 00:03:42,980
+just the variance or standard
+deviation of these terms.
+
+86
+00:03:42,980 --> 00:03:46,640
+That estimate is needed
+to perform inference.
+
+87
+00:03:46,640 --> 00:03:50,435
+Here is the R command to
+fit the random intercept
+
+88
+00:03:50,435 --> 00:03:51,710
+mixed model with
+
+89
+00:03:51,710 --> 00:03:54,770
+group effect parameter for
+disadvantaged students.
+
+90
+00:03:54,770 --> 00:03:57,620
+This model is fit by
+simply adding the risk to
+
+91
+00:03:57,620 --> 00:04:01,075
+binary variable to the list
+of fixed effect terms.
+
+92
+00:04:01,075 --> 00:04:04,415
+Here's the corresponding
+output for the fitted model.
+
+93
+00:04:04,415 --> 00:04:06,890
+Note that Beta_2,
+the difference in
+
+94
+00:04:06,890 --> 00:04:08,000
+mean test score among
+
+95
+00:04:08,000 --> 00:04:10,330
+disadvantaged students
+is again negative,
+
+96
+00:04:10,330 --> 00:04:13,315
+negative 20.37 to be precise,
+
+97
+00:04:13,315 --> 00:04:15,620
+and very similar
+to the estimate of
+
+98
+00:04:15,620 --> 00:04:19,225
+that same parameter from the
+standard regression model.
+
+99
+00:04:19,225 --> 00:04:21,470
+We can also see estimates for
+
+100
+00:04:21,470 --> 00:04:23,810
+the random components
+of the mixed model.
+
+101
+00:04:23,810 --> 00:04:27,020
+Note that the variation
+between students is much
+
+102
+00:04:27,020 --> 00:04:28,250
+larger than the variation
+
+103
+00:04:28,250 --> 00:04:30,635
+of measurements within students.
+
+104
+00:04:30,635 --> 00:04:32,930
+Now let's compare inference for
+
+105
+00:04:32,930 --> 00:04:36,229
+the risk parameter
+between these two models.
+
+106
+00:04:36,229 --> 00:04:38,510
+We'll grab the summary table of
+
+107
+00:04:38,510 --> 00:04:40,760
+corresponding fixed
+effect parameters
+
+108
+00:04:40,760 --> 00:04:43,760
+from each model for
+closer inspection.
+
+109
+00:04:43,760 --> 00:04:46,070
+Remember that the Elmer function
+
+110
+00:04:46,070 --> 00:04:47,930
+does not produce a p-value for
+
+111
+00:04:47,930 --> 00:04:49,790
+the mixed model wall test
+
+112
+00:04:49,790 --> 00:04:52,225
+because its behavior
+is not clear.
+
+113
+00:04:52,225 --> 00:04:55,040
+We can still compared
+the t-statistics to get
+
+114
+00:04:55,040 --> 00:04:56,555
+a rough idea as to how
+
+115
+00:04:56,555 --> 00:04:59,314
+inference differs
+between the models.
+
+116
+00:04:59,314 --> 00:05:02,720
+First, note that the
+actual parameter estimates
+
+117
+00:05:02,720 --> 00:05:04,970
+are quite similar
+between the two methods,
+
+118
+00:05:04,970 --> 00:05:07,445
+something we've previously seen.
+
+119
+00:05:07,445 --> 00:05:09,710
+But the standard errors of
+
+120
+00:05:09,710 --> 00:05:11,645
+those estimates are
+quite different.
+
+121
+00:05:11,645 --> 00:05:12,920
+Again, this is due to
+
+122
+00:05:12,920 --> 00:05:15,785
+the partitioning of variation
+in the mixed model.
+
+123
+00:05:15,785 --> 00:05:18,800
+Specifically, we see
+that the standard error
+
+124
+00:05:18,800 --> 00:05:21,890
+for the grade parameter gets
+smaller for the mixed model,
+
+125
+00:05:21,890 --> 00:05:24,395
+similar to what we observe prior.
+
+126
+00:05:24,395 --> 00:05:27,080
+However, the standard
+error for the risk group
+
+127
+00:05:27,080 --> 00:05:30,545
+parameter actually gets
+larger in the mixed model.
+
+128
+00:05:30,545 --> 00:05:33,170
+As a result, the magnitude of
+
+129
+00:05:33,170 --> 00:05:36,185
+the t-statistic increases
+for the great effect,
+
+130
+00:05:36,185 --> 00:05:38,450
+but decreases for
+the risk effect in
+
+131
+00:05:38,450 --> 00:05:41,260
+the mixed model.
+What does this mean?
+
+132
+00:05:41,260 --> 00:05:44,030
+It means that when the
+correlation in the data is
+
+133
+00:05:44,030 --> 00:05:47,555
+properly modeled using a mixed
+effect regression model,
+
+134
+00:05:47,555 --> 00:05:49,820
+the statistical evidence
+for a difference
+
+135
+00:05:49,820 --> 00:05:52,249
+in scores by grade
+is more significant,
+
+136
+00:05:52,249 --> 00:05:54,710
+but the evidence for a
+difference in being from
+
+137
+00:05:54,710 --> 00:05:57,910
+a disadvantaged background
+is less significant.
+
+138
+00:05:57,910 --> 00:06:00,350
+That's not to say that
+there's no evidence
+
+139
+00:06:00,350 --> 00:06:02,540
+for a difference between
+the risk groups.
+
+140
+00:06:02,540 --> 00:06:05,705
+A t-statistic of negative
+three is still extreme,
+
+141
+00:06:05,705 --> 00:06:07,370
+but it's not as extreme as
+
+142
+00:06:07,370 --> 00:06:09,875
+under the standard
+regression model.
+
+143
+00:06:09,875 --> 00:06:13,100
+The reasoning for the
+change in inference can
+
+144
+00:06:13,100 --> 00:06:16,775
+actually be seen through a
+visualization of the data.
+
+145
+00:06:16,775 --> 00:06:19,340
+On the left, we are visualizing
+
+146
+00:06:19,340 --> 00:06:22,415
+the MPLS data, ignoring
+the correlation.
+
+147
+00:06:22,415 --> 00:06:24,575
+That is, incorrectly assuming
+
+148
+00:06:24,575 --> 00:06:26,680
+each test score is independent.
+
+149
+00:06:26,680 --> 00:06:28,850
+On the right, our spaghetti plot
+
+150
+00:06:28,850 --> 00:06:30,830
+shows the more accurate
+way to visualize
+
+151
+00:06:30,830 --> 00:06:33,020
+this data with connecting lines
+
+152
+00:06:33,020 --> 00:06:36,070
+indicating repeated measures
+on the same samples.
+
+153
+00:06:36,070 --> 00:06:37,685
+We need to think about how
+
+154
+00:06:37,685 --> 00:06:39,590
+each regression technique views
+
+155
+00:06:39,590 --> 00:06:41,765
+individual outcome measurements.
+
+156
+00:06:41,765 --> 00:06:46,165
+For example, take a look at
+the eight circle test scores.
+
+157
+00:06:46,165 --> 00:06:49,325
+The linear regression model
+thinks that these are all
+
+158
+00:06:49,325 --> 00:06:51,215
+independent scores coming from
+
+159
+00:06:51,215 --> 00:06:53,825
+eight different
+disadvantaged students.
+
+160
+00:06:53,825 --> 00:06:56,030
+If we consider each score as
+
+161
+00:06:56,030 --> 00:06:58,115
+an independent piece
+of information,
+
+162
+00:06:58,115 --> 00:07:00,380
+it certainly does
+seem like a lot of
+
+163
+00:07:00,380 --> 00:07:03,500
+disadvantaged students have
+much lower test scores,
+
+164
+00:07:03,500 --> 00:07:05,120
+but this is not the correct way
+
+165
+00:07:05,120 --> 00:07:07,070
+to think about these data.
+
+166
+00:07:07,070 --> 00:07:09,110
+The more accurate way to
+
+167
+00:07:09,110 --> 00:07:10,985
+interpret these eight test scores
+
+168
+00:07:10,985 --> 00:07:12,650
+is to realize that they actually
+
+169
+00:07:12,650 --> 00:07:14,405
+come from only two students,
+
+170
+00:07:14,405 --> 00:07:16,340
+not eight different students,
+
+171
+00:07:16,340 --> 00:07:19,960
+and those two students
+tend to have lower scores.
+
+172
+00:07:19,960 --> 00:07:21,680
+In terms of evidence of
+
+173
+00:07:21,680 --> 00:07:23,959
+a difference in scores
+between the groups,
+
+174
+00:07:23,959 --> 00:07:26,840
+the mixed model correctly
+accounts for the fact that
+
+175
+00:07:26,840 --> 00:07:28,805
+those eight lower test scores
+
+176
+00:07:28,805 --> 00:07:31,909
+really only represent two
+independent students.
+
+177
+00:07:31,909 --> 00:07:33,590
+This makes a big difference in
+
+178
+00:07:33,590 --> 00:07:35,165
+how we interpret these data.
+
+179
+00:07:35,165 --> 00:07:38,555
+It should help your intuition
+for why, in this case,
+
+180
+00:07:38,555 --> 00:07:40,460
+the evidence for
+a group effect is
+
+181
+00:07:40,460 --> 00:07:43,015
+less extreme in the mixed model.
+
+182
+00:07:43,015 --> 00:07:45,350
+Now that we've seen
+how to test for
+
+183
+00:07:45,350 --> 00:07:48,170
+group differences using
+mixed effect models,
+
+184
+00:07:48,170 --> 00:07:49,595
+let's incorporate
+
+185
+00:07:49,595 --> 00:07:52,520
+another common elements
+of regression analysis,
+
+186
+00:07:52,520 --> 00:07:56,450
+the inclusion of additional
+explanatory variables.
+
+187
+00:07:56,450 --> 00:07:59,570
+Even if our primary
+research interests relates
+
+188
+00:07:59,570 --> 00:08:02,389
+to differences in test scores
+due to risk background,
+
+189
+00:08:02,389 --> 00:08:04,115
+we would still want
+to account for
+
+190
+00:08:04,115 --> 00:08:06,875
+other variables that might
+affect reading scores.
+
+191
+00:08:06,875 --> 00:08:09,770
+For example, we might
+want to account for or
+
+192
+00:08:09,770 --> 00:08:13,280
+control for a student's
+gender and attendance record.
+
+193
+00:08:13,280 --> 00:08:15,500
+In standard linear regression,
+
+194
+00:08:15,500 --> 00:08:17,390
+you would do this
+by simply adding
+
+195
+00:08:17,390 --> 00:08:19,490
+regression parameters to a model
+
+196
+00:08:19,490 --> 00:08:21,635
+containing your
+variables of interest.
+
+197
+00:08:21,635 --> 00:08:24,880
+We can do the exact same
+thing for mixed models.
+
+198
+00:08:24,880 --> 00:08:26,990
+In this case, I can add
+
+199
+00:08:26,990 --> 00:08:30,470
+fixed effect terms for
+gender and attendance to our
+
+200
+00:08:30,470 --> 00:08:33,215
+existing random
+intercept mixed model
+
+201
+00:08:33,215 --> 00:08:36,955
+already containing grade in
+risk group fixed effects.
+
+202
+00:08:36,955 --> 00:08:39,500
+Student Gender and
+attendance are simply
+
+203
+00:08:39,500 --> 00:08:42,790
+added to the list of fixed
+effects in the R code.
+
+204
+00:08:42,790 --> 00:08:45,260
+In this specific example,
+
+205
+00:08:45,260 --> 00:08:48,290
+we see that adding these two
+variables to the model has
+
+206
+00:08:48,290 --> 00:08:50,540
+little impact on
+the effect estimate
+
+207
+00:08:50,540 --> 00:08:51,880
+for the risk variable.
+
+208
+00:08:51,880 --> 00:08:53,810
+So, they're likely
+not confounding
+
+209
+00:08:53,810 --> 00:08:56,810
+the relationship between risk
+group and students score.
+
+210
+00:08:56,810 --> 00:08:59,690
+A more thorough model
+fitting analysis would be
+
+211
+00:08:59,690 --> 00:09:01,400
+required to determine if
+
+212
+00:09:01,400 --> 00:09:03,275
+they should be
+retained in the model,
+
+213
+00:09:03,275 --> 00:09:06,200
+but that's a topic
+for another day.
+
+214
+00:09:06,200 --> 00:09:09,110
+If you remember back
+to our primary goals
+
+215
+00:09:09,110 --> 00:09:11,420
+for longitudinal data analysis,
+
+216
+00:09:11,420 --> 00:09:14,090
+the second goal was
+to identify between
+
+217
+00:09:14,090 --> 00:09:17,275
+subject differences that
+impact the outcome.
+
+218
+00:09:17,275 --> 00:09:20,800
+A common example of this
+is group differences.
+
+219
+00:09:20,800 --> 00:09:23,360
+We looked at risk background as
+
+220
+00:09:23,360 --> 00:09:27,200
+an example group in the MPLS
+data-set in this lecture.
+
+221
+00:09:27,200 --> 00:09:30,380
+We examined the effect
+of risk group by adding
+
+222
+00:09:30,380 --> 00:09:32,450
+a fixed effect term to indicate
+
+223
+00:09:32,450 --> 00:09:33,920
+disadvantaged students to
+
+224
+00:09:33,920 --> 00:09:36,065
+the random intercept mixed model.
+
+225
+00:09:36,065 --> 00:09:38,345
+This is similar to
+how we would add
+
+226
+00:09:38,345 --> 00:09:40,700
+a regression parameter
+for a variable of
+
+227
+00:09:40,700 --> 00:09:43,565
+interest to a standard
+linear regression model.
+
+228
+00:09:43,565 --> 00:09:46,610
+In our example, we saw
+that the results can be
+
+229
+00:09:46,610 --> 00:09:49,415
+quite different between the
+two modeling techniques,
+
+230
+00:09:49,415 --> 00:09:52,220
+further underscoring the
+importance of properly
+
+231
+00:09:52,220 --> 00:09:56,459
+accounting for correlation
+in repeated measures data.
+

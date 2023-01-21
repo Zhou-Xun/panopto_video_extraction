@@ -1,0 +1,765 @@
+1
+00:00:09,170 --> 00:00:11,445
+After watching this video,
+
+2
+00:00:11,445 --> 00:00:13,950
+you will be able to
+use PROC SURVEYFREQ to
+
+3
+00:00:13,950 --> 00:00:17,430
+get frequencies and 2 by 2
+tables with survey data.
+
+4
+00:00:17,430 --> 00:00:20,880
+So SAS has a family of
+survey procedures that you
+
+5
+00:00:20,880 --> 00:00:22,620
+can use to analyze
+your survey data
+
+6
+00:00:22,620 --> 00:00:24,060
+from complex sampling.
+
+7
+00:00:24,060 --> 00:00:27,240
+They are PROC SURVEYSELECT,
+PROC SURVEYFREQ,
+
+8
+00:00:27,240 --> 00:00:29,535
+PROC SURVEYMEANS, PROC SURVEYREG,
+
+9
+00:00:29,535 --> 00:00:32,430
+PROC SURVEYLOGISTIC,
+and PROC SURVEYPHREG.
+
+10
+00:00:32,430 --> 00:00:36,795
+We won't cover PROC SURVEYSELECT
+or PROC SURVEYPHREG.
+
+11
+00:00:36,795 --> 00:00:40,990
+You will see that PROC SURVEYFREQ
+means REG and LOGISTIC
+
+12
+00:00:40,990 --> 00:00:43,340
+share many characteristics with
+
+13
+00:00:43,340 --> 00:00:45,920
+their corresponding
+non-survey PROCs.
+
+14
+00:00:45,920 --> 00:00:49,330
+But, of course, they have
+their own particularities.
+
+15
+00:00:49,330 --> 00:00:51,945
+Let's go back to our sample.
+
+16
+00:00:51,945 --> 00:00:53,555
+Remember our design is
+
+17
+00:00:53,555 --> 00:00:56,885
+a complex design that
+uses cluster sampling.
+
+18
+00:00:56,885 --> 00:00:59,240
+We will need to use a
+clustering variable
+
+19
+00:00:59,240 --> 00:01:00,725
+to take that into account.
+
+20
+00:01:00,725 --> 00:01:03,470
+Another sign is not
+equi-probabilistic.
+
+21
+00:01:03,470 --> 00:01:05,000
+That is, every child has
+
+22
+00:01:05,000 --> 00:01:07,070
+not the same probability
+
+23
+00:01:07,070 --> 00:01:09,120
+of being selected into the study.
+
+24
+00:01:09,120 --> 00:01:12,160
+Therefore, we will need
+to use sampling weights.
+
+25
+00:01:12,160 --> 00:01:15,365
+Our outcome is a binary
+variable, overweight,
+
+26
+00:01:15,365 --> 00:01:19,204
+defined with a cutoff on their
+weight to height Z-score,
+
+27
+00:01:19,204 --> 00:01:22,270
+and is coded as 0,
+no, and 1, yes.
+
+28
+00:01:22,270 --> 00:01:24,429
+We will use PROC SURVEYFREQ
+
+29
+00:01:24,429 --> 00:01:26,435
+to answer those two questions.
+
+30
+00:01:26,435 --> 00:01:29,014
+First, what is the prevalence
+
+31
+00:01:29,014 --> 00:01:30,875
+of overweight in the population?
+
+32
+00:01:30,875 --> 00:01:35,570
+Second, is being bottled-fed
+associated with overweight?
+
+33
+00:01:35,570 --> 00:01:38,615
+Let's start with the
+prevalence of overweight.
+
+34
+00:01:38,615 --> 00:01:40,655
+With simple random sampling,
+
+35
+00:01:40,655 --> 00:01:42,320
+you would use PROC FREQ on
+
+36
+00:01:42,320 --> 00:01:44,870
+the overweight
+variable, easy peasy.
+
+37
+00:01:44,870 --> 00:01:46,610
+Now, we are not selecting
+
+38
+00:01:46,610 --> 00:01:49,085
+our children with simple
+random sampling here.
+
+39
+00:01:49,085 --> 00:01:51,020
+Note two things that
+
+40
+00:01:51,020 --> 00:01:53,360
+PROC FREQ will not
+take into account.
+
+41
+00:01:53,360 --> 00:01:55,820
+First, the weights, therefore,
+
+42
+00:01:55,820 --> 00:01:57,965
+you will get an
+incorrect prevalence.
+
+43
+00:01:57,965 --> 00:02:01,010
+Weights are used to
+balance the fact
+
+44
+00:02:01,010 --> 00:02:02,390
+that children were not
+
+45
+00:02:02,390 --> 00:02:04,645
+selected with the
+same probability.
+
+46
+00:02:04,645 --> 00:02:06,530
+Children who were selected with
+
+47
+00:02:06,530 --> 00:02:10,250
+a smaller probability should
+weight more in the analysis
+
+48
+00:02:10,250 --> 00:02:12,320
+and the other way around to get
+
+49
+00:02:12,320 --> 00:02:15,395
+a correct and
+representative estimate
+
+50
+00:02:15,395 --> 00:02:17,120
+of the general population.
+
+51
+00:02:17,120 --> 00:02:19,670
+Second, clustering, the data was
+
+52
+00:02:19,670 --> 00:02:22,055
+collected with a cluster
+sampling design.
+
+53
+00:02:22,055 --> 00:02:24,845
+Clusters are more similar
+within each other.
+
+54
+00:02:24,845 --> 00:02:28,120
+That means the observations
+are somewhat correlated.
+
+55
+00:02:28,120 --> 00:02:30,870
+Therefore, you didn't take
+into account the clustering,
+
+56
+00:02:30,870 --> 00:02:33,710
+your standard errors will
+be incorrect and you
+
+57
+00:02:33,710 --> 00:02:37,790
+will get an incorrect 95
+percent confidence interval.
+
+58
+00:02:37,790 --> 00:02:42,830
+That's why PROC SURVEYFREQ
+now has two new statements,
+
+59
+00:02:42,830 --> 00:02:45,955
+one for the clustering
+and one for the weight.
+
+60
+00:02:45,955 --> 00:02:47,955
+The rest is the same,
+
+61
+00:02:47,955 --> 00:02:49,620
+as in the normal PROC FREQ.
+
+62
+00:02:49,620 --> 00:02:51,495
+Note that the statements are
+
+63
+00:02:51,495 --> 00:02:54,350
+cluster and weight
+statements and I
+
+64
+00:02:54,350 --> 00:02:56,480
+happen to name the
+variables that represent
+
+65
+00:02:56,480 --> 00:02:59,045
+the clusters and the weights
+as cluster and weights too.
+
+66
+00:02:59,045 --> 00:03:02,545
+Don't get confused, they
+could have other mix.
+
+67
+00:03:02,545 --> 00:03:05,235
+Now let's look at the output.
+
+68
+00:03:05,235 --> 00:03:06,650
+SAS always gives you
+
+69
+00:03:06,650 --> 00:03:09,320
+some type of information
+at the beginning.
+
+70
+00:03:09,320 --> 00:03:10,820
+Here in the Data Summary,
+
+71
+00:03:10,820 --> 00:03:12,770
+it's telling you that
+you have 30 clusters,
+
+72
+00:03:12,770 --> 00:03:16,745
+which is correct and 400
+observations, which is correct.
+
+73
+00:03:16,745 --> 00:03:19,370
+It gives you also
+the sum of weights,
+
+74
+00:03:19,370 --> 00:03:21,095
+but you can ignore that.
+
+75
+00:03:21,095 --> 00:03:22,850
+Now let's look at the table.
+
+76
+00:03:22,850 --> 00:03:24,825
+You have the
+overweight variable 0,
+
+77
+00:03:24,825 --> 00:03:26,190
+no, and yes, 1.
+
+78
+00:03:26,190 --> 00:03:28,575
+First, you have
+the row frequency,
+
+79
+00:03:28,575 --> 00:03:33,060
+89 children are overweight
+and 311 are not.
+
+80
+00:03:33,060 --> 00:03:35,795
+Know that if this was
+simple random sampling,
+
+81
+00:03:35,795 --> 00:03:37,834
+you could get an
+unweighted prevalence
+
+82
+00:03:37,834 --> 00:03:40,504
+just dividing 89 over 400,
+
+83
+00:03:40,504 --> 00:03:43,175
+and that would give
+you 22.3 percent.
+
+84
+00:03:43,175 --> 00:03:46,110
+But that prevalence is incorrect.
+
+85
+00:03:46,110 --> 00:03:48,630
+The one that is
+correct is the one in
+
+86
+00:03:48,630 --> 00:03:51,165
+the percent column, 20.6 percent.
+
+87
+00:03:51,165 --> 00:03:53,460
+That's the weighted prevalence.
+
+88
+00:03:53,460 --> 00:03:56,570
+Note that the standard errors
+of those percentages are
+
+89
+00:03:56,570 --> 00:03:58,010
+also correct because they
+
+90
+00:03:58,010 --> 00:03:59,810
+take into account the clustering.
+
+91
+00:03:59,810 --> 00:04:03,020
+You could build a correct 95
+percent confidence interval
+
+92
+00:04:03,020 --> 00:04:05,800
+for your prevalence
+if you will want.
+
+93
+00:04:05,800 --> 00:04:09,360
+What if you also have is a
+strata in your sampling?
+
+94
+00:04:09,360 --> 00:04:11,870
+Well, we didn't. But if
+you work with data that
+
+95
+00:04:11,870 --> 00:04:14,795
+was collected also using
+the strata sampling,
+
+96
+00:04:14,795 --> 00:04:17,010
+then you can add a
+strata statement,
+
+97
+00:04:17,010 --> 00:04:20,010
+or you could put the name
+of your strata variable.
+
+98
+00:04:20,010 --> 00:04:23,270
+Also, an important note
+on cluster variables.
+
+99
+00:04:23,270 --> 00:04:25,130
+By default, SAS uses
+
+100
+00:04:25,130 --> 00:04:27,370
+Taylor series to
+estimate the variance
+
+101
+00:04:27,370 --> 00:04:29,720
+and will only take into
+
+102
+00:04:29,720 --> 00:04:32,255
+account the primary
+sampling unit,
+
+103
+00:04:32,255 --> 00:04:34,520
+that is, the first cluster.
+
+104
+00:04:34,520 --> 00:04:36,320
+That means that even if you have
+
+105
+00:04:36,320 --> 00:04:38,135
+more than one cluster
+in this stage,
+
+106
+00:04:38,135 --> 00:04:40,415
+you only need to
+specify the first one,
+
+107
+00:04:40,415 --> 00:04:43,130
+the first cluster or
+primary sampling unit.
+
+108
+00:04:43,130 --> 00:04:46,115
+We actually had another
+clustering, remember?
+
+109
+00:04:46,115 --> 00:04:48,365
+Within villages we
+selected households,
+
+110
+00:04:48,365 --> 00:04:49,850
+but we only need to specify
+
+111
+00:04:49,850 --> 00:04:53,120
+the first cluster that
+corresponds to the villages.
+
+112
+00:04:53,120 --> 00:04:56,595
+Same as with PROC SURVEYFREQ,
+
+113
+00:04:56,595 --> 00:04:58,670
+you can also do 2 by 2 tables and
+
+114
+00:04:58,670 --> 00:05:01,355
+calculate the corresponding
+statistical tests.
+
+115
+00:05:01,355 --> 00:05:03,500
+The equivalent of
+the chi-square test
+
+116
+00:05:03,500 --> 00:05:04,895
+for correlated data is
+
+117
+00:05:04,895 --> 00:05:08,570
+still a chi-square but is
+called Rao Scott chi-square,
+
+118
+00:05:08,570 --> 00:05:11,305
+and takes into account
+the complex design.
+
+119
+00:05:11,305 --> 00:05:13,790
+Let's see if there
+is any association
+
+120
+00:05:13,790 --> 00:05:17,105
+between being bottle-fed
+and being overweight.
+
+121
+00:05:17,105 --> 00:05:18,875
+What is your hypothesis?
+
+122
+00:05:18,875 --> 00:05:21,590
+Well, in theory, in
+high-income countries,
+
+123
+00:05:21,590 --> 00:05:23,480
+being bottle-fed
+is associated with
+
+124
+00:05:23,480 --> 00:05:25,640
+a higher prevalence
+of overweight.
+
+125
+00:05:25,640 --> 00:05:28,225
+But let's see what we find here.
+
+126
+00:05:28,225 --> 00:05:31,025
+The syntax is the same as before.
+
+127
+00:05:31,025 --> 00:05:33,920
+Don't forget your cluster
+and weight statements.
+
+128
+00:05:33,920 --> 00:05:37,010
+Now in the tables just
+close the two variables,
+
+129
+00:05:37,010 --> 00:05:38,900
+the overweight and
+the bottle-fed.
+
+130
+00:05:38,900 --> 00:05:41,000
+Note that after the slash I
+
+131
+00:05:41,000 --> 00:05:43,085
+also added a chi-square option,
+
+132
+00:05:43,085 --> 00:05:44,495
+same as with PROC FREQ.
+
+133
+00:05:44,495 --> 00:05:47,689
+But this one will give me
+the Rao-Scott chi-square,
+
+134
+00:05:47,689 --> 00:05:50,255
+which takes into account
+the complex design.
+
+135
+00:05:50,255 --> 00:05:53,330
+Also note that I added
+the row option to
+
+136
+00:05:53,330 --> 00:05:56,465
+get row percentages because
+in PROC SURVEYFREQ,
+
+137
+00:05:56,465 --> 00:05:59,300
+SAS only gives you the
+cell percentages by
+
+138
+00:05:59,300 --> 00:06:03,650
+default and we know those
+are not that useful.
+
+139
+00:06:03,650 --> 00:06:06,360
+Even though this does not look
+
+140
+00:06:06,360 --> 00:06:08,280
+as your usual 2 by 2 table,
+
+141
+00:06:08,280 --> 00:06:10,200
+it is a 2 by 2 table.
+
+142
+00:06:10,200 --> 00:06:13,095
+You have the outcome
+overweight, no, yes,
+
+143
+00:06:13,095 --> 00:06:15,180
+and within each, you have
+
+144
+00:06:15,180 --> 00:06:17,985
+this portion bottle-fed, no, yes.
+
+145
+00:06:17,985 --> 00:06:19,970
+Know that the percentage that you
+
+146
+00:06:19,970 --> 00:06:21,650
+want to use to describe
+the results is
+
+147
+00:06:21,650 --> 00:06:23,840
+the row percentage
+because you can see
+
+148
+00:06:23,840 --> 00:06:26,600
+that almost 33
+percent of children
+
+149
+00:06:26,600 --> 00:06:29,735
+were bottle-fed among
+non-overweight children,
+
+150
+00:06:29,735 --> 00:06:31,820
+while only 40 percent were
+
+151
+00:06:31,820 --> 00:06:34,360
+bottle-fed among
+overweight children.
+
+152
+00:06:34,360 --> 00:06:36,650
+This association is statistically
+
+153
+00:06:36,650 --> 00:06:40,220
+significant if you look
+at the Rao-Scott p-value.
+
+154
+00:06:40,220 --> 00:06:43,040
+But know that the
+association goes actually
+
+155
+00:06:43,040 --> 00:06:45,875
+in the opposite direction
+of our hypothesis.
+
+156
+00:06:45,875 --> 00:06:47,500
+Why is that the case?
+
+157
+00:06:47,500 --> 00:06:50,040
+Well, we don't really know.
+
+158
+00:06:50,040 --> 00:06:53,240
+But we speculated that
+in low-income countries
+
+159
+00:06:53,240 --> 00:06:56,495
+maybe being bottle-fed is
+associated with malnutrition.
+
+160
+00:06:56,495 --> 00:06:59,060
+Because water used to
+prepare bottles may be
+
+161
+00:06:59,060 --> 00:07:01,910
+contaminated and those kids
+may have more infections.
+
+162
+00:07:01,910 --> 00:07:04,615
+But, of course, that's
+only a speculation.
+
+163
+00:07:04,615 --> 00:07:07,995
+In summary, in this video
+we use PROC SURVEYFREQ
+
+164
+00:07:07,995 --> 00:07:10,935
+to get frequencies and 2 by
+2 tables with survey data.
+
+165
+00:07:10,935 --> 00:07:12,510
+In the next one, we will use
+
+166
+00:07:12,510 --> 00:07:15,584
+PROC SURVEYMEANS to get means.
+

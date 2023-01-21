@@ -1,0 +1,2136 @@
+1
+00:00:08,296 --> 00:00:13,786
+where he's finishing his Ph.D. in computer science and is also working with, say, Chen and Rafael.
+
+2
+00:00:14,806 --> 00:00:17,996
+You're so right on the system.
+
+3
+00:00:18,226 --> 00:00:21,226
+Your your your Irizarry. Yes.
+
+4
+00:00:21,226 --> 00:00:25,456
+There you've got it. So and I'll be speaking today on spatial transcript.
+
+5
+00:00:25,456 --> 00:00:29,176
+Nothing. So. Thank you, Michael.
+
+6
+00:00:34,936 --> 00:00:41,895
+Yeah, thank you for having me, everyone. I've really enjoyed my discussions with many of you so far.
+
+7
+00:00:41,896 --> 00:00:50,026
+And today I'd like to tell you a little bit about the kind of work that we've been up to and some
+
+8
+00:00:50,026 --> 00:00:57,106
+of the general applications and statistical methods and whatnot and spatial transcriptomics.
+
+9
+00:00:57,616 --> 00:01:05,446
+So I'll start off with a motivation and an introduction to the technology of spatial transcriptomics
+
+10
+00:01:05,896 --> 00:01:12,196
+and motivating the kinds of statistical generalizable problems that can come from this technology.
+
+11
+00:01:12,676 --> 00:01:17,416
+And then I'll go into more depth on two projects that we've been working on,
+
+12
+00:01:17,686 --> 00:01:24,826
+identifying cell types and cell types of specific differential expression and spatial transcriptomics.
+
+13
+00:01:25,186 --> 00:01:31,426
+And then and I'll talk about some expansions and future direction to this research.
+
+14
+00:01:31,906 --> 00:01:40,815
+So starting with the introduction, so spatial Transcriptomics is an emerging technology.
+
+15
+00:01:40,816 --> 00:01:48,766
+In the past few years that was kind of a natural successor to single cell RNA sequencing,
+
+16
+00:01:48,766 --> 00:01:56,266
+which is represented on the left, and that technology measures gene expression vectors, single cells.
+
+17
+00:01:56,596 --> 00:02:03,946
+And here we're showing three cell types by color and two gene expression in abstract dimensions.
+
+18
+00:02:05,266 --> 00:02:14,086
+And the difference one of the main limitations of this technology is, is that those cells are typically dissociated from their spatial position.
+
+19
+00:02:14,356 --> 00:02:19,066
+So you can't learn relationships of cells within their original biological tissue,
+
+20
+00:02:19,456 --> 00:02:25,366
+whereas in spatial transcriptomics we get the same information with addition of also measuring their spatial position.
+
+21
+00:02:26,266 --> 00:02:30,046
+And the particular way that data looks is shown on the right,
+
+22
+00:02:30,076 --> 00:02:38,356
+which is you get a matrix of spatial locations which will be referred to as pixels by genes,
+
+23
+00:02:38,356 --> 00:02:46,876
+and it's a matrix where you get about 90% or more zeros and the rest are non-zero integers.
+
+24
+00:02:47,656 --> 00:02:53,146
+So some of the questions that come up is what is the spatial pattern of cell types within a you.
+
+25
+00:02:53,676 --> 00:03:01,326
+And how do we account for sometime next year, which will become more publicized?
+
+26
+00:03:01,836 --> 00:03:05,946
+So this is another image of the spacial transcriptomics.
+
+27
+00:03:06,636 --> 00:03:16,445
+There are typically two dimensional sections of a biological tissue such as mouse or human, and in this case it's still colored by cell types.
+
+28
+00:03:16,446 --> 00:03:21,475
+But now the difference being that one spot can capture multiple cell types.
+
+29
+00:03:21,476 --> 00:03:30,096
+So particularly this blue and red mixtures that's going on, and that's going to complicate assigning a single cell type to one another.
+
+30
+00:03:30,726 --> 00:03:36,276
+And in general, we have variation across different technologies.
+
+31
+00:03:36,606 --> 00:03:43,985
+So in one end of the spectrum, there is many different multiplexed imaging based technologies such as merge fish,
+
+32
+00:03:43,986 --> 00:03:52,486
+which can create images with subcellular resolution, and you can typically get one cell or cell type response.
+
+33
+00:03:53,106 --> 00:04:01,986
+And then there's these other methods which are conservation methods that capture the DNA or RNA transcripts.
+
+34
+00:04:02,316 --> 00:04:07,476
+And those tend to have 10 to 100 micron resolution, such as slicing a vision.
+
+35
+00:04:07,926 --> 00:04:11,716
+And that's how we end up with 1 to 3 or more cell types per spots.
+
+36
+00:04:12,186 --> 00:04:21,186
+So we're going to be trying to keep both of these use cases in general when we're thinking of what kind of statistical approaches you want to use.
+
+37
+00:04:22,536 --> 00:04:26,765
+So here's the overall problem in strategy,
+
+38
+00:04:26,766 --> 00:04:34,925
+which is we have a single cell RNA SEQ data set and let's assume that these are the same tissue and it's much
+
+39
+00:04:34,926 --> 00:04:42,936
+easier to assign cell types to single cell RNA sequencing datasets because they tend to form discrete clusters.
+
+40
+00:04:43,386 --> 00:04:51,156
+And people use unsupervised clustering algorithms typically to assign each of these clusters to a cell type.
+
+41
+00:04:51,726 --> 00:04:54,816
+So those definitions are usually pretty good.
+
+42
+00:04:55,266 --> 00:04:59,585
+But then we have an initially unlabeled data set and spatial transcriptomics,
+
+43
+00:04:59,586 --> 00:05:07,026
+and the goal is to assign cell types for each pixel, which will give us a spatial map of cell types.
+
+44
+00:05:07,746 --> 00:05:10,956
+And in the middle where you kind of see this in more detail,
+
+45
+00:05:10,956 --> 00:05:16,326
+this is zooming in on one pixel where you have two cell types, a red cell type and a blue cell type.
+
+46
+00:05:16,806 --> 00:05:19,986
+And they have they also have a particular proportion.
+
+47
+00:05:20,466 --> 00:05:25,805
+And each gene is coming from those different cell types in different proportions,
+
+48
+00:05:25,806 --> 00:05:29,856
+because different cell types tend to have different genes, but you don't really get that observed.
+
+49
+00:05:29,976 --> 00:05:37,776
+So you observe this black box of just total counts for each gene and you have to infer the cell type composition.
+
+50
+00:05:39,546 --> 00:05:49,356
+So going into more detail on this mixture problem, on the left, we have a spatial map of the two cell types in the cerebellum,
+
+51
+00:05:50,046 --> 00:05:53,946
+which are which is a region of the brain that was collected using the slicing topology.
+
+52
+00:05:54,366 --> 00:06:02,586
+And these are two cell types per minute per gene. And the important thing to notice is that they're both localized in the same region.
+
+53
+00:06:03,276 --> 00:06:07,416
+So this is why you're likely to detect them on the same measurement spot.
+
+54
+00:06:08,076 --> 00:06:13,026
+And a consequence of this is that if we plot all of these pixels in gene expression
+
+55
+00:06:13,026 --> 00:06:19,866
+space and we we try to use unsupervised clustering in this case on the right,
+
+56
+00:06:19,866 --> 00:06:24,186
+the color is the color assigned by clustering. And you can see that.
+
+57
+00:06:25,556 --> 00:06:30,786
+Yeah, I should mention that these axis Berkman markers and for kanji markers this is the sub gene
+
+58
+00:06:30,786 --> 00:06:36,486
+expression of only the genes that are only expected to be in one cell type versus the other.
+
+59
+00:06:36,726 --> 00:06:42,126
+So this was single cell data. It would look like an out and then you would have two clusters here and here.
+
+60
+00:06:42,606 --> 00:06:47,916
+But here you have all these ones in the middle that there's no correct answer when it comes to clustering.
+
+61
+00:06:48,396 --> 00:06:58,296
+So that motivates us to consider a mixture based, cell type assignment methods that treat multiple cell types at the same spot as an admixture.
+
+62
+00:06:59,616 --> 00:07:06,066
+So that motivates the development of this statistical model, robust cell type decomposition.
+
+63
+00:07:06,486 --> 00:07:17,976
+And the goal of this model is for each of these spots, ten for a maximum likelihood cell type proportion of each cell type that occurs on the spot.
+
+64
+00:07:21,186 --> 00:07:31,206
+And the way that we do this, first of all, is that we assume that at the highest level there's going to be these observed counts y AJ for each
+
+65
+00:07:31,206 --> 00:07:38,946
+pixel I and Gene J and those are drawn from a position distribution according to some rate parameter,
+
+66
+00:07:39,606 --> 00:07:43,086
+which is lambda specific to each pixel and gene.
+
+67
+00:07:43,326 --> 00:07:47,166
+But then it's also scaled up by the total number of counts.
+
+68
+00:07:47,166 --> 00:07:53,256
+And you can equivalently think of this as a binomial distribution where you're drawing multiple.
+
+69
+00:07:54,576 --> 00:08:04,776
+Gene expression comes from a bag and this is the expected value of that distribution and the way that we determine that parameter.
+
+70
+00:08:05,196 --> 00:08:12,276
+So in this hierarchical model is that's what's going to be an additive mixture across cell types.
+
+71
+00:08:12,756 --> 00:08:18,846
+So the contribution of each cell type okay is going to be determined by the cell type proportion,
+
+72
+00:08:19,296 --> 00:08:26,586
+beta k times the gene expression rate of change within that cell type.
+
+73
+00:08:27,126 --> 00:08:30,186
+And these are going to be learned from the reference.
+
+74
+00:08:30,606 --> 00:08:33,156
+So we're going to assume that we know these means ahead of time.
+
+75
+00:08:33,696 --> 00:08:42,846
+And this is just saying that if I have a 30%, 70% mixture of two cell types, then every gene on average is going to be in between as a weighted sum.
+
+76
+00:08:44,686 --> 00:08:52,485
+And then it turns out that a person distribution is not sufficient to describe the noise that you see in this type
+
+77
+00:08:52,486 --> 00:08:59,236
+of data because there's additional solar cell variability you would get a person if you're pure sampling noise.
+
+78
+00:08:59,536 --> 00:09:07,126
+So we tend to see over dispersion and that's modeled using Epsilon, which is a normal analog space.
+
+79
+00:09:07,576 --> 00:09:11,026
+So it can actually be a quite heavy tailed distribution.
+
+80
+00:09:13,336 --> 00:09:18,406
+But then in addition to that, we have this separate issue which comes from platform effects.
+
+81
+00:09:18,856 --> 00:09:27,856
+So on the left, we're showing what happens if you train and test a classification model on the same dataset,
+
+82
+00:09:28,156 --> 00:09:31,456
+which is a single nucleus, single cell, RTC dataset.
+
+83
+00:09:31,816 --> 00:09:35,475
+And in this case, this is a dataset of the cerebellum.
+
+84
+00:09:35,476 --> 00:09:38,776
+And on the right we're comparing to a single cell dataset.
+
+85
+00:09:39,286 --> 00:09:45,046
+So those are just two different technologies for measuring single cells,
+
+86
+00:09:45,676 --> 00:09:53,386
+but you're going to have different technological effects of what we're terming platform effects if you measure the wholesale versus just the movie.
+
+87
+00:09:54,046 --> 00:10:02,976
+So if you train a test using linear regression on this dataset, then you got pretty accurate classification accuracy.
+
+88
+00:10:02,986 --> 00:10:10,846
+This is a confusion matrix. So perfect accuracy would be along these boxed lines, which is the diagonal.
+
+89
+00:10:11,266 --> 00:10:16,486
+But then when you go cross-platform with linear regression and you get a lot of errors.
+
+90
+00:10:17,266 --> 00:10:23,716
+And the reason for that we attribute to these platform effects, and this can be observed by looking within one cell type.
+
+91
+00:10:24,136 --> 00:10:28,666
+What's the measured gene expression in one technology versus the other technology?
+
+92
+00:10:28,966 --> 00:10:33,316
+So there's a single nucleus on the x axis, single cell on the Y axis.
+
+93
+00:10:33,946 --> 00:10:39,156
+And if everything was perfectly on the line, then you would have no technical effects.
+
+94
+00:10:39,166 --> 00:10:45,166
+These would be equivalent technologies, but there is a lot of distribution which we attribute to the technology.
+
+95
+00:10:45,646 --> 00:10:51,586
+And the log ratio of this difference is looks pretty close to a Gaussian.
+
+96
+00:10:52,096 --> 00:10:57,226
+So we modeled this as a gene specific technological effect.
+
+97
+00:10:57,646 --> 00:11:02,506
+So that's this last term damage which we added here at the end.
+
+98
+00:11:03,076 --> 00:11:11,086
+And so this is kind of how we took the data and created a model that we think represents the statistical properties of the data.
+
+99
+00:11:11,416 --> 00:11:15,526
+So the next I'll talk about is how we perform inference on this model.
+
+100
+00:11:16,096 --> 00:11:28,626
+So we have several steps. So the first step is going to be to estimate cell type cell specific means, mutated j from from the single cell reference.
+
+101
+00:11:28,636 --> 00:11:32,506
+And that's because we actually know the cell type labels there.
+
+102
+00:11:33,616 --> 00:11:45,586
+The next step is that we're going to predict and then we will remove this random variable gamma j, which are these platform effects.
+
+103
+00:11:45,976 --> 00:11:55,546
+And we do that without knowing the remaining variable, which is better. J But after we get that, then we can perform maximum likelihood estimation.
+
+104
+00:11:56,036 --> 00:12:09,166
+So yeah, so after we have this plug in, we just plug in estimates for this gamma j, then it becomes a pass on log normal regression.
+
+105
+00:12:09,976 --> 00:12:14,916
+And the only tricky part here is this random variable epsilon.
+
+106
+00:12:14,926 --> 00:12:23,646
+So to my knowledge, there's no closed form solution for the facade based on my normal density function.
+
+107
+00:12:23,656 --> 00:12:28,696
+So we instead iterate, integrate this variable out.
+
+108
+00:12:29,116 --> 00:12:39,826
+And because that's a very slow process, we use a pre computed data table to use a surrogate function of this function.
+
+109
+00:12:40,216 --> 00:12:44,376
+But the way yeah.
+
+110
+00:12:44,386 --> 00:12:50,026
+And then I can go into more detail on this platform normalization step.
+
+111
+00:12:50,956 --> 00:12:58,606
+But I think for the sake of time, I'm going to present a more broad overview of the words and the results.
+
+112
+00:12:59,806 --> 00:13:07,366
+But suffice it to say that we we can create sufficient statistics to estimate the platform effects without knowledge of the other parameters.
+
+113
+00:13:08,296 --> 00:13:16,966
+And then we actually get the estimates of the data using Newton wraps and constraint second order optimization.
+
+114
+00:13:17,386 --> 00:13:21,436
+And that is okay because we tend to not have very many parameters.
+
+115
+00:13:21,856 --> 00:13:30,316
+So the cost of computing a second or third that it has is not that much greater than computing a gradient.
+
+116
+00:13:30,886 --> 00:13:35,776
+And this one trick with computing the log likelihood function.
+
+117
+00:13:35,786 --> 00:13:43,456
+Q We had a lot of numerical issues because we were using linear interpolation to get it and.
+
+118
+00:13:43,546 --> 00:13:52,966
+It also required sampling at a lot of points. We had much improved performance when we switched over to cubic spline interpolation because then it
+
+119
+00:13:52,966 --> 00:14:00,886
+was actually a differentiable function and then actually you get basically the same exact results.
+
+120
+00:14:00,886 --> 00:14:09,196
+If you're optimizing the original function versus a spline approximation which is within like one E minus six to the original function.
+
+121
+00:14:10,216 --> 00:14:15,776
+And a common question that we get is how do you know you can very set global optimal?
+
+122
+00:14:15,856 --> 00:14:19,666
+Well, it turns out this is not a non convex model,
+
+123
+00:14:20,386 --> 00:14:27,706
+but it's kind of almost convex because if you start at random points you always end up at the same optimum.
+
+124
+00:14:27,946 --> 00:14:32,055
+We can't prove it, but it's an empirical result which is shown on the right,
+
+125
+00:14:32,056 --> 00:14:37,636
+which is this is the l one norm of the difference in the final parameter estimates.
+
+126
+00:14:37,636 --> 00:14:44,506
+If you start to have two points and then on the left is showing convergence, which is if you change the precision level required,
+
+127
+00:14:44,956 --> 00:14:50,626
+the how much is the parameter estimates changing showing that it is also small.
+
+128
+00:14:51,516 --> 00:14:58,936
+Um, so once we have this working we can go to validating this method.
+
+129
+00:14:58,936 --> 00:15:06,346
+So we use this is a simulated data where we take single cell space,
+
+130
+00:15:06,766 --> 00:15:11,386
+single cell RNA sequencing data that's labeled and we simulate the spatial transcriptomics
+
+131
+00:15:11,386 --> 00:15:18,316
+data using mixtures of single cells so that we actually know the mixture ways.
+
+132
+00:15:18,826 --> 00:15:22,996
+And the first thing we look at on the left is can we estimate these platform effects?
+
+133
+00:15:23,386 --> 00:15:30,436
+And if we plopping measured versus estimated platform effects, we can see that we can explain about 90% of the variance.
+
+134
+00:15:31,066 --> 00:15:37,276
+And on the right for classification of single cells, which is a special case of the mixtures,
+
+135
+00:15:37,726 --> 00:15:41,776
+we also see that we have improved performance along the diagonal.
+
+136
+00:15:43,486 --> 00:15:52,636
+Then we're moving to spatial data and this is back on the cerebellum, this case that I illustrated with these bird in African G cells.
+
+137
+00:15:53,216 --> 00:16:03,076
+So what we see here is that these cells that were previously classified as one or the other now have three outcomes that they can have.
+
+138
+00:16:03,526 --> 00:16:08,416
+First, they can be predicted as a single cell or a singlet of one of the two cell types.
+
+139
+00:16:08,986 --> 00:16:13,606
+And these these tend to be the ones that have a lot of marker genes on one versus the other.
+
+140
+00:16:14,866 --> 00:16:20,326
+But a third possibility is that they can be classified as a mixture or a doublet.
+
+141
+00:16:20,716 --> 00:16:30,256
+And then in this case, the color represents the estimated proportion of that mixture, which is correlated with the relative weights of marker genes.
+
+142
+00:16:32,236 --> 00:16:37,336
+So what do we get out of all of this? Well, the output is a spatial map of cell types.
+
+143
+00:16:37,366 --> 00:16:41,716
+So this is coloring by the primary cell type at each location.
+
+144
+00:16:42,106 --> 00:16:46,396
+And these are two brain regions, the cerebellum and the hippocampus.
+
+145
+00:16:46,756 --> 00:16:49,786
+And you can see that cells are not randomly distributed.
+
+146
+00:16:50,146 --> 00:16:54,626
+They have this stereotyped structure according to the tissues.
+
+147
+00:16:54,626 --> 00:17:03,136
+So, for example, in the hippocampus, there's the primary layer of neurons which is determined by these dentin layer.
+
+148
+00:17:03,136 --> 00:17:12,546
+And then to see one and see the three. And on the bottom, we're showing that we went to a finer grained resolution in terms of subtypes of cells,
+
+149
+00:17:12,556 --> 00:17:20,206
+and we used external measurements to to validate that these were in the correct position.
+
+150
+00:17:20,236 --> 00:17:23,746
+But you don't generally have granted for these kinds of datasets.
+
+151
+00:17:25,606 --> 00:17:29,856
+So yeah, we've also applied it to several technologies.
+
+152
+00:17:29,856 --> 00:17:37,726
+So the previous poor showing on slide, see, and this is showing hippocampus on both the resume and slides.
+
+153
+00:17:37,936 --> 00:17:45,976
+And the cool thing is that we actually get similar shapes for the same cell type across different technologies, which is what you want to get.
+
+154
+00:17:46,486 --> 00:17:55,666
+And then on the right, this is a different brain region, the hypothalamus on Murphy, which is one of those imaging based technologies.
+
+155
+00:17:58,066 --> 00:18:01,396
+So that is an overview of identifying cell types.
+
+156
+00:18:02,176 --> 00:18:07,905
+And I think one of the main applications of why we want identify cell types is so that we
+
+157
+00:18:07,906 --> 00:18:13,336
+can actually use the spatial information to learn about the changes in cellular behavior.
+
+158
+00:18:14,116 --> 00:18:20,176
+So this is framed by an extension of the model where we're going to be looking at cell type specific differential expression.
+
+159
+00:18:20,506 --> 00:18:25,096
+So the first question is, what do we mean by cell type specific differential expression?
+
+160
+00:18:27,136 --> 00:18:28,556
+Well, sure.
+
+161
+00:18:29,206 --> 00:18:43,246
+So so I think one thing to keep in mind is that, um, I think that in general the main use of spatial transcriptomics is not finding different.
+
+162
+00:18:43,316 --> 00:18:48,386
+There's a gene expression across cell types because you don't need the spatial information to do that.
+
+163
+00:18:48,836 --> 00:18:56,876
+But the more interesting thing is finding changes within a single cell type that is related to spatial information.
+
+164
+00:18:56,876 --> 00:19:01,556
+So when such cell types as a confounding variable and control for that,
+
+165
+00:19:01,796 --> 00:19:07,466
+and this is an example of that, so this is a gene al doc in the cerebellum and there's two regions,
+
+166
+00:19:07,466 --> 00:19:14,905
+the anterior and the knowledge of this and this is in differential expression in the common sense of comparing
+
+167
+00:19:14,906 --> 00:19:21,086
+across cell types because this gene is present in approximately equal amounts and potentially environment.
+
+168
+00:19:21,586 --> 00:19:29,396
+So these images are cell type specific images that's made using a separate technology that's not spatial transcriptomics,
+
+169
+00:19:29,786 --> 00:19:37,915
+but it's a more low throughput technology. But you can see a big difference between these two regions and potentially but not.
+
+170
+00:19:37,916 --> 00:19:47,306
+BURGMAN So this is what we call a cell type specific differential gene expression, and there's many flavors of this.
+
+171
+00:19:47,756 --> 00:19:58,016
+So what we end up solving this problem is by creating a general regression framework, and similar to linear regression,
+
+172
+00:19:58,016 --> 00:20:04,706
+you can set up covariates that are based on anything that can be determined as a function of the spatial data.
+
+173
+00:20:05,006 --> 00:20:16,556
+So the simplest is that you have multiple discrete regions, and that would be like you have in this case, three covariates that are dummy variables.
+
+174
+00:20:16,916 --> 00:20:22,436
+And then in this case it would be a continuous covariant which is dependent on spatial position.
+
+175
+00:20:23,066 --> 00:20:32,696
+And then we also consider the case of general smooth spatial patterns by fitting non parametric basis functions as the covariance.
+
+176
+00:20:34,046 --> 00:20:39,686
+Then you have other approaches such as people are commonly interested in cell cell interactions.
+
+177
+00:20:40,136 --> 00:20:43,136
+So how does one cell influence the behavior of another cell type?
+
+178
+00:20:43,526 --> 00:20:49,676
+And the way that we quantify that is by saying if we take the density of cells like a as a covariate,
+
+179
+00:20:50,036 --> 00:20:58,046
+then how does cell type B change in its gene expression patterns as a function of being close to that cell type thing?
+
+180
+00:20:58,556 --> 00:21:00,586
+And you can do the same thing for pathology.
+
+181
+00:21:00,596 --> 00:21:07,256
+For example, if you had a virus infected tissue and you want to look at changes with respect to that virus.
+
+182
+00:21:08,996 --> 00:21:15,145
+And then finally is what people refer to as the cellular microenvironment,
+
+183
+00:21:15,146 --> 00:21:19,196
+which is a special case of the discrete regions where you make the regions very small.
+
+184
+00:21:20,606 --> 00:21:27,206
+And to do this, we developed this method seaside, sometimes specific inference of differential expression,
+
+185
+00:21:27,836 --> 00:21:36,056
+and it builds off of our study where we first used the spatial maps of cell types obtained from our city.
+
+186
+00:21:36,386 --> 00:21:39,566
+But then we also could find these covariance.
+
+187
+00:21:40,106 --> 00:21:44,786
+And the output of this method is that we get, in the case of discrete regions,
+
+188
+00:21:44,906 --> 00:21:49,676
+you get in each region and for each cell type an estimate of gene expression.
+
+189
+00:21:50,186 --> 00:21:59,276
+So for this example, Gene X, you can see that it is in the green cell type more expressed in the lower region,
+
+190
+00:21:59,606 --> 00:22:02,036
+whereas the two other cell types have the opposite pattern.
+
+191
+00:22:02,036 --> 00:22:10,166
+So each cell type gets its own pattern, but you can't get the cell types independently because they're outermost.
+
+192
+00:22:10,466 --> 00:22:15,875
+So you have to learn. It's a challenging statistical problem because you have to learn the behavior of each cell type,
+
+193
+00:22:15,876 --> 00:22:19,706
+but you don't observe each cell type independently in that.
+
+194
+00:22:19,736 --> 00:22:25,346
+And you can do hypothesis testing to get differentially expressed genes.
+
+195
+00:22:25,646 --> 00:22:32,906
+And what that phrase means is a gene that changes its expression across conditions.
+
+196
+00:22:32,906 --> 00:22:46,046
+For example, here it's changing across regions. And to do this, we take our original model where we had this new I k j and now we modify that.
+
+197
+00:22:46,046 --> 00:22:52,496
+So that gene expression is no longer constant across space so that this variable pi
+
+198
+00:22:52,586 --> 00:22:59,006
+comes in and we're now going to find is cell type specific patterns based on time.
+
+199
+00:22:59,456 --> 00:23:03,296
+But now we assume that we know the cell type proportions better.
+
+200
+00:23:05,186 --> 00:23:08,606
+So you can think of this as a joint model for both of them.
+
+201
+00:23:09,176 --> 00:23:19,496
+And yeah, one question is, well, how if this is if you're specifying a joint model, then how can you learn to behave without knowing the muse?
+
+202
+00:23:20,066 --> 00:23:25,526
+And one justification for that is that if most genes are not changing that much spatially,
+
+203
+00:23:25,796 --> 00:23:32,276
+then making that assumption that they're constant gives you approximate answers and cell type proportions.
+
+204
+00:23:32,786 --> 00:23:36,926
+And then you can use those cell type proportions to find which ones are changing.
+
+205
+00:23:38,906 --> 00:23:43,036
+And these to model this muse, we use this.
+
+206
+00:23:43,226 --> 00:23:50,576
+Standard model in your model, where we have some unknown parameters that we're trying to estimate that represent differential expression,
+
+207
+00:23:51,056 --> 00:23:59,306
+and they're multiplied by a design matrix which is fixed and known, and that represents, for example, which region is each pixel.
+
+208
+00:23:59,306 --> 00:24:05,936
+And, and these parameters are what we're ultimately interested in for hypothesis testing purposes.
+
+209
+00:24:07,556 --> 00:24:12,086
+So this is just rephrasing that matrix equation on the bottom.
+
+210
+00:24:13,286 --> 00:24:23,606
+And yeah, when we were doing this optimization, we came into an issue with our quadratic programing approach where it's unstable,
+
+211
+00:24:24,086 --> 00:24:29,846
+where if you optimized the contract program, you get thrown off because it's only a local approximation.
+
+212
+00:24:30,446 --> 00:24:36,716
+So to address that, we use this approach called truss region updates,
+
+213
+00:24:36,716 --> 00:24:41,395
+where you constraint on updates to be within a region in that region is chosen
+
+214
+00:24:41,396 --> 00:24:46,256
+adaptively based on how well you're empirically approximating the function.
+
+215
+00:24:46,646 --> 00:24:57,866
+So you have this parameter road row and at each step you either grow or shrink that parameter adapt adaptively.
+
+216
+00:24:58,346 --> 00:25:05,036
+And this does in all cases led to us converging to that optimum.
+
+217
+00:25:06,536 --> 00:25:12,866
+And we're returning to our simulation now to try and validate this model.
+
+218
+00:25:13,706 --> 00:25:22,376
+And here we're comparing to several other commonly used methods for differential expression and spatial transcriptomics.
+
+219
+00:25:22,796 --> 00:25:30,296
+So the simplest approach is bulk, where you don't control for cell types and you just in this case,
+
+220
+00:25:30,296 --> 00:25:34,375
+there's two regions you can give the ratio of gene expression between the two regions.
+
+221
+00:25:34,376 --> 00:25:39,746
+And that's where you say this differential expression. And there's a couple other methods here.
+
+222
+00:25:40,426 --> 00:25:48,866
+I'm not going to get into all that, but the first test we did is if you did the differential expression within each cell type fixed at zero,
+
+223
+00:25:49,556 --> 00:25:55,276
+but then you change the cell type proportions, what's the estimated differential expression?
+
+224
+00:25:55,286 --> 00:26:00,326
+And so for our model, you want to get zero for all conditions because that's the truth.
+
+225
+00:26:00,746 --> 00:26:06,806
+But for the default because compounded by the cell type changes and then interpret that as differential suppression.
+
+226
+00:26:07,586 --> 00:26:18,746
+And then after we pass that test, there is a second test where we want to test differential expression and cell type B as a function of cell type X.
+
+227
+00:26:19,106 --> 00:26:24,566
+So the true cell type B differential expression is zero, but we're varying the expression of cell type A.
+
+228
+00:26:25,496 --> 00:26:26,606
+And again,
+
+229
+00:26:28,106 --> 00:26:36,506
+it's very hard for methods to distinguish whether differential expression between two regions is coming from one cell type versus the other.
+
+230
+00:26:36,956 --> 00:26:45,445
+So that's why our unique approach of jointly modeling all the cell types together allows us to say, like, Oh,
+
+231
+00:26:45,446 --> 00:26:51,686
+we did see this differential expression say in this mixture, but we think that we can attribute that to this other cell type.
+
+232
+00:26:53,366 --> 00:27:04,876
+And the way that we do inference on this model is we get uncertainty by using the Fisher information which is given by this Matrix II.
+
+233
+00:27:05,336 --> 00:27:14,636
+And we we use the observed Fisher information, which is determined as an average of the second derivatives.
+
+234
+00:27:15,176 --> 00:27:21,236
+And once we use this, we get a point estimates and standard errors, which allows us to do an Z test.
+
+235
+00:27:21,746 --> 00:27:23,516
+And then here on the right,
+
+236
+00:27:25,766 --> 00:27:36,325
+we compared that our false positive rate was controlled by comparing the observed false positive rate versus a target statistical level,
+
+237
+00:27:36,326 --> 00:27:42,806
+significance level. So staying on the line means that our false positive rate is not exceeding expectations.
+
+238
+00:27:44,366 --> 00:27:49,075
+So now moving to applying this to real spatial transcriptomics data, again,
+
+239
+00:27:49,076 --> 00:27:57,446
+we have these two regions and what we get is for each gene, for each cell type, we get an estimate.
+
+240
+00:27:57,446 --> 00:27:59,126
+This is showing the Z score here.
+
+241
+00:27:59,516 --> 00:28:09,086
+So you can see which genes are the biggest hit so that the magnitude is shown and the size and particularly for Al Doc,
+
+242
+00:28:09,656 --> 00:28:16,316
+it's interesting that in one cell type gene, it's much more differentially expressed than the other.
+
+243
+00:28:16,736 --> 00:28:24,806
+So again, we don't really know whether these are true or not, so we move to validate this experimentally.
+
+244
+00:28:25,916 --> 00:28:30,536
+So this is using those images that I showed, which is called HCR,
+
+245
+00:28:30,926 --> 00:28:36,446
+and it tells you within each cell type you get an image of the gene expression and
+
+246
+00:28:37,346 --> 00:28:43,036
+we use that to compare the measured cell type specific to using this type of.
+
+247
+00:28:43,476 --> 00:28:50,555
+With our estimates across these six different genes, or some of them are repeated in different cell types.
+
+248
+00:28:50,556 --> 00:28:56,286
+But Al Doc, for example, is very differentially expressed in one but not the other.
+
+249
+00:28:57,306 --> 00:29:00,456
+There are some points that don't fall perfectly on the line.
+
+250
+00:29:01,356 --> 00:29:06,935
+I think this is a very challenging thing to do because of the admixture problem.
+
+251
+00:29:06,936 --> 00:29:13,586
+And then also there's differences. These are very different technologies and we only had one replication of the HDR technology.
+
+252
+00:29:13,596 --> 00:29:24,336
+So you'll, you'll notice we only have error bars on the Y axis by the X axis, but generally we have a positive trend but not perfect accuracy.
+
+253
+00:29:26,526 --> 00:29:33,066
+And yes, this is revisiting one example that we thought illustrated this approach.
+
+254
+00:29:33,936 --> 00:29:42,126
+So now we move to apply this to an application in a tumor of the liver.
+
+255
+00:29:42,816 --> 00:29:53,466
+And this this is showing a lot of people are interested in studying the interaction of cancer cells and their immune environment.
+
+256
+00:29:53,886 --> 00:29:57,996
+And in particular, we looked at this one type of immune cell.
+
+257
+00:29:58,266 --> 00:30:02,166
+It's called a myeloid cell, which is a general class of innate immune cells.
+
+258
+00:30:02,676 --> 00:30:11,736
+And it had this cool pattern across the tumor where it was more prevalent in one side versus the other.
+
+259
+00:30:12,126 --> 00:30:20,556
+So we use this to ask, do we see any gene expression associations that we could infer are associated with co localization,
+
+260
+00:30:20,826 --> 00:30:28,656
+with this immune cell and with cancer within cancer cells?
+
+261
+00:30:29,676 --> 00:30:33,816
+So this is the density plot of of that immune cell.
+
+262
+00:30:34,806 --> 00:30:37,836
+And when we did this, this is showing a volcano plot.
+
+263
+00:30:37,836 --> 00:30:43,746
+So estimated effect size on the x axis log p value on the Y axis.
+
+264
+00:30:44,256 --> 00:30:47,556
+And these are all the significant genes are involved.
+
+265
+00:30:48,306 --> 00:30:59,706
+And what we found in particular was when we looked for sets of genes, we found this one EMT, which was only present on one side versus the other.
+
+266
+00:31:00,096 --> 00:31:07,746
+So it was all of those all nine of those genes were upregulated in cancer cells over next to immune cells.
+
+267
+00:31:08,316 --> 00:31:11,646
+And EMT stands for epithelial mesenchymal transition.
+
+268
+00:31:12,156 --> 00:31:17,016
+And it's something that happens to cancer cells with within tumors where they
+
+269
+00:31:17,016 --> 00:31:22,325
+transition from being in a solid epithelial state to a more mobile state,
+
+270
+00:31:22,326 --> 00:31:24,816
+which is one of the steps of metastasis.
+
+271
+00:31:25,326 --> 00:31:36,036
+And that's been shown in a couple of different ways that sometimes this can counterintuitively be associated with immune cell activity.
+
+272
+00:31:36,036 --> 00:31:45,786
+So some hypotheses are that the immune cells could be kind of like scaring away the cancer cells, like they could be running away from them.
+
+273
+00:31:46,326 --> 00:31:52,716
+Or it could be that these are more aggressive cancer cells and they're attracting more immune cells.
+
+274
+00:31:52,716 --> 00:31:54,785
+So the causality is in the opposite direction,
+
+275
+00:31:54,786 --> 00:32:00,726
+or the immune cells can be breaking down the integrity of the tissue and make it easier for the cancer cells to migrate.
+
+276
+00:32:01,236 --> 00:32:06,065
+But this is a association, not a causation.
+
+277
+00:32:06,066 --> 00:32:09,276
+So we can't say more without doing more time.
+
+278
+00:32:10,656 --> 00:32:19,776
+And this is validating this finding using pathology stands where we're comparing within these two regions.
+
+279
+00:32:20,136 --> 00:32:25,986
+You can see that the shape of the cells also matches this phenotype that we were expecting,
+
+280
+00:32:26,616 --> 00:32:30,366
+and this is an independent measurement from the gene expression data.
+
+281
+00:32:32,286 --> 00:32:37,716
+So then we also have extended this method to include multiple replicates.
+
+282
+00:32:38,316 --> 00:32:45,666
+And the way that we do that is using a meta analysis approach where we fit the model on multiple samples.
+
+283
+00:32:46,086 --> 00:32:48,306
+So we get an estimate of that,
+
+284
+00:32:49,056 --> 00:32:59,526
+and then we get a global population estimate by assuming that each sample's differential expression is normally distributed around a population mean.
+
+285
+00:33:00,006 --> 00:33:13,016
+And this ends up using what's called the Gerson and Meta Analysis Estimate, which is inverse variance weighting of that to get a global estimate.
+
+286
+00:33:15,326 --> 00:33:22,046
+So this is showing that we also applied a differential expression method to these other technologies,
+
+287
+00:33:22,046 --> 00:33:27,056
+including more efficient and busier and busier is the most commonly used method.
+
+288
+00:33:27,326 --> 00:33:34,676
+I think this is a particularly interesting case because these pixels are really big here.
+
+289
+00:33:35,006 --> 00:33:39,956
+So you can see here this is in the lymph node of two regions, one, which is B cell rich.
+
+290
+00:33:40,676 --> 00:33:47,816
+These are the germinal centers where immune maturation takes place and you're not b cell rich areas.
+
+291
+00:33:48,176 --> 00:33:54,466
+And that's you can see that both the shape and the image along with the TV calls.
+
+292
+00:33:55,106 --> 00:34:02,606
+But then you also see this one, Gene 613, which is clearly correlated with the B-cell rich regions,
+
+293
+00:34:03,116 --> 00:34:09,655
+but you don't know which cell type is expressing that gene. And I think that illustrates the core challenge of the cell type.
+
+294
+00:34:09,656 --> 00:34:14,936
+Specific differential expression is if you're only observing admixtures, how do you know which cell type?
+
+295
+00:34:15,956 --> 00:34:21,506
+So I think this visualization of the data helped to convince us that we did get it in the right cell type,
+
+296
+00:34:21,926 --> 00:34:24,266
+which is an immune cell called dendritic cells.
+
+297
+00:34:25,106 --> 00:34:33,536
+And the way that we do that is we're graphing the dendritic cell proportion on the x axis versus the gene expression of this gene.
+
+298
+00:34:34,196 --> 00:34:37,586
+And you can see, first of all, that it's very small.
+
+299
+00:34:37,596 --> 00:34:40,946
+You never it ranges from 0 to 15%.
+
+300
+00:34:41,366 --> 00:34:47,126
+So this is a rare cell type that never occupies more than 20% of any given pixel.
+
+301
+00:34:47,726 --> 00:34:54,866
+But you do see a clear correlation. If you more of this cell, then you have more expression of this gene.
+
+302
+00:34:55,226 --> 00:34:59,156
+So that's evidence that this is the one providing evidence of this gene.
+
+303
+00:34:59,966 --> 00:35:10,526
+And if you split into two regions, B cells near B cells fired and the slope is much bigger than in the B cell near case.
+
+304
+00:35:10,976 --> 00:35:18,686
+So the models that are shown in the line compared to the raw data and the points and this is kind of the evidence that the
+
+305
+00:35:18,686 --> 00:35:25,646
+model is using for y thinks that genetic cells in particular are the ones responsible for this differential gene expression.
+
+306
+00:35:27,716 --> 00:35:31,015
+So yeah, that concludes the end of that section.
+
+307
+00:35:31,016 --> 00:35:37,646
+And both of these methods are available in our package, which is called Space X, R,
+
+308
+00:35:38,006 --> 00:35:47,036
+and we currently have a few hundred users and every month using these different technologies for their data.
+
+309
+00:35:47,336 --> 00:35:54,506
+And we're constantly trying to improve the efficiency and other usability of our package.
+
+310
+00:35:55,946 --> 00:36:02,936
+So some future directions I'd like to go into with the last available time that we have.
+
+311
+00:36:03,716 --> 00:36:09,386
+So the first this is with Owsley, who's an undergraduate student, Menti and MIT.
+
+312
+00:36:10,226 --> 00:36:16,676
+And this is to remove the single cell RNA reference requirement from our method.
+
+313
+00:36:17,126 --> 00:36:27,416
+So the motivation for this is that we know that single cell and head references are expensive to collect and they're not available for every tissue.
+
+314
+00:36:27,776 --> 00:36:36,236
+So that's a limitation for people who want to use our approach. And then also the technology, as we discussed, can have substantial platform effects.
+
+315
+00:36:36,686 --> 00:36:40,886
+And we have a procedure to estimate those platform effects in our original model.
+
+316
+00:36:41,186 --> 00:36:46,016
+But it's not perfect. And the more different the technologies, the worse the performance we get.
+
+317
+00:36:46,526 --> 00:36:55,765
+So our goal is can we develop a cell type assignment method that doesn't require a single cell reference and shown?
+
+318
+00:36:55,766 --> 00:37:03,596
+Semantically, we're trying to use a similar approach with the added challenge of removing the single cell receiving reference.
+
+319
+00:37:04,226 --> 00:37:13,316
+And the way that we do this is that we modify our model so that now both of these are unknown parameters that we're trying to jointly estimate.
+
+320
+00:37:13,646 --> 00:37:19,586
+So this is similar to a matrix factorization model such as non-negative matrix factorization,
+
+321
+00:37:20,156 --> 00:37:24,266
+so that we have some slightly different distribution properties.
+
+322
+00:37:26,126 --> 00:37:35,426
+So we can use an iterative approach, which is similar to some of the approaches used for matrix factorization, where we use some initial condition,
+
+323
+00:37:35,906 --> 00:37:43,166
+which is that we initialize the cell types according to supervise clustering, which is, as we discussed, not a perfect method.
+
+324
+00:37:43,676 --> 00:37:47,726
+But it's not it's better than nothing for an initialization.
+
+325
+00:37:48,206 --> 00:37:54,206
+And then we iterate between optimizing the moves and the beta parameters while fixing the others.
+
+326
+00:37:54,746 --> 00:38:04,826
+And conveniently, if we fix the muse and then try to fix the beat as an estimate, the muse that's equivalent to the suicide algorithm.
+
+327
+00:38:05,246 --> 00:38:11,756
+And if we fix the muse and estimate the beta, that's according to the CTD algorithm.
+
+328
+00:38:12,176 --> 00:38:23,756
+So we can. States that we've already implemented jointly until we've reached convergence and to show the results of this generally,
+
+329
+00:38:25,616 --> 00:38:35,216
+I'm not the biggest fan of these types of plots, but they're a visualization tool where you can visualize all the points in high dimensional space.
+
+330
+00:38:35,696 --> 00:38:42,126
+And what we're showing on the left is unsupervised clustering versus this algorithm, which we're currently calling rice.
+
+331
+00:38:42,656 --> 00:38:51,565
+And the biggest difference that you can see is that the the different cell type groups
+
+332
+00:38:51,566 --> 00:38:58,556
+or clusters have less mixtures between them on the case on the right versus the other.
+
+333
+00:38:59,096 --> 00:39:07,075
+Yeah, sorry, I didn't fully explain it. So here we're only showing the ones that were classified as single cells using this approach.
+
+334
+00:39:07,076 --> 00:39:11,906
+So we removed all the mixtures, whereas this one includes all the mixtures.
+
+335
+00:39:12,296 --> 00:39:15,716
+And in particular there's this one cluster which is shown in gray,
+
+336
+00:39:16,856 --> 00:39:28,526
+which is that entire cluster ended up being a mixture between these neurons and this is astrocytes and in pink which are glial cells.
+
+337
+00:39:29,006 --> 00:39:35,126
+So if you're doing an admixture model, you would never have a particular factor which is associated with the mixture.
+
+338
+00:39:35,426 --> 00:39:38,696
+But you can see why that would happen if you use the clustering approach.
+
+339
+00:39:39,416 --> 00:39:44,006
+So we don't we don't observe those kinds of connections here.
+
+340
+00:39:44,576 --> 00:39:50,276
+And in this slide we're showing that we can replicate the atrocity results on the
+
+341
+00:39:50,276 --> 00:39:55,916
+cerebellum dataset with the added advantage that we didn't use a reference at all.
+
+342
+00:39:56,606 --> 00:40:03,566
+And here is one case showing how the algorithm improves over its initialization and clustering,
+
+343
+00:40:03,806 --> 00:40:12,206
+where these are two similar cell types, excitatory and inhibitory neurons in the Murphy dataset that they kind of got mixed together.
+
+344
+00:40:12,206 --> 00:40:17,216
+So this is markers of excitatory on the x axis, inhibitory on the Y axis,
+
+345
+00:40:17,216 --> 00:40:22,886
+and over time iterations of this algorithm, it's separating them out more clearly.
+
+346
+00:40:22,886 --> 00:40:28,576
+And this is quantified on the right, where if you look at we have ground truth for this dataset.
+
+347
+00:40:28,586 --> 00:40:38,366
+If you look at the mean proportion of each one, it is going from more mixed to more separate for these two clusters.
+
+348
+00:40:40,346 --> 00:40:48,626
+And this is the other task that not only can we estimate cell types, we also need accurate estimation, but the cell type profiles themselves.
+
+349
+00:40:48,626 --> 00:40:49,826
+So those new parameters.
+
+350
+00:40:50,276 --> 00:40:59,216
+So to see that we're looking particularly at marker genes and on the bottom we're seeing the ground truth, which means that we know our marker genes.
+
+351
+00:40:59,696 --> 00:41:06,356
+And then on the Y axis, these are the different clusters and then we're coloring it by the Z score,
+
+352
+00:41:06,686 --> 00:41:13,556
+which shows how how much strongly is this predicted algorithm to have more expression in one cell type versus the others?
+
+353
+00:41:13,946 --> 00:41:15,656
+And we want to get on the diagonal.
+
+354
+00:41:16,346 --> 00:41:25,886
+And this is as far as quantified on the right as a box plot where the blue is showing the ground truth and the red is the interpretation.
+
+355
+00:41:26,276 --> 00:41:29,516
+So we have a little bit of a bias to bring all the cell types together,
+
+356
+00:41:29,936 --> 00:41:34,796
+but it still maintains to a large extent the differences between the cell types.
+
+357
+00:41:37,136 --> 00:41:45,716
+And yes, the problem too, is that we want to extend the cell type assignments to actually use the spatial information,
+
+358
+00:41:46,796 --> 00:41:53,426
+because if you notice, we are analyzing each pixel independently, but the motivation for this is that pixels are not independent.
+
+359
+00:41:53,936 --> 00:41:57,206
+Rather, they tend to be correlated or similar to their neighbor.
+
+360
+00:41:59,186 --> 00:42:05,996
+And as a special case, you can have a pixel that literally measures the same cell to nearby locations.
+
+361
+00:42:06,296 --> 00:42:09,176
+But more generally there's patterns and tissue structure.
+
+362
+00:42:10,736 --> 00:42:17,395
+And the practical implication of this is that I could give you a primer over the spatial relationships,
+
+363
+00:42:17,396 --> 00:42:26,606
+and you could use that to correct noisy estimates, because sometimes at a single location you have very few counts and you can make errors.
+
+364
+00:42:26,966 --> 00:42:30,806
+So this is trying to help those reduce the noise using prior.
+
+365
+00:42:32,906 --> 00:42:42,386
+So how can we create a spatially varying prior that improves that estimates over analyzing each pixel independently?
+
+366
+00:42:42,956 --> 00:42:50,516
+And this is just a reminder of two regions where you have two spatial tissues where you do have these regions.
+
+367
+00:42:50,576 --> 00:42:56,966
+So within this green region, which is the granular in the cerebellum, there's a lot of granular cells in there.
+
+368
+00:42:56,966 --> 00:43:01,556
+So you probably have much higher prior to being out there versus anywhere else.
+
+369
+00:43:03,176 --> 00:43:13,286
+And so the way we do this is motivated by a similar factor based algorithm called latent or slide allocation where.
+
+370
+00:43:13,886 --> 00:43:19,736
+You start by having the cell type the proportions better.
+
+371
+00:43:20,426 --> 00:43:26,276
+Versus in our city we had no prior on that but in this model they put that dorsally prior on that which
+
+372
+00:43:26,276 --> 00:43:35,366
+is just in multivariate prior over the simplex of proportion to one and that's dramatized by Oberheim.
+
+373
+00:43:36,116 --> 00:43:44,276
+And then from there, the way that you simulate a certain read is that first you choose the cell type at random,
+
+374
+00:43:44,696 --> 00:43:52,436
+which is given by Zion, and then given the cell type, you choose the gene at random according to that cell type distribution.
+
+375
+00:43:52,856 --> 00:43:56,396
+So this is also considered a topic model.
+
+376
+00:43:56,786 --> 00:44:04,495
+So it was originally created to model documents where you had those represent the topics as represents
+
+377
+00:44:04,496 --> 00:44:11,726
+the idea of an individual word for a topic and then as was the actual word once you have a topic.
+
+378
+00:44:13,466 --> 00:44:23,366
+So they say they've developed an algorithm for this case, but they don't have any sort of spatial information because these are just documents.
+
+379
+00:44:23,696 --> 00:44:27,446
+So our extension of this model is to add a spatially varying prior.
+
+380
+00:44:27,446 --> 00:44:35,846
+We're instead of also being fixed, we're now going to have a spatially varying across these sort of documents that are spatially organized.
+
+381
+00:44:37,016 --> 00:44:42,686
+And the way that we do that is using variational inference.
+
+382
+00:44:43,016 --> 00:44:52,466
+So this is this is not a model where we can write down a close form distribution, but we can use variational approximation,
+
+383
+00:44:52,946 --> 00:45:02,366
+where we assume we're we're trying to learn a posterior distribution where each parameter
+
+384
+00:45:02,366 --> 00:45:09,506
+set is factorization that should hopefully approximate the actual posterior distribution.
+
+385
+00:45:09,926 --> 00:45:19,196
+And this is created through optimizing the marginal likelihood rather variational approximation of the marginal likelihood.
+
+386
+00:45:19,946 --> 00:45:23,515
+So there's that. But then there's one problem with this.
+
+387
+00:45:23,516 --> 00:45:31,166
+There's like distribution, which is that these distributions tend to be in a model as you gather more and more data.
+
+388
+00:45:31,526 --> 00:45:34,346
+But what we actually get is very bimodal distribution.
+
+389
+00:45:34,796 --> 00:45:40,856
+So if you see a lot of Bergman cells, it shouldn't be that you think that they're always working Jean Bertrand nearby,
+
+390
+00:45:41,086 --> 00:45:48,145
+but then you could have one or the other. And we can't really capture that by modality, whether they're actually distribution.
+
+391
+00:45:48,146 --> 00:45:55,346
+So we are considering modifying this in two separate cases, one where we use a discrete prior,
+
+392
+00:45:55,826 --> 00:46:04,136
+where each cell type has a discrete probability of being present and each pixel, and that will lend itself to multimodal distributions.
+
+393
+00:46:04,706 --> 00:46:10,226
+And that in the second case, we're considering an implicit rather than an explicit prior.
+
+394
+00:46:10,616 --> 00:46:22,165
+So yeah, I'm trying to wrap this up soon, but to summarize, we've also formulated a graphical model based Implicit Prior,
+
+395
+00:46:22,166 --> 00:46:31,196
+which is based on the icing model where you no longer have explicit functions for the prior, but any particular cell type ways.
+
+396
+00:46:32,756 --> 00:46:38,966
+Data is incentivized by the joint likelihood to be similar to its neighbors.
+
+397
+00:46:39,206 --> 00:46:47,456
+By usually using this interaction term where you're incentivized to be close to the average of your neighbors is the intuition.
+
+398
+00:46:48,296 --> 00:46:55,375
+So those are two different approaches. And yeah, I'll quietly summarize this last goal,
+
+399
+00:46:55,376 --> 00:47:02,096
+which is expanding this admixture modeling approach for differential analysis to other data modalities.
+
+400
+00:47:02,546 --> 00:47:12,716
+So one that comes to mind is that spatial transcriptomics can also be used to apply to alveolar specific expression data.
+
+401
+00:47:12,956 --> 00:47:21,595
+We're not interested in the overall changes of gene expression, but rather the ratio of maternal versus paternal appeals for a given gene.
+
+402
+00:47:21,596 --> 00:47:31,796
+And seeing if that changes across tissues. And it turns out that that can be modeled using beta binomial distribution and by using
+
+403
+00:47:31,796 --> 00:47:37,076
+a similar framework to see side but changing the distributions to be beta binomial,
+
+404
+00:47:37,346 --> 00:47:47,216
+we can handle that case. So this is showing a schematic of this is spatial transcriptomics here at each spot, these shapes are different cell types.
+
+405
+00:47:47,486 --> 00:47:51,446
+You're getting a different proportion of a Leo for a particular gene.
+
+406
+00:47:51,836 --> 00:47:56,636
+And we're interested that if if one cell type and its cell type specific way has a particular pattern
+
+407
+00:47:56,636 --> 00:48:06,386
+across that tissue and we can modify the plots on a normal admixture model to create a binomial.
+
+408
+00:48:06,386 --> 00:48:12,445
+And now we can do the same sort of regressions to learn a little specific expression in this context.
+
+409
+00:48:12,446 --> 00:48:16,916
+So. This kind of admixture framework can be extended to different data types.
+
+410
+00:48:16,926 --> 00:48:26,226
+And with that, I'd like to thank my advisors, Rafael Irizarry from Harvard Biostatistics and Faye Chan from the Broad Institute.
+
+411
+00:48:26,726 --> 00:48:30,906
+So was our collaboration with Amazon,
+
+412
+00:48:30,906 --> 00:48:37,416
+Costco and so many members of these labs that I've been very fortunate to work with
+
+413
+00:48:37,686 --> 00:48:41,916
+during my career and thank you for inviting me and happy to answer any questions.
+
+414
+00:48:47,676 --> 00:48:51,036
+So questions, in fact.
+
+415
+00:48:51,336 --> 00:48:55,596
+So just quickly, you showed some information with perfect data.
+
+416
+00:48:56,376 --> 00:49:03,816
+Where are you using like underlying cell segmentation or where you kind of define things based on maybe a sliding window or something like this?
+
+417
+00:49:05,136 --> 00:49:12,186
+Yeah. Yeah, that's a great question. So for yeah, in general,
+
+418
+00:49:12,426 --> 00:49:17,526
+the most common way that people allowed Murphy's data because of that subset of their resolution
+
+419
+00:49:17,796 --> 00:49:23,676
+is that people segmented into cells and then you analyze those single cells doesn't count matrix.
+
+420
+00:49:24,006 --> 00:49:34,566
+So that's what we were using, except in that last figure I showed on Mirvish, we're actually simulating less, less,
+
+421
+00:49:35,196 --> 00:49:43,296
+higher resolution by combining across 20 to 50 microns to simulate what would happen if you had even more mixtures.
+
+422
+00:49:43,896 --> 00:49:47,106
+Thanks, Chuck. Two questions.
+
+423
+00:49:47,106 --> 00:49:52,476
+One is about data. There's the obvious one model. So when you're talking about Mets analysis, you said replicants, right?
+
+424
+00:49:52,686 --> 00:50:01,086
+Mm hmm. Or did you do like for multiple, like, opens a new section in the same spot with your.
+
+425
+00:50:02,556 --> 00:50:06,216
+Yeah. So we thought about that problem in two different cases.
+
+426
+00:50:07,236 --> 00:50:11,036
+So one is where you have literal replicates of the same condition.
+
+427
+00:50:11,046 --> 00:50:15,306
+So within the same organ, you're just sampling it with, say, another section,
+
+428
+00:50:15,726 --> 00:50:23,436
+maybe ten sections of the same organ in the same mouse, but then you can have hierarchical structure to those replicates.
+
+429
+00:50:23,886 --> 00:50:32,856
+So in addition to sampling the same organism, you can sample many replicates within many different organisms.
+
+430
+00:50:33,126 --> 00:50:43,206
+So then we've analyzed that by having a different variance term for each of those variants within the same organism and a variance across organisms.
+
+431
+00:50:43,866 --> 00:50:50,646
+And then you have more complicated, kind of like meta analysis conditions where you have different disease groups and stuff.
+
+432
+00:50:51,126 --> 00:51:00,456
+And I think that would be really interesting to implement in a general framework for how handling populations with different characteristics.
+
+433
+00:51:00,786 --> 00:51:06,216
+But that's not something that we've had the time to implement or explored.
+
+434
+00:51:06,756 --> 00:51:09,006
+Yeah, because I think that depends on how U.S.
+
+435
+00:51:10,176 --> 00:51:16,986
+And also a stat question, I'm just curious that, you know, in the hybrid model presented, how do you know the model to do well?
+
+436
+00:51:18,206 --> 00:51:23,406
+Hmm. So for the primary model, yeah.
+
+437
+00:51:23,466 --> 00:51:31,626
+We mostly designed the individual components to match by trying to get rid of the other sources of noise.
+
+438
+00:51:32,106 --> 00:51:38,676
+For example, you can get rid of the noise by choosing the points that have very high counts.
+
+439
+00:51:39,066 --> 00:51:44,346
+So then the sampling noise doesn't matter as much. And then you see the variability across cell types.
+
+440
+00:51:45,146 --> 00:51:51,666
+Um, and then there's other cases where we're trying to select parameters that fit the model well, such as variance parameters.
+
+441
+00:51:51,996 --> 00:51:57,336
+And for that, we're using goodness of fit for optimizing the likelihood.
+
+442
+00:52:00,306 --> 00:52:05,166
+So I have a few questions. So first of all, is the future a one and a number two?
+
+443
+00:52:05,526 --> 00:52:12,906
+Have you compared it with some existing reference based decomposition methods of the spatially aware reference revisited message and intuitively,
+
+444
+00:52:13,236 --> 00:52:16,496
+what advantages to a method have compared it with the sequencing cultures?
+
+445
+00:52:17,556 --> 00:52:20,726
+Yeah. So for some.
+
+446
+00:52:21,036 --> 00:52:24,246
+And sorry, was that for the reference free.
+
+447
+00:52:24,396 --> 00:52:29,316
+Reference free and also the spatially aware reference. Suppose that multiple methods or else.
+
+448
+00:52:29,646 --> 00:52:38,706
+Yeah. So for the for the reference free deconvolution method we've compared to.
+
+449
+00:52:40,296 --> 00:52:52,775
+Yeah. We've compared the clustering our CTD and then also as to involve which is a method that was published within the last year and I think there.
+
+450
+00:52:52,776 --> 00:52:58,305
+So we discussed the differences between like just methods that use the reference and the methods that
+
+451
+00:52:58,306 --> 00:53:05,796
+are clustering case but compared to as they were using out of the box of latent tertiary allocation,
+
+452
+00:53:06,246 --> 00:53:12,606
+which we think didn't capture the full statistical properties such as over dispersion in this kind of data.
+
+453
+00:53:13,656 --> 00:53:18,456
+But I think there are going to be more and more methods coming out.
+
+454
+00:53:19,596 --> 00:53:26,496
+Yeah, I know that you guys have also worked on one and we haven't had the chance to write it yet, but I think that will be very interesting.
+
+455
+00:53:27,186 --> 00:53:41,886
+Yeah. All right. So you you've got yourself when you use the methods where you have a reference and the methods where you you don't have a reference.
+
+456
+00:53:42,666 --> 00:53:46,446
+If you if you were advising somebody.
+
+457
+00:53:46,976 --> 00:53:51,236
+What to do? What gives you the best results?
+
+458
+00:53:52,036 --> 00:53:56,686
+How do you think about that? Yeah.
+
+459
+00:53:56,786 --> 00:54:06,356
+So I think what I would advise someone is that it's kind of dataset dependent.
+
+460
+00:54:06,596 --> 00:54:15,085
+Like you kind of know at a systematic level is when you're fitting the method with a reference based method,
+
+461
+00:54:15,086 --> 00:54:18,356
+if it's giving you results that match reality.
+
+462
+00:54:18,806 --> 00:54:24,806
+But there's a lot of biases there because we've had cases where we've been working with collaborators,
+
+463
+00:54:25,196 --> 00:54:29,456
+where we run the model, and then they're like, Oh yeah, that all looks good.
+
+464
+00:54:29,966 --> 00:54:41,036
+But then when we actually do a follow up, then we find that sometimes just getting people self-report assessments is not the most reliable.
+
+465
+00:54:41,636 --> 00:54:45,986
+So there is a fundamental question like how do you evaluate these would be to begin with,
+
+466
+00:54:46,506 --> 00:54:52,076
+I'd say if you have a good reference, that would still be in most cases, the first approach.
+
+467
+00:54:52,556 --> 00:54:57,056
+But then if that's not working, maybe a reference is not a good match.
+
+468
+00:54:57,466 --> 00:55:02,246
+I think it's it's it's kind of a good next step to try and learn that reference from scratch.
+
+469
+00:55:02,576 --> 00:55:07,886
+But there's a few fundamental issues in the identified ability of different.
+
+470
+00:55:09,336 --> 00:55:16,286
+It's harder to identify cell types uniquely when they're mixed together because there's multiple.
+
+471
+00:55:16,796 --> 00:55:21,836
+So there can be multiple solutions to a factor based representation of the data.
+
+472
+00:55:22,826 --> 00:55:31,916
+And then another problem which we haven't been able to answer but we get asked a lot, is what if I know all my cell types by missing just one?
+
+473
+00:55:32,786 --> 00:55:39,176
+And now it's a little tricky. We've tried just leaving one, three and having the other specced,
+
+474
+00:55:39,566 --> 00:55:46,166
+but then there's a lot of biases there introduced because some of them have platform effects and some of them don't,
+
+475
+00:55:46,556 --> 00:55:53,366
+so that it just ends up assigning a lot of random cells to that one cell type just because it has more flexibility than the other cell types.
+
+476
+00:55:53,366 --> 00:55:58,586
+So we haven't found a good way to deal with that bipartite case.
+
+477
+00:56:00,026 --> 00:56:06,946
+And a couple of questions. The first one is that the number of cell times, I guess that's the parameter key, right?
+
+478
+00:56:06,956 --> 00:56:11,335
+Do you fix that or do you estimate that? Do how do you know April?
+
+479
+00:56:11,336 --> 00:56:15,446
+Right. How many cell types to look at? Yeah.
+
+480
+00:56:15,446 --> 00:56:18,925
+So they're across these different factor based methods.
+
+481
+00:56:18,926 --> 00:56:21,926
+There are ways that people have come up with for choosing K,
+
+482
+00:56:21,926 --> 00:56:33,366
+such as looking at the joint likelihood and seeing when does it stop improving or when does it have a sharp improvement as you keep increasing?
+
+483
+00:56:33,366 --> 00:56:40,736
+Okay, I think those are heuristics which can be useful, but ultimately there's not going to be a concrete answer.
+
+484
+00:56:41,006 --> 00:56:44,156
+I view it as more art than a science.
+
+485
+00:56:44,756 --> 00:56:53,735
+So you want to look at when you get the cell types that you're getting, are you getting them at the resolution you want to be getting them?
+
+486
+00:56:53,736 --> 00:57:00,086
+And so, for example, if two similar cell types like neuron one, neuron two and they're getting merged together,
+
+487
+00:57:00,536 --> 00:57:05,336
+then maybe try to increase with more factors to try and get them to separate.
+
+488
+00:57:06,356 --> 00:57:13,796
+But then if you have too many, then you might start to get clusters that are kind of more or less interpretable.
+
+489
+00:57:13,796 --> 00:57:24,716
+So you run multiple values of K and then so yeah, we, we, we usually do it empirically and we don't have a purely quantitative method of choosing.
+
+490
+00:57:24,746 --> 00:57:29,396
+The second question as to what to think of said like if you had replicated spatial data,
+
+491
+00:57:29,726 --> 00:57:36,206
+but if you say you're getting across patients right across samples so they're not matched up, right?
+
+492
+00:57:36,206 --> 00:57:39,716
+You could have one of them could be a different shape or know.
+
+493
+00:57:40,256 --> 00:57:50,516
+So how do you do the meta analysis? Like many of these shapes, the statistical spatial spaces that are not conformal in some sense?
+
+494
+00:57:50,936 --> 00:57:54,386
+Yeah, I think that's a very interesting question. So it depends on the case.
+
+495
+00:57:54,386 --> 00:58:02,636
+So some of these are metrics that are independent of position, such as density of a particular cell type.
+
+496
+00:58:03,176 --> 00:58:10,826
+Like you're always high density and low density as a cell type means the same thing no matter which spatial position you're in.
+
+497
+00:58:10,976 --> 00:58:16,796
+But others are very spatial dependent, such as when you're looking at spinning smooth spatial patterns,
+
+498
+00:58:17,336 --> 00:58:23,156
+then it is very important that you have a common coordinate framework for the multiple samples,
+
+499
+00:58:23,756 --> 00:58:32,516
+and there are emerging methods for people to take multiple samples and align them into a common framework.
+
+500
+00:58:32,906 --> 00:58:36,656
+And sometimes that might need to be using a nonlinear transformation.
+
+501
+00:58:40,056 --> 00:58:44,856
+So for a couple of technical question for the moment is is it important to have the comma in there?
+
+502
+00:58:44,866 --> 00:58:51,876
+Really, if you just remember, any business system is dealing with commonly standard approaches to like the piano, like something like that.
+
+503
+00:58:51,876 --> 00:58:57,356
+But it's, you know, integrations came calling out all the way to the council quadrant.
+
+504
+00:58:57,396 --> 00:59:03,456
+You have only panel. That's more for the integration.
+
+505
+00:59:05,616 --> 00:59:10,676
+Oh, are you referring to the general civic platform factor to the over dispersion?
+
+506
+00:59:11,836 --> 00:59:19,446
+Absolutely. Like when the comments here, I guess the first question is oncology is the second question about the over dispersion, the sigma split.
+
+507
+00:59:19,476 --> 00:59:29,766
+Yeah, yeah. Yeah. So for the first question now is actually the key point that actually convinced us that we were doing well
+
+508
+00:59:29,766 --> 00:59:36,845
+enough to have people use the method was when we started using that because we were training like that.
+
+509
+00:59:36,846 --> 00:59:40,565
+Simulation data was what we were benchmarking ourselves on and we were training
+
+510
+00:59:40,566 --> 00:59:44,616
+on single nucleus and predicting on the single cell and we were getting
+
+511
+00:59:44,616 --> 00:59:49,536
+quite bad results for a while and just kind of thinking of as a heart problem
+
+512
+00:59:49,536 --> 00:59:54,966
+until we thought that that might be due to these systematic platform effects.
+
+513
+00:59:54,966 --> 01:00:00,006
+And that's what ended up helping us to achieve better performance on that data.
+
+514
+01:00:00,366 --> 01:00:14,975
+So it can make quite a big difference. And then for the other the other question for that one motivated us to use to end up using
+
+515
+01:00:14,976 --> 01:00:25,416
+this integrating out not on what is just due to speed concerns and computational efficiency,
+
+516
+01:00:25,896 --> 01:00:30,966
+because if the epsilon wasn't there, then we can achieve that.
+
+517
+01:00:30,966 --> 01:00:35,256
+Any sort of model would be a faster, less complex model than if it was there.
+
+518
+01:00:35,916 --> 01:00:42,636
+Yeah, I mean, for dealing with Epsilon, the standard approach would be integrate all those approximation analyzes and quasi like.
+
+519
+01:00:43,656 --> 01:00:50,076
+So that approach is very fast and dealing with the integration, yes,
+
+520
+01:00:50,086 --> 01:00:55,866
+I believe in this case we integrated out with or we did the integrate out approach with the customer.
+
+521
+01:00:56,196 --> 01:01:00,036
+Yeah, yeah, yeah, yeah, yeah.
+
+522
+01:01:00,036 --> 01:01:04,536
+So we, we did do the integrated approach, which I think is consistent with the standard approach.
+
+523
+01:01:05,526 --> 01:01:11,526
+I'm going to ask a question. It's a little bit outside my wheelhouse, but but so a couple of things.
+
+524
+01:01:11,526 --> 01:01:15,696
+One is I was going to ask if we're putting priors on these betas or these
+
+525
+01:01:15,696 --> 01:01:18,966
+things would be useful to I guess you kind of answer to that at the very end.
+
+526
+01:01:18,996 --> 01:01:25,506
+You mention I kind of go to spatial, which I also was thinking about the spatial piece on that or to share information is with that out.
+
+527
+01:01:25,536 --> 01:01:33,546
+So it sounds like denser direction and then and so on related in terms of some numerical issues,
+
+528
+01:01:33,756 --> 01:01:43,876
+if we thought about maybe doing like an MSI, IMC or sort of going fully Bayesian and doing the integrations for that and things like that.
+
+529
+01:01:44,826 --> 01:01:55,116
+Yeah. So yeah, particularly for this approach, the reference free approach where you have that matrix factorization,
+
+530
+01:01:55,116 --> 01:02:04,355
+we have tried to fully Bayesian approach and what we saw is that it's that CMC, it just takes a lot longer.
+
+531
+01:02:04,356 --> 01:02:12,406
+So our time budget for the maximum likelihood is like 50 milliseconds per pixel where for an entire day is that,
+
+532
+01:02:12,426 --> 01:02:24,485
+that might take like an hour but then and CMC even on smaller data sets, we were observing it running over like many 24 hours or four days.
+
+533
+01:02:24,486 --> 01:02:30,426
+So it, it just came down to the practical considerations questions.
+
+534
+01:02:33,266 --> 01:02:36,839
+Speaker one. So the standard approach is intervening and is that you should be able to have this question.
+

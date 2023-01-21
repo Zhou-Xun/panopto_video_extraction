@@ -1,0 +1,576 @@
+1
+00:00:00,140 --> 00:00:01,512
+Morning everyone,
+
+2
+00:00:01,512 --> 00:00:07,401
+welcome to our first lecture of the custom nationalized discourse I'm Linda Valeri,
+
+3
+00:00:07,401 --> 00:00:11,851
+assistant professor of Biostatistics at Columbia University.
+
+4
+00:00:13,940 --> 00:00:21,579
+Today, I will review important principles in causal inference in particular,
+
+5
+00:00:21,579 --> 00:00:25,511
+I will review with you counterfactuals,
+
+6
+00:00:25,511 --> 00:00:30,361
+marginal structural models and causal diagrams.
+
+7
+00:00:32,940 --> 00:00:39,137
+This note set should provide you with all the information that will be needed for
+
+8
+00:00:39,137 --> 00:00:44,690
+our first class where we will spend some time working through exercises
+
+9
+00:00:44,690 --> 00:00:50,451
+to become familiar with this important principles of causal inference.
+
+10
+00:00:53,140 --> 00:00:57,845
+Causal inference attempts to articulate the assumptions needed to move
+
+11
+00:00:57,845 --> 00:01:02,561
+from conclusions about associations to conclusions about causation.
+
+12
+00:01:04,340 --> 00:01:07,387
+One should always be aware that association and
+
+13
+00:01:07,387 --> 00:01:09,920
+causation are two distinct concepts.
+
+14
+00:01:09,920 --> 00:01:14,949
+And while association indicates whether two variables
+
+15
+00:01:14,949 --> 00:01:20,941
+are related in the sense that knowing something about one of them,
+
+16
+00:01:20,941 --> 00:01:25,863
+tells you something about the likelihood of another,
+
+17
+00:01:25,863 --> 00:01:30,584
+this is also referred to statistical correlation.
+
+18
+00:01:30,584 --> 00:01:35,275
+Causation said goes deeper into the type of relationship
+
+19
+00:01:35,275 --> 00:01:37,919
+that these two variables have.
+
+20
+00:01:37,919 --> 00:01:42,791
+And in particular, wants to establish whether
+
+21
+00:01:42,791 --> 00:01:47,664
+two valuables are causally related which means
+
+22
+00:01:47,664 --> 00:01:52,901
+whether an intervention on one of the two variables
+
+23
+00:01:52,901 --> 00:01:57,918
+has the potential to directly change the other.
+
+24
+00:01:57,918 --> 00:02:01,804
+Association does not imply causation,
+
+25
+00:02:01,804 --> 00:02:09,927
+causation is a stronger conclusion that we might give to our statistical analysis.
+
+26
+00:02:09,927 --> 00:02:15,320
+What else, we are almost often safe in interpreting our say output
+
+27
+00:02:15,320 --> 00:02:20,424
+from the regression model as an association we should be very,
+
+28
+00:02:20,424 --> 00:02:24,183
+very careful to translate that associational
+
+29
+00:02:24,183 --> 00:02:28,161
+interpretation into a causal interpretation.
+
+30
+00:02:29,440 --> 00:02:34,257
+We actually need the discipline of causal inference,
+
+31
+00:02:34,257 --> 00:02:40,433
+to be able to articulate what is being assumed when we go on moving to and
+
+32
+00:02:40,433 --> 00:02:45,160
+interpretation of our findings under a causal lens.
+
+33
+00:02:45,160 --> 00:02:50,949
+In order to formalize the idea of the cause effect relationship,
+
+34
+00:02:50,949 --> 00:02:55,591
+counter factuals are the main mathematical tools.
+
+35
+00:02:55,591 --> 00:03:01,215
+The counterfactual, helps us thinking what would have happened
+
+36
+00:03:01,215 --> 00:03:07,240
+if contrary to fact we have done something other than what we did.
+
+37
+00:03:07,240 --> 00:03:11,115
+This is a concept that dates back to you but
+
+38
+00:03:11,115 --> 00:03:16,986
+as well as part to Aristoteles when philosophers were thinking
+
+39
+00:03:16,986 --> 00:03:22,082
+about how to formulate our knowledge about the world,
+
+40
+00:03:22,082 --> 00:03:26,202
+our causes for phenomenon that we observe.
+
+41
+00:03:26,202 --> 00:03:29,813
+So what is the counterfactual,
+
+42
+00:03:29,813 --> 00:03:34,897
+Neyman was the first in 1923 to translate
+
+43
+00:03:34,897 --> 00:03:40,261
+this idea from words to mathematical objects.
+
+44
+00:03:42,340 --> 00:03:48,849
+In this course, we will always refer to counterfactuals,
+
+45
+00:03:48,849 --> 00:03:54,317
+those random variables such as the under variable
+
+46
+00:03:54,317 --> 00:04:00,043
+Y to which we also attach a sub strict, for example,
+
+47
+00:04:00,043 --> 00:04:04,990
+let's say that we have a binarity outcome Y,
+
+48
+00:04:04,990 --> 00:04:10,040
+that we denote to be the cure status.
+
+49
+00:04:10,040 --> 00:04:14,654
+And let's say that we have an exposure or
+
+50
+00:04:14,654 --> 00:04:19,946
+treatment of interest that we will call a, and
+
+51
+00:04:19,946 --> 00:04:24,834
+let's say that both our health outcome and
+
+52
+00:04:24,834 --> 00:04:31,755
+our exposure at binary, with the notation Y sub strict one,
+
+53
+00:04:31,755 --> 00:04:36,643
+we denote the potential outcome of whether
+
+54
+00:04:36,643 --> 00:04:41,155
+the individual would have been cured.
+
+55
+00:04:41,155 --> 00:04:46,939
+If potentially contrary to fact these individuals
+
+56
+00:04:46,939 --> 00:04:52,183
+were given treatment one while sub strict zero
+
+57
+00:04:52,183 --> 00:04:57,831
+is the potential cure status for the person if he or
+
+58
+00:04:57,831 --> 00:05:02,419
+she was assigned treatment level zero.
+
+59
+00:05:02,419 --> 00:05:06,470
+For each individual, we only get to observe one of these potential outcomes Y
+
+60
+00:05:06,470 --> 00:05:08,356
+sub strict one, Y sub strict zero.
+
+61
+00:05:08,356 --> 00:05:12,880
+We observe the Y sub strict one if they give and
+
+62
+00:05:12,880 --> 00:05:18,120
+receive treatment one, we observe Y sub strict zero
+
+63
+00:05:18,120 --> 00:05:23,597
+if the individual received treatment zero note that,
+
+64
+00:05:23,597 --> 00:05:28,854
+we have no way to observe the other counterfactual.
+
+65
+00:05:28,854 --> 00:05:31,824
+I introduced here for example,
+
+66
+00:05:31,824 --> 00:05:37,214
+consider that this is the table that we received from God,
+
+67
+00:05:37,214 --> 00:05:42,824
+who knows everything maybe, [LAUGH] for eight individuals,
+
+68
+00:05:42,824 --> 00:05:48,214
+for this eight individuals, let's say we know what would
+
+69
+00:05:48,214 --> 00:05:54,640
+be their potential cure status when treatment is equal to one.
+
+70
+00:05:54,640 --> 00:06:01,261
+And we also get to know what their cure styles under treatment equals zero.
+
+71
+00:06:05,240 --> 00:06:11,147
+Note that these eight individuals can be classified according
+
+72
+00:06:11,147 --> 00:06:17,278
+to the combination of values that this potential outcomes take,
+
+73
+00:06:17,278 --> 00:06:21,067
+in particular since both the outcome and
+
+74
+00:06:21,067 --> 00:06:26,761
+the exposure are binary, we get to see four types of people.
+
+75
+00:06:30,140 --> 00:06:33,748
+There may be some individuals like individual one,
+
+76
+00:06:33,748 --> 00:06:37,361
+who were cured only if they are given treatment one.
+
+77
+00:06:38,840 --> 00:06:42,788
+There may be some individuals like individual two,
+
+78
+00:06:42,788 --> 00:06:46,736
+who are cured only if they are given treatment zero,
+
+79
+00:06:46,736 --> 00:06:51,582
+there are also some individuals like subject three who are cured
+
+80
+00:06:51,582 --> 00:06:58,140
+regardless of the treatment that they received, they are always cured.
+
+81
+00:06:58,140 --> 00:07:02,543
+Whereas individual four, is a type of person who will not be
+
+82
+00:07:02,543 --> 00:07:06,341
+cured regardless of the treatment they received.
+
+83
+00:07:08,240 --> 00:07:12,313
+If you think about it, individual three is
+
+84
+00:07:12,313 --> 00:07:17,406
+the healthiest among these eight individual types,
+
+85
+00:07:17,406 --> 00:07:21,261
+and individual four maybe the sickest.
+
+86
+00:07:22,840 --> 00:07:27,544
+So remember that these combinations of potential
+
+87
+00:07:27,544 --> 00:07:32,138
+outcomes are the archetype of our confounding.
+
+88
+00:07:32,138 --> 00:07:37,845
+That is, we know that there might be people that are very,
+
+89
+00:07:37,845 --> 00:07:40,873
+very different from others and
+
+90
+00:07:40,873 --> 00:07:45,764
+this might confound our study of the relationship
+
+91
+00:07:45,764 --> 00:07:50,901
+between the exposure or treatment and the outcome.
+
+92
+00:07:50,901 --> 00:07:56,019
+In particular, we want to make sure that we can balance
+
+93
+00:07:56,019 --> 00:08:01,587
+the presence of these latent unobserved response types and
+
+94
+00:08:01,587 --> 00:08:04,838
+how do we typically achieve that?
+
+95
+00:08:04,838 --> 00:08:11,296
+Via randomization, when randomization is not gonna be visible,
+
+96
+00:08:11,296 --> 00:08:16,022
+we will try to collect a lot of information that we
+
+97
+00:08:16,022 --> 00:08:20,998
+lacked as good practices of these response types.
+
+98
+00:08:20,998 --> 00:08:26,770
+Why these response types are typically unobserved,
+
+99
+00:08:26,770 --> 00:08:31,515
+because we only know one of these two columns
+
+100
+00:08:31,515 --> 00:08:36,143
+depending on what is the exposure styles.
+
+101
+00:08:36,143 --> 00:08:41,277
+So let's understand what would be the individual level cause and
+
+102
+00:08:41,277 --> 00:08:46,142
+effect of the treatment for each individual from this table.
+
+103
+00:08:46,142 --> 00:08:50,969
+For example, for individual one, the treatment would be beneficial,
+
+104
+00:08:50,969 --> 00:08:54,624
+for individual two, the treatment would be harmful.
+
+105
+00:08:54,624 --> 00:09:01,143
+For individual three and four there would be no individual treatment accept because
+
+106
+00:09:01,143 --> 00:09:07,408
+the two potential outcomes would be the same regardless of the exposure status.
+
+107
+00:09:07,408 --> 00:09:11,945
+By taking the column sums and averaging,
+
+108
+00:09:11,945 --> 00:09:16,742
+you cannot take average treatment effect,
+
+109
+00:09:16,742 --> 00:09:22,444
+here is how we define it, it's the change in the mean
+
+110
+00:09:22,444 --> 00:09:27,241
+of the potential outcome had everyone being
+
+111
+00:09:27,241 --> 00:09:32,449
+exposed relative to if no one had been exposed.
+
+112
+00:09:32,449 --> 00:09:38,362
+In this case, we would see that, the treatment has a beneficial
+
+113
+00:09:38,362 --> 00:09:43,509
+effect on the outcome has if everyone had been treated,
+
+114
+00:09:43,509 --> 00:09:48,235
+we would have a higher probability of being cured.
+
+115
+00:09:57,040 --> 00:10:01,845
+But let's see what happens in practice, in practice,
+
+116
+00:10:01,845 --> 00:10:04,810
+we will observe the third column,
+
+117
+00:10:04,810 --> 00:10:10,025
+the treatment sum is variable where we see that for example,
+
+118
+00:10:10,025 --> 00:10:15,461
+individual one is treated and individual three is untreated.
+
+119
+00:10:17,740 --> 00:10:22,312
+We see that, if we get to observe the treatment status and
+
+120
+00:10:22,312 --> 00:10:27,458
+the potential outcome associated with that treatment status,
+
+121
+00:10:27,458 --> 00:10:33,951
+we will not observe the counterfactual under the alternative exposure status.
+
+122
+00:10:35,240 --> 00:10:39,802
+And if we were to ask, what's the individual level
+
+123
+00:10:39,802 --> 00:10:44,374
+causal effect that would be impossible to answer.
+
+124
+00:10:44,374 --> 00:10:48,900
+And if we were, still wanting to receive them asking what
+
+125
+00:10:48,900 --> 00:10:53,522
+is the average causal effect and taking the column sums and
+
+126
+00:10:53,522 --> 00:11:00,051
+averages averaging across people, we would get a rather different conclusion.
+
+127
+00:11:00,051 --> 00:11:02,614
+We would actually obtain and
+
+128
+00:11:02,614 --> 00:11:07,848
+apparent effect that is negative rather than positive and
+
+129
+00:11:07,848 --> 00:11:12,759
+if we wrongly conclude that this is a causal analysis,
+
+130
+00:11:12,759 --> 00:11:18,661
+we would actually indicate that the treatment might be harmful.
+
+131
+00:11:21,240 --> 00:11:26,410
+Now what could have caused this discrepancy between
+
+132
+00:11:26,410 --> 00:11:32,872
+the analysis when we know both counterfactuals then the analysis
+
+133
+00:11:32,872 --> 00:11:39,804
+where we are only conditioning on the treatment status as observed and
+
+134
+00:11:39,804 --> 00:11:46,051
+comparing the group of exposed and the group of the unexposed.
+
+135
+00:11:48,240 --> 00:11:55,324
+If we look at who belongs to the group of the unexposed,
+
+136
+00:11:55,324 --> 00:11:59,328
+three, five, seven and six,
+
+137
+00:11:59,328 --> 00:12:05,642
+we see that all the people that are always cured,
+
+138
+00:12:05,642 --> 00:12:12,640
+they all are assigned treatment equals zero.
+
+139
+00:12:12,640 --> 00:12:18,378
+That is gonna make treatment equals zero to look much better and
+
+140
+00:12:18,378 --> 00:12:24,561
+to make potentially cure more people than the treatment equal one.
+
+141
+00:12:27,640 --> 00:12:32,697
+Those who got treatment zero, are healthier, the treated and
+
+142
+00:12:32,697 --> 00:12:38,940
+untreated group is not balanced according to the response types.
+
+143
+00:12:38,940 --> 00:12:45,254
+That's why, our associational measure that compares the group
+
+144
+00:12:45,254 --> 00:12:52,151
+of exposed to the group of unexposed does not equate our causal effect.
+

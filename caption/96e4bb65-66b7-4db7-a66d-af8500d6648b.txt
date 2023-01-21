@@ -1,0 +1,460 @@
+1
+00:00:01,730 --> 00:00:06,500
+This is 826. Chapter two Maximum Likelihood Estimation Second part.
+
+2
+00:00:07,460 --> 00:00:16,430
+Okay. So far we've dealt with problems that are fairly simple coin spinning or other sort of binomial or related problems,
+
+3
+00:00:16,790 --> 00:00:20,810
+relatively simple single parameter. It's always a probability.
+
+4
+00:00:21,890 --> 00:00:27,980
+Now, when you think about real problems that we will use to look at health services,
+
+5
+00:00:27,980 --> 00:00:32,990
+research, things we want to investigate about health, health care, health policy.
+
+6
+00:00:33,710 --> 00:00:37,730
+We typically want to estimate many parameters, many covariates.
+
+7
+00:00:38,180 --> 00:00:41,960
+How in the world are those kinds of problems actually solved?
+
+8
+00:00:41,990 --> 00:00:47,420
+It turns out, unlike all the problems we've just done, there's no closed form solution.
+
+9
+00:00:47,420 --> 00:00:55,070
+You can't write out a likelihood function, do some math, and then solve in a way that you get a number.
+
+10
+00:00:56,060 --> 00:01:03,620
+And that means that we need some sort of other algorithm or method to get to the final answer.
+
+11
+00:01:03,650 --> 00:01:07,549
+Now, a lot of the details of this are beyond the scope of this course.
+
+12
+00:01:07,550 --> 00:01:17,240
+But I want to give you a flavor for how to think about what the computer is doing in the background so that you have a sense of what's going on.
+
+13
+00:01:18,170 --> 00:01:22,280
+And I want you to go back and think about this graphs from the first part of this
+
+14
+00:01:22,280 --> 00:01:26,780
+chapter where you have something that looks like a bell curve or better yet,
+
+15
+00:01:27,260 --> 00:01:38,900
+the the inverted ball sort of like a nice smooth mountain and for nice maximum likelihood problems.
+
+16
+00:01:39,260 --> 00:01:49,970
+You're basically trying to find the top of a very smooth mountain, not in two dimensions like what I do there, but in many, many, many dimensions.
+
+17
+00:01:50,330 --> 00:01:55,190
+But conceptually, you're still trying to get to the top of the mountain of this function.
+
+18
+00:01:56,360 --> 00:02:00,730
+And one way to do this is what's called a grid search.
+
+19
+00:02:00,740 --> 00:02:11,030
+So you just make a whole bunch of guesses and four different values of your parameters, and then you look and see where you have the highest value.
+
+20
+00:02:11,390 --> 00:02:20,780
+And then you look in that area and keep guessing in that area until you have a higher value and keep going and until you give up.
+
+21
+00:02:21,860 --> 00:02:28,820
+So the way this might work. Suppose you have a really ugly function now.
+
+22
+00:02:28,940 --> 00:02:34,709
+This is something where you actually. Could compute the derivative.
+
+23
+00:02:34,710 --> 00:02:43,950
+In fact, I did on this page. But that's going to be, I think, impossible to find a closed form solution that's just really, really ugly.
+
+24
+00:02:45,180 --> 00:02:55,950
+So if we wanted to find the maximum value of that or the value of X that maximizes that function, why don't we just take a whole bunch of guesses?
+
+25
+00:02:55,950 --> 00:03:00,510
+We'll just throw in different values of X, let the computer give us a value and see what we get.
+
+26
+00:03:00,630 --> 00:03:05,760
+So there's a way to do this instead. I'm not going to go through the details of this now,
+
+27
+00:03:05,760 --> 00:03:13,350
+but you can write a program where you you give it a whole bunch of values of X and it will spit out the maximum value of Y.
+
+28
+00:03:13,860 --> 00:03:21,239
+And then you can make little pictures like this. So the top figure shows the value of the function.
+
+29
+00:03:21,240 --> 00:03:25,020
+So it's nicely shaped. It's got a peak somewhere.
+
+30
+00:03:25,560 --> 00:03:32,820
+Well, between two and four, it's not entirely it looks like it's slightly above three is probably where the peak is,
+
+31
+00:03:33,180 --> 00:03:40,569
+but it's somewhere in the area of 2 to 4. And so we've done that part of the grid search.
+
+32
+00:03:40,570 --> 00:03:43,680
+So we know it's it's probably a little more than three.
+
+33
+00:03:44,340 --> 00:03:48,850
+The lower function shows the slope at different values.
+
+34
+00:03:48,850 --> 00:03:52,680
+So you can see that less than three, the slope is positive.
+
+35
+00:03:53,340 --> 00:04:02,100
+And then after three, a little bit after three, maybe 3.2 or so, the slope hit zero and then goes negative.
+
+36
+00:04:02,550 --> 00:04:09,630
+So by the time you get down to the value of X equals ten, you see that the slope is very negative.
+
+37
+00:04:11,490 --> 00:04:21,360
+You can either think of finding the peak value in the upper function or finding where that slope equals zero.
+
+38
+00:04:22,530 --> 00:04:27,989
+So we could keep doing this grid search. And so instead of doing a grid search from 0 to 10,
+
+39
+00:04:27,990 --> 00:04:36,750
+we could do it between three and four and make similar figures and then see maybe it's between 3.2 and 3.3.
+
+40
+00:04:37,440 --> 00:04:43,530
+Then we do a grid search and 3.2 to 3.3 and we keep going and kind of think about it,
+
+41
+00:04:43,530 --> 00:04:52,980
+like using a microscope and using progressively more powerful lenses and zero in on exactly where that optimization is.
+
+42
+00:04:53,580 --> 00:04:59,850
+That's one way to do it takes a while and if you have 100 parameters to solve for that can be really bad.
+
+43
+00:05:00,150 --> 00:05:04,440
+Maximum likelihood estimation does not do a grid search.
+
+44
+00:05:05,640 --> 00:05:14,850
+It does something different. The details of this I'm not going to go into but the the sense of it is the following
+
+45
+00:05:16,110 --> 00:05:21,300
+it give it some starting values typically set all the parameters equal to zero.
+
+46
+00:05:21,690 --> 00:05:30,420
+It has a method of guessing. And what it does is it computes the slope everywhere of the function.
+
+47
+00:05:30,960 --> 00:05:39,930
+And then basically if the if the slope is positive, it increases its gas by a little bit.
+
+48
+00:05:39,930 --> 00:05:44,880
+And if the slope is negative, it decreases the gas by a little bit for that parameter.
+
+49
+00:05:45,210 --> 00:05:55,740
+And in doing that, it's eventually going to if the the slope of the likelihood function is smooth, you eventually move up to the top of the mountain.
+
+50
+00:05:57,000 --> 00:06:07,710
+And then there's some stopping rule. Like if if the gain in altitude from the last guess is very small, then you basically stop.
+
+51
+00:06:08,010 --> 00:06:18,780
+Anyway, it does involve derivatives because that's how you compute a slope and but it does not have a closed form solution.
+
+52
+00:06:18,780 --> 00:06:25,980
+It takes several iterations typically to find the optimal values.
+
+53
+00:06:26,700 --> 00:06:32,060
+Now I want to talk about three important properties of maximum likelihood and their implications.
+
+54
+00:06:32,070 --> 00:06:41,940
+The first is consistency. Oh, there's a likely formula there, but basically the idea of consistency is very nice.
+
+55
+00:06:41,940 --> 00:06:45,479
+It says that you're your best guess,
+
+56
+00:06:45,480 --> 00:06:51,000
+the maximum likelihood estimate or call it theta theta as a whole vector of parameters
+
+57
+00:06:51,480 --> 00:06:57,390
+that converges in probability to the population parameter as the sample size grows.
+
+58
+00:06:58,290 --> 00:07:10,200
+So the point here is if you have more and more data, more and more observations, you will get closer and closer to the true values.
+
+59
+00:07:10,980 --> 00:07:19,889
+So that's nice. It says that, you know, with large enough samples, you're going to be very, very close to that.
+
+60
+00:07:19,890 --> 00:07:26,970
+The truth, it's also the case that maximum likelihood may be biased in small samples.
+
+61
+00:07:28,230 --> 00:07:31,380
+So ordinarily squares if all the assumptions are.
+
+62
+00:07:31,790 --> 00:07:41,749
+Is is unbiased. Maximum likelihood can be biased in small samples, but consistency at least says that if you have large enough sample,
+
+63
+00:07:41,750 --> 00:07:48,260
+you're going to be arbitrarily close to the truth. Second thing that's nice is asymptotic normality,
+
+64
+00:07:48,770 --> 00:07:57,980
+and this is about the distribution of the best guess of parameters, which for this slide we're calling theta.
+
+65
+00:07:58,490 --> 00:08:04,819
+In general, we often call them beta. But so what's the asymptotic distribution of theta?
+
+66
+00:08:04,820 --> 00:08:18,110
+It's normal. That is, again, as you have a large and larger sample of the distribution of your your guesses has a nice normal distribution.
+
+67
+00:08:18,530 --> 00:08:31,790
+That means the following that we can calculate the standard errors for the parameters for the estimates of the parameters, I should say.
+
+68
+00:08:32,270 --> 00:08:39,110
+So that way when we say run a logit or probe it or anything else, we get estimates of the parameters.
+
+69
+00:08:39,620 --> 00:08:48,100
+And we this formula on this page gives us a formula for computing these standard errors.
+
+70
+00:08:49,700 --> 00:08:53,390
+And I'll show you an example in a minute of how we use that.
+
+71
+00:08:53,610 --> 00:09:06,110
+Oh, so the also the normal distribution here is centered around the true value theta.
+
+72
+00:09:06,620 --> 00:09:15,259
+And then there's this expression for the variance term I of theta inverse, which all right,
+
+73
+00:09:15,260 --> 00:09:19,760
+things are getting even uglier here, but I'll show you an example and hopefully it'll be clear what's going on.
+
+74
+00:09:20,450 --> 00:09:30,950
+The asymptotic variance for the theta hats, the the estimated parameters is this thing called the inverse of the information matrix.
+
+75
+00:09:31,250 --> 00:09:35,780
+The information matrix is the expected value of the second derivative, the log likelihood.
+
+76
+00:09:35,780 --> 00:09:42,350
+Aha. Remember our formula or our algorithm for solving one of these problems?
+
+77
+00:09:43,070 --> 00:09:50,000
+We write down the likelihood function. We take a first derivative solve for that that gets to serve our estimated parameters.
+
+78
+00:09:50,420 --> 00:09:51,770
+Then we take a second derivative.
+
+79
+00:09:52,190 --> 00:10:00,680
+I told you first that taking the second derivative was to show that we were at a maximum as opposed to a minimum or an inflection point.
+
+80
+00:10:01,490 --> 00:10:08,000
+It turns out that it's also useful for computing standard errors or the variance term.
+
+81
+00:10:09,150 --> 00:10:18,480
+If you take the matrix of second derivatives and its expected value and invert it through a minus sign in front of it,
+
+82
+00:10:18,840 --> 00:10:21,120
+that will give you the asymptotic variance.
+
+83
+00:10:21,210 --> 00:10:32,280
+Now, for logit models and other things, there are people who worked out all these formulas stated does it automatically in the background.
+
+84
+00:10:32,610 --> 00:10:39,370
+You're never going to have to calculate it. We're going to do it in a moment for a simple problem.
+
+85
+00:10:39,430 --> 00:10:45,930
+You see, you get at least some flavor of how it works. And it turns out that the formula is going to be kind of familiar.
+
+86
+00:10:47,400 --> 00:10:54,450
+So I want to go back to the consistency and unbiased this and just point out the consistency,
+
+87
+00:10:54,870 --> 00:10:59,009
+which is this idea that if you have a large enough sample you get arbitrarily close to.
+
+88
+00:10:59,010 --> 00:11:02,100
+The truth is different from being unbiased.
+
+89
+00:11:02,880 --> 00:11:10,320
+You can have an estimate or that is always bias, but with large enough, sample gets arbitrarily close.
+
+90
+00:11:12,300 --> 00:11:22,620
+You can also have an estimate that is unbiased, but in large samples never really converges to the truth.
+
+91
+00:11:22,620 --> 00:11:27,630
+It's just it's unbiased, but it's the variance is high enough that you never get there.
+
+92
+00:11:28,110 --> 00:11:33,960
+So just want to remember, maximum likelihood is consistent, but it is not unbiased.
+
+93
+00:11:35,170 --> 00:11:46,060
+Okay. Let's use this formula for the information matrix and the asymptotic variance and see what we get for binomial model.
+
+94
+00:11:46,150 --> 00:11:53,560
+So here the likelihood function is the familiar p race to the h one minus p raised to the t.
+
+95
+00:11:53,570 --> 00:11:59,740
+Okay, that should look familiar. Then we have a likelihood function to take the log likelihood function.
+
+96
+00:11:59,750 --> 00:12:02,920
+We take the natural logarithm of that. That should look familiar.
+
+97
+00:12:03,490 --> 00:12:07,360
+Take the first derivative that you've seen before in the second derivative.
+
+98
+00:12:07,360 --> 00:12:09,580
+Okay. So far we've done everything.
+
+99
+00:12:09,850 --> 00:12:20,200
+We want to focus now on the second derivative minus h, the number of heads over P squared minus T, the number of tails over one minus p squared.
+
+100
+00:12:23,650 --> 00:12:33,280
+And what we want to do is take that formula, take the expected value, and then minus the inverse of that, that sounds.
+
+101
+00:12:35,030 --> 00:12:44,930
+Really bad. But if we if we take that last equation there, the minus H squared minus T over one, minus B squared.
+
+102
+00:12:45,500 --> 00:12:55,130
+What's the expected value of that? Well, the expected value is taken over H and T.
+
+103
+00:12:55,970 --> 00:13:00,440
+How many heads would you expect to get if you spin a coin in times?
+
+104
+00:13:00,950 --> 00:13:05,779
+Well, you'd expect to get in times. P How many tails would you expect?
+
+105
+00:13:05,780 --> 00:13:12,180
+Do you expect to get in times one minus? P So let's put those in to the equation.
+
+106
+00:13:12,860 --> 00:13:23,750
+Now we have minus MN over minus and times p over p squared and minus end times one minus p over one minus p squared simplifies down.
+
+107
+00:13:25,630 --> 00:13:31,030
+Put a minus sign in front of that. So both terms are positive and inverted, which takes a little bit of work.
+
+108
+00:13:31,030 --> 00:13:36,430
+You have to multiply both sides by the both terms by either P or one minus P and numerator and denominator.
+
+109
+00:13:36,470 --> 00:13:43,300
+You can solve that. And finally we get P times one minus p over n.
+
+110
+00:13:45,710 --> 00:13:47,510
+That's a formula you've seen before.
+
+111
+00:13:48,530 --> 00:14:03,310
+If you go back to the first chapter, when I introduced Binomial, I said that the variance was p times one minus P, that that form o.
+
+112
+00:14:04,670 --> 00:14:10,990
+Although there is one difference here we have a m and in the denominator not the numerator.
+
+113
+00:14:11,000 --> 00:14:16,069
+So that's we'll talk about that in in class as to why that's true.
+
+114
+00:14:16,070 --> 00:14:22,070
+But think about that. Why is this formula for the variance different than what we saw before?
+
+115
+00:14:22,700 --> 00:14:24,200
+All right. That's the end of the second part.
+

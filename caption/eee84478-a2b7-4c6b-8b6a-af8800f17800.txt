@@ -1,0 +1,632 @@
+1
+00:00:01,290 --> 00:00:05,970
+This is each MP 26 login and probe it models part three.
+
+2
+00:00:07,340 --> 00:00:17,959
+So I'm going to have a very simple example here with six observations that's totally made up data about professors and whether or not they get tenure.
+
+3
+00:00:17,960 --> 00:00:26,840
+So that's a binary outcome, yes or no as a function of just one variable, which is the number of published papers they have.
+
+4
+00:00:26,840 --> 00:00:34,159
+Obviously, tenure decisions depend on far more than this, but let's just keep the problem simple for the moment.
+
+5
+00:00:34,160 --> 00:00:39,319
+We have six observations, and instead of just being a simple coin flip,
+
+6
+00:00:39,320 --> 00:00:45,830
+we want to make this more interesting and allow the probability to depend on the number of published papers.
+
+7
+00:00:47,500 --> 00:00:52,700
+So we see here in our made up dataset that we have three people who did get tenure.
+
+8
+00:00:52,720 --> 00:01:00,850
+Three people who did not. And the variation in the number of published papers goes from two to about 20.
+
+9
+00:01:02,200 --> 00:01:07,570
+Now, if we ignore the number of published papers for the moment and just think about this as a binary outcome,
+
+10
+00:01:07,810 --> 00:01:11,350
+we can write the likelihood function in the following way.
+
+11
+00:01:11,350 --> 00:01:14,649
+The first person did not get tenure, so we call that one minus P.
+
+12
+00:01:14,650 --> 00:01:19,600
+The next two did get tenure, so that's probability P and P and so forth.
+
+13
+00:01:20,320 --> 00:01:28,270
+And if we combine like terms, we get a likelihood function that's p raised to the third power, one minus P raised to the third power.
+
+14
+00:01:28,750 --> 00:01:33,340
+We don't care about what order these faculty came up for tenure decision.
+
+15
+00:01:33,550 --> 00:01:36,580
+So there's no choose part. It would fall out any way.
+
+16
+00:01:36,940 --> 00:01:41,080
+If we go through the usual steps of optimization, we can take derivatives.
+
+17
+00:01:41,110 --> 00:01:46,420
+After taking the logarithm this anyway, we would come up with a p out of 0.5.
+
+18
+00:01:47,870 --> 00:01:53,690
+But we want to make this a function of the number of papers published.
+
+19
+00:01:54,080 --> 00:01:59,330
+But we also want to avoid the problem of predictions outside the range zero one.
+
+20
+00:01:59,480 --> 00:02:02,900
+So we have to come up with a new way of thinking about this,
+
+21
+00:02:02,900 --> 00:02:14,180
+a new functional form such that we can rewrite the probability P to be a function of covariates and yet somehow not go outside the zero one.
+
+22
+00:02:14,870 --> 00:02:18,470
+There's there are two standard ways to do this. One is a logit, one's a probit.
+
+23
+00:02:18,920 --> 00:02:22,430
+And what they effectively do is they the.
+
+24
+00:02:23,410 --> 00:02:31,000
+Big Bend, the prediction curve, so that it's forced to be between zero and one.
+
+25
+00:02:31,870 --> 00:02:41,140
+So remember, in the low birth weight example, instead of the two descending lines, one for hypertensive and the other for non hypertensive mothers,
+
+26
+00:02:42,310 --> 00:02:50,470
+those were straight lines and they just ran off the bottom of the graph and were not contained by zero one.
+
+27
+00:02:50,830 --> 00:02:58,870
+What Logan Probit do is they have a different mathematical functional form that bends that curve and keeps it within zero one.
+
+28
+00:02:59,500 --> 00:03:09,760
+So let's go through loads. At first we're going to write the probability as a function of X with a following formula.
+
+29
+00:03:09,760 --> 00:03:15,910
+It's going to be one divided by one plus E to the minus x beta.
+
+30
+00:03:17,080 --> 00:03:22,570
+Remembering that Expedia's the linear index, including constant term and lots of other variables.
+
+31
+00:03:24,070 --> 00:03:32,200
+So let's pause for a moment and think about what this means and how this has a particular shape to it.
+
+32
+00:03:33,190 --> 00:03:39,220
+By the way, there are two ways of writing this. I typically write it one over one plus E to the minus x beta.
+
+33
+00:03:39,910 --> 00:03:46,180
+If you multiply both numerator and denominator by E to the x beta, you get the second formulation.
+
+34
+00:03:46,180 --> 00:03:52,750
+They're numerically identical. E raised to the x rated divided by erase x beta plus one.
+
+35
+00:03:55,840 --> 00:03:59,830
+I prefer the first one because it only has one Expedia in it instead of two.
+
+36
+00:04:00,070 --> 00:04:10,790
+But it all works out the same. Let's use the first formula and think about what happens when Expedia takes on several different values.
+
+37
+00:04:10,810 --> 00:04:14,020
+First of all, zero. Suppose the linear index is zero.
+
+38
+00:04:14,070 --> 00:04:23,980
+That that once you add up all those terms, you get exactly zero e to the -0 is the same as E to the zero.
+
+39
+00:04:24,160 --> 00:04:27,220
+Anything raised to the zero power is one.
+
+40
+00:04:28,210 --> 00:04:34,030
+So that term would simplify to one. Then we have one over one plus one is a half.
+
+41
+00:04:34,780 --> 00:04:41,680
+So that's a very important thing to remember, that whenever the linear index is about zero,
+
+42
+00:04:42,130 --> 00:04:47,110
+the predicted probability for a logit model will be about 50%.
+
+43
+00:04:49,130 --> 00:04:53,360
+What happens, though, when Expedia gets really big or really small?
+
+44
+00:04:53,390 --> 00:05:00,440
+First, what happens if it gets really big? So then we have e to the minus big number in the denominator.
+
+45
+00:05:00,440 --> 00:05:06,740
+Well, E to the minus big number is going to be a really tiny, tiny, tiny fraction, but positive.
+
+46
+00:05:07,370 --> 00:05:11,090
+So then we have one over one plus a tiny bit.
+
+47
+00:05:11,150 --> 00:05:16,400
+That's almost one. It's almost 100%, but just slightly below.
+
+48
+00:05:16,700 --> 00:05:24,730
+In fact, you can never, ever. Get anything that's outside of that's bigger than one.
+
+49
+00:05:25,360 --> 00:05:37,370
+No matter how big Expedia gets. Similarly, if Expedia goes to negative infinity, then we have E to the minus negative infinity, which blows up.
+
+50
+00:05:37,400 --> 00:05:40,780
+That's positive infinity to the big number gets really big.
+
+51
+00:05:41,320 --> 00:05:49,809
+And then you have one over a big number, plus one is close to zero, but you can never get below zero.
+
+52
+00:05:49,810 --> 00:05:55,600
+You can never get a negative number with that formula. So you're always bound between zero and one and you get that shape.
+
+53
+00:05:57,850 --> 00:06:03,820
+So let's use that formula and plug in the numbers from the ten year example.
+
+54
+00:06:04,330 --> 00:06:15,940
+So we're going to specify the linear index is having a constant beta nine and a variable P, which is the number of papers published.
+
+55
+00:06:17,110 --> 00:06:22,870
+So we have each the minus beta naught minus beta one times p.
+
+56
+00:06:25,260 --> 00:06:29,820
+Think about the likelihood function as being the product of six probabilities.
+
+57
+00:06:30,090 --> 00:06:34,440
+Probability for each of the six professors who are going up for tenure.
+
+58
+00:06:36,020 --> 00:06:48,600
+We're going to write the first probability as one minus P, that is one minus one over one plus E to the minus bit and on minus two, beta one, y two.
+
+59
+00:06:48,620 --> 00:06:55,459
+That's because the first person published two papers and so that is their predicted probability.
+
+60
+00:06:55,460 --> 00:06:58,970
+If we knew what beta naught and beta one were, then we could.
+
+61
+00:06:59,950 --> 00:07:03,030
+Plug that into the formula and get a specific number. I don't know.
+
+62
+00:07:03,040 --> 00:07:06,760
+Maybe it's 8%. Maybe it's 12%, some number.
+
+63
+00:07:08,020 --> 00:07:15,190
+The second person did get tenure. So we write that is P or one over one plus even minus six beta.
+
+64
+00:07:15,190 --> 00:07:18,580
+We plug in beta not and 12 beta one.
+
+65
+00:07:18,930 --> 00:07:31,330
+We get the second term. We can keep going and plug in 21, nine, 20 and 16 with either the formula for P or one minus P.
+
+66
+00:07:31,570 --> 00:07:35,200
+So then you get that expression for the likelihood function.
+
+67
+00:07:35,920 --> 00:07:42,220
+It has six terms. Three of them are of the form one minus the probability of tenure.
+
+68
+00:07:42,460 --> 00:07:46,870
+Three of them are of the form probability of tenure. They all have a beta or not.
+
+69
+00:07:46,930 --> 00:07:52,000
+They all have a beta one multiplied by the number of papers that the person published.
+
+70
+00:07:53,020 --> 00:07:58,690
+So that's a a nonlinear function. It depends on beta naught and beta one.
+
+71
+00:07:59,560 --> 00:08:05,150
+And we could use maximum likelihood. To solve that.
+
+72
+00:08:06,170 --> 00:08:10,730
+And that'll be the topic of the next class after this. We're just trying to set up the problem here.
+
+73
+00:08:13,590 --> 00:08:21,450
+Next, we're going to do the same sort of thing. But with the probe it function now the probe, it's a little more complicated.
+
+74
+00:08:22,740 --> 00:08:25,770
+At least the formula appears more complicated.
+
+75
+00:08:27,000 --> 00:08:30,750
+So let me try and walk you through what this means.
+
+76
+00:08:31,350 --> 00:08:40,920
+Again, it's going to be the the probability P as a function of X, the probability that the outcome Y equals one as a function of X.
+
+77
+00:08:41,280 --> 00:08:49,530
+And this is often written as capital fee, the Greek letter fee of x, beta y fee,
+
+78
+00:08:50,520 --> 00:08:55,200
+not exactly sure, but that's what's commonly used for the normal distribution.
+
+79
+00:08:56,010 --> 00:09:05,040
+And the Probit function assumes that there is an underlying distribution of the errors that is normally distributed,
+
+80
+00:09:05,460 --> 00:09:11,400
+whereas the logistic function assumes that the errors have a logistic distribution.
+
+81
+00:09:12,660 --> 00:09:16,200
+So how are those two different logit and prove it?
+
+82
+00:09:16,530 --> 00:09:22,270
+They're almost the same. In fact, if we go back a couple of slides show you the to see DFS.
+
+83
+00:09:23,770 --> 00:09:27,220
+May I look at them? I see essentially the same.
+
+84
+00:09:27,340 --> 00:09:31,780
+I cannot tell the difference between those. They're basically the same.
+
+85
+00:09:32,680 --> 00:09:37,510
+They're slightly different, but they're very, very close.
+
+86
+00:09:38,170 --> 00:09:41,710
+Let's take a look at this. Integral. Looks really messy.
+
+87
+00:09:42,000 --> 00:09:43,270
+Let's talk through what it means.
+
+88
+00:09:43,840 --> 00:09:52,210
+If you remember the formula for a normal distribution, this will look very familiar e to the minus t squared over two.
+
+89
+00:09:53,770 --> 00:09:56,770
+Or think of it as E to the minus t squared.
+
+90
+00:09:57,250 --> 00:10:01,530
+That is a basically a PDF.
+
+91
+00:10:01,540 --> 00:10:05,049
+It's bell shaped. It's centered around zero.
+
+92
+00:10:05,050 --> 00:10:13,850
+T equals zero. If you integrate that bell curve, you will get an area of one under it.
+
+93
+00:10:13,870 --> 00:10:19,210
+If it has the proper normalization and turns out it's one over square root of two pi,
+
+94
+00:10:19,450 --> 00:10:24,700
+that's what gets you an integral of the PDF to get you an area of one.
+
+95
+00:10:24,700 --> 00:10:28,120
+And that's what you need to make this a proper CDF.
+
+96
+00:10:29,080 --> 00:10:36,309
+And it's a good time to just point out that this formula here, the integral, is a CDF.
+
+97
+00:10:36,310 --> 00:10:46,090
+It is a cumulative distribution function because it gives the cumulative probability of something happening,
+
+98
+00:10:46,120 --> 00:10:51,790
+something being true from minus infinity up to basically x beta.
+
+99
+00:10:53,760 --> 00:11:00,510
+Oh. So. So this probability is a CDF.
+
+100
+00:11:00,580 --> 00:11:04,450
+It is related to the normal distribution.
+
+101
+00:11:06,550 --> 00:11:13,450
+And we're always going to write this not as the integral form, but as capital fee of X data.
+
+102
+00:11:13,570 --> 00:11:16,630
+So let's go back to writing out the likelihood function.
+
+103
+00:11:17,770 --> 00:11:21,460
+We're going to write this in terms of fee, which actually makes it a little easier.
+
+104
+00:11:21,880 --> 00:11:26,290
+So it's going to be one minus fee of beta, not plus two beta one.
+
+105
+00:11:27,190 --> 00:11:35,020
+That's the the expression for the probability of not getting tenure for someone who has published two papers.
+
+106
+00:11:36,280 --> 00:11:39,850
+Times Capital five beta not plus 12 beta one.
+
+107
+00:11:39,910 --> 00:11:44,560
+That's the the expression for the probability of getting tenure.
+
+108
+00:11:44,860 --> 00:11:51,339
+If you have 12 published papers and so forth, the next person, it's a probability.
+
+109
+00:11:51,340 --> 00:11:55,060
+P So it's capital fee. They have 21 published papers.
+
+110
+00:11:55,600 --> 00:12:00,670
+Next person did not get tenure, so it's one minus fee. Nine papers and so forth.
+
+111
+00:12:01,870 --> 00:12:05,770
+So the big picture structure here is like the logit.
+
+112
+00:12:06,010 --> 00:12:11,739
+We have six terms. Three of them are one minus the probability.
+
+113
+00:12:11,740 --> 00:12:13,570
+Three of them are just the probability.
+
+114
+00:12:13,990 --> 00:12:25,180
+And they depend on they depend on the linear index, the constant, be it or not, and beta one times the number of papers published.
+
+115
+00:12:27,250 --> 00:12:36,880
+So again, we've found a way to write a likelihood function the both the logit and the probit.
+
+116
+00:12:39,010 --> 00:12:42,459
+The expression for PS bounded between zero and one.
+
+117
+00:12:42,460 --> 00:12:45,400
+They can never be below zero. They can never be above.
+
+118
+00:12:45,400 --> 00:12:54,820
+Once we've solved that problem, the likelihood function is this product of probabilities of one term per observation.
+
+119
+00:12:56,020 --> 00:13:00,790
+And it turns out that we are multiplying together a bunch of CDOs.
+
+120
+00:13:02,860 --> 00:13:09,639
+There's another way of writing the likelihood function that we're going to be using
+
+121
+00:13:09,640 --> 00:13:15,430
+a lot because this data set that we just use for tenure only has six observations.
+
+122
+00:13:15,460 --> 00:13:17,380
+Not that hard to write out each term.
+
+123
+00:13:17,950 --> 00:13:25,239
+But again, more commonly, we're going to have hundreds, thousands, maybe even hundreds of thousands of observations.
+
+124
+00:13:25,240 --> 00:13:29,170
+You don't want to write out the likelihood function with, I don't know,
+
+125
+00:13:29,170 --> 00:13:36,160
+50 covariates and just be a mess and pages and pages to try and write out the whole likelihood function.
+
+126
+00:13:36,550 --> 00:13:41,480
+So we need a shorter way to do this and we'll typically do something like what's on this page,
+
+127
+00:13:41,480 --> 00:13:46,960
+or we have capital pie, which means product of a whole bunch of things.
+
+128
+00:13:48,370 --> 00:13:54,100
+And we're actually going to write this with two terms per observation.
+
+129
+00:13:54,790 --> 00:13:59,590
+So there's the probability that Y equals one, and there's a probability that Y equals zero.
+
+130
+00:14:00,250 --> 00:14:05,350
+And you say, Well, wait a minute, each observation, they either got tenure or they didn't.
+
+131
+00:14:05,470 --> 00:14:12,790
+They either were readmitted or they didn't. They they either were admitted to the hospital or they weren't.
+
+132
+00:14:12,790 --> 00:14:19,020
+They either have insurance or they weren't. You can't have both. Well, we're going to do a hopefully clever thing here.
+
+133
+00:14:19,030 --> 00:14:22,390
+We're going to use these exponents.
+
+134
+00:14:23,670 --> 00:14:25,139
+In in the following way,
+
+135
+00:14:25,140 --> 00:14:30,450
+we're going to write an expression for each observation the probability that Y equals one and the probability that Y equals zero.
+
+136
+00:14:30,450 --> 00:14:33,959
+And then we're going to raise it to either Y or why?
+
+137
+00:14:33,960 --> 00:14:44,730
+-1 to 1? Minus Y. Remember that the the outcome wise either equal to zero or it's equal to one.
+
+138
+00:14:46,750 --> 00:14:52,020
+So. If you raise something to the zero power.
+
+139
+00:14:53,670 --> 00:14:59,820
+Then that whole term, no matter how ugly it is, that whole expression reduces to the number one.
+
+140
+00:15:01,640 --> 00:15:06,800
+And so the exponents here are either one.
+
+141
+00:15:07,800 --> 00:15:12,210
+And zero, or if y equals zero, then it's zero and one.
+
+142
+00:15:12,540 --> 00:15:22,530
+In other words, the exponents kick out one of the two expressions for probabilities that's appropriate for that observation.
+
+143
+00:15:22,860 --> 00:15:26,850
+So the first person in the tenured dataset did not get tenure.
+
+144
+00:15:27,420 --> 00:15:36,159
+So why is zero? So we would write an expression here for the probability of getting tenure if that's what had happened.
+
+145
+00:15:36,160 --> 00:15:44,590
+But then we're going to raise it to the zero power, which means basically discount that part of the expression times.
+
+146
+00:15:45,760 --> 00:15:51,220
+The probability that they did not get ten year y equals zero raised to the one -0 or one.
+
+147
+00:15:51,230 --> 00:16:02,110
+So basically the exponents keep the piece of this of this formula that is appropriate for that observation.
+
+148
+00:16:04,090 --> 00:16:14,860
+More generally, we can write this as a CDF times one minus the CDF rise to either Y or one minus Y to the logistic function is a CDF.
+
+149
+00:16:15,130 --> 00:16:19,480
+The appropriate function is a CDF. So we can also write it this way.
+
+150
+00:16:20,440 --> 00:16:31,420
+The product from equals one two end of one over one policy, the minus x beta brings to the Y or one minus that raised to the one minus y.
+
+151
+00:16:31,960 --> 00:16:37,990
+Or we can write it in terms of fee and one minus fee, depending on whether it's logit or it.
+
+152
+00:16:40,860 --> 00:16:43,980
+These are a couple of qualities that are good to keep in mind.
+
+153
+00:16:45,330 --> 00:16:55,260
+The. Simply because these functions are symmetric, that the underlying PDFs are symmetric.
+
+154
+00:16:55,260 --> 00:17:04,980
+So one over one plus E to the plus x beta is also equal to one minus one over one plus i.e. the minus x beta.
+
+155
+00:17:05,700 --> 00:17:10,470
+It's worth playing around with these formulas just enough that you can verify that and remember
+
+156
+00:17:10,890 --> 00:17:16,000
+that there are different ways of writing these that are kind of equivalent or one minus.
+
+157
+00:17:16,030 --> 00:17:27,960
+So keep that in mind. Also because of symmetry around zero fee of minus six beta is one minus fee of zero.
+
+158
+00:17:29,770 --> 00:17:34,480
+So that's the end of this chapter on Probit Models.
+

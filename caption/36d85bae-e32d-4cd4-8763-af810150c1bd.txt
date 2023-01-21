@@ -1,0 +1,3108 @@
+1
+00:00:02,814 --> 00:00:08,794
+Seminar this semester. Pretty cool, drifted in the next couple of minutes.
+
+2
+00:00:09,334 --> 00:00:16,114
+We're happy to have Kesler here and Dan was a is a students and Justice Department.
+
+3
+00:00:18,994 --> 00:00:22,354
+Undergraduate student. You miss Michigan and.
+
+4
+00:00:23,054 --> 00:00:26,634
+Neuroscience. He's had a period where he's also.
+
+5
+00:00:27,304 --> 00:00:30,664
+Well before he went back to his boss, Steve.
+
+6
+00:00:31,864 --> 00:00:35,954
+Research group, the mission. He's going to talk today about.
+
+7
+00:00:37,294 --> 00:00:41,474
+His work in networks and your. Great.
+
+8
+00:00:42,494 --> 00:00:46,124
+Well, thank you so much. It's really a distinct honor to be here.
+
+9
+00:00:46,994 --> 00:00:51,464
+And it's especially nice, as I was joking to, to have an interview where I get to sleep in my own bed.
+
+10
+00:00:51,464 --> 00:00:56,714
+And it's been the most comfortable hotel I've stayed in yet. So thanks for that introduction.
+
+11
+00:00:56,714 --> 00:01:01,634
+So I'm Dan Kessler. I'm in the Department of Statistics at the University of Michigan, where I'm advised by Lisa Lebanon.
+
+12
+00:01:02,264 --> 00:01:05,284
+And today I'll be talking about some of I work on statistical tools for inference on
+
+13
+00:01:05,304 --> 00:01:10,964
+samples of networks with applications to neuroimaging and just to sort of get some,
+
+14
+00:01:11,534 --> 00:01:18,583
+some initial business concluded, I just want to invite questions, particularly clarifying questions throughout my talk.
+
+15
+00:01:18,584 --> 00:01:24,074
+So feel free to interrupt with clarifying questions on a notation or models or things that I'm using.
+
+16
+00:01:24,344 --> 00:01:28,184
+I mean, if we're getting stuck on the Q&A, I'll try and hustle us along so we get through everything.
+
+17
+00:01:28,184 --> 00:01:30,704
+But please don't be shy with your with your questions.
+
+18
+00:01:32,314 --> 00:01:38,434
+So most of the work that I'll be talking about today involves network data, which is likely familiar to a lot of you.
+
+19
+00:01:39,214 --> 00:01:48,094
+So networks are just sort of informally data objects that encode relations that we can say our edges among a set of objects which we'll call nodes.
+
+20
+00:01:48,664 --> 00:01:54,634
+So this is just a really simple depiction of a of a social network where individuals are the nodes.
+
+21
+00:01:54,874 --> 00:01:57,934
+And then we have edges where, say, the people are friends with one another.
+
+22
+00:01:58,984 --> 00:02:02,254
+Now, the type of network that I spend a lot of my time thinking about and that I'll
+
+23
+00:02:02,254 --> 00:02:05,884
+be largely talking about today are functional brain connectivity networks.
+
+24
+00:02:06,994 --> 00:02:12,483
+So using functional brain connectivity is a really common approach through investigation
+
+25
+00:02:12,484 --> 00:02:17,254
+of the brain in both psychiatry as well as psychology and cognitive sciences.
+
+26
+00:02:17,584 --> 00:02:22,894
+And the goal of functional brain connectivity is to characterize interregional connectivity in the human brain.
+
+27
+00:02:23,284 --> 00:02:29,434
+And the type of brain connectivity data that I'll be talking about today uses resting state fMRI.
+
+28
+00:02:30,364 --> 00:02:37,144
+So using a magnetic resonance imaging scanner, we measure something called the blood oxygen level dependent signal.
+
+29
+00:02:37,744 --> 00:02:46,653
+So this is actually a sort of metabolic proxy for neural activity so that we're able to obtain these bold time series,
+
+30
+00:02:46,654 --> 00:02:51,604
+some proxy of neural activity at hundreds of thousands of voxels, these 3D pixels throughout the brain.
+
+31
+00:02:52,714 --> 00:02:57,394
+And then to initially reduce the dimensionality of this, we usually extract average activity.
+
+32
+00:02:57,394 --> 00:03:02,404
+So we get these average time courses at regions of interest or our eyes.
+
+33
+00:03:03,664 --> 00:03:06,634
+And then once we have all of these these multivariate time course data,
+
+34
+00:03:06,844 --> 00:03:14,074
+we then construct a network by calculating pairwise similarity between these time series, pairwise between all possible regions of interest.
+
+35
+00:03:14,794 --> 00:03:20,614
+So the presentation I'm giving today uses Fisher transformed Pearson correlations as the measure of similarity.
+
+36
+00:03:21,184 --> 00:03:24,184
+But the methods that I'm presenting are really agnostic to the use of that.
+
+37
+00:03:24,184 --> 00:03:32,614
+As a similarity metric. You could use partial correlation, you could use mutual information, conditional entropy, other types of metrics.
+
+38
+00:03:33,484 --> 00:03:38,344
+And so our our methods will generally work with any assigned weighted network that you give it as input.
+
+39
+00:03:40,384 --> 00:03:47,103
+So unlike a lot of work on networks, which is really focused on characterizing the statistical property of a single,
+
+40
+00:03:47,104 --> 00:03:51,513
+very large network, say that's like growing asymptotically in brain imaging studies.
+
+41
+00:03:51,514 --> 00:03:57,064
+We actually have samples of networks. So a typical brain imaging study will include many participants,
+
+42
+00:03:57,544 --> 00:04:03,664
+sometimes hundreds or more recently thousands or even tens of thousands, and will obtain a distinct network for each individual.
+
+43
+00:04:04,654 --> 00:04:10,894
+And in addition to these networks, will also typically measure some observation level covariant or covariates of interest,
+
+44
+00:04:11,194 --> 00:04:16,924
+for example, psychiatric diagnosis. So in this simple cartoon, we have different individuals in our study.
+
+45
+00:04:17,254 --> 00:04:23,194
+Each of them has a distinct brain network. And then we also have an observation level covariate that indicates which of these
+
+46
+00:04:23,194 --> 00:04:27,964
+participants are psychiatric patients and which of them are healthy controls in our study.
+
+47
+00:04:29,744 --> 00:04:34,214
+Now. In addition, there are also frequently nuisance covariance that are of no interest,
+
+48
+00:04:34,214 --> 00:04:37,664
+but they can be confounders in the signal that we might find in the brain networks.
+
+49
+00:04:38,354 --> 00:04:42,854
+And depending on the type of question that you have as one example, age may be a nuisance covariate.
+
+50
+00:04:43,994 --> 00:04:50,054
+And so this is something that we think a lot about, a lot in brain imaging studies where there are a lot of problematic nuisance covariates.
+
+51
+00:04:50,294 --> 00:04:54,884
+Motion is a particularly problematic confounding in brain imaging studies.
+
+52
+00:04:55,884 --> 00:05:01,814
+And so all of the work that I'm talking about today will have in various ways tried to address the issue of these nuisance covariance,
+
+53
+00:05:01,814 --> 00:05:07,004
+but for simplicity, largely by suppressing discussion of nuisance covariates in each of the projects that I talk about today.
+
+54
+00:05:07,664 --> 00:05:10,874
+But that's something that I'm happy to take questions about or talk about with people more offline.
+
+55
+00:05:12,574 --> 00:05:14,614
+So the outline of what I'll be talking about today,
+
+56
+00:05:14,614 --> 00:05:20,374
+I'll first sort of discuss and introduce the idea of communities and networks in general and brain networks in particular,
+
+57
+00:05:20,374 --> 00:05:25,204
+as well as some evidence for why you should believe that there's evidence for community structure and brain networks.
+
+58
+00:05:25,744 --> 00:05:30,364
+And then as background, I'll go over some projects that have been that that I've done that have been aimed
+
+59
+00:05:30,364 --> 00:05:34,804
+at trying to tackle particular instances of what I'd call like two big questions,
+
+60
+00:05:35,374 --> 00:05:42,094
+which are really two sides of the same coin. So the first question is how do brain networks change with observation level areas?
+
+61
+00:05:42,544 --> 00:05:47,284
+And the converse of that question is how do observation level covariance change with brain networks?
+
+62
+00:05:47,944 --> 00:05:52,714
+Now, as statisticians, we can think about this distribution early and think about the first problem is
+
+63
+00:05:52,714 --> 00:05:56,584
+trying to characterize the distribution of a network conditional on a covariate.
+
+64
+00:05:56,944 --> 00:06:01,714
+And the second question is trying to characterize the distribution of a covariate given a brain network.
+
+65
+00:06:01,984 --> 00:06:05,434
+And as we know, these two different distributions will be distinct and will give us,
+
+66
+00:06:05,554 --> 00:06:11,734
+in some cases, complementary information about the joint distribution of these two random objects.
+
+67
+00:06:12,864 --> 00:06:18,294
+The bulk of the talk. I'll talk about the setting where we have multiple observation level covariance
+
+68
+00:06:18,294 --> 00:06:22,134
+and where we try to tackle a more symmetric version of these two big questions,
+
+69
+00:06:22,374 --> 00:06:27,203
+which will lead us to some statistical work that I've done on inference for canonical correlation analysis,
+
+70
+00:06:27,204 --> 00:06:35,454
+and then I'll conclude by talking about some future directions. So many networks that we encounter in the wild exhibit community structure.
+
+71
+00:06:36,084 --> 00:06:41,514
+So informally, a community is a group of nodes that have similar connectivity patterns with one another.
+
+72
+00:06:41,814 --> 00:06:43,944
+So as a simple cartoon example at the left.
+
+73
+00:06:44,844 --> 00:06:52,284
+These are NCAA football teams that are colored according to conference after some community detection algorithm has been applied.
+
+74
+00:06:52,974 --> 00:06:57,713
+And what we see here is that the communities that we discover largely recapitulate conferences.
+
+75
+00:06:57,714 --> 00:07:03,624
+They're not perfectly. There are some independent teams that end up in other conferences, for example, like Notre Dame might appear in like the HTC.
+
+76
+00:07:05,224 --> 00:07:12,844
+Now like these these other types of networks, social networks or football networks, brain networks also exhibit a community structure.
+
+77
+00:07:13,384 --> 00:07:20,433
+So the node set that we use in our study, the regions of interest in the brain are typically based on a standard atlas or
+
+78
+00:07:20,434 --> 00:07:26,704
+percolation that tells us where in the brain to extract these these average time series.
+
+79
+00:07:27,634 --> 00:07:34,713
+And so what I'm depicting here at the at the left are regions of interest according to the so-called power participation.
+
+80
+00:07:34,714 --> 00:07:37,594
+That's based on a 2011 paper from Jonathan Powers Group,
+
+81
+00:07:38,734 --> 00:07:45,094
+where they've identified 200 and some odd regions of interest throughout the brain that are of particular interest.
+
+82
+00:07:45,844 --> 00:07:50,494
+But not only do they give us standardized coordinates at which to extract these average time courses,
+
+83
+00:07:50,914 --> 00:07:56,224
+they also assign each of these allies into one of distinct brain systems.
+
+84
+00:07:56,584 --> 00:07:59,764
+And we can sort of treat these brain systems as all priority communities.
+
+85
+00:08:00,634 --> 00:08:06,484
+And so here I've colored the regions of interest according to the putative brain system.
+
+86
+00:08:06,994 --> 00:08:13,174
+So we have, for example, like an auditory system that's responsible for audition, a visual system responsible for vision.
+
+87
+00:08:14,524 --> 00:08:20,134
+And importantly, throughout the talk, I'm going to treat these communities as known and given.
+
+88
+00:08:20,644 --> 00:08:23,163
+In this case, they are they're still estimated based on data,
+
+89
+00:08:23,164 --> 00:08:28,743
+but they're estimated on different data than the data on which we'll be doing inference and that I'll discuss in future directions.
+
+90
+00:08:28,744 --> 00:08:32,464
+Some settings where we might want to use the same data to discover community
+
+91
+00:08:32,464 --> 00:08:36,064
+structure and then ask inferential questions about the structure that we discover.
+
+92
+00:08:37,434 --> 00:08:43,854
+Now, while we have carved up the regions of interest in the communities and we've sort of partitioned the nodes,
+
+93
+00:08:44,154 --> 00:08:47,064
+the data that we work with is actually data at the level of edges.
+
+94
+00:08:47,074 --> 00:08:52,074
+And so we want to think instead about the type of partition that is induced by this community structure.
+
+95
+00:08:52,224 --> 00:08:57,654
+When we look at connectivity patterns, so the matrix that I'm depicting at the right, you can see the cursor.
+
+96
+00:08:58,524 --> 00:09:08,454
+This is a average connectivity matrix where I have per muted the rows and the columns such that a given brain system or a community is all contiguous.
+
+97
+00:09:09,234 --> 00:09:15,534
+And then I've overlaid these grid lines. And so what we see and this is sort of we can see modular structure.
+
+98
+00:09:15,534 --> 00:09:19,253
+So red values are strong connectivity. And if you look along the diagonal,
+
+99
+00:09:19,254 --> 00:09:24,564
+there's sort of this strong block diagonal structure where nodes in the same system are highly correlated with one another.
+
+100
+00:09:24,564 --> 00:09:28,284
+And that's part of why they were assigned to the same system in the first place.
+
+101
+00:09:28,554 --> 00:09:36,684
+But there's also some coherence in a sort of stochastic block model sense of the type of inter inter system connectivity patterns that we see.
+
+102
+00:09:37,344 --> 00:09:46,314
+So just to identify some, some terminology that will be useful is to talk about the way that these communities can induce what I call network cells.
+
+103
+00:09:46,314 --> 00:09:51,834
+And so this is a way of of more cleanly partitioning the edges based on the communities in which they participate.
+
+104
+00:09:52,524 --> 00:09:55,554
+So as I've described, we have these distinct brain systems.
+
+105
+00:09:55,554 --> 00:10:02,364
+So here I'm highlighting the rows and columns that correspond to respectively the default mode and the visual systems.
+
+106
+00:10:02,964 --> 00:10:08,514
+And so this is a partitioning of nodes, but if we want to partition edges, we can draw what I'll call network cells.
+
+107
+00:10:08,814 --> 00:10:13,584
+So for example, all of the edges in this block that I'm now depicting, we can say this is cell five, five.
+
+108
+00:10:14,304 --> 00:10:19,494
+These are edges are connections between two nodes, both of which are in the default mode system.
+
+109
+00:10:20,244 --> 00:10:27,084
+So this is sort of an example of an intra community network cell, but we can also characterize inter network community cells.
+
+110
+00:10:27,384 --> 00:10:33,804
+And so because in this case we're using Pearson correlations or Fisher from Pearson correlations, this is a symmetric matrix.
+
+111
+00:10:33,804 --> 00:10:37,824
+So Cell five seven and cell 75 have the same information, just the transpose of one another.
+
+112
+00:10:38,364 --> 00:10:42,324
+But we can also get these inter inter system cells.
+
+113
+00:10:42,654 --> 00:10:50,754
+And so these are the values in this cell correspond to edges that link a node in the default mode system to a node in the visual system.
+
+114
+00:10:51,414 --> 00:10:55,073
+And this is going to be a really useful unit and level of analysis for the
+
+115
+00:10:55,074 --> 00:11:01,674
+projects that I'll talk about subsequently if I serve Echo Dot in this picture.
+
+116
+00:11:02,384 --> 00:11:08,634
+There's a correlation coefficient taken from. Pair of observations from a study of life form.
+
+117
+00:11:09,964 --> 00:11:13,474
+That's a great clarifying question. And so it's close to that.
+
+118
+00:11:14,254 --> 00:11:15,874
+I think it's so this is actually a mean.
+
+119
+00:11:15,874 --> 00:11:19,924
+So let's instead just talk about if you just had a single individual, you could still make something like this.
+
+120
+00:11:20,344 --> 00:11:25,324
+And so what we've collected is for each individual, I have time series data.
+
+121
+00:11:26,324 --> 00:11:31,204
+So, so here's an example of two regions of interest for a single individual as a function of time.
+
+122
+00:11:31,534 --> 00:11:36,093
+Calculate the correlation between those two things. You'll get a scalar, you push it through a fisher transform.
+
+123
+00:11:36,094 --> 00:11:42,454
+So it's on anywhere on the real line. That value will correspond to one of these dots.
+
+124
+00:11:45,654 --> 00:11:51,984
+And if you collect a whole bunch of people, each person will have their own adjacency matrix.
+
+125
+00:11:52,734 --> 00:11:57,474
+This is actually a mean that we get as a as an output of a mixed effects model.
+
+126
+00:11:57,884 --> 00:12:00,474
+And so what I'm showing here is a is a sort of population mean.
+
+127
+00:12:00,984 --> 00:12:05,184
+But if you looked at that at the individual level to be a little bit noisier, you see a generally a similar pattern.
+
+128
+00:12:05,424 --> 00:12:08,924
+But the correlation is importantly across time.
+
+129
+00:12:08,964 --> 00:12:12,054
+That's the unit of replication, not across individuals.
+
+130
+00:12:13,484 --> 00:12:18,944
+So there's sort of two levels of replication, replication in time, but then individuals and then replication across individuals.
+
+131
+00:12:19,214 --> 00:12:25,804
+And this is time on a very fine timescale like half of hertz. Thanks for that clarifying question.
+
+132
+00:12:28,754 --> 00:12:35,204
+So the first paper that I'll just talk about really briefly here is something that will hopefully help to convince
+
+133
+00:12:35,204 --> 00:12:41,204
+you about the presence of communities in neuroimaging data and particularly the presence of communities.
+
+134
+00:12:41,204 --> 00:12:44,714
+And we look at inter individual variation in these networks.
+
+135
+00:12:45,284 --> 00:12:51,794
+So as I discussed, this is a picture of a of a visitor of an average network.
+
+136
+00:12:52,544 --> 00:12:56,894
+And this nothing you can just sort of very quickly eyeball that this has a like modular structure
+
+137
+00:12:56,894 --> 00:13:01,394
+and that's it's really just the high degree of connectivity within these on diagonal cells.
+
+138
+00:13:01,394 --> 00:13:05,983
+And again, I'll stress that the the permutation of the rows in the columns,
+
+139
+00:13:05,984 --> 00:13:09,614
+the assignment to communities was done on a priority based on an independent dataset.
+
+140
+00:13:09,974 --> 00:13:14,144
+So this isn't the case where, like, I've just clustered the data to make it look really nice and black diagonal.
+
+141
+00:13:14,894 --> 00:13:17,084
+It just actually looks nice and black diagonal.
+
+142
+00:13:18,224 --> 00:13:22,364
+So this tells you something about there being community structure in the central tendency or the mean of this data.
+
+143
+00:13:23,834 --> 00:13:27,554
+But in a lot of studies, we're really instead interested in inter individual variation.
+
+144
+00:13:28,054 --> 00:13:33,974
+And so in this scientific reports paper that was led by Chandra's reporter and one
+
+145
+00:13:33,974 --> 00:13:37,664
+of my long time collaborators in the Department of Psychiatry and Philosophy here,
+
+146
+00:13:38,204 --> 00:13:41,684
+this is a project that was actually focused on predicting a variety of phenotypes.
+
+147
+00:13:42,254 --> 00:13:46,934
+But part of the pipeline that they use in this paper involved principal components regression,
+
+148
+00:13:47,264 --> 00:13:52,674
+and so is a precursor to principal components regression. They said PCR and a whole bunch of this network data.
+
+149
+00:13:53,504 --> 00:13:58,244
+And so specifically what they do is each of these individuals contributes in adjacency matrix.
+
+150
+00:13:58,574 --> 00:14:01,844
+They vector ise that adjacency matrix, they have a whole bunch of people.
+
+151
+00:14:02,024 --> 00:14:08,444
+And so you stack up all of those vectors and then you perform PCR on that and then you use the principal component scores,
+
+152
+00:14:08,444 --> 00:14:11,834
+the prediction and sort of principal components, regression sense.
+
+153
+00:14:12,284 --> 00:14:16,544
+But you can also go back and look at what the principal component directions of the pieces themselves look like.
+
+154
+00:14:17,024 --> 00:14:20,204
+And so here I've just plotted like the first three principal components.
+
+155
+00:14:20,444 --> 00:14:23,923
+And importantly in principal component analysis, the data is the mean.
+
+156
+00:14:23,924 --> 00:14:30,614
+So it's been centered. And so all of that sort of like rich community structure in the mean has been subtracted off before doing BCA.
+
+157
+00:14:31,154 --> 00:14:35,444
+But what they noticed was that there was still this really nice block structure.
+
+158
+00:14:36,404 --> 00:14:40,364
+It wasn't quite as concentrated everywhere, but in some of the leading principal components.
+
+159
+00:14:41,204 --> 00:14:44,084
+And so they were they were interested in trying to inferential,
+
+160
+00:14:44,144 --> 00:14:52,244
+assess the degree to which the principal components themselves exhibited community structure consistent with like some sort of modularity or,
+
+161
+00:14:52,454 --> 00:14:53,684
+or stochastic block model.
+
+162
+00:14:54,344 --> 00:15:00,944
+And so without getting into too much of the details, my contribution to this project was to develop an inferential framework to test just that.
+
+163
+00:15:01,274 --> 00:15:11,024
+And so what I've plotted at the right, so for each of the, each of the principal components using the putative brain systems as the,
+
+164
+00:15:11,054 --> 00:15:16,003
+as the assignments we evaluate the profile log likelihood under the stochastic block
+
+165
+00:15:16,004 --> 00:15:20,234
+model profiling out the mean of the variance for each of the each of the cells.
+
+166
+00:15:20,564 --> 00:15:26,254
+And so we just evaluate and that's what is plotted in in red here is the value of the profile
+
+167
+00:15:26,264 --> 00:15:31,424
+log likelihood under the putative community assignment according to the power participation.
+
+168
+00:15:31,604 --> 00:15:36,823
+And then we can just plot that as a function of component number. And then for a reference distribution,
+
+169
+00:15:36,824 --> 00:15:40,754
+we use a permutation approach where essentially per meet the community labels
+
+170
+00:15:41,534 --> 00:15:45,464
+and reevaluate the profile log likelihood and then repeat this procedure many,
+
+171
+00:15:45,464 --> 00:15:49,364
+many different times. And so in blue is this null distribution.
+
+172
+00:15:49,604 --> 00:15:55,574
+What you can see it most clearly is the trace, which is the median of the permutation distribution.
+
+173
+00:15:55,814 --> 00:16:01,043
+They're actually 95%, 95%.
+
+174
+00:16:01,044 --> 00:16:06,193
+There's a five or a 2.5 and a 97.5% quantile that's plotted on top of the blue.
+
+175
+00:16:06,194 --> 00:16:12,824
+It's just so narrow on the scale relative to the gap between the the null distribution, the empirical value.
+
+176
+00:16:12,914 --> 00:16:17,914
+You can't see those intervals. And so the the p values that we get out of this.
+
+177
+00:16:17,924 --> 00:16:22,244
+So we, we chose to do essentially no matter how many permutations that we did,
+
+178
+00:16:22,904 --> 00:16:30,164
+the profile log likelihood that we observed with our empirical assignment always dominated all of the all of the permutation realizations.
+
+179
+00:16:30,674 --> 00:16:36,104
+So we essentially did enough Monte Carlo realizations in order to be able to reject all of these things.
+
+180
+00:16:36,104 --> 00:16:38,894
+Bonferroni Corrected 2.05 So there's really,
+
+181
+00:16:38,894 --> 00:16:46,244
+really marked presence of community structure in these inter individual variations in these in these brain networks.
+
+182
+00:16:46,754 --> 00:16:50,354
+And even though the effect is really, really strong everywhere, interestingly.
+
+183
+00:16:50,354 --> 00:16:57,944
+So this is not like a screen plot, the variance explained. This is instead just a plot of in some sense, how blocky these matrices are.
+
+184
+00:16:58,784 --> 00:17:02,384
+And we see the greatest amount of blocking is in the leading principal components.
+
+185
+00:17:06,064 --> 00:17:12,364
+So hopefully you're convinced that the communities and particularly these network cells, are a useful thing to look at in brain studies.
+
+186
+00:17:13,264 --> 00:17:20,494
+And so one of the first the sort of the first big question that I want to talk about is how do brain networks change with observation level two?
+
+187
+00:17:20,794 --> 00:17:27,333
+So just cartoonishly now we are given an observation level covariate and you could say we we want to predict what the brain network is,
+
+188
+00:17:27,334 --> 00:17:31,324
+or you could instead think of this from sort of like an ANOVA or like a two sample testing problem.
+
+189
+00:17:31,564 --> 00:17:35,223
+Or if you have patients in healthy controls and you want to understand how the brains
+
+190
+00:17:35,224 --> 00:17:39,124
+or the brain networks of patients differ from the networks of healthy controls.
+
+191
+00:17:39,964 --> 00:17:45,544
+So in a project with another PhD student and my advisor, Liza, that was recently accepted to the Annals of Applied Statistics,
+
+192
+00:17:45,784 --> 00:17:51,694
+we proposed a mixed effects model to incorporate community structure, and then we applied our method to a schizophrenia dataset.
+
+193
+00:17:53,134 --> 00:17:58,804
+And so here in brief, are the results that we found with our schizophrenia data set.
+
+194
+00:17:59,584 --> 00:18:06,284
+But what's important about about our approach is that we have, I think, two sort of new contributions.
+
+195
+00:18:06,304 --> 00:18:15,604
+One is a parameter is Asian. So we we fit a model where the response so a is the adjacency matrix for the individual, for a given individual.
+
+196
+00:18:15,874 --> 00:18:22,114
+And then we look at the IgG entry. So this is the connectivity between nodes I and J, and we fit a regression model.
+
+197
+00:18:23,134 --> 00:18:27,394
+And this is actually these models are fit at the level of each individual network cell.
+
+198
+00:18:27,814 --> 00:18:32,794
+But I'm suppressing the notation for cells because otherwise it gets really, really bothersome to work through in a talk.
+
+199
+00:18:33,254 --> 00:18:39,994
+So this is a model for a single cell. But the model includes both a set of effects that are homogeneous across the entire network cell.
+
+200
+00:18:40,264 --> 00:18:47,104
+So a cell mean a cell disease effect is an indicator that indicates whether the subject is schizophrenic or not,
+
+201
+00:18:47,404 --> 00:18:51,454
+as well as a subject specific random effect. And I've put the random effects in red here.
+
+202
+00:18:52,624 --> 00:18:56,384
+And then we also have these more local edge effects.
+
+203
+00:18:56,404 --> 00:19:06,504
+So there's a local edge specific intercept, a local edge specific effect of disease, ETA and then a local edge specific random intercept.
+
+204
+00:19:06,514 --> 00:19:13,174
+But it's also specific to the individual. And importantly, I see a question of our cells.
+
+205
+00:19:13,474 --> 00:19:21,544
+So cells. Let me go back here. Yep. So so cells are our groups are blocks in the adjacency matrix.
+
+206
+00:19:21,874 --> 00:19:28,533
+So essentially we're fitting a model and there's a single model for essentially like the responses are each edge for each individual.
+
+207
+00:19:28,534 --> 00:19:32,464
+So we effectively fold only 70 or 80 cells there.
+
+208
+00:19:32,734 --> 00:19:37,204
+Yeah. So there are if there are, there are 13 choose to plus 13 cells.
+
+209
+00:19:40,194 --> 00:19:45,894
+However. So these are cell specific models, but the IJA are for all of the individual observations within a cell.
+
+210
+00:19:47,274 --> 00:19:50,603
+So there are effectively like many millions of observations because we're
+
+211
+00:19:50,604 --> 00:19:54,924
+basically treating each edge as a distinct observation within each individual.
+
+212
+00:19:55,224 --> 00:20:02,874
+So you have you know, if you have, I don't know, 100,000 edges and 100 subjects, then you have many, many, many observations.
+
+213
+00:20:03,294 --> 00:20:06,263
+The challenge, though, is that these are not all independent observations.
+
+214
+00:20:06,264 --> 00:20:09,864
+You have to account for the dependance, and that's where these random effects come in.
+
+215
+00:20:10,854 --> 00:20:15,233
+And so in addition to being able to sort of partition and this is just a parameter ization choice,
+
+216
+00:20:15,234 --> 00:20:18,744
+there's nothing terribly novel about parameter rising. This is the cell effects in edge effects.
+
+217
+00:20:19,764 --> 00:20:22,824
+There's some identify ability constraints that you impose when you write it this way.
+
+218
+00:20:23,094 --> 00:20:29,184
+But I think what's particularly novel is the variance structures that we assume about the cell effects and the edge effects.
+
+219
+00:20:29,994 --> 00:20:37,884
+So these subjects specific cell effects, these are actually random vectors because there's a value of this for each in each cell.
+
+220
+00:20:38,844 --> 00:20:42,894
+And we essentially allow the covariance structure of this random effect to be general.
+
+221
+00:20:43,734 --> 00:20:49,464
+So the the cell effects within a given individual can have somewhat arbitrary dependance,
+
+222
+00:20:50,424 --> 00:20:55,764
+and they're independent between individuals because we assume people that we scan at different times are independent of one another.
+
+223
+00:20:57,664 --> 00:21:03,694
+K. K is indeed the label for the cell.
+
+224
+00:21:04,624 --> 00:21:10,394
+Yes. That's the notation that I change from the paper where it was like a B or something.
+
+225
+00:21:10,394 --> 00:21:17,024
+But yeah, k is the I right? Here's a label for this. There should also be KS over here because it's really I think that's what I've suppressed.
+
+226
+00:21:20,924 --> 00:21:25,724
+What do you. So four, four epsilon.
+
+227
+00:21:25,724 --> 00:21:28,933
+So it's all normal, but the distribution for Epsilon,
+
+228
+00:21:28,934 --> 00:21:33,434
+so we considered two different error distributions in terms of the covariance structure that we permit.
+
+229
+00:21:34,484 --> 00:21:38,594
+So for for one of them, the error distribution for Epsilon is constrained.
+
+230
+00:21:38,654 --> 00:21:43,334
+So essentially Epsilon can be had Osgood tastic. So it's a diagonal air covariance structure.
+
+231
+00:21:43,634 --> 00:21:46,904
+And then there's a more general version of it where it can be blocked diagonal.
+
+232
+00:21:48,194 --> 00:21:51,974
+So in that version, the errors are allowed to be correlated within cells,
+
+233
+00:21:51,974 --> 00:21:56,354
+but not between cells as well as having could ask to stick marginal variances.
+
+234
+00:21:58,734 --> 00:22:03,194
+So but also between cells are independent epsilon, but gamma is dependent between cells.
+
+235
+00:22:03,924 --> 00:22:06,414
+Right. And so we essentially use gamma in order to.
+
+236
+00:22:06,664 --> 00:22:12,474
+And if you if you like, both to be free of that, you'd be overdramatized because you'd have you'd have more parameters of observations.
+
+237
+00:22:12,714 --> 00:22:15,683
+But the idea is that Gamma allows you, for sort of course,
+
+238
+00:22:15,684 --> 00:22:21,624
+long range dependance and epsilon allows for much more finely articulated short range dependance.
+
+239
+00:22:23,204 --> 00:22:28,363
+And so what I'm depicting here and one of I think the distinct advantages of this approach and we we compare this to
+
+240
+00:22:28,364 --> 00:22:33,284
+our lesson some approaches that that don't account for the dependance that we show are hugely anti-conservative.
+
+241
+00:22:34,424 --> 00:22:40,454
+Is that so? One advantage of this type of parameter zation is that you can do inference both at the level of entire cells,
+
+242
+00:22:40,454 --> 00:22:42,884
+and then you could do inference at the level of individual edges.
+
+243
+00:22:43,364 --> 00:22:48,734
+And I think this is an opportunity to exploit when, when so ever possible personally.
+
+244
+00:22:49,064 --> 00:22:56,174
+So if you're able to characterize the difference in networks in terms of the cells, you have a much, much simpler story.
+
+245
+00:22:56,474 --> 00:23:00,343
+And it's much easier to understand the path of physiology in the pathogenesis
+
+246
+00:23:00,344 --> 00:23:03,284
+of the disease when you can find these sort of like mesoscale epic effects.
+
+247
+00:23:03,284 --> 00:23:09,884
+So what's shaded here are all of the cells where beta is significantly non-zero, where there's a significant disease effect,
+
+248
+00:23:10,184 --> 00:23:14,594
+and the ones with stars are the ones that are five fold discovery rate control.
+
+249
+00:23:15,044 --> 00:23:20,324
+And then on the other hand, well, you can try and find sort of like global phenomena.
+
+250
+00:23:20,954 --> 00:23:23,084
+You could also try to find more local phenomena.
+
+251
+00:23:23,294 --> 00:23:31,364
+So, for example, if one of these network cells was not entirely homogeneous in the way that the disease effects manifested,
+
+252
+00:23:31,604 --> 00:23:34,574
+you'll instead find a bunch of individual edges that carry effect.
+
+253
+00:23:34,754 --> 00:23:38,954
+And here the only edges, the only dots that I'm depicting are those that are correct and significant.
+
+254
+00:23:39,854 --> 00:23:45,044
+But this is an example of being able to sort of tell the story at two different levels of analysis,
+
+255
+00:23:45,044 --> 00:23:48,524
+at two different resolutions, at the same time of delivering inference for both.
+
+256
+00:23:50,834 --> 00:23:55,754
+Vijay Singh we're right now picture and you're telling us to either eyes with a big.
+
+257
+00:23:56,784 --> 00:24:03,314
+Sorry. Could you repeat that? Either a jail or right outside. Would you just do your best out, correct?
+
+258
+00:24:03,344 --> 00:24:07,204
+Yes, that's what we're testing on the right, is it? And on the left we're testing beta k.
+
+259
+00:24:09,504 --> 00:24:13,314
+The left is not in this fight, but the right hand side is.
+
+260
+00:24:13,614 --> 00:24:14,094
+Well, so.
+
+261
+00:24:14,644 --> 00:24:23,663
+So originally the left hand side, you could say is index by, say, A and B, if you say a, k is like the like when cable's one, it's one one when K.
+
+262
+00:24:23,664 --> 00:24:27,774
+So, like, imagine doing like a triangular like a triangular argument for the array.
+
+263
+00:24:28,784 --> 00:24:32,244
+But yeah, so, so that's the, and that was the notation I was trying to suppress.
+
+264
+00:24:37,004 --> 00:24:46,284
+So I. No, it's a different data set.
+
+265
+00:24:47,894 --> 00:24:53,864
+And so it's and indeed, it's even like, you know, hugely separated in time where the cells are defined based on the data set from 2011.
+
+266
+00:24:54,474 --> 00:25:00,404
+Um, and then this is a data set that I think was collected in like this is the COBRA data, which I think was collected in like 2015 or 2016.
+
+267
+00:25:01,594 --> 00:25:05,364
+It's not a similar time. Similar type of data.
+
+268
+00:25:05,384 --> 00:25:15,913
+Yes. Although, again, the cells are defined in a way that was really based on characterizing the mean or the central tendency where here
+
+269
+00:25:15,914 --> 00:25:22,754
+we're looking not at so like it was doing inference on the news I'd be I'd more expect to recapitulate what I found.
+
+270
+00:25:23,204 --> 00:25:29,654
+There's no reason that essentially like the the structure of the view will be the same as the structure that you'll find in data.
+
+271
+00:25:29,894 --> 00:25:33,254
+Sometimes it is, and when it is you have a parsimonious story.
+
+272
+00:25:33,464 --> 00:25:35,384
+And that's sort of what you see when things light up here.
+
+273
+00:25:35,954 --> 00:25:39,464
+But sometimes it's not, and you have a less parsimonious story, and that's what you see on the right hand side.
+
+274
+00:25:43,244 --> 00:25:52,204
+With me is this. Yeah.
+
+275
+00:25:52,214 --> 00:25:59,424
+And so this specifically is schizophrenia. So it's more looked at by a psychiatrist than neurologists, people in the areas that come out of various.
+
+276
+00:26:01,004 --> 00:26:07,964
+Yes. I mean, so it's not it's not exclusively areas that they would expect, but it includes areas or rather pairs of areas that they would expect.
+
+277
+00:26:08,684 --> 00:26:12,254
+Schizophrenia in particular has been posited as a dis connectivity syndrome.
+
+278
+00:26:13,274 --> 00:26:19,634
+And so there are some and I don't remember unfortunately what the I don't have it memorized, what the numbers correspond to.
+
+279
+00:26:20,444 --> 00:26:29,144
+But I believe that this particular pairing corresponds to something that that is often reported to be adequately connected in schizophrenia.
+
+280
+00:26:29,474 --> 00:26:33,733
+So we're seeing both things that we expect as well as some some new things, which is sort of the hope,
+
+281
+00:26:33,734 --> 00:26:39,434
+like you want to see something familiar, but if you're seeing what you already know, then there's not a whole lot of new information gained.
+
+282
+00:26:41,454 --> 00:26:49,754
+Any other questions here? Yes.
+
+283
+00:26:52,374 --> 00:26:57,764
+Mm hmm. And this is specifically to say like the constraint, is that the sum to zero?
+
+284
+00:26:59,774 --> 00:27:06,913
+Right. So so you would have like a ranked efficiency and it's easier than you think about like new like you
+
+285
+00:27:06,914 --> 00:27:14,004
+came you to like the model is without any constraint is is unidentified and over parameter ized.
+
+286
+00:27:14,934 --> 00:27:21,464
+And so you could also like redefine this as like the UK is just like the empirical mean of the new JS so it's just a re parameter is.
+
+287
+00:27:28,714 --> 00:27:34,834
+So the the flip side of the coin is to ask how do observation level covariates change with brain networks?
+
+288
+00:27:36,094 --> 00:27:40,354
+And so whereas the previous project is maybe of particular import,
+
+289
+00:27:40,684 --> 00:27:46,414
+if you're interested in doing more basic science and understanding the pathogenesis of a particular brain disease,
+
+290
+00:27:47,614 --> 00:27:50,794
+this type of question where again, like given an observed brain network,
+
+291
+00:27:50,794 --> 00:27:54,003
+you're trying to predict or characterize the distribution of an observation level?
+
+292
+00:27:54,004 --> 00:28:00,784
+Covariate This has potentially more immediate clinical impact, if you want to integrate, say, brain imaging into clinical decision making,
+
+293
+00:28:00,784 --> 00:28:07,774
+if you want to use it for diagnosis, for prognosis, or to indicate what sort of treatment might be most efficacious for a given individual.
+
+294
+00:28:09,154 --> 00:28:16,684
+And while we want to do a good job of predicting your observation level covariates, we're statisticians and not just computer scientists.
+
+295
+00:28:16,984 --> 00:28:20,344
+And so not that there's anything wrong with that, but for me,
+
+296
+00:28:20,344 --> 00:28:25,083
+interpretability is really key and that we want to fit a model that we can ideally do inference
+
+297
+00:28:25,084 --> 00:28:28,654
+on and understand something about the way that our model is making these predictions.
+
+298
+00:28:29,074 --> 00:28:37,384
+So I'll talk really briefly about a pair of papers, one in AOS and a more recent one that's a preprint,
+
+299
+00:28:37,894 --> 00:28:46,264
+both of which use group lasso in order to to do prediction in a way that is network aware and in the latter case is both network and community aware.
+
+300
+00:28:46,924 --> 00:28:54,314
+In order to do prediction in a way that gives you more interpretive leverage, in order to try to, you know,
+
+301
+00:28:54,364 --> 00:29:00,174
+again, provide useful predictive signal, but in a way that can drive science and drive the application forward.
+
+302
+00:29:01,694 --> 00:29:10,934
+So the first project. So this is Jesus Arroyo's work along with Liza, myself and Steve Taylor, another collaborator in psychiatry here,
+
+303
+00:29:11,624 --> 00:29:15,104
+where the edges are grouped based on the nodes to which they are incident.
+
+304
+00:29:15,794 --> 00:29:17,984
+So this method uses a sparse group lasso.
+
+305
+00:29:18,674 --> 00:29:25,514
+So the the group lasso, unlike the lasso which will select individual features, a group lasso will select groups of features.
+
+306
+00:29:26,294 --> 00:29:31,784
+And specifically the group lasso actually selects groups of features to turn off.
+
+307
+00:29:32,984 --> 00:29:38,984
+And so an important distinction here is that we're actually going to involve this this method involves an overlapping group lasso.
+
+308
+00:29:39,254 --> 00:29:47,653
+So thinking carefully about what it means to select a group or not select a group because of overlaps actually ends up having different definitions.
+
+309
+00:29:47,654 --> 00:29:51,014
+If you're interested in identifying an intersection of active groups,
+
+310
+00:29:51,284 --> 00:29:56,144
+or if instead you're interested in identifying, say, like the union of a complement of inactive groups,
+
+311
+00:29:56,564 --> 00:30:03,253
+and you'll actually get sort of distinct answers depending on on which way you do that, but importantly, the way that we have group the edges.
+
+312
+00:30:03,254 --> 00:30:06,163
+So this is not using the network cell information in this particular project,
+
+313
+00:30:06,164 --> 00:30:10,634
+even though I've overlaid it, but instead for predictive purposes, we're just this is just fitting.
+
+314
+00:30:10,644 --> 00:30:16,004
+A logistic regression is actually the same data, the same schizophrenia data as the previous project that I talked about.
+
+315
+00:30:16,244 --> 00:30:21,944
+But all of the values in a given row or a given column because it's symmetric are all grouped.
+
+316
+00:30:22,994 --> 00:30:26,744
+And so although they all have distinct coefficients, we're not averaging them together.
+
+317
+00:30:27,344 --> 00:30:32,054
+The group lasso will essentially select to turn them all on or select it, turn them all off.
+
+318
+00:30:32,444 --> 00:30:37,214
+Now this paper uses a sparse group lasso, so there's an additional l one penalty here.
+
+319
+00:30:37,664 --> 00:30:40,844
+So you'll get sparsity within the groups. And as I mentioned,
+
+320
+00:30:41,534 --> 00:30:45,613
+turning on and off is actually a kind of subtle point with the group lasso when you have overlaps
+
+321
+00:30:45,614 --> 00:30:53,354
+and overlaps because each edge is actually in is actually in two different is in multiple groups.
+
+322
+00:30:54,254 --> 00:31:01,604
+And so the groups the groups overlap. But what's nice about this approach and the details are in, in this paper at AOS,
+
+323
+00:31:01,934 --> 00:31:07,034
+but using this approach that Hays use calls graph class gives you actually
+
+324
+00:31:07,034 --> 00:31:12,913
+enhanced predictive power relative to a highly tuned lasso or an elastic net
+
+325
+00:31:12,914 --> 00:31:21,464
+or a rigid regularized regression or a support vector machine or a variety of other ways of regularizing this high dimensional prediction problem.
+
+326
+00:31:22,124 --> 00:31:25,904
+It outperforms any of the methods that perform feature selection,
+
+327
+00:31:26,264 --> 00:31:32,054
+and then it's competitive or outperforms methods that are dense and that don't like the range, that don't perform feature selection.
+
+328
+00:31:33,224 --> 00:31:35,593
+So you don't pay any price in terms of predictive accuracy.
+
+329
+00:31:35,594 --> 00:31:39,134
+If anything, you actually do a little bit better, but you get much better interpretability.
+
+330
+00:31:39,134 --> 00:31:45,464
+So as you can as you can probably see in this picture, there are sort of runs of rows and columns of features that have been selected.
+
+331
+00:31:45,794 --> 00:31:53,233
+And what you can then do to most of this sort of neuroscientific work is posited at the level of individual regions.
+
+332
+00:31:53,234 --> 00:31:56,894
+And sort of back to Rod's question about does this surprise the neuroscientists?
+
+333
+00:31:57,254 --> 00:32:02,294
+You know, we often give them findings in terms of pairs of connected pairs of regions or connections,
+
+334
+00:32:02,984 --> 00:32:06,644
+but most, like medical textbooks, talk instead about individual brain regions.
+
+335
+00:32:06,854 --> 00:32:10,364
+And what's nice about defining the groups in terms of the brain regions is you can
+
+336
+00:32:10,364 --> 00:32:14,864
+then sort of back project and back out what the regions that you selected look like.
+
+337
+00:32:15,674 --> 00:32:18,493
+So in this particular paper, we do stability selection.
+
+338
+00:32:18,494 --> 00:32:24,644
+So we re sample the data, refit the procedure many, many times, and you identify which edges are most consistently selected.
+
+339
+00:32:24,974 --> 00:32:31,694
+And then what I'm depicting here at the right in green are nodes that are incident to consistently selected edges.
+
+340
+00:32:31,994 --> 00:32:36,974
+So these are giving us not just the the important edges, but the nodes that are next to those important edges.
+
+341
+00:32:37,544 --> 00:32:43,454
+But then conversely, it's also useful to be able to figure out what parts of the brain are likely spared in this disease process.
+
+342
+00:32:43,934 --> 00:32:47,804
+So the purple nodes are consistently not incident to selected edges,
+
+343
+00:32:48,164 --> 00:32:55,184
+and being able to identify the parts of the brain that are not seemingly impacted like this disease has both clinical
+
+344
+00:32:55,184 --> 00:33:00,403
+importance in that if you want to think about sort of neurological or behavioral interventions to try to recruit,
+
+345
+00:33:00,404 --> 00:33:06,314
+to preserve tissue in order to compensate for deficits, it's really useful to know what tissue might not be impacted.
+
+346
+00:33:06,524 --> 00:33:09,823
+And then from a more statistical perspective and there's a lot of confounds
+
+347
+00:33:09,824 --> 00:33:13,424
+in brain imaging data and one of one of I think the most compelling ways to
+
+348
+00:33:13,424 --> 00:33:16,994
+address these confounds is with the use of negative controls or variables that
+
+349
+00:33:17,114 --> 00:33:20,743
+you think are subject to the same batch effects that you have in your data,
+
+350
+00:33:20,744 --> 00:33:23,204
+but that are not sensitive to your manipulation of interest.
+
+351
+00:33:23,504 --> 00:33:27,944
+And so I think that that being able to identify the sort of preserved in an impact did not
+
+352
+00:33:27,944 --> 00:33:31,844
+predictive of the useful tissue is useful for both scientific and statistical reasons.
+
+353
+00:33:33,654 --> 00:33:39,444
+The second and more recent project incorporates node covariance from multimodal brain imaging data.
+
+354
+00:33:40,044 --> 00:33:44,964
+So typically when we recruit a participant to be scanned and we bring them into the lab, we put them in the scanner.
+
+355
+00:33:45,054 --> 00:33:50,784
+We don't just estimate a brain network from them, but we actually collect lots and lots of different types of brain imaging data.
+
+356
+00:33:51,834 --> 00:33:56,304
+And so up till now, all I've been using and any of these models are these edge weights.
+
+357
+00:33:56,574 --> 00:33:59,604
+So here we just have like a really simple if I imagine we had three brain regions
+
+358
+00:33:59,604 --> 00:34:03,534
+of interest and I was going to estimate the connectivity for a given individual.
+
+359
+00:34:03,714 --> 00:34:07,134
+I'd use those three features as predicted features in my regression model.
+
+360
+00:34:07,524 --> 00:34:13,733
+But in practice, we also have node attributes. So these could be volumetric assessments of,
+
+361
+00:34:13,734 --> 00:34:19,554
+say like the amount of gray matter that's at the anterior cingulate cortex or the fractional anisotropy that you got from
+
+362
+00:34:19,554 --> 00:34:26,124
+diffusion weighted imaging or other sorts of features that are local and aerial to the individual nodes themselves.
+
+363
+00:34:27,474 --> 00:34:34,104
+And so our goal here is to integrate and to do some data integration and use both the edge weights and the node attributes.
+
+364
+00:34:34,344 --> 00:34:37,734
+But to do feature selection in a way that respects the fact that, say,
+
+365
+00:34:37,944 --> 00:34:46,584
+this feature has more to do with these two edges that are incident to its node than it does to do with this edge to which it is not incident.
+
+366
+00:34:48,334 --> 00:34:53,134
+And so we're going to try to afford interpretability by again using group structure with a group lasso.
+
+367
+00:34:53,374 --> 00:34:57,573
+And there are two different types of grouping schemes that I've proposed in this paper that
+
+368
+00:34:57,574 --> 00:35:01,594
+sort of differ depending on the type of pathophysiology that you think that is at play.
+
+369
+00:35:01,924 --> 00:35:08,944
+So in the first scheme, a node based grouping, you might again imagine that like here we have a simple cartoon brain that has three
+
+370
+00:35:08,944 --> 00:35:14,314
+distinct brain systems that black indicates like a normal or nominal value of the brain.
+
+371
+00:35:14,704 --> 00:35:21,814
+You have some sort of disease process or impact, perhaps like a focal lesion that affects a whole bunch of nodes in a given system.
+
+372
+00:35:21,814 --> 00:35:23,704
+So they all turn red, another predictive signal.
+
+373
+00:35:24,124 --> 00:35:30,424
+But because this tissue is damaged now, the edges in which that system participates also carry predictive signal.
+
+374
+00:35:30,754 --> 00:35:35,224
+So we have sort of a propagation of signal from the nodes to the edges that are incident to them.
+
+375
+00:35:35,974 --> 00:35:39,184
+Now, conversely, an edge based grouping, again, we start with a healthy brain.
+
+376
+00:35:39,394 --> 00:35:43,054
+Now you can imagine that there's some sort of insult that happens to a bundle of connections.
+
+377
+00:35:43,294 --> 00:35:48,754
+This could be the result of, say, like a concussion where you've a lot of shearing force that carries long axonal connections.
+
+378
+00:35:49,384 --> 00:35:56,253
+Or this could be the result of some sort of like developmental pathogenesis where a collection of white matter doesn't terminate correctly,
+
+379
+00:35:56,254 --> 00:36:00,994
+where it should be headed. So now you have sort of like initial primary predictive signal connections.
+
+380
+00:36:01,324 --> 00:36:07,534
+But especially if you think about like the developmental case, the regions on either end of that connection are now getting aberrant inputs.
+
+381
+00:36:07,534 --> 00:36:10,324
+They're not getting their usual signal. And they also become predictive.
+
+382
+00:36:11,554 --> 00:36:18,934
+And so the upshot of this approach is that you get enhanced interpretability and so there are more details in in the preprint.
+
+383
+00:36:19,414 --> 00:36:21,814
+So in this case, if you use our method,
+
+384
+00:36:21,814 --> 00:36:27,964
+it is generally competitive or maybe you pay a small predictive price relative to the lasso and some other predictive techniques.
+
+385
+00:36:28,564 --> 00:36:35,044
+But you get a big increase in terms of interpretability. So they're depicting here the regression coefficients that our model selects.
+
+386
+00:36:35,764 --> 00:36:42,483
+And so above the diagonal and to the right. So this is again, the adjacency matrix which we've been seeing throughout the individual values.
+
+387
+00:36:42,484 --> 00:36:49,414
+Here are the coefficients in the regression model. This is predicting a general executive functioning on a on a battery of tasks.
+
+388
+00:36:50,224 --> 00:36:53,314
+So these values are the predictive value of the of the coefficient.
+
+389
+00:36:53,554 --> 00:36:56,854
+But now in addition to the adjacency matrix, we also have this column vector,
+
+390
+00:36:57,094 --> 00:37:01,694
+which are predictions that come from the node covariance above the diagonal into the right.
+
+391
+00:37:01,714 --> 00:37:04,024
+These are the results of the selection that you get from the lasso.
+
+392
+00:37:04,564 --> 00:37:10,194
+So you select a collection of brain regions that are useful for the prediction, and then you just sort of have these like salt and pepper dots.
+
+393
+00:37:10,204 --> 00:37:15,754
+And it's hard to know whether this is just a bit of dust that might be on the projector or whether these are really useful features.
+
+394
+00:37:16,024 --> 00:37:21,484
+In contrast, below the diagonal into the left or the features that are selected by by my proposed method.
+
+395
+00:37:21,784 --> 00:37:28,194
+And in addition to sort of selecting for that, the nodal attributes bands or groups of,
+
+396
+00:37:28,224 --> 00:37:33,154
+of brain regions that are grouped based on system is being predictably, predictably useful.
+
+397
+00:37:33,274 --> 00:37:41,704
+You're also selecting individual cells. And so although the values here are much smaller because this doesn't have an additional specifiers,
+
+398
+00:37:41,704 --> 00:37:47,344
+so if you select a cell, you select all of the features within the cell. And so you get a lot of very small predictive values.
+
+399
+00:37:47,854 --> 00:37:50,974
+You can nonetheless identify which of the cells are useful.
+
+400
+00:37:50,974 --> 00:37:56,074
+And for this specific example, as one example, this is looking at general executive functioning.
+
+401
+00:37:56,314 --> 00:38:01,894
+And we've selected, for example, like connections between the singular particular task control system and the dorsal attention system,
+
+402
+00:38:02,464 --> 00:38:07,414
+which you would expect would need to work together in harmony in order to execute general executive functioning.
+
+403
+00:38:08,774 --> 00:38:16,274
+As a really brief aside, both of the previous two papers that I've talked about use group lasso as a regularization strategy for prediction.
+
+404
+00:38:17,564 --> 00:38:21,704
+But a natural question is to ask, well, what about what about inference on the coefficients themselves?
+
+405
+00:38:21,974 --> 00:38:23,444
+So you could do data splitting.
+
+406
+00:38:24,194 --> 00:38:31,724
+But in a recent preprint, I'm along with Stick to pornography in Michigan Statistics and another Ph.D. student from my group,
+
+407
+00:38:32,594 --> 00:38:38,714
+we propose a post selective inference approach for doing inference after the group lasso that uses all of the data.
+
+408
+00:38:38,894 --> 00:38:42,794
+And this is a work that I'm really excited about and I'm excited about moving into selective inference in general.
+
+409
+00:38:43,424 --> 00:38:45,163
+And the really quick punch line here,
+
+410
+00:38:45,164 --> 00:38:53,084
+if we just look at one tiny part of this figure from the paper we have here in green is our selection informed proposed method.
+
+411
+00:38:53,294 --> 00:38:56,384
+And these are the lengths of confidence intervals that we get from our method.
+
+412
+00:38:56,744 --> 00:39:02,684
+And then in contrast in blue you have the result of data splitting, but it's been tuned for a comparable level of randomization.
+
+413
+00:39:02,924 --> 00:39:06,253
+And the upshot of this is that you still get valid confidence in this case.
+
+414
+00:39:06,254 --> 00:39:11,714
+These are actually credible intervals. You get valid intervals with valid coverage, but they're much shorter because you've used more of the data.
+
+415
+00:39:12,524 --> 00:39:18,343
+And so this is a more sort of general statistical contribution that you can use any place that you use the group lasso.
+
+416
+00:39:18,344 --> 00:39:22,274
+And in the paper we handle extensions of the group lasso, including the sparse group lasso,
+
+417
+00:39:22,424 --> 00:39:25,124
+the standardize group lasso and the overlapping group lasso.
+
+418
+00:39:25,244 --> 00:39:32,444
+And we're able to develop we're able to deliver post selected inference on individual components of these groups,
+
+419
+00:39:32,444 --> 00:39:36,224
+which was an area that had sort of been under underexplored in the statistical literature.
+
+420
+00:39:38,594 --> 00:39:42,464
+Model. So. So you group. So is it like a linear.
+
+421
+00:39:43,264 --> 00:39:46,294
+Moral underlying stuff yet. So.
+
+422
+00:39:46,744 --> 00:39:50,314
+So for this, it's a linear model because it's a continuous response.
+
+423
+00:39:51,274 --> 00:39:55,843
+For this it's a binary. But if I go back, this is a binary response.
+
+424
+00:39:55,844 --> 00:40:00,234
+So it's a logistic regression. So over.
+
+425
+00:40:01,184 --> 00:40:06,423
+Structure that you have from a network such as represented by coefficients.
+
+426
+00:40:06,424 --> 00:40:12,224
+So when you put constraints on the coefficients obtained, particularly constraints on the support of the coefficients.
+
+427
+00:40:14,004 --> 00:40:18,834
+Then. Optimization algorithm is something you.
+
+428
+00:40:20,334 --> 00:40:28,514
+Work on right is not easy. It's it's not obvious and easy, but it's it's something that has been largely solved.
+
+429
+00:40:29,154 --> 00:40:33,234
+So that that was not something that that I had to particularly do.
+
+430
+00:40:33,504 --> 00:40:36,964
+Like I was able to use an existing ah package to solve an overlapping group class
+
+431
+00:40:37,074 --> 00:40:42,564
+problem and there are a lot of finicky details about what you actually want.
+
+432
+00:40:43,044 --> 00:40:48,234
+So the group last is fairly straightforward. The overlapping group last is is a little bit more complex.
+
+433
+00:40:49,104 --> 00:40:54,804
+And so there's a version of the group lasso, the overlapping group lasso that involves variable duplication to render the problem non overlapping.
+
+434
+00:40:55,044 --> 00:40:59,694
+And the real challenge is just translating between the duplicated, the non duplicated version of this.
+
+435
+00:41:00,654 --> 00:41:05,634
+And so there's not a whole lot of engineering work you have to do in order to, to achieve these results.
+
+436
+00:41:06,444 --> 00:41:11,364
+The bigger challenge is understanding the consequences of the different the different approaches that you might take,
+
+437
+00:41:11,364 --> 00:41:16,194
+because they're actually different objectives. It'll be the same underlying model.
+
+438
+00:41:16,974 --> 00:41:21,714
+These approaches. It was a different sort of linear regression model.
+
+439
+00:41:21,744 --> 00:41:25,004
+Just. There are different penalties. Yeah. Yeah.
+
+440
+00:41:25,104 --> 00:41:28,454
+And so like if you wrote like the primal baby, be different primal forms.
+
+441
+00:41:30,234 --> 00:41:36,434
+Part of it is that. What's that? In the second application, the Human Connectome Project data.
+
+442
+00:41:38,734 --> 00:41:43,154
+My 800. What?
+
+443
+00:41:44,934 --> 00:41:50,664
+Disregard for logistic regression. One has, I believe, 100 individuals, 50 schizophrenics, healthy, 50 healthy controls.
+
+444
+00:41:51,324 --> 00:41:54,714
+And you use this to. Four Power isolation.
+
+445
+00:41:54,714 --> 00:41:55,944
+Yeah. Yeah.
+
+446
+00:41:56,274 --> 00:42:05,874
+The, the second application uses slightly fewer because I don't use the uncertain system in the power of isolation because I'm using that there's,
+
+447
+00:42:06,054 --> 00:42:12,174
+there's one group of nodes that don't actually have putative labels. And so in the first project is all we're doing is sort of like node y selection.
+
+448
+00:42:12,384 --> 00:42:14,934
+I don't actually care what the brain system of the node is.
+
+449
+00:42:15,144 --> 00:42:19,614
+The second project is I'm assuming there's some like there's some cohesiveness within a system,
+
+450
+00:42:20,154 --> 00:42:23,574
+the sort of leftover nodes I actually mask out and we don't use those as predictive features.
+
+451
+00:42:24,264 --> 00:42:29,044
+So what is the key characteristic? Participation rate.
+
+452
+00:42:29,944 --> 00:42:31,894
+Four. So for classification,
+
+453
+00:42:31,894 --> 00:42:42,994
+I think with this we get into the low in the schizophrenia problem into the low nineties for the for the schizophrenic dataset, the second data.
+
+454
+00:42:43,294 --> 00:42:48,273
+These are all continuous responses. So there's not a prediction. Accuracy is they get correlations.
+
+455
+00:42:48,274 --> 00:42:53,254
+And in in the preprint, I think we look at like 13 or 14 different outcomes.
+
+456
+00:42:53,554 --> 00:42:57,483
+And so the correlation like the out of sample correlations vary from like basically zero.
+
+457
+00:42:57,484 --> 00:43:02,194
+If you select an entirely sparse model of two, I think at most like point four or a little bit over point four.
+
+458
+00:43:03,154 --> 00:43:05,434
+So it really depends on what you're trying to to predict.
+
+459
+00:43:05,704 --> 00:43:12,693
+So, for example, we include like a bunch of like personality dimensions from the neo inventory, which I think are pretty noisy.
+
+460
+00:43:12,694 --> 00:43:15,514
+And so like for those, the prediction accuracy is really poor.
+
+461
+00:43:16,174 --> 00:43:20,164
+Some of the more cognitive things like general executive functioning and working memory are a bit higher.
+
+462
+00:43:21,204 --> 00:43:25,714
+So if you message is not accurate. In the second project.
+
+463
+00:43:25,714 --> 00:43:31,564
+It's not the yeah. It's the labor is improving the interpretation.
+
+464
+00:43:32,644 --> 00:43:35,824
+Well well hopefully not hurting the predictive accuracy.
+
+465
+00:43:39,374 --> 00:43:43,034
+Yeah. It'd be great if it did both, but sometimes. Sometimes it doesn't work out that way.
+
+466
+00:43:45,574 --> 00:43:51,904
+Yeah. Selective fruits. And that's usually, you know, there's all sorts of probability distributions which are truncated.
+
+467
+00:43:52,264 --> 00:43:57,094
+Mm hmm. There's a whole bunch of derivations you have to do to make this work.
+
+468
+00:43:57,184 --> 00:44:02,374
+Yeah. So this is a compared to some other work, like this is a lot more technical.
+
+469
+00:44:02,694 --> 00:44:07,924
+Um, and so in, in this particular paper,
+
+470
+00:44:08,224 --> 00:44:11,613
+I think one of the kind of cool innovations that that stick to has in a lot of her
+
+471
+00:44:11,614 --> 00:44:15,814
+work and Jonathan Taylor students do a lot is they actually do randomized selection.
+
+472
+00:44:16,744 --> 00:44:18,604
+So rather than just fitting like a laser word,
+
+473
+00:44:18,974 --> 00:44:23,943
+so you actually introduce a level of randomization that's independent of the data that actually ends up playing a role that is
+
+474
+00:44:23,944 --> 00:44:28,894
+analogous to the randomization you get when you do data splitting because you're like split your data in many different ways.
+
+475
+00:44:29,914 --> 00:44:34,504
+And one of the nice things about introducing that randomization is that you then no longer get
+
+476
+00:44:34,504 --> 00:44:41,104
+truncated selection rules because the randomization gives you support everywhere where the data could,
+
+477
+00:44:41,164 --> 00:44:46,594
+the data could land anywhere, and you could actually select any model which makes the integrals a little bit more tractable.
+
+478
+00:44:47,704 --> 00:44:53,134
+The real technical challenge of the group Lasso is that most of the work that's been done on posts like of inference for the lasso,
+
+479
+00:44:53,134 --> 00:44:58,173
+both randomized and UN randomized reflect rely on the fact that the lasso selection
+
+480
+00:44:58,174 --> 00:45:02,794
+event can be written as a union of Polyhedra or a union of like Athena sets.
+
+481
+00:45:03,364 --> 00:45:08,374
+So you can then do integration over these finds. That's kind of nice to evaluate, like the probability of selection.
+
+482
+00:45:08,884 --> 00:45:16,054
+The group lasso selection rule in Converse is based on UN squared norms which have a much more like hyper ellipsoid geometry.
+
+483
+00:45:16,744 --> 00:45:19,774
+And so you no longer have like a nice union of assigned sets.
+
+484
+00:45:20,584 --> 00:45:22,894
+And so the integral is appreciably more challenging.
+
+485
+00:45:23,194 --> 00:45:29,733
+And so the way that we handle that in this paper is essentially to do a polar decomposition so that we then do a change of variables,
+
+486
+00:45:29,734 --> 00:45:35,314
+and then we do integration in polar coordinates and then flip back into the original coordinate system in order to do inference.
+
+487
+00:45:36,514 --> 00:45:42,994
+And there's also like a generalize, the class approximation. And ultimately, as I mentioned really briefly, these are actually credible intervals.
+
+488
+00:45:43,294 --> 00:45:47,944
+And because inverting the the likelihood here is really, really challenging,
+
+489
+00:45:48,664 --> 00:45:54,694
+whereas working instead with sort of like a a selection informed prior is something that we instead
+
+490
+00:45:54,694 --> 00:45:59,314
+can like we use like this uses like a tangent sampler with like more of an Mackenzie approach.
+
+491
+00:45:59,824 --> 00:46:06,184
+So there are, there are a lot of technical challenges that I think we've largely worked through in that in that paper.
+
+492
+00:46:11,504 --> 00:46:17,104
+But this is this is the this is the selling point of it. Yeah.
+
+493
+00:46:19,074 --> 00:46:27,084
+So in the last part of my talk, I want to talk about a more recent project that's hopefully more than half dates, but is maybe not fully baked yet.
+
+494
+00:46:27,084 --> 00:46:34,134
+So this is this isn't preprint as yet, but I've been working on extending to the setting where we have multiple observation level periods.
+
+495
+00:46:34,464 --> 00:46:38,784
+So rather than simply having a single covariate for each individual and see some nuisance variance,
+
+496
+00:46:39,024 --> 00:46:41,964
+we instead have like a vector of responses for each individual.
+
+497
+00:46:42,324 --> 00:46:47,754
+And the motivating case for this comes actually from the ABCD study where there is a battery of behavioral assessments,
+
+498
+00:46:47,994 --> 00:46:54,354
+where each of individual completes, say like a pattern comparison processing speed task and a list sorting working memory task.
+
+499
+00:46:54,354 --> 00:46:57,504
+And so they have a whole vector of these phenotypic measurements.
+
+500
+00:46:59,064 --> 00:47:05,664
+And what our collaborators had done was construct what they call response networks.
+
+501
+00:47:06,144 --> 00:47:09,264
+So these are actually thresholding like marginal correlations,
+
+502
+00:47:09,594 --> 00:47:14,034
+where they've looked at each edge in a large sample and they've looked at how
+
+503
+00:47:14,034 --> 00:47:18,834
+correlated each subject's a edge is with their score on the flanker task.
+
+504
+00:47:19,554 --> 00:47:26,363
+And then if it's a big value, you put a red dot, and if it's a small value and then you repeat this procedure for each of the different ages,
+
+505
+00:47:26,364 --> 00:47:29,364
+all of the edges, you construct what they call a response network,
+
+506
+00:47:29,844 --> 00:47:34,134
+and you can repeat this procedure for a different response, say their performance in a vocabulary assessment,
+
+507
+00:47:34,464 --> 00:47:37,794
+a picture sequence task, a reading sequence test, etc., for all of these batteries.
+
+508
+00:47:38,244 --> 00:47:40,044
+So they'd constructed these response networks.
+
+509
+00:47:40,374 --> 00:47:46,374
+And what they were struck by was the fact that a lot of these so-called response networks look really similar to one another.
+
+510
+00:47:47,394 --> 00:47:49,763
+Now they're reasonably numerically savvy.
+
+511
+00:47:49,764 --> 00:47:57,594
+And so they were aware of the fact that all of these different assessments in the behavioral battery are also some uncorrelated with one another.
+
+512
+00:47:57,834 --> 00:48:00,414
+And so based on that, you'd expect these things to look somewhat similar.
+
+513
+00:48:00,684 --> 00:48:06,144
+But their question was whether the amount of similarity here was over and above what you might find if you
+
+514
+00:48:06,144 --> 00:48:11,454
+had accounted for the intermodal covariance or the intermodal dependance among the behavioral battery.
+
+515
+00:48:12,654 --> 00:48:19,764
+And so this led us to thinking about a prediction target where we could have taken approach, sort of like a multitask regression approach,
+
+516
+00:48:20,004 --> 00:48:24,174
+where we're using the brain networks to predict multiple observation level covariates,
+
+517
+00:48:24,444 --> 00:48:29,394
+fitting a separate model for each, but using some regularization in order to try to sort of borrow strength from them.
+
+518
+00:48:30,174 --> 00:48:34,734
+We could have taken this in the other direction and made a really, really big multitask prediction problem.
+
+519
+00:48:35,304 --> 00:48:41,754
+Or we could try to do something more symmetric. And I was actually in a conversation with my advisors advisor, Peter Bickel,
+
+520
+00:48:42,324 --> 00:48:51,894
+who suggested that this question about similarity was instead an instance of a much older problem of canonical correlation analysis.
+
+521
+00:48:53,974 --> 00:48:57,963
+So the motivating application is data from the Adolescent Brain Cognitive Development study.
+
+522
+00:48:57,964 --> 00:49:01,683
+And so the work I'm presenting here will have been done in collaboration with Chandra Zapata,
+
+523
+00:49:01,684 --> 00:49:08,464
+who's one of the U of M ABCD principal investigators and his research team who provided processing for most of this data.
+
+524
+00:49:08,794 --> 00:49:12,874
+So in these applications, we'll be looking at about 6000 participants.
+
+525
+00:49:13,864 --> 00:49:19,954
+So the Matrix X, which will have 6000 rows and columns, will be brain imaging data.
+
+526
+00:49:20,314 --> 00:49:25,083
+So in this work, I'm actually taking all of that network data and I'm pushing it through PCI similar
+
+527
+00:49:25,084 --> 00:49:29,404
+to in that first project as a sort of general purpose feature extraction tool.
+
+528
+00:49:29,794 --> 00:49:33,754
+And so the work that I'm presenting here is not directly exploiting the network structure of the data,
+
+529
+00:49:34,024 --> 00:49:36,064
+but I'll discuss that as a, as a future direction.
+
+530
+00:49:36,814 --> 00:49:42,393
+Why is going to be a another sort of tall and skinny matrix a little bit skinnier and then will have
+
+531
+00:49:42,394 --> 00:49:47,464
+6000 or so rows and then it'll have a column for each of these 11 different phenotypic measurements.
+
+532
+00:49:47,494 --> 00:49:51,004
+This is performance on the task battery that I showed a cartoon of earlier.
+
+533
+00:49:52,104 --> 00:49:57,504
+And the question that we wanted to ask is what structure is common across X and Y?
+
+534
+00:49:58,224 --> 00:50:01,494
+And so we'll use canonical correlation analysis to investigate this.
+
+535
+00:50:02,124 --> 00:50:07,634
+So historically, psychometrics is typically confined to a single set of measurements.
+
+536
+00:50:07,644 --> 00:50:11,783
+So there's a long tradition of factor analysis in psychometrics where you might
+
+537
+00:50:11,784 --> 00:50:15,984
+take Y and try to do matrix decomposition or try to find latent structure in Y.
+
+538
+00:50:16,524 --> 00:50:20,244
+More recently with brain imaging data, I mean, in a sense, we've already done it.
+
+539
+00:50:20,394 --> 00:50:29,273
+You might take X and try to find latent structure in X, but the goal here is that having two different types of data on the same individuals gives us
+
+540
+00:50:29,274 --> 00:50:34,554
+an opportunity to tie these two sets together and to carve mind and behavior at mutual joints,
+
+541
+00:50:34,734 --> 00:50:38,964
+rather than just discovering the structure in the brain or just discovering the structure in behavior.
+
+542
+00:50:40,544 --> 00:50:46,004
+So what is canonical correlation analysis? This is something that's probably familiar to many of you, but to put us all on the same page,
+
+543
+00:50:46,304 --> 00:50:54,074
+this is a very classic approach that dates to the thirties. And that was, I think, very well outlined in Anderson's multivariate analysis textbook.
+
+544
+00:50:54,404 --> 00:51:00,224
+And the goal of canonical correlation analysis is to discover linear associations between two sets of random variables.
+
+545
+00:51:00,644 --> 00:51:08,834
+So the input to the procedure are paired vectors from the samples, and the output is linear combinations of vectors that maximize correlations.
+
+546
+00:51:10,124 --> 00:51:17,263
+Now, just given the name Kia, often primes people to think of P.K. or Isaiah, and you wouldn't be way off.
+
+547
+00:51:17,264 --> 00:51:22,754
+But I actually think it's more useful to think about Kia in terms of aggression and as a sort of generalization of regression.
+
+548
+00:51:23,084 --> 00:51:28,934
+So let's think about the the classic regression model where we just have a single response Y in a column vector,
+
+549
+00:51:29,114 --> 00:51:32,984
+a design matrix X and some unknown regression coefficient vector data.
+
+550
+00:51:33,704 --> 00:51:37,564
+So we typically estimate regression coefficients by solving an optimization problem.
+
+551
+00:51:37,574 --> 00:51:40,454
+We can motivate this from a maximum likelihood perspective.
+
+552
+00:51:40,454 --> 00:51:45,224
+We can motivated from an optimization perspective, but this is generally how we solve the problem.
+
+553
+00:51:46,034 --> 00:51:53,084
+But you can think equivalently, at least up to rescaling a beta as obtaining this this alternative way of solving the problem,
+
+554
+00:51:54,314 --> 00:51:58,394
+where instead of just trying to find the beta that would minimize the sum of squared errors,
+
+555
+00:51:58,544 --> 00:52:03,554
+you're trying to find the beta that will maximize the correlation between y hat and your observed y.
+
+556
+00:52:03,554 --> 00:52:09,194
+And this will give you exactly, you know, your, your, your r squared or the square root of your R squared.
+
+557
+00:52:09,464 --> 00:52:12,644
+Now, this problem isn't identified because it's a correlation. So you can rescale beta.
+
+558
+00:52:12,644 --> 00:52:15,974
+So just impose a little identify ability constraint on data to solve this problem.
+
+559
+00:52:17,554 --> 00:52:21,694
+So with the stage set for that, we can then ask, well, what if Y is also multi-dimensional?
+
+560
+00:52:21,784 --> 00:52:27,844
+So what if both X and y are random vectors rather than just random values or random variables?
+
+561
+00:52:28,024 --> 00:52:34,864
+So if y is multi dimensional, we can then write this problem where we're trying to find linear combinations of X at the same time that
+
+562
+00:52:34,864 --> 00:52:39,724
+we're trying to find linear combinations of Y such that the resulting cross correlation is maximized,
+
+563
+00:52:39,994 --> 00:52:45,544
+and so that we can say gamma hat and beta hat are the coefficients that we get out of this canonical correlation analysis problem.
+
+564
+00:52:48,924 --> 00:52:55,944
+So the population model for canonical correlation analysis involves maximizing this population level cross correlation,
+
+565
+00:52:56,634 --> 00:53:02,814
+which we can say is equivalent to finding two vectors that maximize essentially an induced inner product on
+
+566
+00:53:02,814 --> 00:53:08,154
+the cross that's induced by the cross covariance of line x subject to some identify ability constraints.
+
+567
+00:53:08,454 --> 00:53:13,014
+But we don't just have to stop there. We can next. Once we've found one pair of canonical directions,
+
+568
+00:53:13,194 --> 00:53:16,974
+we can find a second pair of canonical directions subject to the constraint that
+
+569
+00:53:16,974 --> 00:53:20,304
+the resulting variables are orthogonal to the variables that we found earlier.
+
+570
+00:53:21,054 --> 00:53:26,394
+Now, importantly, unlike in PC, the directions themselves are not necessarily going to be orthogonal.
+
+571
+00:53:26,544 --> 00:53:33,593
+They're going to be orthogonal with respect to this induced inner product. So we can continue and obtain a sequence of pairs up to, say, K,
+
+572
+00:53:33,594 --> 00:53:36,474
+which will usually be the minimum dimension of the two matrices that we're working with.
+
+573
+00:53:37,284 --> 00:53:42,503
+And we can just this is just the same, the same objective function just written a little bit more tersely in terms of,
+
+574
+00:53:42,504 --> 00:53:45,774
+again, these are the types of orthogonal ity that we are requiring,
+
+575
+00:53:46,014 --> 00:53:52,614
+not the G and g are orthogonal in general, but they're orthogonal with respect to the inner product induced by the covariance of y.
+
+576
+00:53:52,824 --> 00:53:57,774
+In the case that the covariance of y is identity, then that coincides with standard Euclidean orthogonal.
+
+577
+00:53:59,584 --> 00:54:03,994
+So just to set notation and terminology, this is just the the optimization problem.
+
+578
+00:54:04,504 --> 00:54:07,833
+I'll gather all of the K little gammas together.
+
+579
+00:54:07,834 --> 00:54:11,974
+Each of these are a column vector and I'll gather them into a matrix capital gamma,
+
+580
+00:54:12,844 --> 00:54:19,384
+which has q rows and columns for each of the different canonical directions.
+
+581
+00:54:19,384 --> 00:54:22,894
+And I'll do the same thing. I'll gather all the betas into a matrix called Capital Data Beta.
+
+582
+00:54:23,124 --> 00:54:29,734
+I'll see. These are the canonical directions you could say. This sort of corresponds to the principal component directions in a in a PC analysis.
+
+583
+00:54:30,884 --> 00:54:32,503
+We also have canonical variants,
+
+584
+00:54:32,504 --> 00:54:38,444
+which are the variables that you get by applying or transforming your original variables using these canonical directions.
+
+585
+00:54:38,714 --> 00:54:45,614
+And then finally you have the canonical correlations themselves and the value of the correlation that you get when you do this transformation.
+
+586
+00:54:47,284 --> 00:54:50,374
+So in order to estimate, at least in a low dimensional setting,
+
+587
+00:54:50,374 --> 00:54:56,704
+it can be obtained in closed form using a variety of strategies and in practice a q, r d composition is usually used for numerical stability.
+
+588
+00:54:57,304 --> 00:54:59,674
+But in terms of building intuition for CCI, I think it's,
+
+589
+00:54:59,794 --> 00:55:05,464
+it's more useful to instead use this singular value, decomposition based, close form expression.
+
+590
+00:55:05,734 --> 00:55:10,624
+So it's really nice as if you had access to the population quantities for the covariance as say the
+
+591
+00:55:10,774 --> 00:55:16,834
+cross covariance of Y and x as well as the square root of the inverse of the covariance of x and y.
+
+592
+00:55:17,074 --> 00:55:20,074
+You could construct this matrix and just take it singular value decomposition.
+
+593
+00:55:20,554 --> 00:55:25,094
+The canonical correlations will actually be precisely the singular values of this matrix.
+
+594
+00:55:25,114 --> 00:55:27,634
+You can just read directly off the diagonal of S.
+
+595
+00:55:28,324 --> 00:55:33,483
+There's also a connection between canonical correlation analysis and canonical angles of two sub spaces,
+
+596
+00:55:33,484 --> 00:55:38,164
+and it turns out they're exactly the same problem. Now, in order to get your clinical directions,
+
+597
+00:55:38,164 --> 00:55:44,854
+you just have to do some additional sort of like UN whitening of the singular vectors, which in general will be orthogonal.
+
+598
+00:55:45,064 --> 00:55:50,524
+And if you recall I said that these things will not be generally orthogonal with respect to usual or Euclidean in a product,
+
+599
+00:55:50,734 --> 00:55:56,524
+they're instead orthogonal with respect to these induced inner products. So that's where we're sort of correcting the singular vectors for that.
+
+600
+00:55:57,464 --> 00:56:02,054
+Now, one thing I like about the singular value decomposition way of motivating this. Is it?
+
+601
+00:56:02,054 --> 00:56:05,384
+It makes clear very quickly that our solution is only identified up to nine flips.
+
+602
+00:56:05,714 --> 00:56:11,654
+So you could flip the sign of an entire column of gamma and a corresponding column of data, and you get the same answer.
+
+603
+00:56:11,864 --> 00:56:18,134
+And this is the sense in which the correlation between X and Y is equal to the correlation of minus X and minus Y
+
+604
+00:56:19,274 --> 00:56:24,583
+and additional identify ability issues can arise if you have non distinct canonical correlations or in other words,
+
+605
+00:56:24,584 --> 00:56:28,484
+if you sort of get like eigenvalues of multiplicity greater than one.
+
+606
+00:56:30,374 --> 00:56:36,794
+So the inferential questions that we might ask in this setting first and this is something that's been treated more classically is how
+
+607
+00:56:36,794 --> 00:56:44,174
+many of our canonical correlations are non-zero so inferential that we might test is rho one our first canonical correlation nonzero.
+
+608
+00:56:44,384 --> 00:56:52,304
+And if we reject that then we may go on to test row two and then row three because by convention they're all sorted in monotone decreasing order.
+
+609
+00:56:52,304 --> 00:56:55,514
+It doesn't make sense to test the second one until we've tested the first one.
+
+610
+00:56:56,174 --> 00:56:58,994
+This can be done. This asymptotic theory that's been developed for this.
+
+611
+00:56:59,234 --> 00:57:04,004
+You can also look at the evaluation of the correlation and held out data or permutation tests.
+
+612
+00:57:04,484 --> 00:57:10,394
+There's some recent work by Anderson Winkler that actually suggests that the usual sort of naive permutation test
+
+613
+00:57:10,394 --> 00:57:14,894
+that people use is really only appropriate for testing the first canonical correlation testing subsequent ones.
+
+614
+00:57:14,894 --> 00:57:20,864
+You need to sort of you need to sort of take care of a quotient in out the contribution of the first canonical direction.
+
+615
+00:57:21,954 --> 00:57:25,974
+The question that I'll focus on instead is infringe on the canonical directions themselves,
+
+616
+00:57:26,634 --> 00:57:31,164
+which as far as I can tell, has been a much less treated issue in the statistical literature in particular,
+
+617
+00:57:31,464 --> 00:57:36,174
+a variety of different, somewhat ad hoc strategies abound in the applied literature,
+
+618
+00:57:36,714 --> 00:57:43,254
+but they're not generally evaluated in a way that gives a lot of confidence that they're on solid statistical footing.
+
+619
+00:57:44,604 --> 00:57:50,964
+So the focus of this work is, is delivering entry wise tests and confidence intervals for the elements of the canonical directions.
+
+620
+00:57:51,294 --> 00:57:56,363
+And by way of analogy, if you think about regression testing, if the canonical correlations are non-zero,
+
+621
+00:57:56,364 --> 00:57:59,034
+is akin to doing an F test on the entire regression model,
+
+622
+00:57:59,994 --> 00:58:04,314
+whereas these are akin to doing test on individ like t test on individual regression coefficients.
+
+623
+00:58:05,004 --> 00:58:10,554
+And so I find the current state of the art of not being able to do inference on what are essentially regression coefficients fairly unsatisfying.
+
+624
+00:58:11,824 --> 00:58:17,074
+So how can we do inference for the clinical directions? Can we obtain an asymptotic or a limiting distribution?
+
+625
+00:58:17,494 --> 00:58:23,164
+So Anderson has a 1999 paper that provides some asymptotic limiting distributions, a sort of CLT,
+
+626
+00:58:23,734 --> 00:58:27,244
+but it limits its case itself to the case where all the canonical correlations are
+
+627
+00:58:27,244 --> 00:58:30,364
+distinct and where the dimensions of the two variables are precisely the same.
+
+628
+00:58:30,994 --> 00:58:37,774
+And as soon as this is violated, you essentially end up with a kernel of one of your one of your course covariance matrices.
+
+629
+00:58:37,924 --> 00:58:42,514
+That's very, very hard to control. So extending this is something that I'm still working on.
+
+630
+00:58:42,904 --> 00:58:45,994
+But in the meantime, given the connections between K and regression,
+
+631
+00:58:45,994 --> 00:58:50,044
+a natural question is whether we can use classic tools from regression to do inference in the setting.
+
+632
+00:58:50,374 --> 00:58:55,204
+And then if that doesn't work, can we just do bootstrapping as a sort of standard potential panacea?
+
+633
+00:58:56,494 --> 00:59:01,444
+So the regression approach is motivated by the idea that if an oracle gave us access to Gamma K, say,
+
+634
+00:59:01,444 --> 00:59:06,244
+the canonical direction associated with Gamma, we could just solve a regression problem and then do some rescaling.
+
+635
+00:59:06,484 --> 00:59:08,704
+So specifically, suppose an oracle gives us gamma.
+
+636
+00:59:09,304 --> 00:59:15,274
+We can use that to obtain our canonical variance D, and then we can solve a regression problem in order to get data.
+
+637
+00:59:15,484 --> 00:59:20,434
+And then we can use standard T tests and F tests and other inferential tools to do inference on data.
+
+638
+00:59:21,184 --> 00:59:23,754
+Now, we don't have an oracle, but we do know how to split data.
+
+639
+00:59:23,764 --> 00:59:30,003
+So a natural thing to do is to split X and Y into a training set and a test that fit a model in the training set,
+
+640
+00:59:30,004 --> 00:59:35,194
+retain the directions, estimate the canonical variance in the holdout data, and then fit many linear models.
+
+641
+00:59:35,194 --> 00:59:40,233
+Using the holdout data. We can then use standard tools in order to do inference because the problem symmetric.
+
+642
+00:59:40,234 --> 00:59:46,504
+If you want to do inference on gamma rather than data, you just repeat the process and scripts swap the swap the coefficients.
+
+643
+00:59:47,544 --> 00:59:51,743
+The bootstraps a very standard idea where you just re sampling you re sample
+
+644
+00:59:51,744 --> 00:59:55,464
+in order to get the sort of marginal sampling distribution for the estimate.
+
+645
+00:59:56,064 --> 01:00:01,554
+But the real challenge for the bootstrap is alignment. So as I mentioned earlier, the canonical directions are only identified up to a sign flip.
+
+646
+01:00:01,764 --> 01:00:05,394
+The components can also change orders across across these bootstrap replicates.
+
+647
+01:00:05,934 --> 01:00:12,114
+So if we do a poor job of addressing the problem of alignment, we will overestimate dispersion because we'll have signs that are flipping back and
+
+648
+01:00:12,114 --> 01:00:15,204
+forth and we'll get valid inference but probably rather conservative inference.
+
+649
+01:00:15,474 --> 01:00:17,663
+Whereas conversely, if we're overly aggressive in our alignment,
+
+650
+01:00:17,664 --> 01:00:22,434
+we could end up with anti-conservative intervals by deforming all of our solutions to look exactly like one another.
+
+651
+01:00:23,034 --> 01:00:25,073
+So we consider a variety of alignment strategy,
+
+652
+01:00:25,074 --> 01:00:30,444
+including doing no alignment and posing some identifying ability based on the sign of the maximal element and aligning
+
+653
+01:00:30,654 --> 01:00:35,784
+using an implementation that I wrote of a sort of generalized weighted Hungarian algorithm to do this assignment scheme.
+
+654
+01:00:37,634 --> 01:00:43,634
+And so in the interest of time, I'll try to flip through this and I'm trying to be over time, but we have a number of simulations.
+
+655
+01:00:43,634 --> 01:00:44,864
+That is the one I'll present here.
+
+656
+01:00:45,074 --> 01:00:52,424
+This is a sort of data based, realistic simulation study where I use the empirical covariance from the ADC data to solve this problem.
+
+657
+01:00:52,664 --> 01:00:56,264
+Sparse ify it. So I can actually look at type one error control so there's some zeros in there,
+
+658
+01:00:56,534 --> 01:01:01,874
+invert the problem and then generate multivariate normal data from this cross covariance matrix,
+
+659
+01:01:01,874 --> 01:01:05,684
+which will not itself be sparse but will correspond to a sparse solution.
+
+660
+01:01:07,354 --> 01:01:14,554
+And then we will look at how well our type one and type two air control are on the first column of Gamma and B using asymptotic theory,
+
+661
+01:01:14,914 --> 01:01:18,544
+a variety of these alignment strategies for the bootstrap and our regression approach.
+
+662
+01:01:19,414 --> 01:01:25,743
+And so what we see is that if we use asymptotic theory and I'll remind us that the dimension of gamma is quite low,
+
+663
+01:01:25,744 --> 01:01:29,434
+the dimension of beta is quite high. And so if we use the asymptotic approach.
+
+664
+01:01:29,644 --> 01:01:34,324
+So here we're looking at the true negative rates of 95%. The dash line would be nominal control.
+
+665
+01:01:34,594 --> 01:01:40,204
+The asymptotic approach from Anderson can control the rate for the smaller dimensional vector,
+
+666
+01:01:40,204 --> 01:01:42,904
+but it can't control the rate at all for the higher dimensional vector.
+
+667
+01:01:43,384 --> 01:01:46,713
+All of our bootstrap strategies and our regression approach provide valid coverage,
+
+668
+01:01:46,714 --> 01:01:50,854
+but if we look at power, type to our control here if plotted the true positive value.
+
+669
+01:01:51,094 --> 01:01:54,694
+So the asymptotic approach has the most power, but it's not valid for data.
+
+670
+01:01:55,114 --> 01:02:01,294
+If we don't do anything to solve the bootstrap problem. We're in the regime, as I predicted, where we have valid but overly conservative inference.
+
+671
+01:02:01,534 --> 01:02:07,384
+But if we use either the Hungarian algorithm to do the alignment or we use the regression approach, then we get appreciably more power.
+
+672
+01:02:08,654 --> 01:02:13,334
+So I'll just flip through really quickly these application results so that you can take some questions.
+
+673
+01:02:13,334 --> 01:02:17,084
+So we apply this to the ABCD data. These are the point estimates.
+
+674
+01:02:17,354 --> 01:02:21,314
+We then do inference using our proposed approaches and here are confidence intervals for the
+
+675
+01:02:21,314 --> 01:02:25,994
+canonical directions for the first six components associated with our various phenotypes.
+
+676
+01:02:26,264 --> 01:02:28,154
+And to the delight of our collaborators.
+
+677
+01:02:28,604 --> 01:02:33,974
+The first canonical component in particular as a whole bunch of these confidence intervals that do not contain zero.
+
+678
+01:02:34,184 --> 01:02:39,434
+And I'm showing both the bootstrap and the regression based confidence intervals and in particular
+
+679
+01:02:39,644 --> 01:02:43,964
+the variables that are selected are consistent with sort of a combination of all generalized,
+
+680
+01:02:44,714 --> 01:02:47,984
+generalized intelligence that includes both crystallized and fluid intelligence.
+
+681
+01:02:48,014 --> 01:02:50,624
+This is one of sort of their scientific questions about this project.
+
+682
+01:02:51,714 --> 01:02:57,653
+So CCAR is a useful technique for multivariate data sets, but there are a lot of additional directions I like to take this project,
+
+683
+01:02:57,654 --> 01:03:02,844
+including moving into high dimensional setting where some recent work has provided inference for Las Irregular.
+
+684
+01:03:02,844 --> 01:03:09,744
+Okay, so in general, I'm interested in extending this also into a network setting with more structured regularization,
+
+685
+01:03:10,134 --> 01:03:16,494
+also interested in a totally different direction, moving into the setting of unknown community structure and developing selective inference tools
+
+686
+01:03:16,614 --> 01:03:20,784
+similar to what I've done for the group lasso for networks to avoid the problem of double dipping.
+
+687
+01:03:20,784 --> 01:03:24,474
+Or if you use the same data to learn the community structure than you do inference on it,
+
+688
+01:03:24,624 --> 01:03:28,264
+you want that subsequent inference to be valid as well as other types of applications.
+
+689
+01:03:28,294 --> 01:03:31,703
+Neuroscience data are more general network applications in general.
+
+690
+01:03:31,704 --> 01:03:35,214
+The approach that I've taken to my statistical science so far and that I plan to continue
+
+691
+01:03:35,364 --> 01:03:38,693
+is working closely with domain scientists in order to develop methods to exploit,
+
+692
+01:03:38,694 --> 01:03:42,474
+identify and characterize structure in complex datasets.
+
+693
+01:03:42,984 --> 01:03:46,314
+So these are the references that I used. Thank you for your attention.
+
+694
+01:03:54,174 --> 01:04:01,504
+Your question really is I have small. So from your ABC study.
+
+695
+01:04:05,424 --> 01:04:12,784
+The of what programs work. So this is still power participation data.
+
+696
+01:04:13,564 --> 01:04:22,894
+And so there are I think this is in a footnote here, which there are like 80,000 edges.
+
+697
+01:04:23,704 --> 01:04:28,984
+That's right. 87,153.
+
+698
+01:04:29,854 --> 01:04:33,784
+But as I mentioned, this is pushed up. So the affected dimensions are only 250.
+
+699
+01:04:34,774 --> 01:04:38,314
+So. Yes. Yes.
+
+700
+01:04:38,534 --> 01:04:43,114
+So right now, this is this is like a much more general purpose inferential tool.
+
+701
+01:04:43,894 --> 01:04:49,014
+One of the future directions is to work in the high dimensional setting, but use, say,
+
+702
+01:04:49,024 --> 01:04:52,414
+like a group glass or regular riser analogous to what I've done in some of the other work.
+
+703
+01:04:54,044 --> 01:04:57,774
+So how do you determine that? So 250.
+
+704
+01:04:57,784 --> 01:05:03,664
+That's a good question. 250 is initially this was just what Chandra gave us.
+
+705
+01:05:04,834 --> 01:05:08,254
+So he had pushed he had, based on, I think,
+
+706
+01:05:08,254 --> 01:05:15,784
+some ACP data where they looked at like the for the predictive performance of like PCR and they sometimes truncated it like 250.
+
+707
+01:05:16,444 --> 01:05:22,804
+This is also a convenient number because of the way we do a bunch of like nested like nested cross-validation.
+
+708
+01:05:23,764 --> 01:05:29,254
+This is small enough that it's still bigger than any of our smaller sample sizes, so we never end up in a low dimensional regime.
+
+709
+01:05:29,464 --> 01:05:32,554
+This isn't something that we've optimized, though, at least in this particular project.
+
+710
+01:05:32,754 --> 01:05:36,974
+It's not our experiment. That potentially will result.
+
+711
+01:05:38,514 --> 01:05:44,924
+It may be it may be sensitive. It's more about how you want to do it.
+
+712
+01:05:48,014 --> 01:05:51,934
+The interesting thing about. Yeah, that's a great question.
+
+713
+01:06:01,634 --> 01:06:05,534
+And here in a man who wants to talk to Daniels. I'll be right here.
+
+714
+01:06:05,984 --> 01:06:19,484
+Thank you all so much. And what is it like 27 or so?
+
+715
+01:06:19,904 --> 01:06:23,744
+Oh, no, we got all the way to 45. We got to 45.
+
+716
+01:06:24,374 --> 01:06:29,114
+Man there are backup slides. Oh, you went back to 14.
+
+717
+01:06:29,464 --> 01:06:34,424
+These are visualizations of. So this is to check. This is if you invert the PC and you go back.
+
+718
+01:06:35,924 --> 01:06:39,404
+This is a whole bunch of details on how I handled nuisance covariates in the CCI project.
+
+719
+01:06:39,444 --> 01:06:44,173
+Yeah, I know. I think this is interesting idea of this class feeding this.
+
+720
+01:06:44,174 --> 01:06:51,733
+You have to serve two and if you want to optimize some tennis, certainly it's easy.
+
+721
+01:06:51,734 --> 01:06:56,444
+I think this is a nice way to simplify this.
+
+722
+01:06:56,684 --> 01:07:02,084
+Yeah. Yeah. So all ye so all of these details are more on how to like and sort of like John's question.
+
+723
+01:07:02,324 --> 01:07:10,604
+So we actually do all of like the nuisance correction and the PCA in a separate training set and then we pull everything over to a test set.
+
+724
+01:07:11,024 --> 01:07:15,403
+And so we're actually only ever working with like 3000 observations or so because all of the data reduction,
+
+725
+01:07:15,404 --> 01:07:18,404
+all the cleaning is learned in like a discovery set.
+
+726
+01:07:19,154 --> 01:07:24,044
+So that's what most of these additional slides are. And then this is how you invert the PCA step.
+
+727
+01:07:24,404 --> 01:07:28,244
+So it just gets a little bit more nutritionally cumbersome. But in general,
+
+728
+01:07:28,244 --> 01:07:36,044
+I have a question of why did you the like sort of dichotomous because you can use Rebekah's doing this
+
+729
+01:07:36,044 --> 01:07:43,513
+chemo like you can do the smallest situps you could do you mean why do it in the K project or in general.
+
+730
+01:07:43,514 --> 01:07:46,804
+In general, I mean probably are tied to your situation.
+
+731
+01:07:46,814 --> 01:07:59,024
+Yeah. I wanted to have this sort of data somehow the equal size to make it so you could in principle have some design mode for some of this thing.
+
+732
+01:07:59,324 --> 01:08:02,564
+Yes, there's so there's a reason there's some recent theory.
+
+733
+01:08:02,564 --> 01:08:06,193
+It's more for the canonical correlations themselves.
+
+734
+01:08:06,194 --> 01:08:11,534
+There's a charge on paper. Yeah. Right. Where at least like so they talk about how you can sort of do that.
+
+735
+01:08:11,534 --> 01:08:16,784
+Like if you do data splitting, you can do it multiple times, you can do it both ways. They show empirically, at least in what they look at,
+
+736
+01:08:16,784 --> 01:08:21,734
+it doesn't make that much of a difference and the theory doesn't care because it's just like a constant, constant multiple.
+
+737
+01:08:21,794 --> 01:08:25,064
+Right. Although that said, like, there's not really a strong reason not to do it.
+
+738
+01:08:25,994 --> 01:08:29,274
+But I feel that if you cross this nice story.
+
+739
+01:08:29,364 --> 01:08:32,834
+Oh, thank you. So nice to see you. Yeah, you were driving me to dinner, right?
+
+740
+01:08:33,224 --> 01:08:36,294
+Okay. Okay. Do you want me to meet you out on the streets? Just.
+
+741
+01:08:37,684 --> 01:08:41,284
+Okay. Great. And I heard five. What time should I be there?
+
+742
+01:08:43,474 --> 01:08:51,994
+Know, preservation. Okay. Great. And it is okay in about an hour, but they're not under a break under the under the crossover.
+
+743
+01:08:52,914 --> 01:08:54,864
+Okay. Okay, great. I will see you there. 540.
+
+744
+01:08:55,734 --> 01:09:04,284
+Well, I think if you do cross right, then you take an average of this to make you have a better chance of closing.
+
+745
+01:09:04,614 --> 01:09:08,584
+Yes. Yeah, go ahead. Actually, before you do that, let me flip back to something.
+
+746
+01:09:09,144 --> 01:09:15,443
+All right. So there's an interesting is like a related question that I just want to talk really quick that comes up in the group.
+
+747
+01:09:15,444 --> 01:09:19,314
+Last note, no one asked about it, which is fine, but the what I have here.
+
+748
+01:09:19,344 --> 01:09:21,504
+Right. So there's this like level of randomization.
+
+749
+01:09:21,954 --> 01:09:26,273
+So one of the questions when you do data splitting or you do any sort of like model selection and it's it's it
+
+750
+01:09:26,274 --> 01:09:31,524
+happens here too is how much data do you want to use for model selection and how much data do you want to use?
+
+751
+01:09:31,824 --> 01:09:34,314
+Exactly right. And so what this is set up.
+
+752
+01:09:34,824 --> 01:09:41,184
+So these are all ratios of like proportion of data used for model selection, a portion of data used for inference.
+
+753
+01:09:41,454 --> 01:09:46,464
+So in general, you see that like as you change to like here you use one third of the data for model selection,
+
+754
+01:09:46,464 --> 01:09:50,504
+two thirds for training or for inference. You have the shortest intervals, right?
+
+755
+01:09:50,514 --> 01:09:54,834
+If you use two thirds of the data for selection and one third for inference longer intervals.
+
+756
+01:09:55,164 --> 01:09:58,314
+Right. But the quality of the model selection is bigger if you're over here.
+
+757
+01:09:58,614 --> 01:10:02,274
+Right. So like if you look at like there's always there's this tradeoff, right?
+
+758
+01:10:03,114 --> 01:10:06,353
+And so and then what's interesting is what's nice about doing this randomized group
+
+759
+01:10:06,354 --> 01:10:10,704
+last year you can to the amount of randomization to mimic the randomization here.
+
+760
+01:10:10,974 --> 01:10:13,704
+And so we don't have a solution for how you decide on the tradeoff.
+
+761
+01:10:14,094 --> 01:10:19,044
+But the idea is that you basically decide what you want your budget to be and then selective inference.
+
+762
+01:10:19,044 --> 01:10:26,093
+What you're basically doing is say you're in this regime, you use like this would be like data card, which we don't actually do, but you could do it.
+
+763
+01:10:26,094 --> 01:10:30,083
+You use one third of the data to do model selection and you get some new data.
+
+764
+01:10:30,084 --> 01:10:33,894
+So two thirds of the data is totally that you want to do inference using the two thirds
+
+765
+01:10:33,894 --> 01:10:38,154
+of the data as well as evidence of a residual version of the first third of the data.
+
+766
+01:10:38,484 --> 01:10:40,944
+You sort of conditioned out the selection that you've done.
+
+767
+01:10:41,244 --> 01:10:44,454
+So you can think of it like if you're making wine, it's like a second pressing of the grapes.
+
+768
+01:10:44,774 --> 01:10:49,944
+You're mixing with some new grapes. I think it's really depends on the number of.
+
+769
+01:10:51,264 --> 01:10:55,244
+Right. If you have a lot of Greek citizens, probably you won't have a lot of money for.
+
+770
+01:10:56,164 --> 01:11:03,094
+Correct, right? Yes. Yeah. We intuitively. Yeah. And there's some other work I didn't talk about here that I've done more recently in the
+
+771
+01:11:03,094 --> 01:11:08,764
+spirit of like to ease higher criticism and some like phase transitions for detector,
+
+772
+01:11:08,764 --> 01:11:17,794
+like trying to detect when you're in a regime where you have a small number of strong signals versus a large number of.
+
+773
+01:11:19,554 --> 01:11:23,853
+And I think it's could potentially be nice to couple that with some of this work where you do an initial
+
+774
+01:11:23,854 --> 01:11:28,624
+sort of a calibration run to determine which type because there's this is a Dave Donahoe paper.
+
+775
+01:11:28,624 --> 01:11:36,724
+We have a really nice phase transition. And so you can maybe use that to decide, right, like how you want to do that in a discovery dataset.
+
+776
+01:11:37,064 --> 01:11:40,354
+Yeah, that's a good question. Great. Yeah.
+
+777
+01:11:40,894 --> 01:11:42,718
+Take care. Yeah. Thanks so much. So do you have like a thumb drive or anything like I do.
+

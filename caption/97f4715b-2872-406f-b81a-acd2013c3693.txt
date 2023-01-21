@@ -1,0 +1,313 @@
+1
+00:00:10,179 --> 00:00:12,597
+Hi, this is Matt Zawistowski.
+
+2
+00:00:12,597 --> 00:00:17,596
+In this lecture we're going to extend
+the ideas from linear mixed effect models
+
+3
+00:00:17,596 --> 00:00:22,593
+to additional types of data in which the
+outcome might not be a continuous normal
+
+4
+00:00:22,593 --> 00:00:24,920
+random variable.
+
+5
+00:00:24,920 --> 00:00:28,596
+To this point, we've always assumed
+that the repeated measure outcomes
+
+6
+00:00:28,596 --> 00:00:32,936
+collected during the longitudinal study
+were approximately normally distributed.
+
+7
+00:00:32,936 --> 00:00:37,764
+There are many other data types that
+exist, and longitudinal studies routinely
+
+8
+00:00:37,764 --> 00:00:43,070
+collect repeated outcomes that
+might be count data or binary.
+
+9
+00:00:43,070 --> 00:00:47,493
+Imagine a study designed to compare
+the effectiveness of various treatments to
+
+10
+00:00:47,493 --> 00:00:49,850
+reduce epileptic seizures.
+
+11
+00:00:49,850 --> 00:00:54,509
+This study might randomize epileptic
+patients to different treatment arms and
+
+12
+00:00:54,509 --> 00:00:59,520
+record the number of seizures each
+patient has per week for several weeks.
+
+13
+00:00:59,520 --> 00:01:05,000
+Here the outcome is number of seizures
+per week, which is a count variable.
+
+14
+00:01:05,000 --> 00:01:08,273
+And when we consider
+variability between subjects,
+
+15
+00:01:08,273 --> 00:01:13,085
+some patients will likely just have more
+or less weekly seizures than others.
+
+16
+00:01:13,085 --> 00:01:17,306
+Meaning that the number of seizures within
+a subject are positively correlated
+
+17
+00:01:17,306 --> 00:01:18,920
+measurements.
+
+18
+00:01:18,920 --> 00:01:22,984
+So how can we model correlated data
+when the outcome is count data,
+
+19
+00:01:22,984 --> 00:01:25,680
+like number of seizures?
+
+20
+00:01:25,680 --> 00:01:29,702
+Generalized linear models or
+GLMs provide a robust framework for
+
+21
+00:01:29,702 --> 00:01:34,810
+regression modeling of various
+different types of outcome variables.
+
+22
+00:01:34,810 --> 00:01:39,174
+Normally distributed outcomes are handled
+by standard linear regression.
+
+23
+00:01:39,174 --> 00:01:42,684
+But other common models
+are the logistic and Poisson models,
+
+24
+00:01:42,684 --> 00:01:47,120
+designed for binary and
+count data respectively.
+
+25
+00:01:47,120 --> 00:01:51,593
+A GLM contains a link function on the left
+side of the equation that connects
+
+26
+00:01:51,593 --> 00:01:56,990
+the expected value of the outcome to
+the linear regression on the right side.
+
+27
+00:01:56,990 --> 00:02:01,880
+GLMs assume that the outcomes
+are independent, which would no longer be
+
+28
+00:02:01,880 --> 00:02:06,380
+the case for repeated measure data,
+that should sound familiar.
+
+29
+00:02:06,380 --> 00:02:09,800
+To account for correlation among outcomes,
+
+30
+00:02:09,800 --> 00:02:16,160
+GLMs have been extended to generalized
+linear mixed models or GLMMs.
+
+31
+00:02:16,160 --> 00:02:21,137
+Starting with the existing form
+of the GLM, the GLMM adds random
+
+32
+00:02:21,137 --> 00:02:25,939
+effect terms to model
+subject-specific regression lines.
+
+33
+00:02:25,939 --> 00:02:29,764
+And we make similar assumptions regarding
+the distributions of the random
+
+34
+00:02:29,764 --> 00:02:31,960
+effect terms.
+
+35
+00:02:31,960 --> 00:02:34,236
+For normally distributed outcomes,
+
+36
+00:02:34,236 --> 00:02:38,514
+the GLMM is just the same mixed model
+we have already been dealing with.
+
+37
+00:02:38,514 --> 00:02:41,296
+It specifies a population
+regression line and
+
+38
+00:02:41,296 --> 00:02:46,930
+subjects specific regression lines
+that can vary in intercept and slope.
+
+39
+00:02:46,930 --> 00:02:50,600
+Let's think about how random effect
+terms would affect the popular logistic
+
+40
+00:02:50,600 --> 00:02:52,670
+regression model.
+
+41
+00:02:52,670 --> 00:02:56,730
+Recall that logistic regression is
+used when the outcome is binary.
+
+42
+00:02:56,730 --> 00:03:00,890
+In a longitudinal study,
+this might indicate the presence or
+
+43
+00:03:00,890 --> 00:03:04,330
+absence of an event or
+specific symptom overtime.
+
+44
+00:03:04,330 --> 00:03:07,287
+The link function for
+logistic regression is the logit,
+
+45
+00:03:07,287 --> 00:03:11,440
+which is the log of the odds for
+the outcome of interest.
+
+46
+00:03:11,440 --> 00:03:15,887
+The fitted logistic regression model can
+be used to compute a probability curve for
+
+47
+00:03:15,887 --> 00:03:19,330
+the outcome based on the covariance.
+
+48
+00:03:19,330 --> 00:03:24,057
+To model repeated measure binary data,
+we would add random effect terms to
+
+49
+00:03:24,057 --> 00:03:30,760
+the standard logistic model to arrive
+at the logistic mixed effect model.
+
+50
+00:03:30,760 --> 00:03:35,662
+The fixed effect terms define
+a population probability curve, and
+
+51
+00:03:35,662 --> 00:03:41,003
+the random effect terms define
+subject-specific probability curves.
+
+52
+00:03:41,003 --> 00:03:45,041
+This is analogous to the subject-specific
+regression lines we have viewed for
+
+53
+00:03:45,041 --> 00:03:49,450
+mixed models with normally
+distributed outcomes.
+
+54
+00:03:49,450 --> 00:03:53,877
+The interpretation of the beta parameters
+is still the change in log odds for
+
+55
+00:03:53,877 --> 00:03:58,859
+a one unit increase in the corresponding
+covariate, holding all other parameters,
+
+56
+00:03:58,859 --> 00:04:02,790
+including the random effect terms fixed.
+
+57
+00:04:02,790 --> 00:04:06,604
+Inference on individual parameters
+can be performed using hypothesis
+
+58
+00:04:06,604 --> 00:04:10,330
+testing techniques we've discussed.
+
+59
+00:04:10,330 --> 00:04:15,015
+Extending the concept of mixed models
+to generalized mixed models opens up
+
+60
+00:04:15,015 --> 00:04:18,287
+an enormous field of
+longitudinal study designs and
+
+61
+00:04:18,287 --> 00:04:22,400
+outcomes that can now be
+effectively analyzed.
+
+62
+00:04:22,400 --> 00:04:26,311
+We basically just combine the ideas
+of repeated measure analysis
+
+63
+00:04:26,311 --> 00:04:31,016
+with the theory of generalized regression
+models for non-normal outcomes.
+
+64
+00:04:31,016 --> 00:04:34,119
+The mixed models we've discussed
+in this course are but
+
+65
+00:04:34,119 --> 00:04:39,232
+one type of generalized
+linear mixed model.
+

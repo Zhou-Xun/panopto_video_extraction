@@ -1,0 +1,524 @@
+1
+00:00:10,357 --> 00:00:11,815
+Hi, this is Matt Zawistowski.
+
+2
+00:00:11,815 --> 00:00:16,319
+In this lecture, we're going to discuss
+sources of correlated outcomes.
+
+3
+00:00:16,319 --> 00:00:19,582
+Let's start by talking about why
+it's important to know if you do
+
+4
+00:00:19,582 --> 00:00:23,490
+have correlated outcomes in your data.
+
+5
+00:00:23,490 --> 00:00:28,020
+If you think back to prior statistics
+courses, you might remember that you often
+
+6
+00:00:28,020 --> 00:00:32,299
+made assumptions about the data for
+the statistical models you plan to use.
+
+7
+00:00:32,299 --> 00:00:36,502
+For example, we often make assumptions
+about the distribution of the data.
+
+8
+00:00:36,502 --> 00:00:40,051
+In standard linear regression we
+assume that the residuals are normally
+
+9
+00:00:40,051 --> 00:00:40,814
+distributed.
+
+10
+00:00:40,814 --> 00:00:45,931
+And for logistic regression we assume the
+outcomes follow a binomial distribution.
+
+11
+00:00:45,931 --> 00:00:50,010
+If assumptions for a model are violated,
+the model might not be valid, and
+
+12
+00:00:50,010 --> 00:00:53,490
+any inference based on
+the model could be wrong.
+
+13
+00:00:53,490 --> 00:00:58,302
+Another common assumption is that
+outcomes are independent or uncorrelated.
+
+14
+00:00:58,302 --> 00:01:02,235
+This means that knowing the value of one
+outcome measurement gives no information
+
+15
+00:01:02,235 --> 00:01:06,440
+about other measurements in the dataset.
+
+16
+00:01:06,440 --> 00:01:10,795
+As an example, consider this simple
+dataset consisting of sex, age, and
+
+17
+00:01:10,795 --> 00:01:14,670
+BMI collected on different people.
+
+18
+00:01:14,670 --> 00:01:18,382
+The data on each sample is independent,
+if, for example,
+
+19
+00:01:18,382 --> 00:01:23,659
+knowing subject 005's BMI gives me no
+information about the BMI measurement for
+
+20
+00:01:23,659 --> 00:01:26,470
+other samples in the dataset.
+
+21
+00:01:26,470 --> 00:01:30,101
+Independence is an assumption for
+many common statistical methods,
+
+22
+00:01:30,101 --> 00:01:32,132
+particularly linear regression, and
+
+23
+00:01:32,132 --> 00:01:37,690
+the reason it is critical to understand
+the concept of correlated data.
+
+24
+00:01:37,690 --> 00:01:40,120
+So what causes correlated data?
+
+25
+00:01:40,120 --> 00:01:43,250
+It can happen in a variety of ways.
+
+26
+00:01:43,250 --> 00:01:47,877
+Sometimes it is intentional,
+an investigator might specifically collect
+
+27
+00:01:47,877 --> 00:01:52,446
+correlated data as a way to increase
+the statistical power of their study.
+
+28
+00:01:52,446 --> 00:01:56,680
+For example, if we want to know the
+effectiveness of a medical intervention,
+
+29
+00:01:56,680 --> 00:02:01,172
+we might intentionally take measurements
+on the same set of individuals before and
+
+30
+00:02:01,172 --> 00:02:03,540
+after the intervention.
+
+31
+00:02:03,540 --> 00:02:07,895
+Sometimes the correlation is not
+intentional or is unavoidable.
+
+32
+00:02:07,895 --> 00:02:10,839
+Even though we do not intend for
+the correlation,
+
+33
+00:02:10,839 --> 00:02:14,283
+it must be identified and
+accounted for during analysis.
+
+34
+00:02:14,283 --> 00:02:19,577
+Examples here include genetic studies that
+intend to recruit unrelated individuals,
+
+35
+00:02:19,577 --> 00:02:24,530
+but inadvertently recruits related
+individuals from the same family.
+
+36
+00:02:24,530 --> 00:02:26,943
+Or imagine a dental
+study of tooth erosion,
+
+37
+00:02:26,943 --> 00:02:30,402
+the erosion of teeth within
+a person's mouth are correlated,
+
+38
+00:02:30,402 --> 00:02:35,100
+because those teeth are all
+exposed to the same environment.
+
+39
+00:02:35,100 --> 00:02:39,234
+Let's consider some common
+sources of correlation in data.
+
+40
+00:02:39,234 --> 00:02:41,421
+The first type is clustered data.
+
+41
+00:02:41,421 --> 00:02:45,779
+In this situation, the samples in
+the dataset belong to distinct groups or
+
+42
+00:02:45,779 --> 00:02:50,554
+clusters, and samples in the same cluster
+are more likely to have similar outcome
+
+43
+00:02:50,554 --> 00:02:52,170
+measurements.
+
+44
+00:02:52,170 --> 00:02:56,512
+We can think of these clusters as
+circles that create distinct subsets
+
+45
+00:02:56,512 --> 00:02:58,506
+of individuals in the dataset.
+
+46
+00:02:58,506 --> 00:03:01,496
+The cluster could correspond
+to family members or
+
+47
+00:03:01,496 --> 00:03:05,564
+individuals who attend the same school or
+work at the same company.
+
+48
+00:03:05,564 --> 00:03:09,584
+The key point is that individuals who
+belong to the same cluster are more
+
+49
+00:03:09,584 --> 00:03:10,991
+likely to have similar or
+
+50
+00:03:10,991 --> 00:03:15,760
+correlated outcomes compared to
+individuals from different clusters.
+
+51
+00:03:15,760 --> 00:03:19,466
+Often we're not even interested in
+the effect of the cluster itself.
+
+52
+00:03:19,466 --> 00:03:22,749
+It's not an exposure of interest,
+but we want to account for
+
+53
+00:03:22,749 --> 00:03:25,650
+the correlation it creates.
+
+54
+00:03:25,650 --> 00:03:30,490
+Another common type of
+correlation is hierarchical data.
+
+55
+00:03:30,490 --> 00:03:33,923
+In this type of data there
+are multiple levels of clustering.
+
+56
+00:03:33,923 --> 00:03:38,520
+Pictorially, hierarchical clustering
+results in tree-like structure.
+
+57
+00:03:38,520 --> 00:03:42,240
+A great example of this is
+medical outcomes for patients.
+
+58
+00:03:42,240 --> 00:03:44,933
+Patient outcomes are usually
+not independent, but
+
+59
+00:03:44,933 --> 00:03:49,658
+rather depend on where and
+from whom they receive medical care.
+
+60
+00:03:49,658 --> 00:03:53,089
+Patients see specific doctors
+at specific hospitals,
+
+61
+00:03:53,089 --> 00:03:57,080
+creating a hierarchy of
+correlation among outcomes.
+
+62
+00:03:57,080 --> 00:04:01,536
+Two patients treated by the same doctor
+will often have more similar outcomes than
+
+63
+00:04:01,536 --> 00:04:04,490
+two patients seeing different doctors.
+
+64
+00:04:04,490 --> 00:04:08,202
+If two patients see different doctors but
+go to the same hospital,
+
+65
+00:04:08,202 --> 00:04:13,450
+they might have more similar outcomes
+than patients at two different hospitals.
+
+66
+00:04:13,450 --> 00:04:17,952
+Again, we might not be interested in the
+treatment effect of any specific doctor or
+
+67
+00:04:17,952 --> 00:04:18,788
+hospital, but
+
+68
+00:04:18,788 --> 00:04:24,530
+the correlation introduced by this
+hierarchy is important to consider.
+
+69
+00:04:24,530 --> 00:04:28,778
+A third common source of correlation
+is due to the collection of repeated
+
+70
+00:04:28,778 --> 00:04:30,920
+measures data.
+
+71
+00:04:30,920 --> 00:04:34,430
+This is the situation in which
+an investigator collects multiple
+
+72
+00:04:34,430 --> 00:04:38,630
+measurements of the same variable
+on the same set of individuals.
+
+73
+00:04:38,630 --> 00:04:43,031
+In the simplest case, there are two
+measurements on each study participant.
+
+74
+00:04:43,031 --> 00:04:47,042
+For example, the weights of individuals
+before and after a new diet, or
+
+75
+00:04:47,042 --> 00:04:50,726
+blood pressure measurements for
+a set of hypertensives before and
+
+76
+00:04:50,726 --> 00:04:53,830
+after starting a new prescription drug.
+
+77
+00:04:53,830 --> 00:04:55,830
+These are often called paired data,
+
+78
+00:04:55,830 --> 00:05:00,270
+which you may have previously
+encountered with the paired t-test.
+
+79
+00:05:00,270 --> 00:05:01,212
+More generally,
+
+80
+00:05:01,212 --> 00:05:05,418
+repeated measures data can have more than
+two measurements of the outcome, and
+
+81
+00:05:05,418 --> 00:05:11,090
+can be taken under different treatments or
+conditions or taken overtime.
+
+82
+00:05:11,090 --> 00:05:15,706
+When the repeated measure data is taken
+over time, it is called longitudinal data.
+
+83
+00:05:15,706 --> 00:05:18,675
+This refers to the temporal
+collection of the outcome, so
+
+84
+00:05:18,675 --> 00:05:21,166
+that the measurements
+have a natural ordering.
+
+85
+00:05:21,166 --> 00:05:25,639
+For example in the figure, measurements of
+the outcome are taken at different months,
+
+86
+00:05:25,639 --> 00:05:28,359
+so that we are able to put
+the measurements in order and
+
+87
+00:05:28,359 --> 00:05:32,260
+observe change in the outcome over time.
+
+88
+00:05:32,260 --> 00:05:36,370
+As with other types of correlated data,
+it is often the case that outcomes
+
+89
+00:05:36,370 --> 00:05:41,550
+within a subject are more similar than
+outcomes between different subjects.
+
+90
+00:05:41,550 --> 00:05:46,257
+As in this example, the outcomes for
+Subject 1, represented by the blue dots,
+
+91
+00:05:46,257 --> 00:05:50,276
+are more similar than comparing
+measurements between Subject 1 and
+
+92
+00:05:50,276 --> 00:05:52,580
+Subject 2.
+
+93
+00:05:52,580 --> 00:05:56,724
+Determining if correlation exists in
+your dataset is an important step before
+
+94
+00:05:56,724 --> 00:06:00,120
+beginning your statistical analysis.
+
+95
+00:06:00,120 --> 00:06:04,663
+Ignoring correlation would violate
+the independence assumption of many common
+
+96
+00:06:04,663 --> 00:06:08,690
+statistical methods,
+rendering the results invalid.
+
+97
+00:06:08,690 --> 00:06:12,065
+An important skill therefore
+is being able to look at data,
+
+98
+00:06:12,065 --> 00:06:17,460
+like the example shown here, and recognize
+the potential source of correlation.
+
+99
+00:06:17,460 --> 00:06:22,880
+Here we see that multiple BMI measurements
+are taken on the same individuals.
+
+100
+00:06:22,880 --> 00:06:26,864
+Even though the individuals
+themselves might be independent,
+
+101
+00:06:26,864 --> 00:06:30,713
+BMI measurements within the same
+individual likely are not.
+
+102
+00:06:30,713 --> 00:06:34,552
+A proper statistical analysis
+of correlated data begins with
+
+103
+00:06:34,552 --> 00:06:40,210
+this key first step of identifying
+the source of the correlation.
+
+104
+00:06:40,210 --> 00:06:40,887
+In summary,
+
+105
+00:06:40,887 --> 00:06:45,510
+many statistical methods include
+independence among their assumptions.
+
+106
+00:06:45,510 --> 00:06:50,291
+Analyzing datasets containing correlated
+outcomes, be it by design or by accident,
+
+107
+00:06:50,291 --> 00:06:53,480
+would violate the independence assumption.
+
+108
+00:06:53,480 --> 00:06:57,845
+Longitudinal study designs intentionally
+collect correlated data by
+
+109
+00:06:57,845 --> 00:07:01,563
+measuring the same variable
+over time on the same subjects.
+
+110
+00:07:01,563 --> 00:07:06,709
+This is the type of data we will
+learn how to analyze in this course.
+

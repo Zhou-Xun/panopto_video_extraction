@@ -1,0 +1,1272 @@
+1
+00:00:09,140 --> 00:00:11,820
+Hey. It's Matthew Zawistowski.
+
+2
+00:00:11,820 --> 00:00:13,470
+In this lecture, we're going
+
+3
+00:00:13,470 --> 00:00:14,970
+to lay the groundwork for one of
+
+4
+00:00:14,970 --> 00:00:18,720
+the primary methods for analyzing
+repeated measures data,
+
+5
+00:00:18,720 --> 00:00:21,195
+the linear mixed effect model.
+
+6
+00:00:21,195 --> 00:00:24,490
+We'll do this by thinking
+about random error.
+
+7
+00:00:24,490 --> 00:00:26,840
+The portion of
+observed outcomes that
+
+8
+00:00:26,840 --> 00:00:30,460
+cannot be explained by
+a statistical model.
+
+9
+00:00:30,460 --> 00:00:34,100
+We'll first describe what the
+independence assumption for
+
+10
+00:00:34,100 --> 00:00:37,320
+standard linear regression
+means for random error.
+
+11
+00:00:37,320 --> 00:00:39,620
+We'll then contrast
+this with what
+
+12
+00:00:39,620 --> 00:00:40,910
+random error means in
+
+13
+00:00:40,910 --> 00:00:43,265
+the context of
+repeated measure data,
+
+14
+00:00:43,265 --> 00:00:44,690
+and set the stage for
+
+15
+00:00:44,690 --> 00:00:48,385
+how mixed effect regression
+models handle random error.
+
+16
+00:00:48,385 --> 00:00:51,079
+Let's quickly review the concept
+
+17
+00:00:51,079 --> 00:00:53,015
+of simple linear regression.
+
+18
+00:00:53,015 --> 00:00:56,735
+Given a set of independent
+observations for the outcome,
+
+19
+00:00:56,735 --> 00:00:59,510
+and a numerical
+co-variate, such as time,
+
+20
+00:00:59,510 --> 00:01:02,300
+we can fit a linear
+regression to model
+
+21
+00:01:02,300 --> 00:01:04,460
+the relationship
+between the mean value
+
+22
+00:01:04,460 --> 00:01:06,685
+of the outcome and
+the co-variate.
+
+23
+00:01:06,685 --> 00:01:09,155
+In this simple linear
+regression case,
+
+24
+00:01:09,155 --> 00:01:10,520
+the parameters relating
+
+25
+00:01:10,520 --> 00:01:12,610
+the mean outcome
+to the co-variate,
+
+26
+00:01:12,610 --> 00:01:16,760
+are just the intercept Beta
+0 and the slope Beta 1.
+
+27
+00:01:16,760 --> 00:01:19,940
+For any observed
+value of the outcome,
+
+28
+00:01:19,940 --> 00:01:22,970
+we can of course compute
+the model predicted value.
+
+29
+00:01:22,970 --> 00:01:25,820
+This is done by plugging
+a value of interest for
+
+30
+00:01:25,820 --> 00:01:29,090
+the co-variate into the
+fitted regression equation.
+
+31
+00:01:29,090 --> 00:01:31,835
+The difference between
+the predicted value
+
+32
+00:01:31,835 --> 00:01:32,930
+and the observed value,
+
+33
+00:01:32,930 --> 00:01:34,495
+is called the residual.
+
+34
+00:01:34,495 --> 00:01:37,910
+You can think of the predicted
+value as the portion of
+
+35
+00:01:37,910 --> 00:01:39,410
+the observed value that can
+
+36
+00:01:39,410 --> 00:01:41,360
+be explained by the
+regression model
+
+37
+00:01:41,360 --> 00:01:44,270
+and the residual
+as random error or
+
+38
+00:01:44,270 --> 00:01:45,560
+the remaining portion of
+
+39
+00:01:45,560 --> 00:01:49,345
+the observed value that cannot
+be explained by the model.
+
+40
+00:01:49,345 --> 00:01:51,630
+Each observed outcome in the data
+
+41
+00:01:51,630 --> 00:01:54,140
+set has a corresponding residual.
+
+42
+00:01:54,140 --> 00:01:56,330
+Although most of the
+attention goes to
+
+43
+00:01:56,330 --> 00:01:59,195
+the Beta parameters in the
+fitted regression line,
+
+44
+00:01:59,195 --> 00:02:01,670
+it's actually these
+residual values and
+
+45
+00:02:01,670 --> 00:02:03,860
+their distribution
+that are the basis
+
+46
+00:02:03,860 --> 00:02:06,425
+for most linear
+regression assumptions.
+
+47
+00:02:06,425 --> 00:02:09,455
+Recall that when fitting a
+linear regression model,
+
+48
+00:02:09,455 --> 00:02:10,820
+we make the assumption that
+
+49
+00:02:10,820 --> 00:02:13,220
+the residuals are
+all independent and
+
+50
+00:02:13,220 --> 00:02:15,890
+collectively they follow a
+normal distribution with
+
+51
+00:02:15,890 --> 00:02:19,310
+constant variance indicated
+by sigma squared.
+
+52
+00:02:19,310 --> 00:02:22,310
+In addition to the
+regression Beta values,
+
+53
+00:02:22,310 --> 00:02:23,840
+the sigma value is
+
+54
+00:02:23,840 --> 00:02:26,800
+the other parameter
+estimated for the model.
+
+55
+00:02:26,800 --> 00:02:29,940
+Let's think about that
+independent assumption.
+
+56
+00:02:29,940 --> 00:02:32,970
+What does it really
+mean for the residuals?
+
+57
+00:02:32,970 --> 00:02:35,235
+It helps to look at a picture.
+
+58
+00:02:35,235 --> 00:02:37,190
+Let's imagine removing
+
+59
+00:02:37,190 --> 00:02:40,040
+all the observed
+values from the axis.
+
+60
+00:02:40,040 --> 00:02:44,600
+Now, let's place just
+one observed value back.
+
+61
+00:02:44,600 --> 00:02:45,950
+Meaning we now know the
+
+62
+00:02:45,950 --> 00:02:48,475
+residual for that
+one observation.
+
+63
+00:02:48,475 --> 00:02:52,070
+Independence means that
+knowing that one residual is
+
+64
+00:02:52,070 --> 00:02:53,600
+not informative for placing
+
+65
+00:02:53,600 --> 00:02:55,835
+the remaining
+observations on the plot.
+
+66
+00:02:55,835 --> 00:02:58,040
+We just don't know
+how to arrange any of
+
+67
+00:02:58,040 --> 00:02:59,840
+the remaining observed values
+
+68
+00:02:59,840 --> 00:03:02,510
+based solely on that
+single observation.
+
+69
+00:03:02,510 --> 00:03:04,730
+We don't know which
+observations might be
+
+70
+00:03:04,730 --> 00:03:06,995
+above or below the
+regression line,
+
+71
+00:03:06,995 --> 00:03:08,420
+or by how much.
+
+72
+00:03:08,420 --> 00:03:11,860
+This is what it means for
+residuals to be independent.
+
+73
+00:03:11,860 --> 00:03:15,110
+Now let's think about
+how residuals behave for
+
+74
+00:03:15,110 --> 00:03:18,365
+correlated outcomes from
+longitudinal studies.
+
+75
+00:03:18,365 --> 00:03:21,170
+You're about to see the
+correlation changes,
+
+76
+00:03:21,170 --> 00:03:23,120
+how we think about error.
+
+77
+00:03:23,120 --> 00:03:26,000
+Let's consider this
+simple example of
+
+78
+00:03:26,000 --> 00:03:29,195
+repeated measure data
+containing three samples,
+
+79
+00:03:29,195 --> 00:03:31,045
+each with four measurements.
+
+80
+00:03:31,045 --> 00:03:33,200
+As you can see, the measurements
+
+81
+00:03:33,200 --> 00:03:35,525
+within a sample are
+positively correlated.
+
+82
+00:03:35,525 --> 00:03:38,780
+Meaning two observations from
+the same sample are more
+
+83
+00:03:38,780 --> 00:03:42,619
+similar than two observations
+from different samples.
+
+84
+00:03:42,619 --> 00:03:44,645
+We can imagine fitting
+
+85
+00:03:44,645 --> 00:03:46,040
+a linear regression line to
+
+86
+00:03:46,040 --> 00:03:48,875
+this data as shown by
+the red line here.
+
+87
+00:03:48,875 --> 00:03:50,660
+At this point, you should
+
+88
+00:03:50,660 --> 00:03:53,000
+recognize that this is not
+really the correct thing to
+
+89
+00:03:53,000 --> 00:03:55,160
+do because our
+repeated measure data
+
+90
+00:03:55,160 --> 00:03:57,515
+violates the
+independence assumption.
+
+91
+00:03:57,515 --> 00:04:00,140
+But let's just give it a
+try to see exactly what
+
+92
+00:04:00,140 --> 00:04:03,160
+happens when our outcomes
+are not independent.
+
+93
+00:04:03,160 --> 00:04:06,745
+Consider the residuals for
+these observed values.
+
+94
+00:04:06,745 --> 00:04:09,080
+I've specifically
+colored the residuals
+
+95
+00:04:09,080 --> 00:04:12,200
+here to correspond with
+the sample they belong to.
+
+96
+00:04:12,200 --> 00:04:15,275
+What patterns do you notice?
+
+97
+00:04:15,275 --> 00:04:18,380
+The values of the
+residuals differ
+
+98
+00:04:18,380 --> 00:04:21,215
+by color or which
+sample they belong to.
+
+99
+00:04:21,215 --> 00:04:23,795
+The yellow residuals
+are all positive,
+
+100
+00:04:23,795 --> 00:04:26,195
+the blue residuals
+are all negative,
+
+101
+00:04:26,195 --> 00:04:27,920
+and the green residuals are
+
+102
+00:04:27,920 --> 00:04:30,275
+all quite small
+for the most part.
+
+103
+00:04:30,275 --> 00:04:34,100
+Now, let's do the same
+exercise we did before
+
+104
+00:04:34,100 --> 00:04:35,345
+in which we removed
+
+105
+00:04:35,345 --> 00:04:38,080
+all but one observed
+value from the axis.
+
+106
+00:04:38,080 --> 00:04:41,195
+In the previous example,
+with independent outcomes,
+
+107
+00:04:41,195 --> 00:04:42,410
+we could not determine
+
+108
+00:04:42,410 --> 00:04:43,955
+the approximate location for
+
+109
+00:04:43,955 --> 00:04:46,310
+any of the remaining
+observed values.
+
+110
+00:04:46,310 --> 00:04:48,550
+Now the situation is different.
+
+111
+00:04:48,550 --> 00:04:50,000
+Once I know where one of
+
+112
+00:04:50,000 --> 00:04:52,400
+the yellow dots
+goes, for example,
+
+113
+00:04:52,400 --> 00:04:54,670
+a certain distance above
+the regression line,
+
+114
+00:04:54,670 --> 00:04:56,450
+I have some notion as
+
+115
+00:04:56,450 --> 00:04:59,150
+to where the other
+yellow dots will go.
+
+116
+00:04:59,150 --> 00:05:01,670
+Because the observations for
+
+117
+00:05:01,670 --> 00:05:04,385
+the yellow sample are
+positively correlated,
+
+118
+00:05:04,385 --> 00:05:06,410
+I know where the
+remaining yellow dots
+
+119
+00:05:06,410 --> 00:05:07,945
+are likely to reside.
+
+120
+00:05:07,945 --> 00:05:10,100
+They will likely fit
+somewhere within
+
+121
+00:05:10,100 --> 00:05:11,960
+that shaded region because they
+
+122
+00:05:11,960 --> 00:05:14,510
+have to be nearby the
+fixed yellow dot.
+
+123
+00:05:14,510 --> 00:05:17,555
+What about the blue dots
+and the green dots?
+
+124
+00:05:17,555 --> 00:05:19,385
+Those correspond to
+samples that are
+
+125
+00:05:19,385 --> 00:05:21,080
+independent from
+the yellow sample.
+
+126
+00:05:21,080 --> 00:05:23,870
+For those, I don't know
+where they belong on
+
+127
+00:05:23,870 --> 00:05:27,400
+the axis based on the position
+of the one yellow dot.
+
+128
+00:05:27,400 --> 00:05:29,630
+The key idea here is that
+
+129
+00:05:29,630 --> 00:05:31,280
+the positive correlation among
+
+130
+00:05:31,280 --> 00:05:33,260
+measurements on the same sample,
+
+131
+00:05:33,260 --> 00:05:34,670
+leads to residuals that are
+
+132
+00:05:34,670 --> 00:05:36,845
+also correlated within a sample.
+
+133
+00:05:36,845 --> 00:05:38,810
+This is a clear violation of
+
+134
+00:05:38,810 --> 00:05:41,405
+the standard linear
+regression assumption.
+
+135
+00:05:41,405 --> 00:05:43,700
+Returning to this picture,
+
+136
+00:05:43,700 --> 00:05:45,485
+we can now clearly see
+
+137
+00:05:45,485 --> 00:05:47,360
+that the magnitude
+and direction of
+
+138
+00:05:47,360 --> 00:05:51,560
+the residuals are correlated
+based on color or sample.
+
+139
+00:05:51,560 --> 00:05:55,280
+This violation of the
+independent residual assumption
+
+140
+00:05:55,280 --> 00:05:58,804
+for linear regression will
+lead to invalid inference,
+
+141
+00:05:58,804 --> 00:06:01,640
+namely p-values that
+are not correct for
+
+142
+00:06:01,640 --> 00:06:05,285
+hypothesis tests of the
+regression parameters.
+
+143
+00:06:05,285 --> 00:06:08,750
+Our usual linear regression
+models are clearly
+
+144
+00:06:08,750 --> 00:06:12,275
+not going to work for correlated
+repeated measures data.
+
+145
+00:06:12,275 --> 00:06:14,180
+You can still fit the model,
+
+146
+00:06:14,180 --> 00:06:16,835
+but your inference
+just won't be correct.
+
+147
+00:06:16,835 --> 00:06:18,620
+Well now think about
+
+148
+00:06:18,620 --> 00:06:21,725
+the repeated measures data
+in a slightly different way.
+
+149
+00:06:21,725 --> 00:06:23,600
+One that will form the basis for
+
+150
+00:06:23,600 --> 00:06:25,040
+a regression model that
+
+151
+00:06:25,040 --> 00:06:27,855
+explicitly accounts
+for the correlation.
+
+152
+00:06:27,855 --> 00:06:30,265
+Let's go back to our example,
+
+153
+00:06:30,265 --> 00:06:33,240
+longitudinal data
+for three samples.
+
+154
+00:06:33,240 --> 00:06:36,680
+Instead of thinking of a
+single regression line to
+
+155
+00:06:36,680 --> 00:06:39,560
+explain the observations
+for all three samples,
+
+156
+00:06:39,560 --> 00:06:41,435
+we can imagine each sample
+
+157
+00:06:41,435 --> 00:06:43,715
+having its own respect
+to regression line,
+
+158
+00:06:43,715 --> 00:06:45,950
+shown here with the dashed lines.
+
+159
+00:06:45,950 --> 00:06:48,260
+Observations from a sample follow
+
+160
+00:06:48,260 --> 00:06:51,185
+the subject-specific
+regression lines.
+
+161
+00:06:51,185 --> 00:06:53,060
+If we were to average
+
+162
+00:06:53,060 --> 00:06:55,459
+the subject-specific
+lines together,
+
+163
+00:06:55,459 --> 00:06:58,415
+we have something called the
+population regression line.
+
+164
+00:06:58,415 --> 00:06:59,930
+Which is very similar to
+
+165
+00:06:59,930 --> 00:07:03,245
+the regression line from a
+standard linear regression.
+
+166
+00:07:03,245 --> 00:07:06,725
+Now, let's consider
+the relationship
+
+167
+00:07:06,725 --> 00:07:09,200
+of the individual observations to
+
+168
+00:07:09,200 --> 00:07:12,440
+both their respective
+subject-specific regression line
+
+169
+00:07:12,440 --> 00:07:14,930
+and the population
+regression line.
+
+170
+00:07:14,930 --> 00:07:17,750
+The distance between
+the observed value and
+
+171
+00:07:17,750 --> 00:07:20,210
+the red population
+regression line is what we
+
+172
+00:07:20,210 --> 00:07:21,770
+previously called the residual
+
+173
+00:07:21,770 --> 00:07:24,140
+error for standard
+linear regression.
+
+174
+00:07:24,140 --> 00:07:25,640
+We're going to show how
+
+175
+00:07:25,640 --> 00:07:27,830
+this quantity can
+be partitioned to
+
+176
+00:07:27,830 --> 00:07:31,955
+represent two sources of error
+for repeated measure data.
+
+177
+00:07:31,955 --> 00:07:34,370
+We first note the
+difference between
+
+178
+00:07:34,370 --> 00:07:36,065
+the population regression line
+
+179
+00:07:36,065 --> 00:07:38,375
+and the subject-specific
+regression line.
+
+180
+00:07:38,375 --> 00:07:40,385
+If this is the jth sample,
+
+181
+00:07:40,385 --> 00:07:44,795
+the common notation for
+this quantity is b sub 0_j,
+
+182
+00:07:44,795 --> 00:07:47,390
+and captures how much
+the regression line for
+
+183
+00:07:47,390 --> 00:07:49,790
+this specific sample differs from
+
+184
+00:07:49,790 --> 00:07:53,375
+the average regression
+line across all samples.
+
+185
+00:07:53,375 --> 00:07:56,900
+Using basic algebra, we
+can write the difference
+
+186
+00:07:56,900 --> 00:08:00,200
+between an observed and
+population predicted value,
+
+187
+00:08:00,200 --> 00:08:04,160
+y sub i_j minus y sub i_j hat as
+
+188
+00:08:04,160 --> 00:08:06,725
+the sum of b sub 0_j
+
+189
+00:08:06,725 --> 00:08:09,980
+and a quantity called
+epsilon sub i_j.
+
+190
+00:08:09,980 --> 00:08:12,290
+Pictorially, you can see
+
+191
+00:08:12,290 --> 00:08:15,065
+this relationship here for
+the first observation.
+
+192
+00:08:15,065 --> 00:08:17,000
+We have taken the distance from
+
+193
+00:08:17,000 --> 00:08:19,220
+the observed value y sub
+
+194
+00:08:19,220 --> 00:08:23,390
+1_j to the predicted
+value y sub 1_j hat
+
+195
+00:08:23,390 --> 00:08:25,940
+and partitioned it
+to be the sum of
+
+196
+00:08:25,940 --> 00:08:29,525
+b sub 0_j and epsilon sub 1_j.
+
+197
+00:08:29,525 --> 00:08:34,580
+The quantity b sub 0_j is
+a subject specific effect
+
+198
+00:08:34,580 --> 00:08:36,620
+corresponding to variation for
+
+199
+00:08:36,620 --> 00:08:38,750
+the subject-specific line about
+
+200
+00:08:38,750 --> 00:08:40,685
+the population regression line.
+
+201
+00:08:40,685 --> 00:08:44,630
+We call the epsilon sub i_j
+term random error as this
+
+202
+00:08:44,630 --> 00:08:46,250
+describes variation about
+
+203
+00:08:46,250 --> 00:08:49,040
+the subject specific
+regression line.
+
+204
+00:08:49,040 --> 00:08:51,590
+We can consider this partition
+
+205
+00:08:51,590 --> 00:08:54,290
+for any observed outcome
+for this sample.
+
+206
+00:08:54,290 --> 00:08:56,360
+The subjects specific effect
+
+207
+00:08:56,360 --> 00:08:59,030
+b sub 0_j remains constant for
+
+208
+00:08:59,030 --> 00:09:01,685
+all measurements on
+this specific sample
+
+209
+00:09:01,685 --> 00:09:05,495
+but the random error terms
+vary by observation.
+
+210
+00:09:05,495 --> 00:09:07,745
+When considered as a whole,
+
+211
+00:09:07,745 --> 00:09:10,580
+the random error terms
+for a given sample are
+
+212
+00:09:10,580 --> 00:09:11,990
+randomly distributed about
+
+213
+00:09:11,990 --> 00:09:14,150
+the subject-specific
+regression line.
+
+214
+00:09:14,150 --> 00:09:17,870
+Importantly, these terms are
+independent from each other.
+
+215
+00:09:17,870 --> 00:09:19,640
+That is, once we know
+
+216
+00:09:19,640 --> 00:09:21,740
+the subject-specific
+regression line,
+
+217
+00:09:21,740 --> 00:09:23,345
+the random error terms are
+
+218
+00:09:23,345 --> 00:09:26,465
+independent variations
+about that line.
+
+219
+00:09:26,465 --> 00:09:29,315
+Now, taking a step back,
+
+220
+00:09:29,315 --> 00:09:31,280
+I mentioned that each subject has
+
+221
+00:09:31,280 --> 00:09:33,920
+its own subject-specific
+regression line
+
+222
+00:09:33,920 --> 00:09:35,420
+and a corresponding difference
+
+223
+00:09:35,420 --> 00:09:37,910
+from the population
+regression line.
+
+224
+00:09:37,910 --> 00:09:41,840
+For example, here's the
+subject-specific line for
+
+225
+00:09:41,840 --> 00:09:45,530
+different sample corresponding
+to the blue observations.
+
+226
+00:09:45,530 --> 00:09:47,570
+This subject-specific line has
+
+227
+00:09:47,570 --> 00:09:48,980
+its own respective distance
+
+228
+00:09:48,980 --> 00:09:50,870
+from the population
+regression line,
+
+229
+00:09:50,870 --> 00:09:55,340
+indicated by b sub 0_j prime.
+
+230
+00:09:55,340 --> 00:09:58,550
+Just like the yellow
+dots were independently
+
+231
+00:09:58,550 --> 00:10:02,015
+distributed about the yellow
+subjects specific line,
+
+232
+00:10:02,015 --> 00:10:05,000
+the blue dots are independently
+distributed about
+
+233
+00:10:05,000 --> 00:10:07,025
+the blue subject-specific line
+
+234
+00:10:07,025 --> 00:10:10,295
+corresponding to
+independent random errors.
+
+235
+00:10:10,295 --> 00:10:13,220
+This way of thinking
+about random error is
+
+236
+00:10:13,220 --> 00:10:16,625
+very different than it was
+for simple linear regression.
+
+237
+00:10:16,625 --> 00:10:18,470
+On the left, we see that
+
+238
+00:10:18,470 --> 00:10:20,300
+the repeated measure
+data would produce
+
+239
+00:10:20,300 --> 00:10:22,610
+correlated dependent errors in
+
+240
+00:10:22,610 --> 00:10:24,740
+a standard linear
+regression framework,
+
+241
+00:10:24,740 --> 00:10:26,615
+which we just can't have.
+
+242
+00:10:26,615 --> 00:10:28,355
+The figure on the right,
+
+243
+00:10:28,355 --> 00:10:29,870
+summarizes the concept that
+
+244
+00:10:29,870 --> 00:10:31,610
+we introduced in this lecture,
+
+245
+00:10:31,610 --> 00:10:34,490
+that of subject-specific
+regression lines
+
+246
+00:10:34,490 --> 00:10:36,680
+and a partitioning
+of the error for
+
+247
+00:10:36,680 --> 00:10:38,780
+each observed outcome into
+
+248
+00:10:38,780 --> 00:10:42,095
+a subject-specific component
+and a random component.
+
+249
+00:10:42,095 --> 00:10:45,155
+Importantly, the random
+error components are
+
+250
+00:10:45,155 --> 00:10:47,540
+independent across
+all observations,
+
+251
+00:10:47,540 --> 00:10:49,429
+including within samples.
+
+252
+00:10:49,429 --> 00:10:51,080
+It is with this partition of
+
+253
+00:10:51,080 --> 00:10:53,630
+variation in mind that
+we will introduce
+
+254
+00:10:53,630 --> 00:10:55,670
+the mixed effect
+regression model for
+
+255
+00:10:55,670 --> 00:10:59,075
+repeated measure data
+in future lectures.
+
+256
+00:10:59,075 --> 00:11:02,900
+This lecture was all about
+error in regression models,
+
+257
+00:11:02,900 --> 00:11:05,555
+something you might not
+have focused on before.
+
+258
+00:11:05,555 --> 00:11:07,940
+But it's critical for
+understanding why
+
+259
+00:11:07,940 --> 00:11:09,980
+standard linear regression is not
+
+260
+00:11:09,980 --> 00:11:12,335
+valid for repeated measures data,
+
+261
+00:11:12,335 --> 00:11:16,640
+and for building intuition
+for the mixed effect model.
+
+262
+00:11:16,640 --> 00:11:19,460
+The repeated measure
+data leads to
+
+263
+00:11:19,460 --> 00:11:22,580
+correlated residuals in the
+linear regression framework,
+
+264
+00:11:22,580 --> 00:11:25,055
+a clear violation of assumptions.
+
+265
+00:11:25,055 --> 00:11:29,090
+If we instead think about
+the data for each sample as
+
+266
+00:11:29,090 --> 00:11:30,920
+being randomly distributed about
+
+267
+00:11:30,920 --> 00:11:33,140
+a subject-specific
+regression line,
+
+268
+00:11:33,140 --> 00:11:35,960
+and then those subject-specific
+regression lines
+
+269
+00:11:35,960 --> 00:11:39,125
+being distributed about the
+population regression line.
+
+270
+00:11:39,125 --> 00:11:42,125
+We can partition the error
+for each observation
+
+271
+00:11:42,125 --> 00:11:45,725
+into a subject-specific component
+and a random component.
+
+272
+00:11:45,725 --> 00:11:47,705
+We will use these concepts to
+
+273
+00:11:47,705 --> 00:11:49,790
+introduce a
+mathematical model for
+
+274
+00:11:49,790 --> 00:11:51,440
+longitudinal data called the
+
+275
+00:11:51,440 --> 00:11:55,093
+linear mixed effect
+regression model.
+

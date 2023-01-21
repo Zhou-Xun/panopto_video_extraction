@@ -1,0 +1,1596 @@
+1
+00:00:00,790 --> 00:00:05,260
+Okay, everybody, I'll come back to being in person.
+
+2
+00:00:05,280 --> 00:00:10,200
+Thanks for coming on Zoom last week while I was at a conference.
+
+3
+00:00:10,650 --> 00:00:16,229
+Today we're going to, I think, get to really the heart of this course,
+
+4
+00:00:16,230 --> 00:00:22,290
+which is multi-stage carcinogenesis modeling before we dive into the slides here.
+
+5
+00:00:22,400 --> 00:00:25,350
+Just when I talk through our learning objectives for the week,
+
+6
+00:00:26,370 --> 00:00:36,060
+so we're going to start by talking about the population level implications of the Armitage doll model, which we started last week in lab.
+
+7
+00:00:36,410 --> 00:00:39,750
+I'll play have a little bit of time today to work on that as well.
+
+8
+00:00:40,710 --> 00:00:45,770
+But we're going to move into the two stage clonal expansion model or TCE model.
+
+9
+00:00:46,170 --> 00:00:51,240
+Um, and the, what we call the initiation promotion progression paradigm.
+
+10
+00:00:52,330 --> 00:00:55,050
+Um, you couldn't find another P for that first one.
+
+11
+00:00:57,440 --> 00:01:06,410
+We're going to derive the differential equation model for the hazard of the TCE model, as with the birth death process last week.
+
+12
+00:01:06,770 --> 00:01:10,309
+We're going to go through some mathematics that, again,
+
+13
+00:01:10,310 --> 00:01:17,900
+largely want you to just see and have access to which you are going to be responsible for driving yourself.
+
+14
+00:01:18,890 --> 00:01:24,860
+Then we're going to simulate the TSI model and confirm the derived hazard under a constant parameter of assumption.
+
+15
+00:01:25,130 --> 00:01:27,560
+That will be the lab, which will start on Wednesday.
+
+16
+00:01:27,890 --> 00:01:35,060
+It is very parallel, very similar to what's being done in Lab eight, but we're going to do a lab with the archival model.
+
+17
+00:01:35,360 --> 00:01:38,780
+Lab nine will be the test model, but largely parallel.
+
+18
+00:01:41,170 --> 00:01:45,590
+And. So.
+
+19
+00:01:49,810 --> 00:01:56,640
+Before we sort of dive into. Talking about the modeling.
+
+20
+00:01:57,480 --> 00:02:00,040
+Let's talk about why we're doing the polling.
+
+21
+00:02:00,390 --> 00:02:11,430
+And so these graphs here are the log of the death rate versus the logging age for a number of different cancers.
+
+22
+00:02:11,850 --> 00:02:17,460
+And so we see colon, rectum, esophageal stomach, pancreas.
+
+23
+00:02:18,330 --> 00:02:23,790
+And the death rates for these cancers are almost linear on a lifelong scale.
+
+24
+00:02:28,980 --> 00:02:36,800
+And so what is a linear on a log log scale? So that means if you take both the log of the Y axis and the X axis here,
+
+25
+00:02:36,810 --> 00:02:42,300
+that in time, then we have the relationship likewise m times log of t plus b.
+
+26
+00:02:43,380 --> 00:02:55,860
+If I solve for y exponentially both sides, then I get to the analog t or if the one that's going to pull my t down into the b m is going to poke.
+
+27
+00:02:55,950 --> 00:03:03,090
+And so I'm just left with the Y equals Q the M and this is the formula for what we call power law relationship.
+
+28
+00:03:04,170 --> 00:03:17,480
+Okay. So our modeling question really is why would death rates for cancer be on a power law, have a power relationship?
+
+29
+00:03:19,380 --> 00:03:29,250
+And so this is one of the motivating questions I'll say that is sort of towards this idea of multi-stage carcinogenesis models.
+
+30
+00:03:29,880 --> 00:03:35,510
+And these models together have are under, uh, uh.
+
+31
+00:03:37,990 --> 00:03:40,030
+This idea underpins those models.
+
+32
+00:03:40,780 --> 00:03:46,720
+The idea that cancer is a consequence of the accumulation of genetic transformations in a single cell or its descendants.
+
+33
+00:03:47,230 --> 00:03:56,110
+And what I like to emphasize here is that a lot of these models were in the early 1950s before DNA was even really discovered.
+
+34
+00:03:57,610 --> 00:04:05,980
+And so or at least the idea that sort of the ideal DNA structure, I think probably some amount of genetic understanding is probably understood.
+
+35
+00:04:06,280 --> 00:04:23,260
+Obviously, we Bendall was quite a bit before the 1950s, but the sense of kind of multiple hits to the genome was being developed long time ago.
+
+36
+00:04:23,500 --> 00:04:29,649
+So I'm interested of the 1950s TCE model,
+
+37
+00:04:29,650 --> 00:04:34,510
+which is really what we're going to be focusing on this class because it remains one
+
+38
+00:04:34,510 --> 00:04:38,590
+of the sort of most important person analysis models was developed around 1980.
+
+39
+00:04:39,070 --> 00:04:47,860
+These are all mechanistic, biologically based models. So they're not just statistical models empirically describing the data.
+
+40
+00:04:49,420 --> 00:04:57,970
+So again, let's remember from cancer research, cancer survival lecture, that survival is the probability of surviving until at least 20.
+
+41
+00:04:58,840 --> 00:05:02,410
+Survival might be not having cancer.
+
+42
+00:05:02,800 --> 00:05:09,010
+It might mean not dying of cancer. I'm going to have to leave that up to the specific situation.
+
+43
+00:05:10,390 --> 00:05:16,840
+But the hazard is the instantaneous rates, the rate of events, given that no event has happened yet.
+
+44
+00:05:17,710 --> 00:05:27,520
+So we have to it's this derivative, which is a little bit complicated to log derivative, negative long derivative of survival.
+
+45
+00:05:27,820 --> 00:05:34,660
+But we had this sort of conditional factor at least that we've looked at time. T What's the probability of an event in the next delta?
+
+46
+00:05:34,660 --> 00:05:44,260
+T As Dr. T goes to zero? And what's useful about the hazard is that it really corresponds to age specific incidence of events.
+
+47
+00:05:45,520 --> 00:05:51,490
+And since a lot of our data is a specific incidence of events here in cancer incidence,
+
+48
+00:05:51,850 --> 00:05:55,540
+but also cancer death, other events that this is extremely useful for us.
+
+49
+00:05:58,000 --> 00:06:07,149
+So broadly speaking, the goal of multi-stage carcinogenesis models is to use a mechanistic understanding of the underlying
+
+50
+00:06:07,150 --> 00:06:13,840
+biology to derive a hazard function typically in a closed form or maybe just a simulation based.
+
+51
+00:06:14,290 --> 00:06:28,210
+So if we have this theory of some set of genetic hits here, then that's going to allow us to derive in close form or otherwise, a hazard function.
+
+52
+00:06:28,660 --> 00:06:31,970
+And then that hazard function is going to let us connect to data. Okay.
+
+53
+00:06:31,990 --> 00:06:38,650
+So that's the big picture of what we're doing in this lecture or actually the next couple of lectures.
+
+54
+00:06:39,430 --> 00:06:44,080
+So we're not trying to theory that's going to give us a hazard function, added emotion and access to data.
+
+55
+00:06:47,170 --> 00:06:52,000
+So let's start with the armored dog model, which we introduced in the lab last week.
+
+56
+00:06:52,990 --> 00:06:58,330
+We start with added stem cells. STEM cells mutate at a rate not to precancerous cells.
+
+57
+00:06:58,930 --> 00:07:05,490
+Pre-cancerous cells continue to accumulate mutations, and then individuals have cancer or die of cancer.
+
+58
+00:07:05,690 --> 00:07:08,890
+We want to think about it depending on the situation.
+
+59
+00:07:09,160 --> 00:07:14,290
+When one cell reaches more than two and each of these are exponential patterns.
+
+60
+00:07:18,420 --> 00:07:23,520
+So we started looking at this in the lab as well.
+
+61
+00:07:23,940 --> 00:07:28,170
+What are the survival hazard relationships for the Armitage doll?
+
+62
+00:07:28,920 --> 00:07:33,780
+Well, let's say that p i of t is the probability that a thousand state type.
+
+63
+00:07:35,130 --> 00:07:39,090
+Then if an individual will get cancer, when there is a willingness out,
+
+64
+00:07:39,540 --> 00:07:46,499
+then the probability of not having had that so is one minus penalty in the lab and it was five.
+
+65
+00:07:46,500 --> 00:07:51,930
+So survival simply one minus p five of T for that.
+
+66
+00:07:51,930 --> 00:08:00,149
+So since we have and stem cells, each of them are independent, then we're raising one minus penalty to the capital.
+
+67
+00:08:00,150 --> 00:08:04,680
+And that's your answer for question three or whatever it was for that.
+
+68
+00:08:06,600 --> 00:08:11,520
+We had this independence of cells, each cell. Probability that they're not in the Morgan State.
+
+69
+00:08:12,950 --> 00:08:17,850
+Okay, so if we have that survival, then we can write the hazard,
+
+70
+00:08:18,360 --> 00:08:23,760
+which we know is the negative log derivative or the derivative divided by the survival.
+
+71
+00:08:24,810 --> 00:08:33,719
+And although this is kind of like me looking, it's a little bit ugly as we begin to write it out using our chain rule for from derivatives,
+
+72
+00:08:33,720 --> 00:08:42,930
+from calculus, bring the end down and minus one times the derivative of the inside divided by the survival.
+
+73
+00:08:43,470 --> 00:08:47,910
+Simplify this becomes and derivative of one minus p in empty.
+
+74
+00:08:48,720 --> 00:08:51,930
+So what we need here is the m prime.
+
+75
+00:08:52,500 --> 00:08:58,100
+And here. Getting ahead of this.
+
+76
+00:08:59,780 --> 00:09:05,660
+Okay. So based on our knowledge of continuous time backup shipments from last week,
+
+77
+00:09:06,200 --> 00:09:12,439
+we can use the Common Core of equations to find the system of differential equations that govern the probabilities.
+
+78
+00:09:12,440 --> 00:09:16,640
+Panopto Japan and PM Prime. We can also write an equation for that.
+
+79
+00:09:16,970 --> 00:09:21,830
+So generally speaking, DDT of t is q.
+
+80
+00:09:22,250 --> 00:09:27,050
+Where Q is the matrix of transition intensities times p?
+
+81
+00:09:27,290 --> 00:09:30,620
+Where P is the matrix of probabilities?
+
+82
+00:09:34,250 --> 00:09:42,590
+For the Armitage doll model. That means we know that the.
+
+83
+00:09:45,840 --> 00:09:58,080
+It's like flipped. In light of what Chris is doing, the stem cells should be going here.
+
+84
+00:10:01,400 --> 00:10:08,600
+For a 0 to 1. Yeah, I think I have this, like, transposed.
+
+85
+00:10:08,600 --> 00:10:09,650
+I apologize about that.
+
+86
+00:10:10,400 --> 00:10:20,780
+We should be thinking about whether you whether stem cells go to state one state one cells go to state two and so on and so forth.
+
+87
+00:10:20,780 --> 00:10:27,830
+So be a little bit careful about that when you write it in your lab, and I will fix that in the lecture.
+
+88
+00:10:31,900 --> 00:10:39,910
+Okay. And then to get our set of differential equations.
+
+89
+00:10:42,790 --> 00:10:46,230
+I see. I see you step back here.
+
+90
+00:10:46,240 --> 00:10:52,880
+So. This is an incorrect way for this.
+
+91
+00:10:52,900 --> 00:11:05,830
+Q It's just a little bit different than written so that the derivative of P zero is simply once leaving P zero here,
+
+92
+00:11:07,930 --> 00:11:13,989
+and then that derivative of P one is what's coming in from p zero and what's leaving
+
+93
+00:11:13,990 --> 00:11:22,570
+P1 is this mean just not reading the slides or recent enough to remind us all.
+
+94
+00:11:23,080 --> 00:11:34,660
+Okay. So this system of equations can be solved in closed form, but it's just like kind of ugly and there's no point in doing that for our purposes.
+
+95
+00:11:35,020 --> 00:11:42,310
+So we're just going to do it numerically. And these are pretty simple set of differential equations to simulate numerically.
+
+96
+00:11:42,730 --> 00:11:47,410
+I gave you the code to do so. It's broadly speaking, in the lab.
+
+97
+00:11:48,640 --> 00:11:57,880
+And so once we have penalty and PM prime, we can actually solve for the zero hazard.
+
+98
+00:11:58,510 --> 00:12:05,380
+But just to get a sense of what's going on, this is not the real answer, but to get a sense of what's going on.
+
+99
+00:12:05,830 --> 00:12:12,640
+We can note that P of t is much less than one and we can make a tailor series of approximation for the hazard.
+
+100
+00:12:13,270 --> 00:12:18,760
+And if we do that, and this is not part of the lab, but just for your information,
+
+101
+00:12:19,180 --> 00:12:30,830
+then we can get that the hazard is approximately and times the product of all the mutation rates times two and minus one over and minus one factorial.
+
+102
+00:12:31,660 --> 00:12:35,560
+And well, it turns out that this is actually a power law relationship,
+
+103
+00:12:36,610 --> 00:12:47,260
+so that if I have a log of h, a T is the log of this thing plus and minus one times log t.
+
+104
+00:12:48,760 --> 00:12:57,760
+And so if we notice that the slope of this is a minus one that tells you about the number of mutations.
+
+105
+00:12:58,600 --> 00:13:03,130
+So just looking at the population level data.
+
+106
+00:13:06,400 --> 00:13:10,720
+May tell us something about the number of cancer mutations.
+
+107
+00:13:11,920 --> 00:13:17,470
+Okay. So the question is like, does this really explain cancer death rates?
+
+108
+00:13:18,820 --> 00:13:27,490
+Probably not quite, because although it does fit reasonably well for colon and rectum and some other cancers,
+
+109
+00:13:27,820 --> 00:13:34,270
+we have to always remember that just because a model does fit the data doesn't mean it's the right model.
+
+110
+00:13:35,110 --> 00:13:38,409
+Right. It's just that that that model can't explain the data.
+
+111
+00:13:38,410 --> 00:13:46,210
+It doesn't mean that it's real, particularly when it doesn't really fit some of the other data that it should also fit or be able to fit.
+
+112
+00:13:46,720 --> 00:13:53,530
+So if we look at lung bladder, we're getting kind of way off our straight lines here.
+
+113
+00:13:54,760 --> 00:14:02,230
+Also, if you look at some of the slopes for some cancers, you start to see, if I recall correctly,
+
+114
+00:14:02,560 --> 00:14:09,700
+numbers of mutations of the order of like 11, which just probably seems like a little bit too much to be realistic.
+
+115
+00:14:11,670 --> 00:14:14,940
+Okay. So this was the 1950s. It was the first try.
+
+116
+00:14:14,970 --> 00:14:19,290
+Yes. QUESTION Can you speak more specifically research with cancer mutations?
+
+117
+00:14:20,130 --> 00:14:29,280
+Right. So at the time, they are, I think, not really specific about what that is.
+
+118
+00:14:29,280 --> 00:14:37,170
+So what I'm going to say sort of generally speaking, is that there are a number of cancer genes that can be considered tumor suppressors,
+
+119
+00:14:37,830 --> 00:14:47,310
+meaning that that if there is like a retinoblastoma gene, a bunch of others,
+
+120
+00:14:47,580 --> 00:14:55,770
+that if that as long as that they are being active, that it's hard for cancer to happen.
+
+121
+00:14:56,130 --> 00:15:03,660
+But if they mutate in such a way that that gene is no longer active actually being expressed, then cancer is possible.
+
+122
+00:15:04,590 --> 00:15:11,280
+They have to knock out our cancer suppressors and then we need a cancer promoter potentially so that
+
+123
+00:15:11,280 --> 00:15:20,310
+you may need a mutated version of something like MEK and that causes unrelated regulated cell growth.
+
+124
+00:15:20,760 --> 00:15:33,090
+And so as we'll see, typically you need at least two hits to the genome, sometimes three, sometimes less than your hereditary condition.
+
+125
+00:15:33,600 --> 00:15:37,650
+Um, 11 seems like a lot. That makes sense.
+
+126
+00:15:38,340 --> 00:15:43,570
+Okay. So I think next, I think I'm going to give you an example next.
+
+127
+00:15:43,590 --> 00:15:45,060
+So what's wrong with this model?
+
+128
+00:15:45,480 --> 00:15:55,170
+So the thing that we've kind of ignored in the Ahmadinejad model is that pre-cancerous cells usually have a growth advantage over normal stem cells.
+
+129
+00:15:55,170 --> 00:16:02,520
+They grow faster, they expand. That's why we get tumors, because that's an I'm with excuse me, unregulated cell growth.
+
+130
+00:16:03,810 --> 00:16:16,049
+So if you have these pre-cancerous cells, then there are more cells that are further along in their mutation pathway and they are there.
+
+131
+00:16:16,050 --> 00:16:20,580
+Then there's more that are able to mutate further towards malignancy.
+
+132
+00:16:24,410 --> 00:16:28,450
+I think I have a picture that might be helpful in a second. Okay.
+
+133
+00:16:28,730 --> 00:16:38,110
+So historically speaking, a lot of the work happened over the next three decades from Armitage all down to here.
+
+134
+00:16:38,440 --> 00:16:43,179
+Mode of car. Benson and Newton around 1982.
+
+135
+00:16:43,180 --> 00:16:46,450
+Stage clonal expansion. Okay.
+
+136
+00:16:46,510 --> 00:16:52,540
+And so here, I think, is a particularly illuminating example, which is the case of retinoblastoma.
+
+137
+00:16:53,050 --> 00:16:59,710
+Retinoblastoma is a childhood cancer that forms in the archive, and it is very heritable.
+
+138
+00:17:01,210 --> 00:17:12,760
+So if you have retinoblastoma, your children are also likely to have retinoblastoma, and retinal may form in one eye or both eyes.
+
+139
+00:17:14,500 --> 00:17:19,840
+And what's interesting is that heritable cancers usually form in both eyes.
+
+140
+00:17:19,840 --> 00:17:23,980
+We call them bilateral, whereas the cancers that are not inherited.
+
+141
+00:17:24,220 --> 00:17:30,570
+So they're in children whose parents did not or not, did not have retinoblastoma are usually only in one eye.
+
+142
+00:17:31,790 --> 00:17:34,900
+Okay. That's already kind of telling us that maybe something is going on.
+
+143
+00:17:35,620 --> 00:17:42,340
+But more importantly to our purposes is that unilateral and bilateral cancers have different incidence curves.
+
+144
+00:17:43,990 --> 00:17:51,580
+So if we look at age in months, up to five years, and we look at the fraction of cases not yet diagnosed,
+
+145
+00:17:51,820 --> 00:17:54,790
+which is kind of a like weird way of showing incidence.
+
+146
+00:17:54,790 --> 00:18:05,440
+But that's what was done in the 1970s when this was done, is that they have these two very different curves for bilateral and unilateral.
+
+147
+00:18:06,490 --> 00:18:09,910
+And so why is this so?
+
+148
+00:18:11,470 --> 00:18:23,680
+Alfred Knutson, who came up with this? His hypothesis was that two heads, two mutations are needed for retinal for the retinoblastoma gene,
+
+149
+00:18:23,950 --> 00:18:28,629
+which at this point doesn't exist, is he's hypothesizing.
+
+150
+00:18:28,630 --> 00:18:34,900
+It exists that there is so that there exists some tumor suppressor,
+
+151
+00:18:35,460 --> 00:18:47,380
+the retinoblastoma gene that needs to have two heads to it and that occurring at the somatic level in the sporadic form.
+
+152
+00:18:47,710 --> 00:18:52,570
+So somatic means non non-sex cell.
+
+153
+00:18:54,520 --> 00:19:01,630
+So two heads in the non inherited form, one head and the inherited form is that the take away.
+
+154
+00:19:03,230 --> 00:19:14,799
+And so this hypothesis explain the data and kind of more excitingly for medicine actually predicted the exist of this existence,
+
+155
+00:19:14,800 --> 00:19:20,140
+of this tumor suppressor gene predicted in 1971 and the gene was discovered in 1987.
+
+156
+00:19:20,980 --> 00:19:28,300
+And in fact, we call it the retinoblastoma gene, even though actually it is a tumor suppressor basically for all cancers.
+
+157
+00:19:29,080 --> 00:19:40,570
+But because it was discovered in the context of retinoblastoma, that is it's given given the honor such as it is of that name.
+
+158
+00:19:42,630 --> 00:19:53,250
+Okay. And so this to hit hypothesized purposes of nude sense was kind of taken and cleaned
+
+159
+00:19:53,250 --> 00:19:59,400
+up a little bit and and expanded to be beyond more than just retinoblastoma.
+
+160
+00:19:59,760 --> 00:20:04,200
+By Morgan Carr who is my academic grandfather by the way,
+
+161
+00:20:05,040 --> 00:20:18,510
+and I have met once so my advisor's advisor and mind we had this idea that once you have normal stem cells that are initiated,
+
+162
+00:20:18,960 --> 00:20:31,650
+they are they grow faster, then they die at least compared to normal stem cells so that you have this kind of tumor growth.
+
+163
+00:20:32,520 --> 00:20:42,950
+So that initiation to pre-cancerous promotion of pre-cancerous cells towards tumor and then this conversion or progression to a malignant cell.
+
+164
+00:20:44,240 --> 00:20:47,520
+Um, so this idea of initiation promotion progression.
+
+165
+00:20:50,270 --> 00:20:58,309
+And the reason we care about initiation promotion progression, not only does it generally fit the data better as well,
+
+166
+00:20:58,310 --> 00:21:05,570
+sort of see you next couple of weeks, but it makes a big difference from the perspective of carcinogens.
+
+167
+00:21:06,530 --> 00:21:14,750
+So when we talk about a carcinogen or carcinogenic substance, not all of the substances are necessarily carcinogenic in the same way.
+
+168
+00:21:15,680 --> 00:21:20,899
+It's not just like you, you know, I know kind of like superhero movies are like exposed to this.
+
+169
+00:21:20,900 --> 00:21:26,390
+And instead of like immediately dying of cancer, like, I have superpowers in real life.
+
+170
+00:21:26,990 --> 00:21:35,270
+We generally want to distinguish between carcinogens that initiate cancer, so they react with DNA to cause mutations.
+
+171
+00:21:36,230 --> 00:21:44,690
+And then daughter cells inherit these mutations versus something that the promoter which causes proliferation of cancer cells.
+
+172
+00:21:45,410 --> 00:21:53,420
+So these typically don't interact with DNA, but they interact with some specific receptors or alter gene expression.
+
+173
+00:21:54,260 --> 00:21:57,139
+Cancer biology is not really my area of expertise,
+
+174
+00:21:57,140 --> 00:22:12,320
+but there are lots of different sort of cancer promoter genes and certain substances can advance or promote them to,
+
+175
+00:22:12,590 --> 00:22:23,329
+you know, using the same word multiple times here. And so this distinction between the initiator and the project promoter makes a big
+
+176
+00:22:23,330 --> 00:22:28,580
+difference in terms of one's likelihood and the age of which one gets cancer.
+
+177
+00:22:34,050 --> 00:22:39,050
+Right. And then progression of that. Okay. So then sorry, I'm confusing myself.
+
+178
+00:22:39,120 --> 00:22:48,300
+I set this up. So that's initiation. Promotion progression is not really something that we specifically have carcinogenic substances for.
+
+179
+00:22:48,570 --> 00:22:52,520
+Usually that's kind of just like more initiators happening after promotion.
+
+180
+00:22:52,800 --> 00:22:58,020
+Now it's just that progression only happens after you get the sort of sufficient mutation.
+
+181
+00:22:59,110 --> 00:23:06,940
+Um, so that you have one initiator causes you to lose one copy.
+
+182
+00:23:07,390 --> 00:23:15,160
+A promoter comes in, makes more of those pre-cancerous cells that there's more pre-cancerous cells.
+
+183
+00:23:15,430 --> 00:23:21,400
+Another initiator is more likely to hit that second copy or to your second copy of the gene.
+
+184
+00:23:24,620 --> 00:23:30,680
+So this is all kind of well and good from a theoretical perspective.
+
+185
+00:23:31,850 --> 00:23:35,030
+I mean, I kind of really got into some of the biological details.
+
+186
+00:23:35,330 --> 00:23:45,050
+It's not really the focus of this class, but we want to take this initiation promotion progression paradigm and turn it into a mathematical formula.
+
+187
+00:23:45,560 --> 00:23:50,150
+So to do that, we're going to say that we have a number of stem cells.
+
+188
+00:23:50,960 --> 00:23:58,340
+We're going to assume that's constant just because then the number is can be huge compared to anything else.
+
+189
+00:23:58,970 --> 00:24:01,550
+Because really we're talking about like the number of cells in a liver,
+
+190
+00:24:01,760 --> 00:24:09,170
+the number of cells in your skin relative to a small number of initiated cells.
+
+191
+00:24:10,250 --> 00:24:16,910
+And then Z will be the number of malignant cells. We'll say that stem cells initiate at a rate and you're not.
+
+192
+00:24:17,750 --> 00:24:26,900
+And once you're initiated, you grow it right alpha this dietary beta and you progress to malignancy with rate me one.
+
+193
+00:24:28,040 --> 00:24:37,029
+So it's a fairly small number of parameters here. And we're going to do what we've continued to be doing.
+
+194
+00:24:37,030 --> 00:24:40,480
+It's a little bit more complicated now. Okay.
+
+195
+00:24:40,510 --> 00:24:52,420
+Here's a typo. It should be a Z. So the probability of a PJ of T will be the probability that you have j initiated and k malignant cells.
+
+196
+00:24:52,870 --> 00:24:56,410
+Given that you started with nothing, he's going to say.
+
+197
+00:24:56,860 --> 00:25:02,440
+Now, if we want to talk about heritability, then, you know, maybe that's a different story and you want to put it in different numbers here.
+
+198
+00:25:03,490 --> 00:25:05,860
+But we're going to think about someone that has a blank slate.
+
+199
+00:25:08,460 --> 00:25:15,840
+And the probability generating function which we introduced last week is then PSI of wise is key,
+
+200
+00:25:16,560 --> 00:25:20,880
+which is the expectation of little y to the big y subtlety to the big z.
+
+201
+00:25:21,840 --> 00:25:24,990
+Keeping in mind that little y and little Z are dummy variables.
+
+202
+00:25:25,380 --> 00:25:32,700
+They have no real meaning. They exist only as placeholders, but big lie of T and Big Z of TR.
+
+203
+00:25:32,730 --> 00:25:44,790
+The actual numbers of cells. And so the expectation is the same over all possible values of initiated and malignant cells.
+
+204
+00:25:46,170 --> 00:25:51,420
+Probability of having that number with Y and Z is the K.
+
+205
+00:25:54,570 --> 00:25:59,460
+So we define T as the time of the first one. So that's going to be our event.
+
+206
+00:26:01,200 --> 00:26:05,370
+And so we're going to define survival and hazard in terms of this probability generating function.
+
+207
+00:26:05,730 --> 00:26:10,230
+So this is where probability generating functions are going to do a lot of heavy lifting for us.
+
+208
+00:26:10,290 --> 00:26:16,920
+So probability of T less than T means that K has to be zero.
+
+209
+00:26:17,590 --> 00:26:24,310
+We may know malignant cells. That means when I do my summation rather than writing, K is going to write zero.
+
+210
+00:26:24,690 --> 00:26:27,660
+And my son is now just over the number of initiate itself.
+
+211
+00:26:29,430 --> 00:26:42,570
+Turns out that it's very convenient that I can write this as save 10t because no matter this zero here is the zero of the zero.
+
+212
+00:26:43,230 --> 00:26:47,280
+And so anything I raise zero two becomes what?
+
+213
+00:26:49,290 --> 00:26:56,640
+What one? Okay.
+
+214
+00:26:57,300 --> 00:26:59,610
+So that's the survival.
+
+215
+00:26:59,610 --> 00:27:07,050
+Survival succinctly written in terms of the probability generative function and then the hazard I need to know also the derivative,
+
+216
+00:27:07,560 --> 00:27:13,350
+the probability, any question. So far, so good, at least in terms of setting up the problem.
+
+217
+00:27:16,640 --> 00:27:23,299
+So let's go back to thinking about our R probabilities.
+
+218
+00:27:23,300 --> 00:27:29,290
+So if I have j initiated and k malignant, where do I go from here?
+
+219
+00:27:29,300 --> 00:27:31,010
+Where did I get where does that come from?
+
+220
+00:27:32,030 --> 00:27:42,410
+Well, I can grow my cell by preconditioning cells that either happens with the growth or it happens with a new initiation.
+
+221
+00:27:45,440 --> 00:27:51,640
+And that could have happened and I could have gotten there if I had j minus one not to get in J.
+
+222
+00:27:53,000 --> 00:27:57,980
+Okay. So this is the kind of the J axis and then the k axis.
+
+223
+00:27:58,280 --> 00:28:09,650
+I got where I am from K minus one, two, k by mutation and one of the J cells.
+
+224
+00:28:09,950 --> 00:28:14,330
+We're thinking about this broadly as a mutation happens.
+
+225
+00:28:19,000 --> 00:28:36,630
+Creating one of each type so that we always have replacement when we do our mutations, because we're kind of like ignoring cell death.
+
+226
+00:28:36,640 --> 00:28:42,550
+We're not ignoring it. We're kind of sitting under the rug by doing this kind of replacement in our mutations.
+
+227
+00:28:45,470 --> 00:28:51,200
+And then I can get a new one by a new malignant cell by having a malignant conversion.
+
+228
+00:28:52,010 --> 00:28:59,330
+Okay. So that brings us back to the common core of equations for the probabilities.
+
+229
+00:29:00,110 --> 00:29:11,120
+So if I care about how my probability for Jane K are changing, well, I have all of my initial,
+
+230
+00:29:11,510 --> 00:29:19,730
+all of my new JS, my new pre initiated cells excuse me, my new initiated cells with the J minus one.
+
+231
+00:29:20,520 --> 00:29:31,390
+That's this guy. I have my cell deaths when I have j plus one cells.
+
+232
+00:29:34,110 --> 00:29:43,010
+That's this guy. And then leaving or starting.
+
+233
+00:29:43,020 --> 00:29:50,150
+I still still have one more. I get a lower net conversion from a K minus one.
+
+234
+00:29:50,750 --> 00:30:01,590
+So that's coming up. So I mean, pointing at the screen is really not helpful for people watching this again reported.
+
+235
+00:30:02,970 --> 00:30:13,260
+Then this final line is everything that's leaving the j k cell or position.
+
+236
+00:30:13,710 --> 00:30:22,080
+So that's any cell growth, cell death, slowing down conversion or a initiation.
+
+237
+00:30:25,130 --> 00:30:28,520
+Okay. So these are fairly straightforward to.
+
+238
+00:30:28,520 --> 00:30:33,590
+Right? If you kind of just like sit down and think about it, um, but what happens next?
+
+239
+00:30:34,880 --> 00:30:41,180
+So we're going to multiply both sides and sum by this y to the jay z to the k.
+
+240
+00:30:41,840 --> 00:30:45,710
+Y and z are dummy variables taking actually number of cells.
+
+241
+00:30:46,400 --> 00:30:51,650
+And we're gonna have the forward common ground equations for the probability generating function.
+
+242
+00:30:53,200 --> 00:31:02,720
+Um. We're not going to go through the math of that, but you can kind of get a get a feel for it.
+
+243
+00:31:04,970 --> 00:31:10,340
+What's nice is that on the left hand side, you have derivatives under a generating function.
+
+244
+00:31:10,400 --> 00:31:18,290
+With respect to T and here with respect to Y, this is a first order partial differential equation.
+
+245
+00:31:19,340 --> 00:31:24,860
+And I'm not sure many of if any of you have had a class on CDs.
+
+246
+00:31:25,190 --> 00:31:30,770
+It's okay if you haven't, but it's a first order partial differential equation,
+
+247
+00:31:31,040 --> 00:31:39,110
+which means that we can stop it from anything higher than first order becomes much more difficult.
+
+248
+00:31:39,170 --> 00:31:42,730
+There's a lot of theory involved in any first order pressure.
+
+249
+00:31:42,800 --> 00:31:48,770
+The differential equation can be solved by the method of characteristics, and this is the method of characteristics.
+
+250
+00:31:48,800 --> 00:31:53,210
+So again, if you don't have math in your background, don't worry about it.
+
+251
+00:31:53,540 --> 00:31:57,170
+I just want you to have seen it. I want you to access it to it in the slides.
+
+252
+00:31:58,850 --> 00:32:01,790
+But I'm not going to make you do it at any point.
+
+253
+00:32:02,990 --> 00:32:14,450
+So, um, if this is the general method of characteristics, some function you of two variables x and T often we think about as position and time,
+
+254
+00:32:14,630 --> 00:32:22,640
+but uh, it doesn't have to be that and it satisfies different first order differential equation.
+
+255
+00:32:23,000 --> 00:32:35,510
+So we have the first order, the derivatives for the two variables, plus some function of the variable itself.
+
+256
+00:32:37,550 --> 00:32:47,230
+So then we have characteristic curves which are essentially how position and time change over this other dummy variable.
+
+257
+00:32:47,240 --> 00:32:59,780
+S And if I write my differential, my, if I pretend that these functions A and B,
+
+258
+00:32:59,780 --> 00:33:05,150
+which are the coefficients on the first order partial differential equations.
+
+259
+00:33:05,630 --> 00:33:11,990
+I pretend that these are derivatives of X and T with respect to s.
+
+260
+00:33:12,770 --> 00:33:18,650
+Then this transforms the PD into this very simple function.
+
+261
+00:33:19,310 --> 00:33:24,140
+Dudes is c times u equals zero.
+
+262
+00:33:27,280 --> 00:33:30,940
+And that's much easier to work with than whatever nonsense we had before.
+
+263
+00:33:31,990 --> 00:33:46,180
+Not nonsense, but you know what I mean. So for the TSA model, what I'm doing is looking at the coefficients of the two partials and you itself.
+
+264
+00:33:47,080 --> 00:33:51,760
+So what I see is I move this over and it just has a one in front of it.
+
+265
+00:33:54,130 --> 00:33:57,910
+Here is all of this.
+
+266
+00:33:57,910 --> 00:34:04,750
+Here is my other coefficient in front of this partial.
+
+267
+00:34:05,080 --> 00:34:12,550
+And then here's my my you the CI and the stuff in front of it is my C.
+
+268
+00:34:19,620 --> 00:34:24,870
+So it divides with all of this nonsense. Do you see this has to be zero in the TDs.
+
+269
+00:34:24,870 --> 00:34:35,710
+Has to be more. If I do this this transforms the PD of CI into.
+
+270
+00:34:35,890 --> 00:34:41,320
+Simply decides is one minus y minus one times.
+
+271
+00:34:41,320 --> 00:34:49,899
+Muse zero times. X times. And so this is just a straightforward, not partial,
+
+272
+00:34:49,900 --> 00:34:58,810
+but ordinary differential equation that I can solve for as the exponential of the integral from zero to t of this expression.
+
+273
+00:34:59,620 --> 00:35:03,970
+Y minus one. New Times x Diaz.
+
+274
+00:35:04,330 --> 00:35:12,160
+But now I have to remember, y is actually a function of this is the function of my characteristic w variable.
+
+275
+00:35:13,750 --> 00:35:20,800
+Okay. So I need to know why it is for every value of best.
+
+276
+00:35:24,350 --> 00:35:32,300
+So we're solving for y we're trying to find s of t is view of one zero and t.
+
+277
+00:35:33,680 --> 00:35:41,420
+That means I know that y that time t has to be one so that this is true.
+
+278
+00:35:42,440 --> 00:35:47,360
+This side though. So the first position is a one and that corresponds to y.
+
+279
+00:35:48,230 --> 00:35:53,960
+So I'm solving this other ordinary differential equation subject to the condition y of two equals one.
+
+280
+00:36:01,640 --> 00:36:07,190
+It's a little bit tricky because we're increasing our value of Y at time t
+
+281
+00:36:08,450 --> 00:36:14,740
+and so we actually need to integrate backwards from T to any previous value.
+
+282
+00:36:14,750 --> 00:36:18,010
+S. S actually has the same. Uh.
+
+283
+00:36:21,290 --> 00:36:26,800
+Uh, let's say span as time because GH equals one.
+
+284
+00:36:27,310 --> 00:36:35,470
+So so it's just a shift of t it has the same, the same progression and t is the same progression and that's.
+
+285
+00:36:37,930 --> 00:36:46,660
+So since we're starting at TI, we actually need to integrate backwards to get to zero.
+
+286
+00:36:47,860 --> 00:36:56,979
+So we're going to do is define Tao as T minus S, the time between one's current age T and some previous H.
+
+287
+00:36:56,980 --> 00:37:06,970
+S. And so then we're going to integrate Tao as a positive from zero to T, but that positive just goes from where we start all the way back to.
+
+288
+00:37:12,310 --> 00:37:16,750
+And so I've transformed my differential equation to be not as a function of mass,
+
+289
+00:37:17,290 --> 00:37:22,960
+but as a function of how this makes our lives a little bit easier from the integration perspective.
+
+290
+00:37:24,220 --> 00:37:28,990
+And so you're probably not expecting like this level of like deep differential equations here.
+
+291
+00:37:30,460 --> 00:37:33,910
+Don't worry, I'm not going to use it for anything other than the outcome.
+
+292
+00:37:34,240 --> 00:37:40,090
+But I think it's important to see it. So now I have a set of differential equations.
+
+293
+00:37:41,230 --> 00:37:48,890
+My x is just going to be y. X two is the derivative y with respect to time x three.
+
+294
+00:37:49,300 --> 00:37:53,830
+Is this differential equation integrated from t -20?
+
+295
+00:37:54,400 --> 00:38:00,850
+Again, this is the equation for my probability generating function.
+
+296
+00:38:03,680 --> 00:38:11,660
+And then the negative derivative of the log of x three is going to be x four.
+
+297
+00:38:12,080 --> 00:38:18,050
+So crucially, x three is S50 x four is the hazard function.
+
+298
+00:38:18,530 --> 00:38:27,210
+So at the beginning, the big goal of this all is to make theory, to get to h of t h of t is going to bring us to the table.
+
+299
+00:38:31,940 --> 00:38:44,810
+So to simulate this, to stage an expansion model, we need to solve these four differential equations when those initial conditions in the corner.
+
+300
+00:38:45,080 --> 00:38:51,860
+So I don't it doesn't matter to me if you want to forget everything else you've seen in this section of the lecture.
+
+301
+00:38:52,280 --> 00:38:57,200
+But if you want to come back and say, how do I do the two stage one expansion model?
+
+302
+00:38:57,860 --> 00:39:03,800
+This is the slide you need to refer or not, remember. But I can come back and look up because who's going to remember this?
+
+303
+00:39:04,340 --> 00:39:09,860
+I don't. I mean, every time I go back to my thesis and I'm just like, what are the equations for this?
+
+304
+00:39:10,460 --> 00:39:14,010
+Did I derive this correctly? Okay.
+
+305
+00:39:15,570 --> 00:39:25,650
+What's funny? What's funny about these is that you have to solve these sets of equations for every single value of T independently,
+
+306
+00:39:27,180 --> 00:39:32,310
+because this title doesn't correspond to your real age.
+
+307
+00:39:32,610 --> 00:39:41,130
+It corresponds to the dummy variable that you that needs to integrate all of your your experience.
+
+308
+00:39:41,310 --> 00:39:48,180
+Physically, it's your cumulative. It's this idea of the cumulative exposure over your life to this point.
+
+309
+00:39:50,790 --> 00:39:54,360
+And so at each one, you solve a set of differential equations.
+
+310
+00:39:54,630 --> 00:40:00,390
+At age two, you solve a set of differential equations going all the way back to zero three, you set this differential equation.
+
+311
+00:40:00,390 --> 00:40:02,430
+So differential equations going back to zero.
+
+312
+00:40:02,700 --> 00:40:08,189
+And each time you go back to zero, progressing forward, that makes this a little bit computationally intensive,
+
+313
+00:40:08,190 --> 00:40:13,200
+even though any individual run of these is not that computational intensive.
+
+314
+00:40:15,470 --> 00:40:19,400
+Okay. So make our lives a little bit easier.
+
+315
+00:40:20,000 --> 00:40:26,420
+Let's assume for a moment that alpha beta you serum you want are constant over our lifetimes.
+
+316
+00:40:28,400 --> 00:40:38,840
+And this may very well be true in the context that you're not exposed to carcinogenic compounds, which, you know,
+
+317
+00:40:39,230 --> 00:40:47,510
+we know that people are, you know, even things like HPV is a cancer initiator and that depends on age.
+
+318
+00:40:48,560 --> 00:40:53,240
+And so but taking a step back, assuming that they're at least broadly constant,
+
+319
+00:40:53,510 --> 00:41:01,280
+then there are closed form solutions and we don't have to solve the differential equations.
+
+320
+00:41:02,510 --> 00:41:05,900
+And so for constant parameters, it has the form.
+
+321
+00:41:06,800 --> 00:41:12,840
+The survival is quantity Q minus over Q if the minus p,
+
+322
+00:41:12,860 --> 00:41:23,600
+t minus up to the -50 all raised the value are when you can take the derivative, uh, negative log derivative and get the hazard there.
+
+323
+00:41:24,530 --> 00:41:27,559
+And these are a function P and Q are not our parameters.
+
+324
+00:41:27,560 --> 00:41:33,680
+Pink, Q and R are a function of alpha beta x three and.
+
+325
+00:41:37,190 --> 00:41:52,810
+So what's going on with this PCU in LA? So what we've seen is that Alpha, Beta, V0 One and X do not individually impact the hazard.
+
+326
+00:41:53,470 --> 00:41:57,160
+So they're not identifiable and cannot be uniquely estimated from the data.
+
+327
+00:41:57,640 --> 00:42:03,460
+Instead, these three parameters are identifiable parameter combinations.
+
+328
+00:42:05,260 --> 00:42:12,100
+Okay. So this is important because what it's telling us is if we look at the data and see some curve,
+
+329
+00:42:12,670 --> 00:42:18,010
+we can't determine like the true tumors growth rate, generally speaking.
+
+330
+00:42:19,060 --> 00:42:24,160
+But we can we can observe these values so that it helps us to be able to interpret these values.
+
+331
+00:42:25,510 --> 00:42:33,010
+And so the way that we generally associate them are as zero alpha.
+
+332
+00:42:33,460 --> 00:42:36,850
+We generally think of this as the initiation parameter,
+
+333
+00:42:37,430 --> 00:42:47,800
+or it's not so much that this is the initiation parameter as changes to initiation are reflected in this parameter.
+
+334
+00:42:48,370 --> 00:42:50,320
+This is the only place that you've seen these zero.
+
+335
+00:42:53,010 --> 00:43:04,050
+P If we were to solve or to approximate this, uh, if we forget about this alpha me one for a second,
+
+336
+00:43:04,890 --> 00:43:11,010
+the square root of the square simplifies these terms of the same.
+
+337
+00:43:12,360 --> 00:43:20,640
+And so what you're going to get is that P is approximately the negative of alpha minus beta.
+
+338
+00:43:22,560 --> 00:43:25,890
+And so this has to do with growth, minus death.
+
+339
+00:43:26,760 --> 00:43:33,540
+This is the promotion parameter. And then finally progression.
+
+340
+00:43:34,830 --> 00:43:38,040
+We could do some alternative things going on here.
+
+341
+00:43:39,070 --> 00:43:42,600
+Um, if you, if you take the plus instead of the minus,
+
+342
+00:43:43,200 --> 00:43:50,090
+what you get is approximately one over one minus been over alpha because the only place that mu one shows up.
+
+343
+00:43:50,130 --> 00:44:00,600
+We often think about this is the progression parameter. We're making a couple of like throwaway assumptions here like, okay, this is a constant.
+
+344
+00:44:00,810 --> 00:44:09,360
+So this value Q is not actually the mutation rate, but any changes in mutation rate will be reflected in this parameter.
+
+345
+00:44:14,730 --> 00:44:20,430
+Okay. So that is what I have for today. Any questions? I know I threw a lot of math at today,
+
+346
+00:44:22,080 --> 00:44:33,389
+but the big takeaway here is that we have this initiation promotion progression paradigm and we have underlying
+
+347
+00:44:33,390 --> 00:44:41,310
+mathematics through modeling that are going to connect this initiation promotion progression paradigm to data,
+
+348
+00:44:42,870 --> 00:44:52,499
+which I think we'll get to in two weeks or so for lab time, which we'll do on Wednesday, we're going to basically do the same thing.
+
+349
+00:44:52,500 --> 00:44:55,170
+We're doing it Lab eight, which I assume we will continue today.
+
+350
+00:44:56,160 --> 00:45:04,500
+If there's time here, there's plenty of time and we're going to confirm that our theoretical hazard matches the simulations,
+
+351
+00:45:05,400 --> 00:45:09,900
+and I'll give you plenty of code as well. So any questions?
+
+352
+00:45:11,610 --> 00:45:14,999
+If not, we'll stop here, let you get back to the amortized.
+
+353
+00:45:15,000 --> 00:45:28,229
+Almost so by when you say that they reflect the initiation, promotion, the parameters or fact or initiation progression regression.
+
+354
+00:45:28,230 --> 00:45:32,100
+But they are. Yeah.
+
+355
+00:45:32,210 --> 00:45:42,800
+So in a couple of weeks we will merge the two stage colon expansion model with each period cohort models, for example.
+
+356
+00:45:43,340 --> 00:45:52,700
+And so what you might say is if they have an age period or cohort from an age because for assuming age independent but a period or cohort effect an R,
+
+357
+00:45:52,700 --> 00:46:03,290
+P or Q, then anything you multiply by R can be thought of as being a multiple of multiplied by you.
+
+358
+00:46:03,320 --> 00:46:10,010
+Not so. We don't really think that like tumor growth is going to change necessarily, but exposure to carcinogens might.
+
+359
+00:46:17,200 --> 00:46:35,999
+Okay. And what we'll typically see is that actually a lot of changes in cancer incidence are can be seen as fitting best as changing initiation as
+
+360
+00:46:36,000 --> 00:46:50,250
+opposed to promotion of progression through these parameters interpretable as in like you see like a high value for a promotion for peer.
+
+361
+00:46:50,940 --> 00:47:02,429
+Yeah. You'd be like, okay, yeah. So what we would say is you could compare two cancers to this two stage one expansion model and you would say which
+
+362
+00:47:02,430 --> 00:47:12,390
+cancer tumors grow faster and you would say I based on my fit of the two stage inspiration model and this value of P,
+
+363
+00:47:13,080 --> 00:47:19,350
+I think that this cancer grows faster from a population average perspective.
+
+364
+00:47:19,920 --> 00:47:24,630
+Can you compare the exact values, say like it's a ring a piece twice as much?
+
+365
+00:47:25,260 --> 00:47:34,780
+Yes. Okay. Yes. Okay. Okay.
+
+366
+00:47:35,540 --> 00:47:43,880
+Could you go over the the diagram with the blue boxes then you know where they're not the cool.
+
+367
+00:47:45,430 --> 00:47:53,830
+Okay. So the idea here is to say, what are the rates associated with each of these transitions?
+
+368
+00:47:55,600 --> 00:48:09,640
+So let's first look at the transitions and we care about this specific box of where we are currently with J initiated and cabling and cells.
+
+369
+00:48:10,330 --> 00:48:14,200
+First question is, how did we get here? Well,
+
+370
+00:48:15,220 --> 00:48:23,950
+we could have come from a situation where there is one fewer initiated cells and then either there was
+
+371
+00:48:23,950 --> 00:48:34,060
+a growth of of an initiate itself or a stem cell had a mutation that takes us from J minus one to J.
+
+372
+00:48:36,090 --> 00:48:44,910
+So that's why I like that a alphanumeric system so that either eve or the two things you said.
+
+373
+00:48:45,270 --> 00:48:51,659
+So either I initiated cell split the two.
+
+374
+00:48:51,660 --> 00:48:59,070
+Yeah. So that's alpha AJ minus one. Yeah. Or a stem cell had an initiation mutation.
+
+375
+00:48:59,160 --> 00:49:10,450
+Okay. To me zero times X so if. It could also have been the case that we had j plus one initiated cells, but one of those died.
+
+376
+00:49:11,080 --> 00:49:14,280
+So beta times j plus one. Okay.
+
+377
+00:49:17,820 --> 00:49:20,940
+It could also have been that we had one fewer malignant cells,
+
+378
+00:49:22,110 --> 00:49:29,730
+but one of the initiated cells had had a malignant transformation, a new one times jack.
+
+379
+00:49:31,530 --> 00:49:35,490
+That's all the ways that we could have gotten to where we are. Okay.
+
+380
+00:49:37,290 --> 00:49:40,650
+What are all the ways that we leave where we are?
+
+381
+00:49:42,450 --> 00:49:46,280
+Well, it's the same processes, but in different directions.
+
+382
+00:49:46,290 --> 00:50:00,090
+So if we have a cell and initiated cell growth Alpha Jay or another initiating mutation in zero x that moves us to the right,
+
+383
+00:50:00,840 --> 00:50:05,820
+we have a cell death of initiate cell with better times j taking us to the left.
+
+384
+00:50:07,440 --> 00:50:18,570
+And if we have K initiated cells, we can get to this one initiated cells with an initiated cell moving a conversion so a new one times j.
+
+385
+00:50:20,040 --> 00:50:24,600
+So malignant cells, they don't die in the model. So typically speaking.
+
+386
+00:50:27,290 --> 00:50:35,090
+Because the model ends as soon as we have a single case we just like typically don't bother model like that.
+
+387
+00:50:35,750 --> 00:50:45,200
+Yeah. But um, what I will say is that the next version of the model has multiple stages,
+
+388
+00:50:45,200 --> 00:50:51,110
+initiated cells, and each of them have actually been approved back here,
+
+389
+00:50:53,630 --> 00:51:04,880
+here and there that you might have multiple different sets of pre initiated cells, each of which could have clonal expansion.
+
+390
+00:51:05,360 --> 00:51:08,720
+Okay, depending on how fancy you want to get.
+
+391
+00:51:09,410 --> 00:51:16,580
+What I generally say is that like if you have multiple rounds of clone expansion, it's not identifiable anyway.
+
+392
+00:51:17,720 --> 00:51:21,560
+Um, so you want to be careful about just like slapping.
+
+393
+00:51:22,280 --> 00:51:29,870
+I've seen some like, very bad papers in the literature and, um, predatory journals where they're like,
+
+394
+00:51:30,080 --> 00:51:39,470
+we fed up to 15 stages of clonal expansion and like, if the 10th was the best, I'm like, that doesn't mean anything.
+
+395
+00:51:39,890 --> 00:51:45,680
+And you're like, at that point, they'll look the same and it's not biologically based.
+
+396
+00:51:45,920 --> 00:51:55,280
+What does it mean to need ten, you know, prediction initiation stages for a lung cancer or I think the breast cancer in this case,
+
+397
+00:51:55,970 --> 00:52:03,860
+it's not really biologically plausible, especially when I think for breast cancer, like a two stage model, that's basically just as well.
+
+398
+00:52:04,700 --> 00:52:09,950
+So we'll be careful about that. Other questions.
+
+399
+00:52:17,700 --> 00:52:18,540
+Stop us here.
+

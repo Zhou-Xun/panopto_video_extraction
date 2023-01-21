@@ -1,0 +1,532 @@
+1
+00:00:10,120 --> 00:00:11,507
+After watching this video,
+
+2
+00:00:11,507 --> 00:00:15,650
+you will be able to use PROC GENMOD
+to run Poisson regression.
+
+3
+00:00:15,650 --> 00:00:18,089
+Let's use the following example.
+
+4
+00:00:18,089 --> 00:00:24,100
+We have a cohort of 332 subjects who
+will follow up an average of 14 years.
+
+5
+00:00:24,100 --> 00:00:27,432
+Incident coronary heart
+disease events were collected.
+
+6
+00:00:27,432 --> 00:00:31,600
+That's the outcome variable
+called CHD in this data set.
+
+7
+00:00:31,600 --> 00:00:36,406
+And we're interested in knowing it being
+physically active would be protected for
+
+8
+00:00:36,406 --> 00:00:39,880
+coronary heart disease,
+which we already know.
+
+9
+00:00:39,880 --> 00:00:43,312
+So, we will also use one
+potential confounder job.
+
+10
+00:00:43,312 --> 00:00:47,901
+That is coded as one for high income jobs,
+two for million income jobs,
+
+11
+00:00:47,901 --> 00:00:50,470
+and three for low income jobs.
+
+12
+00:00:50,470 --> 00:00:55,370
+Here you can see a print out of the tenth
+first observations in the data set.
+
+13
+00:00:55,370 --> 00:00:59,996
+Note that the variable y represents
+time in a study in years, so
+
+14
+00:00:59,996 --> 00:01:03,360
+that's our person time.
+
+15
+00:01:03,360 --> 00:01:08,345
+Now, let's think of how to calculate
+an incidence rate ratio kind of manually.
+
+16
+00:01:08,345 --> 00:01:12,977
+The first thing you have to get is the
+incidence rate of coronary heart disease
+
+17
+00:01:12,977 --> 00:01:15,698
+among people who are not
+physically active.
+
+18
+00:01:15,698 --> 00:01:19,796
+And then, the incidence rate among
+people who are physically active.
+
+19
+00:01:19,796 --> 00:01:23,940
+And then just divide them to
+get incidence rate ratio.
+
+20
+00:01:23,940 --> 00:01:27,109
+We're going to use PROC MEANS
+in specifying the options SUM.
+
+21
+00:01:27,109 --> 00:01:31,441
+So, we get the sum of events and the sum
+of time by physical activity strata.
+
+22
+00:01:31,441 --> 00:01:36,490
+That way we don't have to do
+everything completely manually.
+
+23
+00:01:36,490 --> 00:01:38,208
+So, now with those figures,
+
+24
+00:01:38,208 --> 00:01:43,540
+we just need to calculate our incidence
+rate ratio manually an we get 0.53.
+
+25
+00:01:43,540 --> 00:01:47,316
+Since our reference is people
+who are not physically active.
+
+26
+00:01:47,316 --> 00:01:52,266
+The way we interpret this incidence rate
+ratio is, that being physically active
+
+27
+00:01:52,266 --> 00:01:57,960
+decreases the rate of coronary
+heart disease events by 47%.
+
+28
+00:01:57,960 --> 00:02:02,427
+Now, let's do exactly the same, but
+with our Poisson regression model.
+
+29
+00:02:02,427 --> 00:02:07,233
+Remember, that Poisson models are used
+to model counts, and rates are count.
+
+30
+00:02:07,233 --> 00:02:12,043
+And when exponentiation the better from
+the Poisson model we get an incidence
+
+31
+00:02:12,043 --> 00:02:13,809
+rate ratio.
+
+32
+00:02:13,809 --> 00:02:18,445
+The first thing we have to do before
+going into PROC GENMOD is to create our
+
+33
+00:02:18,445 --> 00:02:20,339
+offset variable.
+
+34
+00:02:20,339 --> 00:02:22,036
+And we do that in other step.
+
+35
+00:02:22,036 --> 00:02:26,825
+I'm going to create a temporary that I set
+called Poisson from my original data set,
+
+36
+00:02:26,825 --> 00:02:29,057
+and I'm going to create the variable.
+
+37
+00:02:29,057 --> 00:02:32,991
+Remember that there are offset variable
+has to be the natural log of time,
+
+38
+00:02:32,991 --> 00:02:34,879
+I'll call it, ly.
+
+39
+00:02:34,879 --> 00:02:37,935
+And then we can run our Poisson model and
+PROC GENMOD.
+
+40
+00:02:37,935 --> 00:02:43,159
+In our model statement we have
+the outcome = exposere, same as before.
+
+41
+00:02:43,159 --> 00:02:46,919
+The outcome here is CHD, and
+this posture is physical.
+
+42
+00:02:46,919 --> 00:02:50,807
+In the options, we specify
+the appropriate options for Poisson,
+
+43
+00:02:50,807 --> 00:02:53,525
+the Poisson distribution,
+and the log link.
+
+44
+00:02:53,525 --> 00:02:57,414
+And there is one knew thing here
+specific to the Poisson model.
+
+45
+00:02:57,414 --> 00:03:02,044
+We have to tells us which is our offset
+variable using their offset option.
+
+46
+00:03:02,044 --> 00:03:05,404
+Here, we add the name of
+the variable we just created, ly.
+
+47
+00:03:05,404 --> 00:03:09,918
+Note also that I declared the physical
+activity variable in their classes
+
+48
+00:03:09,918 --> 00:03:14,431
+statement, not because it's totally
+necessary, since this is a binary
+
+49
+00:03:14,431 --> 00:03:19,169
+variable, but because then I can
+specify the reference I want to use.
+
+50
+00:03:19,169 --> 00:03:23,300
+In this case, I want people who are not
+physically active to be the reference.
+
+51
+00:03:23,300 --> 00:03:27,246
+If you don't do that, SAS will
+choose usually the higher value or
+
+52
+00:03:27,246 --> 00:03:31,431
+the variable, and in this particular
+example you don't want that.
+
+53
+00:03:31,431 --> 00:03:34,379
+Okay, so now let's look at the output.
+
+54
+00:03:34,379 --> 00:03:38,779
+The first part of the output is kind
+of similar to what we've seen before.
+
+55
+00:03:38,779 --> 00:03:42,389
+It gives you some information about
+the model that you already know.
+
+56
+00:03:42,389 --> 00:03:45,123
+It gives you the Number of
+Reservations Read and Use,
+
+57
+00:03:45,123 --> 00:03:48,421
+which is always important to make
+sure you have missing values.
+
+58
+00:03:48,421 --> 00:03:52,669
+And it gives you the levels
+of the physical value.
+
+59
+00:03:52,669 --> 00:03:56,644
+Now, the next part has some similarities
+to would you have seen before,
+
+60
+00:03:56,644 --> 00:04:00,179
+because it gives you tests
+to assess goodness of fit.
+
+61
+00:04:00,179 --> 00:04:04,112
+But there is something here that
+we have not introduced before, but
+
+62
+00:04:04,112 --> 00:04:06,182
+is useful for Poisson, deviance.
+
+63
+00:04:06,182 --> 00:04:10,442
+I'm not going to cover any details
+about this goodness of fit test, but
+
+64
+00:04:10,442 --> 00:04:14,355
+you just need to know that values
+close to one indicate a good fit.
+
+65
+00:04:14,355 --> 00:04:18,704
+In there, much higher than one it means
+that there is overdispersion, and
+
+66
+00:04:18,704 --> 00:04:24,419
+if they are much lower than one,
+it means that there is underdispersion.
+
+67
+00:04:24,419 --> 00:04:25,483
+And what is that?
+
+68
+00:04:25,483 --> 00:04:28,239
+Well, underdispersion is kind of rare, but
+
+69
+00:04:28,239 --> 00:04:33,326
+overdispersion may happens in Poisson when
+they variance is larger than the mean.
+
+70
+00:04:33,326 --> 00:04:36,931
+Which is one assumption of
+the distribution of the model.
+
+71
+00:04:36,931 --> 00:04:41,421
+So, in this situation there are things
+that can be done like scaling it, or
+
+72
+00:04:41,421 --> 00:04:44,008
+using a negative binomial distribution.
+
+73
+00:04:44,008 --> 00:04:48,439
+But this is too much information, and
+we're not going into the details,
+
+74
+00:04:48,439 --> 00:04:53,259
+just mention it here so
+it will bring and build for the future.
+
+75
+00:04:53,259 --> 00:04:57,599
+So, for now we are really want to do
+is to focus on our parameter estimates.
+
+76
+00:04:57,599 --> 00:05:01,712
+And our parameter table is similar to
+before with betas, but now there is
+
+77
+00:05:01,712 --> 00:05:06,511
+something called scale, which is where you
+can fix the problem of overdispersion.
+
+78
+00:05:06,511 --> 00:05:10,592
+But as mentioned before, we are not
+going to do anything about it yet.
+
+79
+00:05:10,592 --> 00:05:15,319
+And this is fixed to one by default,
+so you can ignore it for now.
+
+80
+00:05:15,319 --> 00:05:18,926
+However, if you look at your data for
+the variable physical and
+
+81
+00:05:18,926 --> 00:05:21,528
+you exponentiate the data you get 0.53.
+
+82
+00:05:21,528 --> 00:05:26,424
+Which is exactly the same incidence rate
+ratio that we calculated manually before.
+
+83
+00:05:26,424 --> 00:05:28,491
+Just in case you didn't believe me,
+
+84
+00:05:28,491 --> 00:05:33,679
+that way we could get incidence
+rate ratios from Poisson models.
+
+85
+00:05:33,679 --> 00:05:37,104
+Now, of course, you're not going to
+be exponentiating your data manually.
+
+86
+00:05:37,104 --> 00:05:40,305
+Also mostly, because you don't want
+to calculate the confidencetiate
+
+87
+00:05:40,305 --> 00:05:43,139
+intervals manually,
+which could be a thing.
+
+88
+00:05:43,139 --> 00:05:46,808
+So we can use an estimate
+statement to calculate that.
+
+89
+00:05:46,808 --> 00:05:52,139
+Note that we are using not
+physically active as the reference.
+
+90
+00:05:52,139 --> 00:05:54,109
+If you invert them -1 1,
+
+91
+00:05:54,109 --> 00:05:58,573
+then you can change the reference
+in the estimate statement.
+
+92
+00:05:58,573 --> 00:06:03,082
+Now, being physically active will
+be the reference, and therefore,
+
+93
+00:06:03,082 --> 00:06:06,026
+the incidence reate ratio we get is 1.89.
+
+94
+00:06:06,026 --> 00:06:10,304
+Which should be interpreted as
+the rate of coronary heart disease is
+
+95
+00:06:10,304 --> 00:06:13,981
+1.89 times higher among
+people not physically active
+
+96
+00:06:13,981 --> 00:06:17,759
+compared to people who
+are physically active.
+
+97
+00:06:17,759 --> 00:06:21,164
+Don't worry if you don't
+understand what that -1 1 means,
+
+98
+00:06:21,164 --> 00:06:23,101
+because I have not explaining yet.
+
+99
+00:06:23,101 --> 00:06:26,722
+So, I'll go back to that when
+we see the log-binomial models.
+
+100
+00:06:26,722 --> 00:06:31,549
+For now, just a little faith, use the code
+as it is, and you will see later.
+
+101
+00:06:31,549 --> 00:06:33,512
+And finally, the rest is the same.
+
+102
+00:06:33,512 --> 00:06:35,148
+Adjusting for confounding or
+
+103
+00:06:35,148 --> 00:06:39,796
+doing statistical interactions will be the
+same as we did with the previous models.
+
+104
+00:06:39,796 --> 00:06:43,268
+As an example, let's look here
+at what happens if we adjust for
+
+105
+00:06:43,268 --> 00:06:47,149
+occupation, which could be
+a potential confounder.
+
+106
+00:06:47,149 --> 00:06:50,300
+The strategy will be the same,
+compare their model with and
+
+107
+00:06:50,300 --> 00:06:51,694
+without the confounder.
+
+108
+00:06:51,694 --> 00:06:55,474
+And as you can see here, the better for
+physical does not really change
+
+109
+00:06:55,474 --> 00:06:59,869
+appreciably, so we will probably
+adjust for job in the end.
+
+110
+00:06:59,869 --> 00:07:04,373
+So, in summary, in this video, we use
+PROC GENMOD to run Poisson regression.
+
+111
+00:07:04,373 --> 00:07:09,120
+In the next video,
+we will move into log-binomial regression.
+

@@ -1,0 +1,391 @@
+1
+00:00:09,140 --> 00:00:11,745
+Hey, this is Matt Zawistowski.
+
+2
+00:00:11,745 --> 00:00:13,455
+In this lecture we're
+going to discuss
+
+3
+00:00:13,455 --> 00:00:16,500
+interaction terms for our mixed
+effect regression models,
+
+4
+00:00:16,500 --> 00:00:18,570
+a modeling technique
+you're probably already
+
+5
+00:00:18,570 --> 00:00:22,065
+familiar with based on
+previous regression courses.
+
+6
+00:00:22,065 --> 00:00:24,420
+In the previous
+lecture we introduced
+
+7
+00:00:24,420 --> 00:00:25,440
+the group effect to
+
+8
+00:00:25,440 --> 00:00:27,655
+the linear mixed effects
+regression model.
+
+9
+00:00:27,655 --> 00:00:29,780
+This allowed us to
+model differences and
+
+10
+00:00:29,780 --> 00:00:32,845
+predicted outcomes between
+two groups within the data.
+
+11
+00:00:32,845 --> 00:00:34,790
+The beta 2 term quantify
+
+12
+00:00:34,790 --> 00:00:37,685
+the difference in intercept
+between the two groups.
+
+13
+00:00:37,685 --> 00:00:40,115
+When parameterized in this way,
+
+14
+00:00:40,115 --> 00:00:42,140
+the model forces the
+regression lines
+
+15
+00:00:42,140 --> 00:00:44,090
+for each group to
+have the same slope,
+
+16
+00:00:44,090 --> 00:00:46,760
+beta 1, meaning that
+they are parallel.
+
+17
+00:00:46,760 --> 00:00:49,370
+The interpretation then
+is that the change in
+
+18
+00:00:49,370 --> 00:00:52,640
+outcome over time is
+the same in each group.
+
+19
+00:00:52,640 --> 00:00:56,240
+In truth, the regression
+lines for two groups might
+
+20
+00:00:56,240 --> 00:00:57,680
+not be parallel and we would
+
+21
+00:00:57,680 --> 00:00:59,765
+want to account for
+that in our model.
+
+22
+00:00:59,765 --> 00:01:02,030
+This situation is
+called an interaction
+
+23
+00:01:02,030 --> 00:01:03,935
+model and the predicted outcome
+
+24
+00:01:03,935 --> 00:01:05,540
+is determined by the time in
+
+25
+00:01:05,540 --> 00:01:08,260
+group variables in a
+non additive manner.
+
+26
+00:01:08,260 --> 00:01:10,910
+Algebraically, the
+group regression lines
+
+27
+00:01:10,910 --> 00:01:12,050
+are given the freedom to be
+
+28
+00:01:12,050 --> 00:01:13,760
+non parallel by the inclusion
+
+29
+00:01:13,760 --> 00:01:16,085
+of an interaction
+term beta three.
+
+30
+00:01:16,085 --> 00:01:18,845
+We interpret beta 3 as
+the difference in slope
+
+31
+00:01:18,845 --> 00:01:22,115
+between the group 1 and
+group 2 regression lines.
+
+32
+00:01:22,115 --> 00:01:24,710
+Let's walk through the
+full set of parameters
+
+33
+00:01:24,710 --> 00:01:27,380
+in the interaction
+mixed effect model.
+
+34
+00:01:27,380 --> 00:01:30,980
+As before, the fixed effect
+terms beta 0 and beta
+
+35
+00:01:30,980 --> 00:01:32,630
+1 define the intercept and
+
+36
+00:01:32,630 --> 00:01:35,290
+slope of the group
+one regression line.
+
+37
+00:01:35,290 --> 00:01:38,600
+The random effect terms
+model the variability in
+
+38
+00:01:38,600 --> 00:01:42,460
+subject-specific lines about
+the group 1 regression line.
+
+39
+00:01:42,460 --> 00:01:44,720
+The group 2 regression line has
+
+40
+00:01:44,720 --> 00:01:46,310
+an intercept the beta 0 plus
+
+41
+00:01:46,310 --> 00:01:50,330
+beta 2 and a slope of
+beta 1 plus beta 3.
+
+42
+00:01:50,330 --> 00:01:54,200
+Again, the random effect
+terms allow variability in
+
+43
+00:01:54,200 --> 00:01:58,160
+subject-specific regression
+lines for group 2 members.
+
+44
+00:01:58,160 --> 00:02:01,495
+Here we can graphically
+see how beta 2 and beta 3
+
+45
+00:02:01,495 --> 00:02:04,435
+define differences between
+the group regression lines.
+
+46
+00:02:04,435 --> 00:02:06,485
+Beta 2 is the group effect term
+
+47
+00:02:06,485 --> 00:02:07,670
+indicating the difference in
+
+48
+00:02:07,670 --> 00:02:09,260
+intercepts between the groups,
+
+49
+00:02:09,260 --> 00:02:11,210
+and beta 3 is the
+interaction term
+
+50
+00:02:11,210 --> 00:02:13,270
+indicating the
+difference in slopes.
+
+51
+00:02:13,270 --> 00:02:15,890
+A negative beta 3
+value indicates that
+
+52
+00:02:15,890 --> 00:02:19,070
+the change in outcome over
+time is greater in group 1,
+
+53
+00:02:19,070 --> 00:02:21,800
+while a positive value
+in beta 3 indicates
+
+54
+00:02:21,800 --> 00:02:23,000
+that the change in outcome over
+
+55
+00:02:23,000 --> 00:02:25,195
+time is greater in group 2.
+
+56
+00:02:25,195 --> 00:02:27,260
+Determining if an interaction
+
+57
+00:02:27,260 --> 00:02:29,240
+exists in your data can
+be accomplished using
+
+58
+00:02:29,240 --> 00:02:30,620
+a hypothesis test of
+
+59
+00:02:30,620 --> 00:02:33,450
+the beta 3 interaction
+regression parameter.
+
+60
+00:02:33,450 --> 00:02:35,920
+Note that if such
+a hypothesis test
+
+61
+00:02:35,920 --> 00:02:37,675
+fails to reject the null,
+
+62
+00:02:37,675 --> 00:02:38,980
+that is, we cannot reject
+
+63
+00:02:38,980 --> 00:02:41,055
+the notion that there
+is no interaction,
+
+64
+00:02:41,055 --> 00:02:42,670
+a mixed model without
+
+65
+00:02:42,670 --> 00:02:44,890
+the interaction term
+should be refit before
+
+66
+00:02:44,890 --> 00:02:47,110
+attempting inference
+or interpretation
+
+67
+00:02:47,110 --> 00:02:49,615
+on the group effect term beta 2.
+
+68
+00:02:49,615 --> 00:02:52,480
+We've now built up
+the mixed model
+
+69
+00:02:52,480 --> 00:02:55,000
+from a single time covariate to
+
+70
+00:02:55,000 --> 00:02:58,300
+a model with distinct
+group regression lines
+
+71
+00:02:58,300 --> 00:03:00,715
+differing in slope and intercept.
+
+72
+00:03:00,715 --> 00:03:03,670
+This model provides
+much flexibility
+
+73
+00:03:03,670 --> 00:03:05,530
+when modeling real
+data and provides
+
+74
+00:03:05,530 --> 00:03:06,730
+a framework for testing
+
+75
+00:03:06,730 --> 00:03:08,830
+various scientific
+questions regarding
+
+76
+00:03:08,830 --> 00:03:11,045
+change over time
+in group effects.
+
+77
+00:03:11,045 --> 00:03:13,150
+The interaction term introduced
+
+78
+00:03:13,150 --> 00:03:14,740
+in this lecture is
+similar to that of
+
+79
+00:03:14,740 --> 00:03:16,640
+the standard
+regression and models
+
+80
+00:03:16,640 --> 00:03:18,905
+the difference in
+slopes between groups.
+
+81
+00:03:18,905 --> 00:03:20,480
+The random effect terms of
+
+82
+00:03:20,480 --> 00:03:22,565
+the mixed model continue
+to be the piece
+
+83
+00:03:22,565 --> 00:03:24,230
+that accounts for the correlation
+
+84
+00:03:24,230 --> 00:03:27,829
+in longitudinal
+repeated measure data.
+

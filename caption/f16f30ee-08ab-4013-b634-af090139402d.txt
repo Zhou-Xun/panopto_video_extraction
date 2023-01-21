@@ -1,0 +1,2428 @@
+1
+00:00:05,410 --> 00:00:12,190
+Chuck. Chuck Good afternoon, everybody. So welcome to the Post Labor Day Weekend Lecture.
+
+2
+00:00:12,400 --> 00:00:18,940
+So today we're going to cover multilayer Gaussian and its role in longitudinal data analysis.
+
+3
+00:00:18,940 --> 00:00:27,249
+And before we start, I just want to show this page where you can sign up for team members and also to the team name much later.
+
+4
+00:00:27,250 --> 00:00:30,340
+Perhaps if you haven't, please consider doing so.
+
+5
+00:00:30,640 --> 00:00:34,120
+And for those who are viewing the recording, this is for you, too.
+
+6
+00:00:34,480 --> 00:00:52,980
+So let's get started. Our goal today are trying to introduce the technical aspects of this distribution called multivariate Gaussian distribution.
+
+7
+00:00:53,550 --> 00:00:58,530
+Later on, I will be writing MVC for Short, which represents a multivariate Gaussian,
+
+8
+00:00:58,980 --> 00:01:06,990
+and it is kind of the one of the most important distributions you ought to know in grad school.
+
+9
+00:01:08,010 --> 00:01:18,059
+A few objectives. So again, the way how I would suggest using the objective slide is trying to ask, you know over all these things are listed here,
+
+10
+00:01:18,060 --> 00:01:24,660
+do I get a sense what these objectives are and do I actually understand how to do these?
+
+11
+00:01:24,990 --> 00:01:30,330
+So first is that we want to write out a model for an example dataset.
+
+12
+00:01:30,330 --> 00:01:38,340
+And that example dataset is from the treatment of LED Exposed Children Trial, TLC, TLC for short.
+
+13
+00:01:39,720 --> 00:01:46,950
+It is a trial which means that the treatment is randomized and we will be interpreting the coefficients.
+
+14
+00:01:47,280 --> 00:01:53,850
+For some, this may be very straightforward, but I do think it's necessary because it represents probably one of the first introductions
+
+15
+00:01:54,180 --> 00:02:02,550
+to how you would better size the notions of contrasting longitudinal context.
+
+16
+00:02:02,880 --> 00:02:11,670
+Second, as I have alluded to, we will need to explain why you should care about multi-year Gaussian models for longitudinal data.
+
+17
+00:02:12,540 --> 00:02:20,460
+And finally, we will be talking about technical aspects of multilayer Gaussian, and there are a few sub objectives.
+
+18
+00:02:20,760 --> 00:02:26,100
+This first one is that can you can you draw a connection to universe Gaussian distribution?
+
+19
+00:02:26,100 --> 00:02:31,079
+And second, we will be introducing something called the Mahalanobis Distance.
+
+20
+00:02:31,080 --> 00:02:39,569
+And I think your task will be trying to understand and and explain the meaning of these mahalanobis distance,
+
+21
+00:02:39,570 --> 00:02:42,750
+which has another name, multifarious standardized distance.
+
+22
+00:02:43,710 --> 00:02:50,460
+Finally, by using a technical note, which I believe is posted on the canvas website,
+
+23
+00:02:51,000 --> 00:02:57,210
+we will be talking about transformations of multivariate Gaussian distribution, and there are some beautiful results there.
+
+24
+00:02:58,710 --> 00:03:02,850
+So with that, I believe we have a few different parts, one corresponding to each objective,
+
+25
+00:03:03,090 --> 00:03:11,400
+and hopefully we can get started with the modeling exercise by introducing these multiple Gaussian distributions.
+
+26
+00:03:12,840 --> 00:03:19,410
+All right. So first, we are trying to write down a model for longitudinal data.
+
+27
+00:03:20,450 --> 00:03:26,960
+Using TLC trial as an example. So just to quickly review, what's the dataset?
+
+28
+00:03:27,620 --> 00:03:36,320
+Suppose there are 100 study participants. At this number I'd probably made up, but it's not a lot of many, lot a lot of patients a second.
+
+29
+00:03:37,040 --> 00:03:42,290
+Each participant was followed for four occasions at week zero,
+
+30
+00:03:42,290 --> 00:03:49,190
+which means the baseline when the treatment or non treatment was initiated and then week one, week four, week six.
+
+31
+00:03:49,850 --> 00:03:53,420
+So a total of four measurements per person. A zero means the baseline measurements.
+
+32
+00:03:55,140 --> 00:04:03,900
+So in this case, we have a very beautiful setup. Everybody has the same number of measurements for measurements and for short,
+
+33
+00:04:04,480 --> 00:04:14,250
+we will be just using and to indicate the total number of occasions where each person and and as another review.
+
+34
+00:04:14,700 --> 00:04:24,690
+Last time we also introduced these tags as the actual timings of these measurements occurred for the JTH occasion for subject I.
+
+35
+00:04:24,990 --> 00:04:30,150
+And here I notice that I am being quite lazy here by not putting in either.
+
+36
+00:04:30,330 --> 00:04:36,480
+It is because in this context these tJS are shared across people.
+
+37
+00:04:36,510 --> 00:04:41,309
+Yeah. As long as you are, you are sure about which j it is.
+
+38
+00:04:41,310 --> 00:04:44,700
+If it's if J goes one, then t one equals zero.
+
+39
+00:04:46,570 --> 00:04:55,480
+And so on and so forth. Each participant was randomized to receive a treatment which is cut 16 months and new treatment at the time.
+
+40
+00:04:55,930 --> 00:05:00,280
+So we use one to indicate he or she been assigned to the treatment group.
+
+41
+00:05:02,300 --> 00:05:06,320
+In the control group, we have placebo. So that's indicated by zero.
+
+42
+00:05:06,650 --> 00:05:13,250
+And the scientific question really is, are the rates of blood level change different between the two treatment groups?
+
+43
+00:05:13,370 --> 00:05:19,430
+I.e., does a drug actually helps, you know, removing remove the blood from the bloodstream?
+
+44
+00:05:20,620 --> 00:05:26,620
+And if it's moving the level fast, then this is probably a good treatment.
+
+45
+00:05:27,160 --> 00:05:37,420
+And last time we saw some plots, which I will not show you here, is suggesting that this treatment may may be working for the purpose of today.
+
+46
+00:05:37,510 --> 00:05:45,370
+We were not going to be looking at the data in particular, but we will be just trying to formulate the model in the context of this trial.
+
+47
+00:05:46,300 --> 00:05:54,910
+So our goal is very simple. We want to assume that the main plot level changes over time.
+
+48
+00:05:56,260 --> 00:06:01,959
+So this is something that usually your advisor or your collaborator will ask you, hey, you know, blah, blah, you know,
+
+49
+00:06:01,960 --> 00:06:08,530
+can we can we do this thing to let the block level change all the time and you want to be able to formulate that?
+
+50
+00:06:08,950 --> 00:06:17,350
+And second is, hey, can we write down a model that allows the rate of change to be different between treatment groups?
+
+51
+00:06:17,650 --> 00:06:22,900
+So most often your starting point is here and in the following these are the
+
+52
+00:06:23,110 --> 00:06:27,940
+mathematical notations to represent the possibility of a study in these questions.
+
+53
+00:06:28,330 --> 00:06:33,910
+So here is what's what is possible using in your model?
+
+54
+00:06:34,660 --> 00:06:43,230
+Again, y j is representing the actual measurement of the blood alert level at the j occasion for the subject line.
+
+55
+00:06:43,560 --> 00:06:53,650
+So this is scalar. And it is modeled as a sum of these two different things.
+
+56
+00:06:53,680 --> 00:07:00,070
+This is called the meme model or the meme model or systematic component.
+
+57
+00:07:13,210 --> 00:07:17,560
+So just bear with me for a moment. Let me just add, Mike, it says that there is no audio which.
+
+58
+00:07:19,200 --> 00:07:22,350
+Test. Test. Okay, it's working. So. All right.
+
+59
+00:07:23,430 --> 00:07:27,180
+And the second part is what we call random component.
+
+60
+00:07:32,870 --> 00:07:38,120
+All right. So this is very familiar to you. It represents human ignorance in modeling the measured outcome.
+
+61
+00:07:38,870 --> 00:07:43,890
+Now, in the first part, this is where you need to be very specific.
+
+62
+00:07:43,910 --> 00:07:51,830
+What are these predictors? So I claim the following would work in terms of providing a big model to assess the
+
+63
+00:07:51,830 --> 00:07:56,000
+question of whether the rate of change in the level with referred by treatment group.
+
+64
+00:07:56,720 --> 00:07:59,750
+First we have x AJ one as one.
+
+65
+00:07:59,900 --> 00:08:04,690
+So this is The Intercept. I got questions from some of you after the first class.
+
+66
+00:08:04,700 --> 00:08:12,890
+So say, Hey, Jim, why do you why don't you just include intercept and I'm just using the X AJ one to represent our intercept here.
+
+67
+00:08:13,640 --> 00:08:18,470
+So this is going to be one for all subjects and for all occasions.
+
+68
+00:08:20,270 --> 00:08:29,630
+Next, we will try to accommodate the assumption that, hey, let's use the in your model so x as you two can represent time.
+
+69
+00:08:30,260 --> 00:08:37,880
+Here again you can see that it's t j. That's the actual timing, not one, two, three, four, but rather 0146.
+
+70
+00:08:39,140 --> 00:08:42,850
+The third covered here is that is t j times Group II.
+
+71
+00:08:43,070 --> 00:08:48,080
+So this represents interaction between the group indicator and the time trend.
+
+72
+00:08:48,470 --> 00:08:52,280
+So combined together we have three cohorts.
+
+73
+00:08:53,780 --> 00:09:01,040
+Now I want to pause here for a little bit because I think this is a there is a special assumption I've made.
+
+74
+00:09:01,850 --> 00:09:08,320
+Did you guys find that may affect the group? He should shake had no right.
+
+75
+00:09:08,350 --> 00:09:12,430
+It's not there. Excise your y intercept. Excise you to that time.
+
+76
+00:09:12,970 --> 00:09:16,990
+Excise your three. The interaction between time group. Where is the menu for group?
+
+77
+00:09:22,940 --> 00:09:30,680
+It is not there because in this trial we randomly assign people to the control and placebo group.
+
+78
+00:09:31,280 --> 00:09:39,770
+We will be able to see that if you truly trust the randomization has done its work, you do not need the may effects of group.
+
+79
+00:09:49,090 --> 00:09:52,350
+It's. Oh.
+
+80
+00:09:52,640 --> 00:09:57,520
+Okay. There we go. Drop.
+
+81
+00:10:17,560 --> 00:10:20,650
+Okay. We will revisit this point a bit later.
+
+82
+00:10:20,980 --> 00:10:26,260
+When we were talking about the invitation, the second thing the second thing is that.
+
+83
+00:10:28,270 --> 00:10:32,680
+Let me see. The second thing is that this is a model for every occasion.
+
+84
+00:10:32,980 --> 00:10:37,570
+Okay. So if you're going to visualize this, you have time.
+
+85
+00:10:37,570 --> 00:10:40,960
+Zero one, four six.
+
+86
+00:10:41,170 --> 00:10:50,630
+Right. So if you have the measurement for one person, I guess I should make this decreasing because a butler level is decreasing.
+
+87
+00:10:51,050 --> 00:11:00,810
+So here, here and here. Right. So this is for subject I and J calls one, two, three, four.
+
+88
+00:11:01,650 --> 00:11:04,980
+This model here applies to every subject.
+
+89
+00:11:06,770 --> 00:11:11,600
+And every occasion. Right. So at each cross, you have a model to describe it.
+
+90
+00:11:11,990 --> 00:11:17,420
+So you would not do not only have one intercept, but rather one intercept per occasion.
+
+91
+00:11:18,380 --> 00:11:24,360
+Everybody with me. So here I would I would say j equals one to and here.
+
+92
+00:11:24,380 --> 00:11:29,270
+So this model applies to all the occasion for subject I.
+
+93
+00:11:30,610 --> 00:11:36,590
+But then what's. What's a difference for the model across different occasions?
+
+94
+00:11:36,770 --> 00:11:41,780
+Well, there are a few differences. Clearly, the timing the actual timing will be different.
+
+95
+00:11:41,870 --> 00:11:47,330
+Right. So the exigé two and as you three will be changing over to the occasions.
+
+96
+00:11:47,750 --> 00:11:52,030
+In this case, we were only considering a single time point treatment.
+
+97
+00:11:52,040 --> 00:11:57,950
+So the group membership does not change over occasions and intercept does not change over occasions.
+
+98
+00:11:58,310 --> 00:12:02,780
+So to summarize, we do have one.
+
+99
+00:12:05,150 --> 00:12:13,170
+Model. Should I say? Some models just to be a little hand-waving, just indicating that for each.
+
+100
+00:12:14,900 --> 00:12:20,130
+Occasion. And for each subject.
+
+101
+00:12:24,680 --> 00:12:30,530
+So that's why that's why when you're reading papers about longitudinal data analyzes,
+
+102
+00:12:31,040 --> 00:12:37,459
+usually after the model, they will say, Hey, Jay goes from one end and it goes from, say, 1 to 2.
+
+103
+00:12:37,460 --> 00:12:40,680
+And something like this. Okay.
+
+104
+00:12:42,010 --> 00:12:47,530
+All right. Any questions? We will be then a look at the interpretations.
+
+105
+00:12:51,720 --> 00:12:56,020
+So why don't we do that now? Let's zoom in.
+
+106
+00:12:56,380 --> 00:13:03,280
+So here we are looking at two sub models implied by this bigger model.
+
+107
+00:13:03,310 --> 00:13:07,330
+First, let's only focus on the subset of Trojan in the placebo group,
+
+108
+00:13:07,660 --> 00:13:12,870
+which means that we can specify certain cohorts to be a to be at particular values.
+
+109
+00:13:13,060 --> 00:13:19,360
+Recall that the covers we had excised 1x2x3.
+
+110
+00:13:20,870 --> 00:13:27,770
+So this is intercept, right? And this is the t j and this is a t j times the group I.
+
+111
+00:13:27,830 --> 00:13:35,240
+Right? So if you considering the placebo group, so pretty much this is zero and everything else, just you plugging the actual timing.
+
+112
+00:13:35,630 --> 00:13:39,890
+So this is what we got for subjects in the placebo group.
+
+113
+00:13:40,260 --> 00:13:51,140
+Now it is saying that over time the main let level changes infinitely with time and the intercept is beta one and the slope is better too.
+
+114
+00:13:51,740 --> 00:13:56,090
+So beta one actually means the mean blood level at week zero.
+
+115
+00:13:56,690 --> 00:13:59,840
+And beta two is the change in the mean block level per week.
+
+116
+00:14:00,200 --> 00:14:09,140
+Similarly, if you are considering the eczema group, which is a treatment, then you have to set this to be t j times one right here.
+
+117
+00:14:11,230 --> 00:14:18,250
+That's why you have to combine the coefficients for the time and the interest interaction term.
+
+118
+00:14:18,250 --> 00:14:24,190
+So that's why you get the same intercept but a possibly different slope.
+
+119
+00:14:24,820 --> 00:14:28,510
+Hence beta two plus beta three. The interpretation is pretty much the same.
+
+120
+00:14:28,780 --> 00:14:32,470
+Beta one again is the main plus level.
+
+121
+00:14:34,340 --> 00:14:39,590
+In the treatment group at Week zero OC. And.
+
+122
+00:14:41,940 --> 00:14:52,890
+You see we are using the same beta one here i. More strictly you can probably replace this by beta OnePlus beta four times group are here.
+
+123
+00:14:52,990 --> 00:14:56,660
+Right so in this case you know.
+
+124
+00:14:57,820 --> 00:15:02,590
+Based on this formula here, we have forced Peter Ford to be zero.
+
+125
+00:15:09,180 --> 00:15:16,620
+Because we have the, you know, we just trust the randomization so that beta four is zero.
+
+126
+00:15:18,300 --> 00:15:21,510
+And this is what we have done. They had a two plus beta three.
+
+127
+00:15:22,020 --> 00:15:26,430
+It is the possibly different slope in the new trend.
+
+128
+00:15:27,230 --> 00:15:35,040
+Okay. Now, if you focus on the scientific question of asking whether the rate of change would differ by treatment group,
+
+129
+00:15:35,490 --> 00:15:40,830
+then the contrast should be beta two plus beta three versus beta two.
+
+130
+00:15:40,860 --> 00:15:45,360
+Right? Because they represent they represent different slopes.
+
+131
+00:15:46,020 --> 00:15:49,740
+And the null hypothesis is then, hey, beta three equals zero,
+
+132
+00:15:49,950 --> 00:15:56,010
+indicating the treatment does not increase or decrease the rate with which the lower level would change.
+
+133
+00:15:57,350 --> 00:16:02,300
+So this is how we formulate the first model in the class.
+
+134
+00:16:03,830 --> 00:16:07,940
+Any questions so far? We will be plugging some real values, which should be very straightforward.
+
+135
+00:16:30,600 --> 00:16:38,070
+This is a little too slanted for me to read. Well, we consider randomization to be perfect.
+
+136
+00:16:58,600 --> 00:17:02,320
+Okay. Okay.
+
+137
+00:17:02,470 --> 00:17:04,900
+I don't see any questions, so I'm going to move forward.
+
+138
+00:17:08,950 --> 00:17:18,730
+We just plug in certain data example here we are showing you one subject from the placebo group.
+
+139
+00:17:19,180 --> 00:17:24,340
+Again, why here is a vector. It is of the same dimension as a number of occasions,
+
+140
+00:17:25,150 --> 00:17:34,000
+so it is four numbers collecting all the measurements of blood level and these are measurements with possible errors.
+
+141
+00:17:34,870 --> 00:17:43,220
+Second, we have the design matrix. So. This is exciting.
+
+142
+00:17:43,250 --> 00:17:48,830
+Remember, Excite is collecting all the design matrix information at all the occasions.
+
+143
+00:17:48,870 --> 00:17:57,820
+Yeah. So this actually is. I'll say this.
+
+144
+00:18:01,960 --> 00:18:06,510
+Ex I one. He.
+
+145
+00:18:08,280 --> 00:18:21,300
+Should I? Ixi 11xi12xi13.
+
+146
+00:18:22,610 --> 00:18:28,440
+And I. To.
+
+147
+00:18:32,100 --> 00:18:39,920
+I'm going to. To this. I just want to try to give you an example.
+
+148
+00:18:41,500 --> 00:18:53,680
+X. I know this is really boring, but.
+
+149
+00:18:55,610 --> 00:19:02,240
+Unfortunately, this is how the model is structured. And I think I just want to use every opportunity to get you familiar with these notations.
+
+150
+00:19:02,750 --> 00:19:09,710
+So here I am, showing you how I am trying to fill in the numbers.
+
+151
+00:19:10,040 --> 00:19:13,639
+So in the first row it is representing the first occasion, right?
+
+152
+00:19:13,640 --> 00:19:17,480
+So we zero and this is a weak one.
+
+153
+00:19:17,630 --> 00:19:21,350
+This is a week four. This is a week six.
+
+154
+00:19:22,340 --> 00:19:26,660
+Right. So the second index really is indicating what occasion it is.
+
+155
+00:19:27,350 --> 00:19:34,640
+And then along the columns, these are representing the converting information you hope to put into the model.
+
+156
+00:19:34,940 --> 00:19:45,640
+As we recall, the first one is The Intercept, right? The second one is the time after the timing.
+
+157
+00:19:46,150 --> 00:19:49,900
+The third one is a time and group indicator.
+
+158
+00:19:50,470 --> 00:19:53,480
+So then with this information, you can plug in everything here.
+
+159
+00:19:53,500 --> 00:20:00,670
+Clearly, you know, the intercept is common to all. So the first column are all ones representing the intercepts.
+
+160
+00:20:01,150 --> 00:20:06,250
+The second one, the actual timings. As I said, each row corresponds to one occasion.
+
+161
+00:20:06,670 --> 00:20:11,890
+So you just plug in the actual timing of that occasion, which are 0146.
+
+162
+00:20:12,430 --> 00:20:18,220
+And finally, in the third column, because it is representing the interaction between the timing and the group,
+
+163
+00:20:18,490 --> 00:20:22,090
+and we are looking at the placebo group. So everything is zero.
+
+164
+00:20:23,690 --> 00:20:28,790
+Now, look, this is a design matrix and everybody may have his or her own design matrix.
+
+165
+00:20:29,180 --> 00:20:35,420
+And we will be repeating this again, but I will not be going to this level of detail for the treatment group.
+
+166
+00:20:36,920 --> 00:21:03,860
+I can pause for a little while for some questions if you have any. Okay.
+
+167
+00:21:07,000 --> 00:21:10,240
+Now let's look at how it would be in the treatment group.
+
+168
+00:21:10,690 --> 00:21:14,950
+So I'm not going to work out every detail.
+
+169
+00:21:14,960 --> 00:21:23,520
+But finally but most importantly, the only difference is a third column, because it is the T.J. Times, that group I write.
+
+170
+00:21:23,530 --> 00:21:27,940
+So in the treatment group, the group is one.
+
+171
+00:21:29,220 --> 00:21:33,210
+So basically you just put in the tie.
+
+172
+00:21:33,270 --> 00:21:39,270
+Sorry, T.J., in the final column making the second or third column identical.
+
+173
+00:21:49,010 --> 00:21:54,410
+Okay. To summarize, the previous two slide says, Depending on who you are, the design matrices may be different.
+
+174
+00:21:54,890 --> 00:22:05,570
+And for everybody, the design matrix has an rows and columns where end is the small end is number of occasions.
+
+175
+00:22:05,570 --> 00:22:09,240
+P is number of cohorts. Okay.
+
+176
+00:22:10,620 --> 00:22:16,620
+Now let's look at it again, the more burdensome way of writing on the model.
+
+177
+00:22:17,340 --> 00:22:20,729
+So in the future, this is a more compact way.
+
+178
+00:22:20,730 --> 00:22:31,740
+We will be writing models for the mean. Compound notation.
+
+179
+00:22:31,950 --> 00:22:35,370
+Oh, by the way, I only so notation is a.
+
+180
+00:22:37,700 --> 00:22:42,979
+You do not add annotations. So no. As for this word, just notation.
+
+181
+00:22:42,980 --> 00:22:52,970
+It's a groove now. It is easier to write okay compared to writing out every person's design matrix.
+
+182
+00:22:53,390 --> 00:23:01,280
+But for the sake of connecting the compact annotation and the meaning of it, I just wanted to write out everything here.
+
+183
+00:23:01,700 --> 00:23:07,820
+So when you are writing down the ME model right on the left hand side of the equation, you are trying to ask,
+
+184
+00:23:08,210 --> 00:23:16,460
+given the information of this person, I had occasion, say occasion to write, what is the mean for this person?
+
+185
+00:23:16,550 --> 00:23:23,660
+What is the MI outcome for this person given the information? The model says that hey, it is should be represented this way.
+
+186
+00:23:25,390 --> 00:23:37,450
+This is a design matrix and this is a beta. And if you work out this particular matrix multiplication, what you get will be this vector again.
+
+187
+00:23:37,930 --> 00:23:43,840
+And by one here. So this is very straightforward.
+
+188
+00:23:43,930 --> 00:23:52,450
+Basically, as you move along down the rows, you are going from occasional one to occasion four, and the main outcome will be different.
+
+189
+00:23:53,920 --> 00:23:57,370
+And similarly, you can do the same calculation for the treatment group.
+
+190
+00:23:58,390 --> 00:24:08,380
+But as you can see, the only difference is that we have a different speed with which these main outcome level would progress over the occasions.
+
+191
+00:24:10,900 --> 00:24:17,650
+So that's all part one very simple example. Again, I will pause for like 30 seconds to see if we have any questions.
+
+192
+00:24:51,340 --> 00:24:57,030
+Okay. I don't see any questions, but I do recall that we have a little thing.
+
+193
+00:24:57,040 --> 00:25:04,150
+We can just talk about it now. So it is basically about the concept of balanced versus unbalanced.
+
+194
+00:25:04,510 --> 00:25:07,510
+The reason why I want to bring this up now is because.
+
+195
+00:25:09,620 --> 00:25:15,710
+You know, the example here may leave you the impression that this new model only works for a data structure.
+
+196
+00:25:16,010 --> 00:25:27,140
+That's very beautiful. Like, everybody has the same number of occasions and the timings are the same, but clearly the model works for on balance data.
+
+197
+00:25:27,590 --> 00:25:36,920
+And I want to use this opportunity to clarify certain just some examples so that you have an option to call whether it's balanced or on balance.
+
+198
+00:25:37,430 --> 00:25:40,610
+I'm going to draw you for panels of data.
+
+199
+00:25:41,660 --> 00:25:48,410
+Fake data, actually. And your goal is trying to tell me whether it's balanced and balanced and why.
+
+200
+00:25:49,090 --> 00:25:50,590
+It should be very simple, actually.
+
+201
+00:26:35,130 --> 00:26:43,500
+I must say that after I found we can write on the tablet, I probably won't ever use a blackboard again, which is very convenient.
+
+202
+00:26:44,400 --> 00:26:51,490
+So for ABC let's go through them is a can we call the data from a balance or.
+
+203
+00:26:52,660 --> 00:27:01,560
+On balance. I know it's very simple, but I do want to some participation here.
+
+204
+00:27:01,950 --> 00:27:06,820
+So that balance the right balance. Balanced.
+
+205
+00:27:07,360 --> 00:27:19,320
+So how about B? How about the.
+
+206
+00:27:28,520 --> 00:27:33,850
+I'm not taking score, so just try. On balance.
+
+207
+00:27:36,740 --> 00:27:40,850
+Thank you. So the reason is not that I will be different, right?
+
+208
+00:27:40,850 --> 00:27:45,640
+So and I is three here and I prime is three here.
+
+209
+00:27:45,650 --> 00:27:49,850
+It is the timings that are different and I want to say model works for the situations.
+
+210
+00:27:49,850 --> 00:27:53,920
+Well how about see. This is.
+
+211
+00:27:56,560 --> 00:28:00,650
+Again, I'm balance. Right.
+
+212
+00:28:01,100 --> 00:28:06,530
+And the reason is because we do not have the same number of measurements.
+
+213
+00:28:08,390 --> 00:28:11,630
+Right. Although where they overlap, the timings are the same.
+
+214
+00:28:12,650 --> 00:28:16,180
+Finally, it clearly is unbalanced. Unbalanced.
+
+215
+00:28:17,160 --> 00:28:23,790
+Um, for the reason that they have different numbers of measurements per person and they do not have common locations.
+
+216
+00:28:25,890 --> 00:28:28,920
+General, general need model works for these situations as well.
+
+217
+00:28:31,020 --> 00:28:41,160
+So it's just one to hammer that home. That's although we have the example in the balanced data setting model generally works for them as well.
+
+218
+00:28:41,400 --> 00:28:46,350
+For example, if you're considering your trend where you don't really care when the measurements were taken,
+
+219
+00:28:46,710 --> 00:28:55,140
+we just assume that if you plug it in time, then depending on where that line is, you can infer the main outcome at that time.
+
+220
+00:28:56,370 --> 00:28:59,550
+Okay. So this leads us to part two.
+
+221
+00:29:04,730 --> 00:29:12,990
+And please feel free to stop. Okay. I do see a question which is good. Yeah.
+
+222
+00:29:13,000 --> 00:29:18,190
+So the question is, is the missing data consider paswan balanced?
+
+223
+00:29:18,670 --> 00:29:30,220
+Yes, it will be. For example, if you look at panel C, it seems that the second person represented by triangles have lost one final measurement and.
+
+224
+00:29:31,160 --> 00:29:34,790
+Missing data is an issue, and that will be called on balance.
+
+225
+00:29:38,020 --> 00:29:45,610
+And also I'm repeating the question now because I have not heard you, but because I received some emails saying that I should repeat the questions so
+
+226
+00:29:45,610 --> 00:29:49,330
+that people who are watching the recordings can to stand and question and answer. Yeah.
+
+227
+00:29:49,740 --> 00:29:56,130
+Okay. Part two. The role of multivariate Gaussian distribution in a model for longitudinal data.
+
+228
+00:29:59,130 --> 00:30:03,570
+So let's go back to this particular model notation.
+
+229
+00:30:03,930 --> 00:30:07,230
+Y equals exi theta plus ii.
+
+230
+00:30:07,260 --> 00:30:14,040
+Here again, hopefully I have communicated to you that this will be the compound notation we will be using.
+
+231
+00:30:14,790 --> 00:30:27,570
+And according to learning objective number one, if you cannot recreate the more specific tabular form of this model, you will need to work on it.
+
+232
+00:30:27,990 --> 00:30:31,860
+Basically, this is a shorthand for the model, but it does not represent.
+
+233
+00:30:31,860 --> 00:30:37,440
+You can forget how to convert that back to a more cumbersome tabular model form.
+
+234
+00:30:37,770 --> 00:30:47,170
+Okay. So in the first bullet point, we have explicitly written down the main component and the random component represented by II.
+
+235
+00:30:48,030 --> 00:30:53,670
+Usually in discussing the distribution assumption, we want to separate them into two parts.
+
+236
+00:30:53,680 --> 00:30:59,040
+The first part is the main part. Right. And this is what we have gone through.
+
+237
+00:30:59,730 --> 00:31:05,040
+And it is often modeled by a factor of covariates at each occasion.
+
+238
+00:31:05,400 --> 00:31:11,630
+And these are these mean values are represented by my here.
+
+239
+00:31:11,640 --> 00:31:17,400
+So if you will, you can write this as y i equals my plus ii here.
+
+240
+00:31:17,650 --> 00:31:23,470
+Right. And second, we do.
+
+241
+00:31:24,610 --> 00:31:28,630
+We have made some assumptions here, and that's very sort of assumption.
+
+242
+00:31:28,960 --> 00:31:32,410
+I believe you will be able to.
+
+243
+00:31:34,160 --> 00:31:39,020
+You will be able to understand this assumption a bit later.
+
+244
+00:31:39,020 --> 00:31:44,540
+But I do want to point out that here this is notation.
+
+245
+00:31:45,460 --> 00:31:49,270
+To say, hey, for each person that chase the occasion,
+
+246
+00:31:50,410 --> 00:31:58,390
+we assume the main outcome could possibly be explained by the entire set of information of coverage,
+
+247
+00:31:58,780 --> 00:32:02,870
+regardless of whether it is the correct information.
+
+248
+00:32:02,910 --> 00:32:07,090
+JTH occasion the first occasion, the second occasion or the final occasion.
+
+249
+00:32:07,470 --> 00:32:11,440
+Right. Because here we are using the entire set of information.
+
+250
+00:32:22,300 --> 00:32:28,520
+Okay. And in the second part here, this is representing an assumption.
+
+251
+00:32:33,600 --> 00:32:38,740
+To say that. Only the covariates.
+
+252
+00:32:42,550 --> 00:32:45,870
+At the JS. Occasion.
+
+253
+00:32:50,450 --> 00:33:01,140
+Matters. In modeling the main. I will explain a little bit more here.
+
+254
+00:33:02,430 --> 00:33:07,440
+So the first equality is just that we're using a Greek ladder to represent certain quantity we want to estimate.
+
+255
+00:33:08,130 --> 00:33:13,890
+And the conditioning event IXI is collecting information from all locations.
+
+256
+00:33:14,610 --> 00:33:18,780
+The final equate equality is saying that, hey, let's not do that.
+
+257
+00:33:18,780 --> 00:33:23,280
+Let's only use the information collected at that particular occasion when we are.
+
+258
+00:33:24,580 --> 00:33:29,530
+Inferring the meaning for that occasion. And why is that?
+
+259
+00:33:30,310 --> 00:33:36,640
+Well, a few different reasons. So usually when you analyzing data, the study has already been completed.
+
+260
+00:33:36,850 --> 00:33:44,470
+Right. You have the occasion, one, two occasion for, and then you have all the data available to you and you want to ask,
+
+261
+00:33:44,500 --> 00:33:48,130
+how can I best model the outcome at the second occasion?
+
+262
+00:33:48,820 --> 00:33:53,649
+There you do have the flexibility to use all the information collected,
+
+263
+00:33:53,650 --> 00:33:58,900
+although those information may come from the future relative to that occasion you are investigating.
+
+264
+00:33:58,900 --> 00:34:03,530
+So occasion to. That may not always be the case.
+
+265
+00:34:03,530 --> 00:34:10,010
+If you want to build a flexible model that will enable, say, online prediction or dynamic prediction.
+
+266
+00:34:10,430 --> 00:34:13,600
+So that's where the, you know, excite.
+
+267
+00:34:13,790 --> 00:34:24,560
+That's where the second inequality comes in. It says that I restrict the modeler to use a subset of information that's only available at the location.
+
+268
+00:34:25,160 --> 00:34:28,700
+That's all I'm going to say. But so we will revisit this assumption a bit later.
+
+269
+00:34:31,640 --> 00:34:39,300
+And basically the main model is trying to relate how the responses are, trying to relate being responses and the covariates.
+
+270
+00:34:39,320 --> 00:34:54,420
+That's all it does. Okay.
+
+271
+00:34:55,020 --> 00:35:00,870
+Now, let's move on to the second part of the model, which is the EIA here.
+
+272
+00:35:02,220 --> 00:35:07,740
+So as we said, this is relative to the systematic component.
+
+273
+00:35:09,000 --> 00:35:21,150
+It is what's left in the outcome. After we have accounted for the main model and a few statements, I want to just walk through with you.
+
+274
+00:35:21,810 --> 00:35:25,710
+First, the randomness of why it comes from the randomness.
+
+275
+00:35:26,850 --> 00:35:39,690
+So in this class, we are considering a conditional argument, which is to say the distribution will be conditional upon the set of covered information.
+
+276
+00:35:40,260 --> 00:35:42,570
+So XY are considered as facts.
+
+277
+00:35:46,050 --> 00:35:56,190
+So if you are talking about a distribution of Y, then you've got to realize that it's a constant plus some random thing.
+
+278
+00:35:57,430 --> 00:36:02,530
+So the distribution of Y will be a shift relative to distribution i.
+
+279
+00:36:07,750 --> 00:36:16,900
+And later on when we will be talking about distribution, I think I will be a little bit liberal in using the terms.
+
+280
+00:36:17,290 --> 00:36:22,660
+So distribution Y or distribution VI. And hopefully you understand they mean the same thing.
+
+281
+00:36:22,930 --> 00:36:26,290
+And when we are talking about coherence because they will be the same.
+
+282
+00:36:26,890 --> 00:36:31,510
+So to summarize, Y and E have the same distribution except a different center.
+
+283
+00:36:37,180 --> 00:36:47,890
+And that's the disclaimer here. Now.
+
+284
+00:36:49,290 --> 00:36:53,490
+We need to model the distribution of why, right?
+
+285
+00:36:53,510 --> 00:36:59,850
+So this is where we need to consider the possible dependance of the measurements within the vector of outcome.
+
+286
+00:37:01,290 --> 00:37:06,400
+And this is our. Covariance matrix that we will model.
+
+287
+00:37:08,010 --> 00:37:09,960
+So in the simple as possible term,
+
+288
+00:37:10,530 --> 00:37:20,630
+this is characterizing how different measurements of the outcome at different occasions are going to vary with each other in a you
+
+289
+00:37:20,700 --> 00:37:27,300
+know in general this is indexed by I and this can happen because different people may have different numbers of measurements,
+
+290
+00:37:27,600 --> 00:37:35,460
+right? So then people may have three other people may have ten. And as you know, sigma I is of dimension and I by and I here.
+
+291
+00:37:36,900 --> 00:37:45,959
+For example, if you got like three measurements for this guy, you got to have this correlation, this this covariance and this covariance, right?
+
+292
+00:37:45,960 --> 00:37:54,300
+So if you if another person has like five measurements, then you got to have pairs, many different pairs, right?
+
+293
+00:37:54,600 --> 00:37:57,120
+I'm not going to draw them all, but you see what I mean here?
+
+294
+00:37:58,350 --> 00:38:07,560
+So that's why the Sigma needs to be indexed by representing different numbers of measurements per person.
+
+295
+00:38:12,410 --> 00:38:21,410
+Then under certain assumptions, be it model assumption or scientific assumption, we can simplify.
+
+296
+00:38:21,440 --> 00:38:26,330
+See my two sigma dropping I. Well, you've got to have the same numbers of measurements.
+
+297
+00:38:26,570 --> 00:38:33,980
+And usually this makes much more sense if the measurements of the outcome were taken at the same set of occasions.
+
+298
+00:38:37,830 --> 00:38:47,910
+Okay. And in this particular class, we will be talking about modeling this thing, sigma and the modeling, the main structure.
+
+299
+00:38:48,270 --> 00:38:52,630
+And those will be the kind of the. First big component we'll be looking at.
+
+300
+00:39:07,660 --> 00:39:11,890
+So now we are ready to talk about the multivariate goals and distribution.
+
+301
+00:39:13,780 --> 00:39:19,209
+The reason why I say we are ready is because we now understand we have the mental to
+
+302
+00:39:19,210 --> 00:39:24,210
+model the exhibitor and we have the various cover and structure to model the sigma.
+
+303
+00:39:25,150 --> 00:39:29,560
+But still, you got to ask, hey, do the two things.
+
+304
+00:39:30,400 --> 00:39:37,030
+When you specify those two things, do they specify a distribution of the outcome in certain situations?
+
+305
+00:39:37,030 --> 00:39:37,420
+Yes.
+
+306
+00:39:38,140 --> 00:39:46,450
+And that that very special situation is if you only considering multivariate Gaussian distribution, it is fully determined by the first two moments.
+
+307
+00:40:09,780 --> 00:40:22,460
+The mean and the covariance. So why do we?
+
+308
+00:40:23,920 --> 00:40:32,790
+Want to spend some time on this kind of distribution. I assume that you're familiar with a technique that's invented 100 years ago.
+
+309
+00:40:32,940 --> 00:40:42,550
+The maximum likelihood. So if you have a distribution, you can write down a local function and you can do maximum liquid estimation.
+
+310
+00:40:42,990 --> 00:40:57,290
+So at least as a bridge. From 650 to this class A By working with a actual distribution, you will understand estimation can be done later on.
+
+311
+00:40:57,300 --> 00:41:02,040
+We will be relaxing the assumption of multivariate Gaussian distribution,
+
+312
+00:41:02,940 --> 00:41:07,650
+meaning we only specify the mean and the variance and we will still be able to do estimation,
+
+313
+00:41:07,950 --> 00:41:18,780
+but that will come after we have built up our intuition about the estimate for itself within the small family of a multiyear Gaussian distribution.
+
+314
+00:41:18,810 --> 00:41:23,370
+Okay. So that's a kind of the roadmap we have there.
+
+315
+00:41:26,600 --> 00:41:28,190
+An important technique. Wait.
+
+316
+00:41:28,190 --> 00:41:38,030
+At least squares can be fully derived in this context, and that's probably the one one of the most important concepts in this class.
+
+317
+00:41:38,780 --> 00:41:44,540
+How do we place differential weights on different observations depending on how variable they are,
+
+318
+00:41:45,380 --> 00:41:50,360
+and also depending on excuse me, depending on how correlated to measurements are.
+
+319
+00:41:53,000 --> 00:41:59,629
+And I guess some of us will be ashamed that appreciate that this is mathematically arrogant,
+
+320
+00:41:59,630 --> 00:42:03,280
+that it generalized the universe Gaussian distribution quite beautifully.
+
+321
+00:42:05,680 --> 00:42:11,110
+Some quick review. You can take a break if you're very. If you are very familiar.
+
+322
+00:42:11,110 --> 00:42:17,290
+But I'm still going to review this. We will be specifying military Gaussian using density function.
+
+323
+00:42:17,650 --> 00:42:26,660
+So it's a probability theory concept and it is a continuous version of characterizing the relative frequency of occurrence of particular values,
+
+324
+00:42:26,660 --> 00:42:34,060
+of response variables. So when we are talking about density function in general, we draw something like this, right?
+
+325
+00:42:34,900 --> 00:42:38,350
+So the Y axis is called the density.
+
+326
+00:42:40,960 --> 00:42:45,670
+And the X-axis are representing the value of the random variable it can take.
+
+327
+00:42:46,390 --> 00:42:51,790
+So how do we determine how do we determine this height here?
+
+328
+00:42:52,840 --> 00:43:01,000
+Essentially it is using a limit argument, right? Suppose this is x zero and this is x zero plus.
+
+329
+00:43:03,550 --> 00:43:10,100
+Delta H. So essentially the height is determined by.
+
+330
+00:43:11,070 --> 00:43:19,620
+The limit of Delta goes to zero of the probability that the random variable actually falls into this little interval.
+
+331
+00:43:24,280 --> 00:43:28,110
+Divide by dividing by how wide this interval is, right.
+
+332
+00:43:29,090 --> 00:43:45,740
+So. If you have a random device, you can actually specify a delta and you can specify X zero and then you can calculate this particular quantity.
+
+333
+00:43:46,010 --> 00:43:52,010
+If you do this at every zero zero, you will be able to draw this particular function, and it's called density function.
+
+334
+00:43:53,060 --> 00:43:56,270
+It is basically like histogram. Histogram is the.
+
+335
+00:43:57,960 --> 00:44:02,370
+Density function under the discrete X situation.
+
+336
+00:44:03,410 --> 00:44:08,300
+So in the skies we'll be using PDF to represent probably a density function and often
+
+337
+00:44:08,510 --> 00:44:13,760
+we use f y to f something to represent the density of certain random variable.
+
+338
+00:44:14,450 --> 00:44:19,070
+And here I want to be clear about notation because this can confuse some people.
+
+339
+00:44:19,790 --> 00:44:25,850
+Look, y is uppercase here it is representing a random thing yet to be realized.
+
+340
+00:44:26,330 --> 00:44:29,900
+And y here is talking about a particular realized value.
+
+341
+00:44:34,520 --> 00:44:37,910
+Okay. So we can say f 1.5 equals blah.
+
+342
+00:44:38,150 --> 00:44:41,540
+I don't know the number, but you can get this number.
+
+343
+00:44:42,470 --> 00:44:46,310
+But Y may have realizations. That's not 1.5.
+
+344
+00:44:46,520 --> 00:44:56,040
+So anyway, this is just how the notation is. Four, you need very Gaussian distribution.
+
+345
+00:44:57,090 --> 00:45:03,090
+In the longitudinal data analysis context, it is probably useful to consider just one occasion.
+
+346
+00:45:03,540 --> 00:45:11,940
+So let's consider why J. As we have alluded to, the distribution of Y j is related to the distribution of age.
+
+347
+00:45:12,420 --> 00:45:19,020
+So suppose CIJ is distributed as a Gaussian with zero bearing sigma j squared.
+
+348
+00:45:19,350 --> 00:45:27,300
+Here Sigma J squared can be different across occasions, representing the variability of the outcome and may be different across occasions.
+
+349
+00:45:27,330 --> 00:45:32,160
+You will see some examples later on. But as you understand, this is a most general assumption.
+
+350
+00:45:34,910 --> 00:45:42,379
+So why is itself being the main shifted version of a mean zero goals?
+
+351
+00:45:42,380 --> 00:45:49,100
+And here we can write down the density here. So this is something I'm not going to talk too much about.
+
+352
+00:45:49,280 --> 00:45:55,950
+Just to note that we have a mean here. And we can show this plot here.
+
+353
+00:45:56,280 --> 00:46:06,409
+Very simple. And in multivariate Gaussian case, we are going to write down the probability density.
+
+354
+00:46:06,410 --> 00:46:13,220
+Again, it is very similar to this form just with some matrix annotations.
+
+355
+00:46:15,480 --> 00:46:26,080
+So it looks like this. Remember, we are talking about the joint distribution of the outcome measured at occasion, 1 to 3 up to any.
+
+356
+00:46:26,130 --> 00:46:30,300
+Right. So it's a vector we're talking about. They may be marginal variations.
+
+357
+00:46:30,600 --> 00:46:41,040
+They may be called variations. So we need to have a density function assigned to every vector of realizable lives here.
+
+358
+00:46:41,430 --> 00:46:46,230
+So what I essentially is the collection of all the scalar values here.
+
+359
+00:46:50,510 --> 00:46:54,410
+In the center, we have something that's very familiar. It's a quadratic form.
+
+360
+00:47:11,270 --> 00:47:20,190
+So this is the main vector. Remember, this is called music one to me.
+
+361
+00:47:20,460 --> 00:47:23,590
+And I write. And this is the.
+
+362
+00:47:24,840 --> 00:47:27,930
+This is the variance covariance matrix.
+
+363
+00:47:34,210 --> 00:47:38,290
+And just as we would, you know, do the inverse, we have the inverse here.
+
+364
+00:47:38,980 --> 00:47:43,120
+And before the exponential here, we do have these terms.
+
+365
+00:47:43,900 --> 00:47:55,970
+So this is actually the determinant. Of stigma, and often some people call this generalized.
+
+366
+00:47:57,040 --> 00:48:09,910
+Variants. If you still retain some memory from your first, the algebra class determine is measuring the volume of the vector spanning a space.
+
+367
+00:48:10,590 --> 00:48:15,030
+So the higher this value is, the more variable in the space it will be.
+
+368
+00:48:17,060 --> 00:48:23,660
+So this is the mathematical representation. If I will scroll back to the previous slide.
+
+369
+00:48:23,870 --> 00:48:28,010
+Hopefully you can be convinced that they do look very similar.
+
+370
+00:48:29,260 --> 00:48:37,080
+In the above. This is the uni very Gaussian, so the sigma j squared is just one single number.
+
+371
+00:48:37,330 --> 00:48:42,069
+It is absorbed into here and we just have one variable.
+
+372
+00:48:42,070 --> 00:48:49,810
+So it's minus one over two compared to here, minus nine over two in the inside of the exponential.
+
+373
+00:48:50,080 --> 00:48:55,330
+Right, because everything is a scalar, so you don't need those matrix or vector multiplication.
+
+374
+00:48:55,990 --> 00:49:00,610
+But again, this is a quadratic form with the variance in the denominator.
+
+375
+00:49:00,970 --> 00:49:02,590
+And in the multivariate Gaussian,
+
+376
+00:49:02,950 --> 00:49:10,600
+you have to write this in the actual quadratic form where you have the difference between the realizable value y and the mean,
+
+377
+00:49:11,050 --> 00:49:14,980
+and then you are inversely weighted by the sigma i.
+
+378
+00:49:17,450 --> 00:49:21,460
+Okay. Of. So what's.
+
+379
+00:49:21,610 --> 00:49:24,360
+What's this? Mathematical property? It's very similar.
+
+380
+00:49:24,370 --> 00:49:33,820
+I will not cover this again, but I think it is worthwhile to talk about what is the standardized distance,
+
+381
+00:49:34,030 --> 00:49:37,210
+as we call by comparing the unique, varied and multivariate Gaussian.
+
+382
+00:49:37,780 --> 00:49:47,440
+There are some difference in the exponent, right? So this has something to do with what we call standardized difference in a univariate case.
+
+383
+00:49:49,030 --> 00:49:52,450
+If this is a variance of y check, we will need to.
+
+384
+00:49:54,350 --> 00:49:59,930
+Standardize the difference, indicating that we account for the variability of this outcome.
+
+385
+00:50:00,910 --> 00:50:06,640
+But when you have more than one outcome, j equals 1 to 2 to two.
+
+386
+00:50:07,030 --> 00:50:16,250
+How do we do this? It turns out that it is called a multivariate standardized distance, so you can do the same thing with a vector y.
+
+387
+00:50:16,660 --> 00:50:19,870
+So here y is collecting all the outcome.
+
+388
+00:50:19,870 --> 00:50:27,010
+Measurements from all the occasions may lie the same thing, but the are no mean structure and this is the variance covariance matrix.
+
+389
+00:50:27,730 --> 00:50:35,320
+What you do is just mimic what you would do in the universe case by replacing the variance by this big variance kg matrix.
+
+390
+00:50:36,040 --> 00:50:40,970
+And this turns out to be the most famous. Okay.
+
+391
+00:50:41,060 --> 00:51:05,810
+I need to make sure I spell name. Correct. So I'm looking at possibly some people from ISI to tell me who this person is.
+
+392
+00:51:07,780 --> 00:51:09,220
+Or somebody not from either.
+
+393
+00:51:11,700 --> 00:51:20,130
+So this is, I believe, former director of the India Statistical Institute, which is a most premier state institution in the world, I guess.
+
+394
+00:51:21,000 --> 00:51:23,340
+So anyway, this is a very important distance.
+
+395
+00:51:23,340 --> 00:51:31,770
+If you work in calls with inferencing work and has a score, you have to use this kind of distance to make sure that what they call covers a balanced.
+
+396
+00:51:32,070 --> 00:51:41,850
+But I have gone too far. At any rate, what we have mimicked in terms of univariate standard distance is a very important quantity.
+
+397
+00:51:42,420 --> 00:51:52,350
+Once you have realized that in the exponent, we are just trying to characterize a distance between the realizable y and the mean.
+
+398
+00:51:52,800 --> 00:52:00,720
+You know, the two are really similar, right? So here in the exponent it is the standardized distance between y i enemy y.
+
+399
+00:52:02,050 --> 00:52:07,930
+And in the very Gaussian, it is the standardized distance between the Y and the main.
+
+400
+00:52:08,770 --> 00:52:18,030
+So. You know, this is the connection mathematically between the the two goals in distributions.
+
+401
+00:52:22,200 --> 00:52:25,680
+So why don't we take 5 minutes, break and come back and finish Russell lecture?
+
+402
+00:53:36,780 --> 00:53:41,480
+I thought that. Yeah, that's.
+
+403
+00:53:57,650 --> 00:54:39,150
+I know. All right.
+
+404
+00:55:44,330 --> 00:56:34,640
+I think. What's.
+
+405
+00:58:03,060 --> 00:58:06,299
+Okay. Test. Test. All right, let's get back to work.
+
+406
+00:58:06,300 --> 00:58:21,710
+And so. So so far we have talked about the mathematical form of the multiverse, Gaussian distribution.
+
+407
+00:58:21,950 --> 00:58:28,010
+If you see, we can now remember every detail. That's totally fine. To be quite honest, I have a friend.
+
+408
+00:58:30,000 --> 00:58:34,320
+Wikipedia, which is like whenever I don't know the actual density, I just use that.
+
+409
+00:58:34,500 --> 00:58:37,800
+So don't feel worried if you can remember everything.
+
+410
+00:58:38,160 --> 00:58:43,800
+But one thing I do require you to know is how to map between univariate and multivariate versions of the Gaussians.
+
+411
+00:58:44,280 --> 00:58:49,710
+And to give you one example, here I am just showing you a two dimensional example for y.
+
+412
+00:58:49,740 --> 00:58:57,960
+So ya1 way to test everybody has have has to measure this and let's see how the density would be reached now.
+
+413
+00:58:58,230 --> 00:59:03,040
+So this is the the col the thing in exponential, right?
+
+414
+00:59:03,060 --> 00:59:07,890
+It is the distance or multivariate standardized distance.
+
+415
+00:59:08,250 --> 00:59:14,010
+It is trying to evaluate what's a standardized difference between the Y, i and AMU.
+
+416
+00:59:14,010 --> 00:59:17,460
+I remember why I is the vector of realized value.
+
+417
+00:59:18,660 --> 00:59:22,890
+Millhiser me. So if you plug everything in, you have to trust me a little bit here.
+
+418
+00:59:23,160 --> 00:59:28,410
+So everything will be written out like this. And what you have inside will be of three terms.
+
+419
+00:59:28,860 --> 00:59:33,689
+The first two are just standardized versions of the distance between each of the measurement,
+
+420
+00:59:33,690 --> 00:59:38,250
+right y one minus one standardized and same thing for the second measurement.
+
+421
+00:59:38,640 --> 00:59:43,290
+While for the third term, it involves the correlation.
+
+422
+00:59:43,920 --> 00:59:49,860
+So this is absent in the unit very Gaussian because you don't have any dependance between different measurements.
+
+423
+00:59:51,720 --> 00:59:59,700
+So if you rule out rule one two equals zero, which which is to say that the two measurements are not correlated at all,
+
+424
+01:00:00,060 --> 01:00:06,570
+then this whole thing will be reduced to what? Well, this chapter here is going to be one if row one, two zero.
+
+425
+01:00:07,170 --> 01:00:12,000
+And inside there will be only two terms, and both will be as standard as differences.
+
+426
+01:00:12,510 --> 01:00:19,020
+So you can see that essentially this is a sum of two seminars differences.
+
+427
+01:00:19,230 --> 01:00:23,310
+If you do the exponent, then in the exponential scale,
+
+428
+01:00:23,550 --> 01:00:29,010
+they're just going to be multiplied together by the density for y one, multiplied by the density of y two.
+
+429
+01:00:31,710 --> 01:00:37,620
+So. You can generalize this kind of thinking to more than to measurements, but this is idea.
+
+430
+01:00:37,860 --> 01:00:44,490
+You know, the density will be a single number and that number will be related to how correlated different measurements are.
+
+431
+01:00:47,950 --> 01:00:49,660
+Sort of theoretical properties.
+
+432
+01:00:50,110 --> 01:00:58,330
+As I have said, the materials and distribution, much like the universe counterpart, is completely determined by the ME and Coburn's.
+
+433
+01:01:00,540 --> 01:01:07,050
+However, unlike the tools you've learned in your infants class to check, you need very Gaussian distribution.
+
+434
+01:01:07,270 --> 01:01:11,370
+What are those tools we can see? Evaluate you new very Gaussian assumptions.
+
+435
+01:01:19,560 --> 01:01:23,220
+On the contrary. Kick.
+
+436
+01:01:23,230 --> 01:01:26,280
+APPLAUSE Yes. For that's a very powerful tool. Yeah.
+
+437
+01:01:26,790 --> 01:01:35,330
+Coupon. Have you guys heard about the chaos test?
+
+438
+01:01:36,530 --> 01:01:40,550
+In number metrics you can use the. Kind of chaos has.
+
+439
+01:01:43,220 --> 01:01:47,000
+What's the full name of Smirnoff test? Hopefully you have heard about it.
+
+440
+01:01:47,390 --> 01:01:53,270
+So there are some tools to deal with this, but in general, it's kind of hard to test a multivariate Gaussian assumption,
+
+441
+01:01:55,400 --> 01:01:59,600
+and that's just a some technical inconvenience and sort of thing.
+
+442
+01:01:59,720 --> 01:02:07,250
+And final thing I want to say is that if you have if one person has a joint distribution and that person tells you, hey,
+
+443
+01:02:08,540 --> 01:02:15,860
+every marginal of that joint distribution is a Gaussian, can you conclude that's the joint distribution this person has is a multi Gaussian?
+
+444
+01:02:16,760 --> 01:02:26,180
+Not necessarily. So this is final point that even if each marginal is Gaussian, it does not guarantee that the joint distribution is Gaussian.
+
+445
+01:02:26,300 --> 01:02:43,620
+Multiply Gaussian. So this is second to last slide of this main part.
+
+446
+01:02:43,640 --> 01:02:45,290
+I will move on to technical slide,
+
+447
+01:02:45,290 --> 01:02:52,310
+but I want to summarize or at least give you some directions about how to think about the role of multivariate Gaussian assumption.
+
+448
+01:02:52,580 --> 01:02:57,880
+So if it's hard to verify, then why should we worry about it? Why should we sit here and listen to this kind of a.
+
+449
+01:02:59,350 --> 01:03:07,480
+Notation lecture. Well, it is because we will be using a Gaussian assumption to derive certain estimate,
+
+450
+01:03:07,490 --> 01:03:11,170
+to estimate estimate tau, which is called weight at least squares.
+
+451
+01:03:11,620 --> 01:03:15,070
+And this these can be very easily derived on under Gaussian assumptions.
+
+452
+01:03:15,520 --> 01:03:20,610
+And when those assumptions are thrown away, actually those estimate hours are still good estimates,
+
+453
+01:03:21,160 --> 01:03:25,300
+but just not under justification of maximum likelihood but under certain other reasons.
+
+454
+01:03:25,310 --> 01:03:27,370
+Right. So we will be transitioning to that.
+
+455
+01:03:30,700 --> 01:03:39,280
+And if you focus on the point three here, I want to say that this is not a crazy idea that even if you throw away the assumption,
+
+456
+01:03:39,880 --> 01:03:42,730
+the estimate of derived under the guise of something could still be good.
+
+457
+01:03:43,150 --> 01:03:50,470
+So think Gauss Markov assumption right calls Markov theory, which says that to the least squares is going to be the.
+
+458
+01:03:53,080 --> 01:03:57,040
+What's that? Blu ray?
+
+459
+01:03:58,310 --> 01:04:01,910
+Best Buy is smarter, even without the girls in assumption.
+
+460
+01:04:02,180 --> 01:04:06,930
+So you should not be surprised that later on, if we throw away the girls assumption, we still have some good estimate.
+
+461
+01:04:06,930 --> 01:04:11,530
+Or finally for. A valid inference.
+
+462
+01:04:11,580 --> 01:04:20,010
+Right. As we have repeatedly said, this class focuses on how to do inference for this latter called beta.
+
+463
+01:04:20,250 --> 01:04:30,210
+These are often the regression parameters, and if we care about beta only do we can we throw away whatever information we know about coherence model?
+
+464
+01:04:30,540 --> 01:04:39,240
+Usually not a good idea because as we will see that depending on what coherence model you put into the estimation procedure,
+
+465
+01:04:39,570 --> 01:04:48,120
+you will have good or bad estimators. So this was a point I made in the last lecture.
+
+466
+01:04:49,200 --> 01:04:56,970
+We do want to get at the substantive parameters beta, but it does not mean that you can ignore the fact that you do have to model the coherence.
+
+467
+01:04:58,290 --> 01:05:02,430
+So a smarter coherence model means a better estimate for data.
+
+468
+01:05:04,440 --> 01:05:08,910
+So to summarize, here are the three things we have done.
+
+469
+01:05:09,090 --> 01:05:19,820
+And. I will do a little bit I will use in the technical know to probably finish the some simple mathematical fact about multiply Gaussian.
+
+470
+01:05:19,830 --> 01:05:21,590
+But pretty much these are what we have done.
+
+471
+01:05:21,890 --> 01:05:29,810
+First, we have used matrix notation to represent a simple data and to represent a simple model under that data.
+
+472
+01:05:29,810 --> 01:05:32,990
+That's the the TLC trial.
+
+473
+01:05:33,350 --> 01:05:42,230
+Okay. And second, we have explicitly distinguished the structure and the color and structure,
+
+474
+01:05:42,620 --> 01:05:47,929
+and we have also introduced a family of distribution called multivariate Gaussian
+
+475
+01:05:47,930 --> 01:05:53,090
+distribution that is uniquely determined by the main and the covariance.
+
+476
+01:05:55,220 --> 01:06:02,750
+And as I have said in this class, we will start by focusing on how to model the MI and how to model the covers and.
+
+477
+01:06:04,860 --> 01:06:08,460
+That's the main part of lecture. So I do have another techno note.
+
+478
+01:06:08,490 --> 01:06:13,890
+Hopefully you guys can have access to it. I think in the main webpage there is a techno note.
+
+479
+01:06:15,930 --> 01:06:27,840
+That looks like this. I see some confusing faces, so I'm going to say that it's here.
+
+480
+01:06:29,670 --> 01:06:39,390
+There you go. All right.
+
+481
+01:06:39,410 --> 01:06:45,600
+Hopefully you get that slide ready. These slide are very mathematically accurate.
+
+482
+01:06:45,620 --> 01:06:55,970
+I am in no intention to cover them all in the next 13 minutes, but I'm going to just go through some important facts.
+
+483
+01:06:56,270 --> 01:06:58,310
+And if you have questions about how to derive them,
+
+484
+01:06:58,910 --> 01:07:04,070
+or if you want to have some practice with some guidance from me or the GSI, please feel free to come to us this hour.
+
+485
+01:07:04,310 --> 01:07:12,290
+I'm happy to work through or just to hear what difficulty you may have with these notations, because I know they can be overwhelming in 15 minutes.
+
+486
+01:07:12,800 --> 01:07:16,070
+But I do think with time, if you practice, you will know what they mean.
+
+487
+01:07:16,970 --> 01:07:24,320
+So here my goal is trying to introduce some properties of my theory Gaussian and they should be.
+
+488
+01:07:26,240 --> 01:07:33,170
+This should be very handy to you early on when you're considering manipulating multilayer Gaussian distributions.
+
+489
+01:07:34,070 --> 01:07:38,630
+The first will be what are the properties of the mean of the of the mouth of our Gaussian?
+
+490
+01:07:39,020 --> 01:07:46,520
+What would be the property of the sample variance covariance matrix estimated from a bunch of vectors?
+
+491
+01:07:46,580 --> 01:07:54,350
+Right. So that's the first thing we'll be talking about. The second thing is that this thing we talk about and so just ignore it, the density itself.
+
+492
+01:07:54,980 --> 01:07:59,120
+The third thing is how to know this distance and its simple version.
+
+493
+01:07:59,120 --> 01:08:02,340
+We did not talk about this in the. And now all three.
+
+494
+01:08:02,820 --> 01:08:06,510
+But this will be the simple version. And finally, this.
+
+495
+01:08:06,510 --> 01:08:10,160
+We will be talking about the transformation of these variables.
+
+496
+01:08:10,440 --> 01:08:14,400
+And this is arguably the most important track you will need to learn.
+
+497
+01:08:15,980 --> 01:08:22,160
+Especially if you're going to work with multivariate data. So let's start from the beginning.
+
+498
+01:08:22,640 --> 01:08:27,320
+Annotations at this time. These should be very familiar to you.
+
+499
+01:08:27,470 --> 01:08:30,520
+Why j is the response measurement for subject time?
+
+500
+01:08:30,530 --> 01:08:36,500
+I j and y is a vector collect that collects all the response measurements for subject I here.
+
+501
+01:08:36,830 --> 01:08:40,220
+For the simplicity of demonstrating the mathematical property,
+
+502
+01:08:40,400 --> 01:08:47,720
+I have decided to assume everybody has the same number of measurements, so now equals n here are exigé k.
+
+503
+01:08:48,350 --> 01:08:51,650
+So here I again represents the subject.
+
+504
+01:08:52,460 --> 01:09:01,770
+J represents the occasion. Cake can represents one of a total of P coverage of that occasion.
+
+505
+01:09:01,920 --> 01:09:08,900
+Right. So for example, you know, you can have the time timing for that occasion there.
+
+506
+01:09:09,860 --> 01:09:14,330
+And Exigé essentially collects all the P covariates.
+
+507
+01:09:14,780 --> 01:09:22,430
+You have occasion j and for subject I right. And exi essentially is the design matrix.
+
+508
+01:09:32,430 --> 01:09:40,200
+Okay. So. Let's talk about the sample.
+
+509
+01:09:40,200 --> 01:09:43,230
+Me. So here. Why I.
+
+510
+01:09:43,410 --> 01:09:49,290
+Why bother? Now you can see it say average of capital n vectors.
+
+511
+01:09:49,800 --> 01:09:53,210
+You have a y, I have y, everybody else have y.
+
+512
+01:09:53,220 --> 01:09:58,650
+Let's average let's add them together. Divisor n so the results still should be by one vector.
+
+513
+01:09:59,760 --> 01:10:05,550
+So this is called simple average vector. Okay.
+
+514
+01:10:06,340 --> 01:10:12,350
+And and second, the statistic. So this is a sample.
+
+515
+01:10:13,640 --> 01:10:19,060
+Mean that to. This is the sample variance.
+
+516
+01:10:29,940 --> 01:10:33,550
+So mg kg matrix. Okay.
+
+517
+01:10:34,870 --> 01:10:40,650
+So both of them are statistically. Which means that they only depend on data.
+
+518
+01:10:40,680 --> 01:10:44,710
+Not any Greek letters, right? You don't see any Greek letters in the white Boris.
+
+519
+01:10:45,600 --> 01:10:56,220
+So we also assume that y eyes are sampled from a multivariate Gaussian distribution with minu and the variance covariance matrix sigma.
+
+520
+01:10:57,480 --> 01:11:03,530
+So this is the idea assumption you see often. Then.
+
+521
+01:11:04,790 --> 01:11:09,260
+Exactly the same as you have learned in your state 1 to 1 that can be in your undergrad.
+
+522
+01:11:09,590 --> 01:11:16,970
+The ME is getting at that new and this simple variance covariance matrix is getting at the true events governance matrix.
+
+523
+01:11:17,420 --> 01:11:20,960
+So this is the most important statement here. Basically.
+
+524
+01:11:23,690 --> 01:11:29,630
+The expected value of y bar is new. So this is what people call frequent is probably right.
+
+525
+01:11:30,050 --> 01:11:39,200
+You know, upon repeated use of this procedure called sample mean you will on average be getting at the true mew.
+
+526
+01:11:39,800 --> 01:11:44,660
+Same thing for us as is one is simple variance covariance matrix.
+
+527
+01:11:44,870 --> 01:11:52,190
+So the expectation says that hey, if you repeatedly use this procedure to construct simple various governance matrix,
+
+528
+01:11:52,730 --> 01:11:56,000
+the average of these simple vertical writes and matrix will be the truth, right?
+
+529
+01:11:56,360 --> 01:11:59,960
+So this is the sigma and this is often called on business.
+
+530
+01:12:07,130 --> 01:12:11,120
+Okay. Um. I will not cover.
+
+531
+01:12:12,470 --> 01:12:19,010
+The derivations, but they're there for you just in case you want to know how to work with the vector a little bit.
+
+532
+01:12:19,380 --> 01:12:27,290
+I remember I present this challenge to all of you that use this note if you want to push yourself.
+
+533
+01:12:30,260 --> 01:12:33,290
+Push yourself to do. To do what? To practice.
+
+534
+01:12:36,950 --> 01:12:42,700
+Vector matrix. Operation.
+
+535
+01:12:45,780 --> 01:12:51,090
+And as you recall, I said, this class is challenging and this aspect is kind of what I meant by challenge.
+
+536
+01:12:51,120 --> 01:13:01,430
+You do need to be able to wield these technical tools a little bit, I would say easily, or you want to practice doing them.
+
+537
+01:13:01,440 --> 01:13:11,300
+It's like, you know, if you're trying to build muscle. You have to be operating at a level where the muscle tissue will break.
+
+538
+01:13:11,480 --> 01:13:18,470
+Right. Otherwise you can gain muscle. Some people laughed because probably, you know, it's the same thing here.
+
+539
+01:13:18,480 --> 01:13:22,800
+You've got to want to push yourself a little bit so that it feels a little bit uncomfortable.
+
+540
+01:13:23,610 --> 01:13:26,880
+But you do have the help of the of myself and just your friends here.
+
+541
+01:13:27,310 --> 01:13:33,030
+So but if you feel that this aspect is not too appealing to you,
+
+542
+01:13:33,300 --> 01:13:39,240
+we got to talk and we have to figure out what are the basic set of operations you want to know.
+
+543
+01:13:39,900 --> 01:13:44,610
+Because I worry that if we completely forgo these operations,
+
+544
+01:13:44,940 --> 01:13:50,940
+all the things about needing to make some models will be totally a black box to you, which I don't want to want you to feel.
+
+545
+01:13:51,270 --> 01:13:55,550
+So any questions we can talk offline or in my office hour?
+
+546
+01:13:57,510 --> 01:14:01,710
+And second is that this is really preparing.
+
+547
+01:14:03,270 --> 01:14:07,090
+Preparing for. For a new or mixed model.
+
+548
+01:14:13,990 --> 01:14:17,380
+Okay. And it makes model. Okay. All right.
+
+549
+01:14:21,140 --> 01:14:25,610
+So the first property is straightforward. The second property.
+
+550
+01:14:28,810 --> 01:14:35,650
+Is the linear transformation of multivariate Gaussian distribution will still be multivariate Gaussian.
+
+551
+01:14:36,430 --> 01:14:44,980
+Here, I have to apologize because I said I don't like the word normal, but for historical reasons, there is a path path dependency issue.
+
+552
+01:14:45,010 --> 01:14:49,270
+So I somehow needed to change that entity. But you know what I mean.
+
+553
+01:14:49,300 --> 01:14:54,910
+It's a multivariate Gaussian here. So this is the most important statement.
+
+554
+01:14:55,870 --> 01:15:01,750
+If you have why following a multi very Gaussian with menu and vertical and sigma,
+
+555
+01:15:02,770 --> 01:15:10,300
+then I think I can say this is and by one then you decide to do an inner transformation.
+
+556
+01:15:10,750 --> 01:15:17,260
+Z equals eight times Y and then you want to do a translation or shift it by amount of C here.
+
+557
+01:15:18,550 --> 01:15:26,620
+Right. Then the statement says that, hey, what you got will still be a moderate Gaussian, but with different me and different versions.
+
+558
+01:15:26,620 --> 01:15:40,670
+Covance. All right. So we will be looking at one example of that in general a here, let me just Z equals a times Y plus C here.
+
+559
+01:15:41,480 --> 01:15:48,770
+So and y is in by one and this is our by N and this is up by one and this is by one here.
+
+560
+01:15:49,320 --> 01:15:58,890
+All right. So if you are going to calculate the mean of Z.
+
+561
+01:16:00,280 --> 01:16:03,550
+It is going to be the meaning of what's on there, right.
+
+562
+01:16:06,880 --> 01:16:11,170
+And here because A and C are constant. So you just factor them out.
+
+563
+01:16:14,710 --> 01:16:17,830
+So it's just a new policy.
+
+564
+01:16:17,860 --> 01:16:22,180
+The reason why I do this is because simple enough that I can cover it. So.
+
+565
+01:16:22,690 --> 01:16:26,640
+So this is the mean here. And how about the veterans concerns?
+
+566
+01:16:27,330 --> 01:16:30,880
+So it is the. This one here.
+
+567
+01:16:31,860 --> 01:16:36,270
+And what you need to know is that you just plug in the A Y plus C here.
+
+568
+01:16:36,960 --> 01:16:43,350
+So when you see this, you just convert this to covers of a Y plus C, A, Y plus C.
+
+569
+01:16:43,920 --> 01:16:47,580
+So basically variance is just covariance of the variable to itself. Okay.
+
+570
+01:16:48,900 --> 01:16:54,020
+The first thing is that you need to know the C does not matter when you're calculating the covariance so we can just throw them away.
+
+571
+01:16:58,770 --> 01:17:04,030
+Okay. And then we need to use aid. Another thing that's a.
+
+572
+01:17:05,060 --> 01:17:08,750
+Somehow is a rule is that for this thing, you just copy it.
+
+573
+01:17:09,110 --> 01:17:13,670
+For this thing, you just transpose it, and then you just do the convergence of y and y.
+
+574
+01:17:18,500 --> 01:17:26,030
+And then you realize that in the middle it is just this because the coverage so wide itself is just the variance sigma.
+
+575
+01:17:26,510 --> 01:17:33,890
+Hence the this one. And I did not prove that the needed transformation will be Gaussian,
+
+576
+01:17:34,670 --> 01:17:41,450
+but it will be proved using calculus of function argument, which I believe you have learned in.
+
+577
+01:17:42,530 --> 01:17:45,640
+It's 601. Character is a function.
+
+578
+01:17:46,680 --> 01:17:50,730
+No. Okay. Never mind. So anyway. So it will be a moderate soon.
+
+579
+01:17:51,060 --> 01:17:55,050
+So now the only task is to determine the mean and the variance covariance.
+
+580
+01:17:55,500 --> 01:18:01,740
+So the idea is that we have shown, partially shown that Z still is going to be a Gaussian.
+
+581
+01:18:02,310 --> 01:18:08,840
+Right. And. This part is a statement here.
+
+582
+01:18:10,360 --> 01:18:15,310
+This is to say that we can do some quadratic.
+
+583
+01:18:16,540 --> 01:18:19,930
+Transformation of the Y and that will have a Chi Square distribution.
+
+584
+01:18:20,470 --> 01:18:27,040
+And I don't think I want to prove it in a class because we will use this much later
+
+585
+01:18:27,610 --> 01:18:32,139
+towards when we're doing testing so we can revisit them when we want to do this,
+
+586
+01:18:32,140 --> 01:18:35,290
+when, when, when it's time. But I have provided proof here.
+
+587
+01:18:36,070 --> 01:18:40,540
+It should be very, uh, it should be correct and it should be specific enough.
+
+588
+01:18:40,900 --> 01:18:47,860
+But if you want to, if you want to be adventurous and want to go over it before we actually use it, feel free to do so.
+
+589
+01:18:49,210 --> 01:18:54,700
+The idea is that you do can have some similar distributions.
+
+590
+01:18:56,470 --> 01:18:59,730
+Relative to when you were studying, you knew very Gaussian, right?
+
+591
+01:18:59,740 --> 01:19:05,380
+Because you studied Chi Square distributions when you were very familiar with the universe, Gaussians.
+
+592
+01:19:10,780 --> 01:19:17,920
+So one simple example I have now, that will be today. So can you write down why bar in terms of a.
+
+593
+01:19:19,560 --> 01:19:24,090
+Operation like Z equals A, Y plus C.
+
+594
+01:19:27,810 --> 01:19:31,390
+What is A and what is C or C is zero.
+
+595
+01:19:31,410 --> 01:19:45,870
+So I will not let you do that. So what is a here? Once this is done and you're free to go.
+
+596
+01:19:48,830 --> 01:20:03,130
+Oh, that's it for 328. So let's make it quick. Hmm.
+
+597
+01:20:22,330 --> 01:20:26,750
+I think this may be flying this question. Right? I think. Mm.
+
+598
+01:20:29,720 --> 01:20:34,160
+How about this? How about this? So I think I realize there's a fly in this question.
+
+599
+01:20:34,160 --> 01:20:39,830
+So if you have realized this close to you, but if you haven't, that's good.
+
+600
+01:20:40,190 --> 01:20:45,380
+So why bother? So this is my one and this is why.
+
+601
+01:20:45,390 --> 01:20:53,450
+Bah, I have to clarify that this is just the sum of y one plus y n and here.
+
+602
+01:20:54,430 --> 01:21:04,180
+I need to say that these are all scholars, so that in this case, what would be the matrix in front of what I want here is a scalar.
+
+603
+01:21:04,570 --> 01:21:12,940
+So if you have a vector of y and your task is trying to figure out how to represent the average of those values in that vector should be very simple.
+
+604
+01:21:18,580 --> 01:21:26,340
+So it's just one. The been one of them. It's just. So idea is that the Army is still going to distribute it.
+
+605
+01:21:26,760 --> 01:21:32,400
+And in this case, because why bar is a scalar, then it will be a universal Gaussian.
+
+606
+01:21:32,730 --> 01:21:38,640
+Okay, that's it. Thanks, everybody. I do have office hours from 5 to 6, so I'll be there if you want to go by.
+
+607
+01:21:39,450 --> 01:21:39,990
+I'll see you there.
+

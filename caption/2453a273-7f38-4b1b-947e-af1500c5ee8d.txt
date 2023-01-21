@@ -1,0 +1,3404 @@
+1
+00:00:08,100 --> 00:00:12,660
+Okay. So let's check in on where we are just very briefly.
+
+2
+00:00:14,730 --> 00:00:17,969
+We are almost at the end of our review.
+
+3
+00:00:17,970 --> 00:00:23,730
+And I've hope, I hope that you've been learning enough new things along with the quick review to keep this interesting.
+
+4
+00:00:24,600 --> 00:00:29,639
+Today we're going to be reviewing very quickly logistic regression,
+
+5
+00:00:29,640 --> 00:00:35,129
+and we're going to build in some extra interesting topics like how to build propensity
+
+6
+00:00:35,130 --> 00:00:41,070
+scores for matching and also how to do a meta analysis just through logistic regression.
+
+7
+00:00:42,170 --> 00:00:47,360
+Now if you are just feeling like you own logistic regression completely.
+
+8
+00:00:48,200 --> 00:00:58,640
+Note that I have posted homework too, and if you get very bored and you need some extra brain activity on the side,
+
+9
+00:00:59,660 --> 00:01:07,970
+the first homework problem is something that's based on handout three, some with your handout three, handout four.
+
+10
+00:01:08,660 --> 00:01:14,240
+And so you can actually start a little bit of programing if you if you choose to do so.
+
+11
+00:01:14,810 --> 00:01:19,070
+Lap this week is going to be helpful as well for the homework.
+
+12
+00:01:20,610 --> 00:01:29,710
+So. Actually, number one. And number two are things that you could start tackling if you wanted to use your time that went.
+
+13
+00:01:31,770 --> 00:01:35,669
+All right. But I will try to you know, I think it's a good handout.
+
+14
+00:01:35,670 --> 00:01:38,430
+If you haven't seen logistic regression in a while, you need a refresher.
+
+15
+00:01:38,430 --> 00:01:42,090
+It goes through it goes through the ideas very well and very quickly, I believe.
+
+16
+00:01:42,870 --> 00:01:53,210
+So let's go ahead and get started with that. All right.
+
+17
+00:01:53,240 --> 00:01:59,840
+There's a lot of useful references besides your own previous course notes that you've had.
+
+18
+00:02:01,100 --> 00:02:04,760
+And also chapter six of our current textbook.
+
+19
+00:02:05,600 --> 00:02:09,110
+So there's two additional text that I frequently use.
+
+20
+00:02:10,650 --> 00:02:17,490
+To teach this material, and one of them is the Hardcore Limits show instead of a reference that's available free.
+
+21
+00:02:17,910 --> 00:02:21,030
+And I think I have the most updated. Yes.
+
+22
+00:02:24,520 --> 00:02:34,160
+Oh. Okay.
+
+23
+00:02:34,190 --> 00:02:37,650
+Thank you. It looked like it was going on my end.
+
+24
+00:02:38,420 --> 00:02:41,420
+So thanks for that. Haven't gotten too deeply in there yet.
+
+25
+00:02:43,220 --> 00:02:49,250
+Okay, so the most up to date references that I use are on the main home page.
+
+26
+00:02:49,370 --> 00:02:58,430
+So before class, I realized I hadn't necessarily double checked that this link works still because I do update those as I go.
+
+27
+00:02:59,000 --> 00:03:02,120
+But you should have some. Oh yeah. It looks like a still goes.
+
+28
+00:03:02,600 --> 00:03:08,630
+So you have free access to this material through you and library.
+
+29
+00:03:11,510 --> 00:03:17,000
+And there is also a book that was very famous so long ago.
+
+30
+00:03:17,030 --> 00:03:20,420
+You know, even I knew about it as a graduate student called Breslow one day.
+
+31
+00:03:20,990 --> 00:03:25,700
+And it's also freely available. And here's a link to it online. That link wouldn't have changed over time.
+
+32
+00:03:28,970 --> 00:03:34,070
+All right. So just as background for logistic regression, you know,
+
+33
+00:03:34,070 --> 00:03:40,500
+a lot of the special cases for that model end up being things we've already reviewed quickly about binary outcome analysis.
+
+34
+00:03:40,510 --> 00:03:46,010
+So I thought it would be useful. Just first, summarize where we've gotten so far with this.
+
+35
+00:03:46,010 --> 00:03:51,560
+So summary of contingency table methods for binary outcomes.
+
+36
+00:03:52,700 --> 00:03:58,520
+So suppose the goal to determine if a binary or categorical risk factors associated with a binary outcome.
+
+37
+00:03:59,180 --> 00:04:06,890
+So so far when we don't have matched studies, so all the out, all the individuals in the dataset are independent.
+
+38
+00:04:07,340 --> 00:04:16,040
+We've looked at standard odds ratio estimation confidence intervals and Chi Square tested association and when we had confounding,
+
+39
+00:04:16,910 --> 00:04:23,120
+we looked at mental handful adjusted odds ratios and confidence intervals and Cochrane Mental Handful tests of association.
+
+40
+00:04:23,450 --> 00:04:28,639
+And we particularly emphasized when study is a confounder and a mate analysis,
+
+41
+00:04:28,640 --> 00:04:33,620
+that's how you adjust for a study as a confounder with the mental handful methods.
+
+42
+00:04:35,530 --> 00:04:45,339
+And in terms of interaction, we've looked at strata and specific odds ratios and confidence intervals and then used a Breslow de test
+
+43
+00:04:45,340 --> 00:04:53,050
+for homogeneity to see if there was evidence of interaction between study and the association of interest.
+
+44
+00:04:55,970 --> 00:04:59,930
+But that's about as far as we've gone. When your outcomes are independent.
+
+45
+00:04:59,940 --> 00:05:07,610
+So to deal with continuous predictors and their associations and to deal with multiple covariates, we really haven't.
+
+46
+00:05:08,030 --> 00:05:12,230
+The contingency table analysis framework isn't as helpful.
+
+47
+00:05:13,010 --> 00:05:20,000
+Now we've also looked at methods for match studies where each case is matched to one or more controls.
+
+48
+00:05:20,780 --> 00:05:25,710
+And as I just showed you on your homework too, you know,
+
+49
+00:05:25,880 --> 00:05:33,800
+we've learned how to do odds ratios and confidence intervals where most of the statistical information is in the discordant pairs.
+
+50
+00:05:34,610 --> 00:05:37,939
+And we've also learned how to do McNamara's test for associations.
+
+51
+00:05:37,940 --> 00:05:42,610
+So this is something that's not often taught in interests that are not always taught in Intrastat.
+
+52
+00:05:42,620 --> 00:05:45,410
+So you'll have a chance to practice that on the first homework problem.
+
+53
+00:05:46,770 --> 00:05:56,429
+I did skip a bit of the interaction part of that handout, and I'm not going to strictly have it as a part of the course.
+
+54
+00:05:56,430 --> 00:06:00,030
+I have a couple of slides that you can read on your own.
+
+55
+00:06:01,110 --> 00:06:07,230
+But we're going to study, interact in an appropriate regression framework when we have matching.
+
+56
+00:06:07,620 --> 00:06:08,880
+And that won't happen today.
+
+57
+00:06:08,930 --> 00:06:19,140
+We're going to eventually learn something called conditional logistic regression to look at interactions in in the matched setting.
+
+58
+00:06:20,310 --> 00:06:27,780
+We also looked at one to see matching and the mental Hansell odds ratio and confidence interval
+
+59
+00:06:28,410 --> 00:06:34,440
+are still appropriate and the Cochrane Mental Health for test of association is used.
+
+60
+00:06:34,650 --> 00:06:38,280
+Really, McNamara's is a special case of this Cochrane Mental Hansell test.
+
+61
+00:06:38,280 --> 00:06:46,230
+When you have a two by two table for one to see matching, you just use the more general Cochrane Mental Health methods.
+
+62
+00:06:48,000 --> 00:06:54,660
+And there is no one table or stratum for each cluster of matched case cases and controls.
+
+63
+00:06:54,990 --> 00:06:58,830
+So we're eventually going to come back to this setting for regression.
+
+64
+00:06:59,100 --> 00:07:04,430
+We're not going to. It's not part of the usual logistic regression you've you've learned so far.
+
+65
+00:07:04,440 --> 00:07:07,950
+So we'll have to learn the appropriate regression method for that case.
+
+66
+00:07:10,160 --> 00:07:18,950
+So for today, everything in this handout is assuming that each individual is independent from every other individual.
+
+67
+00:07:19,010 --> 00:07:20,740
+They might share certain features.
+
+68
+00:07:20,750 --> 00:07:28,670
+You know, you might think of groups that have common ages and so on, but outcomes are independent for each of the individuals.
+
+69
+00:07:29,090 --> 00:07:33,830
+And so there are limitations to the contingency table methods we've reviewed so far.
+
+70
+00:07:34,950 --> 00:07:42,120
+All potential risk factors and confounders had to be categorical for us to even attempt to address them so far.
+
+71
+00:07:43,650 --> 00:07:50,730
+So if you had a continuous exposure that you wanted to explore, they they had to be divided into groups.
+
+72
+00:07:51,120 --> 00:07:54,449
+So for continuous age, you would have had to create continuous,
+
+73
+00:07:54,450 --> 00:08:01,740
+continuous are or rather categorical groupings at the continuous age to even tackle it with the methods before.
+
+74
+00:08:02,490 --> 00:08:06,360
+And there's a potential loss of information in the data when you do that.
+
+75
+00:08:07,620 --> 00:08:12,720
+And the price tag is a loss of power to detect associations.
+
+76
+00:08:13,440 --> 00:08:21,300
+And also potentially you haven't fully adjusted for the confounder if you have a continuous confounder.
+
+77
+00:08:21,870 --> 00:08:29,400
+And you've summarized it in categorical form, there might still be a single lingering bias due to confounding from that choice.
+
+78
+00:08:30,300 --> 00:08:36,930
+And so if there really is an association between a continuous exposure and one of these binary outcomes,
+
+79
+00:08:37,710 --> 00:08:48,930
+then we need to do something different than a contingency table framework analysis to fully leverage the power in that information and to fully,
+
+80
+00:08:49,740 --> 00:08:53,130
+you know, get the bias correction that's needed in our analysis.
+
+81
+00:08:56,040 --> 00:09:03,359
+Another limitation of contingency tables is that you can only assess the impact of one confounder or effect modifier at a time.
+
+82
+00:09:03,360 --> 00:09:08,580
+And that's very limiting because there's often many more potential confounders than one.
+
+83
+00:09:10,350 --> 00:09:14,730
+So you'd like to be able to assess the impact of several confounders, in effect, modifiers at once.
+
+84
+00:09:18,850 --> 00:09:23,499
+So everybody learns linear regression is the first regression model.
+
+85
+00:09:23,500 --> 00:09:28,239
+So it kind of becomes the comparison method when we're learning new regression models.
+
+86
+00:09:28,240 --> 00:09:35,620
+And that's going to continue to be the case just because most people are are most familiar with linear regression.
+
+87
+00:09:35,620 --> 00:09:38,860
+They've seen it several times generally by the time they get to this course.
+
+88
+00:09:39,890 --> 00:09:49,190
+So linear regression does allow you to assess simultaneous influence of multiple predictors on the mean of a continuous outcome variable.
+
+89
+00:09:49,190 --> 00:09:53,450
+So your outcome variable Y would have been something that was a normally distributed
+
+90
+00:09:53,450 --> 00:09:59,210
+quantity and you could put as many predictors as the model could bear in that model.
+
+91
+00:09:59,780 --> 00:10:09,200
+So I'm going to call the Predictors X's throughout the handout, and there's no restriction on what the covariates can be.
+
+92
+00:10:09,200 --> 00:10:13,190
+They can be continuous covariates, they can be categorical, they can be binary.
+
+93
+00:10:13,460 --> 00:10:20,660
+They need not be normally distributed. But in linear regression, the outcome is considered normally distributed and you're modeling.
+
+94
+00:10:20,660 --> 00:10:30,010
+It's mean. So adjustment for confounders assessment of interactions between predictors are all accommodated within the regression framework.
+
+95
+00:10:30,010 --> 00:10:41,440
+It's very easy to use once you become familiar with it. So now we have a yes no or binary or Bernoulli outcome.
+
+96
+00:10:41,800 --> 00:10:44,680
+I'm going to kind of use a lot of those things interchangeably.
+
+97
+00:10:45,340 --> 00:10:56,500
+So you want to model the probability of a binary outcome, like the probability of a yes or a probability of a one versus a zero.
+
+98
+00:10:57,500 --> 00:11:05,420
+And so that's no longer a normally distributed outcome. It's definitely a bernoulli distributed outcome or binomial with an equal one outcome.
+
+99
+00:11:06,580 --> 00:11:10,960
+But that is also I mean, that probability of a binary outcome is the mean.
+
+100
+00:11:12,050 --> 00:11:15,830
+Of the binary outcome variable when it's counted as a one versus a zero.
+
+101
+00:11:17,180 --> 00:11:21,260
+So why can't we use linear regression tools in this case?
+
+102
+00:11:22,520 --> 00:11:27,620
+And of course, you've seen this before. It's just a reminder for linear regression.
+
+103
+00:11:28,160 --> 00:11:35,660
+Just take a look at the summary here. The column for the linear regression is when you have a continuous outcome.
+
+104
+00:11:37,260 --> 00:11:43,020
+So your distribution of the outcome is normal. The perimeter of interest is the mean of a continuous random variable.
+
+105
+00:11:43,680 --> 00:11:47,780
+The variance is not related to the mean at all.
+
+106
+00:11:47,820 --> 00:11:58,740
+It has its own parameter. And it's it's actually got this assumption that it doesn't matter what your risk profile is in the linear regression model,
+
+107
+00:11:59,190 --> 00:12:01,499
+the variability of the outcomes is the same.
+
+108
+00:12:01,500 --> 00:12:09,180
+So this sigma squared is reflecting homogeneity of the outcomes that term that says the variance of the outcomes
+
+109
+00:12:09,180 --> 00:12:14,310
+is the same regardless of what the risk profile is and the patient that you're thinking about for that model.
+
+110
+00:12:15,650 --> 00:12:19,730
+And the range of the mean is all the way from negative infinity to infinity.
+
+111
+00:12:21,320 --> 00:12:29,450
+So when you change to a binary outcome or a newly distributed outcome, you're still modeling the parameter of interest.
+
+112
+00:12:29,450 --> 00:12:34,400
+P So if your Bernoulli is a one. Versus a zero.
+
+113
+00:12:34,880 --> 00:12:38,390
+The mean of that, Bernoulli is a p the probability of the one.
+
+114
+00:12:39,740 --> 00:12:47,420
+And the variance also involves. P So there's a direct link between the mean that you're predicting and the variability of the outcome.
+
+115
+00:12:49,050 --> 00:12:57,270
+So the closer the probability of having one is to a half, the bigger the variability of that outcome is.
+
+116
+00:12:57,930 --> 00:13:04,530
+And as you get too close to where the probability is to zero or one, that's when the variability is the smallest.
+
+117
+00:13:06,310 --> 00:13:10,020
+And so we don't have homeless kids testing depending on the risk profile.
+
+118
+00:13:10,030 --> 00:13:14,140
+If you have a PE that's either very, very high or very, very low, your variance is smaller.
+
+119
+00:13:14,620 --> 00:13:18,729
+And if you have a risk profile, that puts your probability of the outcome high.
+
+120
+00:13:18,730 --> 00:13:22,210
+But I have you have the largest possible variability.
+
+121
+00:13:24,690 --> 00:13:34,290
+And so that ends up being a key feature for why we do model fitting for logistic regression entirely differently from the way linear regression works.
+
+122
+00:13:35,500 --> 00:13:41,139
+There's also a restricted range of the mean probabilities need to be between zero and one,
+
+123
+00:13:41,140 --> 00:13:45,790
+and that's another feature that logistic regression addresses directly.
+
+124
+00:13:48,720 --> 00:13:52,550
+The challenge. One is this lack of homeless cat activity.
+
+125
+00:13:52,560 --> 00:13:58,560
+So remember homeless get us to see is equal variance of the outcome regardless of your risk profile.
+
+126
+00:13:59,280 --> 00:14:02,879
+And linear regression assumes that that variability of the normally distributed
+
+127
+00:14:02,880 --> 00:14:06,990
+outcome variable was similar across all possible predicted values of its mean.
+
+128
+00:14:07,620 --> 00:14:16,740
+But we don't have that anymore. When you have a binary outcome, it's variance p times one minus p depends directly on the mean p.
+
+129
+00:14:17,340 --> 00:14:23,910
+So the same covariates that that help you predict p are also in influencing how variable that outcome is.
+
+130
+00:14:24,630 --> 00:14:26,850
+And again, p times one month features.
+
+131
+00:14:26,850 --> 00:14:34,920
+Mathematically it's the biggest when you're near half and it gets smaller and smaller as you go to the extremes of 011.
+
+132
+00:14:37,760 --> 00:14:42,709
+So the least squares method that you used in linear regression won't work well
+
+133
+00:14:42,710 --> 00:14:46,220
+to estimate the parameters and get confidence intervals and p values anymore.
+
+134
+00:14:48,620 --> 00:15:01,020
+All right. And the intuition is that at least squares, the values, all of the risk profiles equally when trying to fit a line through the data.
+
+135
+00:15:01,620 --> 00:15:09,810
+And really here in logistic regression, some risk profiles are going to be more precise than others.
+
+136
+00:15:10,140 --> 00:15:15,690
+When you're trying to fit the model and so least squares methods that you know that treat all risk
+
+137
+00:15:15,690 --> 00:15:21,140
+profiles the same in estimating the model behind the data aren't going to work as well in that case.
+
+138
+00:15:21,170 --> 00:15:29,100
+So instead and logistic regression parameter estimation takes into account this non constant variance takes advantage of it.
+
+139
+00:15:30,340 --> 00:15:35,079
+And maximum likelihood is used to fit the parameters.
+
+140
+00:15:35,080 --> 00:15:39,969
+The maximum liquid estimates are selected as the values that are most likely to produce the
+
+141
+00:15:39,970 --> 00:15:45,550
+observed data when the probability model for the data is written out in terms of binary outcomes.
+
+142
+00:15:46,800 --> 00:15:51,780
+And maximum likelihood is kind of this really great technology.
+
+143
+00:15:51,780 --> 00:15:58,710
+It makes a lot of sense that you're trying to find parameter estimates that make the data you have in your hand most likely.
+
+144
+00:15:59,970 --> 00:16:06,720
+And if you use that same principle in the linear, linear regression setting, you get the same thing as least squares.
+
+145
+00:16:07,530 --> 00:16:14,460
+So maximum likelihood generalizes a bit more than least squares even when you don't have homeless connectivity.
+
+146
+00:16:14,790 --> 00:16:21,990
+And as we go through the course, most of the models lean on this maximum likelihood kind of idea.
+
+147
+00:16:22,860 --> 00:16:27,750
+You won't see least squares used anymore beyond linear regression.
+
+148
+00:16:31,760 --> 00:16:36,169
+It's a challenge to is that probabilities have to be between zero and one and linear
+
+149
+00:16:36,170 --> 00:16:40,130
+regression doesn't guarantee that the model probability will be in that range.
+
+150
+00:16:41,150 --> 00:16:42,830
+I mean, this is a bit of a detail,
+
+151
+00:16:43,580 --> 00:16:51,650
+but it's been it's a detail that many people have considered very deeply when they think when they came up with this idea of logistic regression.
+
+152
+00:16:51,680 --> 00:16:57,510
+So here's the example that motivates. The way logistic regression is set up.
+
+153
+00:16:57,520 --> 00:17:00,940
+So suppose you have an outcome that is death one versus zero.
+
+154
+00:17:00,950 --> 00:17:10,560
+You're modeling the probability of death. And the predictor is the percent of the body surface area sustaining a full thickness burn or FTB.
+
+155
+00:17:12,160 --> 00:17:14,950
+And suppose that when you use linear regression,
+
+156
+00:17:15,940 --> 00:17:21,910
+just ignoring the fact that this outcome is normally distributed but you just can't use linear regression anyway,
+
+157
+00:17:22,810 --> 00:17:32,440
+you get the probability of death is 0.5 plus .01 times, uh, this full thickness burn predictor.
+
+158
+00:17:33,190 --> 00:17:36,640
+And so if you have a full thickness burn.
+
+159
+00:17:37,670 --> 00:17:41,420
+Percentage of 60%. The model will estimate the probability of death.
+
+160
+00:17:41,420 --> 00:17:45,290
+Its being 1.1, which is definitely higher than 100%.
+
+161
+00:17:45,980 --> 00:17:55,400
+And so people, you know, look at this and they say, boy, I need a better model that will keep the probability estimates in the correct range.
+
+162
+00:17:59,760 --> 00:18:03,120
+So a popular approach is to model a function of that.
+
+163
+00:18:03,120 --> 00:18:06,390
+Probably that forces the probability to be in the range zero one.
+
+164
+00:18:06,960 --> 00:18:12,030
+And there have been several functions considered when these models were first being developed.
+
+165
+00:18:12,030 --> 00:18:16,680
+But the one that kind of won the contest is the logistic function.
+
+166
+00:18:17,280 --> 00:18:22,829
+And so I don't know if this was ever laid out for you when you took logistic regression,
+
+167
+00:18:22,830 --> 00:18:31,229
+but there's it's a there's a shape to this logistic function where you're forced to be zero between zero and one for the
+
+168
+00:18:31,230 --> 00:18:41,610
+probabilities that you're modeling and you kind of start off low and you increase and then you kind of never quite get past one.
+
+169
+00:18:43,500 --> 00:18:51,180
+So the way I've got this laid out is I've got an X here and I've got a probability that's E to the X over one plus eight of the x.
+
+170
+00:18:52,560 --> 00:18:56,010
+And that might look like what you remember from logistic regression.
+
+171
+00:18:56,010 --> 00:18:59,670
+So think about this X term.
+
+172
+00:19:00,640 --> 00:19:06,940
+As being a combination of data not plus beta 1x1 plus beta 2x2.
+
+173
+00:19:06,940 --> 00:19:15,460
+The linear predictor that you usually see in a regression model that the right hand side of your model with the beta is the X's.
+
+174
+00:19:16,700 --> 00:19:24,800
+And then e to that same number over one plus either that number is the estimated PE that you would get based on that linear predictor.
+
+175
+00:19:25,280 --> 00:19:31,430
+And I'll kind of I'll re review this throughout the handout so you don't have to furiously have,
+
+176
+00:19:31,670 --> 00:19:35,810
+you know, if you missed something in the notes, it's okay. I'm going to say this several times in different ways.
+
+177
+00:19:38,230 --> 00:19:42,700
+And so that that linear predictor from your regression model.
+
+178
+00:19:43,630 --> 00:19:52,420
+Ah you know it, it, it, this probability function keeps it between zero and one based on that form of the linear predictor.
+
+179
+00:19:54,930 --> 00:20:01,010
+All right. So think of X in the figures, the number you get from calculating this linear predictor for an individual and here's the probability,
+
+180
+00:20:01,020 --> 00:20:10,270
+the outcome for that individual. And so that that function allows the probability of having the outcome appear to be higher or lower depending on X,
+
+181
+00:20:10,270 --> 00:20:12,520
+but doesn't grow outside the range that you want.
+
+182
+00:20:13,550 --> 00:20:20,450
+And that was different than if you assume instead of this nice logistic curve shape, if you a straight line approach,
+
+183
+00:20:21,350 --> 00:20:28,460
+it's very different because you can get the mean outside of the range 0 to 1 and the simple linear regression.
+
+184
+00:20:31,040 --> 00:20:34,930
+So this last bullet is just a technical detail.
+
+185
+00:20:34,940 --> 00:20:38,749
+It's not going to appeal to everyone. But for me, I found this really interesting.
+
+186
+00:20:38,750 --> 00:20:48,320
+So the linear predictor based on the regression coefficients in the cover, it's it can take on any value from negative infinity to infinity,
+
+187
+00:20:49,250 --> 00:20:55,159
+but it doesn't really change much until you get between values of negative six and six.
+
+188
+00:20:55,160 --> 00:21:04,820
+So whenever you fit a logistic regression model, most of the action is taking place when you're linear predictor of three, negative six and six.
+
+189
+00:21:05,090 --> 00:21:07,489
+And this is just a kind of graphic of how that goes.
+
+190
+00:21:07,490 --> 00:21:13,790
+So your P is zero and negative infinity and it doesn't really change much until about negative six.
+
+191
+00:21:13,790 --> 00:21:20,480
+And then you have some action going on here. Until about six, and then it just kind of stagnates again.
+
+192
+00:21:25,360 --> 00:21:29,110
+So just a little bit of a reminder about how to go back and forth between these two things.
+
+193
+00:21:29,740 --> 00:21:37,299
+So for the logistic regression, the probability of the outcome is e to the linear predictor power of the model over
+
+194
+00:21:37,300 --> 00:21:43,450
+one plus e to the linear predictor part of the model and the odds of the outcome.
+
+195
+00:21:45,450 --> 00:21:48,810
+If you take pee over one minus pee, there's your odds of the outcome.
+
+196
+00:21:49,380 --> 00:21:56,430
+If you just put the formula in there for pee and then one minus P, the denominators cancel out.
+
+197
+00:21:56,430 --> 00:22:05,459
+You get either the x, so the odds of the outcome are e to the theta not plus theta 1x1 plus baidu to x2.
+
+198
+00:22:05,460 --> 00:22:10,860
+So on. And so if you take the natural log of both sides,
+
+199
+00:22:11,850 --> 00:22:18,660
+the log odds is just the linear prediction that linear predictor made not plus beta 1x1 plus beta 2x2.
+
+200
+00:22:19,110 --> 00:22:21,960
+And that's kind of where your logistic regression comes from.
+
+201
+00:22:24,090 --> 00:22:31,440
+And so sometimes people will call this the log ons and sometimes people will just say logit p for that log,
+
+202
+00:22:31,440 --> 00:22:36,690
+a p over one minus P those are the same, which is different notation for the same thing.
+
+203
+00:22:38,860 --> 00:22:45,870
+So. You're going to finally start referring to this linear predictor instead of a little X.
+
+204
+00:22:46,380 --> 00:22:53,670
+So we want the number X that determines the probability of that compete to differ according to an individual's risk factors and other predictors.
+
+205
+00:22:54,300 --> 00:23:02,010
+And so that we accomplished that by substituting theta not possible one, x one and so on into the relationship above instead of x.
+
+206
+00:23:03,440 --> 00:23:05,350
+Right. And this is the part that we can model.
+
+207
+00:23:05,920 --> 00:23:12,700
+And really, no matter what our covariates are, the maximum Lockwood estimate is going to be trying to fit this.
+
+208
+00:23:13,870 --> 00:23:21,490
+With predictions for this part that are somewhere between negative six and six where the action is changing.
+
+209
+00:23:24,860 --> 00:23:30,320
+Okay. So here's your logistic regression equation and we're going to, you know,
+
+210
+00:23:30,710 --> 00:23:36,290
+just review quickly how to interpret the model and how to fit the model in SAS and are.
+
+211
+00:23:38,090 --> 00:23:45,150
+And so as I've been sort of saying already, this right hand side of the model is called a linear predictor.
+
+212
+00:23:45,170 --> 00:23:51,459
+So I will be using linear predictor for all the regression models in the course.
+
+213
+00:23:51,460 --> 00:23:55,730
+So even linear regression, I would have called this type of term on the right a linear predictor.
+
+214
+00:23:56,090 --> 00:24:00,020
+And there's going to be a linear predictor for count models, survival models,
+
+215
+00:24:00,020 --> 00:24:03,740
+all kinds of models always use that same term for this side of the model.
+
+216
+00:24:05,410 --> 00:24:09,160
+And really for the majority of the models we have yet to learn,
+
+217
+00:24:09,160 --> 00:24:15,730
+we're going to be using maximum likelihood methods to get us the estimates for the betas in this model.
+
+218
+00:24:19,420 --> 00:24:23,860
+And an individual's estimated probability outcome is based on their estimated linear predictor.
+
+219
+00:24:24,130 --> 00:24:29,800
+So P had is e to the entire fitted model over one plus E to the entire fitted model.
+
+220
+00:24:34,520 --> 00:24:41,479
+Okay, so how do we interpret parameters? So it always helps to go back to linear regression first to remind you of that
+
+221
+00:24:41,480 --> 00:24:46,100
+interpretation and then talk about interpretation for logistic regression.
+
+222
+00:24:46,730 --> 00:24:51,830
+So for a linear model where your outcome is the mean, the outcome you're modeling is the mean,
+
+223
+00:24:52,700 --> 00:24:59,689
+the interpretation of each of the regression parameters in the model, aside from the intercepts, I've kind of separated them.
+
+224
+00:24:59,690 --> 00:25:03,530
+So the intercept is by itself the interpretation of this data.
+
+225
+00:25:03,530 --> 00:25:05,959
+J Is the change in the mean response,
+
+226
+00:25:05,960 --> 00:25:15,440
+the change in this mu associated with the one you two increase in the predictor x j holding all of the other covariates constant.
+
+227
+00:25:15,440 --> 00:25:19,670
+So we usually just summarize that is adjusting for the other variables in the model.
+
+228
+00:25:23,850 --> 00:25:35,250
+So for the logistic regression model we want to interpret these days and it is also going to be a change in this part on the left.
+
+229
+00:25:37,010 --> 00:25:43,910
+For one year to increase in X. So it's the change in the log odds of the outcome associated with a one unit increase in x j
+
+230
+00:25:44,420 --> 00:25:49,550
+holding all other covariates constant i.e. adjusting for the other variables in the model.
+
+231
+00:25:51,880 --> 00:25:58,210
+And one thing that's kind of handy for this particular model is that the direction
+
+232
+00:25:59,230 --> 00:26:02,920
+of the log odds agrees with the direction of P when you're interpreting,
+
+233
+00:26:02,920 --> 00:26:07,570
+so the log odds is decreasing. That means the probability of the outcome is decreasing.
+
+234
+00:26:08,020 --> 00:26:12,790
+And if the log odds is increasing, that means the probability of the outcome is increasing.
+
+235
+00:26:13,330 --> 00:26:17,290
+So if you have a positive coefficient here for beta j.
+
+236
+00:26:19,020 --> 00:26:25,560
+Your log ons is increasing as that predictor increases, and so is your probability of the outcome.
+
+237
+00:26:31,090 --> 00:26:34,149
+So most people prefer to interpret E to the data.
+
+238
+00:26:34,150 --> 00:26:41,260
+J Which is the odds ratio associated with having a one unit higher level of x holding all other converts constant.
+
+239
+00:26:42,710 --> 00:26:51,530
+And it's useful to review the algebra behind this interpretation because we'll be having to solve for this from scratch for the new models we learn.
+
+240
+00:26:52,310 --> 00:26:56,450
+So let's just remind ourselves how this goes for logistic regression.
+
+241
+00:26:56,450 --> 00:27:10,910
+So the odds for a person with a covariate x j that is one unit higher than x is e to the whole linear predictor where I've got 4xjx plus one.
+
+242
+00:27:14,120 --> 00:27:25,459
+And one kind of algebra trick that's useful to remember is that each linear predictor is algebraically the same as e to the beta,
+
+243
+00:27:25,460 --> 00:27:32,750
+not times e to the beta 1x1 times, and then all of those individually times.
+
+244
+00:27:33,140 --> 00:27:36,020
+Eventually the last term e to the data are x are.
+
+245
+00:27:36,920 --> 00:27:42,350
+So that kind of helps you with doing the math of the cancelations more easily when you remember that algebra.
+
+246
+00:27:43,940 --> 00:27:48,960
+So the odds for a person having the outcome when they have that date.
+
+247
+00:27:48,980 --> 00:27:54,379
+Cabarrot Equal to X is just this were for the x jth covariate.
+
+248
+00:27:54,380 --> 00:28:05,480
+I just have an x here. And so if you look at the odds ratio, so this top part over this bottom part, all of the terms cancel.
+
+249
+00:28:07,310 --> 00:28:14,540
+With their corresponding term in the denominator except for this Baidu GE Times one term in the top.
+
+250
+00:28:14,540 --> 00:28:17,689
+There's no Baidu J times one term in the bottom here.
+
+251
+00:28:17,690 --> 00:28:21,890
+So the beta j x is cancel out, but the beta j times one does not.
+
+252
+00:28:23,320 --> 00:28:26,709
+So if you look at the ratio of these, that's where that odds ratio comes from.
+
+253
+00:28:26,710 --> 00:28:29,200
+The E to debate AJ, everything else cancels.
+
+254
+00:28:35,280 --> 00:28:44,879
+And so let's just so that's kind of the mechanics of how to how the models are written and how to interpret them.
+
+255
+00:28:44,880 --> 00:28:49,050
+So let's look at some simple examples just to kind of reinforce our intuition.
+
+256
+00:28:50,850 --> 00:28:57,809
+So the simplest let's just do a regression model has no covariates so every person in the dataset has the same outcome.
+
+257
+00:28:57,810 --> 00:29:01,560
+Probability P that can be estimated with p hat.
+
+258
+00:29:01,920 --> 00:29:05,160
+And this is a situation where you don't need a model, right?
+
+259
+00:29:05,310 --> 00:29:08,520
+Contingency table methods are still okay in the setting.
+
+260
+00:29:09,000 --> 00:29:12,900
+You just take the number of people with the response divide by n and there's your p hat.
+
+261
+00:29:13,650 --> 00:29:17,790
+So we have a way to double check ourselves that the model makes sense when we set it.
+
+262
+00:29:19,400 --> 00:29:23,390
+So our logistic regression model has just a single intercept here.
+
+263
+00:29:25,300 --> 00:29:31,240
+And so I'm going to help us kind of solidify what's going on with logistic regression,
+
+264
+00:29:31,240 --> 00:29:38,500
+with this simple example where there are 279 total patients that are randomized to either vitamin C or placebo daily,
+
+265
+00:29:38,770 --> 00:29:43,720
+and then they're followed for colds. And there's a reference for. That's Pauling, 1971.
+
+266
+00:29:44,800 --> 00:29:51,730
+And so if I don't have anything about the vitamin C and I'm just estimating the probability they develop a cold.
+
+267
+00:29:53,610 --> 00:29:58,800
+Then my pee has to be 48. Divided by 279.
+
+268
+00:29:58,860 --> 00:30:02,880
+So that's the probability of just getting a cold if I don't use any other predictors.
+
+269
+00:30:03,210 --> 00:30:16,160
+This is 48 over 279. And so the logistic regression model, if I want to guess what the fitted value for beta not is.
+
+270
+00:30:16,180 --> 00:30:20,140
+I just put the same p hat you can do by hand from the table.
+
+271
+00:30:21,440 --> 00:30:32,559
+And. We we will get a better not hurt if logistic regression is working correctly as the log of that p had over one minus p hat.
+
+272
+00:30:32,560 --> 00:30:35,790
+So this -1.5712.
+
+273
+00:30:35,790 --> 00:30:39,720
+That is what we'll see in SAS in our output for beta not.
+
+274
+00:30:41,010 --> 00:30:46,030
+If logistic regression is working, you know, it should work every time.
+
+275
+00:30:46,050 --> 00:30:49,800
+If you just have a single. Yes, a single.
+
+276
+00:30:49,800 --> 00:30:53,430
+Yes. No outcome for your logistic regression model and no covariates at all.
+
+277
+00:30:54,970 --> 00:31:01,410
+And we'll see how it does. So this very simplest model in South.
+
+278
+00:31:02,420 --> 00:31:06,590
+You can fit using the following kind of strategy.
+
+279
+00:31:06,590 --> 00:31:09,770
+So here I'm putting in the vitamin C and cold data.
+
+280
+00:31:10,370 --> 00:31:18,109
+So vitamin C one is, if yes, they were taking it zero, otherwise cold as one, if they had the cold zero otherwise.
+
+281
+00:31:18,110 --> 00:31:27,870
+And then the counts from the table that we just saw. And so logistic can be used with this frequency statement using the count.
+
+282
+00:31:30,020 --> 00:31:38,030
+Or you can stretch out the data set using the same trick that we used for some of some code in the last handout.
+
+283
+00:31:38,060 --> 00:31:42,920
+So if I want to have a row of one person.
+
+284
+00:31:44,270 --> 00:31:51,620
+One individual's data perro that I can make a long version where for each person, you know,
+
+285
+00:31:51,620 --> 00:32:01,280
+going through all the counts of data here, writing out a variable called outcome, that is the one zero variable for cold.
+
+286
+00:32:02,510 --> 00:32:07,100
+A variable called treatment. That's the one zero value for vitamin C.
+
+287
+00:32:07,100 --> 00:32:11,600
+And I just do that count times for each of those counts.
+
+288
+00:32:11,600 --> 00:32:16,679
+And so in the end, I'll keep the idea, the outcome and the treatment variables.
+
+289
+00:32:16,680 --> 00:32:23,150
+Then I'll have one row of data per person with this long version of data set instead of this one that just has four lines of data.
+
+290
+00:32:25,780 --> 00:32:34,780
+So proc logistic. If you're using the original account data, the no model, you just have the model of the outcome.
+
+291
+00:32:35,980 --> 00:32:44,170
+I like to specify which number means that the event happened just so that I know I'm modeling the the probability that that the
+
+292
+00:32:44,170 --> 00:32:52,389
+event one happened so the probability of a cold and then usually you have an equal and you have your cooper it's over here.
+
+293
+00:32:52,390 --> 00:32:55,480
+But for the no model, you just have nothing. There's no covariance.
+
+294
+00:32:57,060 --> 00:33:02,400
+And so the same model but just applied to the long version of the data set with one row per person.
+
+295
+00:33:03,820 --> 00:33:09,610
+Is you don't have a fruit. You don't have a a fruit count part.
+
+296
+00:33:09,670 --> 00:33:15,100
+You leave that out and you just say model outcome with data equals long here.
+
+297
+00:33:16,000 --> 00:33:21,010
+But I still use the same convention of event equals one just to lay out which is the
+
+298
+00:33:21,460 --> 00:33:26,320
+coded number for the event I'm modeling and then equals nothing for the no model.
+
+299
+00:33:27,610 --> 00:33:33,760
+And so both of these will give you the same answer. And it's up to you, whichever you find the most convenient way to model it.
+
+300
+00:33:34,450 --> 00:33:38,890
+So if you started off with this data set there, you could just stay with it and use free count.
+
+301
+00:33:40,570 --> 00:33:47,410
+Uh. But there may be times we need the loan version of the data set, maybe to merge without continuous coverage or something.
+
+302
+00:33:47,410 --> 00:33:49,570
+And so this might be handy to use as well.
+
+303
+00:33:51,660 --> 00:34:00,660
+So here I selectively pulled output from source output so we don't get overwhelmed with everything they tell you.
+
+304
+00:34:02,220 --> 00:34:06,540
+Here is the table of parameter estimates and we just have the data not in.
+
+305
+00:34:06,540 --> 00:34:11,900
+So this is the same algebra we showed you earlier using the overall probability for
+
+306
+00:34:11,910 --> 00:34:17,130
+called for P and you do get what you should from the logistic regression model.
+
+307
+00:34:17,610 --> 00:34:27,329
+And I want to just emphasize this, because we have this fancy logistic regression curve that we justified using earlier on in
+
+308
+00:34:27,330 --> 00:34:31,050
+the handout is something that will stay between zero one to have all these nice properties,
+
+309
+00:34:32,250 --> 00:34:35,270
+but we've not leaned on that assumption at all.
+
+310
+00:34:35,340 --> 00:34:41,970
+It gives you exactly the same result as you would if you didn't have a logistic regression assumption.
+
+311
+00:34:43,080 --> 00:34:47,880
+And that's going to be a common feature that whenever you are fitting a logistic regression model.
+
+312
+00:34:49,030 --> 00:34:58,360
+If the number of parameter estimates is the same as the number of p hats that are unique to be estimated, you'll always have this happen.
+
+313
+00:34:59,480 --> 00:35:01,640
+So when there's categorical predictors,
+
+314
+00:35:02,450 --> 00:35:09,980
+as long as you have the same number of betas in your logistic model as there are unique p hats for your categorical groups,
+
+315
+00:35:10,490 --> 00:35:14,090
+you'll always have this feature that you haven't used the logistic assumption at all.
+
+316
+00:35:14,090 --> 00:35:19,309
+It'll always be just like the raw P hats and that it's only when you have things
+
+317
+00:35:19,310 --> 00:35:22,820
+like continuous covariates that you're leaning on that logistic assumption.
+
+318
+00:35:27,950 --> 00:35:32,479
+So here's our code basically going through the same thing.
+
+319
+00:35:32,480 --> 00:35:37,760
+And so the package that I recommend is called a code for logistic regression.
+
+320
+00:35:37,760 --> 00:35:41,000
+And here's reading in the two by two table.
+
+321
+00:35:41,840 --> 00:35:46,399
+And so the first column again is the vitamin C with one.
+
+322
+00:35:46,400 --> 00:35:51,500
+Yes, they took vitamin C zero otherwise. Second column called with a one meaning?
+
+323
+00:35:51,500 --> 00:35:54,830
+Yes, they had a cold, a zero otherwise. And then the counts.
+
+324
+00:35:56,350 --> 00:36:02,049
+And ah, it's, it's actually very quick to get the long version of the data set with one room per person using
+
+325
+00:36:02,050 --> 00:36:09,490
+some trick like this where this is like repeating the vitamin C variable and the count variable,
+
+326
+00:36:10,960 --> 00:36:16,090
+sorry, the vitamin C variable. And this is the number of times you're repeating that variable, the count.
+
+327
+00:36:17,200 --> 00:36:23,410
+And so here cold is repeating the, the pollen cold variable pollen count times.
+
+328
+00:36:24,160 --> 00:36:28,800
+So if you look at long, just by typing long in your ah command you'll see it's,
+
+329
+00:36:28,810 --> 00:36:34,600
+it'll, it gives you exactly what you want and then for doing the model fitting.
+
+330
+00:36:34,980 --> 00:36:38,139
+Ah you like to write my formulas out first here.
+
+331
+00:36:38,140 --> 00:36:41,260
+This is a short formula so it doesn't matter much in long formulas.
+
+332
+00:36:41,260 --> 00:36:49,480
+It's handy to just write it out first. And so as that formula and this is the model called and the twiddle is like an equal
+
+333
+00:36:49,810 --> 00:36:56,080
+and the one means you only want the beta naught and then the fit the fitted model.
+
+334
+00:36:56,080 --> 00:37:04,330
+I use this Jil function from the package and I'm this is the way to do it.
+
+335
+00:37:04,330 --> 00:37:10,620
+If you have the weights equal count and you just rely on this, uh,
+
+336
+00:37:11,320 --> 00:37:16,570
+the polling data with the four rows of data or if you want to use the long version
+
+337
+00:37:16,570 --> 00:37:21,459
+of the data set that I saved into this variable long it looks very similar.
+
+338
+00:37:21,460 --> 00:37:27,100
+Same formula. But you put in data equals long. And you leave out the statement.
+
+339
+00:37:28,360 --> 00:37:32,900
+And so to see the coefficients for the fitted table, you use this column.
+
+340
+00:37:34,300 --> 00:37:38,830
+And you can also look at the log likelihood of the model with this log like function.
+
+341
+00:37:40,450 --> 00:37:44,490
+And so here is the same -1.574 beta.
+
+342
+00:37:44,500 --> 00:37:55,290
+Not that we saw earlier in the log likelihood. So just like before our is presenting the test statistic on the normal zero one scale.
+
+343
+00:37:55,290 --> 00:38:03,360
+So if you square this number -9.9, you're going to get the same high score statistic that you got from SAS.
+
+344
+00:38:04,250 --> 00:38:14,810
+And the p value is also the same. The P value is also the same, but R gives you many more significant digits than you probably need.
+
+345
+00:38:19,170 --> 00:38:30,600
+And the the likelihood that our gives you is just the log likelihood SAS reports minus two times the log likelihood.
+
+346
+00:38:31,350 --> 00:38:35,370
+So if you multiply this by a minus two, you'll get the same thing from SAS.
+
+347
+00:38:35,370 --> 00:38:41,750
+It just reports things on a different scale. All right.
+
+348
+00:38:42,170 --> 00:38:50,220
+So with a binary predictor, we're going to finally use the vitamin C covariate in our models.
+
+349
+00:38:50,240 --> 00:38:57,139
+The here's the vitamin C collaborator model. And so we have two probabilities that we're fitting the probability of a cold
+
+350
+00:38:57,140 --> 00:39:01,010
+if you're on placebo and the probability of cold given your own vitamin C.
+
+351
+00:39:01,820 --> 00:39:06,740
+And so two probabilities that I'm using two parameters to fit that in my model.
+
+352
+00:39:06,740 --> 00:39:12,560
+So this is again going to be a case where I'm going to get exactly the p hat
+
+353
+00:39:12,600 --> 00:39:16,490
+you would have if you just used the two by two table and estimated it by hand.
+
+354
+00:39:20,310 --> 00:39:29,280
+And so how does that algebra work? So from the table, the probability of cold given you were on placebo is the total number of people on placebo,
+
+355
+00:39:29,280 --> 00:39:32,280
+and then you count the number of people in that group who got colds.
+
+356
+00:39:32,670 --> 00:39:42,720
+So here is that we had. And for the logistic model, the placebo group has a zero here.
+
+357
+00:39:42,930 --> 00:39:51,300
+And so the logistic model assumes that the log of over one minus P is beta, not plus beta one times zero.
+
+358
+00:39:52,410 --> 00:39:57,870
+So we can solve for the the beta not the same way we did on the last slide.
+
+359
+00:39:57,870 --> 00:40:04,020
+So beta not should just be the log of this p hat over one minus p hat.
+
+360
+00:40:04,350 --> 00:40:10,170
+And so when we fit this model, we're going to see in the output the intercepts -1.2574.
+
+361
+00:40:11,830 --> 00:40:18,010
+And when we look at the other probability, we're modeling the probability for getting vitamin C,
+
+362
+00:40:18,010 --> 00:40:25,390
+that's another one we can get by hand is the total number of people in vitamin C and then among those, how many people got a cold?
+
+363
+00:40:26,820 --> 00:40:31,889
+And so for that situation, the predictor X is a one.
+
+364
+00:40:31,890 --> 00:40:40,110
+So we plug in a one here. And so the logistic model is assuming that log of P over one minus P is paid or not, plus beta one times one.
+
+365
+00:40:40,740 --> 00:40:50,819
+And we already figured out what beta not was. So we only have beta one to figure out because we know what the P is for the vitamin C case.
+
+366
+00:40:50,820 --> 00:40:55,020
+It's this number and we know what the beta is for this.
+
+367
+00:40:55,020 --> 00:40:59,579
+For all cases it's this number. So we should get that beta.
+
+368
+00:40:59,580 --> 00:41:08,100
+One hat is the log of P over one minus p minus beta naught or -0.7134.
+
+369
+00:41:09,690 --> 00:41:19,830
+So just by hand we figured out what we should get for the staff and our output based on the fact that,
+
+370
+00:41:20,340 --> 00:41:25,559
+you know, we have two things we're estimating for the probabilities and we have two parameters in the models.
+
+371
+00:41:25,560 --> 00:41:29,640
+So they they should correspond to one another perfectly.
+
+372
+00:41:32,800 --> 00:41:41,890
+And so this same data set that the only thing I'm changing now is in the model statement, I now have a single predictor, vitamin C.
+
+373
+00:41:45,280 --> 00:41:50,920
+And you get exactly the parameter estimates that we said that you should if things make sense.
+
+374
+00:41:56,470 --> 00:42:00,190
+All right. And our code.
+
+375
+00:42:00,190 --> 00:42:05,590
+Again, the only thing I've really changed here is in my formula.
+
+376
+00:42:06,340 --> 00:42:12,520
+So now code equals vitamin C. So that's I call that formed vitamin C.
+
+377
+00:42:13,910 --> 00:42:24,140
+And ask for the coefficients. And then because we've now got a coefficient that we can interpret as know related to the odds ratio.
+
+378
+00:42:25,160 --> 00:42:34,910
+I've got some code here that will quickly exponential the coefficients and get their corresponding 95% confidence intervals and p values here.
+
+379
+00:42:35,360 --> 00:42:43,530
+Just so it's just quick, quick, quick to get in r. And so here's the coefficient table that matches up what we did by hand.
+
+380
+00:42:44,190 --> 00:42:52,200
+And then this code here is giving you all of the information on the odds ratio scale with its confidence interval and p value.
+
+381
+00:42:52,470 --> 00:42:57,510
+And this p value here is the same as the p value on the regular parameter scale.
+
+382
+00:42:59,600 --> 00:43:01,400
+So you can get it from either location.
+
+383
+00:43:02,360 --> 00:43:11,060
+Sometimes I will leave out the p value just because I forget sometimes to put it there, but you can always get it from the throw in there.
+
+384
+00:43:11,780 --> 00:43:22,780
+In the coefficient table it's the same number. So we didn't really talk much about interpreting each of the Intersect.
+
+385
+00:43:22,780 --> 00:43:31,600
+In general, each of the intercept is interpreted as the odds or the outcome when all the predictors in the model are equal to zero.
+
+386
+00:43:33,390 --> 00:43:44,700
+And so in the vitamin C and cold example where we had modeled beta not plus beta 1x1, we're talking about the case where X one is equal to zero.
+
+387
+00:43:45,480 --> 00:43:49,430
+So either the beta is the odds, 1x1 is equal to zero.
+
+388
+00:43:49,440 --> 00:43:52,950
+So here is the odds of cold for the placebo group.
+
+389
+00:43:57,220 --> 00:44:05,320
+So .28 is the art of the call for the placebo group. And in general, when you have a binary predictor,
+
+390
+00:44:05,320 --> 00:44:11,020
+either the beta one is interpreted as the odds ratio of the outcome associated with a one you to increase in x one.
+
+391
+00:44:11,770 --> 00:44:16,210
+And it's an adjusted odds ratio when we have more than one predictor in the model.
+
+392
+00:44:18,260 --> 00:44:25,520
+So in the vitamin C cold example where we had this model of beta not plus beta 1x1, with this being the vitamin C group,
+
+393
+00:44:26,480 --> 00:44:33,740
+the estimated odds ratio of getting a cold when taking vitamin C, which we coded with a one versus placebo,
+
+394
+00:44:33,740 --> 00:44:40,700
+which we coded as a zero, is this is the beta one and ends up being 0.49.
+
+395
+00:44:45,020 --> 00:44:49,760
+So this checks out if we just look at their record, the original two by two table.
+
+396
+00:44:50,510 --> 00:44:58,490
+That checks out exactly with the odds ratio you would get by multiplying the eight times the D cell and dividing by the B times the C cell.
+
+397
+00:44:59,030 --> 00:45:02,419
+So again, nothing has has is different.
+
+398
+00:45:02,420 --> 00:45:05,800
+We haven't really leaned on this logistic assumption at all.
+
+399
+00:45:05,810 --> 00:45:08,840
+It's just a different way of getting the same thing we would have gotten by hand.
+
+400
+00:45:12,850 --> 00:45:19,630
+So maximum likelihood estimates are used to obtain standard estimates of the regression parameters.
+
+401
+00:45:20,350 --> 00:45:24,370
+And so you can get confidence intervals for odds ratios very easily.
+
+402
+00:45:24,970 --> 00:45:30,730
+And so for instance, if you were just basing it on this table, you could calculate it by hand.
+
+403
+00:45:30,730 --> 00:45:40,900
+You will always have SAS or output to do this for you, but if you wanted to calculate it by hand, you can do it this way pretty quickly.
+
+404
+00:45:40,900 --> 00:45:43,959
+So this is E to the beta j,
+
+405
+00:45:43,960 --> 00:45:53,680
+which is really just the odds ratio associated with that predictor increasing by one unit and then times e to the plus or -1.96 on the standard error.
+
+406
+00:45:54,220 --> 00:45:56,410
+So I think I've shown you this algebra trick before.
+
+407
+00:45:56,410 --> 00:46:03,970
+You can either do each of the beta j plus or -1.96 like your exponential in the lower and the upper separately.
+
+408
+00:46:04,450 --> 00:46:08,229
+Or you can do a little shortcut where you stick the odds ratio here and only worry
+
+409
+00:46:08,230 --> 00:46:12,910
+about multiplying it times either that plus or -1.96 standard error beta j.
+
+410
+00:46:13,660 --> 00:46:16,780
+It's whatever is quickest to you at the time they're equivalent algebra.
+
+411
+00:46:19,160 --> 00:46:24,950
+So for the vitamin C cold example, if I use this trick of doing E to the beta j,
+
+412
+00:46:25,040 --> 00:46:32,750
+this was the odds ratio before and then times either plus or -1.96 times the standard error.
+
+413
+00:46:33,500 --> 00:46:39,170
+I'll get this confidence interval for that odds ratio of getting cold when taking vitamin C versus placebo.
+
+414
+00:46:43,830 --> 00:46:48,120
+But you can get odds ratios directly from proc logistic as well.
+
+415
+00:46:48,150 --> 00:46:53,720
+This is part of the default output that it will give you so you don't have to do those calculations by hand.
+
+416
+00:46:53,730 --> 00:47:02,540
+You'll always have something available for you. So here's the odds ratio for a one year increase, and we just did it by hand as well.
+
+417
+00:47:02,550 --> 00:47:11,970
+But this'll be there. There's also a units option that can request odds ratios for other unit increases.
+
+418
+00:47:11,970 --> 00:47:15,450
+So this is always going to be for a one unit increase in the predictor.
+
+419
+00:47:16,400 --> 00:47:21,320
+But you can you can be creative and ask for other units.
+
+420
+00:47:21,320 --> 00:47:25,810
+And sometimes it's very handy to do that. And I will need you to know how to do that in some cases.
+
+421
+00:47:25,820 --> 00:47:31,130
+So if I used units, they're minus one.
+
+422
+00:47:32,710 --> 00:47:38,950
+They're setting for variable here that'll give you the odds ratio results for a one unit increase in that variable.
+
+423
+00:47:42,140 --> 00:47:48,260
+And you can also include the option seal odds equals wall to the model statement so
+
+424
+00:47:48,260 --> 00:47:51,589
+that confidence intervals will also be calculated as part of the unit statement.
+
+425
+00:47:51,590 --> 00:47:59,860
+So that's probably something you should always do. So here's kind of some South Cube with all of his choices stuck in there.
+
+426
+00:47:59,870 --> 00:48:07,580
+So I've now, in addition to just modeling vitamin C, I'm asking for confidence limits based on the wild method.
+
+427
+00:48:08,360 --> 00:48:18,860
+And I'm going to show odds ratios on the usual scale, but also with units minus one will be like one over the odds ratio.
+
+428
+00:48:19,900 --> 00:48:27,460
+So think of these as powers that the odds ratio, odds ratio to the one odds ratio raised to the minus one is what this units is doing.
+
+429
+00:48:31,040 --> 00:48:37,880
+And so vitamin C is kind of protective when you look at the usual odds ratio scale.
+
+430
+00:48:38,060 --> 00:48:46,040
+It's an alteration less than one. Or, you know, you can flip that odds ratio to be upside down.
+
+431
+00:48:46,040 --> 00:48:50,300
+And this is now the this bottom one is the odds of not getting a cold.
+
+432
+00:48:50,930 --> 00:48:55,610
+If you are on vitamin C. Which are great.
+
+433
+00:48:59,040 --> 00:49:05,880
+So the odds ratio for developing a cold. When taking placebo versus vitamin C.
+
+434
+00:49:07,350 --> 00:49:12,329
+So that's the flip version is 2.041 with the 95% confidence interval.
+
+435
+00:49:12,330 --> 00:49:24,890
+1.7 to 3.89 to. So you can also get p hat from proc logistic, which is very handy when you've got much more complicated models.
+
+436
+00:49:24,910 --> 00:49:35,989
+I think we've gotten all the P hats that we needed, but in general you can have this output statement added in and you can save to a dataset
+
+437
+00:49:35,990 --> 00:49:42,680
+called prob all the predicted p hats for whatever risk profiles are in your dataset.
+
+438
+00:49:46,400 --> 00:49:52,610
+Okay. So the date is that's going to be called probe and it will end up looking something like this when you print it.
+
+439
+00:49:53,420 --> 00:49:58,309
+And so we only had the two the two levels of the predictor called are not called.
+
+440
+00:49:58,310 --> 00:50:02,340
+So here is the p hat for. Uh, having.
+
+441
+00:50:02,410 --> 00:50:04,610
+Sorry. The predictors are vitamin C.
+
+442
+00:50:04,610 --> 00:50:11,230
+So here's the P fat for getting a cold when you're vitamin c, here's the p hat for getting a cold when you don't have vitamin C.
+
+443
+00:50:14,060 --> 00:50:21,390
+Which we got by hand earlier. They're exactly the same. Okay.
+
+444
+00:50:21,480 --> 00:50:25,350
+So in ah I'll just do the Arco and then we'll take a short break.
+
+445
+00:50:25,350 --> 00:50:36,900
+So in ah there's this predictor option that you can use to get the P hats and it'll look very similar to what we just saw in SAS.
+
+446
+00:50:38,150 --> 00:50:44,090
+So let's take a ten minute break and stretch where we're almost done with the review and then
+
+447
+00:50:44,090 --> 00:50:48,020
+we'll start doing some new stuff with logistic regression that you may not have seen before.
+
+448
+00:51:37,340 --> 00:56:33,140
+I. Let's those.
+
+449
+00:57:17,490 --> 00:58:06,010
+All right. I know.
+
+450
+00:59:05,530 --> 00:59:30,870
+Those. We're.
+
+451
+01:00:14,630 --> 01:00:43,120
+Right. Okay.
+
+452
+01:00:43,120 --> 01:00:52,220
+Let's go ahead and get back to work. That was kind of a nice break. All right.
+
+453
+01:00:52,230 --> 01:00:57,850
+So. In logistic regression hypothesis testing.
+
+454
+01:00:58,900 --> 01:01:01,930
+Let's let's get caught up on that review as well.
+
+455
+01:01:03,100 --> 01:01:08,649
+And so when we're trying to test whether or not a certain predictor is associated with a binary outcome,
+
+456
+01:01:08,650 --> 01:01:14,350
+we test the hypothesis about whether that coefficient is equal to zero or not.
+
+457
+01:01:15,340 --> 01:01:21,130
+And because there's a linear relationship between each of these parameters here.
+
+458
+01:01:22,470 --> 01:01:25,920
+And the odds ratio that corresponds to that same parameter.
+
+459
+01:01:25,920 --> 01:01:33,030
+We can write the null hypothesis either way, so we can write the null hypothesis as the odds ratio being equal to one.
+
+460
+01:01:35,550 --> 01:01:44,250
+Or not equal to one. That odds ratios associate with a one unit increase in x j adjusting for other predictors in the model if there are any.
+
+461
+01:01:45,450 --> 01:01:49,559
+And so either the p value that you get from your main parameter table that
+
+462
+01:01:49,560 --> 01:01:55,470
+looks like the beta JS and the p value for the odds ratio being significant,
+
+463
+01:01:55,480 --> 01:02:03,850
+it's the same p value. And there's a bunch of different tests that kind of go along with hypothesis testing.
+
+464
+01:02:03,850 --> 01:02:11,010
+Once you go to the maximum likelihood framework, the one that is automatically reported is called the World Test,
+
+465
+01:02:11,020 --> 01:02:14,350
+and I'll take you through the other tests that you might see.
+
+466
+01:02:15,390 --> 01:02:20,000
+In fact, the world test is the coefficient,
+
+467
+01:02:20,370 --> 01:02:25,379
+the estimated coefficient minus the null hypothesis in zero divided by some
+
+468
+01:02:25,380 --> 01:02:32,910
+variability here and the scale with the square here and the variance in the bottom.
+
+469
+01:02:33,420 --> 01:02:37,560
+That's the version of the well test that has a Chi Square distribution with one degree of freedom.
+
+470
+01:02:38,250 --> 01:02:46,500
+And so you'll see a bigger test statistic, you know, being associated with rejecting the null hypothesis.
+
+471
+01:02:48,050 --> 01:02:57,020
+And in ah this statistic is reported as the square root of what's shown here is reported on the normal zero one scale.
+
+472
+01:02:57,380 --> 01:03:01,280
+So it's based on theta hat j -0 over the standard error.
+
+473
+01:03:01,490 --> 01:03:04,720
+To have j they have identical p values.
+
+474
+01:03:04,730 --> 01:03:09,110
+It's just that each software package has its own preference. How to put the result out.
+
+475
+01:03:11,260 --> 01:03:17,589
+So here's what you would see from both Seth and ah Seth output.
+
+476
+01:03:17,590 --> 01:03:22,870
+The Chi square test for the significance of vitamin C in the model is written here and
+
+477
+01:03:22,870 --> 01:03:29,560
+so algebraically that's just this beta hat -0 squared over the standard error squared.
+
+478
+01:03:29,980 --> 01:03:38,080
+And so that's where this 4.6934 is coming from with this p value RS got the same p value with more significant digits,
+
+479
+01:03:38,980 --> 01:03:47,110
+but it is reporting the statistic on the Z scale. So this is being compared to a normal distribution with mean zero variance one,
+
+480
+01:03:47,560 --> 01:03:53,350
+and you can mathematically calculate it as just the beta hat over the standard error without the squaring.
+
+481
+01:03:54,430 --> 01:04:02,919
+So here's that statistic that they show, and if you squared this -2.1 6x4, you're going to get the same thing of 4.6934.
+
+482
+01:04:02,920 --> 01:04:07,030
+They're algebraically linked, they're testing the same thing.
+
+483
+01:04:07,030 --> 01:04:14,850
+They just have different. They have different ways of displaying the statistic they use to get the p value.
+
+484
+01:04:15,540 --> 01:04:22,380
+So the odds ratio for getting a cold when taking vitamin C versus placebo is significantly lower than one.
+
+485
+01:04:25,680 --> 01:04:28,830
+So before it was like 0.49 was the odds ratio that we saw.
+
+486
+01:04:30,800 --> 01:04:34,440
+And so there's some overlap with other methods you've seen too.
+
+487
+01:04:34,460 --> 01:04:38,990
+So this is the same P value that you would get from two other things.
+
+488
+01:04:38,990 --> 01:04:45,530
+We've done the same as doing a two simple test, comparing proportions, getting calls, and the two treatment groups.
+
+489
+01:04:45,530 --> 01:04:49,849
+So P one minus P had to a two simple test of proportions.
+
+490
+01:04:49,850 --> 01:04:57,800
+You'll get that same p value and if you do a Pearson Chi square test for association applied to the two by two table that were used,
+
+491
+01:04:58,010 --> 01:05:02,570
+you're going to get the same p value. So all of these analysis, they agree on the p value.
+
+492
+01:05:02,930 --> 01:05:10,150
+The method to get there is a little bit different. But the scientific inference is the same, which is comforting.
+
+493
+01:05:12,290 --> 01:05:15,710
+All right. So when you move to having continuous predictors.
+
+494
+01:05:16,730 --> 01:05:22,250
+Uh, you kind of open up a lot more methods that contingency tables cannot do.
+
+495
+01:05:22,280 --> 01:05:30,820
+So so far, we've had enough data for each value of the predictor to check logistic regression results against standard proportion calculations.
+
+496
+01:05:30,860 --> 01:05:33,530
+That won't be the case when we have a continuous predictor.
+
+497
+01:05:34,400 --> 01:05:39,890
+And so I'm going to be looking at this data set from Husband Lemon's show on age and coronary heart disease,
+
+498
+01:05:40,130 --> 01:05:44,360
+which I'm going to just abbreviate, is collected from 100 individuals.
+
+499
+01:05:44,360 --> 01:05:51,139
+And so we have ages recorded and it's rounded two years, but we're going to consider it a continuous variable.
+
+500
+01:05:51,140 --> 01:05:55,880
+And you kind of notice to me we don't have enough 20 year olds to come up with a p hat just for 20 year olds.
+
+501
+01:05:57,090 --> 01:06:03,270
+And we might have a couple of 64 year olds, but two is not a good basis for estimating a P hat either.
+
+502
+01:06:03,930 --> 01:06:10,800
+And so we're finally going to have to lean on this logistic regression, that logistic curve, to help us model this data.
+
+503
+01:06:11,310 --> 01:06:18,240
+We just don't have enough of any one particular age to estimate a p hat by hand that we would think is reliable.
+
+504
+01:06:20,830 --> 01:06:26,799
+And so to model coronary heart disease as a function of age.
+
+505
+01:06:26,800 --> 01:06:34,570
+I have some code here for SAS was show it for or in a moment that this data set is on canvas.
+
+506
+01:06:34,570 --> 01:06:40,010
+If you want to play with the code yourself it's t h that text t.
+
+507
+01:06:41,220 --> 01:06:44,040
+And I'm doing some things to notice.
+
+508
+01:06:44,050 --> 01:06:53,870
+So I'm doing the usual thing that I prefer saying specifically what's the value that corresponds to the probability I'm modeling?
+
+509
+01:06:53,880 --> 01:07:02,490
+So when I say event is equal to one. C D that variable is zero or one and it's one if they actually had coronary heart disease.
+
+510
+01:07:02,500 --> 01:07:11,400
+So I'm explicitly saying model that as my outcome and ages the the continuous coverage that just showed you on the previous slide.
+
+511
+01:07:11,750 --> 01:07:18,440
+So I'm asking for confidence limits. I'm looking at two values for units.
+
+512
+01:07:18,450 --> 01:07:25,370
+So this first one to equal to one is just going to give me the odds ratio for a one unit increase in age,
+
+513
+01:07:26,240 --> 01:07:33,140
+the odds rate, the odds ratio for coronary heart disease. Comparing someone who was one year older to not one year older.
+
+514
+01:07:33,680 --> 01:07:40,190
+And Units ten is going to be telling me what's the odds ratio for coronary heart
+
+515
+01:07:40,190 --> 01:07:46,969
+disease are comparing someone who is ten years older to someone who's not.
+
+516
+01:07:46,970 --> 01:07:50,750
+So the odds ratio corresponding to a decade higher age.
+
+517
+01:07:52,620 --> 01:07:55,830
+All right. And then I'm also going to be looking at p hats and kind of sort of.
+
+518
+01:07:56,880 --> 01:08:00,690
+Doing some plots with pee hat versus age and taking a look at that.
+
+519
+01:08:02,280 --> 01:08:06,270
+So this is the output from the unit statement.
+
+520
+01:08:06,540 --> 01:08:11,370
+And so here is the units equals one.
+
+521
+01:08:11,970 --> 01:08:18,870
+So 1.117 is the odds ratio corresponding to a one year higher age.
+
+522
+01:08:18,900 --> 01:08:31,770
+So if you get higher by if you're comparing people who are one major part, the person with the older age has a 11.7% higher odds.
+
+523
+01:08:33,820 --> 01:08:47,190
+And for a person who is ten years older, their odds of getting coronary heart diseases is three times higher and confidence limits are given here.
+
+524
+01:08:47,260 --> 01:08:51,280
+P values can or the p values are going to be exactly the same.
+
+525
+01:08:51,280 --> 01:08:56,379
+They're going to be based on the beta for H and that's the same beta,
+
+526
+01:08:56,380 --> 01:09:01,480
+whether you're using it to talk about a one unit increase or a ten unit increase in the predictor.
+
+527
+01:09:01,480 --> 01:09:05,020
+So that'll be the same P value that gets used for those.
+
+528
+01:09:05,710 --> 01:09:10,360
+So something so this might be a perk up moment because this isn't just review,
+
+529
+01:09:10,360 --> 01:09:23,439
+this is just general advice for writing papers and you want to pick a change in the predictor that has some clinical meaningfulness to it.
+
+530
+01:09:23,440 --> 01:09:32,560
+And so for if you're talking to a population and you're talking about coronary heart disease, the.
+
+531
+01:09:34,350 --> 01:09:38,069
+I don't know. This might be a matter of taste. This might be a personality test, I don't know.
+
+532
+01:09:38,070 --> 01:09:39,780
+But I prefer to report it.
+
+533
+01:09:39,780 --> 01:09:48,750
+On the ten year increased scale, the increase in coronary heart disease from a single year change in age is not very exciting.
+
+534
+01:09:49,440 --> 01:09:57,329
+But if you tell me as I age by the decade that my odds is tripling for getting coronary heart disease, that will get my attention.
+
+535
+01:09:57,330 --> 01:09:59,010
+And so in terms of publication,
+
+536
+01:09:59,550 --> 01:10:09,000
+you want to think about units and what unit to display in your clinical meaning in your clinically appropriate manuscript worthy sentence.
+
+537
+01:10:11,490 --> 01:10:17,790
+So think about that because the data will be given to you in whatever form was convenient for it to be recorded.
+
+538
+01:10:17,790 --> 01:10:23,160
+And it won't be necessarily the unit that corresponds to the the best story.
+
+539
+01:10:24,250 --> 01:10:29,400
+So I would present it on this age change per decade scale.
+
+540
+01:10:31,250 --> 01:10:36,139
+In writing a paper. So this is what the sentence looks like for one year.
+
+541
+01:10:36,140 --> 01:10:43,700
+Increase the odds ratio for coronary heart disease associated with a one year increase in age is 1.117 confidence interval.
+
+542
+01:10:43,700 --> 01:10:52,030
+P-value. So notice the directions there, the effect size of the 1.117, the confidence interval and the p value,
+
+543
+01:10:52,150 --> 01:10:54,730
+although I somehow missed a period at the end of my sentence.
+
+544
+01:10:56,000 --> 01:11:02,719
+And then the sentence that goes along with the ten year increase would be the odds ratio for coronary heart disease and surgery.
+
+545
+01:11:02,720 --> 01:11:08,690
+With a ten year increase in age is 3.03 to 95% confidence interval P-value.
+
+546
+01:11:09,230 --> 01:11:18,470
+So there's in the same statistical quantity on two different scales and I vastly prefer the second sentence to the first one.
+
+547
+01:11:24,800 --> 01:11:28,460
+All right. So here is just a copy of the model output again.
+
+548
+01:11:29,390 --> 01:11:34,850
+And so when you're looking at estimating probabilities of coronary heart disease, given age,
+
+549
+01:11:35,600 --> 01:11:43,879
+you're you're doing P had equal to E to the entire model over one plus E to the entire model.
+
+550
+01:11:43,880 --> 01:11:51,709
+And so you can do it by hand, but fast gives you it'll calculate that data set for you with the output statement.
+
+551
+01:11:51,710 --> 01:11:59,270
+And so here are the first. Few rows of that of that dataset it produces.
+
+552
+01:11:59,270 --> 01:12:05,210
+So, for instance, for a 20 year old this first row it, they had to they were 20 years old.
+
+553
+01:12:05,570 --> 01:12:12,200
+And the probability of having coronary heart disease for a 20 year old based on this model is about 4.3%.
+
+554
+01:12:14,010 --> 01:12:20,339
+And, you know, it changes very slightly as you go through your twenties and you can go through the whole data
+
+555
+01:12:20,340 --> 01:12:25,560
+set and sort of see what each of the rows will correspond to whatever cover was for that row.
+
+556
+01:12:29,620 --> 01:12:37,550
+And this is just a quick plot where this horizontal axis is age and the vertical axis is the estimated probability.
+
+557
+01:12:37,570 --> 01:12:42,260
+So isn't it? Doesn't this look just like that logistic curve that we had?
+
+558
+01:12:42,850 --> 01:12:48,339
+So this leaning on this logistic assumption is strong.
+
+559
+01:12:48,340 --> 01:12:56,950
+When you have a continuous covariate, it's basically instead of having a p hat for every group, you know, we don't have group.
+
+560
+01:12:56,950 --> 01:13:01,240
+So it will sort of fit the closest logistic looking curve.
+
+561
+01:13:02,450 --> 01:13:05,750
+To these 2 to 2, get these p hats.
+
+562
+01:13:07,040 --> 01:13:16,129
+So it's you know, there are some alternatives that you can do to kind of play with that assumption of how the hat should look.
+
+563
+01:13:16,130 --> 01:13:20,380
+So what would they have taught you to do in your previous classes?
+
+564
+01:13:20,390 --> 01:13:23,800
+So one thing to do is to look at, um,
+
+565
+01:13:24,290 --> 01:13:32,000
+say categorical versions of age and sort of see if it looks close to what this logistic assumption is giving you.
+
+566
+01:13:32,180 --> 01:13:41,329
+It's a way of testing the assumption, and I'm going to be teaching you how to add linear spline terms to play with this assumption as well.
+
+567
+01:13:41,330 --> 01:13:49,159
+And I don't know if they ever have time to teach linear spline terms in your earlier classes, but in this class we're going to need them a lot.
+
+568
+01:13:49,160 --> 01:13:55,550
+We're going to be using them very heavily once we get to modeling outcomes over time.
+
+569
+01:13:56,360 --> 01:14:04,400
+And so I wanted to, in this very familiar environment of statistic regression, show you how to make those terms and how to use them.
+
+570
+01:14:05,150 --> 01:14:09,710
+So that might be perfect time for the new part that you may not have seen before.
+
+571
+01:14:12,440 --> 01:14:15,950
+So the categorical part you've probably seen before.
+
+572
+01:14:17,330 --> 01:14:21,500
+Uh oh. This is the R code for all the same stuff we just did, actually.
+
+573
+01:14:21,500 --> 01:14:28,120
+So for modeling continuous agent. Ah. This is the same loading of the package we did before.
+
+574
+01:14:28,130 --> 01:14:33,410
+Here's loading up the new data set and here is logistic regression models.
+
+575
+01:14:33,410 --> 01:14:39,379
+So I'm putting my formula of coronary heart disease equals age and that goes
+
+576
+01:14:39,380 --> 01:14:44,090
+right in this DELENN command and all the rest of the code is kind of the same.
+
+577
+01:14:44,090 --> 01:14:48,740
+So here's my coefficient of the output. So I save the model and fit dot age.
+
+578
+01:14:49,190 --> 01:14:52,429
+So coefficient, summary and whatever I save the model into goes.
+
+579
+01:14:52,430 --> 01:14:55,070
+Here, I'll show you the output in a minute.
+
+580
+01:14:55,790 --> 01:15:05,419
+And then this is my quick version of taking everything from fit dot age and putting it into a table with odds ratio confidence interval.
+
+581
+01:15:05,420 --> 01:15:12,470
+And while the p value. To get the decade increased version of these.
+
+582
+01:15:14,050 --> 01:15:17,470
+This is where we used Unit ten in SAS.
+
+583
+01:15:18,070 --> 01:15:23,799
+You raise the part of the model that relates to the odds ratio to the power of ten.
+
+584
+01:15:23,800 --> 01:15:31,870
+So this is raising that odds rates to the power of ten and you're raising the confidence limits lower and upper to the power of ten as well.
+
+585
+01:15:32,350 --> 01:15:38,920
+So that's how you're getting that the odds ratio in confidence zero for our ten unit increase, the p value doesn't change, it's the same.
+
+586
+01:15:39,970 --> 01:15:44,740
+And then here's some code for getting the plot, the p hat plot in an R as well.
+
+587
+01:15:45,580 --> 01:15:49,090
+So everything here is going to look similar to what we got in SAS here.
+
+588
+01:15:49,240 --> 01:15:57,730
+The parameter estimates for the logistic regression model and then here is rescaling them so that they're talking about odds ratios.
+
+589
+01:15:57,850 --> 01:16:06,490
+Here's the odds ratio for a one unit increase in age and then for the ten unit increase in age where we raised everything to the power of ten.
+
+590
+01:16:07,420 --> 01:16:09,730
+Here are those estimates and confidence intervals.
+
+591
+01:16:11,170 --> 01:16:20,530
+P values the same and here's the plot of that we saw for the P hat since it's our always does kind of prettier plots I think.
+
+592
+01:16:24,310 --> 01:16:30,190
+All right. So just a review of using a categorical version of this variable.
+
+593
+01:16:30,190 --> 01:16:35,830
+And this is something that if age really does work continuously, we're kind of.
+
+594
+01:16:37,190 --> 01:16:46,910
+Reducing the power of our story by using categories because we're treating the odds ratio for everybody in their thirties really here as as the same.
+
+595
+01:16:49,280 --> 01:16:54,350
+So I should also make sure that I've been clear on my notation.
+
+596
+01:16:54,370 --> 01:17:02,930
+So I don't know if I've used this notation with you before, but this capital I is read in English as indicator function.
+
+597
+01:17:04,460 --> 01:17:08,510
+And what that means, here's, here's the definition over here.
+
+598
+01:17:08,510 --> 01:17:18,920
+So if I have I and I have something in parentheses, whenever the thing in parentheses is true, it gets the value of one and zero otherwise.
+
+599
+01:17:19,820 --> 01:17:28,910
+So when you read through this model and you come to this point, you're saying, you know, your query is a10 variable.
+
+600
+01:17:28,910 --> 01:17:38,300
+Whenever you see the I, you already know it's going to be a10 variable and it's going to be one if the part inside the parentheses is true.
+
+601
+01:17:38,450 --> 01:17:44,630
+So this is like saying is a dummy variable. That's a one when they're in their thirties and it's zero otherwise.
+
+602
+01:17:46,120 --> 01:17:50,349
+And so this one is saying, again, it's a10 variable.
+
+603
+01:17:50,350 --> 01:17:59,440
+As soon as you see that, you know, it's going to be a10 variable and it's a one when they're in their forties and zero otherwise.
+
+604
+01:17:59,440 --> 01:18:03,610
+And here this is the one. If they're in their fifties, zero otherwise.
+
+605
+01:18:03,610 --> 01:18:10,740
+And this is a one if. Age is greater than 60 and zero otherwise.
+
+606
+01:18:11,040 --> 01:18:21,860
+So it's just shorthand. And, you know, it's it's interesting that almost the same notation is used to define these binary variables in South and ah,
+
+607
+01:18:21,890 --> 01:18:25,730
+they don't have the eye anymore, but both South and ah,
+
+608
+01:18:25,730 --> 01:18:32,330
+if you use parentheses and a yes no kind of a logical variable here on the inside of the parentheses,
+
+609
+01:18:32,330 --> 01:18:38,300
+it will create a01 variable for you where it's one when the inside part is true.
+
+610
+01:18:38,900 --> 01:18:42,140
+So the syntax in orange says it's very similar without the I.
+
+611
+01:18:43,300 --> 01:18:48,860
+For creating those variables. So here's the model for the log.
+
+612
+01:18:48,880 --> 01:18:58,660
+The log odds of coronary heart disease, where I'm just using these dummy variables for different age groups or indicator variables.
+
+613
+01:18:59,650 --> 01:19:04,060
+Dummy variable sounds so judgmental, so I'm going to call them indicator variables most of the time.
+
+614
+01:19:05,610 --> 01:19:12,210
+And so just as a review, if we look at each of the data, two, what is that interpretation?
+
+615
+01:19:18,780 --> 01:19:27,300
+So to figure this out, you know, we if we have the log odds for someone who's in their forties.
+
+616
+01:19:28,570 --> 01:19:31,590
+That law grads would be paid or not. Plus Beda, too.
+
+617
+01:19:32,320 --> 01:19:39,640
+So we kind of need to have for comparison to get rid of you know, to isolate this affected data too,
+
+618
+01:19:40,450 --> 01:19:46,059
+we need to know what the log odds is for just bad and not so what what does that
+
+619
+01:19:46,060 --> 01:19:50,740
+correspond to when we have the log odds is beda not with nothing else here.
+
+620
+01:19:51,680 --> 01:20:05,610
+What is what group is that the laggards for? So I think I heard that.
+
+621
+01:20:05,620 --> 01:20:11,019
+So it's the log odds when all these other groups are zero.
+
+622
+01:20:11,020 --> 01:20:21,020
+So that's when you're under 30. So long odds of coronary heart disease equals to paid or not as monthly long odds for those who are under 30.
+
+623
+01:20:21,440 --> 01:20:24,230
+All the rest of these indicators are gone in that case.
+
+624
+01:20:24,950 --> 01:20:36,980
+So when you look at the interpretation of E to the beta two, it's comparing the odds of a coronary heart disease if you're in your forties.
+
+625
+01:20:38,030 --> 01:20:45,980
+Versus under 30 versus the reference group that wasn't put into these indicator variables.
+
+626
+01:20:50,300 --> 01:20:55,379
+Just to do another one real quick. So if I look at. Either.
+
+627
+01:20:55,380 --> 01:21:06,810
+Debate a three. That's going to be the odds ratio for coronary heart disease if you're in your fifties versus less than 30.
+
+628
+01:21:14,760 --> 01:21:19,090
+All right. So here's some categorical age code and sass.
+
+629
+01:21:19,110 --> 01:21:27,300
+We'll have it for our as well. So here. See how this see how I created these zero one variables.
+
+630
+01:21:27,540 --> 01:21:31,290
+I just had parentheses and I had a logical statement.
+
+631
+01:21:31,290 --> 01:21:37,019
+And whenever the logical statement is true, that very will be variable will be a one and it'll be a zero otherwise.
+
+632
+01:21:37,020 --> 01:21:43,169
+So H 30 is going to be age greater than equal to 30 and age less than 40.
+
+633
+01:21:43,170 --> 01:21:46,120
+And whenever that's true, it'll be a one, it'll be zero otherwise.
+
+634
+01:21:46,120 --> 01:21:51,390
+And I've done the same thing for the age in the forties, age in the fifties, age greater than 60.
+
+635
+01:21:55,640 --> 01:21:58,860
+Okay. Greater than or equal to 60.
+
+636
+01:22:00,180 --> 01:22:07,079
+And so here's the model with each of those indicator variables in here, and I'm going to save the predicted values,
+
+637
+01:22:07,080 --> 01:22:13,770
+the P values into a dataset called Prop again, and then sort them and plot them just so we can see what it looks like.
+
+638
+01:22:15,240 --> 01:22:28,080
+Here's our parameter estimate table and then SAS will automatically give you the the odds ratio estimates for each of these groups.
+
+639
+01:22:28,080 --> 01:22:30,540
+So in confidence intervals.
+
+640
+01:22:30,540 --> 01:22:40,049
+So this is the odds ratio estimate for being, you know, for coronary heart disease if you're in your thirties versus under 30.
+
+641
+01:22:40,050 --> 01:22:48,750
+So you have to know the reference group to interpret these here is that either the beta two are either the beta three of the beta four, so on.
+
+642
+01:22:49,460 --> 01:22:56,910
+All right. Here's the formula that you would calculate by hand if you were to calculate P hat it says will do this for you.
+
+643
+01:22:57,900 --> 01:23:02,070
+And so everybody has the same P hat if they're the same decade of age.
+
+644
+01:23:02,460 --> 01:23:06,480
+So it's not as good as the model with continuous age.
+
+645
+01:23:06,480 --> 01:23:10,740
+If we believe that model, you can almost see the same logistic shape.
+
+646
+01:23:11,990 --> 01:23:17,270
+If you kind of think of a curve running through there, it looks like it might be okay.
+
+647
+01:23:20,960 --> 01:23:28,590
+And in ah so the code for creating these, these one zero variables is pretty much the same idea.
+
+648
+01:23:28,610 --> 01:23:31,910
+You have parentheses and then you have a logical statement in the middle.
+
+649
+01:23:33,020 --> 01:23:41,330
+And so here's the variable for age being greater, equal to 30 and age is less than 40, and that's creating that zero one variable.
+
+650
+01:23:41,810 --> 01:23:52,160
+Same trick for all the others here. And then my formula for categorical age is just these various age in thirties and forties
+
+651
+01:23:52,160 --> 01:23:57,890
+and so on in the model and all the rest of the code inside of the GLM options the same.
+
+652
+01:23:59,210 --> 01:24:07,820
+And the only part of the code that changes is I saved the fit of the model in this thing called fit, dot cap, dot age.
+
+653
+01:24:08,720 --> 01:24:10,020
+And so the coefficients are,
+
+654
+01:24:10,190 --> 01:24:20,989
+are being applied to that output and I've changed the inside of all of these things to be about the fit uncapped age so we get those results.
+
+655
+01:24:20,990 --> 01:24:24,020
+Otherwise code's very similar to the previous R code.
+
+656
+01:24:25,210 --> 01:24:30,160
+And for Pat, I'm also using the predict function to predict the p hats for that same fit.
+
+657
+01:24:30,160 --> 01:24:40,490
+Dot cat dot age. So this will be very similar to the distaff output.
+
+658
+01:24:42,300 --> 01:24:49,320
+And except this is all conveniently tight together with the odds ratio of confidence interval and p value altogether.
+
+659
+01:24:49,330 --> 01:24:52,350
+So you don't have to look back up at this table to get the p values.
+
+660
+01:24:53,470 --> 01:24:59,620
+And here's a plot for P hat where they're actually connecting the lines here for some reason.
+
+661
+01:24:59,620 --> 01:25:03,670
+But these are the same again, the same p hat for every decade of age.
+
+662
+01:25:09,740 --> 01:25:17,180
+So if we want to know which model is better, the one with continuous age or the one with categorical age,
+
+663
+01:25:17,870 --> 01:25:20,970
+then you know, we need to figure out how to make that choice. Right.
+
+664
+01:25:21,050 --> 01:25:27,320
+And you learned about nested and non nested models in your previous classes.
+
+665
+01:25:27,320 --> 01:25:30,800
+This is an example where the models are not nested.
+
+666
+01:25:31,520 --> 01:25:40,280
+And so just as a reminder of how you figure that out, if your models are nested, you should be able to take the.
+
+667
+01:25:43,010 --> 01:25:53,120
+The more rough version of the variable and always be able to calculate the the more complex version of the variable.
+
+668
+01:25:53,120 --> 01:25:58,880
+So these are not going to be nested because if I only have categorical age,
+
+669
+01:25:59,450 --> 01:26:04,790
+I have no way of knowing what the continuous age is outside of it being in a certain decade.
+
+670
+01:26:05,810 --> 01:26:13,250
+So if I can if I have this predictor and I can't actually calculate what the other variable would have been, then they're not nested.
+
+671
+01:26:13,250 --> 01:26:20,150
+So there's more information in continuous age than is captured by categorical age, right?
+
+672
+01:26:21,290 --> 01:26:27,649
+So so these are nested. And what you've learned in your other classes is that when you're comparing models,
+
+673
+01:26:27,650 --> 01:26:34,610
+if you don't have nesting and for logistic regression, at least we look at the cookies information criteria.
+
+674
+01:26:34,610 --> 01:26:41,090
+This AIC I take is information criteria and the rule of thumb is that smaller is better.
+
+675
+01:26:41,870 --> 01:26:47,930
+So you look at this row I see in the model where you had continuous age.
+
+676
+01:26:48,350 --> 01:26:56,840
+So this if you look at the column with intercept and covariates and then you look at the same output for categorical age,
+
+677
+01:26:57,050 --> 01:27:00,650
+the row with AIC and then the column with intercept and covariance.
+
+678
+01:27:01,400 --> 01:27:07,130
+And the output that has the smaller number is the is the model that I see is recommending.
+
+679
+01:27:08,000 --> 01:27:11,989
+So this AIC 111 is smaller than 119.
+
+680
+01:27:11,990 --> 01:27:16,190
+So the AIC criteria is saying go ahead with the continuous age.
+
+681
+01:27:21,030 --> 01:27:24,620
+And for R there's an air sea command that you can use.
+
+682
+01:27:24,630 --> 01:27:29,760
+And we had two model fits, one with continuous data, one with categorical age,
+
+683
+01:27:30,330 --> 01:27:35,100
+and you can get that output very quickly, like so do the same kind of statement.
+
+684
+01:27:42,110 --> 01:27:45,200
+And so hypothesis testing. So.
+
+685
+01:27:46,620 --> 01:27:51,239
+For hypothesis testing basics. We've kind of already been looking at the world test.
+
+686
+01:27:51,240 --> 01:27:55,110
+If we had a single parameter, the world test is just displayed right for you.
+
+687
+01:27:55,680 --> 01:27:59,490
+So from the SAS output for Cartier heart disease and continuous age,
+
+688
+01:28:00,240 --> 01:28:07,440
+the world statistic on the squared scale was 21.25 and you don't have to do any other work.
+
+689
+01:28:07,440 --> 01:28:13,740
+If there's just one parameter, it will be shown for you and for R as well.
+
+690
+01:28:15,390 --> 01:28:18,520
+And it'll give you that wild statistic down here.
+
+691
+01:28:19,060 --> 01:28:32,139
+So. So e to the 0.1109 is the estimated odds ratio says the one year increase in age and statistical significance for
+
+692
+01:28:32,140 --> 01:28:39,790
+predicting coronary heart disease is based on this wald test that is calculated for you for this one variable.
+
+693
+01:28:40,510 --> 01:28:45,130
+So bay baidu hat minus the no hypotheses squared over the variance of red hat.
+
+694
+01:28:45,730 --> 01:28:52,809
+That's where that 21.25 comes from. Again, a lot of times I give you the hand calculations, you don't need them if society gives it,
+
+695
+01:28:52,810 --> 01:28:56,590
+but just so you can be satisfied, you know, all these numbers come from.
+
+696
+01:28:56,590 --> 01:29:00,860
+I put in the hand calculations to. And.
+
+697
+01:29:01,910 --> 01:29:10,220
+Uh, that has a chi square distribution one degrees of freedom and our reports the same test but on the normal zero one scale.
+
+698
+01:29:10,310 --> 01:29:14,030
+So that's with this 4.61 entity squared 4.61.
+
+699
+01:29:14,040 --> 01:29:20,150
+You'll get this 21.25 and the P values the same just with more significant digits here.
+
+700
+01:29:25,410 --> 01:29:33,990
+So when you have more than one parameter that you're testing, the world test needs extra work.
+
+701
+01:29:34,770 --> 01:29:39,750
+So Seth gives you the world test automatically in its output.
+
+702
+01:29:39,780 --> 01:29:52,250
+And I, I don't know if I remember to copy it in earlier stuff or not, but it will give it to you automatically in r you need to use code like this.
+
+703
+01:29:52,260 --> 01:29:56,300
+So here's the coefficient summary from fit dhcp age that we had earlier.
+
+704
+01:29:57,060 --> 01:30:07,500
+And if we want to test the significance of the categorical age, you know, being useful in the model,
+
+705
+01:30:07,500 --> 01:30:14,970
+then we're testing the parameters for all four of those rows and we're seeing if they're statistically different from zero.
+
+706
+01:30:15,510 --> 01:30:24,010
+And to do. That test you use is command wall dot test and you put together.
+
+707
+01:30:25,200 --> 01:30:32,639
+Uh, you know, this part is, is something that you would just copy that you need the coefficients from this model.
+
+708
+01:30:32,640 --> 01:30:40,290
+It'll give you all five of the coefficients. Sigma is going to be grabbing something that's really behind the scenes.
+
+709
+01:30:40,290 --> 01:30:43,740
+You never see the variance covariance matrix of those coefficients.
+
+710
+01:30:44,400 --> 01:30:49,110
+And then the part that you really have to pay attention to is which terms are you setting to zero?
+
+711
+01:30:49,110 --> 01:30:52,739
+Which terms are you are you using for your null hypothesis?
+
+712
+01:30:52,740 --> 01:30:56,910
+And here we don't want to test that. The intercept is zero in our test.
+
+713
+01:30:56,920 --> 01:31:01,899
+We just want two, three, four or five those rows to be involved in the world test.
+
+714
+01:31:01,900 --> 01:31:03,900
+So that's done here.
+
+715
+01:31:05,070 --> 01:31:13,050
+So the name of the model fit that you saved your glam in and then which are the rows from your coefficient table you want to test?
+
+716
+01:31:13,680 --> 01:31:21,030
+And then it will give you that test that has four degrees of freedom and your p value is given here as well.
+
+717
+01:31:25,720 --> 01:31:29,110
+And here is the. Here is the table from SAS.
+
+718
+01:31:29,260 --> 01:31:35,079
+This is the same statistic that we just got an R. This is given to you automatically.
+
+719
+01:31:35,080 --> 01:31:38,350
+You can't avoid this even if you want to. So this will be here.
+
+720
+01:31:38,350 --> 01:31:41,740
+This is the same test in its testing that all of the coefficients.
+
+721
+01:31:42,830 --> 01:31:49,480
+But the interceptors zero. So.
+
+722
+01:31:49,990 --> 01:31:55,510
+So it's also giving you two other tests. It's giving you a likelihood ratio test and score test.
+
+723
+01:31:56,080 --> 01:32:01,540
+And I think you talked about the likelihood ratio test. I'm not sure how often you've talked about the score test.
+
+724
+01:32:02,320 --> 01:32:08,440
+So I have a bit of a picture to tell you what these tests are doing so that you'll know.
+
+725
+01:32:09,340 --> 01:32:18,790
+So, first of all, first of all, all of these tests are trying to get at the same science of whether you need the covariates in the model or not.
+
+726
+01:32:20,020 --> 01:32:26,110
+They don't give you the numerically the same answer, but they are all trying for the same science.
+
+727
+01:32:27,190 --> 01:32:29,829
+And the score test,
+
+728
+01:32:29,830 --> 01:32:39,750
+there's a little bit of anecdotal interest in this because when you do the Pearson Chi Square test of association between age groups and PhDs,
+
+729
+01:32:39,760 --> 01:32:43,410
+I suppose you put a table together where the columns are PhDs?
+
+730
+01:32:43,420 --> 01:32:51,730
+No. And then you have all the rows of the age groups, five age groups, when you include the people who are less than 30.
+
+731
+01:32:52,540 --> 01:32:55,599
+So you'll have five rows, two columns if you do.
+
+732
+01:32:55,600 --> 01:32:59,200
+The Pearson's Chi Square tested the association for that table.
+
+733
+01:33:00,010 --> 01:33:03,280
+You will get the same number as the score test number.
+
+734
+01:33:04,870 --> 01:33:10,420
+So uh, just anecdotally that that is algebraically the same.
+
+735
+01:33:10,570 --> 01:33:14,410
+Okay, so here's a picture that kind of tells you where all these tests are coming from.
+
+736
+01:33:15,700 --> 01:33:27,450
+And so the vertical scale is two times the log likelihood, and the horizontal scale is kind of the the parameter estimate that you're looking at.
+
+737
+01:33:27,460 --> 01:33:32,710
+I've kind of made it one dimensional parameter estimate just for the purposes of interested what's going on here.
+
+738
+01:33:34,050 --> 01:33:40,990
+And the maximum likelihood is trying to find the parameter estimates that are the highest point on this curve.
+
+739
+01:33:41,010 --> 01:33:49,440
+So the beta hat that you get from your output correspond to the highest point on this to log likelihood.
+
+740
+01:33:51,000 --> 01:33:54,070
+And. The.
+
+741
+01:33:55,200 --> 01:34:04,589
+True values for beta hat. So that'll be the highest value for the true value beta that you don't know you're trying to estimate from the data.
+
+742
+01:34:04,590 --> 01:34:10,950
+It will also have a value on this curve of two log l that you can get from your data.
+
+743
+01:34:12,970 --> 01:34:26,170
+And so the difference in heights between the point on to log l were how it happens and to log l were paid and not happens.
+
+744
+01:34:26,170 --> 01:34:28,080
+So that's the basis for the likelihood ratio test.
+
+745
+01:34:28,090 --> 01:34:35,590
+It's just this vertical distance between that to log l when you're high, that is highest value at red hat versus beta.
+
+746
+01:34:35,590 --> 01:34:39,100
+Not the real test is just looking at the difference,
+
+747
+01:34:39,100 --> 01:34:46,690
+the actual difference over beta minus beta naught and it scales it by the appropriate variability.
+
+748
+01:34:46,690 --> 01:34:53,470
+But it's thinking about this difference on the horizontal scale like the ratio is looking at the distance on this vertical scale.
+
+749
+01:34:55,020 --> 01:35:00,209
+But they're still thinking about heights for these same two values.
+
+750
+01:35:00,210 --> 01:35:04,710
+So the width for the horizontal or the height versus the vertical, those are those two.
+
+751
+01:35:05,160 --> 01:35:15,990
+The score test is kind of looking at where the truth is and it's looking at the slope of this curve to log l.
+
+752
+01:35:16,950 --> 01:35:30,170
+At the null hypothesis. And it knows that if you if your data was really close to estimating the truth and that slope should have been zero.
+
+753
+01:35:30,180 --> 01:35:33,840
+So the slope at Baidu Hat is by definition zero.
+
+754
+01:35:34,590 --> 01:35:39,810
+And so the score test is seeing how far away your slope is from zero on this curve.
+
+755
+01:35:41,070 --> 01:35:48,420
+So all three of them are trying to look at the same picture of the of the data that summarizes the data.
+
+756
+01:35:48,420 --> 01:35:55,200
+And they're trying to figure out, based on the vertical distance between the null and the estimated data,
+
+757
+01:35:55,260 --> 01:36:05,850
+that's the horizontal difference between beta hat and the null hypothesis and the slope of this curve versus zero.
+
+758
+01:36:06,390 --> 01:36:09,870
+All of them are trying to get at the same story of what's going on with this curve.
+
+759
+01:36:10,500 --> 01:36:20,399
+And as you get beta hat and beta beta hat and beta closer to one another, you can sort of see that the other two tests are equally affected.
+
+760
+01:36:20,400 --> 01:36:27,180
+So as beta had beta not get closer together, these heights will also be pushed closer together,
+
+761
+01:36:28,140 --> 01:36:32,219
+right as Speed Hat moves towards its beta moves towards beta hat,
+
+762
+01:36:32,220 --> 01:36:40,230
+that height, the vertical distance is forced to get closer to and the slope for the score test is also getting closer to zero.
+
+763
+01:36:41,600 --> 01:36:47,750
+So three different ways of looking at the data and what should happen under the no versus alternative hypothesis.
+
+764
+01:36:48,440 --> 01:36:51,520
+So the science is nearly always the same.
+
+765
+01:36:53,170 --> 01:36:58,420
+For small sample sizes you can have. More important differences.
+
+766
+01:36:58,430 --> 01:37:02,980
+So you could actually have some of these be statistically significant and some not.
+
+767
+01:37:03,460 --> 01:37:06,460
+If they're near the borderline or if they're small sample sizes.
+
+768
+01:37:06,460 --> 01:37:14,680
+There just might be a lot of differences here. So people have had to say, what's their favorite in those situations?
+
+769
+01:37:14,680 --> 01:37:21,399
+And most often people cite the likelihood ratio test as being the favored test.
+
+770
+01:37:21,400 --> 01:37:27,220
+It's the most robust, it has the best statistical properties when sample sizes are smaller.
+
+771
+01:37:27,880 --> 01:37:31,660
+So when in doubt, people run to the likelihood ratio test.
+
+772
+01:37:33,020 --> 01:37:40,760
+If the if the tests disagree, that's the one that they recommend using, which is why it's been emphasized so much in your earlier classes.
+
+773
+01:37:46,690 --> 01:37:50,589
+So the Liquid Racer test is similar to the world test for large sample size
+
+774
+01:37:50,590 --> 01:37:54,520
+and it's more popular for hypothesis tests with greater than one parameters.
+
+775
+01:37:55,780 --> 01:38:02,490
+Mainly because, you know, if you only have one parameter, the world test is given to you by every package automatically.
+
+776
+01:38:02,500 --> 01:38:03,680
+It's just easy.
+
+777
+01:38:03,760 --> 01:38:12,160
+So people just go with the world test if it's it's so quick to just grab it from the coefficient table if you have to do any additional coding,
+
+778
+01:38:13,450 --> 01:38:17,829
+which you do have to do when there's more than one parameter though, they say, well,
+
+779
+01:38:17,830 --> 01:38:22,180
+if you're going to have to code it anyway, go ahead and code like that ratio test and use that.
+
+780
+01:38:24,010 --> 01:38:30,490
+So for our example, we had four coefficients that we wanted to test or no hypothesis for categorical age.
+
+781
+01:38:31,510 --> 01:38:37,419
+If age is useful in predicting coronary heart disease, then at least one of these babies would be zero.
+
+782
+01:38:37,420 --> 01:38:42,550
+So our null hypothesis is that all of the betas corresponding to the age groups are zero.
+
+783
+01:38:42,760 --> 01:38:47,110
+And the alternative is that at least one of these babies is non-zero,
+
+784
+01:38:47,110 --> 01:38:54,280
+so that there's at least one decade of age where it makes a difference with respect to your coronary heart disease.
+
+785
+01:38:56,380 --> 01:39:01,090
+And so the elected ratio test evaluates whether the observed data is significantly more
+
+786
+01:39:01,090 --> 01:39:07,180
+likely when following the full model versus the reduced model with just the intercept alone.
+
+787
+01:39:09,910 --> 01:39:16,780
+And so the reduced model to do the liquid ratio test, it has to be a special case or a subset of the full model.
+
+788
+01:39:16,810 --> 01:39:22,210
+It has to be to do the liquid ratio test. You have to have nested models and these are nested.
+
+789
+01:39:26,740 --> 01:39:36,550
+And so the general strategy for the likely ratio tests is to compare two models that are nested and to obtain the likely output from each.
+
+790
+01:39:36,910 --> 01:39:41,980
+The full model is jargon for the model that has the more variables in it.
+
+791
+01:39:41,990 --> 01:39:46,690
+So the full model has parameters that are included in H.
+
+792
+01:39:46,690 --> 01:39:52,600
+Not so the beta not already in there. Perhaps in addition to parameters not being tested for significance.
+
+793
+01:39:53,200 --> 01:40:01,780
+And the reduced model is the model that does not include the parameters in the null hypothesis but is otherwise similar to the full model.
+
+794
+01:40:02,620 --> 01:40:08,650
+So full has all of the parameters reduced has taken out the parameters for the null hypothesis.
+
+795
+01:40:10,470 --> 01:40:17,070
+And if that ratio of the likelihoods is larger than explained by usual random variation,
+
+796
+01:40:17,070 --> 01:40:24,030
+then the alternative fits the larger model fits the data better than the model used in the null hypothesis,
+
+797
+01:40:24,030 --> 01:40:30,929
+and the null hypothesis should be rejected. So the general way to calculate the life code ratio test is to take minus two
+
+798
+01:40:30,930 --> 01:40:35,710
+times the log likelihood for the reduced model minus minus two log like that.
+
+799
+01:40:35,730 --> 01:40:42,030
+For the full model, you mainly need to remember that you take the difference between the two models,
+
+800
+01:40:42,150 --> 01:40:47,910
+get the positive difference because your statistic needs to be positive to have a Chi Square distribution.
+
+801
+01:40:50,080 --> 01:40:56,740
+And that'll have the numbers of discrete that frame that correspond to the number of parameters that you set to zero in the reduced model.
+
+802
+01:41:00,320 --> 01:41:07,129
+So in this particular example, we were testing that all the coefficients were zero.
+
+803
+01:41:07,130 --> 01:41:17,840
+So the SAS output will give you the minus two times log likelihood for the model with covariates and the model with just the intercept.
+
+804
+01:41:17,850 --> 01:41:24,000
+So it's all here for us. Without fitting a second model in this case.
+
+805
+01:41:25,280 --> 01:41:30,680
+And so for the full model, we've got minus two log likelihood of 129.553.
+
+806
+01:41:31,100 --> 01:41:36,950
+And you want to compare it to the reduced model with all those terms set to zero, that actually is the intercept only model.
+
+807
+01:41:38,330 --> 01:41:41,570
+And if you fit.
+
+808
+01:41:45,140 --> 01:41:51,560
+The. I just copy that same table twice.
+
+809
+01:41:51,580 --> 01:41:57,430
+Yeah. This is the same table again. This is the minus two log recorded for the reduced model.
+
+810
+01:41:58,360 --> 01:42:03,340
+And so the likelihood ratio test is just going to take the difference between those two numbers.
+
+811
+01:42:03,880 --> 01:42:08,230
+And if you can't remember which order to do it, remember this number always has to be positive.
+
+812
+01:42:08,230 --> 01:42:11,830
+So whatever the bigger number is, minus the smaller number is your statistic.
+
+813
+01:42:12,580 --> 01:42:16,140
+And the degrees of freedom is the number of parameters set to zero in that reduced model.
+
+814
+01:42:16,150 --> 01:42:19,990
+And here we had four of the parameters were resetting to zero.
+
+815
+01:42:19,990 --> 01:42:23,860
+So four degrees of freedom and we can get our P value that way.
+
+816
+01:42:27,700 --> 01:42:32,860
+So categorical edge significantly improves the model fit for predicting coronary heart disease.
+
+817
+01:42:35,270 --> 01:42:38,690
+And The Intercept only model is always included in the test model.
+
+818
+01:42:38,870 --> 01:42:43,640
+Statistics offering the no logistic model wasn't needed in this case, but sometimes it will be.
+
+819
+01:42:45,320 --> 01:42:51,740
+And Seth is still sort of requiring you to do this math yourself.
+
+820
+01:42:53,530 --> 01:42:58,929
+So if you're comparing two models from two different sets of output, you have to know what differences to take.
+
+821
+01:42:58,930 --> 01:43:04,240
+You have to know what degrees of freedom there are, and you have to know what p value there is.
+
+822
+01:43:05,290 --> 01:43:10,720
+And do that when you start to do that math yourself or will actually do it for you, which is kind of nice.
+
+823
+01:43:11,140 --> 01:43:19,840
+So run a separate logistic model to get the minus two log l of testing only a subset of the predictors in the model.
+
+824
+01:43:19,840 --> 01:43:26,020
+You won't always be able to get it from this column if there are other things that you've adjusted for in the model.
+
+825
+01:43:29,360 --> 01:43:35,900
+So the luck. So for those who have started investing time and learning are is about to pay off big because
+
+826
+01:43:37,520 --> 01:43:42,889
+you can install this package MDS score there's actually more than one package that will do this.
+
+827
+01:43:42,890 --> 01:43:51,860
+I think if you go through the footnotes in the slides, I might have even mentioned another package that will do like good ratio tests as well.
+
+828
+01:43:52,340 --> 01:43:56,390
+But for this, for the main part of the handout, I'm using MD score.
+
+829
+01:43:57,050 --> 01:44:02,540
+And once you load this package, all you have to do is type LR, test, LR, test,
+
+830
+01:44:03,170 --> 01:44:13,380
+whatever you saved the null hypothesis model in and whatever you saved the alternative hypothesis model in, and it will give you everything it does.
+
+831
+01:44:13,400 --> 01:44:18,850
+You don't have to know degrees of freedom. You don't have to think very hard at all.
+
+832
+01:44:18,860 --> 01:44:22,280
+You just have to know whether it's appropriate to do the liquid ratio test.
+
+833
+01:44:22,280 --> 01:44:29,600
+You have to know if they're nested or not. And then it'll will give you the likelihood ratio test and the p value for you.
+
+834
+01:44:31,160 --> 01:44:35,420
+So that package is the easiest way to get the liquid ratio test results,
+
+835
+01:44:35,420 --> 01:44:42,350
+but it has one downside and that is that it overwrites the world test function from the aid package.
+
+836
+01:44:42,350 --> 01:44:51,379
+So if you need to use the world test function from the aid package again, you'll need to explicitly ask for that mask function from the aid package.
+
+837
+01:44:51,380 --> 01:45:00,770
+So instead of just doing world test, you'll have to now do a colon colon mold test with your options to get the world test from the aid package.
+
+838
+01:45:03,480 --> 01:45:08,820
+So there is a world test that's given in the M.D. score package, but it's just not as user friendly.
+
+839
+01:45:08,820 --> 01:45:12,630
+So it's much better to go back to the old version of the world test.
+
+840
+01:45:19,740 --> 01:45:30,100
+So. I think that this is a natural stopping.
+
+841
+01:45:31,550 --> 01:45:38,230
+Point. Because I think from here, I want you to be super smart about.
+
+842
+01:45:42,210 --> 01:45:50,760
+Picking up on this boring term coding, and that's usually better at the beginning of a class than at the end of a class.
+
+843
+01:45:51,960 --> 01:45:57,250
+So let's just see. Where we start here.
+
+844
+01:45:59,430 --> 01:46:06,860
+Yeah. So I think what we're going to do is I'm going to end early today just because it's a natural stopping point.
+
+845
+01:46:06,860 --> 01:46:10,610
+And we'll will continue with this model for coronary heart disease and age,
+
+846
+01:46:11,300 --> 01:46:17,180
+and we'll look at other alternatives besides just categorical other ways to model this.
+
+847
+01:46:17,480 --> 01:46:23,750
+And I'm going to I'm going to use it as an excuse to teach you how to make linear spline terms,
+
+848
+01:46:24,950 --> 01:46:28,100
+which I don't think is typically covered in other classes.
+
+849
+01:46:28,220 --> 01:46:32,270
+But we'll be using super heavily in this class. All right.
+
+850
+01:46:33,610 --> 01:46:49,660
+Everybody. Oh.
+
+851
+01:46:49,890 --> 01:46:51,900
+Hi. Hi.
+

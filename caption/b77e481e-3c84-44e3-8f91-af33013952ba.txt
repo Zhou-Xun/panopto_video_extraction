@@ -1,0 +1,2480 @@
+1
+00:00:00,820 --> 00:00:10,110
+Good afternoon. Why don't we get started? So today's primary goal is trying to finish talking about the new mixed models.
+
+2
+00:00:10,630 --> 00:00:15,550
+And let's go back to the syllabus and just to see where we are today.
+
+3
+00:00:16,990 --> 00:00:21,490
+Before I actually start the lecture, I will go through two logistics.
+
+4
+00:00:21,490 --> 00:00:30,430
+The first one is homework two, and the second one is midterm. So this is where we are today.
+
+5
+00:00:31,250 --> 00:00:36,500
+We are trying to finish the final part of now seven C, which is about the shrinkage.
+
+6
+00:00:37,010 --> 00:00:42,010
+The final part, 07d are two examples on unit mixed models.
+
+7
+00:00:42,020 --> 00:00:45,739
+I think these are quite I would say a little bit complicated examples,
+
+8
+00:00:45,740 --> 00:00:50,960
+but they demonstrate the level of analysis you can do in a paper or in the project.
+
+9
+00:00:51,320 --> 00:00:58,250
+So I think I'd like to go through these examples. So if I can go see if I can finish Hanno seven d today, I'll be very happy.
+
+10
+00:00:58,700 --> 00:01:06,650
+And from the next. So in the next lecture I'll be review a review in GLM which is 651.
+
+11
+00:01:07,670 --> 00:01:10,550
+So this is one lecture worth of the material.
+
+12
+00:01:10,940 --> 00:01:21,889
+I do not expect that I can cover everything, but hopefully this can warm you up for talking about a more complicated set of models,
+
+13
+00:01:21,890 --> 00:01:25,070
+including the marginal model and also the generalized unit mix model.
+
+14
+00:01:26,480 --> 00:01:31,340
+And after that, we will do a review. This will be what?
+
+15
+00:01:31,340 --> 00:01:35,900
+This will be a Wednesday and we will be just doing handwritten notes during The View.
+
+16
+00:01:36,680 --> 00:01:40,880
+So the midterm exam, the instruction has been posted.
+
+17
+00:01:42,790 --> 00:01:46,210
+So if you click here, you can see all the instructions just to repeat.
+
+18
+00:01:47,740 --> 00:01:55,540
+The exam will be open from 5 p.m. on the day when we have when we'll have the mid-term review and it will be closed.
+
+19
+00:01:56,820 --> 00:02:03,540
+Midnight on October 31st, 2022, both of us Eastern Time, just to move the ambiguity.
+
+20
+00:02:05,550 --> 00:02:10,530
+And only one attempt is allowed and you will have 90 minutes to do it.
+
+21
+00:02:12,090 --> 00:02:20,250
+So these will be multiple choice questions. And you can do wherever you want as long as there are Internet access.
+
+22
+00:02:21,440 --> 00:02:24,560
+And this exam will be given via the canvas.
+
+23
+00:02:24,980 --> 00:02:31,510
+So you will be answering the question via the canvas. If you have a special accommodation request, please let me know.
+
+24
+00:02:31,990 --> 00:02:39,420
+And I think it is important that you let me know what you need instead of me guessing what I mean, what I required.
+
+25
+00:02:41,260 --> 00:02:44,170
+So what's the format? 15 Multiple choice questions.
+
+26
+00:02:44,380 --> 00:02:53,050
+So the emphasis will be on conceptual understanding of longitudinal data analysis techniques, clear understanding about the terminologies.
+
+27
+00:02:53,560 --> 00:02:58,390
+And they'll. Remo If you still don't know what the difference between a male Remo,
+
+28
+00:02:58,570 --> 00:03:05,680
+you should be nervous and you should start reviewing that and we will be reviewing that again on October 26.
+
+29
+00:03:09,530 --> 00:03:13,330
+Interpretation model results. We will go through them in the examples.
+
+30
+00:03:13,340 --> 00:03:17,450
+And essentially these are just trying to interpret the estimates in the context of the analysis.
+
+31
+00:03:19,310 --> 00:03:23,090
+During the exam, you will need to do some simple calculations.
+
+32
+00:03:25,060 --> 00:03:29,680
+I use me because, you know, it's good to know roughly where to find the formula.
+
+33
+00:03:31,370 --> 00:03:38,840
+A rules first. Deviation from the rules will result in zeros for midterm scores from the for the parties involved.
+
+34
+00:03:39,050 --> 00:03:44,690
+So it won't be non-negotiable. And the answers to the questions should only represent your own work.
+
+35
+00:03:45,440 --> 00:03:53,600
+And it will be open books, open notes. You can use whatever notes, whatever notes you have on your iPad or your computer as long as your own notes.
+
+36
+00:03:54,560 --> 00:03:59,240
+There will be no Internet search. Any search engine.
+
+37
+00:03:59,780 --> 00:04:06,380
+No online chatting. No texting. No emailing about the questions during a during the exam.
+
+38
+00:04:07,690 --> 00:04:13,970
+Different from the homework. In the midterm exam and no group work is allowed again.
+
+39
+00:04:14,600 --> 00:04:21,950
+If there is any deviation from this rule, a zero will be the midterm score for the parties involved.
+
+40
+00:04:22,940 --> 00:04:26,360
+And what are the materials covered?
+
+41
+00:04:26,390 --> 00:04:32,060
+So handouts. 0107. Pretty much everything up to the new mix models.
+
+42
+00:04:32,780 --> 00:04:35,450
+Homework one and two. I will talk about homework too a little bit.
+
+43
+00:04:35,690 --> 00:04:43,220
+Just to give you a sense of the, um, you know, I think some of you have probably looked at homework too.
+
+44
+00:04:43,780 --> 00:04:50,300
+Um, I will talk about the intention and also the due date for the textbook.
+
+45
+00:04:50,540 --> 00:04:54,110
+Chapter one eight covers all the materials you will need to know.
+
+46
+00:04:55,160 --> 00:04:56,840
+There are few years of exams.
+
+47
+00:04:57,350 --> 00:05:04,880
+And with solutions you can use them as practice questions just to get a sense of, you know, what are the questions you can expect.
+
+48
+00:05:05,840 --> 00:05:09,560
+But every year, materials are going to be a little bit different, not too much.
+
+49
+00:05:11,180 --> 00:05:14,750
+So you have to realize that you have to.
+
+50
+00:05:15,680 --> 00:05:20,600
+Consider what it's been taught in this year in this particular section.
+
+51
+00:05:20,750 --> 00:05:28,100
+Okay. All right. So I would be happy to answer any burning questions regarding the term constructions.
+
+52
+00:05:28,730 --> 00:05:36,430
+Now. If you have other questions, of course you can ask, but just want to set one to see if.
+
+53
+00:05:37,300 --> 00:05:48,490
+There any confusions among the instructions? Yes.
+
+54
+00:05:56,980 --> 00:06:06,400
+So the question is if you want to show some work towards finishing the problem, can I submit a PDF because it is a open period.
+
+55
+00:06:07,990 --> 00:06:08,410
+Exam.
+
+56
+00:06:09,130 --> 00:06:19,000
+We will not be able to know whether this is done in concurrence with the exam or a person would spend 5 hours preparing that partial credit sheet.
+
+57
+00:06:19,450 --> 00:06:26,290
+So this year we will not be accepting those those PDFs just because of the format change.
+
+58
+00:06:33,120 --> 00:06:37,370
+All right. Any other questions at this time? Okay.
+
+59
+00:06:37,850 --> 00:06:40,900
+So. So that's the most important thing.
+
+60
+00:06:40,910 --> 00:06:45,950
+And number two, the whole homework assignment.
+
+61
+00:06:45,950 --> 00:06:50,750
+So this is homework number two and it is going to be due October 25th.
+
+62
+00:06:51,560 --> 00:06:58,880
+So we will be making some office hour changes to make sure that you receive proper help before the due date.
+
+63
+00:06:59,990 --> 00:07:05,570
+This October 25th is going to be a Tuesday and my office hour is often.
+
+64
+00:07:07,070 --> 00:07:17,270
+Wednesday. So I will try to send an announcement. So in that week the office will be held before the due date of the homework number two.
+
+65
+00:07:17,990 --> 00:07:24,140
+So I will make that announcement later in the week for the actual homework.
+
+66
+00:07:25,310 --> 00:07:34,570
+So let me click that. So in this homework again, as usual, we have two sets of questions.
+
+67
+00:07:34,590 --> 00:07:37,710
+The first one is about the theory and methods question.
+
+68
+00:07:38,130 --> 00:07:44,670
+And this may look intimidating, but I think in alignment with the title of this class,
+
+69
+00:07:45,360 --> 00:07:51,090
+it is trying to get you get you some experience in working with the notation.
+
+70
+00:07:53,020 --> 00:07:55,600
+In lunch, know in general in your models.
+
+71
+00:07:55,990 --> 00:08:04,330
+And here, essentially the first question is asking you to show that when you are doing generalized least estimation,
+
+72
+00:08:05,170 --> 00:08:11,160
+regardless of what you put in there, you will have unbiased estimation of see transpose.
+
+73
+00:08:11,170 --> 00:08:17,620
+Peter. So the first question is asking to show if your goal is really trying to get the estimate on average.
+
+74
+00:08:17,620 --> 00:08:23,860
+Correct. You probably won't care what w to use for the second question.
+
+75
+00:08:24,310 --> 00:08:34,480
+There is an inequality which is to say that there is a theoretically determined relative magnitude of the variances of to estimate.
+
+76
+00:08:34,930 --> 00:08:39,670
+The estimate on the left uses a W and that W is arbitrary.
+
+77
+00:08:40,540 --> 00:08:45,820
+And on the right, the W is sigma inverse, which is a true variance covariance inverse.
+
+78
+00:08:46,900 --> 00:08:57,280
+And the conclusion we asked you to show is that indeed, if you use the w equals sigma inverse, the equality will hold.
+
+79
+00:08:57,970 --> 00:09:05,470
+Otherwise, if you use a lousy W or very bad w, you will have a very variable estimate.
+
+80
+00:09:06,220 --> 00:09:13,240
+So for the second question, I have given a hint here, which is to have this particular form.
+
+81
+00:09:13,930 --> 00:09:24,200
+And all you need to do is to realize that. You can treat the sigma in the middle as the positive, definite matrix and everything before it.
+
+82
+00:09:25,020 --> 00:09:29,340
+A vector, everything after it's that same vector transposed.
+
+83
+00:09:29,430 --> 00:09:34,800
+So, you know, it's a quadratic form and a quadratic form with a positive, definite matrix in the middle.
+
+84
+00:09:34,810 --> 00:09:40,100
+It's always going to be positive. Or zero. Okay.
+
+85
+00:09:40,280 --> 00:09:45,530
+So now that should have given you enough information to finish this problem.
+
+86
+00:09:46,370 --> 00:09:54,950
+Then application questions. So if you have not started, I would recommend you start earlier because this analysis,
+
+87
+00:09:54,980 --> 00:10:00,050
+often messy and especially frustrating if you have only 2 hours to finish before deadline.
+
+88
+00:10:00,590 --> 00:10:09,649
+So I think this one is going to be these two are going to be having you be honest about what you can do with
+
+89
+00:10:09,650 --> 00:10:14,990
+the data and trying to have you bridge the conceptual understanding of the model to the data analysis.
+
+90
+00:10:15,650 --> 00:10:22,850
+And it is hard work, but I think it will be ultimately rewarding towards analyzing a data and especially a final project.
+
+91
+00:10:23,960 --> 00:10:30,650
+So that is all I want to say about homework to any burning questions again about this homework.
+
+92
+00:10:41,350 --> 00:10:46,690
+Okay. I don't see any questions right now, but please feel free to post anonymously on episode one.
+
+93
+00:10:47,350 --> 00:10:50,820
+So let's start. Get started with the handout.
+
+94
+00:10:50,830 --> 00:10:56,160
+Oh seven. See, we have stopped at the prediction of random effects.
+
+95
+00:10:58,820 --> 00:11:04,460
+This is the place where we introduce the shrinkage estimation technique.
+
+96
+00:11:07,790 --> 00:11:11,600
+We will be first review in a few slides we covered at the end of the previous lecture.
+
+97
+00:11:13,200 --> 00:11:23,489
+So what's the what's the entire business here? We are trying to make predictions about, you know, why I for ice person.
+
+98
+00:11:23,490 --> 00:11:27,360
+What are the responses? Right. We observe a data. We want to produce predictions.
+
+99
+00:11:27,870 --> 00:11:31,049
+Often what we do is just to plug in the fix.
+
+100
+00:11:31,050 --> 00:11:39,870
+If the estimate and the random if estimate. So that means when you're doing predictions, it's a contribution from beta.
+
+101
+00:11:40,800 --> 00:11:45,930
+Beta is to characterize in the population how does the coverage associated with the outcome on average?
+
+102
+00:11:46,770 --> 00:11:57,720
+And there's a certain component where by characterizes individual eyes, particular pattern and how the covered in Xai would be related to the outcome.
+
+103
+00:11:58,350 --> 00:12:06,930
+So the difference between this and 650 is that in 650 you only have x beta out to be used as prediction.
+
+104
+00:12:07,980 --> 00:12:15,150
+Now we call this predictive by some people call this estimating by you know,
+
+105
+00:12:15,180 --> 00:12:19,050
+it is probably not going to be big issue as long as you know what you're doing technically,
+
+106
+00:12:19,920 --> 00:12:26,070
+but to be precise by is a random quantity and it is individual specific.
+
+107
+00:12:26,310 --> 00:12:28,980
+So what you're really doing is predicting a random variable.
+
+108
+00:12:29,730 --> 00:12:36,840
+In this particular framework, beta is treated as a fixed and unknown quantity, and usually we call that estimating.
+
+109
+00:12:39,000 --> 00:12:49,740
+So that's the terminology. Claim we can have a predictor of by which is called blob.
+
+110
+00:12:50,790 --> 00:12:58,230
+So this blob is called is abbreviation for best in any or near unbiased predictor.
+
+111
+00:12:58,500 --> 00:13:02,850
+I can pack a little bit. So what's shown here is the equation.
+
+112
+00:13:03,540 --> 00:13:07,320
+And first, what's need here? What does it mean?
+
+113
+00:13:08,010 --> 00:13:11,460
+Meaning what? Often is why I.
+
+114
+00:13:11,790 --> 00:13:15,720
+If you look at this particular form, you can see why is here. Right.
+
+115
+00:13:16,380 --> 00:13:20,010
+If you do y minus x five times better, that's an operation.
+
+116
+00:13:20,310 --> 00:13:25,170
+If you multiply into the left the matrix, still it's an operation.
+
+117
+00:13:25,560 --> 00:13:30,480
+So what you get by calculating this formula is a thing in terms of y.
+
+118
+00:13:30,720 --> 00:13:43,550
+So that's the part I'm biased, which means that if you average over the Y, you will get a, you know, how to say the theoretical average predictor.
+
+119
+00:13:43,560 --> 00:13:47,520
+Well, we're trying to predict by finally what's the best.
+
+120
+00:13:47,790 --> 00:13:56,670
+What does best mean? So it basically is to say that among all the possible predictors that are area why this one produces smallest variance.
+
+121
+00:13:56,970 --> 00:14:04,700
+So this is why we call this blood. And some of you may immediately connect back to what you've learned in 653, The Markov Theorem.
+
+122
+00:14:04,710 --> 00:14:09,500
+That's the. Ordinary squares.
+
+123
+00:14:10,870 --> 00:14:15,840
+Is the blue, right? So it's a similar story.
+
+124
+00:14:15,850 --> 00:14:21,639
+But here the target is by. In this particular equation.
+
+125
+00:14:21,640 --> 00:14:24,730
+Again, this may be unfamiliar to you. I'm going to unpack that a little bit.
+
+126
+00:14:25,360 --> 00:14:36,610
+What does it do? Well, first in the term, number one, which is to the right, it is basically what is not explained by the population, in fact.
+
+127
+00:14:36,760 --> 00:14:42,210
+So why is again a vector of responses collected from subject I at multiple occasions?
+
+128
+00:14:42,220 --> 00:14:48,220
+Our exhibitor has is the population level prediction or estimation of the mean trend.
+
+129
+00:14:48,940 --> 00:14:51,370
+So if you take the difference between what exhibitor,
+
+130
+00:14:51,640 --> 00:14:58,030
+what's left is going to be a sum of two things the random, if that's the subject, and also the residual errors.
+
+131
+00:14:58,870 --> 00:15:03,190
+Now in front of it, the term number two. So this is a little bit complicated.
+
+132
+00:15:03,850 --> 00:15:09,430
+How do we derive this? Theoretically, it's based on a conditional distribution, not very Gaussian.
+
+133
+00:15:09,970 --> 00:15:16,000
+I will not derive that now. And I think I do not require you to know how to derive it.
+
+134
+00:15:16,990 --> 00:15:24,900
+But if you truly interested, I'm happy to do that for you. During office hour here, there are a few different notation.
+
+135
+00:15:24,910 --> 00:15:32,550
+It doesn't hurt to review them. So G is the term we often would use for the variance of by.
+
+136
+00:15:33,670 --> 00:15:38,530
+Right. So if you have two random effects, g will be Q by Q.
+
+137
+00:15:40,230 --> 00:15:45,750
+Z I It is and i by. Q Which is the design matrix?
+
+138
+00:15:49,930 --> 00:15:55,570
+Is that matrix for the random effects? Of subject I.
+
+139
+00:15:58,560 --> 00:16:05,070
+Okay. And Sigma here. What is sigma I. So Sigma is the total variance.
+
+140
+00:16:05,070 --> 00:16:08,940
+Covance We have talked about this extensively in No.
+
+141
+00:16:08,940 --> 00:16:12,780
+Seven B, but we had a fall break.
+
+142
+00:16:12,870 --> 00:16:19,800
+So you're forgiven that if you don't recall it. This is so this is basically the total variance.
+
+143
+00:16:25,830 --> 00:16:31,580
+Or the marginal veterans. Look, I did not put BI after the conditioning symbol.
+
+144
+00:16:31,980 --> 00:16:37,380
+So this means that this variation not only takes into account of the variance of the errors,
+
+145
+00:16:37,890 --> 00:16:40,950
+the measure errors, but also the variance in terms of random effects.
+
+146
+00:16:41,670 --> 00:16:51,380
+So we have specified this saying equals what equals variance of X, beta plus z.
+
+147
+00:16:51,930 --> 00:16:58,350
+By then we know we know how to calculate this essentially this Z times the variance of.
+
+148
+00:17:00,220 --> 00:17:17,000
+Actually let me. At the final thing here. So this is the formula, right?
+
+149
+00:17:17,000 --> 00:17:25,790
+And then if we replace the symbol, Jean there and plus and the diagonal error matrix, we have this one.
+
+150
+00:17:26,300 --> 00:17:28,850
+So Sigma I is opting out of this form.
+
+151
+00:17:29,570 --> 00:17:39,379
+And again, for this particular calculation, I have assumed the Egyptian I has a very simple form in terms of variance covariance.
+
+152
+00:17:39,380 --> 00:17:43,250
+It's just diagonal with constant variance. Can it take more complicated forms?
+
+153
+00:17:43,700 --> 00:17:49,910
+Yes, you can. But in general to identify exactly what the issue.
+
+154
+00:17:50,360 --> 00:17:58,790
+So for the illustration here, I'm always going to assume variance of some high is going to be diagonal with the same variance across occasions.
+
+155
+00:18:00,200 --> 00:18:05,510
+So with these three terms explained, now you can see that at least everything is.
+
+156
+00:18:07,540 --> 00:18:11,470
+Fully determined, however.
+
+157
+00:18:12,930 --> 00:18:16,260
+There will be some unknowns still. Right. G.
+
+158
+00:18:17,130 --> 00:18:20,650
+The variance of the random effects. You don't know them.
+
+159
+00:18:20,670 --> 00:18:24,300
+You have to estimate them. Zii you know them because they pure.
+
+160
+00:18:24,360 --> 00:18:33,960
+It depends on the covariates that were used to specify this matrix sigma I here again it depends on g and depends on the unknown.
+
+161
+00:18:34,590 --> 00:18:38,970
+Sigma squared for the rest your error. So both are unknown.
+
+162
+00:18:39,270 --> 00:18:47,520
+So returning to this particular formula in bullet two, it is a useful theoretical quantity, but it is not really predictor.
+
+163
+00:18:47,760 --> 00:18:54,930
+Right. Because it depends on the unknown g and now know sigma squared in the error variance covariance.
+
+164
+00:18:56,620 --> 00:19:08,400
+So what do we do? We just put hats on to them. And when you put hats on to them, then it will be called the empirical, empirical blowup.
+
+165
+00:19:09,430 --> 00:19:14,440
+So I want to pause for a moment that this is this is just really the simple.
+
+166
+00:19:14,440 --> 00:19:23,010
+No. No complicated reason why this coming here, but we just plugged in the estimate of the G and Sigma either.
+
+167
+00:19:25,330 --> 00:19:32,260
+Once you do so. Now we put hat on to buy. You have produced a predictor for ice persons.
+
+168
+00:19:32,980 --> 00:19:35,320
+Random effects. What does that mean?
+
+169
+00:19:35,620 --> 00:19:43,150
+If you fit a mixed model, you can predict what's the intercept for one person, what's a slope for one person, which is beautiful.
+
+170
+00:19:43,510 --> 00:19:48,010
+And you can plug them in and you can get the trajectory which is described in full at five.
+
+171
+00:19:48,700 --> 00:19:54,520
+And why I hat represents the best prediction you can have in the framework of Nina mixed model.
+
+172
+00:20:02,990 --> 00:20:07,530
+So we stopped. Here roughly in the last lecture.
+
+173
+00:20:07,980 --> 00:20:17,430
+And my claim is that this thing is beautiful because it can be written into two parts demonstrating the compromise.
+
+174
+00:20:18,060 --> 00:20:27,360
+When you're making production, do you want to choose subject eyes data only, or do you want to choose the population trend a little bit?
+
+175
+00:20:27,360 --> 00:20:39,930
+Right. So let me first show this formula.
+
+176
+00:20:40,320 --> 00:20:45,710
+I'll tell you something I feel strongly about when when I'm talking about shrinkage.
+
+177
+00:20:45,720 --> 00:20:51,750
+So you can write this entire thing into this particular formula.
+
+178
+00:20:52,200 --> 00:20:58,489
+So let's do this first. How about it? So we know one fact, right?
+
+179
+00:20:58,490 --> 00:21:05,890
+We know the empirical. But up, right.
+
+180
+00:21:05,950 --> 00:21:11,290
+We know how this looks like roughly. And let's plug them in.
+
+181
+00:21:11,440 --> 00:21:15,880
+So why i hat equals x i.
+
+182
+00:21:17,060 --> 00:21:21,980
+Rita Hayworth plus the Z eye.
+
+183
+00:21:22,730 --> 00:21:33,440
+And we should put B I had here. Right. So. And she's going to say that I had is predicted by Jihad Z i.
+
+184
+00:21:35,890 --> 00:21:40,690
+Inverse times, the y minus x, y beta.
+
+185
+00:21:41,380 --> 00:22:00,740
+Okay. So I just plug that in. Now with that plugged in, this basically equals exhibitor hearts plus z i g had z i sigma i inverse y minus x i beta.
+
+186
+00:22:08,790 --> 00:22:13,240
+Okay. So now let's do some further simplification.
+
+187
+00:22:13,260 --> 00:22:20,700
+Can anybody remind me or can anybody think about how to use Sigma to represent this thing that I underlined?
+
+188
+00:22:22,170 --> 00:22:26,380
+If you use. This fact, right?
+
+189
+00:22:35,880 --> 00:22:41,970
+Can I represent this term under the curly line underlined by the.
+
+190
+00:22:44,160 --> 00:22:48,150
+But difference between the Sigma hat and the Sigma Square have.
+
+191
+00:22:51,880 --> 00:23:07,950
+So let me just write that down here. Uh, actually, in the note I used the more general notation, so let me erase that.
+
+192
+00:23:07,950 --> 00:23:12,150
+So explain why I make this change. So let's do AI here.
+
+193
+00:23:13,050 --> 00:23:17,910
+So I often this like, sigma a nice score.
+
+194
+00:23:18,180 --> 00:23:26,040
+So here I have changed the second component of the variance, which is the within sums of probability to be i.
+
+195
+00:23:26,580 --> 00:23:30,160
+I claimed earlier that in general we often use the simpler version.
+
+196
+00:23:31,590 --> 00:23:35,490
+But it seems that all the notes were written in the general form, which I think is okay.
+
+197
+00:23:35,850 --> 00:23:41,100
+So let's do this then we just do what sigma I had.
+
+198
+00:23:41,130 --> 00:23:44,470
+Minus R I had. Okay.
+
+199
+00:23:44,550 --> 00:23:47,850
+If you are confused about where this comes from, we're just trying to.
+
+200
+00:23:49,550 --> 00:23:54,160
+Replaced this thing by this using this particular formula.
+
+201
+00:23:54,170 --> 00:23:57,560
+Yeah. Hopefully you can see it by moving this term.
+
+202
+00:23:58,560 --> 00:24:03,209
+To the right to left. Okay.
+
+203
+00:24:03,210 --> 00:24:07,920
+Everybody with me here. All right. Now you put in.
+
+204
+00:24:08,880 --> 00:24:13,380
+What's left? Right. Okay. I think you need to put everything we have here.
+
+205
+00:24:15,790 --> 00:24:19,060
+Y i minus x i beta hat.
+
+206
+00:24:20,230 --> 00:24:28,120
+Okay. So you have that. So now let's work this out.
+
+207
+00:24:28,150 --> 00:24:35,170
+It is exciting. Peter hats plus so you can multiply the matrices here I.
+
+208
+00:24:46,950 --> 00:24:57,960
+Okay. Okay. So let's do this further simplification.
+
+209
+00:24:58,800 --> 00:25:04,830
+So this is exciting. Peter Hart plus I and I minus I had.
+
+210
+00:25:21,240 --> 00:25:26,520
+So this is what we have. Okay.
+
+211
+00:25:27,190 --> 00:25:30,819
+Now. You can see one term has come out.
+
+212
+00:25:30,820 --> 00:25:36,920
+Right. So this term. So these two terms are equal here.
+
+213
+00:25:39,230 --> 00:25:48,010
+Now let's see what's left. So if you look closely, this term will cancel with those, right?
+
+214
+00:25:48,700 --> 00:25:55,120
+So what's left is going to be this one. Plus our I had.
+
+215
+00:26:01,020 --> 00:26:05,030
+Which is the. This first term.
+
+216
+00:26:07,950 --> 00:26:14,010
+Okay. I want to pause for a moment just to make sure that you're convinced that this seems to be right.
+
+217
+00:26:34,550 --> 00:26:38,860
+You can spend some time after crossover and find this for the sake of time.
+
+218
+00:26:38,860 --> 00:26:46,419
+I'm going to continue to talk about how to interpret this formula. So if you return to the actual typed bullet here, which is much clearer,
+
+219
+00:26:46,420 --> 00:26:57,040
+you can see that it is a seems to be a convex sum of some sort where on one end it is exit beta hat, which is the population trend.
+
+220
+00:26:57,610 --> 00:27:03,850
+Ignoring any individual heterogeneity on the other hand, is purely just data from wise subject I.
+
+221
+00:27:04,090 --> 00:27:10,570
+Right. And what's the weight there? The first weight is the I had divided by sigma.
+
+222
+00:27:10,610 --> 00:27:14,110
+I had the second is I minus that right.
+
+223
+00:27:15,160 --> 00:27:19,030
+So clearly there seems to be a compromise between two things.
+
+224
+00:27:19,390 --> 00:27:23,590
+One is the population level trend prediction. The other is just a subject is data.
+
+225
+00:27:24,590 --> 00:27:29,180
+And this way determines when you make a prediction for a subject. I do want to rely on the population trend.
+
+226
+00:27:29,660 --> 00:27:33,950
+Or do you just ignore other people's data and trust this particular person's data at hand?
+
+227
+00:27:35,050 --> 00:27:38,830
+Clearly there are lots of reasons to do either.
+
+228
+00:27:39,850 --> 00:27:48,010
+But the difficult thing for our intuitive mind to process is how much weight to put on the population level production and individual production.
+
+229
+00:27:48,610 --> 00:27:56,680
+So the beauty of this formula is that it characterizes exactly what's the way to input onto the population or the individual level data.
+
+230
+00:27:57,340 --> 00:28:09,520
+So it makes sense for us to look at the weights. I believe the next few slides will be just talking about, you know, going through all the extremes.
+
+231
+00:28:10,030 --> 00:28:15,790
+But for the sake of, say, it is a presentation, I'm not going to flip through the slides.
+
+232
+00:28:16,570 --> 00:28:20,050
+So let's look at two situations.
+
+233
+00:28:21,040 --> 00:28:28,270
+One situation is that I had is way smaller than sigma I had.
+
+234
+00:28:29,200 --> 00:28:33,970
+The second situation is I had is way bigger than Sigma hat.
+
+235
+00:28:35,380 --> 00:28:40,650
+Some of you may protest saying that, Genco. What do you mean? These are matrices, not numbers.
+
+236
+00:28:40,720 --> 00:28:42,490
+What do you mean by much bigger or much smaller?
+
+237
+00:28:42,850 --> 00:28:49,540
+Well, in this case, if you're talking about the difference between matrices, I'm going to say that it's a difference between two matrix.
+
+238
+00:28:49,960 --> 00:28:55,700
+And if all right is much smaller than Sigma I, that difference is going to be net,
+
+239
+00:28:56,170 --> 00:29:03,430
+negative, definite, and the smallest eigenvalue is going to be very negative anyway.
+
+240
+00:29:03,820 --> 00:29:12,480
+I think that is a little beside the point. But in this case, we would want to say if this holds, then I.
+
+241
+00:29:13,670 --> 00:29:18,860
+So I had inverse is going to be very close to 1 to 2 zero.
+
+242
+00:29:19,250 --> 00:29:26,230
+And in this case, I had and. Sing my hat in verse will be very close to.
+
+243
+00:29:27,420 --> 00:29:31,780
+It's, uh. Let me see. Is very close to one.
+
+244
+00:29:36,060 --> 00:29:39,540
+Actually. Sorry, this should not be bigger. This should be approximate similar.
+
+245
+00:29:40,690 --> 00:29:46,400
+I'll explain. So again,
+
+246
+00:29:46,730 --> 00:29:55,040
+the first situation consider is when the hour I had is much smaller than the total variance and it can be translated to when this
+
+247
+00:29:55,040 --> 00:30:01,040
+thing is very close to zero because you can just treat them as just division of two matrices and if the numerator is much smaller,
+
+248
+00:30:01,040 --> 00:30:05,390
+it's close to zero for the second one I changed that to.
+
+249
+00:30:05,450 --> 00:30:11,089
+I had approximately been the total variance it is because if you recall Sigma I's a total variance.
+
+250
+00:30:11,090 --> 00:30:14,870
+So Sigma has to be a sum between R and another thing.
+
+251
+00:30:14,870 --> 00:30:18,829
+Right? If you recall this thing, this formula, it has to be a sum.
+
+252
+00:30:18,830 --> 00:30:23,180
+So I, I changed that. To say I had is just very close to the total variance.
+
+253
+00:30:24,400 --> 00:30:28,450
+So that means these two things I had and see my head will be roughly similar.
+
+254
+00:30:28,480 --> 00:30:32,020
+So the division will result in of an approximately identity.
+
+255
+00:30:34,160 --> 00:30:41,270
+So it is of interest to discuss what would happen. All right. Algebraically under situation one.
+
+256
+00:30:41,480 --> 00:30:46,370
+Okay. That's R I had times sigma. I had inverse is approximate zero.
+
+257
+00:30:47,030 --> 00:30:55,999
+So question for you, does the prediction uses more information from the population or more information from subject?
+
+258
+00:30:56,000 --> 00:31:04,550
+Is data only? Well, just consider extreme when that's zero.
+
+259
+00:31:04,580 --> 00:31:14,370
+What does that mean? So you can clearly see that Peter had it simply ignored to some degree and then purely rely on the data from the subject.
+
+260
+00:31:14,550 --> 00:31:23,970
+It is to say that, hey, you know, if you're going to predict my trajectory when under scenario one, we're just going to use my data.
+
+261
+00:31:24,880 --> 00:31:29,150
+Okay. That's what this extreme will say.
+
+262
+00:31:30,380 --> 00:31:35,780
+Now, let's consider what does it mean to have? I had to be much, much smaller than the Sigma.
+
+263
+00:31:35,780 --> 00:31:38,930
+I had recall sigma. I had this total variance.
+
+264
+00:31:39,530 --> 00:31:47,780
+I had just one part of the variance I had is often the measurement errors like sigma sigma had squared sigma hat times the identity.
+
+265
+00:31:49,490 --> 00:31:55,240
+What does that mean? So you have a lot of variance as reflected in my hat.
+
+266
+00:31:55,720 --> 00:32:04,270
+But that veterans cannot be attributed to or I can not be attributed measure error, which means that your measurement is so good.
+
+267
+00:32:05,500 --> 00:32:10,520
+There's no variability within the person. Then how do you explain variability?
+
+268
+00:32:12,380 --> 00:32:18,110
+Well, you have a lot of people. Sigma, I kept rise the variability across all the people.
+
+269
+00:32:18,620 --> 00:32:24,880
+So you don't have a lot of measured error. So the variability must be coming from was how you and I are different, how you and I are different.
+
+270
+00:32:25,940 --> 00:32:34,280
+In that case, if I'm going to make my prediction so I make prediction about my, say, body weight in next several weeks.
+
+271
+00:32:35,450 --> 00:32:41,019
+Do I want to trust your data? Probably no. Because the weight scale is pretty accurate.
+
+272
+00:32:41,020 --> 00:32:46,390
+And if we're so different, I probably am going to use my own data to do the trajectory prediction.
+
+273
+00:32:47,270 --> 00:32:47,650
+Okay.
+
+274
+00:32:47,920 --> 00:32:58,150
+So this is the first scenario where if you have super accurate measurement, measurement and all the variability is because of people are different,
+
+275
+00:32:58,810 --> 00:33:05,410
+then clearly if you're going to predict my trajectory, I'm going to use just my own data because we are so different.
+
+276
+00:33:06,960 --> 00:33:15,330
+I want to pause for 30 seconds to at least have you guys walk through that logic I just said, and we will then go to this in our number two.
+
+277
+00:34:06,510 --> 00:34:09,850
+Now go to the second scenario. Right? Second scenario.
+
+278
+00:34:10,350 --> 00:34:15,660
+Let's not rush to say what is the final prediction?
+
+279
+00:34:17,070 --> 00:34:25,050
+Rely on. Let's just start from the beginning. So I had about, you know, the same as Sigma I had.
+
+280
+00:34:25,980 --> 00:34:31,820
+What does that mean? Well, first my hat is the total variance, right?
+
+281
+00:34:31,850 --> 00:34:35,329
+It says that the total variance is pretty much attributed.
+
+282
+00:34:35,330 --> 00:34:43,880
+To what? The measurement error. It is not attributed to how you and I are different, which is to say that in the data set.
+
+283
+00:34:44,900 --> 00:34:49,880
+That was used to fit the model. The data says.
+
+284
+00:34:50,900 --> 00:34:54,770
+We are all so similar and all the variability comes from measured error.
+
+285
+00:34:55,190 --> 00:35:04,800
+Right? So it'll be quite a bad idea not to borrow information between you and I and you and I to predict trajectory.
+
+286
+00:35:06,360 --> 00:35:07,379
+That's the first intuition.
+
+287
+00:35:07,380 --> 00:35:13,470
+The second intuition is, is this measurement error explains all the variability, which means that measured error is quite lousy.
+
+288
+00:35:14,510 --> 00:35:19,340
+If I have my own, like, five dots and they are very lousy, right?
+
+289
+00:35:19,370 --> 00:35:25,330
+Do I want to just rely on my own data? Probably I can use other people's data to average out that measure.
+
+290
+00:35:26,730 --> 00:35:33,420
+So with that, because I had and see how close this ratio will be roughly identity.
+
+291
+00:35:33,750 --> 00:35:43,260
+If you plug that back into the bullet, one which term got thrown out or sorry, which term got kept and played a major role in prediction.
+
+292
+00:35:49,650 --> 00:35:55,620
+Exhibitor. Right. So what does that mean? Well, Exhibitor Hat is something you learned about population.
+
+293
+00:35:56,400 --> 00:36:01,530
+The second term, which is purely about subsidized data, got this debate downgraded.
+
+294
+00:36:02,130 --> 00:36:06,870
+So again, this reflects the right intuition that if we are relatively homogeneous.
+
+295
+00:36:09,850 --> 00:36:17,810
+Then we should use on people's data to make prediction. So clearly in real life we never run into the extremes.
+
+296
+00:36:17,860 --> 00:36:19,660
+We are always in between one and two.
+
+297
+00:36:20,500 --> 00:36:28,840
+So we always use both the population data, population trend and also the individual's data, hence the term shrinkage.
+
+298
+00:36:29,480 --> 00:36:33,280
+Okay, so it's a compromise between the population trend and individual's data.
+
+299
+00:36:34,090 --> 00:36:41,380
+I know it's a lot to take in, but I think this intuition will help you in your future careers, I'm sure.
+
+300
+00:36:41,830 --> 00:36:49,690
+And I think what are the tasks that can you can do to reinforce this particular intuition?
+
+301
+00:36:50,050 --> 00:36:52,750
+Well, you can do some longitudinal data research,
+
+302
+00:36:53,200 --> 00:37:01,470
+or you can just try to derive all these things all over again and see if you can recover all the explanations we have gone through.
+
+303
+00:37:01,480 --> 00:37:11,860
+And you can watch a video to do it again. So in the next following slides, it's basically going to explain everything we talked about just now.
+
+304
+00:37:12,670 --> 00:37:21,040
+I will not do them again, but I just want to say that all the reasoning I have relied on is to say, all right,
+
+305
+00:37:21,040 --> 00:37:30,700
+categorize it within subject variability in the simple case where our equals sigma squared times identity is just represent a measurement error.
+
+306
+00:37:31,690 --> 00:37:39,309
+So it is called within subject variability. Number two sigma it is a total variance.
+
+307
+00:37:39,310 --> 00:37:45,640
+So it is accounting for both how different we are between people and also how variable the measurements are across time.
+
+308
+00:37:46,540 --> 00:37:51,220
+So this is how I have, you know, in that estimate.
+
+309
+00:37:51,490 --> 00:37:54,970
+So this slide, this slide and this slide.
+
+310
+00:37:57,140 --> 00:38:00,790
+Is about just how to say just.
+
+311
+00:38:02,370 --> 00:38:08,430
+The intuition explained. Okay. And returning to this slide, I'm going to give you guys like.
+
+312
+00:38:09,690 --> 00:38:14,550
+Should I say again, 30 seconds. My favorite number just for you to take it in and.
+
+313
+00:38:16,520 --> 00:38:24,200
+Ask questions if you have. Okay.
+
+314
+00:38:58,570 --> 00:39:05,650
+Okay. Now some additional remarks. The first one is that, hey, we were talking about shrinkage, right?
+
+315
+00:39:05,800 --> 00:39:09,520
+We have one person's data only Y and we have the population trend.
+
+316
+00:39:10,150 --> 00:39:14,620
+And what would happen if a person has a very small number of observation?
+
+317
+00:39:14,650 --> 00:39:22,000
+Recall that in this framework, because we are doing a dynamics model, we really can't handle very unbalanced data.
+
+318
+00:39:22,210 --> 00:39:31,910
+So some people may have more data represented by a larger and I some people may have fewer observation represent by small and I often, you know,
+
+319
+00:39:32,320 --> 00:39:38,440
+the person who has say one or two data points will be shrunk heavily towards the population
+
+320
+00:39:38,890 --> 00:39:42,100
+because you're trying to predict for person who do not have a lot of observations.
+
+321
+00:39:42,580 --> 00:39:50,230
+So you have nothing to rely on but the population trend. You hope that this person is going to behave similarly to the population.
+
+322
+00:39:52,410 --> 00:39:59,460
+So what is the side note I want to mention? So have you heard about this guy, Jeremy Lin from NBA?
+
+323
+00:40:01,110 --> 00:40:07,260
+So he is Asian guy, okay, and is a graduate of Harvard and he plays pretty awesome basketball.
+
+324
+00:40:07,980 --> 00:40:12,640
+But, you know, scouts and NBA teams are awesome.
+
+325
+00:40:12,660 --> 00:40:17,400
+They have a lot of data points, but they don't have a lot of Asian data points.
+
+326
+00:40:18,420 --> 00:40:22,200
+So they don't really have lots of good prediction power about how this person would do.
+
+327
+00:40:23,010 --> 00:40:28,500
+So Jeremy Lin was like, you know, not a favorite choice at the beginning.
+
+328
+00:40:28,950 --> 00:40:36,500
+So he was quite frustrated about that. And I think to me, this is just speaks to so many different aspects of data analysis.
+
+329
+00:40:36,510 --> 00:40:39,030
+You do want to make sure that the data you use,
+
+330
+00:40:39,030 --> 00:40:48,810
+true model is going to inject a certain kind of sampling bias or whatever bias you have, at least when you're curating data.
+
+331
+00:40:49,380 --> 00:40:52,410
+So I think to me, it, you know, how do you do prediction?
+
+332
+00:40:52,500 --> 00:40:59,610
+Well, in that case, you have the shrink was a population. Right. But the population may not be as good as your movement.
+
+333
+00:40:59,730 --> 00:41:08,100
+So anyway, so I think to me, whenever you're doing shrinkage, you have to be careful about what's the population, what's the data you're analyzing.
+
+334
+00:41:08,460 --> 00:41:12,750
+And I think especially if you're doing like observational database analysis,
+
+335
+00:41:13,290 --> 00:41:18,270
+you have to be you can be very happy about, hey, I have this awesome technique of shrinkage.
+
+336
+00:41:18,570 --> 00:41:26,969
+I present this the results. Great. But you've got to realize you are shrink towards a population and then you have to answer an unavoidable question.
+
+337
+00:41:26,970 --> 00:41:30,090
+What's the population from which you're going to draw the conclusion?
+
+338
+00:41:30,930 --> 00:41:34,890
+So that's something that's more scientific and not at all technical.
+
+339
+00:41:35,430 --> 00:41:43,500
+But I think in the long run, if you want to if you do not want to be subsumed by this term called artificial intelligence,
+
+340
+00:41:43,710 --> 00:41:50,970
+you do want to tell people that you have a lot of knowledge about sampling, about a lot of knowledge about how to remove the bias you have in data.
+
+341
+00:41:51,330 --> 00:41:59,879
+And I think those are that so many work needs to be done. And I believe and I believe that statistical principles can help a lot instead of
+
+342
+00:41:59,880 --> 00:42:03,660
+having just people claiming they have solved every problem possible on the planet.
+
+343
+00:42:04,680 --> 00:42:08,530
+And that's just me ranting and hopefully thanks for a bear with me.
+
+344
+00:42:08,580 --> 00:42:15,230
+Anyway, summary of what we have learned so far. So for Hannah oh seven see it, we really did two things.
+
+345
+00:42:15,240 --> 00:42:20,640
+The first one is the derivation of the marginal variance coherent structure, which we denoted as sigma.
+
+346
+00:42:21,150 --> 00:42:27,810
+And we have concluded that this induced variance prevents matrix extremely flexible.
+
+347
+00:42:28,290 --> 00:42:31,330
+It can work with data that are unbalanced ever.
+
+348
+00:42:31,500 --> 00:42:41,850
+People may have different sets of measurement. Timings and sigma can also depend smoothly across on time so that the variance may be change over time.
+
+349
+00:42:42,210 --> 00:42:48,450
+And this is a major advantage relative to cover independent models, which is only just small number of menus.
+
+350
+00:42:50,270 --> 00:42:56,950
+Okay. Uh. So it's more flexible.
+
+351
+00:42:57,400 --> 00:43:00,400
+Number two, the choice among the various governance models.
+
+352
+00:43:00,410 --> 00:43:04,990
+So we have talked about one particular aspect, which is the weird and all distribution.
+
+353
+00:43:05,260 --> 00:43:12,489
+When you are testing a novel that lies on the boundary of the bigger model and and you have to remember the
+
+354
+00:43:12,490 --> 00:43:17,920
+direction roughly that the failure to observe this may lead to overly parsimonious induced variance current model,
+
+355
+00:43:19,120 --> 00:43:26,500
+which means that if you are using the Chi Square distribution, uh, the wrong one, you will be.
+
+356
+00:43:26,860 --> 00:43:30,260
+You'll be harder for you to reject. The novel.
+
+357
+00:43:31,340 --> 00:43:35,810
+Okay. If you cannot recall what this means, please watch the video.
+
+358
+00:43:36,710 --> 00:43:40,940
+In the previous lecture. Number three. This is what we covered today.
+
+359
+00:43:41,330 --> 00:43:46,340
+And we have talking about the formula. Talk about invitation, but what can it be used for?
+
+360
+00:43:46,940 --> 00:43:54,590
+It can be used to plot an individual's growth curve. If you predicting my weight or your weight or whatever.
+
+361
+00:43:55,660 --> 00:43:57,640
+Quantity that you're just predicting. You want to.
+
+362
+00:44:00,730 --> 00:44:06,070
+Be able to draw and give you a specific curve o baby's weight you have now you have a baby you want.
+
+363
+00:44:06,090 --> 00:44:10,270
+Make sure you can predict the curve. You'll make sure it's not falling behind the population.
+
+364
+00:44:10,270 --> 00:44:17,379
+Yeah, I know a lot of young parents are worry that their kids are like below 20% of the person in terms of
+
+365
+00:44:17,380 --> 00:44:22,090
+weight and they are basically playing the curve and that helps them make decisions about what to do.
+
+366
+00:44:22,960 --> 00:44:29,350
+Number two, I think that's pretty much what it is, just estimate on person's individual trajectory.
+
+367
+00:44:29,860 --> 00:44:37,030
+And clearly if you do that, you can identify who is going the fastest, who is going slowest, and you can do something about an optional reading.
+
+368
+00:44:37,270 --> 00:44:45,310
+This is Section 8.4, and I believe this is related to the two stage formulation of the mix model.
+
+369
+00:44:45,550 --> 00:44:51,130
+I did not talk too much about this in the class, but I think it would be good to know because this is more historical notes.
+
+370
+00:44:51,580 --> 00:44:58,540
+Before people invented the mix model, there is a method called an age method in age representing National Institutes of Health.
+
+371
+00:44:58,870 --> 00:45:06,669
+Some people in their in their they devised a way to just have two stage approach and they somehow did the model fitting.
+
+372
+00:45:06,670 --> 00:45:09,850
+But that's not as comprehensive as being a mixed model.
+
+373
+00:45:11,020 --> 00:45:14,950
+So with that, I concluded and now those seven see.
+
+374
+00:45:22,360 --> 00:45:26,499
+Okay. Are we ready to move on to our 70? Okay.
+
+375
+00:45:26,500 --> 00:45:40,860
+Let's do her now. 70 then. So I'll give you some time, like 30 seconds to get the handout out.
+
+376
+00:45:42,600 --> 00:46:06,140
+These are all about examples. Okay.
+
+377
+00:46:08,230 --> 00:46:15,670
+We will be talking about two examples. Each example serves one particular purpose in illustrating the flexibility of the new limits model.
+
+378
+00:46:16,240 --> 00:46:19,690
+The first one is trying to distinguish.
+
+379
+00:46:24,260 --> 00:46:27,690
+Distinguish two effects. One is called cross-sectional effect.
+
+380
+00:46:31,900 --> 00:46:39,170
+Cross-sectional effect. The other one is longitudinal effect.
+
+381
+00:46:42,220 --> 00:46:49,240
+The way to think about this is, if you remember my favorite example in the first class, first lecture of this class, I was drawing our thoughts.
+
+382
+00:46:50,530 --> 00:46:55,330
+Our X-axis is age. Y axis of reading ability.
+
+383
+00:46:59,710 --> 00:47:03,130
+On some scale say the higher the better. So we have.
+
+384
+00:47:04,980 --> 00:47:09,980
+We have these kind of. Observations.
+
+385
+00:47:09,980 --> 00:47:17,210
+Right. We know that these come from the same person. So there are two effects I claim.
+
+386
+00:47:18,080 --> 00:47:20,110
+First, longitudinal effect.
+
+387
+00:47:20,150 --> 00:47:28,610
+If you connect the two dots, you see that as long as this person is going older, this person's going to have increased reading ability.
+
+388
+00:47:29,140 --> 00:47:35,090
+Right. So the longitudinal, any facts here will be positive. How about the secondary effect?
+
+389
+00:47:35,570 --> 00:47:41,270
+Now, if you look at the first measurement here, it seems that it's weirdly trending down, right?
+
+390
+00:47:41,750 --> 00:47:45,470
+People who are older seems to have a lower reading ability.
+
+391
+00:47:46,040 --> 00:47:51,350
+So the cross-sectional effect is simply negative. Why is that?
+
+392
+00:47:51,380 --> 00:47:58,430
+Well, one explanation, again, as I said, is that, you know, they may not have as good education opportunity as you.
+
+393
+00:47:58,460 --> 00:48:02,340
+They may have to work five jobs in a week. Compared to you.
+
+394
+00:48:02,370 --> 00:48:10,739
+So anyway, they may have different reasons for such a lower reading ability when they start,
+
+395
+00:48:10,740 --> 00:48:21,120
+but everybody has a positive effect of age, so when they get older, they definitely increase their William ability.
+
+396
+00:48:21,690 --> 00:48:28,049
+So this is one toy example and we will demonstrate that we need to account for this and we will do the analysis.
+
+397
+00:48:28,050 --> 00:48:32,580
+So this is the famous six city study of Air Pollution Health.
+
+398
+00:48:33,900 --> 00:48:37,620
+So that's the first example. The purpose is trying to distinguish these two effects.
+
+399
+00:48:38,310 --> 00:48:43,590
+The second example is trying to demonstrate how do we do need your supplying?
+
+400
+00:48:47,370 --> 00:48:51,210
+A mixed model. Okay.
+
+401
+00:48:51,780 --> 00:48:55,680
+So two examples, serving relatively two distinct purposes.
+
+402
+00:48:56,460 --> 00:48:59,810
+Everybody with me. Okay.
+
+403
+00:49:02,510 --> 00:49:06,020
+All right. Let's get started with the first example. Background.
+
+404
+00:49:06,500 --> 00:49:11,910
+So what this study is about, I'm going to read this with you so that you understand the background.
+
+405
+00:49:13,280 --> 00:49:19,280
+The Six Cities study was designed to characterize lung function growth between ages of six and 18.
+
+406
+00:49:19,520 --> 00:49:26,810
+The goal of the following analysis is trying to determine how the changes in the lung function, which is measured by FEV one.
+
+407
+00:49:27,290 --> 00:49:34,820
+It is a total volume there excelled in the first second of the maneuver over time related to the age and height of the child.
+
+408
+00:49:34,910 --> 00:49:38,809
+So age and height are two covariates we're trying to investigate.
+
+409
+00:49:38,810 --> 00:49:44,150
+Do they explain the figure? One the metric used to evaluate lung function.
+
+410
+00:49:45,680 --> 00:49:50,180
+So we got a random sample of 300 girls.
+
+411
+00:49:51,620 --> 00:49:55,309
+They may have different numbers of measurements. The minimum is one.
+
+412
+00:49:55,310 --> 00:49:56,270
+The maximum is 12.
+
+413
+00:49:57,600 --> 00:50:09,589
+And people who have only one observation clearly does not contribute to estimating how the pairs of measurements in a person would be correlated,
+
+414
+00:50:09,590 --> 00:50:14,570
+because this person with one observation only do not have that pair to talk about.
+
+415
+00:50:15,500 --> 00:50:19,940
+So this is the data organized into a long format.
+
+416
+00:50:20,060 --> 00:50:30,080
+So we can see there are seven rows for subsidy equals one and this person grew older and height gets higher.
+
+417
+00:50:30,680 --> 00:50:33,380
+And time is basically we'll explain the time here.
+
+418
+00:50:33,770 --> 00:50:40,499
+And this is the why variable, the outcome of FEV1 and you have corresponding data for other subjects.
+
+419
+00:50:40,500 --> 00:50:43,910
+So you can see this person has one, two, three, four.
+
+420
+00:50:44,060 --> 00:50:50,720
+This person has nine data points and all the ages, when this person got measured, were different.
+
+421
+00:50:51,780 --> 00:50:56,060
+Okay. All right.
+
+422
+00:50:57,230 --> 00:51:02,660
+And another thing to say to think about is that time zero here represents the time in the study.
+
+423
+00:51:02,810 --> 00:51:10,120
+Right. Okay. So if you look at this person, this person, this girl entered the study at age over 9.34.
+
+424
+00:51:10,220 --> 00:51:14,780
+So accurate. And for the second person, the ages 6.5.
+
+425
+00:51:15,170 --> 00:51:20,960
+Right. And the ages of the girls who enter the study are just different.
+
+426
+00:51:21,080 --> 00:51:30,940
+Right. So it is like. The toy example we see here, the timing or the age when the first measurement was obtained is different across people.
+
+427
+00:51:33,470 --> 00:51:37,960
+Further, we have different numbers and measurements with different timings across people.
+
+428
+00:51:41,330 --> 00:51:48,920
+So previous studies have indicated that the log of the FEV1 measure has an approximate relationship with age and log height.
+
+429
+00:51:49,010 --> 00:51:52,130
+So height will be log to the outcome will be log will be the same.
+
+430
+00:51:53,030 --> 00:52:00,020
+And we will need to distinguish between the cross-sectional and longitudinal effects of age and log height upon this logged outcome.
+
+431
+00:52:01,150 --> 00:52:06,610
+And we can also include other baseline information into the model.
+
+432
+00:52:08,140 --> 00:52:13,030
+So as you can see in the data, everybody has different number of measurements at different times.
+
+433
+00:52:13,540 --> 00:52:19,749
+It is just very convenient to use a mixed model because that can work with unbalanced data
+
+434
+00:52:19,750 --> 00:52:25,300
+and the induced variance covariance structure can be very flexible as a function of time.
+
+435
+00:52:26,990 --> 00:52:34,100
+So this is the model we're going to be fitting. So this model is comprised of two parts, right?
+
+436
+00:52:34,130 --> 00:52:39,530
+So first is the fixed effect part where we're going to have.
+
+437
+00:52:42,040 --> 00:52:49,690
+The baseline age baseline height non baseline age actually j can equals one j indicating cosine.
+
+438
+00:52:49,930 --> 00:52:58,690
+So this is just a term that may or may be j goes one or equals two up to and not here.
+
+439
+00:52:59,080 --> 00:53:06,670
+Same thing here. So these are the fixed effects. In this particular model, the random effect is added to the edge.
+
+440
+00:53:07,360 --> 00:53:12,550
+So although you can argue that, how about adding the random effect to the log height?
+
+441
+00:53:13,390 --> 00:53:18,280
+Not for this model though, but we will do this afterwards and we will make a model comparison.
+
+442
+00:53:19,480 --> 00:53:25,960
+So in this case, what we have done is that we added the first measurement of the coverage into the model.
+
+443
+00:53:26,770 --> 00:53:34,720
+In addition to age, either some of you may find this tidbit a little bit confusing, but this is the right format to do,
+
+444
+00:53:36,070 --> 00:53:41,050
+right formula to do if you want to distinguish cross-sectional and longitudinal information.
+
+445
+00:53:44,140 --> 00:53:51,310
+So let's interpret the coefficients. This part essentially is just removing everything but the fixed effects.
+
+446
+00:53:52,000 --> 00:53:55,990
+So I will let you stare at it for a moment. There are five betas.
+
+447
+00:54:02,430 --> 00:54:08,810
+Okay. So the thing is that if you plug in Jacobs Wong here, you will have two terms that are I1, right?
+
+448
+00:54:08,820 --> 00:54:12,870
+So you will have beta two plus beta four to explain the effect of the baseline age.
+
+449
+00:54:13,200 --> 00:54:18,210
+Same thing for the log of height. So this is what we do here.
+
+450
+00:54:20,010 --> 00:54:23,340
+I believe this is the first time you really see this kind of calculation,
+
+451
+00:54:24,810 --> 00:54:30,030
+but this is the right moment to introduce the distinguished difference between the two effects.
+
+452
+00:54:30,660 --> 00:54:39,060
+So for the first model, which I call conceptual model, what I did is that we singularly focus on the first occasion j equals one.
+
+453
+00:54:39,300 --> 00:54:43,770
+So that's why you see on the left hand side it is one, the first outcome.
+
+454
+00:54:44,220 --> 00:54:54,510
+So the average of the first outcome for the subject, AI is explained by an intercept, the age at baseline and the log of height at baseline.
+
+455
+00:54:54,900 --> 00:55:00,630
+And the coefficients are just beta two plus beta four for the beta three plus beta five for the log height.
+
+456
+00:55:07,840 --> 00:55:13,390
+For the longitude in the model. What we do is that, hey, we have the baseline average.
+
+457
+00:55:13,450 --> 00:55:21,370
+How about we just let's say there's not one does not equal one and then take the difference, right.
+
+458
+00:55:21,400 --> 00:55:25,220
+So if you take the difference. You will get this thing.
+
+459
+00:55:26,540 --> 00:55:33,980
+So this term essentially is. Just what you will get by plug in J does not equal one.
+
+460
+00:55:34,670 --> 00:55:37,820
+Here it is the term you get by plug in J equals one.
+
+461
+00:55:38,570 --> 00:55:45,230
+So this is to represent the difference in the average outcome from a baseline outcome to the baseline outcome.
+
+462
+00:55:45,260 --> 00:55:49,190
+And what you got is here. Now, this term is pretty clear.
+
+463
+00:55:50,280 --> 00:55:57,450
+It has. Sorry. Okay.
+
+464
+00:55:57,660 --> 00:56:01,049
+So it has two terms. One term is better times.
+
+465
+00:56:01,050 --> 00:56:08,640
+The changing the age. Right. So age minus age i1 represents the change in age from baseline.
+
+466
+00:56:09,390 --> 00:56:14,700
+And Beta two explains what's that effect exerted upon the change in the outcome on average.
+
+467
+00:56:16,220 --> 00:56:20,540
+Peter three It is. It is the coefficient for the change in the log height.
+
+468
+00:56:21,020 --> 00:56:25,070
+Suppose I grew 20 centimeters higher. What's that effect upon?
+
+469
+00:56:25,670 --> 00:56:32,180
+The change in the lung function. So that's Peter three in English.
+
+470
+00:56:32,600 --> 00:56:36,920
+And these will be some some say something similar will be a midterm exam.
+
+471
+00:56:37,700 --> 00:56:47,120
+So Peter three essentially represents the change in the mean log F 81 for a single unit increase in Lockhart for any given changing age.
+
+472
+00:56:48,320 --> 00:56:51,680
+So what does this mean? I am looking at this particular formula.
+
+473
+00:56:52,010 --> 00:56:56,510
+Our goal is trying to interpret beta three. Right. How to interpret Peter three.
+
+474
+00:56:56,840 --> 00:57:00,740
+Well, you hold other things constant. What does that mean?
+
+475
+00:57:00,770 --> 00:57:07,430
+Well, you hold this thing constant. So you're looking at only people who have.
+
+476
+00:57:09,040 --> 00:57:12,850
+Say two years of increase in age. Only these people.
+
+477
+00:57:13,830 --> 00:57:19,870
+And you ask. Hey, what's the effect of the change of heart upon the change in the outcome?
+
+478
+00:57:20,230 --> 00:57:24,639
+Because in these people, they grew two years older. Oh, sorry, two month old.
+
+479
+00:57:24,640 --> 00:57:28,210
+I'd be. Well, they may not have the same amount of change in height.
+
+480
+00:57:28,480 --> 00:57:35,090
+So you can sort of relate the change in hi to the change of outcome for Beta two.
+
+481
+00:57:35,110 --> 00:57:41,290
+It's the same thing if you got into the beta two, you've got to hold the change in the constant.
+
+482
+00:57:41,290 --> 00:57:48,280
+So for any given change in log height. Beta two represents the change in the means of the outcome for any one year increase in age.
+
+483
+00:57:48,450 --> 00:57:55,330
+Right. So this is basically how to interpret that. And when you're trying to interpret beta three,
+
+484
+00:57:55,600 --> 00:58:01,210
+so beta five and better for you just going to know that it's just simply not here in the second longitudinal model.
+
+485
+00:58:01,570 --> 00:58:10,990
+You got to look at the cross section model where you can now clearly find that are beta two plus beta four is the cross-section effect of age.
+
+486
+00:58:12,940 --> 00:58:16,280
+And Beta three plus 3 to 5 is a cross-section effect of the height. Right.
+
+487
+00:58:17,430 --> 00:58:22,500
+And it is only about the baseline measurements. So.
+
+488
+00:58:23,590 --> 00:58:28,430
+Now. We will be able to estimate these betas.
+
+489
+00:58:28,970 --> 00:58:38,990
+And when you see beta five, beta four being significantly non-zero, then you know that relative to launch can only effects beta two and three.
+
+490
+00:58:39,410 --> 00:58:42,890
+The cross-section effects are significantly different.
+
+491
+00:58:43,160 --> 00:58:47,600
+Right. So this is how we interpret these.
+
+492
+00:58:47,780 --> 00:58:52,370
+Just to help you visualize an hour after I'm done with this, I'm going to give you guys 5 minutes break.
+
+493
+00:58:53,090 --> 00:58:59,150
+So Cross-sectional. Longitudinal.
+
+494
+00:59:03,090 --> 00:59:13,570
+You have the age, you have the log height. This has been a two plus beta for this is beta three plus beta five.
+
+495
+00:59:13,580 --> 00:59:17,390
+This is beta two and beta three. And the difference.
+
+496
+00:59:18,940 --> 00:59:25,840
+Essentially it is better for and a better five. So we will be looking at a bit of one better five and see how they're different.
+
+497
+00:59:26,910 --> 00:59:32,190
+Um. Yeah. So let's take a five minute break and come back at four or five.
+
+498
+01:02:55,620 --> 01:03:05,460
+Yeah. For the best.
+
+499
+01:05:03,670 --> 01:05:11,020
+All right, so let's get started. Let's just return back to this particular slides.
+
+500
+01:05:11,380 --> 01:05:14,980
+And again, as I predicted, this model looks a bit weird.
+
+501
+01:05:15,010 --> 01:05:19,060
+So don't feel bad if this the first time you're trying to wrap your head around it.
+
+502
+01:05:19,570 --> 01:05:24,970
+And I just want to reiterate that by including additional data from verified five terms here,
+
+503
+01:05:25,390 --> 01:05:30,790
+you have the ability to distinguish the longitudinal and the cross-sectional effects,
+
+504
+01:05:30,790 --> 01:05:36,280
+as is demonstrated on the table on the right, where you have a difference if you don't include the phone, verify.
+
+505
+01:05:40,160 --> 01:05:46,190
+You will not be able to describe a story like here. You see what I mean?
+
+506
+01:05:47,720 --> 01:05:51,920
+Okay. And this is a real story. And it may well happen in the real data.
+
+507
+01:05:52,520 --> 01:06:00,390
+So that's the reason for doing this. Another question is that agent, is this only about the first measurement?
+
+508
+01:06:00,720 --> 01:06:05,330
+Yes, it is. And this may sound amazingly simple, but yes, it is.
+
+509
+01:06:05,340 --> 01:06:11,770
+It can be simple sometimes. So let's look at the results.
+
+510
+01:06:12,100 --> 01:06:16,210
+We removed one girl with just one based on measurements, which was an outlier.
+
+511
+01:06:16,240 --> 01:06:20,480
+We have a 229 girls in this particular dataset.
+
+512
+01:06:20,500 --> 01:06:32,630
+So let's look at the estimate. So this is basically beta one theta to be three, beta four and beta five.
+
+513
+01:06:33,110 --> 01:06:37,370
+So this beta two plus beta three is the cross-section effect.
+
+514
+01:06:37,820 --> 01:06:43,820
+Beautiful. Plus Peter five is a cross-section effect. And Peter to build for our longitudinal effect.
+
+515
+01:06:46,670 --> 01:06:51,530
+So there are a few observations, right? First one is that if you look at the.
+
+516
+01:06:54,590 --> 01:07:05,460
+Let me make sure I am reading this correctly. So we are interested in whether Peter four and Peter five are needed.
+
+517
+01:07:05,640 --> 01:07:12,180
+Right. Because Peter 4 to 5 characterizes the potential difference between the longitudinal and the cross-section effects.
+
+518
+01:07:12,570 --> 01:07:14,610
+Are they significantly different from zero?
+
+519
+01:07:15,180 --> 01:07:26,100
+If you look at the Z value, which I believe, if you have a .05 significance level, what's the value beyond which you will claim it's significant?
+
+520
+01:07:32,140 --> 01:07:40,450
+1.6 okay. To, if you will. So beta for sims to be significantly nonzero while beta five.
+
+521
+01:07:41,380 --> 01:07:47,070
+Does not make the cut. So it seems to me that I can claim.
+
+522
+01:07:48,560 --> 01:07:51,530
+That based on the magnitude of the estimates and they is dinner,
+
+523
+01:07:51,920 --> 01:07:58,040
+there is evidence of a significant difference between the longitudinal and cross-sectional effects of age, but not a log height.
+
+524
+01:08:01,200 --> 01:08:18,010
+Okay. So I want to focus on the point five.
+
+525
+01:08:18,580 --> 01:08:22,900
+So let's return to this table and let's look at beta two and beta three.
+
+526
+01:08:24,660 --> 01:08:32,790
+It seems to suggest that our age and log height seems to be positively associated with lung function.
+
+527
+01:08:33,480 --> 01:08:41,220
+I'm really surprised that these are significant because these are like 6 to 9 year old girls right when they were recruited.
+
+528
+01:08:41,700 --> 01:08:45,390
+They will grow and the lung will grow with bigger volumes.
+
+529
+01:08:45,810 --> 01:08:50,860
+Clearly, you know, it's going to be associated intuitively.
+
+530
+01:08:50,880 --> 01:08:57,270
+So it's not surprising to find that we have a positive association that's significant.
+
+531
+01:09:00,560 --> 01:09:04,940
+Now let's look at the difference between beta two.
+
+532
+01:09:06,890 --> 01:09:11,430
+And Beta two plus. Peter Falk.
+
+533
+01:09:13,220 --> 01:09:27,340
+Okay. So. Where is Peter to here and you'll find it.
+
+534
+01:09:27,850 --> 01:09:31,720
+So Peter to essentially is estimated to be.
+
+535
+01:09:32,620 --> 01:09:36,750
+.02. For.
+
+536
+01:09:37,780 --> 01:09:42,300
+Three, two plus beta. Four.
+
+537
+01:09:42,590 --> 01:09:47,120
+It's going to be estimated as minus .0165.
+
+538
+01:09:48,800 --> 01:09:56,960
+Oh, sorry. Just better for them to. Better for. Please bear with me.
+
+539
+01:09:57,170 --> 01:10:01,580
+Just look at us for too long. So this is the longitudinal effect.
+
+540
+01:10:03,420 --> 01:10:08,520
+When you consider the cross-section effect, what do you do?
+
+541
+01:10:08,850 --> 01:10:13,100
+You basically just. Take the sun.
+
+542
+01:10:13,670 --> 01:10:17,330
+This is the beta to estimate. This is the beta four estimate.
+
+543
+01:10:17,360 --> 01:10:22,070
+Right. You sum them up. This effect is going to be 0.07.
+
+544
+01:10:23,570 --> 01:10:26,810
+So what does it mean? Well, let's think about it.
+
+545
+01:10:26,990 --> 01:10:30,740
+.0.024 means that as a.
+
+546
+01:10:31,810 --> 01:10:41,140
+Girl grows older. And so in one year the change in the lung function is going to increase for about point oh for two unit.
+
+547
+01:10:43,270 --> 01:10:51,460
+Right. That's the longitudinal information. But if you look look at cross-sectional, so you only look at all the girls first in measurement.
+
+548
+01:10:53,280 --> 01:10:57,570
+There does not seem to be an effect between age and the lung function.
+
+549
+01:10:59,210 --> 01:11:07,470
+What's the gas? Why is that? Probably that's still prior to puberty.
+
+550
+01:11:07,470 --> 01:11:12,540
+You know, lots of not a lot of, you know, change to the body has happened.
+
+551
+01:11:13,260 --> 01:11:19,380
+So I think to me, that reflects, you know, the necessity to at least distinguish these two sets of effects.
+
+552
+01:11:29,830 --> 01:11:33,960
+Another point. About coefficient for log height.
+
+553
+01:11:35,770 --> 01:11:40,389
+So this coefficient was estimated was termed beta three.
+
+554
+01:11:40,390 --> 01:11:46,450
+Right. I think beta three. Yes, beta three. So this coefficient is 2.24.
+
+555
+01:11:48,210 --> 01:11:54,270
+Where did we encounter Beta three? Well, we encountered it in the longitudinal model here.
+
+556
+01:11:55,380 --> 01:11:59,700
+So for one unit change in log height.
+
+557
+01:12:01,650 --> 01:12:07,970
+And that's a lot of change. That may not be realistic.
+
+558
+01:12:08,260 --> 01:12:11,680
+So in the large scale, we change one unit.
+
+559
+01:12:12,980 --> 01:12:19,070
+In the original Heights scale, we have a 2.7 fold increase in height.
+
+560
+01:12:20,010 --> 01:12:24,540
+Can a girl grow 2.7 fold in height?
+
+561
+01:12:27,380 --> 01:12:31,760
+Since age seven. It's pretty hard. So.
+
+562
+01:12:32,840 --> 01:12:39,120
+In those cases, we would want to interpret data with a different change in the log height.
+
+563
+01:12:39,140 --> 01:12:45,020
+So for example, instead of 100% increase in height, log height.
+
+564
+01:12:50,110 --> 01:12:54,010
+We considered a 10%. So then we just multiply.
+
+565
+01:12:54,920 --> 01:12:58,360
+Beta three by. 10%.
+
+566
+01:12:58,540 --> 01:13:02,110
+So this means that for about 10% increase in the log height.
+
+567
+01:13:06,420 --> 01:13:14,970
+It's roughly similar in both scales. It is associated with not 2.24 but rather .224 increase in log outcome.
+
+568
+01:13:15,720 --> 01:13:21,260
+So this is something you would often need to pay attention to when you are doing actual data analyzes.
+
+569
+01:13:21,300 --> 01:13:24,660
+You don't want the change in the unit to be unrealistic.
+
+570
+01:13:29,200 --> 01:13:34,590
+So actually, let me let me raise this because I realize it's heart centric here.
+
+571
+01:13:34,600 --> 01:13:42,220
+So we say 10% increasing height that's substantively interpretable and we want to translate that back to large scale.
+
+572
+01:13:42,550 --> 01:13:46,510
+It turns out that it is going to be about similar.
+
+573
+01:13:47,080 --> 01:13:50,280
+Why is that? What have you heard about Hillary expansion?
+
+574
+01:13:52,380 --> 01:13:55,800
+If you expend exponential, that's around zero. What does that mean?
+
+575
+01:13:55,830 --> 01:14:01,900
+What does that. What is that? One plus.
+
+576
+01:14:06,250 --> 01:14:09,920
+X. Okay. Now take out your calculator.
+
+577
+01:14:09,940 --> 01:14:13,630
+Calculate this thing. I guarantee you this is about 0.01.
+
+578
+01:14:16,150 --> 01:14:23,620
+Come on, this Taylor expansion, you gotta know this. Well, this is a trip that you should know, so.
+
+579
+01:14:25,550 --> 01:14:29,930
+Let's learn some new tricks today. So.
+
+580
+01:14:30,770 --> 01:14:34,460
+Oh, sorry. You probably were laughing because.
+
+581
+01:14:34,640 --> 01:14:39,850
+Yeah. One plus. Plus one saw. So it is just.
+
+582
+01:14:42,380 --> 01:14:47,720
+1.01. So the change. So the change in the log scale.
+
+583
+01:14:48,020 --> 01:14:53,810
+If it's about .01, the change in the exponential is about the same number of folds.
+
+584
+01:14:59,130 --> 01:15:02,280
+Anyway. So this is basically talking about the scaling.
+
+585
+01:15:03,990 --> 01:15:12,210
+There are other estimates. There are estimates of allergy. And with these genes, essentially, you can produce the estimate of jihad.
+
+586
+01:15:12,630 --> 01:15:14,830
+And this is estimated a Sigma Square hat.
+
+587
+01:15:16,380 --> 01:15:25,380
+So you will be able to calculate everything you need to make the blood estimation to make the blood, which is basically unbiased prediction.
+
+588
+01:15:26,860 --> 01:15:30,450
+We can also calculate the total variance. How do we do this?
+
+589
+01:15:33,280 --> 01:15:39,760
+How do we do this? So we know that sigma i equals z, i g.
+
+590
+01:15:40,480 --> 01:15:45,450
+Z I transpose plus sigma i squared. Okay.
+
+591
+01:15:45,930 --> 01:15:50,070
+And we can do this, right? Because we just said that everything.
+
+592
+01:15:50,340 --> 01:15:54,150
+And Sigma can be estimated. So we can produce this one.
+
+593
+01:15:57,850 --> 01:16:01,810
+Okay. But this is for one subject. If you look at a table.
+
+594
+01:16:02,320 --> 01:16:07,000
+Can you tell me what are the ages? These are seven, eight, nine, ten, 11.
+
+595
+01:16:07,000 --> 01:16:10,540
+Perfect integers. Right. If you look at the data.
+
+596
+01:16:14,720 --> 01:16:18,210
+Are they perfect integers? Absolutely not.
+
+597
+01:16:18,420 --> 01:16:23,760
+All right. So how can you calculate the variance covariance matrix for a.
+
+598
+01:16:25,990 --> 01:16:30,130
+Set of such a regular. Measurement timings.
+
+599
+01:16:59,520 --> 01:17:02,980
+I'll leave you as an exercise. We can come back to talk about this.
+
+600
+01:17:03,520 --> 01:17:12,150
+But this is a question how do you calculate the various currencies for a set of times that are different from what you have observed in data?
+
+601
+01:17:12,160 --> 01:17:18,460
+Because there is nobody who had exactly a sequence of seven, eight, nine, ten in data.
+
+602
+01:17:18,800 --> 01:17:23,020
+Okay. So that's a question I'll leave I'll discuss in the next class.
+
+603
+01:17:24,670 --> 01:17:28,420
+Another model we can do is to instead of putting the random effects on the age,
+
+604
+01:17:28,420 --> 01:17:33,040
+we can put that on to the height and they will have the same number of parameters
+
+605
+01:17:33,040 --> 01:17:37,210
+compared to the previous model where the random effect is placed upon age.
+
+606
+01:17:38,140 --> 01:17:46,540
+So because these two models will have the same parameters, so we will basically use the information criteria, say to use a C, then you know,
+
+607
+01:17:46,540 --> 01:17:55,360
+this is the formula L had represents a remo c represents the total number of parameters because C is the same regardless between the two models.
+
+608
+01:17:55,370 --> 01:17:59,320
+So let's just consider the Remo. Likelihood.
+
+609
+01:17:59,650 --> 01:18:04,930
+So for the model with the Random Intercept Greenslopes renaming itself for the age that
+
+610
+01:18:04,930 --> 01:18:14,260
+number is 2 to 3.9 and that number for the model you see here is that is this one.
+
+611
+01:18:14,350 --> 01:18:18,520
+So again, you can see the model with age.
+
+612
+01:18:19,670 --> 01:18:23,030
+Whether any asset has has a lower rental.
+
+613
+01:18:24,610 --> 01:18:29,780
+Right. And for REMO criteria, you want that to be as big as possible.
+
+614
+01:18:29,930 --> 01:18:34,130
+So you choose if you have to fit, you have to choose between two models.
+
+615
+01:18:34,790 --> 01:18:42,189
+I would choose the model that's shown here. Okay.
+
+616
+01:18:42,190 --> 01:18:45,190
+A quick question. So for AOC, the smaller, the better, the larger, the better.
+
+617
+01:18:47,330 --> 01:18:50,360
+Smile about it. Okay. So why is it here? I'm choosing a larger one.
+
+618
+01:18:53,160 --> 01:18:59,220
+Well here because AC essentially is a negative two times a lot like I'm just directly comparing LaGuardia.
+
+619
+01:19:01,120 --> 01:19:09,970
+I run out of time. I still have one case study to do, but I believe we can use some time next lecture to finish the second example.
+
+620
+01:19:10,800 --> 01:19:14,680
+And. Yeah. See you on Wednesday. Thanks.
+

@@ -1,0 +1,3624 @@
+1
+00:00:02,420 --> 00:00:06,770
+Okay. So where are we today?
+
+2
+00:00:08,400 --> 00:00:15,440
+They're closing in. On the end of the course.
+
+3
+00:00:15,470 --> 00:00:21,840
+So. We are here. We're going to actually be finishing handout 14.
+
+4
+00:00:21,840 --> 00:00:28,110
+But please do you get hand out 15 ready? Because depending on how long it takes us to get to 15, I may or may not take a break.
+
+5
+00:00:29,250 --> 00:00:34,319
+Election Day tomorrow, very important day. So have your plan ready to vote.
+
+6
+00:00:34,320 --> 00:00:38,670
+This is really just crucial here to to do the vote.
+
+7
+00:00:43,000 --> 00:00:52,440
+Let's see. We're almost. So before Thanksgiving my plan is that we will finished everything related to the.
+
+8
+00:00:53,780 --> 00:00:59,540
+Executables for the end of the course. You know, you'll have all the material you need for homework, which I haven't posted yet.
+
+9
+00:00:59,540 --> 00:01:04,549
+But, you know, I'm going to be thinking about posting probably, you know, in a week or so,
+
+10
+00:01:04,550 --> 00:01:10,250
+even though it's not quite the the homework five is quite due for a while,
+
+11
+00:01:10,250 --> 00:01:17,300
+but you might want to start practicing some of the tools we're actively covering in class a little earlier, so I might post that.
+
+12
+00:01:18,300 --> 00:01:28,240
+In the next week or so. And then topics afterwards, just as a mentioned, hands, handouts, 19 and 20 are not covered on the exam.
+
+13
+00:01:28,250 --> 00:01:39,530
+They are super useful tools meant to fill up your resumé with all kinds of cool, usable skills, but they're not covered on the exam.
+
+14
+00:01:40,010 --> 00:01:48,260
+So by Thanksgiving, if you need an excuse to avoid your family, you know you have everything you need to study.
+
+15
+00:01:48,260 --> 00:01:51,380
+So, you know, make of that what you will.
+
+16
+00:01:52,570 --> 00:01:57,420
+All right. So let's go ahead and get started.
+
+17
+00:01:59,400 --> 00:02:04,140
+Or rather continue from where we were in hand out 14.
+
+18
+00:02:04,530 --> 00:02:11,280
+So this is the beginning of the handouts that cover how to model dependent data over time.
+
+19
+00:02:11,550 --> 00:02:18,390
+And you've seen dependent data already to some extent when you have just two random variables because you've learned about correlation,
+
+20
+00:02:18,780 --> 00:02:27,480
+you learn how to do pair t tests, you know, and with binary outcomes you've learned how to do things like Kappa Statistic and,
+
+21
+00:02:28,830 --> 00:02:33,389
+you know, other kind of McNamara's test kinds of analysis.
+
+22
+00:02:33,390 --> 00:02:38,760
+And now we really want to extend that to the regression setting where you have not just two dependent outcomes,
+
+23
+00:02:38,760 --> 00:02:44,340
+but potentially many dependent outcomes either measured over time within the same person,
+
+24
+00:02:44,670 --> 00:02:49,140
+or maybe data was sampled using some kind of a clustering design.
+
+25
+00:02:49,800 --> 00:02:52,080
+And we need to account for the correlation in that design.
+
+26
+00:02:52,530 --> 00:03:00,749
+And so last time we kind of just barely got started with the introduction to the notation and just a reminder of correlation.
+
+27
+00:03:00,750 --> 00:03:07,320
+We remember we had this nice graphic that showed us the three D Bel and if you have correlated
+
+28
+00:03:08,670 --> 00:03:15,809
+outcomes that the bel kind of looks squished so that you have the values over here
+
+29
+00:03:15,810 --> 00:03:20,150
+and over here that are more likely to appear together with this positive correlation and
+
+30
+00:03:20,190 --> 00:03:25,650
+outcomes that are less likely to appear together with not very many people over here.
+
+31
+00:03:25,860 --> 00:03:34,860
+Okay. And if they were independent or uncorrelated, you would see a bit more like Liberty Bell, you know, symmetric all the way around.
+
+32
+00:03:36,550 --> 00:03:40,950
+And we were also. Just this is where we left off, more or less.
+
+33
+00:03:41,200 --> 00:03:45,170
+So I'm going to go ahead and start the. Slideshow here.
+
+34
+00:03:45,590 --> 00:03:55,879
+We talked about matrices and not to panic because for us we're not going to be learning linear algebra where we're using matrices as a
+
+35
+00:03:55,880 --> 00:04:04,850
+storage system and so that we have an organized place to talk about all of these pairwise correlations that come up in these analyzes.
+
+36
+00:04:05,420 --> 00:04:18,680
+And so. Our very first matrix is just talking about a single correlation of interest, but it uses all this structure when you save it in matrix form.
+
+37
+00:04:19,010 --> 00:04:28,810
+So the way this goes is you're always thinking about random variable for the RHO subscript random variable for the column subscript.
+
+38
+00:04:28,820 --> 00:04:33,620
+So each one of these numbers is the correlation between two outcomes.
+
+39
+00:04:34,190 --> 00:04:39,920
+The outcome for that row, the outcome for that column and so on, the diagonals.
+
+40
+00:04:40,130 --> 00:04:43,130
+It's just the correlation with the outcome in itself.
+
+41
+00:04:43,670 --> 00:04:48,979
+So that's always perfect correlation. And so you'll always see in any one of these correlation matrix,
+
+42
+00:04:48,980 --> 00:04:55,730
+the diagonal from the top left to the bottom right is always going to be a bunch of ones because the row in the column number are the same.
+
+43
+00:04:55,730 --> 00:05:03,000
+They're talking about the same random variable. And then for the other or the off diagonal terms, they will depend on the row.
+
+44
+00:05:03,020 --> 00:05:08,839
+So here's the row, first row. So y one is one of the outcomes being correlated and second column.
+
+45
+00:05:08,840 --> 00:05:13,010
+So Y two is one of the outcomes being correlated. And this is a simple case.
+
+46
+00:05:13,010 --> 00:05:19,850
+If there's only two outcomes in a two by two correlation matrix and we only have one possible correlation.
+
+47
+00:05:20,150 --> 00:05:26,750
+So there's a lot more than is needed for describing a single correlation number.
+
+48
+00:05:27,350 --> 00:05:27,700
+Right.
+
+49
+00:05:27,710 --> 00:05:36,440
+You've over you've been working with this for at least a year without ever needing a matrix to describe a correlation between two random variables.
+
+50
+00:05:36,440 --> 00:05:45,110
+Right. But this is going to generalize to, let's say, three random variables for random variables where you can just keep on adding rows and columns.
+
+51
+00:05:45,770 --> 00:05:52,339
+And each entry in this matrix is storing the correlation between the random variable with the
+
+52
+00:05:52,340 --> 00:05:58,520
+subscript of the row and the comma and the random variable of the subscript with of the column.
+
+53
+00:05:59,440 --> 00:06:07,640
+And so it's just good bookkeeping. And that's all we're going to be using matrices for bookkeeping, but it's very useful bookkeeping.
+
+54
+00:06:07,820 --> 00:06:12,050
+It helps us tell the software what assumptions we want to make about these pairwise correlations,
+
+55
+00:06:12,410 --> 00:06:20,390
+because there's different choices that will have available to us, different assumptions on what we think the pairwise correlations look like.
+
+56
+00:06:21,310 --> 00:06:25,810
+And it's going to be a feature of modeling that we haven't had to deal with before.
+
+57
+00:06:25,870 --> 00:06:31,959
+Usually model the main structure and the variance structure is kind of, you know,
+
+58
+00:06:31,960 --> 00:06:36,730
+something that the model mostly takes care for us, but now we're going to have to model.
+
+59
+00:06:37,840 --> 00:06:41,290
+The variance structure a little bit. What are reasonable assumptions?
+
+60
+00:06:41,320 --> 00:06:48,370
+So we need this bookkeeping to help us understand what assumptions we're making until the software packages, what assumptions we're making.
+
+61
+00:06:51,160 --> 00:06:59,260
+So correlation matrices are always the metrics of the correlation of why two and why one is always the same is the correlation of why one and why two.
+
+62
+00:06:59,260 --> 00:07:03,999
+So these two correlations are the same. Shouldn't matter which order you put.
+
+63
+00:07:04,000 --> 00:07:06,880
+The random variables, they have the same correlation.
+
+64
+00:07:10,360 --> 00:07:16,510
+And so for three dependent outcomes, just to kind of, you know, reinforce this idea of the storage.
+
+65
+00:07:18,690 --> 00:07:24,180
+You know, the first row that this is the one that has the correlation of why one and why one.
+
+66
+00:07:24,450 --> 00:07:30,779
+So that's one. This correlation spot in the matrix stands for the correlation of why?
+
+67
+00:07:30,780 --> 00:07:38,160
+One, because it's the first row. So the one for row, comma y two where the subscript for two is because it's the second column.
+
+68
+00:07:39,710 --> 00:07:46,430
+So the row and the column are those subscripts. So this is going to be now the correlation between y one and Y three.
+
+69
+00:07:48,610 --> 00:07:56,560
+And the only correlation that's left now we haven't already stated in the first row is the correlation between why two and why three.
+
+70
+00:07:57,340 --> 00:08:04,450
+So when we look at the second row, this is a correlation we've already mentioned is the correlation between why two and why one,
+
+71
+00:08:04,450 --> 00:08:09,900
+but that's the same as the correlation between one and why two. Is the correlation between you and my tooth.
+
+72
+00:08:09,910 --> 00:08:14,040
+That's always a one. And then here's the one correlation we didn't get to in the first row.
+
+73
+00:08:14,040 --> 00:08:17,549
+The correlation between Y two because choose the second row.
+
+74
+00:08:17,550 --> 00:08:26,100
+And why three? Because three is that it's third column for that spot and then for the third one, we've pretty much covered everything already.
+
+75
+00:08:26,340 --> 00:08:32,850
+This value should always be the same as it's flip over here across the diagonal.
+
+76
+00:08:33,540 --> 00:08:35,580
+Right. So it's symmetric across the diagonal.
+
+77
+00:08:37,110 --> 00:08:45,210
+This correlates being white three and white two should always be the same as this thing across the diagonal, its mirror image across the diagonal.
+
+78
+00:08:45,750 --> 00:08:50,190
+Because this is why two white three's correlation and it's the same two random variables.
+
+79
+00:08:50,610 --> 00:08:53,760
+And then, of course, this last one is the correlation between y three and y three.
+
+80
+00:08:55,370 --> 00:09:01,970
+So we're getting a sense of just how these things are stored. And I slipped an assumption on you.
+
+81
+00:09:02,540 --> 00:09:09,230
+Actually, I don't know if you noticed this assumption, but if I have the same correlation symbol here without any subscripts,
+
+82
+00:09:09,770 --> 00:09:15,080
+I have assumed that all the correlations between any two of the random variables is the same.
+
+83
+00:09:15,680 --> 00:09:19,280
+So if I want that assumption to be weaker, I have to change it.
+
+84
+00:09:19,700 --> 00:09:26,150
+Right now, the way this is written, there's only one parameter being estimated for correlation and it's being assumed to be the same,
+
+85
+00:09:26,270 --> 00:09:29,450
+regardless of which two of the random variables you're talking about.
+
+86
+00:09:29,450 --> 00:09:40,120
+Y one more, 2y1y3 or y2y3. And so a question for you and this is going to vary data set to data set.
+
+87
+00:09:40,490 --> 00:09:46,250
+Question is, is it reasonable to assume that all the off diagonal correlations are the same,
+
+88
+00:09:46,250 --> 00:09:49,340
+you know, and which situations is that a reasonable assumption?
+
+89
+00:09:50,180 --> 00:09:53,809
+And in which situations is that not a reasonable situation?
+
+90
+00:09:53,810 --> 00:09:57,530
+And eventually, you know, how can you get the data to help you tell that story?
+
+91
+00:10:01,340 --> 00:10:10,850
+So when is it reasonable to assume that the off diagonal correlations, i.e. the correlations for y1y to y, two y, three y, 1y3 are the same.
+
+92
+00:10:12,630 --> 00:10:21,520
+So this can happen when you have the same outcome may be measured under different experimental conditions.
+
+93
+00:10:21,540 --> 00:10:30,540
+So we had an example of a pancreatic enzyme study where there were four different formulations that were studied.
+
+94
+00:10:30,540 --> 00:10:39,809
+Actually, one of those four was placebo, but there were three other, you know, formulations tablet pill, I don't know.
+
+95
+00:10:39,810 --> 00:10:47,670
+I can't remember now from the very first couple of slides in this handout where there's no reason to
+
+96
+00:10:47,670 --> 00:10:53,010
+think that the correlation between your measurement while you're on tablet is this is different,
+
+97
+00:10:53,490 --> 00:10:57,270
+you know, between the capsule and one of the other formulations.
+
+98
+00:10:57,870 --> 00:11:03,240
+So within person you would expect the outcome that they were measuring, which I think was fecal fat.
+
+99
+00:11:04,020 --> 00:11:05,190
+In some measure.
+
+100
+00:11:06,630 --> 00:11:15,480
+You wouldn't expect that correlation to be different as you go between the pairs of formulations that are measured on that same individual.
+
+101
+00:11:17,870 --> 00:11:21,290
+Cluster sampling of outcomes typically asks like X like this.
+
+102
+00:11:21,290 --> 00:11:28,130
+So for instance, if you're doing a randomized clinical trial and you have different sites that are recruiting patients,
+
+103
+00:11:28,610 --> 00:11:34,519
+sometimes just the nature of the site makes the outcomes from that site seem very correlated.
+
+104
+00:11:34,520 --> 00:11:45,110
+So for instance, if you have an academic center that tends to see very high risk patients, just by virtue of them being high risk patients,
+
+105
+00:11:45,110 --> 00:11:54,650
+they might their outcomes might seem more similar versus a site that's private practice that sees all comers and most people are healthy.
+
+106
+00:11:55,540 --> 00:11:59,949
+And so just by the differences in the site characteristics,
+
+107
+00:11:59,950 --> 00:12:08,740
+you might expect that healthy people's outcomes would be more similar to one another and high risk patient outcomes might be similar to one another.
+
+108
+00:12:08,980 --> 00:12:13,270
+But you don't have a good sense of how the correlation between any two individuals coming
+
+109
+00:12:13,270 --> 00:12:17,620
+from those sites would be different from any other two individuals coming from those sites.
+
+110
+00:12:18,070 --> 00:12:22,059
+So that might be a situation where this assumption is reasonable as well.
+
+111
+00:12:22,060 --> 00:12:28,120
+So patient outcomes clustered within hospital might be correlated with one another due to hospital factors,
+
+112
+00:12:28,120 --> 00:12:35,500
+but you don't have a good sense of any two patients being more strongly correlated than another with that, at least without additional information.
+
+113
+00:12:35,980 --> 00:12:42,520
+So it's coming to us. In the end, two pairs of patients produce outcomes that have similar correlation to any other pair of patients.
+
+114
+00:12:44,190 --> 00:12:50,630
+So this correlation structure has a name to it and a couple names to it,
+
+115
+00:12:50,640 --> 00:12:56,010
+and what people refer to it can depend on the software package you use or the textbook you're reading.
+
+116
+00:12:56,460 --> 00:13:01,230
+So you need to know both. One is called compound symmetry.
+
+117
+00:13:02,690 --> 00:13:09,349
+Kind of, you know, the symmetry across the diagonal of ones is kind of what they're they're thinking about that.
+
+118
+00:13:09,350 --> 00:13:16,309
+And it's all the same correlation. And the other name is exchangeable.
+
+119
+00:13:16,310 --> 00:13:22,370
+Like any pair of correlations. It's exchangeable with any other pair of correlations is one way to kind of remember that.
+
+120
+00:13:24,070 --> 00:13:31,060
+So when you want all your correlation between any pair of random variables to be the same throughout your storage system,
+
+121
+00:13:31,810 --> 00:13:35,650
+that's this correlation structure, compound symmetry or exchangeable.
+
+122
+00:13:37,220 --> 00:13:44,150
+And just here's some examples of what, you know, data might look like with three outcomes.
+
+123
+00:13:44,150 --> 00:13:49,490
+And I've simulated this data so that it behaves in a way that I can describe clearly to you.
+
+124
+00:13:49,910 --> 00:13:56,210
+So these three pairs of outcomes that are plotted over here all had the same correlation of 0.7.
+
+125
+00:13:56,480 --> 00:14:04,100
+And so if you had this cube in your hand and you were turning it around any way you looked at the data,
+
+126
+00:14:04,550 --> 00:14:08,900
+the spread of the data would look the same and it would look pretty tight, you know.
+
+127
+00:14:09,380 --> 00:14:15,140
+And if you increase the correlation, the relationship gets tighter in any way.
+
+128
+00:14:15,140 --> 00:14:19,130
+You turn the cube in your hand. That correlation would look equally tight.
+
+129
+00:14:23,700 --> 00:14:29,849
+So it's instead they like this compound symmetry notation, so they use C.
+
+130
+00:14:29,850 --> 00:14:36,540
+S when they want that option. And if you're in R, they like the exchangeable terminology.
+
+131
+00:14:36,540 --> 00:14:40,109
+So it's X, C, H, or you can type out the whole word exchangeable.
+
+132
+00:14:40,110 --> 00:14:47,850
+And ah, that's what this one looks like. And there's another choice.
+
+133
+00:14:48,160 --> 00:14:51,460
+That was the first of many choices.
+
+134
+00:14:51,470 --> 00:14:57,110
+So the choice here. You also have one parameter that you're estimating.
+
+135
+00:14:57,130 --> 00:15:03,580
+It's still this notation, RO, but this one has now become RHO squared.
+
+136
+00:15:04,360 --> 00:15:16,209
+And this correlation structure is called an auto regressive correlation matrix where each as you move away from the diagonal to one subscript to pass.
+
+137
+00:15:16,210 --> 00:15:21,040
+This is why one to y, one y to correlation y to y, three correlation.
+
+138
+00:15:21,490 --> 00:15:29,500
+So the subscripts are one unit apart when you're one diagonal kind of thing away from the center.
+
+139
+00:15:30,010 --> 00:15:39,220
+And over here this is two units apart when you take the difference of the subscripts in absolute value, and that's the same power you put up here.
+
+140
+00:15:39,580 --> 00:15:50,530
+So here this correlation assumes that the correlation between YJ one and YJ two is a here the subscripts for rows or columns for the storage system.
+
+141
+00:15:50,530 --> 00:15:57,580
+Here the matrix is row two. The absolute value of the difference between the subscripts.
+
+142
+00:15:58,150 --> 00:16:06,580
+So here this two comes from the subscript for the first random variable, which is one for that row.
+
+143
+00:16:08,120 --> 00:16:13,370
+Minus and then the column subscript is three for that element.
+
+144
+00:16:13,790 --> 00:16:20,030
+So that row raised to the absolute value of one minus three is the absolute value minus two or two.
+
+145
+00:16:22,950 --> 00:16:27,149
+And similarly over here, it's always symmetric across this diagonal of one.
+
+146
+00:16:27,150 --> 00:16:34,440
+So this is talking about the same correlation. But now between y three and y one, they've just switched the order of the subscripts.
+
+147
+00:16:35,100 --> 00:16:39,660
+Row three, column one. But it's the same correlation, same to your random variables.
+
+148
+00:16:40,910 --> 00:16:45,890
+And so what is the intuition behind this choice? Well, so if you're measuring someone over time.
+
+149
+00:16:46,820 --> 00:16:53,480
+And your outcomes over time, you know, are variable, maybe changing with progression of disease or something.
+
+150
+00:16:54,080 --> 00:16:59,120
+Then the idea here is that you're more correlated.
+
+151
+00:17:00,370 --> 00:17:06,970
+When the measures are closer together. So remember, correlations are always between minus one and one.
+
+152
+00:17:07,690 --> 00:17:14,300
+So if you and really for most of our class, the correlations are positive.
+
+153
+00:17:14,650 --> 00:17:18,590
+So this is you would only use this if you think you have positive correlation.
+
+154
+00:17:18,610 --> 00:17:21,490
+To begin with, this structure doesn't make sense with negative correlation.
+
+155
+00:17:22,270 --> 00:17:29,620
+And whenever you raise something between zero and one to a higher power, the value gets smaller.
+
+156
+00:17:30,460 --> 00:17:35,530
+So, for instance, point five is bigger than 0.5 times.
+
+157
+00:17:35,530 --> 00:17:38,620
+0.5.5 is bigger than 0.25.
+
+158
+00:17:38,860 --> 00:17:42,580
+So every time you raise something between zero and one to a higher power, it gets smaller.
+
+159
+00:17:43,060 --> 00:17:50,320
+So this correlation structure has, you know, the the highest correlation when the random variables correlated with itself one.
+
+160
+00:17:50,740 --> 00:17:55,060
+And then this kind of off diagonal.
+
+161
+00:17:56,770 --> 00:18:04,750
+Sloppy part of the correlation matrix with one degree of difference between the subscripts and a power one here.
+
+162
+00:18:05,080 --> 00:18:10,060
+Those are going to be more correlated than measures that are taken further apart in time.
+
+163
+00:18:11,790 --> 00:18:18,419
+And so if you you know that makes a lot of sense that measures you take on early on in a study are going to be
+
+164
+00:18:18,420 --> 00:18:24,240
+much less correlated with measures later on in the study as opposed to stuff that just happens at the next visit.
+
+165
+00:18:25,650 --> 00:18:31,950
+So this structure is very common and it's very efficient in terms of having to estimate
+
+166
+00:18:31,950 --> 00:18:36,890
+parameters because it's really the same parameter rho here raised to another power.
+
+167
+00:18:36,900 --> 00:18:42,840
+You only have to estimate the one parameter, but you've kind of forced a structure of how correlated they are.
+
+168
+00:18:43,140 --> 00:18:52,170
+So if this had been if Rho had been 0.5, you're really sort of forcing the assumption that two measures apart will have 0.25 correlation.
+
+169
+00:18:52,170 --> 00:18:58,920
+So you are assuming something there, but it's efficient in terms of the number of parameters you had to use to get there.
+
+170
+00:18:59,890 --> 00:19:00,969
+And that can be how, you know,
+
+171
+00:19:00,970 --> 00:19:08,920
+the future parameters you need to describe the data the better in some ways because these are parameters are competing with
+
+172
+00:19:08,920 --> 00:19:16,460
+your with all the other parameters need to estimate for this data and you might not have a lot to spare for small data sets.
+
+173
+00:19:16,480 --> 00:19:28,850
+We'll see an example of that in the next handout. So in south they call this a r parentheses one and an R, they call this R one without parentheses.
+
+174
+00:19:28,850 --> 00:19:36,709
+But they're talking about the same structure. So the higher this power is, the weaker the correlation is.
+
+175
+00:19:36,710 --> 00:19:45,200
+Because, you know, higher powers applied to numbers zero and one are smaller than the value without the power.
+
+176
+00:19:46,850 --> 00:19:52,610
+So again, I think I said this, but just this is nice for your notes, though one might assume this correlation structure when y one,
+
+177
+00:19:52,610 --> 00:19:56,899
+y two and y three measured in a time sequence with the expectation that measures
+
+178
+00:19:56,900 --> 00:20:01,240
+taken closer together are more correlated than those taken farther apart.
+
+179
+00:20:03,350 --> 00:20:10,610
+And so here is another correlation matrix example where I simulated this too,
+
+180
+00:20:10,970 --> 00:20:20,750
+and the correlation between any pair of observations like y one and y two.
+
+181
+00:20:22,860 --> 00:20:31,170
+Y tu y three so when they're there, subscripts are one unit apart from one another in absolute value.
+
+182
+00:20:31,470 --> 00:20:40,049
+Their correlation was very high point nine and y one and y three have a have subscript differences that are two apart.
+
+183
+00:20:40,050 --> 00:20:51,510
+So here their correlation is going to be 0.81 and it's not quite, you know, point nine and .81 are just slightly different correlations, but.
+
+184
+00:20:53,820 --> 00:20:56,370
+Here's the 3D cube.
+
+185
+00:20:56,370 --> 00:21:05,609
+And if you turn the cube different directions when you have it with y one and y three facing you, that's the one where they have the correlation.
+
+186
+00:21:05,610 --> 00:21:12,959
+2.81. You sort of see a scatter that's slightly more spread than any other way of turning the cube.
+
+187
+00:21:12,960 --> 00:21:18,600
+Like why one and why two? This looks like more like a poor correlation of 0.9 that we saw before.
+
+188
+00:21:19,110 --> 00:21:24,719
+And if you look at y to y three, this looks like correlation of 0.9 before and this is very subtle.
+
+189
+00:21:24,720 --> 00:21:29,400
+Increase in spread is due to slightly weaker correlation.
+
+190
+00:21:29,400 --> 00:21:32,310
+When you look at the cube and focus on y one, y three.
+
+191
+00:21:36,300 --> 00:21:43,350
+So the top panel is highlighting the decreased correlation between why one and why three compared to the Y one.
+
+192
+00:21:43,350 --> 00:21:48,959
+Y two correlation is focused in panel two and the Y two and y three correlation.
+
+193
+00:21:48,960 --> 00:21:55,170
+That's highlighted in panel three over here. All right.
+
+194
+00:21:55,170 --> 00:22:01,910
+And this is a bit of a tedious. Bit of explanation here.
+
+195
+00:22:02,170 --> 00:22:08,390
+So I apologize. But I need to go through all of these choices so we can tell our packages what choices we want.
+
+196
+00:22:08,840 --> 00:22:15,919
+So more correlation structures. This is this is called the unstructured correlation matrix.
+
+197
+00:22:15,920 --> 00:22:23,660
+And so it assumes that there are separate correlation values for every possible pair of random variables.
+
+198
+00:22:24,230 --> 00:22:36,920
+So whether you're talking about Y one correlation with y two or Y one correlation with y three or y two correlation with y three.
+
+199
+00:22:37,700 --> 00:22:42,440
+You know, we estimate totally different correlations for those three things.
+
+200
+00:22:43,310 --> 00:22:46,670
+And this is a popular choice.
+
+201
+00:22:47,240 --> 00:22:52,610
+If you have a huge data set and you have no idea what structure to put on this matrix.
+
+202
+00:22:53,340 --> 00:23:00,530
+Um, the, the mistake that people make with small data sets is trying to use this correlation
+
+203
+00:23:00,530 --> 00:23:05,180
+matrix when you don't have enough sample size to estimate all of these extra parameters.
+
+204
+00:23:05,930 --> 00:23:16,339
+And so we're going to see an example next time and in the next handout where for a very small dataset, if you ask for this correlation unstructured,
+
+205
+00:23:16,340 --> 00:23:27,860
+I don't know you know choice SAS and are just kind of they you know they break and I'll show you symptoms of it breaking are what actually say yeah
+
+206
+00:23:27,860 --> 00:23:38,540
+broke it and SAS will give just weird numbers so I it's a really nice go to matrix if you have a lot of data to estimate all these parameters with.
+
+207
+00:23:38,570 --> 00:23:42,530
+But for small data sets it's it's not a go to choice at all.
+
+208
+00:23:45,160 --> 00:23:49,150
+So in south in and ah they both call this you and for unstructured.
+
+209
+00:23:51,270 --> 00:23:59,309
+And so it's nice in the sense that it places no restriction on the correlation structure aside from the usual symmetry assumption that the correlation
+
+210
+00:23:59,310 --> 00:24:10,770
+between random variables with such J one versus J two is the same as the correlation between the same two random variables switched in the order.
+
+211
+00:24:10,800 --> 00:24:14,340
+You know that those should be the same, that the same random variables.
+
+212
+00:24:16,010 --> 00:24:20,480
+So it's a common choice when you're not certain what form the covariance structure should follow.
+
+213
+00:24:21,470 --> 00:24:29,030
+The disadvantage is that this uses three parameters on estimating the correlation structure and that's, you know,
+
+214
+00:24:29,720 --> 00:24:37,340
+information you potentially might need to model your mean structure that that's the most scientific interest.
+
+215
+00:24:37,340 --> 00:24:43,520
+So if it's not needed, there's some loss of efficiency because you're stretching your data to cover all these correlations.
+
+216
+00:24:44,720 --> 00:24:51,290
+So in addition to model the linear predictor corresponding to each outcome, we'll need to pay some attention to choosing the correlation structure.
+
+217
+00:24:53,190 --> 00:25:00,000
+We want it to be correct, but we don't want to waste statistical money estimating terms we don't need to estimate.
+
+218
+00:25:02,050 --> 00:25:06,330
+All right. So here's another correlation structure. So this is a question for you.
+
+219
+00:25:06,340 --> 00:25:09,549
+Now, don't look at the answer if it's right on the same slide.
+
+220
+00:25:09,550 --> 00:25:16,480
+So look at the green. So what does this form of correlation matrix assume where you've got zeros?
+
+221
+00:25:17,660 --> 00:25:36,080
+Off the diagonal. What's the what's the correlation between why one and why did you in this storage system.
+
+222
+00:25:38,660 --> 00:25:42,290
+Zero. There's their uncorrelated. All right.
+
+223
+00:25:42,320 --> 00:25:47,660
+What's the correlation between why two and why three in this correlation storage device?
+
+224
+00:25:48,730 --> 00:25:55,570
+Zero. There's no correlation anymore to why three. So no matter which pair of outcomes you're looking at, they're uncorrelated.
+
+225
+00:25:55,600 --> 00:26:00,130
+When you assume this, this is kind of what we've been assuming all along.
+
+226
+00:26:01,320 --> 00:26:05,940
+You know, when you have one outcome per person that the outcomes are independent.
+
+227
+00:26:06,690 --> 00:26:14,250
+This is making a similar assumption that there's no correlation between any of the outcomes within person or within cluster.
+
+228
+00:26:16,060 --> 00:26:22,280
+All right. So. This is. Called the independence correlation structure.
+
+229
+00:26:22,580 --> 00:26:32,990
+And so if you look at your three outcomes simulated with total independence, it's like a it's like a glass cube full of like bees or something.
+
+230
+00:26:33,800 --> 00:26:39,470
+I mean, they're just random scatter unless they're up to something, up to no good, I suppose.
+
+231
+00:26:40,250 --> 00:26:46,540
+So in SAS and ah they both call this Indi. All right.
+
+232
+00:26:46,900 --> 00:26:50,170
+So all of that was about storing correlation.
+
+233
+00:26:50,560 --> 00:26:56,410
+Unfortunately, I have to also tell you about covariance matrices.
+
+234
+00:26:56,410 --> 00:26:59,160
+And this is something that we have not had to deal with much.
+
+235
+00:26:59,170 --> 00:27:06,550
+You may have heard the term covariance in your very first statistics class, you know, but you haven't had to deal with it too much.
+
+236
+00:27:07,000 --> 00:27:14,890
+So. But the different software packages, different even procedures within or functions within software packages.
+
+237
+00:27:15,190 --> 00:27:19,570
+Some will want you to describe a correlation matrix for the outcomes,
+
+238
+00:27:19,960 --> 00:27:26,320
+and some packages will want you to describe instead the form of this covariance matrix.
+
+239
+00:27:26,320 --> 00:27:28,990
+So we need to know what it is and it's not a big thing.
+
+240
+00:27:29,290 --> 00:27:38,110
+It's very related to the correlation matrix, but it includes information of the spread on the spread of the data as well as the correlation.
+
+241
+00:27:38,120 --> 00:27:43,479
+So it's going to have little standard deviations mixed in to talk about the spread
+
+242
+00:27:43,480 --> 00:27:48,130
+of random variable one and random variable two in addition to the correlation.
+
+243
+00:27:48,880 --> 00:27:57,310
+And so for notation, I'm going to be using Sigma J to be the standard deviation for the outcome j.
+
+244
+00:27:59,910 --> 00:28:08,700
+And so if and if I'm talking about the correlation between y y subscript j one and Y with subscript j two,
+
+245
+00:28:09,120 --> 00:28:16,500
+I'm going to use the same notation I did in earlier slides that it's rho with those same subscripts,
+
+246
+00:28:16,680 --> 00:28:19,799
+you know, and that these two are going to be equal.
+
+247
+00:28:19,800 --> 00:28:23,190
+I can switch the subscripts around and it's the same value.
+
+248
+00:28:23,730 --> 00:28:30,480
+So I mean I might actually have a few times in this handout where I just stick the same value
+
+249
+00:28:31,170 --> 00:28:35,790
+and use the same subscripts across the diagonal because it always means the same thing.
+
+250
+00:28:36,210 --> 00:28:39,120
+I don't remember if I did that or not, but that could be something I do.
+
+251
+00:28:40,080 --> 00:28:50,940
+And then so the covariance between the two random variables with Subscripts J1 and J two are that correlation that goes with those two variables,
+
+252
+00:28:51,240 --> 00:28:54,750
+but some reflection of the spread for each of them as well.
+
+253
+00:28:55,020 --> 00:29:03,270
+So it's more so that element of the covariance matrix will have that correlation that we had described in that spot
+
+254
+00:29:03,570 --> 00:29:09,180
+times the standard deviation for the first random variable times the standard deviation for the second random variable.
+
+255
+00:29:13,140 --> 00:29:20,070
+So the covariance for YJ one and YJ two is still in row J one column j two.
+
+256
+00:29:20,370 --> 00:29:24,989
+We're still using the same storage system that's based on the subscripts for the rows in the
+
+257
+00:29:24,990 --> 00:29:33,330
+columns and is the same as the covariance if you switch the order of the random variables.
+
+258
+00:29:33,330 --> 00:29:39,450
+This is also the covariance doesn't change. If you switch the order of the random variables, right?
+
+259
+00:29:39,600 --> 00:29:43,259
+You're still going to be multiplying by the same standard deviations.
+
+260
+00:29:43,260 --> 00:29:46,860
+Even if you switch orders, it's going to be the same and number.
+
+261
+00:29:48,170 --> 00:29:52,640
+So covariance matrices are also symmetric around this diagonal.
+
+262
+00:29:54,010 --> 00:29:59,530
+And ends up looking like this. So let's let's look at this a little bit more.
+
+263
+00:30:00,910 --> 00:30:04,480
+Sometimes called a variance covariance matrix instead of just a covariance matrix.
+
+264
+00:30:04,960 --> 00:30:08,200
+And so variance covariance because the diagonal now.
+
+265
+00:30:09,330 --> 00:30:20,610
+Is the variances of those random variables. So this is the first element of the covariance matrix is the correlation between y one and y one.
+
+266
+00:30:21,240 --> 00:30:27,120
+That's one times the standard deviation for Y, one times the standard deviation for y one.
+
+267
+00:30:27,450 --> 00:30:31,890
+So that ends up reducing to the variance of y one for this term.
+
+268
+00:30:32,970 --> 00:30:38,700
+This is going to be the variance of why two. This is going to be the variance for y three.
+
+269
+00:30:39,420 --> 00:30:42,450
+So that's the variance of the variance covariance matrix.
+
+270
+00:30:43,020 --> 00:30:46,620
+And then all the other entries could have their own correlation.
+
+271
+00:30:47,160 --> 00:30:53,760
+We'll have assumptions that can that are similar to the assumptions for the correlation matrices we went over earlier.
+
+272
+00:30:54,210 --> 00:30:59,400
+This is just standing in for the general case, which I guess kind of looks like the unstructured case, right?
+
+273
+00:31:00,210 --> 00:31:06,840
+So this is the correlation, whatever it is, between y one and y two multiplied by their standard deviations.
+
+274
+00:31:07,050 --> 00:31:12,630
+And so, yeah, I did use this trick, this I made this value look like exactly the same as this value.
+
+275
+00:31:13,260 --> 00:31:18,299
+But earlier I would have called this row with subscript two one and I'm just sort of
+
+276
+00:31:18,300 --> 00:31:24,960
+reinforcing this idea of symmetry across this diagonal by using these same numbers,
+
+277
+00:31:25,680 --> 00:31:31,020
+because the correlation between y one and Y three is the same as the correlation between y three and y one.
+
+278
+00:31:31,020 --> 00:31:36,170
+So I just sort of replaced it there with that. All right.
+
+279
+00:31:37,710 --> 00:31:40,500
+So this is a covariance matrix.
+
+280
+00:31:40,500 --> 00:31:49,530
+So really, if you understand what assumptions you want to have on your correlation matrix, the assumptions on your covariance matrix is very similar.
+
+281
+00:31:49,770 --> 00:31:52,800
+Right. Because the we don't make assumptions about.
+
+282
+00:31:55,120 --> 00:32:03,730
+Well, actually, to back up a step, I might have situations where I want to assume the same standard deviation for all the outcomes.
+
+283
+00:32:04,360 --> 00:32:10,959
+But aside. But other than that, I don't have a lot of different assumptions for the various standard deviations.
+
+284
+00:32:10,960 --> 00:32:13,450
+I can either say they're all the same or they're all different.
+
+285
+00:32:14,600 --> 00:32:22,069
+So I'm the main shape of this correlation matrix is going to be based on the shape of this covariance matrix.
+
+286
+00:32:22,070 --> 00:32:24,710
+It's going to be based on what your assumptions are for correlation.
+
+287
+00:32:26,580 --> 00:32:31,389
+So the named corporate structures are similar, but not identical to the named correlation structures.
+
+288
+00:32:31,390 --> 00:32:36,260
+So just real briefly, I want to give you the names of what these are in South.
+
+289
+00:32:36,270 --> 00:32:45,990
+So this is. This first example is called the variance component matrix, which I have in the title is the V.C. and SAS.
+
+290
+00:32:46,950 --> 00:32:50,790
+And I think. Do I have this? Do I have what it's called?
+
+291
+00:32:50,790 --> 00:32:56,710
+An hour. Hopefully I have it somewhere in the side, but if not, I'll add that later.
+
+292
+00:32:57,040 --> 00:33:03,189
+So the variance component covariance matrix assumes independence between any two outcomes.
+
+293
+00:33:03,190 --> 00:33:09,490
+See how they have these zeros along the diagonal. Those zeros are really driven by the correlation being zero.
+
+294
+00:33:11,110 --> 00:33:19,670
+All right. So independence between outcomes. But the the variances for the three outcomes can be whatever they want.
+
+295
+00:33:21,530 --> 00:33:28,670
+So no restriction. The outcome variances are the same, but there is this strong assumption about independence between outcomes.
+
+296
+00:33:31,400 --> 00:33:42,080
+And a compound symmetry covariance matrix structure assumes that all of the standard
+
+297
+00:33:42,080 --> 00:33:48,229
+deviations are the same and all the correlations between and to random variables are the same.
+
+298
+00:33:48,230 --> 00:33:54,889
+So this is the most simplified version of a covariance matrix where you're only estimating two things
+
+299
+00:33:54,890 --> 00:34:00,200
+the standard deviation that's common to all pairs and the correlation that's common to all pairs.
+
+300
+00:34:01,320 --> 00:34:04,920
+See us in SAS. And why don't I have all the R notation here?
+
+301
+00:34:05,900 --> 00:34:08,920
+It must be coming up. I can't imagine I left it out. All right.
+
+302
+00:34:08,930 --> 00:34:12,710
+And so a heterogeneous compound, symmetry, covariance structure.
+
+303
+00:34:13,400 --> 00:34:16,490
+So I have this heterogeneous word in front.
+
+304
+00:34:16,790 --> 00:34:25,609
+That's the difference between this one and the one above only assumes that the correlation has this compound symmetry,
+
+305
+00:34:25,610 --> 00:34:30,110
+but the variances in the standard deviations cannot be unique to that outcome.
+
+306
+00:34:35,600 --> 00:34:39,709
+So. CCH and says, Oh good, we'll see an example of how to specify this in our students.
+
+307
+00:34:39,710 --> 00:34:46,190
+So that's coming our users. And the error one covariant structures.
+
+308
+00:34:48,020 --> 00:34:51,290
+Without heterogeneous in front of this term,
+
+309
+00:34:51,290 --> 00:34:59,149
+assume that all the standard deviations are the same and the correlation looks just like the other regressive
+
+310
+00:34:59,150 --> 00:35:08,990
+one covariance structure where it's row when you're like one diagonal way from the center diagonal and it.
+
+311
+00:35:09,970 --> 00:35:13,840
+Raises the power of the correlation as you move further and further away.
+
+312
+00:35:15,360 --> 00:35:16,860
+So it's a R1 in South.
+
+313
+00:35:17,460 --> 00:35:28,050
+And if we want the variability to be different for the outcomes, we assume a heterogeneous R1 covariance structure called RH one in SAS.
+
+314
+00:35:31,300 --> 00:35:36,960
+So. An important this is a perk up moment, actually.
+
+315
+00:35:36,980 --> 00:35:41,330
+So I know that a lot of this has been oh my God, I'll learn this notation later.
+
+316
+00:35:41,330 --> 00:35:52,129
+This is awful. But this is a perk up moment. So for you to be able to store correlations between your outcomes over time in these matrices,
+
+317
+00:35:52,130 --> 00:36:02,570
+they have to be kind of similarly ordered for each individual in the data set if we're going to capture the variability adequately by these matrices.
+
+318
+00:36:02,570 --> 00:36:08,959
+So for instance, if you are measuring. The individuals at three time points.
+
+319
+00:36:08,960 --> 00:36:18,980
+Time one. Time to time three. All of your time ones have to be for the first measuring your data set all the time to have to be the second measure.
+
+320
+00:36:19,190 --> 00:36:29,100
+And if they missed time, too, you have to have a placeholder. For that missing data like a dot or an A depending on your package for the missing data.
+
+321
+00:36:29,460 --> 00:36:38,160
+And then your third and your third outcome for that person has to be, you know, in that third spot in the data set for that person.
+
+322
+00:36:38,760 --> 00:36:48,959
+So when you have missing data, you can't just go y one, y three in your data set, you have to have a placeholder of what their value would have been.
+
+323
+00:36:48,960 --> 00:36:49,560
+You know,
+
+324
+00:36:49,950 --> 00:36:59,040
+for y two like with a daughter in a otherwise the packages is not going to know which numbers are supposed to be put into their correlations.
+
+325
+00:36:59,880 --> 00:37:05,250
+For the two random variables they're thinking about the package. Isn't that good at reading your mind there?
+
+326
+00:37:06,450 --> 00:37:10,529
+There's another kind of feature here that's important, which is another perk up moment,
+
+327
+00:37:10,530 --> 00:37:14,250
+and that is that, you know, not everybody is measured at the same time,
+
+328
+00:37:14,790 --> 00:37:23,040
+even in a study, in a clinical trial, when people are supposed to come in at week zero, week eight, which week 16, scheduling happens.
+
+329
+00:37:23,400 --> 00:37:27,290
+And so they might not all come in exactly at week.
+
+330
+00:37:27,390 --> 00:37:33,720
+They might come up even four weeks earlier or later than week eight, depending on how they could get scheduled at the clinic.
+
+331
+00:37:34,020 --> 00:37:37,050
+Have you made a schedule? Had you made an appointment recently?
+
+332
+00:37:37,260 --> 00:37:41,160
+How many months out did you have to figure this stuff out? Scheduling is a nightmare.
+
+333
+00:37:41,520 --> 00:37:48,450
+So, you know, even in a clinical trial where you've got some pull on when you want people to come in and get measured,
+
+334
+00:37:48,450 --> 00:37:54,359
+it doesn't happen precisely the same for anyone to store correlations in this kind of a matrix,
+
+335
+00:37:54,360 --> 00:38:01,440
+they have to be similar enough to count as correlation between the week zero and the week eight measurement.
+
+336
+00:38:02,130 --> 00:38:06,660
+If you have really big problems and people coming in when they're supposed to,
+
+337
+00:38:07,020 --> 00:38:10,620
+this isn't probably going to be the best correlations, Chuck, for sure for you.
+
+338
+00:38:10,920 --> 00:38:17,250
+But fear not. There's a different way to describe variability for these outcomes that'll cover that case,
+
+339
+00:38:17,940 --> 00:38:22,770
+and it'll end up being the go to when I use all the time for my analysis.
+
+340
+00:38:23,100 --> 00:38:27,540
+But, you know, there are a lot of situations where this works very well, okay.
+
+341
+00:38:28,620 --> 00:38:32,640
+Including at least the next this handout in the next handout for sure.
+
+342
+00:38:36,260 --> 00:38:38,090
+And this is probably just repeating everything I said.
+
+343
+00:38:38,160 --> 00:38:44,930
+So for instance, baseline one week, one month, six month outcomes must be listed in the same order for everyone in the dataset.
+
+344
+00:38:45,470 --> 00:38:53,030
+Missing responses at one of the scheduled times must have periods or nays if you're and are as placeholders in the data set.
+
+345
+00:38:54,270 --> 00:39:03,090
+The only exception is if they're if they fall at the end of an individual's repeated response profile, then that's okay.
+
+346
+00:39:03,750 --> 00:39:09,930
+The packages will actually assume that if you only have two out of the four values, that is the first measure.
+
+347
+00:39:09,960 --> 00:39:13,560
+The second measure that you've recorded in that third and the fourth are missing.
+
+348
+00:39:14,130 --> 00:39:21,450
+So if it's just the ones, if you lose patients due to attrition, they don't have a missed value in the middle, then it's okay.
+
+349
+00:39:21,450 --> 00:39:30,540
+You don't have to put in missing columns for the third and the fourth missed visit if it happened, you know, in towards the end.
+
+350
+00:39:32,640 --> 00:39:35,940
+The packages do make assumptions about that that are okay.
+
+351
+00:39:36,570 --> 00:39:40,050
+It won't hurt you if you put in those rows, but you don't have to.
+
+352
+00:39:42,010 --> 00:39:48,730
+So if time dependent outcomes are not collected at regularly spaced intervals so that variability terms can be grouped into this matrix form,
+
+353
+00:39:49,000 --> 00:39:52,420
+then a different method should be used to account for the correlation in the outcomes.
+
+354
+00:39:52,900 --> 00:39:56,770
+And that's what we're going to talk about. Random effects models.
+
+355
+00:39:58,460 --> 00:40:02,480
+Soon, soon ish. And that's useful for this setting.
+
+356
+00:40:02,480 --> 00:40:08,590
+And that's going to be like in some ways, I've been preparing you for those models since the beginning of the course when we did splinter,
+
+357
+00:40:09,590 --> 00:40:13,850
+you know, so that's going to be our our go to hero model.
+
+358
+00:40:15,330 --> 00:40:25,159
+So so I think we've got all the ingredients we need to start cooking with the actual models.
+
+359
+00:40:25,160 --> 00:40:33,560
+But as usual, I want to start you off with a baby dataset that you understand very well from your other classes.
+
+360
+00:40:33,570 --> 00:40:41,479
+So I'm going to just look at two outcomes that are paired with well understood behavior, and I'm going to show you a few different ways.
+
+361
+00:40:41,480 --> 00:40:49,430
+The packages will estimate these models in this situation where you could actually analyze the data yourself perfectly using methods.
+
+362
+00:40:49,430 --> 00:40:58,850
+You already know that I want you to get used to the software and how to do it and finding that that estimates in the output that are good.
+
+363
+00:40:59,510 --> 00:41:02,120
+We're going to we're starting here in the familiar space.
+
+364
+00:41:02,600 --> 00:41:09,590
+So I simulated a pair data so that I knew what all the answers were going to be to these features.
+
+365
+00:41:10,550 --> 00:41:18,860
+And so the sample size I started, it was 200 and both of my outcomes I sampled from random normal distributions.
+
+366
+00:41:19,280 --> 00:41:22,339
+But why one, I made the mean 50.
+
+367
+00:41:22,340 --> 00:41:30,980
+So the first outcome for each pair, the mean is 50 and I made the standard deviation for y 110.
+
+368
+00:41:32,580 --> 00:41:40,020
+And for the second outcome for each individual, this was sampled from a normal with a mean of 60.
+
+369
+00:41:40,020 --> 00:41:46,890
+So the second outcome is increased by ten and my little made up data set the standard deviations also more spread 15.
+
+370
+00:41:47,220 --> 00:41:50,580
+So I went to, I made these different so we could find them in our output nicely.
+
+371
+00:41:51,150 --> 00:41:54,990
+And I simulated a correlation between these two measures of point five.
+
+372
+00:41:57,530 --> 00:42:04,640
+So the correlation matrix that I used when I simulated had this is the way it showed.
+
+373
+00:42:04,820 --> 00:42:10,040
+The true correlation matrix that I used to simulate data would look with a 0.5 here.
+
+374
+00:42:11,120 --> 00:42:14,740
+And the covariance matrix looks like this.
+
+375
+00:42:14,750 --> 00:42:18,200
+And I have this question. Why? So let's just unpack this for a minute here.
+
+376
+00:42:18,440 --> 00:42:24,920
+What is this again? So the first element is sigma one times.
+
+377
+00:42:25,400 --> 00:42:32,270
+Sigma two times the correlation for that same place in the correlation matrix.
+
+378
+00:42:32,900 --> 00:42:43,580
+So the center deviation for Y one is ten and it is the spot where it's the covariance of y one with itself, right?
+
+379
+00:42:43,580 --> 00:42:48,350
+So it's really ten then times ten again times this one.
+
+380
+00:42:48,350 --> 00:42:51,680
+That's where the hundred comes from. Ten times ten times one.
+
+381
+00:42:53,100 --> 00:42:56,520
+And similarly, this is the covariance of y to with itself.
+
+382
+00:42:57,180 --> 00:43:05,850
+So this is going to look like 15. That's the standard deviation for y two times 15, again, times one.
+
+383
+00:43:06,120 --> 00:43:15,390
+That's where this 225 came from. And then the this covariance over here is the first time you've got y one and y two involved.
+
+384
+00:43:15,410 --> 00:43:19,050
+So the correlation between y one and is point five.
+
+385
+00:43:19,440 --> 00:43:27,810
+So we take point five, multiply it by the standard deviation for y one times the standard deviation for y two.
+
+386
+00:43:28,020 --> 00:43:31,560
+So this is basically 0.5 times ten times 15.
+
+387
+00:43:32,850 --> 00:43:37,770
+All right. So you can sort of see correlation matrix, covariance matrix.
+
+388
+00:43:37,980 --> 00:43:43,800
+And it's easier to sort of see correlation matrix and what your assumptions are than covariance matrices.
+
+389
+00:43:43,830 --> 00:43:49,350
+I've always found it found it a little more intuitive to think about correlation matrices.
+
+390
+00:43:49,680 --> 00:44:00,570
+But if you're trying to get some sense of that, you know, that bell that 3D bell picture that I put up earlier,
+
+391
+00:44:01,020 --> 00:44:13,380
+ah, this is this is how to figure that out, because the the spread of the bell is going to depend on these terms.
+
+392
+00:44:13,560 --> 00:44:16,920
+And this diagonal part is kind of measuring the squish a little bit.
+
+393
+00:44:16,920 --> 00:44:20,340
+And here's the spread of the Y one in the Y two that the bell has.
+
+394
+00:44:21,120 --> 00:44:34,940
+So these numbers are helpful behind the scenes. Here is just putting in some SAS code for summary statistics, correlation test parity tests,
+
+395
+00:44:34,950 --> 00:44:38,670
+just kind of looking at what you would have learned already in your class.
+
+396
+00:44:38,680 --> 00:44:42,479
+So I didn't put all the data here because it's 200 pairs.
+
+397
+00:44:42,480 --> 00:44:47,670
+But here's just an example of what the first five look like and the way you would have done
+
+398
+00:44:47,670 --> 00:44:54,989
+this in an earlier class with paired t tests and whatnot would be to put in the ID one,
+
+399
+00:44:54,990 --> 00:44:59,010
+two, three, four, five with both outcomes on the same row.
+
+400
+00:44:59,850 --> 00:45:05,220
+Right. Y one and y two. These are the things you're doing appear t test on or a correlation on.
+
+401
+00:45:05,880 --> 00:45:09,450
+And we call this y data format.
+
+402
+00:45:10,800 --> 00:45:14,280
+So there is more than one outcome in the same row.
+
+403
+00:45:14,280 --> 00:45:18,120
+All of an individual one's data is all in one row.
+
+404
+00:45:19,410 --> 00:45:25,390
+And you didn't have to have a name for that before. You probably just called it that data.
+
+405
+00:45:25,470 --> 00:45:32,370
+But we're going to start calling it wide format because we have something called long format where every outcome.
+
+406
+00:45:33,410 --> 00:45:37,229
+For every individual has their own row. All right.
+
+407
+00:45:37,230 --> 00:45:42,059
+So that's coming. And one of the nice things about Lab is that the guys eyes are really going to
+
+408
+00:45:42,060 --> 00:45:49,500
+show you how to manipulate going from a wide data format to a long data format.
+
+409
+00:45:49,500 --> 00:45:52,710
+And they have some really sophisticated tricks they're going to share with you.
+
+410
+00:45:54,060 --> 00:46:01,170
+So this is just really quickly kind of going through what we would have done in the past with this data.
+
+411
+00:46:01,170 --> 00:46:07,499
+So here's core. You would have learned in an intro class with the correlation and proc t test
+
+412
+00:46:07,500 --> 00:46:11,670
+that you would have learned in a class where we're doing the paired t test.
+
+413
+00:46:11,850 --> 00:46:18,299
+You know, you might have seen this before. All of this is just kind of show us what the traditional classes would look like and how
+
+414
+00:46:18,300 --> 00:46:22,110
+that compares to the new coding with all of our launch tool outcomes we're going to use.
+
+415
+00:46:22,860 --> 00:46:27,360
+So here are this is kind of I love this about proc t test.
+
+416
+00:46:27,360 --> 00:46:31,880
+It gives you this nice plot and it's a spaghetti plot really.
+
+417
+00:46:31,890 --> 00:46:39,030
+It's our first little spaghetti plot where each individual in the data set is one of these little spaghetti noodles.
+
+418
+00:46:39,900 --> 00:46:43,050
+They're uncooked, okay? They're not wiggly at all. These are the raw thing.
+
+419
+00:46:43,470 --> 00:46:50,220
+And so they order it so that the Y one outcome is over here, the y two outcome is over here.
+
+420
+00:46:50,220 --> 00:46:54,690
+So really they're just connecting to numbers on the plot.
+
+421
+00:46:55,470 --> 00:47:03,360
+And then the red line is the mean for Y one and the mean for y two with just this big line connected between the two.
+
+422
+00:47:04,840 --> 00:47:12,810
+So let's kind of look at this. We kind of know what we were supposed to see because I made up the data and I had some assumptions.
+
+423
+00:47:12,820 --> 00:47:21,040
+So as expected, you know, there's a little random variability here, but I simulated why I wanted to have a mean around 50.
+
+424
+00:47:21,310 --> 00:47:28,810
+And although those numbers are small that's right around 50 and I simulated y to to have a mean around 60 and there's a little wiggle room there,
+
+425
+00:47:28,810 --> 00:47:34,570
+but it's around 60. And so the other thing I simulated was the correlation of 0.5.
+
+426
+00:47:36,220 --> 00:47:40,660
+So. How does that appear in this plot?
+
+427
+00:47:40,670 --> 00:47:45,470
+I mean, that's something new we haven't really thought about with these before.
+
+428
+00:47:45,500 --> 00:47:45,800
+Right.
+
+429
+00:47:46,190 --> 00:47:59,360
+So the correlation is showing up in the plot in that if you start off with a low value, you're going to probably have a low value over here as well.
+
+430
+00:48:00,140 --> 00:48:05,380
+So each person is kind of staying in there.
+
+431
+00:48:06,920 --> 00:48:10,399
+What's what's a good, cool youth phrase for this?
+
+432
+00:48:10,400 --> 00:48:14,120
+Like staying in their zone? I don't know. What's the cool thing that you guys would say?
+
+433
+00:48:16,500 --> 00:48:21,479
+Staying in your lane? Yes. Okay. That's actually I should have known that for my generation.
+
+434
+00:48:21,480 --> 00:48:26,550
+That's not new. But if you have, like, something or that, you know, just teach me stuff.
+
+435
+00:48:26,940 --> 00:48:31,810
+It won't be sense at all. I have to talk to her now to talk to my teenage boys and sound cool.
+
+436
+00:48:31,820 --> 00:48:40,360
+So please help. Please help me. All right, so. And then if you're high, you tend to stay high, and there's a little bit of variability here.
+
+437
+00:48:40,380 --> 00:48:45,360
+Right. But the correlation there, stay there pretty much staying in their lane.
+
+438
+00:48:46,500 --> 00:48:50,760
+And on average, they're following this population trend.
+
+439
+00:48:50,760 --> 00:48:55,950
+But they have their own kind of they're staying in their lane either high or low for the most part.
+
+440
+00:48:56,280 --> 00:48:58,050
+That's where correlation is coming in.
+
+441
+00:48:58,530 --> 00:49:08,970
+And I want you to kind of I want to stretch this muscle in your brain where you start to think about variability in terms of how high did they start?
+
+442
+00:49:09,000 --> 00:49:14,790
+Like, this is kind of like a Y intercept thing. Like how for each individual.
+
+443
+00:49:16,660 --> 00:49:21,370
+How high did they start? So there y intercept.
+
+444
+00:49:21,880 --> 00:49:23,920
+And how much should they change over time?
+
+445
+00:49:25,610 --> 00:49:32,180
+So instead of looking at the variability of the data, like how variable is, why one, how variable is why two.
+
+446
+00:49:32,450 --> 00:49:39,980
+I want you to start shifting, developing this new method that says how variable is the height of their line?
+
+447
+00:49:41,710 --> 00:49:48,950
+How variable is the slope of their line? Because those two pieces of information are capturing the same variability story.
+
+448
+00:49:50,990 --> 00:49:54,910
+But using height and slope instead.
+
+449
+00:49:54,920 --> 00:49:59,600
+And that's going to translate a lot better when people don't come in at their usual times.
+
+450
+00:50:00,020 --> 00:50:05,900
+We can talk about the variability of their slope without having to stick them all in a column of a correlation matrix.
+
+451
+00:50:06,410 --> 00:50:11,059
+So I want you to stretch that part of your brain to exercise that muscle of seeing a plot
+
+452
+00:50:11,060 --> 00:50:16,010
+like this and then saying how variables variability is the height their y intercept.
+
+453
+00:50:16,490 --> 00:50:20,510
+How variable is their slope is that's going to stretch.
+
+454
+00:50:21,820 --> 00:50:27,670
+The way we can describe the variability of the data in a way that will solve a lot of problems about people coming in when they're supposed to.
+
+455
+00:50:31,480 --> 00:50:39,970
+So this visual data summary allows you to notice two types of variability the big variability between patients like the heights.
+
+456
+00:50:41,430 --> 00:50:45,530
+Right. Wide range of starting and ending outcome levels.
+
+457
+00:50:47,970 --> 00:50:51,690
+And smaller variability within each person.
+
+458
+00:50:52,320 --> 00:50:57,120
+So changes within person tend to be small relative to the range of outcomes seen.
+
+459
+00:50:58,150 --> 00:51:04,960
+You know, so there's more variability here, I would say, in the heights than in the slopes.
+
+460
+00:51:05,630 --> 00:51:11,990
+Right. The slopes are. There is variability, but, you know, people are staying mostly in their lane.
+
+461
+00:51:12,350 --> 00:51:19,030
+Right. So here's some core output and stuff.
+
+462
+00:51:19,040 --> 00:51:20,529
+Just we can look for these terms later.
+
+463
+00:51:20,530 --> 00:51:27,489
+This is just a quick peek at the first five people in the data set just so that you can see this is, again, the wide format.
+
+464
+00:51:27,490 --> 00:51:31,090
+So person one has both of their outcomes in the same row.
+
+465
+00:51:31,900 --> 00:51:34,390
+So common to have one roper individual core.
+
+466
+00:51:34,690 --> 00:51:43,780
+The orientation will change for other products where you will have observation with two rows, one for the Y, one one for the Y two.
+
+467
+00:51:43,780 --> 00:51:49,240
+That's the long format that we'll get to know. And here's the put from core.
+
+468
+00:51:49,600 --> 00:51:57,940
+So remember I simulated the data have correlation about 0.5 and that's more you know close and then the summary statistics
+
+469
+00:51:58,390 --> 00:52:07,150
+are also close to what I simulated mean of around 50 for y one or round ish 60 4y2 with their standard deviations.
+
+470
+00:52:07,150 --> 00:52:10,620
+Kyneton Kind of 15. All right.
+
+471
+00:52:13,380 --> 00:52:19,740
+So it's some verification. The summary statistics are approximately matching what I used in simulation to make up the data.
+
+472
+00:52:20,340 --> 00:52:33,670
+And then here's the out put from t test. So the difference in the means are and this is subtracting y one minus y two is this -9.15.
+
+473
+00:52:33,690 --> 00:52:38,400
+I tried it to be minus ten. There was some variability -9.15.
+
+474
+00:52:38,640 --> 00:52:46,440
+The confidence limits and the p value. So an average y one is 9.2 units smaller than y two.
+
+475
+00:52:47,190 --> 00:52:52,740
+And I switched because I said because I set this up to have a positive number here by saying smaller than y two,
+
+476
+00:52:52,980 --> 00:52:56,700
+I changed the sign of the confidence limits as well.
+
+477
+00:52:56,700 --> 00:53:06,090
+So y one is 95% confidence interval, 7.2 to 11.1 units smaller than the t value.
+
+478
+00:53:06,120 --> 00:53:08,009
+By the way, I never put this in a real manuscript,
+
+479
+00:53:08,010 --> 00:53:13,950
+but it's often helpful to have it in your homework sentence just so you know where things came from later and the p value from over here.
+
+480
+00:53:14,730 --> 00:53:22,410
+Right. So this is the analysis of the data with the tools you have learned to date from other classes, from other instructors.
+
+481
+00:53:22,980 --> 00:53:27,420
+And here's the same code for accomplishing this in R if you haven't seen it before.
+
+482
+00:53:28,200 --> 00:53:36,710
+This is just getting the data set together and putting together some summary statistics for the table so we can look at them,
+
+483
+00:53:36,720 --> 00:53:42,710
+you know, the means for the two groups and so on. Correlation unpaired t test.
+
+484
+00:53:44,190 --> 00:53:50,550
+And so this is kind of what you'll see if you use code similar to mine for the mean.
+
+485
+00:53:51,000 --> 00:54:03,060
+Group one mean of group two. The standard deviations are in parentheses afterwards and here is the correlation output from R
+
+486
+00:54:03,480 --> 00:54:09,360
+and it will give you a P value for whether that correlation is statistically different from zero.
+
+487
+00:54:10,470 --> 00:54:15,960
+And here's the paired T test. Same numbers that we got in SAS with where to find all those p values.
+
+488
+00:54:19,920 --> 00:54:27,750
+All right. So I. I think it's as good a time as any to take a little break before I go from wide data to the long data.
+
+489
+00:54:28,290 --> 00:54:36,090
+Let's just take a short break so that you can just do what you need to do to get back into perk up mode.
+
+490
+00:54:36,570 --> 00:54:57,880
+So 905 we'll get back together. Oh, yeah.
+
+491
+00:55:03,970 --> 00:55:09,030
+I. Yeah.
+
+492
+00:55:24,080 --> 00:55:33,550
+Yeah. Yeah, yeah. I was speaking.
+
+493
+00:55:36,850 --> 00:56:04,320
+Sure. Really?
+
+494
+00:59:07,800 --> 00:59:49,520
+It's. Now.
+
+495
+01:00:05,160 --> 01:01:31,080
+I just really. Yeah.
+
+496
+01:02:54,870 --> 01:03:08,060
+You. Hmm.
+
+497
+01:03:18,890 --> 01:03:44,310
+I know. Oh.
+
+498
+01:05:20,340 --> 01:05:25,500
+Oh. All right.
+
+499
+01:05:25,530 --> 01:05:29,700
+Let's get back to work. Okay.
+
+500
+01:05:29,710 --> 01:05:39,580
+So I've been hinting at this all along, but we are now going to be looking at different ways to analyze this same little mini data set.
+
+501
+01:05:40,540 --> 01:05:44,470
+Ways that will extend to more dependent outcomes over time.
+
+502
+01:05:45,130 --> 01:05:51,610
+And most of the packages that deal with this will use long data format instead of wide data format.
+
+503
+01:05:51,620 --> 01:05:54,850
+So the pair dataset we had before was in wide format.
+
+504
+01:05:55,850 --> 01:06:02,299
+But most software for analyzing the dependent outcomes will require the long format data.
+
+505
+01:06:02,300 --> 01:06:08,210
+And so this was the wide version of the first five people in the data set.
+
+506
+01:06:08,570 --> 01:06:13,430
+The long version would look like this where you have one out,
+
+507
+01:06:13,670 --> 01:06:23,630
+one row per outcome and you have this ID variable to keep track of which of the rows are from the same person's data.
+
+508
+01:06:25,530 --> 01:06:34,180
+All right. So eventually when you have covariance, we're going to have the ability to have covariance for each separate outcome,
+
+509
+01:06:35,020 --> 01:06:38,410
+you know, so they don't necessarily have to be just baseline covariance.
+
+510
+01:06:38,830 --> 01:06:43,330
+There could be covariates related to the first outcome at time one.
+
+511
+01:06:43,780 --> 01:06:52,480
+The second outcome at time, two things can get a lot more complex when you store the data in this long format.
+
+512
+01:06:55,390 --> 01:07:00,430
+And I've got some code for how I just massage this very simple data set into the
+
+513
+01:07:00,430 --> 01:07:05,620
+long format that your sides are going to teach you the general ways to do it.
+
+514
+01:07:05,620 --> 01:07:09,340
+And they they are using really great programing tricks.
+
+515
+01:07:09,790 --> 01:07:13,270
+I am just like brute force making the data do what I want.
+
+516
+01:07:13,330 --> 01:07:17,020
+So I'm not sure if it's the best, the best teaching tool.
+
+517
+01:07:17,020 --> 01:07:25,059
+But when I do this, I tend to do. I think I've seen this trick before where I'll start with the data set that has, you know,
+
+518
+01:07:25,060 --> 01:07:31,660
+everything in one row and then I'm just forcing the data set to make a different row for each of the outcomes.
+
+519
+01:07:31,660 --> 01:07:39,580
+So here I'm making it have a row with the ID and then the first outcome saying that that's
+
+520
+01:07:39,580 --> 01:07:45,280
+group zero for this outcome and printing it out to the new data set and then the same thing.
+
+521
+01:07:45,280 --> 01:07:55,990
+But for the Y two outcome and I'm labeling this the same variable name, so that's how I'm accomplishing, accomplishing having the same variable name.
+
+522
+01:07:56,440 --> 01:08:00,669
+But in the first row it'll look like the group is equal to zero.
+
+523
+01:08:00,670 --> 01:08:03,040
+In the second row it'll look like group equals one.
+
+524
+01:08:03,040 --> 01:08:10,780
+So I'm keeping track of my one one's my y wins and why choose with this group variable and I'm keeping it into this data set.
+
+525
+01:08:11,920 --> 01:08:15,880
+This is a very simple data set to flip using this trick.
+
+526
+01:08:16,600 --> 01:08:23,440
+When you get into very complicated data sets where you have some people have three outcomes, some people have five.
+
+527
+01:08:23,770 --> 01:08:28,030
+The GSI tricks in lab are going to help you flip that around in a pretty way.
+
+528
+01:08:29,320 --> 01:08:32,170
+That's not this brute force way. And so.
+
+529
+01:08:33,850 --> 01:08:40,030
+So South Code does get trickier when there are different numbers of outcomes for each individual or different types of outcomes.
+
+530
+01:08:40,270 --> 01:08:41,650
+So that's going to be a lab.
+
+531
+01:08:42,490 --> 01:08:50,920
+Here's another kind of resource that they're going to be building from that's on canvas, using SAS to process repeated measures data.
+
+532
+01:08:51,340 --> 01:08:55,990
+And this kind of covers all possible cases and they'll be taking you through some of this.
+
+533
+01:08:58,740 --> 01:09:03,470
+So our code for moving from why to long format. It looks like this.
+
+534
+01:09:03,550 --> 01:09:07,320
+Here is my paired data with one Roeper individual.
+
+535
+01:09:07,770 --> 01:09:17,370
+This is wide format and I am going to create this label for the new variable,
+
+536
+01:09:17,370 --> 01:09:24,450
+indicating whether the measure is why I want or why to save everything into that same variable name y.
+
+537
+01:09:24,540 --> 01:09:28,530
+So that's going to be the label for the new very well with all the outcomes in a single column.
+
+538
+01:09:29,820 --> 01:09:34,830
+And then here is the list of variables in the wide data set that are outcomes.
+
+539
+01:09:35,670 --> 01:09:39,140
+The Y one, the Y to the colon kind of like y one, y two.
+
+540
+01:09:39,150 --> 01:09:45,990
+But if you had several outcomes, you could go y one to colon, to y five and it would know.
+
+541
+01:09:45,990 --> 01:09:53,700
+You mean that whole list? And then this is saying treat the key column as a categorical variable.
+
+542
+01:09:53,700 --> 01:10:01,499
+This is going to be like, you know, our group variable. So we'll look at what that data set looks like.
+
+543
+01:10:01,500 --> 01:10:08,969
+And then once we see what it looks like, you'll sort of see why I wanted to sort my person and measurement because it kind
+
+544
+01:10:08,970 --> 01:10:13,680
+of creates stuff that's not sorted it quite the same way the stuff did things.
+
+545
+01:10:14,550 --> 01:10:29,160
+So here is the first ten rows of data from my, you know, creation of the long format and you can sort of see it has ID one.
+
+546
+01:10:30,510 --> 01:10:33,840
+Probably all the way down to 200 or so.
+
+547
+01:10:34,170 --> 01:10:42,809
+And then it starts with the why choose, but I really want it to be sorted with the same ideal outcomes all together.
+
+548
+01:10:42,810 --> 01:10:50,640
+So that's where the sorting kind of puts y one and y two together for each person with the idea being one, one, 2 to 3, three, four, four, and so on.
+
+549
+01:10:54,450 --> 01:11:05,640
+So in ah, we don't quite have the same spaghetti plot that we had from the, the t test that Seth did.
+
+550
+01:11:05,910 --> 01:11:10,770
+But this is a pretty close approximation of, of what you can do just to plot the data in.
+
+551
+01:11:10,770 --> 01:11:20,150
+Ah so it's the functions called interaction plot and it creates a different color and hashes.
+
+552
+01:11:20,170 --> 01:11:24,000
+So you can sort of see the data individually.
+
+553
+01:11:26,240 --> 01:11:33,049
+And. You know, so you can sort of still get the idea of the Y intercept spread and the slope changes.
+
+554
+01:11:33,050 --> 01:11:38,960
+But it's I don't know, for some reason it's not as pretty to me is the sense in this one case.
+
+555
+01:11:41,850 --> 01:11:46,259
+So we're going to be using proc gen mod when we have dependent outcomes over time.
+
+556
+01:11:46,260 --> 01:11:50,190
+And I know you know proc JANMAAT because we've been using it throughout the course.
+
+557
+01:11:51,180 --> 01:11:55,530
+You can use it with normally distributed outcomes even though we haven't really done much with that.
+
+558
+01:11:56,130 --> 01:12:03,240
+And so the model is going to be the outcome equals group status, assuming normally distributed outcomes.
+
+559
+01:12:03,750 --> 01:12:11,700
+The part that's quite important to change this from what we've done before and in JANMAAT is this repeated statement.
+
+560
+01:12:12,360 --> 01:12:17,729
+So first off, we're going to make I.D. the ID for every individual in the data set.
+
+561
+01:12:17,730 --> 01:12:21,240
+We're going to make that a categorical variable with class.
+
+562
+01:12:22,250 --> 01:12:30,280
+All right. And this repeated line is saying that for everybody who has the same idea.
+
+563
+01:12:30,290 --> 01:12:34,370
+So this is the variable name that we use to distinguish like the group, the paired.
+
+564
+01:12:35,470 --> 01:12:40,320
+People. You know, everybody with the same ID, they're correlated.
+
+565
+01:12:40,440 --> 01:12:44,760
+And then here is where we say the type of correlation structure.
+
+566
+01:12:45,000 --> 01:12:51,510
+So CSI stands for compound symmetry. So here is where you get a chance to change your assumptions.
+
+567
+01:12:51,510 --> 01:12:56,129
+We just have pairs here. So it's not like critical correlation, you know, comments.
+
+568
+01:12:56,130 --> 01:13:03,000
+I'm just going to look like all the others because you're estimating one value. But if you have a larger.
+
+569
+01:13:04,030 --> 01:13:06,579
+Number of outcomes measuring the same person.
+
+570
+01:13:06,580 --> 01:13:14,379
+Here's where you would change the assumption of the correlation structure either compound symmetry or auto regressive or unstructured.
+
+571
+01:13:14,380 --> 01:13:20,420
+You would do that right here. And I have some estimate statements here as well.
+
+572
+01:13:21,260 --> 01:13:24,370
+Just getting practice with using them with JANMAAT.
+
+573
+01:13:24,380 --> 01:13:33,200
+So if I just wanted to know the mean for group zero, the why one value this is a01 variable.
+
+574
+01:13:33,200 --> 01:13:37,820
+And so for the group zero mean I just use the intercept.
+
+575
+01:13:39,350 --> 01:13:41,330
+Since this is one group is zero.
+
+576
+01:13:42,530 --> 01:13:51,889
+And that'll be the group zero mean and then the group one mean, which is really why two is going to be intercept plus group, right?
+
+577
+01:13:51,890 --> 01:13:54,950
+Because we plug in group equals one for this covariate.
+
+578
+01:13:55,130 --> 01:14:01,210
+So that's going to be r y to mean. And if we want to estimate the difference with a contrast statement,
+
+579
+01:14:01,990 --> 01:14:05,680
+that difference between the two means it's going to just be the beta parameter for the group.
+
+580
+01:14:07,320 --> 01:14:12,840
+And so this is going to give us everything that our parents tested through contrast statements.
+
+581
+01:14:15,660 --> 01:14:20,040
+Oh, there are some little notes here. I think I've said all this stuff before.
+
+582
+01:14:21,130 --> 01:14:29,350
+So other possible South correlation structures that you could put here instead of six or the air parentheses one for the auto regressive.
+
+583
+01:14:29,620 --> 01:14:33,010
+If you want to assume independence, that would be Indy.
+
+584
+01:14:33,340 --> 01:14:35,680
+If you wanted to assume unstructured, that would be you.
+
+585
+01:14:35,680 --> 01:14:44,080
+And the only the only one that could give us a different answer here is the Indy, because we just have one correlation number.
+
+586
+01:14:48,220 --> 01:14:51,340
+All right. Just a reminder of what those are.
+
+587
+01:14:51,370 --> 01:14:55,850
+Kind of popped up there. And so here's the output.
+
+588
+01:14:56,030 --> 01:15:03,660
+So, uh, model information, number of clusters, 200, maximum cluster size two.
+
+589
+01:15:03,680 --> 01:15:06,890
+This is best telling us we have 200 correlated pairs. Right.
+
+590
+01:15:07,400 --> 01:15:14,150
+And the correlation is it tells you the type of correlation you're dealing with here.
+
+591
+01:15:14,900 --> 01:15:18,150
+And the correlation, this is the same thing we got before.
+
+592
+01:15:18,170 --> 01:15:21,320
+It's sort of point in the order of point five.
+
+593
+01:15:22,070 --> 01:15:27,610
+I think this is a little schizophrenic of SAS because they asked you to call it compound symmetry in the code,
+
+594
+01:15:27,620 --> 01:15:30,910
+but they're telling you and it's exchangeable in the output.
+
+595
+01:15:30,930 --> 01:15:36,589
+So there's definitely some schizophrenia on what notation they prefer to use here.
+
+596
+01:15:36,590 --> 01:15:41,810
+But this is the the same compound symmetry assumption correlation that row term.
+
+597
+01:15:43,340 --> 01:15:50,870
+Here are the model estimates when you have the only covariate is group for the in the pairs.
+
+598
+01:15:51,440 --> 01:16:02,149
+And so this is going to end up being the increase in the outcome when you go from group zero to group one or the difference between group
+
+599
+01:16:02,150 --> 01:16:12,230
+one and group zeros means that's also this same row here is basically the same thing we have here in this last estimate statement output.
+
+600
+01:16:13,100 --> 01:16:19,339
+So you've got the the difference and you've got the confidence limits and you've got the P values.
+
+601
+01:16:19,340 --> 01:16:23,300
+But that was basically the same thing as this box red row.
+
+602
+01:16:23,480 --> 01:16:32,290
+So very similar results to t test. And very similar numbers to put in your manuscript worthy sentence that we did earlier.
+
+603
+01:16:32,980 --> 01:16:40,590
+It's all coming from this group. Covariant now. And four.
+
+604
+01:16:40,770 --> 01:16:50,910
+Are they you? There's this package called G PAC and a function called GSC, which I'm I'm really trying not to say geese.
+
+605
+01:16:51,300 --> 01:16:54,570
+So GS or GS, something like that.
+
+606
+01:16:56,340 --> 01:17:01,140
+And so in R is usually you sort of set up your formula first.
+
+607
+01:17:01,770 --> 01:17:08,310
+And the outcome in this our data sets Y and the group of variables called measurement.
+
+608
+01:17:09,760 --> 01:17:15,220
+And then we call this GS function with that formula.
+
+609
+01:17:15,700 --> 01:17:22,570
+And here is where we put in the ID variable saying which of the outcomes are correlated?
+
+610
+01:17:23,410 --> 01:17:28,300
+And here is where we put the assumption for the correlation.
+
+611
+01:17:28,570 --> 01:17:32,559
+And this is our luck to use exchangeable instead of compound symmetry.
+
+612
+01:17:32,560 --> 01:17:37,150
+But it's the same, it's the same correlation matrix style.
+
+613
+01:17:39,130 --> 01:17:46,120
+And so and here's the code for getting the are the contrast the same ones that we asked for in in SAS with,
+
+614
+01:17:46,420 --> 01:17:54,700
+you know, the beta not parameter and the beta one parameter here for those different choices.
+
+615
+01:17:56,060 --> 01:18:07,299
+So in ah, if we wanted to switch to other correlation structures instead of exchange, we had shown you ar1 for auto regressive and for independent,
+
+616
+01:18:07,300 --> 01:18:11,080
+and you run for unstructured, unstructured, for example, and you would just replace that.
+
+617
+01:18:11,090 --> 01:18:14,360
+Here again, we just have one correlation number with a pair.
+
+618
+01:18:14,870 --> 01:18:20,060
+So the only one that would give you any appreciable difference is if you assume they were totally independent outcomes.
+
+619
+01:18:22,160 --> 01:18:22,460
+Right.
+
+620
+01:18:24,280 --> 01:18:34,840
+And here is the same output in R where the paired T test really corresponds to this estimate for the the group variable, the measurement variable.
+
+621
+01:18:35,560 --> 01:18:37,630
+And so you can get that same estimate.
+
+622
+01:18:38,440 --> 01:18:45,460
+Here, here are some of the contrast statements where you can get confidence interval values and and P values and so on.
+
+623
+01:18:45,850 --> 01:18:52,780
+Very similar to the pair t test we did with the other old fashioned methods,
+
+624
+01:18:52,780 --> 01:18:59,170
+which are still great, by the way, I should call them old fashioned and this new G kind of stuff.
+
+625
+01:19:01,300 --> 01:19:05,090
+So I also want to show you your first version of proc mixed.
+
+626
+01:19:05,110 --> 01:19:10,809
+This is going to be the proc were eventually we are going to talk about variability
+
+627
+01:19:10,810 --> 01:19:17,850
+using variable Y intercepts for the lines for each individual and variable slopes.
+
+628
+01:19:17,860 --> 01:19:25,480
+But we're not quite there yet. So but I want to just briefly touch on proc mixed with paired t test kind of stuff.
+
+629
+01:19:25,900 --> 01:19:31,750
+So you again, it's called proc. Mixed is the one that we're going to focus on for this kind of model.
+
+630
+01:19:32,980 --> 01:19:36,070
+This part mixed always assumes normally distributed outcomes.
+
+631
+01:19:37,330 --> 01:19:44,229
+And we're again going to put the ID variable in the class statement and we have this group cover it still.
+
+632
+01:19:44,230 --> 01:19:47,650
+And as always, I try to create my reference groups.
+
+633
+01:19:48,280 --> 01:19:58,630
+So work group is going to be a variable. We're zeros the reference and then our model looks very similar to what we did in G model Y equals group.
+
+634
+01:19:59,620 --> 01:20:10,239
+And this over here is this solution is requesting parameter estimates with confidence intervals, which actually strangely doesn't come out by default.
+
+635
+01:20:10,240 --> 01:20:11,410
+So you have to ask for that.
+
+636
+01:20:13,010 --> 01:20:22,040
+And then this L.S. means line is requesting means for each group with confidence intervals and it would it works for the class variables.
+
+637
+01:20:24,550 --> 01:20:32,230
+And the line here that is telling you which of the outcomes are correlated is this repeated line.
+
+638
+01:20:32,230 --> 01:20:39,550
+Again, it's a subject because it is again telling you people with the same level of idea or correlated.
+
+639
+01:20:40,440 --> 01:20:46,200
+And this typical CSA h indicates heterogeneous.
+
+640
+01:20:46,200 --> 01:20:50,520
+That's where the H is compound symmetry, covariance structure.
+
+641
+01:20:51,360 --> 01:20:59,130
+So compound symmetry heterogeneous. So we only have one correlation, you know, row,
+
+642
+01:20:59,370 --> 01:21:03,779
+but it's going to allow different variance for why one and why two because we said we
+
+643
+01:21:03,780 --> 01:21:09,089
+wanted a heterogeneous this H so we're not assuming the same variability for why,
+
+644
+01:21:09,090 --> 01:21:19,480
+when and why to here. So other possible south covering structures are compound symmetry without the h variance component.
+
+645
+01:21:19,490 --> 01:21:22,069
+That was like the independence correlation.
+
+646
+01:21:22,070 --> 01:21:30,590
+But we let the variability for groups one and group to be different unstructured, no assumptions on the correlation structure at all.
+
+647
+01:21:31,310 --> 01:21:38,630
+ar1 and rh1 where the difference between these two is that the variability is allowed to be different,
+
+648
+01:21:38,960 --> 01:21:41,990
+but for the different measures when you have the H at the end here.
+
+649
+01:21:44,390 --> 01:21:48,320
+And so here's Mix's version of the paired T test.
+
+650
+01:21:48,320 --> 01:21:51,950
+And you're looking again at the the parameter estimates.
+
+651
+01:21:52,010 --> 01:21:54,730
+It's called solution for the fixed effects in this output.
+
+652
+01:21:55,130 --> 01:22:02,780
+And you're looking for the group variable that is going to be the average change in the outcome when you move to group
+
+653
+01:22:02,780 --> 01:22:10,100
+equals zero from group equals zero to group equals one and you get the same kind of confidence limits and p values here.
+
+654
+01:22:10,760 --> 01:22:14,960
+And we had also sort of asked for the groups to be.
+
+655
+01:22:15,920 --> 01:22:17,239
+Estimated separately.
+
+656
+01:22:17,240 --> 01:22:23,600
+And so this is kind of the summary statistics for each of the groups that we did earlier and how you would get them through part mixed.
+
+657
+01:22:24,080 --> 01:22:31,160
+So similar results once again with just slightly different packages and options.
+
+658
+01:22:31,910 --> 01:22:39,440
+So just so now you know how to do a very, very simple thing in more ways than you need to.
+
+659
+01:22:39,740 --> 01:22:42,990
+But we're going to be learning more and more about this syntax approach and
+
+660
+01:22:43,010 --> 01:22:48,440
+modern product mixed as we go through more complicated correlation structures.
+
+661
+01:22:51,790 --> 01:23:04,419
+Or has something called LME when it's doing mixed effects models and the version of the paired T test with LME is is kind of strange here.
+
+662
+01:23:04,420 --> 01:23:10,960
+So I need to kind of explain this. Everything in yellow allows for this heterogeneous compound symmetry, covariance structure.
+
+663
+01:23:11,500 --> 01:23:15,489
+And so the formula is the Y equals measurement.
+
+664
+01:23:15,490 --> 01:23:18,850
+That's similar to what we did in SAS here.
+
+665
+01:23:18,850 --> 01:23:28,960
+This random tilde one is saying, I want a random intercept assumed for the height of all these lines.
+
+666
+01:23:30,350 --> 01:23:35,749
+After the pipe. Here is the variable that indicates which outcomes are correlated.
+
+667
+01:23:35,750 --> 01:23:44,210
+So the ID variable here and then this weight statement is saying that for identifying the variability,
+
+668
+01:23:44,570 --> 01:23:50,630
+I want there to be a different variability for each level of measurement.
+
+669
+01:23:54,160 --> 01:23:59,140
+And so what you're going to get from all of this work is the same parity test.
+
+670
+01:24:00,800 --> 01:24:04,320
+Okay. Oh,
+
+671
+01:24:04,320 --> 01:24:08,639
+and I think that this I just wanted to finish up this hand out with looking at this prop t
+
+672
+01:24:08,640 --> 01:24:13,590
+test spaghetti plot again and just reminding you that there are two types of variability.
+
+673
+01:24:14,830 --> 01:24:22,600
+And one is the variability between patients and the variability within each patient.
+
+674
+01:24:23,590 --> 01:24:29,470
+And to kind of. Stretch your brain, exercise that muscle.
+
+675
+01:24:29,480 --> 01:24:32,780
+We're not going to come back to this for another handout or two.
+
+676
+01:24:32,780 --> 01:24:43,159
+But I want you to exercise in your back brain this muscle that thinks of these types of variability through the height of the line for each person,
+
+677
+01:24:43,160 --> 01:24:47,990
+which we're going to start thinking of as a random intercept for each person.
+
+678
+01:24:48,290 --> 01:24:53,780
+And that explains the big spread between patients in this case is where they start is kind of a random high.
+
+679
+01:24:54,820 --> 01:24:57,850
+And that's one way of describing the variability, the random height, where they start.
+
+680
+01:24:59,110 --> 01:25:04,190
+And then we also have the usual random error for each measure.
+
+681
+01:25:04,210 --> 01:25:12,400
+So, you know, the usual epsilon that we don't quite get exactly on the line, but we have some random variability for each measure,
+
+682
+01:25:12,400 --> 01:25:19,150
+whether it's at the beginning of the end that's indicating only small deviations from the general trend within person.
+
+683
+01:25:19,160 --> 01:25:22,540
+But we do have measurement error for each one of these dots as well.
+
+684
+01:25:23,710 --> 01:25:27,720
+So we're going to come back to this idea over and over again.
+
+685
+01:25:28,540 --> 01:25:33,669
+And I'm going to just briefly give you a peek at what this looks like for paired outcome data.
+
+686
+01:25:33,670 --> 01:25:39,970
+So suppose you have two outcomes that year over time for each person.
+
+687
+01:25:40,360 --> 01:25:47,019
+And so here is the list of the first outcome type for the end people.
+
+688
+01:25:47,020 --> 01:25:50,860
+And here's the list for the second outcome type for the end people.
+
+689
+01:25:52,180 --> 01:26:02,020
+Where the first subscript indicates the pair. And so one through and they're in pairs and the second subscript is the outcome type within each pair.
+
+690
+01:26:02,030 --> 01:26:09,300
+Jake was one to. So in pairs, if you wanted to group them by ID would look like this.
+
+691
+01:26:11,180 --> 01:26:17,150
+And so we're we're kind of used to describing outcome variability.
+
+692
+01:26:18,550 --> 01:26:23,190
+Like, you know, the correlation or the correlation matrix.
+
+693
+01:26:23,200 --> 01:26:24,370
+So I want to kind of.
+
+694
+01:26:25,400 --> 01:26:34,760
+Get your brain thinking about how we would characterize outcome variability using a random intercept for each pair eye that has its own distribution.
+
+695
+01:26:35,420 --> 01:26:41,870
+So this random height for each person, we're going to put a distribution on that and we're going to say on average,
+
+696
+01:26:44,030 --> 01:26:47,059
+there's, you know, there's a mean of zero.
+
+697
+01:26:47,060 --> 01:26:56,360
+So on average, each individual is kind of like the population mean, but that their intercept has some variability around the population mean.
+
+698
+01:26:56,360 --> 01:27:05,300
+And we're going to call that this little gamma term where each person has their own normally distributed gamma eye for their random intercept.
+
+699
+01:27:06,680 --> 01:27:11,450
+This is this is just I want to get that mass. This is like stretching before a run, right?
+
+700
+01:27:11,450 --> 01:27:14,510
+I'm stretching out this back brain. Okay.
+
+701
+01:27:15,260 --> 01:27:21,980
+So this is going to generate the correlation between the outcomes when we think about this, these random heights.
+
+702
+01:27:23,100 --> 01:27:30,390
+And then we have this usual random error we see in linear regression has a normal with mean zero and sigma squared e distribution.
+
+703
+01:27:30,780 --> 01:27:34,469
+We're used to seeing this kind of random error from linear regression.
+
+704
+01:27:34,470 --> 01:27:38,490
+It's just that we have a random error for outcome one and for outcome two now.
+
+705
+01:27:41,970 --> 01:27:48,510
+And so this is just repeating what we had on the previous slides. We have a random intercept term that is controlling.
+
+706
+01:27:48,510 --> 01:27:55,169
+How are the heights different on average from the population average height and
+
+707
+01:27:55,170 --> 01:28:00,180
+we have the error that says we're not measuring y one and y two perfectly.
+
+708
+01:28:00,180 --> 01:28:07,629
+There's measurement error as well. And so this is what the random intercept model for the paired outcome data looks like.
+
+709
+01:28:07,630 --> 01:28:16,060
+This is your first mixed effects model that the outcome for person I measurement j is
+
+710
+01:28:16,540 --> 01:28:21,790
+some population intercept that's like the beginning of the red line in our T test plot.
+
+711
+01:28:23,880 --> 01:28:29,400
+Plus beta one times the group indicator outcome type two.
+
+712
+01:28:31,440 --> 01:28:37,440
+All right. Said that this part with a beta not in the beta one, we're going to start calling that fixed effects model.
+
+713
+01:28:39,910 --> 01:28:47,649
+And this part here, this Gamma I we're going to be calling that part of the model of the random effects part of the model.
+
+714
+01:28:47,650 --> 01:28:52,390
+So there's fixed effects related to cover it and there's random effects as well.
+
+715
+01:28:53,200 --> 01:28:56,800
+And so Gamma is our first random effect, our random intercept term.
+
+716
+01:28:58,960 --> 01:29:04,120
+And so for if you have the first outcome.
+
+717
+01:29:05,620 --> 01:29:09,880
+So this indicator variable is a zero because it's the first outcome.
+
+718
+01:29:10,210 --> 01:29:20,680
+The model assumes this kind of line that the outcome is an intercept for the population.
+
+719
+01:29:21,100 --> 01:29:26,710
+Right? Plus the random intercept term for individual EI, plus a measurement error.
+
+720
+01:29:29,590 --> 01:29:41,140
+And for the second outcome, the model assumes, you know, it's trying to model beta, not plus beta one is going to be the fixed effects part.
+
+721
+01:29:41,530 --> 01:29:46,430
+That's the population mean for group. For that second measure for everybody in the group.
+
+722
+01:29:46,910 --> 01:29:55,640
+And then we're also going to have this gamma eye for the individual and measurement error for that second outcome.
+
+723
+01:29:59,000 --> 01:30:02,770
+So each pair's outcomes differ by beta one.
+
+724
+01:30:02,780 --> 01:30:08,240
+On average, if you're looking at the difference between Y one and y two,
+
+725
+01:30:09,140 --> 01:30:13,760
+we're basically assuming it's beta one, regardless of which pair you're talking about.
+
+726
+01:30:14,090 --> 01:30:17,480
+All all pairs have a difference in outcomes of beta one.
+
+727
+01:30:17,960 --> 01:30:27,890
+When you compare the Y, I warned the Y to model on average that you still have measurement error, but on average each of these has mean zero.
+
+728
+01:30:28,580 --> 01:30:32,120
+The random intercepts are going to cancel out, the beta notes will cancel out.
+
+729
+01:30:32,360 --> 01:30:37,160
+So we're still talking about an average difference by group of this beta one term.
+
+730
+01:30:40,730 --> 01:30:45,320
+And so here's our random intercept model, again, just copying from the previous slide.
+
+731
+01:30:46,670 --> 01:30:57,230
+And so since the means of the game I and epsilon i j or zero the population mean to the average pattern this red line in our proc t test output.
+
+732
+01:30:58,760 --> 01:31:03,530
+That population mean looks very much like the regression model you would have using just
+
+733
+01:31:03,530 --> 01:31:10,790
+regular linear regression at some intercept plus some beta one times this indicator variable.
+
+734
+01:31:11,480 --> 01:31:19,490
+So the population mean that we're going to interpret from these models is trying to describe again what's the pattern overall in the population.
+
+735
+01:31:19,820 --> 01:31:23,120
+We usually interpret those coefficients and write them in papers.
+
+736
+01:31:23,900 --> 01:31:28,490
+You know, we have a manuscript where these sentences will come from the population mean story.
+
+737
+01:31:30,210 --> 01:31:40,590
+Okay. And then but we have this variability that's described using the gamma i's and epsilon i's.
+
+738
+01:31:40,590 --> 01:31:46,170
+And so start with the gamma ISO conditional on that random intercept for that person.
+
+739
+01:31:46,860 --> 01:31:52,620
+There's now a mean line for pair I that's trying to it's not quite the same.
+
+740
+01:31:52,800 --> 01:31:55,350
+There's some subtleties here that I'm not going to go into,
+
+741
+01:31:55,350 --> 01:32:01,079
+but it's trying to capture the fact that not every individual's line is on top of that red population line,
+
+742
+01:32:01,080 --> 01:32:03,660
+that some are randomly higher, some are randomly lower.
+
+743
+01:32:04,290 --> 01:32:13,529
+And so it's trying to get at that by putting in this little guy that'll make the height of where the line starts different for each person.
+
+744
+01:32:13,530 --> 01:32:20,370
+I so conditional on the random effect for person I the mean line for pair I looks like
+
+745
+01:32:20,370 --> 01:32:27,779
+this where the slope on average is the same as the slope for the population line.
+
+746
+01:32:27,780 --> 01:32:30,990
+For this particular model, this is called the random intercept model.
+
+747
+01:32:32,560 --> 01:32:38,290
+But each person's intercept will be the population intercept, plus their own personal little intercept term.
+
+748
+01:32:41,390 --> 01:32:52,280
+So just to kind of help you unpack some of this, here's an example where I've got the population line that goes between 50 and 60.
+
+749
+01:32:52,430 --> 01:32:56,210
+You know, on average, this it's not red here because I did this in orbit.
+
+750
+01:32:58,560 --> 01:33:03,810
+This is the population, mine. And I've got to example people.
+
+751
+01:33:05,320 --> 01:33:10,870
+And so the population main trend is that beta not is 50, beta one is ten.
+
+752
+01:33:10,870 --> 01:33:14,379
+And this is like pretend because this is how I simulated the data.
+
+753
+01:33:14,380 --> 01:33:18,940
+This isn't actually from the data set. This is just a picture based on how I simulated the data.
+
+754
+01:33:21,370 --> 01:33:33,070
+And pair I one is this one here their pattern and it's conditional on them having a random intercept term of ten.
+
+755
+01:33:34,100 --> 01:33:42,530
+So that's so for person I one, they have this gamma eye of ten, so their height jumps up by ten.
+
+756
+01:33:43,620 --> 01:33:44,970
+And looks like this.
+
+757
+01:33:46,190 --> 01:33:56,960
+And so this is helping describe how patient AI is different from the population mean on average this is population this is the mean just for person I.
+
+758
+01:33:57,920 --> 01:34:11,100
+That the model is assuming and for person I two and the paired outcomes y one and y two for them they have a gamma I to of -15.
+
+759
+01:34:11,180 --> 01:34:21,260
+So when you take the -15 and add it to the beta, not a ten, they're going to go down by 15 less than the population mean line.
+
+760
+01:34:22,010 --> 01:34:28,760
+And so this is what the model is, assuming this person's data will look like.
+
+761
+01:34:29,980 --> 01:34:34,170
+Different from the population, I mean. Okay.
+
+762
+01:34:34,190 --> 01:34:40,190
+So these random intercepts are not things that we collect from the data.
+
+763
+01:34:40,190 --> 01:34:43,400
+The models going to estimate these that they're not.
+
+764
+01:34:43,850 --> 01:34:52,459
+We kind of know the observed data and where their heights are, but we're going to be estimating these values from the data set itself.
+
+765
+01:34:52,460 --> 01:34:56,240
+They're not fixed in things that have been provided to us.
+
+766
+01:34:59,070 --> 01:35:05,879
+And I want to kind of help you get a sense of what it means when you are looking at
+
+767
+01:35:05,880 --> 01:35:12,990
+different combinations of measurement error and this random intercept variability.
+
+768
+01:35:13,440 --> 01:35:18,930
+So this is the one that you're used to from linear regression where not everybody falls on the line.
+
+769
+01:35:19,170 --> 01:35:25,290
+Not all the measures are perfect, right? So that sigma squared error big means there's more variability in y one, y two.
+
+770
+01:35:26,760 --> 01:35:31,139
+This one is the variability of this random intercept term.
+
+771
+01:35:31,140 --> 01:35:32,610
+And so this first plot.
+
+772
+01:35:34,130 --> 01:35:42,590
+Relative to the other choices I'm showing here, the variability for both the random intercept and the measurement error or kind of small.
+
+773
+01:35:44,100 --> 01:35:50,940
+And so you have very little spread in where people start the height of the lines that's this term sigma
+
+774
+01:35:50,940 --> 01:35:59,190
+squared gamma because it's small where the heights of where people's lines start is not very far spread,
+
+775
+01:35:59,190 --> 01:36:04,350
+apart from the population mean. And you can't really even see the population in this first panel.
+
+776
+01:36:04,830 --> 01:36:11,880
+It's really a thicker line and all the rest of the panels, but it's the same one that we've been using so far that goes from, on average, 50 to 60.
+
+777
+01:36:13,500 --> 01:36:19,739
+And the measurement error is relative to these other choices also small and so people aren't exactly
+
+778
+01:36:19,740 --> 01:36:24,990
+parallel to the population mean once you add in the measurement error on the previous slide,
+
+779
+01:36:24,990 --> 01:36:31,380
+I didn't have the measurement errors. Every looked exactly parallel to the population line, but here I've added a measurement error.
+
+780
+01:36:31,620 --> 01:36:32,609
+It's small though,
+
+781
+01:36:32,610 --> 01:36:44,760
+so you kind of still say most people have a similar slope to the population mean and it hasn't you know hasn't really varied that much so.
+
+782
+01:36:46,270 --> 01:36:56,500
+These two plots over here are taking turns, making the measurement error bigger and making the random intercept turn bigger, but not both.
+
+783
+01:36:57,430 --> 01:37:08,200
+So here, the measurement error is huge compared to what we had in this first plot, but the random intercept variability is similar.
+
+784
+01:37:08,770 --> 01:37:16,300
+So really it does look like there are a lot of different heights here, but it's being caused by measurement error.
+
+785
+01:37:17,560 --> 01:37:21,700
+Rather than the random intercept. And so.
+
+786
+01:37:27,370 --> 01:37:35,409
+So it's messy. You kind of get these lines that are kind of crossing different slopes from the population slope that are messy.
+
+787
+01:37:35,410 --> 01:37:39,070
+And it's all caused by this measurement error being very different.
+
+788
+01:37:41,260 --> 01:37:46,870
+If you had very small measurement error but very large random intercept error,
+
+789
+01:37:47,170 --> 01:37:52,810
+the lines would still mostly look parallel because y one and y two are being measured pretty well.
+
+790
+01:37:52,930 --> 01:37:58,120
+Very little measurement error. But the random intercept is giving you the different heights of these lines.
+
+791
+01:37:59,050 --> 01:38:06,130
+And so this is what it looks like when you have low measurement error and high variability in the random intercept,
+
+792
+01:38:06,790 --> 01:38:10,630
+you still have not quite perfect parallel, but mostly.
+
+793
+01:38:11,960 --> 01:38:17,570
+Very similar to the population mean pattern. And then here's a hot mess where they're both big.
+
+794
+01:38:17,570 --> 01:38:25,700
+So this is very difficult to analyze when you have both big measurement error and big random intercept error.
+
+795
+01:38:26,420 --> 01:38:33,560
+Certainly you can sort of see the trends being similar to the population mean, but there's just a lot more variability around.
+
+796
+01:38:34,190 --> 01:38:38,510
+So you lose power for telling the story in this last situation a lot, you know?
+
+797
+01:38:42,050 --> 01:38:47,170
+So there's a connection. I can't believe, by the way, I haven't moved on to the next handout yet.
+
+798
+01:38:47,180 --> 01:38:54,110
+I'm dying a little inside. Is this really slow? Okay.
+
+799
+01:38:54,120 --> 01:38:58,459
+So I could speak fast. I could speak like Michigan speed instead of Texan speed.
+
+800
+01:38:58,460 --> 01:39:05,810
+I might do a little better here, but I wanted to make this connection between the compound symmetry.
+
+801
+01:39:05,810 --> 01:39:14,450
+When we used things like proc, gen mod and these correlation matrices and this random intercept model where we use proc mix,
+
+802
+01:39:14,450 --> 01:39:17,299
+there's actually a 1 to 1 relationship between the two.
+
+803
+01:39:17,300 --> 01:39:26,240
+In this one special case where there's, you know, you're assuming compound symmetry and the random intercept.
+
+804
+01:39:26,870 --> 01:39:32,029
+And so this is what the compound symmetry covariance structure looks like when you have three outcomes, right?
+
+805
+01:39:32,030 --> 01:39:36,679
+So you're assuming equal variability for all three outcomes and similar
+
+806
+01:39:36,680 --> 01:39:40,489
+correlation regardless of which two of the three outcomes you're thinking about.
+
+807
+01:39:40,490 --> 01:39:45,290
+This is the compound symmetry or the exchangeable correlation assumption.
+
+808
+01:39:46,130 --> 01:39:54,980
+And the random intercept model assumes this that, you know, for every outcome, you know,
+
+809
+01:39:54,980 --> 01:40:00,020
+the variability is that random intercept variability plus the variability due to random error.
+
+810
+01:40:00,140 --> 01:40:05,030
+And that that's going to be the case for why one why do why three But the random
+
+811
+01:40:05,030 --> 01:40:13,220
+intercept is only got the random intercept variability for these off diagonal terms.
+
+812
+01:40:14,000 --> 01:40:17,480
+And so it's it's kind of a similar looking pattern, right?
+
+813
+01:40:17,690 --> 01:40:24,080
+The numbers across the diagonals. This is going to be the same numbers, this and this.
+
+814
+01:40:24,410 --> 01:40:28,489
+And that's the same thing we assumed over here that those numbers on that diagonal will be the
+
+815
+01:40:28,490 --> 01:40:35,270
+same something and the off diagonal terms we're all assuming to be equal to one another as well.
+
+816
+01:40:35,270 --> 01:40:37,070
+And this model does that to.
+
+817
+01:40:38,330 --> 01:40:50,000
+And so you can actually solve for, you know, the notation that goes with compound symmetry versus the notation that goes with random intercept and.
+
+818
+01:40:50,360 --> 01:40:55,360
+And they're going to be algebraically linked to each other in this way.
+
+819
+01:40:55,370 --> 01:40:57,379
+So if instead,
+
+820
+01:40:57,380 --> 01:41:05,240
+if I start off with this compound symmetry and I want to figure out what the random intercept variability in the random error variability is,
+
+821
+01:41:05,510 --> 01:41:08,630
+I can actually get that from this compound symmetry matrix.
+
+822
+01:41:09,140 --> 01:41:13,070
+So for sigma squared y, all I have to do.
+
+823
+01:41:14,180 --> 01:41:17,839
+Is look at any of these off diagonal terms and that should be sigma squared.
+
+824
+01:41:17,840 --> 01:41:23,299
+Why? That's what's happening here. And four sigma squared for the error.
+
+825
+01:41:23,300 --> 01:41:27,290
+I just had to pick this diagonal term and set it equal to sigma squared.
+
+826
+01:41:28,420 --> 01:41:32,390
+And solve. For the thing with squirt air.
+
+827
+01:41:32,750 --> 01:41:41,330
+So whenever you have a compound symmetry, covariance structure and you have makes a random intercept model,
+
+828
+01:41:41,780 --> 01:41:45,410
+you should be getting the same inference there algebraically linked.
+
+829
+01:41:47,210 --> 01:41:52,970
+The random intercept model is a bit more flexible though because it doesn't really care if you
+
+830
+01:41:52,970 --> 01:42:00,290
+get your measurements all at the same times and have a pretty covariance matrix that goes with,
+
+831
+01:42:00,620 --> 01:42:05,150
+you know, this entry is correlating the column of first variable and second variable.
+
+832
+01:42:05,690 --> 01:42:11,179
+This column, this entry of the matrix is correlating the first variable with the third variable.
+
+833
+01:42:11,180 --> 01:42:19,400
+It doesn't care about the measurements being lined up perfectly, so you can have a column of numbers to correlate for any of the variables.
+
+834
+01:42:19,850 --> 01:42:28,670
+So the random intercept model only cares that you're describing this line and you can have as many mem measures on that line as you want.
+
+835
+01:42:29,580 --> 01:42:34,560
+It doesn't care how many you have, it's thinking about it only as the height of the line is different.
+
+836
+01:42:34,830 --> 01:42:41,729
+Every measurement has some air to it. And so it generalizes a bit more so for balanced data where every individual
+
+837
+01:42:41,730 --> 01:42:46,050
+has the same number of outcomes measured in the same way at the same time, either model's easy to use,
+
+838
+01:42:47,100 --> 01:42:50,550
+it's easy to write at a covariance matrix to represent variability,
+
+839
+01:42:50,790 --> 01:42:59,430
+but for unbalanced data with different numbers of outcomes in each matched set, the random intercept was much easier for describing variability.
+
+840
+01:42:59,760 --> 01:43:05,450
+Like trying to decide what column variables should go in when they have weird measurement times.
+
+841
+01:43:05,460 --> 01:43:11,200
+It's just a nightmare and probably not a really great way of trying to describe the data.
+
+842
+01:43:11,550 --> 01:43:16,920
+But this random height of the lines is really easy to extrapolate to that situation.
+
+843
+01:43:19,050 --> 01:43:27,900
+So matrix notation when you have balance data is available but not necessary when you're using mixed.
+
+844
+01:43:28,500 --> 01:43:33,680
+And this is this is just a summary slide of notation.
+
+845
+01:43:33,720 --> 01:43:40,500
+This is going to be a slide that appears in a lot of the different handouts, just to remind you of what the notation looks like.
+
+846
+01:43:40,500 --> 01:43:45,210
+And so in long format, we're going to have a person's data look like one one, one, one, one,
+
+847
+01:43:45,510 --> 01:43:51,780
+and then all of the outcomes that are correlated within that individual subscripts are
+
+848
+01:43:51,780 --> 01:43:55,530
+going to be important for describing which outcome for that individual we're talking about.
+
+849
+01:43:56,070 --> 01:44:04,080
+And excuse me and you know, which what correlation we're assuming for any two of the pairs.
+
+850
+01:44:04,290 --> 01:44:12,540
+But so I'm going to kind of keep bringing up this slide five once every class is to remind you of the notation as you get used to it.
+
+851
+01:44:12,960 --> 01:44:18,030
+And similarly here, this is just a review of.
+
+852
+01:44:19,060 --> 01:44:22,180
+How you refer to all these things in both stats and ah,
+
+853
+01:44:22,180 --> 01:44:29,440
+so for independence I and for both SAS and ah if you want to have different variability across the diagonal,
+
+854
+01:44:29,830 --> 01:44:36,730
+it's type equals vs C and here for unstructured it's you run for both SAS and AH.
+
+855
+01:44:37,480 --> 01:44:43,600
+And if you want to have a covariance matrix unstructured, you're assuming this kind of pattern.
+
+856
+01:44:45,190 --> 01:44:51,399
+And so on. So we've kind of gone over all of these already, but I'm going to review every time a little bit of this,
+
+857
+01:44:51,400 --> 01:44:55,990
+just until you get used to it that this is all the correlation structures.
+
+858
+01:44:56,620 --> 01:45:03,820
+And so with 5 minutes left, I am going to I'm going to look at the next handout and figure out what would be useful for your brain to chew on.
+
+859
+01:45:04,000 --> 01:45:09,190
+Okay. And so we're not going to get deep into it, but I want to have your brain chewing.
+
+860
+01:45:09,520 --> 01:45:12,890
+I think it's healthy. So we're going to.
+
+861
+01:45:17,470 --> 01:45:25,300
+We're going to take a deeper dive into crossover trials. So this is one step above a paired T test because we're going to covariates.
+
+862
+01:45:25,960 --> 01:45:32,140
+And so I'm going to have your brain to on.
+
+863
+01:45:33,610 --> 01:45:37,810
+Cross that one on one and one on. I want to do whatever I want to exercise your brain with.
+
+864
+01:45:39,260 --> 01:45:43,730
+I think what I'm going to do is I'm just going to remind you about what crossover trials look like.
+
+865
+01:45:44,090 --> 01:45:52,669
+And that's this graphic here. We've talked a little bit about crossover trials earlier in our handout where
+
+866
+01:45:52,670 --> 01:45:56,360
+we're talking about different ways to have controls and that sort of thing.
+
+867
+01:45:56,810 --> 01:46:03,440
+But this is a graphic of when you have two treatment periods, what does a crossover trial typically look like?
+
+868
+01:46:04,070 --> 01:46:14,030
+And the best crossover trials are randomized trials, and what they tend to randomize to is the order with which you're going to get two treatments.
+
+869
+01:46:15,770 --> 01:46:24,440
+And so each participant is going to get both treatment A and treatment B, but the order of which one they get first, you randomize that part.
+
+870
+01:46:24,440 --> 01:46:30,110
+So if you get randomized to this arm, they're going to measure some baseline data.
+
+871
+01:46:30,110 --> 01:46:36,500
+Sometimes it's called pretest. You might have had like pretest post test kind of language and some other courses.
+
+872
+01:46:36,770 --> 01:46:43,729
+So they're going to measure some pretest data, maybe apply treatment A and then get some follow up data or post test data.
+
+873
+01:46:43,730 --> 01:46:46,760
+So that's the data that's going to help understand what's going on.
+
+874
+01:46:46,760 --> 01:46:54,770
+When that person's on treatment, a then that person will have a washout period where all the effects of treatment are supposed to go away.
+
+875
+01:46:55,070 --> 01:46:59,900
+They're supposed to get reset to a baseline that's similar to the baseline over here.
+
+876
+01:47:00,260 --> 01:47:07,669
+And then so they collect the new baseline data. And if this design is a good design to use, these two pretest should be similar.
+
+877
+01:47:07,670 --> 01:47:14,150
+You should be back to the same state of health when that treatment gets a chance to attack the problem.
+
+878
+01:47:14,660 --> 01:47:21,950
+So they get treatment B here and then they get follow up data for treatment B, so that's if you get randomized to get treatment first,
+
+879
+01:47:22,220 --> 01:47:27,200
+otherwise you're randomized to get treatment B first, everything else is the same.
+
+880
+01:47:27,200 --> 01:47:34,459
+You have pretest data before treatment B and before treatment A and follow up data process
+
+881
+01:47:34,460 --> 01:47:39,860
+data after treatment B after treatment A the crossover trial has this washout period,
+
+882
+01:47:39,860 --> 01:47:44,660
+and the whole goal of this washout period is to make the pretest comparable again.
+
+883
+01:47:44,870 --> 01:47:54,920
+All the treatment effects have to go away. The health status should be stable enough so that each treatment gets a fair shot at fixing the problem.
+
+884
+01:47:55,700 --> 01:48:05,509
+So there. There's a lot to kind of talk about, not just the analysis and how these different procedures handle the correlation.
+
+885
+01:48:05,510 --> 01:48:07,430
+You can see there's correlated data here, right?
+
+886
+01:48:07,850 --> 01:48:15,020
+Because there's going to be post test data over here when they're on treatment, a and post-test data over here when they're in treatment.
+
+887
+01:48:15,290 --> 01:48:18,650
+That's two correlated outcomes in that person.
+
+888
+01:48:18,890 --> 01:48:24,880
+And there's going to be two correlated outcomes in people who have the ordering was reversed.
+
+889
+01:48:24,890 --> 01:48:29,540
+Right? So we're already in kind of we have some independent outcomes.
+
+890
+01:48:29,540 --> 01:48:37,729
+We're analyzing how they did on treatment versus B is very important in the study, but we have all these covariates to that we need to think about.
+
+891
+01:48:37,730 --> 01:48:42,330
+We have the order with which they got the treatment. That's a covariate.
+
+892
+01:48:42,840 --> 01:48:47,069
+We have potentially pretest data if we don't always get that.
+
+893
+01:48:47,070 --> 01:48:51,750
+Frankly, that could be a covariate. We have the period.
+
+894
+01:48:51,750 --> 01:48:59,970
+Did they get treatment first or second? We have the period of where they got the treatment a you know, that's a covariate.
+
+895
+01:49:00,510 --> 01:49:07,140
+And so we have to think about how to model these outcomes with covariates to understand what's going on.
+
+896
+01:49:07,560 --> 01:49:11,340
+And we can probably come up with a way to analyze this.
+
+897
+01:49:11,340 --> 01:49:16,800
+If we look at the difference in post-test outcomes and we reduce the dimension of the outcome to a single number.
+
+898
+01:49:17,310 --> 01:49:20,490
+So what do we lose by doing that? Do we lose anything by doing that?
+
+899
+01:49:22,440 --> 01:49:32,130
+Is there an advantage to keeping it as modeling the two outcomes using this production model or random effects or whatever we choose to do?
+
+900
+01:49:33,240 --> 01:49:34,350
+So we need to understand, you know,
+
+901
+01:49:34,350 --> 01:49:40,979
+where can we lean on things we've used in the past to understand what's going on with the data and where when do we start getting
+
+902
+01:49:40,980 --> 01:49:48,930
+benefits of treating these as outcomes that we model in in this more sophisticated way with covariance structures and that sort of thing?
+
+903
+01:49:49,230 --> 01:49:55,950
+So we're going to work through that again, simple example, but it's not that simple, even though there's just two outcomes per person.
+
+904
+01:49:56,220 --> 01:50:03,390
+But it's already we've got this level of complexity here. Where do we start seeing the advantages of thinking about these harder models?
+
+905
+01:50:04,020 --> 01:50:12,210
+So we're going to start that next time and I'll start I'll try to practice speaking like a michigander instead of a Texan and go a little faster.
+
+906
+01:50:13,940 --> 01:50:15,920
+So we'll start on Slide 14 next time.
+

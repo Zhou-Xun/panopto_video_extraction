@@ -1,0 +1,1568 @@
+1
+00:00:02,460 --> 00:00:14,860
+Okey dokey. So welcome to our last lecture of appendix 36, where we're talking about multi-stage climate pension models in which we fit them to data.
+
+2
+00:00:15,850 --> 00:00:19,719
+A couple of announcements before we get started. The poll everywhere.
+
+3
+00:00:19,720 --> 00:00:26,440
+Our results were that overwhelmingly people wanted to be on Zoom, so 80% of the class voted for them.
+
+4
+00:00:26,440 --> 00:00:33,400
+So we'll do Zoom for the final presentations and I'll set up a survey on campus to do that.
+
+5
+00:00:34,690 --> 00:00:43,690
+I also posted rubrics for the paper and final presentation, which we can look at after the lecture today.
+
+6
+00:00:47,310 --> 00:00:57,870
+We see. So. Lab ten, which we started last week, will be due next Monday and we'll start the last lab lab 11 on Monday.
+
+7
+00:01:00,640 --> 00:01:10,350
+So yes, I think on campuses as the left tends to actually want to say, okay, if that is the case, then that's fine.
+
+8
+00:01:10,540 --> 00:01:18,520
+Or Thanksgiving break should be for an actual break in, not just having to do lots of work.
+
+9
+00:01:20,060 --> 00:01:25,540
+That goes for me as much as it goes for all of you. So whatever I said on campus is fine.
+
+10
+00:01:26,200 --> 00:01:32,140
+Okay. So to stage conceptual models, we've been working on the last several weeks.
+
+11
+00:01:32,920 --> 00:01:42,520
+Again, this idea of the mathematical expression of initiation promotion progression, which stem cells become initiated.
+
+12
+00:01:42,970 --> 00:01:51,480
+Initiated cells grow at a faster rate than normal stem cells that have some death rate and some rate to convert that progress to malignancy.
+
+13
+00:01:53,710 --> 00:01:57,820
+So let's talk a little bit about how we fit our models,
+
+14
+00:01:57,820 --> 00:02:11,469
+the data and the we have here data on the right hand side and that it's going to get connected to our simulations through an optimization algorithm.
+
+15
+00:02:11,470 --> 00:02:16,690
+So the optimization algorithm is going to find the best simulation that fits the data.
+
+16
+00:02:17,290 --> 00:02:25,870
+But how does it do that? It needs to be able to play around with model parameters.
+
+17
+00:02:26,350 --> 00:02:33,400
+So here on the left, we have the model parameters which impact the simulation.
+
+18
+00:02:34,840 --> 00:02:39,190
+But there's also other pieces that go into the simulation in model specification.
+
+19
+00:02:40,060 --> 00:02:46,390
+Is that a two stage model? Is it a three stage model, a different model that we're looking at, a multi stage transition model?
+
+20
+00:02:47,320 --> 00:02:55,030
+And if we're looking at a clinical suspension model, is there like individual level exposure data that we're taking into account that say,
+
+21
+00:02:55,060 --> 00:02:59,950
+oh, at this age you had this exposure, at this other age you had this other exposure.
+
+22
+00:03:00,370 --> 00:03:08,919
+And so that all together comes to give a single simulation that can be compared to data with what we call a likelihood,
+
+23
+00:03:08,920 --> 00:03:10,510
+which we'll talk a little bit more in a minute.
+
+24
+00:03:11,410 --> 00:03:17,790
+The optimization algorithm is going to be messing around with the model parameters and what finds the values that best fit the data.
+
+25
+00:03:18,220 --> 00:03:24,990
+The other two parts exposure data and model specification are fixed based on our research.
+
+26
+00:03:30,030 --> 00:03:33,720
+We're going to focus on fitting population data from cancer registries.
+
+27
+00:03:33,990 --> 00:03:40,590
+But really what we're talking about today can just as well be used for individual level data excuse me,
+
+28
+00:03:40,770 --> 00:03:44,430
+individual level data and individual exposure information.
+
+29
+00:03:47,520 --> 00:03:52,050
+Back in lecture six, we talked about the standard age period cohort model.
+
+30
+00:03:52,410 --> 00:03:58,739
+And there we assumed that age period and cohort effects were multiplicative on incidence.
+
+31
+00:03:58,740 --> 00:04:05,520
+So we had incidence as being a function of the number of people at risk at a given age period of cohort.
+
+32
+00:04:06,180 --> 00:04:10,919
+And we were to multiply that by this baseline incidence rate and the not an age
+
+33
+00:04:10,920 --> 00:04:15,360
+effect that tells us how that incidence rate changes in function of age and cancer.
+
+34
+00:04:15,360 --> 00:04:28,739
+We found that kind of increasing its age, how it affects how period changes so year to year changes, impact incidence and cohort effects.
+
+35
+00:04:28,740 --> 00:04:38,580
+So quite how you were born and how changes over time and exposures or behavior patterns can impact incidence.
+
+36
+00:04:41,090 --> 00:04:51,770
+And so what we're going to do in this model context is to replace the baseline incidents and age effects with the multi-stage expansion model hazard,
+
+37
+00:04:52,580 --> 00:05:02,060
+to say that I don't need a baseline incidence and an age effect which are sort of very flexible in the way that they work.
+
+38
+00:05:02,720 --> 00:05:08,300
+And to say actually now we know biologically that this multi-stage whole expansion model,
+
+39
+00:05:08,930 --> 00:05:15,200
+functional form, I should probably put an A in here as well actually,
+
+40
+00:05:15,500 --> 00:05:32,060
+which is a function of three parameters R.P and Q and A and H gives us four given a sum output that we can multiply by the number of people at risk,
+
+41
+00:05:33,560 --> 00:05:36,260
+we can still include period and cohort effects here.
+
+42
+00:05:36,470 --> 00:05:48,320
+And in fact, once we've constrained that next slide, once we've constrained the age effects to have the form of the multistage transmission hazard,
+
+43
+00:05:48,650 --> 00:06:00,230
+this model actually now becomes fully identifiable because age is no longer a flexible effect of period minus cohort.
+
+44
+00:06:00,680 --> 00:06:05,840
+It's a very fixed, fixed form. So that makes our lives a little bit easier.
+
+45
+00:06:09,980 --> 00:06:16,730
+We have to be a little bit careful here because if we remember the functional form for at least the
+
+46
+00:06:18,530 --> 00:06:25,850
+clothes that the clothes form for the fixed or constant parameter multistage one expansion model,
+
+47
+00:06:26,390 --> 00:06:37,970
+it's this, it's this, this form. Here we have our P times Q times this complicated exponential of Q in here.
+
+48
+00:06:38,570 --> 00:06:45,110
+And so if you think about how period and cohort effects are impacting this function,
+
+49
+00:06:46,010 --> 00:06:49,750
+it really ends up being this kind of like de facto assumption that.
+
+50
+00:06:50,120 --> 00:07:00,230
+Q That big and big C are impacting are because they're they're impacting P or Q They're taking all these kind of other things in a nonlinear way.
+
+51
+00:07:00,770 --> 00:07:05,149
+So the only linear effect could be.
+
+52
+00:07:05,150 --> 00:07:12,559
+R So we're really assuming that period and cohort effects are effective initiation, which is not necessarily the case, right?
+
+53
+00:07:12,560 --> 00:07:23,480
+Because if, if like some of these changes over, over time are changing like a promoter, that's not really necessarily the differential form.
+
+54
+00:07:24,110 --> 00:07:33,590
+So you could instead think about each of initiation and promotion and progression parameters
+
+55
+00:07:33,890 --> 00:07:40,129
+as having a period of time in effect and not really sure why I could see an MP for that one,
+
+56
+00:07:40,130 --> 00:07:46,820
+but there are also 3pc. This is a this is going beyond what I'm expecting you to do in this course.
+
+57
+00:07:46,820 --> 00:07:56,750
+But I just want to have this here as just to know that we don't necessarily have to think about our period card effects
+
+58
+00:07:56,760 --> 00:08:03,680
+affecting initiation only they can affect promotion if it's like smoking and smoking affects promotion potentially.
+
+59
+00:08:06,920 --> 00:08:14,390
+One thing you do have to be a little bit careful about is that if your cancer that you're investigating is one that is screened for.
+
+60
+00:08:16,100 --> 00:08:21,590
+So that affects things particularly prostate breast cancer, um,
+
+61
+00:08:22,670 --> 00:08:32,809
+lung cancer to be a little bit careful because what we impute as changes in initiation may not actually be changes initiation,
+
+62
+00:08:32,810 --> 00:08:41,870
+there may be changes in screening. And so that you're just catching more cancers because you're screening them through to get a little
+
+63
+00:08:41,870 --> 00:08:47,960
+bit careful in the way that you interpret any period or cohort effects on the initiation rate.
+
+64
+00:08:50,290 --> 00:08:53,429
+So I talked a little bit before about this likelihood function.
+
+65
+00:08:53,430 --> 00:08:59,980
+And so those of you in biostatistics are probably intimately familiar with likelihood functions, but if you're not,
+
+66
+00:09:00,130 --> 00:09:12,970
+a likelihood function connects an observed outcome to a parameter in the statistical distribution.
+
+67
+00:09:13,900 --> 00:09:21,160
+In this case, we're thinking about observed incidence and model incidence model incidence being our parameter for our distribution.
+
+68
+00:09:21,910 --> 00:09:37,260
+So if I want to think about the incidents at age A and period J being this function I at some given age period and an implicit birth cohort,
+
+69
+00:09:38,050 --> 00:09:47,140
+then I'm going to assume that my observed incidence comes from a person distribution with mean i.
+
+70
+00:09:47,590 --> 00:09:55,300
+I j with the mean of the modeled incidence because I was not the only thing you could do here.
+
+71
+00:09:56,020 --> 00:10:05,409
+You could do binomial, you probably do the negative binomial anything that I could probably do in normal.
+
+72
+00:10:05,410 --> 00:10:12,580
+But that's not really a typical assumption for something that has integer outcomes.
+
+73
+00:10:13,270 --> 00:10:17,980
+So if we assume Poisson distribution, then the likelihood for a single distribution,
+
+74
+00:10:18,370 --> 00:10:30,190
+the probability that the outcome was OJ is given by this formula E to the minus AJ times AJ raised to the oh AJ oh divided by oh.
+
+75
+00:10:32,980 --> 00:10:36,640
+We're not going to sort of talk about why this is the correct functional form for the purpose of
+
+76
+00:10:36,730 --> 00:10:43,660
+likelihood it's available in Google and in your biased sources or feel free to ask me after class.
+
+77
+00:10:46,990 --> 00:10:52,560
+If I want the likelihood for all observations then I have to take the product of
+
+78
+00:10:52,570 --> 00:10:58,960
+it is individual probabilities over i j so I take the probability of these forms.
+
+79
+00:10:59,560 --> 00:11:05,890
+Um, and often we're interested not, uh, these products are hard to work with,
+
+80
+00:11:06,160 --> 00:11:11,739
+so we usually like some's better, so we often will take the negative like likelihood of all observations.
+
+81
+00:11:11,740 --> 00:11:17,830
+We take the log of that function and then we can sum some of them up.
+
+82
+00:11:20,440 --> 00:11:30,760
+So how does this kind of connect to anything? We can still remember that I AJ is our simulation and our simulation is the function of our parameters.
+
+83
+00:11:31,360 --> 00:11:34,420
+Therefore, the likelihood is also a function of our parameters.
+
+84
+00:11:36,640 --> 00:11:47,070
+Right. So I did pencil in all parameters, but this little piece at the end, this log, a large factorial, this does not depend on the model parameters.
+
+85
+00:11:47,640 --> 00:11:54,480
+And it's usually the kind of, you know, especially if you're thinking of your observed incidents as being like thousands of things.
+
+86
+00:11:54,720 --> 00:12:01,590
+A factorial is just like an awful number to work with. So because it doesn't depend on the product, the product, the parameters at all,
+
+87
+00:12:01,770 --> 00:12:08,640
+we usually drop it and only need the relative negative log likelihood and not the absolute negative log likelihood.
+
+88
+00:12:09,540 --> 00:12:17,460
+So what I will probably many times just be like this is the negative log likelihood and that's not strictly true.
+
+89
+00:12:18,630 --> 00:12:23,670
+But I think I was careful in the code for this lab to be that this is the relative negative log likelihood.
+
+90
+00:12:24,630 --> 00:12:31,470
+But we, uh, it's easy to get caught in our sure trend.
+
+91
+00:12:32,790 --> 00:12:41,550
+Okay. So optimization. So we're going to be thinking in this class, it was primarily about maximum likelihood estimation.
+
+92
+00:12:42,060 --> 00:12:47,250
+You can also do things like Bayesian estimation, which is also totally fine,
+
+93
+00:12:47,580 --> 00:12:51,540
+but I think maximizing it is kind of the most straightforward to understand.
+
+94
+00:12:52,350 --> 00:13:01,440
+So we're going to find the parameters that maximize the likelihood that the data arose from those parameters.
+
+95
+00:13:01,620 --> 00:13:02,550
+Given your model.
+
+96
+00:13:05,120 --> 00:13:15,260
+And so that means just like thinking about it and being like, okay, the probability that I observe this number of cancers at this age in this year,
+
+97
+00:13:16,100 --> 00:13:23,569
+given that I know that this multi-stage clonal expansion model is underlying that and it has some initiation progression parameters,
+
+98
+00:13:23,570 --> 00:13:26,420
+and I know that there are changes in initiation over time.
+
+99
+00:13:26,900 --> 00:13:37,970
+So given all of these kind of moving pieces, what's the probability that all of the data collectively was came from this set of parameters?
+
+100
+00:13:39,420 --> 00:13:46,780
+Um, one thing that's nice is finding the maximum likelihood of quantifying the minimum negative log effect we had.
+
+101
+00:13:47,870 --> 00:13:55,730
+And finding the minimum negative likelihood is equal to finding the minimum relative negative likelihood which justifies dropping that factorial term.
+
+102
+00:13:57,140 --> 00:14:05,390
+And so our goal here is to use an optimization algorithm to find parameters that keep the minimum -100.
+
+103
+00:14:05,420 --> 00:14:11,860
+So that's a typo here. Okay.
+
+104
+00:14:12,070 --> 00:14:19,450
+So this can allow us to start thinking about comparing between models.
+
+105
+00:14:19,450 --> 00:14:24,370
+So any specific model I can find the minimum relative likelihood.
+
+106
+00:14:24,670 --> 00:14:27,730
+I can find the parameters that best fit.
+
+107
+00:14:28,390 --> 00:14:31,840
+Assuming they're identifiable, mean, assuming that they can be uniquely determined.
+
+108
+00:14:32,500 --> 00:14:38,260
+But I can start to compare models as well. And so I can say, like for my data, let me change the model specification.
+
+109
+00:14:38,290 --> 00:14:42,160
+So is a two stage model or a three stage expansion model?
+
+110
+00:14:42,370 --> 00:14:45,790
+A better explanation for the data that I see?
+
+111
+00:14:47,530 --> 00:14:52,300
+Should I put period and cohort effects on the R parameter, the P parameter or the Q parameter?
+
+112
+00:14:53,080 --> 00:14:58,270
+Or is that actually like over uh, does that not give me enough flexibility?
+
+113
+00:14:58,540 --> 00:15:06,610
+And really that one could argue they should be on Alpha or MU Zero or MI one underlying them.
+
+114
+00:15:06,850 --> 00:15:17,530
+We know that those parameters are not identifiable in the constant parameter context, but could they be and the parameters changing over time?
+
+115
+00:15:18,190 --> 00:15:23,530
+I actually don't know the answer to that. And so that could be, you know, an area for research in the future.
+
+116
+00:15:24,820 --> 00:15:32,080
+How do we do this model comparison? We've already used the information criterion in Lecture six for the APC models.
+
+117
+00:15:32,410 --> 00:15:36,250
+But just a refresher here.
+
+118
+00:15:36,610 --> 00:15:42,250
+The AC is two times the negative log likelihood, plus two times the number of parameters.
+
+119
+00:15:43,870 --> 00:15:49,510
+The negative log in, it puts a penalty on that fits and never parameters puts a penalty on overfitting.
+
+120
+00:15:50,470 --> 00:15:54,190
+Again, we don't necessarily care about absolute AC.
+
+121
+00:15:54,550 --> 00:15:59,890
+We have a relative AIC, so we can use a relative risk factor as well.
+
+122
+00:16:03,460 --> 00:16:09,940
+Okay. So just a couple of examples of what this has kind of looked like in the literature.
+
+123
+00:16:10,450 --> 00:16:20,320
+So we've seen this figure before, incidents of head and neck cancer, head and neck cancer that comes from sites that are likely history or related,
+
+124
+00:16:20,920 --> 00:16:25,480
+HPV, unrelated or if we want to separate oral tongue cancers out a little bit.
+
+125
+00:16:28,870 --> 00:16:40,029
+And in this model, this is actually my work from my Ph.D. thesis where we looked at two stage clonal expansion
+
+126
+00:16:40,030 --> 00:16:48,460
+model with our best fit or fitting period in current effects on either our P or Q.
+
+127
+00:16:49,090 --> 00:16:56,080
+I'm not going to kind of go into all of the P and Q. Let's just say that the best fit was with appearing in court effects on our.
+
+128
+00:16:59,040 --> 00:17:08,730
+And so what that allows us to do is think about how the incidents, for example, by cohort might be different as we look over time.
+
+129
+00:17:09,000 --> 00:17:16,570
+And so I think back in way back in Lab one, we did some work where looking at a specific incidence for different cohorts.
+
+130
+00:17:17,380 --> 00:17:19,020
+I think that was for head and neck cancer.
+
+131
+00:17:19,380 --> 00:17:26,790
+And so we can say like, okay, for our best fit model, what would that incidence look like at different cohorts?
+
+132
+00:17:27,480 --> 00:17:33,000
+Of course, we have less information about the more recent cohorts because they just haven't aged long enough to know.
+
+133
+00:17:33,750 --> 00:17:36,750
+But we can see how those fits related injury unrelated.
+
+134
+00:17:37,440 --> 00:17:43,049
+And so we can see how incidence is changing over time and not just look at the data,
+
+135
+00:17:43,050 --> 00:17:47,820
+but see what that means in terms of the underlying cohort effects of hazards.
+
+136
+00:17:49,380 --> 00:17:50,730
+Talk about hazards first.
+
+137
+00:17:52,140 --> 00:18:01,440
+In this work, we looked at how the hazards differed by sociodemographic subgroups who looked at white men, black men, white women and black women.
+
+138
+00:18:02,040 --> 00:18:09,660
+And so if we take out those period in cohort effects and we're just left with this kind of pure hazard, this is what we get.
+
+139
+00:18:11,460 --> 00:18:17,490
+So white men have the highest hazard of head and neck cancer and HPV related subsides.
+
+140
+00:18:18,600 --> 00:18:24,330
+So we see a couple of patterns actually in both PCV and HIV unrelated subsets.
+
+141
+00:18:24,720 --> 00:18:34,440
+Men have higher hazards in both cases, and that's actually reflected in a larger initiation or R parameter.
+
+142
+00:18:34,800 --> 00:18:42,350
+So we can see that that that our parameter controls the height of the asymptote of the two stage composition of.
+
+143
+00:18:44,750 --> 00:18:54,770
+But we also see that both black men and white actually black men and black women
+
+144
+00:18:55,160 --> 00:19:01,550
+have an earlier increase in their hazards compared to white men and white women.
+
+145
+00:19:02,300 --> 00:19:08,150
+So if we if you sort of compare this, the blue line, which is black women and the green line, which is white women,
+
+146
+00:19:09,470 --> 00:19:18,140
+the actually the asymptote for black women is a little bit lower, but that the increase in hazard starts almost ten years earlier.
+
+147
+00:19:19,400 --> 00:19:24,650
+And this is reflected in the P or promotion parameter in the model.
+
+148
+00:19:24,860 --> 00:19:30,890
+And so we can actually, again, just looking at the data through the lens of our model,
+
+149
+00:19:31,160 --> 00:19:35,570
+we can kind of say something about why these disparities are happening.
+
+150
+00:19:40,230 --> 00:19:44,820
+This is these are the cohort effects that we fed to the underlying.
+
+151
+00:19:45,060 --> 00:19:52,470
+They're a little bit ugly here and maybe a couple of too many degrees of freedom.
+
+152
+00:19:52,740 --> 00:19:58,380
+But what you can generally see is that these TV related websites have this really this increasing cohort effect.
+
+153
+00:19:58,390 --> 00:20:09,300
+So more recent cohorts have higher incidence issue and have neck cancer, whereas for the unrelated subsets, we generally see this decline over time.
+
+154
+00:20:10,050 --> 00:20:14,129
+Some of this willingness is probably just overfitting really.
+
+155
+00:20:14,130 --> 00:20:17,910
+They should have had confidence intervals on it and that would have been quite wide.
+
+156
+00:20:18,420 --> 00:20:27,030
+But reason was general general downward trend consistent with reduced use of combustible tobacco.
+
+157
+00:20:32,650 --> 00:20:36,370
+Questions so far about or about this first example.
+
+158
+00:20:42,280 --> 00:20:46,089
+So in the second example, I'm going to think about time.
+
+159
+00:20:46,090 --> 00:20:54,040
+Varying exposure is in what population level data can tell us about changes and exposures at the population level.
+
+160
+00:20:54,070 --> 00:21:02,110
+So what we're doing here is thinking about how the time during exposure and the MSI model can kind of give us cancer incidence trends,
+
+161
+00:21:02,560 --> 00:21:10,570
+but also how we can potentially go backwards and say, given this cancer incidence trend, what would the time during exposure have had to have been?
+
+162
+00:21:15,730 --> 00:21:20,800
+And so this idea of can we estimate risk factor prevalence from cancer incidence?
+
+163
+00:21:21,160 --> 00:21:29,500
+So the forward direction is straight forward. We have cancer incidence data where each teleological age and prevalence data are risk factor data.
+
+164
+00:21:29,890 --> 00:21:34,990
+We take that with our model parameter estimates and we get some inference in the cancer biology.
+
+165
+00:21:36,220 --> 00:21:42,670
+But if we do backward framework, if we take that cancer incidence data through the ones of our model to get both
+
+166
+00:21:42,670 --> 00:21:47,560
+the inference of the cancer biology as well as that of the age and prevalence,
+
+167
+00:21:49,810 --> 00:22:00,400
+comparing the model, they're basically the same, except that this initiation parameter is being impacted not just by some background initiation rate,
+
+168
+00:22:00,730 --> 00:22:04,180
+but by the prevalence of the logical agent or risk factor.
+
+169
+00:22:04,510 --> 00:22:08,559
+So really like for example, we might be thinking about how smoking changes over time,
+
+170
+00:22:08,560 --> 00:22:18,910
+if that's initiated or if HPV or other other types of viruses, likewise cancer oncogenic viruses.
+
+171
+00:22:21,070 --> 00:22:29,260
+So this is not an opportunistic virus, but it is a bacterium that can cause and is associated with gastric cancer.
+
+172
+00:22:29,500 --> 00:22:41,650
+Helicobacter pylori, Helicobacter pylori infections are not only in sort of low resource settings,
+
+173
+00:22:42,460 --> 00:22:47,920
+they are also high risk settings and are typically acquired in childhood, often from parents.
+
+174
+00:22:48,160 --> 00:22:50,950
+And generally speaking, persistence of treated.
+
+175
+00:22:51,310 --> 00:23:03,100
+They don't always cause disease, but they're associated with sort of like gastric inflammation, acid reflux.
+
+176
+00:23:03,460 --> 00:23:07,780
+And those symptoms, if they persist, can lead to gastric cancer.
+
+177
+00:23:08,650 --> 00:23:18,790
+And if we look at low prevalence in the United States over the last 100 years or so, we can see that it was about 80% prevalence,
+
+178
+00:23:19,450 --> 00:23:29,890
+around 1900 decreasing to 20% prevalence by 1980 or so, and probably gone lower since then.
+
+179
+00:23:31,990 --> 00:23:38,860
+And so if we take gastric cancer incidence and we take the prevalence data,
+
+180
+00:23:39,220 --> 00:23:43,660
+we should be able to model that cancer incidence and estimate the biological parameters.
+
+181
+00:23:44,680 --> 00:23:52,570
+And that's we can do that. So we're not instead of estimating just sort of general cohort effects,
+
+182
+00:23:53,200 --> 00:24:01,810
+we're using cohort data on a specific risk factor and kind of saying like, is that enough to explain the cancer incidence data?
+
+183
+00:24:02,230 --> 00:24:12,400
+And in this case, the answer is yes. We do a pretty good job of estimating gastric cancer, just knowing what the Helicobacter pylori prevalence was.
+
+184
+00:24:12,940 --> 00:24:19,570
+That's not saying that this is causal necessarily, but something is changing.
+
+185
+00:24:20,080 --> 00:24:23,800
+At the same time, the same way that each other prevalence is,
+
+186
+00:24:24,100 --> 00:24:30,850
+that could be assessed by standards of sanitation, for example, but it's changing a bit in the same way.
+
+187
+00:24:31,780 --> 00:24:37,660
+So we used this for the three parameter model and age appropriate pylori prevalence.
+
+188
+00:24:37,930 --> 00:24:41,290
+We can capture all of this time varying incidence.
+
+189
+00:24:42,130 --> 00:24:51,220
+Okay. So that that's great. Um, this one is a little bit easy because we said Helicobacter pylori remains until treated.
+
+190
+00:24:51,220 --> 00:24:56,380
+And so basically we can say that you're infected at birth and it's constant over your age.
+
+191
+00:24:57,940 --> 00:25:05,469
+Smoking is not like that. Smoking changes with age, prevalence does and studies.
+
+192
+00:25:05,470 --> 00:25:06,730
+Exposure changes with age.
+
+193
+00:25:06,970 --> 00:25:16,390
+We do have individuals doing profiles based on like the nurses health study, but that's not so useful here for kind of the the U.S. context.
+
+194
+00:25:17,500 --> 00:25:22,810
+So what we're gonna do here is, is look at these h period cohort models of smoking prevalence.
+
+195
+00:25:23,340 --> 00:25:31,450
+Um, this is by Holford and all four men and women over the last decades.
+
+196
+00:25:32,020 --> 00:25:32,980
+In the last hundred years.
+
+197
+00:25:33,460 --> 00:25:41,500
+And we're going to say if this is the prevalence of smoking and smoking affects initiation, cannot explain lung cancer incidence.
+
+198
+00:25:43,150 --> 00:25:51,400
+And we do a pretty good job. It's not perfect, but we can do a pretty good job of not saying it's like particularly bad for like the oldest cohorts.
+
+199
+00:25:51,830 --> 00:25:56,110
+Um, and you don't quite kind of capture some of these, these trends here.
+
+200
+00:25:56,500 --> 00:26:08,140
+But generally speaking, knowing prevalence for ages and over cohorts of smoking does pretty well line up with what we see for lung cancer.
+
+201
+00:26:08,710 --> 00:26:12,790
+And again, this is a really parsimonious model. This is a three stage quantification models.
+
+202
+00:26:12,790 --> 00:26:19,840
+So it's four parameters. Rather than three, but still not parsimonious, meaning two and not a lot of parameters.
+
+203
+00:26:20,170 --> 00:26:26,560
+So we're not overfitting. Okay. So that shows us going from prevalence to incidents.
+
+204
+00:26:27,160 --> 00:26:29,410
+What about incidents? Backwards to prevalence.
+
+205
+00:26:30,490 --> 00:26:38,200
+So previously we were we were using the prevalence to estimate incidence during go backwards to use incidents to estimate prevalence.
+
+206
+00:26:39,400 --> 00:26:42,580
+So let's first try that h pylori example.
+
+207
+00:26:44,350 --> 00:26:52,960
+What happens if we just take the incidence and see if we can estimate prevalence from that incidence?
+
+208
+00:26:53,980 --> 00:26:57,610
+How well would we have recovered the true prevalence?
+
+209
+00:26:58,150 --> 00:27:01,990
+And we actually do a pretty good job. So here's the black line.
+
+210
+00:27:01,990 --> 00:27:08,920
+Is that data again and the prevalence for men and women here and blue and red.
+
+211
+00:27:09,640 --> 00:27:12,160
+And that trend is pretty clear.
+
+212
+00:27:12,280 --> 00:27:21,790
+So again, we have this really clear connection between how the initiated agent of gastric cancer is changing over time.
+
+213
+00:27:22,450 --> 00:27:29,680
+It may not. And there's pretty good causal evidence that it's pylori, and this is consistent with that.
+
+214
+00:27:32,280 --> 00:27:37,380
+That's great. We could do this because we actually had the data already to double check with.
+
+215
+00:27:37,800 --> 00:27:43,920
+But if we don't have that. What's something that we don't test for?
+
+216
+00:27:44,280 --> 00:27:49,560
+And one answer is oral human, papilloma papillomavirus or oral HPV.
+
+217
+00:27:51,240 --> 00:28:06,270
+We do have some recent cross-sectional data, though. So in 2009, in 2010, that this prevalence of HPV in the world cavity was found to be bimodal,
+
+218
+00:28:06,780 --> 00:28:12,240
+meaning had two peaks, one around 25 and another around 55.
+
+219
+00:28:12,810 --> 00:28:19,200
+And there was a lot of sort of discussion in the literature about whether this is somehow
+
+220
+00:28:19,200 --> 00:28:26,370
+a cohort effect where it's just a group of people who had HPV when they were younger,
+
+221
+00:28:26,520 --> 00:28:37,829
+just kind of aged up and never activity. Or is this like a symptom of baby boomer divorce and quote unquote,
+
+222
+00:28:37,830 --> 00:28:45,540
+section second sexual debut in which they're becoming sexually active and being infected with HPV?
+
+223
+00:28:47,610 --> 00:28:51,060
+So one thing that we were trying to do is say, okay,
+
+224
+00:28:51,260 --> 00:29:01,350
+we have this one snapshot of HPV prevalence and we know oral cancer incidence over the last decades.
+
+225
+00:29:01,680 --> 00:29:05,070
+Can you tell us about oral HPV?
+
+226
+00:29:06,940 --> 00:29:10,380
+Um, this is not this is largely a proof of concept.
+
+227
+00:29:11,580 --> 00:29:16,860
+So we need to see to see if these effects are really plausible.
+
+228
+00:29:17,160 --> 00:29:21,120
+So we need some reference point for understanding age specific prevalence.
+
+229
+00:29:21,630 --> 00:29:28,440
+And we're just going to assume that it has a similar shape to Servico genital HPV excuse me,
+
+230
+00:29:29,220 --> 00:29:33,930
+genital HPV prevalence, which we have a general sense of this shape.
+
+231
+00:29:34,890 --> 00:29:46,380
+So we have this. And let's say that like we do, we generally think that HPV prevalence peaks in young adulthood and decreases that therefore.
+
+232
+00:29:48,270 --> 00:29:59,880
+And so if we look at incidents and men and women trying to estimate this cohort change in HPV prevalence over time, we can do a pretty reasonable job.
+
+233
+00:30:00,000 --> 00:30:06,750
+It's not necessarily perfect here, but we're generally capturing the oral history of your oral trends.
+
+234
+00:30:07,380 --> 00:30:13,110
+Again, this is not necessarily HIV positive cancer, but it's sites that we generally associate with cancer.
+
+235
+00:30:13,590 --> 00:30:22,470
+COSBY And so what what does the model predict that prevalence would have looked like over time?
+
+236
+00:30:24,000 --> 00:30:28,050
+And so our cohort effects plausible here.
+
+237
+00:30:29,070 --> 00:30:36,690
+And for men we actually like in some of these cohorts see a bimodal pattern emerging.
+
+238
+00:30:38,820 --> 00:30:49,260
+It's not necessarily kind of perfectly aligned with what we see in the data, but again, we can kind of have this kind of hint of a bimodal pattern.
+
+239
+00:30:49,680 --> 00:30:58,140
+And so this work, again, is not sort of supposed to be like quantitatively true, but qualitatively or qualitatively recovering.
+
+240
+00:30:58,440 --> 00:30:59,720
+This bimodal distribution,
+
+241
+00:30:59,760 --> 00:31:12,450
+showing that cohort effects are at least a plausible explanation of the bimodal distribution of HPV high prevalence, meaning that,
+
+242
+00:31:12,600 --> 00:31:15,900
+okay, if I look at this prevalence,
+
+243
+00:31:16,740 --> 00:31:21,690
+that's going to have said that like there must have been something going on in the cancer incidence for this to be plausible.
+
+244
+00:31:21,960 --> 00:31:25,590
+And it's true, we basically find that. Okay.
+
+245
+00:31:26,100 --> 00:31:29,010
+So what was the point of all of this lecture?
+
+246
+00:31:30,690 --> 00:31:40,410
+The goal or the takeaway was really that these multisite expansion models can be fed to data in order to investigate a lot of different aspects,
+
+247
+00:31:41,130 --> 00:31:46,980
+one of which is comparison of mechanistic parameters across two sites sex, race or other variables.
+
+248
+00:31:47,460 --> 00:31:56,470
+So we saw that in and where we saw white and black men had higher initiation, but black men and women had higher promotion.
+
+249
+00:31:57,450 --> 00:32:02,550
+So we could potentially look at how period cohort effects affect evolution, promotion progression.
+
+250
+00:32:04,050 --> 00:32:09,150
+We can look at dose response to carcinogens, particularly given individual level data.
+
+251
+00:32:09,690 --> 00:32:15,690
+We're not going to do that in this class, but we can see it in the last lecture, particularly in the benzene example.
+
+252
+00:32:16,590 --> 00:32:24,150
+And you could think about population average prevalence of risk factors like we saw with gastric cancer, lung cancer and oral cancer.
+
+253
+00:32:24,900 --> 00:32:32,910
+Um, really, we're going to focus on this first bullet for this class as you kind of explore this model fitting for your cancer.
+
+254
+00:32:33,510 --> 00:32:41,430
+Um, but, you know, there's lots of other things that can be done with this framework.
+
+255
+00:32:43,750 --> 00:32:51,380
+Okay. I want to say a little bit about the screening normally or not normally.
+
+256
+00:32:51,460 --> 00:32:55,360
+Historically, there has been a kind of a lecture on screening in this course.
+
+257
+00:32:56,170 --> 00:33:01,660
+I'm cutting it out for a couple of reasons. One of which is that it's not really my area of expertise.
+
+258
+00:33:02,230 --> 00:33:06,940
+Second of which is we've kind of run out of time doing other things.
+
+259
+00:33:07,210 --> 00:33:14,920
+But I do want to at least say a little bit about what might be involved in doing screening models.
+
+260
+00:33:15,880 --> 00:33:28,180
+So we think both our multistage quantification models and our multistate models, the transition models have been used to model screening.
+
+261
+00:33:28,660 --> 00:33:39,090
+This is a multi-state transition model where we think about how a person has some probability of each year of getting an adenoma.
+
+262
+00:33:39,100 --> 00:33:43,100
+This is for colorectal cancer that adenoma can grow.
+
+263
+00:33:43,120 --> 00:33:48,790
+At some point you might be screened, detected, you may come into clinical cancer, at some point you may die.
+
+264
+00:33:49,120 --> 00:33:51,490
+So these are all just kind of probabilities of each year.
+
+265
+00:33:53,320 --> 00:34:02,020
+I've also seen multi-stage clonal expansion models that think about coming up with distributions of
+
+266
+00:34:02,020 --> 00:34:09,970
+both the number and the size of adenoma or polyps that you would find in colorectal cancer screening.
+
+267
+00:34:10,480 --> 00:34:18,400
+And so that is a little bit more of a complicated extension of multi-stage quantitation models,
+
+268
+00:34:18,670 --> 00:34:26,229
+but it's another way in which they're used to try to match data that you get from actual colonoscopies,
+
+269
+00:34:26,230 --> 00:34:29,080
+because they are like, Oh, we did this philosophy.
+
+270
+00:34:29,320 --> 00:34:37,810
+We found, you know, three adenomas that were less than five millimeters and one that was 6 to 9 and two that were rated a ten.
+
+271
+00:34:38,230 --> 00:34:42,550
+But the probability that that was would have been true for a person of this age.
+
+272
+00:34:43,150 --> 00:34:46,780
+And based on that, that tells us things about how the cancer is wobbling.
+
+273
+00:34:48,880 --> 00:34:52,240
+So those are things that can be done in the screening world.
+
+274
+00:34:54,270 --> 00:35:02,460
+Next week, we'll do lab 11, which broadly speaking, is just about fitting your cancer with an age period cohort, multi-stage, conceptual model.
+
+275
+00:35:03,240 --> 00:35:10,140
+I've given you most of the code. So largely it will be about documentation and interpretation.
+
+276
+00:35:12,270 --> 00:35:18,240
+And this is a good place to talk about the final project and then we'll talk about the rubrics.
+
+277
+00:35:19,170 --> 00:35:25,080
+The final project is to present a synthesis of the work that you've done in this class for one cancer.
+
+278
+00:35:25,890 --> 00:35:30,930
+And this will include a discussion of risk factors and epidemiological patterns of incidence and survival.
+
+279
+00:35:32,220 --> 00:35:38,340
+The idea is that you'll have a clear narrative here. It's not just going to be like, Here's my results from all the labs.
+
+280
+00:35:38,760 --> 00:35:45,330
+Let me just kind of like say them all labs 4 to 7 and 11 may be relevant here,
+
+281
+00:35:45,600 --> 00:35:49,410
+but you don't necessarily need to put all of them or all pieces of all of them.
+
+282
+00:35:51,120 --> 00:35:58,049
+I generally expect that you may need some additional analysis beyond what was done in the labs, but but not like huge amounts.
+
+283
+00:35:58,050 --> 00:36:07,950
+Mostly just like, oh, oh. I would have wanted the APC analysis for the combination of race cross sex and I didn't do that.
+
+284
+00:36:08,160 --> 00:36:11,160
+I'm going to do that for the final project, that kind of thing.
+
+285
+00:36:13,380 --> 00:36:18,420
+The goal will be in a bit ahead about 10 to 15 minutes with a couple of minutes for questions.
+
+286
+00:36:18,870 --> 00:36:22,440
+So the idea that everyone will ask at least one question from at least one presenter.
+
+287
+00:36:23,310 --> 00:36:32,560
+You can do this in pairs. You'll have to kind of talk about which cancer and do between you and the rubric is currently closed on canvas.
+
+288
+00:36:33,180 --> 00:36:36,720
+So I think we'll talk about that and then I'll close for questions.
+
+289
+00:36:39,350 --> 00:36:42,620
+Okay. So let's talk about the final presentation rubric.
+
+290
+00:36:42,890 --> 00:36:50,770
+First. So.
+
+291
+00:36:53,530 --> 00:36:58,720
+Printed in style. Assume that this is going to be a formal academic talk.
+
+292
+00:36:59,620 --> 00:37:04,780
+Please speak clearly and with sufficient volume if you are members of a group.
+
+293
+00:37:05,020 --> 00:37:11,350
+You have roughly had equal amounts of time. The slides are here to augment the presentation,
+
+294
+00:37:11,650 --> 00:37:21,640
+not to just read the text from the slides and are designed to convey information so that you can read the axes.
+
+295
+00:37:22,050 --> 00:37:29,780
+You're not. That's why we're not distracted by what's on the slide.
+
+296
+00:37:29,780 --> 00:37:33,500
+It's kind of clear that they're helping us understand what you're saying.
+
+297
+00:37:34,160 --> 00:37:40,399
+I'm partial to the assertion evidence approach for presentations,
+
+298
+00:37:40,400 --> 00:37:50,180
+which is that your title of your slide is a statement and that the rest of the slide is the evidence for that statement.
+
+299
+00:37:52,040 --> 00:37:53,749
+Some people kind of go overboard on that,
+
+300
+00:37:53,750 --> 00:37:59,510
+but I think it's a useful way to approach presentations so that we're not it's kind of like bullet point blow up and go,
+
+301
+00:38:00,380 --> 00:38:05,870
+Oh, I have to say that I sort of recognize that in my teaching slides kind of only get halfway there.
+
+302
+00:38:07,370 --> 00:38:14,750
+Okay. Your presentation should include an introduction that gives us enough background information on the cancer,
+
+303
+00:38:15,290 --> 00:38:20,059
+includes a discussion of risk factors in any well known broad epidemiological patterns.
+
+304
+00:38:20,060 --> 00:38:27,110
+So if it's generally understood that this cancer hat in women have higher incidence but they have lower mortality,
+
+305
+00:38:27,470 --> 00:38:31,670
+then that's kind of what we want now. So kind of at the level of what you did in my offer.
+
+306
+00:38:33,370 --> 00:38:42,010
+Um, the methods should be a clear but concise explanation of any of the models that are used in the presentation.
+
+307
+00:38:42,430 --> 00:38:52,670
+I'm not expecting you to be like and I have my drainpipe models and I have my ABC models and I have my MSE models and I have my survival.
+
+308
+00:38:52,760 --> 00:38:57,730
+So not everything has to be in the final presentation, but it should have.
+
+309
+00:38:58,540 --> 00:39:04,240
+But whatever models you're using to create your story need to be in the methods.
+
+310
+00:39:04,810 --> 00:39:07,240
+If you have multiple models, which I expect you will,
+
+311
+00:39:07,630 --> 00:39:12,910
+you want to think about whether you had all of your methods up front or you're doing method and results.
+
+312
+00:39:12,910 --> 00:39:18,970
+Method results and a priori, I don't know what makes the most sense for your story, but I want you to think about it.
+
+313
+00:39:21,070 --> 00:39:31,540
+The results in overall narrative should create a clear, compelling story about some epidemiological trends of interest for your cancer.
+
+314
+00:39:32,470 --> 00:39:38,650
+Again, not simply a graph dump of trends for all subgroups that can be kind of like mind numbing to be like,
+
+315
+00:39:38,650 --> 00:39:42,910
+Oh, okay, I have seen all of the different combinations. Some are doing this, some are doing that.
+
+316
+00:39:43,150 --> 00:39:44,980
+I don't I'm not really sure what the takeaway is.
+
+317
+00:39:45,400 --> 00:39:51,520
+So you may want to focus on just one or two important stories in detail rather than planning on giving this overwhelming interview.
+
+318
+00:39:51,520 --> 00:39:55,330
+So you might just be like, I'm just going to talk about, you know,
+
+319
+00:39:57,220 --> 00:40:08,590
+the interaction between sex and subtype or this is really going to be about like the difference between men and women, white versus Asian.
+
+320
+00:40:10,390 --> 00:40:14,740
+And so think about what what you want to talk about.
+
+321
+00:40:16,770 --> 00:40:21,000
+I'm kind of going along with this point. This is a synthesis.
+
+322
+00:40:21,420 --> 00:40:27,480
+So it's not just a pastiche of kind of piecing together of all the courses labs, but the integration of them.
+
+323
+00:40:27,990 --> 00:40:31,950
+And I'm kind of expecting one or two analysis that were not submitted in any lab.
+
+324
+00:40:32,370 --> 00:40:35,750
+And so you might kind of come at this from that thought process of, okay,
+
+325
+00:40:35,760 --> 00:40:42,960
+now that I've done all of the analysis that I've done in this course, I have one or two questions about trends for this group or that group.
+
+326
+00:40:43,330 --> 00:40:46,920
+I didn't really follow up on that in a later lab, but I can do that now.
+
+327
+00:40:48,150 --> 00:40:59,670
+So think about it from that perspective. I'm not worried about attendance in this class because in previous classes it's like there
+
+328
+00:40:59,670 --> 00:41:02,670
+have been multiple presentation things and some people only come to one or the other.
+
+329
+00:41:04,170 --> 00:41:10,920
+You're expected to be here and to ask at least one question of somebody else.
+
+330
+00:41:10,920 --> 00:41:17,640
+So you don't need to ask the question of everybody but at least one question of somebody and you need to respond to questions as well.
+
+331
+00:41:19,620 --> 00:41:24,960
+So I pause here for questions about the final project. Then I'll go through the rubric on the paper.
+
+332
+00:41:26,160 --> 00:41:30,360
+So the questions about the final project.
+
+333
+00:41:31,230 --> 00:41:34,680
+When is the worst weather conditions there? On the 14th?
+
+334
+00:41:35,070 --> 00:41:41,160
+From 4 to 6 p.m. that's our final time. And that will be on Zoom and I'll send it in.
+
+335
+00:41:41,580 --> 00:41:53,280
+The Zoom link will be on campus. So any summit on us or do we just hear you will submit the presentation, but there's no write up for this session.
+
+336
+00:41:53,760 --> 00:41:58,210
+Okay. We don't have to do.
+
+337
+00:41:58,640 --> 00:42:03,590
+We don't have to if we don't want to. Correct. Okay. So everyone can be individual.
+
+338
+00:42:05,870 --> 00:42:10,430
+We should have we have 2 hours. So with seven people, that would be fine.
+
+339
+00:42:11,240 --> 00:42:18,530
+Um, but I guess I'm expecting maybe one or two groups and um, the rest individual.
+
+340
+00:42:18,890 --> 00:42:27,000
+Um, kind of up to. So this was the final presentation.
+
+341
+00:42:28,470 --> 00:42:34,860
+The paper review there is that this is a seminal paper, less than 2000 words.
+
+342
+00:42:34,860 --> 00:42:38,280
+So this is not meant to be like a term paper.
+
+343
+00:42:38,760 --> 00:42:43,430
+It is a review of paper from the literature, the goal the.
+
+344
+00:42:44,010 --> 00:42:50,880
+What I want from this. So in addition to showing it to me beforehand, just to quickly sign off on it.
+
+345
+00:42:53,490 --> 00:42:59,370
+Description of the authors research question and including any background information on the public health problem.
+
+346
+00:43:00,480 --> 00:43:07,440
+To understand why it's important a discussion of why the research question is important,
+
+347
+00:43:07,830 --> 00:43:12,480
+including basically how the work is going to advance the field or or the impact of public health.
+
+348
+00:43:13,620 --> 00:43:22,320
+These are obviously both kind of going to go hand in hand include.
+
+349
+00:43:22,830 --> 00:43:26,490
+So imagine you're writing this for a general audience.
+
+350
+00:43:26,850 --> 00:43:30,750
+So give a concise but informative overview of the model, structure and important features.
+
+351
+00:43:31,290 --> 00:43:35,459
+This does not mean like, just like let's do all the states in the model and all the parameters in the model.
+
+352
+00:43:35,460 --> 00:43:41,220
+But but say in English words, what the what's going on?
+
+353
+00:43:41,850 --> 00:43:48,810
+You can even name parameters or name states if that's useful, but it should just be like I turned this table into words.
+
+354
+00:43:50,870 --> 00:43:56,629
+Describing the assumptions inherent to the model type. So maybe you're talking about the Markov model, the net Markov assumption,
+
+355
+00:43:56,630 --> 00:44:06,170
+if they're doing a multi state transition model or if it's the positive expansion model.
+
+356
+00:44:06,710 --> 00:44:16,100
+You're saying that like, oh, there's this, you know, we're assuming that we have an initiation promotion progression paradigm.
+
+357
+00:44:16,760 --> 00:44:25,340
+Oh, but that also, like the authors for their cancer, wanted to include this time dependent risk factor, something like that.
+
+358
+00:44:27,060 --> 00:44:31,400
+You'll summarize the key results and conclusions and provide an overall critique of the paper.
+
+359
+00:44:32,060 --> 00:44:35,870
+For this, I want you to assume that you're kind of writing for an academic journal.
+
+360
+00:44:36,200 --> 00:44:46,790
+So don't say things like, I think that this paper was great or say like, you know, imagine that you have academic stature and say like,
+
+361
+00:44:46,790 --> 00:44:56,120
+this paper has successfully accomplished this thing or like this paper like did not quite achieve its results.
+
+362
+00:44:56,450 --> 00:45:00,560
+And convincing me or convincing, you know, the reader of the first thing.
+
+363
+00:45:00,650 --> 00:45:06,860
+So if you have questions about that, I'm more than happy to clarify.
+
+364
+00:45:07,530 --> 00:45:12,410
+Um, but, but I guess just don't think about this as, you know,
+
+365
+00:45:13,730 --> 00:45:17,840
+an undergrad style paper where they're just kind of like, tell me what you think about this.
+
+366
+00:45:18,680 --> 00:45:21,950
+So think about it for an academic time.
+
+367
+00:45:22,040 --> 00:45:26,450
+So any questions about the paper?
+
+368
+00:45:28,190 --> 00:45:36,830
+Again, this is not meant to be a huge amount of work, but you take one paper and based on what you've learned in this class.
+
+369
+00:45:40,020 --> 00:45:45,450
+Give us a review. Don't academic papers you often use first person, though?
+
+370
+00:45:45,780 --> 00:45:47,980
+Usually plural, but. Sure.
+
+371
+00:45:48,840 --> 00:46:03,120
+So in particular, like in the context of um, like a research article, um, journals depend on whether they want passive voice or active voice.
+
+372
+00:46:03,120 --> 00:46:06,300
+And if you're using active voice, you'll say, like, we did this thing.
+
+373
+00:46:07,950 --> 00:46:16,350
+And so you might use the word we and, and like a review or commentary.
+
+374
+00:46:16,650 --> 00:46:24,330
+But generally speaking, the authors are making statements about the paper, not like, Oh, I thought that this was the case for this paper.
+
+375
+00:46:24,660 --> 00:46:28,140
+Um, I guess it's more like speak with authority or.
+
+376
+00:46:34,990 --> 00:46:39,600
+Anything else? That's all I have for today.
+
+377
+00:46:39,630 --> 00:46:46,910
+Maybe let's just touch base again on the let's see the calendar.
+
+378
+00:46:48,650 --> 00:47:01,480
+I put the calendar here. You know, I was in London. You know, do to see my calendar.
+
+379
+00:47:01,490 --> 00:47:05,030
+It's not helpful. Okay.
+
+380
+00:47:05,930 --> 00:47:13,640
+This is kind of small, but you'll see here we have the rest of the week where we have no more classes this week.
+
+381
+00:47:14,180 --> 00:47:17,300
+On Monday, we will have lab 11.
+
+382
+00:47:17,750 --> 00:47:28,280
+You'll have the 30th, the fifth and the seventh to work in class to finish up anything that you would like to work on that might include lab 11.
+
+383
+00:47:28,280 --> 00:47:31,730
+It may include the final project, and that may include the paper.
+
+384
+00:47:32,210 --> 00:47:43,100
+Um, I know that we've done a bunch of work in this class, but a lot of it has been kind of in classwork and yeah, I have.
+
+385
+00:47:43,100 --> 00:47:51,860
+So I'll mention I might do a slide on this, but I have forgotten two teaching evaluations.
+
+386
+00:47:51,860 --> 00:47:57,020
+I know you've all been invited to them. I cannot see them until after your grades are submitted, so don't worry about that.
+
+387
+00:47:58,730 --> 00:48:04,670
+They're extremely helpful to me and they're also actually extremely important to how I get reviewed as a faculty member.
+
+388
+00:48:05,570 --> 00:48:11,030
+And in fact, which is true for all faculty members. And they actually that impacts things like our salaries.
+
+389
+00:48:11,330 --> 00:48:19,910
+So now I so it's very helpful for you to respond to them in an honest way.
+
+390
+00:48:20,180 --> 00:48:25,280
+And so I'm just asking that you do however you feel is appropriate.
+
+391
+00:48:25,350 --> 00:48:32,959
+It can be sometimes a struggle to even get like 50% of people to respond to teaching evaluations.
+
+392
+00:48:32,960 --> 00:48:37,460
+So that's my my plan for doing so. Okay, I'll stop there.
+

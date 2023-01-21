@@ -1,0 +1,4092 @@
+1
+00:00:02,490 --> 00:00:24,150
+Okay. So we'll see how early the early to really get started.
+
+2
+00:00:25,040 --> 00:00:29,160
+I think it'll be a longer tour of the H.
+
+3
+00:00:29,280 --> 00:00:37,380
+Welcome to 1755. So before we get going, just to make announcements, reminders.
+
+4
+00:00:37,680 --> 00:00:42,540
+So there's a data use agreement that we would like you to upload, please.
+
+5
+00:00:42,960 --> 00:00:47,880
+That's an assignment on canvas. And I see that you have already done this.
+
+6
+00:00:48,900 --> 00:00:53,610
+And then the second is the peers modules. You don't you just need to do those.
+
+7
+00:00:53,610 --> 00:00:57,950
+You don't need to upload or send us anything because we can check on our end that you've done.
+
+8
+00:00:58,680 --> 00:01:02,020
+Let's start pestering you a week from today or so. Yeah.
+
+9
+00:01:02,550 --> 00:01:10,500
+For those of you who haven't done it so unless you like us to pester you, then you should do it before then.
+
+10
+00:01:13,500 --> 00:01:23,040
+Cool. So our plan for today is we're going to have about 15 minutes of lecture in order to take a break.
+
+11
+00:01:23,190 --> 00:01:26,310
+And we're going to come back to Project one questions.
+
+12
+00:01:26,580 --> 00:01:30,310
+And then there's a little presentation about what is the structure?
+
+13
+00:01:30,930 --> 00:01:34,520
+So that's the plan for the day. We'll do it.
+
+14
+00:01:34,950 --> 00:01:56,979
+So I think. I think I think if we want it recorded on Snapchat, you have to enable everything that way.
+
+15
+00:01:56,980 --> 00:02:00,560
+That thing. I think that's still out true.
+
+16
+00:02:01,010 --> 00:02:05,240
+Got it. Okay.
+
+17
+00:02:05,330 --> 00:02:14,390
+So today's lecture topic is principles of covariate selection, which I named something else under the lecture page.
+
+18
+00:02:15,260 --> 00:02:22,909
+So we're just going to start with this is sort of a bird's eye view of what a regression analysis might look like.
+
+19
+00:02:22,910 --> 00:02:26,930
+This is a flowchart that I like that was made by David Girard. And so I borrowed it.
+
+20
+00:02:28,460 --> 00:02:33,590
+So he has you start you do some exploratory data analysis.
+
+21
+00:02:33,590 --> 00:02:35,360
+Hopefully you guys have already started with that.
+
+22
+00:02:35,360 --> 00:02:41,929
+You've dug into the data a little bit, develop one or more regression models and then you have this sort of loop.
+
+23
+00:02:41,930 --> 00:02:51,320
+So you're looking, is this a suitable model? If it's not revised, go back to the top and keep going once you have a model that you think is suitable.
+
+24
+00:02:52,780 --> 00:02:58,840
+You make inference based on your model. So this is sort of the big picture of what a regression model might look like.
+
+25
+00:02:59,500 --> 00:03:05,980
+Today, I'm going to talk about some principles that you might use in this third step here.
+
+26
+00:03:05,990 --> 00:03:12,790
+Develop one or more tentative regression models. As we go forward, we'll talk about sometimes got animated.
+
+27
+00:03:13,630 --> 00:03:20,140
+We'll talk about some of these other steps. So in the future, we're going to talk about how do you tell if you have a good regression model or not?
+
+28
+00:03:20,440 --> 00:03:23,260
+And then how do you make inference based on that regression model?
+
+29
+00:03:25,000 --> 00:03:31,899
+So in particular today, what I'm focusing on is how do you know what variables you should put into your regression model?
+
+30
+00:03:31,900 --> 00:03:35,350
+Right. You might have start with a question.
+
+31
+00:03:35,350 --> 00:03:39,729
+Usually your question defines your primary exposure and your outcome.
+
+32
+00:03:39,730 --> 00:03:46,420
+So like your Y on the left and like the first X on the right and then you have maybe a bunch of other
+
+33
+00:03:46,420 --> 00:03:50,470
+stuff that you could put on the right and you're not sure if you should control for it or not.
+
+34
+00:03:51,400 --> 00:03:54,850
+So there's sort of two broad ways that you might make that decision.
+
+35
+00:03:55,090 --> 00:04:01,809
+One of them is knowledge based. So based on what you know about the system, about the science, etc., and one of them is statistical.
+
+36
+00:04:01,810 --> 00:04:04,930
+So you might do some kind of like statistical model building procedure.
+
+37
+00:04:07,610 --> 00:04:14,479
+So in some cases it may be most cases that you have more than a couple covariates that you're choosing from.
+
+38
+00:04:14,480 --> 00:04:20,090
+You might combine knowledge based and statistical tools so you don't have to just pick one or just pick the other.
+
+39
+00:04:20,810 --> 00:04:27,080
+So you might do something like use your knowledge to select an initial set of covariates that you're definitely going to put in,
+
+40
+00:04:27,290 --> 00:04:31,430
+maybe some that you're definitely not going to put in, maybe some candidates that you might put in.
+
+41
+00:04:31,640 --> 00:04:37,580
+And then you do use statistical tools to refine that model down to what you're definitely going to use at the end.
+
+42
+00:04:38,450 --> 00:04:43,190
+So today I'm going to talk about knowledge based covariate selection strategies,
+
+43
+00:04:43,430 --> 00:04:47,300
+and in the future we're going to talk about statistical model building tools.
+
+44
+00:04:49,340 --> 00:04:53,990
+So I'm going to talk about this mostly from the viewpoint of causal principles.
+
+45
+00:04:54,380 --> 00:04:58,340
+And I'm going to argue that it's a good idea to think about causal principles,
+
+46
+00:04:58,340 --> 00:05:03,020
+even if the question that you're trying to answer is not explicitly a causal question,
+
+47
+00:05:03,200 --> 00:05:09,950
+but thinking about these ideas is going to help you get closer to what you might sort of vaguely say is like an interesting answer.
+
+48
+00:05:11,950 --> 00:05:21,810
+And so the first step in any analysis is I like this idea of putting a question that you're trying to answer into one of four buckets.
+
+49
+00:05:21,830 --> 00:05:25,040
+So the first bucket that I have is like a causal effect estimation.
+
+50
+00:05:25,040 --> 00:05:29,599
+So this is sort of like maybe like the ideal thing that we would like to do in science.
+
+51
+00:05:29,600 --> 00:05:31,490
+We want to know why did something happen, right?
+
+52
+00:05:31,850 --> 00:05:39,110
+And so my example of a causal effect question is do higher levels of vitamin D prevent bone fractures in elderly adults?
+
+53
+00:05:39,110 --> 00:05:42,620
+So we know this is a causal question because we have this word prevent in there
+
+54
+00:05:42,620 --> 00:05:47,870
+and that sort of inferring some relationship between vitamin D and bone fractures.
+
+55
+00:05:49,160 --> 00:05:55,190
+There's a prediction question. So given patient characteristics, can we identify individuals with higher disease risk?
+
+56
+00:05:55,580 --> 00:06:02,380
+So there's no causal effect there. I just have information that I want to put in and I have something I want to predict at the end.
+
+57
+00:06:03,470 --> 00:06:08,000
+Description. Question So here we have how do graduate school admission rates differ by gender?
+
+58
+00:06:08,000 --> 00:06:12,260
+So I'm not necessarily trying to understand why they might differ by gender.
+
+59
+00:06:12,260 --> 00:06:15,260
+I'm just trying to describe how they differ by gender.
+
+60
+00:06:15,770 --> 00:06:21,860
+And then hypothesis generation is this is something that you might do when you have like
+
+61
+00:06:21,950 --> 00:06:26,540
+lots of possible access and you're not sure what the right question is even to begin with.
+
+62
+00:06:26,540 --> 00:06:30,290
+So we do this in genomics a lot or like Multi-omics.
+
+63
+00:06:30,290 --> 00:06:33,590
+So one example is which metabolites are associated with drug response.
+
+64
+00:06:33,800 --> 00:06:38,120
+Maybe I have a thousand metabolites and I just want to know, are any of these useful?
+
+65
+00:06:38,300 --> 00:06:41,300
+So I'm I haven't even really gotten to the right question.
+
+66
+00:06:41,300 --> 00:06:46,490
+My, my question is, tell me what question to ask. So I'm going to pause here.
+
+67
+00:06:47,000 --> 00:06:52,010
+Do people have ideas about what kinds of questions project one might fall into?
+
+68
+00:06:58,360 --> 00:07:02,160
+Description. Can you say your name also is my. I'm Sam. It'll help us like.
+
+69
+00:07:02,460 --> 00:07:07,960
+Yeah. Yeah, kind of. Question. Can you say more about, like, which which question and project one seems like description to you,
+
+70
+00:07:08,740 --> 00:07:15,040
+like asking how does race or how does the difference in the two oxygen measurements differ by race?
+
+71
+00:07:15,220 --> 00:07:18,380
+Yeah, I think that makes sense to me. That seems reasonable.
+
+72
+00:07:18,400 --> 00:07:22,950
+Anybody else? Any other questions that might be any of these categories?
+
+73
+00:07:24,100 --> 00:07:27,249
+EK. My name's Lauren. Prediction.
+
+74
+00:07:27,250 --> 00:07:32,560
+I was thinking the question of what is the right threshold for black patients versus white patients?
+
+75
+00:07:32,980 --> 00:07:36,400
+Yeah, especially the way that's phrased. It does sound like a prediction that's going to be.
+
+76
+00:07:38,780 --> 00:07:47,790
+Nobody else. Yeah, I think I think those are sensible answers.
+
+77
+00:07:47,790 --> 00:07:54,059
+I think depending on how you pass it, you might think of this like differences between black patients and white patients.
+
+78
+00:07:54,060 --> 00:07:57,480
+You could think of that as an association question as well as a description question.
+
+79
+00:07:57,480 --> 00:08:00,900
+There's kind of like a fuzzy edge between those those categories.
+
+80
+00:08:02,040 --> 00:08:06,390
+Yeah, I like both of those answers. Okay.
+
+81
+00:08:06,720 --> 00:08:14,460
+So if the question that we've identified is explicitly causal, then we have to be very explicit about our causal assumptions.
+
+82
+00:08:14,820 --> 00:08:25,080
+However, even in like a descriptive or association question, prediction question, these can also benefit from causal thinking.
+
+83
+00:08:25,410 --> 00:08:29,250
+So often when we're trying to describe something and we're trying to predict something,
+
+84
+00:08:29,250 --> 00:08:33,209
+we want to do it in a way that's going to transfer to other settings, right?
+
+85
+00:08:33,210 --> 00:08:41,160
+So if I can predict very well patient outcomes in my particular database,
+
+86
+00:08:41,160 --> 00:08:47,940
+but I'm doing it based on information that's irrelevant to, let's say, another database.
+
+87
+00:08:48,330 --> 00:08:53,850
+That's not maybe the goal that I want to get at similarly association.
+
+88
+00:08:53,850 --> 00:08:57,809
+Often our goal isn't just to describe.
+
+89
+00:08:57,810 --> 00:09:01,799
+We want to describe in a way that is like meaningful in some way, right?
+
+90
+00:09:01,800 --> 00:09:10,410
+That we can say not just, oh, I wanted to know these two numbers, but I wanted to know like something about the details of these two numbers.
+
+91
+00:09:11,160 --> 00:09:17,010
+So in this example that I gave for description, we had this question How do graduate school admission rates differ by gender?
+
+92
+00:09:17,160 --> 00:09:25,979
+So there's no causal language in that question. But as we answer the question, it's useful to think about why admission rates might differ by gender,
+
+93
+00:09:25,980 --> 00:09:29,040
+because that's probably motivating why we're asking the question, right?
+
+94
+00:09:29,040 --> 00:09:36,410
+So one possibility is that men and women apply to different programs at different rates based on their qualifications.
+
+95
+00:09:36,420 --> 00:09:40,889
+Right. So we could have we could observe that women have a higher acceptance rate if just
+
+96
+00:09:40,890 --> 00:09:44,900
+the pool of female applicants is more qualified on average than a pool of male.
+
+97
+00:09:45,120 --> 00:09:47,970
+So that's one reason that might explain a difference.
+
+98
+00:09:48,120 --> 00:09:53,430
+Another possibility is that admissions committees are displaying some kind of gender bias in who they admit.
+
+99
+00:09:54,780 --> 00:10:00,509
+So given that we've thought through all of this and we know something about how admissions committees make decisions,
+
+100
+00:10:00,510 --> 00:10:08,580
+right, we know that they use GPA is we know that they use test scores. And we might decide that as we do this mostly descriptive analysis,
+
+101
+00:10:08,760 --> 00:10:14,249
+it's going to be interesting to describe admission rates, not just overall at the school,
+
+102
+00:10:14,250 --> 00:10:22,980
+but by department and conditional on test scores, etc., because it's going to be sort of interesting without necessarily being causal.
+
+103
+00:10:24,570 --> 00:10:29,920
+There are questions here. Okay.
+
+104
+00:10:30,080 --> 00:10:37,190
+So before we jump into how do we pick what variables to condition on, just say a couple of words about how do you conditioned on a variable.
+
+105
+00:10:37,460 --> 00:10:43,260
+So the first three on this slide might be things that you have not seen before.
+
+106
+00:10:43,280 --> 00:10:48,349
+So the first one is matching. And so this it usually happens at the level of a study design.
+
+107
+00:10:48,350 --> 00:10:56,030
+So I might know that there is variables before I do the study that I want to condition and instead of conditioning on it later,
+
+108
+00:10:56,030 --> 00:10:59,350
+I'm going to match people as they come into the study. So I'm going to match the money.
+
+109
+00:10:59,370 --> 00:11:07,100
+So if I have a case who comes into the study, who's 53, I'm going to find a control, who's 53 and try to get them into the study.
+
+110
+00:11:07,550 --> 00:11:12,920
+I'm matching, as you can tell from that example, mostly done in case control studies.
+
+111
+00:11:13,580 --> 00:11:22,309
+I think that there probably are matching extensions for non case control applications, but it's less obvious how to do that stratification.
+
+112
+00:11:22,310 --> 00:11:29,510
+So I can just do two full separate analyzes, let's say in men and women, etc.
+
+113
+00:11:29,510 --> 00:11:34,249
+So this strategy sort of only works when you can take your variable that you
+
+114
+00:11:34,250 --> 00:11:37,190
+want to condition out and break it up into a discrete number of categories.
+
+115
+00:11:38,150 --> 00:11:43,670
+Weighting and adjusting for propensity scores are two methods that we will talk about later.
+
+116
+00:11:43,790 --> 00:11:49,519
+I think hopefully in the semester and today I'm mostly imagining that you're going to conditioned on
+
+117
+00:11:49,520 --> 00:11:54,499
+these covariates probably in the way that you're used to doing by putting them into a regression model.
+
+118
+00:11:54,500 --> 00:11:58,160
+So adding them in as X is in that regression model.
+
+119
+00:11:59,990 --> 00:12:03,650
+So this is the most common probably approach for conditioning on a variable.
+
+120
+00:12:04,580 --> 00:12:07,790
+In order for this to do what you're hoping it will do,
+
+121
+00:12:07,790 --> 00:12:15,050
+it sometimes requires that you are creating or flexibly parameter as your variables and we'll talk a little bit about that later.
+
+122
+00:12:15,380 --> 00:12:18,590
+And then there's limitations to what you can do with this strategy.
+
+123
+00:12:21,320 --> 00:12:24,530
+So causal diagrams. I like causal diagrams a lot.
+
+124
+00:12:24,530 --> 00:12:33,830
+Not everyone likes them a lot, but I think they're a nice way of graphically displaying how you're thinking about the system that you're working in.
+
+125
+00:12:34,160 --> 00:12:40,490
+So it's a nice way to start working on your problem because it's a way to get a picture of what you're thinking about.
+
+126
+00:12:40,880 --> 00:12:45,530
+So a causal diagram, you've got nodes and arrows, right?
+
+127
+00:12:45,530 --> 00:12:48,770
+Your nodes are variables. You're going to draw an arrow between two nodes.
+
+128
+00:12:48,890 --> 00:12:53,570
+If you think that the one on the end of the arrow causes the one at the point of the arrow.
+
+129
+00:12:54,710 --> 00:12:58,100
+So you should generate your initial graph from background information.
+
+130
+00:12:58,120 --> 00:13:01,189
+So from talking to your collaborator, not from looking at the data, right?
+
+131
+00:13:01,190 --> 00:13:04,460
+So now by looking and saying, Ooh, these variables are associated, I'm going to draw an arrow.
+
+132
+00:13:06,440 --> 00:13:09,530
+You can make multiple of these graphs, right?
+
+133
+00:13:09,540 --> 00:13:17,420
+You can go back and talk to your collaborator and say, Does this what you meant when you told me this or do you think anything's missing here?
+
+134
+00:13:18,170 --> 00:13:26,659
+And then an important one. And I think people are not always our first instinct isn't to like add in a bunch of stuff that I haven't measured.
+
+135
+00:13:26,660 --> 00:13:33,620
+So you can put variables in your graph that you think are important, even if you didn't measure them, right?
+
+136
+00:13:33,620 --> 00:13:40,670
+So if you your data only, let's say, includes age and sex, but you think that geographical location is important,
+
+137
+00:13:40,970 --> 00:13:46,760
+put it in the graph so that you can see how it's important and see if you can use any of your other variables to account for that.
+
+138
+00:13:49,100 --> 00:13:55,700
+So here's an example. So this example, we can have sort of a story that we have a treatment for a disease which is X,
+
+139
+00:13:55,880 --> 00:13:59,180
+we have an outcome, let's say they go a person goes into remission or they don't.
+
+140
+00:13:59,720 --> 00:14:05,480
+And what treatment a person gets is going to be dependent on, let's say, the treatment their doctor prescribes.
+
+141
+00:14:05,480 --> 00:14:11,630
+And that doctor is going to consider a bunch of things. When they make a prescription, they'll consider the person's age.
+
+142
+00:14:11,960 --> 00:14:15,200
+They'll consider how severe the disease is when they see the doctor.
+
+143
+00:14:15,620 --> 00:14:22,069
+So in this graph, we know their age is affecting their treatment because the doctor is considering their age.
+
+144
+00:14:22,070 --> 00:14:28,460
+We know their disease severity is affecting their treatment and then the treatment affects the outcome.
+
+145
+00:14:28,640 --> 00:14:33,170
+And then I added in some other areas, right, maybe age affects disease severity, right?
+
+146
+00:14:33,170 --> 00:14:35,600
+We know that's true for some diseases.
+
+147
+00:14:36,050 --> 00:14:42,500
+Whether or not that's true for this disease, we have to, you know, know more about the disease and ask the person that we're working with.
+
+148
+00:14:43,820 --> 00:14:49,430
+Does age affect whether they go into remission independently of affecting their treatment in this graph?
+
+149
+00:14:49,430 --> 00:14:55,700
+I said it does. And I also said that their initial disease severity affects their outcome, which sort of is sensible.
+
+150
+00:14:55,760 --> 00:15:02,530
+So this is a simple graph that you might have for sort of this is a hypothetical situation, but it's not too unusual.
+
+151
+00:15:03,250 --> 00:15:07,310
+There are questions about what this graph means, how to interpret this.
+
+152
+00:15:09,530 --> 00:15:11,750
+Or other questions that are not specifically that.
+
+153
+00:15:15,540 --> 00:15:22,130
+So I'm going to talk about a few kinds of variables, and then we'll keep looking back at the graph and see how it is.
+
+154
+00:15:22,140 --> 00:15:27,700
+How do I see what kind of variable I have by looking at the graph? So the first type of variable is confounders.
+
+155
+00:15:27,720 --> 00:15:33,000
+This is probably the category that you've heard of the most.
+
+156
+00:15:34,950 --> 00:15:38,189
+Maybe a quick shorthand who's talked about confounding.
+
+157
+00:15:38,190 --> 00:15:42,760
+And another reason for. Close, close to close to everyone.
+
+158
+00:15:42,820 --> 00:15:46,740
+Maybe other folks just don't feel like raising hands.
+
+159
+00:15:47,740 --> 00:15:51,100
+So I'm going to give you a definition of confounding.
+
+160
+00:15:51,220 --> 00:15:54,670
+It might be different from a definition that you've heard before, and I'll talk about that.
+
+161
+00:15:55,180 --> 00:15:58,540
+So I'll say that A is a confounder of X and Y.
+
+162
+00:15:58,810 --> 00:16:05,710
+If an X are associated in the study that you did, X is not a cause of a.
+
+163
+00:16:05,770 --> 00:16:10,020
+So there's no arrow from X to A and a is a cause of Y.
+
+164
+00:16:10,030 --> 00:16:14,229
+So there is an arrow from A to why this could be a chain, right?
+
+165
+00:16:14,230 --> 00:16:18,010
+There could be like another variable in between here. Could be like A and Y.
+
+166
+00:16:18,160 --> 00:16:23,140
+Something will still say that A is a cause of Y. So that's our definition of confounding.
+
+167
+00:16:24,940 --> 00:16:32,500
+Yes, maybe this is for a more general case, but so an arrow just kind of represents the existence of a parameter.
+
+168
+00:16:32,740 --> 00:16:35,830
+Is that is that like how we should think about that?
+
+169
+00:16:35,830 --> 00:16:38,900
+So yeah. So I think you can think about it in a few ways.
+
+170
+00:16:38,920 --> 00:16:42,579
+One of them is, I think you're sort of thinking about like a structural equation, right?
+
+171
+00:16:42,580 --> 00:16:50,830
+But like there's some like underlying system where I could write an equation for Y is determined by A and X,
+
+172
+00:16:50,830 --> 00:16:53,830
+Y is some function of an X plus, maybe some noise, right?
+
+173
+00:16:53,830 --> 00:17:02,860
+So that's one way that you can interpret the the DAG and there is like a direct correspondence between drugs and structural equations.
+
+174
+00:17:03,220 --> 00:17:08,740
+The other way that you can think about it is sort of more mechanistically, right?
+
+175
+00:17:08,740 --> 00:17:14,190
+Like what do you know about like. How physical things interact.
+
+176
+00:17:14,200 --> 00:17:18,969
+Right? So if you're I think the simplest thing is like these aren't simple,
+
+177
+00:17:18,970 --> 00:17:22,900
+but you have like you seen those like diagrams of like molecules and you're like
+
+178
+00:17:22,900 --> 00:17:27,370
+this molecule binds with this molecule and then it activates this other molecule.
+
+179
+00:17:27,370 --> 00:17:34,029
+So, you know, like, okay, the level of this molecule causes the level of that one because it produces it through this interaction, right?
+
+180
+00:17:34,030 --> 00:17:36,159
+So that's the other way that you could think about this,
+
+181
+00:17:36,160 --> 00:17:44,500
+cause it's like there's there should be some kind of like physical cause and then to map it back into like math world,
+
+182
+00:17:44,560 --> 00:17:50,320
+you can think of that as there's, there's a equation that determines why and it's a function of its appearance in the graph.
+
+183
+00:17:52,090 --> 00:17:57,820
+So could you just think of it as like if I were to change y a It would change y Yeah.
+
+184
+00:17:58,810 --> 00:18:00,400
+Yes. That's another way to think about it. Right?
+
+185
+00:18:00,400 --> 00:18:10,650
+So if I changed a and I didn't change other stuff in the graph at the same time, it would change y this would dash time mean.
+
+186
+00:18:10,900 --> 00:18:16,870
+So yeah, so I use these dashed lines and I borrowed this from Judea Pearl.
+
+187
+00:18:17,080 --> 00:18:21,069
+So he uses this to indicate an association.
+
+188
+00:18:21,070 --> 00:18:28,149
+So this could mean A causes X, it could mean there's a common parent of X and a, right.
+
+189
+00:18:28,150 --> 00:18:31,540
+So they have some there's something that causes both X and A.
+
+190
+00:18:31,780 --> 00:18:38,680
+It could also mean that they're just associated in my study due to something about how I designed the study.
+
+191
+00:18:38,860 --> 00:18:44,379
+Right. So if I if ixnay are not like generally associated in the population,
+
+192
+00:18:44,380 --> 00:18:48,970
+but something about the way I collected the data makes X and associated in my data.
+
+193
+00:18:49,210 --> 00:18:56,650
+That could also be the dashed line. So there's a difference between the blue dashed line and the black arrow, right?
+
+194
+00:18:56,650 --> 00:19:02,980
+So the black arrows as a determines why the blue dashed line is sort of a property of my my study.
+
+195
+00:19:05,150 --> 00:19:10,760
+Okay. So in this graph, which variables are confounders of the effect of treatment on outcomes?
+
+196
+00:19:14,990 --> 00:19:18,380
+Yes. Age and disease. Severity.
+
+197
+00:19:18,670 --> 00:19:22,910
+Visit. Yeah, I agree with that. Can you say your name? Happy?
+
+198
+00:19:23,000 --> 00:19:26,390
+Okay. Yeah, cause everyone.
+
+199
+00:19:26,920 --> 00:19:35,520
+Everyone. I agree with that. Does that seem sensible? So I'm controlled.
+
+200
+00:19:35,520 --> 00:19:40,420
+Confounding bias scientific estimates is probably something that you've heard before.
+
+201
+00:19:40,440 --> 00:19:46,769
+The bias can be in any direction. So we can't say it's, you know, it's going to be closer to zero, it's going to be farther from zero.
+
+202
+00:19:46,770 --> 00:19:52,770
+It can be in any direction. It can be of any size. So it can create what we both type one and type two arrows.
+
+203
+00:19:52,770 --> 00:19:54,060
+Error, error.
+
+204
+00:19:54,330 --> 00:20:03,690
+So both we think there's an association, but there was no association or there was an association and we missed it because of the confounding.
+
+205
+00:20:04,800 --> 00:20:12,750
+So in the association context, confounding can lead to just associations that don't replicate in other contexts.
+
+206
+00:20:12,750 --> 00:20:20,250
+So you might say, well, in our data A and B are associated, but then if I go to another hospital, they're not associated.
+
+207
+00:20:23,020 --> 00:20:26,049
+Okay. So here's an example of compounding kidney stone treatment.
+
+208
+00:20:26,050 --> 00:20:28,450
+So this is just very similar to the graph that we showed.
+
+209
+00:20:28,450 --> 00:20:36,339
+So there's two treatments for kidney stones, A and B that patients can be classified into having either large or small kidney stones.
+
+210
+00:20:36,340 --> 00:20:41,920
+So that's like our disparity. Doctors can choose whether they get treatment A or treatment B,
+
+211
+00:20:42,880 --> 00:20:47,230
+and we're interested in understanding the difference in efficacy between the two treatments.
+
+212
+00:20:48,520 --> 00:20:57,099
+So here's our graph for this little story. It looks just like the graph that we had before, except we took age out and instead of disease severity,
+
+213
+00:20:57,100 --> 00:21:02,860
+I wrote kidney stones and we can take a look at the data for the kidney stones.
+
+214
+00:21:02,860 --> 00:21:07,870
+So in this table, I'm just showing the proportion of the patients that went into remission,
+
+215
+00:21:08,170 --> 00:21:12,010
+of the total patients that received that treatment, who had that kidney.
+
+216
+00:21:12,220 --> 00:21:19,240
+So of the 87 patients who had small stones and received treatment, 81 of them went into remission.
+
+217
+00:21:20,080 --> 00:21:26,440
+So we can look at this table, and I think this is an example that's often called Simpson's paradox.
+
+218
+00:21:26,620 --> 00:21:38,620
+So you can see if I just look in small stones and in large stones, in small stones, treatment A has a higher remission rate, right?
+
+219
+00:21:38,620 --> 00:21:44,769
+87% of the treatment B patients recovered and 93% of the treatment recovered.
+
+220
+00:21:44,770 --> 00:21:51,610
+And then same story for large stones, right? 73% of treatment, a recovered 69% of treatment be recovered.
+
+221
+00:21:52,000 --> 00:21:58,390
+But if I combine my two groups together and look at overall, it looks like treatment B is better.
+
+222
+00:21:58,720 --> 00:22:02,950
+Great. So 83% overall of the treatment B group recovered.
+
+223
+00:22:02,950 --> 00:22:09,030
+So. Which treatment is better thinking that we can vote.
+
+224
+00:22:09,050 --> 00:22:13,640
+So think whether you think treatment is better or treatment B is better.
+
+225
+00:22:14,830 --> 00:22:18,100
+And we'll do a quick vote, which is a high good.
+
+226
+00:22:18,430 --> 00:22:25,010
+High is good. Yes, we want to recover. Yeah, yeah, yeah.
+
+227
+00:22:25,030 --> 00:22:29,680
+We would like these to all say 100%. And in a perfect world where we could cure everybody.
+
+228
+00:22:29,890 --> 00:22:36,610
+Okay. So raise your hand if you think treatment is better. Raise your hand if you think treatment B is better.
+
+229
+00:22:37,930 --> 00:22:42,580
+Okay. It looks like the treatment aides have it. Does somebody want to tell me why they think treatment is better?
+
+230
+00:22:44,330 --> 00:22:53,090
+Yes. So if you stratify by the small stone and large stone in each category, treatment A has higher percentage than treatment.
+
+231
+00:22:53,540 --> 00:22:57,200
+How do you know that stratifying is the right thing to do rather than combining them overall?
+
+232
+00:22:57,890 --> 00:23:06,320
+Because like, if you solely compare small stones and letters stone, the small stone has higher rates than our sun.
+
+233
+00:23:06,710 --> 00:23:16,580
+But if the large stone it has higher percentage in one group compared to the outer, then the treatment's effect will be blinded by that.
+
+234
+00:23:16,830 --> 00:23:20,239
+That's right. So you sort of noticed like what's happened in this data, right.
+
+235
+00:23:20,240 --> 00:23:24,230
+Which is that the small stone people were just more likely to get treatment, B,
+
+236
+00:23:24,410 --> 00:23:28,700
+but the small stone people also just recover at a higher rate than the large stone rate.
+
+237
+00:23:28,850 --> 00:23:37,220
+And so in particular, what's happening here is that kidney stone size is a confounder of treatment and outcome.
+
+238
+00:23:37,790 --> 00:23:44,209
+And we'll see going in in a little bit that you don't always want a condition on something when you can condition on it.
+
+239
+00:23:44,210 --> 00:23:46,910
+Right. Just because conditioning on it gives you a different answer.
+
+240
+00:23:47,390 --> 00:23:54,080
+Doesn't mean just this data couldn't tell us whether I should condition or I shouldn't condition.
+
+241
+00:23:54,080 --> 00:23:57,710
+Should I believe the conditional results or the unconditional results?
+
+242
+00:23:57,980 --> 00:24:04,520
+I have to couple that with my DAG, where I'd say kidney stone size is a confounder, so I want to condition on it.
+
+243
+00:24:06,890 --> 00:24:16,250
+Okay, second confounding example. So this is a 20 example that I did an hour, so I simulated some data so I know how this data was simulated.
+
+244
+00:24:16,250 --> 00:24:20,300
+So I simulated this little variable you it's just a normal variable.
+
+245
+00:24:21,230 --> 00:24:27,680
+And then I simulated X and it's a function of U, so it's two u plus u squared and then plus some normal noise.
+
+246
+00:24:28,130 --> 00:24:32,480
+And then I have y and so y is also a function of u.
+
+247
+00:24:32,510 --> 00:24:38,060
+So if I wrote a dag of this, which I didn't do in the slides, but we can write one on the chalkboard,
+
+248
+00:24:38,960 --> 00:24:53,150
+see a chalkboard and so we have u and then we have X is a function of u and we have y is also a function of right.
+
+249
+00:24:53,150 --> 00:24:55,490
+So that's our, our DAG for this little example.
+
+250
+00:24:55,490 --> 00:25:05,090
+So we, we know that the effect of X and Y are the association between X and Y is zero conditional on you.
+
+251
+00:25:05,330 --> 00:25:09,800
+Right. And that's sort of what we're hoping to discover based on doing a regression.
+
+252
+00:25:09,920 --> 00:25:22,129
+So here I've plotted the data. So this is just a pairs plot of X and Y and U, and we can see this curvy shape between you and Y in between you and X,
+
+253
+00:25:22,130 --> 00:25:23,990
+because I use this quadratic function, right?
+
+254
+00:25:23,990 --> 00:25:33,390
+So now let's say I just start running regressions in R, so if I just regress x and y as expected, I get not zero.
+
+255
+00:25:33,410 --> 00:25:39,319
+So this beta hat estimate that I get out is not zero. It's -0.58 and it's got this really small standard error.
+
+256
+00:25:39,320 --> 00:25:45,530
+So if I just saw that, I would reject the null hypothesis of beta x equals zero.
+
+257
+00:25:46,280 --> 00:25:50,870
+So now I say, Oh, but I know that you as a confounder and so I need to put it into my regression.
+
+258
+00:25:51,080 --> 00:25:59,870
+So I'm going to put it in there it is plus you. But the estimate I get is still not zero and in fact it's further from zero.
+
+259
+00:26:00,620 --> 00:26:08,419
+So the problem here is that I just put you in as a linear term and I needed to put you in as a as a quadratic term.
+
+260
+00:26:08,420 --> 00:26:12,200
+Right. So I know that that's the truth, that x y is a quadratic function.
+
+261
+00:26:14,030 --> 00:26:19,760
+So down here in attempt number three, I have some like Oracle knowledge.
+
+262
+00:26:20,150 --> 00:26:26,240
+Someone has whispered to me in my dreams, put you in as a quadratic and so I put you in as a quadratic.
+
+263
+00:26:26,390 --> 00:26:28,340
+And I get the answer that I'm hoping for,
+
+264
+00:26:28,340 --> 00:26:33,979
+which is that beta hat x is very close to zero and my standard error is large enough that I would I would say,
+
+265
+00:26:33,980 --> 00:26:37,970
+no, I can't reject that beta hat x is equal to zero.
+
+266
+00:26:38,480 --> 00:26:41,540
+But let's say I did not have my oracle dream.
+
+267
+00:26:41,540 --> 00:26:45,769
+How would I know what function to put you in as?
+
+268
+00:26:45,770 --> 00:26:50,780
+So one option. I can make this plot right. I look at this plot and I say, This is curvy.
+
+269
+00:26:51,500 --> 00:26:55,160
+I need something that's curvy, right? I need a function that's not a line.
+
+270
+00:26:55,550 --> 00:27:00,620
+So I might say the most simple, not a line function that I know is a quadratic.
+
+271
+00:27:00,620 --> 00:27:06,050
+So I'm just going to guess quadratic and see if that works. And then I might look at the residuals after I did that.
+
+272
+00:27:07,010 --> 00:27:10,339
+The other thing that I could do is put a square in it. So this B.
+
+273
+00:27:10,340 --> 00:27:13,580
+S notation in R, it's for a B spine.
+
+274
+00:27:13,640 --> 00:27:20,090
+So it's going to fit a flexible function of you in this regression.
+
+275
+00:27:20,630 --> 00:27:28,070
+And happily, in this result, we got the same answer that we would have gotten if we'd had that dream where we knew exactly what happened.
+
+276
+00:27:28,640 --> 00:27:33,680
+So the sort of the away of this slide is, you know,
+
+277
+00:27:33,680 --> 00:27:39,890
+there's a confounder it's not good enough to just toss your confounder in as a linear term necessarily.
+
+278
+00:27:40,100 --> 00:27:43,510
+If you don't get that function right, you have not controlled for that.
+
+279
+00:27:45,970 --> 00:27:50,140
+But there's some sort of like data adaptive ways to help you.
+
+280
+00:27:50,800 --> 00:27:54,730
+You don't just have to know the functional form out of thin air.
+
+281
+00:27:56,890 --> 00:28:01,150
+There are questions here. We've seen these lines before.
+
+282
+00:28:02,560 --> 00:28:08,200
+They come up at all from some folks. So it's not totally a new new thing.
+
+283
+00:28:10,060 --> 00:28:18,490
+Okay. So how do we identify confounders? So the big message here, you can't know what is a confounder by just looking at your data.
+
+284
+00:28:18,790 --> 00:28:22,480
+So who's heard? Like a data definition of confounding?
+
+285
+00:28:22,990 --> 00:28:26,800
+A definition where you can. Yeah. What? Do you remember what it was?
+
+286
+00:28:27,070 --> 00:28:36,910
+Yeah. And this is actually something we teach in 521 so that when you put in a variable and that so you add an
+
+287
+00:28:37,240 --> 00:28:44,170
+additional variable to a simple linear model that already has the code that already has a copyright interest.
+
+288
+00:28:44,560 --> 00:28:53,020
+So if that original covariance coefficient changes by more than 10%, then that definition says there's confounding.
+
+289
+00:28:53,230 --> 00:28:55,530
+Yeah. Yeah. So that's that's a definition I've heard.
+
+290
+00:28:55,540 --> 00:29:01,660
+I've also heard you look and you see if it's associated with both X and Y and if it is, you put it in.
+
+291
+00:29:03,610 --> 00:29:09,249
+So these, these are features. Right. So important confounders do have these features.
+
+292
+00:29:09,250 --> 00:29:15,370
+They have to be associated with both X and Y, and adjusting for them changes the coefficient noticeably.
+
+293
+00:29:15,710 --> 00:29:22,690
+You also need this additional feature, which is they're not caused by X and we'll see why that's a problem.
+
+294
+00:29:22,690 --> 00:29:28,370
+And you can't know that last feature without thinking about the system.
+
+295
+00:29:28,390 --> 00:29:31,260
+You can't get that from your data. I.
+
+296
+00:29:33,680 --> 00:29:43,570
+So oftentimes when you're building a regression model, you will put in known confounders, even if they're not significant in your data.
+
+297
+00:29:43,580 --> 00:29:47,180
+So we do this all the time in genetics. You just like always adjust for age and sex.
+
+298
+00:29:48,020 --> 00:29:54,679
+If you don't, someone will write back and say, I think you should have adjusted for age and sex and then you just have to redo it.
+
+299
+00:29:54,680 --> 00:30:02,420
+So. It is strictly a temporal aspect to what's measured first.
+
+300
+00:30:02,540 --> 00:30:04,950
+It gives you a lot of information to right.
+
+301
+00:30:04,970 --> 00:30:09,800
+So when when feature that you can use to your advantage your right in this we have this last condition right.
+
+302
+00:30:10,280 --> 00:30:15,230
+Our confounder needs to be not caused by X, so not a child of X.
+
+303
+00:30:16,370 --> 00:30:23,299
+So this is if you've heard debates about like pre treatment versus post treatment controls, this is what this is talking about.
+
+304
+00:30:23,300 --> 00:30:27,440
+So some people will say control for all pre treatment variables,
+
+305
+00:30:27,440 --> 00:30:32,809
+everything that happens before X and you'll do that because well, you know, those can't be caused by X.
+
+306
+00:30:32,810 --> 00:30:38,180
+They temporarily happened before X and so therefore they could be confounders.
+
+307
+00:30:38,180 --> 00:30:40,310
+And if they could be confounders, I'll just throw them in the model.
+
+308
+00:30:42,920 --> 00:30:47,900
+That you can come up with examples where that's not exactly the best thing to do, but it's not.
+
+309
+00:30:49,260 --> 00:30:55,860
+I don't think it's the worst thing to do. And then you'll also hear people say like never control for a post-treatment variable rate, probably.
+
+310
+00:30:56,310 --> 00:31:09,780
+So some of you probably heard that. Again, it's not always the exact right thing to do, but it's that advice is based on this this last condition.
+
+311
+00:31:09,780 --> 00:31:16,200
+And it's a good one to keep in mind. And I think generally like if you are controlling for a post-treatment variable,
+
+312
+00:31:16,200 --> 00:31:25,050
+you should have like a very good reason why and be able to justify that. It's not a variable of the type that we're about to see, which is a collider.
+
+313
+00:31:26,880 --> 00:31:32,670
+Okay. Before we get to colliders. So controlling, confounding and observational data.
+
+314
+00:31:32,670 --> 00:31:34,640
+So I think we actually just talked about this.
+
+315
+00:31:34,650 --> 00:31:41,410
+So one straightforward strategy is to just condition on like anything that you think is a common cause of X and Y or any pretreatment variables.
+
+316
+00:31:41,410 --> 00:31:45,360
+So just talk about that so we can skip this. All right.
+
+317
+00:31:45,720 --> 00:31:51,660
+Variable type two colliders. So a collider, the term comes from just that.
+
+318
+00:31:51,660 --> 00:31:57,059
+There's two arrows pointing at each other. So a collider is caused by two or more other variables.
+
+319
+00:31:57,060 --> 00:32:00,750
+So we would say here a is a collider between X and U.
+
+320
+00:32:03,030 --> 00:32:08,490
+So conditioning on a collider will induce an association between the two parents of the collider.
+
+321
+00:32:09,180 --> 00:32:14,760
+So this is not necessarily like an intuitive fact and we'll sort of see how this comes about.
+
+322
+00:32:16,560 --> 00:32:19,650
+So conditioning on a collider can lead to biased estimates.
+
+323
+00:32:19,890 --> 00:32:28,890
+So if I condition on a and then try to measure an association between X and Y in this system, I will get a biased answer.
+
+324
+00:32:29,310 --> 00:32:34,200
+So in this system I don't have to condition on anything to get a good estimate of the association between X and Y.
+
+325
+00:32:34,200 --> 00:32:38,310
+But if I add A into my model, my model's going to get worse.
+
+326
+00:32:38,340 --> 00:32:48,629
+So if I don't know, this is the system and I use this strategy of add the variable and see if it changes my estimate a will change my estimate,
+
+327
+00:32:48,630 --> 00:32:58,950
+but not in a good way. So this is u measured and observed in this would as you mean unmeasured again I sometimes you could use you to mean unmeasured,
+
+328
+00:32:58,950 --> 00:33:03,059
+but sometimes I run out of letters. It could be measured or unmeasured.
+
+329
+00:33:03,060 --> 00:33:07,590
+I guess I was noncommittal in this case. Is that part of your regression model?
+
+330
+00:33:07,950 --> 00:33:10,890
+Q You could put you in your regression model, yeah.
+
+331
+00:33:10,920 --> 00:33:17,100
+So I think in this case, like, if you think if you condition on a and condition on you is fine, you'll be okay.
+
+332
+00:33:17,670 --> 00:33:22,430
+Yeah. You say changing in a good way versus a bad way. Is that just based on prior knowledge or is there a different way?
+
+333
+00:33:22,680 --> 00:33:34,590
+Yeah, like what is good versus bad? So this is sort of if we wanted to measure the causal effect of X on Y conditioning on a would be a bad change.
+
+334
+00:33:35,190 --> 00:33:38,969
+If I want to measure the association of X on Y conditional on a that I've
+
+335
+00:33:38,970 --> 00:33:44,710
+measured that if I condition on a so it depends on what what you're going for.
+
+336
+00:33:45,600 --> 00:33:49,860
+Yeah. So why not a pair of. That's true.
+
+337
+00:33:49,860 --> 00:33:56,100
+Y is not a parent of a but we're going to do an example that has exactly this form and we'll see what happens.
+
+338
+00:33:57,270 --> 00:34:03,330
+So this example is called the smoking paradox and the low birth weight paradox or something like that.
+
+339
+00:34:04,200 --> 00:34:07,020
+So the paradox, quote unquote, is.
+
+340
+00:34:09,310 --> 00:34:16,990
+Low birth weight babies born to smoking mothers have better outcomes than low birth weight babies born to nonsmoking mothers.
+
+341
+00:34:17,350 --> 00:34:21,340
+So we've taken all the babies in the hospital, born with low birth weight,
+
+342
+00:34:21,880 --> 00:34:28,090
+and then we just see how many of them survive or, you know, have good outcomes of some kind.
+
+343
+00:34:28,510 --> 00:34:31,870
+And we see that the ones that had smoking mothers do better.
+
+344
+00:34:31,900 --> 00:34:36,219
+So should we conclude here that smoking is preventing infant mortality?
+
+345
+00:34:36,220 --> 00:34:39,740
+Smoking is good for your baby if your baby turns out to be right.
+
+346
+00:34:40,060 --> 00:34:49,840
+No, I see a shaking head over there. So the paradox occurs because we conditioned on the collider low birth weight.
+
+347
+00:34:50,770 --> 00:34:55,360
+So in this graph you can have low birth weight for two reasons.
+
+348
+00:34:55,810 --> 00:34:59,170
+Maternal smoking tends to lower birth weight a little bit on average.
+
+349
+00:34:59,170 --> 00:35:05,170
+So a baby that maybe would have been just over the cutoff is now just under the cutoff due to maternal smoking.
+
+350
+00:35:05,740 --> 00:35:10,440
+You could also end up with low birth weight because something else bad is happening, right?
+
+351
+00:35:10,460 --> 00:35:19,700
+You have some sort of something didn't quite go right at the end of pregnancy or you have some sort of genetic issue happening.
+
+352
+00:35:21,350 --> 00:35:28,180
+And both of these lead to infant mortality rate. So potentially maternal smoking affects infant mortality, potentially.
+
+353
+00:35:28,480 --> 00:35:32,290
+Almost definitely. Severe medical issues affect infant mortality.
+
+354
+00:35:32,710 --> 00:35:38,850
+Most likely what's going on here is that severe medical issues have a much bigger effect on infant mortality than smoking.
+
+355
+00:35:38,890 --> 00:35:43,870
+Right. Conditioning on low birth weight? Yes. So do the parent.
+
+356
+00:35:43,900 --> 00:35:47,100
+Variables of a quarter also have to cause the outcome then?
+
+357
+00:35:50,790 --> 00:35:53,100
+This might. Maybe this will clear it up. So I don't.
+
+358
+00:35:57,790 --> 00:36:06,390
+That will give you the if the parents of the collider either are the outcome or cause the outcome, you'll get the phenomenon.
+
+359
+00:36:06,400 --> 00:36:12,580
+I think that you have to sit and think if there's like another way to come up with a dag that would cause the problem.
+
+360
+00:36:12,580 --> 00:36:19,899
+But the thing to keep in mind, the way to remember this is if you condition on a variable that's between two eras,
+
+361
+00:36:19,900 --> 00:36:25,090
+right, a collider, we're going to induce an association now between maternal smoking and medical issues.
+
+362
+00:36:25,330 --> 00:36:29,020
+And so this is actually going to be a negative association in our data.
+
+363
+00:36:29,020 --> 00:36:35,200
+So among the low birth weight babies, there's going to be a negative association between maternal smoking and having severe medical issues.
+
+364
+00:36:35,770 --> 00:36:45,909
+And so that's going to cause an association through this path between like a and additional
+
+365
+00:36:45,910 --> 00:36:49,510
+association between maternal smoking and infant mortality that goes in the other direction.
+
+366
+00:36:49,930 --> 00:36:53,469
+Right. So does that make sense?
+
+367
+00:36:53,470 --> 00:36:58,360
+Right. Because we conditioned on low birth weight within that low birth weight sample.
+
+368
+00:36:59,570 --> 00:37:02,660
+If there's a baby whose low birth weight and has a smoking mother,
+
+369
+00:37:02,780 --> 00:37:07,910
+the most simple explanation is, Oh, your low birth weight because your mother smoked.
+
+370
+00:37:08,720 --> 00:37:11,780
+If there's a baby whose low birth weight and doesn't have a smoking mother,
+
+371
+00:37:11,870 --> 00:37:15,710
+the simplest explanation is, Oh, you have some other medical issue happening.
+
+372
+00:37:16,010 --> 00:37:21,680
+And because having some other medical issue is so much more dangerous than having had a smoking mother,
+
+373
+00:37:22,040 --> 00:37:25,580
+those babies with the nonsmoking mothers tend to do less well.
+
+374
+00:37:26,810 --> 00:37:34,110
+Does that make sense? Yes, it's very alkaline through all interaction term between the covariant and the collider.
+
+375
+00:37:34,130 --> 00:37:37,490
+Would that improve the model between.
+
+376
+00:37:38,390 --> 00:37:47,960
+So. So instead of just egress regressing on the collider, I did the interaction.
+
+377
+00:37:48,500 --> 00:37:51,500
+So if we look at like maternal smoking. Low birth weight.
+
+378
+00:37:51,500 --> 00:37:59,470
+Yes. Low birth weight, no. Don't think that solves the problem.
+
+379
+00:38:00,070 --> 00:38:07,450
+I think. I think in this case, the thing that you wanted to do was not condition on low birth weight.
+
+380
+00:38:07,510 --> 00:38:16,330
+You wanted to look at babies overall and say, how do you how do babies overall with smoking mothers versus nonsmoking mothers do.
+
+381
+00:38:19,400 --> 00:38:25,510
+So so so does low birth weight in. Infant mortality in this graph.
+
+382
+00:38:25,690 --> 00:38:29,190
+I said no, but it probably could. So.
+
+383
+00:38:29,890 --> 00:38:33,670
+So Collider is an apparent of the outcome, right?
+
+384
+00:38:34,720 --> 00:38:39,070
+So it would still be a collider between maternal smoking and severe medical issues.
+
+385
+00:38:39,070 --> 00:38:44,290
+So if we had an arrow from low birth weight to infant mortality, it would definitely complicate the situation,
+
+386
+00:38:44,290 --> 00:38:49,630
+but it would still induce an association between maternal smoking and severe medical issues.
+
+387
+00:38:49,900 --> 00:38:52,960
+So it's always a collider relative to its parents.
+
+388
+00:38:53,320 --> 00:39:00,640
+So, yeah, if we had an arrow here. Right. Low birth weight would become like a mediator from maternal smoking to infant mortality.
+
+389
+00:39:00,940 --> 00:39:05,290
+But also it's a collider with severe medical issues.
+
+390
+00:39:05,320 --> 00:39:14,620
+So does that mean the cluster has some kind of association between association between the clutter to the outcome,
+
+391
+00:39:14,620 --> 00:39:18,660
+but actually it needs to be a causal effect.
+
+392
+00:39:18,670 --> 00:39:24,430
+Right. Right. So so in our data. Right. If we looked at if we looked at unadjusted.
+
+393
+00:39:24,430 --> 00:39:31,420
+Right. All of the babies overall. Is there an association between maternal smoking and severe medical issues?
+
+394
+00:39:31,750 --> 00:39:40,510
+This graph says no. So if this graph is the truth, then maternal smoking and severe medical issues are independent.
+
+395
+00:39:40,510 --> 00:39:46,089
+And I think that there was a paper sort of about this phenomenon that said it doesn't
+
+396
+00:39:46,090 --> 00:39:49,450
+look like maternal smoking really increases the risk of severe medical issues.
+
+397
+00:39:49,460 --> 00:39:55,030
+It does look like maternal smoking lowers birth weight. So we can say maybe that reflects reality.
+
+398
+00:39:55,210 --> 00:40:00,340
+So if I look overall at babies, there's no association between maternal smoking and severe medical issues.
+
+399
+00:40:00,580 --> 00:40:07,479
+If I look just in the low birth weight babies, there's a negative association between maternal smoking and severe medical issues.
+
+400
+00:40:07,480 --> 00:40:12,100
+So it looks like maternal smoking is protective. It's not physically protecting anything.
+
+401
+00:40:12,100 --> 00:40:13,810
+It's just that I conditioned on the birth weight.
+
+402
+00:40:15,700 --> 00:40:21,700
+What about the question if a condition of low birth weight now induce association between smoking and medical use?
+
+403
+00:40:21,740 --> 00:40:31,390
+You call this your medical, you should confounder this time for the confounding confounder confusion on the medical use and low birth weight.
+
+404
+00:40:31,450 --> 00:40:36,290
+Will this model be right? I.
+
+405
+00:40:42,080 --> 00:40:53,610
+I. I think in most I think that if you condition on severe medical issues and low birth weight, well, in this case, they're both binary.
+
+406
+00:40:53,630 --> 00:40:57,580
+So conditioning on both of them leaves you with nothing to look at.
+
+407
+00:40:57,730 --> 00:41:03,959
+Right. Like intuitively, it seems like.
+
+408
+00:41:03,960 --> 00:41:12,240
+Yeah. Yeah, I think it would. I think this this might be a case where you need like a couple additional technical assumptions to make that true.
+
+409
+00:41:12,330 --> 00:41:23,400
+But I, I think, I think that's the case, although I'm going to continue to lobby for not adjusting for low birth weight is the right thing to do here.
+
+410
+00:41:24,630 --> 00:41:30,420
+Yeah, I saw the clarification for severe medical issues as it's not mothers have severe medical issues or that oh,
+
+411
+00:41:30,420 --> 00:41:38,210
+I meant the baby had severe medical issues. There are other questions about this mistake.
+
+412
+00:41:38,240 --> 00:41:42,470
+If you condition those low weight, severe medical issues,
+
+413
+00:41:42,480 --> 00:41:53,840
+I think it's this which coldly inference it will cause it is okay to condition on the mediator as in conditional on for both.
+
+414
+00:41:54,080 --> 00:42:01,670
+My summation might be okay, but if it is not reasonable to condition a mediator because you cannot make
+
+415
+00:42:01,670 --> 00:42:07,850
+sure the direction from not smoking to severe medical issues that will cause.
+
+416
+00:42:08,360 --> 00:42:13,990
+Yeah. So there's, there's no mediators in this crap but I mean if you conditional on those.
+
+417
+00:42:14,000 --> 00:42:17,629
+Yeah. So the the proposal is that if I condition on both I should be back to.
+
+418
+00:42:17,630 --> 00:42:21,110
+Okay I think I think that that's the case.
+
+419
+00:42:21,110 --> 00:42:26,509
+There's I don't quite want to get into the technical reasons, but I think there could be an issue with that.
+
+420
+00:42:26,510 --> 00:42:30,200
+But I, I think that would be okay.
+
+421
+00:42:30,200 --> 00:42:37,729
+Like if you were in this certain circumstance where you had the condition on low birth weight, could you then just say,
+
+422
+00:42:37,730 --> 00:42:44,690
+I'm going to only look at the baby if you don't have issues and compare smoking and nonsmoking mothers?
+
+423
+00:42:44,960 --> 00:42:50,040
+I think that you could do that, but. Okay.
+
+424
+00:42:50,490 --> 00:42:54,960
+So we sort of talk through this. This says that thing that we already said, right.
+
+425
+00:42:56,790 --> 00:42:59,490
+Okay. So back paths.
+
+426
+00:42:59,550 --> 00:43:09,240
+So one tool for determining if I have a sufficient set of variables to finish non is this criterion called the backdoor criterion.
+
+427
+00:43:09,600 --> 00:43:19,589
+So backdoor path has these features. So it's a series of variables connected by arrows starts at X, ends at what the first arrow has to point into X.
+
+428
+00:43:19,590 --> 00:43:26,340
+So that's the back door part. It's like coming in the back door of X and then the other arrows can go in any direction.
+
+429
+00:43:27,090 --> 00:43:33,380
+A path is going to be open. If there's no colliders in the path, it's an fanned.
+
+430
+00:43:33,390 --> 00:43:36,719
+None of the variables in the path are conditioned on conditioning.
+
+431
+00:43:36,720 --> 00:43:48,240
+On a collider opens the pass conditioning on a non collider closes the path of a set of conditioning variables, satisfies the vector criterion.
+
+432
+00:43:48,240 --> 00:43:54,660
+If two things one, all backward patterns are blocked, and two, the set does not include any descendants of X.
+
+433
+00:43:54,960 --> 00:44:00,930
+So the issue with this low birth weight situation, even if we include severe medical issues,
+
+434
+00:44:00,930 --> 00:44:04,170
+we've still included something that's a descendant of X in our set.
+
+435
+00:44:04,440 --> 00:44:07,350
+So the back door criterion is not telling us that that's a good thing to do.
+
+436
+00:44:10,050 --> 00:44:17,100
+Okay, so in this I've modified the graph a little bit so that we get some different answers.
+
+437
+00:44:17,100 --> 00:44:23,940
+So in this example, conditioning on disease severity is sufficient to block all vector paths.
+
+438
+00:44:24,090 --> 00:44:28,530
+So in this in this graph, I see one vector path.
+
+439
+00:44:28,540 --> 00:44:35,280
+So there's one arrow going into X, and then if I trace it back, I get this backdoor path from X or Y,
+
+440
+00:44:35,610 --> 00:44:40,620
+I need to block that and I can block it with either disease, severity or age.
+
+441
+00:44:40,710 --> 00:44:44,070
+They're both on that path. I can block it with either. I could block it with both.
+
+442
+00:44:48,050 --> 00:44:51,170
+Oh, I apologize. There are two back to paths. There's also this one.
+
+443
+00:44:51,770 --> 00:44:57,290
+So I have to condition I disease severity if I want to condition on age also I can.
+
+444
+00:44:58,210 --> 00:45:01,690
+But I don't have to. Okay.
+
+445
+00:45:01,710 --> 00:45:06,560
+So if there's also an effect of age on X, then I have to condition on x also.
+
+446
+00:45:06,690 --> 00:45:12,280
+Right. So now there is. Let's say three separate paths.
+
+447
+00:45:12,370 --> 00:45:19,510
+So there's treatment, disease, severity, outcome, treatment, disease severity, age outcome, and then treatment, age outcome.
+
+448
+00:45:19,540 --> 00:45:26,350
+Those are my three backdoor paths. I have to block all three of them, and I can do it with disease, severity and age.
+
+449
+00:45:27,320 --> 00:45:30,760
+So there are questions about this, and that's the answer that we got at the beginning.
+
+450
+00:45:30,760 --> 00:45:33,760
+Right, of those two confounders. And I should adjust for those.
+
+451
+00:45:36,810 --> 00:45:44,090
+Okay. So the low birth weight example we talked about this, the backdoor criterion is violated because we adjusted for a descendant of X.
+
+452
+00:45:45,830 --> 00:45:51,770
+So at least according to the back door criterion, at this point, there's nothing that we can do other than take low birth weight out of that.
+
+453
+00:45:52,040 --> 00:45:55,090
+Out of the adjustment set. Okay.
+
+454
+00:45:55,220 --> 00:45:58,410
+Variable type three mediators.
+
+455
+00:45:58,410 --> 00:46:01,520
+So mediators lie along the causal path from X or Y.
+
+456
+00:46:02,870 --> 00:46:08,900
+And whether you condition on the mediator or not depends on whether you're interested in that pathway or not.
+
+457
+00:46:09,130 --> 00:46:16,080
+Right. So if you care about, let's say in this case, the total effect of Exxon, why we don't want to condition acne.
+
+458
+00:46:18,950 --> 00:46:25,070
+So as an example, let's say we're interested in the effects of genetic variants on lung cancer risk.
+
+459
+00:46:25,640 --> 00:46:31,040
+We know that some genetic variance increase lung cancer risk by increasing smoking behavior.
+
+460
+00:46:31,640 --> 00:46:39,260
+So our causal pathway is variant smoking, lung cancer, some variants just increase your lung cancer risk doing other things.
+
+461
+00:46:39,650 --> 00:46:45,590
+So let's say I want to find the variants that increase lung cancer risk, but I'm not that interested.
+
+462
+00:46:45,590 --> 00:46:48,950
+I know that smoking causes lung cancer. I'm not that interested in that pathway.
+
+463
+00:46:49,340 --> 00:46:57,379
+Well, maybe in that case, I should be conditioned on smoking if I just want to identify all the variants that increase your risk of lung cancer.
+
+464
+00:46:57,380 --> 00:47:02,450
+I should not condition smoking. All right.
+
+465
+00:47:02,480 --> 00:47:05,730
+For type of variable. Precision variables.
+
+466
+00:47:05,820 --> 00:47:13,379
+So precision variable explains variability in why and is not the other types of variables that we've seen.
+
+467
+00:47:13,380 --> 00:47:16,200
+So it's like a mediator, it's not a collider, it's not a confounder.
+
+468
+00:47:16,620 --> 00:47:21,479
+And conditioning on a precision variable, as the name suggests, improves precision.
+
+469
+00:47:21,480 --> 00:47:27,270
+Right. So it absorbs some of the variability of Y, gives you a more precise outcome.
+
+470
+00:47:27,450 --> 00:47:33,000
+So you get an estimate that has like a little bit smaller standard errors, which can be a good thing.
+
+471
+00:47:33,330 --> 00:47:38,159
+It's generally a good and then I'll say other variables.
+
+472
+00:47:38,160 --> 00:47:42,809
+Ah so like in the clinical trial, a previous approach would be very applicable.
+
+473
+00:47:42,810 --> 00:47:45,900
+Right. Max is randomized you know it's this picture.
+
+474
+00:47:46,230 --> 00:47:51,510
+Yes. Right. So if we know X is randomized then anything else is not a confounder.
+
+475
+00:47:51,720 --> 00:47:59,460
+So if it explains variability of why it should help me out to condition it, that it is not post-treatment.
+
+476
+00:48:00,000 --> 00:48:06,540
+Right. And the way I drew it, it does look like it's post-treatment because I try to draw my dogs in like my order.
+
+477
+00:48:08,580 --> 00:48:12,780
+But. Right. So if it's post-treatment, right. We could have actually an arrow from X day.
+
+478
+00:48:16,880 --> 00:48:19,960
+So other variables. So this is just everything else, right?
+
+479
+00:48:19,970 --> 00:48:26,720
+Not a collider, not a mediator, not a confounder, not a precision variable, but maybe explain some of the variability in X.
+
+480
+00:48:27,110 --> 00:48:34,760
+So adjusting for a variable linked to X is not going to help you in your regression.
+
+481
+00:48:35,060 --> 00:48:36,740
+It can hurt you. Right?
+
+482
+00:48:36,740 --> 00:48:44,720
+So worst case scenario, let's say A is like almost co linear with X, I'm going to blow up my standard errors and it's not going to be a good thing.
+
+483
+00:48:45,500 --> 00:48:49,970
+If it doesn't explain a lot of the variability of X, it's not going to do too much damage.
+
+484
+00:48:53,040 --> 00:48:55,679
+Okay. So in summary, these are sort of the short takeaways.
+
+485
+00:48:55,680 --> 00:49:06,120
+The longer takeaway is the better criterion, but the short takeaways are you want to always adjust for your confounders, don't adjust for colliders,
+
+486
+00:49:06,510 --> 00:49:11,310
+don't adjust for variables that are in the pathway of interest for mediators that are in the pathway that you care about.
+
+487
+00:49:12,150 --> 00:49:17,010
+And then everything else is optional. Precision variables increase power.
+
+488
+00:49:17,910 --> 00:49:21,210
+Explaining variability of x needlessly will decrease power.
+
+489
+00:49:23,100 --> 00:49:31,380
+There are questions here. We did it right in the time that I hoped that we would do it.
+
+490
+00:49:32,430 --> 00:49:35,610
+What do you know? All right. So we'll take a short break.
+
+491
+00:49:35,730 --> 00:49:39,030
+It's 150, let's say come back at 155.
+
+492
+00:49:39,840 --> 00:49:42,860
+355. Okay.
+
+493
+00:49:43,170 --> 00:49:48,770
+Is the. Right.
+
+494
+00:49:53,150 --> 00:50:03,480
+I just fell in love with the disease. I.
+
+495
+00:50:08,490 --> 00:51:00,149
+This week's videos are probably going to run from time to time because it simply simply because I think it's important.
+
+496
+00:51:00,150 --> 00:51:06,270
+I think we can keep up. I think that you need to make it so.
+
+497
+00:51:07,110 --> 00:51:14,430
+I think it's great to.
+
+498
+00:51:15,960 --> 00:51:30,860
+Really, really busy right here.
+
+499
+00:51:35,130 --> 00:52:15,430
+But the bottom line is, doesn't go down to the United States right now.
+
+500
+00:52:15,630 --> 00:52:20,250
+So that's not so bad.
+
+501
+00:52:22,410 --> 00:52:33,209
+If you'd like to know for me just this question.
+
+502
+00:52:33,210 --> 00:52:39,920
+It doesn't really you.
+
+503
+00:52:49,960 --> 00:53:07,590
+So I said, let's go back to that conclusion with you and your question.
+
+504
+00:53:11,220 --> 00:53:16,020
+Yeah, absolutely.
+
+505
+00:53:25,200 --> 00:53:38,480
+Yeah, I know that myself.
+
+506
+00:53:50,970 --> 00:54:07,000
+All right. Let's say 38 doesn't answer that question.
+
+507
+00:54:07,750 --> 00:54:29,390
+I don't know what's going on in my mind.
+
+508
+00:54:40,000 --> 00:55:49,600
+N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A., N.A.
+
+509
+00:55:56,050 --> 00:57:20,950
+I think it's like it's like I think we have to make sure we're going to come back.
+
+510
+00:57:21,640 --> 00:57:27,040
+Project one Questions and we're going to try to stay on time.
+
+511
+00:57:27,040 --> 00:57:33,460
+So we'll switch to the next thing at 220 something.
+
+512
+00:57:40,870 --> 00:57:44,620
+Anything related to your exploration of Project One?
+
+513
+00:57:45,130 --> 00:57:52,240
+Anything that you're curious and or seem strange to you?
+
+514
+00:57:53,170 --> 00:57:57,360
+Go ahead. Is there an isolated Selena Gomez?
+
+515
+00:57:57,820 --> 00:58:02,049
+Do you know what like a reasonable sort of reading is for the oxygen levels?
+
+516
+00:58:02,050 --> 00:58:05,890
+Because they go from 0 to 100 and zero. Seems like they be, you know.
+
+517
+00:58:08,140 --> 00:58:16,380
+Like, what's the normal range? To still be alive if zero is probably just incorrect or like malfunctioning or something.
+
+518
+00:58:16,390 --> 00:58:20,320
+Seems that way. Do you know how many zeros there are?
+
+519
+00:58:20,710 --> 00:58:23,980
+There are several.
+
+520
+00:58:24,340 --> 00:58:28,870
+Around five. One is spilled, two is zero.
+
+521
+00:58:28,900 --> 00:58:32,880
+The other measurement is around ten. Yeah.
+
+522
+00:58:36,310 --> 00:58:40,450
+I'll make a list of things that we should ask Tom about.
+
+523
+00:58:40,480 --> 00:58:43,420
+I think that might be it. And I guess it's.
+
+524
+00:58:43,720 --> 00:58:51,730
+It's possible that, like, I don't know what happens when a patient, like, goes into cardiac arrest or dies right after,
+
+525
+00:58:51,730 --> 00:58:58,389
+but I guess it's feasible that they were in the process of dying and the measurement, the arterial, but I guess would be a little bit strange.
+
+526
+00:58:58,390 --> 00:59:03,970
+But like if it was just taking a pulse X seems like that could be possible.
+
+527
+00:59:04,810 --> 00:59:09,070
+I mean, you've done histograms or something. Most of them are like around 199.
+
+528
+00:59:11,590 --> 00:59:19,180
+Yes. You say your name that was assigned by the research, by vote, by by Thomas.
+
+529
+00:59:19,960 --> 00:59:29,450
+Are we mainly focused on the occult or have hypoxemia which defined by him as an arterial oxygen saturation of less than 88%,
+
+530
+00:59:29,890 --> 00:59:35,040
+despite an oxygen saturation of 92 to 96% on pulse oximetry?
+
+531
+00:59:35,050 --> 00:59:42,430
+Are we mainly focused on that area or are we focused on the difference back across all from 0 to 100%?
+
+532
+00:59:46,270 --> 00:59:50,389
+Remember three, four questions, right? Maybe we should just let's bring up the question.
+
+533
+00:59:50,390 --> 00:59:59,780
+So I think the question that is about like the threshold topic is really about that 88 threshold of like I think they're sort of wanting to know,
+
+534
+00:59:59,780 --> 01:00:03,610
+how do I know if someone is below 88 or maybe below 92?
+
+535
+01:00:03,620 --> 01:00:08,120
+That wasn't pretty clear to me. The other questions.
+
+536
+01:00:13,830 --> 01:00:16,830
+I'm not sure. What do you guys think? So he drew some. He was right.
+
+537
+01:00:16,830 --> 01:00:22,950
+Please. There is a little graph which had, you know, sort of a block here on one measurement and the block here and another one, I think.
+
+538
+01:00:22,950 --> 01:00:27,329
+We're not we're not you're not being asked to sort of look at that specifically.
+
+539
+01:00:27,330 --> 01:00:32,430
+But the threshold that was part of that is far less from 92.
+
+540
+01:00:32,430 --> 01:00:37,290
+We do something right. So he he had the gold standard measurement.
+
+541
+01:00:37,290 --> 01:00:44,909
+It'd be happy to talk about the correct decision, but he's only got a ten minute measurement that's not like it's not an accurate decision.
+
+542
+01:00:44,910 --> 01:00:47,990
+So he wants to know what decision he should make based on also.
+
+543
+01:00:48,080 --> 01:00:51,330
+So that's the threshold he's talking about for sorts of.
+
+544
+01:00:53,280 --> 01:01:02,820
+So if you can I mean, so if you can use that and I think also we're not saying don't use their definition of occult hypoxemia, but like.
+
+545
+01:01:03,850 --> 01:01:11,790
+It would seem to apply, for example. To the third to the third bullet.
+
+546
+01:01:12,480 --> 01:01:20,010
+It's less clear to me how you would use that. Kind of composite outcome to answer the question in the third bullet here.
+
+547
+01:01:21,360 --> 01:01:25,020
+What do you want? How you interpret the accuracy? What do you think that means?
+
+548
+01:01:27,740 --> 01:01:32,630
+As it was inaccurate and inaccuracy in accurate and so as other.
+
+549
+01:01:38,410 --> 01:01:46,220
+Okay. So what are you. Christopher was how accurate or how are you thinking and kind of approach?
+
+550
+01:01:46,230 --> 01:01:58,820
+What accurate means, I think, is comparing to the I'll take arterial measurements since it's cold and standard for the oxygen level.
+
+551
+01:01:59,910 --> 01:02:07,340
+It's just a difference in measurements, essentially. Right. I think that's my interpretation.
+
+552
+01:02:07,340 --> 01:02:11,660
+So it doesn't involve all these thresholds and these boxes for where we take action.
+
+553
+01:02:11,810 --> 01:02:19,570
+It's just a difference in measurements. You know, zero is like roughly accurate run off by tourists, not Slovakia.
+
+554
+01:02:24,180 --> 01:02:33,419
+So then the threshold is that not still talking about the an accuracy threshold of an accuracy for white or black patients,
+
+555
+01:02:33,420 --> 01:02:41,700
+like the threshold being at what level of inaccuracy for these patients do we say, okay.
+
+556
+01:02:43,360 --> 01:02:45,910
+Now there's a problem with this pulse oximeter reading.
+
+557
+01:02:47,350 --> 01:02:54,850
+So his dash line is his threshold 88, where I think we take action right away as sort of a guideline to what we tend to do.
+
+558
+01:02:54,850 --> 01:02:58,480
+Right. If I have to go out on a date arrest, we're taking action.
+
+559
+01:02:59,560 --> 01:03:05,970
+So I don't think he's talking about the accuracy of whether we take action correctly or not.
+
+560
+01:03:05,980 --> 01:03:10,210
+I think he's just talking about the accuracy of the actual measurements. So, like.
+
+561
+01:03:11,130 --> 01:03:17,160
+Took it back to the third, fourth questioning. You go back to your question.
+
+562
+01:03:22,230 --> 01:03:26,370
+Yeah. I interpret that as about the measurement and not about the action.
+
+563
+01:03:27,740 --> 01:03:31,400
+The climate one, three and four being the four question Yeah.
+
+564
+01:03:31,420 --> 01:03:35,910
+Was that the question that we're trying to answer? I was confused on the second question.
+
+565
+01:03:36,000 --> 01:03:39,340
+Okay. Second question. Yeah.
+
+566
+01:03:39,340 --> 01:03:41,430
+So for instance, what's the right threshold? Right.
+
+567
+01:03:42,150 --> 01:03:53,130
+Is it asking about that 88% or is it asking about what pulse oximeter readings do we say now we need now we think is below 88%?
+
+568
+01:03:54,780 --> 01:03:59,940
+I think the latter. The second thing that you said is how I understand that second bullet.
+
+569
+01:04:02,380 --> 01:04:06,630
+Yeah. So kind of back to the inaccuracy idea.
+
+570
+01:04:07,230 --> 01:04:14,880
+If we're looking at just a difference between those two measurements, hypothetically, there's people who have low values for both.
+
+571
+01:04:15,330 --> 01:04:22,860
+And so they're not considered a hypoxemia patients because it isn't high enough.
+
+572
+01:04:23,580 --> 01:04:26,910
+So is that really what they're asking?
+
+573
+01:04:28,110 --> 01:04:32,730
+Like, it feels like it's getting at a different question than.
+
+574
+01:04:35,030 --> 01:04:40,429
+There isn't a difference in treatment here. Like do you care about inaccuracy?
+
+575
+01:04:40,430 --> 01:04:45,260
+If the arterial is 67 and the pulse ox is 71.
+
+576
+01:04:45,410 --> 01:04:50,160
+Right. Does that matter? Is that to me.
+
+577
+01:04:51,140 --> 01:04:59,850
+And maybe other people have different interpretation. To me, the accuracy question is maybe broader than that action question.
+
+578
+01:04:59,850 --> 01:05:01,580
+And the action question is about like this.
+
+579
+01:05:02,030 --> 01:05:12,559
+There's one magic number that's really important to us, but the accuracy question might might apply to a wider range of values.
+
+580
+01:05:12,560 --> 01:05:21,140
+Right. You could imagine that, like the E.R., doctors really care about 88, but somebody else might really care about 94 or like 80 or something.
+
+581
+01:05:23,130 --> 01:05:30,690
+And also I think you're getting at a good point, which is like the difference if one says 96 and the ice has 100,
+
+582
+01:05:31,320 --> 01:05:37,649
+that has kind of maybe different ramifications that if one says 88 and the other says 92,
+
+583
+01:05:37,650 --> 01:05:46,730
+even though an absolute difference basis, they're both like the same inaccuracy when it's a zero and ten.
+
+584
+01:05:46,750 --> 01:05:49,860
+Right. You don't care about that.
+
+585
+01:05:49,860 --> 01:05:53,160
+And assuming this, I mean, those are both in emergencies.
+
+586
+01:05:53,190 --> 01:05:57,390
+Yeah, but. Yeah.
+
+587
+01:05:57,900 --> 01:06:08,610
+So when we considering the rifle a should we encounter some practical reason like maybe underestimate the oxygen level is have more severe
+
+588
+01:06:08,820 --> 01:06:18,930
+or severe consequences than overestimate is should we take an encounter that is purely a math concept the threshold you're talk about.
+
+589
+01:06:23,090 --> 01:06:32,450
+I think it's. You certainly have consequences of your own.
+
+590
+01:06:34,160 --> 01:06:41,930
+It's not the medium of reading says its high but it really should say its low when you already have the worst consequence in the office.
+
+591
+01:06:42,700 --> 01:06:48,359
+Right. But how much worse is it? Since we don't have that you don't have we know about data.
+
+592
+01:06:48,360 --> 01:06:52,590
+I mean, the outcome for him is just do I follow the guidelines properly?
+
+593
+01:06:52,980 --> 01:06:59,889
+I know what's going to actually happen to a patient in Colombia. Yeah, but it's something that we can ask about.
+
+594
+01:06:59,890 --> 01:07:07,350
+But he might not be able to say. Thinking it's lower than 88 when it's not.
+
+595
+01:07:07,350 --> 01:07:12,600
+Is this much thinking it's higher than 88.
+
+596
+01:07:12,810 --> 01:07:18,299
+What? It's not right. I mean, we have no idea what they do right after we get this low measurement.
+
+597
+01:07:18,300 --> 01:07:24,450
+I mean, it presumably depends massively on the other things going on probation that's about retreat.
+
+598
+01:07:24,630 --> 01:07:32,400
+So in this case, should we inflate the number because of that or just like stay at just what we have?
+
+599
+01:07:35,850 --> 01:07:40,860
+Understand that. So if we estimate a fresh fall,
+
+600
+01:07:41,310 --> 01:07:49,139
+but then we think about the consequences of the patient having an actual lower maximum will have a severe consequences.
+
+601
+01:07:49,140 --> 01:07:54,660
+Shereen by the numbers. So let's say instead of point, we take action at 92.
+
+602
+01:07:55,200 --> 01:08:00,900
+Suppose that's the right threshold and maybe we take action at 95 instead of something like that.
+
+603
+01:08:03,190 --> 01:08:09,640
+Right. There's sort of if there's no consequences to acting as though someone is below 88,
+
+604
+01:08:09,670 --> 01:08:13,830
+why isn't the right threshold 100 that's just gave everyone supplemental oxygen?
+
+605
+01:08:13,840 --> 01:08:20,420
+What's wrong with that? That's hard. I think that's a good question, that like the three of us don't have an answer to that.
+
+606
+01:08:21,160 --> 01:08:25,880
+That's like. But I.
+
+607
+01:08:26,390 --> 01:08:31,130
+I put it on my list of questions to ask Tom. So I'll send an email.
+
+608
+01:08:33,590 --> 01:08:36,960
+I'm Sarah, by the way. I actually have two questions.
+
+609
+01:08:37,010 --> 01:08:43,909
+So the first one, in case we run out of time and I really want to get going on this in terms of office hours,
+
+610
+01:08:43,910 --> 01:08:48,440
+is there like preference for project questions to go to shared office hours and then like
+
+611
+01:08:48,440 --> 01:08:53,340
+lecture type questions to go to individual or any of your questions to any of the office?
+
+612
+01:08:53,470 --> 01:09:04,250
+Okay, good. And then in terms of data cleaning, I was trying to get patient level data instead of like this measurement level data I saw on there,
+
+613
+01:09:04,250 --> 01:09:09,500
+I think it was about like 56 patients had more than one listing for race,
+
+614
+01:09:09,500 --> 01:09:14,569
+ethnicity and most of the cases it was like at one hospital it was unknown other
+
+615
+01:09:14,570 --> 01:09:19,250
+and then the other one it was white or black or whatever the other value was.
+
+616
+01:09:19,880 --> 01:09:25,790
+There was one case where someone was listed as white at one hospital and then Hispanic at another.
+
+617
+01:09:26,180 --> 01:09:32,749
+Now, just wondering if it's like only a couple of people that fall into that, like, what would you do for those scenarios?
+
+618
+01:09:32,750 --> 01:09:41,990
+Would you just like ignore that or cause like we don't have like throughout our race ethnicity categories, it was like this happens all the time.
+
+619
+01:09:42,050 --> 01:09:44,630
+Right? So we're not going to have an answer.
+
+620
+01:09:44,670 --> 01:09:52,549
+So yeah, I guess we should tell you a little bit about that planned for the whole semester and how it relates to this question.
+
+621
+01:09:52,550 --> 01:09:57,440
+And so there's a project leader where, you know, it's designed,
+
+622
+01:09:57,560 --> 01:10:02,389
+it's kind of repeated measures of longitudinal data and you know them as a whole sort of series
+
+623
+01:10:02,390 --> 01:10:07,610
+of lectures and discussions we're going to have related to how to analyze repeated measures,
+
+624
+01:10:07,610 --> 01:10:12,740
+data hoping project one wasn't going to involve repeated measures.
+
+625
+01:10:13,310 --> 01:10:19,610
+So we really don't want to spend time talking about sort of techniques for repeated
+
+626
+01:10:19,610 --> 01:10:23,810
+measures and correlated data and things like that related to this project.
+
+627
+01:10:24,580 --> 01:10:30,350
+And so I guess we're wanting you to ignore somehow or do a sensible thing,
+
+628
+01:10:31,170 --> 01:10:40,040
+but it doesn't involve you getting into mixed models of you wanted to get like a count for each race ethnicity category.
+
+629
+01:10:40,370 --> 01:10:42,860
+So for that sake, should I just ignore?
+
+630
+01:10:43,220 --> 01:10:51,460
+So there's also a separate issue, which is that the same person has multiple entries depending on which row you're looking at.
+
+631
+01:10:51,470 --> 01:10:55,130
+Right. So what are you thinking of doing about that?
+
+632
+01:10:55,640 --> 01:11:02,500
+He's not going to listen that way. We're going to go back to the data and say, oh, that's not an error, like double count them or just ignore them.
+
+633
+01:11:02,510 --> 01:11:06,790
+I didn't know if there was like a general rule for what's covered.
+
+634
+01:11:06,920 --> 01:11:13,160
+So the options are draw that person out, count them as both.
+
+635
+01:11:13,430 --> 01:11:18,110
+And then there's like one more option. I guess you could do, like a multiracial crew.
+
+636
+01:11:18,260 --> 01:11:23,450
+Yeah, he's giving that person its very own category if you believe that it actually reflects truth.
+
+637
+01:11:23,450 --> 01:11:27,560
+And is that like a coding area? I think there's just one more option.
+
+638
+01:11:28,040 --> 01:11:38,110
+Just pick one. Just pick one. Okay. So that's four options on the list.
+
+639
+01:11:38,190 --> 01:11:41,899
+Yeah. And you'd have to make lots of choices along these lines. Yeah.
+
+640
+01:11:41,900 --> 01:11:44,540
+I mean, you could go through, like, pros and cons of those. We could.
+
+641
+01:11:44,900 --> 01:11:48,290
+We don't have that much time, but we could talk about pros and cons of them here.
+
+642
+01:11:48,290 --> 01:11:55,340
+But I think getting a couple more questions in, you come to office hours, then there's officers tonight,
+
+643
+01:11:55,700 --> 01:11:59,980
+this evening, this afternoon, and then also every other day this weekend.
+
+644
+01:12:02,360 --> 01:12:06,169
+Grace. Yeah, I was just going to piggyback off that.
+
+645
+01:12:06,170 --> 01:12:08,210
+Isn't it very problematic just to pick one?
+
+646
+01:12:08,420 --> 01:12:15,980
+Like, for example, if someone has like two white, two Hispanic, how are you supposed to just say, I'm going to assume that they're white or whatever?
+
+647
+01:12:16,340 --> 01:12:21,440
+And also, for one person, they have like a bunch of entries where it was all white and then one of them was black.
+
+648
+01:12:22,100 --> 01:12:27,709
+So then if I'm if I'm looking between I'm interested in looking between white and black people, how would I just choose?
+
+649
+01:12:27,710 --> 01:12:31,490
+Like, I'm just going to assume they're white because they have more white, you know?
+
+650
+01:12:34,100 --> 01:12:38,299
+That's just yeah, I guess I question I mean, there's measurement error, if you like,
+
+651
+01:12:38,300 --> 01:12:45,200
+in many variables and many datasets and you sort of have to sort of deal with it.
+
+652
+01:12:45,200 --> 01:12:48,710
+Yes. You you recognize some of these variables. You put it in these models on.
+
+653
+01:12:49,280 --> 01:12:52,370
+This is not 100% what you'd like to be if you don't have the information.
+
+654
+01:12:52,370 --> 01:12:53,830
+So you have to deal with it. Right.
+
+655
+01:12:53,840 --> 01:13:05,810
+So one principle is that you want to be able to sort of clean your data, reconcile your data without introducing like a biased measurement error.
+
+656
+01:13:05,840 --> 01:13:11,290
+Right. So if I did something like I said. I'm going to always pick the measurement.
+
+657
+01:13:11,290 --> 01:13:13,660
+That's the highest. That's.
+
+658
+01:13:14,910 --> 01:13:24,740
+Not a good thing to do because I've informed my choice here by looking at this value that I care about, which is the spo2 measurement.
+
+659
+01:13:25,290 --> 01:13:30,300
+So I think that you can have like a rule for how you reconcile these.
+
+660
+01:13:30,420 --> 01:13:42,660
+And as long as that rule doesn't sort of cheat in some way or like look at I think the outcomes or the exposure is that you're, you care about.
+
+661
+01:13:42,960 --> 01:13:48,800
+Like, maybe I wouldn't. I mean yeah, I think that you could have multiple rules.
+
+662
+01:13:48,810 --> 01:13:54,840
+Like one of them could be like, well, if there is, let's say more than three, I'll use majority vote.
+
+663
+01:13:55,110 --> 01:13:59,910
+Right. So if 80 of them say white and one of them's is black, I'll take white.
+
+664
+01:14:00,210 --> 01:14:04,530
+And then if there's just two, maybe you're picking randomly.
+
+665
+01:14:04,800 --> 01:14:10,230
+Right. But I think you could come up with multiple rules for reconciling that.
+
+666
+01:14:10,380 --> 01:14:19,050
+And as long as your rule doesn't. Doesn't like introduce some new imbalance.
+
+667
+01:14:19,500 --> 01:14:28,200
+It's certainly a more accurate way to figure it, like a sensitivity analysis to try it, making that person wide and get a result.
+
+668
+01:14:28,260 --> 01:14:32,040
+Try making it black and you get a result. I bet it was probably going to change it.
+
+669
+01:14:32,140 --> 01:14:36,320
+Right. You don't want your result to change a lot depending on these decisions that you make.
+
+670
+01:14:36,360 --> 01:14:39,989
+So you're not making a prediction of that particular person.
+
+671
+01:14:39,990 --> 01:14:45,880
+It doesn't matter in that sense. You're just interested in whatever question it said you had your preferences.
+
+672
+01:14:45,960 --> 01:14:54,030
+If they were let go the one behind you and have their hand up for you to do that, and then blue and then you have forgotten your name.
+
+673
+01:14:54,120 --> 01:15:00,629
+And my question was answer. It's like, okay, I ask a very small question.
+
+674
+01:15:00,630 --> 01:15:05,340
+So should we drop the value of the threshold? Should we want to raise the cost?
+
+675
+01:15:05,340 --> 01:15:11,520
+All the, you know, data set out, all of them should have value with all the integers.
+
+676
+01:15:11,850 --> 01:15:19,770
+So I think that based on the maybe recommendation, maybe we should add on the value of the threshold, you know, to provide policy recommendations.
+
+677
+01:15:19,770 --> 01:15:22,440
+But I'm not so sure why we should necessarily do that right.
+
+678
+01:15:22,440 --> 01:15:31,620
+If you hand back a threshold of 92.1, is that going to be useful or should you say 90 to make it more dangerous?
+
+679
+01:15:31,650 --> 01:15:38,250
+Yeah, maybe not just because. Okay. So the data that they get, the doctor see, is just that integer, right?
+
+680
+01:15:38,250 --> 01:15:42,059
+That's what reads out on the on the machine.
+
+681
+01:15:42,060 --> 01:15:47,010
+So if we want to tell them when to make a decision, we have to work with the information that they're getting.
+
+682
+01:15:47,010 --> 01:15:53,219
+They don't get to see 92.1. Is that true? Both for both techniques is integers.
+
+683
+01:15:53,220 --> 01:16:01,260
+Is it only the. Speaker two I think the chair like s has a decimal, otherwise the decimal.
+
+684
+01:16:01,350 --> 01:16:07,860
+Yeah, but the hospital too I found that maybe I should say maybe I have a high probability to say that all the values
+
+685
+01:16:08,130 --> 01:16:14,310
+that I need to see that maybe we should have on the value because maybe the machines cannot tell you the decimal,
+
+686
+01:16:14,640 --> 01:16:21,030
+which I think that spo2 to I think only tells you like two numbers like 93.
+
+687
+01:16:21,160 --> 01:16:24,840
+Does it tell you 93.2. So what are you proposing to round.
+
+688
+01:16:25,590 --> 01:16:31,310
+Well, maybe I'm not so sure. So I'm just thinking that maybe we should not provide, you know, some kind of a decimals.
+
+689
+01:16:31,320 --> 01:16:36,629
+They only provide a list of we talking about question to the what is the right threshold?
+
+690
+01:16:36,630 --> 01:16:40,140
+QUESTION Yeah. So the question is for question two.
+
+691
+01:16:40,140 --> 01:16:50,880
+If we could go back to look at question two for question two, should you to the answer the question to be an integer or should it be a non integer?
+
+692
+01:16:51,330 --> 01:16:55,740
+Yeah, I guess it's easier to say less than or equal to.
+
+693
+01:16:55,920 --> 01:17:01,500
+Or are you going to say less? I mean, it doesn't really just have to be explicit about what you threshold means.
+
+694
+01:17:01,830 --> 01:17:05,550
+Right. I think in question, too, you're you're giving them a decision, right.
+
+695
+01:17:05,700 --> 01:17:09,690
+And so they have to be able to execute that decision or with that information.
+
+696
+01:17:09,780 --> 01:17:16,160
+I mean, do we know if I see 92, do I need it to be less than 92 or is is actually 92?
+
+697
+01:17:16,230 --> 01:17:18,770
+If I want to do something, that's a good question.
+
+698
+01:17:18,900 --> 01:17:28,890
+Know we should ask resistance to you because you know, we made six out of your body should be 92.65.
+
+699
+01:17:28,920 --> 01:17:32,370
+You know, we cannot provide the same. Okay, but that's the way you do it.
+
+700
+01:17:32,700 --> 01:17:37,200
+94.6 is okay because they cannot see all the machines, you know.
+
+701
+01:17:37,200 --> 01:17:41,070
+And then I can to a point six, we can only see 92 on a restriction.
+
+702
+01:17:41,100 --> 01:17:47,460
+So maybe you based on this kind of thing, I mean, are we honest with how many it gave the policies to say that,
+
+703
+01:17:47,640 --> 01:17:50,820
+okay, that's not useful to have a history of you. Great.
+
+704
+01:17:51,510 --> 01:18:00,389
+And although the true value should be maybe 92.5 or something like that, I mean,
+
+705
+01:18:00,390 --> 01:18:07,380
+my reaction is that I can't think of a situation where it if we're talking about pulse ox,
+
+706
+01:18:08,740 --> 01:18:17,190
+where the only reason I can think of where you would have more precision is that's introduced by some artifact as a model that you're using.
+
+707
+01:18:17,820 --> 01:18:24,450
+And it's like if you were to actually have more precision than the measurement of the numbers that you have.
+
+708
+01:18:25,760 --> 01:18:29,610
+The good thing is that. Would you agree with that? Yeah, I agree with that.
+
+709
+01:18:30,910 --> 01:18:35,610
+So here. So there are two issues.
+
+710
+01:18:35,640 --> 01:18:45,180
+One is like for at the time, the as pure entertainment, there is both negative values.
+
+711
+01:18:45,600 --> 01:18:51,910
+I'm wondering whether that is before hospital, hospitalization or ICU admissions.
+
+712
+01:18:52,170 --> 01:18:56,280
+So it's possible that they were I could conceive of a situation where they're elsewhere in
+
+713
+01:18:56,280 --> 01:19:03,570
+the hospital at another high like high care sort of place that's not considered an ICU.
+
+714
+01:19:04,170 --> 01:19:08,489
+And so they just calculate the difference in the chart from ICU to whatever.
+
+715
+01:19:08,490 --> 01:19:12,540
+They took that measurement that was negative. Oh, I could see that as being possible.
+
+716
+01:19:12,720 --> 01:19:18,970
+I don't think the negative numbers are special. There's like a time zero because they just have to like they have to start time somewhere.
+
+717
+01:19:19,260 --> 01:19:22,470
+I guess they could have given the DTC numbers if they can.
+
+718
+01:19:22,570 --> 01:19:27,330
+So. So there's like a time zero and everything is relative to that.
+
+719
+01:19:27,330 --> 01:19:31,230
+But I don't think like it being like minus forties.
+
+720
+01:19:31,980 --> 01:19:37,920
+So it doesn't that meaning for it to consider the difference between positive value than negative.
+
+721
+01:19:38,910 --> 01:19:44,160
+Right. So if like, if material happened at -43 and as opposed to happened at -40,
+
+722
+01:19:44,160 --> 01:19:51,840
+that's still a time difference of 3 minutes, just as it would be if arterial happened in ten and spo2.
+
+723
+01:19:51,840 --> 01:19:56,730
+Having a 13 like those should be sort of the same as my understanding of the data.
+
+724
+01:19:56,970 --> 01:20:01,410
+Okay. And also, is there a follow up, too? Yeah. Okay.
+
+725
+01:20:01,980 --> 01:20:10,860
+So the second one is like there is patients who have two entries at a same time that the same time for ABC.com
+
+726
+01:20:10,860 --> 01:20:21,059
+and ask people to come back to entries have exactly the same ABC and as P or to is that usually the case is
+
+727
+01:20:21,060 --> 01:20:27,240
+because that so if you just take one sample if you get the measurements but the patient have all all of
+
+728
+01:20:27,240 --> 01:20:34,640
+potter's entries is the same except that for the ratings like duplicated entries except that the readings are.
+
+729
+01:20:34,650 --> 01:20:40,680
+Yeah. So maybe they took two readings at the same time and they were different. Different hospital is the same hospital.
+
+730
+01:20:41,270 --> 01:20:47,010
+Yeah, me too. So we have one arterial measurement and they have to post measurements both close to it.
+
+731
+01:20:47,220 --> 01:20:51,629
+Yeah. We don't quite know how he filtered the data set to give it to you actually.
+
+732
+01:20:51,630 --> 01:20:56,730
+So yeah, it's my understanding that you get the data as paired.
+
+733
+01:20:57,300 --> 01:21:02,100
+I would have had to do something. Yeah, I kind of think these are naturally paired observations.
+
+734
+01:21:02,100 --> 01:21:05,250
+I think they just looked at neighbors and made them in pairs.
+
+735
+01:21:05,410 --> 01:21:08,250
+Yeah, I'm trying to get the baseline data.
+
+736
+01:21:08,370 --> 01:21:16,640
+Like the first and first observation data, which is difficult, is you have to phrase observations based on the type.
+
+737
+01:21:19,230 --> 01:21:21,600
+I think I think similar to the race question,
+
+738
+01:21:21,600 --> 01:21:30,550
+there's a bunch of ways that you can decide to pick one of those and hopefully your analysis doesn't depend strongly on you.
+
+739
+01:21:33,090 --> 01:21:36,660
+So we know that. Your question. Oh, okay.
+
+740
+01:21:37,260 --> 01:21:43,560
+You. Oh, Abby. Yeah? You said you didn't want us worrying about, like, G.E. or, like, multilevel models.
+
+741
+01:21:44,130 --> 01:21:52,180
+But if I'm mistaken, I think you said that we did some type of, like, mixed effects modeling for their initial analysis.
+
+742
+01:21:53,220 --> 01:21:56,010
+And if the first question is, can you replicate our findings?
+
+743
+01:21:56,550 --> 01:22:03,060
+Do you want us to be considering the fact that we had repeated measures and applying something from 653 to this data?
+
+744
+01:22:06,120 --> 01:22:13,440
+Question We then talked about and I guess the first question maybe interpret that qualitatively.
+
+745
+01:22:13,680 --> 01:22:21,750
+I have a sort of a qualitative conclusion about some difference and maybe numerically isn't necessarily the same.
+
+746
+01:22:21,930 --> 01:22:27,960
+Right. So don't get bogged down on testing like is the difference I see numerically the same as the difference they saw.
+
+747
+01:22:28,320 --> 01:22:37,860
+It's sort of a qualitative like they saw that it's lower in black patients who I also think and and also like your performance or assessment doesn't
+
+748
+01:22:37,860 --> 01:22:45,630
+depend on directly like getting the same because you should expect in a perfect world to get the same because it's basically the same data.
+
+749
+01:22:46,260 --> 01:22:49,780
+So like. It's like disentangled from each other.
+
+750
+01:22:50,030 --> 01:22:58,530
+Okay. So then would you not want us doing any type of, like, longitudinal data assessment for this?
+
+751
+01:22:58,870 --> 01:23:04,180
+So we try to avoid being prescriptive, but I think in this case.
+
+752
+01:23:06,530 --> 01:23:16,100
+It would be fine to take. For example, like the first measurement of every patient and drop the other ones.
+
+753
+01:23:17,360 --> 01:23:27,919
+So you do an analysis that's like statistically valid, but your analysis does not have to do it, incorporate the repeated measures.
+
+754
+01:23:27,920 --> 01:23:33,170
+And I think that we're like explicitly giving you license to ignore in the hospital level clustering.
+
+755
+01:23:33,770 --> 01:23:44,150
+You can do 653 analysis, but you will not get more points for doing a 653 analysis to be very explicit about that.
+
+756
+01:23:44,510 --> 01:23:48,110
+In this project, you will do repeated measures in our future project,
+
+757
+01:23:48,710 --> 01:23:55,430
+and we will try to give you the machinery for those of you who haven't taken 653 kind of come along with that, but that's not now.
+
+758
+01:23:55,760 --> 01:24:01,390
+Yeah. So just to clarify, the point of this project is not that it is longitudinal, it just happens to have that direct.
+
+759
+01:24:01,400 --> 01:24:08,450
+You happen to have multiple measurements per patient. So we're not worried about the hospital clustering.
+
+760
+01:24:08,450 --> 01:24:12,050
+Just sort of forget about that. Patient clustering is probably real.
+
+761
+01:24:13,070 --> 01:24:18,410
+I want you to have to worry about dealing with that. So let's do over here and then over here.
+
+762
+01:24:18,620 --> 01:24:25,700
+I was also going to mention that this might be helpful for people who kind of made it sound like they did longitudinal, but they actually didn't.
+
+763
+01:24:25,910 --> 01:24:29,330
+If you read the supplement so well, they knew. Yeah, they did.
+
+764
+01:24:29,330 --> 01:24:33,950
+They did bootstrap at patient level. Yeah, that's just interesting.
+
+765
+01:24:34,250 --> 01:24:38,360
+So they just did a bunch of independent analysis.
+
+766
+01:24:38,400 --> 01:24:42,590
+Yeah. Them together. Okay.
+
+767
+01:24:44,360 --> 01:24:50,690
+Well, I notice that a patient can have a very distinct agent as to O2 value.
+
+768
+01:24:50,720 --> 01:24:56,440
+They can be really different. Yeah. And I found the highest value is about 99.
+
+769
+01:24:57,360 --> 01:25:01,880
+Oh. So, like, one of them reads 100, and one of them reads one or the other way around.
+
+770
+01:25:02,000 --> 01:25:08,330
+It can be -90 of if it if the difference is within range like 20 or 30.
+
+771
+01:25:08,390 --> 01:25:20,380
+I'll probably just accept it. But when the difference is over 90, I think it can be a potentially corrupted value of the total number of is over 100,
+
+772
+01:25:20,420 --> 01:25:23,990
+even though it's kind of trivial compared to the total population.
+
+773
+01:25:24,320 --> 01:25:30,830
+But since I'm considering using it as the response, my messed up, you know, the correlation, right?
+
+774
+01:25:30,860 --> 01:25:36,140
+If you like a huge outlier. Yeah. Sort of thinking that it's going to drag maybe an estimate.
+
+775
+01:25:36,410 --> 01:25:44,570
+Yeah. I'm, I'm just asking if like the total potential corrupted values is about 100 to 200.
+
+776
+01:25:44,810 --> 01:25:48,260
+Can I just be sloppy on this case? I should address it.
+
+777
+01:25:49,190 --> 01:25:57,700
+I mean. So it sounds like your hypothesis is these are too far apart to be realistic.
+
+778
+01:25:57,710 --> 01:26:01,420
+So it must be like a data entry error. Yeah.
+
+779
+01:26:01,430 --> 01:26:04,750
+Yeah. What do you think the like non sloppy thing to do in that case would be.
+
+780
+01:26:05,590 --> 01:26:13,270
+Oh, I think we take it all for you because it's like we can actually do imputation on those countries treated as a missing data.
+
+781
+01:26:14,260 --> 01:26:17,500
+Yeah. Although. Which ones?
+
+782
+01:26:19,920 --> 01:26:27,300
+Would you drop both of them and then imbue both of them, or would you just drop one and improve that one?
+
+783
+01:26:27,890 --> 01:26:38,700
+Oh, yeah, I didn't think about that. Um, so if, if this were a real analysis, what I would do if I were like the actual responsible statistician,
+
+784
+01:26:39,450 --> 01:26:45,030
+I would try to figure out there must be some numbers below which aren't real.
+
+785
+01:26:47,980 --> 01:26:52,090
+Because they surely they they know these numbers backwards and forwards.
+
+786
+01:26:52,090 --> 01:26:58,780
+They must have a very good sense of what's ridiculous and what's within the realm of possibility and what's normal.
+
+787
+01:26:59,740 --> 01:27:08,290
+And I would find out what other ridiculous and I would probably either ask them to look into that if it was really important to me,
+
+788
+01:27:08,290 --> 01:27:18,100
+or I would consider dropping those observations if it were a small fraction in this data, sort of on those on the side of dropping them,
+
+789
+01:27:19,930 --> 01:27:25,419
+dropping a person because their data is corrupted is not that different from somebody not making it into the
+
+790
+01:27:25,420 --> 01:27:33,820
+dataset at all because they didn't have a measurement that seems sort of a similar missing this mechanism to me.
+
+791
+01:27:34,070 --> 01:27:39,010
+That's what you're saying. You don't have any other covariance here that sort of guide you.
+
+792
+01:27:39,010 --> 01:27:46,899
+All right. Citation is going to be checking and the being the enrollment criteria were just that.
+
+793
+01:27:46,900 --> 01:27:48,610
+You were in the hospital and you got a measurement.
+
+794
+01:27:49,150 --> 01:27:54,580
+So sort of everyone who was in the hospital and didn't get a measurement is missing data in some sense, right?
+
+795
+01:27:54,590 --> 01:28:04,520
+Like. You know, you might as we talked about earlier, you know, you're worried about values of ten and 20.
+
+796
+01:28:04,520 --> 01:28:10,970
+You might say we're only really interested in these when they're sort of above 70 or above 50 or something.
+
+797
+01:28:10,980 --> 01:28:15,590
+Right. And so you might just sort of restrict your data analysis to anyone who has
+
+798
+01:28:15,590 --> 01:28:25,430
+a material measurement above 15 and eliminate some of those issues just in.
+
+799
+01:28:25,440 --> 01:28:33,550
+So what do you think of this graph? Any comments on what sort of aspect of the data isn't captured by this graph?
+
+800
+01:28:36,610 --> 01:28:40,100
+So I'll give you a big clue. It's pad data. Right.
+
+801
+01:28:40,720 --> 01:28:45,250
+So, you know, it doesn't you know, I just plotted the two the two variables next to each other.
+
+802
+01:28:45,260 --> 01:28:49,450
+You don't have any sort of linkage between the past or what would be a would be a plot
+
+803
+01:28:49,450 --> 01:28:55,089
+would sort of capture the the concept of these two measurements from the same person,
+
+804
+01:28:55,090 --> 01:29:03,930
+which you can't see at all from this. You have no idea of this dot down here matches the dot up here figure or size.
+
+805
+01:29:06,370 --> 01:29:09,600
+Um. Sorry, I have a question about your question. Okay.
+
+806
+01:29:11,520 --> 01:29:14,580
+I mean, isn't it sort of point the pier itself? Yeah.
+
+807
+01:29:15,310 --> 01:29:20,180
+There's this. A scatterplot. It is a scatterplot. It is a scatterplot.
+
+808
+01:29:20,190 --> 01:29:24,270
+Yeah. So those are two measurements on the X and Y.
+
+809
+01:29:24,680 --> 01:29:28,380
+Okay. So they are totally screwed up.
+
+810
+01:29:28,680 --> 01:29:31,800
+Yeah, this is this is a scatterplot. Just doesn't look like a scatterplot.
+
+811
+01:29:34,090 --> 01:29:39,100
+Thank you. We do a last thing.
+
+812
+01:29:39,300 --> 01:29:44,770
+I do? Yes. Which means you have something else planned. I just want to get to work.
+
+813
+01:29:45,370 --> 01:29:57,220
+So in the discussions thing on canvas here and if you click on that stuff, you can put in that, you know, sort of like talking to each other.
+
+814
+01:29:57,790 --> 01:30:03,460
+And we're asked to look at it. We look at it, and we know this is not an easy questions to ask us.
+
+815
+01:30:04,960 --> 01:30:08,890
+So one of the students came to office hours and said he's nervous.
+
+816
+01:30:09,130 --> 01:30:14,050
+He told us there are 178 hospitals and institutions. I don't remember, but I only find 57.
+
+817
+01:30:14,080 --> 01:30:15,580
+Does anyone else find the same? Right.
+
+818
+01:30:15,580 --> 01:30:24,850
+So someone said I got the same answer as only 56, 57, because the lady said that's you know, you can put fairly,
+
+819
+01:30:24,850 --> 01:30:29,169
+you know, mundane things like that in there where you can put more sophisticated questions in there.
+
+820
+01:30:29,170 --> 01:30:31,510
+But this is this is where for you to use.
+
+821
+01:30:31,600 --> 01:30:42,070
+And we're not really going to be taking on ourselves necessarily answer every question immediately and you can jump in on other people's questions.
+
+822
+01:30:43,130 --> 01:30:51,220
+So, yeah, if you have a question that you want us to answer in class but you don't want to ask it, you can send an email, at least you can email me.
+
+823
+01:30:51,220 --> 01:30:54,670
+I'm happy to take those questions and then ask an anonymous question.
+
+824
+01:30:54,670 --> 01:31:03,840
+Although there's no reason it's a friendly place here, I think it's a good probably if you have any questions, somebody else has the questions.
+
+825
+01:31:03,850 --> 01:31:13,440
+So I think all the questions that were asked today were like the sorts of questions that were very appropriate and good questions to ask.
+
+826
+01:31:13,450 --> 01:31:20,049
+Yeah, these are the questions that we were asking ourselves as we looked at this site as three.
+
+827
+01:31:20,050 --> 01:31:23,620
+Mainly those three spent about an hour a couple of days ago arguing about how right.
+
+828
+01:31:23,620 --> 01:31:29,020
+Analyze this data. So it sort of illustrates already the strong term having discussions.
+
+829
+01:31:29,530 --> 01:31:32,709
+So there is one answer here. It's not like a perfect way to do it.
+
+830
+01:31:32,710 --> 01:31:39,860
+There's lots of ways you might think about approaching this. Okay.
+
+831
+01:31:40,300 --> 01:31:46,780
+So try to get through this in 20 minutes.
+
+832
+01:31:47,200 --> 01:31:51,939
+So we have and if we don't, there's like an addendum to this that we're going to pick up on Thursday.
+
+833
+01:31:51,940 --> 01:31:55,400
+So there will be time to cover what we uncovered.
+
+834
+01:31:56,020 --> 01:31:59,320
+So elements of a report, what is it, 699 report look like?
+
+835
+01:32:01,480 --> 01:32:05,260
+This is mostly like what does a applied statistics paper look like?
+
+836
+01:32:05,260 --> 01:32:10,899
+That's essentially what you're writing for us. It's like a little bit maybe shorter and like slightly prescribed.
+
+837
+01:32:10,900 --> 01:32:17,740
+But if you've got this structure, you can write a paper on almost any applied statistics project.
+
+838
+01:32:17,830 --> 01:32:27,130
+So we've got five sections abstract introduction, methods, results, conclusions, discussion, you can call it either of those.
+
+839
+01:32:28,030 --> 01:32:29,860
+And so I'm going to go through each of these sections.
+
+840
+01:32:30,010 --> 01:32:34,390
+I'm going to talk about the abstract last, even though it's the first thing in the paper, you'll probably read it last.
+
+841
+01:32:35,740 --> 01:32:42,120
+Okay. Interaction. So I want to give the reader background that they need to understand the problem, motivate.
+
+842
+01:32:42,130 --> 01:32:46,680
+Why is the problem interesting and then tell them what is coming up.
+
+843
+01:32:46,690 --> 01:32:50,469
+Right? Give them an idea of of what's coming up for our reports.
+
+844
+01:32:50,470 --> 01:33:00,549
+This is like half a page two. One and a half pages are the introductions in the 699 reports tend to be less detailed than maybe an introduction
+
+845
+01:33:00,550 --> 01:33:05,650
+in New England Journal of Medicine is going to be because you're not writing this with your medical collaborator,
+
+846
+01:33:05,650 --> 01:33:10,450
+and we know that you're not an expert in liver cancer or whatever.
+
+847
+01:33:10,450 --> 01:33:18,100
+So we don't need you to spend don't spend lots of time trying to get the topical references for the introduction.
+
+848
+01:33:18,340 --> 01:33:23,110
+Give us so enough introduction that we're motivated to keep reading.
+
+849
+01:33:25,120 --> 01:33:28,959
+This is a very basic graphic that I like for an introduction.
+
+850
+01:33:28,960 --> 01:33:32,110
+So you want to start out broad and end up narrow.
+
+851
+01:33:32,110 --> 01:33:36,159
+So the first part is going to say broadly, what's the topic?
+
+852
+01:33:36,160 --> 01:33:41,320
+Right, I'm studying pulse oximetry, right?
+
+853
+01:33:41,560 --> 01:33:46,240
+And then the feature of the topic that you're interested in. And then from that feature,
+
+854
+01:33:46,240 --> 01:33:53,049
+we're going to get to the motivation or the gap in the research and then the very specific question that you're going to answer in this report.
+
+855
+01:33:53,050 --> 01:33:56,290
+So that's the most specific thing. So a little example here.
+
+856
+01:33:56,650 --> 01:34:02,020
+This is I think I took this out of one of the example reports that's on the canvas site.
+
+857
+01:34:02,020 --> 01:34:07,389
+So they structure their introduction ads and you will be less blunt than this, right?
+
+858
+01:34:07,390 --> 01:34:11,740
+So the first sentence is not going to say liver cancer is important, but it's going to say,
+
+859
+01:34:12,490 --> 01:34:16,510
+tell me like, you know, a little bit more words why liver cancer is important.
+
+860
+01:34:16,510 --> 01:34:21,400
+Liver cancer affects X number of people or it's, you know, deadly or etc.
+
+861
+01:34:22,360 --> 01:34:25,870
+Radiation is often used to treat liver cancer, but it has side effects.
+
+862
+01:34:26,230 --> 01:34:28,720
+Okay. So that's like a little bit more specific.
+
+863
+01:34:29,350 --> 01:34:34,659
+It would be useful to be able to predict patient response to radiation in order to deliver an optimum dose.
+
+864
+01:34:34,660 --> 01:34:38,770
+So now I'm getting into like the specific gap in research. We have a problem.
+
+865
+01:34:38,770 --> 01:34:42,190
+I know what's missing. What are we specifically going to do in this report?
+
+866
+01:34:42,190 --> 01:34:46,540
+So we want to understand the relationship between patient characteristics and radiation response.
+
+867
+01:34:46,780 --> 01:34:50,019
+So we started very broad. This is going to be about liver cancer.
+
+868
+01:34:50,020 --> 01:34:58,450
+We ended up very narrow. I'm trying to understand the relationship between patient characteristics and response to radiation methods.
+
+869
+01:34:58,870 --> 01:35:03,970
+So there's sort of two subsections of methods study design and statistical methods.
+
+870
+01:35:04,750 --> 01:35:11,250
+Study design, I think. Oh, Kerstin who I should plug in.
+
+871
+01:35:11,260 --> 01:35:15,909
+So one person at the end likes to call this, I think like who, what, when, where, how?
+
+872
+01:35:15,910 --> 01:35:22,210
+Like tell us how the study was done. You want to tell us who's in the study, what the sample size is, what the population is,
+
+873
+01:35:22,420 --> 01:35:27,520
+where they came from, when when the study happened, important features of the design.
+
+874
+01:35:27,520 --> 01:35:31,780
+It was a clustered design. It was randomized, it was longitudinal.
+
+875
+01:35:33,450 --> 01:35:36,429
+I give a general description of the inclusion criteria.
+
+876
+01:35:36,430 --> 01:35:44,530
+So we're studying smokers or we're studying pregnant women between the ages of 25 and 40 or something like that.
+
+877
+01:35:44,860 --> 01:35:48,760
+And then talk about the measurement methods, right? What was measured and how did they measure it?
+
+878
+01:35:50,730 --> 01:35:56,370
+Statistical methods. So this is where you tell us how you're going to analyze the data.
+
+879
+01:35:56,370 --> 01:36:00,540
+So this is not where you tell us the results of having you analyze the data about your plan.
+
+880
+01:36:00,540 --> 01:36:05,429
+So this should approximately mirror the results section.
+
+881
+01:36:05,430 --> 01:36:10,590
+So sometimes you'll write these together. You're like, I know, I want to show this results, so I have to tell you how I got that result.
+
+882
+01:36:12,540 --> 01:36:17,030
+So there's usually a sentence at the beginning that says, like,
+
+883
+01:36:17,040 --> 01:36:23,610
+we computed summary statistics for X characteristics and then like references table one and we'll see what table one looks like.
+
+884
+01:36:25,530 --> 01:36:28,979
+And then beyond that, you're going to describe, let's say, your regression analysis.
+
+885
+01:36:28,980 --> 01:36:30,809
+You did a linear, mixed model.
+
+886
+01:36:30,810 --> 01:36:40,590
+You'll say we use a linear mixed model to test so such and such you want to give enough detail that someone could recreate your analysis,
+
+887
+01:36:40,980 --> 01:36:43,680
+but you still want to do it in a way that's readable.
+
+888
+01:36:43,860 --> 01:36:53,610
+Some of this detail might go into the supplement, although even in the supplement try to be readable, write talking words rather than in formulas.
+
+889
+01:36:54,180 --> 01:36:59,730
+Don't say we estimated the betas. You can say we estimated the coefficients in this model.
+
+890
+01:37:02,850 --> 01:37:05,940
+All right. So the method section should be technically correct,
+
+891
+01:37:05,940 --> 01:37:11,909
+but it should include a non-technical interpretation for someone who's not a statistician who's reading this.
+
+892
+01:37:11,910 --> 01:37:15,629
+So you can say why you picked the model that you picked.
+
+893
+01:37:15,630 --> 01:37:20,970
+So in this example, let's say we fit the model using GE to account for clustering by hospitals.
+
+894
+01:37:21,360 --> 01:37:27,360
+Somebody might not know what she is, but they know that I did something because I'm worried about clustering by a hospital.
+
+895
+01:37:29,400 --> 01:37:33,059
+You can sometimes explain why you didn't pick an obvious alternative.
+
+896
+01:37:33,060 --> 01:37:39,480
+So in this example I said we chose to use large binomial regression rather than logistic regression because our outcome
+
+897
+01:37:39,480 --> 01:37:44,880
+had moderate prevalence and we found the relative risk to be more interpretable than the odds ratio for this problem.
+
+898
+01:37:45,120 --> 01:37:48,179
+So in this example, I have a binary outcome.
+
+899
+01:37:48,180 --> 01:37:52,650
+The obvious thing to do is logistic regression, and I didn't do that. And so I'm telling you why I didn't do that.
+
+900
+01:37:52,800 --> 01:37:57,000
+Most of the time, you don't have to spend a lot of words on why you didn't do the things you didn't do,
+
+901
+01:37:58,650 --> 01:38:01,950
+and you will probably do a lot of stuff that doesn't end up in your report.
+
+902
+01:38:02,100 --> 01:38:09,060
+You don't have to tell me why you didn't pick those things to be in the report, but occasionally you have a reason to do that.
+
+903
+01:38:10,020 --> 01:38:15,089
+Okay. Results section. So the results section often has multiple subsections.
+
+904
+01:38:15,090 --> 01:38:19,560
+Usually these sort of correspond to the questions that you're trying to address in the report.
+
+905
+01:38:19,860 --> 01:38:25,080
+The first section is almost always descriptive statistics of some kind, so this is usually linked to table one,
+
+906
+01:38:25,290 --> 01:38:30,179
+but usually in the first section you're going to tell us just broad descriptors of the study.
+
+907
+01:38:30,180 --> 01:38:36,930
+This is how many people are in it. This is their age distribution. This is how many people had such and such characteristics.
+
+908
+01:38:39,180 --> 01:38:42,360
+When you describe the main results of your models,
+
+909
+01:38:42,660 --> 01:38:48,060
+you want to give at least one interpretation of a numeric result that connects to the main question.
+
+910
+01:38:48,330 --> 01:38:51,780
+So you had those questions at the end of the introduction, right?
+
+911
+01:38:51,780 --> 01:38:56,460
+We ended with we want to know the association between patient characteristics and radiation.
+
+912
+01:38:56,700 --> 01:39:02,370
+So we're going to have a sentence that interprets how the mass the result in our model answers that question.
+
+913
+01:39:02,790 --> 01:39:05,849
+This is an example that's not about radiation. It's about Oklahoma.
+
+914
+01:39:05,850 --> 01:39:10,260
+But we found that individuals in Oklahoma had 1.4 times the risk.
+
+915
+01:39:10,290 --> 01:39:14,819
+Dot, dot, dot. And I should end this sentence with a confidence interval.
+
+916
+01:39:14,820 --> 01:39:24,300
+So I shouldn't just say 1.4 times the risk. I should say parentheses 1.1 to 1.6 and maybe a p value or something.
+
+917
+01:39:26,800 --> 01:39:36,640
+You don't have to report or interpret in words every coefficient that you estimate, so your model might have 40 coefficients in it.
+
+918
+01:39:36,880 --> 01:39:38,500
+Don't write 40 sentences.
+
+919
+01:39:38,500 --> 01:39:46,750
+Interpreting each of those coefficients find the most important one or the most important conclusion from that model and write that sentence.
+
+920
+01:39:48,310 --> 01:39:52,270
+Display items. So display items or figures and tables.
+
+921
+01:39:52,510 --> 01:39:59,530
+Most of these are going to connect to the results. Section might occasionally have like a diagram about how the study was done.
+
+922
+01:39:59,530 --> 01:40:03,520
+Right? This is like a picture of the mice and how they were randomized.
+
+923
+01:40:05,740 --> 01:40:11,920
+So it's a good idea to present your regression coefficients in a table or a figure.
+
+924
+01:40:12,430 --> 01:40:15,220
+There's two examples I'll point you to in a minute.
+
+925
+01:40:15,370 --> 01:40:21,310
+One has a table, one has a figure, especially if there's more than one or two coefficient estimates.
+
+926
+01:40:22,900 --> 01:40:28,840
+Sometimes it can be useful to visualize the fitted values of your model so you can sort of plot what your model is saying.
+
+927
+01:40:29,560 --> 01:40:35,920
+Plots are also sometimes useful as data summaries. Specifically, kaplan-meier curves are a good example of this.
+
+928
+01:40:36,760 --> 01:40:43,270
+Be judicious. In most cases, 2 to 4 figures slash tables is plenty.
+
+929
+01:40:43,270 --> 01:40:46,569
+If you have more, they can go in the supplement but be judicious in the supplement.
+
+930
+01:40:46,570 --> 01:40:54,340
+Also captions. So Jeremy said this last time and you'll definitely hear from us if this doesn't happen.
+
+931
+01:40:54,340 --> 01:41:00,610
+So it's a good idea to take this to heart. Your figures are tables should stand alone, right?
+
+932
+01:41:00,610 --> 01:41:08,649
+So your caption should be wordy enough that I can figure out what's in that thing and what it means by just reading the captions.
+
+933
+01:41:08,650 --> 01:41:14,230
+I include the sample size, include the test rate. If you have a p value to say the p values are based on a wald test.
+
+934
+01:41:16,270 --> 01:41:22,930
+Be descriptive about what's in there. Don't just say table one descriptive statistics, period.
+
+935
+01:41:25,030 --> 01:41:30,220
+Okay. What goes in table one? So in table one, we want to summarize the important variables in the study.
+
+936
+01:41:30,400 --> 01:41:37,930
+So it's good to show sample sizes. If you have missing data, it's really good to put the percent of missing data in table one.
+
+937
+01:41:37,930 --> 01:41:43,479
+At least I like to see that. Let's see.
+
+938
+01:41:43,480 --> 01:41:47,139
+So you might sometimes have columns where you split it by like interesting features.
+
+939
+01:41:47,140 --> 01:41:50,260
+Like maybe your gender is important in this study.
+
+940
+01:41:50,260 --> 01:41:53,860
+So I'm going to show you summaries by men and women.
+
+941
+01:41:56,510 --> 01:42:06,979
+We generally suggest not grouping by the outcome that you are looking at because this is the contrast that you're going to measure in your models,
+
+942
+01:42:06,980 --> 01:42:10,010
+and that's sort of a better way to assess that contrast.
+
+943
+01:42:11,600 --> 01:42:18,200
+Most of the time, usually I think it's a good idea to not have P values in your table.
+
+944
+01:42:18,450 --> 01:42:24,829
+I think there's an exception of this, which is in randomized trials and sometimes c p values in table one.
+
+945
+01:42:24,830 --> 01:42:29,060
+Right. That seems like sometimes you do that to make sure that the randomization works.
+
+946
+01:42:29,240 --> 01:42:31,220
+They don't suggest doing that.
+
+947
+01:42:31,460 --> 01:42:41,270
+I mean, sometimes it's like why it is like, you know, the randomization worked because you randomized you have so don't put any values in table one.
+
+948
+01:42:41,270 --> 01:42:44,750
+And so people do that. Some people do do it. Yes. Yes.
+
+949
+01:42:45,200 --> 01:42:50,689
+So if you decided to focus your analysis on like a subset of your total population,
+
+950
+01:42:50,690 --> 01:42:54,020
+should your table one reflect the total or just what you do the analysis on?
+
+951
+01:42:54,320 --> 01:43:00,920
+You can question what do you guys think? And then over context.
+
+952
+01:43:00,920 --> 01:43:06,559
+Exactly, I mean. So you want if you want to show the whole study you started with and what you know and
+
+953
+01:43:06,560 --> 01:43:10,680
+you're only choosing 10% of it to actually analyze it might be good to represent the fact,
+
+954
+01:43:11,060 --> 01:43:15,889
+you know, who's not included in some way. But I think it just depends.
+
+955
+01:43:15,890 --> 01:43:27,200
+Depends. I like the answer. It depends. I generally put my sample like my study population in table one unless part of like
+
+956
+01:43:27,200 --> 01:43:31,790
+the whole story is the fact that I got to that's how I got to the sample population.
+
+957
+01:43:32,390 --> 01:43:39,830
+I mean there's these things called back. I mean, in clinical trials are called consort diagrams which are like all the people that
+
+958
+01:43:39,830 --> 01:43:44,840
+you've screened and then all the different ways that they fell out of your study.
+
+959
+01:43:45,080 --> 01:43:50,060
+And then at the end, is that your kind of your analytic population?
+
+960
+01:43:50,150 --> 01:43:53,330
+But then probably the table one is that analytic population.
+
+961
+01:43:55,700 --> 01:44:02,050
+So this is an example of table one from one of the example reports that are in the final section on canvas.
+
+962
+01:44:02,060 --> 01:44:06,500
+I'll show you guys where that is in the last couple of minutes. So I think this is a nice table one.
+
+963
+01:44:06,500 --> 01:44:08,300
+It's got a lot going on, but it's got this nice,
+
+964
+01:44:08,810 --> 01:44:17,330
+long descriptive caption Descriptive statistics for demographic physiological characteristics of the Princess, a cohort stratified by end date.
+
+965
+01:44:17,360 --> 01:44:23,960
+Q Score and numerical summaries are a mean SD rate, so they didn't just give us numbers and then say, Guess what that is?
+
+966
+01:44:24,170 --> 01:44:32,240
+Is that a median? Who knows? They told me it's mean and standard deviation and I'm getting an in percent for categorical variables.
+
+967
+01:44:33,260 --> 01:44:38,790
+And then they also tell me about what all of the abbreviations in the table mean, right?
+
+968
+01:44:38,840 --> 01:44:41,899
+For BMI is body mass index, CG is kilograms.
+
+969
+01:44:41,900 --> 01:44:47,059
+They're very thorough here, which I think is nice. I have no no quibbles with this.
+
+970
+01:44:47,060 --> 01:44:54,170
+I think it's a nice table and they like they've done this like nice offsetting where baby's gender has
+
+971
+01:44:54,170 --> 01:44:59,120
+these three categories I like missing is here and you have a lot of good things to say about this table.
+
+972
+01:44:59,120 --> 01:45:02,480
+Are there questions about what this is doing?
+
+973
+01:45:04,030 --> 01:45:08,010
+How to make something like this. Okay.
+
+974
+01:45:08,730 --> 01:45:11,600
+I will also say this table just looks nice.
+
+975
+01:45:11,610 --> 01:45:17,520
+It also does not look like lines through it, which is, I think, a good idea to like not cover your table in lines.
+
+976
+01:45:19,230 --> 01:45:25,830
+Okay. Conclusions and discussion. So this is I just want to like recap the results in your paper.
+
+977
+01:45:26,010 --> 01:45:30,200
+Give you can give sort of a like higher level interpretation here.
+
+978
+01:45:30,210 --> 01:45:39,810
+So like based on our results, diet might be an important factor, etc., etc. include a sentence or two about the limitations of your study.
+
+979
+01:45:40,350 --> 01:45:45,030
+Every study has limitations. You don't have to like go fishing for limitations.
+
+980
+01:45:45,040 --> 01:45:50,549
+I might suggest like not putting sample size as a limitation because that's just a limitation of every study.
+
+981
+01:45:50,550 --> 01:45:54,060
+Right. We didn't we didn't have an infinite sample size in this study either.
+
+982
+01:45:54,060 --> 01:46:00,410
+Yet again, you don't have to include that one for 699.
+
+983
+01:46:00,410 --> 01:46:05,580
+I would say keep this section to like less than a page. Okay, abstract.
+
+984
+01:46:05,580 --> 01:46:08,550
+So now you've finished writing your report, you might go write your abstract.
+
+985
+01:46:09,270 --> 01:46:14,639
+I think a nice way to do this is to just grab two sentences that describe each section, right?
+
+986
+01:46:14,640 --> 01:46:25,260
+So go through each of those introduction methods, results, conclusions and and grab a couple sentences.
+
+987
+01:46:25,260 --> 01:46:31,770
+There's sort of two stylistic choices here which have like little bold headers in the abstract or no little bold headers.
+
+988
+01:46:31,770 --> 01:46:39,420
+I don't personally care if you're I think half a page is like ideal for an abstract.
+
+989
+01:46:39,630 --> 01:46:42,740
+If you hit the page, break, your abstract is too large.
+
+990
+01:46:43,020 --> 01:46:46,380
+So that's that's my tip there.
+
+991
+01:46:46,560 --> 01:46:51,629
+All right. So this is an abstract example. I think in the interest of time, I'm not going to go over it.
+
+992
+01:46:51,630 --> 01:46:54,690
+But I highlighted the parts that correspond to each section.
+
+993
+01:46:54,690 --> 01:47:03,270
+Right. So I won't read this out, but you can go back and look at the slides and sort of look at the abstract, see like how does this sentence match?
+
+994
+01:47:03,570 --> 01:47:06,990
+Right? The first one is introduction and then we've got methods, results,
+
+995
+01:47:07,260 --> 01:47:14,640
+and then one conclusion the sentence This diagnostic tool can be used as an inexpensive, yet effective screening tool for pancreatic cancer.
+
+996
+01:47:14,970 --> 01:47:21,960
+So conclusion. All right. So things to put in an abstract.
+
+997
+01:47:21,970 --> 01:47:24,900
+We pretty much always want to see a sample size.
+
+998
+01:47:25,200 --> 01:47:31,470
+In the abstract, we pretty much always want to see some kind of point, estimate and confidence interval.
+
+999
+01:47:31,920 --> 01:47:35,970
+In the abstract, at least one, probably not more than three.
+
+1000
+01:47:36,360 --> 01:47:40,439
+That's sort of like a sweet spot and then some kind of general conclusion, right?
+
+1001
+01:47:40,440 --> 01:47:44,640
+That like green sentence is like a nice way to end the abstract.
+
+1002
+01:47:45,630 --> 01:47:50,790
+All right. Appendix supplement. Place to put results that didn't fit in your main results.
+
+1003
+01:47:50,790 --> 01:47:57,390
+Or they're, like, too technical for the main results. It's a good place to put equations if you have a long equation.
+
+1004
+01:47:59,310 --> 01:48:03,719
+It's a good place for model diagnostic force sensitivity analyzes like you were talking about.
+
+1005
+01:48:03,720 --> 01:48:08,730
+We redid the whole analysis with a different way of categorizing these three people, and we found the same thing.
+
+1006
+01:48:09,150 --> 01:48:14,020
+Put that in the sensitivity analysis. Don't let your appendix get extremely long.
+
+1007
+01:48:14,040 --> 01:48:20,310
+So pick and choose what goes in it. This is sort of a pet peeve that I have.
+
+1008
+01:48:21,630 --> 01:48:29,430
+Everything that's in your paper, like tables or figures or stuff in the appendix should get a mention somewhere in the main text.
+
+1009
+01:48:29,430 --> 01:48:34,979
+So if you have something in the supplement, there should be a little sentence that says sensitivity analysis,
+
+1010
+01:48:34,980 --> 01:48:38,370
+including X and Y, similar results to the appendix.
+
+1011
+01:48:38,880 --> 01:48:43,650
+You also want to mention all your main tables and figures. Write Summary statistics are in table one there.
+
+1012
+01:48:43,650 --> 01:48:49,680
+Just leave table one in there and hope that I'm going to find it and know what section it goes in and what I'm going to conclude from it.
+
+1013
+01:48:50,830 --> 01:48:54,090
+Citations. Don't expect a lot of topical references.
+
+1014
+01:48:54,090 --> 01:49:00,870
+Sometimes people usually have like 1 to 2 maybe, and they'll often be the ones that the investigator gave you.
+
+1015
+01:49:00,880 --> 01:49:05,410
+So you don't have to spend a lot of time trying to become an expert about cancer.
+
+1016
+01:49:07,330 --> 01:49:12,580
+If you use an R package, there's usually an associated paper to cite, or you can cite the package.
+
+1017
+01:49:12,710 --> 01:49:18,730
+I think it's a good habit to get into, cite the papers associated with the software that you use.
+
+1018
+01:49:19,330 --> 01:49:23,230
+And I think that's that is the end of this.
+
+1019
+01:49:23,680 --> 01:49:28,840
+We have one minute and I'm going to show you where something is that we're going to talk about next time.
+
+1020
+01:49:29,170 --> 01:49:38,799
+So on canvas, if you go to Project one, so project one, we're writing a report, but it's not the like traditional.
+
+1021
+01:49:38,800 --> 01:49:44,950
+You're not just going to hand in like a six page report. It's like a deconstructed report, which is a new thing that we're trying this year.
+
+1022
+01:49:45,070 --> 01:49:52,450
+It guides you through the report. And so it's a series of questions and they just like line up with the sections.
+
+1023
+01:49:52,720 --> 01:49:59,160
+And the idea is if you answer each of these questions like if you did this for Project two, you could take all your answers and.
+

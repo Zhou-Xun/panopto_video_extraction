@@ -1,0 +1,2992 @@
+1
+00:00:01,920 --> 00:00:07,920
+And we're going to start here and I know I try to de-emphasize the equation part of things, but just thinking back to Tuesday.
+
+2
+00:00:08,190 --> 00:00:11,400
+One of the things that I wanted to emphasize and mention that there are some names that,
+
+3
+00:00:11,780 --> 00:00:15,060
+you know, are just kind of conventions that people are using to describe models.
+
+4
+00:00:15,300 --> 00:00:19,680
+And they talk a lot about random intercepts and random slugs and some variation of the term.
+
+5
+00:00:20,100 --> 00:00:24,030
+And so I just thought it might be helpful to to briefly return to this.
+
+6
+00:00:24,840 --> 00:00:29,720
+And if you recall, when we talked about levels, level one is going to be that kind of basic unit of analysis.
+
+7
+00:00:29,730 --> 00:00:35,160
+In this case, we talking about students and they were all nested within our level two unit, which in this case was going to be schools.
+
+8
+00:00:35,670 --> 00:00:40,200
+Right? So level one kind of pertains to student level things.
+
+9
+00:00:40,530 --> 00:00:43,770
+Level two pertains to school level things.
+
+10
+00:00:44,350 --> 00:00:51,780
+Okay. So student level covariates like your race or ethnicity or sex or socioeconomic
+
+11
+00:00:51,780 --> 00:00:56,000
+status is going to go into level one predictors that are at the school level.
+
+12
+00:00:56,010 --> 00:00:59,340
+If they talk about the school, they are going into level two.
+
+13
+00:01:00,330 --> 00:01:07,470
+Now, the kinds of random effects that we're going to be talking about here, we're going to be adding to our models.
+
+14
+00:01:08,130 --> 00:01:16,170
+They exist at level two. Now, if we had a third level, we'd also have some random effects that we can include in level three.
+
+15
+00:01:16,740 --> 00:01:21,240
+But when I talk about random effects versus things that are fixed,
+
+16
+00:01:21,600 --> 00:01:27,000
+they're going to be kind of school specific information, things that are unique to our level two units.
+
+17
+00:01:27,960 --> 00:01:32,640
+And I just want to remind folks that we have two equations here at level two.
+
+18
+00:01:33,240 --> 00:01:41,820
+We have one for the intercept, which is ultimately going to be interpreted the same way as when we interpret any other intercept in regression,
+
+19
+00:01:42,330 --> 00:01:45,450
+when everything else in the equation is zero. This is our predictive value.
+
+20
+00:01:46,560 --> 00:01:49,740
+We also have an equation for any slopes.
+
+21
+00:01:50,340 --> 00:01:55,020
+So depending on how many slopes we include in our model, we'll have an equation for each one.
+
+22
+00:01:56,430 --> 00:02:07,290
+One of the choices that we get to make or whether to include random intercepts in random slopes, this allows things to vary by or level to unit.
+
+23
+00:02:08,100 --> 00:02:12,810
+We can allow for the intercepts to vary by level two units,
+
+24
+00:02:13,650 --> 00:02:21,690
+or we can allow slopes to vary by a level 2 minutes, or we can allow both to vary by level two units.
+
+25
+00:02:22,650 --> 00:02:26,130
+This is all very abstract, but I'm going to go to this point now.
+
+26
+00:02:26,460 --> 00:02:32,430
+Our very first multilevel model includes a random intercept.
+
+27
+00:02:33,420 --> 00:02:39,210
+In almost every single model which you're going to run, you will probably include a random intercept.
+
+28
+00:02:39,600 --> 00:02:51,330
+There might be cases where you don't want to have one, but for 98% of cases, you will probably include a random intercept.
+
+29
+00:02:52,410 --> 00:03:02,040
+Okay, I just want to say that because this was also the way that we kind of asked the question, do my level two units matter?
+
+30
+00:03:02,610 --> 00:03:08,760
+And sort of the first way that we do that is by examining whether those intercepts differ by school's example.
+
+31
+00:03:10,350 --> 00:03:13,800
+Just to clarify everything to the right of the line intercept.
+
+32
+00:03:13,890 --> 00:03:18,820
+Mm hmm. Now that that will randomize, it'll be around.
+
+33
+00:03:19,140 --> 00:03:25,530
+If you want to run a multilevel model, the very first thing we're going to do is include a random intercept.
+
+34
+00:03:26,250 --> 00:03:31,170
+And then really what the decision is going to come down to is whether we want to add random slopes in there.
+
+35
+00:03:31,960 --> 00:03:41,220
+Okay. If you don't have any random effects at all, no random slope, no random intercepts, you get this, you get your basic regression model.
+
+36
+00:03:41,940 --> 00:03:52,020
+So really, multilevel models are allowing for some form of unique contribution that your level two or your grouping unit provides to the model.
+
+37
+00:03:53,550 --> 00:03:57,950
+Okay. Questions about this.
+
+38
+00:03:58,520 --> 00:04:04,310
+And then we're going to fast forward to the example because we've we've run up kind of our basic multilevel model to say,
+
+39
+00:04:04,550 --> 00:04:08,240
+oh, yeah, the schools do matter in terms of our student, the welcome mat achievement.
+
+40
+00:04:08,860 --> 00:04:15,230
+And we added a predictor at the school level. Turns out that socioeconomic status of the student matters in terms of their math achievement.
+
+41
+00:04:15,620 --> 00:04:17,690
+And now we're going to continue to play through that example.
+
+42
+00:04:19,340 --> 00:04:29,650
+And so when before we arrived in our famous included formula, the team that won just mean that there's no right now.
+
+43
+00:04:29,660 --> 00:04:32,870
+I'm still correct. This right here. Yeah. Yeah.
+
+44
+00:04:33,830 --> 00:04:38,690
+And then what about the other one? This is just our regression equation.
+
+45
+00:04:39,050 --> 00:04:43,490
+So this is saying math achievement and an intercept. Only we know predictors.
+
+46
+00:04:47,480 --> 00:04:54,620
+So really what we're saying is like in this model where we had math achievement regressed on one, just give me an intercept.
+
+47
+00:04:55,160 --> 00:04:58,580
+All things being equal, just give me a mean. What does the mean?
+
+48
+00:04:58,580 --> 00:05:02,480
+Math achievement in the sample. That's our prediction model. I don't care who we're talking about.
+
+49
+00:05:03,190 --> 00:05:11,900
+If it walks in the door, we're going to just guess the mean for your math achievement, because that's our best or worst possible guess model to here.
+
+50
+00:05:12,440 --> 00:05:19,729
+I guess I'm calling. So this is multi zero. Our second model here includes a random intercept, if you recall,
+
+51
+00:05:19,730 --> 00:05:29,630
+that's going to allow the intercept or kind of the mean value or the mean predictive value of math achievement to vary by schools.
+
+52
+00:05:30,740 --> 00:05:34,880
+So we no longer guess the exact same value for every single person.
+
+53
+00:05:35,870 --> 00:05:40,189
+It's conditional. Jenny goes to school, she walks in the door.
+
+54
+00:05:40,190 --> 00:05:44,990
+I say, Aha, genius is what I predict your mathematics meant to be.
+
+55
+00:05:45,170 --> 00:05:49,490
+Because you went to school, you go to school.
+
+56
+00:05:50,060 --> 00:05:52,340
+Well, you walk in the door.
+
+57
+00:05:53,000 --> 00:05:59,719
+I'm not going to guess the same thing, if only because I think School L and A have different influences on you, ergo your math achievement.
+
+58
+00:05:59,720 --> 00:06:06,110
+You're predicting that the command is whatever. That's what this random effect is allowing.
+
+59
+00:06:06,320 --> 00:06:11,810
+It's a unique contribution of each school on the intercept.
+
+60
+00:06:12,470 --> 00:06:16,580
+The predictive value of our outcome variable and everything else in the equation is zero.
+
+61
+00:06:17,680 --> 00:06:21,200
+In this case, where the predicted value of math achievement,
+
+62
+00:06:21,440 --> 00:06:26,540
+when we know no other information about the student practice, stay at home, or when your friends.
+
+63
+00:06:27,110 --> 00:06:33,950
+What does it mean? Kind of abstractly? What does it mean in our specific concept of the regression analysis that we're running?
+
+64
+00:06:35,000 --> 00:06:39,590
+Don't forget about the outcome, but the nice thing is those beta coefficients.
+
+65
+00:06:39,590 --> 00:06:46,340
+They always interpret the same way. We're just talking about different variables, different outcomes, questions.
+
+66
+00:06:46,550 --> 00:06:53,810
+So far. We also talked about just kind of us a quick review.
+
+67
+00:06:54,230 --> 00:06:59,350
+We don't actually get to see those individual or any contributions of schools per se.
+
+68
+00:06:59,690 --> 00:07:05,120
+We don't we don't typically try to calculate what's the specific random effect value,
+
+69
+00:07:05,120 --> 00:07:09,560
+although it is kind of stored within the of the output of the model logic that we create.
+
+70
+00:07:09,950 --> 00:07:15,020
+Really what we're most interested in using to see is whether there's some variability across schools.
+
+71
+00:07:15,740 --> 00:07:24,050
+So this is more or less saying that across schools the intercepts do their schools have different levels of math achievement on average?
+
+72
+00:07:25,910 --> 00:07:34,130
+Okay. We also talked about how we can use this information to think about the unique or sorry,
+
+73
+00:07:34,140 --> 00:07:37,400
+the the overall contribution of schools to student level magnitude.
+
+74
+00:07:37,730 --> 00:07:44,900
+We can look at the proportion of variability in student level math outcomes that are at the school level relative to at the individual level.
+
+75
+00:07:48,460 --> 00:07:53,870
+I was just. Questions.
+
+76
+00:07:54,410 --> 00:07:59,940
+Yeah. Sure. This is just like there is everything that the protocol,
+
+77
+00:07:59,940 --> 00:08:09,580
+the intercept is because that's how we set it in our formula was there specifically to interpret that intercept 2.924.
+
+78
+00:08:11,190 --> 00:08:15,300
+So there is not a great way to interpret this intercept.
+
+79
+00:08:15,780 --> 00:08:24,870
+What I would say this what this is kind of saying is that overall Army Matsushima scores 4.63 depending on your school that you go to.
+
+80
+00:08:25,290 --> 00:08:30,210
+There is going to be fluctuations around this 12.63 in terms of student achievement.
+
+81
+00:08:30,660 --> 00:08:36,210
+What level of fluctuations, how big is that fluctuation? Well, it's got a standard deviation of 2.94.
+
+82
+00:08:36,690 --> 00:08:40,889
+So 68% of our schools are going to be about are going to be within, what,
+
+83
+00:08:40,890 --> 00:08:50,670
+about 15.6 are sort of over their sixties, and 34% are going to be over a fifth between 15.96 and 12.6.
+
+84
+00:08:51,000 --> 00:08:54,930
+And then another 34% are going to be between 9.6 and 12.96.
+
+85
+00:08:55,320 --> 00:09:01,830
+Right. We're just talking about distribution, about the grand me distribution around the Grand Army.
+
+86
+00:09:02,370 --> 00:09:06,630
+That's what this random intercept historical. Yeah.
+
+87
+00:09:09,240 --> 00:09:16,200
+The other way to think about it is that each school has a unique contribution to student level math achievement.
+
+88
+00:09:23,250 --> 00:09:34,200
+This is really important. So I will pause for any other questions you have about kind of our base multilevel model situation.
+
+89
+00:09:35,150 --> 00:09:42,500
+So say let's say The Intercept is that the biggest difference is very small compared to the brand name.
+
+90
+00:09:42,500 --> 00:09:50,420
+Would we then make a judgment, say, yeah, if this occurs zero, then there's no reason to run this model.
+
+91
+00:09:51,650 --> 00:09:59,570
+That means all the all the variability in Apache even is in the residual is in our student level characteristics.
+
+92
+00:10:00,230 --> 00:10:06,860
+I don't care what school you go to, it's what I knew about you specifically, individually that's going to predict your math achievements for.
+
+93
+00:10:09,350 --> 00:10:13,850
+Yeah. It doesn't really tell us, like, how much.
+
+94
+00:10:14,180 --> 00:10:19,370
+Well, it tells us how much they can air, but we can't really tell.
+
+95
+00:10:20,240 --> 00:10:24,850
+The average for this school is like 13%. And not really.
+
+96
+00:10:24,860 --> 00:10:32,060
+I mean, you could use, they will say, these random effects, but they're often very, very small.
+
+97
+00:10:33,140 --> 00:10:35,750
+And it's it's a little bit like kind of your predicted value.
+
+98
+00:10:35,750 --> 00:10:42,140
+So basically, at the end of the day, you'll have all of these parameters that are going to be estimated by the model.
+
+99
+00:10:42,440 --> 00:10:49,670
+And so you could plug in the specific values and the specific school values for an individual to get some sort of predicted outcome.
+
+100
+00:10:49,970 --> 00:10:57,260
+And that will also be stored within a regression model. But it is very it is less common to take a random effect like a random intercept and say,
+
+101
+00:10:57,260 --> 00:11:01,129
+let's look at it, because the values are usually going to be like, whatever, point two,
+
+102
+00:11:01,130 --> 00:11:07,070
+one, four, four, four, and it doesn't have a ton of meaning other than this school maybe has a positive
+
+103
+00:11:07,070 --> 00:11:10,580
+influence on management versus one that's negative has a negative influence.
+
+104
+00:11:11,180 --> 00:11:15,270
+Um, but it all goes into the equation and it's all part of that prediction.
+
+105
+00:11:16,610 --> 00:11:22,490
+So, so it's enough to just say this that there is a difference across.
+
+106
+00:11:22,910 --> 00:11:27,130
+Exactly. Yeah. Yeah, right.
+
+107
+00:11:28,580 --> 00:11:35,899
+I'm trying to figure out why we use this in my applications because it where there is just that individual
+
+108
+00:11:35,900 --> 00:11:42,290
+based on the school know your parents within the school how does that give us an actual snapshot.
+
+109
+00:11:44,030 --> 00:11:46,840
+What we're trying to look at is just the individual.
+
+110
+00:11:47,740 --> 00:11:54,250
+Well, so that's kind of what this model is saying is that if we just looked at the individual, we'd be doing this service.
+
+111
+00:11:54,250 --> 00:11:57,670
+And that gets a little bit back to this graph right here.
+
+112
+00:11:58,070 --> 00:12:05,590
+Right. So this was a this was what we thought, how the relationship between science and math achievement looks at the individual level.
+
+113
+00:12:06,220 --> 00:12:12,070
+Right. It's this kind of strong, positive association. But then we also saw as soon as we took school into account,
+
+114
+00:12:12,520 --> 00:12:18,850
+that same association between socioeconomic status and math achievement can look very, very different.
+
+115
+00:12:19,450 --> 00:12:22,630
+It's a little bit like moderation when you think about it this way.
+
+116
+00:12:23,320 --> 00:12:29,260
+Right. We're saying that a school has some sort of influence on kind of your your math
+
+117
+00:12:29,260 --> 00:12:33,910
+achievement or how other predictors of your math achievement sort of manifest.
+
+118
+00:12:34,510 --> 00:12:39,040
+Right. If this were a plot of intercepts, you'd see a bunch of flat lines.
+
+119
+00:12:39,970 --> 00:12:42,880
+Some are high, some are low. Some are kind of right in the middle.
+
+120
+00:12:43,690 --> 00:12:48,670
+Generally speaking, they would all be about 12.6 because that's what our median value is are grand.
+
+121
+00:12:49,120 --> 00:12:52,600
+Right. But schools would have intercept values that are higher or lower.
+
+122
+00:12:58,030 --> 00:13:05,020
+And I'm going to do today cutting into your question, because, again, we can just assume that this is true of all 7200 people,
+
+123
+00:13:05,590 --> 00:13:13,090
+but certainly for school kids who attend school, whatever, this is something 82 that would not be a good would not be a fair.
+
+124
+00:13:14,410 --> 00:13:20,260
+Matter of fact, it seems like the more socioeconomic status you have made to perform a little bit worse,
+
+125
+00:13:20,260 --> 00:13:27,470
+or at the very least, you're performing the exact same. You can come as well.
+
+126
+00:13:28,190 --> 00:13:37,690
+I know this is different. Okay.
+
+127
+00:13:37,720 --> 00:13:44,170
+Okay. Okay. Let's see if we can continue and if things start to solidify for just makes things all the more confusing.
+
+128
+00:13:44,740 --> 00:13:49,000
+We test the models just like we did with other models. I think this will.
+
+129
+00:13:49,720 --> 00:13:57,160
+You'll you'll see this enough that it'll start to become straightforward, but it's essentially we had predictors or we had random effects,
+
+130
+00:13:57,460 --> 00:14:02,560
+either fixed effects, covariance or random effects, like we're going to talk about, does it matter?
+
+131
+00:14:02,830 --> 00:14:06,850
+We're still going to compare them to models that were similar and test to see whether there are new
+
+132
+00:14:06,850 --> 00:14:14,620
+things that we add are better than our own same likelihood ratio test that we used for the jobs piece.
+
+133
+00:14:15,280 --> 00:14:20,589
+Okay. Now we are going to add that X predictor, right?
+
+134
+00:14:20,590 --> 00:14:34,000
+So just like that model where we had that X across everybody except for we are allowing the intercept, the intercept to vary by schools.
+
+135
+00:14:34,720 --> 00:14:41,620
+So I do not want you to think that this model is estimating this graph.
+
+136
+00:14:43,240 --> 00:14:51,250
+This graph is assuming that the socioeconomic status slope changes based on what school we're talking about.
+
+137
+00:14:53,230 --> 00:14:57,590
+You would make every single one of the schools has a different socioeconomic status.
+
+138
+00:14:57,610 --> 00:15:03,100
+Look, that is not what this model is telling us.
+
+139
+00:15:05,440 --> 00:15:14,890
+It's saying that the average school achievement, the intercept, the predicted value when X is zero.
+
+140
+00:15:15,700 --> 00:15:21,790
+Change is based on your school, but the slope itself is fixed.
+
+141
+00:15:22,660 --> 00:15:31,010
+It is constant for every single person in the sample. Oh, my God.
+
+142
+00:15:38,990 --> 00:15:40,730
+It looks a little bit like this.
+
+143
+00:15:42,440 --> 00:15:47,270
+You have the exact same slope and I know it looks a little funky like these things are converging because of this deadline.
+
+144
+00:15:47,720 --> 00:15:54,950
+You have the exact same slope, but the intercepts are at different points.
+
+145
+00:15:56,120 --> 00:15:59,990
+Every school has the same socioeconomic status slope.
+
+146
+00:16:00,440 --> 00:16:07,160
+We assume that as your socioeconomic status goes up, your math achievement goes up, and it doesn't matter which school you attend.
+
+147
+00:16:08,000 --> 00:16:14,960
+But there are some schools where people just do better at math than other schools.
+
+148
+00:16:18,350 --> 00:16:23,780
+Okay. We are allowing intercepts to vary.
+
+149
+00:16:24,920 --> 00:16:32,810
+We have a random effect for the intercept. We are not allowing slopes to vary.
+
+150
+00:16:33,530 --> 00:16:36,680
+We have a fixed effect for the slopes.
+
+151
+00:16:39,170 --> 00:16:43,730
+Miss Cool. Oh, this is cool stuff. This is good stuff.
+
+152
+00:16:43,760 --> 00:16:48,720
+You can impress all your friends this weekend. All right, let's try it out.
+
+153
+00:16:48,740 --> 00:16:53,090
+Let's see what we get. So, a fixed effect.
+
+154
+00:16:53,330 --> 00:16:56,720
+Nothing special about it. Plug your value in for regression.
+
+155
+00:16:57,260 --> 00:17:02,180
+And it wouldn't matter if we're talking about a person level variable or a school level variable.
+
+156
+00:17:02,570 --> 00:17:06,950
+If we plug it in to this part, the model part, it is fixed.
+
+157
+00:17:07,250 --> 00:17:15,200
+We assume it's the case for everyone. It's only when we start to throw in these random effects that we think there's
+
+158
+00:17:15,200 --> 00:17:19,220
+an individual contribution or unique contribution for the grouping variable.
+
+159
+00:17:19,460 --> 00:17:24,320
+In this case, schools, just the press is where we're going.
+
+160
+00:17:26,930 --> 00:17:31,570
+We are going to allow that slope to vary by schools because we saw that what we saw that apply.
+
+161
+00:17:31,640 --> 00:17:36,080
+This is premium, folks. We know where we want to get to, but we're going to do our due diligence.
+
+162
+00:17:36,500 --> 00:17:42,320
+We're going to see whether model where we just force every school to have the same easiest slope.
+
+163
+00:17:42,530 --> 00:17:47,000
+As it pertains to math, achievement fits the data well. And then we'll go forward from there.
+
+164
+00:17:47,330 --> 00:17:51,080
+Does that sound good to folks? I think so, too. So let's go ahead.
+
+165
+00:17:51,560 --> 00:17:54,800
+Nice thing is it's going to interpret the exact same way.
+
+166
+00:17:55,220 --> 00:18:01,440
+And as a matter of fact, I'm going to make you do it. So tell me how to do this last time to somebody.
+
+167
+00:18:01,490 --> 00:18:04,970
+Tell me how to interpret this slope, because that's the slope right here.
+
+168
+00:18:08,880 --> 00:18:24,590
+Come on, somebody. Clara with as much achievement now as easy as.
+
+169
+00:18:24,960 --> 00:18:28,450
+Yup. SARS is.
+
+170
+00:18:29,340 --> 00:18:35,140
+Positively correlated with. I know they were holding him.
+
+171
+00:18:35,880 --> 00:18:39,450
+Again, this is a regression coefficient. How would you interpret?
+
+172
+00:18:39,960 --> 00:18:45,700
+But when you compare, the change in this year will result in a 2.3.
+
+173
+00:18:47,730 --> 00:18:51,300
+I don't care what school you go to. There are 160 schools in the sample.
+
+174
+00:18:51,780 --> 00:18:53,850
+A one unit change in your family.
+
+175
+00:18:53,860 --> 00:19:00,820
+Socioeconomic status is going to be associated with about a 2.4 change or a predicted increase in your MAC achievement score.
+
+176
+00:19:01,710 --> 00:19:04,710
+That's exactly what this coefficient is telling us.
+
+177
+00:19:05,430 --> 00:19:08,760
+Absolutely no different from regression. Huge t value.
+
+178
+00:19:08,940 --> 00:19:15,750
+This is a significant predictor of math achievement if not in pay, and it is a good thing to know.
+
+179
+00:19:16,020 --> 00:19:19,470
+Students have economic status in order to predict math achievement.
+
+180
+00:19:20,040 --> 00:19:25,250
+Now, what about this intercept disagreement? Oh, yeah, yeah, yeah.
+
+181
+00:19:25,260 --> 00:19:28,410
+The hardwood. Oh.
+
+182
+00:19:35,480 --> 00:19:42,020
+Is that the same holding something constant? It is the same that we've talked about intercepts all semester long.
+
+183
+00:19:42,050 --> 00:19:48,460
+This would be our predicted value of achievement when everything is okay.
+
+184
+00:19:48,620 --> 00:19:52,760
+Nope. Everything is zero. Everything is zero, right?
+
+185
+00:19:52,880 --> 00:19:57,740
+That's our definition of the intercept. Right. We're all the predictors in our model equals zero.
+
+186
+00:19:58,040 --> 00:20:06,230
+This is our predicted score. Okay. You notice it's almost the exact same as it was when we didn't have this in the model and made a slight adjustment.
+
+187
+00:20:06,500 --> 00:20:10,010
+Right. Because there's a little bit of a correlation there or something like that.
+
+188
+00:20:10,280 --> 00:20:17,910
+But when I see zero and I figure this is probably like and this is probably a either standardized measure or something like that.
+
+189
+00:20:18,170 --> 00:20:21,660
+So that a0x might be like average.
+
+190
+00:20:21,680 --> 00:20:26,900
+I can't remember off the top of my head, but when it's zero, this is our predicted achievements for.
+
+191
+00:20:29,350 --> 00:20:33,190
+Yeah. Now, we still have a little bit of information.
+
+192
+00:20:33,460 --> 00:20:38,020
+We have a random effect, which may kind of explain to me a little bit about what this random effect is.
+
+193
+00:20:38,020 --> 00:20:49,960
+Random and or intercept the same. I'll give you a hint.
+
+194
+00:20:49,970 --> 00:20:53,070
+It's no different than we talked about three slides ago to slides.
+
+195
+00:20:53,810 --> 00:20:59,020
+What is that random intercept telling us that there's variability around?
+
+196
+00:20:59,570 --> 00:21:13,640
+I mean, based on your experience at school, if somebody said, let's go write your school based on the school you attend,
+
+197
+00:21:13,850 --> 00:21:18,050
+your mean math achievement is going to go up or down, right?
+
+198
+00:21:18,470 --> 00:21:27,980
+So we can use now all these pieces of information that we have kind of overall mean we have your socioeconomic status,
+
+199
+00:21:28,310 --> 00:21:31,640
+we'll have your school's unique contribution.
+
+200
+00:21:32,210 --> 00:21:41,060
+And even though we haven't talked about this specifically as a random effect, we can also talk about your unique contribution.
+
+201
+00:21:41,810 --> 00:21:47,990
+Right? That's what that residual was. It was all the other stuff that's not included in the model.
+
+202
+00:21:48,260 --> 00:21:55,460
+It's capturing all of that in an error term that kind of gives us between what we predict and what we actually observed.
+
+203
+00:21:56,540 --> 00:22:03,380
+And that's what a residual is. It's capturing all the stuff that we couldn't measure or didn't measure well enough.
+
+204
+00:22:04,190 --> 00:22:06,679
+So you can think about that as a random effect,
+
+205
+00:22:06,680 --> 00:22:13,250
+or you can think about it as the unique contribution of every single level one unit, which in this case is our students.
+
+206
+00:22:14,210 --> 00:22:18,920
+So that's helpful in your head to kind of think about both of these as random effects in your
+
+207
+00:22:18,920 --> 00:22:24,110
+contribution to the school mean to tour to the mean and unique contribution to the individual.
+
+208
+00:22:24,800 --> 00:22:31,250
+Yeah from before running are like I know what the comparisons would be just look
+
+209
+00:22:31,250 --> 00:22:36,350
+at this residual compared to the model or multi alignment and then just look.
+
+210
+00:22:36,890 --> 00:22:40,760
+Can you give us like here.
+
+211
+00:22:40,820 --> 00:22:42,800
+So you're talking about how this has gone down a little bit.
+
+212
+00:22:43,160 --> 00:22:51,170
+So the reason why we expect some of this variability to go down is because we included a level one predictor, a person level piece of information.
+
+213
+00:22:51,590 --> 00:22:54,979
+Generally speaking, if we include level one predictors,
+
+214
+00:22:54,980 --> 00:23:01,550
+we should see the residual go down because we are explaining some of that unexplained variability,
+
+215
+00:23:02,480 --> 00:23:09,890
+like our residuals go down when we have good predictors in our model because there's less error, a model gets more accurate.
+
+216
+00:23:11,090 --> 00:23:15,500
+If we have level two predictors, things that are related to the schools,
+
+217
+00:23:16,040 --> 00:23:22,009
+we might expect to see the intercept variability go down because we are explaining a little
+
+218
+00:23:22,010 --> 00:23:26,540
+bit about what would make some schools meaning math achievement be higher or lower.
+
+219
+00:23:27,230 --> 00:23:34,160
+Maybe it has a better student teacher ratio, maybe it's a rich school with all kinds of stuff, and maybe it's just not.
+
+220
+00:23:34,250 --> 00:23:38,720
+Maybe it's a huge school versus a tiny school and resisting things. The ratio lower, right.
+
+221
+00:23:39,170 --> 00:23:44,530
+Those those school level factors would be expected to decrease this variability.
+
+222
+00:23:45,260 --> 00:23:50,660
+Right. Because we're just doing yet again a better and better job of predicting our outcome.
+
+223
+00:23:51,920 --> 00:23:57,799
+But these residuals are still kind of the difference between what we predict and what we actually observe just now.
+
+224
+00:23:57,800 --> 00:24:02,480
+We have one that's at the school level and we have one that's at the personal level one.
+
+225
+00:24:02,690 --> 00:24:08,239
+Level two, enter. So how do you identify the individual residuals?
+
+226
+00:24:08,240 --> 00:24:09,130
+Is it based off of.
+
+227
+00:24:11,190 --> 00:24:21,870
+I guess people suspected that or it was clear that this is just the so this is actually a measure of variability or kind of spread of individuals.
+
+228
+00:24:21,870 --> 00:24:29,000
+We assume that this is going to have a mean of zero in some normal distribution, understand deviation of 16.08.
+
+229
+00:24:29,340 --> 00:24:32,639
+And we get that by putting everybody's values,
+
+230
+00:24:32,640 --> 00:24:39,150
+predicted values into the equation and looking at that relative to their observed values and taking those differences,
+
+231
+00:24:39,450 --> 00:24:43,260
+we map them and that's what we get. So it's just a measure of those.
+
+232
+00:24:43,560 --> 00:24:46,800
+And this is from our model, the difference between observed and predicted.
+
+233
+00:24:47,340 --> 00:24:51,800
+Same thing. The same residuals, reading and playing around with all this material. Yeah.
+
+234
+00:24:52,130 --> 00:24:58,620
+So end of the equation. They're telling it X will be fixed.
+
+235
+00:24:59,880 --> 00:25:04,190
+How come then? It's giving us telling us that there's going to be variation in s.
+
+236
+00:25:04,680 --> 00:25:08,850
+I feel that. Which is where do you see variation in X?
+
+237
+00:25:09,300 --> 00:25:19,050
+I'm sorry. In that there won't be. I guess I'm just confused with the equation and translating it into this output.
+
+238
+00:25:19,350 --> 00:25:31,710
+Okay. Because you say we what we have is we have a intercept and a slope.
+
+239
+00:25:32,790 --> 00:25:40,080
+Okay. With it. When? Before we had random effects, we just had a model that would be it would look essentially like this.
+
+240
+00:25:40,290 --> 00:25:45,840
+Right. We'd have some intercept. We have some slope. This is just a centering because it's common in this.
+
+241
+00:25:46,140 --> 00:25:50,070
+I would ignore the centering part of it, but that's just the next value. We have some sort of residual.
+
+242
+00:25:50,610 --> 00:25:56,249
+As soon as we introduce random effects at level two, we kind of come into this multilevel model.
+
+243
+00:25:56,250 --> 00:26:00,630
+Recall that this stuff is just going to get substituted in to this part of the equation.
+
+244
+00:26:01,620 --> 00:26:10,290
+We have a random intercept, which one more time is kind of a unique contribution to a school for me.
+
+245
+00:26:10,290 --> 00:26:16,560
+Math achievement. Math achievement, because that's what the intercept means in this particular analysis.
+
+246
+00:26:17,280 --> 00:26:28,680
+Okay. We are allowing the grand mean, which is just everybody's matching all 7200 people to change based on what school you go to,
+
+247
+00:26:29,400 --> 00:26:32,430
+school age gets a little bump, school B gets a little bump,
+
+248
+00:26:32,670 --> 00:26:38,220
+school C gets a little added reduction wherever it is based on your school,
+
+249
+00:26:38,940 --> 00:26:44,610
+that changes this value a little bit, which gets substituted into this part of the equation.
+
+250
+00:26:46,500 --> 00:26:55,680
+The X part is fixed. This is the equation for x we have a mean of grand mean.
+
+251
+00:26:55,980 --> 00:27:01,320
+Yes, it's the association between socioeconomic status and math achievement for everybody.
+
+252
+00:27:01,920 --> 00:27:08,100
+We do not at this point have a random effect or the slope that's gone.
+
+253
+00:27:08,430 --> 00:27:12,750
+This is fixed. We let mean math achievement vary.
+
+254
+00:27:13,470 --> 00:27:22,530
+We do not let socioeconomic status vary because we believe that reality looks like this.
+
+255
+00:27:24,270 --> 00:27:30,600
+Then some there is something about the school kind of just on average that's kind of that's contributing to math achievement scores.
+
+256
+00:27:30,990 --> 00:27:36,570
+But how this contributes to math achievement scores is the same for each school.
+
+257
+00:27:37,950 --> 00:27:42,750
+So there really isn't any variability in how X relates to math achievement.
+
+258
+00:27:43,350 --> 00:27:46,980
+So are those all those numbers that 2.9? Yeah, every single one.
+
+259
+00:27:47,790 --> 00:27:53,070
+Every single one of them. All right. But, you know, we'll play around with this.
+
+260
+00:27:53,850 --> 00:27:58,200
+There's no way that we're going to stop that because there's a are questions that we can answer.
+
+261
+00:27:58,200 --> 00:28:02,790
+Yeah. Well, is that assumption tenable? Should we allow those slips to vary?
+
+262
+00:28:03,540 --> 00:28:07,770
+And we saw those graphs. That's where we're going to get to the questions about this.
+
+263
+00:28:15,720 --> 00:28:19,520
+We feel okay. All right, all right, all right.
+
+264
+00:28:19,880 --> 00:28:23,210
+Let's just give here. So we added a predictor.
+
+265
+00:28:23,540 --> 00:28:27,400
+Notice we didn't add any random effects because we had a round effect for the intercept.
+
+266
+00:28:27,410 --> 00:28:32,900
+We had residual. We had the intercept. All we've done was add one fixed effect.
+
+267
+00:28:33,420 --> 00:28:38,300
+Right. So we do lose a degree of freedom because we have to maintain a parameter just like before.
+
+268
+00:28:38,810 --> 00:28:45,170
+No change there. And the question is, does this model multi two fit better than the one before?
+
+269
+00:28:46,280 --> 00:28:50,630
+Eventually. Here's the test. Anybody want to do that for me?
+
+270
+00:28:55,920 --> 00:29:02,760
+Or read off the slides from more ac DC values.
+
+271
+00:29:03,120 --> 00:29:06,600
+Indicate that. Is it better?
+
+272
+00:29:07,210 --> 00:29:14,880
+Yeah. Yeah, but this stuff over here.
+
+273
+00:29:18,240 --> 00:29:21,030
+And there we've done this before, right?
+
+274
+00:29:21,540 --> 00:29:27,690
+We test model two versus model one based on the change in the of likelihood, this is distributed as the Chi Square statistic.
+
+275
+00:29:27,900 --> 00:29:33,209
+If this is significant model, the two fits better than model three and model two.
+
+276
+00:29:33,210 --> 00:29:38,250
+If it's better to model one based on this change, given the number of degrees of freedom that we had.
+
+277
+00:29:39,090 --> 00:29:45,300
+Right. Nothing different there. And what we've been talking about, we are starting to see steady improvements.
+
+278
+00:29:45,660 --> 00:29:50,700
+We are trying to more accurately represent reality, which we still assume will be reflected in the data.
+
+279
+00:29:51,360 --> 00:29:56,459
+We've already asked the question. Does the school you go to matter in terms of math achievement?
+
+280
+00:29:56,460 --> 00:30:01,740
+Yes. Yes, it does. Now, we asked, do we give a crap about somebody's socioeconomic status?
+
+281
+00:30:02,070 --> 00:30:03,990
+Yes. Yes. Yes, we do.
+
+282
+00:30:04,650 --> 00:30:11,610
+Right now, we are making the assumption that socioeconomic status means the same for every single person attending every single school.
+
+283
+00:30:12,890 --> 00:30:18,480
+If I wanted to start a what we're going to do next. What would you do next?
+
+284
+00:30:23,890 --> 00:30:28,120
+For what I see? No. Absolutely.
+
+285
+00:30:28,840 --> 00:30:39,370
+So now we're going to change this model and we are going to include exactly that, a random effect for socioeconomic status.
+
+286
+00:30:40,000 --> 00:30:44,380
+If you can just close your eyes and not look at what the words on the slide, what are we doing now?
+
+287
+00:30:45,220 --> 00:30:52,330
+What does this mean in and in practice? This model with now a random effect for socioeconomic status.
+
+288
+00:30:52,330 --> 00:31:06,940
+And they tell me in plain language where we are allowing math achievement to vary in status based on school.
+
+289
+00:31:07,510 --> 00:31:13,090
+I have got to clarify that almost. You got the words there.
+
+290
+00:31:13,200 --> 00:31:23,350
+It's somewhere in there. What is it that we're allowing math achievement to vary both high school and Ph.D.s?
+
+291
+00:31:25,130 --> 00:31:34,730
+With what? Within a school for it, we are allowing the association between socioeconomic status and math achievement to vary by school.
+
+292
+00:31:35,990 --> 00:31:41,750
+So we're assuming different schools have different associations between socioeconomic status.
+
+293
+00:31:41,780 --> 00:31:51,410
+Imagine we are also allowing mean or average math achievement to vary by schools.
+
+294
+00:31:52,070 --> 00:31:57,650
+Forget that part of this equation, right? So your school matters for two different things.
+
+295
+00:31:58,190 --> 00:32:01,190
+Just in general mean math achievement scores.
+
+296
+00:32:01,490 --> 00:32:05,840
+Some schools are higher than others. Second, we know that.
+
+297
+00:32:05,910 --> 00:32:09,590
+We know socioeconomic status has some influence on your math achievement school.
+
+298
+00:32:10,340 --> 00:32:14,870
+We're going to say that that relationship changes based on which school you attend.
+
+299
+00:32:15,920 --> 00:32:19,630
+So you can have a double benefit or just one.
+
+300
+00:32:19,640 --> 00:32:23,090
+You might just happen to go to a really good magic achievement school. Good for you.
+
+301
+00:32:24,020 --> 00:32:29,810
+You could also go to a school where your socioeconomic status matters more or less for your math achievement.
+
+302
+00:32:30,530 --> 00:32:35,140
+These are both kind of questions that we can answer with a model like this if go.
+
+303
+00:32:36,980 --> 00:32:42,190
+This is the model that we ran to ago. This was multi two, right?
+
+304
+00:32:42,200 --> 00:32:45,620
+We had a fixed slope. The random intercept.
+
+305
+00:32:47,000 --> 00:32:55,070
+This just for explication purposes is a fixed intercept, but random slope.
+
+306
+00:32:56,900 --> 00:32:59,660
+Fixed intercept. Everybody starts at the same time.
+
+307
+00:32:59,960 --> 00:33:05,180
+All schools are equal, and the only thing that really matters is what your socioeconomic status is.
+
+308
+00:33:05,600 --> 00:33:12,560
+Because depending on what school you go to, your social economic status has more or less of an influence on your math achievement score.
+
+309
+00:33:16,130 --> 00:33:19,520
+Okay. In practice, we won't run this model.
+
+310
+00:33:21,170 --> 00:33:24,230
+It's very rare that you're going to want to have a fixed, fixed intercept.
+
+311
+00:33:25,250 --> 00:33:32,540
+This is the model we are testing now. This is a random intercept and random slope model.
+
+312
+00:33:33,770 --> 00:33:43,640
+Not only does your mean math achievement vary by school, but the association between socioeconomic status and math achievement varies by school.
+
+313
+00:33:48,320 --> 00:33:54,140
+Yeah. This is a random slope and random intercept model.
+
+314
+00:33:55,010 --> 00:34:01,520
+Not only does your intercept or average math achievement score vary by school,
+
+315
+00:34:02,060 --> 00:34:08,600
+but the association between socioeconomic status and math achievement also varies by school.
+
+316
+00:34:16,920 --> 00:34:19,950
+One more time. Sorry, this.
+
+317
+00:34:20,430 --> 00:34:27,280
+It's a random slope and random intercept, mo, which means technically,
+
+318
+00:34:27,280 --> 00:34:31,560
+it means both your random behavior intercepts and your slopes are allowed to vary.
+
+319
+00:34:31,980 --> 00:34:40,980
+In this specific context, it means that the mean math achievement and the association between this and that achievement varies by school.
+
+320
+00:34:41,670 --> 00:34:45,180
+Why does this matter? So tell me why this matters.
+
+321
+00:34:46,920 --> 00:34:52,430
+Well, forget this was real data. That means you wanted students attending 160 schools.
+
+322
+00:34:52,440 --> 00:35:01,340
+Why do we care? Good for it.
+
+323
+00:35:03,430 --> 00:35:05,350
+I just like when I'm thinking about it.
+
+324
+00:35:05,380 --> 00:35:18,610
+You don't want to just choose the school because they have, you know, all that the want or if you want to know what the interplay with socioeconomics.
+
+325
+00:35:20,050 --> 00:35:32,470
+Okay, great. In theory, I guess if two people had the same access and it was lower and that was impacting math.
+
+326
+00:35:32,710 --> 00:35:40,900
+But of course, if they went to a different school that lower as could have less of an effect on their income.
+
+327
+00:35:41,350 --> 00:35:48,990
+Imagine if you went to these two schools. And.
+
+328
+00:35:55,570 --> 00:36:03,700
+What school is it really good to be a rich kid? The rich kids are really happy in this school.
+
+329
+00:36:04,180 --> 00:36:08,440
+We are not happy in this school. Poor kids.
+
+330
+00:36:08,950 --> 00:36:13,270
+Right. Whereas what about this one? It doesn't matter.
+
+331
+00:36:14,050 --> 00:36:17,470
+It doesn't. I don't care what your ex is. You're. You're expected.
+
+332
+00:36:17,470 --> 00:36:20,560
+Outcome is the same. This is an equitable school.
+
+333
+00:36:20,680 --> 00:36:23,770
+This one is not right.
+
+334
+00:36:23,890 --> 00:36:27,459
+So we can think about what is it? Where are we? Mapping reality.
+
+335
+00:36:27,460 --> 00:36:32,290
+Reality? What is there? Data support? Those are the or the other outcomes.
+
+336
+00:36:32,650 --> 00:36:37,300
+The thing we tested beforehand was. It doesn't matter, right?
+
+337
+00:36:37,570 --> 00:36:44,710
+Which of these two models fits the data better? Because if it's that first model where that slope is fixed, I don't care what school you go to.
+
+338
+00:36:45,160 --> 00:36:47,230
+This is key. That's our intervention.
+
+339
+00:36:47,710 --> 00:36:55,930
+But if a and ready if this is our model, where we can have schools, where we have a flat flip versus a a very positive one,
+
+340
+00:36:56,170 --> 00:37:00,490
+then there's probably something we can do at a school level to make things look more like this.
+
+341
+00:37:00,760 --> 00:37:07,240
+It doesn't have to be. So, yes, the richer you are, the better your life is going to be, the better outcome that you're going to have.
+
+342
+00:37:07,540 --> 00:37:10,540
+We can find ways maybe to make things more equal.
+
+343
+00:37:10,810 --> 00:37:15,639
+I don't know. Think about this across all those different contexts if you care about work.
+
+344
+00:37:15,640 --> 00:37:17,800
+But this is one that I care about and work in.
+
+345
+00:37:18,130 --> 00:37:24,310
+But there might be other places where we can think about grouping levels, having a huge influence on our outcome variables.
+
+346
+00:37:24,820 --> 00:37:30,160
+Right. And these tests that we're going to do are to try to figure out where that nuance is.
+
+347
+00:37:30,430 --> 00:37:30,700
+Yeah.
+
+348
+00:37:31,360 --> 00:37:40,640
+So like then if you if you're like, oh, school is like more equal and you're saying we could study like maybe what else is going on in that school?
+
+349
+00:37:41,260 --> 00:37:47,260
+Why not? Yeah. Maybe there is all sorts of different SEO for us, you know, but it's like technical programing or something,
+
+350
+00:37:47,260 --> 00:37:55,630
+like some stem science that can make this relationship a little less advantageous for those coming with more resources.
+
+351
+00:37:56,350 --> 00:37:59,680
+Maybe just matters if the school itself has tons of resources.
+
+352
+00:37:59,890 --> 00:38:04,030
+And if we look at really rich schools, you find that this slope,
+
+353
+00:38:04,030 --> 00:38:10,540
+the individual level S's starts to trickle down because what it matters is not how much your folks make,
+
+354
+00:38:10,750 --> 00:38:17,530
+but how much your school has available for you. That's an intervention point potentially, versus one that we're just saying.
+
+355
+00:38:17,710 --> 00:38:22,330
+All we've got to do is give folks more money at their homes and we're going to see these improvements in attitudes.
+
+356
+00:38:22,330 --> 00:38:26,709
+Cause I don't know. I'm just spitballing here.
+
+357
+00:38:26,710 --> 00:38:30,340
+We're hypothesizing, but that's why some of these questions could be valuable.
+
+358
+00:38:31,270 --> 00:38:36,430
+That's how we can start to think about and utilize 7200 observations from 160 schools.
+
+359
+00:38:36,620 --> 00:38:40,090
+All right. So let's see what happens. We now have a fifth slope first.
+
+360
+00:38:40,330 --> 00:38:45,250
+This is our this is our fixed effect for this kind of the average.
+
+361
+00:38:45,490 --> 00:38:48,910
+That's the slope, the average impact of this math achievement.
+
+362
+00:38:49,150 --> 00:38:53,530
+But we're going to allow that to vary by schools with me.
+
+363
+00:38:54,340 --> 00:38:57,370
+All right. Let's see what we find. Any questions about these three graphs?
+
+364
+00:38:57,370 --> 00:39:03,220
+But yeah, that those are those are the schools that I think this is just a plot.
+
+365
+00:39:03,550 --> 00:39:11,000
+No, sir. Now, this was just my way. This question pops up all the time, and I feel bad if you're still saying, well,
+
+366
+00:39:11,000 --> 00:39:15,130
+what was a fixed slope versus that's this was only intended to illustrate.
+
+367
+00:39:15,610 --> 00:39:19,360
+This is an example of a fixed slope, random intercept.
+
+368
+00:39:19,690 --> 00:39:22,840
+This is a fixed intercept. Random slope.
+
+369
+00:39:23,470 --> 00:39:32,709
+This is both a random slope and random intercept. And this all comes from well, a lot of it comes from like the round question, brick, hierarchical,
+
+370
+00:39:32,710 --> 00:39:39,070
+linear model book that talks about the random slope, random intercept model, etc., etc.
+
+371
+00:39:40,160 --> 00:39:47,920
+Okay. All right. So this is I mean, this is the question and this is what we saw earlier on in the example.
+
+372
+00:39:48,370 --> 00:39:54,640
+We thought that we saw or noticed some changes in that a slope by schools.
+
+373
+00:39:55,060 --> 00:39:58,810
+This is model multi three we are allowing intercepts.
+
+374
+00:40:01,070 --> 00:40:05,240
+To the far left hand side, we're allowing intercepts to go up and down.
+
+375
+00:40:06,050 --> 00:40:13,790
+We are also allowing slopes to go up and down random intercept due to random slope.
+
+376
+00:40:15,260 --> 00:40:19,220
+Do you know the difference between the two? If I asked somebody, draw it up here.
+
+377
+00:40:19,400 --> 00:40:26,330
+I'm not going to. Would you be able to draw it up here and, you know, draw me a random intercept model by itself and a random slope model?
+
+378
+00:40:27,160 --> 00:40:30,770
+All right. That's true.
+
+379
+00:40:31,300 --> 00:40:34,460
+Well, this was the this is the model we were testing against.
+
+380
+00:40:34,490 --> 00:40:42,410
+This is multi two. This is where we had a fixed sh x across all these schools.
+
+381
+00:40:43,550 --> 00:40:51,590
+Visualizations here are key questions about this. Multi two is there are these dotted whatever color lines, red lines.
+
+382
+00:40:52,370 --> 00:40:56,600
+I'm sorry. Multi three is where we're allowing those lines to vary by school.
+
+383
+00:40:58,550 --> 00:41:06,820
+Good. So some things that we need to consider when we have a random effect.
+
+384
+00:41:06,850 --> 00:41:10,120
+Notice that our fixed effects stay the same. We have an intercept.
+
+385
+00:41:10,120 --> 00:41:13,149
+They never slow down. I'm not going to ask you to interpret these.
+
+386
+00:41:13,150 --> 00:41:19,180
+Pretty exact same way. Exact same way. Unit change in x equals this much change in Y.
+
+387
+00:41:19,630 --> 00:41:23,470
+This is our value and this is zero. Okay. Nothing's changed.
+
+388
+00:41:24,130 --> 00:41:31,420
+The only thing that we've changed, we see changing is now we do have an estimate of that random effect in someone.
+
+389
+00:41:33,470 --> 00:41:37,320
+Yeah. Okay. Do like some information here.
+
+390
+00:41:37,340 --> 00:41:46,880
+It's not here. But does anybody want to say in their language what this random effect is telling us itself?
+
+391
+00:41:51,160 --> 00:41:54,370
+Normally I get a shot of.
+
+392
+00:41:57,960 --> 00:42:02,130
+The. Such a run.
+
+393
+00:42:02,130 --> 00:42:07,100
+That's right. This is. Up and fall.
+
+394
+00:42:07,140 --> 00:42:22,000
+Just in general, what is that kind of thing? I'm not sure.
+
+395
+00:42:22,750 --> 00:42:33,130
+All right. All right. That that random effect is essentially an estimate of the variability of these blue lines.
+
+396
+00:42:33,730 --> 00:42:38,350
+Some of these blue lines are positive. They're like point two or something like that.
+
+397
+00:42:38,650 --> 00:42:41,950
+Some of these blue lines are close to zero. They're zero.
+
+398
+00:42:42,460 --> 00:42:53,980
+Some of these blue lines or even a negative value know that variability from point two down to negative point three or .03 or whatever,
+
+399
+00:42:53,980 --> 00:43:00,970
+it's going to be. Right? Every single one of these schools has a slope. We could take the 60 people that attend school 1296 calculate the rest.
+
+400
+00:43:01,900 --> 00:43:05,110
+Right. You can do that. Should I do a regression model?
+
+401
+00:43:05,140 --> 00:43:11,800
+Go blue. We can do that for every single school and calculate a 166 slopes with me there.
+
+402
+00:43:12,970 --> 00:43:16,390
+Right. Sometimes those slopes are positive. Some sometimes results are zero.
+
+403
+00:43:16,390 --> 00:43:21,550
+Sometimes results are negative. This is an estimate of that variability.
+
+404
+00:43:23,020 --> 00:43:30,820
+How much they fluctuate around zero or around or just the average slope is really it's around zero throughout the average slope.
+
+405
+00:43:36,400 --> 00:43:41,190
+Good. Right? Yeah. Construction general.
+
+406
+00:43:42,290 --> 00:43:53,109
+What is it? What's that telling us? So these are the this is the matrix algebra that they need to use to fit all these things together.
+
+407
+00:43:53,110 --> 00:43:58,660
+So all of these parameters go together in a gigantic kind of correlation matrix that we never hear in German.
+
+408
+00:43:58,930 --> 00:44:03,610
+That's essentially what this is telling us is whether or not it's positive, definite and how they complement the source.
+
+409
+00:44:04,660 --> 00:44:11,470
+So safe to ignore. But at some point you might decide if you ever want to change the correlation structure,
+
+410
+00:44:11,890 --> 00:44:14,140
+and that's where you would start to see some of those changes.
+
+411
+00:44:15,910 --> 00:44:22,510
+Mostly if we were on multilevel models, series B growth models, where we think about observations and estimate and people.
+
+412
+00:44:23,140 --> 00:44:25,390
+Those observations, if they're collected over time,
+
+413
+00:44:25,810 --> 00:44:34,330
+you might change the way that you expect them to be correlated points close in time or correlated more highly then points further away from time.
+
+414
+00:44:34,750 --> 00:44:39,190
+When I do some of my spatial analysis of Detroit plots that are close to each other
+
+415
+00:44:39,190 --> 00:44:42,640
+relative to crime versus lots that are further apart from each other relative to crime.
+
+416
+00:44:43,450 --> 00:44:48,700
+A different kind of spatial core spatial nesting, because they all are in the same cosmos.
+
+417
+00:44:53,490 --> 00:44:57,360
+Would you still interpret that as 0.63?
+
+418
+00:44:57,660 --> 00:45:01,660
+Think you may change? Yes.
+
+419
+00:45:01,700 --> 00:45:07,360
+Yes. No, no, no. This is the variability.
+
+420
+00:45:07,370 --> 00:45:16,640
+This is an estimate of how much those score slopes change based on the schools they were attending.
+
+421
+00:45:17,840 --> 00:45:28,280
+We would have again. We have kind of our grand museums right across all 160 schools.
+
+422
+00:45:28,940 --> 00:45:33,050
+This is all the individuals we had some measure of socioeconomic status,
+
+423
+00:45:33,920 --> 00:45:39,860
+school, a minor, and this is whatever that value is going to be in any school.
+
+424
+00:45:39,860 --> 00:45:49,800
+They might be here school. B might be here. C D E f, g, h, right.
+
+425
+00:45:50,930 --> 00:45:54,590
+So we'd have schools that are kind of varying about the grand. I mean, yes.
+
+426
+00:45:55,430 --> 00:46:01,310
+This level of spread. And yes, it's assumed to be normal.
+
+427
+00:46:02,480 --> 00:46:08,210
+It's characterized by. Right. That is a standard deviation.
+
+428
+00:46:14,900 --> 00:46:27,480
+Something like that. They're now talking about how socioeconomic status slopes at the school level vary.
+
+429
+00:46:30,090 --> 00:46:31,530
+There is wide variation.
+
+430
+00:46:31,540 --> 00:46:40,350
+You could range anywhere from very high values to very low as your associations with the premises, your last year with management is very low.
+
+431
+00:46:41,460 --> 00:46:47,790
+So if the conditions for that in the range of that seems like a big number,
+
+432
+00:46:47,870 --> 00:46:53,929
+you're saying then it's a lot bigger and there's wide variability at the school level in terms of socioeconomic status.
+
+433
+00:46:53,930 --> 00:47:00,030
+And Massachusetts point to that. There's a lot less variation. Yeah, if it was zero, then there'd be no variation and we'd be talking about this more.
+
+434
+00:47:02,830 --> 00:47:13,360
+So no, actually, maybe this is kind of helpful. This value is a characterization of these slope differences from the brand name.
+
+435
+00:47:14,110 --> 00:47:17,259
+So if we assume that this guideline was kind of the mean across everybody,
+
+436
+00:47:17,260 --> 00:47:25,470
+the socioeconomic status slope, how much these blue lines differ from this is captured by that.
+
+437
+00:47:28,920 --> 00:47:34,590
+School level affect school level, affect personal level affect level two.
+
+438
+00:47:34,620 --> 00:47:44,760
+Level two, level one how much school means differ how much school as the slopes differ, how much persons kind of differ as well?
+
+439
+00:47:46,350 --> 00:47:54,000
+One other artifact from this model is when you have multiple random effects by default, your model estimated a correlation between the two.
+
+440
+00:47:54,780 --> 00:48:01,500
+This correlation describes the relationship or association between intercept variance and slope variance.
+
+441
+00:48:02,430 --> 00:48:08,680
+Essentially, as your intercepts go up at the school level, you're expected slopes go down a little bit at the school.
+
+442
+00:48:13,650 --> 00:48:15,090
+Can you repeat the intercept again?
+
+443
+00:48:17,140 --> 00:48:26,160
+So so as you essence or how much was the differs and the residuals on the individual level, what did you say about The Intercept?
+
+444
+00:48:26,490 --> 00:48:32,670
+So I want to be actually, I'm going to correct something that you said. It is not how much this differs at the school.
+
+445
+00:48:33,120 --> 00:48:36,160
+What is it the variation between.
+
+446
+00:48:36,780 --> 00:48:41,130
+No. Well, it is variability. Yes. But what is what what about us?
+
+447
+00:48:41,160 --> 00:48:44,160
+Yes. It's not just are some schools rich or poor?
+
+448
+00:48:44,640 --> 00:48:52,860
+Matthew. Yes, it is. The association between X and math achievement that varies by school.
+
+449
+00:48:54,950 --> 00:49:00,980
+That that's important to remember. And that's what I was trying to show with this.
+
+450
+00:49:00,990 --> 00:49:10,620
+Right. Each one of these plots is a measure of the association between socioeconomic status and math achievement at the school,
+
+451
+00:49:11,520 --> 00:49:19,170
+because these blue lines vary, a measure of that variability is captured with a random effect.
+
+452
+00:49:20,190 --> 00:49:24,269
+So now than mine. Can you repeat your question? Yes.
+
+453
+00:49:24,270 --> 00:49:30,510
+So it's better for the residual level.
+
+454
+00:49:32,810 --> 00:49:38,930
+I just missed your explanation of what the residuals mean at that intercept, then.
+
+455
+00:49:40,080 --> 00:49:43,380
+If it's I guess I could be in the I don't know.
+
+456
+00:49:43,970 --> 00:49:48,630
+Okay. So what I would do. I wonder if I have a slide.
+
+457
+00:49:49,770 --> 00:49:54,240
+No, no, no, no. Okay. So you can think about.
+
+458
+00:49:54,250 --> 00:49:58,230
+All right, this is a random effect. Random effect, random effects. Fixed effects takes effect.
+
+459
+00:50:01,870 --> 00:50:05,650
+I'm so sorry. This was our fixed effect.
+
+460
+00:50:06,880 --> 00:50:14,340
+Our fixed effect, a random intercept, a random slug in our person by a residual value.
+
+461
+00:50:15,250 --> 00:50:19,270
+We would literally plug in all of this information that we know.
+
+462
+00:50:19,960 --> 00:50:23,680
+Right? Who is the person and what's their socioeconomic status?
+
+463
+00:50:24,790 --> 00:50:29,710
+What is the person and what's their socioeconomic status? Negative multiplied by the school effect.
+
+464
+00:50:30,490 --> 00:50:36,970
+This is going to be the unique contribution to the school. All of it adds to what our person brings to the table.
+
+465
+00:50:37,330 --> 00:50:44,410
+All of this adds up to some predictive value. So all we're going to do is we're going to take those values that we estimate in that equation,
+
+466
+00:50:44,710 --> 00:51:06,450
+and we're going to start in that model and we're going to plug them all into here. This is good stuff.
+
+467
+00:51:06,450 --> 00:51:09,590
+It's good stuff. We'll get there. We'll get there.
+
+468
+00:51:09,600 --> 00:51:18,090
+We will. We will. What would I take from this? What I would take from this, from just a practical hey, person walking across the hallway, guess what?
+
+469
+00:51:18,960 --> 00:51:25,320
+Certain socioeconomic status matters. The more socioeconomic status your family has, the higher your predicted margin.
+
+470
+00:51:25,330 --> 00:51:33,690
+They say, well, you know, crap. And so what say I have. But did you realize that school matters to not only whether or not you have, you know,
+
+471
+00:51:33,690 --> 00:51:41,310
+kind of wealthy parents, but just in general, the school you attend, you attend matters.
+
+472
+00:51:41,970 --> 00:51:45,840
+But then also it is not managed just kind of in general, kind of on average.
+
+473
+00:51:46,080 --> 00:51:52,240
+But whether or not you have a wealthier or less family at a given school also changes.
+
+474
+00:51:52,260 --> 00:51:59,010
+So for some schools, we see a lot more equity around, you know, socioeconomic status levels than others.
+
+475
+00:52:00,150 --> 00:52:07,680
+Yeah, yeah. I think I might have missed it so low.
+
+476
+00:52:09,640 --> 00:52:18,310
+Has it one. Significant positive for The Intercept is that it is below one.
+
+477
+00:52:18,790 --> 00:52:22,080
+That's a significant part of it. These are these are tests.
+
+478
+00:52:22,090 --> 00:52:26,470
+These are not tests. These are the standard deviation is this is variability.
+
+479
+00:52:27,640 --> 00:52:30,880
+Okay. These are not specific values that we plug in.
+
+480
+00:52:32,170 --> 00:52:39,100
+This is these are characterizing the different values that the school or the individual.
+
+481
+00:52:39,910 --> 00:52:42,970
+And it's just saying that every single school has a mean.
+
+482
+00:52:43,390 --> 00:52:48,490
+Every single school has an association between X and intercept.
+
+483
+00:52:48,760 --> 00:52:53,079
+And every single person brings a whole bunch of things to the table that are going to influence their messaging
+
+484
+00:52:53,080 --> 00:53:02,290
+and score the variability across school means as these slopes and individuals are characterized by these numbers.
+
+485
+00:53:04,060 --> 00:53:07,230
+And so the I'm just double checking.
+
+486
+00:53:07,280 --> 00:53:22,960
+I have to get this part right. The correlation, as we're saying basically that for any for a school with a higher math treatment at this X zero,
+
+487
+00:53:23,620 --> 00:53:27,400
+there is less of an act of X on that.
+
+488
+00:53:28,000 --> 00:53:32,200
+Now, what we're saying is that, generally speaking, this left value as it goes up,
+
+489
+00:53:32,410 --> 00:53:39,129
+the slope goes down, as one of these intercepts goes down, the slope goes up just on average.
+
+490
+00:53:39,130 --> 00:53:49,740
+That's the correlation between the two. Yeah.
+
+491
+00:53:50,390 --> 00:53:55,830
+Um, I just wanted to confirm. So that intercept for the end of effect is the school name.
+
+492
+00:53:57,160 --> 00:54:06,730
+So it's the unique contribution of schools to my school being able to.
+
+493
+00:54:11,640 --> 00:54:15,750
+But that doesn't mean that we add 2.18 to every single school.
+
+494
+00:54:16,410 --> 00:54:25,049
+That's not what this is saying. This is saying that if we took every single school's me and we kind of line them up the way that we would care,
+
+495
+00:54:25,050 --> 00:54:31,430
+and that the variability, the variance of those means or the standard deviations of those needs would be about 2.1.
+
+496
+00:54:33,630 --> 00:54:39,870
+Right. So some schools are numerous, 12.6, six three, something like that.
+
+497
+00:54:39,870 --> 00:54:44,820
+That means that there's going to be some schools at 1.7 to 13.01.
+
+498
+00:54:45,570 --> 00:54:49,420
+12.50. 12.94.
+
+499
+00:54:49,620 --> 00:54:59,159
+Right. And if we took all of these values for all 160 schools, put them into our our studio and calculated the variance,
+
+500
+00:54:59,160 --> 00:55:01,830
+and then took the square root of the variance, we would get 2.18.
+
+501
+00:55:11,750 --> 00:55:19,100
+If we take every single school and we calculate the mean math achievement of every single student that attends every single school,
+
+502
+00:55:19,730 --> 00:55:26,960
+and we line them all up, all 160 in a row, we could estimate the variability of school in math achievement.
+
+503
+00:55:27,850 --> 00:55:33,260
+Right? We can calculate the variance. We've done that, right?
+
+504
+00:55:33,740 --> 00:55:38,510
+We do square root of variance because there deviation that would be 2.1.
+
+505
+00:55:41,190 --> 00:55:45,770
+It gives us an idea of the spread of schooling in math achievement.
+
+506
+00:55:48,800 --> 00:55:52,190
+On average that school mean that human was like 12.6.
+
+507
+00:55:53,000 --> 00:55:56,510
+That was mean. Some schools are going to be higher.
+
+508
+00:55:56,510 --> 00:56:05,420
+Some schools are going to be lower. That higher or lower, there's going to be a normal distribution with a standard deviation of 2.18.
+
+509
+00:56:14,410 --> 00:56:20,560
+I'm going to keep going. We're getting where we were hidden details, which I think are important.
+
+510
+00:56:21,160 --> 00:56:25,330
+But they're they're going to overshadow potentially kind of a larger message.
+
+511
+00:56:26,260 --> 00:56:36,370
+And so we can fit this just like we did with other models where we see something a little bit different, something that we don't commonly see.
+
+512
+00:56:36,400 --> 00:56:48,620
+What does this tell us? Where is this telling us that we want to be three or at?
+
+513
+00:56:52,780 --> 00:56:56,680
+What did we change from multi three to multi to remain as this?
+
+514
+00:56:59,480 --> 00:57:09,180
+Mm hmm. And so does that mean in practice? Which model did better?
+
+515
+00:57:10,140 --> 00:57:16,160
+The redder, the blue. He's in the red.
+
+516
+00:57:17,060 --> 00:57:23,180
+So even now, you know, we graphed all these points and we see some variability or what we thought was variability.
+
+517
+00:57:23,630 --> 00:57:27,560
+The data are telling us that we can keep this fixed.
+
+518
+00:57:27,890 --> 00:57:32,300
+It does not matter what school you attend. It does not matter.
+
+519
+00:57:33,440 --> 00:57:38,610
+The association between X and the outcome variable is going to be the same.
+
+520
+00:57:40,640 --> 00:57:47,150
+Now when I say it doesn't matter, that is for the association between X and math achievement.
+
+521
+00:57:47,840 --> 00:57:54,260
+We already saw that school does matter for what mean math achievement.
+
+522
+00:57:54,860 --> 00:58:01,010
+There are some schools where, generally speaking, school students score better on their math achievement.
+
+523
+00:58:02,510 --> 00:58:06,920
+So we can try to figure out what those high performing schools are or whatever they might have available.
+
+524
+00:58:07,670 --> 00:58:16,220
+But this kind of question doesn't seem like it's manifesting within the data because there
+
+525
+00:58:16,460 --> 00:58:22,880
+don't seem to be schools where X we can kind of where is having less of an influence.
+
+526
+00:58:23,540 --> 00:58:26,840
+It turns out that it pretty much has the same influence across all schools.
+
+527
+00:58:27,230 --> 00:58:30,500
+The more wealth your parents have, the higher your math achievement scores are going to be.
+
+528
+00:58:37,870 --> 00:58:46,410
+Questions. Hmm.
+
+529
+00:58:48,850 --> 00:58:56,710
+All right. So once we've kind of I've gotten this question around random effects, we're trying to sort these pieces out.
+
+530
+00:58:56,920 --> 00:59:00,970
+Do we have to worry about some of this variability in this across school, whatever?
+
+531
+00:59:01,570 --> 00:59:02,560
+I'm going to keep it here.
+
+532
+00:59:02,980 --> 00:59:10,480
+Because I guess that, you know, play with fire like that, even though this model is telling us we probably could drop it for explanations purposes.
+
+533
+00:59:11,140 --> 00:59:14,890
+I'm now going to start to play around with the model building like you would normally do.
+
+534
+00:59:14,920 --> 00:59:19,210
+Okay. So we have a sense of how we think the real reality is operating.
+
+535
+00:59:19,450 --> 00:59:24,490
+We're going to let school have an effect on just kind of our average math achievement as well as socioeconomic status.
+
+536
+00:59:24,910 --> 00:59:30,970
+I'm going to add now some fixed effects, text effects, meaning we assume that there are say the same for every single person.
+
+537
+00:59:31,330 --> 00:59:35,050
+Sector is just an indicator variable, public or private. All right.
+
+538
+00:59:35,260 --> 00:59:42,670
+And the question now, does do public or private schools have higher levels of mean math achievement relative to one another?
+
+539
+00:59:43,120 --> 00:59:50,679
+So by adding sector, this is a what person or school level predictor exclude school furniture.
+
+540
+00:59:50,680 --> 00:59:54,900
+It applies to every single person who goes to a given school. Right. So we add that value.
+
+541
+00:59:55,120 --> 00:59:59,139
+What should these random effect values? Are we expecting to see change here?
+
+542
+00:59:59,140 --> 01:00:06,010
+Because it's a school level predictor. We are not worried about this change in kind of individual stuff.
+
+543
+01:00:06,700 --> 01:00:11,200
+We are assuming that a school level predictor is going to explain some of the
+
+544
+01:00:11,200 --> 01:00:17,120
+school level variability in particular because we're leading it by itself.
+
+545
+01:00:17,140 --> 01:00:19,510
+We're treating it as a main effect.
+
+546
+01:00:20,500 --> 01:00:30,909
+We are expecting to see changes in the intercept variability to change some of this X variability, because that's the slope.
+
+547
+01:00:30,910 --> 01:00:36,790
+That's the association between us. Yes. And that that you in a different schools tend to play around with this.
+
+548
+01:00:37,120 --> 01:00:43,930
+We are going to be introducing interaction terms, which we'll talk about a little bit right now when we add a predictor like a school level predictor.
+
+549
+01:00:44,440 --> 01:00:52,860
+We were expecting to see some reduction in variability because some of that can explain some of that unique influence of a school.
+
+550
+01:00:52,870 --> 01:00:55,530
+I mean, math achievement is going to be gone.
+
+551
+01:00:55,550 --> 01:01:01,870
+It's going to go down and it's going to be explained by whether or not you attend a public or private school.
+
+552
+01:01:03,830 --> 01:01:06,070
+Now, happily,
+
+553
+01:01:06,850 --> 01:01:16,120
+we need to interpret this the exact same way that we've interpreted regression coefficients all throughout the semester a unit change from,
+
+554
+01:01:16,420 --> 01:01:20,080
+in this case our reverend variable to our treatment variable.
+
+555
+01:01:21,880 --> 01:01:24,970
+So it looks like if we go from private or public to private school,
+
+556
+01:01:25,690 --> 01:01:31,479
+we expect our change to be about 2.5 to 3 relative to those attending public schools,
+
+557
+01:01:31,480 --> 01:01:36,930
+private school attendees can expect to enjoy a 2.54 increase in their expected marriage.
+
+558
+01:01:36,930 --> 01:01:45,300
+The treatment. But you get.
+
+559
+01:01:52,940 --> 01:02:01,900
+Yeah. And then once again, we're looking for the effects of the intercept value for comparing that to that greater value.
+
+560
+01:02:03,580 --> 01:02:07,570
+We want to see if there. Some degrees. But is there like that?
+
+561
+01:02:08,550 --> 01:02:20,410
+Yes. Value that we want to see if you want to change your life to really something like that.
+
+562
+01:02:20,900 --> 01:02:25,300
+Right. We add a new variable. We know we're going to change the model we want by one parameter.
+
+563
+01:02:25,570 --> 01:02:31,710
+We would expect if I ran this model with now multi four, we would expect some sort of increase in model fit.
+
+564
+01:02:32,350 --> 01:02:41,110
+So if our if our sector variable is explaining data explaining variation network, don't forget all of this is really just accurate.
+
+565
+01:02:41,620 --> 01:02:47,560
+This is just a big old fancier term we just now have here at the school level and they are at the individual level.
+
+566
+01:02:48,070 --> 01:02:55,180
+Recall from many slides ago now, about 20% of the variability in math achievement was attributable to the school you attend.
+
+567
+01:02:56,050 --> 01:03:03,010
+We are trying to explain some of that 20% of variability in math achievement by adding school level predictors.
+
+568
+01:03:05,080 --> 01:03:07,150
+We see that this is a significant predictor.
+
+569
+01:03:07,630 --> 01:03:13,390
+Just, you know, by sight, we can see that the intercept variability is going down, kind of average amount of achievement.
+
+570
+01:03:14,170 --> 01:03:17,320
+So is this variability going down or explaining a significant amount of it?
+
+571
+01:03:17,620 --> 01:03:23,290
+We put it into another T test like this and see what happens. My guess is if anybody has the code, you run it.
+
+572
+01:03:23,290 --> 01:03:32,180
+It's going to be significant. Okay.
+
+573
+01:03:34,460 --> 01:03:39,680
+Guess we're kind of done with the random effect piece for now or just any fixed effects.
+
+574
+01:03:39,680 --> 01:03:50,810
+But, you know, we could always consider additional variables that we want to include for random effects or as as random effects if we wanted to.
+
+575
+01:03:51,500 --> 01:03:58,639
+Not a variable like sector because sector is at the school level where we can't have
+
+576
+01:03:58,640 --> 01:04:03,920
+set the effect of sector vary by school because it's already a school variable.
+
+577
+01:04:04,280 --> 01:04:08,990
+It already varies by school. It was only like these level one variables like s.
+
+578
+01:04:09,020 --> 01:04:12,530
+Yes. That we can allow that association to vary by schools.
+
+579
+01:04:14,210 --> 01:04:20,830
+That makes sense to focus. Um hmm.
+
+580
+01:04:22,370 --> 01:04:32,120
+All right. This is the last example before our all is trying to show you is that we can also add,
+
+581
+01:04:32,600 --> 01:04:39,290
+um, random effects, or we can also try to explain variability in that x random effect.
+
+582
+01:04:39,630 --> 01:04:47,720
+All right. So we had two where the intercept variability with the X variability by adding sector as a main effect, we saw this go down.
+
+583
+01:04:48,800 --> 01:04:56,630
+If we wanted to try to make this value go down, that association between X and math achievement, we include interaction terms.
+
+584
+01:04:58,390 --> 01:05:04,210
+Okay. So we try to we think about how like a level two variable interacts with FDA.
+
+585
+01:05:05,140 --> 01:05:16,540
+Maybe maybe the association between X and math achievement is smaller at private schools than it is in public schools.
+
+586
+01:05:17,650 --> 01:05:24,790
+So that's this might have more of an influence on math achievement scores at public schools than it does in private schools.
+
+587
+01:05:25,720 --> 01:05:26,260
+I don't know.
+
+588
+01:05:27,250 --> 01:05:33,340
+But those are the same types of questions we could be asking ourselves as we consider all the variables that we could just plug into our analysis.
+
+589
+01:05:33,970 --> 01:05:35,350
+Why would we really consider this?
+
+590
+01:05:36,610 --> 01:05:43,450
+Um, I just listen here because yeah, if we try to run this model, probably because the random effect isn't significant,
+
+591
+01:05:44,140 --> 01:05:49,050
+we run into some optimizations in the model can't run correctly. So this is just a little trick if you want to try.
+
+592
+01:05:49,090 --> 01:05:53,319
+If you do have an issue with the model you're trying to run, does an estimate.
+
+593
+01:05:53,320 --> 01:05:58,149
+So if it just keeps on running an area already because remember all this is doing is
+
+594
+01:05:58,150 --> 01:06:02,110
+trying on tons and tons of different values to see which one fits the data the best.
+
+595
+01:06:02,800 --> 01:06:09,220
+If it can't find a specific set of parameter values that fits the data really well, it'll just keep on going indefinitely.
+
+596
+01:06:09,890 --> 01:06:13,060
+Right? This is more for your own sake. As you're running your own data.
+
+597
+01:06:13,330 --> 01:06:16,390
+You might have times where the models just keep on going and going and going and going.
+
+598
+01:06:16,600 --> 01:06:21,850
+You never you never get an output. And so this is just another way to optimize that, that algorithm.
+
+599
+01:06:23,260 --> 01:06:35,950
+Okay, I swear, I'm almost done. When we include this interaction term, we're interacting our level two predictor is our level one covariant.
+
+600
+01:06:37,090 --> 01:06:46,090
+We do see some change in the variability of x slopes on math achievement scores across schools.
+
+601
+01:06:47,500 --> 01:06:54,900
+Right. That's the name of the game.
+
+602
+01:06:55,860 --> 01:06:59,490
+We had level one predictors. We reduced this residual variance.
+
+603
+01:06:59,950 --> 01:07:03,510
+We had level two predictors. We are right by themselves.
+
+604
+01:07:03,750 --> 01:07:08,190
+We are reducing kind of this school level influence, average kind of school level influence.
+
+605
+01:07:08,520 --> 01:07:15,120
+We had interaction terms with level two predictors where we're reducing the effect of School X.
+
+606
+01:07:15,150 --> 01:07:19,350
+Our site here is the school's effect on the association between X and math achievement.
+
+607
+01:07:19,860 --> 01:07:24,480
+We're trying to get all these values as small as possible because this is one just big and fancy term.
+
+608
+01:07:25,380 --> 01:07:29,760
+It was all zero. I'd be the happiest person ever because we just plug our values in and we have perfect prediction.
+
+609
+01:07:30,320 --> 01:07:37,080
+It's never going to get there, but that's the goal. All right. If we add a whole bunch of predictors and these things don't change, guess what?
+
+610
+01:07:37,080 --> 01:07:40,170
+Your predictors think we want them anymore. Because in the back end.
+
+611
+01:07:45,700 --> 01:07:55,520
+But interestingly, we do find a significant interaction term here.
+
+612
+01:07:56,420 --> 01:08:03,230
+If we break this out because because sector was just a01 variable, it's actually not too bad to do.
+
+613
+01:08:03,500 --> 01:08:07,100
+So we take our coefficients here, we write them out in an equation.
+
+614
+01:08:07,130 --> 01:08:11,570
+We can ignore either the random effects at this point, but we just plug our values in.
+
+615
+01:08:11,900 --> 01:08:18,350
+So for public schools, we plug zero in zero and interaction term drops out.
+
+616
+01:08:18,620 --> 01:08:23,840
+We have some estimate of the association between X and that achievement for public schools.
+
+617
+01:08:24,410 --> 01:08:31,520
+We do the exact same thing down here. This is week five stuff. Now we can include one here and one there.
+
+618
+01:08:32,120 --> 01:08:37,579
+All that adds up to something like this. I don't have an interpretation here.
+
+619
+01:08:37,580 --> 01:08:40,850
+Could someone tell me what you see here?
+
+620
+01:08:57,880 --> 01:09:03,130
+I don't have that. Is it was it the random effects for sloganeering?
+
+621
+01:09:03,130 --> 01:09:04,860
+Was it was it about that point that first.
+
+622
+01:09:08,180 --> 01:09:19,880
+I think the biggest goal for the public school students have an average that achievement of 11 you put them there.
+
+623
+01:09:21,020 --> 01:09:24,950
+And depending on their SPF, that would increase.
+
+624
+01:09:27,560 --> 01:09:33,980
+That almost three times obvious. Uh huh. And then how explicit are 700 messages?
+
+625
+01:09:34,400 --> 01:09:38,380
+But it doesn't matter as much. But it still increases the.
+
+626
+01:09:39,880 --> 01:09:43,710
+So what does that mean? You're absolutely correct.
+
+627
+01:09:43,720 --> 01:09:47,980
+Everything you said is correct. What would you tell somebody?
+
+628
+01:09:47,980 --> 01:09:54,730
+I'd say, yeah. The effect is that it's less attractive for them to get their.
+
+629
+01:09:56,260 --> 01:10:02,660
+Look at that. I'd rather go to a public school or a private school if I didn't have a lot of money.
+
+630
+01:10:03,770 --> 01:10:09,650
+That's what our state is telling us. Then I'm going to be at less of a disadvantage at a private school.
+
+631
+01:10:09,980 --> 01:10:17,120
+If I have come from a poor family. Right. Versus at a public school where this association between us.
+
+632
+01:10:17,120 --> 01:10:21,920
+Yes, it is a little bit higher. Quite a bit higher potentially. I don't know what the scale is for math achievement.
+
+633
+01:10:22,160 --> 01:10:30,890
+That's almost twice right. So for a unit increase in my yes, depending on if I go to a public or a private school, that can have huge implications.
+
+634
+01:10:31,250 --> 01:10:37,250
+Generally speaking, I'd rather be at a private school because on average their students do better than those at public schools.
+
+635
+01:10:37,550 --> 01:10:45,500
+This is real idea from California, right? So it would be great if you were a California kid that went to a private school and came from,
+
+636
+01:10:45,780 --> 01:10:50,329
+you know, any range of of of your family because you're siac doesn't matter quite as much.
+
+637
+01:10:50,330 --> 01:10:53,510
+You're still does it still better to come from a higher resource family?
+
+638
+01:10:53,510 --> 01:10:57,580
+We get that. But it doesn't matter quite as much as it does here. Something I.
+
+639
+01:10:59,210 --> 01:11:05,300
+Just think of this example for private schools you have what's the time you have to be able to afford?
+
+640
+01:11:05,300 --> 01:11:09,590
+The tuition is really open to all kinds of concerns here, but it's still showing up.
+
+641
+01:11:10,430 --> 01:11:15,050
+So it might be that all the kids you mean every kid in the school is already really wealthy,
+
+642
+01:11:15,590 --> 01:11:19,700
+but we're still seeing an association, so even relative wealth makes a difference.
+
+643
+01:11:20,240 --> 01:11:23,270
+It shouldn't. Right. This is your math achievement.
+
+644
+01:11:23,690 --> 01:11:26,930
+What does it matter what your parents do or how much they make?
+
+645
+01:11:28,060 --> 01:11:33,800
+Router. Yeah, I'm sure it does. There are all kinds out there and no one's surprise you're shocked by this information.
+
+646
+01:11:34,220 --> 01:11:36,380
+But we now show you within this data at least,
+
+647
+01:11:36,680 --> 01:11:44,480
+that there's something about private schools that make this association a little less extreme, a little bit more equitable.
+
+648
+01:11:44,750 --> 01:11:49,489
+So let's try to figure out what it is. Let's just keep on putting values into this equation.
+
+649
+01:11:49,490 --> 01:11:54,620
+We're not done yet. We have all kinds of stuff that we could throw in here, and we have the tools to do it.
+
+650
+01:11:55,220 --> 01:11:58,850
+So why not use them? We have the data to do it, so why not do it?
+
+651
+01:11:59,390 --> 01:12:05,719
+I mean, that's perhaps for these private schools in order to get in.
+
+652
+01:12:05,720 --> 01:12:11,630
+If you're a lower socioeconomic status and get those scholarships, you have to be better achieving that baseline.
+
+653
+01:12:11,930 --> 01:12:15,680
+You can estimate that area. You could try to poke as many holes as you want.
+
+654
+01:12:15,680 --> 01:12:18,770
+You can try to do some investigation to figure out what could be operating there.
+
+655
+01:12:19,040 --> 01:12:29,480
+But the data are there. It's underfunded. I was just wondering about just for our purposes, for like the interpretation part,
+
+656
+01:12:29,930 --> 01:12:41,629
+let's say we're interested in interaction with that still be in the or a unit change so mean it is still unit change.
+
+657
+01:12:41,630 --> 01:12:48,740
+I think that with the interaction terms it's I think it's a little easier at least in this case,
+
+658
+01:12:48,740 --> 01:12:58,910
+to talk about public versus private schools because a unit change for an interaction term is really it's really going to be dependent on both values.
+
+659
+01:12:59,690 --> 01:13:06,620
+So if you're a unit change, when X is at a given value, for example, or it's a it's the C to the effectiveness.
+
+660
+01:13:06,620 --> 01:13:11,540
+Yes. When you move from A whenever a public to a private school is really what we're talking about here.
+
+661
+01:13:11,870 --> 01:13:19,500
+So for us, a unit change means as you go from a public school to a private school, you see that the effective X goes from 2.96 to 1.6.
+
+662
+01:13:19,530 --> 01:13:26,390
+And that's kind of what our interaction term is a little harder to talk about than straight up main effects where we can just say,
+
+663
+01:13:26,780 --> 01:13:31,429
+Well, these are all conditionally effects and have to be careful. They're right with any sort of interaction term.
+
+664
+01:13:31,430 --> 01:13:35,600
+When we have an interaction, we can't just talk about these by themselves, right?
+
+665
+01:13:35,630 --> 01:13:42,830
+Because now the value of X depends on what the level of sector, the VAT or the the influence of a sector depends on the level of us.
+
+666
+01:13:42,830 --> 01:13:45,890
+Yes, that's essentially what interaction means. They're a playing together.
+
+667
+01:13:51,010 --> 01:13:56,290
+Uh, what we have here is a summarize of what we just talked to.
+
+668
+01:13:56,650 --> 01:14:02,230
+We just talked about. So in this case, we had these private schools versus public schools.
+
+669
+01:14:02,750 --> 01:14:10,820
+Is there a sort of summarized Jenny kind of told us that private schools were already performing a little bit better on average than public schools.
+
+670
+01:14:11,080 --> 01:14:17,139
+But the also, we see that those in attending those public schools may seem that are a little bit more equitable in the
+
+671
+01:14:17,140 --> 01:14:23,220
+sense that the effect of last year's Final Round achievement score is a little bit less still positive.
+
+672
+01:14:23,230 --> 01:14:30,640
+So still, again, good to have those resources. But it's the effect is it is moderated by whether you attend a public school.
+
+673
+01:14:30,970 --> 01:14:35,410
+So nothing to do with random effects here except for we did see a little bit of this change.
+
+674
+01:14:35,650 --> 01:14:42,730
+So we're starting to explain why, you know, this matters both kind of from an individual level,
+
+675
+01:14:42,970 --> 01:14:46,270
+but then also how it might change from school to school. Right.
+
+676
+01:14:46,270 --> 01:14:54,220
+So even though there was informally variability in that effect of X on maths achievement score by schools, that's what we tested.
+
+677
+01:14:55,150 --> 01:15:01,090
+We were still able to account for a little of that variation by including this interaction term.
+
+678
+01:15:02,530 --> 01:15:14,139
+Right. And the one minute we have remaining, if you guys could just knock out this homework assignment that I this is get down to other question.
+
+679
+01:15:14,140 --> 01:15:17,920
+So what are some of the things we could do to think through some of these alternative explanations?
+
+680
+01:15:18,250 --> 01:15:24,340
+Right. What could we add at either the individual level or the school level to help explain why some
+
+681
+01:15:24,340 --> 01:15:28,990
+students have high maths achievement scores versus versus lower math achievement scores.
+
+682
+01:15:29,440 --> 01:15:34,030
+And I think the purpose of this assignment is really just to give you some practice doing this.
+
+683
+01:15:34,690 --> 01:15:39,010
+So I wouldn't take this like, oh, my goodness, I'm going to stress out about this for a week.
+
+684
+01:15:39,310 --> 01:15:46,240
+It's more I want you to at least try to run the models that we've talked about today, try to interpret them.
+
+685
+01:15:46,630 --> 01:16:01,360
+Don't get too bogged down in the, I guess the the the nitty gritty of what does each individual random effect mean more so conceptually.
+
+686
+01:16:01,870 --> 01:16:09,399
+If you could picture in your head when you add some of these variables, how are you trying to represent your reality?
+
+687
+01:16:09,400 --> 01:16:16,360
+What is the model actually running? And so that's thinking about those fixed slopes and fixed intercepts versus Transocean, random intercepts.
+
+688
+01:16:17,230 --> 01:16:23,410
+And then we can work through well. And what exactly does the correlation between the random effects at the school level mean?
+
+689
+01:16:23,950 --> 01:16:28,630
+Because that really is advanced stuff that often is ignorable to a certain extent.
+
+690
+01:16:29,440 --> 01:16:34,390
+We don't we didn't talk about whether or why that negative correlation might exist.
+
+691
+01:16:35,080 --> 01:16:43,120
+And we don't really need to know why that negative correlation between intercepts and slopes exists other than in general.
+
+692
+01:16:43,510 --> 01:16:46,930
+You know, as the intercepts go up, the slopes tend to get flatter.
+
+693
+01:16:47,530 --> 01:16:54,530
+And that's probably just kind of a regression to the mean. We could examine that if we really wanted to, but it might not be necessary anyway.
+
+694
+01:16:57,760 --> 01:17:12,920
+Is this within the realm of possibility or not? So I suspect you said it was different from when we're at a new level of the studio level.
+
+695
+01:17:15,150 --> 01:17:21,240
+That sort of thing. Is that just like a contractual term, an individual level?
+
+696
+01:17:21,690 --> 01:17:27,510
+Yeah, not necessarily so. I think in this part we're trying to explain individual level variance.
+
+697
+01:17:27,750 --> 01:17:32,730
+So that's just going to be a main effect by itself. It's going to be a student level, not a school predictor.
+
+698
+01:17:33,150 --> 01:17:41,100
+And if we see if we added a school level or area individual level predictor here, which of these variance estimates should we see go down?
+
+699
+01:17:43,690 --> 01:17:52,180
+If I had had sex. Yeah. If I had had improved participants sex to this go to this model I would expect this value of 6.06 to decrease.
+
+700
+01:17:52,210 --> 01:17:58,540
+So you just do it plus. Yeah. For the different yeah.
+
+701
+01:17:58,600 --> 01:18:10,930
+You would just put in sex plus whatever that variable scope of it so you just couldn't use like I think myself you spend $0.05.
+
+702
+01:18:12,020 --> 01:18:16,690
+Well it's more about like the interpretation of the less about like where you put it in the mind.
+
+703
+01:18:17,470 --> 01:18:23,560
+Yes. Well, and here's here's the I here's the fun challenging.
+
+704
+01:18:25,090 --> 01:18:27,610
+Don't listen if you're already freaked out a little bit about this.
+
+705
+01:18:28,450 --> 01:18:33,670
+But if I included I think it's I can't remember it's sex or whatever, a female or something like that.
+
+706
+01:18:33,850 --> 01:18:40,570
+In this one, we're trying to figure out whether or not your participants sex is related to your math achievement score.
+
+707
+01:18:40,870 --> 01:18:46,600
+We would get some coefficient at some value that tells us males relative to females have higher or lower math achievement.
+
+708
+01:18:47,890 --> 01:18:55,990
+Guess what we could do? We could include a random effect for participant sex.
+
+709
+01:18:56,500 --> 01:18:59,680
+What would that mean? And if you can answer this, I'll let you go.
+
+710
+01:19:00,010 --> 01:19:10,630
+If you don't answer this. I'll still let you go. We include sex as a predictor in this equation, and we include a random effect for sex.
+
+711
+01:19:11,260 --> 01:19:21,650
+What does that tell us? That energy that.
+
+712
+01:19:23,230 --> 01:19:29,320
+Based on your set. So if I include just sex as a predictor, that's my answer.
+
+713
+01:19:30,130 --> 01:19:34,480
+My, I think that sex prediction and treatment scores, males or females are going to different scores.
+
+714
+01:19:34,480 --> 01:19:37,600
+But if I include a random effect in addition to that correlate with what does it
+
+715
+01:19:37,600 --> 01:19:46,560
+tell me the how the effect of systematically like scores different differs by sex.
+
+716
+01:19:47,710 --> 01:19:51,520
+Not quite quite. It has nothing to do with sex.
+
+717
+01:19:52,300 --> 01:19:57,580
+If I include just sex by itself, this would be like x plus sex, poll sector, blah blah blah.
+
+718
+01:19:58,120 --> 01:20:02,750
+And then I include a random effect. What am I predict or what am I?
+
+719
+01:20:02,780 --> 01:20:11,870
+What am I asking? Is it the fluctuation, the trade and the school or the sector?
+
+720
+01:20:13,470 --> 01:20:16,490
+So after the dairy sector, nothing to do with us. Yes.
+
+721
+01:20:18,210 --> 01:20:24,570
+I think you're right. If I had sex to this mom and then I had a random effect for sex,
+
+722
+01:20:25,020 --> 01:20:36,270
+I am hypothesizing that the association between sex and math achievement varies by school
+
+723
+01:20:36,870 --> 01:20:43,410
+in that it matters more if you're male or female at some schools than it does at others.
+
+724
+01:20:44,040 --> 01:20:48,750
+Now, that's an exciting question, and maybe somebody wants to take a shot at answering it.
+
+725
+01:20:48,840 --> 01:20:52,080
+We could do it. I don't know. Maybe does.
+
+726
+01:20:52,380 --> 01:20:55,430
+Maybe doesn't. I have no idea. But why are we tested?
+
+727
+01:20:55,440 --> 01:21:02,070
+Well, we figured out or pick any any level one variables and see whether or not that effect varies at your level to you,
+
+728
+01:21:02,190 --> 01:21:05,850
+at your school level or at your at the school. That's pretty cool.
+
+729
+01:21:06,120 --> 01:21:11,340
+And then whether or not it does. Who knows? But you could estimate that random effect if you wanted to.
+
+730
+01:21:11,580 --> 01:21:15,990
+You can play around with the sex and sector variables that we already have in there.
+
+731
+01:21:16,620 --> 01:21:18,780
+You're welcome to add a level to predictors.
+
+732
+01:21:19,480 --> 01:21:25,470
+The possibilities are not quite endless because we have a limited number of variables, but there are a lot of different ways you can play around this.
+
+733
+01:21:25,710 --> 01:21:30,360
+So what I'm asking is that you spend just a little bit of time trying to get
+
+734
+01:21:30,360 --> 01:21:34,860
+yourself familiar with this script file and see if you can run a multilevel model.
+
+735
+01:21:35,130 --> 01:21:41,700
+I really, really want you to be able to run that base level multilevel model so that as soon as you get your own data and you have nesting,
+
+736
+01:21:41,880 --> 01:21:43,650
+you can figure out what that ICC is.
+
+737
+01:21:43,920 --> 01:21:53,280
+Once you get that ICC, 70% of your work is done because you've you've identified the nesting structure, then all this other mumbo jumbo.
+
+738
+01:21:53,550 --> 01:21:59,760
+We can work through that. But getting the models set up, recognizing the grouping variable, getting an ICC,
+
+739
+01:22:00,030 --> 01:22:03,240
+that's critical, that's going to tell you I should be doing this in the first place.
+
+740
+01:22:03,480 --> 01:22:07,630
+All right. So I'll leave you to it. I hope everybody has a great weekend.
+
+741
+01:22:07,680 --> 01:22:11,580
+Go blue. It's like Nebraska, so it should be all right. But you never know.
+
+742
+01:22:11,800 --> 01:22:17,790
+Those Huskers, they tricky with you on. You heard me talk this morning.
+
+743
+01:22:17,790 --> 01:22:21,660
+That next year. I'm not going to say, Oh, I'm sorry.
+
+744
+01:22:22,140 --> 01:22:28,140
+I will post it right now. That was on the I'm stuff for a dog.
+
+745
+01:22:28,140 --> 01:22:33,930
+This one. This one. Okay. Now, I was expecting us to have a lot more time to do this in class today, and I do apologize for that.
+
+746
+01:22:33,930 --> 01:22:38,760
+But I'm glad we got through some questions. And if you have additional ones, please let me know.
+
+747
+01:22:39,180 --> 01:22:44,340
+Again, this is like week four or five stuff of like an entire class on this.
+
+748
+01:22:45,060 --> 01:22:48,780
+So it's not wouldn't be a it would not be surprised.
+

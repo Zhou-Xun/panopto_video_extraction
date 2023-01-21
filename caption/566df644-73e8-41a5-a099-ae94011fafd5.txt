@@ -1,0 +1,708 @@
+1
+00:00:03,740 --> 00:00:09,797
+Here, we are at last part of our first class on an introduction
+
+2
+00:00:09,797 --> 00:00:15,283
+to the most important principles of causal inference.
+
+3
+00:00:15,283 --> 00:00:18,733
+Directed a cyclic graphs are very,
+
+4
+00:00:18,733 --> 00:00:24,261
+very useful tool that we will use throughout the course.
+
+5
+00:00:25,340 --> 00:00:29,061
+Some of you may more or less be familiar with that.
+
+6
+00:00:31,340 --> 00:00:37,961
+So let's start from the basics and introduce some important definitions.
+
+7
+00:00:39,940 --> 00:00:45,413
+A directed acyclic graph or DAG is a set of nodes and
+
+8
+00:00:45,413 --> 00:00:51,000
+edges amongst nodes, each of which is directed.
+
+9
+00:00:51,000 --> 00:00:55,815
+That is it only goes in one direction such that
+
+10
+00:00:55,815 --> 00:01:01,147
+there is no direct path from a note back to itself.
+
+11
+00:01:01,147 --> 00:01:06,117
+Here, we see an example of a fairly complex DAG,
+
+12
+00:01:06,117 --> 00:01:11,332
+where we see that the direction of the arrows always
+
+13
+00:01:11,332 --> 00:01:16,667
+follows the future is like a timeline progression,
+
+14
+00:01:16,667 --> 00:01:22,261
+and none of these edges go on into pointing backwards.
+
+15
+00:01:25,940 --> 00:01:30,482
+Let's say that our goal is to study the causal effect of
+
+16
+00:01:30,482 --> 00:01:32,961
+the factor E on the outcome Y.
+
+17
+00:01:34,940 --> 00:01:40,696
+Then this directed a cyclic graph in order to be called causa,
+
+18
+00:01:40,696 --> 00:01:48,350
+will require that all the parents that is all the nodes that precede E temporally.
+
+19
+00:01:48,350 --> 00:01:52,990
+And which have an arrow going in to C, sorry,
+
+20
+00:01:52,990 --> 00:01:57,761
+going into E and Y have to be present in the DAG.
+
+21
+00:01:59,740 --> 00:02:04,100
+In this case, we see that Q as a narrow into E, so
+
+22
+00:02:04,100 --> 00:02:11,440
+it's included in the DAG C as a narrow into E, and is included in the DAG.
+
+23
+00:02:11,440 --> 00:02:17,662
+But in addition, we have another set of factors such as B and
+
+24
+00:02:17,662 --> 00:02:24,514
+A that even arrow pointing into Y, we might want to include them.
+
+25
+00:02:24,514 --> 00:02:28,390
+Because maybe some of these factors C and
+
+26
+00:02:28,390 --> 00:02:34,661
+Q that pointing to E are known to exist, but very hard to measure.
+
+27
+00:02:35,740 --> 00:02:39,061
+We can understand this more with some example coming up.
+
+28
+00:02:41,740 --> 00:02:47,651
+What are the requirements for a diagram that is acyclic to be also called them?
+
+29
+00:02:51,240 --> 00:02:57,068
+The arrows that point from one north to the following
+
+30
+00:02:57,068 --> 00:03:02,631
+safe from E to Y from C to E that you have to represent
+
+31
+00:03:02,631 --> 00:03:07,151
+a causal or a counterfactual relation.
+
+32
+00:03:08,540 --> 00:03:15,472
+For example, the QE arrow is present if after we fix at C,
+
+33
+00:03:15,472 --> 00:03:22,561
+then it's still possible to affect E by intervening on Q.
+
+34
+00:03:25,040 --> 00:03:30,305
+The second requirement as I was mentioning in the previous life,
+
+35
+00:03:30,305 --> 00:03:36,061
+all common causes of any two variables on the DAG must also be in the DAG.
+
+36
+00:03:38,940 --> 00:03:44,126
+For example, we see that Q is a common cause of the NY,
+
+37
+00:03:44,126 --> 00:03:46,675
+so we included in the DAG.
+
+38
+00:03:46,675 --> 00:03:52,644
+We see that B is a common cause of ENY, so included in the DAG,
+
+39
+00:03:52,644 --> 00:03:59,740
+we see that A is a common cause of the NY, so included in the DAG.
+
+40
+00:03:59,740 --> 00:04:04,907
+Some of these common causes affected the E and Y directly,
+
+41
+00:04:04,907 --> 00:04:11,451
+some others, such as B and A affect them indirectly through other nodes.
+
+42
+00:04:14,440 --> 00:04:18,884
+Note also that formally causal directed acyclic graph is
+
+43
+00:04:18,884 --> 00:04:23,061
+defined by non-parametric structural equations.
+
+44
+00:04:25,140 --> 00:04:30,340
+For example, we could start by defining via a structural
+
+45
+00:04:30,340 --> 00:04:34,579
+equation model how Y our outcome is realized.
+
+46
+00:04:34,579 --> 00:04:41,238
+And here, we would say look, how many arrows pointing to Y while we have A,
+
+47
+00:04:41,238 --> 00:04:48,251
+that has a direct arrow that points into Y, we have Q, we have E, and we have B?
+
+48
+00:04:49,540 --> 00:04:52,894
+So our function F for
+
+49
+00:04:52,894 --> 00:04:58,026
+the explaining how our outcome
+
+50
+00:04:58,026 --> 00:05:03,940
+Y realizes will include EQBNA.
+
+51
+00:05:03,940 --> 00:05:08,018
+However, C is not gonna be included,
+
+52
+00:05:08,018 --> 00:05:14,781
+because we see that conditionally on E, C is independent of Y.
+
+53
+00:05:14,781 --> 00:05:20,705
+This leads me to talk about the most important property
+
+54
+00:05:20,705 --> 00:05:27,786
+that DAG have that is absence of arrows connecting nodes in a DAG,
+
+55
+00:05:27,786 --> 00:05:35,161
+reflects the statistical property of conditional independence.
+
+56
+00:05:36,240 --> 00:05:41,386
+In particular, we can state the C is conditional independent on Y given it.
+
+57
+00:05:41,386 --> 00:05:46,000
+That's why we don't have an arrow that goes directly from C to Y, and
+
+58
+00:05:46,000 --> 00:05:49,751
+that's the assumption that's encoded in this graph.
+
+59
+00:05:52,640 --> 00:05:57,124
+Let's consider a couple of examples rooting them into
+
+60
+00:05:57,124 --> 00:05:59,661
+an epidemiological context.
+
+61
+00:06:00,840 --> 00:06:04,236
+Greenland at al gave an example regarding estimating
+
+62
+00:06:04,236 --> 00:06:08,440
+the effect of the use of an antihistamine on asthma.
+
+63
+00:06:08,440 --> 00:06:12,472
+And they represented their study using this directed
+
+64
+00:06:12,472 --> 00:06:16,961
+acyclic graph where E is our antihistamine and D is asthma.
+
+65
+00:06:19,740 --> 00:06:26,406
+And what are the assumptions that the investigators are placing in this graph?
+
+66
+00:06:26,406 --> 00:06:30,859
+First that a air pollution affects asthma only through
+
+67
+00:06:30,859 --> 00:06:35,140
+bronchial reactivity and anti stamina use.
+
+68
+00:06:35,140 --> 00:06:40,361
+That is conditionally on E and B, A is independent of B,
+
+69
+00:06:40,361 --> 00:06:48,261
+and also that sex affects antihistamine news only through brown calorie activity.
+
+70
+00:06:49,640 --> 00:06:54,030
+So again, sex is independent of antihistamine used if we
+
+71
+00:06:54,030 --> 00:06:56,961
+condition on bronchial relatively.
+
+72
+00:06:58,040 --> 00:07:02,923
+Also we are assuming that there are no common causes of two variables on
+
+73
+00:07:02,923 --> 00:07:05,756
+the graph, there are not on the ground.
+
+74
+00:07:05,756 --> 00:07:09,764
+Let's say, use other definitions,
+
+75
+00:07:09,764 --> 00:07:15,040
+pass is any sequence of nodes connected by edges.
+
+76
+00:07:15,040 --> 00:07:20,367
+So for example, we have a path from A to B, to C, to E, to Y,
+
+77
+00:07:20,367 --> 00:07:26,571
+that's a path, but we could also have another path from A to Q, to E.
+
+78
+00:07:26,571 --> 00:07:30,665
+If the path can also be backward for example,
+
+79
+00:07:30,665 --> 00:07:34,451
+a path from Y to, Q to A is a backdrop path.
+
+80
+00:07:37,240 --> 00:07:41,461
+A directed path is a path which is such that the order of its nodes
+
+81
+00:07:41,461 --> 00:07:43,950
+follows the direction of the edges.
+
+82
+00:07:43,950 --> 00:07:48,990
+So A, B, C, E, Y is a directed path, whereas Y,
+
+83
+00:07:48,990 --> 00:07:55,361
+Q, A is going against the edges, so it's actually backdrop.
+
+84
+00:07:58,240 --> 00:08:05,332
+The collider is a node on a path with both arrows on the path going into that node.
+
+85
+00:08:05,332 --> 00:08:11,246
+For example, E is a collider relative to the path involved in C,
+
+86
+00:08:11,246 --> 00:08:15,140
+N, Q, because both Q and C going to E.
+
+87
+00:08:15,140 --> 00:08:22,654
+So E is in a path between Q, N, C, and this path is called collider path,
+
+88
+00:08:22,654 --> 00:08:27,351
+but E is also in a direct path from C to E, to Y.
+
+89
+00:08:29,440 --> 00:08:35,490
+Again, a collider is relative to the path that is from C to E,
+
+90
+00:08:35,490 --> 00:08:42,151
+to Y, E is an intermediate variable, but from C to Q is E collider.
+
+91
+00:08:46,540 --> 00:08:51,834
+Note that a causal directed acyclic graph can help us thinking what
+
+92
+00:08:51,834 --> 00:08:56,761
+could be the different sources of statistical association.
+
+93
+00:08:57,940 --> 00:09:02,021
+Note that between two variables, let's say X and Y,
+
+94
+00:09:02,021 --> 00:09:08,440
+a relationship can arise, an association can arise in one of three ways.
+
+95
+00:09:08,440 --> 00:09:13,337
+The first time money is that X causes Y or Y causes X, but
+
+96
+00:09:13,337 --> 00:09:17,620
+then you can also have spurious associations.
+
+97
+00:09:17,620 --> 00:09:22,600
+For example, X and Y are associated because they have a common cause.
+
+98
+00:09:22,600 --> 00:09:27,542
+This is what is represented in the graph on the left where health
+
+99
+00:09:27,542 --> 00:09:32,112
+status is a confounder of the drug and cure relationship,
+
+100
+00:09:32,112 --> 00:09:36,418
+this is like our toy example at the beginning of class.
+
+101
+00:09:36,418 --> 00:09:41,431
+But also X and Y might have a common effect K that we are calculating
+
+102
+00:09:41,431 --> 00:09:46,140
+our measure of association conditional on that K.
+
+103
+00:09:46,140 --> 00:09:51,196
+This is this graph on the right, let's say that our goal is to
+
+104
+00:09:51,196 --> 00:09:57,540
+study the causal effect of extracurricular activities on SAT scores.
+
+105
+00:09:57,540 --> 00:09:59,283
+And based on this graph,
+
+106
+00:09:59,283 --> 00:10:05,140
+there is no causal effect of extracurricular activities on SAT scores.
+
+107
+00:10:05,140 --> 00:10:10,104
+Let's say, that I'm telling you that I'm enrolling college students only and
+
+108
+00:10:10,104 --> 00:10:12,878
+asked them to remember their SAT scores, and
+
+109
+00:10:12,878 --> 00:10:17,540
+whether they had extracurricular activities in high school.
+
+110
+00:10:17,540 --> 00:10:21,248
+And after we collect this data only among the college kids,
+
+111
+00:10:21,248 --> 00:10:26,940
+we studied the relationship between extracurricular activities and SAT scores.
+
+112
+00:10:26,940 --> 00:10:31,314
+Now, if we do that simply because we have conditioned on
+
+113
+00:10:31,314 --> 00:10:34,673
+sampling our data from college students.
+
+114
+00:10:34,673 --> 00:10:40,299
+And we know that higher SAT scores increase the likelihood of college
+
+115
+00:10:40,299 --> 00:10:47,880
+admission, and extracurricular activities increased likelihood of college admission.
+
+116
+00:10:47,880 --> 00:10:51,073
+By simply using this sample, we will find a positive
+
+117
+00:10:51,073 --> 00:10:55,433
+correlation between SAT scores and extracurricular activities, but
+
+118
+00:10:55,433 --> 00:10:59,151
+that doesn't mean that indeed this is a true causal effect.
+
+119
+00:11:00,240 --> 00:11:05,244
+Note that we would find the same spirits relationship if
+
+120
+00:11:05,244 --> 00:11:10,142
+we adjusted on it later income that is on a descendant,
+
+121
+00:11:10,142 --> 00:11:15,261
+something that comes after descendants of it collider.
+
+122
+00:11:18,740 --> 00:11:23,561
+Another important notion is when we manage to block a path.
+
+123
+00:11:29,040 --> 00:11:33,160
+Typically a path is blocked the conditional on C if there
+
+124
+00:11:33,160 --> 00:11:38,156
+is either a variable in this suspect is E on the path we condition on,
+
+125
+00:11:38,156 --> 00:11:41,135
+or if there is a collider on the path, but
+
+126
+00:11:41,135 --> 00:11:45,631
+we are not conditioning on the collider or its descendants.
+
+127
+00:11:47,740 --> 00:11:51,174
+For example, here the path between SAT score and
+
+128
+00:11:51,174 --> 00:11:55,551
+extracurricular activity is blocked by college admission.
+
+129
+00:11:57,240 --> 00:12:03,420
+But if we condition on college admissions, then we're gonna open a path.
+
+130
+00:12:03,420 --> 00:12:08,943
+In this graph on the left, if we don't adjust for
+
+131
+00:12:08,943 --> 00:12:15,170
+health status, we have an open path from cure to drug.
+
+132
+00:12:15,170 --> 00:12:21,140
+But if we condition on a confounder health status, we are gonna block the path.
+
+133
+00:12:21,140 --> 00:12:25,676
+So in somebody if a variable is a confounder, we wanna adjust for
+
+134
+00:12:25,676 --> 00:12:28,740
+it to block his spurious path.
+
+135
+00:12:28,740 --> 00:12:35,048
+If the variable is a collider, we don't want to adjust for
+
+136
+00:12:35,048 --> 00:12:38,925
+it to keep his spurious path block.
+
+137
+00:12:38,925 --> 00:12:44,117
+Bottom line, you want to adjust for confounding,
+
+138
+00:12:44,117 --> 00:12:48,351
+you don't want to adjust for colliders.
+
+139
+00:12:50,840 --> 00:12:56,577
+So let's consider an example about how we would go about adjusting for
+
+140
+00:12:56,577 --> 00:12:59,883
+confounding in a complex DAG where say,
+
+141
+00:12:59,883 --> 00:13:05,151
+our goal is to study the effect of the exposure E on the outcome Y.
+
+142
+00:13:07,440 --> 00:13:12,903
+If a set of variables Z is such that no variable in Z is a descendant of E,
+
+143
+00:13:12,903 --> 00:13:16,329
+and Z blocks all back their paths from E to Y,
+
+144
+00:13:16,329 --> 00:13:21,078
+then conditioning on Y suffices to control for confounder.
+
+145
+00:13:21,078 --> 00:13:25,902
+This is the famous backdoor criterion by term, I give a for
+
+146
+00:13:25,902 --> 00:13:32,111
+the references in the back of the slides in our end, at the end of the notes.
+
+147
+00:13:33,240 --> 00:13:37,401
+This is the fundamental criterion to understand how we
+
+148
+00:13:37,401 --> 00:13:42,286
+should choose the factors we should adjust for in our announce,
+
+149
+00:13:42,286 --> 00:13:45,461
+we should all be three exposure factors.
+
+150
+00:13:47,340 --> 00:13:51,684
+For example, in this DAG, we have multiple options to block your path,
+
+151
+00:13:51,684 --> 00:13:54,440
+to block spurious relationship.
+
+152
+00:13:54,440 --> 00:13:58,137
+It would be suffices to control for C and Q,
+
+153
+00:13:58,137 --> 00:14:02,440
+because we block all after passing this way.
+
+154
+00:14:02,440 --> 00:14:06,726
+So if we adjust for C, we block this particular path,
+
+155
+00:14:06,726 --> 00:14:11,679
+we blocked this particular path, and then if we adjust for Q,
+
+156
+00:14:11,679 --> 00:14:17,704
+we block this particular path, but it also suffices to control for B and Q.
+
+157
+00:14:17,704 --> 00:14:23,422
+However, controlling for A and Q would not suffice because
+
+158
+00:14:23,422 --> 00:14:29,102
+it would still keep this half involving B and C open.
+
+159
+00:14:29,102 --> 00:14:34,533
+And here, our last example of this environmental
+
+160
+00:14:34,533 --> 00:14:39,966
+epidemiology studied where we want to understand
+
+161
+00:14:39,966 --> 00:14:45,680
+whether anti standing is a causal effect of asthma.
+
+162
+00:14:45,680 --> 00:14:49,224
+We are allowing for air pollution to be a confounder,
+
+163
+00:14:49,224 --> 00:14:54,140
+this confounding operates through brown held reactivity.
+
+164
+00:14:54,140 --> 00:15:00,860
+Here, we are in a particular situation where bronchial reactivity is a confounder
+
+165
+00:15:00,860 --> 00:15:06,620
+along this path that goes from D to D to E, but it's also called glider.
+
+166
+00:15:06,620 --> 00:15:13,110
+And by conditioning on B, it because it's a confounder here, so we need to do it.
+
+167
+00:15:13,110 --> 00:15:16,104
+We actually open a backdoor path, and
+
+168
+00:15:16,104 --> 00:15:21,451
+we call this path that is called M bias, Lucy looks really like an M.
+
+169
+00:15:23,140 --> 00:15:27,513
+Because there is this path from D to S, to B, to A, to E,
+
+170
+00:15:27,513 --> 00:15:31,156
+that if we condition on D, which we have to do.
+
+171
+00:15:31,156 --> 00:15:34,472
+Because B is a confounder along the path,
+
+172
+00:15:34,472 --> 00:15:39,040
+because there is a direct order from B to E and B to D.
+
+173
+00:15:39,040 --> 00:15:44,498
+So we need to adjust for before sure, but then since we opened equal
+
+174
+00:15:44,498 --> 00:15:49,961
+glider spoilers path, we also need to either adjust for S or for A.
+
+175
+00:15:52,740 --> 00:15:58,250
+So I hope that at this review of causal inference of counterfactual,
+
+176
+00:15:58,250 --> 00:16:04,440
+of confounding, of marginal structural models, and bags was useful.
+
+177
+00:16:04,440 --> 00:16:05,710
+I provide addition.
+

@@ -1,0 +1,342 @@
+1
+00:00:09,200 --> 00:00:11,640
+After watching this video,
+
+2
+00:00:11,640 --> 00:00:12,990
+you will be able to use
+
+3
+00:00:12,990 --> 00:00:16,500
+the Poisson distribution
+and robust variances
+
+4
+00:00:16,500 --> 00:00:20,635
+to overcome convergence issues
+in log-binomial models.
+
+5
+00:00:20,635 --> 00:00:24,150
+One of the problems with
+log-binomial models is
+
+6
+00:00:24,150 --> 00:00:27,330
+that sometimes they have
+convergence problems.
+
+7
+00:00:27,330 --> 00:00:29,625
+You may get an error
+in your staff log
+
+8
+00:00:29,625 --> 00:00:33,085
+saying that the model
+failed to converge.
+
+9
+00:00:33,085 --> 00:00:35,390
+What is convergence?
+
+10
+00:00:35,390 --> 00:00:37,115
+In a very loose way,
+
+11
+00:00:37,115 --> 00:00:39,710
+models are fit by finding
+
+12
+00:00:39,710 --> 00:00:42,735
+the model that better
+reflects the data you have,
+
+13
+00:00:42,735 --> 00:00:44,720
+and that's usually done by
+
+14
+00:00:44,720 --> 00:00:47,585
+maximizing the log
+likelihood function.
+
+15
+00:00:47,585 --> 00:00:50,750
+I'm finding the maximum
+likelihood estimate.
+
+16
+00:00:50,750 --> 00:00:52,820
+Whenever this process cannot
+
+17
+00:00:52,820 --> 00:00:54,995
+find that maximum
+likelihood estimate,
+
+18
+00:00:54,995 --> 00:00:58,315
+then you will get that
+convergence error.
+
+19
+00:00:58,315 --> 00:01:00,090
+The reasons for fail to
+
+20
+00:01:00,090 --> 00:01:02,600
+converge are beyond the
+scope of this course,
+
+21
+00:01:02,600 --> 00:01:04,490
+but although not able to provide
+
+22
+00:01:04,490 --> 00:01:06,650
+details on why models
+don't converge,
+
+23
+00:01:06,650 --> 00:01:08,180
+at least I can give you
+
+24
+00:01:08,180 --> 00:01:12,100
+one potential solution to
+make the model to converge.
+
+25
+00:01:12,100 --> 00:01:15,110
+There are different
+options to deal with this,
+
+26
+00:01:15,110 --> 00:01:17,300
+but one of the most
+popular ones is
+
+27
+00:01:17,300 --> 00:01:20,180
+to use a modified Poisson method.
+
+28
+00:01:20,180 --> 00:01:22,220
+If you think of a sample of
+
+29
+00:01:22,220 --> 00:01:25,989
+binomial data as being a
+special case of a Poisson,
+
+30
+00:01:25,989 --> 00:01:30,020
+or the probability of a
+value of two or greater is
+
+31
+00:01:30,020 --> 00:01:32,090
+low enough that you will not see
+
+32
+00:01:32,090 --> 00:01:34,250
+values greater than
+one in the data,
+
+33
+00:01:34,250 --> 00:01:37,070
+in that case, you can
+fit a Poisson model.
+
+34
+00:01:37,070 --> 00:01:38,810
+The only problem is that
+
+35
+00:01:38,810 --> 00:01:41,000
+the standard errors
+will be too large.
+
+36
+00:01:41,000 --> 00:01:45,130
+In that case, you can use
+robust variance estimation.
+
+37
+00:01:45,130 --> 00:01:48,470
+Even though we didn't have
+a convergence problem,
+
+38
+00:01:48,470 --> 00:01:51,080
+we're going to use the same
+example as before with
+
+39
+00:01:51,080 --> 00:01:53,480
+hypertriglyceridemia
+as the outcome
+
+40
+00:01:53,480 --> 00:01:56,545
+and the modern dietary
+pattern as this portion.
+
+41
+00:01:56,545 --> 00:01:59,120
+This is the code that we can use
+
+42
+00:01:59,120 --> 00:02:01,535
+to run this modified
+Poisson method.
+
+43
+00:02:01,535 --> 00:02:04,175
+Once more, we will
+use PROC GENMOD.
+
+44
+00:02:04,175 --> 00:02:07,445
+Since we're assuming an
+underlying Poisson distribution,
+
+45
+00:02:07,445 --> 00:02:10,490
+we will use the proper
+distribution and link.
+
+46
+00:02:10,490 --> 00:02:12,965
+Poisson and log in
+this situation.
+
+47
+00:02:12,965 --> 00:02:15,080
+Now we have a new statement,
+
+48
+00:02:15,080 --> 00:02:17,900
+the repeated statement
+that is used to trick
+
+49
+00:02:17,900 --> 00:02:21,320
+SAS into calculating
+robust variances.
+
+50
+00:02:21,320 --> 00:02:23,540
+It looks definitely weird because
+
+51
+00:02:23,540 --> 00:02:26,495
+we don't have repeated
+measures, but it will work.
+
+52
+00:02:26,495 --> 00:02:28,220
+In order for this to work,
+
+53
+00:02:28,220 --> 00:02:29,540
+also you have to declare
+
+54
+00:02:29,540 --> 00:02:32,395
+the ID variable in
+the class statement.
+
+55
+00:02:32,395 --> 00:02:34,200
+It will run that code.
+
+56
+00:02:34,200 --> 00:02:35,895
+Going straight to our estimates,
+
+57
+00:02:35,895 --> 00:02:39,120
+we can see that we get the
+same risk ratio than before.
+
+58
+00:02:39,120 --> 00:02:42,265
+Remember that we're still
+calculating a risk ratio,
+
+59
+00:02:42,265 --> 00:02:44,885
+regardless of using a
+Poisson distribution.
+
+60
+00:02:44,885 --> 00:02:48,910
+We interpret this as a
+risk ratio same as before.
+
+61
+00:02:48,910 --> 00:02:51,945
+What online convergence issues
+
+62
+00:02:51,945 --> 00:02:54,330
+are common with
+low-binomial models?
+
+63
+00:02:54,330 --> 00:02:57,000
+Using a modified
+Poisson method with
+
+64
+00:02:57,000 --> 00:03:00,500
+robust variances can
+overcome the problem.
+
+65
+00:03:00,500 --> 00:03:03,290
+The Poisson robust model
+is just a trick to
+
+66
+00:03:03,290 --> 00:03:06,050
+run a low-binomial model
+that does not converge.
+
+67
+00:03:06,050 --> 00:03:08,120
+You are still modeling
+risks you still
+
+68
+00:03:08,120 --> 00:03:11,365
+interpret the measure of
+association as a risk ratio.
+
+69
+00:03:11,365 --> 00:03:13,335
+In summary, in this video,
+
+70
+00:03:13,335 --> 00:03:16,514
+we used the Poisson distribution
+and robust variances
+
+71
+00:03:16,514 --> 00:03:20,075
+to overcome convergence issues
+in low-binomial models.
+
+72
+00:03:20,075 --> 00:03:22,400
+In the next video, we
+will continue with
+
+73
+00:03:22,400 --> 00:03:26,912
+low-binomial models in the
+context of a regression study.
+

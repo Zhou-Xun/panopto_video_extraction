@@ -1,0 +1,2188 @@
+1
+00:00:00,880 --> 00:00:05,850
+I realize there has to be a bonus for being in here right now to figure out what it is.
+
+2
+00:00:06,030 --> 00:00:10,650
+For those of you who aren't here about a secret bonus, you're not going to know about it.
+
+3
+00:00:10,920 --> 00:00:19,200
+I just finished it. See, let's minimize that.
+
+4
+00:00:19,230 --> 00:00:27,950
+I'm done with that. I want to redo some of the lecture I did last week.
+
+5
+00:00:27,990 --> 00:00:33,719
+I had some great questions in office hours, and I know that if those questions came up in office hours,
+
+6
+00:00:33,720 --> 00:00:40,590
+there are others of you right now with those same questions. So I do want to go through those and I do want to get to some more code because
+
+7
+00:00:40,590 --> 00:00:45,329
+you have a homework assignment that is coming up as do homework three saw.
+
+8
+00:00:45,330 --> 00:00:48,299
+The grades are posted again for the most part,
+
+9
+00:00:48,300 --> 00:00:54,420
+I think some I'm just being generous with the grading and most everybody has pretty uniform scores as high as you should.
+
+10
+00:00:55,670 --> 00:00:58,940
+If you don't like your grades again, please, please come and see me.
+
+11
+00:00:59,300 --> 00:01:04,280
+Let's figure that out. One thing. Let's go back to homework number three.
+
+12
+00:01:04,580 --> 00:01:09,290
+Before we get to Jee and Glenn's, let's go back to two linear mixed models.
+
+13
+00:01:09,680 --> 00:01:16,440
+And I just want to point out that I'm aware of this and I didn't mean to gloss over it and it has to do with our.
+
+14
+00:01:17,330 --> 00:01:31,160
+So let's see. So we have been using, you know, one day I will be good at this in the last.
+
+15
+00:01:36,490 --> 00:01:40,270
+And the l e for library.
+
+16
+00:01:41,290 --> 00:01:46,749
+So this was the library that I asked you to download, and the code I used had to do with the function.
+
+17
+00:01:46,750 --> 00:01:59,550
+L. M. E. R. You also downloaded the NLM package when we were setting generalized squares.
+
+18
+00:01:59,940 --> 00:02:05,680
+Jill, this function. There is an l m e function just to make things confusing.
+
+19
+00:02:06,940 --> 00:02:12,960
+There is a there is an l m e function to fit linear mix models in the in any library.
+
+20
+00:02:14,080 --> 00:02:23,649
+The syntax is slightly different. I used to use the LME function and over time as I tried it to fit more complicated things,
+
+21
+00:02:23,650 --> 00:02:28,479
+I found that the l m e r function was easier to write in terms of syntax.
+
+22
+00:02:28,480 --> 00:02:34,780
+So I moved to that function. I know someone used LME, you can use the LME function.
+
+23
+00:02:35,230 --> 00:02:38,650
+It should produce almost exactly the same results.
+
+24
+00:02:39,100 --> 00:02:39,759
+Again, remember,
+
+25
+00:02:39,760 --> 00:02:47,680
+these models have algorithms within them for estimation that are very complicated and their programs certainly differently at some point.
+
+26
+00:02:47,770 --> 00:02:50,919
+So you might see slight discrepancies between them.
+
+27
+00:02:50,920 --> 00:02:54,850
+That has nothing more to do than the estimation algorithm that's used to compute things.
+
+28
+00:02:57,280 --> 00:03:03,130
+So feel free to use either one as you move along, depending on which one you think the syntax is easier to program.
+
+29
+00:03:03,790 --> 00:03:07,030
+And again, you may take another class in which someone uses LME.
+
+30
+00:03:07,270 --> 00:03:10,490
+I don't mean to imply that it isn't any better or any worse than the other one.
+
+31
+00:03:10,810 --> 00:03:21,040
+I'll use it. There's two functions for JE as well that I ask you to download because we're going to use both of us shortly, but otherwise you get.
+
+32
+00:03:22,680 --> 00:03:27,480
+The one thing to keep in mind and I talked about this with Tim Johnson this last couple of days.
+
+33
+00:03:29,190 --> 00:03:37,890
+Sometimes these functions don't converge or you get to the boundary or every time we're hitting a boundary condition and the function stops.
+
+34
+00:03:39,450 --> 00:03:46,440
+So depending on who programs this, sometimes the function will give you a warning message and sometimes it won't.
+
+35
+00:03:47,310 --> 00:03:52,049
+Sometimes it won't converge. And it just gives you a result. It doesn't tell you that it didn't converge.
+
+36
+00:03:52,050 --> 00:04:02,760
+It just stopped. So don't pick and choose which one function you use because one of them gives you an error message and another one doesn't.
+
+37
+00:04:03,180 --> 00:04:09,780
+If you fit the same model with two different functions and one works and one doesn't, don't pick the one that works.
+
+38
+00:04:11,670 --> 00:04:14,730
+Scratch your head and go, why doesn't the other one work?
+
+39
+00:04:16,280 --> 00:04:22,820
+Because it should work. There's something in your data or there's something in the programing that makes fitting very difficult.
+
+40
+00:04:23,450 --> 00:04:30,320
+So keep that in mind. Don't keep trying to fit something until you finally get no error messages.
+
+41
+00:04:30,890 --> 00:04:34,130
+That's a bad way to go. But anyways, that functions out there.
+
+42
+00:04:35,270 --> 00:04:38,390
+You can use it if you should so desire.
+
+43
+00:04:38,780 --> 00:04:44,880
+Then the question about models fitting. So when I was working on homework three sometimes if you like,
+
+44
+00:04:45,260 --> 00:04:52,280
+modeled time as categorical and then tried to put it into our package, it wouldn't converge.
+
+45
+00:04:52,580 --> 00:05:03,050
+But then g or sorry. Like doing a regular linear model would converge because it wasn't as many parameters to estimate.
+
+46
+00:05:03,170 --> 00:05:06,500
+So. So when you say categorical, do you mean in the fixed effects?
+
+47
+00:05:06,530 --> 00:05:09,860
+Yes. Okay. Oh, sorry.
+
+48
+00:05:09,880 --> 00:05:16,070
+Random effects. So categorical time. Random effects talked about to somebody in office hours.
+
+49
+00:05:16,070 --> 00:05:25,610
+Were she right? Yes. There you are. It's a really simple syntax, difficult problem.
+
+50
+00:05:25,730 --> 00:05:29,600
+We. We finally figured it out, I guess. No, I didn't.
+
+51
+00:05:29,750 --> 00:05:37,610
+Did I tell Emily I sort of emailed you anyway, I'm thinking about why we didn't figure out why.
+
+52
+00:05:37,730 --> 00:05:42,680
+Right. Did you see the error message you got?
+
+53
+00:05:43,340 --> 00:05:48,790
+It was something about creating so many, many random events. That is because there's a syntax.
+
+54
+00:05:48,800 --> 00:05:53,330
+You're not really doing what you think you're doing. And I was just doing what I thought I was doing.
+
+55
+00:05:54,110 --> 00:06:01,150
+So you can fit categorical random effects for time again.
+
+56
+00:06:01,850 --> 00:06:09,410
+I want you guys to understand. You folks to understand. I can say folks same are you people understand what's going on here.
+
+57
+00:06:19,700 --> 00:06:25,280
+So this is the idea. If time is in, their care is a continuous variable.
+
+58
+00:06:26,510 --> 00:06:38,400
+You are saying that the variability in why? Is a function of tea as a tea of the time, as a continuous, the variability goes up with time.
+
+59
+00:06:38,790 --> 00:06:43,859
+That's what that model says. If you make time categorical,
+
+60
+00:06:43,860 --> 00:06:52,230
+your Z matrix now is a bunch of dummy variables and you are now saying that the variability changes between the time categories.
+
+61
+00:06:53,880 --> 00:06:57,630
+Right. Because you've got to buy times. Each of these dummy variables.
+
+62
+00:06:58,680 --> 00:07:04,560
+So, again, just think about what you're doing. We rarely fit categorical time random effects.
+
+63
+00:07:06,210 --> 00:07:09,900
+It's sufficient to just say, you know what? The variability is changing over time.
+
+64
+00:07:10,260 --> 00:07:17,100
+We're just going to assume it goes off in a linear pattern. But you can't just remember when you said categorical random effects.
+
+65
+00:07:17,400 --> 00:07:22,080
+You're fitting a variance component for every category. The different variance for every category.
+
+66
+00:07:23,420 --> 00:07:27,290
+And if you have a lot of them, I think sometimes too, convergence does become an issue.
+
+67
+00:07:27,680 --> 00:07:30,920
+But in your case, my Michael, you probably tried to use my code.
+
+68
+00:07:31,250 --> 00:07:40,819
+My code was wrong. So I'm glad you're looking at the function over time of the behavior of people's observations.
+
+69
+00:07:40,820 --> 00:07:44,030
+And it does seem like time is categorical. Yeah.
+
+70
+00:07:44,390 --> 00:07:50,140
+Do you just say, well, this is the best we can do at the time is linear in all cases to compare models.
+
+71
+00:07:50,150 --> 00:07:58,190
+Yes. And again, remember, random effects. Many times we don't care what the random effects are, we just care about it accounting for the correlation.
+
+72
+00:07:58,190 --> 00:08:06,110
+Right. So if I have categorical time in the fixed effects and I put in a random slope continuous,
+
+73
+00:08:06,680 --> 00:08:10,580
+maybe that accounts for the correlation sufficiently enough for me to get good standard errors.
+
+74
+00:08:12,220 --> 00:08:17,560
+You may believe that variability changes categorically with time and you really want to fit that model.
+
+75
+00:08:18,460 --> 00:08:26,890
+Rarely do you have that interest. So again, just think about what that design matrix Z is is doing for the variance of Y.
+
+76
+00:08:28,710 --> 00:08:35,790
+I believe I corrected my code if it categorical time effects, random effects if you want to see it in homework number three, it's in there now.
+
+77
+00:08:37,170 --> 00:08:43,920
+It's not as easy as just saying as a factor of time. I wasn't doing what I thought I wanted it to do.
+
+78
+00:08:44,700 --> 00:08:50,639
+So again, random effects, you can have any kind of or you can have a random age effect.
+
+79
+00:08:50,640 --> 00:08:53,850
+You can have a random gender effects, you can have a random anything effect.
+
+80
+00:08:54,570 --> 00:09:01,830
+Just think about what you're saying to yourself. You're saying that the variability of life changes with with that with that variable.
+
+81
+00:09:04,440 --> 00:09:10,050
+Often we don't care about the random effects other than how it affects my standard errors for the fixed effects.
+
+82
+00:09:12,330 --> 00:09:13,770
+Not always, but many times.
+
+83
+00:09:15,330 --> 00:09:24,120
+Yes, there is this categorical time thing, only an issue with regards to non convergence of functions like if it does converge,
+
+84
+00:09:24,120 --> 00:09:27,620
+can we say we don't want to worry about these categorical timings?
+
+85
+00:09:28,230 --> 00:09:36,650
+Say that again. It was for. If it does converge, for instance, can we just say we don't have to worry about making it numeric?
+
+86
+00:09:37,130 --> 00:09:40,460
+We can just see if you can get it to converge correctly. By all means, do it.
+
+87
+00:09:40,820 --> 00:09:44,900
+And my. The code I have given you now a convergence.
+
+88
+00:09:46,610 --> 00:09:52,270
+Again. My model wasn't converging before, not because of the categorical it had to do with my code.
+
+89
+00:09:52,280 --> 00:09:56,000
+My syntax was wrong. Okay. So.
+
+90
+00:09:57,640 --> 00:10:02,320
+If you want to fit categorical time random effects, I think you have to create your own dummy variables.
+
+91
+00:10:02,350 --> 00:10:07,870
+That was what I had to do. I couldn't just use as vector and let our guard do it for me.
+
+92
+00:10:08,560 --> 00:10:16,480
+Again, I don't know the algorithm deeply enough to know why the x matrix, the designed matrix for the fixed effects comes out correctly.
+
+93
+00:10:16,990 --> 00:10:20,130
+But the random effects design matrix did not. So.
+
+94
+00:10:21,520 --> 00:10:26,290
+Keep that in mind. It should converge if you use the right syntax.
+
+95
+00:10:27,520 --> 00:10:33,670
+I was not using the syntax because again, I don't usually fit categorical time effects for the random effects.
+
+96
+00:10:35,860 --> 00:10:40,780
+All right. So there is another function for linear makes models.
+
+97
+00:10:41,200 --> 00:10:46,540
+If you want to use that library, I want to review the g glm stuff.
+
+98
+00:10:47,320 --> 00:10:53,950
+I think I kind of came in with a tidal wave of information last Wednesday and kind of washed away a lot of the crowd.
+
+99
+00:10:59,320 --> 00:11:05,710
+So I want to do a little bit more handwriting today instead of slides to slow myself down.
+
+100
+00:11:06,550 --> 00:11:11,920
+And I got a couple of moments in my office hours.
+
+101
+00:11:12,280 --> 00:11:18,340
+So we'll see if that happens today as well. So let's start over here.
+
+102
+00:11:18,910 --> 00:11:23,230
+So 651 again, we have our linear model.
+
+103
+00:11:28,710 --> 00:11:33,480
+I am enjoying it. I love it. Those are the only two choices.
+
+104
+00:11:36,720 --> 00:11:42,180
+So we have linear models that were 650 and all of the machinery that went
+
+105
+00:11:42,180 --> 00:11:47,790
+behind that there was an estimating equation for for the regression parameters,
+
+106
+00:11:48,090 --> 00:11:51,600
+which you probably never were explained as a estimating equation.
+
+107
+00:11:52,560 --> 00:11:55,980
+Maximum likelihood is a way to generate an estimating equation.
+
+108
+00:11:56,040 --> 00:12:03,210
+It is not the only way, but it is the way that we start with and it has lots of nice properties and that's why we use it.
+
+109
+00:12:03,970 --> 00:12:12,120
+Right. So we also talk about linear models involving these two squares.
+
+110
+00:12:14,370 --> 00:12:18,389
+Say that only because then of course, we're going to move into generalized squares.
+
+111
+00:12:18,390 --> 00:12:22,080
+Looks like generalized linear models, but they're different, right?
+
+112
+00:12:24,220 --> 00:12:28,210
+And so that, of course, is related to generalized.
+
+113
+00:12:31,740 --> 00:12:40,070
+The models. So we took the linear model idea.
+
+114
+00:12:40,520 --> 00:12:43,130
+We expanded it to more exponential family members,
+
+115
+00:12:43,580 --> 00:12:50,060
+and we came up with an estimating equation for cosine regression and gamma regression and binary regression and so forth.
+
+116
+00:12:50,810 --> 00:12:56,900
+And that was 651. And so that's one observation.
+
+117
+00:13:01,140 --> 00:13:13,630
+Very independent, independent data. And so now in this class, we've got two directions with the linear model idea, general squares.
+
+118
+00:13:18,580 --> 00:13:27,430
+I don't know where they get them except that. It's a square.
+
+119
+00:13:27,980 --> 00:13:35,680
+She tells us. She's asked. Can we take a class from Luxottica?
+
+120
+00:13:37,900 --> 00:13:41,230
+He is a master with branding on the screens.
+
+121
+00:13:41,800 --> 00:13:55,250
+His handwriting on screens is amazing. Anyway, we've got the general nicely squares and then we have talked about your notes.
+
+122
+00:14:00,460 --> 00:14:02,200
+So here we have a correlation matrix.
+
+123
+00:14:07,310 --> 00:14:16,280
+Exchangeable Air one, we pick a parametric form for the correlation matrix itself, and here we use random effects.
+
+124
+00:14:19,810 --> 00:14:26,140
+The random effects then generate a correlation matrix or variance of covariance matrix through the random effects.
+
+125
+00:14:31,090 --> 00:14:34,440
+So again, this is not.
+
+126
+00:14:37,310 --> 00:14:44,280
+That sense. Wall to wall.
+
+127
+00:14:45,240 --> 00:14:58,850
+And this is longitudinal. And we came along and we're going to do the same thing with our generalized linear models.
+
+128
+00:15:00,170 --> 00:15:08,510
+We're going to have another generalized method of generalized estimating equations which.
+
+129
+00:15:20,120 --> 00:15:27,830
+So Gigi is the counterpart to Jill as these two are related to each other in a fit of glamor.
+
+130
+00:15:28,670 --> 00:15:32,870
+And I'm going to have a correlation matrix for the repeated measures and switch
+
+131
+00:15:32,870 --> 00:15:37,969
+gears and then we're going to come down here and after we finish homework,
+
+132
+00:15:37,970 --> 00:15:44,820
+number four. Women have one more generalized, generalized, linear, mixed models.
+
+133
+00:15:51,580 --> 00:16:02,650
+LMM So a generalized linear mixed model is simply a GLM with random effects put into it instead of a correlation matrix.
+
+134
+00:16:05,590 --> 00:16:14,980
+So again, this picture again hopefully gives you a better connection of what I was trying to say in four lectures for you and for me.
+
+135
+00:16:15,220 --> 00:16:21,770
+And I didn't do a very good job of it. So by the end of the semester, all of these things are intertwined with each other.
+
+136
+00:16:21,850 --> 00:16:32,710
+Right. We started with a very specific approach, and we have expanded out in many different directions to a whole body of regression methods.
+
+137
+00:16:34,060 --> 00:16:38,200
+Right. Because one observation per person fits within a longitudinal framework.
+
+138
+00:16:39,010 --> 00:16:42,940
+A linear model fits within a general linear model and so forth.
+
+139
+00:16:43,870 --> 00:16:52,810
+So this is why what we do is so cool. Someone comes up with an idea and then someone figures out how it fits into a broader family of ideas.
+
+140
+00:16:56,140 --> 00:17:19,610
+So linear models. It's a signal screwed up.
+
+141
+00:17:19,710 --> 00:17:22,940
+That's not experience, right?
+
+142
+00:17:25,370 --> 00:17:32,240
+So why and we're going to assume normality has mean excited data invariant sigma squared.
+
+143
+00:17:42,700 --> 00:17:55,950
+That's cool. There's Sigma Sigma Alpha squared.
+
+144
+00:17:56,770 --> 00:18:01,380
+Right. We start with a we start with a little here. We start with a distribution of all the data.
+
+145
+00:18:02,010 --> 00:18:06,630
+This is what we did in 602. You start with the distribution of all the data.
+
+146
+00:18:06,900 --> 00:18:14,490
+You turn that into a likelihood. You take the derivative and someone's likely to come up with an estimating equation.
+
+147
+00:18:15,900 --> 00:18:28,300
+So. Never miss an opportunity to write up the normal distribution search.
+
+148
+00:18:35,400 --> 00:18:45,290
+So anyone know where the normal distribution came from? Started investigating the normal distribution, Los Lobos.
+
+149
+00:18:45,500 --> 00:18:56,330
+So we'll start with the Gaussian distribution, right. So Goss was on a mission to try and describe the average person, the normal person.
+
+150
+00:18:58,700 --> 00:19:04,280
+And this has influenced our field greatly. Just again, stepping back from my class today.
+
+151
+00:19:06,230 --> 00:19:12,799
+I do a lot of work with another group on campus around Abel ism and all of the challenges
+
+152
+00:19:12,800 --> 00:19:17,570
+that this university poses for individuals who identify with a disability of some kind.
+
+153
+00:19:19,370 --> 00:19:21,740
+The normal distribution was founded enable ISM.
+
+154
+00:19:22,520 --> 00:19:30,020
+It was this goal to always define who the normal person was, and that's where I believe the normal distribution came from.
+
+155
+00:19:31,010 --> 00:19:34,070
+So it's fascinating. It sits here today.
+
+156
+00:19:35,510 --> 00:19:39,250
+No one has tried to eliminate that term and go back to Mr. Goss's name.
+
+157
+00:19:39,290 --> 00:19:45,580
+But anyway, so there is the normal density and like I said, again, it's the product of marginals.
+
+158
+00:19:46,650 --> 00:19:55,430
+Every Y has its own marginal distribution. We multiply them together because they're independent groups.
+
+159
+00:19:55,600 --> 00:20:03,330
+Mr. Equals one.
+
+160
+00:20:05,210 --> 00:20:15,350
+That's just lovely. Square, this nice square.
+
+161
+00:20:17,730 --> 00:20:21,240
+Students. Oops.
+
+162
+00:20:24,630 --> 00:20:38,220
+It's one, two. And we're getting tourists to. Again, there's that normalizing constant with the sigma squared stuff there.
+
+163
+00:20:38,220 --> 00:20:42,660
+That's not going to be important for us when we assume they're known and we want to estimate data.
+
+164
+00:20:45,630 --> 00:20:53,430
+So that's the likelihood of. That's the likelihood of data, given all the signals.
+
+165
+00:20:56,200 --> 00:21:13,750
+And all the lies. And to be clear here, whatever vector data is, there is not 117 minus one.
+
+166
+00:21:15,910 --> 00:21:19,110
+Six is a factor. Again, one observation per person.
+
+167
+00:21:19,110 --> 00:21:23,250
+There's an intercept right now, and then there's a bunch of covariance.
+
+168
+00:21:27,920 --> 00:21:33,459
+Right. So I want to find out a way to estimate my beta parameter.
+
+169
+00:21:33,460 --> 00:21:37,540
+Right. And so I have a technique called maximum likelihood.
+
+170
+00:21:38,440 --> 00:21:43,719
+My daughter is learning the power rule and the general right now in high school.
+
+171
+00:21:43,720 --> 00:21:49,270
+And she said, did you ever take derivatives that work? I.
+
+172
+00:21:49,510 --> 00:21:52,750
+So I'm doing it right now. I'm writing literature notes for class.
+
+173
+00:21:52,840 --> 00:21:55,930
+So it's maximum likelihood.
+
+174
+00:21:57,370 --> 00:22:00,790
+And then, of course, I started telling her about maximum likelihood, and then she walked out of the room.
+
+175
+00:22:03,100 --> 00:22:07,990
+So we have an estimating equation.
+
+176
+00:22:08,080 --> 00:22:11,740
+So we're going to again, I just want to keep using that term, trying to use that term a lot.
+
+177
+00:22:12,550 --> 00:22:16,210
+We have a function for estimating a parameter or a series of parameters.
+
+178
+00:22:16,750 --> 00:22:24,550
+So we have an estimating equation for for this vector of status.
+
+179
+00:22:29,270 --> 00:22:33,260
+And we find that estimating equation by taking the derivative of the light might present.
+
+180
+00:22:37,310 --> 00:22:44,720
+I'm going to call it the age of data. It's a function of data. And in this case, I'm so used to touching screens here,
+
+181
+00:22:45,230 --> 00:22:51,350
+but we take the logs because then I can get rid of the normalizing constants and I can get rid of this exponent.
+
+182
+00:22:51,350 --> 00:22:56,300
+And I'm left with this thing right up here, which is the usual squares approach.
+
+183
+00:22:57,440 --> 00:23:03,020
+So the estimating function is the sum. The observations.
+
+184
+00:23:06,470 --> 00:23:10,000
+Squared plus minus X.
+
+185
+00:23:14,490 --> 00:23:23,820
+So again, general write to the exponent times one less and then multiply it by the derivative of what's inside.
+
+186
+00:23:24,300 --> 00:23:25,100
+That's saying.
+
+187
+00:23:27,590 --> 00:23:35,210
+And we end up with our usual what we call normal equation sometimes too, that is the three squares equation for estimating the regression parameters.
+
+188
+00:23:36,330 --> 00:23:45,760
+And again, this is this is a bunch of zeros, because there's one there's a bunch of parameters here for estimating, right?
+
+189
+00:23:46,490 --> 00:23:50,120
+That's 650. That is least squares.
+
+190
+00:23:50,120 --> 00:24:00,559
+That is a linear model. I'm going to take this equation now and I'm going to generalize it when everybody has a vector of observations.
+
+191
+00:24:00,560 --> 00:24:04,040
+So why is no longer one number is a vector of numbers?
+
+192
+00:24:05,660 --> 00:24:10,880
+So I suppose fire becomes a factor.
+
+193
+00:24:12,770 --> 00:24:20,510
+And so each person has a design matrix, one vector of covariance for each element of y times that same vector of parameters.
+
+194
+00:24:24,010 --> 00:24:32,829
+The variance of why is now a variance covariance matrix, which I just called Sigma Capital Sigma and again it has parameters.
+
+195
+00:24:32,830 --> 00:24:33,730
+We called Omega.
+
+196
+00:24:37,460 --> 00:24:44,600
+And so Omega is usually the variance parameter and a correlation parameter, although it certainly could be more complicated than that.
+
+197
+00:24:47,770 --> 00:24:53,000
+And we assume that Y as a multivariate normal distribution.
+
+198
+00:24:54,300 --> 00:24:57,820
+Does this mean? And this.
+
+199
+00:24:59,240 --> 00:25:12,520
+Variance covariance matrix. So again, we have a joint distribution of all the vectors.
+
+200
+00:25:17,970 --> 00:25:23,760
+Ignore all the parameter stuff. Again, that's the product of each of the marginals.
+
+201
+00:25:27,170 --> 00:25:30,800
+There are parameters here now. I'll put them there. Okay.
+
+202
+00:25:31,880 --> 00:25:36,910
+So within each vector, there's correlation for each of the vectors as independent of each other.
+
+203
+00:25:36,950 --> 00:25:42,380
+Each person is independent. And so we get something that looks like just what we had before.
+
+204
+00:25:46,410 --> 00:25:50,250
+One over two, pi over two.
+
+205
+00:25:51,510 --> 00:26:01,410
+So again, the dimension of Y is the number of observations for each person in my book varies from person to person.
+
+206
+00:26:02,760 --> 00:26:12,510
+And so for each person there is again the normalizing constant as pi in their one over the determinant of the sigma matrix, the one half.
+
+207
+00:26:13,950 --> 00:26:18,330
+And then again we have this exponential form, negative one half.
+
+208
+00:26:18,810 --> 00:26:24,660
+When I am a sigma, I inverse.
+
+209
+00:26:26,040 --> 00:26:29,600
+If you have excellent data transpose.
+
+210
+00:26:33,230 --> 00:26:38,730
+Product of a bunch of multi very normals. Everything looks the same.
+
+211
+00:26:38,730 --> 00:26:43,680
+I've got a square of the way I minus Peter divided by sigma squared But now we've got a matrix.
+
+212
+00:26:43,770 --> 00:26:49,640
+So we multiply by the matrix inverse. And that still gives me a likelihood.
+
+213
+00:26:50,770 --> 00:27:03,640
+For data. Again, we're not going to worry about Omega right now, the various parameters given all of the data to make and make.
+
+214
+00:27:07,920 --> 00:27:12,379
+Yes. What is it? Oh, Tim Johnson.
+
+215
+00:27:12,380 --> 00:27:17,990
+Why not? Like all my conditioning things here, they're not quite, quite sound here, but pretty close.
+
+216
+00:27:19,600 --> 00:27:41,550
+And so, again, we're going to derive an estimating equation. And we're going to drive that as McCain equation through likelihood theory.
+
+217
+00:27:43,350 --> 00:27:54,900
+That estimating equation takes the derivative of the log in likelihood again to say that's a function of theta vectors.
+
+218
+00:27:59,070 --> 00:28:07,510
+Which is the derivative of this some negative one half y moves.
+
+219
+00:28:07,530 --> 00:28:14,790
+Next Friday, sigma pi inverse y minus x theta.
+
+220
+00:28:16,920 --> 00:28:23,120
+There we go. Which becomes.
+
+221
+00:28:24,460 --> 00:28:30,120
+The sum goes from one. And again, lots of conditions here.
+
+222
+00:28:30,130 --> 00:28:36,640
+I'm going to switch integration and summation because everything is is a nice good.
+
+223
+00:28:36,660 --> 00:28:46,760
+It will all assume that's true. That's a matrix.
+
+224
+00:28:46,760 --> 00:28:55,790
+That's a matrix. Those are vectors after the term matrix matrix.
+
+225
+00:28:58,980 --> 00:29:02,370
+Design matrix vector vector zero.
+
+226
+00:29:05,080 --> 00:29:13,229
+Again, it's just that same quadratic form. You can think of an exponent of two of their y minus x y data squared and then
+
+227
+00:29:13,230 --> 00:29:18,210
+there's inverse and then the x is the derivative of of middle with respect to theta.
+
+228
+00:29:21,850 --> 00:29:29,080
+So again, if you struggle with all of the matrices, symptoms have been a little loose with my dimensions here.
+
+229
+00:29:29,320 --> 00:29:35,440
+So again, the enzyme matrix here is p by m I if I transpose.
+
+230
+00:29:36,680 --> 00:29:46,550
+This is am I I am I. It's the variance covariance of I'm up in my observations and this is I buy one.
+
+231
+00:29:48,740 --> 00:29:56,580
+I want to. So it looks just like.
+
+232
+00:29:58,350 --> 00:30:05,910
+The estimating equation in that linear model. Except now I have a weight matrix inside of the estimating equation.
+
+233
+00:30:06,300 --> 00:30:11,010
+The way matrix is the inverse of the correlation matrix for each individual.
+
+234
+00:30:14,970 --> 00:30:29,450
+This is a weight matrix which. And we modeled this thing.
+
+235
+00:30:31,910 --> 00:30:34,910
+Either directly, as I just said earlier in that diagram.
+
+236
+00:30:39,400 --> 00:30:42,760
+So we can model that weight matrix directly. We can say, you know what?
+
+237
+00:30:42,760 --> 00:30:48,310
+It's an exchange of a correlation matrix. And then I have to estimate the correlation parameter rho.
+
+238
+00:30:53,210 --> 00:31:04,580
+For indirectly. We use random effects to handle the variability between and within subjects.
+
+239
+00:31:08,180 --> 00:31:11,180
+And so I have these formulas in my other slides somewhere.
+
+240
+00:31:12,830 --> 00:31:16,160
+And to go from a linear model to a linear mixed model,
+
+241
+00:31:16,820 --> 00:31:22,700
+all we're doing is putting a weight matrix for the variability or the correlation depending on how you want to look at it.
+
+242
+00:31:24,280 --> 00:31:30,260
+So that's what we just finished in homework three over two and over three rituals and elements.
+
+243
+00:31:31,370 --> 00:31:43,400
+So now I want to go back in homework before in this lecture for a and let's go back to our estimating equation for the linear model.
+
+244
+00:31:44,600 --> 00:31:50,300
+And let's go to a generalized linear model before we start talking about correlation in that setting.
+
+245
+00:31:51,470 --> 00:32:02,480
+So. I don't know.
+
+246
+00:32:12,780 --> 00:32:18,630
+Estimating equations or regression training, which is one observation per person.
+
+247
+00:32:19,410 --> 00:32:34,890
+Each observation was weighted by the inverse of its variance times the observed value minus its mean for the mean the derivative of the mean zero.
+
+248
+00:32:37,540 --> 00:32:51,070
+But to generalize, this smell is the same function that we have been very comfortable with for a year now and read it like this.
+
+249
+00:33:27,050 --> 00:33:30,310
+So I'm taking that same estimating equation.
+
+250
+00:33:30,330 --> 00:33:38,190
+I've just written things differently so that the variance is now written as a function of the mean scale by a parameter.
+
+251
+00:33:39,210 --> 00:33:46,080
+And I know that in least squares the excited matrix came out because it was the derivative of the mean with respect to data,
+
+252
+00:33:46,200 --> 00:33:49,380
+because the identity was was the main function.
+
+253
+00:33:50,550 --> 00:33:55,740
+But when g is the identity, the derivative of new is simply exciting.
+
+254
+00:33:57,850 --> 00:34:05,450
+Now. We're not going to have that any longer. So this generalizes.
+
+255
+00:34:09,560 --> 00:34:20,840
+Our estimating equation. 20 member of the exponential family.
+
+256
+00:34:24,800 --> 00:34:28,879
+And I realize, I think part of the challenge of 651, as I was discussing with folks,
+
+257
+00:34:28,880 --> 00:34:32,990
+as you spent so much time getting your head around the exponential family from six or to at the
+
+258
+00:34:32,990 --> 00:34:39,800
+same time so that maybe sometimes you lose sight of the value of what you're talking about in 651.
+
+259
+00:34:40,640 --> 00:34:47,870
+But this equation right here fits a whole bunch of distributions besides the normal distribution,
+
+260
+00:34:47,960 --> 00:34:54,200
+as long as they're a member of the exponential family. And then even more so, we have a variance function.
+
+261
+00:34:55,370 --> 00:35:09,230
+We have the C parameter, we have the length. So for the normal distribution, the variance function is one parameter we call sigma squared.
+
+262
+00:35:10,320 --> 00:35:16,200
+And this is just the life, the identity. No.
+
+263
+00:35:18,510 --> 00:35:23,240
+Oh, no. It was too. Okay.
+
+264
+00:35:23,660 --> 00:35:32,410
+Thanks. So. For the porcine distribution.
+
+265
+00:35:33,630 --> 00:35:37,140
+It's an exponential family member. The variance is the mean.
+
+266
+00:35:38,390 --> 00:35:41,730
+This parameter is forced to be one right.
+
+267
+00:35:41,750 --> 00:35:48,980
+The variance is the mean it is and something times the mean it is the mean and the length function is the log the canonical link.
+
+268
+00:35:52,900 --> 00:35:57,230
+With Canonical links today and then for newly.
+
+269
+00:36:00,190 --> 00:36:09,190
+We have a variance function that is New Times one minus. Also is forced to be one.
+
+270
+00:36:09,610 --> 00:36:15,760
+And again, the canonical link is the log of new over one minus new theologians.
+
+271
+00:36:18,500 --> 00:36:23,990
+Sure. Throw it away. It's amazing. Okay.
+
+272
+00:36:30,430 --> 00:36:41,660
+Know, I think once they have defined the link, the variance function and what I'm going to do with feed,
+
+273
+00:36:42,440 --> 00:36:47,030
+I can plug them into my estimating equation and get an estimate for an estimate for beta
+
+274
+00:36:47,750 --> 00:36:50,960
+again with a little bit of iteration and so forth through the weight of these squares.
+
+275
+00:36:52,450 --> 00:37:00,640
+And so this is all going on. There is a regression equation for for gamma.
+
+276
+00:37:01,000 --> 00:37:04,030
+And did you learn gamma gamma? The link is the inverse.
+
+277
+00:37:04,870 --> 00:37:09,370
+So we don't typically said gamma regression models, but that's an exponential family do it.
+
+278
+00:37:12,160 --> 00:37:16,780
+The important thing is know that the estimating equation.
+
+279
+00:37:20,490 --> 00:37:25,360
+Only needs. Variance function.
+
+280
+00:37:27,010 --> 00:37:41,910
+See? And give me. Like. You can give me any link function you want.
+
+281
+00:37:41,920 --> 00:37:48,580
+Any variance function you want. Any value if you want. You can plug him into that equation and get an estimate for MEDA.
+
+282
+00:37:49,510 --> 00:37:53,980
+I don't know if it's any good, but then estimating equation should work.
+
+283
+00:37:58,260 --> 00:38:10,080
+And this is the idea of quasi likelihood. It kind of looks like it came from likelihood, but it didn't necessarily.
+
+284
+00:38:10,230 --> 00:38:15,390
+Sometimes it does. If you pick the certain, if you take a certain length function and a certain variance function,
+
+285
+00:38:15,870 --> 00:38:19,200
+that might correspond to a likelihood, but it might not.
+
+286
+00:38:20,620 --> 00:38:35,520
+We could still do things. So we can find in a had a distribution.
+
+287
+00:38:40,350 --> 00:38:44,130
+Or y y y y to lie in.
+
+288
+00:38:46,240 --> 00:38:49,270
+Doesn't have to have a decent name distribution for it if you want to fit your model.
+
+289
+00:38:53,420 --> 00:38:56,480
+And let's just pick up something. Something crazy here that I've never said.
+
+290
+00:38:57,230 --> 00:39:06,530
+But you could do it. So, for example, you might say that I'm going to model a function of the mean as a linear combination of covariates.
+
+291
+00:39:07,040 --> 00:39:10,070
+And I think that function is the square root of the log of the mean.
+
+292
+00:39:14,620 --> 00:39:21,270
+And I'm going to estimate this fee parameter in some over dispersion parameters, sigma squared, and therefore this thing is equal to one.
+
+293
+00:39:28,390 --> 00:39:32,880
+Okay. I don't believe this is an exponential family member.
+
+294
+00:39:41,640 --> 00:39:49,850
+But you can still estimate the tremendous waiting equation. So.
+
+295
+00:39:56,870 --> 00:39:59,930
+So every exponential family.
+
+296
+00:40:02,380 --> 00:40:19,400
+There's a corresponding estimating equation. But there are estimating equations that do not lead to an exponential family.
+
+297
+00:40:28,900 --> 00:40:34,840
+Any of that sound familiar? 651 Tim said he's tired and categorical.
+
+298
+00:40:35,800 --> 00:40:40,120
+No, he told over his version of categorical. Sorry, this is quasi likelihood theory.
+
+299
+00:40:40,750 --> 00:40:46,900
+Again, the problem now is that what do I know about beta had from this estimating equation?
+
+300
+00:40:48,520 --> 00:40:53,740
+It can't use likelihood theory. I can't say that it's asymptotically normal with this variance.
+
+301
+00:40:55,530 --> 00:40:58,889
+So what am I going to do? What is is it is it consistent?
+
+302
+00:40:58,890 --> 00:41:05,100
+Is Bay to have consistent from that estimating equation? What is the variance of data from from that estimating equation?
+
+303
+00:41:05,940 --> 00:41:08,940
+There's a whole body of literature on quasi likelihood theory.
+
+304
+00:41:09,750 --> 00:41:18,899
+And for James, it's a little bit more straightforward. So there's a whole body of research that expands maximum likelihood that allows
+
+305
+00:41:18,900 --> 00:41:22,530
+us to come up with with what the sampling distribution is of our estimates,
+
+306
+00:41:23,730 --> 00:41:30,410
+where the estimate the equation that a family member had been able to.
+
+307
+00:41:35,290 --> 00:41:45,580
+All right. So I took the lamb and I expanded it to glass and aluminum, and I took the lamb and went over to glass and to TLM.
+
+308
+00:41:47,740 --> 00:41:54,970
+Now we're going to take our glam idea and expand it to g e c I can find page four.
+
+309
+00:41:55,480 --> 00:42:03,970
+There we go. So let's return to the estimating equation.
+
+310
+00:42:07,270 --> 00:42:27,670
+For multivariate normal. It is the same sliver of an estimating equation.
+
+311
+00:42:29,300 --> 00:42:35,180
+For the linear model, there's a design matrix that's the derivative of the mean with respect to data.
+
+312
+00:42:35,720 --> 00:42:42,260
+There is a waiting matrix to deal with the correlation of observations from the same person,
+
+313
+00:42:43,520 --> 00:42:53,180
+and the difference between what I observe and what I model them to be on average is because I that's the matrix equals zero.
+
+314
+00:42:53,810 --> 00:42:59,240
+So this is the estimating equation for linear mixed models of four g os.
+
+315
+00:43:01,160 --> 00:43:02,240
+And I do the same thing.
+
+316
+00:43:03,640 --> 00:43:10,900
+I'm going to say that I know that this Exide matrix came about because I took the derivative of the mean with respect to data.
+
+317
+00:43:13,590 --> 00:43:20,420
+And this is the same. And this is just why minus it's mean.
+
+318
+00:43:24,990 --> 00:43:28,530
+So I did the same thing from linear models to generalized linear models.
+
+319
+00:43:29,540 --> 00:43:35,420
+And now we're going from the multivariate case of normal to the multivariate normal.
+
+320
+00:43:39,060 --> 00:43:50,400
+And then in the world we rate that that matrix of derivatives as delta D for derivatives.
+
+321
+00:43:57,580 --> 00:44:03,970
+Okay. I'm just changing the Greek letters that we're using. So, again, matrix of derivatives,
+
+322
+00:44:04,900 --> 00:44:11,490
+times a weight matrix times the difference between what we observe and what we might want to be on average residuals.
+
+323
+00:44:11,500 --> 00:44:20,890
+Right? And this thing is a variance covariance matrix, and I'm dropping my inverse in inverse.
+
+324
+00:44:20,950 --> 00:44:25,720
+All right. So we're going to write that variance covariance matrix.
+
+325
+00:44:26,730 --> 00:44:34,330
+Yes. Again, we have this over dispersion, possibly parameter VII to the one half.
+
+326
+00:44:36,220 --> 00:44:43,630
+I mean, the one half. You know.
+
+327
+00:44:44,580 --> 00:44:51,090
+It's. To.
+
+328
+00:45:05,230 --> 00:45:11,530
+Makes. It's not anywhere close to one half.
+
+329
+00:45:15,500 --> 00:45:21,760
+I guess if that is how you rate a variance covariance matrix where you want to have variances,
+
+330
+00:45:22,240 --> 00:45:27,610
+times could produce core variances that are variances times correlation parameters.
+
+331
+00:45:31,120 --> 00:45:35,919
+And so there's going to be a square root matrix and a square root matrix so that when you multiply it together,
+
+332
+00:45:35,920 --> 00:45:40,810
+you get the entire variance for each observation. And then the middle is the covariance matrix.
+
+333
+00:45:41,870 --> 00:45:50,230
+Looks. I is what we call the working correlation energy healing language.
+
+334
+00:45:56,980 --> 00:46:03,360
+Yeah. That's. Come on, symmetry. They are one. Any parametric form of a correlation matrix that you can think of?
+
+335
+00:46:08,320 --> 00:46:16,250
+That's my estimating equation for GDP. It looks just like the estimating equation with normal outcomes,
+
+336
+00:46:16,400 --> 00:46:22,400
+except it's a little more complicated because we have a link function in there and we
+
+337
+00:46:22,400 --> 00:46:26,990
+have to deal with the fact that the variances are different across the observations.
+
+338
+00:46:31,350 --> 00:46:38,910
+So this equation right here, everything here, we know that estimating equation right there.
+
+339
+00:46:40,710 --> 00:46:48,870
+So this thing right here is not.
+
+340
+00:47:11,830 --> 00:47:18,610
+If this matrix is not the variance covariance matrix from a multivariate distribution.
+
+341
+00:47:23,190 --> 00:47:33,600
+For example, if the why eyes are count data. And they probably haven't thought about this until now.
+
+342
+00:47:34,530 --> 00:47:48,700
+There are too many useful multivariate distributions out there. There is no multivariate cosine distribution because the multivariate normal.
+
+343
+00:47:51,380 --> 00:47:54,620
+There is no multivariate gamma distribution.
+
+344
+00:47:55,160 --> 00:48:01,040
+There is no multivariate binomial distribution. There are ways to generate things that look like that.
+
+345
+00:48:01,040 --> 00:48:06,709
+But. Anyone heard of couple's c0ple.
+
+346
+00:48:06,710 --> 00:48:12,770
+S A cappella is a strange sounding word that essentially means trying to couple things.
+
+347
+00:48:12,830 --> 00:48:16,610
+How do I correlate things? It's another way to correlate data.
+
+348
+00:48:17,330 --> 00:48:21,650
+Outside of all the methods we're going to learn in this class. So, again, going to put this another way.
+
+349
+00:48:25,060 --> 00:48:31,470
+This is a really important concept is that. If y if a person has a vector of observations.
+
+350
+00:48:37,770 --> 00:48:42,509
+Is multivariate normal a vector of multivariate normal observations?
+
+351
+00:48:42,510 --> 00:48:44,880
+What's the marginal distribution of each observation?
+
+352
+00:48:54,190 --> 00:48:59,670
+If I have a series of multivariate normal observations, what's the marginal distribution of one another?
+
+353
+00:49:01,090 --> 00:49:06,700
+Normal. That's what we love. The normal distribution allows a lots of nice math.
+
+354
+00:49:08,480 --> 00:49:20,750
+Each element of one has a marginal normal. There is no multivariate not.
+
+355
+00:49:22,610 --> 00:49:26,240
+There is no of those that I've ever been aware of.
+
+356
+00:49:26,270 --> 00:49:29,720
+There may be somebody as published in the Annals of Statistics somewhere.
+
+357
+00:49:30,680 --> 00:49:42,690
+We don't use it. There is no multivariate distribution. The producers.
+
+358
+00:49:45,310 --> 00:49:50,170
+Little. The Sun. Was.
+
+359
+00:49:59,140 --> 00:50:04,210
+So again, this was not generated. This equation here cannot be generated from a likelihood.
+
+360
+00:50:04,570 --> 00:50:09,670
+It did not come from a multivariate distribution that we then took the log of and took the derivative of.
+
+361
+00:50:10,330 --> 00:50:16,180
+It is just an estimating equation. We talk about the marginal distribution of each observation.
+
+362
+00:50:16,180 --> 00:50:21,140
+We say marginally, that thing is Poisson. And I think they're correlated.
+
+363
+00:50:21,190 --> 00:50:24,670
+So I'm going to I'm going to model the correlation through this weight matrix.
+
+364
+00:50:25,690 --> 00:50:31,390
+But that is not a distribution for all of the ways. And so G is called a marginal model.
+
+365
+00:50:31,800 --> 00:50:39,210
+We have a marginal model for the mean of each observation. And we throw in a correlation matrix to deal with the inference.
+
+366
+00:50:42,600 --> 00:50:51,750
+And so GDP is also founded in quasi liquid theory.
+
+367
+00:50:59,560 --> 00:51:02,580
+Country is based on a quasi likelihood of type of approach.
+
+368
+00:51:02,790 --> 00:51:06,960
+It uses something that looks like it might have come from a likelihood, but it didn't.
+
+369
+00:51:07,650 --> 00:51:10,229
+And so therefore the theory is it's a little bit harder.
+
+370
+00:51:10,230 --> 00:51:15,840
+We have to use different machinery to figure out what the asymptotic distribution and so far so everything is.
+
+371
+00:51:18,360 --> 00:51:24,720
+Damn, it's already five after four. All right. So that was what I was trying to convey last week.
+
+372
+00:51:25,560 --> 00:51:29,160
+And hopefully that gives you some idea better of of again,
+
+373
+00:51:29,400 --> 00:51:36,629
+if you understand how we estimate in a linear model and then you understand how we do it in a generalized linear model,
+
+374
+00:51:36,630 --> 00:51:43,590
+and then we start to build off of that. That is what we're doing in this class of looking at seem like that.
+
+375
+00:51:46,110 --> 00:51:50,090
+I was away, so I went through my PowerPoint slides.
+
+376
+00:51:50,100 --> 00:51:56,580
+I just want to point out I skipped a couple of slides at the end last week as time was nearing the end.
+
+377
+00:51:57,390 --> 00:52:02,610
+The first thing I want to point out, however, is that there were a couple of typos in my lecture slides.
+
+378
+00:52:02,610 --> 00:52:08,370
+I think it was a cut and paste problem. Page three notes Bring this up.
+
+379
+00:52:10,980 --> 00:52:15,719
+So for instance, I think I had a negative one here because I was going through the slides.
+
+380
+00:52:15,720 --> 00:52:22,320
+Sometimes these square notes were negative ones and I don't know why. So again, slide three, that's what it should look like.
+
+381
+00:52:22,320 --> 00:52:27,600
+The correct slide is on canvas now and then page eight.
+
+382
+00:52:27,600 --> 00:52:31,470
+I wrote down page eight again. I think I had the wrong exponent somewhere.
+
+383
+00:52:32,930 --> 00:52:47,850
+In this view, matrix should be there now. Again, we haven't gotten to random effects with a glam that's glam.
+
+384
+00:52:49,020 --> 00:52:52,020
+We have fitted glam with a weight matrix.
+
+385
+00:52:52,020 --> 00:52:57,480
+Correlation matrix that's G. So G is not a random effects model.
+
+386
+00:52:58,770 --> 00:53:00,720
+This was trivial with normal data.
+
+387
+00:53:00,840 --> 00:53:11,880
+We didn't talk about glass and linear rex models because they they're very highly related to each other because everything is linear.
+
+388
+00:53:13,020 --> 00:53:16,440
+It's not going to happen here. The results you get from G.
+
+389
+00:53:18,170 --> 00:53:24,980
+Do not necessarily match an approach and she'll announce they're very different as we'll get to shortly.
+
+390
+00:53:26,720 --> 00:53:31,220
+The other thing in my slides that I want you to use in the homework is, again,
+
+391
+00:53:31,220 --> 00:53:34,610
+with GE, you might try to figure out what correlation structure is best.
+
+392
+00:53:35,240 --> 00:53:43,729
+Should I use exchangeable? So just assume independence values are one with linear, linear, mixed models and goals.
+
+393
+00:53:43,730 --> 00:53:51,410
+We had aax and basi and R squared. All of those have a likelihood function and we don't have likelihoods anymore.
+
+394
+00:53:52,010 --> 00:53:55,130
+You cannot get an AIC for GE.
+
+395
+00:53:55,850 --> 00:54:01,909
+You cannot if you ever see someone who says they did it, some sort of analog,
+
+396
+00:54:01,910 --> 00:54:09,800
+somebody came up with some analog of AIC and the one that's used most often was created by We Pan.
+
+397
+00:54:11,030 --> 00:54:16,189
+I used to be at Minnesota I think is I don't know I think it's still in Minnesota called the queue.
+
+398
+00:54:16,190 --> 00:54:19,400
+I see quasi information criteria.
+
+399
+00:54:20,540 --> 00:54:27,890
+Yeah. I'm not going to go through the theory. It has the same flavor as AIC, but it tries to do things so that we're not using a likelihood.
+
+400
+00:54:28,250 --> 00:54:32,210
+And so we're going to use this QIC to compare different models.
+
+401
+00:54:33,050 --> 00:54:38,450
+And like I said, there's other stuff. There's a Glenn toolbox in R that I believe has a quasi R squared.
+
+402
+00:54:38,450 --> 00:54:45,230
+You can get an R squared for a G model. We're not going to do that and again, be aware that that stuff is out there.
+
+403
+00:54:46,970 --> 00:54:51,350
+But I don't know of anyone who quits our squares for everybody likes it.
+
+404
+00:54:51,350 --> 00:54:54,530
+Our square value for any regression model you give them.
+
+405
+00:54:55,370 --> 00:54:59,540
+Unfortunately, R-squared the only fits really for linear make for linear models.
+
+406
+00:55:00,740 --> 00:55:05,630
+And we have to come up with something else. All right. I do want to go through a little bit of our code.
+
+407
+00:55:06,590 --> 00:55:11,550
+So that's it for the slides. I want to go back to summer now.
+
+408
+00:55:12,660 --> 00:55:21,720
+So for homework number four, you have one person dataset and one but binary dataset.
+
+409
+00:55:23,070 --> 00:55:27,340
+The methods are the same. It's just a different link function and so forth.
+
+410
+00:55:27,360 --> 00:55:34,680
+I'm going to go through my binary set. That is my homework number four, and then we'll set them again in homework number five,
+
+411
+00:55:35,850 --> 00:55:40,709
+because I want to go and go on to talk about interpretation of parameters because this is one of my big issues,
+
+412
+00:55:40,710 --> 00:55:47,560
+like I told you is I don't like to see a table of parameters from Poisson regression and logistic regression.
+
+413
+00:55:47,580 --> 00:55:51,330
+I'd like you to scale them appropriately in the right, right interpretation.
+
+414
+00:55:52,350 --> 00:55:57,090
+All right. Brief time. All right.
+
+415
+00:55:58,260 --> 00:56:07,170
+So I have a dataset which. That's what that's about.
+
+416
+00:56:08,250 --> 00:56:16,440
+All right. I have a data set looking at sirup phobia, which is vitamin D deficiency in kids.
+
+417
+00:56:19,770 --> 00:56:26,610
+So 275 children followed for up to six quarters and observed for both to two outcomes.
+
+418
+00:56:26,910 --> 00:56:30,440
+Respiratory infection and whether they have a vitamin D deficiency.
+
+419
+00:56:30,480 --> 00:56:34,470
+I'm going to model the vitamin D deficiency outcome in this analysis.
+
+420
+00:56:34,920 --> 00:56:40,260
+And then we have other covariates that, again, we haven't adjusted for covariates in this class, but you can if you want.
+
+421
+00:56:43,410 --> 00:56:46,830
+There's an interesting seasonality with vitamin D deficiency.
+
+422
+00:56:47,790 --> 00:56:50,999
+So we actually have season here. Spring, summer, winter and autumn.
+
+423
+00:56:51,000 --> 00:56:54,090
+But we're not going to analyze that today. So.
+
+424
+00:56:55,600 --> 00:57:02,860
+One of the things I learned is that if you want to fit in the air one structure, you need at least two observations for every person.
+
+425
+00:57:03,970 --> 00:57:08,110
+So the people with one observation had to be removed from this analysis.
+
+426
+00:57:09,470 --> 00:57:15,460
+I'm not saying that's the right thing to do, but that's what I'm going to do to to be able to fit my model.
+
+427
+00:57:16,150 --> 00:57:22,209
+So again, I got an indicator of who's only has one observation in the dataset and I pulled those out.
+
+428
+00:57:22,210 --> 00:57:26,380
+So I've got this zero one dataset which takes all those people out.
+
+429
+00:57:27,220 --> 00:57:33,010
+So there are three libraries. You don't need the club sandwich bag in that sandwich variance estimate.
+
+430
+00:57:34,240 --> 00:57:39,670
+Those are automatically done in G. But again, I want to connect this back to what we've done in the past.
+
+431
+00:57:40,150 --> 00:57:43,150
+So there are two libraries for G and R that I know of.
+
+432
+00:57:43,150 --> 00:57:47,950
+There's probably more the G, G, pack and G.
+
+433
+00:57:48,670 --> 00:57:56,120
+I use the library, g library. The G Peck Library computes choices.
+
+434
+00:57:56,140 --> 00:58:01,480
+The other one does not. So I use G Pack to get the Q I see only.
+
+435
+00:58:02,140 --> 00:58:05,709
+The reason I don't like to use G pack is remember.
+
+436
+00:58:05,710 --> 00:58:09,820
+Remember G. Remember G does two things with the standard errors.
+
+437
+00:58:10,150 --> 00:58:15,490
+It gives you the model base standard error and it gives you the empirical or the sandwich variance estimate or.
+
+438
+00:58:16,790 --> 00:58:24,560
+For some reason a G PAC. They only give you the sandwich estimate or give you the naive one, and I want the naive one as well.
+
+439
+00:58:24,920 --> 00:58:28,850
+So that's why I'm using both of these. But you don't have to use both of them.
+
+440
+00:58:30,060 --> 00:58:34,230
+But what I want to connect is back to a glimpse. So let's look at these data.
+
+441
+00:58:34,920 --> 00:58:39,120
+So again, I'm computing the mean. So it's going to be a proportion for each group.
+
+442
+00:58:39,120 --> 00:58:42,990
+It is time point. My grouping variable is a gender in this dataset.
+
+443
+00:58:44,310 --> 00:58:47,880
+And I guess I didn't need this. But anyway, here we go.
+
+444
+00:58:50,810 --> 00:58:55,970
+So this is the trend over time in the proportion of individuals with vitamin D deficiencies.
+
+445
+00:58:56,390 --> 00:59:00,320
+And so we see maybe a little bump up for the males if it comes back down.
+
+446
+00:59:00,320 --> 00:59:05,630
+The females are maybe increasing by just a little bit over the six quarters of this dataset.
+
+447
+00:59:07,490 --> 00:59:14,540
+So I want to see if, again, if there are trends over time in males and females and if the trends are different for the two groups.
+
+448
+00:59:16,670 --> 00:59:19,889
+I want to go backstage to do an exploratory analysis here.
+
+449
+00:59:19,890 --> 00:59:25,830
+Exploratory data analysis with binary outcomes is I'm sorry, there goes my contact.
+
+450
+00:59:26,550 --> 00:59:30,629
+Look, all right, I'm going to do this leg one, leg two, leg three.
+
+451
+00:59:30,630 --> 00:59:34,140
+Correlation that we've done in the past. Correlation.
+
+452
+00:59:34,830 --> 00:59:38,880
+The idea of a Pearson's correlation coefficient came from normal data.
+
+453
+00:59:39,890 --> 00:59:44,960
+And then we apply it to binary data so it gets a little bit messy.
+
+454
+00:59:45,260 --> 00:59:48,799
+So just keep that in mind that looking at these lags, here's the lag.
+
+455
+00:59:48,800 --> 00:59:51,890
+One correlation there's a lag to correlation. There's a lag.
+
+456
+00:59:51,890 --> 01:00:00,200
+Three correlation, it's a mess, 2.36.19 for males and females.
+
+457
+01:00:00,710 --> 01:00:05,600
+And then those change to those numbers, one of them is a negative or close to zero and then they go back up.
+
+458
+01:00:06,110 --> 01:00:11,750
+I have no idea what to do with this. This doesn't really help me think of a correlation structure to go with these data.
+
+459
+01:00:13,010 --> 01:00:18,650
+And again, please don't fit a spaghetti, but for your binary data because I want to show you this is what you get.
+
+460
+01:00:21,550 --> 01:00:25,570
+Right. But zero and one for the way. So spaghetti plots again.
+
+461
+01:00:25,600 --> 01:00:32,200
+Not very useful for binary data. It's really hard to do exploratory data analysis for binary except looking at proportions.
+
+462
+01:00:32,470 --> 01:00:37,870
+I don't know of many other ways to do it, but let's fit some models here.
+
+463
+01:00:38,080 --> 01:00:48,430
+In the few months we have left. I'm going to explicitly define my divide by matrix instead of just saying gender plus time times.
+
+464
+01:00:48,430 --> 01:00:55,430
+You know the interaction plus the interaction. So I have I want to do four, four things.
+
+465
+01:00:55,510 --> 01:00:59,430
+I look at four different groups and I'm going to be back.
+
+466
+01:00:59,450 --> 01:01:08,590
+I want you to look at the picture. Again, I'm kind of overfitting the data a little bit, but for the purposes of this class and what I'm trying to do,
+
+467
+01:01:10,120 --> 01:01:17,319
+what I'm going to do is take males from time 1 to 3 and that's one slope.
+
+468
+01:01:17,320 --> 01:01:23,980
+So it's going to be flat. I'm going to set a flat line between one and three and then another mean 4/4 for six for males.
+
+469
+01:01:24,490 --> 01:01:29,230
+We do the same thing for females, females from time 1 to 3 and females from 4 to 6.
+
+470
+01:01:30,580 --> 01:01:32,770
+So there are four parameters I can fit there.
+
+471
+01:01:32,770 --> 01:01:41,050
+There are four means that I'm trying to estimate instead of having an intercept, because that always makes interpretation challenging sometimes.
+
+472
+01:01:41,710 --> 01:01:42,910
+I've got four variables here.
+
+473
+01:01:42,920 --> 01:01:51,340
+The first variable again says if they're male and are three and below male, four and above, and the same thing for females.
+
+474
+01:01:51,820 --> 01:01:57,130
+So make it four parameters and so let's run those.
+
+475
+01:01:57,310 --> 01:02:04,719
+And so here is the first model I'm going to fit egg model with a correlation structure of independence, working correlation.
+
+476
+01:02:04,720 --> 01:02:07,870
+This was the first thing I asked you to do. So here is the syntax.
+
+477
+01:02:08,350 --> 01:02:11,820
+Looks just like the syntax for a lot of the other things we've done. Outcome.
+
+478
+01:02:11,830 --> 01:02:17,650
+Tilde oh the covariance. You have to tell G where the clustering is.
+
+479
+01:02:18,760 --> 01:02:25,110
+You have to tell them what the correlation structure is. You have to tell it the exponential family, which can be quasi.
+
+480
+01:02:25,600 --> 01:02:30,880
+You can fit quasi likelihood where the data are and scale six equals true.
+
+481
+01:02:31,120 --> 01:02:39,010
+Remember, there's this fee parameter, this over dispersion parameter. The default engine is to estimate that thing.
+
+482
+01:02:40,790 --> 01:02:45,560
+The default in glam is to fix it at one.
+
+483
+01:02:45,890 --> 01:02:49,160
+I don't know why people couldn't connect their defaults.
+
+484
+01:02:49,640 --> 01:02:53,270
+Right. So for right now, I'm going to force the scale parameter to be one.
+
+485
+01:02:56,510 --> 01:03:00,470
+So this is a G model with a working independence correlation structure.
+
+486
+01:03:02,290 --> 01:03:08,200
+And you couldn't find that because they didn't run that, huh? Any of these libraries that's running.
+
+487
+01:03:10,420 --> 01:03:16,890
+Dum dum dum. There we go. All right.
+
+488
+01:03:16,920 --> 01:03:20,830
+Now it's going to run. And you'll see something like this.
+
+489
+01:03:20,860 --> 01:03:25,990
+What she does is we have to start somewhere with a correlation structure.
+
+490
+01:03:26,320 --> 01:03:32,560
+We start with an assumed correlation structure, and then we set the model and then we perhaps re estimate.
+
+491
+01:03:32,920 --> 01:03:40,840
+So G starts with independence. So when you run G in IRA, the first thing it does is GLM assumes independence.
+
+492
+01:03:41,530 --> 01:03:48,610
+So it's running GLM to get the initial parameter estimates and then it changes them for the way it matrix if necessary.
+
+493
+01:03:48,760 --> 01:03:54,450
+If you have a correlation structure. So let's not look at the coefficients.
+
+494
+01:03:54,660 --> 01:03:56,510
+Let's look at that first. All right. Right.
+
+495
+01:03:58,410 --> 01:04:03,720
+So if you sum if you get a summary of that model dollar sign coefficient, you get the coefficient table that we usually see.
+
+496
+01:04:04,170 --> 01:04:07,210
+So there's an estimate. There's the naive standard error.
+
+497
+01:04:07,230 --> 01:04:10,500
+That's the model based. Now it means model based.
+
+498
+01:04:11,130 --> 01:04:18,690
+You've naively set a model, and then there's the Z statistic, and then it gives you the sandwich estimate, which, again, our calls robust.
+
+499
+01:04:19,350 --> 01:04:23,040
+We're not going to call it robust. It's empirical or sandwich.
+
+500
+01:04:23,640 --> 01:04:31,290
+And there's a Z statistic for that. This stuff works.
+
+501
+01:04:31,590 --> 01:04:39,420
+These columns work. These first two columns. This is what you would get from Glenn if you run G.E. with independence.
+
+502
+01:04:39,870 --> 01:04:42,240
+That is Guillaume, right?
+
+503
+01:04:51,810 --> 01:05:01,470
+So if you look at all of the output from a g fit, it tells you besides the conversion table, again, estimated scale parameter is one.
+
+504
+01:05:02,370 --> 01:05:08,460
+There was no iterating necessary. This was just global, so it didn't have any iterations.
+
+505
+01:05:08,850 --> 01:05:16,080
+And the working correlation structure you said was independent. And sure enough, it tells you that it's an independent working correlation matrix.
+
+506
+01:05:17,470 --> 01:05:29,450
+And then we can get a QC value. And again, unfortunately, to get a chassis, you have to fit the same model with the GE GLM function in GE patch.
+
+507
+01:05:31,620 --> 01:05:34,699
+And again, the first number there is the QIC value.
+
+508
+01:05:34,700 --> 01:05:38,150
+But again, lower is better, just like with AC and Visy and so forth.
+
+509
+01:05:39,410 --> 01:05:41,030
+So that was the first thing I'm going to ask you to do.
+
+510
+01:05:41,030 --> 01:05:45,770
+And your homework assignment is to fit independence, working correlation and then see what you get.
+
+511
+01:05:46,520 --> 01:05:52,430
+Again, I want to emphasize the similarities here. We didn't need the G function to do this.
+
+512
+01:05:55,240 --> 01:06:01,990
+Again. I could have simply used the ground function from 651 with the same idea.
+
+513
+01:06:02,140 --> 01:06:06,130
+Same model, no clustering. Everything is independent.
+
+514
+01:06:07,870 --> 01:06:15,790
+And there it is. And then we have this this function to fit a sandwich system to any model that we fit.
+
+515
+01:06:15,820 --> 01:06:26,310
+We did this in homeworks two and three. And if you look at the coefficient estimates and the sandwich standard errors in the naive senators from GE,
+
+516
+01:06:27,270 --> 01:06:33,000
+they're exactly the same ones here because I fitted a and I fit a sandwich variance estimate.
+
+517
+01:06:33,660 --> 01:06:38,910
+So again, take a look at that to see how JI angles are related to each other.
+
+518
+01:06:39,360 --> 01:06:43,830
+And then I'll just go through exchangeable and let you go because we are at the quitting time.
+
+519
+01:06:43,920 --> 01:06:47,030
+So the second model says no independence.
+
+520
+01:06:47,040 --> 01:06:50,340
+I've got repeated measures. I'm not going to start with independence.
+
+521
+01:06:50,730 --> 01:06:55,620
+I'm going to start with an exchangeable correlation matrix. So that's the only thing that's changed in my code there.
+
+522
+01:06:56,430 --> 01:07:11,390
+Everything else was the same as before. So again, it tells you things like it took two iterations, now loops and then for skill parameter anymore.
+
+523
+01:07:12,770 --> 01:07:23,720
+So let's talk about that. So in this code right here, I don't have equals one, equals true equals false, and the default is false.
+
+524
+01:07:26,650 --> 01:07:30,130
+Does it really matter here? I don't think so.
+
+525
+01:07:31,120 --> 01:07:38,380
+Right. If you if you force it to be won or it's estimated to be 0.95, does it really matter?
+
+526
+01:07:38,440 --> 01:07:43,990
+I think in terms of what's going on here, it tells you they're working correlation structure.
+
+527
+01:07:44,230 --> 01:07:51,440
+Right. You said it exchangeable. There it is. G estimates from the residuals of correlation parameter and it looks like it's about
+
+528
+01:07:51,440 --> 01:07:58,690
+0.16 between any two observations on the same person and this working correlation.
+
+529
+01:07:59,970 --> 01:08:04,820
+Is now used in estimation of the beta beta parameters.
+
+530
+01:08:05,960 --> 01:08:12,890
+So you see it, you know?
+
+531
+01:08:13,460 --> 01:08:26,680
+I mean, it's you know, it's much to it is. So here is the results from fitting G.E. with a working correlation matrix of exchangeable correlation.
+
+532
+01:08:27,430 --> 01:08:34,420
+So again, a naive is the model based. If we assume exchangeable correlation is correct.
+
+533
+01:08:34,540 --> 01:08:41,420
+These are the standard errors to use. If you don't believe that model, you can let it get a sandwich estimate.
+
+534
+01:08:42,400 --> 01:08:46,810
+And you can see that the sandwich variance estimate. Now, they're a little bit different than the naive.
+
+535
+01:08:47,440 --> 01:08:50,950
+But as I said earlier, we're going to get to this.
+
+536
+01:08:51,640 --> 01:09:01,270
+For some reason, people always use robust variance estimates and gee, even if they have a working correlation matrix that's exchangeable or error one.
+
+537
+01:09:02,350 --> 01:09:05,770
+I don't quite know why I haven't figured out who came up with that suggestion.
+
+538
+01:09:06,640 --> 01:09:12,610
+But anyways, it's out there for 20.
+
+539
+01:09:12,940 --> 01:09:19,720
+I'm going to stop because, you know, every time a professor crams in five more minutes of material, it's worthless, right?
+
+540
+01:09:20,560 --> 01:09:26,230
+It's a waste of time. Well, we'll set it up here on Friday.
+
+541
+01:09:28,150 --> 01:09:31,390
+Make sure you play, Farkle. We're in our eighth attempt.
+
+542
+01:09:31,930 --> 01:09:35,050
+I seem to be getting better for the computer. Seems to be getting stupider.
+
+543
+01:09:36,280 --> 01:09:41,740
+I don't know why I don't get it because it doesn't know it's me. That seems to be the case.
+
+544
+01:09:42,370 --> 01:09:47,260
+It's like I think the computer goes like six countries, like the U.S. are all.
+
+545
+01:09:48,030 --> 01:09:51,940
+It's like when they get, like, 300.
+
+546
+01:09:52,210 --> 01:09:55,440
+Yeah. Right now might not be. Exactly, exactly.
+
+547
+01:09:55,810 --> 01:10:07,470
+It's obviously programed to not be a random place like that, but it's like.
+

@@ -1,0 +1,696 @@
+1
+00:00:01,438 --> 00:00:07,509
+Hello everyone, welcome again to the applying mediation analysis course
+
+2
+00:00:07,509 --> 00:00:12,723
+of the University of Michigan summer session in epidemiology.
+
+3
+00:00:12,723 --> 00:00:17,655
+I hope you enjoyed listening to the review of
+
+4
+00:00:17,655 --> 00:00:21,788
+causal inference that I prepared and
+
+5
+00:00:21,788 --> 00:00:26,988
+today I will go through the first recording for
+
+6
+00:00:26,988 --> 00:00:29,670
+the lecture of day one.
+
+7
+00:00:29,670 --> 00:00:34,893
+As I said that now in the email as well as in the syllabus,
+
+8
+00:00:34,893 --> 00:00:38,350
+please listen to these recordings.
+
+9
+00:00:38,350 --> 00:00:45,490
+I think the lecture will be split it in about three recordings and
+
+10
+00:00:45,490 --> 00:00:51,573
+post any question or comment on the discussion board so
+
+11
+00:00:51,573 --> 00:00:58,337
+that on the first day of the course we can have a Q&A session.
+
+12
+00:00:58,337 --> 00:01:02,967
+Let's the first review what's the plan of the course.
+
+13
+00:01:02,967 --> 00:01:06,862
+We will first discussed concepts of mediation,
+
+14
+00:01:06,862 --> 00:01:11,044
+both traditional and counterfactual approaches.
+
+15
+00:01:11,044 --> 00:01:14,594
+So this is the topic of the lecture today.
+
+16
+00:01:14,594 --> 00:01:20,331
+We will then discuss what are the most commonly used parametric regression
+
+17
+00:01:20,331 --> 00:01:26,632
+approaches for causal mediation analysis under the counterfactual framework.
+
+18
+00:01:26,632 --> 00:01:31,778
+Along with the statistical software available to
+
+19
+00:01:31,778 --> 00:01:37,299
+implement these approaches either in data ae in SAS.
+
+20
+00:01:37,299 --> 00:01:43,747
+I will then discuss how mechanisms of mediation as well as interaction
+
+21
+00:01:43,747 --> 00:01:50,101
+can be unified in the framework of causal effect, the composition.
+
+22
+00:01:50,101 --> 00:01:54,544
+And I will then propose and I really encourage you to use
+
+23
+00:01:54,544 --> 00:01:59,375
+the sensitivity analysis approaches whenever you conduct
+
+24
+00:01:59,375 --> 00:02:04,409
+epidemiological investigation in observational studies.
+
+25
+00:02:04,409 --> 00:02:08,636
+To assess the validity of the of your findings in
+
+26
+00:02:08,636 --> 00:02:12,238
+the instance of a measure confounding.
+
+27
+00:02:12,238 --> 00:02:19,028
+I will then conclude the course discussing potential strategies and
+
+28
+00:02:19,028 --> 00:02:24,890
+methods for mediation analysis with multiple mediators.
+
+29
+00:02:24,890 --> 00:02:30,378
+Let's get started with the first lecture
+
+30
+00:02:30,378 --> 00:02:36,342
+on mediation concepts and identification.
+
+31
+00:02:36,342 --> 00:02:40,436
+In this lecture, I would like to cover the following topics.
+
+32
+00:02:40,436 --> 00:02:46,794
+First, introduce traditional approaches to mediation analysis,
+
+33
+00:02:46,794 --> 00:02:52,165
+understand their potential limitation and then motivate
+
+34
+00:02:52,165 --> 00:02:58,097
+the use of the counterfactual approach to mediation analysis.
+
+35
+00:02:58,097 --> 00:03:02,239
+I will first give formal definitions of direct and
+
+36
+00:03:02,239 --> 00:03:07,180
+indirect effects under the potential outcome framework.
+
+37
+00:03:07,180 --> 00:03:11,592
+And then discuss non-parametric
+
+38
+00:03:11,592 --> 00:03:16,157
+identify ability conditions under
+
+39
+00:03:16,157 --> 00:03:21,184
+which these effects can be recovered.
+
+40
+00:03:21,184 --> 00:03:26,701
+What are the questions of interest in mediation analysis?
+
+41
+00:03:26,701 --> 00:03:30,838
+This directed at a cyclic graph effectively
+
+42
+00:03:30,838 --> 00:03:34,650
+represents the question of mediation.
+
+43
+00:03:34,650 --> 00:03:39,308
+This is a very simple graph most likely too simple, but
+
+44
+00:03:39,308 --> 00:03:45,699
+let's understand what are the main ingredients for mediation analysis.
+
+45
+00:03:45,699 --> 00:03:51,392
+We first need an exposure, a mediator and then outcome.
+
+46
+00:03:51,392 --> 00:03:56,391
+The exposure is the variable A, the mediator intermediate between
+
+47
+00:03:56,391 --> 00:04:00,613
+the exposure and the outcome M, and the final outcome Y.
+
+48
+00:04:02,489 --> 00:04:06,437
+In this graph, we see that the effect of the exposure and
+
+49
+00:04:06,437 --> 00:04:09,802
+the outcome can operate through two pathways.
+
+50
+00:04:09,802 --> 00:04:15,774
+One that is direct from A to Y not involved in the media and
+
+51
+00:04:15,774 --> 00:04:21,620
+this is our direct effect and the pathway that involves
+
+52
+00:04:21,620 --> 00:04:27,359
+the mediator that channels the effect of A through M.
+
+53
+00:04:27,359 --> 00:04:31,595
+This is the indirect effect.
+
+54
+00:04:31,595 --> 00:04:36,447
+The goal of mediation analysis is to be able to
+
+55
+00:04:36,447 --> 00:04:41,557
+quantify the strength of these two potentially
+
+56
+00:04:41,557 --> 00:04:45,774
+co-currently operating pathways and
+
+57
+00:04:45,774 --> 00:04:50,006
+understand the relative importance.
+
+58
+00:04:50,006 --> 00:04:54,219
+In this slide and basically saying [LAUGH] What I said before.
+
+59
+00:04:56,665 --> 00:05:01,979
+I would like to introduce here an example of causal mediation
+
+60
+00:05:01,979 --> 00:05:07,407
+analysis in the setting of a lamb cancer epidemiology study.
+
+61
+00:05:07,407 --> 00:05:13,227
+I like this application because it has a lot of history in it.
+
+62
+00:05:13,227 --> 00:05:20,666
+And this history dates back to the 1950s, when it wasn't clear at all yet
+
+63
+00:05:20,666 --> 00:05:25,485
+that smoking is a very toxicants for lung cancer.
+
+64
+00:05:25,485 --> 00:05:34,086
+In particular, the person depicted in the photograph on the left, Fisher.
+
+65
+00:05:34,086 --> 00:05:38,497
+A very famous statistician who was a smoker himself,
+
+66
+00:05:38,497 --> 00:05:43,692
+was really doubting evidence from epidemiological study that
+
+67
+00:05:43,692 --> 00:05:48,997
+there was indeed a true causal effect of smoking on lung cancer.
+
+68
+00:05:48,997 --> 00:05:54,424
+He was in particular hypothesising that this relationship between smoking and
+
+69
+00:05:54,424 --> 00:05:58,555
+lung cancer was not really causal as depicted by this dog with
+
+70
+00:05:58,555 --> 00:06:01,557
+a direct order from smoking to lung cancer.
+
+71
+00:06:01,557 --> 00:06:05,493
+But instead potentially a confounded relationship, so
+
+72
+00:06:05,493 --> 00:06:10,661
+immersed furious association, which is more represented by this graph.
+
+73
+00:06:10,661 --> 00:06:15,938
+Where smoking doesn't have a direct effect on land cancer,
+
+74
+00:06:15,938 --> 00:06:23,290
+but rather its association is channelled by a backdoor path involving a confounder.
+
+75
+00:06:23,290 --> 00:06:28,121
+Here in particular, Fisher was hypothesising than an unmeasured
+
+76
+00:06:28,121 --> 00:06:30,715
+confounder was a genetic variant.
+
+77
+00:06:30,715 --> 00:06:35,800
+That would predispose people to become addicted
+
+78
+00:06:35,800 --> 00:06:42,630
+to nicotine as well as predispose people to develop lung cancer.
+
+79
+00:06:42,630 --> 00:06:47,558
+This hypothesis of potential unmeasured confounding explaining
+
+80
+00:06:47,558 --> 00:06:52,222
+the association between smoking and lung cancer was refuted by
+
+81
+00:06:52,222 --> 00:06:56,447
+the seminal work of Cornfield on sensitivity analysis.
+
+82
+00:06:56,447 --> 00:07:02,132
+Who showed that such hypothetical genetic variant should
+
+83
+00:07:02,132 --> 00:07:07,353
+have had it realistically strong effect on smoking to
+
+84
+00:07:07,353 --> 00:07:14,331
+actually explain away all the effects that smoking has on land cancer.
+
+85
+00:07:14,331 --> 00:07:19,949
+So, for a long time, the hypothesis of Fisher of the existence
+
+86
+00:07:19,949 --> 00:07:24,295
+of a genetic variant, potentially confounding
+
+87
+00:07:24,295 --> 00:07:29,395
+the relationship of smoking lung cancer was a set aside.
+
+88
+00:07:29,395 --> 00:07:34,437
+However, recently genetic variants on
+
+89
+00:07:34,437 --> 00:07:39,927
+chromosome 15q25.1 were identified
+
+90
+00:07:39,927 --> 00:07:44,672
+to be associated both with the smoking
+
+91
+00:07:44,672 --> 00:07:49,432
+behaviour as well as with lung cancer.
+
+92
+00:07:49,432 --> 00:07:54,603
+So, what happens if both statements are true that is truly
+
+93
+00:07:54,603 --> 00:08:00,315
+smoking as a causal relationship with the outcome lung cancer?
+
+94
+00:08:00,315 --> 00:08:03,027
+So that there is an arrow from M to Y.
+
+95
+00:08:03,027 --> 00:08:08,187
+But also truly, there is such a genetic variant
+
+96
+00:08:08,187 --> 00:08:14,374
+that both causes lung cancer and as well as smoking.
+
+97
+00:08:14,374 --> 00:08:18,511
+So, combining these two evidences,
+
+98
+00:08:18,511 --> 00:08:26,799
+we come up with the mediation dog that we saw at the beginning of the lecture.
+
+99
+00:08:26,799 --> 00:08:30,843
+So, once this genetic variant was discovered,
+
+100
+00:08:30,843 --> 00:08:33,711
+new scientific questions arose.
+
+101
+00:08:33,711 --> 00:08:39,882
+In particular, if such a genetic variant is associated with smoking.
+
+102
+00:08:39,882 --> 00:08:46,463
+Now, in its theological questions arises as to whether the effect of the genetic
+
+103
+00:08:46,463 --> 00:08:52,393
+variant or lung cancer operates primarily through smoking addiction.
+
+104
+00:08:52,393 --> 00:08:59,987
+Or alternatively, through other pathways that are independent of smoking behaviour.
+
+105
+00:08:59,987 --> 00:09:06,373
+We will discuss during the live labs and furthermore in the next slides,
+
+106
+00:09:06,373 --> 00:09:11,713
+why it's important to ask this question about the mechanism
+
+107
+00:09:11,713 --> 00:09:17,591
+through which a genetic variant causes a certain disease status.
+
+108
+00:09:17,591 --> 00:09:23,255
+This has important implications in prevention science.
+
+109
+00:09:23,255 --> 00:09:27,744
+So, what are these studies that identify these genetic variants?
+
+110
+00:09:27,744 --> 00:09:33,813
+In 2008, independent research groups identify these genetic variants
+
+111
+00:09:33,813 --> 00:09:40,644
+on chromosome 15q25.1 has been associated with increased risk of lung cancer.
+
+112
+00:09:40,644 --> 00:09:45,707
+Here, the citations and those the same variants were identified
+
+113
+00:09:45,707 --> 00:09:51,798
+by other research groups has been associated with nicotine dependence.
+
+114
+00:09:51,798 --> 00:09:56,575
+Now there was debate as to whether the effect of lung cancer was direct or
+
+115
+00:09:56,575 --> 00:10:00,486
+operated through pathways related to smoking behaviour.
+
+116
+00:10:00,486 --> 00:10:02,198
+And the different scholars,
+
+117
+00:10:02,198 --> 00:10:05,701
+different research groups made the different hypotheses.
+
+118
+00:10:05,701 --> 00:10:11,248
+Some studies and some investigators reported that the associations
+
+119
+00:10:11,248 --> 00:10:17,092
+between the variance and lung cancer might have been primarily direct.
+
+120
+00:10:17,092 --> 00:10:21,666
+But as others reported that they might have been indirect
+
+121
+00:10:21,666 --> 00:10:24,436
+through iniquity independence.
+
+122
+00:10:24,436 --> 00:10:30,356
+And then other investigators hypothesised that instead of immediately mechanism,
+
+123
+00:10:30,356 --> 00:10:34,467
+potentially an interactive mechanism between the gene and
+
+124
+00:10:34,467 --> 00:10:37,192
+the smoking behaviour were operating.
+
+125
+00:10:37,192 --> 00:10:42,541
+Whereby smokers who carried the genetic variant might
+
+126
+00:10:42,541 --> 00:10:48,596
+have been more vulnerable to the harmful effect of nicotine.
+
+127
+00:10:48,596 --> 00:10:52,114
+So, how do we reconcile all these hypotheses?
+
+128
+00:10:52,114 --> 00:10:57,880
+How do we quantify the role of mediating mechanisms?
+
+129
+00:10:57,880 --> 00:11:01,778
+Interactive mechanisms versus mechanisms that
+
+130
+00:11:01,778 --> 00:11:06,249
+are completely independent of the putative mediator?
+
+131
+00:11:06,249 --> 00:11:12,987
+Well, first, we need a formal mathematical definition of the causal effects.
+
+132
+00:11:12,987 --> 00:11:16,376
+We then need to understand what's the best study design and
+
+133
+00:11:16,376 --> 00:11:19,302
+what are the conditions and the type of variables.
+
+134
+00:11:19,302 --> 00:11:23,436
+We need to collect in order to achieve the valid
+
+135
+00:11:23,436 --> 00:11:28,101
+destination of these direct and indirect effects.
+
+136
+00:11:28,101 --> 00:11:30,163
+And all these strategies,
+
+137
+00:11:30,163 --> 00:11:36,175
+statistical modelling strategies need to account for potential complex data.
+
+138
+00:11:36,175 --> 00:11:40,374
+Such as non-continuous outcome or non-continuous mediator,
+
+139
+00:11:40,374 --> 00:11:45,196
+the presence of exposure mediator interactions or non-linear effects.
+
+140
+00:11:45,196 --> 00:11:50,273
+And also challenges that are brought up by
+
+141
+00:11:50,273 --> 00:11:57,245
+missing data due to study dropout or measurement error.
+
+142
+00:11:57,245 --> 00:12:03,062
+So, a little bit of history about mediation analysis in the other
+
+143
+00:12:03,062 --> 00:12:08,774
+fields of there are a little bit outside of causally influence,
+
+144
+00:12:08,774 --> 00:12:15,364
+but who gave the first contributions to address questions of mediation?
+
+145
+00:12:15,364 --> 00:12:22,179
+The first scholar who actually put forth a way a strategy to estimate direct and
+
+146
+00:12:22,179 --> 00:12:26,836
+in that effects is the geneticist the Sewall Wright.
+
+147
+00:12:26,836 --> 00:12:32,307
+Who is also the father of structural modelling,
+
+148
+00:12:32,307 --> 00:12:36,958
+who in 1921 wrote this seminal paper
+
+149
+00:12:36,958 --> 00:12:41,881
+that walked us through the use of systems of
+
+150
+00:12:41,881 --> 00:12:46,690
+linear equations to estimate pathways.
+
+151
+00:12:46,690 --> 00:12:51,751
+Baron and Kenny in 1986, effectively made popular
+
+152
+00:12:51,751 --> 00:12:57,136
+this linear structural modelling approach by Sewall Wright
+
+153
+00:12:57,136 --> 00:13:01,887
+in the psychology and social sciences literature.
+
+154
+00:13:01,887 --> 00:13:09,313
+And this paper by Baron and Kenny has been sighted now more than 60,000 times.
+
+155
+00:13:09,313 --> 00:13:14,107
+So it's extremely popular.
+
+156
+00:13:14,107 --> 00:13:18,493
+The approaches that have been put forth in the biomedical and
+
+157
+00:13:18,493 --> 00:13:24,008
+the social sciences literature have been purely statistical approaches.
+
+158
+00:13:24,008 --> 00:13:31,198
+That is, they were grounded on the definition of statistical models.
+
+159
+00:13:31,198 --> 00:13:37,370
+We have to wait on to the early 1990s, for scholars working in causal influence
+
+160
+00:13:37,370 --> 00:13:42,944
+in particular under the counterfactual framework for causal inference.
+
+161
+00:13:42,944 --> 00:13:47,700
+To start thinking about how to formalise questions of mediation
+
+162
+00:13:47,700 --> 00:13:50,700
+using the potential outcome language.
+
+163
+00:13:50,700 --> 00:13:55,320
+And this is when the work of Robins and Greenland came in,
+
+164
+00:13:55,320 --> 00:14:00,329
+who has we will see throughout the course started off actually
+
+165
+00:14:00,329 --> 00:14:06,703
+by being very sceptical about our ability to actually investigate pathways.
+
+166
+00:14:06,703 --> 00:14:11,876
+And we in fact had to wait until 2001, when Judea Pearl was the first
+
+167
+00:14:11,876 --> 00:14:17,584
+one to recover identify ability conditions for direct and indirect effects.
+
+168
+00:14:17,584 --> 00:14:19,107
+So think about it.
+
+169
+00:14:19,107 --> 00:14:24,405
+Like there were definitions of these effects in the early 1990s,
+
+170
+00:14:24,405 --> 00:14:28,191
+which remained dormant for more than 10 years.
+
+171
+00:14:28,191 --> 00:14:32,163
+Because after defining these effects,
+
+172
+00:14:32,163 --> 00:14:36,719
+it was unclear whether actually these effects
+
+173
+00:14:36,719 --> 00:14:41,524
+could have been learnt from the observed data.
+
+174
+00:14:42,941 --> 00:14:45,660
+So, let's-
+

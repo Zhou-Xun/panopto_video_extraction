@@ -1,0 +1,400 @@
+1
+00:00:09,620 --> 00:00:16,520
+In observational epidemiology. Individuals experience so many different risk factors for an outcome at one time.
+
+2
+00:00:17,180 --> 00:00:26,420
+They're often co-occurring raising the question of how do we differentiate the impact of one risk factor from another on our outcome?
+
+3
+00:00:27,770 --> 00:00:36,320
+In previous videos, we used dogs to detect crude associations between an exposure and an outcome, as well as other factors.
+
+4
+00:00:36,650 --> 00:00:44,660
+On that graphic, we saw how we can found causal associations and non causal paths between different variables.
+
+5
+00:00:45,170 --> 00:00:49,700
+We're calling that the non causal paths or ones that introduce confounding.
+
+6
+00:00:50,660 --> 00:00:55,790
+In this video we're going to talk about different analytic strategies and the representations
+
+7
+00:00:55,790 --> 00:01:00,560
+in Dags to show you how you can remove confounding using analytic techniques.
+
+8
+00:01:01,760 --> 00:01:06,650
+We're going to talk about how you can reduce and eliminate confounding through stratification.
+
+9
+00:01:07,190 --> 00:01:11,870
+Identify how to close open paths between two variables in a DAG.
+
+10
+00:01:12,590 --> 00:01:19,670
+And then we're going to talk about how to analyze Dags to identify minimal sets of confounders needed to prevent confounding bias.
+
+11
+00:01:21,350 --> 00:01:27,980
+For this particular video, we're going to talk through an example on childhood education and diabetes and later life.
+
+12
+00:01:29,150 --> 00:01:34,490
+As you might imagine, the quality of a childhood education doesn't occur in a vacuum,
+
+13
+00:01:34,910 --> 00:01:42,890
+but rather it often happens differently between people of different socioeconomic status and other characteristics of place.
+
+14
+00:01:43,280 --> 00:01:50,510
+That might be alternate explanations for crude associations between education level and diabetes and later life.
+
+15
+00:01:52,220 --> 00:01:56,480
+So let's start by drawing ourselves one of our nice tags here.
+
+16
+00:01:56,510 --> 00:02:01,000
+I have low educational attainment as a possible risk factor for diabetes.
+
+17
+00:02:01,010 --> 00:02:06,020
+I've put a question mark on there to show that we're asking that question on a dog.
+
+18
+00:02:06,020 --> 00:02:12,319
+I also have included socioeconomic status as a common cause of educational attainment and
+
+19
+00:02:12,320 --> 00:02:18,469
+of diabetes through poor access to healthy foods in addition to socioeconomic status.
+
+20
+00:02:18,470 --> 00:02:29,690
+I've added on this graphic maternal diabetes as a common effect of both socioeconomic status and genetic risk, which predisposes people to diabetes.
+
+21
+00:02:31,250 --> 00:02:36,830
+So now is an opportunity for you to practice what we've learned in the past about the rules of a DAC.
+
+22
+00:02:37,790 --> 00:02:40,790
+In this DAG, we see two back door paths.
+
+23
+00:02:41,510 --> 00:02:45,560
+If you want, feel free to pause a video to look for them yourself.
+
+24
+00:02:46,370 --> 00:02:47,629
+On the first path,
+
+25
+00:02:47,630 --> 00:02:58,070
+we have one backdoor path that goes through the common cause of socioeconomic status because there are no colliders along the lines of arrows.
+
+26
+00:02:58,400 --> 00:03:04,700
+This path is open and it's likely to be a source of confounding between low educational attainment and diabetes.
+
+27
+00:03:05,840 --> 00:03:12,860
+On the second path, we have maternal diabetes as a common effect of both socioeconomic status and genetic risk.
+
+28
+00:03:13,610 --> 00:03:23,090
+Because it is a collider, that path is closed and therefore we don't expect any confounding to happen through that particular path.
+
+29
+00:03:24,230 --> 00:03:32,450
+So just as a brief summary, this graphic is showing us that there's going to be confounding of the association of interest by the pathway through SS,
+
+30
+00:03:32,780 --> 00:03:41,390
+but not maternal diabetes. In order to get the right answer between education and diabetes of that association,
+
+31
+00:03:41,660 --> 00:03:50,870
+we therefore must find a way to block or close the open path through socioeconomic status in order to isolate the effect of interest.
+
+32
+00:03:52,580 --> 00:03:59,420
+The most common way that we block an open path or eliminate confounding is to condition on a variable.
+
+33
+00:03:59,930 --> 00:04:09,560
+Now, what do I mean by conditioning on a variable? What it means is to look at a relationship of interest within homogeneous levels of my confounder.
+
+34
+00:04:10,190 --> 00:04:16,880
+So, for example, if socioeconomic status and income is the only confounding factor of our relationship,
+
+35
+00:04:17,480 --> 00:04:23,510
+then I should get the right answer or the right association between education and diabetes.
+
+36
+00:04:23,810 --> 00:04:31,220
+If I only look among those people with low income, or if I only look at people who have high income.
+
+37
+00:04:31,850 --> 00:04:42,710
+Now, why does that work? Well, what's happening is that I'm effectively breaking any kind of covariance or relationship between income and education,
+
+38
+00:04:43,040 --> 00:04:48,410
+because I'm only looking at one level. Right. I basically are restricted to people of low income.
+
+39
+00:04:48,740 --> 00:04:55,940
+And so therefore it's not really varying with education any longer provided that there is no effect modification,
+
+40
+00:04:55,940 --> 00:05:01,160
+which means a different association between education and diabetes by income status.
+
+41
+00:05:01,820 --> 00:05:07,969
+The average of each of the associations among low income people and among high income
+
+42
+00:05:07,970 --> 00:05:13,340
+people should get me an unbiased estimate of the true and confounded association.
+
+43
+00:05:15,020 --> 00:05:23,390
+For example, let's take this data. Imagine we have information collected on education and diabetes risk in a prospective study.
+
+44
+00:05:24,380 --> 00:05:30,200
+What we can do is we can estimate the risk ratio for diabetes between those of low
+
+45
+00:05:30,200 --> 00:05:34,130
+educational attainment as compared to those of higher educational attainment.
+
+46
+00:05:35,060 --> 00:05:41,780
+On the top, what we do to make that ratio is we estimate the risk of diabetes among those with low education.
+
+47
+00:05:42,200 --> 00:05:48,200
+So basically 172 people divided by 567 total.
+
+48
+00:05:48,980 --> 00:05:52,430
+And that's the risk of diabetes among those with low education.
+
+49
+00:05:53,000 --> 00:05:57,049
+Divide that by the risk of diabetes among those with high education.
+
+50
+00:05:57,050 --> 00:06:04,010
+So 60 over 352. And what we get is a crude risk ratio of 1.8.
+
+51
+00:06:05,750 --> 00:06:15,710
+When we stratify the data by income status, you can see that the associations between education level and diabetes conditional upon income,
+
+52
+00:06:16,100 --> 00:06:20,990
+is about 20% lower in each strata than what we saw in the Crude Association.
+
+53
+00:06:22,730 --> 00:06:29,090
+Honestly, this shouldn't be surprising to us because what we see is that people with lower educational attainment
+
+54
+00:06:29,480 --> 00:06:35,780
+often have lower incomes and people with lower incomes are often at higher risk of diabetes.
+
+55
+00:06:36,620 --> 00:06:43,280
+Therefore, what we have are two positive associations shown as these two plus signs our DAG,
+
+56
+00:06:43,580 --> 00:06:49,880
+which introduces positive confounding that inflates the Crude Association as compared to the true.
+
+57
+00:06:51,670 --> 00:06:57,070
+Although stratification is a very helpful exercise, especially when you're first learning epidemiology,
+
+58
+00:06:57,520 --> 00:07:02,140
+the reality is, is that epidemiologists rarely do our analysis by hand.
+
+59
+00:07:02,500 --> 00:07:12,370
+Rather, what we use are multivariable models in which we accomplish our stratification by including our confounding factors in our model.
+
+60
+00:07:12,400 --> 00:07:15,490
+In other words, we're adjusting for those variables.
+
+61
+00:07:16,630 --> 00:07:22,720
+Here is an example from the literature where somebody was looking at educational attainment and diabetes,
+
+62
+00:07:22,720 --> 00:07:27,430
+just like the question of interest we've been talking about. In this particular table,
+
+63
+00:07:27,430 --> 00:07:36,460
+what I want you to see is that on the left we have the unadjusted model with our reporting odds ratios for the Crude Association,
+
+64
+00:07:36,790 --> 00:07:38,379
+where they see that there's a much,
+
+65
+00:07:38,380 --> 00:07:46,870
+much higher risk of diabetes among those people with lower educational attainment as compared to those people who had bachelor's degrees or more.
+
+66
+00:07:47,380 --> 00:07:53,050
+However, as I started to include more and more confounders into their models,
+
+67
+00:07:53,350 --> 00:07:59,979
+effectively stratifying on them, you can see that the associations got weaker and weaker again,
+
+68
+00:07:59,980 --> 00:08:10,000
+showing us that there is a positive, confounding or an inflating of the associations that we're observing between educational attainment and diabetes.
+
+69
+00:08:11,770 --> 00:08:21,010
+Now, one of the questions that we have, of course, is which variables do we need to adjust for and how many variables do we need to adjust for?
+
+70
+00:08:21,700 --> 00:08:28,989
+Therefore, I want to bring you back to our dogs, because one of the ways in which dogs are extremely helpful is identifying again which
+
+71
+00:08:28,990 --> 00:08:33,520
+factors we need to adjust for and how many of those factors we have to include in our models.
+
+72
+00:08:34,210 --> 00:08:39,850
+So in our scenario, recall that confounding occurred via the back door path between education,
+
+73
+00:08:39,850 --> 00:08:46,460
+socioeconomic status and healthy foods and diabetes to block the open path.
+
+74
+00:08:46,480 --> 00:08:55,350
+What we need to do is condition on a non collider variable along that path to indicate that we're conditioning on a variable.
+
+75
+00:08:55,360 --> 00:09:00,340
+What we do is we draw this box around the variable here shown for socioeconomic status.
+
+76
+00:09:01,060 --> 00:09:07,660
+If this variable is a non collider, then conditioning on it which is effectively the same as stratification,
+
+77
+00:09:08,140 --> 00:09:14,530
+prevents confounding to occur via that association because it blocks that back door path.
+
+78
+00:09:15,190 --> 00:09:18,580
+So just to kind of drive home that point one more time,
+
+79
+00:09:18,880 --> 00:09:28,000
+what you see here is that conditioning or stratifying or adjusting for socioeconomic status will block a previously
+
+80
+00:09:28,000 --> 00:09:36,550
+opened back door path from diabetes to educational attainment via socioeconomic status and healthy access to foods.
+
+81
+00:09:38,200 --> 00:09:43,390
+We only need to conditioned on one non collider on a path in order to close that path.
+
+82
+00:09:43,990 --> 00:09:48,969
+What that means is that I could have just as easily conditioned on poor access to healthy
+
+83
+00:09:48,970 --> 00:09:54,760
+foods in order to close our backdoor path between educational attainment and diabetes.
+
+84
+00:09:56,410 --> 00:10:00,910
+Interestingly, I could have conditioned on either one of them or both of them.
+
+85
+00:10:01,870 --> 00:10:07,210
+Inherently, it is not problematic to conditioned on two non colliders on a path.
+
+86
+00:10:07,810 --> 00:10:13,150
+The only potential issue is that you might lose precision or power of your ultimate associations
+
+87
+00:10:13,150 --> 00:10:17,980
+of interests because effectively are splicing your data more thinly than what's required.
+
+88
+00:10:19,750 --> 00:10:20,680
+As such,
+
+89
+00:10:20,680 --> 00:10:32,080
+the optimal adjustment or minimal adjustment set for confounding would be either to adjust for socioeconomic status or poor access to healthy foods.
+
+90
+00:10:32,320 --> 00:10:39,100
+Importantly, I want you to note that you do not need to adjust for maternal diabetes or genetic risk
+
+91
+00:10:39,430 --> 00:10:44,140
+because maternal diabetes was a collider and prevented that path from being open.
+
+92
+00:10:44,500 --> 00:10:53,959
+So no confounding would occur via that pathway. So one final caveat before we close out this video is that adjustment for the right
+
+93
+00:10:53,960 --> 00:10:57,830
+variables doesn't always imply that there's going to be no confounding at all.
+
+94
+00:10:58,130 --> 00:11:03,860
+What can happen is that if you have a confounder, that's a continuous measure here.
+
+95
+00:11:03,860 --> 00:11:07,820
+For example, income. Income is actually not a low or a high thing.
+
+96
+00:11:08,120 --> 00:11:17,540
+It's a continuous measure. And so if what we're doing is conditioning on or controlling for or adjusting for low versus high income,
+
+97
+00:11:17,810 --> 00:11:23,900
+we can still have confounding by income because of that variation within each of those groups.
+
+98
+00:11:25,690 --> 00:11:31,630
+In summary. Conditioning on a non collider will close a back door path and eliminate confounding.
+
+99
+00:11:32,260 --> 00:11:37,570
+Conditioning during our analysis can be accomplished via stratification or multivariable modeling.
+
+100
+00:11:38,050 --> 00:11:44,020
+And finally Dags can be used to select the minimal number of covariates required to remove confounding.
+

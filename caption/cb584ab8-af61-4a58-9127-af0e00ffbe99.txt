@@ -1,0 +1,2296 @@
+1
+00:00:01,770 --> 00:00:09,570
+They should be. And since then and.
+
+2
+00:00:12,280 --> 00:00:15,370
+Like I said.
+
+3
+00:00:19,960 --> 00:00:29,060
+All right. Okay.
+
+4
+00:00:29,070 --> 00:00:35,690
+So. This is, first of all.
+
+5
+00:00:41,560 --> 00:00:45,310
+Combination maybe a drop ad and facing overworked worked in the projects.
+
+6
+00:00:45,490 --> 00:00:50,229
+Not sure. In any event, we'd have a somewhat smaller class now.
+
+7
+00:00:50,230 --> 00:01:04,690
+So I will. I will get out revised project groupings now that we're getting a better idea who's going to be around.
+
+8
+00:01:05,440 --> 00:01:10,480
+I thought we were sort of at that stage, but I was clued in state. Okay, so.
+
+9
+00:01:13,700 --> 00:01:20,540
+Just before I kick off any questions about logistics or anything else covered previously.
+
+10
+00:01:20,630 --> 00:01:25,430
+The questions on burning questions.
+
+11
+00:01:28,440 --> 00:01:38,459
+Okay. So we have developed this idea of the propensity score rate to basically trying to estimate the probability that a given
+
+12
+00:01:38,460 --> 00:01:45,570
+individual has received treatment when they could have received either treatment or control based on observed covariates.
+
+13
+00:01:46,590 --> 00:01:56,340
+And so we had talked about sort of a fully weighted estimate previously, including a little adjustment to kind of stabilize it a bit.
+
+14
+00:01:59,550 --> 00:02:11,310
+So what another alternative was to to kind of give a maybe a bit more robust approaches and a bit more stable approaches is to
+
+15
+00:02:11,310 --> 00:02:21,630
+use this idea of the ordered propensity score to kind of create strata and then estimate those causal effects within the strata.
+
+16
+00:02:22,350 --> 00:02:29,969
+So so basically the idea is we're going to sort of try to sort of group together individuals that
+
+17
+00:02:29,970 --> 00:02:36,540
+have sort of roughly common probabilities of receiving treatment and then treat those as randomized.
+
+18
+00:02:37,230 --> 00:02:44,700
+Get an estimate of the treatment effect within them and then add them together, roughly weighting them one fifth.
+
+19
+00:02:44,700 --> 00:02:57,660
+But more precisely, whatever the exact number within within a given one of these st is divided by the total sample size.
+
+20
+00:02:59,740 --> 00:03:04,960
+So, so I'm just going to use this somewhat crude method here in a moment, in an example.
+
+21
+00:03:06,090 --> 00:03:10,650
+Your text describes a more data driven method where the blocks are provided based on balanced criteria.
+
+22
+00:03:11,820 --> 00:03:18,220
+Take a look at that. So okay.
+
+23
+00:03:18,310 --> 00:03:23,410
+So basically then that's how we get to be. We've discussed how to do point estimates,
+
+24
+00:03:23,410 --> 00:03:27,520
+either using the fully weighted UST meters or the stratification where we don't
+
+25
+00:03:27,520 --> 00:03:37,490
+use the weights directly but use the propensity scores to create strata. So within.
+
+26
+00:03:40,210 --> 00:03:46,300
+So the fully weighted approach to get the variance estimate for this we can borrow
+
+27
+00:03:46,300 --> 00:03:50,480
+from survey statistics and we are assuming anybody here has had a class in this.
+
+28
+00:03:50,480 --> 00:03:58,480
+So I'm just going to sort of present this as is you can probably see a little bit of the of the idea behind here,
+
+29
+00:03:58,480 --> 00:04:00,910
+but this basically comes from a tail or series approximation.
+
+30
+00:04:01,690 --> 00:04:08,410
+So we think about both the numerator as being a random variable, the denominator as being a random variable.
+
+31
+00:04:08,890 --> 00:04:12,760
+And then we use this to the Taylor series.
+
+32
+00:04:12,760 --> 00:04:22,989
+So we have this ratio function that we then can approximate kind of linear race and without getting too buried in the details,
+
+33
+00:04:22,990 --> 00:04:28,510
+this comes out as basically the sum of the residuals squared.
+
+34
+00:04:29,770 --> 00:04:40,810
+So the residual here, the weighted residuals. So the difference between the predicted value and the mean I'm sorry, the observed value in the mean.
+
+35
+00:04:41,500 --> 00:04:47,530
+So this observed value in the mean under either treatment or the trial, depending on whether the subject has been assigned treatment or control.
+
+36
+00:04:48,130 --> 00:05:00,700
+So that residual weighted and squared and summed and then divided by the sum of the of the weights that whole
+
+37
+00:05:00,700 --> 00:05:06,999
+quantity squared and the weights here again one over the probability of whatever your been assigned to.
+
+38
+00:05:07,000 --> 00:05:16,690
+So that's a score, the probability of the treatment. So basically reciprocal of this propensity score for subjects assigned to treatment
+
+39
+00:05:17,260 --> 00:05:21,130
+and one reciprocal of one minus density score for something assigned to control.
+
+40
+00:05:22,870 --> 00:05:26,530
+So of course there's our weighted estimate, right?
+
+41
+00:05:27,310 --> 00:05:30,370
+So this is the same thing as we have up in this slide.
+
+42
+00:05:30,370 --> 00:05:36,700
+But now I'm just replacing this reciprocal of these propensity scores with this with this weight.
+
+43
+00:05:41,470 --> 00:05:43,420
+So since these are essentially independent,
+
+44
+00:05:45,260 --> 00:05:54,790
+we're not going to there's that we're making assumption that we basically have a simple random sample from a population.
+
+45
+00:05:56,890 --> 00:06:01,120
+Then we can compute these variance variances for these.
+
+46
+00:06:03,770 --> 00:06:08,180
+US two meters and retrieve Mm spears in control and add them together to get the total variance.
+
+47
+00:06:20,300 --> 00:06:25,880
+So while I've given the formulas here, there are there is existing software and we'll talk about that in a minute.
+
+48
+00:06:41,930 --> 00:07:08,130
+And I think that should be 321 Sorry. So we can still basically compute these weighted variance estimates within this rate of we still have some
+
+49
+00:07:08,460 --> 00:07:14,450
+variability of the weights seriously to be able to use that to get more use in the stratified estimator.
+
+50
+00:07:14,460 --> 00:07:25,220
+So we get the variance within stratum and then just add those together with the square of the proportions in each trade.
+
+51
+00:07:26,130 --> 00:07:33,270
+Right? This variance of a constant times x is that constant squared times the variance of x.
+
+52
+00:07:34,720 --> 00:07:39,440
+So that's where this comes from. Is it a pattern across the street or so?
+
+53
+00:07:39,850 --> 00:07:47,209
+Some of the variances? So as I already mentioned right now,
+
+54
+00:07:47,210 --> 00:07:52,730
+standard software to compute these variances product survey procedures if you're in SAS or the survey package in our.
+
+55
+00:08:01,840 --> 00:08:09,940
+As I mentioned before, it is this sort of underlying connection between missing data theory,
+
+56
+00:08:09,940 --> 00:08:16,390
+survey sampling theory and causal inference kind of comes a little bit to the to the forefront here.
+
+57
+00:08:24,140 --> 00:08:29,690
+Okay. So I talk a lot about these differences cause you talk about how much how to estimate them here.
+
+58
+00:08:29,870 --> 00:08:35,659
+Right. So so one thing that and this is somewhat controversial,
+
+59
+00:08:35,660 --> 00:08:42,620
+but the text I used here for this course argues that the propensity score constructions should be based only on covariance.
+
+60
+00:08:43,130 --> 00:08:51,020
+The outcome should be ignored. So the argument for this kind of corresponds to randomization.
+
+61
+00:08:51,710 --> 00:08:55,100
+Right. The point of randomization is to balance covariance.
+
+62
+00:08:55,670 --> 00:09:03,010
+If you don't think about the outcome. Right, that the whole goal of this is to make it independent of the outcome, the potential outcome that is.
+
+63
+00:09:05,330 --> 00:09:13,580
+But that's so that has this advantage of kind of avoiding data snooping.
+
+64
+00:09:13,700 --> 00:09:23,000
+So you're sort of trying to find the if you sort of poke around and try to find a principle score model that will provide a,
+
+65
+00:09:23,210 --> 00:09:26,660
+you know, prior sort of 50 or a priority of the effect.
+
+66
+00:09:27,080 --> 00:09:31,580
+Right. This is dangerous. The counterargument to this.
+
+67
+00:09:32,180 --> 00:09:35,300
+Right, though, is what is confounding. All right.
+
+68
+00:09:35,760 --> 00:09:39,290
+What are the relationships you have to have for the variable to be confounder?
+
+69
+00:09:39,290 --> 00:09:43,790
+It has to be associated with exposure and exposure and the outcome together.
+
+70
+00:09:43,820 --> 00:09:53,209
+Right. So that suggests that actually thinking about the outcome in a sort of sensible fashion can can also be important.
+
+71
+00:09:53,210 --> 00:09:57,980
+And there's a bit of introductory paper on that.
+
+72
+00:09:59,090 --> 00:10:07,489
+But the basic idea is you kind of are looking for confounders, not just for balancing on randomization, but we're put that aside for the moment.
+
+73
+00:10:07,490 --> 00:10:10,550
+Just focus on this first piece. It's also a little simpler.
+
+74
+00:10:18,670 --> 00:10:23,050
+Right. So again, we typically don't know the propensity score if we're not in a randomized trial setting.
+
+75
+00:10:24,130 --> 00:10:26,050
+So we have to estimated based on available data.
+
+76
+00:10:27,280 --> 00:10:34,540
+So if you have any kind of substantive knowledge about the assignment mechanism, it's important to kind of put those predictors in there.
+
+77
+00:10:34,540 --> 00:10:40,900
+So if you know that if you're in a medical setting and there were certain types of individuals that were more likely to be assigned,
+
+78
+00:10:40,990 --> 00:10:42,320
+and you have that information,
+
+79
+00:10:42,340 --> 00:10:47,440
+you know, based on some sort of biomarker or blood pressure measure or something like that, then you definitely want to put that in there.
+
+80
+00:10:50,320 --> 00:10:56,260
+So and then you can sort of check the balance stratum based on the propensity score and kind of repeat
+
+81
+00:10:56,260 --> 00:11:00,640
+as necessary until a balance is achieved or that you get sort of as good a place as you can be.
+
+82
+00:11:01,900 --> 00:11:10,150
+So historically that involved logistic regression. That was how you did predictions for binary outcomes in the treatment assignment here in binary.
+
+83
+00:11:11,290 --> 00:11:15,459
+So you fit that model and then predict the probability, right?
+
+84
+00:11:15,460 --> 00:11:18,670
+And if you then back transforming back to the probability scale.
+
+85
+00:11:20,170 --> 00:11:23,290
+But we're not really too interested in alpha per se, right.
+
+86
+00:11:23,380 --> 00:11:27,280
+It's really just a goal here to kind of of get prediction and so,
+
+87
+00:11:29,200 --> 00:11:34,720
+so moving to sort of more advanced regression techniques of random forest about adding regression trees.
+
+88
+00:11:34,930 --> 00:11:43,210
+So this probably stuff that you may or may not have heard of much but, but there is an alternative, particularly if that is high dimensional.
+
+89
+00:11:43,870 --> 00:11:47,979
+We're just going to use logistic regression. And indeed it's a perfectly fine approach.
+
+90
+00:11:47,980 --> 00:11:53,260
+And in most cases especially interactions are not two dimensional.
+
+91
+00:11:53,800 --> 00:11:58,840
+Yeah. So in some sense repeat is necessary until you write.
+
+92
+00:11:58,870 --> 00:12:05,060
+What exactly would you be repeating. Sort of what what variables are included in what what variables are including this.
+
+93
+00:12:05,370 --> 00:12:15,959
+All right. So. So we're going to talk a little more about this in the next section.
+
+94
+00:12:15,960 --> 00:12:22,140
+But there is kind of a just a very direct way to assess balance is to kind of just do the statistic that's very commonly used.
+
+95
+00:12:22,980 --> 00:12:32,820
+So I don't know. There's a lot of buried notation here, but essentially we're just going to use the sort of separate stratum variances for
+
+96
+00:12:32,820 --> 00:12:36,479
+meter here combined with the difference in means rate to get this these statistics.
+
+97
+00:12:36,480 --> 00:12:40,550
+So you may have multiple variables here.
+
+98
+00:12:40,560 --> 00:12:48,030
+Write it next. So index is okay and.
+
+99
+00:12:53,600 --> 00:12:58,280
+And if we're doing stratification, then these JS referred to the JV strata.
+
+100
+00:12:58,430 --> 00:13:04,130
+So we're going to look at each variable within it straight and try to assess that balance using a sleep statistic.
+
+101
+00:13:05,600 --> 00:13:07,760
+So again, I'll look at the example here in a second.
+
+102
+00:13:07,890 --> 00:13:16,670
+But the basic idea if we're if we're doing the stratified approach, is that you can use these kind of statistics in that fashion.
+
+103
+00:13:17,820 --> 00:13:24,290
+So. To see if you've got a good balance.
+
+104
+00:13:26,250 --> 00:13:29,760
+You can also get kind of an overall measure just by.
+
+105
+00:13:31,380 --> 00:13:36,120
+Summing them the way the proportions of these differences across the street.
+
+106
+00:13:37,110 --> 00:13:41,980
+And similarly for the variance. So, you know, if you get values.
+
+107
+00:13:42,750 --> 00:13:46,440
+So in using these new squares like on the previous side.
+
+108
+00:13:46,500 --> 00:13:51,209
+Yeah. It's the null hypothesis is that you have balance.
+
+109
+00:13:51,210 --> 00:14:01,320
+Yes. So if these things are equal, then the means are equal in the two arms, then you're sort of have that perfect balance.
+
+110
+00:14:02,220 --> 00:14:06,360
+Obviously, there's sampling variability. So that's what this is trying to address.
+
+111
+00:14:06,360 --> 00:14:11,250
+But I. Comparing it to easy distribution.
+
+112
+00:14:13,500 --> 00:14:21,420
+So whether you're doing an overall measure or within within stratum, the values of the absolute values that are far removed from zero,
+
+113
+00:14:21,420 --> 00:14:25,170
+say, two or three suggest you really you have yet to achieve balance.
+
+114
+00:14:26,550 --> 00:14:31,740
+So you need to refine the strata for live the fact that you can't achieve balance in some coherence.
+
+115
+00:14:34,440 --> 00:14:37,470
+You know, just maybe that you're not able to to do that.
+
+116
+00:14:37,590 --> 00:14:42,780
+It's usually usually kind of lined up a little bit with this idea of of overlap
+
+117
+00:14:42,780 --> 00:14:46,410
+between the plot to a little bit more that there are some subjects that have,
+
+118
+00:14:48,250 --> 00:14:53,400
+but there are simply nobody in one of the groups or the other based on X that you may find it.
+
+119
+00:14:54,360 --> 00:15:02,130
+You cannot create that that there's no one left within a given stratum to want to match.
+
+120
+00:15:03,560 --> 00:15:16,610
+Soon. In which case this difference will always be always be non-zero quite in far enough away from zero to disease statistical what would good.
+
+121
+00:15:23,500 --> 00:15:27,190
+Okay. So I took an example.
+
+122
+00:15:27,190 --> 00:15:32,290
+So this is an example kind of you're dear to my heart.
+
+123
+00:15:32,290 --> 00:15:37,450
+I did a lot of work on this back in the first part of the first day that I would say the first half of my career.
+
+124
+00:15:39,190 --> 00:15:42,549
+So before I came to Michigan, I was actually at the University of Pennsylvania,
+
+125
+00:15:42,550 --> 00:15:50,440
+where I worked with a group that was involved very heavily in dealing with injuries to children and passenger vehicle crashes.
+
+126
+00:15:51,100 --> 00:15:58,329
+So the status it's a little old and in, depending on how much you know about how kids are restrained, might seem a little bizarre already.
+
+127
+00:15:58,330 --> 00:16:06,880
+But but it is it was something that was quite a serious issue in the first decade of the 21st century,
+
+128
+00:16:08,380 --> 00:16:12,730
+basically trying to get children restrained properly in young child restrained vehicles.
+
+129
+00:16:12,730 --> 00:16:21,040
+So one of the issues is that so passenger cars, all the all the sort of seatbelt,
+
+130
+00:16:21,040 --> 00:16:25,599
+construction and so forth in passenger cars was developed based on adults and adult men,
+
+131
+00:16:25,600 --> 00:16:31,209
+which is a whole other issue, but certainly not, you know, so than one issue.
+
+132
+00:16:31,210 --> 00:16:37,750
+But in children, even more so, not necessarily well designed for it for those those types of passengers.
+
+133
+00:16:38,560 --> 00:16:42,700
+And you can see when the examples of the injury, there's something called seatbelt syndrome.
+
+134
+00:16:43,540 --> 00:16:48,340
+Basically, if you're an adult, your seatbelt kind of goes around your pelvis.
+
+135
+00:16:48,820 --> 00:16:52,780
+Pelvis is the strongest bone. The body pretty much can take a lot of load.
+
+136
+00:16:55,000 --> 00:17:04,060
+But if you're a kid, your seatbelt often, if you're, well, sort of run up at the top of the pelvis into where your your spinal cord beats the pelvis.
+
+137
+00:17:04,390 --> 00:17:07,600
+And so you get this kind of like sandwich in effect going on. Yeah.
+
+138
+00:17:07,900 --> 00:17:14,410
+And an example of the kind of injury there usually doesn't result in fatalities, but can result in some pretty severe internal injuries.
+
+139
+00:17:16,030 --> 00:17:21,099
+And it's not the only thing that, you know, sort of because you're not properly restrained, could slip out of the belts,
+
+140
+00:17:21,100 --> 00:17:25,970
+which could be very severe, or they can just their heads can bounce around and things like that.
+
+141
+00:17:26,590 --> 00:17:30,220
+That would be less so for a given crash or an adult.
+
+142
+00:17:31,690 --> 00:17:37,780
+So. So okay.
+
+143
+00:17:37,780 --> 00:17:44,810
+So we had this large study of basically children in passenger vehicle crashes.
+
+144
+00:17:44,830 --> 00:17:52,540
+It was done with State Farm Insurance, which is about one is by far away the largest insurance provider, United States.
+
+145
+00:17:52,540 --> 00:18:03,759
+So maybe not exactly a random sample of a of children, but certainly they do provide about one quarter of of all the insured auto insurance policies,
+
+146
+00:18:03,760 --> 00:18:06,520
+at least at this point in time when the study was done.
+
+147
+00:18:06,520 --> 00:18:16,479
+So maybe not too far from a representative sample of children in insured vehicles who do have to have insurance by law.
+
+148
+00:18:16,480 --> 00:18:25,540
+But that's not always followed. So so we have this data set.
+
+149
+00:18:25,540 --> 00:18:29,890
+We we know how they did follow up after a crash was reported.
+
+150
+00:18:30,490 --> 00:18:35,320
+So we know based on this better parent report how that child was restrained.
+
+151
+00:18:36,130 --> 00:18:39,640
+We also had some pretty good idea about the level of injury they had.
+
+152
+00:18:40,510 --> 00:18:47,860
+And here we're going to find injury as a zero, an outcome which basically is sort of this abbreviated injury scale which runs from 0 to 6.
+
+153
+00:18:48,580 --> 00:18:53,979
+So zero is no injury, six is death, one is sort of mild injury.
+
+154
+00:18:53,980 --> 00:18:55,750
+And the 2 to 5 were sort of more severe.
+
+155
+00:18:55,750 --> 00:19:04,060
+So we we sort of took everything over two, but we also added a concussion, which for whatever reason is considered as is one injury.
+
+156
+00:19:04,840 --> 00:19:14,650
+So okay, so we had pretty good data on exposure and outcome, but of course booster seats are not randomly assigned.
+
+157
+00:19:14,710 --> 00:19:18,130
+We didn't do an experience is a little bit like smoking, right?
+
+158
+00:19:19,660 --> 00:19:26,050
+We weren't really trying to sort of put kids in what we thought might be inappropriate singing at random.
+
+159
+00:19:26,350 --> 00:19:34,510
+We would just rely on one on how they were, how they were seated, how we observed in these seated.
+
+160
+00:19:35,590 --> 00:19:39,760
+So there could be differences in ages, types of vehicles, driven types of drivers.
+
+161
+00:19:40,240 --> 00:19:46,690
+Oh, but we also did have information, one, we also attended a very seriously over sample, more severe crashes.
+
+162
+00:19:47,380 --> 00:19:50,290
+So they had a much higher probability selection, less severe crashes.
+
+163
+00:19:50,290 --> 00:19:55,420
+But I'm going to ignore that for now, just to kind of not get this to be too complicated at this stage.
+
+164
+00:19:56,730 --> 00:20:04,170
+So so questions kind of laid out the data here, I think.
+
+165
+00:20:07,610 --> 00:20:16,160
+Okay. So. So among our observed variables, we sort of thought of these as sort of likely confounders.
+
+166
+00:20:17,000 --> 00:20:21,800
+So age of the child, age of the driver type of the vehicle, how severe the crash was.
+
+167
+00:20:23,630 --> 00:20:26,570
+And that really is that sort of in two measures.
+
+168
+00:20:26,570 --> 00:20:34,070
+One is this tollway, whether the drive to the car was drivable after the accident and then whether or not the airbag deployed.
+
+169
+00:20:35,120 --> 00:20:39,200
+So, um, so you can see there's quite a few differences.
+
+170
+00:20:41,420 --> 00:20:47,450
+There's a tendency for older kids to be in seatbelts, which kind of may make some sense, right?
+
+171
+00:20:47,460 --> 00:20:51,770
+That, you know, at some point the booster seats are no longer going to be a problem for a child.
+
+172
+00:20:51,770 --> 00:20:59,110
+But, you know, maybe this is in reality, all kids that are seven should be in a booster seat or under age should be in a booster seat.
+
+173
+00:20:59,120 --> 00:21:02,600
+But but there is some tendency to kind of follow that.
+
+174
+00:21:03,720 --> 00:21:07,130
+The at least under kids, the younger they were, the more likely they were to be in a booster seat.
+
+175
+00:21:07,910 --> 00:21:14,299
+Some differences in the type of vehicle may be a little more likely to be sort of mean in smaller passenger vehicles and less likely to
+
+176
+00:21:14,300 --> 00:21:25,280
+be in in if they were belted and less likely to be in sort of minivans or where SUV is a little more likely to have younger drivers.
+
+177
+00:21:26,390 --> 00:21:29,780
+Crash severity seemed seemed higher.
+
+178
+00:21:30,350 --> 00:21:36,620
+So if they drive the vehicle being driven intrusion means there is like some part of the vehicle that was in the passenger compartment.
+
+179
+00:21:37,220 --> 00:21:40,790
+So vehicles are actually designed to kind of crumple without keeping the passenger
+
+180
+00:21:41,270 --> 00:21:49,900
+compartment safe or at least on like nothing's supposed to intrude into that space.
+
+181
+00:21:50,540 --> 00:21:54,530
+And so if this crash, of course, severe enough, you can't prevent that from happening.
+
+182
+00:21:55,490 --> 00:21:58,720
+And then, of course, airbag, which is just another measure of how severe the crash was,
+
+183
+00:21:58,770 --> 00:22:02,210
+was actually pretty, although the airbag going off was kind of rare.
+
+184
+00:22:02,230 --> 00:22:06,770
+It was definitely a lot more common that kids were in seatbelts. So a little bit of a hint there.
+
+185
+00:22:06,770 --> 00:22:14,090
+Older kids. Little different types of vehicles, more likely to be smaller cars, more likely to get more severe crashes.
+
+186
+00:22:14,100 --> 00:22:20,990
+So just a little more background knowledge, smaller cars, more severe crashes, more likely to have an injury.
+
+187
+00:22:22,130 --> 00:22:26,210
+Younger kids more likely to have an injury. So this is kind of work a little bit in different directions.
+
+188
+00:22:26,720 --> 00:22:36,050
+There's a potential difficulty in assessing the impact of the booster seat risk on different things, which are even seatbelts.
+
+189
+00:22:37,490 --> 00:22:52,850
+So. Okay. So I'm just kicking off here with a logistic regression model and I have all of the the both a subset
+
+190
+00:22:52,850 --> 00:22:58,790
+of the data where the the sort of subset of variables in the data as well as the R code are used for.
+
+191
+00:22:58,790 --> 00:23:02,750
+This should be posted on the in the module for for this week.
+
+192
+00:23:04,050 --> 00:23:21,580
+Um, actually it's for last week. So just using a logistic regression model booster seat and then age as a factor type of,
+
+193
+00:23:21,580 --> 00:23:35,030
+of vehicle using passenger car as a baseline measure whether or not the driver was young in these crash severity measures.
+
+194
+00:23:35,960 --> 00:23:40,340
+So as we sort of noted before, I mean, this is the other joint 20 mile sort of interesting four things,
+
+195
+00:23:40,340 --> 00:23:44,900
+but definitely older kids much less likely to be in Booster's booster.
+
+196
+00:23:45,310 --> 00:23:49,490
+One is the outcome here a little.
+
+197
+00:23:52,610 --> 00:24:00,140
+Little more likely to be in these sort of larger vehicles, less likely to have a young driver,
+
+198
+00:24:01,130 --> 00:24:06,440
+which is also tends to be associated a little bit with crash severity like younger drivers, more severe crashes.
+
+199
+00:24:07,640 --> 00:24:14,030
+And then there's this airbag issue, but a little bit on the on the tollway status as well.
+
+200
+00:24:15,230 --> 00:24:21,050
+So just kind of looking at this, I'm just doing some crude stepwise analysis here.
+
+201
+00:24:21,800 --> 00:24:29,630
+I dropped intrusion in large and considered to a interactions with with with with among the variables.
+
+202
+00:24:30,470 --> 00:24:38,450
+So most of the two way interactions didn't really show anything big going on the exception of age in vehicle in age and your way.
+
+203
+00:24:39,440 --> 00:24:44,690
+So how old the child was seemed to have some impact.
+
+204
+00:24:45,140 --> 00:24:53,600
+It seemed to differ a little bit by vehicle type and how likely they were to be in a booster seat and how likely the airbag was to have deployed.
+
+205
+00:24:56,390 --> 00:25:02,480
+So. So I fit this model with the eight by vehicle needs by airbag interaction.
+
+206
+00:25:05,420 --> 00:25:10,310
+And I see it sort of this minivan. This seems to be kind of weirdly jumping out here.
+
+207
+00:25:12,080 --> 00:25:15,590
+The airbag interaction, the older kids.
+
+208
+00:25:16,640 --> 00:25:24,590
+So you were much less likely to be in an airbag crash if you were in a seatbelt, but that was less true for older children.
+
+209
+00:25:26,200 --> 00:25:38,570
+Yeah. So I ended up with a final model here that and I guess I've also been kind of looking at the AIC measures here as well.
+
+210
+00:25:39,110 --> 00:25:48,800
+And are the group model fit? So I just ended up refitting with this for a final model that looked at that age.
+
+211
+00:25:52,280 --> 00:25:56,450
+The F-Type whether or not the driver was young.
+
+212
+00:25:57,590 --> 00:26:07,340
+The car was drivable. Whether an airbag deployed, and then age by vehicle and age by airbag.
+
+213
+00:26:10,400 --> 00:26:14,120
+So I use that as my as my final model.
+
+214
+00:26:15,620 --> 00:26:23,850
+So. So there's probably a lot of different directions you can go here.
+
+215
+00:26:23,920 --> 00:26:31,920
+If you've got the big things in sort of second order issues are sometimes a little less critical.
+
+216
+00:26:32,910 --> 00:26:43,620
+Sorry, I just thought. Okay.
+
+217
+00:26:45,210 --> 00:26:47,760
+So does this idea of overlap before?
+
+218
+00:26:48,900 --> 00:26:55,200
+So if we looked at the propensity scores, so this is the propensity of of being restrained in a in a in a car seat.
+
+219
+00:26:56,940 --> 00:27:04,049
+So we can see overall, there seems to be pretty good overlap as we would expect for the children in the booster
+
+220
+00:27:04,050 --> 00:27:12,240
+seat are more likely to be predicted to be in a booster seat and the kids that aren't.
+
+221
+00:27:12,240 --> 00:27:14,799
+But there are some kids that based on their coverage,
+
+222
+00:27:14,800 --> 00:27:20,459
+it seem like they would have had very high relatively I probably ought to be restrained but weren't and similar
+
+223
+00:27:20,460 --> 00:27:28,340
+except for the very lowest ends that there are some children that are in restraints that were predicted not to be.
+
+224
+00:27:32,010 --> 00:27:41,880
+So if you kind of look over these quintiles which start as low as zero and then run up to around 70% chance of being restrained in a car seat.
+
+225
+00:27:42,690 --> 00:27:47,910
+So this gets at this idea of some sort of Z statistic.
+
+226
+00:27:52,720 --> 00:27:56,160
+So. See.
+
+227
+00:27:57,310 --> 00:28:02,800
+So I guess before we had. Should I put these together here?
+
+228
+00:28:04,660 --> 00:28:10,960
+So we had these everything except for a large van with statistically significant difference.
+
+229
+00:28:12,550 --> 00:28:20,320
+So we've gotten rid of a lot of that. So there's still a little bit of variation.
+
+230
+00:28:21,400 --> 00:28:29,190
+So clearly the children that were least likely to be in a car seat tend to be older than those that were more likely.
+
+231
+00:28:29,410 --> 00:28:34,810
+Most likely. But within that, there's still some variation.
+
+232
+00:28:37,300 --> 00:28:46,000
+A little bit here and there. So it's not nearly as large gone from over a year difference in the means to just about
+
+233
+00:28:46,000 --> 00:28:52,930
+a 10th of the year and then smaller here and a little less than a 10th of a year here.
+
+234
+00:28:56,260 --> 00:28:59,170
+You know, we're sort of we sort of cut it down by a factor of about ten,
+
+235
+00:28:59,470 --> 00:29:07,210
+but still some significant statistically significant differences in terms of the passenger car.
+
+236
+00:29:10,420 --> 00:29:15,450
+Not a whole lot going on here. Remember doing a lot of tests and I'm just I'm not doing any bonferroni correction on that here.
+
+237
+00:29:15,460 --> 00:29:16,720
+So really,
+
+238
+00:29:16,720 --> 00:29:27,520
+the large man seems to be the only thing that's sort of sticking around with some tendency for and there's no consistent direction there either.
+
+239
+00:29:31,270 --> 00:29:43,520
+So totally status. The idea was to if we tried to before this, this was.
+
+240
+00:29:46,940 --> 00:29:52,670
+About a seven point difference to a status seven percentage point difference.
+
+241
+00:29:54,620 --> 00:30:01,460
+So again, we have completely eliminated we sort of driven it down to between 5 to 3.
+
+242
+00:30:02,730 --> 00:30:11,240
+To. This one still kind of thicker and airbag exposure weren't able to completely fix this in the first quintile.
+
+243
+00:30:11,910 --> 00:30:18,540
+But basically everybody who had an air bag was considered have a low probability of being in a booster seat.
+
+244
+00:30:19,170 --> 00:30:25,350
+And then there's no no airbag airbags not deployed.
+
+245
+00:30:25,860 --> 00:30:30,030
+You were one of the higher quintiles, regardless of what you were actually assigned to.
+
+246
+00:30:30,300 --> 00:30:33,420
+So having completely fixed the balance.
+
+247
+00:30:33,420 --> 00:30:42,380
+But it's it's it's greatly improved. So questions at this point.
+
+248
+00:30:43,550 --> 00:30:53,330
+Yeah, we're just really excited as this movie fans from all these new schools to of each and every one they were.
+
+249
+00:30:54,090 --> 00:31:01,830
+You just missed the joint. I did not do that. But you could certainly do that in sort of an overall measure, and that would be a good kind of picture.
+
+250
+00:31:03,600 --> 00:31:06,720
+Maybe you'll have a chance. All right.
+
+251
+00:31:06,840 --> 00:31:11,070
+And I'm still sorting out the homework. Okay.
+
+252
+00:31:12,030 --> 00:31:19,229
+So now to actually apply this, right, we want to get these these used, and I'm going to use the stratified approach,
+
+253
+00:31:19,230 --> 00:31:23,790
+although in another example, I'll use the sort of fully weighted approach.
+
+254
+00:31:24,630 --> 00:31:30,330
+But if we just ignore any of the potential confounding, we just look at the difference in the means.
+
+255
+00:31:31,440 --> 00:31:37,559
+So basically the injury rate for kids that were in seatbelts was about 14 and
+
+256
+00:31:37,560 --> 00:31:43,890
+a half percent in the jury for kids that were in car seats with about 10.9%.
+
+257
+00:31:45,090 --> 00:31:49,200
+So it's about a three percentage point difference.
+
+258
+00:31:50,220 --> 00:31:54,780
+I'm using differences of means here. You could use things like odds ratios and so forth,
+
+259
+00:31:55,290 --> 00:32:02,490
+but I'm sort of trying to keep this very much connected to the idea of the difference in the concept that we've been working with.
+
+260
+00:32:03,660 --> 00:32:08,610
+So it's also, you know, somewhat useful, right? I mean, this is actually relates to the total rate.
+
+261
+00:32:09,690 --> 00:32:21,480
+So well, this is clearly a substantial reduction in percentage wise rate from about oh, probably something in the order of about over a third.
+
+262
+00:32:22,230 --> 00:32:30,120
+The the actual reduction in terms of total injuries is going to be about 3.7%.
+
+263
+00:32:31,080 --> 00:32:40,010
+And it's highly significant. With some some of those issues could be as much as five to.
+
+264
+00:32:45,100 --> 00:32:49,350
+Okay. So compute these causal effect estimates, right?
+
+265
+00:32:49,360 --> 00:32:59,380
+We want to get this. The stratified estimate are here.
+
+266
+00:33:00,490 --> 00:33:04,510
+So there's four different ways to do this. There's a little function.
+
+267
+00:33:06,520 --> 00:33:11,049
+Well, I'm going to do it through a regression model because I can do the regression model
+
+268
+00:33:11,050 --> 00:33:16,150
+and then do a function of the such a linear combination of all of the predictors.
+
+269
+00:33:17,110 --> 00:33:26,190
+So. Our indicator for entry then and I'm using zero one year.
+
+270
+00:33:26,240 --> 00:33:27,900
+I mean, it's an A, it's a linear model,
+
+271
+00:33:28,830 --> 00:33:35,670
+but I guess another feature of linear but the important point of using the survey package is that this is essentially a
+
+272
+00:33:35,670 --> 00:33:42,450
+robust version of variance estimation does not rely on normality to clear the errors here are not going to be normal,
+
+273
+00:33:42,690 --> 00:33:46,680
+but that's okay for the variance estimation as long as you're using the survey package.
+
+274
+00:33:48,330 --> 00:33:56,910
+So basically I want this to be a function so we're all intercept and then make quintiles, right?
+
+275
+00:33:57,180 --> 00:34:03,270
+Using the first quintiles baseline whether or not you're in a booster and then an interaction.
+
+276
+00:34:04,350 --> 00:34:10,770
+So why does this work? Well, for me, here's the your code.
+
+277
+00:34:11,400 --> 00:34:22,390
+So there's this works. We should put this in front of the other pages that basically you can get these estimates out of this model.
+
+278
+00:34:24,040 --> 00:34:33,909
+So the injury rate for booster and quantile run rate is going to be because it's quintile.
+
+279
+00:34:33,910 --> 00:34:41,680
+One is our baseline is going to be that that intercept plus the booster effect.
+
+280
+00:34:43,210 --> 00:34:48,580
+And then I want to subtract off the injury rate for the seatbelt in quantile one.
+
+281
+00:34:48,580 --> 00:34:49,630
+That's just the intercept.
+
+282
+00:34:50,410 --> 00:34:59,740
+So that gives me that if I've had that booster effect is really the effect of the booster in the first quantile of the propensity score.
+
+283
+00:35:02,190 --> 00:35:08,190
+So we get the same thing. Then we this beta, not beta one.
+
+284
+00:35:09,210 --> 00:35:13,080
+Right. This is the entry rate for the seatbelt piece.
+
+285
+00:35:14,070 --> 00:35:22,530
+And then for the booster piece I had in Beta five plus this interaction with Quintile two and booster.
+
+286
+00:35:23,470 --> 00:35:28,049
+And so the difference in those beta five plus beta six that I can just keep on
+
+287
+00:35:28,050 --> 00:35:32,160
+going right each time I have this interaction term between control booster.
+
+288
+00:35:32,940 --> 00:35:38,760
+So third quantile that's beta seven worth quantile is beta eight with quantile that's beta nine.
+
+289
+00:35:40,990 --> 00:35:44,590
+And I had the booster effect right from the baseline. And each of us.
+
+290
+00:35:47,410 --> 00:35:55,180
+So to get the overall inflated estimate of that and I want to just add these up and divide by the portion of
+
+291
+00:35:55,180 --> 00:36:02,000
+the fractions in each of each of the parentheses for straight up what beta five appears in all of these terms.
+
+292
+00:36:02,200 --> 00:36:05,560
+So I can just factor that out. And then I just have.
+
+293
+00:36:09,240 --> 00:36:13,680
+The Beta six, beta seven, Betty Beta nine relative to the proportions.
+
+294
+00:36:14,850 --> 00:36:22,370
+And I think there's a typo there that should be two that should be indexing or 2 to 5, but with no rate.
+
+295
+00:36:27,440 --> 00:36:37,709
+See here. 679, there should be two, three, four or five.
+
+296
+00:36:37,710 --> 00:36:57,360
+So it's a little messed up. All right. Yeah.
+
+297
+00:36:58,050 --> 00:37:01,050
+Didn't fix the K here, so you should be.
+
+298
+00:37:03,000 --> 00:37:06,410
+And what should you be going ahead any place?
+
+299
+00:37:08,020 --> 00:37:48,130
+So you this right on the border. So.
+
+300
+00:38:11,700 --> 00:38:17,810
+Plus five, right? I think it should be something like.
+
+301
+00:38:36,570 --> 00:38:40,760
+Right. So we basically want this to be straight.
+
+302
+00:38:40,860 --> 00:38:44,729
+It's two, three, four and five and six, eight ahead.
+
+303
+00:38:44,730 --> 00:38:52,530
+Six, seven, eight, nine. Don't.
+
+304
+00:39:00,400 --> 00:39:04,540
+Okay. So many questions about how we sort of set this model up here.
+
+305
+00:39:07,270 --> 00:39:17,750
+Yeah. So we did the linear model using Quintiles Rooster to adjust for the fact that, like, assignment to booster seat is right.
+
+306
+00:39:18,610 --> 00:39:24,520
+Mm hmm. Yeah. So the idea being that within the quintiles, it's ideally random.
+
+307
+00:39:25,040 --> 00:39:33,390
+Okay. So. So we're just trying to get this overall causal effect estimate using the causal effects with each of the strata now.
+
+308
+00:39:34,330 --> 00:39:47,530
+So we fit this model resulting coefficients so we could kind of compute this towelhead and the resulting cover its functions by hand.
+
+309
+00:39:48,520 --> 00:39:56,590
+But if you poke around now, you can find an awful lot of things in, in order to do things for you.
+
+310
+00:39:57,460 --> 00:40:02,170
+So I'm using this g h t function. So the fit here is.
+
+311
+00:40:03,280 --> 00:40:07,570
+Is the model here. Right. And.
+
+312
+00:40:11,040 --> 00:40:16,180
+It's just telling that we're the problem with a lot of parameters can be found.
+
+313
+00:40:16,960 --> 00:40:28,480
+And then I want this linear function. So then I actually sort of transpose this so that it looks like a beta transpose.
+
+314
+00:40:29,350 --> 00:40:46,580
+And then the coefficients here. It was very clear when I was there in January.
+
+315
+00:40:46,590 --> 00:41:15,670
+It started with. So basically.
+
+316
+00:41:18,350 --> 00:41:25,120
+You know, I don't want these first. This debate is going to be used, right?
+
+317
+00:41:25,120 --> 00:41:30,380
+So this is the coefficient associated with your U.S. rate.
+
+318
+00:41:30,470 --> 00:41:40,450
+On one hand to the retail worker, one is going to be a five.
+
+319
+00:41:40,450 --> 00:41:47,530
+And what is the postwar effect that appears?
+
+320
+00:41:49,110 --> 00:42:00,070
+In all the. But that appears in all of the jail terms.
+
+321
+00:42:02,240 --> 00:42:16,160
+Six. Consider one of these scores.
+
+322
+00:42:19,670 --> 00:42:30,800
+Rooster was on trial for his.
+
+323
+00:42:36,950 --> 00:42:44,380
+The rest. So.
+
+324
+00:42:46,970 --> 00:42:55,740
+I'm sorry. So.
+
+325
+00:43:04,440 --> 00:43:07,440
+This is going to return an estimate.
+
+326
+00:43:09,200 --> 00:43:15,300
+Let's have half here. Write the summation. And that gives me.
+
+327
+00:43:18,290 --> 00:43:27,170
+My trusted estimate or now of .18, this 95 confidence interval percent rule, which basically just barely excludes zero.
+
+328
+00:43:28,220 --> 00:43:30,890
+So what is this telling us? Right.
+
+329
+00:43:31,250 --> 00:43:41,240
+So this means after we've adjusted and try to rebalance that this causal effect estimated now is going to be less than we initially anticipated
+
+330
+00:43:41,720 --> 00:43:51,170
+because we shouldn't find it surprising because the types of crashes were children that in and in car seats tend to be less severe,
+
+331
+00:43:51,950 --> 00:43:58,250
+tend to be bigger vehicles. There was a little bit of an issue with age kind of running the other direction, but clearly they didn't overcompensate.
+
+332
+00:43:59,060 --> 00:44:10,040
+So so we do find that at least part of that overall effect is due to the types of crashes that these kids are in rather than being in a booster seat.
+
+333
+00:44:10,130 --> 00:44:17,480
+But not all of it. So it's a little hint this idea that some but not all explained.
+
+334
+00:44:19,760 --> 00:44:23,629
+Yeah. That you scratch that section. This is all about compounding.
+
+335
+00:44:23,630 --> 00:44:30,180
+So it's like, okay, so. All right.
+
+336
+00:44:31,470 --> 00:44:38,430
+Any questions? We're going to look at an alternative way of dealing with privacy scores.
+
+337
+00:44:39,660 --> 00:44:44,400
+The rest of the class and we'll come back to this as an example that I think we'll kind of get quite there today.
+
+338
+00:44:57,020 --> 00:45:03,960
+All right. So much for.
+
+339
+00:45:07,760 --> 00:45:13,520
+Okay. So we've talked a little bit already. Yes, a fair amount, but assessing overlap and distributions.
+
+340
+00:45:14,180 --> 00:45:20,989
+But I'm going to go into a little more detail on that and related this idea of using trimming this idea
+
+341
+00:45:20,990 --> 00:45:27,890
+of sort of trying to restrict or set of cases to enhance positivity and improve coverage balance.
+
+342
+00:45:29,450 --> 00:45:31,340
+Again, those two things are often kind of related.
+
+343
+00:45:33,620 --> 00:45:39,170
+There's a little bit of tradeoff there because essentially sort of think about like internal versus external validity.
+
+344
+00:45:41,750 --> 00:45:49,130
+We're trying to sort of enhance positivity. So we're trying to make sure we're getting like an internally valid estimate of the causal effect,
+
+345
+00:45:49,820 --> 00:45:56,030
+but maybe it doesn't really relate to the whole population. We can only say something about a subset of the population.
+
+346
+00:45:57,350 --> 00:45:58,910
+So again, the booster seat thing,
+
+347
+00:45:58,940 --> 00:46:04,800
+we might be able to say something about the very oldest kids in the most severe crashes or maybe sort of meet people,
+
+348
+00:46:04,880 --> 00:46:11,190
+restrict this overall estimate to two as a subset of the population will be we're
+
+349
+00:46:11,230 --> 00:46:19,190
+able to kind of get examples of kids in both types of seating arrangements,
+
+350
+00:46:20,750 --> 00:46:27,290
+which means basically the very oldest kids have that the most severe crashes are just not part of that population.
+
+351
+00:46:28,850 --> 00:46:39,260
+And then we're going to finally finish up with an alternative way of using the propensity score or covariates using this idea of matching.
+
+352
+00:46:40,730 --> 00:46:48,379
+So we sort of saw a little bit of a hint in this application of doing stratification based on propensity scores,
+
+353
+00:46:48,380 --> 00:46:51,980
+but self-learning approaches are actually going to try to work more directly with covariance.
+
+354
+00:46:55,910 --> 00:47:04,320
+Okay. So to go on to this idea of covert overlap, we talked about this a little bit already,
+
+355
+00:47:04,340 --> 00:47:15,260
+but so key key to this idea of randomization to sort of start with this this fact that we're looking at balance, right?
+
+356
+00:47:15,950 --> 00:47:23,540
+We want to have the treatment effect be independent of I'm sorry, the treatment assigned to be in effect,
+
+357
+00:47:23,540 --> 00:47:27,770
+independent of covariance, ideally both those observed and unobserved.
+
+358
+00:47:28,850 --> 00:47:35,750
+Right. So if we're in a randomized setting, we can we can do that because of the fact that we control how the assignment is is made.
+
+359
+00:47:36,780 --> 00:47:45,649
+That's not true. Then we might still be in a situation where the distribution of the observed covariates and treatment control,
+
+360
+00:47:45,650 --> 00:47:49,850
+approximately equal right, is sometimes referred to as color imbalance.
+
+361
+00:47:51,380 --> 00:47:54,770
+And it sort of at least appears to approximate the randomized design.
+
+362
+00:47:54,770 --> 00:48:10,160
+Right. We can't really say anything about the oh, I think that sorry table here, but we can't really say anything about the unobserved covariates.
+
+363
+00:48:11,180 --> 00:48:15,079
+But if there aren't any, there's sort of no confounders that we've got.
+
+364
+00:48:15,080 --> 00:48:22,610
+All the confounders observed in Y is is linear next and some of those preliminary notes I think was back should be 214, not 314.
+
+365
+00:48:28,560 --> 00:48:41,740
+Right. We were able to show that that. Basically when this difference between the coverage and the different treatment are zero,
+
+366
+00:48:42,310 --> 00:48:48,850
+then using the sample means is consistently estimates the causal effect.
+
+367
+00:48:51,400 --> 00:48:55,180
+But of course, in reality, these collaborative solutions are more likely to be unbalanced.
+
+368
+00:48:56,250 --> 00:49:00,910
+Right? An imbalance has become extreme. This can sort of lead to this lack of overlap.
+
+369
+00:49:02,410 --> 00:49:43,700
+Some of the others. For all we draw. For everybody. So you think about his predictive probability.
+
+370
+00:49:52,450 --> 00:49:59,540
+I mean up here. Right now to be between zero and one.
+
+371
+00:50:00,680 --> 00:50:04,310
+So we've had a pretty good probability among individual site improvement.
+
+372
+00:50:05,510 --> 00:50:08,780
+You might get sort of a distribution.
+
+373
+00:50:11,950 --> 00:50:29,340
+Of these probabilities that something like this. And if your loved ones are trying to control.
+
+374
+00:50:40,550 --> 00:50:51,670
+You might get something that looks like this. So if we look.
+
+375
+00:50:53,750 --> 00:51:01,010
+And then this is a sort of a point at which there's no money left in the distribution in the population.
+
+376
+00:51:01,010 --> 00:51:09,560
+And the sample of these we have with the predictive value of being assigned to treatment is a little disappointing to those that actually that.
+
+377
+00:51:11,840 --> 00:51:15,440
+Kind of brought us this morning down here.
+
+378
+00:51:17,910 --> 00:51:28,420
+And similarly, there's some point in which you assign a control in quite specific individuals that you don't.
+
+379
+00:51:33,600 --> 00:51:48,100
+We don't. There's nobody on the treatment side that has a predicted culpability, somebody in control side that has a predicted probability as high as.
+
+380
+00:51:51,110 --> 00:51:54,800
+So sort of space in here.
+
+381
+00:51:57,030 --> 00:52:13,400
+Or. There a region of overlap then?
+
+382
+00:52:16,130 --> 00:52:30,960
+It's sort of in this part here. So these these individuals on control.
+
+383
+00:52:33,600 --> 00:52:38,900
+We have very low probability to find a treatment. I don't have any anybody to match up with here.
+
+384
+00:52:39,500 --> 00:52:45,830
+And similarly for these individuals on treatment, they have no control.
+
+385
+00:52:47,210 --> 00:52:51,900
+So. It's a sort of deal.
+
+386
+00:52:57,610 --> 00:53:01,120
+So we know that the earnings.
+
+387
+00:53:34,870 --> 00:53:43,120
+Okay. So that's kind of the concept. So how should we actually address this corporate balance or lack thereof?
+
+388
+00:53:43,990 --> 00:53:45,490
+Well, let's just start with the scalar x.
+
+389
+00:53:48,020 --> 00:53:53,930
+So we looked at these this idea of the normalized difference, and I'm going to introduce this idea of the normalized difference.
+
+390
+00:53:55,070 --> 00:53:59,000
+And it's pretty similar to what we just did with this this week, but it's a little different.
+
+391
+00:54:00,560 --> 00:54:06,440
+So basically, it's basically looking at the difference in the means,
+
+392
+00:54:07,160 --> 00:54:15,800
+but now normalized by the average of the standard deviation, not the standard error.
+
+393
+00:54:23,760 --> 00:54:30,000
+Right. So for the street esthetics that we looked at before.
+
+394
+00:54:32,780 --> 00:54:43,520
+Basically tested this equality of means and the treatment control samples as using this this sort of standard error.
+
+395
+00:54:43,530 --> 00:55:01,180
+So what's what's the key difference here that. Between this Delta measure on two, four, five, two statistic, you're selling the two.
+
+396
+00:55:01,430 --> 00:55:11,020
+I can buy two rather than scaling. Right. And so that means this essentially going to be kind of independent of sample size.
+
+397
+00:55:11,380 --> 00:55:20,430
+Right. So as my sample gets bigger, I mean, I mean, I may I may estimate this quantity more accurately, but it isn't going to change.
+
+398
+00:55:20,430 --> 00:55:24,370
+Just it just is, you know, an expectation is will change.
+
+399
+00:55:24,370 --> 00:55:32,060
+Whereas this obviously. And it's also because we have a sharp null hypothesis.
+
+400
+00:55:32,070 --> 00:55:40,710
+I suppose we could also maybe get around this by looking at sort of kind of the equivalent of.
+
+401
+00:55:46,820 --> 00:55:50,480
+Well we have a non sharp border yet but like a.
+
+402
+00:55:53,850 --> 00:56:01,020
+One segment that's that you're considering is a novel which is often done in trying
+
+403
+00:56:01,020 --> 00:56:06,630
+to find the word for the type of trial it noninferiority equivalency type tests.
+
+404
+00:56:07,320 --> 00:56:10,530
+But you have a we have a sharp hypothesis. No hypothesis, right.
+
+405
+00:56:10,530 --> 00:56:19,680
+Because unless that hypothesis is true, right, there really zero difference, which is kind of an extreme condition.
+
+406
+00:56:20,130 --> 00:56:24,900
+Then as the sample size increases, you'll get increasing power rejected.
+
+407
+00:56:25,110 --> 00:56:29,660
+Right. So. You can always eventually reject it and get a sample size big enough.
+
+408
+00:56:32,120 --> 00:56:35,330
+So that said, you can still kind of interpret this like a statistic.
+
+409
+00:56:36,050 --> 00:56:41,230
+I think you have to be a bit a bit relieved.
+
+410
+00:56:41,240 --> 00:56:45,560
+It's a bit stricter than you are in, you know, hypothesis testing.
+
+411
+00:56:46,220 --> 00:56:53,210
+So if you're sort of like under 0.25, that sort of, you know, very much in the center of that distribution, you probably have adequate balance.
+
+412
+00:56:54,410 --> 00:56:59,180
+I would say it gets poorer as you get 2.5 and then out to one, you really may be having issues.
+
+413
+00:56:59,780 --> 00:57:07,430
+And beyond one, you've got major issues with balance. So.
+
+414
+00:57:09,010 --> 00:57:12,730
+So we could do the same thing with the multivariate ex.
+
+415
+00:57:14,570 --> 00:57:33,760
+Right. We could. Basically now look at coming up with an overall measure using the entire vector of covariance.
+
+416
+00:57:36,770 --> 00:57:45,830
+Now, instead of dividing by the standard deviation, we have to divide by the variance covariance matrix.
+
+417
+00:57:47,550 --> 00:57:52,260
+Which means sandwiching this around the two vectors.
+
+418
+00:57:56,110 --> 00:58:03,829
+And again, looking at differences between of controls. Which you can then estimate, right?
+
+419
+00:58:03,830 --> 00:58:11,540
+Then using the observed means and the observed variance covariance matrices within
+
+420
+00:58:11,540 --> 00:58:18,080
+each treatment arm and then uses these statistical for a rough measure of balance.
+
+421
+00:58:30,430 --> 00:58:37,330
+And the final approach that the Rubens discuss is using propensity score to assess the balance.
+
+422
+00:58:37,900 --> 00:58:43,860
+So you might think that would be a very logical thing to work with. They do suggest a logit type transformations kind of linear ization idea.
+
+423
+00:58:44,650 --> 00:58:53,860
+The log of of the odds would be the same treatment solution and then work with this normalized difference those.
+
+424
+00:58:58,420 --> 00:59:06,819
+There is a little funny thing about this approach, though, which is basically that if there's variability in assignment, probabilities,
+
+425
+00:59:06,820 --> 00:59:13,300
+write offs, anything other than essentially a kind of effectively a randomized trial, the propensity scores will not be equal in expectation.
+
+426
+00:59:14,830 --> 00:59:18,700
+So as a matter of fact, if there is no confounding, right, the assignment depends only on X.
+
+427
+00:59:19,690 --> 00:59:27,580
+You can show that the so that Y isn't involved in the assignment of of of of treatment,
+
+428
+00:59:28,210 --> 00:59:41,830
+that the variance in these propensity scores divided by essentially the P one minus P is going to give the the differences in means.
+
+429
+00:59:42,940 --> 00:59:46,899
+So basically, I mean, there's a kind of intuition here, right?
+
+430
+00:59:46,900 --> 00:59:53,470
+So if these things are equal, the variance has to be zero, which means it's just fixed at P.
+
+431
+00:59:54,620 --> 00:59:59,360
+Right. There's just 50, 51/3 to third something.
+
+432
+00:59:59,420 --> 01:00:04,390
+Just flip of a coin that signs everybody that actually depends on X's.
+
+433
+01:00:04,400 --> 01:00:11,900
+There's going to be some variability. And so there's going to be some tendency for the subjects that are assigned the treatment to have higher scores.
+
+434
+01:00:13,310 --> 01:00:17,960
+So that kind of but it kind of does does make sense intuitively.
+
+435
+01:00:18,620 --> 01:00:26,990
+So, um, so again, we're only talking about assessing differences and means so.
+
+436
+01:00:27,140 --> 01:00:34,170
+Right. That's okay. As long as it's. The higher the variability in propensity scores,
+
+437
+01:00:34,170 --> 01:00:42,480
+basically the larger these deltas are going to be and the more evidence you have that there is a difference in the assignment with respect to X.
+
+438
+01:00:48,100 --> 01:00:51,560
+Okay. So.
+
+439
+01:00:55,020 --> 01:00:59,730
+All right. So assessing this overlap, right. We sort of drew a little picture there to start with.
+
+440
+01:01:00,960 --> 01:01:09,180
+And we can basically define each observation as having sufficient overlap that there's at least one observation on the
+
+441
+01:01:09,180 --> 01:01:15,780
+treatment arm where the difference in the in the logic of the prince discourse is less than or equal to some threshold value.
+
+442
+01:01:16,770 --> 01:01:23,880
+Right? So in the example I gave here, everything that's in that sort of know, Pinker and Purple.
+
+443
+01:01:25,410 --> 01:01:29,280
+Right. All of these the difference in zero, right?
+
+444
+01:01:29,820 --> 01:01:34,800
+Finally finding the visual in there where they had essentially the same.
+
+445
+01:01:35,610 --> 01:01:44,810
+So basically what they're suggesting. Just having, like, a little extra.
+
+446
+01:01:51,250 --> 01:01:54,670
+Routine screening and surgical X-ray.
+
+447
+01:02:03,410 --> 01:02:12,350
+So instead of just having restricted the overlap. Strictly might have a little wider zone you talk about.
+
+448
+01:02:20,340 --> 01:02:24,510
+Although some of those extremes didn't stay in the analysis.
+
+449
+01:02:29,310 --> 01:02:39,660
+And then the actual assessment of the overlap then is basically the fraction of individuals.
+
+450
+01:02:39,660 --> 01:02:44,880
+So like in this case, I don't know, maybe the little picture I've drawn here, let's say.
+
+451
+01:02:45,690 --> 01:02:50,520
+Q One may be around point nine and, you know, 290.75 or something.
+
+452
+01:02:51,540 --> 01:02:56,490
+So. So that allows.
+
+453
+01:03:00,060 --> 01:03:07,330
+Is that so? Okay. So this idea then really rolls into this idea of basically using trimming to kind of improve overlap.
+
+454
+01:03:09,880 --> 01:03:24,630
+So. Again, if we're using these cover, these propensity weights to adjust, recover in balance,
+
+455
+01:03:24,630 --> 01:03:35,850
+we sort of just lop off the cases that don't they don't don't meet the overlap criteria in both treatment control and penalize the remaining set.
+
+456
+01:03:37,590 --> 01:03:40,379
+So the basic concept, again, to reiterate this,
+
+457
+01:03:40,380 --> 01:03:46,980
+but it's pretty important is that we're only thinking about observations to discover it's allowed them to be assigned a treatment or a control.
+
+458
+01:03:47,520 --> 01:03:51,330
+Those are the only ones that can provide information about effective treatment without extrapolation.
+
+459
+01:04:03,050 --> 01:04:11,720
+So there is another approach which the authors kind of outline for determining
+
+460
+01:04:11,720 --> 01:04:15,890
+the optimal subset of the sample of a population poetry to make inference about.
+
+461
+01:04:17,540 --> 01:04:26,179
+And basically, they sort of suggest that you can make a difference about the entire population if the largest value now,
+
+462
+01:04:26,180 --> 01:04:31,850
+if not just the propensity scores, but basically propensity score terms, one minus the propensity score,
+
+463
+01:04:32,870 --> 01:04:41,800
+if you will, kind of the the variability at the assignment level of eight, if that's less than twice the mean rate,
+
+464
+01:04:41,900 --> 01:04:45,650
+in which case essentially you're getting the two approaches complete overlap.
+
+465
+01:04:46,640 --> 01:04:47,170
+Otherwise,
+
+466
+01:04:47,180 --> 01:04:58,070
+I suggest determining alpha as this quantity here and then restricting the set basically two alpha and two between alpha and one minus alpha.
+
+467
+01:04:58,670 --> 01:05:02,840
+That's got kind of a funny little, little solution.
+
+468
+01:05:03,920 --> 01:05:12,980
+This is beyond what we can cover in this class, but effectively has as Lambda sort of goes to two one fourth,
+
+469
+01:05:13,820 --> 01:05:19,070
+you're sort of only having very extreme values in your data.
+
+470
+01:05:19,070 --> 01:05:29,120
+And so you really are having very few values that kind of be used to make this quality called and that is lambda kind of goes off to toward infinity,
+
+471
+01:05:29,360 --> 01:05:34,970
+toward infinity. Then you sort of move back to the, to the first step where everything gets included.
+
+472
+01:05:40,560 --> 01:05:42,299
+And so they show that under these conditions,
+
+473
+01:05:42,300 --> 01:05:48,330
+this asymptotic variance of the sort of the restricted analysis is less than the asymptotic variance in the the full analysis.
+
+474
+01:05:49,560 --> 01:05:53,760
+So recall that this very variance is in part a function of the weights.
+
+475
+01:05:55,080 --> 01:05:59,700
+So. The central back.
+
+476
+01:06:03,410 --> 01:06:09,760
+You just remind everybody about her? The winning variance measure.
+
+477
+01:06:14,830 --> 01:06:22,770
+Right. So the more variable these weights are, the sort of larger this variance becomes.
+
+478
+01:06:29,810 --> 01:06:32,830
+It hits me out of those.
+
+479
+01:06:38,130 --> 01:06:43,350
+So by sort of lopping off those extreme values, sort of get a more stable estimate.
+
+480
+01:06:43,890 --> 01:06:47,459
+But again. And that you lose some external validity, right?
+
+481
+01:06:47,460 --> 01:06:54,480
+You're sort of making your causal effect estimate contingent on the sort of coherence.
+
+482
+01:07:04,940 --> 01:07:14,810
+All right. So at this point. You touched on this before, but we're sort of just hammering the point home with this also slight.
+
+483
+01:07:20,910 --> 01:07:25,319
+All right. So we kind of did a preliminary view of the balance in the car sitting sample.
+
+484
+01:07:25,320 --> 01:07:33,760
+So now I'm going to return to it with these alternative methods. So first of all, I'm just going to look at this normalized difference, right?
+
+485
+01:07:33,840 --> 01:07:37,140
+So 8000 kids in this in this dataset.
+
+486
+01:07:37,160 --> 01:07:43,350
+So the case with this sort of large sample size may overemphasize the problem of balance a little bit.
+
+487
+01:07:44,700 --> 01:07:51,540
+So it appears that you maybe get a little bit better sense that age and air bag exposure are really the critical ones here,
+
+488
+01:07:52,320 --> 01:08:01,180
+that even though we had significant differences by vehicle type and by driver age and some
+
+489
+01:08:01,200 --> 01:08:08,580
+of the crash severity measures that that may not have been as big an important difference.
+
+490
+01:08:11,940 --> 01:08:14,519
+So nonetheless,
+
+491
+01:08:14,520 --> 01:08:21,300
+I'm going to stick with the previous propensity score model because I want to sort of be able to link back to the results of the previous analysis.
+
+492
+01:08:22,410 --> 01:08:30,600
+So again, this head age airbag interaction, which we clearly are important, included this vehicle type driver.
+
+493
+01:08:30,750 --> 01:08:36,450
+So I mean, if you add extra things in here, it's not going to really cause bias.
+
+494
+01:08:37,140 --> 01:08:42,880
+You may lose some efficiency because you're essentially trying to adjust the way for noise, which isn't going to help any.
+
+495
+01:08:44,050 --> 01:08:48,150
+So. So there's nothing terrible about having too many things. It's better to have too many than not enough.
+
+496
+01:08:49,980 --> 01:08:53,280
+But there is a there's always a price to pay for that as well.
+
+497
+01:08:53,670 --> 01:08:57,870
+So okay.
+
+498
+01:08:58,500 --> 01:09:06,750
+So before I use this stratified estimator here, just to sort of give a little variation, I'm going to use the full weighted estimate here.
+
+499
+01:09:08,220 --> 01:09:17,160
+So you can see the results are pretty similar. Intervals a bit wider because I know and including some fairly unstable weights.
+
+500
+01:09:17,910 --> 01:09:26,220
+Point estimates vary. Some are slightly smaller than before. Still seems sort of the edge of significance, but not quite.
+
+501
+01:09:27,630 --> 01:09:34,990
+You. And just to kind of review the art code on this.
+
+502
+01:09:35,890 --> 01:09:46,870
+So I mentioned the survey package. So, so first of all, you know, this is the same model I fought for.
+
+503
+01:09:47,920 --> 01:09:54,600
+I'm going to get propensity scores out of this using the fit and values piece and then for the weights, right?
+
+504
+01:09:54,610 --> 01:09:57,970
+So for the subjects that were assigned to the booster, I went the reciprocal,
+
+505
+01:09:58,000 --> 01:10:05,470
+the princely score for the subjects that we assign to the subjects that were in car seats, I want one minus that.
+
+506
+01:10:06,340 --> 01:10:16,840
+So that's how I create the weights. And then I use this ESP y design as a function that I have to use to get the survey package working.
+
+507
+01:10:17,950 --> 01:10:23,020
+So it sort of comes in three, three little key things here.
+
+508
+01:10:53,560 --> 01:11:04,720
+So there's a lot more to this. But for the purposes of this class, all you really need to know is that you have to tell it.
+
+509
+01:11:04,840 --> 01:11:09,620
+It assumes that the design is going to be clustered. So.
+
+510
+01:11:09,670 --> 01:11:21,850
+But you're not. So you basically just use each individual is its own cluster and then you have to tell the variables.
+
+511
+01:11:26,560 --> 01:11:33,570
+And then so it's basically a list of variables. The analysis.
+
+512
+01:11:36,380 --> 01:11:39,590
+And then you have to go with the way through.
+
+513
+01:11:46,680 --> 01:11:50,000
+As we said before, the levee broke.
+
+514
+01:11:53,920 --> 01:12:04,590
+So and then. So basically this, you know, give it a model.
+
+515
+01:12:06,780 --> 01:12:12,980
+And I just want to be clear the treatment here. Right in front of it.
+
+516
+01:12:13,010 --> 01:12:17,740
+This flight is way different in places. And I have to tell the.
+
+517
+01:12:20,960 --> 01:12:40,440
+So basically what I've learned from this. So.
+
+518
+01:12:44,750 --> 01:12:57,970
+All right, so there's my little clusters with my little dataframe defining the outcome predictor and then my weights variable from here.
+
+519
+01:12:59,530 --> 01:13:10,930
+So there's the model design and so I can get a summary out of that which gave me this result here.
+
+520
+01:13:21,990 --> 01:13:25,860
+So now if you look at the range, the PNC scores among those in and not in boosters,
+
+521
+01:13:27,210 --> 01:13:32,310
+we can see that basically the range completely covered on the high end.
+
+522
+01:13:33,420 --> 01:13:40,709
+Right. But on the low end, the reduced is simply some individuals that were in car seats whose probability of being
+
+523
+01:13:40,710 --> 01:13:44,130
+a blue in a booster was lower than any individual that was actually in the booster.
+
+524
+01:13:46,500 --> 01:13:55,590
+So in particular, there are 94 kids that were had didn't have an equivalent kind of low probability of
+
+525
+01:13:55,590 --> 01:14:00,450
+being in a in a in a in a booster seat among the children or actually in the boosters.
+
+526
+01:14:02,440 --> 01:14:03,880
+We kind of look and see who these are.
+
+527
+01:14:04,030 --> 01:14:11,410
+They tend to be older and all the things that we saw that predicted booster seat status, but just kind of on the extreme end.
+
+528
+01:14:12,280 --> 01:14:15,309
+So they were these are all children aged four and seven.
+
+529
+01:14:15,310 --> 01:14:17,050
+And so they were meaning it was close to seven.
+
+530
+01:14:17,920 --> 01:14:27,370
+They were more likely to be passenger cars with younger drivers, much more likely to be until they crashes about 97% versus a little over half.
+
+531
+01:14:28,030 --> 01:14:33,040
+And they all the airbag deployment as opposed to like less than 5% overall.
+
+532
+01:14:34,570 --> 01:14:39,580
+So one thing we do is just restrict this analysis based on overlapping propensity scores.
+
+533
+01:14:40,990 --> 01:14:47,260
+So basically just saying for the kids that are in these more so these older kids and more severe crashes, we just can't see any about them.
+
+534
+01:14:47,470 --> 01:14:51,850
+If we do that, we see that our effect is again declined slightly.
+
+535
+01:14:53,140 --> 01:14:56,830
+And this just sort of misses the civil significance.
+
+536
+01:15:02,070 --> 01:15:10,860
+And then if we use this this crop at all approach, we find that GMO equals 11.35 and so that alpha head is about 0.98.
+
+537
+01:15:10,860 --> 01:15:22,380
+So that suggests basically eliminating all the privacy scores below 0.98 and above 91.0 .912.
+
+538
+01:15:25,560 --> 01:15:34,740
+So how do I do that? I have a little R code here, so I have the sort of reciprocal of the variance.
+
+539
+01:15:36,900 --> 01:15:40,960
+One of four new level three is called Tester.
+
+540
+01:15:40,970 --> 01:15:54,740
+That's the. Just to remind people what I'm trying to convey here.
+
+541
+01:15:57,630 --> 01:16:03,470
+At 5 p.m. Saturday. And.
+
+542
+01:16:14,120 --> 01:16:33,880
+One. And the.
+
+543
+01:16:43,330 --> 01:16:56,719
+Indicator function. Now since we waited.
+
+544
+01:16:56,720 --> 01:17:03,730
+My. This variance.
+
+545
+01:17:05,420 --> 01:17:09,139
+So. So.
+
+546
+01:17:09,140 --> 01:17:14,240
+Right. So if we're going to be equal, then their difference has to be zero. That's what I've done here.
+
+547
+01:17:15,570 --> 01:17:19,520
+Well, first of all, I did a little test to make sure that I could include everything, which I couldn't.
+
+548
+01:17:20,810 --> 01:17:26,120
+Then I write a little function here. So there's the left hand side of that equation.
+
+549
+01:17:27,260 --> 01:17:31,140
+The right hand side of the equation. And I just tried that for different values of PMA.
+
+550
+01:17:32,600 --> 01:17:38,220
+So in particular, I started with the AMA equal around five, right.
+
+551
+01:17:38,300 --> 01:17:46,140
+One plus 39 divided by 20. And I go up to I don't know what's a 600 divided by 20.
+
+552
+01:17:46,140 --> 01:17:49,790
+It's around 30, I guess so.
+
+553
+01:17:53,450 --> 01:18:06,650
+So basically this index function. And that was 128 or when Gamma was equal to around 130 divided by 3 to 30 by 20.
+
+554
+01:18:07,340 --> 01:18:15,110
+So we're an 11.35, right? Then the these.
+
+555
+01:18:16,980 --> 01:18:23,810
+I just looked at the output and that's where this was basically zero. And so I didn't get output from that.
+
+556
+01:18:28,800 --> 01:18:33,470
+So that suggests dropping a few more on booster kids.
+
+557
+01:18:34,500 --> 01:18:41,850
+Right. Because there's nobody who's got a Princeton score above 2.91, but there are individuals that have injuries below 8.9.
+
+558
+01:18:46,000 --> 01:18:49,050
+And actually, I said there's probably a few booster seat kids in here, too.
+
+559
+01:18:49,060 --> 01:19:02,960
+I think that would be an error. So.
+
+560
+01:19:09,080 --> 01:19:15,139
+So, you know, get effective just under 2%.
+
+561
+01:19:15,140 --> 01:19:19,370
+And the confidence interval now is basically zero again.
+
+562
+01:19:20,990 --> 01:19:28,760
+You know, I noticed this intervals a little narrower at .36 versus 23 eight here.
+
+563
+01:19:33,200 --> 01:19:37,730
+So it's over and all say we have reasonably good overlap in this booster seat analysis.
+
+564
+01:19:40,670 --> 01:19:49,400
+The difference is when you drop these extreme cases are pretty modest mean sort of a 100th of a percent change in injury risk.
+
+565
+01:19:50,780 --> 01:19:54,229
+Statistical significance was close 2.5, so kind of bounces back and forth.
+
+566
+01:19:54,230 --> 01:19:59,750
+That's one of those issues for statistical significance, one of the reasons why we sort of have concerns about it.
+
+567
+01:20:00,680 --> 01:20:08,510
+But but overall, providing, I think, some some moderately strong evidence that these booster seats are effective.
+
+568
+01:20:10,310 --> 01:20:17,720
+And yeah, for about one and a half to 2% of the kids in this in the sample in crashes
+
+569
+01:20:19,280 --> 01:20:23,959
+preventing that if they had been in a booster seat and instead of the seat belt,
+
+570
+01:20:23,960 --> 01:20:29,000
+they would not have reached that level of injury. But we sort of trigger a serious.
+
+571
+01:20:36,800 --> 01:20:40,400
+Remembering that there are a few individuals and you can't say much about.
+
+572
+01:20:46,690 --> 01:20:53,440
+So many questions. Right.
+
+573
+01:20:56,260 --> 01:21:00,170
+Office hours later today. The other ones.
+
+574
+01:21:01,810 --> 01:21:03,010
+See you Wednesday.
+

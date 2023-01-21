@@ -1,0 +1,3432 @@
+1
+00:00:01,230 --> 00:00:08,280
+All right. So today we're going to start learning how to model count data.
+
+2
+00:00:12,090 --> 00:00:24,410
+Let's take a quick look at where we are in the course just briefly. So we're here and we're right on schedule.
+
+3
+00:00:25,340 --> 00:00:29,180
+We do have a homework that's due this Sunday.
+
+4
+00:00:32,450 --> 00:00:34,790
+Homework two is due this Sunday,
+
+5
+00:00:35,510 --> 00:00:44,420
+and although you won't be able to start the homework and probably until Monday for homework three I have I've posted it just because
+
+6
+00:00:45,080 --> 00:00:52,190
+I'm traveling over the weekend and I wanted to make sure I posted it around the same time you turn in your homework so it's there.
+
+7
+00:00:52,190 --> 00:00:58,159
+But really today's handouts, just getting into the introduction to how to model this kind of data and the
+
+8
+00:00:58,160 --> 00:01:01,460
+skills you need for the homework you won't have until after Monday's lecture.
+
+9
+00:01:04,700 --> 00:01:08,750
+All right. So let's go ahead and get started.
+
+10
+00:01:09,620 --> 00:01:13,759
+Oh, maybe one more heads up about the schedule.
+
+11
+00:01:13,760 --> 00:01:21,590
+And that is that after handout eight, that's Monday's handout.
+
+12
+00:01:22,820 --> 00:01:27,140
+We'll have had all the material that's covered on the first quiz.
+
+13
+00:01:27,770 --> 00:01:30,950
+And so that quiz is happening October 12th.
+
+14
+00:01:31,310 --> 00:01:36,530
+So homework three is going to cover handouts seven and eight.
+
+15
+00:01:37,160 --> 00:01:41,060
+And so that'll be the last homework that's covered on the quiz.
+
+16
+00:01:41,450 --> 00:01:45,700
+And the quiz is only worth 15%, one 5%.
+
+17
+00:01:45,710 --> 00:01:57,620
+So it's meant to be worth enough points that it's worth you reading through your notes and thinking about the material and unpacking everything.
+
+18
+00:01:58,250 --> 00:02:08,480
+You know, that's what exams and quizzes are good for, but it's not supposed to be so many points that it makes you too stressed.
+
+19
+00:02:08,810 --> 00:02:13,910
+So hopefully just the perfect amount of stress so that your brain makes you remember the material.
+
+20
+00:02:13,910 --> 00:02:18,140
+Because we always remember things in times of stress better than when we're really bored.
+
+21
+00:02:18,710 --> 00:02:22,910
+Right? But hopefully not too much of a big deal.
+
+22
+00:02:23,300 --> 00:02:29,030
+That quiz is going to be a canvas quiz you can take from the privacy of your own room at home.
+
+23
+00:02:29,900 --> 00:02:34,790
+So we won't. You won't need to come here on quiz day.
+
+24
+00:02:36,610 --> 00:02:43,140
+Okay. All right. So let's go ahead and get started with, you know, seven.
+
+25
+00:02:50,860 --> 00:03:05,799
+All right. So I'm going to kind of take you through the types of data that are appropriate for these models to sort of make sure you know,
+
+26
+00:03:05,800 --> 00:03:17,840
+when to use this modeling approach and really hand out seven in handout eight are looking at similar types of data structures.
+
+27
+00:03:18,230 --> 00:03:24,310
+They're just a bunch of different models that are potentially useful for the same type of data.
+
+28
+00:03:24,640 --> 00:03:31,120
+And I'll take you through when to use each model. We're going to learn like four different models very quickly in these two handouts.
+
+29
+00:03:31,970 --> 00:03:41,560
+So so we'll look at that data structure and it's all related to modeling counts of outcomes.
+
+30
+00:03:41,980 --> 00:03:47,260
+And sometimes the models are going to be interpreted with respect to the mean count
+
+31
+00:03:47,920 --> 00:03:51,790
+and sometimes they're going to be interpreted with respect to the rate of counts.
+
+32
+00:03:52,150 --> 00:03:56,620
+And I need to this is going to be one of the sticking points where you need to perk up
+
+33
+00:03:56,800 --> 00:04:03,310
+because the data structure affects which one of these you use for your interpretation.
+
+34
+00:04:03,910 --> 00:04:05,890
+And so I'm going to take you through that as well.
+
+35
+00:04:06,160 --> 00:04:13,180
+So interpreting model parameters is going to be one of the main goals of the handout that you know how to fit the data and interpret
+
+36
+00:04:13,180 --> 00:04:21,010
+them well and do statistical inference related to those parameters so that you can write your nice manuscript or these sentences.
+
+37
+00:04:21,400 --> 00:04:24,250
+And along the way, I'll be showing you sass and our code.
+
+38
+00:04:28,060 --> 00:04:37,960
+So the when we have these count outcomes, we have a whole different distribution units you haven't necessarily heard of yet.
+
+39
+00:04:38,380 --> 00:04:44,800
+You've heard of the normal distribution, you've heard of the binomial distribution or maybe the Bernoulli distribution,
+
+40
+00:04:45,640 --> 00:04:50,920
+and I'm not sure if you've had any other distributions for outcomes.
+
+41
+00:04:51,340 --> 00:04:55,540
+So we're going to be learning two other distributions in these next two handouts.
+
+42
+00:04:55,540 --> 00:05:03,460
+One is Poisson and one is negative binomial, and both of these distributions are used to model counts.
+
+43
+00:05:04,120 --> 00:05:10,780
+And so the response variable is the number of occurrences in some given time frame.
+
+44
+00:05:13,120 --> 00:05:16,450
+So outcomes are equal to zero one, two and so on.
+
+45
+00:05:16,810 --> 00:05:22,030
+And really, there's not a firm upper limit to the number of counts you might see.
+
+46
+00:05:22,780 --> 00:05:30,970
+So you actually model counts with the binomial distribution in the past where it was counted out of in total.
+
+47
+00:05:31,810 --> 00:05:34,420
+So when you use the binomial distribution,
+
+48
+00:05:34,420 --> 00:05:41,200
+you might have had ten people you were watching and you wanted to know how many of those ten had some event.
+
+49
+00:05:41,860 --> 00:05:50,200
+The counts here are different in the sense that I don't have that upper limit ten available.
+
+50
+00:05:51,100 --> 00:05:55,570
+So these are things that can occur over time often.
+
+51
+00:05:55,930 --> 00:06:00,280
+And I have no idea what the upper limit is.
+
+52
+00:06:03,080 --> 00:06:09,680
+So examples might be number of pulmonary exacerbations in a two year period in lab.
+
+53
+00:06:09,680 --> 00:06:13,670
+Next week, you'll see a data set that's doing something like this.
+
+54
+00:06:14,090 --> 00:06:24,379
+And so I really don't have an upper limit of pulmonary exacerbations in mind when I see this data for a very sick person,
+
+55
+00:06:24,380 --> 00:06:27,290
+they might be having a lot for a person that's less sick.
+
+56
+00:06:27,290 --> 00:06:34,220
+Maybe they have very few or none, and I don't have a firm upper limit for that count in mind.
+
+57
+00:06:34,700 --> 00:06:38,980
+So when you have something like this for the counts,
+
+58
+00:06:38,990 --> 00:06:46,100
+it's either going to follow up with some distribution or a negative binomial distribution that we'll learn in the next handout,
+
+59
+00:06:46,550 --> 00:06:52,010
+or maybe some zero inflated version of these distributions that we'll learn in the next handout.
+
+60
+00:06:52,670 --> 00:07:01,570
+So today we're going to focus on the porcine distributed. Counts just to get your feet wet in this area.
+
+61
+00:07:02,860 --> 00:07:07,870
+It's another example might be the number of bladder cancer tumors removed in four years of follow up.
+
+62
+00:07:07,870 --> 00:07:15,400
+And again, I don't you know, this is one of those situations where you go in for a checkup and they find out your
+
+63
+00:07:15,430 --> 00:07:20,979
+bladder cancer tumors have been regrowing and they don't know exactly how many.
+
+64
+00:07:20,980 --> 00:07:26,230
+And each visit they're going to remove. And over four years, you might have very many of these removed, these little teeny things.
+
+65
+00:07:26,860 --> 00:07:30,550
+And so you don't have a firm upper limit of how many they're going to be.
+
+66
+00:07:31,390 --> 00:07:37,160
+So it's not something you can fit with a binomial. You just you're just going to count and see what happens.
+
+67
+00:07:39,210 --> 00:07:41,640
+And the data set that we're going to be looking at today.
+
+68
+00:07:43,090 --> 00:07:51,430
+Is a famous data set that looks at the number of lung cancer deaths among British male doctors after ten years of follow up.
+
+69
+00:07:52,210 --> 00:08:02,590
+And so, again, we don't have a firm handle on the number of lung cancer deaths that are going to be observed over ten years of follow up.
+
+70
+00:08:04,480 --> 00:08:17,160
+So we're going to model that with a person. And so the the mean of the outcomes, when you're assuming a Poisson distribution,
+
+71
+00:08:17,160 --> 00:08:21,840
+the mean of the outcomes is the very same as the variance of the outcomes.
+
+72
+00:08:22,410 --> 00:08:29,580
+That's the model assumption that's being used here. And in the next handout will explore deviations from that assumption.
+
+73
+00:08:29,910 --> 00:08:35,910
+But when you're assuming your counts follow Poisson distribution, the mean and the variance are identical.
+
+74
+00:08:35,910 --> 00:08:40,350
+So modeling the mean is you're also actually modeling the variance at same time.
+
+75
+00:08:43,030 --> 00:08:46,040
+All right. So more about this doctor's cohort study.
+
+76
+00:08:46,060 --> 00:08:54,310
+So participants were male physicians who were listed in the British Medical Register who resided in England and Wales in 1951.
+
+77
+00:08:54,700 --> 00:09:02,529
+There was a paper down here with a reference in case you're interested with this data set has been historically a famous one.
+
+78
+00:09:02,530 --> 00:09:04,180
+You may have seen it in other classes.
+
+79
+00:09:05,670 --> 00:09:10,710
+And so at the beginning of the study, a questionnaire was used to collect a lot of information about the physicians.
+
+80
+00:09:11,010 --> 00:09:15,329
+We're going to be focusing on age and smoking habits. For this handout.
+
+81
+00:09:15,330 --> 00:09:22,049
+So we'll keep it simple. And the investigators then gathered information about deaths attributed to lung
+
+82
+00:09:22,050 --> 00:09:27,000
+cancer from death certificates and other mortality data over the next ten years.
+
+83
+00:09:30,240 --> 00:09:35,940
+And question, does smoking relate to the risk of, I should say, lung cancer, death, not just smoking,
+
+84
+00:09:35,940 --> 00:09:40,620
+relate to the risk of lung cancer, but does smoking relate to the risk of lung cancer death?
+
+85
+00:09:40,920 --> 00:09:47,540
+Because that's the data we're modeling, the number of deaths. I have to remember to fix that later.
+
+86
+00:09:49,950 --> 00:09:55,190
+And so the outcome variable that we're modeling is the number of lung cancer deaths.
+
+87
+00:09:55,200 --> 00:10:04,469
+So that's going to be the variable called deaths. But we also need to take into account years of follow up since the follow up
+
+88
+00:10:04,470 --> 00:10:11,490
+time for each doctor is a bit different and that does affect the death counts.
+
+89
+00:10:11,490 --> 00:10:15,920
+If you watch them for longer, you have a higher chance of seeing that death occur.
+
+90
+00:10:16,410 --> 00:10:20,220
+And so we need to take into account the number of follow up years.
+
+91
+00:10:22,780 --> 00:10:28,990
+And so we had this variable called Years. That is measuring the person years.
+
+92
+00:10:30,370 --> 00:10:39,060
+And in this case, it's the accumulated time that doctors and that's what they were observed in the way this dataset is set up.
+
+93
+00:10:39,070 --> 00:10:44,230
+We have kind of classifications by age group and smoking status.
+
+94
+00:10:44,650 --> 00:10:49,390
+And so it's going to be the amount of person years that have accumulated for each one of those little groups.
+
+95
+00:10:50,110 --> 00:10:54,610
+I'll show you the data set in a minute. It's very neat and tidy to look at.
+
+96
+00:10:55,360 --> 00:11:01,750
+So if a doctor dropped out of the study or was lost to follow up, only the time that the doctor was observed is included.
+
+97
+00:11:02,680 --> 00:11:14,159
+So it might not be ten years. It might be less. So here are the covariates, age and smoker, their five age groups, their age in 1951.
+
+98
+00:11:14,160 --> 00:11:19,500
+And then they're kind of organized one, two, three, four, five by increasing decades of age.
+
+99
+00:11:19,920 --> 00:11:29,490
+And for some reason, in this dataset, they start at 35 and go to 44, 45, 54 and so on, rather than starting at, you know, rounded a state.
+
+100
+00:11:29,980 --> 00:11:35,430
+They started at the midpoint of the decade of each decade and then smoking status in 1951.
+
+101
+00:11:35,430 --> 00:11:42,270
+Yes, yes or no. And this particular data said we don't change smoking status over time.
+
+102
+00:11:42,270 --> 00:11:49,440
+It's just what they were doing in 1951. All right.
+
+103
+00:11:49,450 --> 00:11:53,349
+So we're going to have a couple of different example.
+
+104
+00:11:53,350 --> 00:11:57,999
+Data sets today. It's going to be the doctors who observe four different person years.
+
+105
+00:11:58,000 --> 00:12:04,930
+But we're also going to see data sets where everybody's followed the exact amount of time, the same amount of time.
+
+106
+00:12:06,460 --> 00:12:13,330
+And so we'll need to know what how to model the data differently in those two cases.
+
+107
+00:12:13,750 --> 00:12:21,310
+And this turns to B turns out to be quite important to use the software packages correctly and to write our manuscript worthy sentences correctly.
+
+108
+00:12:22,060 --> 00:12:28,860
+And so when count data. Like the doctors data is influenced by varying amounts of follow up,
+
+109
+00:12:28,860 --> 00:12:33,950
+and the different groups will model and interpret rates of the events per some unit.
+
+110
+00:12:34,430 --> 00:12:38,660
+A follow up time instead of the means of the deaths.
+
+111
+00:12:39,700 --> 00:12:47,529
+And so, for instance, in our British doctors study, the average number of deaths in each of the age smoking categories is affected by person.
+
+112
+00:12:47,530 --> 00:12:51,680
+Years of observation in those categories. And.
+
+113
+00:12:53,380 --> 00:12:57,670
+Before I get too deeply into notation that just popped up on the screen.
+
+114
+00:12:58,120 --> 00:13:03,550
+I mean, intuitively, if you have some agents, smoking groups that had a lot of person years of follow up,
+
+115
+00:13:03,760 --> 00:13:08,319
+you'd expect them to also have more deaths in that category as opposed to a
+
+116
+00:13:08,320 --> 00:13:12,310
+category where there's very few person years of follow up contributing deaths.
+
+117
+00:13:13,000 --> 00:13:20,680
+Right. So this is now I want to take you through some of the notation that I'm going to use when I'm talking about means versus rates.
+
+118
+00:13:21,610 --> 00:13:28,080
+And so what I've got here is my mean looks like the mean of the normal.
+
+119
+00:13:28,090 --> 00:13:33,610
+I'm kind of recycling that notation so that you think mu is a mean.
+
+120
+00:13:34,270 --> 00:13:38,870
+And here it's going to be the average number of deaths in Group I.
+
+121
+00:13:38,890 --> 00:13:46,549
+So each one of these smoking age groups for our data set is going to be Group I and MU.
+
+122
+00:13:46,550 --> 00:13:52,810
+II is the average number of deaths in group by just ignoring everything about how long they were followed.
+
+123
+00:13:53,080 --> 00:13:58,540
+Just whatever that mean is for that group. And so I'm going to just sort of, for example,
+
+124
+00:13:58,540 --> 00:14:07,660
+say suppose that average is 500 just to give us a solid number to play with to help us unpack the notation.
+
+125
+00:14:09,880 --> 00:14:17,020
+And I is the number of person years of follow up that you have in that same group of people.
+
+126
+00:14:17,350 --> 00:14:27,640
+So for example, suppose in group, I had 100,000 years of follow up, you know, person years of follow up.
+
+127
+00:14:28,330 --> 00:14:36,760
+All right. And so that number in our data, that number varies for each of the groups that we're looking at.
+
+128
+00:14:37,750 --> 00:14:45,610
+And then this lambda I. Is the death rate and group I per that number of follow up years.
+
+129
+00:14:45,610 --> 00:14:55,030
+So the death rate in sorry the death rate in group I for example 500 per 100,000 person years.
+
+130
+00:14:55,570 --> 00:15:04,690
+So I should probably back up just real briefly and say that that and I here which I just
+
+131
+00:15:04,690 --> 00:15:13,450
+happened to pick 100,000 does not necessarily match this number in the interpretation.
+
+132
+00:15:13,450 --> 00:15:17,920
+So I'll show you in the data set itself what I mean.
+
+133
+00:15:18,220 --> 00:15:29,640
+But the. The Lambda I is going to be the death rate and group AI for some fixed number of person years that we choose.
+
+134
+00:15:32,080 --> 00:15:37,780
+All right. So. So I can already tell that this is going to be a little confusing.
+
+135
+00:15:37,780 --> 00:15:42,189
+So I just want to make sure I'm as clear as possible when I use the mu.
+
+136
+00:15:42,190 --> 00:15:45,490
+I I'm looking at the average count like the mean count.
+
+137
+00:15:46,870 --> 00:15:53,500
+This term is going to come up in the code and in our interpretations to some extent.
+
+138
+00:15:53,860 --> 00:15:59,020
+And when you have a particular data set, the money per group might change.
+
+139
+00:15:59,410 --> 00:16:07,480
+But when you eventually interpret the rate, you'll pick a common number of person years to use as your rate.
+
+140
+00:16:12,460 --> 00:16:16,760
+All right. So here's this is going to hopefully help solidify some of these ideas.
+
+141
+00:16:16,800 --> 00:16:19,300
+So here's the data set. This is the entire data set.
+
+142
+00:16:19,310 --> 00:16:27,210
+So there were five age groups and they're labeled one, two, three, four, five, two smoker statuses.
+
+143
+00:16:27,220 --> 00:16:31,090
+So one, if they were a smoker in 1951, zero otherwise.
+
+144
+00:16:31,570 --> 00:16:39,190
+And then here are the deaths that were recorded for all the people in those groups, the age smoking groups.
+
+145
+00:16:40,000 --> 00:16:46,120
+And then the last variable years is the number of person years of follow up that contributed to those counts.
+
+146
+00:16:47,540 --> 00:16:59,540
+So for the youngest looking at the first or for that youngest age group of smokers, we had a lot of person years of follow up there.
+
+147
+00:16:59,750 --> 00:17:03,590
+Maybe we had many more people or, you know.
+
+148
+00:17:05,260 --> 00:17:10,479
+I suspect that is the most of the reason why you have more years of follow up is
+
+149
+00:17:10,480 --> 00:17:13,660
+that there were a lot more doctors than the age group that entered the study.
+
+150
+00:17:14,200 --> 00:17:22,180
+And of that group, we had 32 deaths observed over the entire study period.
+
+151
+00:17:22,420 --> 00:17:24,100
+While these people were being followed.
+
+152
+00:17:25,710 --> 00:17:36,210
+And if you look at the same smoker status, but there's this fifth row here, this is the highest age group of smokers.
+
+153
+00:17:37,290 --> 00:17:42,900
+And there were more deaths observed, but there were many fewer person years of follow up.
+
+154
+00:17:44,250 --> 00:17:51,510
+So there's there's definitely seems just by noticing those two features, there's a higher chance of dying.
+
+155
+00:17:52,500 --> 00:18:04,350
+In this group because we witnessed 102 deaths over many fewer person years of observation that contributed to those deaths.
+
+156
+00:18:05,910 --> 00:18:17,730
+And so, you know, if we were just if we were to ignore the years column part of the data, we would be missing an important part of the data.
+
+157
+00:18:18,240 --> 00:18:22,139
+We would only if we ignored that and just model the mean deaths,
+
+158
+00:18:22,140 --> 00:18:32,730
+we might really have kind of weird inference because the number of deaths is so tied to the number of person years of follow up.
+
+159
+00:18:33,030 --> 00:18:37,230
+And if we ignored that last column, we might say, Oh my goodness, it's terrible.
+
+160
+00:18:38,100 --> 00:18:43,350
+If you're in this third age group, boy, they really die a lot.
+
+161
+00:18:43,680 --> 00:18:50,820
+And, you know, the older age group, you would mistakenly think, you know, dies left less often.
+
+162
+00:18:51,150 --> 00:18:58,740
+But really, there's so many more person years of follow up where you're aggregating these death counts.
+
+163
+00:18:59,190 --> 00:19:05,370
+That that's that's the reason you're able to see and observe more events here.
+
+164
+00:19:05,640 --> 00:19:10,200
+So this last column is very important in your analysis to get the inferences correct.
+
+165
+00:19:14,030 --> 00:19:20,600
+So I just want to plot the death rates by the age group and smoking status.
+
+166
+00:19:20,610 --> 00:19:27,950
+I'm going to return to this plot over and over again as we fit different models to sort of see how the models compare to the raw data.
+
+167
+00:19:28,640 --> 00:19:36,470
+And so I'm going to calculate the death rate in the data statement and we'll have something similar in our code soon.
+
+168
+00:19:37,160 --> 00:19:44,330
+And so it's going to be the the total number of deaths divided by the person, years of observation.
+
+169
+00:19:44,720 --> 00:19:48,890
+And I'm going to put it at the rate of per 100,000 person years.
+
+170
+00:19:48,890 --> 00:20:01,250
+So these death rates I'm now making comparable because this is going to be the the number of deaths per 100,000 person years.
+
+171
+00:20:03,270 --> 00:20:10,650
+And so they're standardized. And here I'm going to take the natural log of the death rate just so that we can plot it on that scale.
+
+172
+00:20:11,730 --> 00:20:19,860
+And here's just a little bit of code for the plot with this plot with ages the access axis why as this death rate.
+
+173
+00:20:20,520 --> 00:20:24,870
+Yeah you know the number of deaths per 100,000 person years.
+
+174
+00:20:27,050 --> 00:20:33,920
+And I'm going to show it by the two smoking status groups have some labels here and the plot.
+
+175
+00:20:35,210 --> 00:20:40,160
+On the regular scales here and here. I've just changed it to the log scale just so we can look at that to.
+
+176
+00:20:41,960 --> 00:20:52,610
+So here's the deaths per 100,000 person years and absolutely increasing for every single group, regardless of whether you're a smoker or a non smoker.
+
+177
+00:20:53,180 --> 00:20:59,749
+So once you standardize it to be a number of deaths per the same amount of person,
+
+178
+00:20:59,750 --> 00:21:04,160
+years of follow up, suddenly these death rates are comparable again.
+
+179
+00:21:05,900 --> 00:21:15,320
+And you can sort of see that age, in fact, does increase the death rate for a similar amount of person, years of observation.
+
+180
+00:21:17,090 --> 00:21:25,129
+So that's the first thing to observe here. The second thing is I want to draw your attention to this highest age group, which is a bit strange.
+
+181
+00:21:25,130 --> 00:21:33,080
+But as epidemiology minded students here, whether you're in the actual epidemic allergy department or not,
+
+182
+00:21:33,650 --> 00:21:37,100
+you might have already been trained to look for this kind of a pattern.
+
+183
+00:21:37,130 --> 00:21:43,040
+So what do you think is happening here? I mean, you've got the smokers is the blue line.
+
+184
+00:21:43,040 --> 00:21:52,310
+And for the highest age group, every other age group, smokers have a higher death rate per 100,000 person years before this very highest age group.
+
+185
+00:21:53,000 --> 00:22:01,580
+For some reason, we see fewer deaths per hundred thousand person years of observation in the smokers compared to the non smokers,
+
+186
+00:22:02,030 --> 00:22:09,649
+which is a bit counterintuitive. Right. So what is your epidemiology training taught you about this?
+
+187
+00:22:09,650 --> 00:22:16,750
+Why why might you see this pattern in the data? Yes.
+
+188
+00:22:21,400 --> 00:22:26,680
+That's exactly right. So just repeating it, so it shows up so you can hear it on the recording.
+
+189
+00:22:27,400 --> 00:22:38,950
+You're exactly right that the smokers were at a higher risk of death all the way through and the people who were still alive at the end,
+
+190
+00:22:39,130 --> 00:22:42,250
+the survivors, they've survived.
+
+191
+00:22:42,250 --> 00:22:48,850
+They've already been put through the gantlet. And the people who were left, they're fewer, but they're stronger now.
+
+192
+00:22:48,850 --> 00:22:57,260
+So we call it a survivorship effect. And you know, it always helps to give some context.
+
+193
+00:22:57,270 --> 00:23:03,700
+I don't know who this person is for you, but you probably have a person in your life who's very old and who's been smoking their entire life.
+
+194
+00:23:03,720 --> 00:23:08,400
+For me, it's my mother in law. Actually, she just quit smoking, but she's about to turn 90.
+
+195
+00:23:08,400 --> 00:23:13,740
+I don't know why she decided at 90 she'd stop, but she lived through it all.
+
+196
+00:23:13,950 --> 00:23:15,600
+Nothing will kill this woman.
+
+197
+00:23:16,290 --> 00:23:29,100
+So she is exactly this person who has a higher chance of staying alive compared to a non smoker who has not been put through that same gantlet.
+
+198
+00:23:29,790 --> 00:23:39,450
+They weren't killed off earlier for other stuff. And so this is a pattern we often see with survivorship bias.
+
+199
+00:23:39,460 --> 00:23:43,450
+We're watching a smaller proportion of people who made it that far,
+
+200
+00:23:43,660 --> 00:23:48,940
+but if they made it that far, then their they usually have a better survivorship rate.
+
+201
+00:23:51,050 --> 00:23:55,910
+And so it's a feature of the data from a modeling perspective that we want to keep our eye on.
+
+202
+00:23:56,570 --> 00:24:07,820
+Because, you know, if we tried to fit some kind of a simplified shape here, we have to make sure we don't get this top age group totally backwards.
+
+203
+00:24:08,780 --> 00:24:12,110
+And so we'll be watching for that feature when we're modeling the data.
+
+204
+00:24:14,670 --> 00:24:23,630
+So it turns out that. These count models and modeling on the log scale.
+
+205
+00:24:23,640 --> 00:24:30,180
+So I have a picture of the log plot as well, the log of the death rate per 100,000 person years.
+
+206
+00:24:30,690 --> 00:24:37,260
+And it's, you know, like if we were really lucky, these would look like straight lines now, but they don't quite.
+
+207
+00:24:37,380 --> 00:24:40,560
+So we're going to have to still even modeling on the logs.
+
+208
+00:24:40,800 --> 00:24:47,700
+We're going to have to still deal with the fact that we have not quite straight lines to deal with.
+
+209
+00:24:48,360 --> 00:24:51,960
+And we still have, of course, this crossing for the highest age group.
+
+210
+00:24:57,770 --> 00:25:07,710
+Okay. So. Question one is kind of an obvious question is linear regression okay for Poisson count outcomes?
+
+211
+00:25:08,190 --> 00:25:11,570
+And they have different assumptions. So let's just kind of review.
+
+212
+00:25:11,590 --> 00:25:22,750
+So we did this before when we were reviewing linear regression and the outcome is assumed to be normally distributed.
+
+213
+00:25:22,770 --> 00:25:28,410
+It's a continuous kind of an outcome, not zero one, two, three, where we're modeling the mean.
+
+214
+00:25:28,440 --> 00:25:34,820
+So we're modeling the mean of the counts potentially to either the mean or the rate the mean.
+
+215
+00:25:36,090 --> 00:25:41,670
+If we call it MU, the variance for a Poisson distribution is also the same as the mean.
+
+216
+00:25:41,790 --> 00:25:42,870
+It is all set mu,
+
+217
+00:25:43,230 --> 00:25:50,879
+whereas for the linear regression and we kind of assume this homeless gets to city where it doesn't matter what your risk profile is,
+
+218
+00:25:50,880 --> 00:25:55,800
+the variability of the outcomes the same. That's not the case for the Poisson distribution.
+
+219
+00:25:56,040 --> 00:26:00,269
+If you have a higher chance of of having a count happen,
+
+220
+00:26:00,270 --> 00:26:04,410
+like if you're in the doctor's dataset and you have a higher chance of contributing to the death,
+
+221
+00:26:05,520 --> 00:26:12,300
+that same kind of characteristic is contributing to the variance of those counts.
+
+222
+00:26:13,170 --> 00:26:19,320
+So in your modeling, then you know, this mean you're essentially modeling the variance as well.
+
+223
+00:26:20,640 --> 00:26:27,330
+And the range for the normal distribution outcomes that you think of in linear regression.
+
+224
+00:26:27,330 --> 00:26:33,390
+They could be anything, you know, but for counts they need to be positive.
+
+225
+00:26:37,210 --> 00:26:41,740
+So I've kind of already given away this question to some extent.
+
+226
+00:26:41,740 --> 00:26:49,630
+But you know, what are anticipated problems with linear regression assumptions or operating characteristics when applied to post on count outcomes?
+
+227
+00:26:50,020 --> 00:26:54,940
+Well, one is that we don't have homeless kids just because of this line here.
+
+228
+00:26:55,480 --> 00:27:00,790
+And one is that we have a different range of outcomes that we might want to have our predictions.
+
+229
+00:27:02,370 --> 00:27:05,820
+Be forced to be within this positive range.
+
+230
+00:27:08,080 --> 00:27:11,540
+So challenges of them are solutions. So this is very similar.
+
+231
+00:27:11,560 --> 00:27:16,600
+The problems and solutions are similar to what was seen when we were first learning a logistic regression problem.
+
+232
+00:27:16,600 --> 00:27:24,040
+One is that the mean count must be as zero or higher, right?
+
+233
+00:27:24,700 --> 00:27:34,389
+And so the solution that most people take, most software packages assume the solution is that you're modeling the log,
+
+234
+00:27:34,390 --> 00:27:40,520
+the natural log of the mean instead of the mean itself. And that.
+
+235
+00:27:40,520 --> 00:27:49,910
+That. That. Choice means that when you get your estimate for the log of the mean an exponential rate, it's forced to be positive.
+
+236
+00:27:50,840 --> 00:27:54,230
+So the log of the mean can be anything negative infinity to infinity.
+
+237
+00:27:54,560 --> 00:27:58,580
+But once you enter exponential it, that part has to be positive.
+
+238
+00:28:00,360 --> 00:28:05,280
+And problem two is that the Pakistan variant is equal to its mean.
+
+239
+00:28:05,280 --> 00:28:09,120
+You don't have homeless kids just the way you did with linear regression.
+
+240
+00:28:09,600 --> 00:28:17,670
+So the variance of the residual distribution, if we were to create residuals, is not constant across different groups of predictors.
+
+241
+00:28:18,330 --> 00:28:25,260
+So that undermines the basis behind minimizing the sum of squared residuals and getting regression parameter estimates.
+
+242
+00:28:25,680 --> 00:28:36,360
+So you're going to find that for the remainder of the course, we're going to be leaning more on maximum likelihood estimate.
+
+243
+00:28:37,550 --> 00:28:42,190
+Uh, as a way to come up with these parameter estimates instead of least squares.
+
+244
+00:28:42,200 --> 00:28:48,860
+Silly Squares was an easy concept to explain when you were just learning your first statistics core stuff.
+
+245
+00:28:49,400 --> 00:28:55,280
+We're going to be leaning on Maxim likelihood really for the remainder of this course or some variant of it.
+
+246
+00:28:56,630 --> 00:29:01,400
+And so that, you know, intuitively, just so you have an idea of what's going on,
+
+247
+00:29:01,730 --> 00:29:09,050
+the we're going to determine the parameter estimates for the proposed model, the values that are most likely to have produced the observed data.
+
+248
+00:29:09,740 --> 00:29:15,170
+So there's a formula we we see the likelihood that gets put in our SAS and our output.
+
+249
+00:29:15,560 --> 00:29:22,880
+And the parameter estimates are the ones that made that that number the highest that we could get it to be.
+
+250
+00:29:27,120 --> 00:29:39,199
+Okay. So here's. This is actually going to be very similar to the way we think about our mean for all four of the models or at least,
+
+251
+00:29:39,200 --> 00:29:45,590
+you know, we'll see this formula over and over again. So, again, we have the log of the mean count.
+
+252
+00:29:45,860 --> 00:29:52,250
+So think of the doctors dataset. This is a log of the mean number of deaths for one of those ten groups of age by smoking.
+
+253
+00:29:54,100 --> 00:30:01,840
+And we can write that as the same thing as the log of the number of person years for that group,
+
+254
+00:30:01,900 --> 00:30:08,260
+times the rate of events per hundred thousand person years or something for that group.
+
+255
+00:30:09,370 --> 00:30:15,060
+And log algebra is. This might not be something that you use every day.
+
+256
+00:30:15,070 --> 00:30:20,650
+So just I'll remind you that when you take the log of two numbers that are multiplied together,
+
+257
+00:30:21,130 --> 00:30:26,170
+the algebra is the same as taking the log of the first number, plus the log of the second number.
+
+258
+00:30:26,560 --> 00:30:29,950
+So this is algebraically the same as this.
+
+259
+00:30:30,340 --> 00:30:36,520
+And this is the way the packages are thinking about fitting the model behind the scenes.
+
+260
+00:30:40,560 --> 00:30:48,540
+And so if you have different numbers of person years for each one of these ten age groups behind the scenes,
+
+261
+00:30:49,980 --> 00:30:56,070
+SAS are going to have the years column of the data set for each of those groups.
+
+262
+00:30:56,340 --> 00:31:00,120
+They're putting that number, whatever you stuck in for your person, years for that group.
+
+263
+00:31:00,130 --> 00:31:07,620
+They're sticking that in here behind the scenes and then they're estimating these regression coefficients.
+
+264
+00:31:08,190 --> 00:31:20,070
+And those regression coefficients are being interpreted with respect to this log of the the death rate per whatever person years unit you're using.
+
+265
+00:31:23,120 --> 00:31:28,400
+So this is the log of the number of person years and group I.
+
+266
+00:31:29,960 --> 00:31:40,700
+And if you have a data set where everybody's follow the exact same amount of time, then and if you have and you're not using groups,
+
+267
+00:31:40,700 --> 00:31:47,839
+you're just saying the number of person years for a single person and they're all for the same amount of time, then this thing isn't necessary.
+
+268
+00:31:47,840 --> 00:31:52,309
+If it's the same for every group you're looking at, it's not necessary.
+
+269
+00:31:52,310 --> 00:31:56,600
+It's like you would have a second intercept. So in fact, they don't want it at all.
+
+270
+00:31:57,970 --> 00:32:01,480
+So it's not needed in the model of follow up is equivalent for everyone.
+
+271
+00:32:02,680 --> 00:32:12,580
+This term is often called an offset term, so when you're reading up on packages or googling or whatever, this is called an offset term.
+
+272
+00:32:13,980 --> 00:32:18,209
+And it's it's going to be a fixed a fixed number based on your data set.
+
+273
+00:32:18,210 --> 00:32:22,920
+It's not being estimated it's coming this is coming from you when you put in your data set.
+
+274
+00:32:26,080 --> 00:32:30,640
+And so this part is really what we want to interpret.
+
+275
+00:32:30,650 --> 00:32:38,560
+So it models either the log of the rate in group I if we have person years included in the model.
+
+276
+00:32:38,680 --> 00:32:47,410
+So if this is here, we're actually interpreting the rate of events in group by per that unit of person years.
+
+277
+00:32:48,370 --> 00:32:54,100
+If you don't have person years that are in the model, you're actually modeling just the mean again.
+
+278
+00:32:55,880 --> 00:33:00,230
+So it models either the log of the rate and group of person years are included
+
+279
+00:33:00,230 --> 00:33:05,030
+in the model or the log of the mean number of a of what you're counting.
+
+280
+00:33:05,270 --> 00:33:14,690
+If person years are not included in the model. So it's really two it's sort of two sub models that you have available and
+
+281
+00:33:14,690 --> 00:33:21,490
+you have to know which model you have fit to get the interpretation correct.
+
+282
+00:33:21,500 --> 00:33:27,590
+So you need to know if you've given it these numbers four person years.
+
+283
+00:33:28,960 --> 00:33:35,770
+And you need to know based on that, whether to interpret your beat as related to rate or mean.
+
+284
+00:33:42,270 --> 00:33:49,649
+So. If person years is included as an offset and we will have that in the doctor's
+
+285
+00:33:49,650 --> 00:33:53,370
+dataset since there were different person years for each of those ten groups.
+
+286
+00:33:53,880 --> 00:33:56,040
+If person years is included as an offset,
+
+287
+00:33:56,340 --> 00:34:04,110
+then BTJ is the change in the log rate of the outcomes associated with a one unit increase in the JTH predictor,
+
+288
+00:34:04,320 --> 00:34:13,710
+adjusted for other variables in the model. And each of the BTJ is the multiplicative effect.
+
+289
+00:34:13,720 --> 00:34:17,470
+So it's not an odds ratio. There's no odds ratio here anymore.
+
+290
+00:34:18,280 --> 00:34:22,540
+It's now the multiplicative effect on the rate of the outcome.
+
+291
+00:34:23,200 --> 00:34:28,899
+So how many times higher is the rate of the outcome associated with the one
+
+292
+00:34:28,900 --> 00:34:32,680
+you to increase in the j predictor adjusted for other variables in the model?
+
+293
+00:34:33,790 --> 00:34:43,629
+We'll have examples soon. But a common thing that students do because logistic regression is so ingrained
+
+294
+00:34:43,630 --> 00:34:47,980
+and this is your first kind of deviation from models you're familiar with,
+
+295
+00:34:48,250 --> 00:34:52,330
+is they'll see each of the data and they're so conditioned to think odds ratio
+
+296
+00:34:52,780 --> 00:34:56,570
+that they start using the words odds ratio when they're interpreting the data.
+
+297
+00:34:57,610 --> 00:35:05,389
+The. You need to. Put a big circle around your notes here that it's not an odds ratio.
+
+298
+00:35:05,390 --> 00:35:09,770
+It's a multiplicative effect on the rate of your the rate your counts are coming in.
+
+299
+00:35:13,430 --> 00:35:16,370
+So for instance, if either the theta is two,
+
+300
+00:35:17,210 --> 00:35:25,810
+then the rate of the outcome happening is doubling each time the predictor increases by one unit, adjusted for other variables in the model.
+
+301
+00:35:29,840 --> 00:35:36,829
+So equivalently, the Baidu J, for example, two is called the rate ratio of the outcome.
+
+302
+00:35:36,830 --> 00:35:41,420
+So it's comparing the rate with one unit increase in the JTH predictor to the rate without one you two,
+
+303
+00:35:41,430 --> 00:35:44,750
+increasing the JTH predictor adjusting for other variables in the model.
+
+304
+00:35:50,180 --> 00:35:57,950
+Okay. So that is when you have the person years offset in your data that you need to deal with.
+
+305
+00:35:58,370 --> 00:36:05,540
+So when follow ups the same for everyone and we'll have a data set in the next handout where that's the case,
+
+306
+00:36:06,140 --> 00:36:10,040
+if it's the same for everyone, we model the mean directly. There's no offset term.
+
+307
+00:36:10,050 --> 00:36:14,570
+So. BTJ Is the change in the log mean of the outcome associated with a one?
+
+308
+00:36:14,570 --> 00:36:18,470
+You increase in the data predictor adjusted for other variables in the model
+
+309
+00:36:19,250 --> 00:36:24,590
+and either the bad j is the multiplicative effect on the mean of the outcome.
+
+310
+00:36:24,590 --> 00:36:33,200
+So again, not an odds ratio. It is a multiplicative effect, a fold change if you like, fold change jargon.
+
+311
+00:36:34,160 --> 00:36:39,890
+On the mean of the outcome associated with the one you two increase in the JTH predictor adjusted for other variables in the model.
+
+312
+00:36:42,650 --> 00:36:50,750
+So if you don't have person years, if you don't have this offset and you see either the bridge equals two,
+
+313
+00:36:50,780 --> 00:36:56,030
+that means the meaning of the outcome doubles each time the predictor increases by one unit.
+
+314
+00:36:59,770 --> 00:37:04,930
+So jargon in the literature has changed over time.
+
+315
+00:37:05,170 --> 00:37:09,610
+And when I was I'm I'm very old compared to all of you.
+
+316
+00:37:10,000 --> 00:37:17,770
+And when I was a student, they used to call these models Poisson like linear models, if you had the same follow up on everybody.
+
+317
+00:37:18,130 --> 00:37:24,460
+They didn't call it Poisson regression. They call them log linear models, as if that was the only model you ever used a log with.
+
+318
+00:37:25,030 --> 00:37:30,670
+So it's that's archaic. You probably won't see that unless you're Googling and you turn up an old article.
+
+319
+00:37:30,970 --> 00:37:38,080
+But in old articles, log linear models are these Poisson models where the follow up same for everybody.
+
+320
+00:37:40,930 --> 00:37:48,730
+These these days we call it just puts on regression. Whether you're modeling an offset or not you just call it Poisson regression.
+
+321
+00:37:52,290 --> 00:38:02,850
+So just like we did with logistic regression, I want to kind of take you through the simple models with this data set and kind of,
+
+322
+00:38:03,390 --> 00:38:10,920
+you know, show you the ropes a little bit so that you can unpack this model very cleanly in your head.
+
+323
+00:38:12,030 --> 00:38:20,939
+And so for The Intercept only model. We are in general, you're going to have something that looks like this.
+
+324
+00:38:20,940 --> 00:38:26,550
+You're going to have the log of the mean is equal to the log of the person years for a
+
+325
+00:38:26,580 --> 00:38:34,920
+group or an individual if I as individual plus the log of the rate that you want to model.
+
+326
+00:38:35,520 --> 00:38:41,220
+So if you have again if you have different person years of follow up for each of the counts,
+
+327
+00:38:42,030 --> 00:38:46,590
+then you're modeling the rate of the outcome for some common unit of person years.
+
+328
+00:38:47,490 --> 00:38:51,180
+And so for our model with the docs,
+
+329
+00:38:51,180 --> 00:38:55,910
+if we only use the intercept in the model we're putting in the person years for each
+
+330
+00:38:55,930 --> 00:39:02,310
+those ten groups and we have a single parameter that helps us model this log of the rate.
+
+331
+00:39:05,820 --> 00:39:09,720
+And so in terms of the death rate, the intercept only model.
+
+332
+00:39:10,940 --> 00:39:18,920
+If you want to just focus on the death rate, is the log of that death rate for Group II is paid or not?
+
+333
+00:39:20,600 --> 00:39:24,680
+So I sort of focused on the parts of the model that are the data you put in.
+
+334
+00:39:27,410 --> 00:39:31,690
+When I do this. So there's nothing different about the way these models are fit.
+
+335
+00:39:31,700 --> 00:39:34,850
+I'm just focusing on what we want to interpret when I do this.
+
+336
+00:39:37,680 --> 00:39:44,430
+And so for the British doctors data, we can calculate death rates by hand just by counting.
+
+337
+00:39:44,460 --> 00:39:49,470
+So in the British doctors data, the overall death rate.
+
+338
+00:39:51,010 --> 00:39:57,430
+Per a single person you're a follow up is the total number of deaths over the total number of person years?
+
+339
+00:39:58,510 --> 00:40:10,629
+Right. And so this is so teeny tiny that it's easier for me to just tell you that these are all the numbers of the deaths from the ten groups.
+
+340
+00:40:10,630 --> 00:40:16,660
+And the denominator is summing up all the person years from the ten groups that we had in our data that we showed earlier.
+
+341
+00:40:17,260 --> 00:40:24,160
+And so this is a very tiny number. Ah, we should probably rescale it to be a little bit nicer,
+
+342
+00:40:24,490 --> 00:40:36,190
+but this is basically saying that there is 0.004 in some change deaths for each individual person.
+
+343
+00:40:36,200 --> 00:40:38,260
+You're a follow up we have in our data.
+
+344
+00:40:41,520 --> 00:40:53,460
+So if this is that the raw data count, the intercept only model should estimate this beta not as the log of that same death rate.
+
+345
+00:40:54,570 --> 00:41:02,850
+And so our intercept model should give us -5.5 and we'll see in SAS in our output.
+
+346
+00:41:02,850 --> 00:41:11,290
+That's exactly what's happening. And so here's the Stars code for Just the Intercept only model.
+
+347
+00:41:11,830 --> 00:41:17,320
+And I'm going to define L years as the log of the person years of follow up,
+
+348
+00:41:17,860 --> 00:41:24,910
+because whenever we have this in our models, it's always the log of an AI that we see in the models.
+
+349
+00:41:25,450 --> 00:41:29,200
+So that is going to be a variable that SAS uses.
+
+350
+00:41:31,090 --> 00:41:34,510
+And we use proc gen mod to fit these models.
+
+351
+00:41:34,510 --> 00:41:39,399
+And so here's the data set. The outcome is in the variable death.
+
+352
+00:41:39,400 --> 00:41:46,809
+That was the number of deaths that were being counted. And the offset is this log of the person, years of follow up for each of the groups.
+
+353
+00:41:46,810 --> 00:41:52,150
+So that's being shown here. So since we have this in the model, we're modeling the rate.
+
+354
+00:41:53,290 --> 00:41:59,799
+And not the mean distribution equals person is what we're covering this hand out.
+
+355
+00:41:59,800 --> 00:42:04,000
+There will be other choices for this in the next handout.
+
+356
+00:42:05,490 --> 00:42:10,230
+And so percent regression with the title. And this is what the output looks like.
+
+357
+00:42:10,240 --> 00:42:17,280
+So you had the distribution Poisson log link outcome as variables and the offset variable is the log of the person.
+
+358
+00:42:17,280 --> 00:42:23,910
+Years of follow up. Models fit statistics will spend some time looking at those soon.
+
+359
+00:42:24,240 --> 00:42:29,069
+But here is that intercept that we calculated by hand based on the raw data.
+
+360
+00:42:29,070 --> 00:42:37,740
+So the model's doing what it's supposed to do, and there's nothing about the model that is, you know, there's nothing about the log.
+
+361
+00:42:40,390 --> 00:42:48,430
+Of the outcome. There's nothing weird about the assumption of what's on distribution really that's helping us interest estimate this intercept.
+
+362
+00:42:48,430 --> 00:43:00,770
+It's the same as the raw data. The Sun distribution is sort of affecting the confidence limits, however.
+
+363
+00:43:05,260 --> 00:43:09,399
+So they the output also has the scale kind of row for scale.
+
+364
+00:43:09,400 --> 00:43:16,540
+And that's going to end up being something we look at more closely in the next handout for the Poisson distribution,
+
+365
+00:43:17,140 --> 00:43:21,790
+you're always going to see 1.0000 here.
+
+366
+00:43:22,270 --> 00:43:23,860
+That's just going to be the default.
+
+367
+00:43:23,860 --> 00:43:31,900
+When we go to other distributions, it all it'll have a number here that helps us interpret something about those other distributions.
+
+368
+00:43:32,320 --> 00:43:33,700
+But for all these models,
+
+369
+00:43:34,000 --> 00:43:43,300
+this is just sort of what stars will put no matter what if you say your distributions Poisson So we're going to just ignore that row for today.
+
+370
+00:43:43,870 --> 00:43:46,390
+Have one less thing to to think about.
+
+371
+00:43:49,800 --> 00:43:59,100
+So here's where all your your earlier training on regression is going to be very nice because inference and confidence intervals and p values,
+
+372
+00:43:59,100 --> 00:44:02,230
+the output looks very similar to everything else you've done.
+
+373
+00:44:02,730 --> 00:44:09,000
+So when you're looking at confidence intervals, you're going to grab them from the same location of the output you have in the past.
+
+374
+00:44:09,000 --> 00:44:16,979
+The P value is the same location you had in the past, and so the learning curve you put in earlier is going to serve you here because many of
+
+375
+00:44:16,980 --> 00:44:21,600
+the things you want to find are in the same locations of the output that you had before.
+
+376
+00:44:22,770 --> 00:44:27,930
+So a 95% confidence interval for beta j in general, if you were to calculate it by hand,
+
+377
+00:44:28,230 --> 00:44:34,410
+is this beta j hat plus or -1.96 times that standard error of beta j hat.
+
+378
+00:44:34,830 --> 00:44:40,170
+But it's calculated for you in both sets and ah, so you don't actually have to remember this.
+
+379
+00:44:41,390 --> 00:44:45,620
+And a 95% confidence interval for the thing you're actually interpreting.
+
+380
+00:44:45,800 --> 00:44:48,890
+The algebra is very similar to what you did before as well.
+
+381
+00:44:48,900 --> 00:44:56,290
+So I've written this in two different ways. In logistic regression handout, either you exponentially rate the lower and upper confidence limits.
+
+382
+00:44:56,290 --> 00:44:58,610
+So that's kind of what this formula here is doing.
+
+383
+00:44:58,940 --> 00:45:06,829
+You calculate the lower beta j -1.96 times its standard error exponential rate that and you calculate the upper beta
+
+384
+00:45:06,830 --> 00:45:13,370
+j plus 1.96 times the standard error of beta hat and the exponential those two limits to get your confidence limit.
+
+385
+00:45:14,920 --> 00:45:22,899
+And so, you know, here the intercept values and you add exponentially these numbers to get the confidence
+
+386
+00:45:22,900 --> 00:45:29,860
+limit for the Egypt that intercept or there's a shortcut because of the way
+
+387
+00:45:30,550 --> 00:45:36,580
+algebra with exponents works and that is to put the e to the beta j j hat thing here
+
+388
+00:45:36,580 --> 00:45:41,230
+and multiply it times either the plus or minus the rest of the 1.96 standard error.
+
+389
+00:45:41,770 --> 00:45:48,580
+I might jump back and forth between the two algebra. I just want to remind you that those are algebraically equivalent sometimes.
+
+390
+00:45:48,730 --> 00:45:53,860
+I already have this number in my hand and it's just a few less calculator punches.
+
+391
+00:45:57,780 --> 00:46:01,230
+So in the British doctors intercept only model example,
+
+392
+00:46:01,650 --> 00:46:09,840
+we have a 95% confidence interval for that intercept that we can do this way like we can for this intercept.
+
+393
+00:46:10,470 --> 00:46:20,940
+These numbers over here came from behind the scenes, calculating the intercept plus or -1.96 times the standard error they show.
+
+394
+00:46:21,510 --> 00:46:31,169
+And that ends up being the numbers they give here and the 95% confidence interval for the overall deaths per person.
+
+395
+00:46:31,170 --> 00:46:34,980
+Year of follow up. Exponential is those two limits.
+
+396
+00:46:35,310 --> 00:46:41,290
+So this is now something that at least in this output we haven't seen.
+
+397
+00:46:41,310 --> 00:46:46,820
+We can maybe write some kind of a contrast or estimate statement to get that for us.
+
+398
+00:46:46,830 --> 00:46:50,909
+But, you know, we're basically exponential in these two limits.
+
+399
+00:46:50,910 --> 00:46:55,410
+And that's the 95% confidence interval for the overall deaths per single person.
+
+400
+00:46:55,410 --> 00:47:00,750
+Years of follow up. So again, really tiny numbers kind of unsatisfying.
+
+401
+00:47:01,290 --> 00:47:08,040
+And so we're going to eventually rescale that to be something that would be nicer to write about in a paper.
+
+402
+00:47:09,400 --> 00:47:14,620
+And so here's more source code for this.
+
+403
+00:47:14,620 --> 00:47:21,250
+Overall, you know, the 95% confidence report, the overall deaths per person year where you get staff to do all of it for you.
+
+404
+00:47:21,280 --> 00:47:28,330
+So in production mod, we use an estimate statement to do contrast kind of stuff.
+
+405
+00:47:28,660 --> 00:47:39,879
+Here's a just title. This is deaths per single person year a follow up and the formula was E to the beta not so we write the parameter
+
+406
+00:47:39,880 --> 00:47:46,990
+intercept and we just want each the single beta not not e to say that the two beta note or something and.
+
+407
+00:47:48,640 --> 00:47:56,080
+I think I've mentioned this before. We wanted exponential it and depending on package the exponential it for you or not and I'm I never want
+
+408
+00:47:56,080 --> 00:48:01,360
+to keep track of which packaged as what so I always ask for it to be exponentially aided in this package.
+
+409
+00:48:01,360 --> 00:48:05,950
+I think it just prints the same result twice because they already did the exponential action for you.
+
+410
+00:48:06,520 --> 00:48:17,710
+So you don't necessarily need this, but I just always put it there by habit and the output looks like this from that contrast or estimate statement.
+
+411
+00:48:19,690 --> 00:48:26,980
+And so, again, this is just what we saw on the previous page when we did it by hand from the parameter table.
+
+412
+00:48:27,460 --> 00:48:34,570
+So here is the mean the confidence limits and they've already exponential for you.
+
+413
+00:48:35,440 --> 00:48:44,610
+So this is actually the same result down here. Okay.
+
+414
+00:48:44,640 --> 00:48:47,610
+And remember, these were the labels that I gave it.
+
+415
+00:48:54,570 --> 00:49:03,570
+And so for our code, you are lucky because you've already been using this EOD package to do logistic regression.
+
+416
+00:49:03,570 --> 00:49:10,170
+So it's the same package. So we've already used it, you've already loaded it and the syntax is going to be very similar.
+
+417
+00:49:11,640 --> 00:49:19,830
+So here's just reading, you know, making sure the aid package is loaded here is reading in the data with and putting nice labels on things.
+
+418
+00:49:21,150 --> 00:49:24,960
+And here is how to do the Poisson intercept only model.
+
+419
+00:49:25,050 --> 00:49:33,750
+So again, the formula is put together as a formula, and then whatever you want here, my outcome is death and I only want the intercept.
+
+420
+00:49:33,750 --> 00:49:39,900
+So this tilde looks like is kind of reads as an equal. And this one is reading like just the intercept.
+
+421
+00:49:40,560 --> 00:49:51,120
+And then you have the same exact syntax, except now you have an offset option that you have to add in offset equals l years.
+
+422
+00:49:53,370 --> 00:49:56,939
+And you have to put points on as your family.
+
+423
+00:49:56,940 --> 00:50:00,530
+Before we had I think binomial with link of logit.
+
+424
+00:50:00,570 --> 00:50:02,700
+So now you have Poisson with link of log.
+
+425
+00:50:04,810 --> 00:50:16,030
+But otherwise the code is similar so we can get our coefficient table and here is just some nice code that helps you look at the you know,
+
+426
+00:50:16,030 --> 00:50:26,069
+the parameter estimates already exponential and. So here is the coefficient estimates.
+
+427
+00:50:26,070 --> 00:50:31,410
+There's that same -5.51 that we said we would get based on the rates that we did by hand.
+
+428
+00:50:32,160 --> 00:50:40,920
+It's showing you a p value of zero here. And of course we know, we all know by now in statistics that there's no such thing as a real zero p value.
+
+429
+00:50:41,250 --> 00:50:49,799
+So it's that's that's the smallest p value that it will actually show you is one times ten to the -16.
+
+430
+00:50:49,800 --> 00:50:59,310
+So this is smaller than that by some amount. And, and this p value is the same p value here that I've just grabbed from that same coefficient table.
+
+431
+00:50:59,640 --> 00:51:02,890
+But you have the death, you know.
+
+432
+00:51:04,330 --> 00:51:08,140
+Per single person. Year of observation here. The confidence interval here.
+
+433
+00:51:11,100 --> 00:51:18,260
+So I don't really think that many people would report that teeny tiny number of deaths per single person Europe observation.
+
+434
+00:51:18,270 --> 00:51:26,220
+So most of the time when you read papers like this, you look at deaths per se, some common large number of person, years of observation.
+
+435
+00:51:26,230 --> 00:51:28,730
+So I'm going to show you how to adjust the scale.
+
+436
+00:51:28,730 --> 00:51:36,090
+Two deaths per 100,000 person years in that same intercept only model where we can check that we're doing it correctly by hand.
+
+437
+00:51:36,720 --> 00:51:43,799
+So I'm going to now say all year underscore 100,000 is going to be the log of the years.
+
+438
+00:51:43,800 --> 00:51:48,570
+Divided by 100,000. That's going to be the new offset term.
+
+439
+00:51:49,110 --> 00:51:57,000
+And if you use that offset term and change, nothing else from the code will now have a scale we can interpret well.
+
+440
+00:51:59,440 --> 00:52:06,969
+So here is our output now, and we've got something here that looks like a real unit.
+
+441
+00:52:06,970 --> 00:52:14,410
+It's practical if you round it at six, you know, so six deaths per 100,000 person.
+
+442
+00:52:14,410 --> 00:52:18,640
+Years of follow up in the data set if you don't pay attention to age or smoking status.
+
+443
+00:52:21,870 --> 00:52:25,130
+And so. Nope.
+
+444
+00:52:25,140 --> 00:52:31,170
+Sorry, that was I forgot it was on the log scale so we have to exponential rate that so it's E to the six.
+
+445
+00:52:32,080 --> 00:52:37,120
+Is the number of estimated deaths per 100,000 person years.
+
+446
+00:52:37,750 --> 00:52:43,660
+So that's 402.8 deaths per 100,000 person years.
+
+447
+00:52:45,390 --> 00:52:49,560
+And the confidence interval. Everything else you do. Kind of the same way.
+
+448
+00:52:49,950 --> 00:52:58,680
+It's just the scale that's changed. So if you take the parameter estimate and plus or -1.9, six times, it's standard error.
+
+449
+00:52:59,040 --> 00:53:06,830
+You get kind of confidence limits for beta not. And then you exponential those so that the 95% confidence interval for the other
+
+450
+00:53:06,840 --> 00:53:15,210
+overall deaths per 100,000 person years of observation is 374.7 to 433.1.
+
+451
+00:53:16,020 --> 00:53:18,690
+And so these are much nicer numbers to show in your paper.
+
+452
+00:53:22,980 --> 00:53:29,090
+And if you want an estimate statement to do that for you, it's a very simple estimate statement.
+
+453
+00:53:29,100 --> 00:53:33,149
+But just because we're learning all of this code, you have the same model.
+
+454
+00:53:33,150 --> 00:53:41,700
+I'm using this offset l years underscore 100,000 and and putting this estimate
+
+455
+00:53:41,700 --> 00:53:47,099
+statement with a title intercept one and my you don't need this slash XP.
+
+456
+00:53:47,100 --> 00:53:52,920
+But as I explained, I always use it just by knee jerk habit.
+
+457
+00:53:55,130 --> 00:54:03,470
+And you'll get this result here. So the mean number of deaths per 100,000 person years is 402 point.
+
+458
+00:54:03,680 --> 00:54:06,760
+Some change here with confidence limits here.
+
+459
+00:54:06,770 --> 00:54:10,460
+And because I put that slash XP, the same numbers are repeated.
+
+460
+00:54:10,970 --> 00:54:14,660
+And that's just a quirk of mine. You're going to have to just learn to ignore.
+
+461
+00:54:14,660 --> 00:54:25,980
+You don't have to put that slash XP. So here's what our intercept only model is looking like compared to the raw data.
+
+462
+00:54:25,990 --> 00:54:35,559
+So I've overlaid the raw data we plotted earlier and we are only using one single parameter to model the deaths per 100,000 person years.
+
+463
+00:54:35,560 --> 00:54:40,750
+And it was in that, you know, in the 400 ish range.
+
+464
+00:54:40,750 --> 00:54:46,840
+Right. So this is for every class of age and smoking, you're assuming the same number.
+
+465
+00:54:47,170 --> 00:54:52,659
+So you can tell that it's not a great it's not a great look for the data.
+
+466
+00:54:52,660 --> 00:54:58,750
+Right. It's it's only close if you're in the kind of age group two ish group.
+
+467
+00:54:59,050 --> 00:55:06,820
+And it's really not paying any attention to the fact that smokers have higher death rate, have higher deaths per 100,000 person years.
+
+468
+00:55:07,180 --> 00:55:11,920
+So this is what that model's assuming. And so we're going to, of course, add in more predictors.
+
+469
+00:55:14,050 --> 00:55:20,380
+In our. I. There's not much new to learn about the code here.
+
+470
+00:55:20,390 --> 00:55:33,420
+I'm just having it here for your for your notes. And so I'm creating the new offset term of the log of smoking dataset years per 100,000.
+
+471
+00:55:33,440 --> 00:55:36,530
+So this is the year variable divided by 100,000.
+
+472
+00:55:37,640 --> 00:55:43,190
+And then when I change that offset. So the yellow part is the only thing I've changed from previous code.
+
+473
+00:55:44,140 --> 00:55:52,750
+You get output that looks very similar to south again where this zero really means the p value is less than one times ten to the -16.
+
+474
+00:55:54,840 --> 00:55:58,590
+And we have our estimate and confidence limits here as well.
+
+475
+00:55:58,980 --> 00:56:04,140
+So the same results we saw in South just kind of laid out really quickly with that one change.
+
+476
+00:56:06,300 --> 00:56:10,260
+Okay. So we're going to add in the binary predictor of smoking status.
+
+477
+00:56:12,670 --> 00:56:19,160
+Oh, it's. Oh, gosh, I have not given you a break. It's 9:00, so let's meet in 10 minutes.
+
+478
+00:56:20,170 --> 00:56:29,290
+This is good at the stopping places any and, um, you know, stretch and just kind of jog your energy back up.
+
+479
+00:56:29,920 --> 01:01:30,790
+I'll see you in 10 minutes. Hmm.
+
+480
+01:01:31,090 --> 01:05:23,590
+Hmm. Hmm hmm. Yes, sir.
+
+481
+01:05:23,730 --> 01:05:54,180
+Yes, sir. So I.
+
+482
+01:06:10,000 --> 01:06:26,390
+Could you squeeze? Okay?
+
+483
+01:06:26,780 --> 01:06:32,500
+Yes. All right. Let's get back to work. That break off really helped.
+
+484
+01:06:32,670 --> 01:06:41,350
+Okay. So. So we're going to look at the next most complicated model, which is still not very complicated,
+
+485
+01:06:41,920 --> 01:06:45,460
+where we have smoking status as a predictor in the models.
+
+486
+01:06:45,490 --> 01:06:47,020
+So in addition to The Intercept,
+
+487
+01:06:47,530 --> 01:06:55,600
+we now have a beta that corresponds to smoking where smoking is coded as the one if there was a smoker in 1951 and otherwise it's a zero.
+
+488
+01:06:56,410 --> 01:07:01,420
+So we still have the log of some version of person years in the model.
+
+489
+01:07:02,830 --> 01:07:08,770
+And we're still going to be interpreting the coefficients respect this log of the rate.
+
+490
+01:07:11,840 --> 01:07:17,120
+Such as focusing on the parts of the model that, you know, we're really interpreting.
+
+491
+01:07:18,280 --> 01:07:23,830
+The lack of some kind of a death rate for some unit of person years is going to be fading out.
+
+492
+01:07:23,860 --> 01:07:33,350
+Plus beta one times the smoking status. So there's two you now have two kind of death rates being modeled here.
+
+493
+01:07:33,370 --> 01:07:43,870
+So for the non smoker group where the predictor is zero, we have the intercept kind of estimating that event rate in the non smokers.
+
+494
+01:07:44,560 --> 01:07:55,480
+And so the deaths per 100,000 person years with our offset that we created for that scale of person years is going to be each of the beta not.
+
+495
+01:07:57,860 --> 01:08:02,899
+And for the smoker group where we have a variable smoke that smoking variables are one
+
+496
+01:08:02,900 --> 01:08:09,740
+here the log of the death rate per 100,000 person years is now beta not plus beta one.
+
+497
+01:08:10,340 --> 01:08:16,250
+All right. So when we want to estimate the deaths per 100,000 person years with this model, we're exponentially waiting.
+
+498
+01:08:17,680 --> 01:08:19,750
+The sum of beidou not postpaid of one.
+
+499
+01:08:20,650 --> 01:08:28,600
+Or if you are getting used to this kind of algebra, that's the same thing is e to the first number in exponent times.
+
+500
+01:08:28,600 --> 01:08:39,100
+E to the second number in the exponent. And so kind of compare these two rows here.
+
+501
+01:08:39,190 --> 01:08:42,220
+So for the Nonsmoker group, it was either the beat or not.
+
+502
+01:08:42,610 --> 01:08:48,550
+And for the smokers, it was e to that same number to not, you know, times eater, the better one.
+
+503
+01:08:48,910 --> 01:08:53,950
+So that helps us see how this interpretation of even the beta one works since
+
+504
+01:08:53,950 --> 01:08:59,710
+smokers have either the beta one times the death rate of the non smokers.
+
+505
+01:09:02,550 --> 01:09:05,610
+And so that doesn't depend on the person you're Unisys either.
+
+506
+01:09:05,610 --> 01:09:15,360
+The beta one has a you know it's it's a it's a multiplicative term and that will be the same multiplicative term no matter what scale.
+
+507
+01:09:16,340 --> 01:09:23,780
+That the death rate is put on whether it's for per single person year or per 100,000 person years.
+
+508
+01:09:24,170 --> 01:09:27,800
+This is always going to be the multiplicative effect on the death rate.
+
+509
+01:09:27,980 --> 01:09:32,270
+When you when you go from a smoker versus a non smoker.
+
+510
+01:09:34,950 --> 01:09:39,560
+And so in the, in the source code, I've only changed a few things here.
+
+511
+01:09:39,570 --> 01:09:44,490
+So first off, I've put smoker in as a predictor. We didn't have we just had the intercept before.
+
+512
+01:09:44,490 --> 01:09:52,920
+So now we're officially putting that in. I'm using the version of the offset so that we can interpret it as a rate per 100,000 person years.
+
+513
+01:09:53,640 --> 01:10:02,670
+And I'm putting this estimate statement now so that I can get confidence intervals of E to the beta, not plus beta one.
+
+514
+01:10:03,630 --> 01:10:08,970
+This isn't something that's necessarily put out automatically unless you ask for it because it involves more than one parameter.
+
+515
+01:10:11,200 --> 01:10:16,000
+And I've got some titles here and that this is some output.
+
+516
+01:10:17,060 --> 01:10:25,540
+The contrast estimate stuff is on the next slide so we can have this on model dependent variable deaths.
+
+517
+01:10:25,720 --> 01:10:30,310
+We're using the version of the offset so you can interpret deaths per 100,000 person years.
+
+518
+01:10:30,670 --> 01:10:34,120
+Model fit statistics that I haven't talked about much yet, but I will.
+
+519
+01:10:34,510 --> 01:10:38,350
+And then here are the beta. Not in the beta one.
+
+520
+01:10:40,580 --> 01:10:47,360
+And so we can actually compare these to the raw counts that we would estimate, you know,
+
+521
+01:10:47,390 --> 01:10:52,700
+using just data from the smokers and just data from the nonsmokers and sort of see how these estimates measure up.
+
+522
+01:10:56,480 --> 01:11:06,580
+So for the nonsmoker group. The log of the death rate per 100,000 person years is better not.
+
+523
+01:11:06,610 --> 01:11:10,360
+So we've got this 5.511 here.
+
+524
+01:11:10,570 --> 01:11:19,120
+And so when we're assuming the best based on this model, when we estimate the estimated deaths per 100,000 person years, we get 257.5.
+
+525
+01:11:20,720 --> 01:11:33,660
+And for the smoker group. We now have the log of the deaths per 100,000 person years is beta not plus beta one and then we
+
+526
+01:11:33,930 --> 01:11:38,640
+exponential those numbers to get estimated deaths per 100,000 person years for the smoker group.
+
+527
+01:11:38,940 --> 01:11:44,190
+So we've got the intercept 5.55. The smoker number is coming from over here.
+
+528
+01:11:45,030 --> 01:11:53,070
+And when you play that in your calculator, you're getting 442.9 deaths per 100,000 person years in the smoker group.
+
+529
+01:11:53,460 --> 01:11:56,580
+So that estimate is much higher than the non smoker group.
+
+530
+01:11:57,620 --> 01:12:01,239
+Right. And both of these have a unit associated with them.
+
+531
+01:12:01,240 --> 01:12:07,960
+It's per 100,000 person years, this number and per 100,000 person years for this number.
+
+532
+01:12:09,580 --> 01:12:18,219
+So. The smoker group has a death rate that is an estimated E to the beta one half times greater
+
+533
+01:12:18,220 --> 01:12:24,200
+than the non smoker group death rate so that e to the beta one e to the point five 4 to 2.
+
+534
+01:12:25,580 --> 01:12:33,890
+1.7 to that is the multiplicative rate higher that smoker groups have.
+
+535
+01:12:35,480 --> 01:12:38,540
+Four their death rate compared to the nonsmoker death rate.
+
+536
+01:12:38,780 --> 01:12:51,149
+And this doesn't depend on the units. So regardless of how you put in your offset, regardless of the scale to offset that rate for the smokers,
+
+537
+01:12:51,150 --> 01:12:55,820
+the death rate is going to be 1.7, two times higher. So you can check it here.
+
+538
+01:12:55,830 --> 01:12:59,729
+You know, here's the non smokers death rate per hundred thousand person years.
+
+539
+01:12:59,730 --> 01:13:09,090
+And if you multiply that times 1.72, you will get 442.9 deaths per 100,000 person years.
+
+540
+01:13:10,600 --> 01:13:15,639
+And if you feel like playing around with the code, the data sets all on canvas, you know,
+
+541
+01:13:15,640 --> 01:13:21,700
+you can play around the code and you can use different versions of the offset and double check.
+
+542
+01:13:22,240 --> 01:13:27,309
+You know that that multiplicative factor will always be 1.72,
+
+543
+01:13:27,310 --> 01:13:32,850
+whether it's per single person year or per ten person years of follow up or whatever, it's always going to be.
+
+544
+01:13:32,860 --> 01:13:41,470
+This doesn't depend on the units. So when people are writing their manuscript worthy sentences, they are often focusing on this this rate.
+
+545
+01:13:43,220 --> 01:13:48,740
+This multiplicative this multiplicative effect on the rate and so.
+
+546
+01:13:50,950 --> 01:13:59,919
+And so your sentences will often have like this multiplicative effect on the rate for one unit increase in the predictor here,
+
+547
+01:13:59,920 --> 01:14:04,420
+the one unit increase in the particulars going from nonsmoker to smoker because non smoker was zero,
+
+548
+01:14:04,600 --> 01:14:13,209
+smoker was one, and you could get the confidence limits using the same algebra you normally used here.
+
+549
+01:14:13,210 --> 01:14:17,030
+It's. For that death rate.
+
+550
+01:14:17,040 --> 01:14:21,899
+You're looking at the smoker row, right? So they've already got the confidence limits calculated for you.
+
+551
+01:14:21,900 --> 01:14:27,510
+And you can just exponentially eat this number, exponentially at this number, and you'll get the same numbers here.
+
+552
+01:14:31,290 --> 01:14:38,460
+And so now we look at the new model that has the smoking group and we plot that versus the raw data.
+
+553
+01:14:38,580 --> 01:14:45,630
+We're doing a little bit better when you take into account smoking, the smoking group's a bit higher than the non smoking group.
+
+554
+01:14:46,560 --> 01:14:51,240
+Certainly we're seeing something about smoking that's significant here,
+
+555
+01:14:51,240 --> 01:14:57,000
+but we're still modeling the actual counts fairly poorly because we're ignoring the age groups.
+
+556
+01:15:03,200 --> 01:15:06,260
+And just to confirm that this is the same we would get by hand.
+
+557
+01:15:06,950 --> 01:15:15,799
+I have some algebra here and I. And just so that, you know, the way I think about this, I mean, I know that these are the same you would get by hand,
+
+558
+01:15:15,800 --> 01:15:18,830
+but how would you have guessed that before we did the calculation.
+
+559
+01:15:19,400 --> 01:15:24,140
+So the way I always think about that is if you only have two possible numbers
+
+560
+01:15:24,500 --> 01:15:29,060
+that can be estimated and you have two parameters beta naught and beta one,
+
+561
+01:15:29,300 --> 01:15:31,100
+you'll get the same exact answer.
+
+562
+01:15:33,080 --> 01:15:44,120
+If you have a continuous variable, you have many, many possible estimates going on for every different value of the continuous predictor.
+
+563
+01:15:44,330 --> 01:15:46,700
+You're not going to be able to check that one by hand.
+
+564
+01:15:47,790 --> 01:15:56,160
+So I'm always in my head comparing the number of babies in the model with the number of possible estimates I could do by hand.
+
+565
+01:15:56,460 --> 01:16:00,210
+And if those numbers match, I'll get the exact same number by hand.
+
+566
+01:16:00,600 --> 01:16:03,300
+I've just kind of learned that intuition over the years.
+
+567
+01:16:04,540 --> 01:16:11,290
+And so here there's only two possible numbers we could do by hand that relate to smoking versus non smoking.
+
+568
+01:16:11,290 --> 01:16:14,350
+And we had better not and better ones. So we'll get the same as we did by hand.
+
+569
+01:16:14,680 --> 01:16:18,600
+And here's just the algebra showing that. So for the non smoker group here,
+
+570
+01:16:18,610 --> 01:16:23,200
+the number of deaths added for those five groups over the sum of the person years for the five
+
+571
+01:16:23,200 --> 01:16:28,600
+groups times 100,000 to get the right scale of the number of deaths per 100,000 person years.
+
+572
+01:16:28,930 --> 01:16:33,049
+And that matched our estimate. From the software and for the smoker group,
+
+573
+01:16:33,050 --> 01:16:39,680
+we're adding the total number of deaths in the five smoking groups dividing by the sum of their person years and in those same five
+
+574
+01:16:39,710 --> 01:16:47,450
+groups scaling it up so we can talk about deaths per 100,000 person years and we get the same number as we got from software.
+
+575
+01:16:50,300 --> 01:16:57,530
+So two estimates we did by hand and we use two parameters in our model not made a one and so that that they match.
+
+576
+01:16:57,860 --> 01:17:02,389
+Exactly. And now you know how I knew ahead of time that was going to match.
+
+577
+01:17:02,390 --> 01:17:05,510
+Exactly. So, you know.
+
+578
+01:17:05,780 --> 01:17:14,599
+So what's the message here? I haven't really leaned on the porcelain assumption at all in making these estimates the confidence limits.
+
+579
+01:17:14,600 --> 01:17:17,630
+However, those are kind of leaning on these assumptions.
+
+580
+01:17:22,480 --> 01:17:26,020
+Okay. So confidence interval.
+
+581
+01:17:26,320 --> 01:17:30,370
+Mean deaths per 100,000 person years for the nonsmoker group.
+
+582
+01:17:30,640 --> 01:17:40,110
+So from the model we're only using the estimate since the nonsmoker variable x was a zero.
+
+583
+01:17:40,120 --> 01:17:48,300
+So this ends up just reducing the beta not and the estimated deaths per 100,000 person years from the model is either the beat or not.
+
+584
+01:17:48,310 --> 01:17:52,840
+So this is the same number we got by hand. Did we not show this earlier? We did that part.
+
+585
+01:17:52,840 --> 01:17:54,340
+We didn't show the confidence limits.
+
+586
+01:17:54,340 --> 01:18:02,140
+And so the 95% confidence limits that correspond to that estimate of deaths per 100,000 person years in the non smokers,
+
+587
+01:18:02,530 --> 01:18:10,269
+you can do it by hand, but really you're probably it's only involving this one parameter.
+
+588
+01:18:10,270 --> 01:18:14,170
+So you can just exponential rate the confidence limits for data not as well.
+
+589
+01:18:17,890 --> 01:18:28,299
+Or you can use an estimate statement. And so for this, for the beta, not one, you don't have to really worry about that for the estimate.
+
+590
+01:18:28,300 --> 01:18:34,370
+In the smoker group, we have two parameters here for certain going to want to use some kind of an estimate statement.
+
+591
+01:18:34,390 --> 01:18:41,680
+So for this particular example, if we want to know the estimated deaths per 100,000 person years in the smoker group,
+
+592
+01:18:42,160 --> 01:18:49,720
+that's where the smoker variable was. The ones of the formulas, either the beta not plus the beta one times that one for being a smoker.
+
+593
+01:18:50,640 --> 01:18:55,709
+And putting in the estimates for better not beta one. We get this number that sustained as we did by hand.
+
+594
+01:18:55,710 --> 01:19:02,670
+We've seen this before. And so to do the get the confidence interval, we use the estimate statement.
+
+595
+01:19:02,910 --> 01:19:06,480
+So I've just put in a label here so I know what I'm about to see.
+
+596
+01:19:06,930 --> 01:19:12,180
+And my formula has one beta not and it has one beta one.
+
+597
+01:19:13,250 --> 01:19:22,909
+So this number is is multiplying by bait a not and saying I want one of those and this number is multiplying by beta one and saying I have one of
+
+598
+01:19:22,910 --> 01:19:31,400
+those in my formula and this is my annoying habit to always put a slash XP because I can't remember which proc already gives it to you on that scale.
+
+599
+01:19:31,910 --> 01:19:37,070
+And here are the estimates and confidence limits.
+
+600
+01:19:37,820 --> 01:19:45,740
+These are the ones that we couldn't do by hand, these confidence limits and because of my little quirk, at the same numbers are given down here.
+
+601
+01:19:51,910 --> 01:19:53,170
+So using the estimate statement,
+
+602
+01:19:53,170 --> 01:20:02,350
+the 95% confidence were the mean number of deaths per 100,000 person years is just taken from the last slide is is for a 9.62 for 78.9.
+
+603
+01:20:03,310 --> 01:20:06,549
+There's another trick. You've probably done this in your previous classes,
+
+604
+01:20:06,550 --> 01:20:11,860
+but I just wanted to remind you of this trick because sometimes you're too lazy to remember the syntax for estimate statements.
+
+605
+01:20:12,280 --> 01:20:15,609
+So for for this example, with a binary predictor,
+
+606
+01:20:15,610 --> 01:20:21,340
+you can always switch the reference group and kind of trick the output into giving you what you need.
+
+607
+01:20:21,370 --> 01:20:28,380
+So here, what I've done is switched the reference group by creating the variable nonsmoker.
+
+608
+01:20:28,390 --> 01:20:34,240
+So this variable nonsmoker is a one if they're a non smoker and a zero if they're a smoker.
+
+609
+01:20:34,540 --> 01:20:42,940
+And so when I need to get the results for smokers, I always need to intercept from this new model where I just switched that reference group.
+
+610
+01:20:43,960 --> 01:20:46,540
+And so now I don't have to have an estimate statement.
+
+611
+01:20:46,870 --> 01:20:54,490
+I just exponential these two confidence limits for the intercept here and I get the same number.
+
+612
+01:20:54,970 --> 01:20:56,350
+And so this can be handy.
+
+613
+01:20:56,680 --> 01:21:04,060
+You know, I hated trick changing the reference group can be really quick if you're too lazy to remember the code for the estimate statement.
+
+614
+01:21:10,080 --> 01:21:17,790
+All right. So this is where all of your previous work in your other previous models is going to be helpful because hypothesis
+
+615
+01:21:17,790 --> 01:21:24,680
+testing and the way you find numbers from the output is the same as it was before for logistic regression.
+
+616
+01:21:24,690 --> 01:21:30,450
+So if you want to know whether or not a predictor is associated with the outcome you're modeling,
+
+617
+01:21:30,720 --> 01:21:40,650
+you test the hypothesis that that predictor parameter is zero and the test statistic is going to take on that familiar form.
+
+618
+01:21:40,980 --> 01:21:49,559
+In SAS, it tends to give you the parameter minus the null hypothesis squared over the variance of the parameter.
+
+619
+01:21:49,560 --> 01:21:55,590
+So it's giving you the results on the Chi square scale where there's one just a just degree of freedom.
+
+620
+01:21:56,280 --> 01:22:01,229
+If the null hypothesis is true and an R, it'll give it to you on the, you know,
+
+621
+01:22:01,230 --> 01:22:06,960
+the Z, the squared scale where you're comparing things to a normal distribution.
+
+622
+01:22:09,830 --> 01:22:16,010
+So you're just going through your output in SAS and you're finding that same spot where your test artistic and P value is.
+
+623
+01:22:17,410 --> 01:22:25,780
+And so with that, you know, as long as you know where to look, you got your value, you can certainly solve for it by hand if you wish.
+
+624
+01:22:26,500 --> 01:22:33,190
+You're advanced statistical people. Now, I'm not going to test you on where this number comes from,
+
+625
+01:22:33,670 --> 01:22:38,890
+so I will never like force you to calculate it from scratch if it's showing up right there.
+
+626
+01:22:39,160 --> 01:22:42,880
+But this is so that you, you know, if you want to, you can.
+
+627
+01:22:46,160 --> 01:22:51,710
+And so here's finally a manuscript worthy sentence just based on this simple model with smoking status.
+
+628
+01:22:52,160 --> 01:23:01,610
+So the death rate in the smoker group is 1.72 times higher than the death rate in the Nonsmoker Group.
+
+629
+01:23:01,850 --> 01:23:07,340
+95% confidence interval P-value. So I've got my direction of the effect.
+
+630
+01:23:07,400 --> 01:23:11,450
+Smokers are worse, right? The confidence interval on the p value.
+
+631
+01:23:12,410 --> 01:23:20,150
+And because I've reported it on this death rate scale, I don't have to worry about the number of person years and stuff.
+
+632
+01:23:20,720 --> 01:23:27,980
+If I wanted to report estimated death rates sorry estimated deaths per 100,000 person years,
+
+633
+01:23:27,980 --> 01:23:33,050
+then I have to pay attention to what scale my offset was put in and all that kind of stuff.
+
+634
+01:23:33,710 --> 01:23:42,020
+But when you're just writing about the death rate, that this is a multiplicative term that we got from E to the beta for the smokers.
+
+635
+01:23:46,700 --> 01:23:51,829
+All right so in are you guys if you've been doing are you were already way ahead
+
+636
+01:23:51,830 --> 01:23:57,950
+because you've already done contrast statements and are using the comp a package.
+
+637
+01:23:58,340 --> 01:24:00,739
+So it's very similar syntax.
+
+638
+01:24:00,740 --> 01:24:11,780
+So here's the fitted model for smokers where we've got deaths equals the, you know, the smoker predictor, we've got an offset.
+
+639
+01:24:11,780 --> 01:24:15,109
+I'm using the same kind of version of the offset in SAS.
+
+640
+01:24:15,110 --> 01:24:23,900
+So this is now interpreted as, you know, four deaths per 100,000 person years calculated the same way we did in SAS.
+
+641
+01:24:25,150 --> 01:24:29,700
+Families person log link. And looking at the coefficients.
+
+642
+01:24:29,700 --> 01:24:34,589
+And in a minute, we're going to also see how to do the contrast statements.
+
+643
+01:24:34,590 --> 01:24:43,720
+And here they are. So for in R, when you're doing the contrast statements, this is this is the important part right here.
+
+644
+01:24:43,740 --> 01:24:49,110
+This is you have to have the same number of numbers in this list as you have parameters in your model.
+
+645
+01:24:49,470 --> 01:24:53,730
+And so we needed a one for the beta, not term,
+
+646
+01:24:53,880 --> 01:25:01,260
+and we needed a one for the beta one term when we were looking at the contrast for smoker deaths per 100,000 person years.
+
+647
+01:25:02,160 --> 01:25:13,140
+And then we use this glitch t function with that contrast and the model fit that we saved over here for the this model with death equals smoker.
+
+648
+01:25:15,160 --> 01:25:21,580
+And so here's just some quick code to get everything exponentially weighted.
+
+649
+01:25:21,580 --> 01:25:30,010
+And I put this part in yellow down below because this code with the contrast results is a little bit different than,
+
+650
+01:25:31,090 --> 01:25:35,110
+you know, just grabbing the fourth column of some summary fit.
+
+651
+01:25:35,410 --> 01:25:41,620
+And so this p value code, when you're looking at the, you know, the,
+
+652
+01:25:42,250 --> 01:25:48,070
+the summary statistics is different from how you get the P value if you're looking at some contrast output.
+
+653
+01:25:51,650 --> 01:25:58,310
+All right, but otherwise the results look very similar to South. So here's the table of the betas and here's the.
+
+654
+01:25:58,550 --> 01:26:01,670
+The significance of smoking is highly significant over here.
+
+655
+01:26:02,420 --> 01:26:09,850
+And here are the death. Deaths per 100,000 person.
+
+656
+01:26:09,860 --> 01:26:20,570
+Your results. Actually this is just exponential the model so you've got either the beta not here in in either the beta one here.
+
+657
+01:26:23,940 --> 01:26:29,730
+So the intercept is the nonsmoker deaths per 100,000 person years with a 95% confidence interval.
+
+658
+01:26:30,300 --> 01:26:42,330
+And the next line is 1.719, etc. is the death rate ratio comparing smokers versus nonsmokers with the 95% confidence interval.
+
+659
+01:26:43,410 --> 01:26:52,530
+And here's some more output that is looking at the contrast statements.
+
+660
+01:26:53,090 --> 01:26:56,430
+So remember, this was looking at e to the beta one plus beta.
+
+661
+01:26:56,790 --> 01:27:03,659
+Sorry, beta. Not either the beta. Not plus beta one. And so that's where we got that.
+
+662
+01:27:03,660 --> 01:27:11,190
+There were 442 and some change deaths per 100,000 person years in the smoker group with that confidence interval.
+
+663
+01:27:12,270 --> 01:27:19,200
+So now we have all the numbers we had from stars. The counts of deaths per 1000 person years for non smokers is here.
+
+664
+01:27:19,650 --> 01:27:23,340
+For smokers is here. And the rate ratios here.
+
+665
+01:27:31,220 --> 01:27:34,270
+Okay. How you feel.
+
+666
+01:27:37,240 --> 01:27:45,340
+All right. So I just want you to pat yourself on the back right now because you're learning a very complicated new model in one hand out.
+
+667
+01:27:46,180 --> 01:27:52,419
+We've only done one binary covariate, but from here, it's going to be easy.
+
+668
+01:27:52,420 --> 01:28:01,930
+Breezy. So ah so from the output, is it the smokers statistic differently associated with the death rate?
+
+669
+01:28:02,410 --> 01:28:07,750
+So the test statistic and the p value are presented on the normal zero one scale,
+
+670
+01:28:07,870 --> 01:28:13,330
+this 5.05 if you square it, that's the same statistic that the SAS users are seeing.
+
+671
+01:28:13,750 --> 01:28:22,690
+The P values the same, except that R will show you teeny tiny p values and it won't just say less than 0.0001.
+
+672
+01:28:22,690 --> 01:28:30,460
+It will actually show you small p values unless they're even smaller than one times one to the -16.
+
+673
+01:28:30,610 --> 01:28:37,790
+That's as small as they'll go in r. So we still have this age variable.
+
+674
+01:28:37,800 --> 01:28:44,270
+So the next step is to adjust for age in the model and in SAS in proc gen mod,
+
+675
+01:28:44,270 --> 01:28:50,120
+we treat age as a class variable and it will create all those indicator variables for us in our model.
+
+676
+01:28:50,660 --> 01:28:54,260
+All right, so we're adding that in, but we haven't changed anything else in the model.
+
+677
+01:28:54,830 --> 01:28:57,890
+So we're just going to see what happens when we have this other variable.
+
+678
+01:28:57,900 --> 01:29:01,280
+And so here's our output.
+
+679
+01:29:03,040 --> 01:29:06,730
+And again, I'm kind of skipping this stuff for now. We'll come back to it.
+
+680
+01:29:06,740 --> 01:29:10,000
+So here's our maximum likelihood estimate table.
+
+681
+01:29:10,330 --> 01:29:17,680
+And so we've got how many parameters do we have here? We have intercept one, smoker two and then three, four, five, six.
+
+682
+01:29:17,680 --> 01:29:24,140
+We've got six total parameters here in this model. So why am I counting these for you?
+
+683
+01:29:24,860 --> 01:29:28,940
+So how many? How many estimates?
+
+684
+01:29:29,930 --> 01:29:36,410
+Could we make of death rates 400,000 person years based on the raw data?
+
+685
+01:29:36,440 --> 01:29:42,399
+How many rows that we have? We had five rows per smoking studies, right?
+
+686
+01:29:42,400 --> 01:29:45,580
+So the original data set, there were ten possible values.
+
+687
+01:29:46,780 --> 01:29:52,330
+That we can calculate by hand death rates per some unit of person.
+
+688
+01:29:52,350 --> 01:29:56,650
+You're right, we had ten rows of data, each with a different age smoking status.
+
+689
+01:29:57,520 --> 01:30:05,320
+So if I want the model estimates to match exactly by hand, I need to have ten parameters.
+
+690
+01:30:05,770 --> 01:30:10,540
+But here I only have six. I have intercept one smoker two, three, four, five, six.
+
+691
+01:30:10,540 --> 01:30:16,960
+I've got six parameters here. So this model is not going to have the it's not going to fit exactly by hand.
+
+692
+01:30:18,890 --> 01:30:22,260
+What we can calculate. So what's missing in this model?
+
+693
+01:30:22,280 --> 01:30:29,479
+How could I get. What model would I fit if I wanted the model results to fit exactly by hand?
+
+694
+01:30:29,480 --> 01:30:32,480
+What we saw, you know, for the ten different rows.
+
+695
+01:30:32,840 --> 01:30:36,950
+How would we do that? We need for more parameters, right?
+
+696
+01:30:36,980 --> 01:30:42,410
+That's my that was my kind of intuitive thinking about how this works.
+
+697
+01:30:42,890 --> 01:30:49,220
+So what are the four parameters we would need to add in to have this model match exactly the results we could do by hand?
+
+698
+01:30:54,640 --> 01:30:59,050
+We don't have any other covariates in the data set, so there's not going to be a magic recovery that shows up.
+
+699
+01:31:04,350 --> 01:31:08,280
+Any ideas? Isaac.
+
+700
+01:31:08,340 --> 01:31:17,440
+I can't hear you. Oh, well, actually there's the reference group where the smoker variable is nonsmoking.
+
+701
+01:31:17,440 --> 01:31:21,640
+So we actually do have it's in the model already.
+
+702
+01:31:22,150 --> 01:31:31,150
+You only put one of the categories in and we only have four age variables as well because they leave one of the age categories out.
+
+703
+01:31:31,780 --> 01:31:34,839
+So if you try to put those variables, then it'll be like, I don't know,
+
+704
+01:31:34,840 --> 01:31:39,700
+I can't do this because it already has that information in the smoking variable.
+
+705
+01:31:41,810 --> 01:31:45,200
+That's a good idea, though. We want to have come up with four things.
+
+706
+01:31:46,510 --> 01:31:51,360
+Any other ideas? Is there a way to do this?
+
+707
+01:31:51,390 --> 01:31:55,140
+I mean, maybe that's maybe there's not. Yes.
+
+708
+01:31:58,000 --> 01:32:01,610
+Yes. So good.
+
+709
+01:32:02,000 --> 01:32:06,470
+If you add interaction terms, you'll have exactly four more terms.
+
+710
+01:32:06,770 --> 01:32:11,720
+You'll have smoker times. The Second Age group smoker times the third, smoker times the fourth, smoker times the fifth.
+
+711
+01:32:12,200 --> 01:32:13,999
+So if you add in the interaction terms,
+
+712
+01:32:14,000 --> 01:32:21,889
+you have ten rows of parameters and that'll be the same as the ten rows of data that we had and we'll be able to match.
+
+713
+01:32:21,890 --> 01:32:24,170
+Exactly. So let's see how this plays out.
+
+714
+01:32:24,170 --> 01:32:30,150
+We're going to show the results of this model and then we're going to go and we'll show the results of the model with the interaction terms.
+
+715
+01:32:30,170 --> 01:32:36,319
+Good job. And we'll we'll show you exactly, you know, that this model doesn't fit it.
+
+716
+01:32:36,320 --> 01:32:41,120
+Exactly. What does it imply and how does the interaction model work?
+
+717
+01:32:43,660 --> 01:32:47,560
+So here's the estimate, a percent regression model if you were to ride it out.
+
+718
+01:32:47,590 --> 01:32:52,809
+So the part that we want to interpret the offset is always in the background.
+
+719
+01:32:52,810 --> 01:32:56,860
+You've put that offset data in. You know, it's always there in the background.
+
+720
+01:32:56,860 --> 01:33:03,190
+But when we have this person years of follow up in the background, we're interpreting the rate.
+
+721
+01:33:04,420 --> 01:33:06,940
+The death rate per some kind of unit of person years.
+
+722
+01:33:06,940 --> 01:33:14,620
+So we're using the version of the offset so that this rate is the number of deaths per 100,000 person years.
+
+723
+01:33:15,590 --> 01:33:20,750
+And here's how we write out our model. And I'm getting these numbers from the parameter test.
+
+724
+01:33:20,910 --> 01:33:25,840
+So here's the intercept. And then this is the number of times the indicator for smoker.
+
+725
+01:33:25,850 --> 01:33:32,090
+And then I have all these age groups, I've just written them out there, parameters, times, the indicator being in a certain age group.
+
+726
+01:33:32,810 --> 01:33:34,670
+So this is how we actually write out the model.
+
+727
+01:33:34,940 --> 01:33:43,370
+So when you're writing out the model, you're still sort of writing up these parts with white, you know, they're in there behind the scenes.
+
+728
+01:33:43,700 --> 01:33:47,060
+But the part of the model that we interpret is this part in yellow.
+
+729
+01:33:48,200 --> 01:33:51,259
+So when I ask you to write the model, I really want you to write out everything.
+
+730
+01:33:51,260 --> 01:33:58,250
+I want you to write out this part and white, because I want you to remember the offset is a very important part of the model.
+
+731
+01:33:58,640 --> 01:34:02,420
+And, you know, you need to be reminded of that when you're writing these out.
+
+732
+01:34:02,810 --> 01:34:07,170
+So. You know, we interpret the part yellow bright out the whole model.
+
+733
+01:34:10,740 --> 01:34:16,410
+And so the fitted part of the model is, again, this part in yellow over here,
+
+734
+01:34:16,410 --> 01:34:21,990
+we're interpreting it with respect to the log of the number of deaths per 100,000 person years.
+
+735
+01:34:22,830 --> 01:34:29,010
+And so this is a little bit of an exercise. I realized that if you just click, click, click or your handout, you see the answer.
+
+736
+01:34:29,280 --> 01:34:34,580
+So I'm going to try to, you know, ask you more than just the question that's on this slide, but we'll start here.
+
+737
+01:34:34,590 --> 01:34:41,670
+So what's the estimated death rate per 100,000 person years associated with this smoking status?
+
+738
+01:34:42,210 --> 01:34:45,630
+You know, there are smoker and there are a doctor age 60 years.
+
+739
+01:34:46,260 --> 01:34:52,980
+So on the log scale where we have this, we're trying to figure out what this.
+
+740
+01:34:54,360 --> 01:35:00,809
+Log of the lambda I is for someone who's a smoker, so the intercept is going to be involved.
+
+741
+01:35:00,810 --> 01:35:06,959
+So we need that 3.59 and we need this prompt for smoker because this is a smoker.
+
+742
+01:35:06,960 --> 01:35:15,030
+So we have that 0.3545 and then we have to grab the indicator where they're 60 years old.
+
+743
+01:35:15,030 --> 01:35:21,270
+So that's in this range. So we're going to need plus 2.6275.
+
+744
+01:35:21,630 --> 01:35:25,380
+So if I want the estimated death rate per 100,000 person years,
+
+745
+01:35:25,770 --> 01:35:38,099
+I started with this so with smoker that 60 I'm exponentially eating 3.5936 plus .3545 plus 2.6275.
+
+746
+01:35:38,100 --> 01:35:42,630
+So you see how I kind of got that. So that's just written down here now.
+
+747
+01:35:42,990 --> 01:35:53,820
+So for that age group of smokers, the model is saying there's 717.4 deaths per 100,000 person years.
+
+748
+01:35:56,350 --> 01:35:59,650
+And, uh, by hand.
+
+749
+01:36:00,370 --> 01:36:03,520
+And I have the hand calculations in the footnote.
+
+750
+01:36:05,290 --> 01:36:09,430
+This group, the same group should have gotten 720.
+
+751
+01:36:10,690 --> 01:36:18,969
+And so we use six parameters to estimate this number when we don't have the interaction terms right by hand.
+
+752
+01:36:18,970 --> 01:36:22,450
+If you use the interaction terms, it's not that far off for this group.
+
+753
+01:36:23,020 --> 01:36:28,990
+It's 720. And so I think I kind of have a prompt of why is that different?
+
+754
+01:36:29,000 --> 01:36:36,350
+And but we've already talked about why that's different because you're only using six parameters to estimate this and to match the exact raw data,
+
+755
+01:36:36,350 --> 01:36:39,020
+you need ten parameters. You need this interaction terms.
+
+756
+01:36:42,010 --> 01:36:49,420
+So I want to look a little bit more closely at how this current model compares to the raw data.
+
+757
+01:36:49,450 --> 01:36:54,820
+So what I'm doing here in yellow, this is very similar to the code I've used before,
+
+758
+01:36:55,030 --> 01:37:05,410
+but now I'm got smoker and age and I'm printing out into a dataset called Temp, something called Zeta.
+
+759
+01:37:06,130 --> 01:37:09,190
+And this saves the predicted values from the model.
+
+760
+01:37:09,190 --> 01:37:21,040
+And something that's really strange about these packages is that even though we think of Zeta as the part that's related to the log of Lambda I,
+
+761
+01:37:21,790 --> 01:37:25,690
+there's in sass, they're sticking in the offset here as well.
+
+762
+01:37:26,740 --> 01:37:38,410
+They've got that log of an eye in here as well. So if I want to look at the actual death rate per hundred thousand person years, I'm doing that here.
+
+763
+01:37:38,440 --> 01:37:45,700
+Here's the I'm going to be looking at that same data set where I saved the X, what they're calling X betas.
+
+764
+01:37:46,090 --> 01:37:48,850
+But to get the death rate per 100,000 person years,
+
+765
+01:37:49,210 --> 01:37:58,540
+I have to take this E to the x beta part and I have to subtract out the offset again because they for whatever reason,
+
+766
+01:37:58,540 --> 01:38:06,520
+I think this is poor notation, but they're including four x beta there, including the that person years.
+
+767
+01:38:07,960 --> 01:38:10,990
+Offset term. So we're just taking it back out again.
+
+768
+01:38:12,440 --> 01:38:18,190
+And I'm going to print, you know, what the actual death rate is.
+
+769
+01:38:18,200 --> 01:38:26,120
+So we already collected and calculated earlier on in the handout the Rudd death rate data.
+
+770
+01:38:26,480 --> 01:38:33,080
+If you do it by hand and now we have what the model says the death rate per hundred thousand person years is and we can compare that to.
+
+771
+01:38:36,340 --> 01:38:45,229
+And so when we look at the data here. Here's four of the ten groups of people by age and smoking status.
+
+772
+01:38:45,230 --> 01:38:48,860
+And we were looking at this group for the 60 year old smoker guy.
+
+773
+01:38:48,890 --> 01:38:57,750
+Right. And so the raw data. We calculated a roughly 720 deaths per 100,000 person years based on the raw data.
+
+774
+01:38:57,990 --> 01:39:07,560
+And we using the model, we kind of showed you how the model would estimate 717% change deaths per thousand person years.
+
+775
+01:39:08,070 --> 01:39:10,710
+And now instead of just that single row,
+
+776
+01:39:11,220 --> 01:39:19,110
+I think had SAS calculate that same rate for all ten categories and I just want you to appreciate what we got here.
+
+777
+01:39:19,110 --> 01:39:23,700
+We were pretty close for this one that we looked at, but look at the oldest age group.
+
+778
+01:39:24,810 --> 01:39:28,620
+Remember the survivorship property we saw where this the strangely,
+
+779
+01:39:28,620 --> 01:39:34,049
+the smokers had a smaller death rate once they reach a certain age and they whether it all battles
+
+780
+01:39:34,050 --> 01:39:40,560
+you know so the raw data is showing that here so this here this this is actually the smokers.
+
+781
+01:39:40,560 --> 01:39:49,080
+Right. And their observed death rate in that highest age group is smaller than for the non smokers.
+
+782
+01:39:49,080 --> 01:39:56,010
+Right. That's what the raw data said. But the model is estimating that smokers have a higher death rate.
+
+783
+01:39:57,230 --> 01:40:02,810
+And the nonsmokers. So the model still isn't quite getting that last group correct.
+
+784
+01:40:07,720 --> 01:40:10,840
+And I just wanted to show you an hour again.
+
+785
+01:40:10,840 --> 01:40:18,700
+You know how this code works. So at this point, you guys are going to be pros, because the only thing that's really changed is,
+
+786
+01:40:18,700 --> 01:40:23,770
+again, you always have to check which version of the offset you're using, use person log link.
+
+787
+01:40:24,280 --> 01:40:30,820
+But everything else is very similar to what you saw with logistic regression, even the same, you know, you're still using GLM.
+
+788
+01:40:32,080 --> 01:40:39,520
+And so I have a code for getting the death rate estimates table here and it's the same problem.
+
+789
+01:40:39,670 --> 01:40:46,150
+R is also calling x beta everything that we usually think of.
+
+790
+01:40:47,500 --> 01:40:54,330
+Four Zeta related to the lambda i part, but they've added in the offset too,
+
+791
+01:40:54,340 --> 01:41:03,610
+so we're just taking it back out again to get the death rate per 100,000 person years and then just printing out all the stuff again.
+
+792
+01:41:03,610 --> 01:41:15,419
+So this is the same thing we just saw in SAS. All right.
+
+793
+01:41:15,420 --> 01:41:22,500
+And so. I'm looking at the clock here as well.
+
+794
+01:41:22,550 --> 01:41:26,890
+I'm going to keep going because we still have some. Just a little bit of time. I wanted to get as far as we could.
+
+795
+01:41:27,390 --> 01:41:35,190
+Is this. I'm thinking my pace might be a little slow, but has this been a good learning pace or are you just dying of boredom?
+
+796
+01:41:36,880 --> 01:41:43,150
+Okay. So in the room for those at home there, they just show me great excitement for them.
+
+797
+01:41:44,380 --> 01:41:47,500
+I can say what I want to. They can't see. Right. They were so excited.
+
+798
+01:41:47,530 --> 01:41:54,490
+They're just like, Oh, we love this pace, you know? It's this is a joke just for us because we know what really happened.
+
+799
+01:41:55,090 --> 01:42:00,399
+Okay. So we now have an age variable that has several categories.
+
+800
+01:42:00,400 --> 01:42:06,400
+So we need to think about composite tests where you're testing several parameters that once are not needed in the model.
+
+801
+01:42:06,700 --> 01:42:10,990
+And again, this is just like what we did in logistic regression in a linear regression.
+
+802
+01:42:11,470 --> 01:42:15,400
+So for example, we have all these, these four age categories.
+
+803
+01:42:15,400 --> 01:42:19,930
+And so it would be a natural question of is age, are the age categories needed in the model?
+
+804
+01:42:20,980 --> 01:42:25,210
+And so we can still use the likelihood ratio statistic for this.
+
+805
+01:42:25,990 --> 01:42:32,320
+There's also wald tests that you can program to test for parameters are needed in the model or not.
+
+806
+01:42:32,710 --> 01:42:40,330
+But you have to do some thing. You don't have a single row of p values from the parameter estimate table anymore.
+
+807
+01:42:40,540 --> 01:42:50,559
+Once you have to remove several at once, you need a whole new p value and a production mod which is new for SAS users.
+
+808
+01:42:50,560 --> 01:42:57,370
+You were using proc logistic before, but production mod gives you the log likelihood and it's output for the two models you have.
+
+809
+01:42:57,550 --> 01:43:02,709
+So for each model that you fit, you're looking for the log likelihood in the output proc logistic authority,
+
+810
+01:43:02,710 --> 01:43:05,890
+multiply two minus two times the log likelihood.
+
+811
+01:43:05,890 --> 01:43:10,570
+So you have to do a little bit more math, but it's not bad, right?
+
+812
+01:43:11,200 --> 01:43:20,979
+So the log good ratio test is two times the log likelihood under the alternative, the full model minus the log likelihood under the null model.
+
+813
+01:43:20,980 --> 01:43:25,390
+So notice the two is multiplying times that whole difference between these log likelihoods.
+
+814
+01:43:26,170 --> 01:43:30,040
+And so this is we're finally looking at the model fit here.
+
+815
+01:43:30,460 --> 01:43:36,400
+So here is the model where we just had smoking and the model fit statistics and here
+
+816
+01:43:36,400 --> 01:43:41,710
+is the model where we had smoking and categorical age and the model fit statistics.
+
+817
+01:43:42,040 --> 01:43:45,910
+So for the good ratio test, we're looking at these two numbers here.
+
+818
+01:43:46,910 --> 01:43:50,389
+That are marked log a likelihood. All right.
+
+819
+01:43:50,390 --> 01:43:54,830
+And we're going to be taking the difference between those and multiplying by two.
+
+820
+01:43:56,630 --> 01:44:07,450
+All right. So two times the difference between those guys is going to be 893, which is actually a fairly huge number,
+
+821
+01:44:07,690 --> 01:44:16,390
+the degrees of freedom that we're comparing that we're using for our reference distribution, the chi square with four degrees of freedom, it's four.
+
+822
+01:44:16,900 --> 01:44:23,170
+So the degrees in freedom is four because you added those four extra age terms.
+
+823
+01:44:23,170 --> 01:44:27,040
+And if you want them gone, you have to, you know,
+
+824
+01:44:27,040 --> 01:44:33,340
+compare this statistic to a chi square with the number of parameters you removed between the two models.
+
+825
+01:44:33,850 --> 01:44:39,309
+And so it's a very significant result. So age categories are significantly improving.
+
+826
+01:44:39,310 --> 01:44:44,170
+The model fit by a lot. And are.
+
+827
+01:44:45,600 --> 01:44:54,270
+To do the same thing. You are using the M.D. score package and doing a large test to compare those.
+
+828
+01:44:56,940 --> 01:45:02,549
+All right. And you get the same results, except you don't actually have to pay attention to your degrees of freedom,
+
+829
+01:45:02,550 --> 01:45:07,260
+because our does it for you and says you poor people have to actually use a
+
+830
+01:45:07,260 --> 01:45:10,530
+calculator or something and know your degrees of freedom to get the right p value.
+
+831
+01:45:12,070 --> 01:45:18,850
+R. R wins this little game and the smoking state is still significant when adjusted for age.
+
+832
+01:45:18,860 --> 01:45:23,770
+Yes, highly so. And you get that from the smoking line and the parameter output.
+
+833
+01:45:24,040 --> 01:45:28,389
+So this part feels very similar to how you've dealt with output from logistic regression.
+
+834
+01:45:28,390 --> 01:45:35,470
+You know where to look for your test statistics and your P values. The main learning part of the model is how to interpret the parameters, right?
+
+835
+01:45:35,980 --> 01:45:38,980
+How to write your sentences that interpret the data.
+
+836
+01:45:39,310 --> 01:45:48,750
+That's the new part. So the age adjusted results are that the smoker group has a death rate.
+
+837
+01:45:48,750 --> 01:45:52,110
+That's an estimated either the beta one.
+
+838
+01:45:53,600 --> 01:46:02,300
+Or 1.4, three times higher than the no nonsmoker group death rate and the confidence limits.
+
+839
+01:46:02,690 --> 01:46:08,540
+We could just get that from this row here. E to the .1441.
+
+840
+01:46:08,540 --> 01:46:16,490
+E to the .5650. Or if you really want to go old school and do it from scratch, you'll get the same numbers from this kind of algebra.
+
+841
+01:46:20,860 --> 01:46:27,460
+And if you want to use an estimate statement, you don't need to in this case because you just have one beta.
+
+842
+01:46:27,880 --> 01:46:31,660
+But if you wanted to, you could use an estimate statement.
+
+843
+01:46:32,710 --> 01:46:37,270
+So I've got a label here that we're looking at the death rate ratio for smokers versus non smokers.
+
+844
+01:46:37,780 --> 01:46:44,430
+The only I just skipped the intercept because it's a zero and it says you're allowed to do that if it's a zero.
+
+845
+01:46:44,440 --> 01:46:50,160
+But I do need one of the betas for the smoker. And here are the results down here.
+
+846
+01:46:50,170 --> 01:46:54,100
+So this is the same as we got just from the parameter estimate table on the last slide.
+
+847
+01:46:54,100 --> 01:47:01,700
+But if you wanted to use an estimate statement. Here's code and are kind of doing some of the same stuff.
+
+848
+01:47:01,700 --> 01:47:04,470
+So from the parameter estimate table, you know,
+
+849
+01:47:04,580 --> 01:47:10,370
+this is the code that exponentially results from the parameter estimate table and we've got everything we need here.
+
+850
+01:47:14,390 --> 01:47:19,460
+Oh, did I not put in our code for the contrast statement?
+
+851
+01:47:20,420 --> 01:47:26,330
+But it would be very similar to before accepting. Ah, you still have to put in the zero for the intercept spot.
+
+852
+01:47:26,840 --> 01:47:33,139
+You need to have a number for each of the parameters. You can't skip the intercept with a zero just because it's a zero.
+
+853
+01:47:33,140 --> 01:47:38,180
+You need that zero as a placeholder in the AH code when you're doing the contrast for this one.
+
+854
+01:47:42,280 --> 01:47:47,620
+Okay. So I really thought I would be smoking through this whole handout, but I have not.
+
+855
+01:47:47,650 --> 01:47:50,860
+So we're going to pick up here on slide 56 next time.
+
+856
+01:47:51,370 --> 01:47:57,099
+And we very well may finish the whole of the rest of the handout on Monday.
+
+857
+01:47:57,100 --> 01:48:01,870
+But we have a little wiggle room in case we don't. Okay. That's it for today.
+
+858
+01:48:02,290 --> 01:48:04,960
+See you guys. Have a great weekend.
+

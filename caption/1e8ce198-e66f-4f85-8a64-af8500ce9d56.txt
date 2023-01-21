@@ -1,0 +1,736 @@
+1
+00:00:01,790 --> 00:00:06,500
+This is 826. Chapter two Maximum Likelihood Estimation Part one.
+
+2
+00:00:07,490 --> 00:00:17,690
+So I want to start by thinking about a simple problem where we have a coin, let's say one of the euro coins that is possibly fair or possibly unfair.
+
+3
+00:00:17,690 --> 00:00:28,010
+And we want to test that with real data. So what's the probability that spinning of a coin has the probability of 50% of getting heads?
+
+4
+00:00:28,910 --> 00:00:31,910
+Let's say you spin the coin 100 times to get some data.
+
+5
+00:00:31,910 --> 00:00:37,540
+You get each number of heads. Then what's your best guess at the probability of heads?
+
+6
+00:00:37,550 --> 00:00:41,900
+Do you just go with 50%? Do you choose something else?
+
+7
+00:00:42,200 --> 00:00:53,210
+The intuition here is that if you get each heads out of 100 is that you would guess that the probability of heads is 80 divided by 100.
+
+8
+00:00:54,140 --> 00:01:02,750
+Hopefully you got that intuition just off the top of your head. If I spent a coin 100 times, you get 20 heads, you think, well, maybe it's 20%.
+
+9
+00:01:03,440 --> 00:01:11,659
+And that is the fundamental idea of maximum likelihood estimation that out of all possible parameter values,
+
+10
+00:01:11,660 --> 00:01:16,460
+you choose the value that is most likely to produce the observed data.
+
+11
+00:01:17,900 --> 00:01:23,870
+And it's actually a much more profound thought than you give yourself credit for.
+
+12
+00:01:24,890 --> 00:01:29,690
+And we're going to explore this a little more with some math, with some graphs, with some examples.
+
+13
+00:01:31,310 --> 00:01:35,270
+So choosing an estimated value of the probability,
+
+14
+00:01:35,270 --> 00:01:44,780
+which I denote P hat as an estimate H divided by 100 is not the only possible answer because he's measured with some uncertainty,
+
+15
+00:01:44,780 --> 00:01:52,969
+but out of all possible values of p h over 100 is the most likely to produce the observed result.
+
+16
+00:01:52,970 --> 00:01:57,560
+So let's observe. Let's go through this a little more carefully with the simplest example I can think of.
+
+17
+00:01:58,120 --> 00:02:02,930
+We spent a coin twice. First we get heads, then we get tails.
+
+18
+00:02:03,260 --> 00:02:07,340
+Oh, okay. So what's the probability of that outcome?
+
+19
+00:02:09,140 --> 00:02:18,380
+Suppose that instead of a fair coin, the actual outcome, the actual probability of heads is 10% or 0.1.
+
+20
+00:02:19,280 --> 00:02:23,810
+Let's look at the first column of the table. P is the probability of heads.
+
+21
+00:02:24,890 --> 00:02:29,150
+If the probability of heads is 10% 2.1, then the probability of tails.
+
+22
+00:02:29,150 --> 00:02:39,050
+The second outcome is 90% 4.9. So the probability of first getting heads and then getting tails is the product of 0.1 and point nine, which is 0.09.
+
+23
+00:02:39,740 --> 00:02:47,620
+On the other hand, if the probability of heads is 20%, it's actually much more likely to get the outcome of heads and then tails.
+
+24
+00:02:47,620 --> 00:02:52,219
+It's 20% than 80%. The product of this probability is .16.
+
+25
+00:02:52,220 --> 00:02:59,510
+Actually, 30% is is even more likely 0.3 times point seven is 0.21 and so forth.
+
+26
+00:02:59,720 --> 00:03:08,210
+If you go all the way up to point five, that is going to give you the highest value of P times one minus P,
+
+27
+00:03:08,300 --> 00:03:13,970
+which is the expression for what we actually observe the probability of heads and then the probability of tails.
+
+28
+00:03:16,260 --> 00:03:24,520
+If. If the true probability is a half, then 2.5 times 0.5 is 0.25.
+
+29
+00:03:24,530 --> 00:03:32,270
+That is the largest value of all of the expression that we observe p times one minus p.
+
+30
+00:03:32,600 --> 00:03:39,680
+Any other value that we guess of P is going to get us a smaller predicted probability of the outcome.
+
+31
+00:03:41,240 --> 00:03:46,250
+Let's do this for a slightly more interesting problem with the coin spins.
+
+32
+00:03:46,250 --> 00:03:51,620
+And let's say out of 100, we only get 45 heads, not 50.
+
+33
+00:03:52,040 --> 00:03:58,980
+So how does that work? Well, now let's think of got a couple of things to consider here.
+
+34
+00:03:59,000 --> 00:04:02,150
+We've got the probability of heads. Probability of tails.
+
+35
+00:04:02,570 --> 00:04:06,110
+We also have many different ways that we can order those heads and tails out of one.
+
+36
+00:04:06,350 --> 00:04:14,870
+And we know how to do that now. So the the expression then for the observed probability of getting, say,
+
+37
+00:04:14,900 --> 00:04:26,390
+45 heads and 55 tails is 100, choose 45 times p raise to the 45 times one minus P raised to the 55.
+
+38
+00:04:28,040 --> 00:04:31,159
+The probability of getting 45 heads is P.
+
+39
+00:04:31,160 --> 00:04:35,450
+Each time you multiply all this together, you get p raised to the 45 and so forth,
+
+40
+00:04:35,990 --> 00:04:40,670
+and the choose part allows you to put them in all the possible combinations of orders,
+
+41
+00:04:42,350 --> 00:04:45,740
+first heads and then tails and back and forth in many different ways.
+
+42
+00:04:46,550 --> 00:04:54,410
+Okay. If you evaluate that expression for different values of P as as shown in the table,
+
+43
+00:04:54,740 --> 00:05:00,950
+you'll see that 0.45 gets you the largest value of that expression.
+
+44
+00:05:01,640 --> 00:05:09,080
+Any other value of P will get you a smaller number again of all possible values of
+
+45
+00:05:09,080 --> 00:05:18,830
+P from 0 to 1.45 is the value that makes it most likely to have the observed data,
+
+46
+00:05:19,040 --> 00:05:25,370
+which is 45 heads out of 100 for reasons that will be clear in a few slides.
+
+47
+00:05:25,820 --> 00:05:35,750
+I'm also going to take the natural logarithm of that whole expression, not not seemingly to make it harder,
+
+48
+00:05:36,560 --> 00:05:42,200
+but actually, as you'll find later, this actually is going to make the math easier.
+
+49
+00:05:42,200 --> 00:05:49,309
+Believe it or not, you'll see here that the natural logarithm is what's called a monotonic transformation,
+
+50
+00:05:49,310 --> 00:06:04,070
+that as as the probability increases 2.45 and then beyond the expression in the second column goes up and then down in the same way,
+
+51
+00:06:04,070 --> 00:06:08,240
+the natural log of that expression goes up and then down the highest value.
+
+52
+00:06:08,240 --> 00:06:15,500
+Again, it peaks at 0.454 values -2.5258849.
+
+53
+00:06:16,890 --> 00:06:19,920
+Let's take a look at a graph of those two expressions.
+
+54
+00:06:19,920 --> 00:06:27,480
+The top graph, the bell shaped curve is the the graph corresponding to the second column.
+
+55
+00:06:28,140 --> 00:06:36,120
+And the lower graph, which is like an upside down bowl, corresponds to the natural logarithm of that.
+
+56
+00:06:37,120 --> 00:06:41,070
+You see that both of them peak out at p equals 0.45,
+
+57
+00:06:41,790 --> 00:06:52,890
+but they do have slightly different shapes and the nice concave curvature of the lower graph, it turns out, will be important mathematically.
+
+58
+00:06:53,820 --> 00:07:05,310
+Okay. So when I give you a simple coin problem, like, you know, 45 heads out of 100, guess the value of P, you can do that very easily in your head.
+
+59
+00:07:05,520 --> 00:07:14,070
+You don't need any math. It turns out, though, that for any problem of real interest, perhaps for your dissertation,
+
+60
+00:07:14,580 --> 00:07:25,020
+we're going to have a more complicated expression and we need a way to solve this for values of P or beta or any other parameter we're interested in.
+
+61
+00:07:25,530 --> 00:07:29,429
+So we're going to write up what I call a recipe for a solved problem.
+
+62
+00:07:29,430 --> 00:07:32,490
+That's how to write a likelihood function and then solve it.
+
+63
+00:07:33,360 --> 00:07:37,679
+And then we'll use this in several different examples. So here's the recipe.
+
+64
+00:07:37,680 --> 00:07:42,600
+We're going to write a likelihood function in terms of P or in terms of the parameter that we care about.
+
+65
+00:07:43,260 --> 00:07:48,150
+We're going to take the the natural logarithm of that likelihood function.
+
+66
+00:07:49,380 --> 00:07:58,950
+Then we'll take the derivative of of the logarithm of the likelihood function with respect to P will set the derivative equal to zero.
+
+67
+00:07:58,950 --> 00:08:02,459
+Now setting the derivative equal to zero means the slope is zero.
+
+68
+00:08:02,460 --> 00:08:08,250
+So going back to these graphs, it allows you to find the value of P where you're at the top.
+
+69
+00:08:10,660 --> 00:08:18,400
+And where you're finding the peak value of the likelihood function. In other words, find the maximum value of the likelihood function.
+
+70
+00:08:18,580 --> 00:08:27,100
+That's why it's called maximum likelihood estimation. And finally, the last step is to check for what are called second order conditions.
+
+71
+00:08:28,060 --> 00:08:37,780
+You probably remember from calculus that if you have these curves that perhaps go up and then down and then up again,
+
+72
+00:08:38,020 --> 00:08:45,280
+you might find when you take the derivative set equal to zero, you might find a local maximum or even a local minimum.
+
+73
+00:08:45,790 --> 00:08:55,810
+So we want a shape that's like the lower one where it's very clear that if you find a flat point, you're at the max.
+
+74
+00:08:56,800 --> 00:09:04,870
+It's called checking the second order conditions. You want to make sure that the value is negative, that means you're at a maximum.
+
+75
+00:09:05,410 --> 00:09:08,620
+So let's do this for a simple binomial problem.
+
+76
+00:09:10,030 --> 00:09:18,370
+Write down the probability or the likelihood function p raised to the h h is the number of heads.
+
+77
+00:09:19,420 --> 00:09:24,309
+One minus p is the probability of tails. Little T is the number of tails.
+
+78
+00:09:24,310 --> 00:09:29,800
+So heads plus tails are h, plus t is the total number of coin spins.
+
+79
+00:09:30,460 --> 00:09:40,660
+Take the natural logarithm of that. H comes down in front and log of p, t comes down front and log of one minus p takes the derivative of that.
+
+80
+00:09:40,660 --> 00:09:46,240
+When you take the derivative of log of p, that's one over p, so h times one over p.
+
+81
+00:09:46,780 --> 00:09:53,260
+For the second part, don't forget taking the derivative of what's inside the parentheses that gets you the minus sign.
+
+82
+00:09:54,920 --> 00:10:01,070
+When you solve that out, you get the final expression P hat is equal to H over H plus T.
+
+83
+00:10:01,100 --> 00:10:09,410
+In other words, how many heads did you get divided by the total number of coin spins, for example 45 divided by 100.
+
+84
+00:10:09,890 --> 00:10:13,970
+So all that work gets us back to the intuition that we had originally.
+
+85
+00:10:16,080 --> 00:10:23,440
+The fifth step is to take the second derivative of the log likelihood function with respect to p o.
+
+86
+00:10:24,740 --> 00:10:29,720
+So to go back to step three, take one more derivative.
+
+87
+00:10:30,080 --> 00:10:33,530
+Don't forget the minus sign. There's particularly the second term.
+
+88
+00:10:33,560 --> 00:10:38,420
+It turns out that there are three minus signs, two to keep track of.
+
+89
+00:10:38,420 --> 00:10:45,140
+You should end up with both terms, with minus signs in front of them being negative, the whole expression is negative.
+
+90
+00:10:45,620 --> 00:11:01,040
+That tells you that for all values of P that the likelihood function is is nicely shaped and where you find the derivative equal to zero,
+
+91
+00:11:01,040 --> 00:11:05,090
+that will be a maximum value, not a minimum or point of inflection.
+
+92
+00:11:06,990 --> 00:11:11,930
+Okay. The choose from. Did you notice the choose function disappeared?
+
+93
+00:11:12,950 --> 00:11:17,839
+Let's go back to step one. Likelihood function P to the H one minus P.
+
+94
+00:11:17,840 --> 00:11:23,360
+The T is no choose function. There's nothing there about ordering.
+
+95
+00:11:23,420 --> 00:11:30,960
+Okay, well, all right. Suppose that you didn't leave it out at the beginning, and you included the choose part.
+
+96
+00:11:31,010 --> 00:11:35,060
+Once you get to step three and take a derivative with respect to P.
+
+97
+00:11:36,590 --> 00:11:40,250
+It'll disappear. The cheese function does not have P in it anywhere.
+
+98
+00:11:41,270 --> 00:11:46,879
+So if you wanted to start with likelihood function with the choose part, take the log of that.
+
+99
+00:11:46,880 --> 00:11:55,700
+That makes it a separate term. Take the derivative of the log of the choose function with respect to P Snoopy and there it falls out.
+
+100
+00:11:55,700 --> 00:11:58,820
+It's gone. Okay.
+
+101
+00:12:00,260 --> 00:12:08,870
+And if you think about it, any time you've run a regression or logit model, you don't really care what order your data are in.
+
+102
+00:12:08,890 --> 00:12:15,420
+You don't care whether data on this patient comes before or after that patient ordering.
+
+103
+00:12:16,460 --> 00:12:20,810
+Rarely matters unless you have panel data. And that's a different issue.
+
+104
+00:12:21,500 --> 00:12:24,770
+So we don't need to choose part that actually is going to make our life simpler.
+
+105
+00:12:25,340 --> 00:12:32,780
+All right. Let's go through another simple example and and use this machinery that we've set up
+
+106
+00:12:32,780 --> 00:12:41,180
+so we have binomial Howells that is a an owl goes out to catch mice for its chicks.
+
+107
+00:12:41,190 --> 00:12:49,780
+We observe how often an owl is successful. What's the probability p that an owl successfully catches a mouse on any given attempt?
+
+108
+00:12:49,790 --> 00:12:55,880
+So suppose that the biologist observes 60 times the owl goes out and tries to catch a mouse.
+
+109
+00:12:56,720 --> 00:13:00,260
+Out of those 60 times the owl is successful.
+
+110
+00:13:00,260 --> 00:13:10,760
+15. Now you your brain hopefully is jumping immediately to well, my best guess of p hat is 15 divided by 60 or one fourth.
+
+111
+00:13:11,150 --> 00:13:17,060
+That is the right answer. Now, let's go through and do the math and make sure we get the right answer with the math.
+
+112
+00:13:17,570 --> 00:13:27,400
+So we write the likelihood function. The probability of a success which is catching a mouse is P that's observed 15 times
+
+113
+00:13:27,410 --> 00:13:36,170
+who it's p to the 15 one minus P unsuccessful probability that happens 45 times.
+
+114
+00:13:36,170 --> 00:13:43,399
+So take the natural logarithm of that. Take the derivative of that solve for p we get one fourth.
+
+115
+00:13:43,400 --> 00:13:49,100
+I'll let you do the math on your own. It's important that you understand step by step how to do this.
+
+116
+00:13:49,100 --> 00:14:01,490
+So and then taking the second derivative of the third line with respect to P, you should get again a negative expression.
+
+117
+00:14:04,410 --> 00:14:09,360
+So now let's use the geometric function that we learned in the first chapter.
+
+118
+00:14:09,690 --> 00:14:16,320
+Let's say five people purchase instant lottery tickets, but this time they have.
+
+119
+00:14:18,630 --> 00:14:25,140
+They have an interesting algorithm. They'll keep buying a lottery ticket, an instant lottery ticket until they actually win.
+
+120
+00:14:26,040 --> 00:14:33,210
+So the first person buys six losing tickets and then finally on the seventh ticket, they finally win.
+
+121
+00:14:33,630 --> 00:14:37,080
+So they buy a total of seven. The last one is the winning ticket.
+
+122
+00:14:38,460 --> 00:14:42,760
+The next person buys 11 losing tickets. And on the 12th time they're successful.
+
+123
+00:14:42,760 --> 00:14:48,660
+The next person buys 11 tickets total, ten losing, one winning and so forth.
+
+124
+00:14:50,490 --> 00:14:56,250
+And so every person ends up with one winning lottery ticket.
+
+125
+00:14:56,250 --> 00:15:01,570
+The very last one. And they buy a bunch of losing tickets.
+
+126
+00:15:01,600 --> 00:15:08,050
+Up until then, we're trying to figure out the probability of winning. So let's write out the likelihood function now for each.
+
+127
+00:15:08,140 --> 00:15:16,209
+Let's take the first person. So in the second row of this expression, they buy six losing tickets.
+
+128
+00:15:16,210 --> 00:15:20,720
+So the probability of that is one minus P raised to the six times P,
+
+129
+00:15:20,740 --> 00:15:26,979
+the probability of winning on the seventh try the next person buys 11 losing tickets,
+
+130
+00:15:26,980 --> 00:15:31,360
+and then a winning next person buys ten losing and then one winning and so forth.
+
+131
+00:15:31,690 --> 00:15:40,810
+So we can write out this big expression in terms of one minus P and P, lots of super scripts and exponents.
+
+132
+00:15:41,920 --> 00:15:53,290
+And then if you simplify it down and collect terms, we end up with among the five of them, we have five winning tickets and 50 losing tickets.
+
+133
+00:15:53,770 --> 00:15:57,400
+So one minus P refers to the 50 P raise to the five.
+
+134
+00:15:58,720 --> 00:16:02,140
+Take the natural logarithm of that the derivative solve.
+
+135
+00:16:02,140 --> 00:16:10,900
+For P hat we get one over 11. So again, if you think about it, there were 55 total tickets, spot five winning tickets.
+
+136
+00:16:10,900 --> 00:16:17,360
+That's five over 55. All the math gets us back to our intuition.
+
+137
+00:16:17,840 --> 00:16:20,840
+And again, the second derivative gets us a negative quantity.
+
+138
+00:16:21,770 --> 00:16:25,190
+Let's go next to using the Poisson model.
+
+139
+00:16:26,630 --> 00:16:35,390
+Carl Sagan, the the astronomer, uses the Hubble telescope to look for life in other solar systems.
+
+140
+00:16:35,390 --> 00:16:41,330
+And so there are 100 billion stars in our galaxy.
+
+141
+00:16:41,810 --> 00:16:45,469
+And let's say he finds 14 that have life.
+
+142
+00:16:45,470 --> 00:16:54,260
+So it's a very small number. And so because we have a very small probability, we can use the person function.
+
+143
+00:16:54,980 --> 00:17:01,070
+Then he uses the Hubble Hubble telescope to search for life in solar systems beyond our galaxy,
+
+144
+00:17:01,070 --> 00:17:05,210
+five other galaxies of similar size so that they have 100 billion stars.
+
+145
+00:17:05,720 --> 00:17:11,000
+And he finds life in 221, zero six and five.
+
+146
+00:17:11,540 --> 00:17:16,070
+Okay, so what's the expected number of planets with life in the solar system?
+
+147
+00:17:16,790 --> 00:17:24,290
+Remember that for this setup we're going to have an extra parameter mu which equals N 100 billion times P.
+
+148
+00:17:25,070 --> 00:17:29,240
+That's the number we're looking for. It's the probability of life in the solar system.
+
+149
+00:17:30,320 --> 00:17:35,900
+Okay, so we're going to use the person because we can and the probability is really small.
+
+150
+00:17:38,150 --> 00:17:44,970
+And okay, this looks ugly, but if you break it down, it's a little easier.
+
+151
+00:17:44,990 --> 00:17:54,980
+We have observations on six galaxies, our own solar system, our own our own Milky Way galaxy, plus five others.
+
+152
+00:17:56,750 --> 00:18:05,959
+And the person expression remembers e to the minus mu mu res to the x,
+
+153
+00:18:05,960 --> 00:18:13,130
+which is the number of positive cases or solar systems with life all divided by x factorial.
+
+154
+00:18:14,900 --> 00:18:24,440
+So we can rewrite this as e to the minus six mu six because there are six galaxies.
+
+155
+00:18:25,100 --> 00:18:34,670
+MU refers to the sum of all the axes. So that would be 14 221, zero six and five.
+
+156
+00:18:35,390 --> 00:18:41,240
+And then and then in the denominator we have big x factorial.
+
+157
+00:18:42,770 --> 00:18:46,460
+Remember again that zero factorial is one, not zero.
+
+158
+00:18:48,020 --> 00:18:53,450
+If we then take the natural log of that, actually, in some ways this becomes a little easier.
+
+159
+00:18:53,900 --> 00:19:03,740
+We have minus six mu. We have sum of all the Xs times, log of new and minus the log of the x factorial.
+
+160
+00:19:05,400 --> 00:19:13,590
+Now we're trying to solve this expression in terms of music first and then we'll we'll back out from that.
+
+161
+00:19:13,980 --> 00:19:18,450
+So it turns out that out of those three expressions in the second row,
+
+162
+00:19:18,450 --> 00:19:23,880
+only two of them have immune at the last term that the denominator with X factorial.
+
+163
+00:19:25,480 --> 00:19:35,500
+That's irrelevant, as it turns out, that that expression has no mew in it, so it's not part of the optimization.
+
+164
+00:19:36,100 --> 00:19:40,690
+So when you take a derivative of minus six meu with respect to me, you just get minus six.
+
+165
+00:19:42,550 --> 00:19:45,690
+Derivative of log of meu gets you one over meu.
+
+166
+00:19:46,150 --> 00:19:53,980
+And then actually that isn't that hard to solve. It's, it's the sum of all the Xs divided by six and we get eight.
+
+167
+00:19:54,700 --> 00:19:58,120
+So that says on average a galaxy of,
+
+168
+00:19:58,450 --> 00:20:10,000
+of size of our galaxy has eight solar systems with life in it or eight out of 100 billion is, is the estimated probability.
+
+169
+00:20:11,950 --> 00:20:15,550
+And again, if you do the second derivative, you get a negative expression.
+
+170
+00:20:17,560 --> 00:20:21,040
+Finally, we'll do a negative binomial model.
+
+171
+00:20:21,040 --> 00:20:27,790
+So suppose you have a door to door salesman on commission and he works until he makes four sales in a day.
+
+172
+00:20:27,790 --> 00:20:32,830
+So he keeps going and selling. If he gets to the fourth sale and calls it a day and goes home,
+
+173
+00:20:33,700 --> 00:20:42,040
+what's the probability that t that the salesman makes a sale each visit and the here we have a data of
+
+174
+00:20:43,240 --> 00:20:49,540
+remember that the way we define things for the negative binomial is the number of extra visits each day.
+
+175
+00:20:49,990 --> 00:21:03,250
+So the first salesperson has 14 extra attempts at making a sale, plus the four that actually work him where he or she makes a sale.
+
+176
+00:21:03,250 --> 00:21:10,840
+So we have a total of 18 attempts to make a sale for those are successful and so forth.
+
+177
+00:21:11,410 --> 00:21:16,540
+Second has 17 attempts that are unsuccessful and four successful.
+
+178
+00:21:17,650 --> 00:21:23,650
+The third person is the most successful. They only have 13 failed attempts making a sale.
+
+179
+00:21:24,040 --> 00:21:33,429
+Okay, so again, we can write this out first individual terms for each salesperson key to the fourth,
+
+180
+00:21:33,430 --> 00:21:39,999
+because every salesperson is successful four times, but they are unsuccessful for different numbers.
+
+181
+00:21:40,000 --> 00:21:44,530
+So one minus P to the 14 for the second person, that's one minus P to the 17.
+
+182
+00:21:45,820 --> 00:21:55,840
+If you collect terms, it turns out that collectively they make 20 sales and they are unsuccessful 80 times.
+
+183
+00:21:55,840 --> 00:22:00,790
+So think quickly, you know right away that it's going to be 20 out of 100.
+
+184
+00:22:01,180 --> 00:22:06,040
+And yes, if you do the math, you get exactly that. That's the end of the first part.
+

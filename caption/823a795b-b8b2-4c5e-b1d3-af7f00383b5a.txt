@@ -1,0 +1,1112 @@
+1
+00:00:03,430 --> 00:00:09,730
+Hello. Welcome to statistical models in Numerical Method and change in this course.
+
+2
+00:00:11,590 --> 00:00:16,900
+This is online lecture two. This should happen before the in-person lecture two.
+
+3
+00:00:17,680 --> 00:00:23,380
+And after this lecture, I encourage you to finish the treatise.
+
+4
+00:00:23,800 --> 00:00:27,220
+Because for lecture two, before the lecture two starts.
+
+5
+00:00:30,770 --> 00:00:38,180
+So we're going to start with a manhattan plot of the typical Genome Wide Association study.
+
+6
+00:00:38,630 --> 00:00:41,570
+So here Essex is representative for chromosome,
+
+7
+00:00:41,810 --> 00:00:53,510
+where the genomic locations and Y-axis represent a statistical significance of these associations signals in terms of negative ten P value.
+
+8
+00:00:54,080 --> 00:00:58,470
+Usually this is a genome wide significance threshold if it's over this threshold.
+
+9
+00:00:58,490 --> 00:01:07,640
+This is typically considered quite significant. So here there's about four different locus that is known signal previously,
+
+10
+00:01:08,570 --> 00:01:15,220
+no previously reported signals in this study and that that's what you would expect usually.
+
+11
+00:01:15,590 --> 00:01:18,709
+And when when there's a there's a signal,
+
+12
+00:01:18,710 --> 00:01:27,370
+you'd expect that there's many nearby variants that are correlated with the peak signal due to the phenomenon called linkage.
+
+13
+00:01:27,380 --> 00:01:34,250
+It is clearly what we're going to talk about that in the next lecture. And this is what we would expect.
+
+14
+00:01:35,790 --> 00:01:38,459
+But when you perform, you might also study.
+
+15
+00:01:38,460 --> 00:01:45,900
+If you don't have a lot of experience and you're first genome wide association study results might be more exciting than this.
+
+16
+00:01:46,200 --> 00:01:51,720
+What is it like this? So here there is a lot of.
+
+17
+00:01:52,750 --> 00:01:59,770
+Hits a lot of significant results here, but probably this is a little bit too good to be true.
+
+18
+00:02:00,760 --> 00:02:11,830
+If your sample size is not too high for you guys either, expect to see this many novel signals for the wells that is finished wells that phenotype.
+
+19
+00:02:13,030 --> 00:02:19,560
+And the signal you're seeing here is that there's a lot of them are kind of isolated,
+
+20
+00:02:19,580 --> 00:02:24,970
+you know, that doesn't have any other nearby variants that are also associated.
+
+21
+00:02:25,000 --> 00:02:32,090
+So this is all one signal which is suggestive usually suggests suggestive signal
+
+22
+00:02:32,090 --> 00:02:36,430
+of there is some false positive or technical issue happening with this data.
+
+23
+00:02:37,600 --> 00:02:47,560
+So maybe these are likely to be false positive and we need to figure out what's what happened and do some Senate checking,
+
+24
+00:02:47,800 --> 00:02:52,360
+you know, before before getting this to this stage.
+
+25
+00:02:52,360 --> 00:02:58,870
+We usually would be great to screen this kind of potential issue before.
+
+26
+00:02:58,990 --> 00:03:02,650
+So we do a lot of Senate checking on the data.
+
+27
+00:03:03,040 --> 00:03:08,529
+For example, I'm looking at a study designed to make sure that there's any the best effect where
+
+28
+00:03:08,530 --> 00:03:15,759
+confounding factors involved with to generate the false false signals for quantity traits.
+
+29
+00:03:15,760 --> 00:03:21,729
+We often compare this distribution with the prior studies and then look at the distribution of
+
+30
+00:03:21,730 --> 00:03:28,900
+phenotypes and make sure that it's an illness that could drive drive to the potential false positive.
+
+31
+00:03:29,780 --> 00:03:39,040
+With genetic data. We also compare the frequencies to make sure that allele frequency is consistent between the batches in prior studies and check,
+
+32
+00:03:39,140 --> 00:03:43,760
+check missing data rates, duplicate concordance and rendering inheritance.
+
+33
+00:03:44,240 --> 00:03:49,730
+And one of the important metric to to check is a high divine Burkinabe.
+
+34
+00:03:49,850 --> 00:03:52,940
+So when you check equilibrium,
+
+35
+00:03:52,940 --> 00:04:03,350
+it's a very useful metric to check whether there is a potentially technical issue with a specific variance and some of these.
+
+36
+00:04:04,910 --> 00:04:10,520
+This potential false signals could be screened out if we checked the Hollywood clearly.
+
+37
+00:04:10,910 --> 00:04:22,710
+So Hathaway B clearly is a useful, juicy matrix, but also it has a good, interesting property from the genetic perspective.
+
+38
+00:04:22,730 --> 00:04:28,700
+So we're going to talk about this Hathaway equilibrium more deeply in this online lecture.
+
+39
+00:04:30,490 --> 00:04:34,420
+So we're going to focus on the single locus, single variant,
+
+40
+00:04:34,690 --> 00:04:42,640
+and there are some terminology we're going to learn about a little genotype, a little frequency and genotype frequency.
+
+41
+00:04:42,940 --> 00:04:46,570
+And finally, Heidi, want to be clear with in principle, so.
+
+42
+00:04:47,790 --> 00:04:51,920
+And the key concern is basically how do you own but how do you own?
+
+43
+00:04:52,170 --> 00:05:00,660
+Librium is a property of ls in a population and is important population that that holds in most of the are the genetic status.
+
+44
+00:05:03,350 --> 00:05:11,660
+So what is LDL? So LDL is the alternative forms of a particular DNA sequence in that region of the single chromosome.
+
+45
+00:05:12,320 --> 00:05:18,050
+So basically, LDL is a, you know, some some type of sequence.
+
+46
+00:05:18,060 --> 00:05:25,010
+So, for example, you know, somehow if it is a single nucleotide polymorphisms,
+
+47
+00:05:25,490 --> 00:05:33,110
+some could carry nucleotide G so the other leg could carry nucleotide T,
+
+48
+00:05:33,110 --> 00:05:43,459
+for example, so that each of those a single, single chromosome could include could have a specific type of sequence.
+
+49
+00:05:43,460 --> 00:05:50,600
+Those are ls in this area has a frequency which is a proportion of the chromosomes of that type in the population.
+
+50
+00:05:50,750 --> 00:05:59,770
+So this is called the L in frequency. So this frequency, if, for example, if there's a two LS style, this is called diabetic variant.
+
+51
+00:06:00,650 --> 00:06:03,320
+This is typical in the single nucleotide polymorphisms.
+
+52
+00:06:03,770 --> 00:06:11,930
+Usually those frequencies are 11l frequencies labeled as P, and the other frequency could be labeled as Q, which is one minus P.
+
+53
+00:06:12,920 --> 00:06:14,360
+There are more than two ls.
+
+54
+00:06:14,480 --> 00:06:25,340
+This is called the multiple variants you see this typically labeled is p of with this subscript p of a pop of C and the subscript indicates how many?
+
+55
+00:06:27,570 --> 00:06:34,850
+And genotype is a a pair of LDL carried by individuals.
+
+56
+00:06:34,850 --> 00:06:42,990
+So an individual in in most of the most of the genome or so the chromosome 1 to 22.
+
+57
+00:06:43,410 --> 00:06:44,700
+Those are, you know,
+
+58
+00:06:45,270 --> 00:06:56,679
+one those the deployed so the the human is a is expected to have two LS in most of the cases and so if there's a and different delta
+
+59
+00:06:56,680 --> 00:07:05,250
+is let's say if there's let's put it in three different Del it's A and B and C and Delta and plus N times in plus one divided by two,
+
+60
+00:07:05,340 --> 00:07:08,430
+which is a in this case and is an is three.
+
+61
+00:07:09,540 --> 00:07:24,120
+That'll be six. Right. So because if there's a clear that the the possible combination of these LDL switches genotype is a AB AC and.
+
+62
+00:07:26,940 --> 00:07:30,870
+And the PPC and CC.
+
+63
+00:07:30,900 --> 00:07:34,080
+Right. So. So. If any country. So.
+
+64
+00:07:34,680 --> 00:07:48,970
+For example. If. And any so if and equal to then that we can have a, a, a, B and B, B, for example, if there's two early A and B,
+
+65
+00:07:49,300 --> 00:08:01,060
+so this and the number of possible genotype and and plus one divided by two equals three if an equal three.
+
+66
+00:08:02,940 --> 00:08:11,070
+You know, let's say that three of these are ABC and a AB AC and.
+
+67
+00:08:12,180 --> 00:08:17,530
+Be. B, B, C and CC.
+
+68
+00:08:17,560 --> 00:08:20,620
+So there are six possible genotyping.
+
+69
+00:08:20,680 --> 00:08:27,910
+The other does not matter here. So, you know, genotypes are not order aware.
+
+70
+00:08:27,930 --> 00:08:31,450
+So in this case, the possible number is a six. So.
+
+71
+00:08:33,510 --> 00:08:36,800
+So in this case. So.
+
+72
+00:08:41,340 --> 00:08:45,209
+So if the two the these are each of them are genotypes.
+
+73
+00:08:45,210 --> 00:08:50,760
+So if a genotype has two areas that are the same.
+
+74
+00:08:50,790 --> 00:08:58,050
+Similarly A, B, B here or a, B, B and C, C, those are called homozygous genotype.
+
+75
+00:08:58,980 --> 00:09:05,940
+And heterozygous genotype is the case where those two alleles are carried by one individual,
+
+76
+00:09:05,940 --> 00:09:10,650
+a different AB or a C, and those are called heterozygous genotype.
+
+77
+00:09:13,780 --> 00:09:19,720
+And that frequency is the frequency of each possible phenotype.
+
+78
+00:09:19,750 --> 00:09:24,850
+So because aliens are called in pair, these are the useful descriptors of the genetic data.
+
+79
+00:09:25,660 --> 00:09:33,370
+But compared to the number of alleles, the number of genotypes is likely to be a lot more.
+
+80
+00:09:33,530 --> 00:09:38,829
+So just that we have a lot more frequencies to estimate.
+
+81
+00:09:38,830 --> 00:09:46,570
+For example, if there are three at least ABC, you have six different genetic frequencies to estimate.
+
+82
+00:09:50,350 --> 00:09:59,950
+So and Ellie, frequency and frequencies has a very simple and connection between between them.
+
+83
+00:10:00,520 --> 00:10:07,900
+So if you basically if you know that you not high frequencies, you can calculate the frequencies, but not vice versa.
+
+84
+00:10:08,470 --> 00:10:20,020
+So for example, for terminals, if you if you know that you know the frequencies of A and B and B, B, L will then.
+
+85
+00:10:23,350 --> 00:10:26,350
+So. Then.
+
+86
+00:10:27,510 --> 00:10:33,150
+Then that so that there are. So.
+
+87
+00:10:34,280 --> 00:10:43,280
+Here. There's cities and different individuals and each individuals are deployed.
+
+88
+00:10:43,730 --> 00:10:46,940
+Then there's a two and chromosome. Okay.
+
+89
+00:10:50,940 --> 00:10:56,190
+So if there's any individuals there means that, is there any different genotypes?
+
+90
+00:10:57,460 --> 00:11:01,110
+Okay. And if there's a twin chromosome,
+
+91
+00:11:01,110 --> 00:11:09,780
+that means there are two and different levels so that the number of males for diploid individual these are twice the number of possible genotypes.
+
+92
+00:11:10,290 --> 00:11:16,390
+So in this case, these are aliens, case of two aliens.
+
+93
+00:11:16,420 --> 00:11:33,690
+So basically the total number of alien is so number of a LDL is a two times number of aliens because the X two of those aliens plus one.
+
+94
+00:11:36,760 --> 00:11:46,930
+And if they they can be heterozygous VK one of these alpha so number of pills is a two times the number of people.
+
+95
+00:11:47,740 --> 00:11:51,730
+Okay. And plus one of AB.
+
+96
+00:11:52,970 --> 00:11:58,760
+So if you want to calculate these frequencies, you basically divide these numbers.
+
+97
+00:11:59,030 --> 00:12:05,780
+Okay. So P of a is an of a divided by two n.
+
+98
+00:12:06,780 --> 00:12:20,220
+Which is. This is two, two, two and is physically two, two times and a a plus and a B plus and up.
+
+99
+00:12:20,760 --> 00:12:23,820
+Okay. So you can calculate the pop this way.
+
+100
+00:12:24,000 --> 00:12:32,640
+Okay. And. If you if you if you expand this equation, basically,
+
+101
+00:12:32,910 --> 00:12:47,550
+this this will become this will be equivalent to p of a +11 half of P of a B if you plug this value, this value to here.
+
+102
+00:12:48,120 --> 00:12:51,540
+Okay. So that's how you can.
+
+103
+00:12:53,320 --> 00:12:59,740
+You know, you can derive this in this particular equation. So same for the poppy.
+
+104
+00:12:59,950 --> 00:13:07,690
+So basically the frequency of a and polyols can be calculated from the genetic frequencies.
+
+105
+00:13:08,060 --> 00:13:14,560
+Okay. So and the other reverse condition is not typically true.
+
+106
+00:13:14,830 --> 00:13:18,909
+Okay. But it can be possible under certain condition.
+
+107
+00:13:18,910 --> 00:13:22,600
+And the spoiler alert is such a condition is called the hardy one because we have.
+
+108
+00:13:22,600 --> 00:13:23,680
+So we're going to talk about that.
+
+109
+00:13:23,690 --> 00:13:31,420
+So if on the Heidi one kilogram, we can represent that you have that frequency shift as a function of added frequencies.
+
+110
+00:13:31,630 --> 00:13:36,520
+But that's not generally that's not always correct.
+
+111
+00:13:37,950 --> 00:13:45,190
+So before going to the highly one book, Librium. Now let's talk about the mental methods first, obviously.
+
+112
+00:13:45,430 --> 00:13:49,930
+So members first law is the law of segregation.
+
+113
+00:13:50,170 --> 00:13:54,190
+So this is very well known loss of for a given genetic character.
+
+114
+00:13:54,520 --> 00:14:00,220
+They say father has a, A and B ls and mother has A and C alias.
+
+115
+00:14:00,670 --> 00:14:08,620
+And so for a given genetic kick that an individual that has two copies of one credit defector or a hereditary factor and the underlying
+
+116
+00:14:08,620 --> 00:14:21,489
+the character and the chance that the offspring carry these pairs of LDL is because actually have for each of those parents.
+
+117
+00:14:21,490 --> 00:14:30,610
+So I randomly chosen copies passed to each offspring of the individual, so with each copy as exactly have a chance of being chosen.
+
+118
+00:14:30,620 --> 00:14:39,490
+So in this case ALS, there's a half chance of being trans, being transmitted to offspring via the same, and Clinton is the same.
+
+119
+00:14:39,500 --> 00:14:47,200
+So each person combination has equally one fourth chance of being transmitted at a particular locus.
+
+120
+00:14:50,000 --> 00:15:00,979
+So and with this and there's first law we can appeal this upon it's clear between different levels
+
+121
+00:15:00,980 --> 00:15:07,340
+and you probably already already know this and then it's genetics so that that's how this works.
+
+122
+00:15:07,340 --> 00:15:12,200
+So I don't think I need to explain more about this Mendel's first law.
+
+123
+00:15:14,490 --> 00:15:21,720
+So then so with this Mendez low in in mind.
+
+124
+00:15:24,250 --> 00:15:29,690
+Now we're going to talk about the relationship between the genetic frequencies and the frequencies.
+
+125
+00:15:30,070 --> 00:15:31,000
+But the other way around.
+
+126
+00:15:31,090 --> 00:15:42,880
+So this hideaway equilibrium describe the relationship that can describe the genotype frequencies based on daily based on daily frequencies.
+
+127
+00:15:43,210 --> 00:15:44,700
+We we just did the bite.
+
+128
+00:15:44,890 --> 00:15:55,570
+The other way that we in this in the previous slide we talked about how to derive their live frequency from the genotype frequencies,
+
+129
+00:15:55,570 --> 00:16:01,660
+which is always possible because genotype frequency has more information in the frequencies.
+
+130
+00:16:02,590 --> 00:16:10,510
+But on the highway, one bacterium allele frequencies can be can define, describe the distribution of the genotype frequencies.
+
+131
+00:16:11,830 --> 00:16:22,060
+So this is a very simple model. Describe Artie and Weinberg that they they came up with the same principle independently so and they
+
+132
+00:16:22,090 --> 00:16:29,830
+assumed or deployed the organism and ran the meeting in equal measure that female only frequencies.
+
+133
+00:16:30,700 --> 00:16:34,209
+And we're assuming two values and one gene.
+
+134
+00:16:34,210 --> 00:16:39,040
+So there's no additional mutations. You can also work with a three or more alleles.
+
+135
+00:16:39,040 --> 00:16:44,049
+But let's talk about two, at least for the simplicity for now. And the needle is favored.
+
+136
+00:16:44,050 --> 00:16:52,150
+And that single, infinite population were assuming and we are assuming that discrete, known, overlapping generations for simple simplicity.
+
+137
+00:16:54,750 --> 00:17:01,520
+So this is the how they went to law and how they were going experience the frequency of that I played.
+
+138
+00:17:02,430 --> 00:17:06,660
+Genotype is the product of the frequency. So this is Alias.
+
+139
+00:17:07,410 --> 00:17:17,040
+So which means that let's say P is the frequency of the L, A and Q is a frequency of B then and how they when you click William,
+
+140
+00:17:17,970 --> 00:17:30,750
+the frequency of AA is a P squared and frequency of AB heterozygous at 2pq and two two square is the frequency of a p homozygous.
+
+141
+00:17:31,110 --> 00:17:34,110
+Okay, so you may have already noticed,
+
+142
+00:17:34,320 --> 00:17:47,820
+but the way you can get this equation is that if you just expand this P plus Q squared is P square is the frequency of a homozygous to p q.
+
+143
+00:17:48,800 --> 00:17:55,730
+Is the frequency of ABA heterogeneous and to square is a frequency of PB homogeneous.
+
+144
+00:17:57,640 --> 00:18:05,020
+So this how equilibrium occurs when we lose an individual at random draws from the population.
+
+145
+00:18:05,560 --> 00:18:14,200
+So this is indeed just a simple binomial expansion of despondently variable.
+
+146
+00:18:14,830 --> 00:18:24,700
+And this one generation of random. The interesting fact we're going to learn here is that one generation of random mating can produce.
+
+147
+00:18:25,830 --> 00:18:31,460
+Heidi Weinberg It could be. So what do I mean?
+
+148
+00:18:32,150 --> 00:18:36,860
+So let's look at this. This particular table.
+
+149
+00:18:37,760 --> 00:18:48,320
+Let's say you have. These are three possible genotypes A, a, a and B.
+
+150
+00:18:48,480 --> 00:18:54,150
+Okay. And they can they can be made it in different ways.
+
+151
+00:18:54,220 --> 00:19:03,090
+Okay. So a and a so is the possible combination of these these genotypes.
+
+152
+00:19:04,200 --> 00:19:09,950
+So it's so without. So the possible types of mating.
+
+153
+00:19:09,960 --> 00:19:16,130
+So if you if you you can order the order between the between the father or mother.
+
+154
+00:19:16,140 --> 00:19:19,350
+So there six possible combinations here.
+
+155
+00:19:19,770 --> 00:19:22,920
+Okay. So and.
+
+156
+00:19:24,710 --> 00:19:38,240
+And so what is the probability that the two if this is random meeting, what is the probability that two parents have bought a home which I it.
+
+157
+00:19:38,600 --> 00:19:41,600
+So the probability will be.
+
+158
+00:19:43,040 --> 00:19:47,230
+Will be. The the probably two of.
+
+159
+00:19:48,340 --> 00:19:53,120
+Probably to a a times probably top 80.
+
+160
+00:19:53,710 --> 00:20:01,690
+Okay. So and and if you know the genotype frequency, you can you can have this.
+
+161
+00:20:04,760 --> 00:20:08,540
+This will be frequent centered around the meeting. The same thing here.
+
+162
+00:20:08,690 --> 00:20:24,170
+You're going to have a baby inside a pope eight times p of Abby and there's a so there there's a two here because the.
+
+163
+00:20:25,900 --> 00:20:29,270
+So the mother has it.
+
+164
+00:20:29,350 --> 00:20:36,830
+It's possible that the age, you know, a genotype is carried by Father ab each of those killed by mother or vice versa.
+
+165
+00:20:36,850 --> 00:20:43,180
+Those two possibilities. Okay. So you can keep writing this equation in this way.
+
+166
+00:20:43,540 --> 00:20:49,760
+Okay. And you're going to have. A table like this.
+
+167
+00:20:50,570 --> 00:20:53,790
+Okay. And this.
+
+168
+00:20:56,350 --> 00:21:10,100
+This table will add up to. Add up to one, because if you see this thing, this is actually simply the expansion of the pill.
+
+169
+00:21:10,100 --> 00:21:14,000
+A pill. Abby Pope.
+
+170
+00:21:15,470 --> 00:21:25,730
+Squared. Okay. If you take the square, you will have each of turn in this way in the summation of all possible type probability will be what?
+
+171
+00:21:26,150 --> 00:21:33,650
+Okay. So this will be guaranteed to be added up to one.
+
+172
+00:21:35,920 --> 00:21:39,360
+Okay. So.
+
+173
+00:21:42,780 --> 00:21:47,610
+So now let's do a little more complicated stuff.
+
+174
+00:21:47,910 --> 00:21:53,219
+Okay. So now we already know the frequency of under the random meeting.
+
+175
+00:21:53,220 --> 00:22:03,150
+We we know the frequency of this column, but what is the probability of an offspring happening?
+
+176
+00:22:03,510 --> 00:22:11,100
+Okay. In this case. So. So for example.
+
+177
+00:22:11,670 --> 00:22:16,230
+So if the both parents have kept a.
+
+178
+00:22:17,470 --> 00:22:23,830
+Genotypes and the offspring must have a all the time under Mendel's segregation.
+
+179
+00:22:24,370 --> 00:22:29,170
+So this of this probability will be one. This probability will be zero.
+
+180
+00:22:29,530 --> 00:22:41,349
+This probability will be zero. Okay. If this is a a, a, B, there's a half chance of the offspring as a half chance of the offspring is.
+
+181
+00:22:41,350 --> 00:22:49,720
+AB But there's no chance that offspring is BP because there's no p a little kitty by one of the parent.
+
+182
+00:22:50,020 --> 00:22:56,200
+So we can fill in this table in a similar way and we have this table.
+
+183
+00:22:57,040 --> 00:23:07,070
+Okay. So this is the. The full table of the under the random meeting between between possible.
+
+184
+00:23:10,360 --> 00:23:18,880
+You know, possible combinations, you know, types of parents and a chance of transmission to offspring.
+
+185
+00:23:20,230 --> 00:23:23,920
+Okay, so. So under this table.
+
+186
+00:23:24,370 --> 00:23:27,639
+Now what? So what I try to do here.
+
+187
+00:23:27,640 --> 00:23:31,180
+So with this table, so that this table is important.
+
+188
+00:23:31,180 --> 00:23:35,960
+So keep. Keep it. Keep in mind and. So.
+
+189
+00:23:39,710 --> 00:23:42,950
+So, for example, as I said, the.
+
+190
+00:23:44,040 --> 00:23:53,400
+So in this case, this is probably this one because support for parents is AA and in this case, both parents as B, so it's a chance it's one.
+
+191
+00:23:53,850 --> 00:23:59,220
+But for example, if they put the parents over at AB, then all possible,
+
+192
+00:23:59,550 --> 00:24:09,570
+all these genotypes are possible but heterozygous have have a have chance and AA is at one point for chance and B this one for chance.
+
+193
+00:24:09,930 --> 00:24:16,000
+So. So with this. We it as segregation.
+
+194
+00:24:16,150 --> 00:24:23,790
+What we are trying to do is that we're going to calculate the probability of the offspring gene genotypes.
+
+195
+00:24:24,100 --> 00:24:28,150
+So we're going to calculate the genotype frequency of the offspring.
+
+196
+00:24:28,990 --> 00:24:41,650
+So what am I trying to do here? Okay, so so let's say p a prime is the genotype frequency of the offspring.
+
+197
+00:24:42,190 --> 00:24:48,410
+Okay, so. So. So that is here.
+
+198
+00:24:48,800 --> 00:24:56,300
+Okay. So the chance that. The office sphere has a genotype AA.
+
+199
+00:24:57,260 --> 00:25:01,790
+Is can be. There are three, three different possible scenarios.
+
+200
+00:25:02,750 --> 00:25:08,660
+One is that the two parents are both of them AA.
+
+201
+00:25:08,840 --> 00:25:12,770
+In this case, there's a 100% chance that Hope springs AA.
+
+202
+00:25:13,460 --> 00:25:19,040
+If they're combinations. Combination of AA. And maybe there's a half chance.
+
+203
+00:25:19,490 --> 00:25:22,520
+If the combination is A, B and AB, there's a one quarter.
+
+204
+00:25:22,580 --> 00:25:25,910
+Yes. So you can add those chance chances up here.
+
+205
+00:25:26,090 --> 00:25:30,730
+Okay. So. So if you see this is a first case.
+
+206
+00:25:31,060 --> 00:25:37,300
+Second case. If you if you look at the previous case, there's a there's a coefficient too.
+
+207
+00:25:37,310 --> 00:25:47,760
+But the question too is cancel. So you say, yes, you have this situation and in the third case you have a V squared in this quality.
+
+208
+00:25:47,800 --> 00:25:56,140
+Yes. Okay. So this can be written in the in the squared form like this.
+
+209
+00:25:56,710 --> 00:26:00,630
+Okay. The same for the PBB frequencies.
+
+210
+00:26:00,670 --> 00:26:06,640
+It's just the exact opposite. Just all A change is B and the DNA is swapped.
+
+211
+00:26:07,210 --> 00:26:14,120
+You have the same equations here. Plato's prime is a little more complicated.
+
+212
+00:26:14,330 --> 00:26:17,420
+So there are four possible cases here.
+
+213
+00:26:17,830 --> 00:26:21,890
+Okay. So you can add up all these four possible cases.
+
+214
+00:26:22,460 --> 00:26:27,170
+So and the four parts of the cases are written like this and.
+
+215
+00:26:27,170 --> 00:26:31,010
+But you can factory's the equation in this way. Okay.
+
+216
+00:26:32,760 --> 00:26:42,070
+So. So this looks a little complicated, but there's an interesting patterns you may see here.
+
+217
+00:26:42,310 --> 00:26:46,450
+So to see this situation and description and description.
+
+218
+00:26:47,080 --> 00:26:50,770
+So. So.
+
+219
+00:26:51,780 --> 00:26:57,180
+You might see that. Oh, if so, if you see this.
+
+220
+00:26:59,760 --> 00:27:04,950
+If you represent this is this is a P of a.
+
+221
+00:27:05,070 --> 00:27:13,290
+So these that we already looked at look in the previous slide that the this genotype frequency
+
+222
+00:27:13,710 --> 00:27:20,620
+can be written as a P of a so this is POB squared and these are frequencies of poppy.
+
+223
+00:27:20,670 --> 00:27:25,649
+So poppy squared and this one is the this one is pure poppy.
+
+224
+00:27:25,650 --> 00:27:36,180
+So this p of a poppy. Okay. So this is it's the same to the Heidi one, the Colombian principle.
+
+225
+00:27:39,130 --> 00:27:44,270
+So. So basically what we have is all.
+
+226
+00:27:44,940 --> 00:27:51,639
+So we didn't. So one thing one thing you need to notice is that we actually did not assume that
+
+227
+00:27:51,640 --> 00:27:58,480
+the parents does follow the Holy One because this can be she of AVP can be anything.
+
+228
+00:27:58,850 --> 00:28:02,290
+Okay. But after one generation random meeting,
+
+229
+00:28:02,290 --> 00:28:15,700
+the offspring get a frequency becomes follows the high value clearly of a p p squared to take you and you squared that that that principle follows.
+
+230
+00:28:17,280 --> 00:28:23,790
+And another nice property is that the offspring live frequencies.
+
+231
+00:28:24,120 --> 00:28:35,340
+If you calculate this way, it'll be the same as a piece of PPA and piece of the frequency of these values does not change over time under the random.
+
+232
+00:28:38,370 --> 00:28:46,950
+So. So putting this together so it's not a frequency is a function of hourly frequencies.
+
+233
+00:28:47,310 --> 00:28:57,450
+And so we show that the this Heidi Heidi one vocal album which is in one generation the list of the genetic frequencies of parents.
+
+234
+00:28:58,230 --> 00:29:06,580
+And this is independent of the initial genotype frequencies and the random meaning and other assumptions are required.
+
+235
+00:29:06,600 --> 00:29:11,879
+But but under that assumption, these are they are they were mutually.
+
+236
+00:29:11,880 --> 00:29:15,000
+William nicely follows. Okay.
+
+237
+00:29:15,750 --> 00:29:27,490
+And the principle is quite simple. So when you have a real illness, the A&E, you don't have frequencies conforms to the spine only extension.
+
+238
+00:29:28,210 --> 00:29:39,430
+And this principle also applies to multiply those three alias foils five else same principles can apply you know, in a similar way.
+
+239
+00:29:40,990 --> 00:29:50,230
+Okay. So. So that's the data all about the slice.
+
+240
+00:29:50,830 --> 00:29:58,990
+And we're going to do some exercise in in our notebook so you can follow this link and do the same thing with me.
+
+241
+00:29:59,320 --> 00:30:10,310
+So what I recommend is to open a web browser and type this URL and a complete complete is procedure with me.
+
+242
+00:30:10,570 --> 00:30:13,810
+You need to log in with the you miss your account to be able to do this.
+
+243
+00:30:13,960 --> 00:30:20,350
+So I need at this point, this page is only accessible with a you mean Google account.
+
+244
+00:30:21,640 --> 00:30:24,920
+Okay. With that. Let's try this.
+
+245
+00:30:25,240 --> 00:30:34,590
+Okay. So. So let me make it a little bit bigger.
+
+246
+00:30:35,250 --> 00:30:46,080
+Okay. So the way how we can run this page is you can just simply run this.
+
+247
+00:30:50,350 --> 00:30:53,899
+Read this page. And it will for you.
+
+248
+00:30:53,900 --> 00:30:57,170
+It'll give a warning that this is not authored by you.
+
+249
+00:30:57,170 --> 00:31:02,209
+And you need to you need to type that you run anyway.
+
+250
+00:31:02,210 --> 00:31:11,560
+But that that is safe. You can do that. So we're going to do the exercise number one here and the rest of the exercise we can do in the class.
+
+251
+00:31:12,490 --> 00:31:19,060
+So. What we are going to do here is we're going to do some simulation.
+
+252
+00:31:19,720 --> 00:31:35,320
+So we are going to simulate 10,000 individuals and note frequencies is a 20%, 30% and a 50% of of these is between these three valleys.
+
+253
+00:31:35,770 --> 00:31:39,850
+So note that these are not following the high one Berkeley medium.
+
+254
+00:31:40,000 --> 00:31:47,319
+So because this this does not this is not scared to cross to pick you in two square.
+
+255
+00:31:47,320 --> 00:31:54,850
+So this heterozygous l is are smaller than the what is expected by Hathaway fluvial.
+
+256
+00:31:56,400 --> 00:31:59,810
+And. But we're going to do this. Okay.
+
+257
+00:32:02,050 --> 00:32:14,640
+So and. Then just to print out this is the number of samples at 10,000 and observe genotype frequencies.
+
+258
+00:32:14,640 --> 00:32:17,610
+Are these so the genotype count is this.
+
+259
+00:32:18,180 --> 00:32:25,890
+Okay, so let me just clear the outputs up to make sure that you can see the output going to press this button.
+
+260
+00:32:27,280 --> 00:32:37,090
+So. And here we're going to just show the due date based on these genotype frequencies.
+
+261
+00:32:37,210 --> 00:32:42,320
+So you have a 10,010 thousand samples and this genotype.
+
+262
+00:32:42,320 --> 00:32:49,270
+So we can calculate the live frequencies because because the frequencies can be derived directly from the genetic frequencies.
+
+263
+00:32:49,720 --> 00:32:56,410
+So here the number of aliens at 20,000 and the frequencies that 35% is 65%.
+
+264
+00:32:57,040 --> 00:33:06,270
+So that's this. Okay. And we can show what is expected on the hardware more closely.
+
+265
+00:33:06,660 --> 00:33:18,010
+So the hardware would be chromium. You can use a p square to p q and to square the creation and on the hardware equilibrium.
+
+266
+00:33:18,010 --> 00:33:22,420
+This is the expected synoptic count with this cell frequencies.
+
+267
+00:33:25,310 --> 00:33:32,660
+So now we're going to we're going to just just show these principles so we can
+
+268
+00:33:32,660 --> 00:33:37,370
+calculate the offspring genotype frequencies based on the equation we have.
+
+269
+00:33:37,730 --> 00:33:41,150
+And we want to make sure that these are actually follows how they migrate loop.
+
+270
+00:33:41,780 --> 00:33:46,429
+So what you are doing here is that we can calculate offspring genotype counts based
+
+271
+00:33:46,430 --> 00:33:52,190
+on this equation from the slide and make sure that these are actually following.
+
+272
+00:33:52,190 --> 00:33:59,630
+This is the offspring genotype frequencies. We calculated this follows indeed.
+
+273
+00:34:01,440 --> 00:34:10,260
+The Heidelberg Williams. So these these frequencies exactly same as what we we are expecting from the how do you want it to be a peaceful.
+
+274
+00:34:11,950 --> 00:34:21,090
+Okay. And and the frequency also does not change, obviously.
+
+275
+00:34:21,210 --> 00:34:25,590
+So frequency does not change indeed in this case.
+
+276
+00:34:27,240 --> 00:34:33,450
+Okay. So that's what we have covered today.
+
+277
+00:34:33,870 --> 00:34:46,100
+Okay. And the rest of the part, we will continue in the in-person lecture, but don't forget to finish your piece before that.
+
+278
+00:34:46,500 --> 00:34:49,200
+Okay. Thanks for watching. Bye.
+

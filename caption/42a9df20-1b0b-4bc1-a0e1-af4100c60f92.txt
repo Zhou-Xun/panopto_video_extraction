@@ -1,0 +1,3796 @@
+1
+00:00:02,990 --> 00:00:08,640
+Okay. So. Quickly looking at where we are in the course.
+
+2
+00:00:10,590 --> 00:00:17,580
+We are almost to the point in the course where if you scroll all the way down, everything almost always almost fits just a little bit.
+
+3
+00:00:20,690 --> 00:00:25,820
+That's the that's how far we are in the course. So we're going to finish up.
+
+4
+00:00:27,160 --> 00:00:31,810
+Our material on survival are time to event analysis.
+
+5
+00:00:32,870 --> 00:00:40,309
+So we'll finish up hand out 13. That will mean that by the end of today you have everything you need to tackle homework.
+
+6
+00:00:40,310 --> 00:00:47,350
+Five Which is your next to last homework? After Homework five there's one more homework.
+
+7
+00:00:48,070 --> 00:00:54,309
+And as I get into the material related to that homework, I will probably post that homework fairly early as well,
+
+8
+00:00:54,310 --> 00:00:59,320
+just so that if you're working ahead, you can tackle and get all your homework done.
+
+9
+00:01:00,610 --> 00:01:13,799
+Towards the end of the term. This material that happens after Thanksgiving is not material that's covered on the final exam.
+
+10
+00:01:13,800 --> 00:01:22,980
+It kind of is, you know, extra topics since we had, you know, I can't assign you homework right up to the last minute on everything you learn.
+
+11
+00:01:23,580 --> 00:01:27,030
+So there are extra topics that I think are useful and interesting.
+
+12
+00:01:28,770 --> 00:01:33,510
+The course is going to end with the material and hand out 18.
+
+13
+00:01:35,060 --> 00:01:44,870
+So there will be one final homework that covers the material starting from 14 and going through 18.
+
+14
+00:01:45,410 --> 00:01:51,080
+That's where we are. We are we're very much into the final stretch here.
+
+15
+00:01:51,670 --> 00:01:55,070
+Okay. So a lot left to learn.
+
+16
+00:01:55,460 --> 00:02:03,440
+And as you're seeing, every new modeling paradigm is stretching your skills just a little bit further in one more direction.
+
+17
+00:02:04,500 --> 00:02:13,000
+So. It's going to be really calling forward your best self to tackle all this new information.
+
+18
+00:02:14,320 --> 00:02:19,230
+All right. Okay. So where are we today?
+
+19
+00:02:19,260 --> 00:02:22,580
+So we are in handout 13.
+
+20
+00:02:22,590 --> 00:02:26,490
+Go ahead and download Handout 14 as well. We're going to definitely get to it today.
+
+21
+00:02:27,150 --> 00:02:31,530
+I say that with confidence and we are on slide 32.
+
+22
+00:02:32,930 --> 00:02:35,890
+So what have we done so far in this handout? So far in this handout.
+
+23
+00:02:35,900 --> 00:02:41,690
+So this is all kind of like model selection and diagnostics for the Cox proportional hazards model.
+
+24
+00:02:42,290 --> 00:02:48,589
+And last time we kind of went through how to think about modeling the functional form of covariates.
+
+25
+00:02:48,590 --> 00:02:54,559
+So it was sort of that sort of thing and also automated model selection tools
+
+26
+00:02:54,560 --> 00:02:59,720
+that are handy and how to use it with the Cox model in either SAS or are.
+
+27
+00:03:00,800 --> 00:03:05,870
+So what we haven't done yet is talk about other.
+
+28
+00:03:06,870 --> 00:03:14,689
+Kind of validity checks of your model. And so a lot of the terms are going to seem familiar terms from when you first learn regressions.
+
+29
+00:03:14,690 --> 00:03:19,500
+So we're going to talk about Rasiej. We already talked a little bit about residuals.
+
+30
+00:03:19,590 --> 00:03:24,030
+We talked about martingale residuals last time. We talked about deviance residuals last time.
+
+31
+00:03:25,420 --> 00:03:29,490
+Martingale residuals. Just jogging your memory.
+
+32
+00:03:30,880 --> 00:03:33,640
+They help you with the functional form of a covariate?
+
+33
+00:03:33,940 --> 00:03:41,049
+And so we saw examples of plotting martingale residuals versus a covariate that you're interested in figuring out the functional form
+
+34
+00:03:41,050 --> 00:03:48,940
+for and how the shape of the loss curve through that plot of residuals helps you figure out what functional forms to try for that.
+
+35
+00:03:48,940 --> 00:03:52,060
+Covariate That's something we haven't had with any other model.
+
+36
+00:03:52,900 --> 00:03:59,200
+It's a bit unique to this Cox model. And so I take advantage of it.
+
+37
+00:03:59,320 --> 00:04:03,280
+It's a great a great tool to figure out functional form of your covariance.
+
+38
+00:04:04,380 --> 00:04:11,070
+Deviance residuals. We used to spot outliers because Mardi Gras residuals were kind of squished.
+
+39
+00:04:11,670 --> 00:04:16,710
+Funny, you couldn't see outliers as well. So deviants residuals were used to do that.
+
+40
+00:04:17,040 --> 00:04:22,019
+So today we're going to have even more residuals. We're going to have something called Schoenfeld residuals,
+
+41
+00:04:22,020 --> 00:04:28,530
+and that's going to help us with figuring out one of the methods for figuring out if you've got proportional hazards issues.
+
+42
+00:04:29,880 --> 00:04:40,200
+And we're going to look at the influence debate as things that you might remember from when you learned your first regression class.
+
+43
+00:04:40,240 --> 00:04:43,920
+So we're going to learn them in the context of the Cox model and how to use them.
+
+44
+00:04:45,300 --> 00:04:52,350
+So that's kind of the the refresher for what we talked about last time and what we are going to be talking about this time.
+
+45
+00:04:55,860 --> 00:05:01,050
+So here's our regression model. Again, this is the way we write the model, the general form.
+
+46
+00:05:01,500 --> 00:05:06,360
+So the part that we end up doing in our model statement is this part.
+
+47
+00:05:06,360 --> 00:05:10,229
+Up here we have our covariates and we this is where we figure out the functional form.
+
+48
+00:05:10,230 --> 00:05:14,970
+Of course, we want to put in the Cox model interactions, all that stuff that happens over here.
+
+49
+00:05:15,540 --> 00:05:17,609
+We've talked a little bit about modeling this thing.
+
+50
+00:05:17,610 --> 00:05:25,229
+This is the baseline hazard function and we've certainly talked about how you can estimate these separately for
+
+51
+00:05:25,230 --> 00:05:32,340
+different strata if you're worried about the proportional hazards assumption being met for some covariates.
+
+52
+00:05:32,880 --> 00:05:41,580
+So this baseline hazard, we model just a touch so far by splitting it up according to some categorical variable.
+
+53
+00:05:42,150 --> 00:05:45,629
+So you're going to get practice with this on homework five, right?
+
+54
+00:05:45,630 --> 00:05:52,140
+And but the overall hazard is over here. So this is the product of whatever your baseline hazard is.
+
+55
+00:05:52,140 --> 00:05:55,680
+This is the whole reference curve. This baseline hazard is a whole reference curve.
+
+56
+00:05:56,280 --> 00:06:00,989
+And then this this stuff that you model over here is sort of saying how much
+
+57
+00:06:00,990 --> 00:06:05,250
+higher or lower than the reference curve you are depending on your covariates.
+
+58
+00:06:05,250 --> 00:06:12,360
+So all of this stuff is stuff that we interpret with hazard ratios assuming proportional hazards.
+
+59
+00:06:13,490 --> 00:06:20,000
+So I haven't really used this term, said my parametric before, and I'm not sure if you've heard this term before.
+
+60
+00:06:20,630 --> 00:06:28,400
+Most of the models we've learned so far have had some assumptions behind them on what the distribution of the data is.
+
+61
+00:06:28,760 --> 00:06:32,840
+Linear regression. Normal distribution. Logistic regression.
+
+62
+00:06:33,200 --> 00:06:37,279
+Binomial Bernoulli distribution. Count models.
+
+63
+00:06:37,280 --> 00:06:42,920
+We had to choose between Poisson negative binomial 0% zero one and negative binomial.
+
+64
+00:06:43,280 --> 00:06:49,100
+These were all very what we call parametric assumptions about the distribution of your outcomes.
+
+65
+00:06:49,880 --> 00:06:52,730
+Now for the proportional hazards regression model.
+
+66
+00:06:54,120 --> 00:07:02,370
+It's called a semi parametric model in the sense that we don't have a fixed distribution we have in mind for this model.
+
+67
+00:07:03,450 --> 00:07:10,260
+There are several different distributions that this model can be applied to,
+
+68
+00:07:10,740 --> 00:07:17,670
+and the baseline hazard and the shape of the baseline hazard is allowed to do whatever it wants.
+
+69
+00:07:17,670 --> 00:07:22,800
+And this might or might not coincide with a distribution that has a name to it.
+
+70
+00:07:23,670 --> 00:07:29,639
+And so other than the part of the model that's using covariates,
+
+71
+00:07:29,640 --> 00:07:36,150
+this baseline hazard is allowed to do whatever it wants to do to to to fit the shape of the data.
+
+72
+00:07:37,570 --> 00:07:46,130
+As as long as you're acknowledging this assumption that different risk profiles will have hazards that are proportional to whatever that shape is,
+
+73
+00:07:46,820 --> 00:07:53,200
+you know, they'll sort of be like moving in tandem, high hazards for everybody at the same time,
+
+74
+00:07:53,810 --> 00:07:57,380
+low hazards for everybody at the same time, regardless of your risk profile.
+
+75
+00:07:59,020 --> 00:08:02,470
+All right. So it's called semi parametric in that sense.
+
+76
+00:08:07,540 --> 00:08:12,930
+So as usual, you have hypothesis tests for the different parameters that you're putting in your model.
+
+77
+00:08:12,940 --> 00:08:19,719
+Those are usually the P values and interesting interpretations you want to put in your manuscripts manuscript,
+
+78
+00:08:19,720 --> 00:08:26,620
+where these sentences are almost always about the part in your model over here, you know, that you're deciding upon.
+
+79
+00:08:27,490 --> 00:08:37,030
+And if your model assumptions are not correct, your P values won't be correct, your betas won't be correct, your hazard ratios won't be correct.
+
+80
+00:08:37,630 --> 00:08:48,340
+And so the modeling assumption that we need to check for the causal hazards model is in fact, is this is this baseline hazard covering everything?
+
+81
+00:08:48,340 --> 00:08:51,370
+Are these really all these risk profiles?
+
+82
+00:08:51,370 --> 00:08:56,080
+Are they really kind of moving in tandem proportionately to one another over time?
+
+83
+00:08:59,730 --> 00:09:03,210
+So it's often useful to look for proportional hazards violations.
+
+84
+00:09:03,240 --> 00:09:08,370
+We've seen one example of that that I'll review today looking at the log, mine's logs, survival plots.
+
+85
+00:09:10,370 --> 00:09:13,610
+We also want to look at observations where the model fits poorly.
+
+86
+00:09:13,620 --> 00:09:19,430
+So this is going to go back to these same ideas of, you know, high leverage,
+
+87
+00:09:19,760 --> 00:09:25,400
+high influence observations kind of language that similar to what you learned about in linear regression.
+
+88
+00:09:27,960 --> 00:09:31,650
+And observations that have a large influence on the parameter estimate.
+
+89
+00:09:31,680 --> 00:09:38,850
+So one observation is how much? If you remove it from the dataset, how much does that change the beta for that.
+
+90
+00:09:38,860 --> 00:09:43,200
+Very for for the various variables. Okay.
+
+91
+00:09:43,200 --> 00:09:47,069
+So there's actually a few different diagnostics for assessing proportionality.
+
+92
+00:09:47,070 --> 00:09:53,580
+I've just shown you one so far that is decent for looking at categorical predictors.
+
+93
+00:09:54,210 --> 00:10:04,740
+So if you do plots of log minus log survival versus time or log time for each category of that categorical predictor, you know,
+
+94
+00:10:04,740 --> 00:10:09,569
+I've kind of argued I showed you some algebra that I don't really want you to own,
+
+95
+00:10:09,570 --> 00:10:15,360
+but some algebra that suggests that there should be a constant distance apart from one another.
+
+96
+00:10:15,360 --> 00:10:24,389
+So the curve when you do kaplan-meier curves for level g of this categorical predictor, you know, each one of those,
+
+97
+00:10:24,390 --> 00:10:30,450
+when you plot them all in the same plot, should be vertically, a constant distance apart, you know?
+
+98
+00:10:34,110 --> 00:10:38,880
+And I'll show you a reminder of why that is. Next, if you're if you want to be reminded about that.
+
+99
+00:10:39,240 --> 00:10:46,320
+So for categorical or continuous predictors, we also had this other trick for figuring out proportionality,
+
+100
+00:10:46,800 --> 00:10:57,510
+and that is to create an interaction between the predictor you're interested in checking and a time dependent covariate.
+
+101
+00:10:58,610 --> 00:11:02,270
+Such as log time. So this is new.
+
+102
+00:11:02,330 --> 00:11:06,590
+You haven't seen this before. This is going to stretch your brain a bit. Okay.
+
+103
+00:11:07,250 --> 00:11:15,620
+But it's allowing instead of just a single baseline hazard that depends on little t, we're putting in a covariate that also depends on little T.
+
+104
+00:11:16,680 --> 00:11:23,940
+So that we can see if that part of the model still has some dependance on time.
+
+105
+00:11:25,120 --> 00:11:28,329
+And so I'll I'll look at that with you later.
+
+106
+00:11:28,330 --> 00:11:34,690
+And so you can, you know, that's just one more thing you need to model if you're worried about proportional hazards,
+
+107
+00:11:35,230 --> 00:11:41,290
+long time is usually my first go to just to see if there's any signal to worry about.
+
+108
+00:11:41,710 --> 00:11:47,590
+But then if if I'm really worried about proportional hazards based on what I see there, it's one more thing to model.
+
+109
+00:11:47,590 --> 00:11:53,170
+You have to figure out are you going to model this as a linear spline or time intervals or, you know,
+
+110
+00:11:53,380 --> 00:11:58,000
+it's another modeling step you need to worry about if you don't have proportional hazards.
+
+111
+00:11:58,960 --> 00:12:11,580
+So we'll cover that soon. Each of those premature resolutions for the time by covariate interaction will allow the hazard ratios to depend on time.
+
+112
+00:12:16,280 --> 00:12:24,450
+And then there's this other type of residual that was especially created for checking proportionality, and I'll see that soon as well.
+
+113
+00:12:24,500 --> 00:12:28,250
+There's code and stats in order for both of these and I will have to say that,
+
+114
+00:12:29,330 --> 00:12:32,809
+you know, Seth and are always kind of in a head to head competition for me,
+
+115
+00:12:32,810 --> 00:12:38,900
+of which one is better for which method I think are wins the battle for Schoenfeld residuals because it'll keep
+
+116
+00:12:38,900 --> 00:12:47,570
+you P values instead of plots that require you to make a decision on whether whether the plots look okay or not.
+
+117
+00:12:49,790 --> 00:12:57,199
+All right. So here's the reminder of what we talked about with categorical covariates that you can do kaplan-meier
+
+118
+00:12:57,200 --> 00:13:04,610
+estimates and then plot log minus log of those kaplan-meier curves versus some function of time.
+
+119
+00:13:05,090 --> 00:13:08,870
+And so the justification, again, I don't want you to own this algebra.
+
+120
+00:13:08,870 --> 00:13:14,629
+It's just there. If you're curious and you don't want to just say, oh, Dr. Murray said.
+
+121
+00:13:14,630 --> 00:13:20,630
+So this is the justification that the proportionality assumption is this first line.
+
+122
+00:13:21,110 --> 00:13:27,409
+So in terms of survival curves, one survival curve is some power of the other for every possible risk profile,
+
+123
+00:13:27,410 --> 00:13:36,960
+if you believe proportional, how much is this true? And if you are loving algebra and especially log algebra,
+
+124
+00:13:37,350 --> 00:13:46,590
+you can show that the log minus log of one curve that obeys proportional hazards must be some constant.
+
+125
+00:13:47,720 --> 00:13:51,860
+Plus a log minus log of the other survival curves.
+
+126
+00:13:51,860 --> 00:13:59,960
+So these curves could be any based on any risk profiles for this categorical co variable.
+
+127
+00:14:00,260 --> 00:14:03,470
+And at each time t it doesn't matter.
+
+128
+00:14:05,080 --> 00:14:08,620
+What's going on. And this is a constant that doesn't depend on time.
+
+129
+00:14:08,950 --> 00:14:12,849
+And so you do these plots and you think of a vertical line at each time.
+
+130
+00:14:12,850 --> 00:14:18,160
+Little T and any two curves should be some constant apart.
+
+131
+00:14:18,850 --> 00:14:22,179
+They don't have to be the same constant apart for different curves.
+
+132
+00:14:22,180 --> 00:14:26,770
+But any two curves should have the vertical distance of at a constant apart.
+
+133
+00:14:26,770 --> 00:14:30,429
+If portion hazards is true, of course, is variability in data sets.
+
+134
+00:14:30,430 --> 00:14:36,759
+And so it's a person in my opinion, it's a bit of a personality test to see do I think that's a constant or not.
+
+135
+00:14:36,760 --> 00:14:41,110
+People will see what they want to see, but this is a common diagnostic that people use.
+
+136
+00:14:42,030 --> 00:14:48,080
+And it's easy to rule out proportional hazards if you see big dramatic crossings of
+
+137
+00:14:48,360 --> 00:14:53,519
+in these plots or I actually just look at the survival curves after so many years,
+
+138
+00:14:53,520 --> 00:14:56,969
+I can easily look at a survival curve, a couple of curves.
+
+139
+00:14:56,970 --> 00:15:05,100
+And if those curves cross each other or look like they're about to cross each other, I can usually tell that to proportional hazards problem.
+
+140
+00:15:05,950 --> 00:15:14,290
+Because of this relationship here, that this this relationship here doesn't allow them to survive a curfew across what is the power of the other?
+
+141
+00:15:18,070 --> 00:15:26,590
+Okay. So the one of the new tricks I'm showing you to model your data, but also to check for proportional hazards,
+
+142
+00:15:27,040 --> 00:15:33,550
+is to create time dependent covariates that depend on little t the study time.
+
+143
+00:15:35,480 --> 00:15:44,290
+And. So this is a bit of a perk up moment because usually when you create a covariate,
+
+144
+00:15:44,470 --> 00:15:53,110
+you are doing this in your data step in SAS or you are coding a line in R before you call the analysis function.
+
+145
+00:15:55,500 --> 00:16:00,059
+But if you are creating a time dependent covariate for the proportional hazards
+
+146
+00:16:00,060 --> 00:16:06,600
+model and that time period covariate is supposed to be a function of little T,
+
+147
+00:16:07,350 --> 00:16:11,909
+not the random variable. Big T, but the study follow up time.
+
+148
+00:16:11,910 --> 00:16:18,720
+Little T. You need to create that variable inside the function call or the call.
+
+149
+00:16:19,880 --> 00:16:23,360
+That's very different. So this is not something you create in the data step.
+
+150
+00:16:23,360 --> 00:16:27,679
+And I'm going to probably repeat myself several times about this on different sides and
+
+151
+00:16:27,680 --> 00:16:32,870
+in different ways because this is such a hard thing if you're not having that perk up.
+
+152
+00:16:32,870 --> 00:16:36,250
+I've had my coffee moment right now and you're just not kind of listening.
+
+153
+00:16:36,590 --> 00:16:41,420
+You're going to make the most common mistake that happens every year with a fair number of students.
+
+154
+00:16:42,450 --> 00:16:50,130
+And that is, you know, trying to create this in a data step rather than inside the proc or the function that you're using to model the data.
+
+155
+00:16:51,360 --> 00:17:00,570
+All right. So this is this is the way we code an interaction term with age and log of little t.
+
+156
+00:17:02,210 --> 00:17:05,900
+In your Cox model. So we have been playing with this.
+
+157
+00:17:06,350 --> 00:17:15,990
+There's this data set. Where we had H Hemoglobin Log, blood, urea, nitrogen and log blood, urine, nitrogen squared.
+
+158
+00:17:16,740 --> 00:17:20,430
+You can kind of flip back to the slides just as a reminder of how we got this far.
+
+159
+00:17:20,910 --> 00:17:30,150
+And now we're trying to see is, is this continuous variable age, you know, is this something that really obeys proportional hazards or not?
+
+160
+00:17:31,540 --> 00:17:40,780
+And so our little diagnostic is to create this variable of age times, the log of little t.
+
+161
+00:17:41,750 --> 00:17:49,310
+And if this has a significant data, that means that that hazard ratio is going to depend on little T.
+
+162
+00:17:50,150 --> 00:17:55,760
+It's not going to be proportional over time. That ratio, that hazard ratio will depend on little T.
+
+163
+00:17:56,630 --> 00:18:00,950
+All right. So I've got these things in yellow here, so I need to talk about them.
+
+164
+00:18:00,950 --> 00:18:07,070
+So this is the name of the random variable that stands in for capital IXI, right?
+
+165
+00:18:08,920 --> 00:18:13,290
+So both staff and ah, did this really cruel thing for students.
+
+166
+00:18:13,300 --> 00:18:18,280
+They use that same variable name when they're doing the algebra to create this interaction term.
+
+167
+00:18:18,760 --> 00:18:24,910
+They do not mean Capital X II. When they do this algebra, they're just borrowing the times in your data set.
+
+168
+00:18:26,010 --> 00:18:30,780
+This is supposed to be little T, not capital XIV in this variable.
+
+169
+00:18:31,440 --> 00:18:34,980
+So the variable here is supposed to match here.
+
+170
+00:18:35,160 --> 00:18:40,790
+But they are. In the model. They're supposed to be thought of, of totally different things.
+
+171
+00:18:41,810 --> 00:18:48,220
+This is your outcome. You know, exi Delta II for your sense of survival data.
+
+172
+00:18:48,700 --> 00:18:53,860
+This is not supposed to be your outcome. Log time in this covariate here.
+
+173
+00:18:54,160 --> 00:18:57,969
+This is supposed to stand in for little t, which is not a random variable.
+
+174
+00:18:57,970 --> 00:19:05,180
+It's where you are in your study time. But it uses the same variable name in both places, so that can get confusing.
+
+175
+00:19:05,720 --> 00:19:10,700
+So it will actually be your little study time,
+
+176
+00:19:10,700 --> 00:19:15,649
+the same little study time t that's in your hazard function that we wrote out
+
+177
+00:19:15,650 --> 00:19:21,800
+like lambda little T equals labeled that little T times the rest of your model.
+
+178
+00:19:21,950 --> 00:19:30,370
+That's what this is. Now, if you were to put this in your data step, it would assume you mean exi the random variable.
+
+179
+00:19:31,820 --> 00:19:40,100
+Not little t inside your hazard model. And you would have a covariate that is completely dependent on your outcome.
+
+180
+00:19:41,270 --> 00:19:50,690
+So you would get completely wrong inference because if you created this in the data step of instead of inside this function, this product.
+
+181
+00:19:51,760 --> 00:19:57,700
+It would assume that you are trying to model an outcome with another version of the outcome.
+
+182
+00:19:58,090 --> 00:20:06,520
+Your P values will be hugely significant because you're using the actual outcome to model the same outcome.
+
+183
+00:20:08,470 --> 00:20:13,090
+And you will not under it will not tell you anything about proportional hazards.
+
+184
+00:20:14,660 --> 00:20:21,110
+So we need to inside here. Sorry if this is me harping, but this is just such a common misunderstanding with students every year.
+
+185
+00:20:22,160 --> 00:20:30,620
+So we need an inside here to see if this is going to change the relationship between age and outcome over study time.
+
+186
+00:20:30,620 --> 00:20:35,700
+Little tea. Okay.
+
+187
+00:20:36,420 --> 00:20:43,260
+So the main effect for log little tea is not needed because this is captured by the baseline hazard.
+
+188
+00:20:43,260 --> 00:20:46,740
+We already have a function, a hazard that can change with little T.
+
+189
+00:20:47,280 --> 00:20:51,330
+We don't need that in our model that's covered with the baseline hazard.
+
+190
+00:20:51,630 --> 00:20:56,110
+So we just want to see if the relationship between age and the outcome you're modeling.
+
+191
+00:20:56,610 --> 00:21:00,240
+Uh, if that hazard ratio depends on little T.
+
+192
+00:21:02,440 --> 00:21:08,739
+So significant p values for the null hypothesis that that and that data for age log
+
+193
+00:21:08,740 --> 00:21:14,049
+time of zero indicates that there's dependance of the age hazard ratio on time.
+
+194
+00:21:14,050 --> 00:21:18,580
+The hazard functions are not going to be proportional across different ages.
+
+195
+00:21:18,970 --> 00:21:23,830
+They're going to depend on little t we'll do some algebra just to sort of solidify this idea.
+
+196
+00:21:26,430 --> 00:21:36,719
+If you have a positive beta for this age log time term, then that means that the hazard ratio for a one year increase in age will increase over time.
+
+197
+00:21:36,720 --> 00:21:43,680
+So the hazard ratio will get bigger and bigger for a one unit increase in age as the study time progresses.
+
+198
+00:21:47,190 --> 00:21:53,459
+And if the coefficients less than zero, then a hazard ratio for a one year increase in age will decrease with time.
+
+199
+00:21:53,460 --> 00:22:01,500
+And, you know, so you can imagine sort of that hazard ratio might start a very big, but then over time it's getting less important.
+
+200
+00:22:07,090 --> 00:22:09,700
+So I tell you, I was going to say this over and over in different ways.
+
+201
+00:22:09,940 --> 00:22:18,790
+So it's important to code the time dependent career inside of your bag or inside of your AH code is there's a similar syntax.
+
+202
+00:22:19,420 --> 00:22:24,880
+So again, this is the same code and now we're going to write out what this is actually assuming in the model.
+
+203
+00:22:25,600 --> 00:22:34,899
+So this by putting this inside the code, we're assuming that the hazard function and all study times little T is equal to a baseline hazard.
+
+204
+00:22:34,900 --> 00:22:43,480
+All study times, little t times. This thing and this thing has e to the all of your betas, times the covariates you're putting in your model.
+
+205
+00:22:43,930 --> 00:22:51,340
+Plus now this is the extra term we've added. It's eight times the log of the same little t that's here and here.
+
+206
+00:22:54,810 --> 00:22:57,900
+And so this little t isn't unique to an individual, right?
+
+207
+00:22:57,900 --> 00:23:05,730
+It's not part of a data set. It's it's the same is talking about study time over time that applies to everybody in the dataset.
+
+208
+00:23:07,320 --> 00:23:11,460
+So for instance, if I wanted to talk about Hastert, say, one year.
+
+209
+00:23:12,420 --> 00:23:16,770
+I would have the baseline hazard, the reference hazard at one year.
+
+210
+00:23:17,900 --> 00:23:24,350
+And then when I get to this point, I'm plugging in the log of one year, the natural log of one year.
+
+211
+00:23:24,760 --> 00:23:36,840
+All right. And if I'm talking about the hazard at year to hazard a year to baseline hazard year two and this covariate is also at year two.
+
+212
+00:23:40,830 --> 00:23:48,940
+So this age lag time algebra is created within the data step and it's based on a perfect predictor of x y variable.
+
+213
+00:23:48,970 --> 00:24:00,450
+So if you had instead before you call Prayagraj, you said something like data spline check two sets, blind check two and then this thing run.
+
+214
+00:24:01,920 --> 00:24:08,129
+That will be assuming you mean that that variable is different for every individual in the dataset,
+
+215
+00:24:08,130 --> 00:24:11,130
+because if you're using the x y variable in the algebra.
+
+216
+00:24:12,420 --> 00:24:17,400
+And that's not what's intended at all here when you're checking for proportional hazards.
+
+217
+00:24:17,910 --> 00:24:22,560
+So avoid this common error if you're doing a proportional hazards check.
+
+218
+00:24:23,250 --> 00:24:27,750
+You need this variable inside. The the function.
+
+219
+00:24:31,250 --> 00:24:40,579
+Okay. So when we do this, this is the SAS output. We'll see the R code in output soon, but this is the way it will come out in your output.
+
+220
+00:24:40,580 --> 00:24:43,760
+And so this is the data that goes with that interaction.
+
+221
+00:24:43,760 --> 00:24:47,660
+Average time is log little T and here it was.
+
+222
+00:24:48,560 --> 00:24:53,570
+Sorry, here's the p value. The p value was not even close to significant 0.3345.
+
+223
+00:24:54,140 --> 00:25:00,100
+So what this is saying is that. The hazard ratio.
+
+224
+00:25:01,440 --> 00:25:05,099
+Does not depend on this term. Actually, it has or doesn't depend on this term.
+
+225
+00:25:05,100 --> 00:25:11,070
+And that will end up translating to the hazard ratio, not depending on this term in a statistically significant way.
+
+226
+00:25:12,650 --> 00:25:19,190
+So since the p value for age like time is greater than 25, the proportional hazards assumption seems okay for age.
+
+227
+00:25:20,150 --> 00:25:32,030
+And you know, I kind of just made an assumption that this covariate should be, you know, long little t if if I had a p value that was closer to .05,
+
+228
+00:25:33,110 --> 00:25:38,239
+I might play with the parameter ization to make sure I'm okay because this is just my first guess.
+
+229
+00:25:38,240 --> 00:25:44,959
+So it's possible that if you looked at other time dependent functions of age that you could turn up something.
+
+230
+00:25:44,960 --> 00:25:48,920
+So maybe age times, you know,
+
+231
+00:25:48,920 --> 00:25:55,249
+indicators that study time is in the first year in other indicator the study times in the second year you know you
+
+232
+00:25:55,250 --> 00:26:03,110
+could model instead of log time you could model categorical variables saying which year of the study time you're in.
+
+233
+00:26:03,170 --> 00:26:07,970
+That might be another version that might turn up something quadratic terms, you know,
+
+234
+00:26:08,000 --> 00:26:11,330
+it's just another covariate where the functional form needs to be determined.
+
+235
+00:26:11,930 --> 00:26:18,079
+I don't bother if the p values the size, I might bother if the p value looks borderline.
+
+236
+00:26:18,080 --> 00:26:22,420
+And I want to. Nail down weather. Proportional hazards is a problem.
+
+237
+00:26:22,840 --> 00:26:28,330
+But this for this p value. Playing around with different functional forms and won't wiggle that p value much at all.
+
+238
+00:26:28,630 --> 00:26:33,860
+I usually stop. Why do I start with Long Little T?
+
+239
+00:26:33,870 --> 00:26:36,710
+Because my professor told me to when I was a little baby statistician.
+
+240
+00:26:38,210 --> 00:26:42,320
+But over experiences, that experience is borne out very well with large p values.
+
+241
+00:26:42,320 --> 00:26:46,520
+Don't bother digging further. You can, but you probably won't find anything interesting.
+
+242
+00:26:47,570 --> 00:26:55,730
+So I did similar checks for Hemoglobin Times, log of little T and log blood urea, nitrogen times like of little T.
+
+243
+00:26:56,120 --> 00:27:00,080
+And again, the P values were pretty on the big side.
+
+244
+00:27:00,090 --> 00:27:05,000
+So I it didn't really turn up any of concerns about proportionality.
+
+245
+00:27:05,330 --> 00:27:13,040
+What's nice is these are all continuous covariates and I haven't had a diagnostic that I've shown you for that yet.
+
+246
+00:27:13,040 --> 00:27:18,259
+I've only shown you how to look at these log minus log survival curves for categorical variables
+
+247
+00:27:18,260 --> 00:27:22,250
+where you have enough data to have a kaplan-meier curve for each level of the category.
+
+248
+00:27:22,550 --> 00:27:30,890
+We can't do that with a continuous variables. So this is a good proxy for testing out those assumptions for continuous covariance.
+
+249
+00:27:34,260 --> 00:27:36,839
+We'll also have Schoenfeld residuals soon. All right.
+
+250
+00:27:36,840 --> 00:27:43,380
+So let's play around with this kind of model just to get practice with thinking about what the model is saying.
+
+251
+00:27:44,830 --> 00:27:52,470
+This is, again, a new thing. All right. So what is the hazard ratio for a one year increase in age for this model?
+
+252
+00:27:52,480 --> 00:27:56,080
+If you believe age times like Model T is important?
+
+253
+00:27:56,170 --> 00:27:58,510
+We're kind of ignoring the fact that the P value is not important.
+
+254
+00:27:59,050 --> 00:28:04,720
+If you think that this is an important covariate, what is that hazard ratio for a one year increase in age for this model?
+
+255
+00:28:07,000 --> 00:28:08,740
+So as with all ratios,
+
+256
+00:28:09,370 --> 00:28:16,000
+we we're going to write out the algebra for the top part of the ratio and the algebra for the bottom part of the ratio and do cancellations.
+
+257
+00:28:16,720 --> 00:28:21,460
+So for the top part of the ratio, I'm increasing age by one.
+
+258
+00:28:23,060 --> 00:28:29,720
+And age appears twice since model appears here and it appears because we used age in creating this variable.
+
+259
+00:28:30,440 --> 00:28:35,599
+So as with all terms where you know, we've created a variable,
+
+260
+00:28:35,600 --> 00:28:45,380
+we'd be careful that we're adding age in to the appropriate part of this variable and not just saying age, log time plus one, right?
+
+261
+00:28:45,980 --> 00:28:50,380
+So what does that look like? So we have the baseline hazard at little time to you,
+
+262
+00:28:50,390 --> 00:28:55,790
+which I've made yellow to emphasize that this T and this T, you're talking about the same study time.
+
+263
+00:28:56,970 --> 00:29:01,170
+Either the beta one or IV increased age by one that comes from this variable.
+
+264
+00:29:01,740 --> 00:29:06,569
+And then I you know it wouldn't fit on the thought I would have type is now fine but it would make the slide hard to read.
+
+265
+00:29:06,570 --> 00:29:10,530
+So these are terms that will end up canceling because they don't involve age at all.
+
+266
+00:29:12,050 --> 00:29:13,910
+So I just said terms that cancel,
+
+267
+00:29:13,910 --> 00:29:24,470
+but really I meant beta two times hemoglobin plus beta three times log blood your nitrogen plus beta four times log blood, you're nitrogen squared.
+
+268
+00:29:24,770 --> 00:29:29,239
+And those terms don't involve age. So they will be written in the same way in the top and the bottom.
+
+269
+00:29:29,240 --> 00:29:36,360
+I just summarize them with terms that will cancel. And then for this last term it involves age.
+
+270
+00:29:36,370 --> 00:29:39,540
+So beta five is that parameter.
+
+271
+00:29:40,230 --> 00:29:44,580
+And then the way with the algebra was created for that variable was h times log little t.
+
+272
+00:29:44,580 --> 00:29:52,940
+So I have to add age plus one here. And then times log little T so that's different than this variable name plus one.
+
+273
+00:29:53,120 --> 00:29:58,230
+I have to add it inside where age was. All right.
+
+274
+00:29:58,440 --> 00:30:04,709
+So that's the top. And then the only difference between the top of the hazard ratio and the bottom is that I haven't added one to H here.
+
+275
+00:30:04,710 --> 00:30:10,120
+In here. So I just want you to take a moment to appreciate the pattern.
+
+276
+00:30:11,190 --> 00:30:16,500
+In the algebra and how that's you know, these patterns I'm hoping are getting to be ingrained.
+
+277
+00:30:18,030 --> 00:30:20,849
+Any of the terms that involve this variable,
+
+278
+00:30:20,850 --> 00:30:29,070
+the hazard ratios for a one year increase in age parameters that touch age in some way end up being in that hazard ratio.
+
+279
+00:30:32,110 --> 00:30:34,900
+Everything else that doesn't touch age will cancel.
+
+280
+00:30:37,930 --> 00:30:46,030
+And so what we're left with is each of the data one that the one that was a plus one won't cancels that will even e to the beta one.
+
+281
+00:30:48,130 --> 00:30:52,700
+Each of the better one time's age will cancel on the top and the bottom. Either the beta one times one will not.
+
+282
+00:30:52,720 --> 00:31:02,290
+That's where this comes from. And then over here, we're going to have this E to the beta five.
+
+283
+00:31:03,640 --> 00:31:07,990
+Time's age will cancel with the E to the beat of five times age that is down here.
+
+284
+00:31:09,690 --> 00:31:14,160
+But the each of the better five times one times log t that part won't cancel.
+
+285
+00:31:17,850 --> 00:31:21,120
+Let me just say that one more time because I think I, I skipped the log.
+
+286
+00:31:21,120 --> 00:31:29,870
+T So when you write this out or there's a backup, I'm thinking faster than I'm talking and that's probably not good for a student.
+
+287
+00:31:29,890 --> 00:31:35,280
+So remember when you got this exponent algebra I there's two ways to write it.
+
+288
+00:31:35,280 --> 00:31:39,630
+We usually just write E to the whole model because it's easier and quicker to write it that way.
+
+289
+00:31:39,990 --> 00:31:50,430
+It's equivalent to take E and wherever there is a plus, write another E to that term times e to the next term that has a plus.
+
+290
+00:31:50,940 --> 00:31:58,710
+And that's how we get the cancellations. So here, this will really pass to E to the beta one times age.
+
+291
+00:31:58,770 --> 00:32:04,160
+Times E to the beta one. That's why each of the 81 age cancels.
+
+292
+00:32:05,120 --> 00:32:12,769
+This piece will pass to each of the terms that cancel as something that was multiplied here and over here.
+
+293
+00:32:12,770 --> 00:32:16,219
+Again, it is will b times e to the terms that cancel.
+
+294
+00:32:16,220 --> 00:32:19,430
+That's why those two cancel in over here.
+
+295
+00:32:19,430 --> 00:32:28,009
+This will translate to E to the beta five times age plus one times log t and down here this will be E to the beta five times.
+
+296
+00:32:28,010 --> 00:32:32,590
+Eight times like t where those were multiplied. All right.
+
+297
+00:32:32,890 --> 00:32:37,870
+So the e to the beat. Five times, age times.
+
+298
+00:32:37,870 --> 00:32:42,650
+Log t. Will cancer with this bottom part.
+
+299
+00:32:44,290 --> 00:32:49,240
+But you'll still have an E to the B2 five times, one times log T that will not.
+
+300
+00:32:49,600 --> 00:32:56,049
+So that's where this comes in. And now I've done my shorthand lazy writing of E to the beta one.
+
+301
+00:32:56,050 --> 00:32:57,460
+And with everything here.
+
+302
+00:32:58,720 --> 00:33:06,640
+Or equivalent, you could equivalently you could write this as each of the beta one times e to the beta five log t and serve the same algebra.
+
+303
+00:33:09,290 --> 00:33:12,860
+Okay. So when you plug in the betas from this output.
+
+304
+00:33:13,910 --> 00:33:21,139
+This one is taken from the age parameter and this one is taken from that age log, little t parameter.
+
+305
+00:33:21,140 --> 00:33:27,980
+This is what your hazard ratio is. That's how the algebra passes out for an increase of one year and age.
+
+306
+00:33:30,330 --> 00:33:38,460
+And so that hazard ratio, if it was just a single number that didn't depend on little T, it would be proportional hazards, right?
+
+307
+00:33:39,940 --> 00:33:43,540
+But now, over time, with this term in here, it's going to change over time.
+
+308
+00:33:43,930 --> 00:33:48,270
+So what does this look like? And so here.
+
+309
+00:33:51,400 --> 00:33:57,640
+Hopefully this isn't going to confuse everything. But here I'm just trying to create what this hazard would look like.
+
+310
+00:33:58,060 --> 00:34:01,270
+And I'm doing the same darn thing that the programmers did.
+
+311
+00:34:01,540 --> 00:34:06,639
+And I'm using the EXI here just to give me some values over time.
+
+312
+00:34:06,640 --> 00:34:13,120
+So but I would just, I just want to plot this pattern on the y scale.
+
+313
+00:34:13,120 --> 00:34:19,450
+So this is how I'm doing it. And the plot where I've got my.
+
+314
+00:34:20,990 --> 00:34:29,270
+I really am using this as little t here for the x axis and I'm using this as little t when I'm creating the y axis here, it's going to look like this.
+
+315
+00:34:29,960 --> 00:34:34,010
+So here's the hazard ratio for one year increase in age on the vertical axis.
+
+316
+00:34:34,670 --> 00:34:39,080
+And here's my little t follow up time in months on the horizontal axis.
+
+317
+00:34:39,590 --> 00:34:44,090
+And this looks hugely dramatic, right. But remember, it wasn't statistically significant.
+
+318
+00:34:44,510 --> 00:34:49,549
+This is a little 0.96. This is 1.02. So this range is actually super tiny.
+
+319
+00:34:49,550 --> 00:34:50,930
+All right. Around one.
+
+320
+00:34:51,470 --> 00:35:00,500
+But just so you can see, you know that when you have a little tea, you are saying that this hazard ratio will change across time.
+
+321
+00:35:00,710 --> 00:35:06,560
+You can't summarize it as a single row in your table like hazard ratio, confidence interval P value.
+
+322
+00:35:06,560 --> 00:35:12,380
+You can't do that if you've got a little T changing your hazard over time, you'd have to plot it.
+
+323
+00:35:15,180 --> 00:35:19,919
+In our case, we're saved from that complexity in our paper because it wasn't significant.
+
+324
+00:35:19,920 --> 00:35:24,329
+But there's going to be some situations where you have to deal with it because if you don't,
+
+325
+00:35:24,330 --> 00:35:32,470
+your P values are incorrect about and your science is incorrect. So I always breathe a sigh of relief if my hazard ratios are proportional.
+
+326
+00:35:33,820 --> 00:35:36,990
+During the very end of the course,
+
+327
+00:35:37,000 --> 00:35:41,739
+my last like not covered on final handout covers another modeling paradigm
+
+328
+00:35:41,740 --> 00:35:45,520
+for censored survival data where you don't have to have proportional hazards.
+
+329
+00:35:45,520 --> 00:35:49,870
+So I think that one's going to be the go to model of the future.
+
+330
+00:35:49,870 --> 00:35:55,749
+It's already my my graduate students already use it. But right now, Cox model dominates everything.
+
+331
+00:35:55,750 --> 00:36:01,660
+So this is this is where you need to get some mastery.
+
+332
+00:36:03,700 --> 00:36:06,700
+All right, so here's our code. It's doing the same thing.
+
+333
+00:36:08,530 --> 00:36:11,740
+We still need this age log little ti variable.
+
+334
+00:36:12,190 --> 00:36:19,629
+And if we create it outside of this Cox function, we're going to be making a mistake.
+
+335
+00:36:19,630 --> 00:36:25,140
+Because we would be. Having a covariate that depended on the outcome.
+
+336
+00:36:25,590 --> 00:36:30,120
+Capital XIV. So to make sure that it is.
+
+337
+00:36:32,340 --> 00:36:36,580
+Assuming little T. Like we had in SAS.
+
+338
+00:36:37,330 --> 00:36:41,100
+We are doing the algebra inside Cox Page.
+
+339
+00:36:41,230 --> 00:36:48,460
+And so here's where that algebra is happening. T's just a random name of a function that was used that we're using.
+
+340
+00:36:49,000 --> 00:36:57,790
+So that part you don't need to change. But here, this is where you can play with the functional form of that interaction.
+
+341
+00:36:58,480 --> 00:37:03,790
+So this is saying whatever the variable here is, I want that variable times like of little T.
+
+342
+00:37:04,090 --> 00:37:10,120
+And so this is the function. I want that variable to have an interaction between age and log t.
+
+343
+00:37:11,470 --> 00:37:21,050
+So you can change this variable if you want to have other variables that you test, you know that that's where this would go in your homework.
+
+344
+00:37:21,070 --> 00:37:25,629
+I only have you looking at interactions with log little T I believe.
+
+345
+00:37:25,630 --> 00:37:26,920
+I don't have you doing anything wacky,
+
+346
+00:37:27,310 --> 00:37:36,790
+but in your future world you can write this function differently to be x times the indicator t little t is in some range or whatever you want.
+
+347
+00:37:36,790 --> 00:37:38,260
+You can change that part of the code.
+
+348
+00:37:40,500 --> 00:37:47,550
+But I think for your homework, all you're going to have to do is assume, you know, put little different covariates here and leave this the same.
+
+349
+00:37:50,610 --> 00:38:00,290
+All right. And so this inside of Cox Page is assuming you want this interaction between age and log of little T.
+
+350
+00:38:02,950 --> 00:38:06,040
+And so it will show up here.
+
+351
+00:38:07,910 --> 00:38:12,469
+So it's it you know, the the label is not as helpful as it could be.
+
+352
+00:38:12,470 --> 00:38:15,920
+But this is the term for age times like of t.
+
+353
+00:38:17,650 --> 00:38:20,410
+And the same results that you had in South.
+
+354
+00:38:22,630 --> 00:38:31,150
+So at this point, you know, I've shown you two different ways to deal with a proportional hazards violation.
+
+355
+00:38:31,930 --> 00:38:37,690
+I showed you earlier in a previous handout that you can stratify the baseline hazard.
+
+356
+00:38:37,900 --> 00:38:39,610
+If you have a categorical covariate,
+
+357
+00:38:39,970 --> 00:38:49,690
+you can stratify the baseline hazard and that will avoid you making a proportionality assumption for that particular covariate that you stratified on.
+
+358
+00:38:50,830 --> 00:38:54,340
+But now I've got this separate track that applies to both continuous and
+
+359
+00:38:54,340 --> 00:38:59,260
+categorical variance of having this time by covariate interaction in your model.
+
+360
+00:39:01,230 --> 00:39:10,290
+And so, you know, I want, you know, to actively be thinking about what which one I can do either which one should I go with?
+
+361
+00:39:11,250 --> 00:39:19,470
+So here are my thoughts on that. So if you do the time by covariate interaction that we just covered for handling non proportionality.
+
+362
+00:39:20,510 --> 00:39:28,430
+You know, this is something that you're modeling now little you know, the interaction with this function of little T is something you need to model.
+
+363
+00:39:29,000 --> 00:39:33,530
+And I just did this cover at times log of little t.
+
+364
+00:39:34,900 --> 00:39:37,209
+As my go to first choice.
+
+365
+00:39:37,210 --> 00:39:45,550
+But if you're going to pursue this just like any other continuous career, you need to consider different functional forms of this.
+
+366
+00:39:46,000 --> 00:39:51,610
+So you, you know, another functional form would be the cobra at times just a little t.
+
+367
+00:39:52,690 --> 00:39:56,920
+Or the cover at times indicator functions. You're in different ranges of the study time.
+
+368
+00:39:57,250 --> 00:40:04,210
+So if you go with this interaction and it's an important interaction for your science, you have to do the work to model it.
+
+369
+00:40:06,190 --> 00:40:14,260
+All right. If you do this work and the model is correct, then your estimates of better.
+
+370
+00:40:15,930 --> 00:40:22,410
+In the model are going to be better, stronger, faster, bionic little parameter estimates, whatever.
+
+371
+00:40:22,830 --> 00:40:27,270
+That's just probably so out of fashion. You don't know what I'm talking about. I grew up on the Bionic Man.
+
+372
+00:40:27,270 --> 00:40:32,290
+On the Bionic Woman. So that dates me a lot. They don't even have updates of those movies.
+
+373
+00:40:32,430 --> 00:40:37,460
+Such a crime. Okay, so. I digress.
+
+374
+00:40:37,550 --> 00:40:44,150
+So hazard ratios over time can be presented, you know, because you'll have estimates for them according to convert values,
+
+375
+00:40:44,150 --> 00:40:50,750
+and you can even interpret the regression parameter for them and talk about statistical significance and that sort of thing.
+
+376
+00:40:51,140 --> 00:40:56,330
+So you'll have a data that you can talk about for this variable that violates proportional hazards.
+
+377
+00:40:57,530 --> 00:41:01,669
+So that's one way it's work. You know, you have to model that covariate.
+
+378
+00:41:01,670 --> 00:41:04,910
+You have to believe assumptions about that, doing that correctly.
+
+379
+00:41:05,510 --> 00:41:12,500
+If you have a categorical covariate stratifying, it has advantages and disadvantages.
+
+380
+00:41:12,740 --> 00:41:15,740
+All right. So a disadvantage.
+
+381
+00:41:15,740 --> 00:41:18,950
+It only works for categorical covariates, you know?
+
+382
+00:41:18,950 --> 00:41:25,160
+So if you have a continuous cover, you have to create strata for it to even apply this trick.
+
+383
+00:41:28,730 --> 00:41:34,520
+But the advantage is that it models the non proportional relationship automatically.
+
+384
+00:41:34,550 --> 00:41:38,390
+You don't have to worry about the functional form of little T.
+
+385
+00:41:39,760 --> 00:41:44,350
+In your model statement, there's no model selection of the time dependent cover it required.
+
+386
+00:41:44,650 --> 00:41:53,620
+It's just going to fix it, you know? So if you're worried about not having this functional form a little ti correct.
+
+387
+00:41:54,190 --> 00:41:59,860
+This avoids that entirely. So it's more robust in that sense.
+
+388
+00:42:01,890 --> 00:42:06,850
+Another disadvantage, though, is that you don't have a beta that goes along with this.
+
+389
+00:42:07,620 --> 00:42:15,810
+You're not going to have any possible inference for the stratification variable because it won't be in your model statement with a beta and a p value.
+
+390
+00:42:17,570 --> 00:42:22,879
+So it only makes sense if this is a variable that's a confounder or unusual.
+
+391
+00:42:22,880 --> 00:42:28,970
+If it's a variable that's not important to your science, other than you need your model to be correct for the thing you are interested in.
+
+392
+00:42:30,640 --> 00:42:38,890
+So if it's a variable that you really don't want to interpret separately for your manuscript, this is going to be a robust way to go about it.
+
+393
+00:42:39,700 --> 00:42:48,790
+Site is one of these variables for me. When I when I have a multicenter study, I'm no one wants to know which site is doing the best.
+
+394
+00:42:48,790 --> 00:42:51,810
+In fact, they would love it if you never mentioned that site.
+
+395
+00:42:51,820 --> 00:42:57,730
+Zero is the one where everybody dies terribly and all the other ones treat their patients great that no one wants to know.
+
+396
+00:42:58,630 --> 00:43:05,890
+And I'm kind of being a little jokey here. Maybe that's a little inappropriate, but no one wants to interpret the site variables,
+
+397
+00:43:05,890 --> 00:43:10,360
+so that would be a perfect one to stratify on and not have a better.
+
+398
+00:43:11,290 --> 00:43:18,099
+If you are in the business of calling out sites with high mortality, you'll want that in your model statement.
+
+399
+00:43:18,100 --> 00:43:24,800
+Right? So that you can say, look, this site, they have high risk patients may be, but their patients are not doing great.
+
+400
+00:43:27,410 --> 00:43:30,690
+Okay. So.
+
+401
+00:43:33,510 --> 00:43:42,280
+We will get to the next tenet, I promise. But let's take a little break. And come back at 854 and we'll talk about Schoenfeld residuals.
+
+402
+00:43:42,290 --> 00:43:46,030
+This is the third and last proportionality check tool that we have.
+
+403
+00:44:22,240 --> 00:44:47,290
+Yeah. You like. Oh, yeah.
+
+404
+00:45:10,270 --> 00:45:50,870
+If not one. Wow.
+
+405
+00:46:09,760 --> 00:46:19,710
+I do. Right now.
+
+406
+00:46:26,140 --> 00:47:27,350
+I. Volume.
+
+407
+00:49:47,000 --> 00:50:08,070
+That was. Yeah.
+
+408
+00:50:18,800 --> 00:50:39,400
+I don't not. I have one.
+
+409
+00:51:28,950 --> 00:52:36,980
+Oh. No, it wasn't.
+
+410
+00:53:11,670 --> 00:53:17,940
+Okay. Okay.
+
+411
+00:53:17,950 --> 00:53:22,960
+It's time to get back to work. So.
+
+412
+00:53:25,060 --> 00:53:28,330
+This is going to be our third type of residual for the Cox model.
+
+413
+00:53:29,650 --> 00:53:37,930
+Schoenfeld Residuals. And these are residuals that are computed separately for each covariate.
+
+414
+00:53:38,590 --> 00:53:42,190
+Each convert, you want to figure out if proportionality is true or not.
+
+415
+00:53:42,200 --> 00:53:46,510
+So they give you residuals for each one of these converts to help you understand that.
+
+416
+00:53:47,890 --> 00:53:57,910
+And again, I don't want to get too bogged down with the you know, how the the sauce is made here for the Schoenfeld residuals.
+
+417
+00:53:58,210 --> 00:54:05,620
+I've got a little bit here in case you're interested in the intuition behind this, but I mainly want you to know how to use them.
+
+418
+00:54:05,870 --> 00:54:08,330
+Okay, so here's the intuition.
+
+419
+00:54:08,410 --> 00:54:17,200
+So for the eyes subject with outcome data X and delta, and it's specifically looking at the people with observed failures.
+
+420
+00:54:18,620 --> 00:54:30,979
+And for the Keith query it estimated Schoenfeld residual is given to be this where this zero K is the value of the Keith cover for individual ie.
+
+421
+00:54:30,980 --> 00:54:34,130
+So whichever cohort you're interested in for that person.
+
+422
+00:54:35,490 --> 00:54:43,410
+And the Z tells a version with the same subscripts is a weighted average of covariate
+
+423
+00:54:43,410 --> 00:54:48,060
+k values for those who are still at risk at time exi when the subject die died.
+
+424
+00:54:49,750 --> 00:54:52,870
+So this is. So suppose you're looking at age.
+
+425
+00:54:53,230 --> 00:54:55,240
+This is individual ice age.
+
+426
+00:54:55,930 --> 00:55:07,180
+And this is, you know, the average, a weighted average of everybody who's still around when the subject had their eye, their death or.
+
+427
+00:55:08,160 --> 00:55:13,709
+And if you know the average or you're trying to sort of see if this average age for
+
+428
+00:55:13,710 --> 00:55:18,420
+everybody who's still around when this person died is comparable to the person who's died.
+
+429
+00:55:19,290 --> 00:55:22,200
+So it's only to find four subjects with observed death times.
+
+430
+00:55:23,200 --> 00:55:29,290
+And a positive value of the Schoenfeld residuals shows a covariant that's higher than expected.
+
+431
+00:55:30,330 --> 00:55:33,900
+At that time relative to everybody else who hasn't died yet.
+
+432
+00:55:35,160 --> 00:55:41,310
+And a covariate that pays a base proportional hazard should not have SCHOENFELD Residuals that depend on time at all.
+
+433
+00:55:41,940 --> 00:55:47,610
+So on average, you're hoping that these residuals are close to zero.
+
+434
+00:55:48,030 --> 00:55:52,919
+You know, there might be some scatter, but you're hoping that the person who just died,
+
+435
+00:55:52,920 --> 00:55:58,860
+their coverage is comparable to everybody who's still in the data set and that this is true at all event times.
+
+436
+00:56:01,170 --> 00:56:05,430
+And so the code for getting these residuals is not hard at all.
+
+437
+00:56:05,850 --> 00:56:09,090
+In drag. This is my mate.
+
+438
+00:56:11,410 --> 00:56:16,510
+No, that's their name. Aria's SC H for Schoenfeld residuals.
+
+439
+00:56:17,050 --> 00:56:22,870
+And then you need to make up names for what those residuals will be saved as.
+
+440
+00:56:23,260 --> 00:56:26,800
+So they're going to be saved into this dataset called out P.
+
+441
+00:56:27,400 --> 00:56:28,810
+You make up these names.
+
+442
+00:56:29,140 --> 00:56:36,580
+But it is going to assume that whatever you put here for your first name, that's the Schoenfeld residuals for the first covariate here.
+
+443
+00:56:36,610 --> 00:56:44,560
+So this age being the first caller you put, your model statement is going to line up with the Schoenfeld residuals for the Covariate here.
+
+444
+00:56:44,710 --> 00:56:49,000
+So I just made up names with the variable name first underscore.
+
+445
+00:56:49,030 --> 00:56:54,070
+SDH So I could remember that that so. SCHOENFELD Residual saved in my dataset.
+
+446
+00:56:54,640 --> 00:56:59,650
+Second Covariate will match whatever label you put here. So again, I just put hemoglobin underscore.
+
+447
+00:56:59,650 --> 00:57:02,860
+SCHOENFELD Remember that that's the hemoglobin. SCHOENFELD Residuals.
+
+448
+00:57:03,580 --> 00:57:10,840
+And the same thing here. Okay. So that's going to save all of the residuals of this output data set.
+
+449
+00:57:10,840 --> 00:57:18,999
+And then, of course, to use these you look at plots where the Y the vertical axis is,
+
+450
+00:57:19,000 --> 00:57:23,829
+the Schoenfeld residuals for that covariate and the horizontal axis is little
+
+451
+00:57:23,830 --> 00:57:28,510
+T which they always used the same variable for X side to capture a little T.
+
+452
+00:57:30,790 --> 00:57:34,660
+So this is going to plot the Schoenfeld residuals over time.
+
+453
+00:57:34,930 --> 00:57:39,729
+There's going to be one plot for each covariate and you're kind of this is just a smoothing parameter.
+
+454
+00:57:39,730 --> 00:57:47,110
+So you can sort of see the lowest line fit through the data and you want to sort of see is it flat, is it near zero?
+
+455
+00:57:49,820 --> 00:57:53,420
+And so here are a couple of the residual plots.
+
+456
+00:57:53,420 --> 00:58:00,680
+This one's for age, this one's for hemoglobin. And you only get little residuals for the observed death time.
+
+457
+00:58:00,690 --> 00:58:05,240
+So there's very little data kind of out here. You know, there's a lot of data up here.
+
+458
+00:58:05,540 --> 00:58:09,140
+And so. QUESTION Is there a clear trend over time?
+
+459
+00:58:09,440 --> 00:58:17,180
+And I've told you, I hate plots for diagnostics because if you don't want to be if you don't want it to be a problem,
+
+460
+00:58:17,630 --> 00:58:21,290
+you're going to be like, that's not that's kind of flat kind of, you know.
+
+461
+00:58:22,100 --> 00:58:28,100
+S And if you always see problems, you're going to say, well, that's not flat at all.
+
+462
+00:58:28,100 --> 00:58:36,049
+Look at this. This is awful. So but this is what SAS will give you for a plot now or does a favor for you.
+
+463
+00:58:36,050 --> 00:58:43,129
+It will give you a p value to tell you whether this is randomly, you know, a problem or not.
+
+464
+00:58:43,130 --> 00:58:46,400
+Is this acceptable within the randomness of the data?
+
+465
+00:58:47,090 --> 00:58:52,470
+And so I think R wins this battle. But. Are.
+
+466
+00:58:53,600 --> 00:58:59,670
+This is our version of Schoenfeld residuals. So first of all, it scales then just slightly differently than South does.
+
+467
+00:58:59,690 --> 00:59:04,160
+So you won't get the exact same plots, but it has the same intent.
+
+468
+00:59:05,060 --> 00:59:08,719
+And there's a on canvas.
+
+469
+00:59:08,720 --> 00:59:16,940
+I've got a survival PDF that kind of talks more about how R calculates these things if you are interested in
+
+470
+00:59:17,150 --> 00:59:23,450
+looking at the source and but it also conducts a statistical test for proportional hazards based on those risk.
+
+471
+00:59:23,600 --> 00:59:28,370
+SCHOENFELD Residuals. So here is the code to get them.
+
+472
+00:59:29,450 --> 00:59:36,290
+So in this code, you've saved all of your output to something called Fit two.
+
+473
+00:59:36,290 --> 00:59:45,080
+This happens so far back in the handout that, you know, we did a model and we saved the results in Fit two.
+
+474
+00:59:45,470 --> 00:59:54,680
+And so the code the Schoenfeld residuals you can get at with this Cox Dot Z page, I'm not sure what this is for.
+
+475
+00:59:55,500 --> 00:59:59,960
+The first element here is the first cover you had in your formula.
+
+476
+01:00:00,650 --> 01:00:04,640
+This is for the second cover that you had in your formula third and fourth.
+
+477
+01:00:05,270 --> 01:00:07,940
+So you have to pay attention to which cover it was.
+
+478
+01:00:07,940 --> 01:00:15,079
+Where in your formula in our this test is this to write we had to name and according to the order we put them in our model
+
+479
+01:00:15,080 --> 01:00:22,430
+statement so our during the same thing but when you print the results so these are the plots but if you print the results,
+
+480
+01:00:22,430 --> 01:00:28,940
+it'll give you nice little P values. So here's the Schoenfeld residuals for age and hemoglobin.
+
+481
+01:00:28,940 --> 01:00:36,470
+Those are the only two I plotted out here. Horizontal axis is actually log time, even though it's just called time here.
+
+482
+01:00:37,910 --> 01:00:42,410
+And you're not going to see exactly the same patterns here.
+
+483
+01:00:42,410 --> 01:00:46,370
+The ranges of have changed. But the intent is the same.
+
+484
+01:00:46,370 --> 01:00:49,880
+They want to sort of see is it more or less flat or not?
+
+485
+01:00:49,890 --> 01:00:53,000
+And they have a little bit of confidence intervals around there.
+
+486
+01:00:53,990 --> 01:00:57,910
+So maybe you could just even based on the confidence intervals, sort of say, well, you know,
+
+487
+01:00:58,060 --> 01:01:02,060
+I could imagine a straight line that still is within the confidence intervals here.
+
+488
+01:01:02,870 --> 01:01:06,709
+And I could probably imagine a straight line that's within the confidence limits here.
+
+489
+01:01:06,710 --> 01:01:14,240
+It just gives you a little bit more guidance. And then down here you get these nice little P values too.
+
+490
+01:01:14,240 --> 01:01:21,709
+So for my personality type, this is enormously comforting because I don't have to second guess myself.
+
+491
+01:01:21,710 --> 01:01:24,740
+On whether I'm being too forgiving about a flat line or not.
+
+492
+01:01:25,250 --> 01:01:33,250
+This is saying there's not enough evidence in the data of a proportionality assumption for these covariates based on these residuals,
+
+493
+01:01:33,260 --> 01:01:37,490
+and I don't have to trust my eyeballs. So SAS is like, I trust you, man.
+
+494
+01:01:37,730 --> 01:01:41,900
+Same way you decide what you want to do, it's all you do.
+
+495
+01:01:42,230 --> 01:01:47,240
+And R is like, Nope, I'm going to give you a little assist here. So our wins this head to head battle.
+
+496
+01:01:49,640 --> 01:01:53,810
+All right. So that's the end of the proportional hazards part of the diagnostics.
+
+497
+01:01:53,810 --> 01:01:57,110
+So now we're going to move on to influence.
+
+498
+01:01:57,110 --> 01:02:04,429
+So influence to say this is a very strong word that you might remember from your first course.
+
+499
+01:02:04,430 --> 01:02:14,900
+But strangely, the diagnostics component of any regression instruction is always the most boring for students I've found.
+
+500
+01:02:15,200 --> 01:02:17,120
+So maybe you've blocked this out.
+
+501
+01:02:17,180 --> 01:02:24,020
+So we're going to remind you, you know, what type of measures have high influence and how you can look at that with the output.
+
+502
+01:02:24,020 --> 01:02:27,680
+So everybody remembers outliers. That's not a problem.
+
+503
+01:02:28,340 --> 01:02:31,459
+Outliers or any unusual outcome.
+
+504
+01:02:31,460 --> 01:02:34,040
+And here the outcome is failure, time, observation.
+
+505
+01:02:34,640 --> 01:02:43,130
+So someone who lives particularly long or particularly short for any particular cohort Z, that that's an outlier in this context.
+
+506
+01:02:43,580 --> 01:02:51,559
+And so we saw a deviance residual plot where we could look at large residuals, and that was supposed to find, you know,
+
+507
+01:02:51,560 --> 01:02:56,720
+maybe some outliers that had really, really high deviance residuals or really, really low deviance residuals.
+
+508
+01:02:57,050 --> 01:03:02,360
+So we've already kind of got an outlier. High leverage.
+
+509
+01:03:02,370 --> 01:03:07,820
+So this is the one that maybe you do or maybe you don't remember from linear regression.
+
+510
+01:03:08,690 --> 01:03:17,870
+So I'm going to give you my $0.02 on it. So it's a very high or very low value of the covariate relative to other observations in the data.
+
+511
+01:03:18,890 --> 01:03:26,930
+And I remember this by going back to when I was a grade school student and they had these I don't
+
+512
+01:03:26,930 --> 01:03:31,610
+know what you call them in different countries or even in different regions of the U.S. In Texas,
+
+513
+01:03:31,610 --> 01:03:36,530
+we call them teeter totters or seesaws. And I don't know if this translates.
+
+514
+01:03:36,620 --> 01:03:43,399
+I mean, I think probably everybody has these no matter where you grew up, but it's this little pivot.
+
+515
+01:03:43,400 --> 01:03:49,580
+And then they put this board across the pivot and there's two kids on either side and they just kind of push each other up and down.
+
+516
+01:03:49,610 --> 01:03:58,730
+Right. So a high leverage observation is, you know, you think of the kids placing themselves on the seesaw.
+
+517
+01:03:58,910 --> 01:04:07,430
+The further towards the edge of the seesaw, the farther away from the pivot, the more chance you have to really move that thing up and down.
+
+518
+01:04:07,700 --> 01:04:14,120
+If you're a little kid who wants to join and you jump on the pivot, you have almost no ability to move that thing right.
+
+519
+01:04:14,420 --> 01:04:18,380
+But if you're on the edge, you have a lot of ability to move that thing.
+
+520
+01:04:18,650 --> 01:04:21,979
+So if you're on the edge, that's high leverage in corporate land.
+
+521
+01:04:21,980 --> 01:04:25,070
+You do a plot, you look at the distribution of the covariates.
+
+522
+01:04:25,580 --> 01:04:29,840
+The ones that are very high values are the covariate or the very low values of the covariate.
+
+523
+01:04:29,840 --> 01:04:34,700
+They're on the edge of the seesaw. They have a lot of ability to move that story around.
+
+524
+01:04:35,840 --> 01:04:44,810
+And so a high influence observation is some is a data value that has both high.
+
+525
+01:04:45,770 --> 01:04:49,040
+Oh gosh did I not update this?
+
+526
+01:04:49,700 --> 01:04:52,700
+I just uploaded a new version of this handout, but I didn't.
+
+527
+01:04:53,990 --> 01:05:00,470
+This should say leverage and I did correct it on canvas, but I didn't really download it on here.
+
+528
+01:05:00,770 --> 01:05:07,850
+So high influence has both high leverage. That's where it should go here and high outlier status.
+
+529
+01:05:08,780 --> 01:05:17,690
+And so I go back when I'm thinking of influence, I go back to my CSR example and I'm looking for a kid who's huge.
+
+530
+01:05:19,070 --> 01:05:26,780
+Right. That's someone who's an outlier. And that kid has more power than any other normal sized kid to move that thing up and down.
+
+531
+01:05:26,930 --> 01:05:32,030
+Right. So, you know, imagine an 18 year old versus a three year old.
+
+532
+01:05:32,390 --> 01:05:37,400
+That 18 year old is going to really have the most power to move that thing around.
+
+533
+01:05:37,430 --> 01:05:44,130
+And that's and so a high outlier. Plus being on the edge of the seesaw with high leverage.
+
+534
+01:05:44,820 --> 01:05:47,490
+That's someone who has high influence on the analysis.
+
+535
+01:05:48,680 --> 01:05:54,620
+So if you're looking for a data point that can take can change your entire story, it's going to be the 18 year old in the seesaw.
+
+536
+01:05:55,040 --> 01:06:06,009
+High outlier, high leverage. So if you plot deviance residuals versus the covariate, you can look for those you know,
+
+537
+01:06:06,010 --> 01:06:11,500
+you look for the outliers that are on the edges, either very high or very low values of the covariate.
+
+538
+01:06:14,360 --> 01:06:18,350
+We're also there's a measurement of how much it changes.
+
+539
+01:06:18,470 --> 01:06:26,510
+The beat is in the model. So you can ask for how much each particular data point changes your regression coefficients.
+
+540
+01:06:27,050 --> 01:06:33,500
+And so both SAS and R have the have these things you can print out called dev betas.
+
+541
+01:06:33,500 --> 01:06:38,450
+Sometimes they're called delta betas. So I don't know what your previous instructor called them,
+
+542
+01:06:38,840 --> 01:06:46,370
+but there's a change in the regression coefficient if you remove a person from the analysis so you can see that 18 year old on the seesaw,
+
+543
+01:06:46,370 --> 01:06:48,260
+how much did they really change your beta?
+
+544
+01:06:49,070 --> 01:06:58,730
+And you know, if that 18 year old jog your whole story, then you need to probably think about, you know, how generalizable the story is.
+
+545
+01:06:59,240 --> 01:07:02,900
+Hello? Is this off? Oh, my battery died.
+
+546
+01:07:04,620 --> 01:07:10,850
+Just a moment. I know you guys can hear me, but the recording really doesn't come out unless this is on.
+
+547
+01:07:22,370 --> 01:07:27,280
+So your entertainment is watching me change this better. Oh, I think this is the 111, isn't it?
+
+548
+01:07:29,330 --> 01:07:38,330
+Yeah, I'm one. If.
+
+549
+01:07:39,780 --> 01:08:07,630
+Q. Okay.
+
+550
+01:08:09,270 --> 01:08:16,390
+That was pretty fast, right? Yes.
+
+551
+01:08:23,400 --> 01:08:32,930
+All right. We're good to go again. Okay. So I'm going to show you how to you know, with the deviance plot, you can find your high influence people.
+
+552
+01:08:33,480 --> 01:08:41,750
+And I'm going to show you how to look at the debaters as well. So DFAT values are delta beta values.
+
+553
+01:08:42,860 --> 01:08:53,690
+This is this is the way you think about them. So consider the estimate beta hat from your output and the corresponding cover that goes with it.
+
+554
+01:08:55,680 --> 01:09:00,420
+So the estimate that we're going to be able to look at has this notation,
+
+555
+01:09:00,630 --> 01:09:07,080
+which is an important but you have to know you have to have some notation to refer to these things in the output.
+
+556
+01:09:07,500 --> 01:09:12,930
+So theta hat with a minus EI is the estimate for beta.
+
+557
+01:09:12,930 --> 01:09:16,200
+If you just left person eye out of the data set.
+
+558
+01:09:16,200 --> 01:09:20,940
+So yank personnel out and this is the estimate that you would have gotten for that same regression parameter.
+
+559
+01:09:23,460 --> 01:09:29,100
+The debate over the Delta beta ballot for that subject with respect to that parameter is the parameter
+
+560
+01:09:29,100 --> 01:09:34,500
+with everybody in the analysis minus the parameter estimate if you'd taken that person out.
+
+561
+01:09:35,460 --> 01:09:41,640
+So this is going to be the impact on that data for the Keith Covariate.
+
+562
+01:09:42,030 --> 01:09:50,430
+If you remove this person from the dataset set so they don't have a lot of influence on the analysis, this is going to be a small value.
+
+563
+01:09:50,850 --> 01:10:00,630
+But if they have a big influence on the analysis, then they can move this this case parameter estimate around quite a bit.
+
+564
+01:10:01,290 --> 01:10:04,980
+So here's an example just with numbers, just to we so we cement this idea.
+
+565
+01:10:05,370 --> 01:10:10,109
+So suppose that the regression parameter with everybody in the dataset and we're looking
+
+566
+01:10:10,110 --> 01:10:16,950
+at the the covariate minus that same parameter estimate without person eyes say 0.25.
+
+567
+01:10:18,690 --> 01:10:27,870
+Then what that means is that removing Subject II from the analysis would cause that regression parameter to decrease by approximately point to five.
+
+568
+01:10:29,310 --> 01:10:38,389
+Right. And how important that is is going to depend on, you know, the estimate and the standard error for this parameter estimate.
+
+569
+01:10:38,390 --> 01:10:42,740
+Maybe this is a small change relative to the standard error of the estimate, but it's a big change.
+
+570
+01:10:42,980 --> 01:10:47,300
+That part you have to interpret relative to the standard error for that parameter estimate.
+
+571
+01:10:49,800 --> 01:10:55,860
+So the impact measured by the DFAT value depends on the scale of the parameter and is standard error.
+
+572
+01:10:58,340 --> 01:11:05,030
+In isolation. We don't know what point 25 means for the analysis until we see, oh, would they have changed everything?
+
+573
+01:11:05,060 --> 01:11:06,980
+Would it have changed the p value? Everything?
+
+574
+01:11:09,990 --> 01:11:19,590
+So here's how you get the DFA to values from South and there's code for our coming up for our programmers.
+
+575
+01:11:20,460 --> 01:11:26,150
+It's we're saving everything out and out again over here.
+
+576
+01:11:26,160 --> 01:11:30,540
+I'm just saving the deviance residuals. We want to find 18 year old kids on the seesaw.
+
+577
+01:11:30,840 --> 01:11:34,680
+Right. But here is where I'm saving the DFA to values.
+
+578
+01:11:34,680 --> 01:11:36,230
+And there's one for every covariate.
+
+579
+01:11:36,240 --> 01:11:43,650
+And just like before, you make up these names and they're going to go in the order of the variables in the model statement.
+
+580
+01:11:43,670 --> 01:11:50,490
+So I made up the name for the derivative for age because that was first you have beta for hemoglobin because that was second and so on,
+
+581
+01:11:50,880 --> 01:12:04,340
+just so I can find them later in my data set. And I want to find big movers of the beat as and they can even either decrease or increase the estimate.
+
+582
+01:12:04,340 --> 01:12:07,700
+So for me to find the big movers, I want to take those.
+
+583
+01:12:07,970 --> 01:12:14,990
+DFP It is an absolute value, you know, get rid of the sign so that I can say what are the biggest movers and shakers in this dataset?
+
+584
+01:12:14,990 --> 01:12:17,060
+So here, that's how I'm doing.
+
+585
+01:12:17,140 --> 01:12:29,840
+I am creating abs for absolute value of DF data and I am taking these same things that I got from SAS and I'm taking their absolute value.
+
+586
+01:12:29,840 --> 01:12:36,830
+And this is the way you do that. In SAS it's a, B, s, and then in parentheses the variable name you want absolute value for.
+
+587
+01:12:37,400 --> 01:12:43,910
+And so we'll have those. And then I can, you know, sort them and, and print them and see which are the ones that are moving the base around the most.
+
+588
+01:12:44,630 --> 01:12:48,140
+So here I'm sorting them by descending absolute values.
+
+589
+01:12:48,140 --> 01:12:55,160
+So the biggest changes in betas will be at the top when I'm printing them and I'm printing out just the first ten of these,
+
+590
+01:12:56,090 --> 01:12:59,299
+and I'm just really looking at the age variable.
+
+591
+01:12:59,300 --> 01:13:00,200
+It's an example.
+
+592
+01:13:02,840 --> 01:13:13,100
+And I'm also pulling up the deviance residual plot for age as well, so we can find the 18 year olds on the seesaw that have high influence.
+
+593
+01:13:14,110 --> 01:13:18,730
+So here is the the model that we fit.
+
+594
+01:13:20,250 --> 01:13:24,420
+With the betas. So this is where we get the betas with everybody in the data set, right?
+
+595
+01:13:25,490 --> 01:13:34,219
+Here is the deviance residual plot. And so, you know, we're looking for this is like almost like our seesaw, right?
+
+596
+01:13:34,220 --> 01:13:42,920
+Except it's not really straight, unfortunately. But we're looking for these people that are at the edges of the covariate, you know,
+
+597
+01:13:42,920 --> 01:13:50,000
+either really high or really low, who are also outliers, like really high away from the group.
+
+598
+01:13:50,360 --> 01:13:58,890
+So we have a bunch of potential people with high. You know, leverage and high influence.
+
+599
+01:13:59,040 --> 01:14:04,080
+Right. And so here are the deaf parties.
+
+600
+01:14:05,040 --> 01:14:12,389
+And I just want you to kind of notice, you know, this is the top of the range is around 80 years old, the bottom is around 40 years old.
+
+601
+01:14:12,390 --> 01:14:20,370
+And so the biggest changes in the debate is tend to be really higher or, you know, near 80 or near 40.
+
+602
+01:14:21,330 --> 01:14:26,070
+So those are 18 year olds on the seesaw. Actually, they're not 18 in this dataset.
+
+603
+01:14:26,250 --> 01:14:30,990
+You know the analogy I'm still thinking of great grade school kids on a seesaw.
+
+604
+01:14:31,500 --> 01:14:38,520
+So looking at these values of DFAT, they look really tiny, right .05,
+
+605
+01:14:39,480 --> 01:14:52,650
+but we can only interpret them relative to what the parameter estimate is and the standard error is in for age .05 is actually half of the effect
+
+606
+01:14:52,650 --> 01:15:05,400
+here you know for the data not really have it's well close close to almost half of the the the beta and the standard error is pretty small too.
+
+607
+01:15:05,400 --> 01:15:10,410
+So this is, you know, point if the standard error is around here,
+
+608
+01:15:10,890 --> 01:15:17,160
+you know this is about roughly a third of a standard errors is how much it's changing the data.
+
+609
+01:15:21,460 --> 01:15:25,840
+So the highest influence observation for beta hat age.
+
+610
+01:15:27,530 --> 01:15:31,470
+Would decrease. Beta hat age.
+
+611
+01:15:33,170 --> 01:15:44,190
+By this. Oh, sorry.
+
+612
+01:15:44,190 --> 01:15:54,240
+I just would decrease that age. And that's this coefficient here by this .0055, so about a third of a standard deviation.
+
+613
+01:15:54,960 --> 01:16:03,900
+So even though it seems really small, you know, it's, it's relative to the standard deviation of the system and it's moving at about a third of that.
+
+614
+01:16:03,900 --> 01:16:07,920
+So. Is that going to change the story here?
+
+615
+01:16:07,950 --> 01:16:11,099
+Well, not really. I mean, this P value is not significant.
+
+616
+01:16:11,100 --> 01:16:18,360
+So I'm not really thinking it's going to mean it'll make it slightly more negative,
+
+617
+01:16:18,600 --> 01:16:23,040
+but I'm not really thinking it's going to suddenly be statistically significant.
+
+618
+01:16:25,110 --> 01:16:28,350
+But that's kind of the exercise that you do to look at these things.
+
+619
+01:16:29,070 --> 01:16:36,090
+So in our code, here is some code for getting the deviance residuals and doing kind of the same thing with the debaters.
+
+620
+01:16:36,750 --> 01:16:46,710
+So for the debaters, we're taking that same regression output that was saved in Fit two and we're using this residuals function to kind of grab those.
+
+621
+01:16:47,220 --> 01:16:56,879
+And the the the death bait is that you would get, you know, you have to kind of pay attention to the order of the culverts in the model.
+
+622
+01:16:56,880 --> 01:17:00,600
+This is the first covariate in the model and that corresponds to age.
+
+623
+01:17:00,600 --> 01:17:05,610
+That's how we that's what this number is. What what number in the coverage in the formula statement.
+
+624
+01:17:06,000 --> 01:17:16,020
+Age comes up. And then sorting by the absolute values and looking at the sorted values and plotting their deviance residuals.
+
+625
+01:17:16,560 --> 01:17:26,940
+And we sort of get the same thing, you know, so this is the 81 year old who and how much they changed the beta.
+
+626
+01:17:27,330 --> 01:17:35,270
+So that's probably this dude right here. Actually, it could be this dude right here.
+
+627
+01:17:35,280 --> 01:17:38,940
+I haven't paid attention. Could be. I'm not sure which one it is, actually.
+
+628
+01:17:39,300 --> 01:17:43,790
+Maybe it is this dude. All right.
+
+629
+01:17:43,790 --> 01:17:51,699
+So. Other remarks on outliers and influential points are probably going to echo things you've heard in the past from other regression settings.
+
+630
+01:17:51,700 --> 01:17:57,560
+So you want to check the outlying subjects to ensure that the outlying this,
+
+631
+01:17:57,580 --> 01:18:03,190
+if that's a real word, was not due to data entry area or use of incorrect units, for example.
+
+632
+01:18:03,190 --> 01:18:06,310
+So you want you do want to make sure that this was realistic data value.
+
+633
+01:18:07,030 --> 01:18:12,189
+And, you know, it's not valid to discard outliers unless they are deemed to be systematically
+
+634
+01:18:12,190 --> 01:18:16,030
+unrepresentative of the process under study or they're clearly in error.
+
+635
+01:18:18,610 --> 01:18:23,950
+Outlying points need not represent model specification.
+
+636
+01:18:23,950 --> 01:18:29,200
+Even if the model's correct, outliers will occur during. Due to randomness, you just might get one, you know.
+
+637
+01:18:29,200 --> 01:18:32,770
+And sometimes they're the most interesting data points, honestly.
+
+638
+01:18:34,760 --> 01:18:42,770
+So influential points should not be removed for the same reasons. If you really feel like a particular point changed your story substantially,
+
+639
+01:18:42,770 --> 01:18:49,270
+you should report the disproportionate influence of observations if you feel that that is an issue.
+
+640
+01:18:49,280 --> 01:18:57,790
+So you need to, you know, report both. If you're in a situation where one data point is driving the entire interest of your paper,
+
+641
+01:18:58,130 --> 01:19:05,090
+I think you need to really question whether that paper is worth writing because it might not extrapolate at all.
+
+642
+01:19:05,630 --> 01:19:12,320
+You'll be in the situation where no one can replicate results. If it's all writing on one data point, that's kind of important to recognize.
+
+643
+01:19:14,280 --> 01:19:21,450
+All right. So this is a slide that I think of, like the Jeopardy slide, except you don't have to answer in the form of a question.
+
+644
+01:19:21,450 --> 01:19:26,339
+And so this is like the double check that you remember all the various tricks of this handout.
+
+645
+01:19:26,340 --> 01:19:37,410
+So without looking at the answers on your slide, so which are the which is the residual you use to check the functional form of covariates?
+
+646
+01:19:37,590 --> 01:19:40,630
+Do you remember? So what were they?
+
+647
+01:19:40,650 --> 01:19:46,530
+Martingale Deviance? SCHOENFELD Which one is to check the functional form?
+
+648
+01:19:51,290 --> 01:19:56,430
+MARTIN Gayle. Great. And again, not looking at the answers.
+
+649
+01:19:56,440 --> 01:20:00,160
+Which one of these do you check for? Outliers. Which one of these deviants?
+
+650
+01:20:00,370 --> 01:20:09,279
+Oh, shoot. You know, sometimes I get a little sleepy and my mouth gets ahead of me, so, yeah, I gave that one away.
+
+651
+01:20:09,280 --> 01:20:13,140
+So, to check for outliers, you do deviance residuals. That means we've got one left, folks.
+
+652
+01:20:13,180 --> 01:20:17,320
+So to check for proportional hazards. SCHOENFELD Residuals.
+
+653
+01:20:17,980 --> 01:20:27,190
+And then the bonus round in jeopardy is where diagnostic reports influence up an observation on beta hat K and that one should be fresh in your mind.
+
+654
+01:20:28,130 --> 01:20:34,070
+The debate is. So all of these things are going to be played with on your homework.
+
+655
+01:20:34,610 --> 01:20:39,260
+You're going to be doing like an analysis with a dataset, with all these interesting features in it.
+
+656
+01:20:40,100 --> 01:20:43,320
+For your homework. Five, You have everything you need now to tackle that.
+
+657
+01:20:43,340 --> 01:20:51,890
+So, you know, it's you had kind of a break on homework for it's you know, if you haven't started yet, start it but it's shorter.
+
+658
+01:20:52,250 --> 01:20:57,860
+Homework five is not short. It's a real data set with interesting features, lots of predictors.
+
+659
+01:20:57,860 --> 01:21:02,659
+And you're going to be basically preparing the analysis as if it was a results section of a manuscript.
+
+660
+01:21:02,660 --> 01:21:07,670
+So don't delay. It's due right before Thanksgiving.
+
+661
+01:21:07,670 --> 01:21:12,270
+So you have time, but you're going to probably want to get started on that. Soon.
+
+662
+01:21:14,020 --> 01:21:17,360
+All right. So the next handout. And we've already had it, right.
+
+663
+01:21:17,380 --> 01:21:21,040
+So I'm just going to jump right in. I told you I'd get to it.
+
+664
+01:21:22,540 --> 01:21:28,900
+We'll make it through two slides. So this is a.
+
+665
+01:21:31,780 --> 01:21:41,320
+So first of all, just take it, take a breath and pat yourself on the back, because census survival data is very complicated data and you have now.
+
+666
+01:21:42,450 --> 01:21:46,169
+Tackle this complicated data. All right.
+
+667
+01:21:46,170 --> 01:21:51,240
+So congratulate yourself. You are learning you learn a whole new way to model data.
+
+668
+01:21:52,620 --> 01:21:56,760
+And now brace yourself because we're going to update. We're going to kick it up again.
+
+669
+01:21:57,360 --> 01:22:01,799
+So now so you had two outcomes with survival analysis, right?
+
+670
+01:22:01,800 --> 01:22:06,390
+X and Delta. You had to treat them like a pair. Okay, we're going to go to town now.
+
+671
+01:22:06,390 --> 01:22:14,910
+We're modeling dependent outcomes where you have more than one measure per individual and you have not done this yet.
+
+672
+01:22:15,390 --> 01:22:25,140
+Okay. So I'm going to start you off kind of slow just to get used to the notation so the notation doesn't interfere with the understanding.
+
+673
+01:22:25,530 --> 01:22:31,620
+But the quicker you learn that notation, the easier it will be to follow all the subtleties of this modeling.
+
+674
+01:22:33,370 --> 01:22:38,440
+So let's start off by just talking about two simple examples of dependent outcomes that you might have.
+
+675
+01:22:38,980 --> 01:22:46,510
+So the first one is that the same person receives multiple treatments and is assessed for each one.
+
+676
+01:22:46,840 --> 01:22:51,700
+We talked about crossover trials earlier in the course, and so that's what I'm thinking that,
+
+677
+01:22:52,180 --> 01:22:56,170
+you know, you have you randomized to the order of the treatments they're going to take,
+
+678
+01:22:56,770 --> 01:23:02,530
+but they get more than one treatment in your core, the outcome for each treatment, maybe with pretest, post-test values.
+
+679
+01:23:02,860 --> 01:23:14,599
+We have several measures on the same person over time. And so here's an example that is a little bit more sophisticated than the the crossover
+
+680
+01:23:14,600 --> 01:23:17,989
+trial we did earlier in the course when we were just thinking of two treatments.
+
+681
+01:23:17,990 --> 01:23:25,460
+This is a crossover trial where there are several treatments and each person there are six people in this data set.
+
+682
+01:23:25,850 --> 01:23:33,200
+Those are the rows. And each person at some point gets the none or placebo.
+
+683
+01:23:33,710 --> 01:23:44,210
+Hopefully that's a placebo if they were blinded. And then there's three other formulations of this pancreatic enzyme, either tablet capsule or coded,
+
+684
+01:23:44,630 --> 01:23:51,020
+and they're trying to figure out, you know, which formulation is working the best.
+
+685
+01:23:52,160 --> 01:23:58,520
+Of these choices. So pancreatic enzymes, this is something, you know, if you have digestive issues.
+
+686
+01:23:59,420 --> 01:24:06,590
+Pancreatic enzymes are often used to help you. This very common in cystic fibrosis patients, which is where I see this happen.
+
+687
+01:24:07,640 --> 01:24:12,500
+But, you know, you take it to help you absorb your nutrients and everything.
+
+688
+01:24:12,770 --> 01:24:17,599
+So one of the things that they measure to see how well absorption is happening
+
+689
+01:24:17,600 --> 01:24:22,190
+of various nutrition's is the amount of fecal fat that you have grams per day.
+
+690
+01:24:22,880 --> 01:24:35,090
+All right. It is what it sounds like. And so for the non group this is kind of what their non treated fecal fat grams per day looks like.
+
+691
+01:24:35,090 --> 01:24:40,430
+And then the goal is to reduce that via some version of pancreatic enzymes.
+
+692
+01:24:40,910 --> 01:24:45,920
+And so which one of them does the best? So each person has four outcomes for fecal fat.
+
+693
+01:24:47,720 --> 01:24:55,640
+And, you know, you can kind of see, you know, some people, you know, they have really, really high fecal fat.
+
+694
+01:24:56,030 --> 01:24:59,540
+And regardless of the formulation, you know,
+
+695
+01:25:00,500 --> 01:25:06,740
+so there's correlation within person of the fecal fat outcomes over time for these different treatment groups.
+
+696
+01:25:07,610 --> 01:25:14,120
+So this person over here, they didn't really have as big of a problem with fecal fat when they were on none.
+
+697
+01:25:14,120 --> 01:25:20,809
+And so the those fecal fat values under the different treatments are also going to be on the low side.
+
+698
+01:25:20,810 --> 01:25:29,900
+So it's correlated, right? They're correlated. You're more your own measures are more similar within individual than they would be across individuals.
+
+699
+01:25:31,710 --> 01:25:38,100
+All right. So this is one type of dependent outcome that we want to figure out how to model.
+
+700
+01:25:40,500 --> 01:25:45,870
+So the dependent measures to take effect from the same individual typically reduce the sources of variability in treatment comparisons,
+
+701
+01:25:45,870 --> 01:25:51,900
+and we want to leverage that to have more power to figure out which of these is the best formulation.
+
+702
+01:25:54,010 --> 01:26:02,680
+So when we talked about cross over trials in the past, I kind of said, you have to be careful if it's a good study design.
+
+703
+01:26:02,680 --> 01:26:08,410
+So again, caution must be taken when comparing treatments given to the same person over time.
+
+704
+01:26:09,070 --> 01:26:16,870
+There must be no carryover effects treatment, treatment. So when you're taking the different formulations that typically have a washout period.
+
+705
+01:26:18,260 --> 01:26:23,149
+Where whatever formulation they had isn't still helping them or hurting them.
+
+706
+01:26:23,150 --> 01:26:30,920
+Maybe, I guess and you're sort of assuming that they have a steady state issue that's
+
+707
+01:26:30,920 --> 01:26:35,510
+requiring the pancreatic enzymes so that when they stop taking one formulation,
+
+708
+01:26:35,510 --> 01:26:43,790
+it'll sort of revert back to the level of the problem they had in the nuns stage, and then they can retest the next treatment.
+
+709
+01:26:44,910 --> 01:26:47,970
+All right. So no carryover effects of the of the treatments.
+
+710
+01:26:48,360 --> 01:26:53,910
+You can't they can't cure you. They can't kill you. That's like the most extreme versions of carryover effects.
+
+711
+01:26:54,360 --> 01:27:01,620
+So each treatment has the same fair shot at attacking the fecal fat outcome.
+
+712
+01:27:04,290 --> 01:27:08,550
+And so you need to avoid situations where progression can disadvantage some treatment periods.
+
+713
+01:27:09,030 --> 01:27:12,240
+So this is just a reminder of discussions we had earlier on this topic.
+
+714
+01:27:14,820 --> 01:27:19,820
+So what are the consequences of just ignoring the dependance between outcomes in this setting?
+
+715
+01:27:19,830 --> 01:27:25,430
+I mean, if you had seen this data in a previous course, you would be like, oh, four columns of numbers.
+
+716
+01:27:25,440 --> 01:27:32,310
+Can I do a nova? Well, a nova assumes independent groups like independence between the outcomes.
+
+717
+01:27:32,730 --> 01:27:40,020
+And so you can't you can't do regular in Nova. I mean, there's a repeated measures version of a Nova, but you haven't probably learned that either.
+
+718
+01:27:40,710 --> 01:27:46,770
+So the version of a Nova that you learned assumed that all of the outcomes were independent, and we don't have that.
+
+719
+01:27:47,070 --> 01:27:50,250
+So what happens if you ignore the dependance between outcomes in the setting?
+
+720
+01:27:50,550 --> 01:27:55,410
+Well, first you're going to lose power, statistical power, and that's like statistical money,
+
+721
+01:27:55,530 --> 01:28:01,739
+you know, higher ability to tell your story when you're correct about your story.
+
+722
+01:28:01,740 --> 01:28:09,120
+So there will be a loss of power if you try to do an analysis like a NOVA that would assume independent outcomes.
+
+723
+01:28:11,010 --> 01:28:17,370
+So the variability related to the differences between groups is more precise when the correlation is properly taken into account.
+
+724
+01:28:18,210 --> 01:28:28,740
+And that sticks those six people. The information in those six people is vastly improved when you recognize that they tend to be the same
+
+725
+01:28:28,740 --> 01:28:33,060
+level of pancreatic insufficiency at each of the measurement times because they're the same person.
+
+726
+01:28:35,250 --> 01:28:42,270
+So if you ignore dependance it'll be very hard to detect associations.
+
+727
+01:28:42,270 --> 01:28:47,069
+The type one errors won't be at .05 the way you think they are.
+
+728
+01:28:47,070 --> 01:28:49,080
+They're actually going to be much smaller than .05.
+
+729
+01:28:49,080 --> 01:28:56,400
+It's going to be very hard to detect differences because your assumptions behind the tests are incorrect.
+
+730
+01:28:58,090 --> 01:28:58,730
+So dependent.
+
+731
+01:28:58,750 --> 01:29:06,070
+Dependent outcomes tend to behave similarly in a way that analysis assuming independence, almost check for evidence towards the null hypothesis.
+
+732
+01:29:09,310 --> 01:29:14,740
+So I want to talk about another simple example of dependent outcomes,
+
+733
+01:29:14,740 --> 01:29:18,730
+just so we kind of appreciate the kind of datasets that we're going to be attacking here.
+
+734
+01:29:19,210 --> 01:29:29,050
+So this one, this type of dependent outcome data is that each person has repeated measures across time taken to look for average changes in outcome.
+
+735
+01:29:29,860 --> 01:29:36,700
+And so the example that I have here is looking at lung transplant patients.
+
+736
+01:29:37,300 --> 01:29:48,100
+And what happens with lung transplant patients is that, you know, after a while, this syndrome called bronchiolitis obliterates syndrome.
+
+737
+01:29:48,370 --> 01:29:53,460
+Now they call it cloud. I don't care.
+
+738
+01:29:53,730 --> 01:30:00,240
+But anyway, this is a scarring that happens in the lung and it's sort of its source to take over your lung.
+
+739
+01:30:00,240 --> 01:30:03,860
+And so you have trouble breathing again. So lung transplants aren't a fix forever.
+
+740
+01:30:03,870 --> 01:30:07,200
+Eventually, people tend to have this syndrome.
+
+741
+01:30:08,520 --> 01:30:12,809
+And so this is a plot of how well there are lung.
+
+742
+01:30:12,810 --> 01:30:19,010
+Their newly transplanted lungs are functioning after they start developing the syndrome.
+
+743
+01:30:19,020 --> 01:30:22,590
+So time zero is when they started with their bodies.
+
+744
+01:30:23,550 --> 01:30:29,790
+And we and and the research question of interest is, well, how is their pulmonary function changing over time?
+
+745
+01:30:29,790 --> 01:30:34,109
+And we're measuring that with the 1% predicted. All right.
+
+746
+01:30:34,110 --> 01:30:37,260
+And so there's a big drop in lung function.
+
+747
+01:30:38,480 --> 01:30:40,370
+You know, within the first six months.
+
+748
+01:30:40,700 --> 01:30:48,980
+And this is probably random noise bouncing back up, but or maybe it's affected by deaths in the data set in their survivorship issues here.
+
+749
+01:30:49,460 --> 01:30:56,540
+But this is the kind of pattern that you want to understand and have in your paper what is happening over time in these patients.
+
+750
+01:30:57,380 --> 01:31:02,000
+And so there's no like treatment that's changed between measures that we really are interested in.
+
+751
+01:31:02,420 --> 01:31:10,490
+Time is one of the most important covariates in this model, and guess how we're going to get bands like this in this plot?
+
+752
+01:31:11,560 --> 01:31:15,049
+Just gas. Splice.
+
+753
+01:31:15,050 --> 01:31:20,750
+We're going to be used in linear splicing terms so that, as promised, this is going to be an important part of understanding this data.
+
+754
+01:31:21,260 --> 01:31:24,480
+We wouldn't want to artificially force a straight line here.
+
+755
+01:31:24,500 --> 01:31:31,930
+We want to see what the changes over time look like, letting the data guide the shape of that trajectory.
+
+756
+01:31:31,970 --> 01:31:41,250
+And we're going to be using linear spines for that. So in this case, describing the dependent outcomes over time,
+
+757
+01:31:41,550 --> 01:31:47,760
+is that central to the research interest that's being addressed here of what to expect after you get both?
+
+758
+01:31:48,120 --> 01:31:51,270
+How are your lungs going to perform from there on?
+
+759
+01:31:52,940 --> 01:31:56,170
+And eventually what covariates are making it happen.
+
+760
+01:31:56,180 --> 01:32:02,270
+You know are there cover at the time you get boost that predict faster declines versus less fast declines.
+
+761
+01:32:02,270 --> 01:32:06,770
+All of this is part of the research we might want to address with some kind of regression model.
+
+762
+01:32:09,530 --> 01:32:13,280
+So. I want in this slide.
+
+763
+01:32:13,280 --> 01:32:24,079
+And I think we we we're still doing okay for time. I want to point out the advantages of having repeated measures over time compared
+
+764
+01:32:24,080 --> 01:32:27,920
+to just cross-sectional data of a peak at the data at one point in time.
+
+765
+01:32:29,490 --> 01:32:33,510
+So with usual linear regression, you typically assess cross-sectional effects.
+
+766
+01:32:33,510 --> 01:32:41,249
+So is there a relationship between an outcome and risk factors at that moment and in the cohort where measurements are available?
+
+767
+01:32:41,250 --> 01:32:48,330
+So one snapshot in time and you do your regression analysis of what's associated with what, right?
+
+768
+01:32:49,020 --> 01:32:53,700
+And that's pretty much what we've done for linear regression, logistic regression,
+
+769
+01:32:53,700 --> 01:32:57,720
+Poisson regression, negative binomial regression, zero inflated stuff.
+
+770
+01:33:00,170 --> 01:33:05,180
+The only the only stuff we've looked at over time really so far is these time to event models.
+
+771
+01:33:05,390 --> 01:33:10,100
+And even then, we just had a single outcome pair of T and Delta.
+
+772
+01:33:11,960 --> 01:33:17,300
+So sometimes it's critical to distinguish changes over time in individuals like the Longitudinal Effect,
+
+773
+01:33:17,300 --> 01:33:22,910
+as opposed to differences in baseline characteristics or associations at one point in time.
+
+774
+01:33:23,540 --> 01:33:28,729
+And so this is a famous picture and this is made of data.
+
+775
+01:33:28,730 --> 01:33:34,610
+But these guys are kind of, you know, for statisticians of a certain age, let's say.
+
+776
+01:33:35,060 --> 01:33:39,190
+They really said what was work with longitudinal data analysis.
+
+777
+01:33:39,200 --> 01:33:42,440
+So this is a picture from their textbook.
+
+778
+01:33:43,280 --> 01:33:50,650
+And in each of these panels, the horizontal axis is age and the vertical axis is reading ability.
+
+779
+01:33:50,660 --> 01:33:57,590
+And so the so the natural research question is, you know, what's happening with age and reading ability.
+
+780
+01:33:58,040 --> 01:34:03,260
+Now, each of these are made up data points and each of the actual dots in these plots are the same.
+
+781
+01:34:04,520 --> 01:34:09,920
+So this is just to talk about longitudinal data.
+
+782
+01:34:12,050 --> 01:34:14,420
+So in this first plot, if you had a scatterplot,
+
+783
+01:34:14,420 --> 01:34:23,030
+it was cross-sectional data and you had various people with different ages and you you plotted age versus reading ability.
+
+784
+01:34:23,720 --> 01:34:29,570
+I mean, this plot really looks like people who were older had less reading ability.
+
+785
+01:34:30,080 --> 01:34:34,399
+Right. Which they probably created those columns because it's counterintuitive.
+
+786
+01:34:34,400 --> 01:34:37,520
+Right. We think the older you are, the better you get.
+
+787
+01:34:37,550 --> 01:34:41,480
+Hopefully that's what I'm hoping. That's the direction. Isn't that the direction we're all headed?
+
+788
+01:34:41,510 --> 01:34:47,690
+We kind of hope that's right. So I'm there a little faster than you guys and panel B, it's the same dots.
+
+789
+01:34:47,690 --> 01:34:51,350
+But the scenario now is that each person's measure twice.
+
+790
+01:34:52,260 --> 01:35:00,610
+And so regardless of what your age was at the beginning, each person's improving their ability over time.
+
+791
+01:35:00,630 --> 01:35:04,200
+So if you just looked at there, if you just had a data set with their first dot.
+
+792
+01:35:06,000 --> 01:35:15,940
+You might see this pattern here, but you get a kind of a different picture of what happens within a person as they age.
+
+793
+01:35:15,960 --> 01:35:28,890
+Each person is improving over age. And then this is a yet a third way that you might, you know, some kind of longitudinal data might come out.
+
+794
+01:35:28,890 --> 01:35:35,340
+And so, again, if you had the first only in each of these lines, you would kind of have similar interpretation here.
+
+795
+01:35:35,820 --> 01:35:45,900
+And but if you think about the data, you know, where these connected dots are time one and time to, oh,
+
+796
+01:35:45,960 --> 01:35:56,520
+this pattern would suggest, you know, that everybody is really getting worse over time dramatically and quickly, you know.
+
+797
+01:35:56,520 --> 01:36:05,489
+So it's not just where they started and what the pattern what at any point in time this start this starts to tell you what are the changes over
+
+798
+01:36:05,490 --> 01:36:15,389
+time and is it that they're improving or is it that everybody's getting terribly worse and you fill in your favorite cover for this vertical axis?
+
+799
+01:36:15,390 --> 01:36:23,640
+You know, if it's a biomarker. You can get a picture with the biomarker looks across the distribution.
+
+800
+01:36:24,990 --> 01:36:29,580
+But you really need time to point covariance to sort of see over time within person.
+
+801
+01:36:29,580 --> 01:36:33,060
+Is it is it getting better or does it tank fast? What's going on?
+
+802
+01:36:33,300 --> 01:36:36,360
+So longitudinal data is what makes that possible to understand.
+
+803
+01:36:40,210 --> 01:36:45,160
+So each type of regression has extensions for dependent outcomes.
+
+804
+01:36:45,310 --> 01:36:49,500
+So, you know, you've learned all these models.
+
+805
+01:36:49,570 --> 01:36:54,190
+Each one of them has a version to handle dependent outcomes.
+
+806
+01:36:55,000 --> 01:36:58,090
+So here's going to be the breakdown for linear regression.
+
+807
+01:36:58,870 --> 01:37:02,310
+There's going to be several ways to model this kind of data.
+
+808
+01:37:02,320 --> 01:37:03,760
+So we're going to look at a few of them.
+
+809
+01:37:04,210 --> 01:37:10,480
+So we're going to look at something called generalized estimating equations, which is something that you can just modify your sense.
+
+810
+01:37:10,750 --> 01:37:14,760
+Jen White code a little bit. Easy peasy.
+
+811
+01:37:15,120 --> 01:37:18,720
+I promise it's not going to be much different from your the code you've used already.
+
+812
+01:37:19,500 --> 01:37:26,640
+It's going to be a few extra little pieces that talk about, you know, the individuals that have correlated measures.
+
+813
+01:37:28,180 --> 01:37:35,649
+And then we're going to also talk about linear mixed effects regression as another version of how to analyze this data using SAS,
+
+814
+01:37:35,650 --> 01:37:48,430
+proc mix and R and LME. And so there's probably a couple of ways to look at like I'm not going to cover repeated measures, ANOVA.
+
+815
+01:37:48,820 --> 01:37:54,430
+These are the these are my go to ways. When I analyze data, I'm using one of these two methods for a dependent outcome.
+
+816
+01:37:54,430 --> 01:37:58,840
+So I'm sharing with you my preferred ways to deal with this kind of data.
+
+817
+01:38:00,480 --> 01:38:07,880
+So for logistic regression, it's going to there's going to be two different models and we're going to have to pay attention to when it's appropriate.
+
+818
+01:38:07,890 --> 01:38:13,469
+She's watch because in this first setting are some data sets you can analyze.
+
+819
+01:38:13,470 --> 01:38:17,879
+Either way, we'll talk about all of that stuff and logistic regression.
+
+820
+01:38:17,880 --> 01:38:21,780
+You kind of have to know the study design to know which way to analyze the data.
+
+821
+01:38:21,780 --> 01:38:27,240
+So we're going to learn conditional logistic regression for matched binary outcomes,
+
+822
+01:38:27,690 --> 01:38:38,030
+and that is going to be something that we use proc logistic again for or are C logit and other dependent binary outcomes walk.
+
+823
+01:38:38,040 --> 01:38:41,100
+There will be settings where it's more appropriate to do g.
+
+824
+01:38:41,310 --> 01:38:45,090
+So I'm going to teach you how to figure that out. So we will get to that.
+
+825
+01:38:46,230 --> 01:38:52,230
+4% regression. We have generalized that submitted equations via proc gen margin.
+
+826
+01:38:52,230 --> 01:38:58,200
+So this is going to be some of these are going to you're going to be using the same kind of changes to the code.
+
+827
+01:38:58,200 --> 01:39:02,419
+It'll you'll be able to learn fast. And for survival analysis.
+
+828
+01:39:02,420 --> 01:39:08,059
+Survival analysis with dependent outcomes is a topic uncovering at the very end.
+
+829
+01:39:08,060 --> 01:39:11,600
+As you know, nice to know not have to know for the final.
+
+830
+01:39:11,720 --> 01:39:14,480
+I mean, you don't have to know it at all for the final. Actually, just forget the nice to know.
+
+831
+01:39:14,480 --> 01:39:17,480
+It's nice to know for your life, but it's not covered on the final.
+
+832
+01:39:17,840 --> 01:39:25,310
+So I'm going to talk about that a little bit and some different methods that are available for handling dependent outcomes in SAS and are.
+
+833
+01:39:28,710 --> 01:39:37,200
+So I think what I'm going to do for the rest of today is just to review correlation
+
+834
+01:39:37,830 --> 01:39:43,409
+and show you bookkeeping terminology for how to talk about correlation,
+
+835
+01:39:43,410 --> 01:39:46,649
+because we've talked about it for two outcomes, right?
+
+836
+01:39:46,650 --> 01:39:52,740
+You in your intro classes, correlation between one continuous variable and the other, you're used to that.
+
+837
+01:39:52,980 --> 01:39:59,850
+But now we might have several measures over time, and all possible pairs of those random variables have a correlation to do with.
+
+838
+01:39:59,850 --> 01:40:10,190
+And we need to learn how to bookkeeper. And the software will require you to say which assumptions about the correlation you're going to be using.
+
+839
+01:40:10,200 --> 01:40:11,520
+We're going to learn a little bit about that.
+
+840
+01:40:11,880 --> 01:40:17,220
+So it's going to seem like some of this is review, but I promise the bookkeeping part is important for using these methods.
+
+841
+01:40:18,570 --> 01:40:23,639
+So correlation and you've probably used like row for the true correlation,
+
+842
+01:40:23,640 --> 01:40:31,500
+maybe a little R for the estimated correlation is measuring the strength of association between dependent outcomes and if it's zero,
+
+843
+01:40:31,800 --> 01:40:34,830
+that indicates there's no linear relationship between outcomes.
+
+844
+01:40:35,340 --> 01:40:43,380
+And you would have seen plots like this if you had just two outcomes Y one and Y two, then you would have could do a scatterplot.
+
+845
+01:40:44,430 --> 01:40:47,759
+And so each dot here is an outcome pair.
+
+846
+01:40:47,760 --> 01:40:53,550
+Now I'm thinking of them as dependent outcomes rather than like predictor and outcome.
+
+847
+01:40:54,270 --> 01:40:58,050
+And if correlation is zero, it should look like a random scatter.
+
+848
+01:40:58,470 --> 01:41:03,540
+So here I have sort of like correlation is zero. Here it should look like a random scatter.
+
+849
+01:41:06,270 --> 01:41:09,479
+And if you have the correlation that's positive,
+
+850
+01:41:09,480 --> 01:41:16,230
+that indicates a positive linear relationship between outcomes at strongest when the correlation is one.
+
+851
+01:41:17,570 --> 01:41:25,130
+And pairs of outcomes plotted against one another in a scatterplot will suggest a linear regression relationship with a positive slope.
+
+852
+01:41:25,610 --> 01:41:33,560
+You know, that's positive correlation. And so here's a picture where I've got Y one and Y to the both outcomes.
+
+853
+01:41:33,860 --> 01:41:39,049
+And actually I simulate a lot of this data so that I would need work with the correlation was
+
+854
+01:41:39,050 --> 01:41:45,470
+supposed to be this is simulated data with a correlation of 0.7 and you sort of see kind of a shape.
+
+855
+01:41:45,470 --> 01:41:49,010
+You can almost see a line going right through there. It's not random scatter anymore.
+
+856
+01:41:50,690 --> 01:41:54,080
+And do you remember this from the very first lecture I talked about?
+
+857
+01:41:54,500 --> 01:42:04,970
+Ah, you know, in the summertime when the mosquitoes come for me, you know, the correlation is how much the mosquitoes are grouping on me.
+
+858
+01:42:05,450 --> 01:42:08,900
+So the higher the correlation, the tighter the mosquitoes are to me.
+
+859
+01:42:09,290 --> 01:42:13,250
+But doesn't matter what the slope is, right? I could be waving my hand trying to get him off me.
+
+860
+01:42:14,120 --> 01:42:19,820
+The correlation is how close they are to my arm. The arm is the visual kind of pretend mind through the data.
+
+861
+01:42:21,110 --> 01:42:23,510
+All right, so similar ideas to hold onto these ideas.
+
+862
+01:42:24,720 --> 01:42:30,810
+So most dependent outcomes that are measured on the same person over time do have positive correlations.
+
+863
+01:42:30,810 --> 01:42:37,320
+So when we're looking at measures over time, most of the time the correlation is going to be positive.
+
+864
+01:42:38,190 --> 01:42:42,990
+So repeated measures collected from the same patient over time tend to be positively correlated with one another.
+
+865
+01:42:44,040 --> 01:42:50,250
+And so most often in bio. 523 I'm going to be assuming positively correlated outcomes are involved.
+
+866
+01:42:50,820 --> 01:42:54,360
+There are some examples of negative correlation that are out there.
+
+867
+01:42:54,360 --> 01:43:02,540
+And I remember I had a professor in grad school who studied litters of I'd like to say puppies because they're cuter, but she studied rats.
+
+868
+01:43:02,550 --> 01:43:06,690
+And so, you know, let's just stick to the puppies analogy.
+
+869
+01:43:06,720 --> 01:43:11,580
+We'll pretend she really studied puppies. And so inside the mom, you know,
+
+870
+01:43:11,580 --> 01:43:19,710
+the bigger one puppy gets inside the womb at the expense of the other puppy because they're all trying to compete for the same nutrients from the mom.
+
+871
+01:43:20,100 --> 01:43:24,809
+So that's a situation where you might have like negative correlation within the
+
+872
+01:43:24,810 --> 01:43:29,160
+litter inside the womb because there were they're competing for the same resources.
+
+873
+01:43:29,790 --> 01:43:33,599
+More recently now, the microbiome is such a big, sexy thing.
+
+874
+01:43:33,600 --> 01:43:37,170
+Everybody wants to know, like, what are you being colonized with in your life?
+
+875
+01:43:37,320 --> 01:43:47,040
+Your gut, all that stuff? Well, you know, whatever bacteria or guys are colonizing you, they're also competing for resources.
+
+876
+01:43:47,250 --> 01:43:56,130
+And so you can see negative correlation and what are the dominant, you know, microbiome little bacteria that are trying to colonize you.
+
+877
+01:43:56,160 --> 01:43:59,250
+So you see that those are things where you might see negative correlation.
+
+878
+01:43:59,250 --> 01:44:04,500
+It's always some kind of competition for resources when you're measuring outcomes gives you negative correlation.
+
+879
+01:44:05,130 --> 01:44:07,260
+But the majority of the time,
+
+880
+01:44:07,260 --> 01:44:13,890
+if you're measuring outcomes in a person over time where there's not competition for research as a resource and one of these word examples,
+
+881
+01:44:14,520 --> 01:44:20,620
+it's positive correlation you're going to be dealing with. So here.
+
+882
+01:44:20,790 --> 01:44:28,140
+So again, negative correlation indicates a negative linear relationship between outcomes that strongest when rows negative one.
+
+883
+01:44:28,710 --> 01:44:36,420
+This is what it would look like to have a correlation of negative point seven when you're measuring outcome y one and y two.
+
+884
+01:44:37,820 --> 01:44:43,520
+And the outcomes with negative ROE are usually competing for space or resources in some way.
+
+885
+01:44:43,520 --> 01:44:47,900
+Like we discussed, like, for instance, different bacteria types competing for colonization of the lung.
+
+886
+01:44:51,320 --> 01:44:56,780
+So I don't know if you kind of ever thought about what happens when you're looking at joint
+
+887
+01:44:56,780 --> 01:45:01,429
+distribution because you've seen normally distribute bell shaped curves for a single outcome.
+
+888
+01:45:01,430 --> 01:45:05,180
+I don't know if you've ever really thought about how to visualize that when you've got two random variables.
+
+889
+01:45:05,840 --> 01:45:11,250
+But if you have a joint distribution of a pair of normally distributed outcomes, you know,
+
+890
+01:45:11,300 --> 01:45:20,780
+and you try to plot that it's going to look like a bell, like a 3D bell instead of your flat little, you know, bell shape in 2D.
+
+891
+01:45:20,780 --> 01:45:32,810
+Now you have a bell in 3D. And so how high you are on this bell is kind of, you know, how likely kind of you know, the higher the point is,
+
+892
+01:45:33,140 --> 01:45:38,240
+the more likely it is that those two values, 4x1, an x two would be seen in your dataset.
+
+893
+01:45:38,690 --> 01:45:44,840
+And so the most common values of X one, an x two are going to be where this bell is high and near the edges.
+
+894
+01:45:45,080 --> 01:45:49,410
+It's going to be much less likely to see those outcomes. Okay.
+
+895
+01:45:49,710 --> 01:45:56,040
+And so in the image below, this is what it looks like if you have uncorrelated x one and x two.
+
+896
+01:45:56,070 --> 01:46:04,620
+So this is x1x2. And so if you were only looking at X1, you could sort of turn the bell.
+
+897
+01:46:04,620 --> 01:46:11,909
+So you only see this side of the bell and it would look just like your two d normal curve from your intro class.
+
+898
+01:46:11,910 --> 01:46:16,500
+If you only pay attention to one variable by looking at it only from that direction,
+
+899
+01:46:16,500 --> 01:46:21,990
+it's going to look like your same bell shaped curve that you saw when you were first learning about the normal distribution.
+
+900
+01:46:22,830 --> 01:46:26,850
+And similarly, if you wanted to look at it from the X two direction, you could twist the bell.
+
+901
+01:46:26,850 --> 01:46:31,139
+So you only see the shape of the bell with regard to what X2 is doing.
+
+902
+01:46:31,140 --> 01:46:36,570
+And it would also look like your normal bell shaped curve from your intro step where you learned about the normal distribution.
+
+903
+01:46:37,020 --> 01:46:42,509
+But you can actually look at the distribution of these things at the same time to
+
+904
+01:46:42,510 --> 01:46:47,940
+get a sense of what pairs of outcomes are more likely to be seen in your dataset.
+
+905
+01:46:48,330 --> 01:46:51,870
+And so pairs that are more likely to be seen are going to, you know,
+
+906
+01:46:51,870 --> 01:46:55,860
+pairs of values that are mostly seen are going to be where this bell shape is high.
+
+907
+01:46:59,400 --> 01:47:06,870
+So what if you have correlation? What happens? So if two outcomes are correlated, then the three D bell looks squished.
+
+908
+01:47:06,900 --> 01:47:16,830
+So this is now an example where the two outcomes are correlated and really highly correlated like point nine,
+
+909
+01:47:17,490 --> 01:47:26,330
+so that you can actually see the squishing and so you can almost see length got pressed this way so that you know,
+
+910
+01:47:26,370 --> 01:47:33,540
+it's long and skinny here and there's not much roundness on the front or the back side in this picture.
+
+911
+01:47:34,020 --> 01:47:42,180
+So in this picture, it's saying that it's more likely that outcomes that are either both high or both low.
+
+912
+01:47:43,840 --> 01:47:50,380
+What would be seen. But outcomes over here were ones home, ones lower, much more rare.
+
+913
+01:47:52,180 --> 01:47:56,890
+So that's positive correlation. That's how it would look if you look at it.
+
+914
+01:47:59,190 --> 01:48:06,280
+Kind of using this joint distribution. All right.
+
+915
+01:48:06,500 --> 01:48:09,720
+And that was just two variables, trying to understand what that looks like.
+
+916
+01:48:10,110 --> 01:48:14,489
+So we're going to have lots of variables that we need to deal with in these dependent outcomes.
+
+917
+01:48:14,490 --> 01:48:20,670
+So often, correlation values for dependent outcomes are presented in matrix form.
+
+918
+01:48:20,670 --> 01:48:27,960
+And before your brain goes into lockdown, because the word matrix is being used, we're not going to be doing linear algebra, anything crazy.
+
+919
+01:48:28,170 --> 01:48:30,570
+But this is like our little storage container. That's it.
+
+920
+01:48:30,840 --> 01:48:38,820
+We're just going to use it to say where our various correlation values are going to be and how to communicate software,
+
+921
+01:48:39,270 --> 01:48:48,390
+what our correlation assumptions are. And so for two dependent outcomes, this is the simplest correlation matrix is going to look like this.
+
+922
+01:48:48,990 --> 01:48:54,660
+And so each place in this little matrix is just a storage.
+
+923
+01:48:55,930 --> 01:49:02,020
+Location. And so you just have to get used to understanding what the different storage locations are.
+
+924
+01:49:02,500 --> 01:49:07,300
+So we've got two random variables Y one and Y two.
+
+925
+01:49:07,870 --> 01:49:16,560
+And so think of the the rows as and the columns as talking about the different variables.
+
+926
+01:49:16,570 --> 01:49:23,170
+So the, the first row in the first column is the correlation of the random variable Y with that one
+
+927
+01:49:23,890 --> 01:49:31,430
+subscript for the first row and the Y outcome with the subscript for the first column.
+
+928
+01:49:31,450 --> 01:49:37,510
+So this first storage area is the correlation between the Brandenburg or Y one with itself,
+
+929
+01:49:38,290 --> 01:49:41,470
+and that should be perfectly correlated because they're the same random variable.
+
+930
+01:49:42,430 --> 01:49:47,050
+And similarly, you just sort of think of the subscripts as row and column with the random variable.
+
+931
+01:49:47,290 --> 01:49:54,220
+And so this is the correlation of the row to and the column to random variable and that those are both y two.
+
+932
+01:49:55,090 --> 01:49:56,920
+So this is again perfectly correlated.
+
+933
+01:49:57,340 --> 01:50:05,379
+And so for correlation matrix, you know, as you kind of go from the top space down this diagonal to the bottom space,
+
+934
+01:50:05,380 --> 01:50:07,390
+no matter how many rows or columns there are,
+
+935
+01:50:08,060 --> 01:50:12,459
+those are going to be one because they're always going to be talking about the same random variable in that row.
+
+936
+01:50:12,460 --> 01:50:22,030
+In that column, the subscripts will match. So the off diagonal elements are where you're storing correlations between different random variables.
+
+937
+01:50:22,030 --> 01:50:28,559
+So the first row subscript is one, second column subscript is choose.
+
+938
+01:50:28,560 --> 01:50:34,950
+So this is the correlation between y one and y two. We've just been calling that row in all of our plots so far shows this.
+
+939
+01:50:35,320 --> 01:50:42,730
+This is still intrastat. But I'm showing you this new way to store the information and report the information to software.
+
+940
+01:50:43,330 --> 01:50:52,600
+This will extend and I know we have to wrap up. And so this one, second row, first column, it's going to be the correlation with Y two and Y one,
+
+941
+01:50:52,930 --> 01:50:58,900
+and that's the same as the correlation between y one and more two. It doesn't matter which order you put these in, it's the same correlation.
+
+942
+01:50:59,410 --> 01:51:06,220
+And so those are always going to be the same value. So I think, you know, I'm going to end with this idea.
+
+943
+01:51:06,250 --> 01:51:13,360
+You know, correlation matrices are always symmetric because it doesn't matter which row and column
+
+944
+01:51:14,140 --> 01:51:19,360
+the variables are in the there you're talking about the same two random variables,
+
+945
+01:51:19,600 --> 01:51:24,690
+whether you have the subscript one first or subscript one second, it's the same.
+
+946
+01:51:25,030 --> 01:51:28,120
+So these matrices are always symmetric and it's just, you know,
+
+947
+01:51:29,620 --> 01:51:36,069
+our storage is a little bit redundant because we have more places in the storage than we really need to describe the correlation values,
+
+948
+01:51:36,070 --> 01:51:41,889
+but that's the way it goes. So we're going to pick up next time here on Slide 12.
+
+949
+01:51:41,890 --> 01:51:47,770
+And so have your brain chewing on this whole storage system because we're going to stretch it to more outcomes.
+

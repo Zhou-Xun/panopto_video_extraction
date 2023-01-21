@@ -1,0 +1,1083 @@
+1
+00:00:07,480 --> 00:00:09,920
+Hello, welcome to this lecture
+
+2
+00:00:09,920 --> 00:00:11,720
+on Numerical Summaries of Data.
+
+3
+00:00:11,720 --> 00:00:13,980
+In this lecture, we're going
+to cover how to summarize
+
+4
+00:00:13,980 --> 00:00:17,810
+the spread or skepticism
+in your data.
+
+5
+00:00:17,810 --> 00:00:21,060
+Now biostatistics is
+designed to help us
+
+6
+00:00:21,060 --> 00:00:23,715
+make good decisions
+from a set of data.
+
+7
+00:00:23,715 --> 00:00:26,940
+For example, does it by
+giving a particular type of
+
+8
+00:00:26,940 --> 00:00:29,970
+antibiotic influence the
+average hospital stay
+
+9
+00:00:29,970 --> 00:00:32,160
+after major surgery for patients?
+
+10
+00:00:32,160 --> 00:00:34,770
+The statistics we'll be
+learning in this module,
+
+11
+00:00:34,770 --> 00:00:37,360
+allow us to examine the
+range of evidence in
+
+12
+00:00:37,360 --> 00:00:39,320
+our data and then incorporate
+
+13
+00:00:39,320 --> 00:00:41,765
+that variability
+into our decisions.
+
+14
+00:00:41,765 --> 00:00:44,990
+Decisions like which treatment
+for patients is better?
+
+15
+00:00:44,990 --> 00:00:46,880
+Said in statistical terms,
+
+16
+00:00:46,880 --> 00:00:48,170
+we need a way to assess
+
+17
+00:00:48,170 --> 00:00:49,970
+whether the mean or
+the median that we
+
+18
+00:00:49,970 --> 00:00:52,325
+compute are good representations
+
+19
+00:00:52,325 --> 00:00:54,575
+of everyone else in the data.
+
+20
+00:00:54,575 --> 00:00:56,720
+In other words, how
+much of the data are
+
+21
+00:00:56,720 --> 00:00:59,335
+close to the middle
+that we compute?
+
+22
+00:00:59,335 --> 00:01:01,400
+As you will see, the noisier or
+
+23
+00:01:01,400 --> 00:01:03,290
+more variable our data are,
+
+24
+00:01:03,290 --> 00:01:06,080
+the more skeptical we
+are that the mean value
+
+25
+00:01:06,080 --> 00:01:09,375
+is really representing
+everyone in the data.
+
+26
+00:01:09,375 --> 00:01:11,355
+So our learning
+objectives include;
+
+27
+00:01:11,355 --> 00:01:12,530
+first to understand what
+
+28
+00:01:12,530 --> 00:01:14,940
+the sample standard deviation is.
+
+29
+00:01:14,940 --> 00:01:16,250
+Then to discuss how to compute
+
+30
+00:01:16,250 --> 00:01:18,755
+the sample standard deviation
+from a set of data.
+
+31
+00:01:18,755 --> 00:01:21,770
+To understand what the
+interquartile range is.
+
+32
+00:01:21,770 --> 00:01:22,910
+Then to be able to compute
+
+33
+00:01:22,910 --> 00:01:25,105
+the interquartile range
+from a set of data.
+
+34
+00:01:25,105 --> 00:01:27,470
+Then finally, to be
+able to interpret
+
+35
+00:01:27,470 --> 00:01:32,120
+a boxplot and understand its
+relationship to a histogram.
+
+36
+00:01:32,120 --> 00:01:35,930
+So consider an example in
+which I have 30 patients who
+
+37
+00:01:35,930 --> 00:01:39,715
+received antibiotics
+while being hospitalized,
+
+38
+00:01:39,715 --> 00:01:41,590
+and for each patient,
+
+39
+00:01:41,590 --> 00:01:43,970
+I record how long
+they had to stay
+
+40
+00:01:43,970 --> 00:01:46,655
+in the hospital after
+receiving antibiotics.
+
+41
+00:01:46,655 --> 00:01:48,320
+So again using some notation,
+
+42
+00:01:48,320 --> 00:01:50,570
+I let X_i represent the length of
+
+43
+00:01:50,570 --> 00:01:53,060
+stay in days for patient i.
+
+44
+00:01:53,060 --> 00:01:56,390
+So X_1 is the length of
+stay for the first person,
+
+45
+00:01:56,390 --> 00:01:58,220
+up to X_30 which is
+
+46
+00:01:58,220 --> 00:02:00,640
+the length of stay
+for the 30th person.
+
+47
+00:02:00,640 --> 00:02:04,880
+Now, I show you the values
+from smallest to largest.
+
+48
+00:02:04,880 --> 00:02:08,405
+We see the one person stayed
+only a day in the hospital,
+
+49
+00:02:08,405 --> 00:02:10,100
+and there was an individual who
+
+50
+00:02:10,100 --> 00:02:12,380
+stayed 49 days in the hospital,
+
+51
+00:02:12,380 --> 00:02:14,980
+and everyone else was
+between those two values.
+
+52
+00:02:14,980 --> 00:02:16,970
+Now, I can compute
+the sample mean of
+
+53
+00:02:16,970 --> 00:02:19,205
+these 30 observations X-bar
+
+54
+00:02:19,205 --> 00:02:22,595
+by adding up those 30
+numbers and dividing by 30.
+
+55
+00:02:22,595 --> 00:02:24,950
+That represented by the
+Greek letter Sigma for
+
+56
+00:02:24,950 --> 00:02:29,675
+a sum and then dividing by
+30 producing a value of 12.
+
+57
+00:02:29,675 --> 00:02:32,180
+So on average people in this data
+
+58
+00:02:32,180 --> 00:02:35,270
+stayed about 12 days
+in the hospital.
+
+59
+00:02:35,270 --> 00:02:39,295
+Now, is 12 a good representation
+of everyone in the data?
+
+60
+00:02:39,295 --> 00:02:41,030
+One way to answer this question,
+
+61
+00:02:41,030 --> 00:02:44,000
+is to see how different each
+person's observation in
+
+62
+00:02:44,000 --> 00:02:47,240
+the dataset is from this
+value of 12, the sample mean.
+
+63
+00:02:47,240 --> 00:02:49,130
+So I'll compute the deviation,
+
+64
+00:02:49,130 --> 00:02:52,070
+the difference between
+each person's observation
+
+65
+00:02:52,070 --> 00:02:54,220
+and the sample mean.
+
+66
+00:02:54,220 --> 00:02:56,060
+However, if we take
+
+67
+00:02:56,060 --> 00:02:58,490
+the average of all
+of these deviations,
+
+68
+00:02:58,490 --> 00:03:00,560
+which might seem a
+common sense way to
+
+69
+00:03:00,560 --> 00:03:04,420
+summarize how on average
+people vary around X-bar,
+
+70
+00:03:04,420 --> 00:03:06,470
+the average of these deviations
+
+71
+00:03:06,470 --> 00:03:08,480
+will be zero for any set of
+
+72
+00:03:08,480 --> 00:03:10,745
+data and any variable that
+
+73
+00:03:10,745 --> 00:03:13,565
+you might be computing
+the sample mean from.
+
+74
+00:03:13,565 --> 00:03:16,340
+So the average of these
+deviations is not
+
+75
+00:03:16,340 --> 00:03:19,570
+a good representation of how
+spread out the data are.
+
+76
+00:03:19,570 --> 00:03:22,035
+Therefore, as an alternative,
+
+77
+00:03:22,035 --> 00:03:25,760
+we take these deviations
+and we first square them.
+
+78
+00:03:25,760 --> 00:03:28,460
+We do not care if
+someone has three values
+
+79
+00:03:28,460 --> 00:03:31,655
+perhaps below the mean or
+three values above the mean.
+
+80
+00:03:31,655 --> 00:03:34,070
+We just want to know that
+the difference is three.
+
+81
+00:03:34,070 --> 00:03:36,050
+So to get rid of the
+positive and negative sign
+
+82
+00:03:36,050 --> 00:03:37,400
+one way to do that is to square
+
+83
+00:03:37,400 --> 00:03:38,990
+everything because three and
+
+84
+00:03:38,990 --> 00:03:41,450
+negative three squared
+are both nine.
+
+85
+00:03:41,450 --> 00:03:44,240
+So after squaring up all
+of these deviations,
+
+86
+00:03:44,240 --> 00:03:45,470
+we add them up, again,
+
+87
+00:03:45,470 --> 00:03:47,900
+represented by the
+Greek letter Sigma.
+
+88
+00:03:47,900 --> 00:03:50,090
+Again, we take an average.
+
+89
+00:03:50,090 --> 00:03:51,905
+Now we don't divide by 30.
+
+90
+00:03:51,905 --> 00:03:55,130
+We instead average
+by 30 minus 1 for
+
+91
+00:03:55,130 --> 00:03:57,080
+mathematical and
+statistical reasons
+
+92
+00:03:57,080 --> 00:03:59,540
+that I will not cover
+in this course.
+
+93
+00:03:59,540 --> 00:04:04,150
+Now, this is an average
+square deviation but
+
+94
+00:04:04,150 --> 00:04:06,530
+it is difficult to
+talk about an average
+
+95
+00:04:06,530 --> 00:04:09,095
+squared length of
+stay in the hospital.
+
+96
+00:04:09,095 --> 00:04:10,610
+So therefore, we take
+
+97
+00:04:10,610 --> 00:04:12,320
+a square root of this
+number so that we're
+
+98
+00:04:12,320 --> 00:04:14,180
+back in the original units of
+
+99
+00:04:14,180 --> 00:04:16,565
+the data which is length of stay.
+
+100
+00:04:16,565 --> 00:04:18,860
+This entire value is known as
+
+101
+00:04:18,860 --> 00:04:20,975
+the sample standard deviation
+
+102
+00:04:20,975 --> 00:04:22,610
+of the length of
+stay in our data.
+
+103
+00:04:22,610 --> 00:04:25,535
+Again, it is a number
+that attempts to tell us
+
+104
+00:04:25,535 --> 00:04:28,855
+how spread out our data
+are from the sample mean,
+
+105
+00:04:28,855 --> 00:04:31,670
+a sample standard
+deviation of zero would be
+
+106
+00:04:31,670 --> 00:04:32,930
+a data set in which everybody
+
+107
+00:04:32,930 --> 00:04:34,745
+had the same value as the mean.
+
+108
+00:04:34,745 --> 00:04:37,340
+As the sample standard
+deviation grows,
+
+109
+00:04:37,340 --> 00:04:39,320
+we have observation
+in the data that are
+
+110
+00:04:39,320 --> 00:04:41,180
+getting very far from the middle.
+
+111
+00:04:41,180 --> 00:04:43,100
+Now, there is another term in
+
+112
+00:04:43,100 --> 00:04:45,520
+statistics known as
+the sample variance.
+
+113
+00:04:45,520 --> 00:04:47,675
+The sample variance is
+
+114
+00:04:47,675 --> 00:04:50,165
+the square of the sample
+standard deviation.
+
+115
+00:04:50,165 --> 00:04:52,670
+So if I take the average
+square deviation and
+
+116
+00:04:52,670 --> 00:04:55,130
+do not take the square
+root in the formula,
+
+117
+00:04:55,130 --> 00:04:57,280
+I end up with a number
+called the sample variance,
+
+118
+00:04:57,280 --> 00:05:00,495
+which we denote as S_x
+squared instead of
+
+119
+00:05:00,495 --> 00:05:02,630
+S_x which we use to represent
+
+120
+00:05:02,630 --> 00:05:05,840
+a notation for the sample
+standard deviation.
+
+121
+00:05:05,840 --> 00:05:09,380
+In the data that I just showed
+you about length of stay,
+
+122
+00:05:09,380 --> 00:05:13,030
+the standard deviation
+is 9.1 days.
+
+123
+00:05:13,030 --> 00:05:15,140
+So now recall the 30 values again
+
+124
+00:05:15,140 --> 00:05:17,075
+ordered from smallest to largest.
+
+125
+00:05:17,075 --> 00:05:19,460
+I could also compute
+the sample median
+
+126
+00:05:19,460 --> 00:05:21,520
+and there are 30 observations.
+
+127
+00:05:21,520 --> 00:05:23,110
+So the sample median must be
+
+128
+00:05:23,110 --> 00:05:25,660
+the 15th and 16th
+observation in order
+
+129
+00:05:25,660 --> 00:05:28,480
+in the dataset and the
+average of those two values.
+
+130
+00:05:28,480 --> 00:05:31,180
+This example, those
+two values both are 10
+
+131
+00:05:31,180 --> 00:05:35,340
+and therefore the sample
+median is also 10.
+
+132
+00:05:35,340 --> 00:05:37,870
+Now, if we compare
+the sample median
+
+133
+00:05:37,870 --> 00:05:40,680
+of 10 to the sample mean of 12,
+
+134
+00:05:40,680 --> 00:05:43,885
+we see that the mean is
+larger than the median.
+
+135
+00:05:43,885 --> 00:05:47,515
+This suggests a slightly
+right-skewed distribution.
+
+136
+00:05:47,515 --> 00:05:50,979
+The sample mean of 12 is being
+pulled to the right of 10
+
+137
+00:05:50,979 --> 00:05:52,840
+because of the
+individual who stayed
+
+138
+00:05:52,840 --> 00:05:54,970
+49 days in the hospital,
+
+139
+00:05:54,970 --> 00:05:57,250
+that person is unusual and not
+
+140
+00:05:57,250 --> 00:05:59,630
+like most of the
+observations in the data.
+
+141
+00:05:59,630 --> 00:06:01,430
+So the mean is
+being pulled toward
+
+142
+00:06:01,430 --> 00:06:04,430
+that unusual or
+outlying observation.
+
+143
+00:06:04,430 --> 00:06:06,680
+To summarize the noisiness or
+
+144
+00:06:06,680 --> 00:06:09,230
+the spread of the data
+around the median,
+
+145
+00:06:09,230 --> 00:06:13,355
+we could simply report the
+smallest and largest values.
+
+146
+00:06:13,355 --> 00:06:16,415
+These two values together are
+known as the sample range.
+
+147
+00:06:16,415 --> 00:06:21,580
+So in this data, the
+sample range is 1-49 days.
+
+148
+00:06:21,580 --> 00:06:24,335
+As an alternative to
+the sample range,
+
+149
+00:06:24,335 --> 00:06:26,960
+we can report another
+range of numbers known as
+
+150
+00:06:26,960 --> 00:06:30,505
+the sample interquartile
+range or IQR.
+
+151
+00:06:30,505 --> 00:06:32,420
+Recall, that the median is
+
+152
+00:06:32,420 --> 00:06:35,765
+the 50th percentile of the
+data so that there are
+
+153
+00:06:35,765 --> 00:06:38,120
+observations 50 percent
+of the observations below
+
+154
+00:06:38,120 --> 00:06:41,635
+that value and 50 percent
+are above the value of 10.
+
+155
+00:06:41,635 --> 00:06:42,980
+If we return to
+
+156
+00:06:42,980 --> 00:06:45,215
+the 15 smallest observations
+
+157
+00:06:45,215 --> 00:06:47,705
+and we go to the middle
+of those values.
+
+158
+00:06:47,705 --> 00:06:52,000
+We get a number we call
+the 25th percentile or Q1.
+
+159
+00:06:52,000 --> 00:06:55,565
+Likewise, we go to the
+15 largest observations.
+
+160
+00:06:55,565 --> 00:06:58,670
+We take the middle of those
+15 observations leading
+
+161
+00:06:58,670 --> 00:07:02,210
+us to the 75th percentile or Q3.
+
+162
+00:07:02,210 --> 00:07:05,000
+So again the 25th
+percentile tells me
+
+163
+00:07:05,000 --> 00:07:06,570
+the value where 25 percent
+
+164
+00:07:06,570 --> 00:07:08,625
+of people are below that value.
+
+165
+00:07:08,625 --> 00:07:11,390
+The 75th percentile
+is the value of which
+
+166
+00:07:11,390 --> 00:07:14,615
+75 percent of individuals
+are below that number.
+
+167
+00:07:14,615 --> 00:07:17,090
+Those two percentiles reported
+
+168
+00:07:17,090 --> 00:07:20,355
+together are known as
+the interquartile range.
+
+169
+00:07:20,355 --> 00:07:22,260
+The further the 25th and
+
+170
+00:07:22,260 --> 00:07:24,650
+75th percentiles get
+from each other,
+
+171
+00:07:24,650 --> 00:07:28,930
+the more spread out the
+observations are in my dataset.
+
+172
+00:07:28,930 --> 00:07:32,060
+Now, the interquartile range
+is useful for creating
+
+173
+00:07:32,060 --> 00:07:36,160
+an alternative to a histogram
+which we call a boxplot.
+
+174
+00:07:36,160 --> 00:07:40,460
+A boxplot is simply viewing a
+histogram from up above and
+
+175
+00:07:40,460 --> 00:07:41,690
+looking down at the top of
+
+176
+00:07:41,690 --> 00:07:44,765
+the histogram and the
+spread in the histogram.
+
+177
+00:07:44,765 --> 00:07:47,480
+Now, in the boxplot is a box,
+
+178
+00:07:47,480 --> 00:07:50,590
+and that box represents
+the interquartile range.
+
+179
+00:07:50,590 --> 00:07:55,065
+In these data the
+interquartile range is 7-14.
+
+180
+00:07:55,065 --> 00:07:58,925
+The box then contains a
+solid black vertical line.
+
+181
+00:07:58,925 --> 00:08:00,800
+That line represents
+the median or
+
+182
+00:08:00,800 --> 00:08:04,315
+the 50th percentile of data
+which if you recall was 10.
+
+183
+00:08:04,315 --> 00:08:07,310
+You can see that the
+median is not necessarily
+
+184
+00:08:07,310 --> 00:08:10,505
+exactly in the middle of
+the interquartile range.
+
+185
+00:08:10,505 --> 00:08:12,140
+It can be in the left or
+
+186
+00:08:12,140 --> 00:08:14,960
+the right hand side of
+the interquartile range.
+
+187
+00:08:14,960 --> 00:08:17,755
+This represents
+skewness in the data.
+
+188
+00:08:17,755 --> 00:08:20,840
+Again, the median is
+toward the left end of
+
+189
+00:08:20,840 --> 00:08:22,460
+the interquartile range more than
+
+190
+00:08:22,460 --> 00:08:25,310
+the right-hand side of the
+interquartile range, again,
+
+191
+00:08:25,310 --> 00:08:27,560
+representing right
+skewness caused
+
+192
+00:08:27,560 --> 00:08:29,660
+by this observation of 49,
+
+193
+00:08:29,660 --> 00:08:33,425
+this unusually long length
+of stay in our dataset.
+
+194
+00:08:33,425 --> 00:08:37,070
+The boxplot also contains
+what we call whiskers.
+
+195
+00:08:37,070 --> 00:08:38,450
+These are connected to
+
+196
+00:08:38,450 --> 00:08:41,330
+the box with a dashed
+horizontal line.
+
+197
+00:08:41,330 --> 00:08:43,430
+These two whiskers represent
+
+198
+00:08:43,430 --> 00:08:47,240
+the 5th percentile and the
+95th percentile on the data.
+
+199
+00:08:47,240 --> 00:08:49,430
+Again, the fifth
+percentile is the value
+
+200
+00:08:49,430 --> 00:08:51,530
+at which only five percent
+of individuals are
+
+201
+00:08:51,530 --> 00:08:54,980
+below that number and
+the 95th percentile is
+
+202
+00:08:54,980 --> 00:08:56,960
+the value at which
+five percent of
+
+203
+00:08:56,960 --> 00:08:59,735
+the values are above
+that percentile.
+
+204
+00:08:59,735 --> 00:09:02,515
+This represents a
+preponderance of the data.
+
+205
+00:09:02,515 --> 00:09:05,645
+Any observations outside
+these two percentiles
+
+206
+00:09:05,645 --> 00:09:07,250
+are known as outliers.
+
+207
+00:09:07,250 --> 00:09:08,670
+In this set of data,
+
+208
+00:09:08,670 --> 00:09:10,970
+there are two individuals
+who had lengths of
+
+209
+00:09:10,970 --> 00:09:14,000
+stay that will be on
+the 95th percentile.
+
+210
+00:09:14,000 --> 00:09:16,640
+There can also be
+outliers to the left of
+
+211
+00:09:16,640 --> 00:09:18,770
+the fifth percentile
+but they do not
+
+212
+00:09:18,770 --> 00:09:21,380
+exist in these set of data.
+
+213
+00:09:21,380 --> 00:09:23,420
+Again, all of this information
+
+214
+00:09:23,420 --> 00:09:26,690
+provides whether or not there
+is skewness in the data,
+
+215
+00:09:26,690 --> 00:09:29,510
+whether the skewness is to
+the right or to the left and
+
+216
+00:09:29,510 --> 00:09:31,550
+exactly what the
+outlying observations
+
+217
+00:09:31,550 --> 00:09:33,645
+in the data set might be.
+
+218
+00:09:33,645 --> 00:09:35,700
+So now to this point,
+
+219
+00:09:35,700 --> 00:09:37,820
+our sample of data allows us to
+
+220
+00:09:37,820 --> 00:09:40,040
+compute numbers that
+quantify first,
+
+221
+00:09:40,040 --> 00:09:42,740
+the level of evidence our
+dataset suggests we have,
+
+222
+00:09:42,740 --> 00:09:45,005
+represented by the
+mean or the median.
+
+223
+00:09:45,005 --> 00:09:47,030
+The level of skepticism our data
+
+224
+00:09:47,030 --> 00:09:48,680
+suggests we might
+have represented by
+
+225
+00:09:48,680 --> 00:09:50,225
+the sample standard deviation
+
+226
+00:09:50,225 --> 00:09:52,555
+or the sample
+interquartile range.
+
+227
+00:09:52,555 --> 00:09:54,890
+However, the elegance
+and power of
+
+228
+00:09:54,890 --> 00:09:56,750
+statistics is that we can go
+
+229
+00:09:56,750 --> 00:09:58,805
+much further with these values.
+
+230
+00:09:58,805 --> 00:10:00,950
+We can actually use
+them to guess or
+
+231
+00:10:00,950 --> 00:10:03,050
+infer what other studies
+
+232
+00:10:03,050 --> 00:10:05,420
+might have concluded
+without having
+
+233
+00:10:05,420 --> 00:10:07,941
+the data from those
+actual studies.
+

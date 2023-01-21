@@ -1,0 +1,495 @@
+1
+00:00:08,690 --> 00:00:11,100
+After watching this video,
+
+2
+00:00:11,100 --> 00:00:14,160
+you will be able to
+conduct a paired t-test on
+
+3
+00:00:14,160 --> 00:00:18,300
+matched data by using the
+PAIRED statement in PROC TTEST.
+
+4
+00:00:18,300 --> 00:00:21,210
+We keep moving in
+our algorithm and
+
+5
+00:00:21,210 --> 00:00:24,210
+we're now into
+continuous predictors.
+
+6
+00:00:24,210 --> 00:00:26,460
+In this video, we will focus on
+
+7
+00:00:26,460 --> 00:00:29,370
+normally distributed
+variables, and therefore,
+
+8
+00:00:29,370 --> 00:00:32,415
+we will do the equivalent of
+a t-test for matched data,
+
+9
+00:00:32,415 --> 00:00:35,625
+which is a paired t-tests
+as highlighted here.
+
+10
+00:00:35,625 --> 00:00:39,125
+Remember our example from
+the last video, once more,
+
+11
+00:00:39,125 --> 00:00:42,590
+this is a match case-control
+study in which cases of
+
+12
+00:00:42,590 --> 00:00:44,870
+myocardial infarction
+are matched to controls
+
+13
+00:00:44,870 --> 00:00:47,560
+by age, sex, and county.
+
+14
+00:00:47,560 --> 00:00:51,435
+There is one matching ID
+that identifies that.
+
+15
+00:00:51,435 --> 00:00:54,900
+Therefore, our outcome
+is MI, yes/no.
+
+16
+00:00:54,900 --> 00:00:57,060
+For this example, our exposure
+
+17
+00:00:57,060 --> 00:00:59,270
+is going to be physical activity.
+
+18
+00:00:59,270 --> 00:01:01,995
+It's called TMETS in our dataset.
+
+19
+00:01:01,995 --> 00:01:04,260
+That stands for Total METS.
+
+20
+00:01:04,260 --> 00:01:06,380
+We have measure physical activity
+
+21
+00:01:06,380 --> 00:01:08,645
+in METS or metabolic equivalents,
+
+22
+00:01:08,645 --> 00:01:10,310
+which is a standard
+way of measuring
+
+23
+00:01:10,310 --> 00:01:13,085
+physical activity in
+epidemiologic studies.
+
+24
+00:01:13,085 --> 00:01:16,265
+This variable reflects a
+gradient in physical activity,
+
+25
+00:01:16,265 --> 00:01:17,340
+the higher your METS,
+
+26
+00:01:17,340 --> 00:01:20,460
+the more vigorous physical
+activity you will do.
+
+27
+00:01:20,460 --> 00:01:22,790
+Our hypothesis is that
+physical activity
+
+28
+00:01:22,790 --> 00:01:25,705
+will be inversely
+associated to MI.
+
+29
+00:01:25,705 --> 00:01:28,680
+So remember this live
+on a previous video.
+
+30
+00:01:28,680 --> 00:01:31,070
+Every time you have a
+continuous variable,
+
+31
+00:01:31,070 --> 00:01:34,340
+you do have to check
+if it's normal or not,
+
+32
+00:01:34,340 --> 00:01:37,190
+regardless of the data
+will match or not.
+
+33
+00:01:37,190 --> 00:01:40,220
+Now for the purposes of
+this and the next video,
+
+34
+00:01:40,220 --> 00:01:42,620
+I'm not going to do it
+for physical activity,
+
+35
+00:01:42,620 --> 00:01:45,220
+and I'm going to use a
+variable for both tests.
+
+36
+00:01:45,220 --> 00:01:47,555
+The one for normally
+distributed data
+
+37
+00:01:47,555 --> 00:01:50,030
+and the one for non-normally
+distributed data,
+
+38
+00:01:50,030 --> 00:01:52,505
+because that will
+have me to illustrate
+
+39
+00:01:52,505 --> 00:01:54,365
+an important point about
+
+40
+00:01:54,365 --> 00:01:57,305
+choosing the correct
+statistical test.
+
+41
+00:01:57,305 --> 00:02:00,140
+You can use the same code that we
+
+42
+00:02:00,140 --> 00:02:02,750
+used before to get a
+paired dataset in which
+
+43
+00:02:02,750 --> 00:02:05,690
+each observation is
+a pair of case and
+
+44
+00:02:05,690 --> 00:02:07,129
+control with their corresponding
+
+45
+00:02:07,129 --> 00:02:09,100
+physical activity information.
+
+46
+00:02:09,100 --> 00:02:12,885
+TMETS for cases and
+TMETS for controls.
+
+47
+00:02:12,885 --> 00:02:15,290
+Note that, of course,
+you don't have to
+
+48
+00:02:15,290 --> 00:02:17,480
+run this code every
+time you want to
+
+49
+00:02:17,480 --> 00:02:20,320
+transpose one variable and
+you could do as I show
+
+50
+00:02:20,320 --> 00:02:23,330
+on the right for as many
+variables as you want.
+
+51
+00:02:23,330 --> 00:02:25,425
+In this case, I'm doing it for
+
+52
+00:02:25,425 --> 00:02:28,470
+smoking and physical
+activity at the same time,
+
+53
+00:02:28,470 --> 00:02:30,925
+but you can do as
+many as you want.
+
+54
+00:02:30,925 --> 00:02:34,030
+In our example, we're
+going to use MI as
+
+55
+00:02:34,030 --> 00:02:37,310
+our outcome and physical
+activity as our exposure.
+
+56
+00:02:37,310 --> 00:02:40,639
+Assuming that physical activity
+is normally distributed,
+
+57
+00:02:40,639 --> 00:02:42,890
+we will conduct a paired t-test.
+
+58
+00:02:42,890 --> 00:02:44,990
+In order to conduct
+a paired t-test,
+
+59
+00:02:44,990 --> 00:02:46,700
+we'll use PROC t-test,
+
+60
+00:02:46,700 --> 00:02:49,265
+but on the paired dataset,
+
+61
+00:02:49,265 --> 00:02:51,440
+same as we did for the McNemar.
+
+62
+00:02:51,440 --> 00:02:55,595
+You use the PAIRED statement
+in this situation.
+
+63
+00:02:55,595 --> 00:02:57,710
+What SaaS is doing here,
+
+64
+00:02:57,710 --> 00:02:59,870
+is calculating the
+mean difference
+
+65
+00:02:59,870 --> 00:03:01,835
+between cases and controls,
+
+66
+00:03:01,835 --> 00:03:04,165
+and here you get
+your paired t-test.
+
+67
+00:03:04,165 --> 00:03:06,365
+As you can see,
+with this p-value,
+
+68
+00:03:06,365 --> 00:03:08,630
+we will fail to reject the null.
+
+69
+00:03:08,630 --> 00:03:10,670
+Since the physical activity is
+
+70
+00:03:10,670 --> 00:03:13,085
+not associated with
+myocardial infarction,
+
+71
+00:03:13,085 --> 00:03:15,350
+we will talk about
+reasons for the later
+
+72
+00:03:15,350 --> 00:03:18,005
+since that seems a little
+counter-intuitive.
+
+73
+00:03:18,005 --> 00:03:20,450
+SaaS is going to be
+the also a bunch of
+
+74
+00:03:20,450 --> 00:03:23,285
+plot after this output
+that you can ignore.
+
+75
+00:03:23,285 --> 00:03:26,410
+Finally, same as it happened
+with the McNemar test,
+
+76
+00:03:26,410 --> 00:03:28,320
+you don't get the description of
+
+77
+00:03:28,320 --> 00:03:31,640
+physical activity by MIS
+status in this output.
+
+78
+00:03:31,640 --> 00:03:32,990
+So you will have to run
+
+79
+00:03:32,990 --> 00:03:35,875
+PROC MEANS in the
+non-transposed dataset.
+
+80
+00:03:35,875 --> 00:03:37,800
+If we run PROC MEANS in
+
+81
+00:03:37,800 --> 00:03:41,365
+our non-transposed
+dataset, temp.mi,
+
+82
+00:03:41,365 --> 00:03:44,375
+I will get the means and
+the standard deviations
+
+83
+00:03:44,375 --> 00:03:47,780
+of physical activity
+in cases and controls.
+
+84
+00:03:47,780 --> 00:03:49,190
+In this case, we have
+
+85
+00:03:49,190 --> 00:03:53,540
+a slightly higher physical
+activity controls than cases,
+
+86
+00:03:53,540 --> 00:03:54,710
+but that difference was
+
+87
+00:03:54,710 --> 00:03:57,200
+clearly not statistically
+significant.
+
+88
+00:03:57,200 --> 00:03:59,660
+Since we know that
+physical activity is
+
+89
+00:03:59,660 --> 00:04:02,465
+a well-known protective
+factor for MI,
+
+90
+00:04:02,465 --> 00:04:04,790
+we have to wonder
+about reasons for not
+
+91
+00:04:04,790 --> 00:04:07,570
+finding that different
+significant.
+
+92
+00:04:07,570 --> 00:04:10,080
+The most reasonable ones are
+
+93
+00:04:10,080 --> 00:04:11,580
+measurement error since
+
+94
+00:04:11,580 --> 00:04:14,160
+physical activity
+is self-reported,
+
+95
+00:04:14,160 --> 00:04:16,700
+and there is also
+potential for recall bias
+
+96
+00:04:16,700 --> 00:04:19,705
+too among many other biases.
+
+97
+00:04:19,705 --> 00:04:21,740
+This will be the means and
+
+98
+00:04:21,740 --> 00:04:25,010
+standard deviations that you
+will report in your Table 1,
+
+99
+00:04:25,010 --> 00:04:28,130
+but the p-value of the
+comparison will come from
+
+100
+00:04:28,130 --> 00:04:32,080
+the paired t-test that we just
+run in the previous slide.
+
+101
+00:04:32,080 --> 00:04:34,130
+In summary, in this video,
+
+102
+00:04:34,130 --> 00:04:36,380
+we'll learn how to conduct
+a paired t-test on
+
+103
+00:04:36,380 --> 00:04:39,980
+matched data by using the
+PAIRED statement in PROC TTEST.
+
+104
+00:04:39,980 --> 00:04:43,190
+In the next video, we will
+continue with tests for
+
+105
+00:04:43,190 --> 00:04:45,050
+matched data for non-normally
+
+106
+00:04:45,050 --> 00:04:48,747
+distributed continuous variables.
+

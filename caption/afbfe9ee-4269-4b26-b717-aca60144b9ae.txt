@@ -1,0 +1,395 @@
+1
+00:00:10,130 --> 00:00:11,714
+After watching this video,
+
+2
+00:00:11,714 --> 00:00:16,990
+you will be able to use PROC GENMOD to
+run a log-binomial regression model.
+
+3
+00:00:16,990 --> 00:00:20,545
+To illustrate the use of PROC GENMOD
+in the context of a cohort study,
+
+4
+00:00:20,545 --> 00:00:23,780
+we're going to use the following example.
+
+5
+00:00:23,780 --> 00:00:28,269
+We will use data from the cohort
+study of 295 adults from Samoa,
+
+6
+00:00:28,269 --> 00:00:33,160
+who were recruited at baseline and
+followed up for two years.
+
+7
+00:00:33,160 --> 00:00:36,891
+Triglycerides were measured at
+the two year follow up, and
+
+8
+00:00:36,891 --> 00:00:42,390
+we will use this of 150 to define
+having hypertriglyceridemia.
+
+9
+00:00:42,390 --> 00:00:46,696
+This is the kind of using
+the metabolic syndrome definition, so
+
+10
+00:00:46,696 --> 00:00:49,400
+outcome is binary, yes or no?
+
+11
+00:00:49,400 --> 00:00:53,912
+We will use a special a binary
+variable that measures compliance with
+
+12
+00:00:53,912 --> 00:00:55,712
+a modern dietary pattern.
+
+13
+00:00:55,712 --> 00:01:00,948
+If the variable is one, it means high
+compliance with a modern dietary pattern,
+
+14
+00:01:00,948 --> 00:01:06,260
+and the other way around, a zero in
+the variable means low compliance.
+
+15
+00:01:06,260 --> 00:01:10,626
+And modern dietary pattern,
+also called a western dietary pattern,
+
+16
+00:01:10,626 --> 00:01:15,290
+is a pattern breaching red meat,
+refined flowers, and supers.
+
+17
+00:01:15,290 --> 00:01:17,088
+Not very healthy stuff, so
+
+18
+00:01:17,088 --> 00:01:21,547
+the hypothesis will be that higher
+compliance with a modern dietary
+
+19
+00:01:21,547 --> 00:01:27,580
+pattern will result in a high risk
+of developing hypertriglyceridemia.
+
+20
+00:01:27,580 --> 00:01:29,920
+So let's look briefly to are there.
+
+21
+00:01:29,920 --> 00:01:34,640
+Here, you can see printed the first
+10 observations of the data set.
+
+22
+00:01:34,640 --> 00:01:38,551
+We have our ID number, as usual,
+we have age, and baseline, and sex.
+
+23
+00:01:38,551 --> 00:01:42,613
+We have our outcome,
+which is hypertriglyceridemia, yes or no,
+
+24
+00:01:42,613 --> 00:01:46,684
+based on the 150 metabolic syndrome
+cut off, and I had it here.
+
+25
+00:01:46,684 --> 00:01:51,281
+The triglyceride variable that were
+used to create this outcome, so
+
+26
+00:01:51,281 --> 00:01:56,514
+you can see the [INAUDIBLE], you can see
+in the first 10 observations that only
+
+27
+00:01:56,514 --> 00:02:02,890
+one savvy it has hypertriglyceridemia,
+without regulation size value of 181.
+
+28
+00:02:02,890 --> 00:02:05,485
+And finally, we have an exposure variable.
+
+29
+00:02:05,485 --> 00:02:09,945
+A variable factor one is represents
+compliance with the modern dietary
+
+30
+00:02:09,945 --> 00:02:11,310
+pattern.
+
+31
+00:02:11,310 --> 00:02:15,810
+[INAUDIBLE] low compliance and
+one high compliance.
+
+32
+00:02:15,810 --> 00:02:19,954
+Now, let's be clear about the difference
+between a nurse ratio, and
+
+33
+00:02:19,954 --> 00:02:22,704
+average ratio,
+just using a two by two table.
+
+34
+00:02:22,704 --> 00:02:26,065
+So we run at two by two table
+with our exposure factor,
+
+35
+00:02:26,065 --> 00:02:28,991
+one is representing low and
+high compliance.
+
+36
+00:02:28,991 --> 00:02:34,220
+On our outcome, tgms represented
+hypertriglyceridemia, yes or no?
+
+37
+00:02:34,220 --> 00:02:37,931
+If we use low compliance's the reference,
+the ratio and
+
+38
+00:02:37,931 --> 00:02:41,080
+the ratios are calculated there.
+
+39
+00:02:41,080 --> 00:02:44,482
+All ratio is 2.18, and
+there is ratio is 1.99.
+
+40
+00:02:44,482 --> 00:02:49,395
+Obviously, they have are not the same
+because they represent different measures
+
+41
+00:02:49,395 --> 00:02:51,660
+of association.
+
+42
+00:02:51,660 --> 00:02:56,126
+Now, remember, I told you that you can
+use PROC GENMOD to run regression.
+
+43
+00:02:56,126 --> 00:02:57,590
+So let's do that first.
+
+44
+00:02:57,590 --> 00:03:00,992
+So you can see, we can use
+the same PROC GENMOD template, and
+
+45
+00:03:00,992 --> 00:03:05,800
+just make sure that you choose
+the distribution and the link accordingly.
+
+46
+00:03:05,800 --> 00:03:10,446
+For logistic regression, the distribution
+is binomial, and the link is the logit.
+
+47
+00:03:10,446 --> 00:03:14,030
+Note that you still need to use
+the descending option here to model
+
+48
+00:03:14,030 --> 00:03:16,909
+the probability of having
+hypertriglyceridemia.
+
+49
+00:03:16,909 --> 00:03:20,240
+Yeah, that's the same issue as.
+
+50
+00:03:20,240 --> 00:03:24,280
+Otherwise, when model
+the probability of being 0.
+
+51
+00:03:24,280 --> 00:03:29,697
+And finally, because this is PROC GENMOD,
+that will not give us ratios by default.
+
+52
+00:03:29,697 --> 00:03:34,183
+We will use the estimate statement,
+using that combination of 1-1,
+
+53
+00:03:34,183 --> 00:03:36,546
+we will be using low as the reference.
+
+54
+00:03:36,546 --> 00:03:39,330
+If we change it,
+highway with the reference.
+
+55
+00:03:39,330 --> 00:03:42,740
+Again, more on this statement later.
+
+56
+00:03:42,740 --> 00:03:47,530
+And we get a suddenly the same as
+ratio that we got before in to table.
+
+57
+00:03:47,530 --> 00:03:50,350
+And remember to interpret this as.
+
+58
+00:03:50,350 --> 00:03:54,158
+The odds of having hypertriglyceridemia
+is 2.18 times higher
+
+59
+00:03:54,158 --> 00:03:58,102
+among people with high compliance
+with the modern dietary pattern,
+
+60
+00:03:58,102 --> 00:04:01,530
+compared with people with low compliance.
+
+61
+00:04:01,530 --> 00:04:06,172
+Also know that I'm not encouraging you
+to use PROC GENMOD for running logistic
+
+62
+00:04:06,172 --> 00:04:10,481
+models when you can use PROC LOGISTIC,
+which is more convenient to you.
+
+63
+00:04:10,481 --> 00:04:14,901
+We are just doing this to compare it with
+the low binomial model, and see how it
+
+64
+00:04:14,901 --> 00:04:20,430
+just changing the link function,
+we get a different measure of association.
+
+65
+00:04:20,430 --> 00:04:24,342
+So now, let's run our log-binomial
+model using PROC GENMOD,
+
+66
+00:04:24,342 --> 00:04:27,530
+know that the code is exactly
+the same as before, but
+
+67
+00:04:27,530 --> 00:04:31,840
+the only thing to change here
+is the link that now is the log.
+
+68
+00:04:31,840 --> 00:04:37,600
+Just that small change will give you
+a risk ratio instead of a nose ratio.
+
+69
+00:04:37,600 --> 00:04:41,418
+Note that for log-binomial models,
+because you have a binary outcome,
+
+70
+00:04:41,418 --> 00:04:46,900
+you also need to specify the distant
+same as with logistic regression.
+
+71
+00:04:46,900 --> 00:04:51,046
+And we get exactly the same
+we got with our toy to table.
+
+72
+00:04:51,046 --> 00:04:55,998
+Not surprisingly, and you have to this
+is a risk ratio, not only because
+
+73
+00:04:55,998 --> 00:05:00,985
+it's a log-binomial model, but because
+you are in the context of a cohort study.
+
+74
+00:05:00,985 --> 00:05:03,003
+It is was across study,
+
+75
+00:05:03,003 --> 00:05:07,425
+this measure of association
+would be interpreted as a ratio.
+
+76
+00:05:07,425 --> 00:05:10,190
+We will see that in another video.
+
+77
+00:05:10,190 --> 00:05:14,852
+So the risk of having hypertriglyceridemia
+is 1.99 times higher among
+
+78
+00:05:14,852 --> 00:05:18,626
+people with high compliance
+with a modern dietary pattern,
+
+79
+00:05:18,626 --> 00:05:21,364
+compared with people with low compliance.
+
+80
+00:05:21,364 --> 00:05:26,496
+In summary, in this video, we use PROC
+GENMOD to run a log-binomial regression
+
+81
+00:05:26,496 --> 00:05:31,790
+model, and we compare it with logistic
+regression, so we could see differences.
+
+82
+00:05:31,790 --> 00:05:35,865
+In the next video, we will continue
+with low binomial models and
+
+83
+00:05:35,865 --> 00:05:39,392
+talk abut convergence problems.
+

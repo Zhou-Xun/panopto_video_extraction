@@ -1,0 +1,1612 @@
+1
+00:00:00,890 --> 00:00:05,690
+For at least 4 hours. I'm like one on one.
+
+2
+00:00:07,440 --> 00:00:16,850
+I was playing as I played for two months.
+
+3
+00:00:17,190 --> 00:00:20,520
+I mean, yes, fill it out. It's underground.
+
+4
+00:00:24,970 --> 00:00:34,630
+I know. Extra.
+
+5
+00:00:36,070 --> 00:00:42,260
+Thank you.
+
+6
+00:00:51,910 --> 00:00:58,500
+It's awesome.
+
+7
+00:01:05,150 --> 00:01:09,760
+It's great. I suppose he felt that way over.
+
+8
+00:01:18,550 --> 00:01:29,820
+I think that's that was like because everybody was like, oh, no, Eileen and Grant should be on opposite sides.
+
+9
+00:01:29,840 --> 00:01:33,020
+There is no way that I would ever do that for him.
+
+10
+00:01:34,440 --> 00:01:37,980
+Laugh about it now.
+
+11
+00:01:38,520 --> 00:01:43,830
+Is it like a genuine laugh or joke? You actually.
+
+12
+00:01:46,770 --> 00:01:52,530
+I mean, it's so funny if you.
+
+13
+00:01:52,890 --> 00:02:07,470
+Yeah. That's mean. If you try to like some breaks, like when I go to like my own line, so I'll stop.
+
+14
+00:02:07,740 --> 00:02:11,110
+Right. Right.
+
+15
+00:02:11,640 --> 00:02:22,830
+Well, it means that I am so present to the last two weeks, you've had sort of clinical statistics related to clinical cancer.
+
+16
+00:02:23,010 --> 00:02:25,010
+So studying in prostate cancer today,
+
+17
+00:02:25,020 --> 00:02:30,030
+you're going to hear about head and neck cancer and you're going to hear something much more sort of molecular and biological.
+
+18
+00:02:30,390 --> 00:02:36,840
+So happy to have Maureen here. Maureen is a professor in computational medicine bio informatics,
+
+19
+00:02:36,840 --> 00:02:43,290
+and she's also has an appointment in biostatistics and her background is actually formed.
+
+20
+00:02:43,290 --> 00:02:53,820
+Technically, I think she's in biostatistics, but it was that she's invited Alex and so she's from it's a sheaf and she's about ten, 15 years.
+
+21
+00:02:53,940 --> 00:03:00,599
+So that's 40 years. Yes. And she's actually advise Ph.D. students through biostatistics.
+
+22
+00:03:00,600 --> 00:03:04,319
+I don't know, one or two maybe. And this sort of worked with a number of those over the years.
+
+23
+00:03:04,320 --> 00:03:08,830
+So I connect to a department. So she welcome and yeah.
+
+24
+00:03:09,240 --> 00:03:15,720
+Yeah, I thought, I thought if there was someone in your class, Andre, see that?
+
+25
+00:03:15,760 --> 00:03:22,320
+And I'm like, Yeah, no, I think he switched to a different class.
+
+26
+00:03:22,890 --> 00:03:28,680
+Okay. I think he signed up originally and then quit. So I'm advising him right now.
+
+27
+00:03:29,640 --> 00:03:32,700
+I would be I don't know anything. I make him feel guilty.
+
+28
+00:03:35,670 --> 00:03:37,560
+I'll make him watch the recording.
+
+29
+00:03:39,000 --> 00:03:47,740
+So I'm gonna use the microphone because my voice is still a little bit forced from me, but I should not be contagious any more from right.
+
+30
+00:03:49,140 --> 00:03:57,690
+So yeah. So the last decade or so I've been studying and that cancer molecular subtypes of it in my lab.
+
+31
+00:03:58,590 --> 00:04:05,280
+And so today I'm going to be talking about going from doing unsupervised learning or identifying
+
+32
+00:04:05,430 --> 00:04:13,740
+molecular cancer subtypes to now supervised learning to classifying individuals new tumors by subtype.
+
+33
+00:04:14,400 --> 00:04:24,900
+And so my outline, I'll start off by giving an introduction to having that cancer and the role of human papillomavirus in certain cancers.
+
+34
+00:04:25,760 --> 00:04:35,340
+And I'll talk about my, our unsupervised learning approach, where we originally identified two HPV positive tumor subtypes.
+
+35
+00:04:35,730 --> 00:04:39,300
+And I'll say a bit about the things that we did.
+
+36
+00:04:39,360 --> 00:04:48,090
+This is using other types of OMICS data to characterize these different HPV positive subtypes and why they're important?
+
+37
+00:04:49,470 --> 00:05:00,870
+Because they're important. We now want to we've developed a supervised learning approach to classify new tumors by subtype with RNA SEQ data,
+
+38
+00:05:00,870 --> 00:05:04,410
+which is what we used originally for the unsupervised learning approach.
+
+39
+00:05:04,950 --> 00:05:14,070
+And then if I have time at the end a little bit about what we're going to do moving forward and kind of trying to translate this into the clinic.
+
+40
+00:05:15,750 --> 00:05:25,079
+So I realize you probably have various backgrounds, some stronger in biology than others, so please feel free to interrupt me.
+
+41
+00:05:25,080 --> 00:05:27,180
+Just raise your hand to ask a question.
+
+42
+00:05:27,630 --> 00:05:38,280
+If I use, you know, biological terminology that that you're not familiar with, I'll try to define and I think of that.
+
+43
+00:05:38,280 --> 00:05:43,920
+But, you know, given my background, I might assume that you have some things that you that you don't.
+
+44
+00:05:45,090 --> 00:05:55,829
+So so head neck cancer is the six most prevalent cancer worldwide and over 90% of so the great majority are what's called head neck,
+
+45
+00:05:55,830 --> 00:05:58,950
+squamous cell carcinoma, which is what we study.
+
+46
+00:05:59,280 --> 00:06:05,490
+And so that's denoted HCC. So you'll see that abbreviation for my slides.
+
+47
+00:06:05,700 --> 00:06:09,180
+So that just refers to a majority of head and neck cancers.
+
+48
+00:06:09,720 --> 00:06:19,980
+So annually there are over 500,000, half million cases and about 50% of those are little more each year results in death.
+
+49
+00:06:21,570 --> 00:06:25,340
+Because the average five year survival rate is only.
+
+50
+00:06:25,350 --> 00:06:28,590
+Is there a point to and maybe this is point. Yeah.
+
+51
+00:06:29,220 --> 00:06:40,110
+I don't know if you can see that it's really pretty weak. So five year survival rate is about 40%, although it's much higher for dogs caused by HPV.
+
+52
+00:06:40,770 --> 00:06:45,510
+So the most common and that cancer type is is oral cavity.
+
+53
+00:06:45,870 --> 00:06:50,820
+But there's a significant proportion that are that arise in the oral pharynx,
+
+54
+00:06:51,210 --> 00:06:59,820
+which is basically areas like face of your tongue in the tonsil area or the back of your mouth.
+
+55
+00:06:59,850 --> 00:07:05,640
+So it's adjacent to the oral cavity and it can also rise the names of pharynx banks and larynx.
+
+56
+00:07:06,510 --> 00:07:12,150
+And so it's mainly the tumors in the oral pharynx that are caused or can be caused by HPV.
+
+57
+00:07:12,510 --> 00:07:17,490
+And this has risen pretty drastically over the last few decades.
+
+58
+00:07:18,300 --> 00:07:29,130
+Now, about 90% or so of the or pharynx cancer cases, at least at the University of Michigan, are caused by HPV or HPV positive.
+
+59
+00:07:29,520 --> 00:07:37,980
+Most of the other cancers are caused by tobacco use and to a lesser extent, alcohol use.
+
+60
+00:07:38,400 --> 00:07:42,180
+And the incidence rates are higher in men than women.
+
+61
+00:07:42,180 --> 00:07:46,530
+And this is especially true for the HIV positive and cancers.
+
+62
+00:07:47,700 --> 00:07:52,620
+So so HPV is a small, double stranded DNA virus.
+
+63
+00:07:53,280 --> 00:07:57,030
+Has that just a small handful number of genes you see here on the left.
+
+64
+00:07:58,050 --> 00:08:10,080
+But the two main oncogene. So genes that cause carcinogenesis and cancer to arise are called E six and e74, which stands for early gene six and seven.
+
+65
+00:08:10,680 --> 00:08:20,089
+And these. Caused the degradation so inhibit two main tumor suppressor genes, p53,
+
+66
+00:08:20,090 --> 00:08:32,600
+which is the biggest and most important cancer gene and retinoblastoma are B protein, which play roles in apoptosis and cell cycle regulation.
+
+67
+00:08:33,230 --> 00:08:37,240
+But just these two genes alone do not cause cancer.
+
+68
+00:08:37,250 --> 00:08:42,440
+So HPV is extremely common, but only a very,
+
+69
+00:08:42,440 --> 00:08:53,030
+very small number of people aren't able to clear the initial infection and end up years, decades later resulting in cancer.
+
+70
+00:08:54,260 --> 00:09:01,430
+So and the normal HPV lifecycle DNA occurs in a circular former epithelial forms you see on the
+
+71
+00:09:01,430 --> 00:09:10,130
+left or then a certain percent of cases and cancer that DNA integrated into the host genome.
+
+72
+00:09:11,120 --> 00:09:23,100
+And especially if e six and seven become integrated, then then that just gets reproduced each time.
+
+73
+00:09:23,120 --> 00:09:33,679
+So it's time the cell device and so the HPV virus no longer needs to survive and its natural lifecycle and so that there
+
+74
+00:09:33,680 --> 00:09:41,000
+are a number of other biological changes that tend to occur when that happens and then tumors that have HPV integration.
+
+75
+00:09:41,660 --> 00:09:45,560
+So I mentioned that because that comes into play between the subtypes.
+
+76
+00:09:46,100 --> 00:09:55,640
+And so just to note that the time between the initial HPV infection and cancer diagnosis can be several decades, even like 40 years.
+
+77
+00:09:56,600 --> 00:10:05,330
+So, you know, there are cases where a man is diagnosed and has been married for 25 years and, you know,
+
+78
+00:10:05,360 --> 00:10:10,280
+thinks that his wife that his wife thinks he's been unfaithful because they've been married for so long.
+
+79
+00:10:10,280 --> 00:10:15,980
+And the doctor has to reassure them, no, you know, this HPV infection could have occurred like 40 years ago.
+
+80
+00:10:16,280 --> 00:10:21,200
+So definitely not a reason to think that it's not faithful.
+
+81
+00:10:22,850 --> 00:10:30,830
+So most people are very familiar with human papillomavirus being associated with cervical cancer, which of course, always occurs in women.
+
+82
+00:10:31,580 --> 00:10:40,400
+But it's, I think, a little bit lesser known that it can also occur mainly in men, but also in women and oropharynx cancer.
+
+83
+00:10:40,760 --> 00:10:50,630
+And in fact, for the last few years, there's actually been more incidence of HPV related ovarian cancer in the U.S. than there is cervical cancer.
+
+84
+00:10:50,870 --> 00:10:56,809
+So you see the numbers here 11,000 for cervical and 14,000 for or pharynx estimated in
+
+85
+00:10:56,810 --> 00:11:04,940
+the US and the incidence of male to female is about 5 to 1 of our oropharynx cancer.
+
+86
+00:11:08,230 --> 00:11:14,680
+And so that's why it's important for our boys as well as girls to get HPV vaccines.
+
+87
+00:11:15,070 --> 00:11:19,780
+So I'm definitely having my son are actually vaccinated for HPV.
+
+88
+00:11:20,680 --> 00:11:29,740
+So. So there are some pretty important differences between HPV positive and negative head that cancers,
+
+89
+00:11:30,190 --> 00:11:33,640
+HIV positive patients tend to be a slightly younger age.
+
+90
+00:11:34,420 --> 00:11:41,770
+On average, they are less likely to be smokers, although still more likely than the average person in the population.
+
+91
+00:11:42,040 --> 00:11:51,270
+And that's because smoking, when they got the original HPV infection, lowers their immune system and ability to clear that initial virus.
+
+92
+00:11:51,280 --> 00:11:59,010
+A lot of them are previous smokers. They tend to be somewhat smaller tumor size, less differentiated tumor.
+
+93
+00:11:59,020 --> 00:12:02,200
+So that means that the cells are less different,
+
+94
+00:12:02,200 --> 00:12:11,770
+tend to be less differentiated and more a little bit more similar to stem cells and more likely to have distant metastases.
+
+95
+00:12:12,460 --> 00:12:20,200
+But in spite of this, HPV positive patients tend to have better prognosis because they tend to respond very, very well to treatment.
+
+96
+00:12:23,000 --> 00:12:31,220
+So gosh, it's been about a decade now since I started looking at differences by HPV status
+
+97
+00:12:31,580 --> 00:12:36,680
+at the molecular level in terms of like DNA methylation and gene expression.
+
+98
+00:12:37,820 --> 00:12:47,420
+But more recently, we've been interested in looking at how the HPV positive tumors should be subdivided further into different molecular subtypes.
+
+99
+00:12:47,870 --> 00:12:58,469
+So that's what I'm mainly going to be focusing on today. So it's something to note that that drives kind of our motivation for what we're
+
+100
+00:12:58,470 --> 00:13:03,060
+working on is that the treatment for head and neck cancer can have really horrible,
+
+101
+00:13:03,600 --> 00:13:14,579
+long term, lifelong side effects even. So treatment with radiation and surgery that leads to a permanent loss of saliva,
+
+102
+00:13:14,580 --> 00:13:18,600
+which you can imagine makes it very difficult, if not impossible, to to eat.
+
+103
+00:13:19,290 --> 00:13:22,890
+Some patients are left having to have a feeding tube.
+
+104
+00:13:24,840 --> 00:13:33,600
+He asks. I'm not even going to try to pronounce the full name of what that is and their inability to speak.
+
+105
+00:13:34,110 --> 00:13:42,060
+Fibrosis, neurological damage, facial malformations and scarring, especially if the tumor is recurrent.
+
+106
+00:13:42,540 --> 00:13:48,300
+Then surgery around the face can have really drastic changes in how you look.
+
+107
+00:13:48,660 --> 00:13:53,610
+So obviously these things can really affect the quality of life of these patients.
+
+108
+00:13:54,630 --> 00:14:04,350
+So our goal is and precision medicine for HIV positive head and neck cancer to try to see whether
+
+109
+00:14:04,350 --> 00:14:11,670
+we can identify a certain subset of patients who could benefit from de-escalated treatments.
+
+110
+00:14:11,850 --> 00:14:16,890
+So less harsh treatment so that we can improve their quality of life later on.
+
+111
+00:14:17,370 --> 00:14:22,170
+As you can see here on the survival curves, HPV positive patients,
+
+112
+00:14:22,920 --> 00:14:32,309
+about 80% of them tend to survive six years and beyond, whereas it's about 50% for HPV negative patients on the left.
+
+113
+00:14:32,310 --> 00:14:36,810
+This is disease specific survival and thus overall survival.
+
+114
+00:14:40,880 --> 00:14:50,810
+So I also mentioned that there has been a couple clinical trials looking at de-escalation of HIV positive patients,
+
+115
+00:14:50,810 --> 00:14:59,060
+kind of overall using very basic variables to to classify them into whether they can de-escalate treatment or not,
+
+116
+00:14:59,390 --> 00:15:04,490
+such as whether they're nonsmokers based on stage and so forth.
+
+117
+00:15:04,490 --> 00:15:10,610
+But using these very basic decision making variables,
+
+118
+00:15:12,470 --> 00:15:19,070
+the result was that the those patients that had de-escalate therapy actually a slightly higher risk of death.
+
+119
+00:15:19,070 --> 00:15:21,710
+And so that trial was stopped early.
+
+120
+00:15:22,190 --> 00:15:32,150
+And so clearly we need better kind of molecular variables to decide which subset of patients can benefit from the escalated treatment.
+
+121
+00:15:32,900 --> 00:15:38,900
+And for those that are similarly for the patients now, there are still 20% who die.
+
+122
+00:15:39,230 --> 00:15:49,490
+So similarly, can we identify at a higher risk subset of patients who could benefit from an alternative or additional therapy?
+
+123
+00:15:51,380 --> 00:15:57,880
+So, you know, there are a number of different approaches that can be used for studying cancer for the genome.
+
+124
+00:15:57,890 --> 00:16:03,680
+You can look at things like copy number, alterations, mutations, of course, neoantigens,
+
+125
+00:16:03,680 --> 00:16:16,580
+or looking at new parts of proteins called peptides that have a mutation in them that the immune system can respond to fusion genes.
+
+126
+00:16:17,510 --> 00:16:28,970
+So all of these looking at genome aspects, looking at different cell type proportions or bacteria, looking at the epigenome with DNA methylation.
+
+127
+00:16:29,750 --> 00:16:37,760
+And so these are all of the types of omics data that we've used so far to study head and neck cancer.
+
+128
+00:16:38,060 --> 00:16:41,720
+And mainly I'm going to be talking about the RNA seq.
+
+129
+00:16:43,280 --> 00:16:51,960
+Sorry. These are the ones that we've looked at to study and that cats are really going to be talking about the use of about our namesake.
+
+130
+00:16:53,150 --> 00:16:59,150
+So all of these things can affect gene expression, which can drive different tumor subtypes,
+
+131
+00:16:59,510 --> 00:17:05,720
+agnostic biomarkers can use to predict treatment, response, recurrence and survival.
+
+132
+00:17:10,240 --> 00:17:17,410
+And research in different tumor types will lead to different subset of these being most important in studying, right?
+
+133
+00:17:17,890 --> 00:17:23,950
+So the cohort that we've use and I'll mainly be talking about are two different cohorts,
+
+134
+00:17:23,950 --> 00:17:31,000
+one from the University of Michigan, which is 36 patients, and half of them 18 were HPV positive.
+
+135
+00:17:31,360 --> 00:17:35,830
+And then the TCGA or the Cancer Genome Atlas.
+
+136
+00:17:36,190 --> 00:17:45,220
+If you haven't heard about that yet. In this class, you will likely hear about it more because this is a big consortium funded by NIH that has
+
+137
+00:17:45,250 --> 00:17:52,750
+generated a ton of extremely useful molecular data across many different types of cancers,
+
+138
+00:17:53,080 --> 00:18:02,469
+thousands and thousands of cancers. And so we've mainly been using 66 HPV positive samples from the head and neck
+
+139
+00:18:02,470 --> 00:18:09,970
+cancer group of this and and again mainly be referring to the RNA seq data.
+
+140
+00:18:14,060 --> 00:18:21,290
+So now I'm going to go on into our unsupervised learning approach to identify the positive tumor subtypes.
+
+141
+00:18:21,590 --> 00:18:30,790
+Are there any questions about the background material? Yeah.
+
+142
+00:18:31,210 --> 00:18:36,370
+True I HPV positive patients have a higher prognosis than it actually be negative.
+
+143
+00:18:37,390 --> 00:18:47,020
+That's because their tumors tend to respond so well to the default treatments, so they respond very well to radiation.
+
+144
+00:18:48,430 --> 00:18:59,070
+Why that is. There are some guesses, but it's not necessarily very well known why they respond so well to that.
+
+145
+00:18:59,180 --> 00:19:04,649
+Yeah. To Jeremy.
+
+146
+00:19:04,650 --> 00:19:13,050
+If you know anything else, we may have a young guy who may have smaller tumors, usually something as simple as lots and lots of things play into it.
+
+147
+00:19:13,380 --> 00:19:18,770
+Yeah, I know. So.
+
+148
+00:19:19,710 --> 00:19:26,190
+So. Choosing an approach to identify tumor subtypes if there even are tumor subtypes to identify.
+
+149
+00:19:26,670 --> 00:19:31,260
+So, you know, there's many different machine learning algorithms to choose from.
+
+150
+00:19:31,890 --> 00:19:36,690
+We can look at it divided between, you know, classical machine learning techniques and deep learning.
+
+151
+00:19:37,260 --> 00:19:40,319
+We only have, you know, less than 100 samples to work with.
+
+152
+00:19:40,320 --> 00:19:48,810
+So I think that kind of takes out that deep learning where you really need at least thousands to work with.
+
+153
+00:19:49,230 --> 00:19:55,500
+So within the classical machine, learning could be divided into unsupervised learning approaches,
+
+154
+00:19:55,890 --> 00:20:01,260
+supervised learning where there's labeled data as opposed to unsupervised,
+
+155
+00:20:01,260 --> 00:20:11,790
+where you don't have any labels known a priori, and reinforcement learning, which is at least so far not used as much in bioinformatics.
+
+156
+00:20:13,410 --> 00:20:18,560
+So in this case, you know, we don't know. We don't have any label data.
+
+157
+00:20:18,570 --> 00:20:24,270
+We don't know subtypes of HP positive tumors yet. So we're going to choose the unsupervised learning approach.
+
+158
+00:20:24,570 --> 00:20:31,350
+And with it then this clustering is a very good technique.
+
+159
+00:20:33,660 --> 00:20:37,740
+We didn't feel we needed anything more complicated than that clustering.
+
+160
+00:20:38,070 --> 00:20:41,860
+And so then to choose, you know, which clustering approach.
+
+161
+00:20:42,270 --> 00:20:46,170
+So two common ones are K means our comedians,
+
+162
+00:20:47,220 --> 00:20:53,160
+media and just a little bit more robust to our outliers because it's using a non parametric
+
+163
+00:20:53,160 --> 00:20:58,010
+approach or hierarchical clustering so they each have their advantages and disadvantages.
+
+164
+00:20:59,310 --> 00:21:03,690
+For K means it can be difficult to predict the number of clusters.
+
+165
+00:21:03,690 --> 00:21:11,639
+Right? We don't even know so far whether there are different subtypes or identify the order of the data and rescaling
+
+166
+00:21:11,640 --> 00:21:19,110
+can greatly affect results and it can be difficult to interpret the biology from the results when doing K means.
+
+167
+00:21:19,470 --> 00:21:27,560
+And so that was kind of the biggest driver for me to choose hierarchical clustering and I had already had a lot of experience with that already.
+
+168
+00:21:27,900 --> 00:21:37,170
+So some advantages that is, you don't need to choose a number of clusters a priori as if you've got a tree diagram
+
+169
+00:21:37,170 --> 00:21:43,409
+which you can then use to choose the cutoff and outputs are very informative.
+
+170
+00:21:43,410 --> 00:21:50,219
+So yeah, you have that hierarchical structure and it's very easy to do biological interpretation
+
+171
+00:21:50,220 --> 00:21:55,740
+with a heatmap and clustering of the individual genes used to do the clustering.
+
+172
+00:21:56,910 --> 00:22:01,500
+Some disadvantages are that it's sensitive. You can be sensitive to outliers.
+
+173
+00:22:02,340 --> 00:22:10,750
+And so in order to. In order to address that, I'll explain in the coming slides what we did.
+
+174
+00:22:11,170 --> 00:22:15,610
+And it can be slow for large numbers of variables, but that didn't really matter too much.
+
+175
+00:22:16,680 --> 00:22:23,409
+You know, although we we did have potentially thousands of genes, you know, it's not that big of a deal to wait an hour.
+
+176
+00:22:23,410 --> 00:22:27,840
+If we need to wait an hour, we're clustering together.
+
+177
+00:22:27,850 --> 00:22:31,750
+People are clustered together genes. Well, it's both.
+
+178
+00:22:32,410 --> 00:22:38,080
+Right? So I'll show our example of what the resulting heat map looks like.
+
+179
+00:22:38,470 --> 00:22:47,530
+But so we've got we've got our two cohorts, university tenants, 36 from University of Michigan.
+
+180
+00:22:47,530 --> 00:22:56,320
+And then we just focused on the 66 H positive. So those would be the columns and then each row are the genes from the RNA seq data.
+
+181
+00:22:58,550 --> 00:23:09,080
+So before I mention the methods that we that we used for, I want to talk a little bit about consensus clustering.
+
+182
+00:23:09,080 --> 00:23:12,740
+As I said, clustering can be somewhat sensitive to outliers.
+
+183
+00:23:13,100 --> 00:23:26,270
+So consensus clustering is a way to to to get confidence levels in the robustness of the clusters that you identify, subtypes that we identified.
+
+184
+00:23:26,660 --> 00:23:33,830
+So it's, it's, it's when you aggregate the results from multiple clustering algorithms.
+
+185
+00:23:33,830 --> 00:23:36,140
+So it's kind of an ensemble learning approach.
+
+186
+00:23:36,680 --> 00:23:44,210
+And it's nice that it gives you a measure of stability or measure of confidence of each of the resulting clusters.
+
+187
+00:23:46,010 --> 00:23:53,060
+So the choices that we still have or the number of genes to include the distance measure,
+
+188
+00:23:53,120 --> 00:23:59,599
+to use the clustering methods to use or different linkage methods to use in clustering.
+
+189
+00:23:59,600 --> 00:24:06,500
+So all of these can affect the results. We want our results to be robust to any specific one choice that we make.
+
+190
+00:24:07,940 --> 00:24:13,460
+So what the implementation of consensus clustering that we used.
+
+191
+00:24:14,090 --> 00:24:17,880
+So we did 500 iterations of hierarchical clustering.
+
+192
+00:24:17,900 --> 00:24:20,930
+Consensus clustering could be used with Siemens as well.
+
+193
+00:24:21,740 --> 00:24:32,510
+And then each for each iteration chooses 80% of cases without replacement each time and builds a consensus matrix.
+
+194
+00:24:36,870 --> 00:24:40,390
+So that all the steps that we did to ensure robustness.
+
+195
+00:24:40,410 --> 00:24:47,100
+So first, we ranked the genes by decreasing variance relative to their mean expression.
+
+196
+00:24:47,430 --> 00:24:50,700
+So the variance of jeans and transcript.
+
+197
+00:24:51,090 --> 00:24:56,729
+Transcode Transcriptomic data is a function of its mean expression,
+
+198
+00:24:56,730 --> 00:25:06,120
+so we don't want to just start by decreasing variance and take the top because then we'll be biased towards C towards the lower expressed genes.
+
+199
+00:25:06,540 --> 00:25:16,440
+So we look at the function relative to its mean expression and take the ones that are more variable relative to the mean.
+
+200
+00:25:17,430 --> 00:25:20,940
+Then we chose different numbers of top variable genes to cluster.
+
+201
+00:25:20,940 --> 00:25:25,680
+We didn't want to use our results to be just based on one choice for that.
+
+202
+00:25:26,190 --> 00:25:33,150
+We also chose different distance measures Euclidean distance centered, non centered correlation.
+
+203
+00:25:33,990 --> 00:25:37,920
+We chose different linkage methods for the clustering algorithm itself.
+
+204
+00:25:38,550 --> 00:25:45,810
+Complete linkage, average linkage, single linkage. And then we did consensus clustering on these.
+
+205
+00:25:46,530 --> 00:25:51,290
+We started with our University of Michigan cohort and then we added in the
+
+206
+00:25:51,330 --> 00:25:57,210
+DCG cohort to see if the results were again robust to when we added that in.
+
+207
+00:25:57,840 --> 00:26:04,980
+And so in most cases, not a single sample switched cluster within the HPV positive group.
+
+208
+00:26:05,310 --> 00:26:11,400
+And some cases wondered, you could say we had one outlier that whose cluster was somewhat unclear.
+
+209
+00:26:12,860 --> 00:26:21,200
+So with consensus clustering, you do need to pick ultimately the number of clusters that you're going to use.
+
+210
+00:26:21,680 --> 00:26:28,100
+And so I you know, I said that we did like 500 iterations of this.
+
+211
+00:26:28,430 --> 00:26:38,030
+And so with each iteration, it keeps track of which samples are assigned to which cluster assuming different numbers of clusters.
+
+212
+00:26:38,030 --> 00:26:41,240
+So with K equals three. Three clusters.
+
+213
+00:26:41,630 --> 00:26:47,360
+So we have the HPV on the left of the HPV negative group.
+
+214
+00:26:47,570 --> 00:26:51,770
+I don't think the pointer is really working. Negative group.
+
+215
+00:26:52,850 --> 00:26:56,630
+And the two HPV positive clusters.
+
+216
+00:26:56,780 --> 00:27:00,280
+I haven't introduced those yet, but we named them to you.
+
+217
+00:27:00,290 --> 00:27:02,030
+And I am you. I'll explain that later.
+
+218
+00:27:02,480 --> 00:27:10,100
+But you see that they're very clear squares here, and that's because across all of the iterations with K equals three,
+
+219
+00:27:10,100 --> 00:27:14,090
+not a single sample switched to a different cluster.
+
+220
+00:27:14,600 --> 00:27:21,740
+In this consensus clustering run. Whereas if we moved to a K of four or have two, which I'm not showing here,
+
+221
+00:27:22,070 --> 00:27:34,280
+then you start getting instability and some some samples start moving around between the iterations, between clusters and also what the case was for.
+
+222
+00:27:34,280 --> 00:27:39,019
+There is only a single sample that was ultimately put into the fourth cluster.
+
+223
+00:27:39,020 --> 00:27:44,780
+So this seems to be quite unstable. So we decided on the table three ultimately.
+
+224
+00:27:49,450 --> 00:27:54,580
+So this is what the final clustering look like for the University of Michigan samples.
+
+225
+00:27:55,060 --> 00:28:01,660
+So and now I'm adding in not just the the hierarchical tree structure,
+
+226
+00:28:01,660 --> 00:28:06,760
+but also what the gene's expression levels looked like that we used for the clustering.
+
+227
+00:28:08,760 --> 00:28:14,010
+So in this case, the most of you have probably seen these kinds of heat maps before.
+
+228
+00:28:14,280 --> 00:28:19,350
+In this case, Red was used for a more highly expressed gene screen for Low Express.
+
+229
+00:28:19,800 --> 00:28:22,170
+And this was created years ago.
+
+230
+00:28:22,170 --> 00:28:28,470
+I would not recommend doing this because people most people who are colorblind cannot distinguish between red and green.
+
+231
+00:28:28,800 --> 00:28:35,700
+So they're not good colors to use. So now we use usually blue and yellow instead.
+
+232
+00:28:38,070 --> 00:28:49,640
+So the same procedure was done. So did you select a know like 200 genes to work from or did you use or you definitely don't want to use organs?
+
+233
+00:28:49,650 --> 00:29:00,420
+Right. So I mentioned we we raised the genes by decreasing variance relative to their mean expression and then we chose different numbers of genes.
+
+234
+00:29:00,420 --> 00:29:09,300
+So top 1000 to 5000, I can't remember off the top of my head exactly what numbers of top variable genes.
+
+235
+00:29:09,630 --> 00:29:18,660
+So, you know, we can't use like we we don't want to bias it towards genes that are significantly
+
+236
+00:29:18,660 --> 00:29:24,540
+differentially expressed between like a priori known groups like HPV status.
+
+237
+00:29:25,920 --> 00:29:35,690
+Right. So we just do something unbiased like the variability level of each gene that just ensures that the gene is changing somewhat, right?
+
+238
+00:29:35,730 --> 00:29:41,910
+If we included all genes, many of them wouldn't change much at all between all of the samples.
+
+239
+00:29:41,910 --> 00:29:45,030
+And so they would just be adding noise to our clustering.
+
+240
+00:29:45,180 --> 00:29:50,190
+So we don't want to use all genes, right?
+
+241
+00:29:50,190 --> 00:29:54,540
+So the same procedure was followed, adding in.
+
+242
+00:29:54,540 --> 00:30:03,540
+Then the 66 had met cancer samples from Tcga and with just the HPV positive samples,
+
+243
+00:30:03,540 --> 00:30:10,109
+the two clusters were optimal with B when we added in the Tsuji, I don't show it.
+
+244
+00:30:10,110 --> 00:30:19,739
+But when we did that, the one HPV positive cluster at Blue from University of Michigan went nice neatly into
+
+245
+00:30:19,740 --> 00:30:25,110
+one cluster with CCJ and the purple ones went neatly fell into the other cluster.
+
+246
+00:30:25,530 --> 00:30:33,690
+So so that showed us that it was consistent then when we added in people from a completely independent cohort.
+
+247
+00:30:34,200 --> 00:30:41,730
+So by that point doing it, you know, all of these different ways, we were very confident that we had identified these two subtypes.
+
+248
+00:30:43,200 --> 00:30:47,820
+So now that we've identified these two subtypes, we wanted to characterize them, you know,
+
+249
+00:30:47,900 --> 00:30:54,900
+and try to understand why are they important, what's the the biology behind what could be driving their differences?
+
+250
+00:30:56,560 --> 00:31:05,050
+So so this is kind of another look at the clustering of a certain subset of the genes.
+
+251
+00:31:05,980 --> 00:31:11,200
+And so you can see their expression level in relation to HPV negative.
+
+252
+00:31:12,680 --> 00:31:20,260
+So and and as I said, particle clustering is nice because it results in this kind of heatmap.
+
+253
+00:31:20,650 --> 00:31:27,520
+And then you can take the genes in each cluster and determine what types of cellular pathways are they involved in.
+
+254
+00:31:27,880 --> 00:31:41,410
+And so we did that and we saw that in the in the blue cluster that there were a lot of immune response genes that were really highly expressed.
+
+255
+00:31:42,080 --> 00:31:53,100
+So you like that? Yeah. So so this large group here, the immune genes, you see that again, red indicates higher expression.
+
+256
+00:31:53,110 --> 00:31:56,860
+So these were higher and that the IMU subtype.
+
+257
+00:31:58,030 --> 00:32:02,530
+And so we named the Subtype II a new for its strong immune response.
+
+258
+00:32:02,950 --> 00:32:10,900
+But it was also had higher expression levels and mesenchymal differentiation and angiogenesis, which is the development of blood vessels.
+
+259
+00:32:11,680 --> 00:32:18,430
+And then the other subtype we saw had very high levels of characterization genes.
+
+260
+00:32:18,820 --> 00:32:28,090
+So characterization is the kind of and end result of differentiated differentiation of epithelial cells.
+
+261
+00:32:28,570 --> 00:32:34,240
+So these are done keratinocytes on the outside of your skin underneath layer are alive
+
+262
+00:32:34,240 --> 00:32:38,710
+keratinocytes and then below that are the less differentiated epithelial cells.
+
+263
+00:32:39,040 --> 00:32:50,260
+So it's similar in your mouth. So also in this subtype, not only characterization, genes were increased, but also oxidation reduction process genes.
+
+264
+00:32:50,770 --> 00:33:01,180
+And this subtype also was noted to have significantly more likely mutation and a gene called PIK three S.A., which is important in cancer.
+
+265
+00:33:03,620 --> 00:33:11,790
+So. So we still don't know at this point, you know, what could be driving these differences and and are they important?
+
+266
+00:33:11,840 --> 00:33:15,350
+Right. So there's no relationship yet with survival.
+
+267
+00:33:15,950 --> 00:33:26,900
+So one of the first things we noticed was, remember I said in some tumors, the HPV viral genes can become integrated into the host genome.
+
+268
+00:33:27,260 --> 00:33:34,819
+So one of the first things we noted was that the T subtype was much more likely to have HPV integration.
+
+269
+00:33:34,820 --> 00:33:45,860
+And both in the cohort and on the court compared to the immune subtype, I was much less likely to have integration in them.
+
+270
+00:33:46,370 --> 00:33:48,230
+So it turns out that.
+
+271
+00:33:50,080 --> 00:34:01,910
+That the biology of what's known from Create Integration could explain a number of differences between the subtypes, although maybe not all.
+
+272
+00:34:03,050 --> 00:34:10,280
+So the subtypes we also looked at copy number alterations and they were different in terms of copy number alterations.
+
+273
+00:34:10,850 --> 00:34:24,410
+So the two significant differences were in the Q arm of chromosome three was significantly more likely to have gains in the T subtype.
+
+274
+00:34:24,860 --> 00:34:31,970
+And the Q arm of chromosome 16 was significantly more likely to have losses in the Iyamu subtype.
+
+275
+00:34:35,890 --> 00:34:42,120
+So we later identified other important differences between the subtypes.
+
+276
+00:34:42,550 --> 00:34:47,290
+So what I said so far has all been published, but now this has not yet been published.
+
+277
+00:34:47,740 --> 00:34:53,889
+So the IMU subtype has been seen to have more infiltrating immune cells.
+
+278
+00:34:53,890 --> 00:34:58,360
+So that kind of makes sense along with what we saw with the gene expression data.
+
+279
+00:34:58,720 --> 00:35:08,980
+But now in this case, we're actually looking at image data from our imaging slides from the tumors.
+
+280
+00:35:09,460 --> 00:35:16,300
+So for each patient, what's called an HD slide is created automatically.
+
+281
+00:35:16,310 --> 00:35:21,520
+So that's always done and that stained for certain things.
+
+282
+00:35:21,760 --> 00:35:33,190
+And so a machine learning approach was used to to identify from these images of each tumor where the tumor cells are,
+
+283
+00:35:33,220 --> 00:35:35,650
+where the infiltrating immune cells are,
+
+284
+00:35:35,860 --> 00:35:44,410
+and then look at the distance and it uses the minimum distance between from each tumor cell to an immune cell.
+
+285
+00:35:44,710 --> 00:35:51,760
+And so and then it comes up with what's called an overall G cross score for H tumors.
+
+286
+00:35:51,790 --> 00:36:03,340
+H in a slide image. And so a higher G cross score means a closer distance between the immune cells and the tumor cells.
+
+287
+00:36:03,820 --> 00:36:09,790
+So that's indicative of a good immune response to the tumor.
+
+288
+00:36:10,210 --> 00:36:20,170
+And in fact, the IAM use subtype has significantly higher g scores than the care t subtype and it
+
+289
+00:36:20,170 --> 00:36:25,090
+is known that patients with more infiltrating immune cells have better prognosis.
+
+290
+00:36:25,330 --> 00:36:30,819
+In fact, this year, this class last year looked at some of this data for the project.
+
+291
+00:36:30,820 --> 00:36:34,450
+Right, Jeremy? So different class.
+
+292
+00:36:34,450 --> 00:36:38,560
+I think it was a different class. Okay. Yes. So anyone who is a.
+
+293
+00:36:39,980 --> 00:36:43,100
+Janet G cross schools before.
+
+294
+00:36:46,220 --> 00:36:54,320
+So so this was kind of this was a clue that, you know, the subtypes would have different prognosis.
+
+295
+00:36:55,700 --> 00:37:01,790
+So something else we we looked at was DNA methylation using whole genome by self sequencing.
+
+296
+00:37:02,150 --> 00:37:08,750
+And the IMU subtype had drastically higher levels of DNA methylation.
+
+297
+00:37:09,620 --> 00:37:20,299
+So much so that looking across the genome at differential methylation, 99% of the differences between I am unpaired t or hyper methylated.
+
+298
+00:37:20,300 --> 00:37:25,040
+So more methylation in the immune subtype across the genome.
+
+299
+00:37:25,910 --> 00:37:32,720
+Here we're looking specifically at methylation and transposable elements or repetitive elements, families.
+
+300
+00:37:33,140 --> 00:37:38,900
+So there's elements, line one, elements line to line one element.
+
+301
+00:37:38,900 --> 00:37:44,390
+So these are repeated elements that take up actually a significant proportion of our genome.
+
+302
+00:37:44,840 --> 00:37:53,840
+And when they become methylated and cancer, which they usually do, that can lead to more genomic stability because they can start jumping around.
+
+303
+00:37:53,840 --> 00:37:59,960
+And so they're usually kept highly methylated. So looking at,
+
+304
+00:38:00,230 --> 00:38:05,510
+I guess whichever Transposable element family to look at the immune subtype in red had
+
+305
+00:38:05,510 --> 00:38:12,470
+significantly higher DNA methylation than the K or T subtype or HPV negative tumors.
+
+306
+00:38:14,450 --> 00:38:21,109
+And so it is known it has been seen across a number of different tumor types that
+
+307
+00:38:21,110 --> 00:38:26,120
+patients with higher DNA methylation levels have been shown to have better prognosis.
+
+308
+00:38:26,450 --> 00:38:31,400
+So again, this is suggestive of the IMU subtypes having better survival.
+
+309
+00:38:33,230 --> 00:38:37,820
+So. So then more recently, this was published in 2019.
+
+310
+00:38:37,820 --> 00:38:45,590
+This was not our group. Another group did a meta analysis of 197 HIV positive patients.
+
+311
+00:38:45,860 --> 00:38:50,230
+They also used consensus clustering but with self-organizing maps.
+
+312
+00:38:50,240 --> 00:39:02,720
+So this type of their to define their subtypes, they identified three subtypes, this one they described as being the main strong subtype.
+
+313
+00:39:03,140 --> 00:39:08,570
+And then these other two were more care t like one of them actually had more or a cavity
+
+314
+00:39:08,570 --> 00:39:14,000
+tumors and it just happened to be HPV positive and they had the lowest survival.
+
+315
+00:39:15,940 --> 00:39:26,180
+But in any case, there was a significant difference between the I am u subtype up here in green and blue and red, which you do see here on the right.
+
+316
+00:39:26,960 --> 00:39:37,400
+And so this provided a strong evidence that there is survival difference, prognosis difference between these two HPV positive subtypes.
+
+317
+00:39:40,010 --> 00:39:48,560
+So. So then now we're left with the question, you know, how best to classify new tumor samples that we get by subtype.
+
+318
+00:39:48,830 --> 00:39:53,900
+So we've identified the two subtypes which characterize them.
+
+319
+00:39:54,410 --> 00:39:57,290
+We're now in a new grant that we have.
+
+320
+00:39:57,290 --> 00:40:05,030
+We're performing RNA for a new large cohort of HIV positive head net cancers, specifically world variance cancers.
+
+321
+00:40:05,960 --> 00:40:14,360
+And there's also a lot of publicly available HIV positive head net cancer transcriptomic data that have not been characterized by subtype.
+
+322
+00:40:14,660 --> 00:40:19,360
+And research may benefit from that. So you know having to.
+
+323
+00:40:20,310 --> 00:40:24,719
+Reduce hierarchical clustering with the unsupervised approach for what?
+
+324
+00:40:24,720 --> 00:40:28,740
+The new data isn't really the best way to to do this right?
+
+325
+00:40:28,740 --> 00:40:31,850
+Because the results may be somewhat and consistent.
+
+326
+00:40:32,450 --> 00:40:38,309
+Hierarchical clustering was meant to be an unsupervised learning where you don't already have any labeled data.
+
+327
+00:40:38,310 --> 00:40:46,560
+But we do. Now. We have our 84 HIV positive samples that are now have labels as either care t or I am you.
+
+328
+00:40:48,540 --> 00:40:52,620
+And different publications have used slightly different methods.
+
+329
+00:40:53,070 --> 00:40:53,310
+Right.
+
+330
+00:40:53,370 --> 00:41:07,590
+So when we look at the the data from from this study and use our approach, we may get somewhat we will likely get somewhat slightly different results.
+
+331
+00:41:08,250 --> 00:41:16,770
+So the answer is to want to use now a supervised machine learning with the RNA data.
+
+332
+00:41:17,730 --> 00:41:20,880
+So I'm going to now move into the supervised block.
+
+333
+00:41:21,060 --> 00:41:28,820
+10 minutes left. So which supervised machine learning approach do we want to choose?
+
+334
+00:41:29,120 --> 00:41:32,360
+So there are many different options.
+
+335
+00:41:32,660 --> 00:41:35,000
+And right now we're not sure what works best.
+
+336
+00:41:35,390 --> 00:41:44,870
+So we decided to kind of take an ensemble approach and try several different supervised learning approaches.
+
+337
+00:41:44,870 --> 00:41:48,320
+Again, you know, deep learning's kind of question. We don't have enough samples for that.
+
+338
+00:41:48,830 --> 00:41:59,900
+So we tried using linear support vector machines, knife base based neighbors, random forest, which is a type of decision tree and logistic regression.
+
+339
+00:42:00,710 --> 00:42:06,240
+Although to be more robust with the logistic regression, we use what's called the elastic net,
+
+340
+00:42:06,260 --> 00:42:10,970
+which is a regular regularized version of logistic regression.
+
+341
+00:42:12,020 --> 00:42:17,690
+So I quickly go through some of the disadvantages of each of them.
+
+342
+00:42:18,110 --> 00:42:25,940
+So Support Vector Machines doesn't provide a probabilistic explanation for a classification,
+
+343
+00:42:26,330 --> 00:42:34,219
+and it sometimes doesn't perform well without having a margin of separation between the two groups,
+
+344
+00:42:34,220 --> 00:42:37,760
+which we we likely do not have that margin of separation.
+
+345
+00:42:38,900 --> 00:42:46,400
+Now, if Bayes assumes that all the features are independent, which is very likely not not the case,
+
+346
+00:42:46,400 --> 00:42:55,610
+and so how well it forms when that's not true depends on the extent of not satisfying that assumption.
+
+347
+00:42:57,800 --> 00:43:06,410
+K There s neighbor is relatively sensitive to outliers and so sometimes we may have outliers.
+
+348
+00:43:08,990 --> 00:43:13,060
+You need to know the chance, the optimal number of neighbors.
+
+349
+00:43:13,370 --> 00:43:18,170
+There's that kind of unknown parameter and it can be sensitive to noisy data.
+
+350
+00:43:19,040 --> 00:43:26,989
+Random forest with which is like an ensemble of decision trees this one can be tends to perform well.
+
+351
+00:43:26,990 --> 00:43:35,240
+But two major cons are that it can be difficult to interpret the results and there's many parameters to fit.
+
+352
+00:43:35,240 --> 00:43:39,050
+And so because of that, it can be prone to overfitting.
+
+353
+00:43:41,090 --> 00:43:46,760
+And then finally, it's kind of my favorite to try is that elastic net logistic regression.
+
+354
+00:43:47,150 --> 00:43:53,660
+So here we have the and the square brackets, the basic logistic regression approach.
+
+355
+00:43:54,080 --> 00:44:02,240
+Now we're adding on to regularization things, both using that that L to norm and the L one norm here.
+
+356
+00:44:02,510 --> 00:44:14,510
+And so we we tried to minimize this entire function for elastic net logistic regression, which w have a penalty granted in the likelihood.
+
+357
+00:44:15,610 --> 00:44:19,450
+The. Of you is the.
+
+358
+00:44:21,280 --> 00:44:24,790
+That's the logistic was of a coefficient.
+
+359
+00:44:24,790 --> 00:44:32,840
+So. Logistic model. About fire, I presume?
+
+360
+00:44:33,320 --> 00:44:39,920
+Yeah. Okay.
+
+361
+00:44:40,010 --> 00:44:45,080
+So for those of you who haven't implements are familiar with the machine learning techniques.
+
+362
+00:44:45,470 --> 00:44:53,150
+So a typical approach to follow is you have to divide your data into three sets.
+
+363
+00:44:53,210 --> 00:45:01,790
+Training, validation and test. But actually the training and validation gets switched up multiple times,
+
+364
+00:45:02,180 --> 00:45:10,130
+usually to do cross validation, fold cost validation, meaning that, well, what's the next thing?
+
+365
+00:45:10,790 --> 00:45:18,110
+So so we chose to 70% of our samples for cross-validation so each time.
+
+366
+00:45:19,190 --> 00:45:32,300
+So initially we took out 58 of our 84 samples and then each we went through several files of cross-validation using.
+
+367
+00:45:34,230 --> 00:45:41,400
+I think we did five fold cross-validation so 4/5 of that 58 for training, one fifth for validation.
+
+368
+00:45:41,450 --> 00:45:48,090
+Then we switched to a different one for our for validation and the rest for training and so forth five times.
+
+369
+00:45:48,630 --> 00:45:57,240
+And then we held back the 26 of the other 30% of samples for to confirm our final model.
+
+370
+00:45:57,780 --> 00:46:03,209
+Because with the cross-validation you're optimizing the parameters and you want to have an
+
+371
+00:46:03,210 --> 00:46:10,290
+independent set of samples left out to test how well the model behaves outside of that.
+
+372
+00:46:10,650 --> 00:46:17,520
+So typically you would want your you would want your test sample to be independent.
+
+373
+00:46:17,880 --> 00:46:27,300
+So that would have meant like using the tcga data to for training and cross-validation and leaving that up samples for test.
+
+374
+00:46:28,350 --> 00:46:37,020
+But I didn't want to do that because I didn't want the training and model tuning to be done over
+
+375
+00:46:37,020 --> 00:46:44,040
+fit on just one set of T because J has certain properties about it that it could over fit to.
+
+376
+00:46:44,370 --> 00:46:50,669
+So I thought it's really important to get this this training done on multiple
+
+377
+00:46:50,670 --> 00:46:57,230
+cohorts so that it's not overfitting when we go to use other independent data sets.
+
+378
+00:46:58,410 --> 00:47:05,670
+So I thought that was more important than having a completely independent set of samples for the for the test.
+
+379
+00:47:06,510 --> 00:47:16,350
+But that comes with the caveat of now. Now, the the test set could potentially be slightly overfitting still, and we wouldn't see that.
+
+380
+00:47:17,990 --> 00:47:21,490
+Then we can use this to classify new data.
+
+381
+00:47:21,850 --> 00:47:28,989
+So some other considerations that we want to take into account is that if there are batch effects present,
+
+382
+00:47:28,990 --> 00:47:32,230
+that could be potentially disastrous to our clustering.
+
+383
+00:47:32,500 --> 00:47:37,540
+And so we need to be really careful about picking a good batch correction method.
+
+384
+00:47:37,990 --> 00:47:42,190
+We compared two different ones and we in the end chose combat.
+
+385
+00:47:43,630 --> 00:47:51,440
+B Before we use a complex machine learning approach, we want to check a simpler approach can work better or at least equally as well.
+
+386
+00:47:51,440 --> 00:47:56,830
+And so we did that. We want to look at potential for overfitting.
+
+387
+00:47:56,890 --> 00:48:01,690
+Right. So we only have 84 labeled samples for training and testing.
+
+388
+00:48:02,320 --> 00:48:07,660
+We have potentially thousands of genes to incorporate, you know, potentially thousands of features.
+
+389
+00:48:09,820 --> 00:48:13,210
+I mentioned that if we only used one core for the danger of overfitting.
+
+390
+00:48:14,560 --> 00:48:23,470
+Finally, some users may not have all of the required genes measured, and so we want to allow learning when potentially missing data.
+
+391
+00:48:23,770 --> 00:48:30,819
+And so in addition to learning from with all of the individual genes, we kind of developed two approaches,
+
+392
+00:48:30,820 --> 00:48:36,160
+one with individual genes and one based on the principal components of the of the data.
+
+393
+00:48:38,060 --> 00:48:41,120
+So first, looking at a simple approach.
+
+394
+00:48:41,510 --> 00:48:51,450
+So, you know, immune score or T cells are essentially the most important part of the immune response and characterization.
+
+395
+00:48:51,720 --> 00:48:59,870
+The two main drivers of the two subtypes. So we looked at whether that just a T cell score and the Keratinocytes score based
+
+396
+00:48:59,870 --> 00:49:05,509
+on the expression data could correctly classify these tumors and they could not.
+
+397
+00:49:05,510 --> 00:49:11,000
+You see, there's a lot of overlapping between the IU and the carotene tumors.
+
+398
+00:49:11,390 --> 00:49:21,650
+So this shows that the subtypes that really are more complex than just these two are just these two cellular processes.
+
+399
+00:49:23,150 --> 00:49:28,040
+So our strategies for the initial feature selection, again,
+
+400
+00:49:28,040 --> 00:49:32,510
+we want to kind of hedge your bets in a number of different ways for over and under fitting.
+
+401
+00:49:32,840 --> 00:49:43,160
+So the smallest number of jeans we chose was seven of these four really important genes or features from from all of the sets below.
+
+402
+00:49:43,880 --> 00:49:47,540
+So the number of genes that they all agreed on,
+
+403
+00:49:48,440 --> 00:49:57,839
+we chose 48 genes that were the intersection of another different paper that identified two subtypes, which is being called cat care and.
+

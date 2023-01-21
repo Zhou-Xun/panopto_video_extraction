@@ -1,0 +1,850 @@
+1
+00:00:08,990 --> 00:00:11,730
+Hello, welcome to this lecture on
+
+2
+00:00:11,730 --> 00:00:14,145
+hypothesis testing with
+continuous outcomes.
+
+3
+00:00:14,145 --> 00:00:15,870
+In this lecture we're
+going to discuss how
+
+4
+00:00:15,870 --> 00:00:17,790
+Bonferroni corrections are used
+
+5
+00:00:17,790 --> 00:00:20,540
+with analysis of variance.
+
+6
+00:00:20,540 --> 00:00:23,580
+Now recall what a
+Type 1 error is.
+
+7
+00:00:23,580 --> 00:00:26,535
+A Type 1 error occurs
+when we rejected
+
+8
+00:00:26,535 --> 00:00:29,985
+the null hypothesis when
+we should not have.
+
+9
+00:00:29,985 --> 00:00:33,695
+We have accepted the alternative
+when we should not have.
+
+10
+00:00:33,695 --> 00:00:35,450
+This is an incorrect decision,
+
+11
+00:00:35,450 --> 00:00:37,040
+this is a bad decision.
+
+12
+00:00:37,040 --> 00:00:39,140
+We are saying that the
+groups are different from
+
+13
+00:00:39,140 --> 00:00:41,575
+each other when
+actually they're not.
+
+14
+00:00:41,575 --> 00:00:44,060
+Now we increase our
+chance of making
+
+15
+00:00:44,060 --> 00:00:45,620
+a Type 1 error when we
+
+16
+00:00:45,620 --> 00:00:48,335
+continually analyze
+the data repeatedly,
+
+17
+00:00:48,335 --> 00:00:53,125
+until we finally get a p-value
+that is less than 0.05.
+
+18
+00:00:53,125 --> 00:00:57,290
+Doing so is known in research
+as a phishing expedition.
+
+19
+00:00:57,290 --> 00:00:59,870
+We simply randomly try
+different combinations of
+
+20
+00:00:59,870 --> 00:01:01,430
+the data until we get
+
+21
+00:01:01,430 --> 00:01:04,100
+finally something that is
+significant to talk about.
+
+22
+00:01:04,100 --> 00:01:08,045
+Now this problem occurs
+in ANOVA after we do
+
+23
+00:01:08,045 --> 00:01:09,920
+our first initial comparison
+
+24
+00:01:09,920 --> 00:01:12,050
+of all of the means
+to each other.
+
+25
+00:01:12,050 --> 00:01:15,020
+We then use t-tests to
+compare specific pairs of
+
+26
+00:01:15,020 --> 00:01:16,835
+means and is at this point
+
+27
+00:01:16,835 --> 00:01:19,335
+that the Type 1 error
+rate can increase.
+
+28
+00:01:19,335 --> 00:01:21,290
+So we'd like to have a
+way to make sure that
+
+29
+00:01:21,290 --> 00:01:23,180
+the Type 1 error rate does not go
+
+30
+00:01:23,180 --> 00:01:27,095
+above 0.05 across
+all of our analysis,
+
+31
+00:01:27,095 --> 00:01:29,060
+and to do so, we have to use
+
+32
+00:01:29,060 --> 00:01:31,800
+a smaller p-value threshold than
+
+33
+00:01:31,800 --> 00:01:34,955
+0.05 when we do these t-tests.
+
+34
+00:01:34,955 --> 00:01:37,520
+So our learning objectives
+are first to understand
+
+35
+00:01:37,520 --> 00:01:40,325
+when to apply a Bonferroni
+correction in ANOVA,
+
+36
+00:01:40,325 --> 00:01:43,990
+then to understand how the
+Bonferroni correction is used,
+
+37
+00:01:43,990 --> 00:01:45,200
+and then to understand how
+
+38
+00:01:45,200 --> 00:01:47,030
+the Bonferroni correction changes
+
+39
+00:01:47,030 --> 00:01:50,915
+depending upon how many
+populations we are comparing.
+
+40
+00:01:50,915 --> 00:01:54,740
+So returning to the manuscript
+of pase and colleagues.
+
+41
+00:01:54,740 --> 00:01:56,935
+A second set of
+analyses they did,
+
+42
+00:01:56,935 --> 00:02:00,170
+compared the three beverage
+consumption groups with
+
+43
+00:02:00,170 --> 00:02:01,835
+respect to their mean grams of
+
+44
+00:02:01,835 --> 00:02:04,160
+saturated fat consumed per day.
+
+45
+00:02:04,160 --> 00:02:07,565
+In this table, I showed you
+a subset of their data.
+
+46
+00:02:07,565 --> 00:02:10,370
+The last column in this
+table shows you the number
+
+47
+00:02:10,370 --> 00:02:13,324
+of observations in each
+of the three groups,
+
+48
+00:02:13,324 --> 00:02:15,410
+and the third column
+shows you the sample
+
+49
+00:02:15,410 --> 00:02:18,200
+mean for the saturated
+fat consumption,
+
+50
+00:02:18,200 --> 00:02:19,580
+and the in parentheses are
+
+51
+00:02:19,580 --> 00:02:22,270
+the corresponding
+standard deviations.
+
+52
+00:02:22,270 --> 00:02:24,140
+Again the three groups that we're
+
+53
+00:02:24,140 --> 00:02:25,760
+interested in are described by
+
+54
+00:02:25,760 --> 00:02:27,320
+the beverage consumption level
+
+55
+00:02:27,320 --> 00:02:29,750
+shown in the second column.
+
+56
+00:02:29,750 --> 00:02:31,610
+If we do an analysis of
+
+57
+00:02:31,610 --> 00:02:34,355
+variance with these
+three populations,
+
+58
+00:02:34,355 --> 00:02:36,290
+again we're interested
+in seeing if there are
+
+59
+00:02:36,290 --> 00:02:38,629
+means anywhere among
+these three groups,
+
+60
+00:02:38,629 --> 00:02:41,600
+the resulting ANOVA table
+is shown in front of you.
+
+61
+00:02:41,600 --> 00:02:43,700
+The p-value is shown in
+
+62
+00:02:43,700 --> 00:02:45,620
+the very right
+column produced from
+
+63
+00:02:45,620 --> 00:02:48,450
+the data and this
+number is less than
+
+64
+00:02:48,450 --> 00:02:52,380
+0.05 our typical threshold
+for significance,
+
+65
+00:02:52,380 --> 00:02:54,530
+and therefore we would
+conclude that there is
+
+66
+00:02:54,530 --> 00:02:57,050
+a statistically
+significant difference in
+
+67
+00:02:57,050 --> 00:02:59,330
+the mean daily grams of
+saturated fat that is
+
+68
+00:02:59,330 --> 00:03:02,285
+consumed among these
+three populations.
+
+69
+00:03:02,285 --> 00:03:04,070
+Again our conclusion
+is that there is
+
+70
+00:03:04,070 --> 00:03:06,580
+a difference somewhere
+among these three groups.
+
+71
+00:03:06,580 --> 00:03:09,080
+Unfortunately up to
+this point we don't
+
+72
+00:03:09,080 --> 00:03:12,410
+know which populations
+differ from each other.
+
+73
+00:03:12,410 --> 00:03:14,690
+To answer that question,
+
+74
+00:03:14,690 --> 00:03:15,950
+we're going to do what we call a
+
+75
+00:03:15,950 --> 00:03:17,660
+post-hoc or after the fact
+
+76
+00:03:17,660 --> 00:03:20,960
+comparison of each pair of means.
+
+77
+00:03:20,960 --> 00:03:23,555
+In other words we're going
+to do a two sample t-test
+
+78
+00:03:23,555 --> 00:03:26,840
+with each possible pair
+of groups in the data,
+
+79
+00:03:26,840 --> 00:03:28,970
+and because we have three groups,
+
+80
+00:03:28,970 --> 00:03:31,565
+there are three
+pairwise comparisons.
+
+81
+00:03:31,565 --> 00:03:34,585
+We can compare the first
+group to the second group,
+
+82
+00:03:34,585 --> 00:03:36,495
+the first group to
+the third group,
+
+83
+00:03:36,495 --> 00:03:39,615
+and the second group
+to the third group.
+
+84
+00:03:39,615 --> 00:03:42,675
+If we do each of
+those comparisons,
+
+85
+00:03:42,675 --> 00:03:45,100
+we do three two-sample t-tests,
+
+86
+00:03:45,100 --> 00:03:47,120
+I show you the
+following summary of
+
+87
+00:03:47,120 --> 00:03:49,040
+the results in this table.
+
+88
+00:03:49,040 --> 00:03:50,630
+I showed you the t-statistic for
+
+89
+00:03:50,630 --> 00:03:52,220
+each of the comparisons and
+
+90
+00:03:52,220 --> 00:03:53,720
+the resulting p-value that would
+
+91
+00:03:53,720 --> 00:03:55,790
+result from the computer.
+
+92
+00:03:55,790 --> 00:03:57,710
+We now have to use these three
+
+93
+00:03:57,710 --> 00:03:59,540
+p-values to decide whether or
+
+94
+00:03:59,540 --> 00:04:03,545
+not any of these pairs have
+significant differences.
+
+95
+00:04:03,545 --> 00:04:04,850
+But as I stated,
+
+96
+00:04:04,850 --> 00:04:06,790
+the more and more
+comparisons we do,
+
+97
+00:04:06,790 --> 00:04:08,750
+the more likely we
+are simply to get
+
+98
+00:04:08,750 --> 00:04:11,990
+a p-value small enough
+simply by a chance.
+
+99
+00:04:11,990 --> 00:04:13,955
+We want to guard against that.
+
+100
+00:04:13,955 --> 00:04:16,960
+So we do something called
+a Bonferroni correction,
+
+101
+00:04:16,960 --> 00:04:19,245
+and what that correction
+says is to take
+
+102
+00:04:19,245 --> 00:04:20,480
+each p-value that you
+
+103
+00:04:20,480 --> 00:04:22,595
+created from the
+two-sample t-tests,
+
+104
+00:04:22,595 --> 00:04:26,375
+and multiply those p-values
+by the number of comparisons,
+
+105
+00:04:26,375 --> 00:04:28,940
+and then you take
+those new p-values
+
+106
+00:04:28,940 --> 00:04:32,155
+and compare those to
+the threshold of 0.05,
+
+107
+00:04:32,155 --> 00:04:34,295
+and since we have
+three comparisons,
+
+108
+00:04:34,295 --> 00:04:36,530
+we're going to take
+those three p-values and
+
+109
+00:04:36,530 --> 00:04:38,750
+multiply each of them by three.
+
+110
+00:04:38,750 --> 00:04:41,885
+So I show you the original
+unadjusted p-values,
+
+111
+00:04:41,885 --> 00:04:44,660
+and the resulting what I
+call Bonferroni p-values
+
+112
+00:04:44,660 --> 00:04:46,370
+which are simply the
+original p-value
+
+113
+00:04:46,370 --> 00:04:48,035
+multiplied by three.
+
+114
+00:04:48,035 --> 00:04:50,090
+We now can make decisions from
+
+115
+00:04:50,090 --> 00:04:51,920
+these p-values and
+compare each of
+
+116
+00:04:51,920 --> 00:04:55,880
+those p-values to the
+original threshold of 0.05.
+
+117
+00:04:55,880 --> 00:04:57,680
+You can see that by inflating
+
+118
+00:04:57,680 --> 00:04:59,315
+each of these three p-values,
+
+119
+00:04:59,315 --> 00:05:01,310
+I now make it harder to find
+
+120
+00:05:01,310 --> 00:05:04,745
+such cyclical significance
+for any single comparison.
+
+121
+00:05:04,745 --> 00:05:07,100
+In this case, only the
+
+122
+00:05:07,100 --> 00:05:09,470
+difference between the
+less than one beverage
+
+123
+00:05:09,470 --> 00:05:11,030
+per day population and
+
+124
+00:05:11,030 --> 00:05:13,760
+the more than two beverage
+per day populations,
+
+125
+00:05:13,760 --> 00:05:15,275
+have a significant difference.
+
+126
+00:05:15,275 --> 00:05:16,970
+The first and the third groups
+
+127
+00:05:16,970 --> 00:05:18,155
+are the only ones that have
+
+128
+00:05:18,155 --> 00:05:19,790
+significant differences in
+
+129
+00:05:19,790 --> 00:05:22,735
+their mean saturated fat intake.
+
+130
+00:05:22,735 --> 00:05:25,520
+Now, the three comparisons
+
+131
+00:05:25,520 --> 00:05:28,385
+do not result because
+I have three groups.
+
+132
+00:05:28,385 --> 00:05:30,260
+If there are K groups,
+
+133
+00:05:30,260 --> 00:05:32,060
+the number of
+comparisons is actually
+
+134
+00:05:32,060 --> 00:05:34,595
+K times K minus 1 over 2.
+
+135
+00:05:34,595 --> 00:05:37,350
+For three groups,
+that number is three.
+
+136
+00:05:37,350 --> 00:05:38,940
+But if I have five groups,
+
+137
+00:05:38,940 --> 00:05:41,205
+the number of comparisons is 10,
+
+138
+00:05:41,205 --> 00:05:43,095
+and if I have 10 groups,
+
+139
+00:05:43,095 --> 00:05:45,290
+the number of comparisons is 45.
+
+140
+00:05:45,290 --> 00:05:49,120
+So you can see as the
+number of groups increases,
+
+141
+00:05:49,120 --> 00:05:52,445
+the Bonferroni correction
+gets larger and larger.
+
+142
+00:05:52,445 --> 00:05:54,229
+I penalize the p-values
+
+143
+00:05:54,229 --> 00:05:57,080
+more as the number of
+comparisons goes up,
+
+144
+00:05:57,080 --> 00:05:59,660
+because I'm trying
+to avoid finding
+
+145
+00:05:59,660 --> 00:06:03,340
+significant differences
+that truly do not exist.
+
+146
+00:06:03,340 --> 00:06:05,915
+Now we can approach a
+Bonferroni correction
+
+147
+00:06:05,915 --> 00:06:07,415
+using a different method,
+
+148
+00:06:07,415 --> 00:06:08,930
+and what we can do is take
+
+149
+00:06:08,930 --> 00:06:10,910
+the original p-value threshold
+
+150
+00:06:10,910 --> 00:06:13,420
+and divide it by the
+number of comparisons,
+
+151
+00:06:13,420 --> 00:06:15,920
+and then compare the
+original p-values we
+
+152
+00:06:15,920 --> 00:06:19,985
+produced to this new
+lower p-value threshold.
+
+153
+00:06:19,985 --> 00:06:22,520
+Again, I have three comparisons.
+
+154
+00:06:22,520 --> 00:06:24,320
+So the new p-value threshold
+
+155
+00:06:24,320 --> 00:06:26,980
+for these t-tests is not 0.05,
+
+156
+00:06:26,980 --> 00:06:29,000
+it is 0.017, which
+
+157
+00:06:29,000 --> 00:06:30,980
+is the original threshold
+divided by three.
+
+158
+00:06:30,980 --> 00:06:32,210
+So again I go back to
+
+159
+00:06:32,210 --> 00:06:35,390
+the original p-values I got
+from the three t-tests and I
+
+160
+00:06:35,390 --> 00:06:41,320
+compare these p-values to a
+smaller threshold of 0.017.
+
+161
+00:06:41,320 --> 00:06:43,880
+Again we get the same
+conclusion that we
+
+162
+00:06:43,880 --> 00:06:45,530
+saw from the previous approach
+
+163
+00:06:45,530 --> 00:06:46,835
+to the Bonferroni correction.
+
+164
+00:06:46,835 --> 00:06:48,260
+It is only the middle row,
+
+165
+00:06:48,260 --> 00:06:49,640
+the comparison between the group
+
+166
+00:06:49,640 --> 00:06:51,605
+with less than one
+beverage consumed,
+
+167
+00:06:51,605 --> 00:06:53,330
+and the group with more
+than two beverages
+
+168
+00:06:53,330 --> 00:06:54,400
+consumed per day.
+
+169
+00:06:54,400 --> 00:06:57,380
+Those are the only
+pair of groups that
+
+170
+00:06:57,380 --> 00:06:58,910
+differ significantly in
+
+171
+00:06:58,910 --> 00:07:01,040
+the mean daily
+saturated fat intake.
+
+172
+00:07:01,040 --> 00:07:05,300
+That p-value is less than 0.017.
+
+173
+00:07:05,300 --> 00:07:07,415
+So at this point, we now have
+
+174
+00:07:07,415 --> 00:07:09,950
+all the tools that we can use to
+
+175
+00:07:09,950 --> 00:07:11,510
+assess how group membership is
+
+176
+00:07:11,510 --> 00:07:14,480
+related to a single
+continuous outcome.
+
+177
+00:07:14,480 --> 00:07:16,250
+If we have two populations,
+
+178
+00:07:16,250 --> 00:07:17,900
+we use a two-sample t-test,
+
+179
+00:07:17,900 --> 00:07:20,030
+and if we have more
+than two populations,
+
+180
+00:07:20,030 --> 00:07:22,160
+we use analysis of variance.
+
+181
+00:07:22,160 --> 00:07:24,200
+At this point, we
+now wish to learn
+
+182
+00:07:24,200 --> 00:07:26,180
+the tools necessary for assessing
+
+183
+00:07:26,180 --> 00:07:27,920
+how group membership is related
+
+184
+00:07:27,920 --> 00:07:30,140
+instead to a categorical outcome.
+
+185
+00:07:30,140 --> 00:07:32,510
+To do so, we need a
+statistical method
+
+186
+00:07:32,510 --> 00:07:35,015
+known as the chi-square
+test of association,
+
+187
+00:07:35,015 --> 00:07:40,694
+which we will discuss
+in later lectures.
+

@@ -1,0 +1,2368 @@
+1
+00:00:01,590 --> 00:00:05,460
+Anyone. The street. I. I feel all right.
+
+2
+00:00:05,520 --> 00:00:09,179
+We're almost at half mast. You know, there are pizza.
+
+3
+00:00:09,180 --> 00:00:12,290
+Very happy.
+
+4
+00:00:13,080 --> 00:00:18,280
+There can be some secret energy.
+
+5
+00:00:18,760 --> 00:00:31,920
+Something, right? It's. Not quite a big crowd here today, but we're going to plow through.
+
+6
+00:00:33,000 --> 00:00:37,709
+I'm going to review interpretation of long linear models for sun as requested.
+
+7
+00:00:37,710 --> 00:00:47,070
+Interactions. Interactions. I want to go over lecture notes 5 a.m. and have a little bit of our food,
+
+8
+00:00:47,610 --> 00:00:52,950
+which is limbs are probably the hardest topic we're going to cover in this class.
+
+9
+00:00:56,640 --> 00:01:02,130
+Philosophically, I'm not sure they're the best model to be fitting to two not normal data, but we can do it.
+
+10
+00:01:03,240 --> 00:01:08,460
+Uh, there's a lot of 601 that goes into g elements.
+
+11
+00:01:08,700 --> 00:01:14,910
+So this whole idea of taking a joint distribution and integrating out the random variables you're not interested in to get a marginal.
+
+12
+00:01:15,750 --> 00:01:19,950
+All of those sorts of ideas, they play a really important role in this topic.
+
+13
+00:01:20,550 --> 00:01:29,190
+So again, depending on how much you enjoyed or didn't enjoy. 601 you get to enjoy it or not enjoy it again today.
+
+14
+00:01:31,440 --> 00:01:31,940
+All right.
+
+15
+00:01:33,600 --> 00:01:43,170
+So as promised, we're going to cover something that, uh, I can pretty much guarantee is on the tests, so it's probably worthwhile to talk about.
+
+16
+00:01:47,730 --> 00:01:53,639
+All right. Hassan Oh, let me I'm going to use my question.
+
+17
+00:01:53,640 --> 00:02:02,310
+Data from the homework as well. So the data I used was called red light up debt.
+
+18
+00:02:02,820 --> 00:02:07,860
+And this is a. It's a set of data looking at.
+
+19
+00:02:07,860 --> 00:02:12,030
+So intersections is the subject in this dataset. So it's not human data.
+
+20
+00:02:13,710 --> 00:02:21,840
+But again, they were worried about whether or not red lights were being passed through at a faster rate and causing accidents.
+
+21
+00:02:21,840 --> 00:02:27,630
+And so they collected some data here a while ago. Nobody cares to see the screen.
+
+22
+00:02:28,530 --> 00:02:38,010
+Here we go. So nobody. So they collected data at intersections and they counted up the number of accidents that occurred over the same units of time.
+
+23
+00:02:38,880 --> 00:02:45,850
+And the grouping variable that I looked at is whether or not the intersection had a police patrol at that intersection or not.
+
+24
+00:02:45,890 --> 00:02:51,700
+So, of course, we would hope that police patrols would help. Well, maybe you see a cop, you run your.
+
+25
+00:02:52,320 --> 00:03:00,469
+I don't know. Anyway, we're hoping that our patrols intersection would have fewer accidents than being on patrol.
+
+26
+00:03:00,470 --> 00:03:03,840
+That distinction. So, again, the data look like this.
+
+27
+00:03:03,840 --> 00:03:05,940
+They're in the format already.
+
+28
+00:03:06,540 --> 00:03:16,690
+We have an idea for each intersection how many accidents occurred in each week and whether or not there was Patrolman P and review.
+
+29
+00:03:18,150 --> 00:03:26,150
+And so I took these data, you know, the levers here was to keep that up.
+
+30
+00:03:26,160 --> 00:03:29,250
+But here it is. So here what the data look like in terms of the averages.
+
+31
+00:03:29,250 --> 00:03:33,060
+Over time, over the five weeks, we see a general decrease.
+
+32
+00:03:33,090 --> 00:03:37,890
+Again, this study looked at installing cameras at intersection as well.
+
+33
+00:03:38,730 --> 00:03:43,980
+And so, again, we thought things would decrease over time naturally because of the installation of cameras.
+
+34
+00:03:44,940 --> 00:03:49,260
+And there's obviously a difference between the intersections that are patrolled or not.
+
+35
+00:03:50,520 --> 00:03:54,089
+The slopes don't look all that dramatically different to each other from each other.
+
+36
+00:03:54,090 --> 00:03:58,530
+But I would have felt a group effect, a continuous time effect.
+
+37
+00:03:58,890 --> 00:04:05,370
+And right now the interaction of time and group now are rescale time to be months.
+
+38
+00:04:05,400 --> 00:04:08,400
+Not because I think that's a good idea for these data.
+
+39
+00:04:09,060 --> 00:04:15,250
+It is weeks. But I want to compare this to the GLM models that we're going to hit coming up soon.
+
+40
+00:04:16,590 --> 00:04:20,280
+And again, whenever you fit a random slope model,
+
+41
+00:04:21,270 --> 00:04:27,450
+remember that there's a time variable that's going into the variance and the variance will increase quite dramatically in time.
+
+42
+00:04:28,450 --> 00:04:36,590
+And so if your time variable in your dataset is on a scale that's even on five weeks, sometimes the random slope model won't fit.
+
+43
+00:04:36,610 --> 00:04:40,870
+Won't converging on our simply because your time variable has too big of a scale.
+
+44
+00:04:41,380 --> 00:04:42,700
+So it helps to scale things.
+
+45
+00:04:42,700 --> 00:04:50,320
+You know, if you have your time in days and your have data over a couple of years, scale it down to your spread of the days.
+
+46
+00:04:51,340 --> 00:04:58,270
+And this becomes a bigger problem with GLM when you try to fit these things to persan and binary data.
+
+47
+00:04:58,690 --> 00:05:05,290
+So early warning to you when you are fitting games in homework number five and you fit a random slope model,
+
+48
+00:05:05,300 --> 00:05:14,020
+think about the scale of your time variable. If you're treating it as continuous, you may have to rescale it in order to get things to run to fit.
+
+49
+00:05:14,260 --> 00:05:19,540
+So, so again, for this for this analysis, it's not important that every scale to time,
+
+50
+00:05:19,990 --> 00:05:24,280
+two months, scale time, two months, but it was important for the homework number five.
+
+51
+00:05:25,060 --> 00:05:33,340
+But regardless so I say model with time group and the interaction, there's the result up there.
+
+52
+00:05:33,700 --> 00:05:38,890
+So let's talk about interpreting all of that because that's what's what I want to talk about.
+
+53
+00:05:39,490 --> 00:05:42,940
+What do these estimates mean? What do the things on the left mean?
+
+54
+00:05:44,020 --> 00:05:50,919
+We're going to talk less about the inference here. I would probably use the robust standard errors here, even though I'm model interchangeable.
+
+55
+00:05:50,920 --> 00:05:53,950
+You can see again, these are the standard errors.
+
+56
+00:05:53,950 --> 00:06:01,240
+So should I just this these are the standard errors. If we think exchangeable explains all of the variability among intersections,
+
+57
+00:06:02,470 --> 00:06:08,799
+but you can see that the naive standard errors are maybe a little bit different than the robust enough that you might want to say,
+
+58
+00:06:08,800 --> 00:06:12,370
+well, exchangeable isn't good enough, there's extra variability, right?
+
+59
+00:06:12,460 --> 00:06:14,140
+That's why we go to a robust standard here.
+
+60
+00:06:18,370 --> 00:06:25,810
+Before we go any further, I always have my plans laid out until I start opening my mouth and then they go in a different direction.
+
+61
+00:06:26,590 --> 00:06:33,309
+It's just made me think of things that come out of my mouth in class when I see them reiterated by another person.
+
+62
+00:06:33,310 --> 00:06:36,010
+That always validates that I know what I'm doing.
+
+63
+00:06:37,840 --> 00:06:46,149
+In the Miscellaneous Documents link on canvas, I try to give you things that are outside of what we do,
+
+64
+00:06:46,150 --> 00:06:50,890
+but maybe as an alternative source through a rabbit hole.
+
+65
+00:06:51,250 --> 00:06:59,739
+Looking at Grams, I came across this set of notes by resource and they're on the web and I downloaded them and put them.
+
+66
+00:06:59,740 --> 00:07:08,080
+Here is basically his set of lecture notes for a repeated measures class lunch in Erasmus.
+
+67
+00:07:09,270 --> 00:07:17,429
+And as you get in later into these notes, there's all kinds of stuff on G, on M, Geo, and so many of the things I've been trying to say.
+
+68
+00:07:17,430 --> 00:07:21,510
+But maybe don't say them in a way. You understand them. They're in these notes.
+
+69
+00:07:22,170 --> 00:07:27,960
+So these are our fantastic set of notes that I wish I had had when I was making my own slides.
+
+70
+00:07:28,680 --> 00:07:34,080
+So those are there. Please use them if you want a good, really solid, good review of what we've been talking about.
+
+71
+00:07:35,400 --> 00:07:38,820
+But back to fitting this model. All right.
+
+72
+00:07:39,450 --> 00:07:45,380
+So let's talk about this coefficient estimates. If this stuff is still a little bit challenging, it's.
+
+73
+00:07:47,470 --> 00:07:52,100
+That's why I it. Let's go back to the very basics is a count.
+
+74
+00:07:52,190 --> 00:07:53,540
+It's the number of accidents.
+
+75
+00:08:00,220 --> 00:08:08,540
+I'm sorry that my subject level is intersection and we're going to talk about intersections, but I guess it's interactions.
+
+76
+00:08:08,560 --> 00:08:12,220
+It sounds like intersections, but at time, TJ.
+
+77
+00:08:13,900 --> 00:08:18,880
+Right. So it's not time to because everybody has the same times.
+
+78
+00:08:19,250 --> 00:08:25,660
+So there's not need to put a nice script down there. And we have this variable GI that's either zero or one.
+
+79
+00:08:35,070 --> 00:08:38,490
+It's known for being a control.
+
+80
+00:08:41,750 --> 00:08:55,860
+I mean, this intersection has patrols. T.J., it's a number of months.
+
+81
+00:09:00,000 --> 00:09:09,780
+We're going to denote the mean of these things as well. And because we are assuming that these accounts come from ampersand distribution.
+
+82
+00:09:10,710 --> 00:09:18,210
+We know that the variance is equal to the. If we are sending this model.
+
+83
+00:09:25,800 --> 00:09:28,870
+I should have had you guys do this more in your own homework assignments.
+
+84
+00:09:28,920 --> 00:09:34,680
+It is always important if you cannot write down a model for what you are fitting in our set.
+
+85
+00:09:34,700 --> 00:09:39,510
+Please don't run. Are you sure you know what you're trying to set?
+
+86
+00:09:39,680 --> 00:09:43,620
+Because I. We'll let you do lots of stuff that maybe you shouldn't be doing.
+
+87
+00:09:45,450 --> 00:09:50,730
+And so, again, this is a marginal model. This is the model for any one intersection at any one time point.
+
+88
+00:09:51,750 --> 00:09:57,510
+But we have repeated measures. And so then we're going to assume those footnotes are.
+
+89
+00:10:04,510 --> 00:10:07,950
+Based on exchangeable notes, Arun. All right.
+
+90
+00:10:07,970 --> 00:10:15,280
+So assume it doesn't matter. Correlation of y i j and i k is equal to row.
+
+91
+00:10:18,070 --> 00:10:26,210
+Oh, Jane can. That's Compound Cemetery in each observations with the same subscript II but different time points.
+
+92
+00:10:27,050 --> 00:10:37,540
+They have a correlation Rho and Rho was the same for all people. Again what you just saw on the screen in our.
+
+93
+00:10:39,060 --> 00:10:44,970
+You coefficients with estimates and when going to use the empirical standard errors.
+
+94
+00:10:48,450 --> 00:10:55,290
+Let's talk about this as much. So we had an intercept through perfect time of that interaction.
+
+95
+00:10:56,490 --> 00:11:00,000
+1.5 to -0.44.
+
+96
+00:11:07,690 --> 00:11:14,010
+To. It's six zero into three -0.11.
+
+97
+00:11:16,010 --> 00:11:21,880
+Standard Poor's. To.
+
+98
+00:11:23,170 --> 00:11:28,420
+0.5. All right. Let's talk about these things.
+
+99
+00:11:28,510 --> 00:11:36,750
+So I don't like interaction models. It's really hard to talk about that apparent parameter of beta three all by itself.
+
+100
+00:11:37,740 --> 00:11:44,070
+So I always do. First is to go back and see what the interaction is doing for me.
+
+101
+00:11:45,660 --> 00:11:55,890
+So the point of the interaction is that we're basically fitting two time patterns, one for group one, one four Group zero patrol and no patrol.
+
+102
+00:11:56,850 --> 00:12:10,470
+So I'm saying that the log of the mean number of accidents is better not persuaded to, T.J., if we're at a no patrol intersection or it's better not.
+
+103
+00:12:10,510 --> 00:12:15,710
+Plus beta one intercept. It was better to close beta three.
+
+104
+00:12:18,300 --> 00:12:24,750
+This one. That's what an intersection is telling me that these two groups have different
+
+105
+00:12:24,750 --> 00:12:29,370
+intercepts and different well and a different slope intercept for the group effect.
+
+106
+00:12:31,470 --> 00:12:43,380
+And so likewise, the mean is the exponentially added value of beta, not postpaid in to t, j and e to the better, not less beta.
+
+107
+00:12:46,380 --> 00:12:51,070
+Those two plus feet of three J.
+
+108
+00:13:03,110 --> 00:13:07,220
+So the means of the explosion exponentially that substance was.
+
+109
+00:13:12,980 --> 00:13:17,570
+I've been wrong. Yes. Can we pause and get a little bit of time to right.
+
+110
+00:13:17,930 --> 00:13:20,990
+I'm sorry, sir. Yes, you better.
+
+111
+00:13:33,850 --> 00:13:39,760
+So again, we're making some assumptions here. We don't talk about assumptions as much in 651 as you probably do at 650.
+
+112
+00:13:39,770 --> 00:13:45,720
+Right. But we're assuming that things change linearly on the long scale.
+
+113
+00:13:46,140 --> 00:13:47,440
+So that's a strong assumption.
+
+114
+00:13:47,460 --> 00:13:54,420
+Do we really think that the average number of intersections on the large scale increases or decreases linearly with time?
+
+115
+00:13:56,500 --> 00:14:02,170
+Probably not. But log is the current canonical link and that makes all the math really easy.
+
+116
+00:14:02,380 --> 00:14:07,600
+Right. So that's why we pick a log link here isn't because we think it's biologically plausible,
+
+117
+00:14:08,530 --> 00:14:13,630
+but it makes all our modeling pretty easy to do in standard packages.
+
+118
+00:14:15,190 --> 00:14:19,330
+Right. So again, time has a multiplicative effect here on the mean.
+
+119
+00:14:20,430 --> 00:14:25,790
+It's either the tea. We talk about rates.
+
+120
+00:14:25,810 --> 00:14:28,810
+We talk about rate ratios. Look at absolute differences.
+
+121
+00:14:28,810 --> 00:14:36,370
+We look at relative differences if that's the exponents rather than just the coefficients themselves.
+
+122
+00:14:38,140 --> 00:14:42,390
+How we doing? Okay. So I'll be excited about that.
+
+123
+00:14:43,680 --> 00:14:47,720
+So let's talk about. So in run patrols.
+
+124
+00:14:50,670 --> 00:15:01,510
+So we've got a non patrol interception. So that's when Jai was zero.
+
+125
+00:15:03,280 --> 00:15:17,280
+We say that each additional month. This Associated Press.
+
+126
+00:15:18,830 --> 00:15:22,550
+A multiplicative increase won't curtail.
+
+127
+00:15:26,610 --> 00:15:30,240
+Change, I should say, in case we don't know, until we see what the vision looks like.
+
+128
+00:15:37,020 --> 00:15:53,020
+Stuart Dyer. So if we look at this equation right here.
+
+129
+00:15:55,470 --> 00:16:04,650
+In non patrolled intersections. Every time t increases by one unit, we're going to multiply by e to the beta to y.
+
+130
+00:16:04,650 --> 00:16:08,700
+The empirical standard error can be negative. That's a good question.
+
+131
+00:16:11,820 --> 00:16:15,590
+Why do they write negatives? Thank you.
+
+132
+00:16:15,600 --> 00:16:26,250
+Because I was going to see if anyone was paying attention. Oh, I wrote down the bourgeoisie in my northwest name.
+
+133
+00:16:28,320 --> 00:16:33,240
+Those are really big standard errors. 0.16.
+
+134
+00:16:33,240 --> 00:16:36,300
+0.21. 0.13.
+
+135
+00:16:36,420 --> 00:16:45,790
+0.2444. And we're not going to use this subway inference right now.
+
+136
+00:16:45,810 --> 00:16:48,900
+Well, I guess we were I was going to say to do something.
+
+137
+00:16:49,540 --> 00:16:54,740
+Let me write those down to 1.1, 3 to 2.
+
+138
+00:16:55,380 --> 00:17:00,570
+All right. Thank you. But every time we go out another month,
+
+139
+00:17:02,010 --> 00:17:10,200
+we think that there's a 55% decrease in the number of the average number of accidents in these patrols intersections.
+
+140
+00:17:11,680 --> 00:17:28,020
+And the thing you can talk about, a 55% reduction decrease in the number of accidents, zero, 45% decrease.
+
+141
+00:17:31,380 --> 00:17:41,730
+It's it's multiplied by 4.55. Yes, we can we can talk about whether we're going to do one minus that or use that number.
+
+142
+00:17:42,630 --> 00:17:46,740
+It increases relative decrease is relatively minor. I say that.
+
+143
+00:17:50,650 --> 00:18:01,959
+And then again in patrols. U.S. seniors once we have the same interpretation.
+
+144
+00:18:01,960 --> 00:18:07,800
+Right. Each additional. Each additional month.
+
+145
+00:18:12,670 --> 00:18:16,680
+Is associated with you.
+
+146
+00:18:16,750 --> 00:18:20,830
+To put you to change. To change.
+
+147
+00:18:24,620 --> 00:18:37,490
+He took the baton to plus the three. Which is key to the negative six .600.1120.49.
+
+148
+00:18:40,970 --> 00:18:47,630
+So we see that petrol accidents have a slightly steeper decrease over time in the number of accidents.
+
+149
+00:19:08,500 --> 00:19:15,540
+If I take the ratio. But it's going to start with the one take the ratio of that number with this number.
+
+150
+00:19:21,950 --> 00:19:26,880
+So if I take 0.49. 0.55.
+
+151
+00:19:30,030 --> 00:19:36,540
+That is the exponentially added value of the intersection of the interaction term.
+
+152
+00:19:44,560 --> 00:19:45,640
+It's 0.9.
+
+153
+00:19:48,340 --> 00:19:55,960
+So again, if you if this stuff flows out of your brain very quickly and you just want to exponentially add the interaction term and say it's 0.9,
+
+154
+00:19:57,070 --> 00:20:00,610
+that's fine as long as you do 1.9. Mutes point nine.
+
+155
+00:20:01,890 --> 00:20:08,630
+Is a ratio of two numbers. It's the rate of change in one group relative to the change in the other group.
+
+156
+00:20:09,350 --> 00:20:22,280
+So the point nine says that the change in number mean number of accidents in patrolled intersections is 0.9 that of non patrolled intersections.
+
+157
+00:20:23,960 --> 00:20:28,050
+And that's a lot for most non quantitative folks to get their heads around.
+
+158
+00:20:28,650 --> 00:20:38,520
+I think it's much easier to report the point 55 and 2.49 rather than going right to the exponential added value of the interaction term.
+
+159
+00:20:39,780 --> 00:20:45,990
+You can then say these two numbers, you know, are relatively point nine and then you can start talking about that.
+
+160
+00:20:47,370 --> 00:20:53,040
+So again, you are welcome to exponentially hit the sky right away or the scale right away.
+
+161
+00:20:53,130 --> 00:20:57,170
+But I think it's better to talk about the two groups first.
+
+162
+00:20:57,210 --> 00:21:03,470
+Sarah. Is it the same to say the rate of accidents?
+
+163
+00:21:04,160 --> 00:21:08,090
+We just haven't done like a lot like percent. Right?
+
+164
+00:21:08,090 --> 00:21:11,389
+So I'm not modeling the rate of accidents. I'm rating.
+
+165
+00:21:11,390 --> 00:21:17,090
+I'm modeling the number of accidents. I mean, it is a rate, but the denominator is the same for both.
+
+166
+00:21:17,390 --> 00:21:22,400
+That's why there is there's no offset in any of this. I was waiting for one of you to bring that up and nobody did.
+
+167
+00:21:23,360 --> 00:21:28,190
+There are no offsets here because the per, whatever accidents per is the same.
+
+168
+00:21:29,270 --> 00:21:35,120
+But if some intersections had been measured for three weeks and some of the measured for one week, frankly, that counts.
+
+169
+00:21:35,450 --> 00:21:39,140
+If the counts come from a different interval of time, then you have to have this offset.
+
+170
+00:21:40,370 --> 00:21:49,250
+But these were all on the same plant. So I don't talk about it as rates because it kind of washes out both of them.
+
+171
+00:21:49,850 --> 00:21:54,630
+Right. So there we go.
+
+172
+00:21:54,990 --> 00:21:59,370
+That's the interaction term. I mean, the same thing holds for a linear model.
+
+173
+00:22:00,240 --> 00:22:07,440
+Right. You just I think of doing the two groups first and then looking at the difference between the two groups, and that is the interaction term.
+
+174
+00:22:08,550 --> 00:22:14,250
+But it gets a little harder with log links or yeah, log links. And then with those links I can see even uglier.
+
+175
+00:22:17,980 --> 00:22:26,049
+All right. So the standard error, however, this number right here for the interaction term is a standard error.
+
+176
+00:22:26,050 --> 00:22:30,630
+Point two for the ratio of those two is nowhere near to or negative two.
+
+177
+00:22:31,180 --> 00:22:35,889
+So we don't have statistical significance. So and again, we saw that in the picture.
+
+178
+00:22:35,890 --> 00:22:38,590
+Whoops, we saw that in the picture that in fact,
+
+179
+00:22:38,590 --> 00:22:45,760
+I didn't think there would be a different pattern over time for the two groups that it's not typically.
+
+180
+00:22:48,560 --> 00:22:51,290
+Again, there's the picture that goes with that P value.
+
+181
+00:22:51,750 --> 00:22:58,590
+I don't see an interaction of time and groove pretty much there's a the same decrease over time in the two groups.
+
+182
+00:22:58,730 --> 00:23:05,530
+We're going to get rid of the interaction term. So again.
+
+183
+00:23:15,010 --> 00:23:24,940
+So this relative relative difference of 0.9 is not statistically significant.
+
+184
+00:23:28,750 --> 00:23:36,670
+From. Again, the no value first ratio is one because the interaction term coefficient of zero zero is one.
+
+185
+00:23:41,510 --> 00:23:51,840
+It's almost never to remove the interaction. This is one of those, I think, things where we always break the cardinal rule statistics.
+
+186
+00:23:52,500 --> 00:23:56,430
+What's the p value bigger than .05? Doesn't mean the null is true.
+
+187
+00:23:57,660 --> 00:24:03,330
+It just means you have failed to reject it. And the way we do that in model setting is to say, well,
+
+188
+00:24:03,330 --> 00:24:09,060
+because I don't have evidence that the interaction should be there and when they choose to throw it away.
+
+189
+00:24:09,600 --> 00:24:13,500
+But again, so you've talked about this in your other classes.
+
+190
+00:24:13,950 --> 00:24:19,470
+Interactions are very hard to detect and this is important to explain to your collaborators.
+
+191
+00:24:20,310 --> 00:24:27,870
+Interactions very often don't show up significant, and it's simply because we don't have enough data to find it to be significant.
+
+192
+00:24:27,880 --> 00:24:31,860
+So we often throw away a lot of interactions that may be real.
+
+193
+00:24:32,970 --> 00:24:36,110
+We just never have the data to see that they're significant.
+
+194
+00:24:36,120 --> 00:24:40,680
+So just always be careful there x model selection, but we're going to choose to to throw it out.
+
+195
+00:24:43,030 --> 00:24:48,100
+So now I've got. So now I'm going to set a new model.
+
+196
+00:24:55,630 --> 00:24:59,950
+But no interaction. They got the red senators.
+
+197
+00:25:05,060 --> 00:25:20,590
+She? 1.54 for The Intercept, just -0.5.
+
+198
+00:25:24,020 --> 00:25:33,350
+And we can go into our I've said all this for quite some time, certainly once.
+
+199
+00:25:39,680 --> 00:25:43,900
+Most interpret better tuna. Get better too is the time of that.
+
+200
+00:25:44,770 --> 00:25:47,980
+Now I have assumed the time effect is the same for both groups.
+
+201
+00:25:48,640 --> 00:25:58,410
+There is no interaction. So what is each of the data to them?
+
+202
+00:26:02,440 --> 00:26:07,570
+It's either -0.64, 0.53.
+
+203
+00:26:11,660 --> 00:26:23,190
+Let's start working. It is a reduction, a relative change.
+
+204
+00:26:24,540 --> 00:26:43,100
+In between a number of accidents. We can say per month, one additional month of time, we see that relative change in the mean number of accidents.
+
+205
+00:26:44,580 --> 00:26:50,250
+But again, remember, you got another variable in the model they're adjusting for.
+
+206
+00:26:52,640 --> 00:27:00,410
+Patrol. Patrol. She?
+
+207
+00:27:09,070 --> 00:27:13,810
+Misinterpret the other coefficients. What is need of the paid in aid of the 1.54?
+
+208
+00:27:14,720 --> 00:27:19,010
+That's 4.7. What is 4.7?
+
+209
+00:27:27,620 --> 00:27:36,120
+When you flip the number of accidents at TIMEPOINT zero when in a non-controlled in a non-controlled intersection.
+
+210
+00:27:36,120 --> 00:27:42,770
+Right. So the system in. Accidents.
+
+211
+00:27:45,760 --> 00:27:52,000
+See baseline time zero. We're not on patrol.
+
+212
+00:27:56,650 --> 00:28:08,310
+The resurgence. If I flood G9 equals zero and TG equals zero, I'm like for theta not to.
+
+213
+00:28:08,370 --> 00:28:14,580
+So that describes the intersections aren't patrolled at the beginning of the study.
+
+214
+00:28:19,980 --> 00:28:30,410
+Is that like a one month? That's at the start of the study at time 060220.
+
+215
+00:28:31,670 --> 00:28:37,320
+So it's not a change. It's at times zero.
+
+216
+00:28:38,130 --> 00:28:42,030
+That's what that means. So again, we have a time zero in our study.
+
+217
+00:28:43,830 --> 00:28:51,340
+It makes some sense. So even better not plus better one.
+
+218
+00:28:52,840 --> 00:28:57,550
+So that's the one place I saw. -0.51.
+
+219
+00:28:58,360 --> 00:29:02,500
+That's 2.8. So what is 2.8 estimating?
+
+220
+00:29:12,630 --> 00:29:16,050
+Number of accidents and controlled intersections of time to time.
+
+221
+00:29:16,100 --> 00:29:43,270
+So. So again, because we're using a long link here, we don't talk about the difference between the absolute difference between 4.7 and 2.8.
+
+222
+00:29:44,410 --> 00:29:51,530
+We talked about their relative difference. Right.
+
+223
+00:29:51,680 --> 00:30:04,440
+So even the better one. It's due to the beta one is the ratio of these two things.
+
+224
+00:30:06,630 --> 00:30:09,690
+That's 2.8 over 4.7.
+
+225
+00:30:12,790 --> 00:30:20,110
+So again, you can either take either the beta one and beta one is connoting a difference between two groups.
+
+226
+00:30:20,920 --> 00:30:29,530
+And so each of that is a relative difference. But again, it's it's done this way, too, and it's the relative.
+
+227
+00:30:35,690 --> 00:30:40,010
+Relative mean? Number of accidents.
+
+228
+00:30:40,040 --> 00:30:43,600
+Of accidents. No patrols.
+
+229
+00:30:49,260 --> 00:30:54,420
+This is an issue which troubles.
+
+230
+00:30:56,480 --> 00:31:02,260
+Intersections. At baseline time zero.
+
+231
+00:31:04,740 --> 00:31:10,920
+Now. It could be any time point, right. We know that these lines depart the same amount sometimes.
+
+232
+00:31:11,040 --> 00:31:17,820
+In this case, it doesn't matter what t is because the the difference will last that it's at any time point.
+
+233
+00:31:18,660 --> 00:31:25,850
+But again, e to the beat of one by itself is connoting a difference between these two groups in their ratio.
+
+234
+00:31:30,780 --> 00:31:33,900
+That's about it for interpretation.
+
+235
+00:31:34,200 --> 00:31:41,310
+I can understand why you're exponentially hating these things to do the inverse of the link function.
+
+236
+00:31:42,900 --> 00:31:48,270
+No. When you want to contrast, when you want to combine coefficients and when don't you want to combine coefficients?
+
+237
+00:31:49,740 --> 00:31:54,120
+Sometimes the intercept is not an error. First, the first parameter is not an intercept.
+
+238
+00:31:54,810 --> 00:31:58,830
+Sometimes it is times some variable in a non intercept model.
+
+239
+00:31:59,970 --> 00:32:05,250
+Think about what everything is telling you. Right. Other questions.
+
+240
+00:32:05,850 --> 00:32:10,200
+This is true for GLM as it is for g, as it is for g alma.
+
+241
+00:32:10,950 --> 00:32:19,460
+All of these models have the same link. All right.
+
+242
+00:32:19,520 --> 00:32:21,800
+And again, we don't need tea values here.
+
+243
+00:32:22,760 --> 00:32:32,060
+We see that these coefficients here have incredibly small standard errors relative to their size right ratio of about five and about six.
+
+244
+00:32:32,540 --> 00:32:35,930
+So these are highly significant, statistically, at least at a level of five.
+
+245
+00:32:36,950 --> 00:32:45,860
+And all that good stuff. So we see group differences at baseline and we see a time and again, that's exactly what our picture was showing us,
+
+246
+00:32:46,550 --> 00:32:52,610
+that there was a difference at baseline that stays constant throughout the study and things are decreasing over time.
+
+247
+00:32:57,520 --> 00:33:03,770
+Right. Again, I talked about this with some folks.
+
+248
+00:33:05,060 --> 00:33:12,470
+You're going to work with investigators who are convinced that their data have significant results before you analyze it for them.
+
+249
+00:33:14,000 --> 00:33:17,630
+Right. And then you analyze it and it's not significant.
+
+250
+00:33:20,620 --> 00:33:26,830
+Many times folks will be said this to me and they'll say to you is, are you sure you have the right model?
+
+251
+00:33:27,820 --> 00:33:32,020
+Are you sure you didn't use the blah blah blah method that Jones used in their paper?
+
+252
+00:33:33,040 --> 00:33:36,470
+Right. It shouldn't.
+
+253
+00:33:36,680 --> 00:33:40,250
+Sometimes that's the case, but many times it's not the model's problem.
+
+254
+00:33:41,330 --> 00:33:46,910
+It's the data. So don't get caught up in the the p value seeking world.
+
+255
+00:33:48,410 --> 00:33:53,600
+Pick a model that you know is good and is is appropriate, and then go with what it tells you.
+
+256
+00:33:55,220 --> 00:33:58,670
+Don't play that game. All right.
+
+257
+00:33:59,030 --> 00:34:02,330
+That's it for interpretation of log linear models.
+
+258
+00:34:05,610 --> 00:34:11,220
+And PowerPoint. So I have greatly modified my slides.
+
+259
+00:34:11,250 --> 00:34:14,820
+Where are we? Where is PowerPoint? It's not here.
+
+260
+00:34:17,270 --> 00:34:22,919
+Who didn't love this. So let's start talking about jail terms.
+
+261
+00:34:22,920 --> 00:34:29,040
+And then I began to do a little bit of our guide to try and make these understandable,
+
+262
+00:34:29,640 --> 00:34:35,880
+because I guess they're the hardest model to get your head around and it's because we don't use an identity link anymore.
+
+263
+00:34:36,060 --> 00:34:42,930
+So generalized linear, mixed models. Again, hopefully, you know where that name is coming from, a generalized linear model.
+
+264
+00:34:42,930 --> 00:34:47,790
+You know what that is? You know, that mixed means random effects somewhere along with mixed effects.
+
+265
+00:34:48,180 --> 00:34:52,020
+So we have a generalized linear model with random effects in it.
+
+266
+00:34:55,440 --> 00:34:59,790
+So models like G, so we use G with non normal data.
+
+267
+00:34:59,790 --> 00:35:03,360
+All the we could use G with normal data because that is.
+
+268
+00:35:05,070 --> 00:35:11,670
+So these two approaches are known as population average models and we have a vector of outcomes for each individual.
+
+269
+00:35:12,210 --> 00:35:16,470
+We believe that they each have a mean and we put them into a vector and there
+
+270
+00:35:16,470 --> 00:35:21,900
+is some link between the mean and a bunch of covariance of these individuals.
+
+271
+00:35:22,740 --> 00:35:27,750
+And anybody who has the same design matrix, the same covariates is going to end up having the same mean.
+
+272
+00:35:28,320 --> 00:35:31,520
+So it says y i. For that person.
+
+273
+00:35:31,530 --> 00:35:34,969
+But that person has the mean that's equal to somebody else if they have the same
+
+274
+00:35:34,970 --> 00:35:40,370
+covariance and the interpretation of the coefficients is for everyone in the population,
+
+275
+00:35:41,420 --> 00:35:44,720
+it is a margin it as a population level sort of approach.
+
+276
+00:35:45,920 --> 00:35:52,820
+The other important thing is that it is in these two approaches, G and JLR says, I emphasize that there are no random effects.
+
+277
+00:35:53,240 --> 00:35:59,360
+We do not make an attempt to model the way variability between individuals and within individuals.
+
+278
+00:35:59,960 --> 00:36:03,140
+We see that the variation between individuals is simply nuisance.
+
+279
+00:36:03,740 --> 00:36:11,000
+And we use this correlation matrix this week matrix auto regressive, compound symmetric simply to help with inference.
+
+280
+00:36:11,900 --> 00:36:18,080
+So I don't really care about what the variability is. I just know that I have to deal with it somehow and then move on.
+
+281
+00:36:20,270 --> 00:36:24,080
+I've gotten this question many times in this class and I don't always have a good answer.
+
+282
+00:36:25,190 --> 00:36:36,580
+Why would I use random effects? Because you may be interested in modeling how variability is among individuals as well as within individuals.
+
+283
+00:36:37,360 --> 00:36:45,130
+You may want to know what the variability over time is. If you're interested in modeling variation, then you should do so through random effects.
+
+284
+00:36:45,910 --> 00:36:50,469
+If you're not interested in variation, and again you see it as a nuisance,
+
+285
+00:36:50,470 --> 00:36:54,430
+then I see no reason to do anything than a population average type approach.
+
+286
+00:36:56,170 --> 00:37:07,270
+But we are interested in modeling variation today and so we're going to use what we call a subject specific model, and that is with random effects.
+
+287
+00:37:07,720 --> 00:37:14,920
+So I'm going to be very precise here. And now we're talking about a new tilde, a mean that has a tilde over it.
+
+288
+00:37:15,430 --> 00:37:24,460
+And that is a conditional mean. It is the mean for an individual, conditional on what their latent or random effects look like.
+
+289
+00:37:25,510 --> 00:37:34,300
+And so there is a linear combination of covariance and these random effects where again the random effects have a normal distribution with mean zero.
+
+290
+00:37:36,220 --> 00:37:39,910
+Let's go back to linear mixed models before we start talking about globes.
+
+291
+00:37:40,180 --> 00:37:44,200
+So a linear mixed model is a specific generalized linear mixed model.
+
+292
+00:37:45,310 --> 00:37:51,730
+It's a generalized intermix model with an identity link. We say that the mean is equal to exit data.
+
+293
+00:37:53,210 --> 00:37:59,690
+So because the conditional mean is linear in the random effects with normal data.
+
+294
+00:38:00,690 --> 00:38:05,610
+We can easily integrate over this distribution of random effects and get the marginal mean.
+
+295
+00:38:05,910 --> 00:38:16,410
+So the marginal mean without the children. So one concept a marginal mean is the mean of a conditional mean iterated expectation.
+
+296
+00:38:17,400 --> 00:38:21,960
+So I'm going to take the expected value of the conditional mean I'm going to integrate out the random effects.
+
+297
+00:38:23,430 --> 00:38:26,790
+And so that's the expected value of that second line there.
+
+298
+00:38:27,420 --> 00:38:33,690
+And the conditional mean is excite beta plus Z. I buy the expected value of that.
+
+299
+00:38:33,690 --> 00:38:42,959
+The first part, it's constant that's excited data. The second part is just a sum of a linear combination of mean zero normal random variable.
+
+300
+00:38:42,960 --> 00:38:46,320
+So that has been zero and you're left with actually beta.
+
+301
+00:38:48,020 --> 00:38:53,270
+So there's a battle there in the marginal mean. There is a fada in the conditional me.
+
+302
+00:38:55,820 --> 00:39:05,330
+They have the same interpretation. Beta measures the association of ECS with the mean marginally beta measures,
+
+303
+00:39:05,330 --> 00:39:11,150
+the association of that with the conditional mean because of this link function of the identity.
+
+304
+00:39:12,320 --> 00:39:21,590
+So although the means are different in terms of interpretation, Matilde is the mean of why I conditional on all these latent factors.
+
+305
+00:39:23,150 --> 00:39:30,650
+And so later quantifies the association between the covariates and why only for individuals with the same latent effects.
+
+306
+00:39:32,030 --> 00:39:36,380
+Whereas the marginal mean is the mean of why, regardless of what everybody's latent traits are.
+
+307
+00:39:37,320 --> 00:39:42,870
+And Beta quantifies the association between covariates and why I regardless of that that.
+
+308
+00:39:44,300 --> 00:39:52,730
+And so the point here is that I haven't really talked about the interpretation of data in a linear, mixed model versus glass.
+
+309
+00:39:54,160 --> 00:39:58,810
+Because they're the same in linear mixed models in geometric normal outcomes.
+
+310
+00:40:00,040 --> 00:40:02,740
+So for normal outcomes, we rarely talk about this.
+
+311
+00:40:03,400 --> 00:40:12,430
+What is really mostly a philosophical theoretic issue is what is a population average model and what is a subject specific model.
+
+312
+00:40:12,910 --> 00:40:14,139
+So for linear mixed models,
+
+313
+00:40:14,140 --> 00:40:24,400
+this was an irrelevant conversation because they both ended up with the same interpretation because of the linear link and the normality.
+
+314
+00:40:25,810 --> 00:40:32,260
+So to again, to reemphasize this, let's go back to the labor being data that I haven't talked about in a while.
+
+315
+00:40:32,800 --> 00:40:37,240
+So again, we had pain scores on women who were in labor. Some were given a treatment, some were not.
+
+316
+00:40:37,810 --> 00:40:45,580
+And we're modeling the pain score as a function of time, Taiji, group membership, the interaction of time and group.
+
+317
+00:40:46,180 --> 00:40:52,660
+And then we get a random intercept and a random slope, and then there are errors independent of everything else.
+
+318
+00:40:53,650 --> 00:41:03,549
+And so when we fit that model, when I fit that model. With the coefficient on time in that model, strictly speaking,
+
+319
+00:41:03,550 --> 00:41:08,320
+has a conditional interpretation that quantifies the change in the average pain
+
+320
+00:41:08,320 --> 00:41:13,960
+related to a one hour change in time for a woman receiving the control again by zero.
+
+321
+00:41:14,960 --> 00:41:18,050
+Conditional upon her leading characteristics, her random effects.
+
+322
+00:41:19,660 --> 00:41:25,360
+Right. So, Peter, one is the average change between two consecutive pain scores.
+
+323
+00:41:26,460 --> 00:41:31,320
+In women who receive the control with the same latent characteristics.
+
+324
+00:41:31,920 --> 00:41:38,280
+That is, strictly speaking, one data. One is, yeah, it's like anything we do you in a regression class.
+
+325
+00:41:38,550 --> 00:41:42,960
+The interpretation of any one thing is conditional on all the other things being in the model.
+
+326
+00:41:43,770 --> 00:41:47,100
+Right. In order for beta one.
+
+327
+00:41:47,550 --> 00:41:49,170
+If we compare two timepoints,
+
+328
+00:41:49,200 --> 00:41:56,730
+the only way for data to be beta one to be there and everything else has gone is if the random effects are the same in both of those times.
+
+329
+00:41:56,870 --> 00:42:07,489
+It's strictly speaking. But beta one is also the unconditional main change is again if I take the expectation over these two random effects of
+
+330
+00:42:07,490 --> 00:42:13,850
+that difference because everything is linear when I take they're just putting in a zero for beat or not and Beethoven.
+
+331
+00:42:15,740 --> 00:42:23,180
+And so I get the difference between two pain scores in the plus in the control group unconditional the random effects.
+
+332
+00:42:25,310 --> 00:42:28,970
+So both of those data one has both interpretations.
+
+333
+00:42:30,940 --> 00:42:37,940
+Now this question. You bet I both interpretations you just mean like lobbing off the conditional and tunneling characters characteristics.
+
+334
+00:42:37,940 --> 00:42:45,740
+Participant Beta one is a conditional and beta one is a conditional interpretation and it has an unconditional interpretation.
+
+335
+00:42:47,650 --> 00:42:51,680
+We usually go with the unconditional interpretation because that's what we're used to.
+
+336
+00:42:52,300 --> 00:42:57,360
+We're used to talking about a population level. The conversation here.
+
+337
+00:42:59,220 --> 00:43:02,880
+But again, now this is going to become a really important glimpse.
+
+338
+00:43:04,170 --> 00:43:08,890
+This is where a head start to explode a little bit. It is really challenging to think about this.
+
+339
+00:43:09,660 --> 00:43:18,830
+The distinction between population average. So your goals and some specific models, random effects was not normal.
+
+340
+00:43:18,840 --> 00:43:20,790
+Outcomes leads to a distinct pair of methods.
+
+341
+00:43:20,790 --> 00:43:30,380
+So GDP is going to lead to parameters that have a different interpretation for the most part than a GeoEye.
+
+342
+00:43:30,400 --> 00:43:37,140
+Now, we're going to get into the nitty gritty here, so let's go back to now what a GLM would look like.
+
+343
+00:43:37,410 --> 00:43:40,650
+It looks like a GLM, except we add on random effects.
+
+344
+00:43:41,220 --> 00:43:47,190
+And so before we get to here is this whole thing is nothing more than a glm, but then we add on random effects.
+
+345
+00:43:47,610 --> 00:43:51,990
+And so now we're talking about a link of the conditional mean with covariance.
+
+346
+00:43:53,390 --> 00:44:01,800
+Again, where these random effects are mean zero are really distributed with some variance covariance d and we use a long way to
+
+347
+00:44:01,890 --> 00:44:08,790
+assign outcomes that are correlated and usually a larger length we could use appropriate length with binomial outcomes.
+
+348
+00:44:11,040 --> 00:44:20,460
+So what's the issue here? Let's go back now to the marginal model says if the marginal mean on the right transformation
+
+349
+00:44:21,030 --> 00:44:26,610
+is a linear combination of covariance link of MU is exercise data in the model.
+
+350
+00:44:27,900 --> 00:44:30,990
+And then I will just say that the mean therefore is g inverse.
+
+351
+00:44:31,530 --> 00:44:37,380
+Okay, it's g is a link is a log link g and versus the exponential for example,
+
+352
+00:44:39,150 --> 00:44:46,740
+the conditional in which I write a we tilde is g inverse of all of this.
+
+353
+00:44:46,740 --> 00:44:50,520
+So we have g inverse of this related to the marginal model.
+
+354
+00:44:50,820 --> 00:44:54,450
+We are g inverse of this or about the ground.
+
+355
+00:44:54,450 --> 00:45:03,090
+Now again, let's take this conditional mean and derive what the marginal mean is by using iterated expectations.
+
+356
+00:45:03,600 --> 00:45:12,510
+So the marginal mean is simply the average of all of the conditional means, and that's the average of g inverse of what I just wrote up above here.
+
+357
+00:45:13,470 --> 00:45:19,350
+And this is where we get stuck. We can't switch the order of a nonlinear function and expectation.
+
+358
+00:45:19,720 --> 00:45:23,790
+We learned all that in 601. So if we could.
+
+359
+00:45:24,000 --> 00:45:26,550
+So I say it's not equal to g inverse of the mean.
+
+360
+00:45:27,450 --> 00:45:35,099
+If I could do that, then the expectation of XIV to plus the idea is just say beta and I get g inverse of x I beta.
+
+361
+00:45:35,100 --> 00:45:39,350
+That's what we got from G. Right.
+
+362
+00:45:40,560 --> 00:45:44,580
+So I have text from here. So next page.
+
+363
+00:45:45,360 --> 00:45:49,230
+But again, keep track of this beta here. I probably should have been more specific here.
+
+364
+00:45:49,620 --> 00:45:54,150
+This beta is different from this beta.
+
+365
+00:45:57,050 --> 00:46:00,709
+Right. There are different quantities and unfortunately it's better for both of them.
+
+366
+00:46:00,710 --> 00:46:05,660
+I pick a subscript later. I should probably call this beta something in this beta something else.
+
+367
+00:46:07,070 --> 00:46:11,540
+So we can get a marginal mien from a glam.
+
+368
+00:46:13,520 --> 00:46:19,730
+But the coefficients are different than what we get from Gee, let's try this with baseline data.
+
+369
+00:46:21,320 --> 00:46:24,500
+So the link for Poisson outcomes is the log link.
+
+370
+00:46:24,500 --> 00:46:31,790
+So we said the log of the conditional mean is a linear combination of covariates plus the random of that part.
+
+371
+00:46:32,780 --> 00:46:35,960
+Let's get to the marginal mean. How do I get the marginal mean?
+
+372
+00:46:37,010 --> 00:46:40,940
+I take an expectation over the distribution of the random effects.
+
+373
+00:46:41,180 --> 00:46:44,720
+I'm integrating up the random effects. So here's the conditional mean.
+
+374
+00:46:45,620 --> 00:46:51,860
+I'm going to integrate out all of the random effects. So this is the normal distribution multivariate, right?
+
+375
+00:46:51,890 --> 00:46:56,210
+There's depending on how many random effects you have some integrate all that out.
+
+376
+00:46:56,480 --> 00:47:06,200
+I have now plugged in what my tilde is the tilde is the exponential of that right up here it seems a normal distribution.
+
+377
+00:47:06,380 --> 00:47:09,620
+Get all these things here so this part can come out.
+
+378
+00:47:09,620 --> 00:47:14,899
+This part doesn't involve BI and because it's multiplicative I can just pull it out of the integral.
+
+379
+00:47:14,900 --> 00:47:18,890
+That's a lucky fortune of this this link function, inverse like function.
+
+380
+00:47:19,550 --> 00:47:27,380
+And then I have all of this here. So what am I trying to do here? I'm trying to find the expected value of an exponential weighted linear combination
+
+381
+00:47:27,740 --> 00:47:32,600
+of multivariate random or variable multivariate random normal variables.
+
+382
+00:47:33,470 --> 00:47:37,550
+So I have this thing here times the expected value of what this is.
+
+383
+00:47:40,870 --> 00:47:50,080
+Does anyone know if I have again, if if the eye is normal, a linear combination of the AI is normal.
+
+384
+00:47:50,290 --> 00:47:56,110
+So this thing is normal. What's the distribution of an exponential rate in normal?
+
+385
+00:47:58,510 --> 00:48:03,010
+I don't know why we called it. It's a long, normal expense.
+
+386
+00:48:03,010 --> 00:48:06,850
+Initiated normal has a longer normal distribution because of the way people think of things.
+
+387
+00:48:07,780 --> 00:48:11,130
+And so this has a known distribution, right? It is.
+
+388
+00:48:11,290 --> 00:48:15,759
+It's a lot of normal distribution. The mean of a log.
+
+389
+00:48:15,760 --> 00:48:19,959
+Normal distribution is not this part here. It's this part plus the variance.
+
+390
+00:48:19,960 --> 00:48:28,090
+We'll get to that in a second. But the point is, is the marginal mean is proportional but not equal to get.
+
+391
+00:48:28,090 --> 00:48:31,400
+Remember, this is the beta from the digital element.
+
+392
+00:48:32,440 --> 00:48:35,730
+This is not the beta you would get from a marginal model.
+
+393
+00:48:35,770 --> 00:48:38,890
+This is where I have to fix this to have subscripts. Okay.
+
+394
+00:48:39,460 --> 00:48:48,380
+So the marginal mean is proportional to but not equal to either the beta when beta is from a.
+
+395
+00:48:56,270 --> 00:49:02,720
+It gets even worse with most binary applications because the link function is a logit, which is a ratio.
+
+396
+00:49:04,490 --> 00:49:14,590
+So what are we going to try to do here again? The glamor says that the conditional meaning is the inverse logit of X Iberia plus Ziba.
+
+397
+00:49:14,590 --> 00:49:19,010
+And that's what this is, right? This is a number between zero and one probability.
+
+398
+00:49:20,120 --> 00:49:23,690
+The marginal mean is interbreeding out the random effects of this function.
+
+399
+00:49:24,080 --> 00:49:28,910
+How do I integrate out the babies when they're in both the numerator and denominator of this ratio?
+
+400
+00:49:29,720 --> 00:49:36,410
+That's an ugly mathematical exercise. And so I can't pull data out of the integral here inside of a personality.
+
+401
+00:49:36,950 --> 00:49:47,470
+So again, the point of all this is that because of the link function, we can't pull out the normal effects random.
+
+402
+00:49:47,480 --> 00:49:52,670
+We can't integrate out the normal random effects and get something with a closed form.
+
+403
+00:49:54,870 --> 00:49:58,310
+So interpretation one more time.
+
+404
+00:49:58,320 --> 00:50:03,540
+Like I said I'm going to stop after these sets of slides to the for today population
+
+405
+00:50:03,540 --> 00:50:09,270
+average again is a marginal that's a subject specific is random effects models.
+
+406
+00:50:10,150 --> 00:50:13,140
+This is where I have my subscripts and I should have started with those earlier.
+
+407
+00:50:14,280 --> 00:50:20,940
+So there's some quantity times the covariates that gives me a lengthy mean on a certain scale.
+
+408
+00:50:22,560 --> 00:50:29,610
+There is another parameter times the desired matrix that gives me the conditional mean on the right scale plus these random effects.
+
+409
+00:50:30,270 --> 00:50:35,969
+So this coefficient again is interpreted as the impact of impacts on sort of causal.
+
+410
+00:50:35,970 --> 00:50:40,620
+Does it have the association of X on the population mean?
+
+411
+00:50:41,670 --> 00:50:48,300
+Whereas in this model this coefficient is interpreted as the impact or association of x, I am the conditional mean.
+
+412
+00:50:50,300 --> 00:50:57,800
+The population average coefficient is the average of all of these subjects.
+
+413
+00:50:57,800 --> 00:51:00,350
+Specific things across the distribution of the eye.
+
+414
+00:51:03,740 --> 00:51:09,620
+So again, the challenge with these models is you have to think about if you want a marginal interpretation,
+
+415
+00:51:09,620 --> 00:51:16,790
+you have to integrate out all the random effects. If you want a marginal interpretation, you should fit a marginal model in the first place.
+
+416
+00:51:19,290 --> 00:51:24,269
+Going from a subsidy Pacific model to a marginal model. It's just more work than it's necessary.
+
+417
+00:51:24,270 --> 00:51:30,810
+But they're different models. They produce different answers for binary data.
+
+418
+00:51:32,190 --> 00:51:35,819
+Here it is. Here's the point for persan models again,
+
+419
+00:51:35,820 --> 00:51:45,930
+where we have a log link so that the log of the conditional mean is linear combination of covariance plus linear combination of random effects.
+
+420
+00:51:46,870 --> 00:51:50,370
+We exponential to get under the scale of the conditional mean.
+
+421
+00:51:50,910 --> 00:52:00,480
+So we've got the to the linear predictor times e to the predictor for the random effects to get to the marginal mean.
+
+422
+00:52:00,840 --> 00:52:05,250
+I take the expectation of the conditional mean, so I take the expected value of that thing.
+
+423
+00:52:06,540 --> 00:52:10,530
+This first part is constant. Again, this is sort of what I did in the previous slides with the integrals.
+
+424
+00:52:11,040 --> 00:52:14,310
+This part has no random effects in it. It's constant.
+
+425
+00:52:14,580 --> 00:52:18,480
+So it comes out of the expectation and I'm left with the expectation of this thing.
+
+426
+00:52:19,230 --> 00:52:24,150
+And as I said, because these are normal, the linear combination of them is normal.
+
+427
+00:52:24,990 --> 00:52:28,530
+My brace in my parentheses are switched around here.
+
+428
+00:52:30,860 --> 00:52:39,030
+I spend so much time on these slides. All right. The mean of an exponential in normal is this function right here.
+
+429
+00:52:40,080 --> 00:52:48,330
+This is a variance term. Remember, the variance of CPI is ZII variance of be z transpose that quadratic form of variances.
+
+430
+00:52:48,960 --> 00:52:54,720
+So the mean of the mean of the log normal is related to the variance on the normal scale.
+
+431
+00:52:55,650 --> 00:53:02,700
+What does that mean here? This means that the marginal mean on the log scale.
+
+432
+00:53:04,480 --> 00:53:17,320
+Is this component, plus this component right here so that the intercept in a population average approach or this is the marginal mean.
+
+433
+00:53:22,460 --> 00:53:25,580
+The coefficients in the population average the intercepts term.
+
+434
+00:53:26,640 --> 00:53:31,680
+There's this little constant term over here. You could add that on to the intercept that's embedded in here.
+
+435
+00:53:34,380 --> 00:53:36,750
+You're just shifting the intercept by this amount right here.
+
+436
+00:53:36,750 --> 00:53:45,900
+This is a number so that the intercept in a population average approach is simply equal to the intercept here, augmented by this amount here.
+
+437
+00:53:47,130 --> 00:53:48,570
+And what does that mean for us?
+
+438
+00:53:49,650 --> 00:53:57,660
+That means that all of the other parameters in the population average approach versus the subject specific approach are the same.
+
+439
+00:53:58,470 --> 00:54:06,810
+Same interpretation. So for normal outcomes, every parameter had the same interpretation, regardless of which place, which way you did it.
+
+440
+00:54:08,370 --> 00:54:17,370
+For a blog linear Poisson model, the intercept is affected, but all the other parameters have the same interpretation.
+
+441
+00:54:17,910 --> 00:54:24,980
+So again, if you feed a log linear GLM for Poisson data, you're going to get coefficients.
+
+442
+00:54:24,990 --> 00:54:31,710
+They have a subject specific interpretation, but because of the math, they also have a population average interpretation.
+
+443
+00:54:37,320 --> 00:54:45,360
+Again for binary data. It is not that simple, but there is there was a lot of work done that from the time I was in grad school.
+
+444
+00:54:45,360 --> 00:54:50,550
+For Bernoulli models, the computations don't have a simple result like the porcine models do,
+
+445
+00:54:51,600 --> 00:54:59,580
+but there is an approximation that again is related to the variance of the random effects.
+
+446
+00:55:00,570 --> 00:55:11,100
+And it's scaled by this number and so forth. So this constant sea changes with the link function that you use again for the probe at length.
+
+447
+00:55:11,100 --> 00:55:14,100
+Wisconsin is one to probe. It is the inverse normal.
+
+448
+00:55:15,390 --> 00:55:21,330
+And all the random effects are normal. So that link gives us a little bit of algebraic nicety.
+
+449
+00:55:21,690 --> 00:55:24,900
+But I'm not going to go through all the math. But that concern ends up being one.
+
+450
+00:55:25,380 --> 00:55:29,070
+It ends up being 16 times the square root of three over 15 times pi.
+
+451
+00:55:29,910 --> 00:55:34,110
+That's really intuitive, right? It's .50.584.
+
+452
+00:55:34,380 --> 00:55:39,450
+If you use a logic link, which is what we typically use with binary, then again, what does that mean?
+
+453
+00:55:39,570 --> 00:55:43,200
+That means that the population averaged coefficient.
+
+454
+00:55:44,470 --> 00:55:48,550
+Is some portion of the subject specific parameter.
+
+455
+00:55:50,030 --> 00:55:55,820
+Why is this important again? If you fit a random effects model, just think about what that data parameter is telling you.
+
+456
+00:55:57,200 --> 00:56:00,979
+It is not telling you the effect of the covariate across the population.
+
+457
+00:56:00,980 --> 00:56:05,840
+It is subject specific and there's quite a bit of attenuation, about half.
+
+458
+00:56:06,940 --> 00:56:12,820
+It's about half as big. Population average coefficient relative to the subject's specific values.
+
+459
+00:56:15,840 --> 00:56:19,620
+So which model is better, right? Should I sit?
+
+460
+00:56:19,620 --> 00:56:25,410
+I go and again, when I go on the internet, I look at stock exchange and all those those wonderful places as well.
+
+461
+00:56:27,270 --> 00:56:33,000
+See this question from a lot of people who don't know what they're doing. And they're trying to seek help, which is great.
+
+462
+00:56:33,300 --> 00:56:36,690
+But I'll see, when should I use a Glenn mom versus a DJ?
+
+463
+00:56:37,930 --> 00:56:42,520
+That's the wrong question. Right. The question is, is what is your goal?
+
+464
+00:56:44,020 --> 00:56:47,770
+So how do you think variation between individuals should be Miles or if it should be modeled?
+
+465
+00:56:48,340 --> 00:56:52,870
+So if you have interest in random effects, then model them, use the goal in them,
+
+466
+00:56:53,770 --> 00:56:59,950
+but be aware of what those parameter estimates on your call in your covariance, what they mean.
+
+467
+00:57:01,160 --> 00:57:05,450
+If variation between individuals is nuisance, like I said, then you see,
+
+468
+00:57:06,290 --> 00:57:13,370
+most of the time I feel like if somebody wants me to tell them a story about their data, they're talking about the population level interpretation.
+
+469
+00:57:13,820 --> 00:57:17,570
+And so I tend to go toward G more times than I will the random effects model.
+
+470
+00:57:19,590 --> 00:57:23,180
+Also because, as I said, games are often much harder to set.
+
+471
+00:57:23,190 --> 00:57:26,430
+Gee, I have never had a G model not set.
+
+472
+00:57:27,960 --> 00:57:33,360
+It is just generalized, square, iterated, readily squares with a way matrix.
+
+473
+00:57:33,840 --> 00:57:40,230
+That's really easy to do. Fitting these generalized linear mixed models is is notoriously difficult.
+
+474
+00:57:40,260 --> 00:57:44,400
+I'll show that in my next set of slides. The next time we are together.
+
+475
+00:57:44,760 --> 00:57:55,620
+But I have never fitted glam for binary data in practice for anybody that I work with, I'm not done.
+
+476
+00:57:55,950 --> 00:57:59,970
+Just want again, let's let's look at this in our again. A lot of this is abstract.
+
+477
+00:58:01,830 --> 00:58:05,350
+Let's apply this to the data.
+
+478
+00:58:05,370 --> 00:58:08,820
+I just looked at the the intersections and the number of accidents.
+
+479
+00:58:10,020 --> 00:58:13,270
+And to show you the kind of code you're going to use in homework. Number five.
+
+480
+00:58:18,940 --> 00:58:26,669
+This is. I don't get it. This is not a big project. So I'm going to finish, Glenn.
+
+481
+00:58:26,670 --> 00:58:31,230
+And I'm going to finish. And let's see what we get in our.
+
+482
+00:58:34,080 --> 00:58:40,500
+She compared how to air. Okay.
+
+483
+00:58:41,400 --> 00:58:50,190
+So again, we're using the the accident data as we just talked about the same picture there holds rescaling weeks to be months.
+
+484
+00:58:51,060 --> 00:58:58,170
+So I'm going to use the G library to run G, E and g, l m m I'm going to run using the library.
+
+485
+00:58:58,170 --> 00:59:05,160
+L And before that is the function that I find is most reliable.
+
+486
+00:59:05,730 --> 00:59:09,400
+Go. I mean, I want that argument.
+
+487
+00:59:11,470 --> 00:59:15,380
+All right. So I'm going to fit each of these data right in and no interaction.
+
+488
+00:59:15,400 --> 00:59:18,190
+So the number of accidents.
+
+489
+00:59:19,410 --> 00:59:26,560
+Average number of accidents is a function of whether the intersection is patrolled or not, as well as time there's clustering.
+
+490
+00:59:26,580 --> 00:59:33,960
+I'm going to say that the correlation is exchangeable. The working relation, Pusan and so forth is a better fixed skill.
+
+491
+00:59:35,150 --> 00:59:39,700
+Hmm. That's interesting.
+
+492
+00:59:39,730 --> 00:59:43,990
+Anyway, so I sent a model. I'm going to save the coefficients.
+
+493
+00:59:46,820 --> 00:59:54,320
+I'm going to grab the model based variance covariance matrix of all of the parameters.
+
+494
+00:59:56,000 --> 01:00:02,120
+So I don't just want the standard errors. So again, I want the three by three matrix.
+
+495
+01:00:02,480 --> 01:00:08,300
+I get the variance of the three parameters along the diagonal as well as the covariance of of any two parameters.
+
+496
+01:00:09,230 --> 01:00:16,040
+I compute standard errors as the square root of the diagonal. You get a z statistic and I get a p value.
+
+497
+01:00:17,680 --> 01:00:21,220
+And I'm going to put down to a table and.
+
+498
+01:00:25,120 --> 01:00:32,070
+And something like this. So, again, these are the same numbers that I just showed you in my review to beginning of class here.
+
+499
+01:00:32,720 --> 01:00:38,400
+Right. I've got a mean number of accidents for no patrol intersections at time.
+
+500
+01:00:38,400 --> 01:00:45,090
+Zero. I've got a ratio for patrol versus non patrol of about 0.6 at baseline.
+
+501
+01:00:45,570 --> 01:00:50,010
+And then the change per month again on a ratio scale is about 2.53.
+
+502
+01:00:50,370 --> 01:00:56,400
+Those are the same three numbers that we worked out earlier. So this would be my summary table for an investigator.
+
+503
+01:00:57,210 --> 01:01:04,200
+Again, there is a significant difference between the two groups of baseline and there is a significant change over time.
+
+504
+01:01:04,920 --> 01:01:09,860
+Just upon these p values. We're going to compare this table.
+
+505
+01:01:11,370 --> 01:01:16,550
+To what I get when I set a generalized linear mix model.
+
+506
+01:01:17,310 --> 01:01:20,900
+And again, there are they are not comparable.
+
+507
+01:01:20,910 --> 01:01:31,110
+They are not exactly the same model. But if I fit exchangeable into the most comparable approach in a geo imam is a random intercept.
+
+508
+01:01:31,620 --> 01:01:39,060
+Remember, they're identical with normal data, but they have the same sort of idea with with nominal data.
+
+509
+01:01:39,330 --> 01:01:45,030
+So I'm going to set a generalized later mixed model again with the same covariance.
+
+510
+01:01:45,540 --> 01:01:50,370
+And this is how you express a random intercept cosine family.
+
+511
+01:01:51,930 --> 01:01:55,380
+The data. And now there's this wonderful little argument here.
+
+512
+01:01:56,490 --> 01:02:00,440
+So the default is one. So.
+
+513
+01:02:02,570 --> 01:02:11,010
+So. GQ It has to do with adaptive Gaussian quadrature and NW is the number of of quadrature points.
+
+514
+01:02:11,460 --> 01:02:17,250
+Again, Quadrature. Hopefully some of you remember from your math classes is a way to approximate an integral.
+
+515
+01:02:18,150 --> 01:02:24,020
+So all of this stuff has some really nasty integrals in them and so we have to approximate them, right?
+
+516
+01:02:24,930 --> 01:02:29,250
+Trapezoidal rule, Simpsons, rule number, all those sorts of things. But this is a little more complicated.
+
+517
+01:02:30,750 --> 01:02:38,460
+If you say zero zero is a very rough approximation and it runs very, very quickly as you increase that number,
+
+518
+01:02:40,080 --> 01:02:47,390
+you can increase it turning to about 20 with a random intercept model with a random intercept slope model.
+
+519
+01:02:47,400 --> 01:02:49,650
+That number can't be any bigger than one.
+
+520
+01:02:50,580 --> 01:03:02,070
+So when you were doing the homework, I would suggest not even thinking about that argument, except if you can't get it to run,
+
+521
+01:03:02,970 --> 01:03:10,200
+if you can't get it to run, then I would put this in and change it to zero zero should work.
+
+522
+01:03:10,350 --> 01:03:17,070
+It's again not as accurate. Your coefficient estimates are a little off, but at least you get something.
+
+523
+01:03:17,310 --> 01:03:20,820
+Something that's a little off is better than nothing at all times.
+
+524
+01:03:23,160 --> 01:03:30,479
+So here I am fitting a random intercept model to some data and I'm going to save the random effects.
+
+525
+01:03:30,480 --> 01:03:33,900
+So what is that? That is the variance of the random intercepts.
+
+526
+01:03:36,100 --> 01:03:38,670
+And so that number is 0.48.
+
+527
+01:03:38,950 --> 01:03:48,370
+That is the variance of the random intercepts will become important in a second and we'll talk about yes, this is the variance.
+
+528
+01:03:48,370 --> 01:03:53,440
+So you at zero. Can we no longer say that our estimates are consistent?
+
+529
+01:03:54,190 --> 01:03:57,720
+If I put a zero. Yeah. When you run it about versus with.
+
+530
+01:04:02,830 --> 01:04:13,640
+Yes, I believe they're biased. If they are one and if you use a one.
+
+531
+01:04:13,660 --> 01:04:24,010
+Are they consistent? And I want to say that may be still biased.
+
+532
+01:04:25,670 --> 01:04:32,300
+All of the estimation techniques in these programs, again, are approximations and approximations and approximations.
+
+533
+01:04:33,890 --> 01:04:42,530
+Off the top of my head I'll have to go look is better at converging to theta as the sample size increases.
+
+534
+01:04:43,580 --> 01:04:47,480
+I think so. But I have to find out theoretically if someone has proved that I'm sure they have somewhere.
+
+535
+01:04:48,860 --> 01:04:52,310
+But I do know a zero. I'm pretty sure there's if there's bias, it doesn't converge.
+
+536
+01:04:52,930 --> 01:04:57,140
+Asymptotically converges asymptotically to something very, very close.
+
+537
+01:04:59,820 --> 01:05:03,680
+So this is the variance of the random intercepts .23.
+
+538
+01:05:04,400 --> 01:05:08,200
+But anyway, we do the same thing. I'm going to get the coefficient estimates.
+
+539
+01:05:10,130 --> 01:05:16,640
+When you get the variance covariance matrix to get the standard errors from the diagonal with the statistics and p values.
+
+540
+01:05:16,640 --> 01:05:19,940
+And I'm going to create the same table now.
+
+541
+01:05:21,800 --> 01:05:22,520
+What did I just say?
+
+542
+01:05:22,520 --> 01:05:39,330
+In lecture a while ago, I said that I have population average and coefficients for the intercept, the time effects in the group effects and effect.
+
+543
+01:05:39,350 --> 01:05:48,390
+Let's just focus on the coefficients. I have coefficients from a generalized, linear, mixed model.
+
+544
+01:05:51,710 --> 01:05:55,400
+Now remember these and these are estimates from one set of data.
+
+545
+01:05:55,550 --> 01:06:08,280
+I'm going to do some simulations for you next week. But what I said with the sun data was that the intercept in the G model right.
+
+546
+01:06:08,300 --> 01:06:14,330
+Is proportional to the intercept in the jail time leading to the same population,
+
+547
+01:06:14,330 --> 01:06:19,820
+average interpretation or whereas the coefficients on the other covariance in this case time and group.
+
+548
+01:06:21,480 --> 01:06:26,640
+Both sets of coefficients have a population average interpretation.
+
+549
+01:06:27,270 --> 01:06:30,240
+Even though one came from a subject specific model.
+
+550
+01:06:32,280 --> 01:06:40,050
+Because all of the problems got subsumed by the intercept term for for this for a lot like for sun data.
+
+551
+01:06:40,350 --> 01:06:47,950
+Right. So what I just said doesn't mean they're going to be exactly the same numbers.
+
+552
+01:06:48,640 --> 01:06:55,450
+It's a conceptually conceptually, these two estimates are both estimating a population average parameter.
+
+553
+01:06:55,810 --> 01:07:01,990
+So you have an estimate from G of negative point five and from Zealand of negative point four or five.
+
+554
+01:07:03,440 --> 01:07:08,000
+They're different methods of estimation. They're going to use slightly different ways to estimate things.
+
+555
+01:07:08,780 --> 01:07:15,470
+So conceptually, they're the same thing. Numerically they're not because we use different methods of estimation.
+
+556
+01:07:16,550 --> 01:07:23,240
+And the same way with the time, right? In this case, they're pretty close to each other while they're really close to each other.
+
+557
+01:07:25,470 --> 01:07:29,690
+Again, where there's a difference between what we're doing with a number and how we're interpreting it.
+
+558
+01:07:30,320 --> 01:07:39,680
+So for the GLM, negative point six, four, two, eight and so forth, that has a copy that has a subject specific approach conditional on random effects.
+
+559
+01:07:40,580 --> 01:07:44,930
+But it also can be used as a population average interpretation.
+
+560
+01:07:46,490 --> 01:07:56,780
+That's what I was trying to say. And all the theory is that, again, whether you think, Gee, Imam or JW, you get a population average.
+
+561
+01:07:57,500 --> 01:08:08,160
+And again, remember that a random intercept in a in a log link model is not exactly the same as exchangeable correlation energy.
+
+562
+01:08:09,650 --> 01:08:15,170
+They're comparable ideas, constant variation and over time, within and between individuals.
+
+563
+01:08:19,060 --> 01:08:25,780
+So just to give you a little bit more food for thought and then we'll leave because it is still ridiculously nice outside, isn't it?
+
+564
+01:08:27,130 --> 01:08:30,340
+Not a good incentive for my statistics.
+
+565
+01:08:32,230 --> 01:08:35,410
+We have an intercept from geese, and I'm just going to throw out the intercept.
+
+566
+01:08:36,280 --> 01:08:38,650
+I'm going to pull out the intercept from the China model.
+
+567
+01:08:42,400 --> 01:08:47,530
+In my previous slides, I said that there was an adjustment factor between these two coefficients.
+
+568
+01:08:47,860 --> 01:08:55,450
+It was the exponent of the variance divided by two. That was what I was trying to say in my notes.
+
+569
+01:08:56,500 --> 01:09:01,390
+And so. Again.
+
+570
+01:09:01,630 --> 01:09:05,770
+You don't need to do this for the homework. You don't ever need to do this in your life.
+
+571
+01:09:07,270 --> 01:09:17,500
+But as you took the intercept from a subject specific glamor model and you for some reason wanted a population average estimate,
+
+572
+01:09:18,940 --> 01:09:24,880
+you could take your coefficient for the intercept and multiply it by that adjustment factor.
+
+573
+01:09:27,460 --> 01:09:38,410
+And that is so. So the intercept in the jail model was 1.43 G element model.
+
+574
+01:09:39,430 --> 01:09:47,320
+If you wanted a population average estimate of the intercept, you first have to run the adjustment.
+
+575
+01:09:48,130 --> 01:09:54,880
+It is 1.61. If I said a geo imam and for some reason I wanted the population average intercept,
+
+576
+01:09:55,300 --> 01:10:03,130
+it's 1.61 that has the same interpretation as the intercept from the GDP model.
+
+577
+01:10:05,710 --> 01:10:11,410
+Does it mean they're the same number? We have two estimates for the same quantity.
+
+578
+01:10:12,520 --> 01:10:15,730
+We use different methods of estimation. Right. But.
+
+579
+01:10:24,250 --> 01:10:30,620
+So we need that. Yeah. We didn't want to shut myself up for a dig, an even deeper hole.
+
+580
+01:10:31,280 --> 01:10:38,269
+Right. So, again, I don't know anyone who fits a random effects model with now normal data and says,
+
+581
+01:10:38,270 --> 01:10:41,960
+Gee, let me figure out what the marginal model result would have been.
+
+582
+01:10:42,890 --> 01:10:45,050
+We use a marginal model from the first get go,
+
+583
+01:10:46,310 --> 01:10:52,370
+but the important thing to know is that even though conceptually they are different models in a log linear model with baseline data,
+
+584
+01:10:52,850 --> 01:10:58,820
+the interpretation of everything but the intercept is still at a population level because of the mathematics.
+
+585
+01:10:59,240 --> 01:11:06,360
+That's the only reason. For binary data again.
+
+586
+01:11:06,360 --> 01:11:14,759
+I haven't even done that today. None of the coefficients are our population average from interpretation from a random
+
+587
+01:11:14,760 --> 01:11:20,460
+effects model because then there are logit link is so problematic in so many ways,
+
+588
+01:11:21,960 --> 01:11:24,960
+but we use it all the time. All right.
+
+589
+01:11:25,350 --> 01:11:31,229
+With that, go forth and start number two, four, five and see if you can get again.
+
+590
+01:11:31,230 --> 01:11:35,850
+I would hope you just wait until Monday before it's do I know you're busy?
+
+591
+01:11:36,690 --> 01:11:40,050
+But I can guarantee you that some of you are going to run into convergence problems.
+
+592
+01:11:42,210 --> 01:11:54,240
+So let's see what happens if you work with four or five groups at a good weekend, do not forget to put your clocks back.
+

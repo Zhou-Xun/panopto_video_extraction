@@ -1,0 +1,464 @@
+1
+00:00:03,780 --> 00:00:13,950
+OK, so in this segments, we're going to move on to inferential statistics and we're going to do a multivariate analysis and multivariate,
+
+2
+00:00:13,950 --> 00:00:18,710
+as we mentioned earlier on, were analyzed in more than two variables.
+
+3
+00:00:18,710 --> 00:00:24,890
+In the prior segments we did descriptive statistics and that's when we were mostly looking at,
+
+4
+00:00:24,890 --> 00:00:30,210
+you know, our measures of central tendency as well as measures of spread.
+
+5
+00:00:30,210 --> 00:00:35,790
+And we we also did a bivariate analysis just to show you how we could analyze
+
+6
+00:00:35,790 --> 00:00:40,890
+two variables a bivariate analysis isn't necessarily descriptive statistics.
+
+7
+00:00:40,890 --> 00:00:44,010
+But I did that to show you how we're working with two variables.
+
+8
+00:00:44,010 --> 00:00:52,140
+So with an inferential statistics, what I have there is that to demonstrate inferential statistics,
+
+9
+00:00:52,140 --> 00:00:57,960
+we will be using a data set from the Sleuth2 package called E x 1029.
+
+10
+00:00:57,960 --> 00:01:03,210
+So this is again, my R student interface and down here.
+
+11
+00:01:03,210 --> 00:01:10,920
+This is where I have the packages that I've installed and what I like to do first I like to use the help function
+
+12
+00:01:10,920 --> 00:01:15,990
+this allows me to view the documentation for the particular dataset that I'm working with.
+
+13
+00:01:15,990 --> 00:01:23,580
+And the View Command, you saw that earlier on. It allows me to view my data set in a tabular format like an Excel format.
+
+14
+00:01:23,580 --> 00:01:31,380
+Right. So let's look quickly at the HELP Command. Let's do the HELP command to see the documentation.
+
+15
+00:01:31,380 --> 00:01:40,480
+OK, so this dataset contains weekly wages in 1987 for a sample of over 2500 males.
+
+16
+00:01:40,480 --> 00:01:43,020
+Again, pay attention to the key terms sample.
+
+17
+00:01:43,020 --> 00:01:52,770
+It means that we didn't get data from the entire population, but we're assuming that this is representative of the United States population, males.
+
+18
+00:01:52,770 --> 00:01:57,900
+And so they're between the ages of 18 and 70. They work full time.
+
+19
+00:01:57,900 --> 00:02:02,760
+It also has the data set contains their years of education.
+
+20
+00:02:02,760 --> 00:02:07,040
+Years of experience, and then indicate a variable for whether they were black.
+
+21
+00:02:07,040 --> 00:02:10,980
+An indicator variable for whether they worked in or near a city.
+
+22
+00:02:10,980 --> 00:02:17,750
+And a code for the region in the United States where they worked. So I like looking at this
+
+23
+00:02:17,750 --> 00:02:22,710
+documentation because it shows me the variables in my dataset that I'm going to be working with.
+
+24
+00:02:22,710 --> 00:02:28,950
+And you can see I have a couple and right off the bat I see that this is called wage and race.
+
+25
+00:02:28,950 --> 00:02:35,190
+So my first question was, how does your race influence your wage?
+
+26
+00:02:35,190 --> 00:02:39,960
+We can also say income for the purpose of this conversation. Does it influence your earnings?
+
+27
+00:02:39,960 --> 00:02:45,870
+Right. Again, let's put everything in perspective. This data was collected in 1987 so
+
+28
+00:02:45,870 --> 00:02:49,620
+I'm pretty sure that there has been policies.
+
+29
+00:02:49,620 --> 00:02:56,700
+You know, there's been discussions, there've been discussions about the wage gap and things of that nature.
+
+30
+00:02:56,700 --> 00:03:00,810
+So it's not so much to talk about. Oh my God, this group earn more.
+
+31
+00:03:00,810 --> 00:03:05,520
+But just to show you how we analyzed data using different variables.
+
+32
+00:03:05,520 --> 00:03:15,560
+Right. So if I go back to. In this sort of like, view right here, it shows me all my observations over 2500.
+
+33
+00:03:15,560 --> 00:03:19,250
+I have eight columns, which means that I have eight variables.
+
+34
+00:03:19,250 --> 00:03:24,680
+Right. So let's go back to our file.
+
+35
+00:03:24,680 --> 00:03:28,910
+We looked at our data set. We viewed it. We looked at the documentation.
+
+36
+00:03:28,910 --> 00:03:37,190
+Another thing that we can do is to check for missing values, because with some procedures, we have to disregard or ignore the missing values.
+
+37
+00:03:37,190 --> 00:03:45,620
+And this is the function that I would use. That's the code. And it's telling me that is false for all the variables that we have no missing values.
+
+38
+00:03:45,620 --> 00:03:55,630
+Now, another thing is that. If you see, if you go back to the variable that they giving me for race is black, which is not very intuitive.
+
+39
+00:03:55,630 --> 00:04:03,550
+I prefer to work with a variable called race. And then I can say give it to different level so I can say black or non black.
+
+40
+00:04:03,550 --> 00:04:09,070
+Right. So what we can do is that we can define our own variables. So I'm going to define a new variable.
+
+41
+00:04:09,070 --> 00:04:14,770
+I'm going to call it race, but it's going to be based on what they gave me initially for
+
+42
+00:04:14,770 --> 00:04:25,140
+for black right. So if I run that. It's gonna give them my new variable and I can see how well it aligns with what I had originally.
+
+43
+00:04:25,140 --> 00:04:33,330
+So  originally they gave me black as the indicator variable for race, but I define my own variable and I can see
+
+44
+00:04:33,330 --> 00:04:42,270
+OK, black is aligned with what's Yes. None black is aligned with what was no for black originally and an inferential statistics
+
+45
+00:04:42,270 --> 00:04:52,620
+we also start off by generating summary statistics to see, you know, the spread of our data, to see, you know, our measures of central tendency.
+
+46
+00:04:52,620 --> 00:04:55,650
+So we're doing this wage by race.
+
+47
+00:04:55,650 --> 00:05:04,110
+And race is essentially saying whether you're black or non black, it's going to tell us, you know, what the wages were.
+
+48
+00:05:04,110 --> 00:05:10,380
+So I can see that the mean for non blacks were the mean was higher than that for blacks.
+
+49
+00:05:10,380 --> 00:05:15,090
+The median was also higher. The maximum was also higher, was much higher
+
+50
+00:05:15,090 --> 00:05:22,950
+but this could be due to it's outliers right. So it's good to do summary statistics, to have a quick snapshot of your data.
+
+51
+00:05:22,950 --> 00:05:30,690
+I can also do a density plot. Right, because a density plot is going to tell me whether or not it's symmetrical so I can
+
+52
+00:05:30,690 --> 00:05:37,350
+determine what statistical test to use. So im doing a density plot of wage by race
+
+53
+00:05:37,350 --> 00:05:45,080
+and it's going to show me what the curve looks like for, you know, for my two groups, whether you're black or non black.
+
+54
+00:05:45,080 --> 00:05:51,120
+And right off the bat, you can see how skewed this is for the nonblacks is highly skewed.
+
+55
+00:05:51,120 --> 00:05:52,830
+A lot of outliers.
+
+56
+00:05:52,830 --> 00:06:04,290
+So what we can do since this would most naturally violate the assumptions of normality for doing my regression, we can transform wage.
+
+57
+00:06:04,290 --> 00:06:12,810
+We can do a lot with transformation of wage. And this is the code that I'm using right here so I can transform that variable.
+
+58
+00:06:12,810 --> 00:06:17,760
+And let's see what we have here. That was done.
+
+59
+00:06:17,760 --> 00:06:23,400
+Now we can do a new density plot with a transformed variable.
+
+60
+00:06:23,400 --> 00:06:27,660
+And looking at this, you can see this looks a lot more symmetrical.
+
+61
+00:06:27,660 --> 00:06:37,920
+So with this transformation, I can go ahead and start conducting, by my analysis, specifically to do a regression.
+
+62
+00:06:37,920 --> 00:06:44,910
+Now, from the summary statistics earlier on, there appears to be a relationship between rate, wage and race.
+
+63
+00:06:44,910 --> 00:06:50,760
+We will create a multivariable model to see if this association can be explained by other factors.
+
+64
+00:06:50,760 --> 00:06:59,330
+What do I mean? If I go back here, I can see that the median for nonblacks, the median wage is much higher than that of blacks.
+
+65
+00:06:59,330 --> 00:07:09,340
+The mean, it's also higher. I did not do a bivariate analysis and I could have done that, but sort of skipped that test because
+
+66
+00:07:09,340 --> 00:07:14,650
+like I said, I can assume that, you know, let's assume that this is significant.
+
+67
+00:07:14,650 --> 00:07:21,410
+We're going to say we're going gonna see if that could possibly be explained by all the variables in our data.
+
+68
+00:07:21,410 --> 00:07:29,320
+Right. It is possible that nonblacks basically earn more because they're more educated.
+
+69
+00:07:29,320 --> 00:07:34,120
+Right. It is possible that they earn more because they have more years of experience.
+
+70
+00:07:34,120 --> 00:07:38,380
+Right. So there are other factors that could explain this association.
+
+71
+00:07:38,380 --> 00:07:44,090
+We're going to test this statistically if these other factors explain why the
+
+72
+00:07:44,090 --> 00:07:51,450
+nonblacks in our sample have higher wages than the black participants now.
+
+73
+00:07:51,450 --> 00:07:55,540
+Now let's go and do our regression.
+
+74
+00:07:55,540 --> 00:08:01,090
+This is an example of a multivariate analysis, multiverse because I have several variables
+
+75
+00:08:01,090 --> 00:08:06,310
+I have more than two variables. My outcome variable is log.wage
+
+76
+00:08:06,310 --> 00:08:12,060
+And that's the wage variable that I transform because it was so skewed initially, the distribution was very skewed
+
+77
+00:08:12,060 --> 00:08:15,790
+so I had to transform it. Lm means linear model
+
+78
+00:08:15,790 --> 00:08:20,860
+that's just still the function for running a regression.
+
+79
+00:08:20,860 --> 00:08:24,730
+And what I'm doing, I have race race is my main predictor,
+
+80
+00:08:24,730 --> 00:08:30,430
+right, and wages my outcome. I'm adding these all the variables I'm controlling for them.
+
+81
+00:08:30,430 --> 00:08:38,170
+I want to see if they explain the association that I'm seeing. What I have in this step is to get a summary of my regression.
+
+82
+00:08:38,170 --> 00:08:43,570
+To get a summary of my results and I'm also requesting the confidence intervals because the
+
+83
+00:08:43,570 --> 00:08:50,170
+confidence interval is the band within which I'm certain that my my outcome,
+
+84
+00:08:50,170 --> 00:08:57,080
+my my results lies in. Right. So let's run this. All right.
+
+85
+00:08:57,080 --> 00:09:02,690
+So the things we need to pay attention to with this, and I have interpretation later on,
+
+86
+00:09:02,690 --> 00:09:08,900
+we're looking at our main predictor, our main prediction is race and the Pr right here
+
+87
+00:09:08,900 --> 00:09:16,130
+this represents my P value. I can see right off the bat that my P value is two times ten to the minus sixteen.
+
+88
+00:09:16,130 --> 00:09:19,760
+This is less than .05 because
+
+89
+00:09:19,760 --> 00:09:25,100
+We start out by setting .05 as our alpha level,
+
+90
+00:09:25,100 --> 00:09:35,510
+even though I didn't say it. But so even in the presence of these other these other control variables, these covariates,
+
+91
+00:09:35,510 --> 00:09:42,590
+we can see that or association between race and our outcome, which was wage, is still significant.
+
+92
+00:09:42,590 --> 00:09:47,690
+But let's try to interpret this. Let's explain this in plain language.
+
+93
+00:09:47,690 --> 00:09:56,600
+So because I took the log of wage earlier on, I would have to exponentiation my my estimate.
+
+94
+00:09:56,600 --> 00:10:02,090
+What I mean by estimate. I have to exponentiation this number right here.
+
+95
+00:10:02,090 --> 00:10:04,760
+So this is my coefficient that I'm going to exponentiation,
+
+96
+00:10:04,760 --> 00:10:11,390
+I'm going to get Exponent and then I also have to exponentiate my my confidence interval.
+
+97
+00:10:11,390 --> 00:10:15,470
+This is my confidence interval right here, my 95 percent confidence interval.
+
+98
+00:10:15,470 --> 00:10:20,480
+I have exponentiate these values as well. And that's because I took a log of wage earlier on.
+
+99
+00:10:20,480 --> 00:10:25,340
+So let's do this. I wrote the code earlier on, obviously, to save time.
+
+100
+00:10:25,340 --> 00:10:29,810
+So if we run this. So it's given me my value.
+
+101
+00:10:29,810 --> 00:10:36,800
+So 1.26 is my estimate for race, specifically nonblack.
+
+102
+00:10:36,800 --> 00:10:43,340
+And then 1.23 to 1.29 is my 95 percent confidence interval.
+
+103
+00:10:43,340 --> 00:10:51,760
+How to interpret this? So we can say that being nonblack is associated with a 26 percent greater income
+
+104
+00:10:51,760 --> 00:10:57,320
+controlling for education, experience SMSA and region.
+
+105
+00:10:57,320 --> 00:11:01,730
+If SMSA makes no sense to you. It's right here. They tell you what it means.
+
+106
+00:11:01,730 --> 00:11:06,770
+It's an indicator for whether the person words words in or near a city.
+
+107
+00:11:06,770 --> 00:11:13,460
+So again, this study was conducted back in 1987, I think.
+
+108
+00:11:13,460 --> 00:11:23,210
+So the whole point is to show you how we can analyze separate variables, how we can analyze our own data to make it meaningful to us,
+
+109
+00:11:23,210 --> 00:11:29,780
+how we can operationalize statistical concepts and concepts and quantitative research.
+
+110
+00:11:29,780 --> 00:11:39,240
+And as public health researchers, as public health students, these factors in the grand scheme of things, they tie into your socio economic status.
+
+111
+00:11:39,240 --> 00:11:44,180
+So it's still relevant in the discussion of health outcomes.
+
+112
+00:11:44,180 --> 00:11:50,960
+But again, it's not so much to show you, you know, how race influenced your income back then,
+
+113
+00:11:50,960 --> 00:11:57,170
+but its to show you how you can analyze your variables, how you can make data analysis meaningful to you.
+
+114
+00:11:57,170 --> 00:12:03,500
+So earlier on, I showed you the Web sites on the PowerPoint, you see where you can download R,
+
+115
+00:12:03,500 --> 00:12:09,290
+and you can practice and everything will suddenly start makes making more sense.
+
+116
+00:12:09,290 --> 00:12:15,760
+The more you practice. So that's it for this segment, and thank you.
+

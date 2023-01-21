@@ -1,0 +1,1812 @@
+1
+00:00:00,090 --> 00:00:01,890
+With predictive modeling and survival.
+
+2
+00:00:02,250 --> 00:00:08,790
+So often the research question might be something like What is the probability that a patient will be alive in five years?
+
+3
+00:00:09,330 --> 00:00:15,360
+And the type of data that we have to answer this question is time dependent as we have answered observations.
+
+4
+00:00:15,840 --> 00:00:25,380
+And so when we built a prediction model, we used to use a method that accounts for substring and there are a variety of methods that we could use.
+
+5
+00:00:25,410 --> 00:00:30,180
+So your more traditional methods would be your Cox proportional hazards model.
+
+6
+00:00:30,510 --> 00:00:39,660
+And then there's newer machine learning approaches, so random survival for survival of neural nets in Cox models.
+
+7
+00:00:39,900 --> 00:00:42,990
+And so the evidence from these models can vary.
+
+8
+00:00:43,680 --> 00:00:46,739
+But today we're going to be talking about survival probability,
+
+9
+00:00:46,740 --> 00:00:55,140
+because often that's the prediction that we present to clinicians for them to make treatment and monitoring decisions.
+
+10
+00:00:57,480 --> 00:01:06,780
+And so, as I mentioned, there is a variety of methods for developing survival prediction models and they tend to fall on this data science continuum.
+
+11
+00:01:07,200 --> 00:01:10,479
+We're on the left hand side. We have more traditional statistical methods.
+
+12
+00:01:10,480 --> 00:01:16,350
+So our regressions and they tend to be simpler and more interpretable.
+
+13
+00:01:17,070 --> 00:01:21,630
+But as a result, we have poor predictive performance when applied to complex data.
+
+14
+00:01:22,050 --> 00:01:30,630
+And as we move towards the right hand side, we have our machine learning approaches which can have better performance with complex data,
+
+15
+00:01:31,020 --> 00:01:34,860
+but as a result are more complex and less interpretable.
+
+16
+00:01:34,860 --> 00:01:44,940
+So they're often called black box models. And so a black box model that's not interoperable is more difficult to trust in clinical decision making.
+
+17
+00:01:45,360 --> 00:01:53,640
+So our idea is to in situations where a black box model has superior predictive performance,
+
+18
+00:01:54,060 --> 00:01:58,800
+can we understand a little bit more about how the black box is behaving?
+
+19
+00:02:01,190 --> 00:02:07,100
+And so today I'm going to talk mainly about a particular machine learning approach, random survival force.
+
+20
+00:02:07,610 --> 00:02:18,799
+And so a random semaphores is a extension of a random forest, but for censored observations and it's a non parametric approach.
+
+21
+00:02:18,800 --> 00:02:21,980
+So we don't need to specify the relationship for the covariance.
+
+22
+00:02:22,310 --> 00:02:26,780
+We don't need to know a priori how they interact with each other and how they affect the outcome.
+
+23
+00:02:27,410 --> 00:02:32,750
+And it's been shown that the random survival force has superior approach to performance to test
+
+24
+00:02:32,750 --> 00:02:38,270
+models when there are several covariates and their complex nonlinear relationships in the data.
+
+25
+00:02:38,630 --> 00:02:44,860
+And additionally, the random survival for IS does not imposed proportional hazards assumption that we often have with Cox models.
+
+26
+00:02:47,110 --> 00:02:53,680
+And so you're just in case you're not familiar. I was going to give a quick overview of how the NSA battle force works.
+
+27
+00:02:54,100 --> 00:02:57,240
+So it's an ensemble of decision trees.
+
+28
+00:02:57,250 --> 00:03:03,670
+And so the decision tree algorithm. So we start off with all of our patients in an initial node and then the
+
+29
+00:03:03,670 --> 00:03:08,829
+algorithm chooses a predictor and threshold combination to split that into two
+
+30
+00:03:08,830 --> 00:03:16,630
+groups that maximizes the survival difference between those two groups and continues to do that for each node until there are no more splits possible.
+
+31
+00:03:17,020 --> 00:03:26,050
+And so if you just start with a tree example you know for patients I a cancer positive survival so the first
+
+32
+00:03:26,710 --> 00:03:32,950
+Gleason grade and in that lower Gleason grade group the second play is on PSA and in the higher grade group,
+
+33
+00:03:32,950 --> 00:03:40,989
+the next play is on percent positive. Corey So we end up with these four final nodes and then the estimated survival for each of these nodes,
+
+34
+00:03:40,990 --> 00:03:43,390
+it's based on the individuals that end up in that final node.
+
+35
+00:03:43,780 --> 00:03:48,969
+So for a new individual to get their prediction, we would drop them down this tree and based on their predictors,
+
+36
+00:03:48,970 --> 00:03:53,460
+they would end up in one of these final nodes and that would either predicted a survival curve.
+
+37
+00:03:55,090 --> 00:03:58,600
+And feel free to interrupt with any questions as we go.
+
+38
+00:04:00,190 --> 00:04:06,999
+So just decision trees are notorious for overfitting and not being generalizable.
+
+39
+00:04:07,000 --> 00:04:13,900
+So the random survival for is the ensemble of decision trees, where we build these decision trees,
+
+40
+00:04:14,260 --> 00:04:17,680
+bootstrap samples of the data, so we build models for decision trees.
+
+41
+00:04:18,100 --> 00:04:27,730
+And another piece of randomness is that for every split of the node within a decision tree, we also select a sample of the available predictors.
+
+42
+00:04:28,150 --> 00:04:35,680
+And then so by introducing this sort of controlled variation into the trees, we hope to improve the aggregate performance.
+
+43
+00:04:36,160 --> 00:04:41,410
+And then so for each individual, we would drop them to get a prediction.
+
+44
+00:04:41,410 --> 00:04:46,600
+We would drop them down each of these trees and they would end up in a different final node.
+
+45
+00:04:46,960 --> 00:04:52,360
+And then we would combine the survival information across those notes to get the predicted survival.
+
+46
+00:04:53,260 --> 00:05:01,070
+And that, in a nutshell, is both how to build the random survival force and also how to get the prediction for any species.
+
+47
+00:05:02,930 --> 00:05:10,280
+So today I'm really talking about an application to prostate cancer data, which sounds like you guys have done a lot in this.
+
+48
+00:05:11,690 --> 00:05:14,390
+And so this is from the PSA,
+
+49
+00:05:14,570 --> 00:05:23,390
+which is a screening trial that was used to assess the impact of PSA screening on cancer related mortality in men aged 75 to 74.
+
+50
+00:05:23,780 --> 00:05:29,629
+And so we're selecting the control arm from this trial that was not supposed to receive screening.
+
+51
+00:05:29,630 --> 00:05:39,640
+And we had those with the prostate cancer diagnosis, and then we select those with non metastatic cancer and other variety of covariates in this data.
+
+52
+00:05:39,650 --> 00:05:46,100
+But we're going to select baseline careerists based on demographics and clinical covariates and comorbidities.
+
+53
+00:05:47,000 --> 00:05:53,930
+And then our ultimate goal is going to set a random survival course to predict the probability of prostate cancer specific survival.
+
+54
+00:05:55,330 --> 00:06:00,069
+And so I am kind of using this dataset for a demonstration.
+
+55
+00:06:00,070 --> 00:06:07,330
+There's some biases known for this data, so we're going to try to make too many irrelevant decisions here.
+
+56
+00:06:08,410 --> 00:06:13,959
+And so after we set our random survival course, these are the two types of output that we can get from it.
+
+57
+00:06:13,960 --> 00:06:22,300
+So for a particular person or subject one, we can get their predicted survival probability variance, 10.2, their predicted survival curve.
+
+58
+00:06:22,750 --> 00:06:26,710
+And then on the right hand side, we can get a global variable part.
+
+59
+00:06:27,130 --> 00:06:36,250
+And so what this is measuring is the change in prediction error if we replace the predictor with a random permutation.
+
+60
+00:06:36,250 --> 00:06:44,200
+So if after you do that, the prediction error greatly increases, that means that that predictor is very important.
+
+61
+00:06:44,830 --> 00:06:52,390
+So, so basically we have started this ranking of creatures that are important to the prediction performance of the random survival course.
+
+62
+00:06:52,750 --> 00:06:59,050
+And so this is the two types of information that right now we can give a person that's using the items developers.
+
+63
+00:06:59,410 --> 00:07:05,860
+But this global variable importance doesn't really tell us anything about what's going on for this particular patient.
+
+64
+00:07:06,160 --> 00:07:12,190
+So what predictors are generally important, but we don't know exactly what's driving this patient's prediction.
+
+65
+00:07:14,050 --> 00:07:17,709
+And so that's where explainable machine learning comes.
+
+66
+00:07:17,710 --> 00:07:25,900
+And so the idea of Explainable Machine Learning is to provide some insight into what the black box model is doing.
+
+67
+00:07:26,140 --> 00:07:36,070
+And so we apply these explainer methods to predictions from prediction models to understand exactly how the model arrived at that prediction.
+
+68
+00:07:36,760 --> 00:07:41,319
+And specifically, we're going to be talking about model agnostic explainers.
+
+69
+00:07:41,320 --> 00:07:49,240
+So these can be applied to any type of prediction. Those will be applied to a sort of survival forest booster Cox model.
+
+70
+00:07:49,660 --> 00:07:54,190
+And so the advantage of that is that when we are building our model,
+
+71
+00:07:54,190 --> 00:07:59,590
+we can consider a wide class of models and still be able to apply the same explainer to explain it.
+
+72
+00:08:00,610 --> 00:08:06,070
+And the ultimate goal is at the individual level for a particular person.
+
+73
+00:08:06,370 --> 00:08:10,420
+We want to be able to explain the prediction from this black box model.
+
+74
+00:08:13,120 --> 00:08:20,530
+And so kind of try to visualize that simply. So traditionally we have a patient with either information into the black box model,
+
+75
+00:08:20,770 --> 00:08:25,390
+we get the predicted survival probability and that's what we present to the end users of the clinician.
+
+76
+00:08:25,960 --> 00:08:32,560
+But now we're going to sell the patient information to the black box model, but we're going to explain our model on top of that.
+
+77
+00:08:32,560 --> 00:08:37,660
+So then in addition to that same predicted survival probability, we now have a little bit more information.
+
+78
+00:08:37,660 --> 00:08:43,780
+So maybe this patient is at increased risk because their older age, the stage, higher stage,
+
+79
+00:08:43,780 --> 00:08:46,870
+but maybe they're a decreased risk because they don't have any comorbidities.
+
+80
+00:08:47,780 --> 00:08:55,340
+So hopefully that gives the user a little bit more insight into how the model is using predictions to make that prediction.
+
+81
+00:08:57,840 --> 00:09:06,950
+And so there a lot of us. So can we just talk about what increased risk relative to what relative to if they didn't have?
+
+82
+00:09:07,380 --> 00:09:14,190
+So we kind of look at some examples. So if I didn't have age, if they had a different age grouping.
+
+83
+00:09:14,920 --> 00:09:18,540
+So I thought, well, of that.
+
+84
+00:09:20,310 --> 00:09:23,210
+And so there's a lot of ways to operationalize this.
+
+85
+00:09:23,220 --> 00:09:30,090
+And so the specific point I want to talk about today is called local interpretable model, agnostic explanations or line.
+
+86
+00:09:30,600 --> 00:09:39,120
+And so the idea is that we approximate the black box model with a more interpretable model in a local neighborhood of the individual's data.
+
+87
+00:09:39,540 --> 00:09:43,499
+And so here you can see maybe you have a complex nonlinear function,
+
+88
+00:09:43,500 --> 00:09:50,490
+but maybe in this neighborhood of an individual's data that we consider to be mathematically close to their original data,
+
+89
+00:09:50,820 --> 00:09:55,850
+we can get a good approximation with something like a simple in your model.
+
+90
+00:09:58,260 --> 00:10:05,970
+And so to kind of give you the overall concept, so if you've ever used an online prediction calculator,
+
+91
+00:10:06,330 --> 00:10:11,790
+so maybe you're predicting your risk of heart disease. So you put in your age, your gender,
+
+92
+00:10:12,090 --> 00:10:18,149
+and then you put in maybe you exercise like 1 to 2 times per week and then you see your prediction probability and then you're like,
+
+93
+00:10:18,150 --> 00:10:20,070
+Well, actually, I kind of exercise more than that.
+
+94
+00:10:20,070 --> 00:10:24,810
+So you go back and change that to 3 to 4 times and you see how that changes your predictive probability.
+
+95
+00:10:25,140 --> 00:10:27,180
+And so that's exactly what we're going to do.
+
+96
+00:10:27,270 --> 00:10:35,520
+We have our patient and their original data, and we see that into our black box model and we get our prediction and then we perturb that data.
+
+97
+00:10:35,520 --> 00:10:43,290
+So again, in this neighborhood of the individual data and we see that perturbation into the Flexbox model and we see how the prediction changes.
+
+98
+00:10:43,710 --> 00:10:48,830
+And we think that for several situations you get this perturbed data set and then
+
+99
+00:10:48,930 --> 00:10:53,850
+two estimates are the contribution of the predictors to the individual's prediction.
+
+100
+00:10:54,150 --> 00:10:57,180
+We get a linear regression to that data,
+
+101
+00:10:57,480 --> 00:11:05,580
+but the idea is that the coefficient estimates from this linear regression then represent the effects of the predictor on that person's prediction.
+
+102
+00:11:06,810 --> 00:11:11,570
+And we're going to look at a lot of examples of linear regression.
+
+103
+00:11:11,590 --> 00:11:16,650
+So linear and a little bit variable just to get an effect of making the combination linear.
+
+104
+00:11:19,110 --> 00:11:27,780
+So we're talking about how we generate that perturb data. So the perturbation is generated by sampling the produce from the predictor distribution,
+
+105
+00:11:28,290 --> 00:11:35,260
+and then each perturbation is assigned a weight of how close it is to the original observation of the actual person,
+
+106
+00:11:35,400 --> 00:11:40,530
+the other person's actual information. And so there are a variety of ways to compute the ways.
+
+107
+00:11:40,530 --> 00:11:47,549
+So if you have a bunch of mixed data so you have predictors that are numeric and some better categorical summary text,
+
+108
+00:11:47,550 --> 00:11:55,740
+you can use something called a Gower's distance, which has a distance metric for each type of data and then averages across the predictors.
+
+109
+00:11:56,880 --> 00:12:06,660
+And or if all of your pictures are numeric, you can use a real function kernel which is based on Euclidean distance and has this kernel with parameter
+
+110
+00:12:07,020 --> 00:12:13,780
+which you can specify to identify if you want a small local neighborhood or a wider local neighborhood.
+
+111
+00:12:14,520 --> 00:12:17,730
+And so we can look at sort of a visualization here.
+
+112
+00:12:18,780 --> 00:12:24,450
+So this is a for a particular person representing 500 perturbations.
+
+113
+00:12:25,200 --> 00:12:32,100
+And so we're looking at just three predictors here. So we have age PSA and we treat it to stage as being numeric.
+
+114
+00:12:32,520 --> 00:12:40,049
+And so each of these dots is a perturbation and the color corresponds to the weight that it's given.
+
+115
+00:12:40,050 --> 00:12:44,460
+So the tree person's observation somewhere over here is this bright yellow dot.
+
+116
+00:12:44,940 --> 00:12:55,620
+And on the left here we have a high kernel with. So you can see that observations that are further away from this dot so have a higher nonzero value.
+
+117
+00:12:55,920 --> 00:13:04,560
+Whereas on the right we have a small kernel with and you can see that only observations close to the individual have a higher non-zero value.
+
+118
+00:13:05,040 --> 00:13:10,529
+And so carrying this kernel with is something that you have to specify as the user.
+
+119
+00:13:10,530 --> 00:13:18,270
+So you can specify based on contextually what you think is close to an individual or their methods to optimize this.
+
+120
+00:13:18,600 --> 00:13:25,290
+But the tradeoff is if you have to lie to the neighborhood, you might not be able to get a good approximation.
+
+121
+00:13:25,740 --> 00:13:29,040
+And if you have too small by neighborhood, that'll affect stability.
+
+122
+00:13:29,190 --> 00:13:33,900
+So that's kind of some thing you have to keep in mind when fitting the explainer.
+
+123
+00:13:35,940 --> 00:13:46,750
+And so once we have a data set, so we fit our interpretable explainer model, which is a weighted penalize regression and in this case regression.
+
+124
+00:13:46,770 --> 00:13:55,520
+And so X here is our perturbed dataset and then beta is our explanations.
+
+125
+00:13:55,980 --> 00:14:04,350
+And why is the predictive probability from the black box model corresponding to the of data are the weights that we just
+
+126
+00:14:04,350 --> 00:14:12,570
+talked about and so know that's Jerry talking about the we have a linear combination of the predictors but you know,
+
+127
+00:14:12,600 --> 00:14:17,460
+some choices we made for interpretability is for continuous covariates.
+
+128
+00:14:18,060 --> 00:14:21,930
+We can build them for easier interpretability and also for stability.
+
+129
+00:14:21,930 --> 00:14:27,960
+So we can build them based on clinically relevant bins or it's on their distribution.
+
+130
+00:14:28,440 --> 00:14:33,450
+And then further for interpretability for binned and categorical covariance,
+
+131
+00:14:33,780 --> 00:14:43,620
+they enter into the model as a binary indicator of whether or not they're in the same bean or category as the person's original observation.
+
+132
+00:14:43,920 --> 00:14:50,850
+And the reason for that is, and that gives us the interpretation of the effects of this person's predictor versus
+
+133
+00:14:50,910 --> 00:14:56,760
+not having that or not having that level versus for a particular reference level.
+
+134
+00:14:57,150 --> 00:15:05,219
+And again, we'll see that in a second. And so those two choices to improve interpretability can affect goodness effects.
+
+135
+00:15:05,220 --> 00:15:14,610
+So we can measure goodness of that, of how well the linear approximation is approximating the black box model using an R squared measure.
+
+136
+00:15:14,910 --> 00:15:21,600
+So again, we kind of want to keep an eye on some of these to make sure that we haven't simplified the model too much.
+
+137
+00:15:22,260 --> 00:15:25,770
+So you do with that one particular follow up time.
+
+138
+00:15:25,770 --> 00:15:30,450
+So it's like the five year prediction. Yeah. So right now we're watching closely.
+
+139
+00:15:30,450 --> 00:15:33,629
+Right now we're just talking about 411 prediction.
+
+140
+00:15:33,630 --> 00:15:36,990
+You're trying to explain one prediction at a specific time.
+
+141
+00:15:37,020 --> 00:15:43,870
+At a specific time. And so once you have your estimate, betas or your explanations,
+
+142
+00:15:46,360 --> 00:15:53,100
+we have this intercept term which kind of represents this baseline period to probability, which doesn't actually have an interpretation by itself.
+
+143
+00:15:53,110 --> 00:16:01,929
+But if this is sort of dominating your explanations, you find that your other betas associated with the predictions are very low.
+
+144
+00:16:01,930 --> 00:16:09,910
+Then that might mean, if you see this across individuals, that the model is predicting similarly for everybody and is not really using the predictors,
+
+145
+00:16:10,630 --> 00:16:16,720
+but then the individual betas represent the average effect of the predictor in the local neighborhood of the precedes data.
+
+146
+00:16:16,990 --> 00:16:27,540
+And so again, depending on how you specify the model, we can compute the contribution of to the predicted probability of having the predator.
+
+147
+00:16:27,550 --> 00:16:34,450
+So for example, if you did put in continuous age, it would be sort of this is the effect of this age versus an age of zero.
+
+148
+00:16:34,450 --> 00:16:37,540
+So that doesn't quite maybe make sense for interpretation.
+
+149
+00:16:37,540 --> 00:16:42,370
+So thinking about how you want to interpret these betas to build this model.
+
+150
+00:16:45,110 --> 00:16:53,809
+One more thing. So if you put in the person's data into the equation at the top, you get this explainer prediction.
+
+151
+00:16:53,810 --> 00:17:01,700
+And so when you see the limitations is that that's not restricted to be equal to the actual prediction from the black box model.
+
+152
+00:17:01,970 --> 00:17:09,020
+So another sort of measure of that we look at is to see how close that value is to their actual prediction.
+
+153
+00:17:11,630 --> 00:17:22,100
+And so here's just an example. So this is to explain a person's ten year cancer survival probably at a particular time.
+
+154
+00:17:22,460 --> 00:17:27,830
+And so for this person, our subject, once their ten year survival probability is 89%.
+
+155
+00:17:28,340 --> 00:17:32,780
+And on the x axis here, we have our estimated explanation.
+
+156
+00:17:32,780 --> 00:17:37,730
+So our coefficients and these are on the probability scale.
+
+157
+00:17:37,820 --> 00:17:45,080
+So on the left hand side, we have predictors that are decreasing their survival probability or harmful.
+
+158
+00:17:45,470 --> 00:17:50,210
+And on the right hand side, we have predictors that are increasing their survival, at least protective.
+
+159
+00:17:50,600 --> 00:17:54,200
+So we did that thing where we change the continuous covariance,
+
+160
+00:17:54,200 --> 00:18:01,160
+and then we had our clinical collaborator identify, I guess, clinically relevant groups.
+
+161
+00:18:01,520 --> 00:18:08,060
+And so for PSA, this person is in the highest group, so they have a PSA of 11.
+
+162
+00:18:08,710 --> 00:18:12,220
+And so this is bigger than ten was considered a high risk group.
+
+163
+00:18:12,230 --> 00:18:20,160
+And we can see that the effect of that is decreasing their survival probability relative to being in the other groups equally,
+
+164
+00:18:20,540 --> 00:18:24,140
+their increased age just decrease in their survival probability.
+
+165
+00:18:24,590 --> 00:18:29,030
+And they have they don't have some co-morbidities. So that's kind of protective.
+
+166
+00:18:29,450 --> 00:18:37,350
+And then they also have a low Gleason score is also protective and then have a variety of other covariates in the model.
+
+167
+00:18:37,400 --> 00:18:41,220
+So that's kind of to give you an idea of what this explanation would look like.
+
+168
+00:18:41,530 --> 00:18:44,089
+And two possible ways to use this.
+
+169
+00:18:44,090 --> 00:18:52,820
+So for a clinical user, maybe this is know provides additional trust in the models so they get the predicted survival probability.
+
+170
+00:18:53,120 --> 00:18:56,060
+If that doesn't align with what they intuitively think,
+
+171
+00:18:56,450 --> 00:19:02,180
+then maybe this additional information can show them how the black box model is coming to that prediction.
+
+172
+00:19:03,050 --> 00:19:12,200
+Also, it can be helpful in model building. So in the first iteration I did in this, there's treatment variables in the dataset.
+
+173
+00:19:12,200 --> 00:19:21,820
+So I included those and found that hormone therapy was harmful, which would be contradictory to what is found in several clinical trials.
+
+174
+00:19:21,830 --> 00:19:31,729
+And so the clinician collaborators suspect that that's sort of the black box model is capturing an artifact of the data of clinical decision making.
+
+175
+00:19:31,730 --> 00:19:37,309
+And so that's something that maybe they don't want the prediction model to be using in that way.
+
+176
+00:19:37,310 --> 00:19:40,730
+And so we draw that from from building the model.
+
+177
+00:19:42,670 --> 00:19:48,160
+I'll just tap three questions. Yes.
+
+178
+00:19:48,530 --> 00:19:55,360
+How computationally intensive is this if you're doing the random variations for every year?
+
+179
+00:19:56,030 --> 00:20:03,530
+Yeah, actually. So the perturbation like generating a per trip data set is not that computationally intensive and neither is applying the explainer.
+
+180
+00:20:03,770 --> 00:20:09,140
+It's computationally intensive as if you have a random survival of forests of like a thousand trees.
+
+181
+00:20:09,560 --> 00:20:14,690
+To get a prediction for each perturbation takes a long time because that person is so far down each
+
+182
+00:20:14,690 --> 00:20:19,819
+of those trees and and we actually generate like 5000 perturbations to get that local neighborhood.
+
+183
+00:20:19,820 --> 00:20:25,790
+So that part is computationally expensive and this is for one person.
+
+184
+00:20:25,790 --> 00:20:29,839
+And so I'm going to show you some results averaged across multiple people.
+
+185
+00:20:29,840 --> 00:20:32,960
+So that does kind of like exponentially increase the time.
+
+186
+00:20:34,260 --> 00:20:39,229
+So for length a like a chocolate bar, so it's like -0.09.
+
+187
+00:20:39,230 --> 00:20:40,850
+So what, how do I interpret that?
+
+188
+00:20:41,270 --> 00:20:50,570
+So it's kind of like, I guess like you can actually interpret it so that there is like it's decreasing their survival probability by 9%.
+
+189
+00:20:51,020 --> 00:20:58,270
+And so I'm not sure how clinically relevant that can be because you can't really like some things you can't change, right?
+
+190
+00:20:58,360 --> 00:21:02,060
+Like you can't be like, well, I'm going to move this person to a different age group.
+
+191
+00:21:02,480 --> 00:21:07,850
+So it's kind of just telling you sort of like the relative effect and the direction at the black box
+
+192
+00:21:07,850 --> 00:21:17,240
+model is that using the predictor things like compared to like if they were in a different group.
+
+193
+00:21:18,440 --> 00:21:26,600
+So you could like specify a reference group if you have like a reference person that has like very baseline
+
+194
+00:21:26,690 --> 00:21:32,390
+characteristics that you think are like the low risk and you could like specify the fetus in reference to that.
+
+195
+00:21:33,230 --> 00:21:40,310
+And it gets complicated to then like present these across a cohort because then some people are that reference group.
+
+196
+00:21:40,320 --> 00:21:44,180
+So then in reference to their own reference group, there's like no explanations.
+
+197
+00:21:44,180 --> 00:21:50,809
+So I do think this is kind of useful in sort of like a very specific use case if you're working with a clinical
+
+198
+00:21:50,810 --> 00:21:55,640
+collaborator and kind of building this interpretable model to match up with how they want to interpret.
+
+199
+00:21:56,670 --> 00:22:04,219
+But there's there's sort of, again, that nuance of making it too simple, that it's not giving a good approximation, but not too complicated.
+
+200
+00:22:04,220 --> 00:22:07,860
+You're back to where no longer useful.
+
+201
+00:22:10,610 --> 00:22:16,700
+So so far we kind of just talked about line for a particular at time point and so is currently
+
+202
+00:22:16,700 --> 00:22:22,940
+implemented for classification in regression but for survival outcomes we have zero these two nuances.
+
+203
+00:22:22,950 --> 00:22:27,770
+So one, our black box model is a survival model that accounts for censoring.
+
+204
+00:22:28,190 --> 00:22:32,809
+And then also the output from that model is now the predicted survival curve.
+
+205
+00:22:32,810 --> 00:22:36,590
+So it's not just one of probability we have this entire curve.
+
+206
+00:22:37,280 --> 00:22:42,530
+And so we might want to obtain explanations for predicted time points along that curve.
+
+207
+00:22:42,890 --> 00:22:49,610
+So for example, for your three year predicted survival, you might find there's a certain set of covariates that explain that.
+
+208
+00:22:49,940 --> 00:22:55,879
+And if there are time varying effects, you might find that there is a different set of properties that explain your approach to survival,
+
+209
+00:22:55,880 --> 00:23:00,770
+or that the relative effect or even the direction of that effect is changing over time.
+
+210
+00:23:01,520 --> 00:23:09,230
+And so our goal is we want to develop a model agnostic explainer for survival outcomes that can explain
+
+211
+00:23:09,530 --> 00:23:15,470
+predictions that particular time points along the survival curve and also for the overall survival curve.
+
+212
+00:23:16,310 --> 00:23:23,810
+And so what we're going to do is we're going to extend the life explainer from classification to implemented in our survival setting.
+
+213
+00:23:25,640 --> 00:23:34,730
+So we do that using the sequential modeling approach. So we identify a sequence of prediction times of interest, and then for a particular patient,
+
+214
+00:23:34,730 --> 00:23:38,840
+we predict their survival probabilities at each time using a black box model.
+
+215
+00:23:39,590 --> 00:23:46,489
+And then we generate our dataset and using temperature of dataset, we apply our line explainer at each prediction time.
+
+216
+00:23:46,490 --> 00:23:54,560
+So these are our explainer models. We then get our vector of explanations, as is the vector of those betas at each prediction time.
+
+217
+00:23:55,430 --> 00:24:03,620
+And so what we have here is this sequence of related models, which in our case are regression models.
+
+218
+00:24:05,450 --> 00:24:08,479
+And so there's a couple of ways that we can estimate the parameters.
+
+219
+00:24:08,480 --> 00:24:15,480
+So that one is we can consider all the models to be independent and we can estimate the parameters separately for each of those.
+
+220
+00:24:15,480 --> 00:24:24,260
+So we get these time specific parameters. And so that's the most flexible, but it also doesn't link our explanations over time in any way.
+
+221
+00:24:25,010 --> 00:24:32,989
+And so we can extend that to instead smoothes the parameter estimates over time by stacking
+
+222
+00:24:32,990 --> 00:24:38,920
+our per trip data and specifying the coefficient estimates as a parametric function of time.
+
+223
+00:24:38,940 --> 00:24:50,000
+So example we can specify is a quadratic function. And so you're going to call that or smooth approach for estimation beta as a function of time.
+
+224
+00:24:50,030 --> 00:24:57,290
+I know I like what the notation for that because I don't want to we're not penalizing the beta as a function of time.
+
+225
+00:24:57,290 --> 00:25:04,880
+So like the x kind of specifying a function of time because we have a per trip dataset where we have our
+
+226
+00:25:05,360 --> 00:25:13,670
+two columns and then we can include columns in that x x matrix that are interactions with time and so.
+
+227
+00:25:14,150 --> 00:25:19,610
+So we have fewer periods in this situation than we would if we time specific parameters.
+
+228
+00:25:21,220 --> 00:25:30,340
+And so since all of our regression models are related, another approach we can consider is regularized, multitask, learning.
+
+229
+00:25:30,760 --> 00:25:35,730
+And so what this is doing is it considers a set of related tasks.
+
+230
+00:25:35,740 --> 00:25:40,150
+And so in this case, our tasks are our explainer models at each of the prediction times.
+
+231
+00:25:40,480 --> 00:25:43,629
+And it jointly estimates the parameters across these models.
+
+232
+00:25:43,630 --> 00:25:50,260
+And it's kind of similar to applying a panel position to a coefficient matrix instead of just a vector.
+
+233
+00:25:50,710 --> 00:25:54,700
+And so we can consider a variety of different positions.
+
+234
+00:25:55,390 --> 00:26:02,560
+So for example, with the lasso, it would just try to increase sparseness across the different time points.
+
+235
+00:26:03,250 --> 00:26:08,710
+And then we can have this L2 and penalty, which it sort of encourages row wise.
+
+236
+00:26:09,070 --> 00:26:15,010
+Sorry. And so it would set the coefficient estimate to zero across all of the prediction time points.
+
+237
+00:26:15,010 --> 00:26:19,030
+So we kind of think that there is a lot of noise in your data.
+
+238
+00:26:19,030 --> 00:26:23,170
+You might implement this to try to encourage their explanations to be zero.
+
+239
+00:26:23,890 --> 00:26:27,129
+And these last two having a little more of a smoothing.
+
+240
+00:26:27,130 --> 00:26:33,100
+So meaning regularized encourages the estimates to be closer to the mean across the time points and temporarily order.
+
+241
+00:26:33,100 --> 00:26:36,940
+It encourages that to be more similar to adjacent time points.
+
+242
+00:26:37,570 --> 00:26:45,630
+And so kind of with the analyzation, we are trying to sort of reduce the noise in our explanations over time.
+
+243
+00:26:45,640 --> 00:26:50,050
+And so we're sort of trying to implement a different way of doing the smoothness.
+
+244
+00:26:52,330 --> 00:27:01,320
+And so this is a demonstration of the estimated explanations for that patient, one that we accepted when we were looking at.
+
+245
+00:27:01,720 --> 00:27:07,540
+And so each of these lines correspond to an explanation for a particular predictor.
+
+246
+00:27:07,540 --> 00:27:10,440
+And so I've sort of highlighted two of them.
+
+247
+00:27:10,450 --> 00:27:18,460
+So this blue line is their Gleason score, which was six, and then this red line is their PSA, which was 11.
+
+248
+00:27:19,420 --> 00:27:23,740
+And so each of these dots is that time specific explanation.
+
+249
+00:27:24,040 --> 00:27:32,619
+And to get an overall curb explanation, what we can do is we can integrate over the area under this under the absolute value of this curve.
+
+250
+00:27:32,620 --> 00:27:38,740
+And we take the absolute value because we don't want to cancel out three positive and negative effects.
+
+251
+00:27:40,000 --> 00:27:46,090
+And so in each of these panels, I'm just showing the behavior of the different estimation methods.
+
+252
+00:27:46,450 --> 00:27:52,780
+So here we have our time specific data. So imposing no as relationship over time.
+
+253
+00:27:53,620 --> 00:28:00,820
+And then the smoothed approach, we assume this quadratic effects. And so you can see it's sort of much smoother, which, you know,
+
+254
+00:28:00,880 --> 00:28:05,950
+depending again on how you're presenting this to the end user, it might not like to see so much jumping.
+
+255
+00:28:06,640 --> 00:28:11,170
+It might be more intuitive for them to think that things at nearby time points are related.
+
+256
+00:28:12,100 --> 00:28:19,990
+And then here we have our temporal ordering. And so there is some cross validation on choosing the type of parameter for the panel ization.
+
+257
+00:28:20,650 --> 00:28:24,850
+And so you could fix that to be to impose greater smoothness.
+
+258
+00:28:24,850 --> 00:28:28,750
+But this is identified with the best bits.
+
+259
+00:28:29,050 --> 00:28:40,260
+So you can kind of see that there's some smoothing maybe, but a lot of still jumping around to questions like what is time zero in reference?
+
+260
+00:28:40,270 --> 00:28:44,020
+Is that like the diagnosis time? Yes, time zero.
+
+261
+00:28:45,350 --> 00:28:50,430
+And so we don't really start off with an explanation times because everyone has a pretty good probability of time.
+
+262
+00:28:50,740 --> 00:28:58,930
+And then so you're assuming that the PSA or whatever is like constant over time, but that the effect of it is like.
+
+263
+00:28:58,960 --> 00:29:02,280
+T Exactly. So everything is considered baseline covariate. It's okay.
+
+264
+00:29:04,300 --> 00:29:10,870
+But then the effect is kind of like a time varying effect. So everything is the covariate at diagnosis.
+
+265
+00:29:10,870 --> 00:29:16,620
+So. I give you an interesting sentence in good times.
+
+266
+00:29:17,450 --> 00:29:24,239
+Covariance so we you know you want to demonstrate that ah explainer approach is
+
+267
+00:29:24,240 --> 00:29:27,900
+working in sort of some controlled settings that we conduct a simulation study.
+
+268
+00:29:27,910 --> 00:29:36,300
+And again, we're trying to look at the performance at particular predictions, at particular time points and then also for the survival curve.
+
+269
+00:29:36,690 --> 00:29:43,070
+So a quick simulation say we simulate under a Cox model with a viable baseline hazard and we have these five
+
+270
+00:29:43,080 --> 00:29:50,700
+binary covariance that are included in the data generating process and five binary noise covariates that are not.
+
+271
+00:29:50,970 --> 00:29:56,310
+And so the idea here is that we want to make sure our explanation method preserves the
+
+272
+00:29:56,770 --> 00:30:01,410
+relative ordering of the effect of these covariates and also is able to distinguish
+
+273
+00:30:01,740 --> 00:30:08,969
+that the noise covariates have zero explanation and so we generate a thousand individuals
+
+274
+00:30:08,970 --> 00:30:14,190
+to build their prediction model on and we apply our explanations to 100 individuals.
+
+275
+00:30:14,460 --> 00:30:18,750
+And the results I'm showing you are average average across 500 simulations.
+
+276
+00:30:20,450 --> 00:30:28,399
+So we look at two main settings and one proportional hazards, and then the second one, we include timer and varied effects.
+
+277
+00:30:28,400 --> 00:30:38,570
+So I'm introducing non proportional hazards by allowing x one to have a time varying effect, by including an interaction between x one and log of T.
+
+278
+00:30:39,020 --> 00:30:48,709
+And so again, the idea here is that we want our explanation method to capture a time varying explanation for x1x so we set a course model,
+
+279
+00:30:48,710 --> 00:30:51,200
+enter in a survival force model in each setting,
+
+280
+00:30:51,740 --> 00:31:01,220
+and we identify five prediction times and we get a fair explainer method and we use three types of estimation.
+
+281
+00:31:02,410 --> 00:31:09,220
+So two important things to note is that the explainer is explaining the behavior of the model, not of the data.
+
+282
+00:31:09,520 --> 00:31:13,180
+And so we'll kind of see how that has an effect in the results.
+
+283
+00:31:13,600 --> 00:31:16,360
+And also the explanations are on the probability scale,
+
+284
+00:31:16,360 --> 00:31:24,129
+but the parameters that we used in the data generating are not so we're not trying to match up our explanation value with the true parameter value,
+
+285
+00:31:24,130 --> 00:31:31,300
+but we're trying to represent the same behavior again of those relative effects of the predictors.
+
+286
+00:31:33,860 --> 00:31:36,600
+So just a quick summary of the performance.
+
+287
+00:31:36,620 --> 00:31:45,890
+So the R-squared, again, which measure is how good of a fit that local linear model is was fairly high for all settings and methods.
+
+288
+00:31:46,100 --> 00:31:54,890
+So maybe I didn't generate a complicated enough study. It was slightly worse for when we smooth the explanations using a quadratic function.
+
+289
+00:31:55,100 --> 00:31:56,390
+It's still pretty good.
+
+290
+00:31:57,410 --> 00:32:06,860
+And then when we compared our prediction from the Black Mask model to our explainer prediction, it was we want that to be very close to zero.
+
+291
+00:32:06,860 --> 00:32:09,139
+So it was point out two for the model and Cleo,
+
+292
+00:32:09,140 --> 00:32:20,540
+six for random survival for this model and much lower for the proportional has its own then for the proportional hazard setting.
+
+293
+00:32:21,110 --> 00:32:26,890
+And we compared all of the different types of analyzation for the multi test learning approaches with the
+
+294
+00:32:26,900 --> 00:32:33,850
+algorithm from very similarly and actually very similarly to the time dependent or time specific settings.
+
+295
+00:32:33,850 --> 00:32:37,940
+So I'm just going to present results assuming time specific explanations.
+
+296
+00:32:40,700 --> 00:32:46,670
+So we're just starting off with our proportional hazard setting. So we set a model and a random survival, this model.
+
+297
+00:32:47,060 --> 00:32:53,780
+And so before we look at our explanations, I'm just going to present some outputs from these two models to see how they're behaving.
+
+298
+00:32:54,080 --> 00:32:59,480
+Because, again, we want our explanations to reflect how the model itself is behaving, not the data.
+
+299
+00:32:59,930 --> 00:33:01,969
+And so on the left hand side, from the next model,
+
+300
+00:33:01,970 --> 00:33:08,780
+we have the absolute value of our coefficient estimates and you can see that it's doing a good job of matching up to our true parameter values.
+
+301
+00:33:09,170 --> 00:33:14,690
+But we do see that for these noise variables they do have non-zero coefficient estimates.
+
+302
+00:33:15,020 --> 00:33:18,560
+So again, we might expect to see that with our explanations as well.
+
+303
+00:33:19,400 --> 00:33:22,430
+And on the right hand side we have that random survival for some parties.
+
+304
+00:33:22,790 --> 00:33:32,659
+So again, this is not the effect of the predictors on the outcome, but it's looking at sort of what the real force again is using.
+
+305
+00:33:32,660 --> 00:33:37,340
+And again, we see that has nonzero importance for those noise variables.
+
+306
+00:33:39,510 --> 00:33:48,030
+So looking at our present, the relative explanation here kind of to allow us to see that relative ordering.
+
+307
+00:33:48,030 --> 00:33:55,439
+And so we kind of see what we would expect. So we see the relative ordering similar to what we saw with the coefficient estimates from the Cox model.
+
+308
+00:33:55,440 --> 00:34:00,960
+Also excellent to have the highest effect then ex three in the next four and five.
+
+309
+00:34:01,290 --> 00:34:04,169
+And we see that although these are not zero,
+
+310
+00:34:04,170 --> 00:34:11,440
+that they are much lower than the other variables and there's similar results for the random survival force.
+
+311
+00:34:11,490 --> 00:34:15,510
+And so each of these viruses is corresponding to a prediction time.
+
+312
+00:34:16,100 --> 00:34:20,700
+And so we see kind of the results are consistent across the prediction times.
+
+313
+00:34:22,090 --> 00:34:29,950
+Just one person? No, this is a hundred individuals and then an average across 500 simulations.
+
+314
+00:34:31,430 --> 00:34:40,190
+So average within a simulation and then across. And then.
+
+315
+00:34:41,260 --> 00:34:46,930
+So this is looking at the, again, relative explanation for the overall survival curve.
+
+316
+00:34:46,930 --> 00:34:51,549
+And that's again, helps us see that relative ordering is more easily.
+
+317
+00:34:51,550 --> 00:35:01,240
+And so again, we see that kind of matches up with how we generated the data and also what the the model was, how the model was using the predictors.
+
+318
+00:35:02,480 --> 00:35:06,400
+And so so that's kind of our basic setting.
+
+319
+00:35:06,800 --> 00:35:12,820
+And then we looked at that time very collaborative. So we included that interaction between X one and log in t.
+
+320
+00:35:13,130 --> 00:35:17,720
+So I just wanted to try to demonstrate what we're trying to see with the explanations in the setting.
+
+321
+00:35:18,050 --> 00:35:26,780
+So I'm presenting the survival probability curve for X one, which has the time varying effects, and then X two, which has proportional hazards.
+
+322
+00:35:27,290 --> 00:35:32,119
+And so you can see for x one, the curves are crossing.
+
+323
+00:35:32,120 --> 00:35:36,010
+And then on the right hand side, we have the absolute difference in survival.
+
+324
+00:35:36,020 --> 00:35:41,750
+So this is what we were trying to say matches up with what we would expect for the behavior x the explanation.
+
+325
+00:35:42,260 --> 00:35:44,749
+So at our prediction time of 0.5,
+
+326
+00:35:44,750 --> 00:35:56,480
+we would expect that to have a higher explanation and then to have a lower explanation at one and 1.5 and then again to increase that to in 2.5.
+
+327
+00:35:57,020 --> 00:36:07,460
+And for our X to is proportional hazards. We kind of expect just an increase over time to reflect the increasing difference in the survival curves.
+
+328
+00:36:12,260 --> 00:36:19,070
+So in the setting, we set our Cox proportional hazards model, and then we also fit a time varying Cox model,
+
+329
+00:36:19,460 --> 00:36:25,850
+which has the same relationship as our data generating process with the addition of these noise variables.
+
+330
+00:36:25,850 --> 00:36:39,140
+And we have our random survival forest. And so we can see that the Cox model is including this X1 effect is relatively less than x two.
+
+331
+00:36:39,950 --> 00:36:44,540
+And we can also see from the random survival four is that it's kind of treating this variable.
+
+332
+00:36:44,570 --> 00:36:54,090
+It's considering it to be not important. And so looking at our explanations though, so we see again that the Cox model,
+
+333
+00:36:54,090 --> 00:36:59,399
+so it is reflecting what the model behavior is doing in sort of preserving those
+
+334
+00:36:59,400 --> 00:37:04,139
+relative rankings of the coefficient estimates before our time dependent Cox model,
+
+335
+00:37:04,140 --> 00:37:07,080
+our explainer is capturing that effect we talked about.
+
+336
+00:37:07,080 --> 00:37:17,490
+So that's why we see that the relative explanation is high and then drops down lower for one and 1.5 and then increases again for two and 2.5.
+
+337
+00:37:17,790 --> 00:37:26,120
+And so this is sort of capturing that that effect that we would expect to see and we see something similar for the random survival for is.
+
+338
+00:37:26,130 --> 00:37:33,630
+So that sort of helps us understand that the survival course is capturing that time during effective Axis X one as well.
+
+339
+00:37:34,200 --> 00:37:38,050
+And you know, in contrast to global variable importance,
+
+340
+00:37:38,790 --> 00:37:47,370
+we can see that a particular time points X one is the most important predictor which would not be captured in presenting just that global variable.
+
+341
+00:37:49,070 --> 00:37:57,149
+And then looking at the relative explanation of the entire survival curve is kind of again see that this is more
+
+342
+00:37:57,150 --> 00:38:06,880
+reflecting that global variable for at least 3x1 on average across the entire curve is maybe not as important x to just.
+
+343
+00:38:13,330 --> 00:38:17,240
+So then coming back to our applications, so our prostate cancer dataset,
+
+344
+00:38:17,290 --> 00:38:24,730
+we filter random survival stories and we're predicting the probability of prostate cancer specific survival from time of diagnosis.
+
+345
+00:38:25,600 --> 00:38:34,089
+And so now instead of just those two sort of outputs of the predicted survival curve and the global variable importance,
+
+346
+00:38:34,090 --> 00:38:41,950
+we want to explain how the black box model is behaving and how it's using the predictors to arrive at a particular prediction.
+
+347
+00:38:42,460 --> 00:38:47,130
+So we're going to apply our line explainer to explain predictions at particular time points.
+
+348
+00:38:47,140 --> 00:38:50,800
+And so these were the ones that were identified to be clinically relevant.
+
+349
+00:38:51,580 --> 00:38:55,720
+And then we also want to explain their entire or 15 year survival curve.
+
+350
+00:38:56,740 --> 00:39:00,459
+And so our objectives is at the individual level.
+
+351
+00:39:00,460 --> 00:39:07,120
+We want to see which patient characteristics are driving the individual's predicted probability of survival.
+
+352
+00:39:07,810 --> 00:39:11,560
+And then also kind of that global effect of the characteristics in the cohort.
+
+353
+00:39:13,850 --> 00:39:18,740
+So again, this is the subject that we've been looking at. So you have their predicted survival probability.
+
+354
+00:39:19,010 --> 00:39:24,110
+And now we're looking at the explanations for their five and ten year survival probabilities.
+
+355
+00:39:24,110 --> 00:39:30,620
+And so this is the plot that we saw before. But at the individual level, you can kind of assess if there are time varying effects.
+
+356
+00:39:30,630 --> 00:39:37,850
+So you can see that PSA is relatively still operating at five and ten years.
+
+357
+00:39:38,090 --> 00:39:44,120
+You see that osteoporosis. So not having osteoporosis at five years since we harmful and then it switches direction.
+
+358
+00:39:44,120 --> 00:39:48,709
+So the scale here is very small, so it's less than 1%.
+
+359
+00:39:48,710 --> 00:39:51,740
+So I'm not sure how much of that is just noise,
+
+360
+00:39:52,130 --> 00:39:59,390
+but you can kind of see that maybe that can give you some additional information on how this predictor is behaving over time.
+
+361
+00:40:04,360 --> 00:40:09,010
+You can also look at these explanations over time for multiple individuals.
+
+362
+00:40:09,250 --> 00:40:11,649
+And so this is our subject one again.
+
+363
+00:40:11,650 --> 00:40:20,530
+And so here I'm using symbols to represent feature level where like it's hard to kind of put all of this into one plot.
+
+364
+00:40:20,530 --> 00:40:28,540
+But the idea is that higher feature levels usually correspond to higher values of the picture, which in this setting are usually worse.
+
+365
+00:40:28,990 --> 00:40:38,980
+And so this person again is in highest level for a purpose, a greater than ten to that's decreasing the symbol probably.
+
+366
+00:40:39,310 --> 00:40:47,740
+But this person subject who is in the middle category for PSA from 4 to 10 and so that's actually protective.
+
+367
+00:40:47,740 --> 00:40:56,890
+And so it's increasing their survival probability. And so these two individuals do not have osteoporosis, which is protective,
+
+368
+00:40:57,520 --> 00:41:03,190
+but this subject does have osteoporosis, which we can see is decreasing their survival probability.
+
+369
+00:41:04,480 --> 00:41:12,220
+And the subjects they have a recent score of eight, which is actually the second highest level.
+
+370
+00:41:12,520 --> 00:41:16,270
+And so we can see that that's decreasing their survival probability.
+
+371
+00:41:18,010 --> 00:41:24,010
+And then they are in the they have an age category that's higher than subject three.
+
+372
+00:41:24,010 --> 00:41:32,230
+But for both of them, it's contributing similarly to not really decreasing their survival probability by too much.
+
+373
+00:41:32,410 --> 00:41:41,110
+So kind of give me a idea at the individual level, but then also give you some information so you splay out, right?
+
+374
+00:41:41,130 --> 00:41:44,770
+Does that really? I think 15 years these covariates are somehow.
+
+375
+00:41:46,170 --> 00:41:52,319
+Slight more useful but since it's unknown the survival scale right so is going to play
+
+376
+00:41:52,320 --> 00:41:58,139
+out because it curves or is playing out so so it's not that it's I guess a kind of it's
+
+377
+00:41:58,140 --> 00:42:03,209
+more employee rights contributing like their survival is changing over time and this is
+
+378
+00:42:03,210 --> 00:42:08,510
+explaining it's different from in five years I say most people are most people are.
+
+379
+00:42:08,670 --> 00:42:12,420
+Right. You can't really move it much. Right. Exactly, exactly.
+
+380
+00:42:13,530 --> 00:42:20,300
+Yeah. So I guess that's one of the things I thought was beneficial about kind of implementing the explainer on the survival scale.
+
+381
+00:42:20,370 --> 00:42:24,540
+I have yet to kind of see that response from clinical collaborators,
+
+382
+00:42:24,540 --> 00:42:27,989
+but I feel like kind of the advantage of this is it's on the survival probability
+
+383
+00:42:27,990 --> 00:42:33,330
+scale and hazard ratios I would think are harder to interpret in the same way.
+
+384
+00:42:38,050 --> 00:42:39,110
+And so, you know,
+
+385
+00:42:39,160 --> 00:42:48,670
+one thing that we talked about is to get that overall survival curve explanation so you can integrate the area under the acid value of these curves,
+
+386
+00:42:48,670 --> 00:42:51,670
+and so we can get that kind of global explanation.
+
+387
+00:42:52,000 --> 00:42:56,590
+And so on the left, this is the integration effort at Subject one curves.
+
+388
+00:42:56,590 --> 00:42:58,630
+And so we can kind of see what we would expect.
+
+389
+00:42:59,440 --> 00:43:06,040
+TFA, osteoporosis, age and some other co-morbidities are the most important here is across the time points,
+
+390
+00:43:06,370 --> 00:43:10,270
+and we can also average that across an additional individual.
+
+391
+00:43:10,280 --> 00:43:20,139
+So this is just average across 300 individuals in the cohort and we can kind of get back to maybe more of a global explanation across the cohort.
+
+392
+00:43:20,140 --> 00:43:27,610
+So again, this is not measuring the same thing as variable importance because it's not tied to the approach performance of the random survival course,
+
+393
+00:43:27,610 --> 00:43:35,170
+but kind of trying to get like a general idea of how the explanations are affecting overall.
+
+394
+00:43:36,370 --> 00:43:43,540
+So this is the absolute change in some people positive and some were negative.
+
+395
+00:43:43,540 --> 00:43:51,820
+Yeah. So you have to take the absolute because for a binary covariate, someone who has that, someone who doesn't have opposite signs.
+
+396
+00:43:52,570 --> 00:43:54,040
+So yeah.
+
+397
+00:43:54,040 --> 00:44:01,570
+And then also we kind of take the absolute value of the curve because if this were to go up and then the important but in the opposite direction,
+
+398
+00:44:01,870 --> 00:44:09,190
+you don't want that to cancel out. So because it's overall generally affecting their exclusion.
+
+399
+00:44:12,040 --> 00:44:20,139
+So another way we can kind of look at this is looking at the individual explanations across the cohort.
+
+400
+00:44:20,140 --> 00:44:27,670
+So each of these dots is a person and here we have a five year period, two survival, ten year predicted survival.
+
+401
+00:44:27,940 --> 00:44:33,490
+And so we can kind of see the behavior by, again, these feature levels and are represented by colors.
+
+402
+00:44:33,850 --> 00:44:37,299
+You can see the behavior across different predictors.
+
+403
+00:44:37,300 --> 00:44:46,000
+So, you know, something like Gleason score, we can see that increasing levels of Gleason score are worse.
+
+404
+00:44:46,450 --> 00:44:48,879
+And then you can also kind of see the scale at which that is.
+
+405
+00:44:48,880 --> 00:44:59,470
+So there's only a couple that are causing more than a 5% change at five years now, putting more than 10% change in ten years.
+
+406
+00:44:59,920 --> 00:45:03,239
+And, you know, this can also help with that model buildings.
+
+407
+00:45:03,240 --> 00:45:06,700
+So there are some strange things potentially going on here.
+
+408
+00:45:06,700 --> 00:45:18,970
+So we can see that for you say the you know, having the second grouping is protective, which is that first grouping is sitting right here.
+
+409
+00:45:19,810 --> 00:45:26,020
+And then also for Gleason score, this reason second grouping would be sort of in the opposite direction that I would expect,
+
+410
+00:45:26,020 --> 00:45:32,020
+and so that we could kind of revise what our groupings are or kind of investigate.
+
+411
+00:45:32,020 --> 00:45:35,230
+Maybe that is how the model is actually treating predictors.
+
+412
+00:45:39,060 --> 00:45:40,709
+And so overall,
+
+413
+00:45:40,710 --> 00:45:48,960
+our goal was to sort of bridge this gap between interpretability and finding a very good predictive model that is actually a black box model.
+
+414
+00:45:49,260 --> 00:45:56,430
+And so we want to be able to increase the use of machine learning algorithms in clinical practice and have better predictive performance.
+
+415
+00:45:56,460 --> 00:46:03,270
+So kind of having that feedback from clinicians that, you know, this course has good grades of performance,
+
+416
+00:46:03,270 --> 00:46:06,630
+but we want to use a regression model because it's easier to interpret.
+
+417
+00:46:06,660 --> 00:46:09,690
+So maybe this will help us get around that.
+
+418
+00:46:10,020 --> 00:46:13,170
+And so some of the advantages of this approach, so model agnostic.
+
+419
+00:46:13,180 --> 00:46:18,120
+So again, we can consider a large class of models when building the survival prediction models.
+
+420
+00:46:18,840 --> 00:46:27,180
+We get those explanations over time. So instead of just getting an average explanation for the entire curve, we can capture a time varying effects.
+
+421
+00:46:27,960 --> 00:46:34,020
+And then also, you know, the explanations on the survival probability scale, which I feel like people will think is more interpretable.
+
+422
+00:46:35,740 --> 00:46:45,000
+And you, as I mentioned, advantages for, you know, kind of increasing trust in the model for building the model and some limitations.
+
+423
+00:46:45,000 --> 00:46:52,020
+So our explanations don't sum up exactly to the prediction which some explanation methods do.
+
+424
+00:46:52,290 --> 00:46:59,310
+And so we could potentially incorporate those and sort of this the survival context as well.
+
+425
+00:46:59,970 --> 00:47:04,410
+We have to think about that choice for the kernel with some sort of optimization.
+
+426
+00:47:04,620 --> 00:47:11,620
+You might want to consider for that. And also, there's just kind of this general concept of explainability versus interpretability.
+
+427
+00:47:11,640 --> 00:47:18,600
+So, you know, ideally we can build a model that is complex but is still interpretable.
+
+428
+00:47:19,320 --> 00:47:25,200
+And with our explainer, we are fitting a model to the data and then applying an explainer on top of that.
+
+429
+00:47:25,320 --> 00:47:28,889
+So that's another potential for error.
+
+430
+00:47:28,890 --> 00:47:36,600
+And we have to kind of monitor both. And so so I think that's paramount for today.
+
+431
+00:47:36,610 --> 00:47:42,550
+So I just want to acknowledge my collaborators on this project and take me.
+
+432
+00:47:52,910 --> 00:47:58,470
+She was afraid. True.
+
+433
+00:48:00,340 --> 00:48:07,600
+I don't like this sort of stuff, but have you talked to them about like how this results would be communicated to patients?
+
+434
+00:48:07,600 --> 00:48:10,990
+It's a very invested and active session.
+
+435
+00:48:11,000 --> 00:48:16,840
+So my collaborators is their concerns that like knowing that you're trying to affect their prediction could be distressing to patients.
+
+436
+00:48:17,550 --> 00:48:23,140
+I guess this might be more useful for clinical collaborators, but I wasn't too happy to extend to like a patient.
+
+437
+00:48:24,880 --> 00:48:32,080
+Yes, I think I guess I also would not kind of recommend this be used for, you know, patient use, I guess.
+
+438
+00:48:32,080 --> 00:48:33,940
+You know, it could be distressing to find out like, you know,
+
+439
+00:48:33,940 --> 00:48:38,950
+you're a smoker and that's decreasing your survival and you feel bad that you can't really like change the effect of that.
+
+440
+00:48:39,550 --> 00:48:40,440
+I guess I was thinking more.
+
+441
+00:48:40,460 --> 00:48:47,050
+This would be used for like a clinical collaborator who maybe, you know, is using this prediction model before their meeting with the patient.
+
+442
+00:48:47,050 --> 00:48:51,220
+And so kind of, you know, that Goodchild that you talked about,
+
+443
+00:48:51,220 --> 00:48:58,120
+it's that kind of gives you some additional support for feeling a particular way about a particular prediction.
+
+444
+00:48:59,020 --> 00:49:00,969
+You know, I think that could help in that way.
+
+445
+00:49:00,970 --> 00:49:08,580
+Or if you get a prediction that you I guess, like the clinician doesn't believe they can kind of see how how the model arrives at it.
+
+446
+00:49:08,920 --> 00:49:14,210
+And interestingly enough, some people are kind of using this to identify biases in prediction models.
+
+447
+00:49:14,530 --> 00:49:21,429
+So kind of, you know, how we talked about with treatment. So, you know, if it's a black box model, you don't know how it's using a variable.
+
+448
+00:49:21,430 --> 00:49:24,809
+So if you kind of see that it's using variables in certain ways.
+
+449
+00:49:24,810 --> 00:49:30,799
+So I think they identified some approach models are using like racial biases because
+
+450
+00:49:30,800 --> 00:49:34,450
+they're you can see how they're using your race variable and things like that.
+
+451
+00:49:34,450 --> 00:49:41,769
+So I guess I don't really think that this translates directly to use for patient because again,
+
+452
+00:49:41,770 --> 00:49:49,659
+you know that that interpretability of like changing your prediction by like X percent, there's obviously some error in that.
+
+453
+00:49:49,660 --> 00:49:58,030
+And so, you know, I think it means like a lot of I guess more tuning to be accurate enough to be patient level.
+

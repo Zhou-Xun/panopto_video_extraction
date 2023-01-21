@@ -1,0 +1,2084 @@
+1
+00:00:00,180 --> 00:00:10,110
+Recording rights under article concerns of us homework get number two.
+
+2
+00:00:10,140 --> 00:00:15,840
+Tried something, tried nothing. All right.
+
+3
+00:00:15,960 --> 00:00:19,960
+I'm going to assume the latter because I gave you time in class, right?
+
+4
+00:00:19,980 --> 00:00:34,740
+That's the beauty of this. How many of you can claim that you have done a simulation study and are successfully, successfully kind of.
+
+5
+00:00:34,750 --> 00:00:45,480
+Okay, that's what we're going to do today. You'll probably be asked to do this on 699, depending on what guest next semester they plan to do for you.
+
+6
+00:00:46,320 --> 00:00:52,260
+And historically, it's always been terribly pretty problematic for half of the class because it's the first time
+
+7
+00:00:52,260 --> 00:00:55,470
+they've been asked to do a simulation study and we asked them to do a really hard problem.
+
+8
+00:00:56,910 --> 00:01:05,520
+So simulations are a really nice way to see if what I'm telling you in class is actually what happens with actual data.
+
+9
+00:01:06,540 --> 00:01:12,390
+Because the problem with data is you never know the truth. You have a set of data, you fit a model, but you don't know if you're right or not.
+
+10
+00:01:13,260 --> 00:01:18,630
+But we can generate data that we know has a certain mean structure or a certain correlation structure,
+
+11
+00:01:19,110 --> 00:01:25,520
+and when we could see what happens when we set models to them. So that's my plan for today to sort of learn.
+
+12
+00:01:25,530 --> 00:01:35,969
+And when I do a simulation study and learn how this simulation study is going to enforce what we talked about so far, I also want to convey to you,
+
+13
+00:01:35,970 --> 00:01:41,940
+I know there are two sections in this class and there are concerns at times that they're going off in different directions.
+
+14
+00:01:43,590 --> 00:01:48,180
+They're a little ahead of us in topics. We're a little ahead of them in data analysis.
+
+15
+00:01:48,190 --> 00:01:54,389
+So that and I are doing our best to keep the classes going at relatively the same.
+
+16
+00:01:54,390 --> 00:02:00,390
+We'll get to the same station. We may get there at different, different speeds, but we are pretty much in line with each other.
+
+17
+00:02:02,790 --> 00:02:06,000
+All right. Oops. Got to go there yet.
+
+18
+00:02:06,390 --> 00:02:11,970
+So I asked you all to download these two files. You can follow along in our studio cloud.
+
+19
+00:02:12,540 --> 00:02:16,410
+But again, I don't learn a lot by looking at somebodies code and watching them run it.
+
+20
+00:02:16,620 --> 00:02:24,660
+I actually learn when I run the code myself or try to type in stuff and try and change things or break things or see what happens.
+
+21
+00:02:26,430 --> 00:02:34,920
+So I have talked about in class the problems with or ignoring correlation and that there are always problems estimation.
+
+22
+00:02:35,610 --> 00:02:42,299
+If I have correlated data and I ignore the correlation estimation as I'm biased inference,
+
+23
+00:02:42,300 --> 00:02:46,380
+whoever has the wrong wrong variance, the wrong standard errors for inference.
+
+24
+00:02:49,390 --> 00:02:53,560
+Are they too small? Are they too big? The standard errors. And the answer is both.
+
+25
+00:02:55,050 --> 00:03:00,840
+We're going to learn that today. So what I want to show you in simulation one is how do you simulate correlated data?
+
+26
+00:03:00,930 --> 00:03:04,140
+And ah, there are lots of ways to do it. I want to show you one way today.
+
+27
+00:03:05,590 --> 00:03:11,510
+And then if we have time in the class, I want to start doing things like changing the correlation structure,
+
+28
+00:03:11,550 --> 00:03:15,390
+try a random effects model, trying the bootstrap and see what it does.
+
+29
+00:03:15,600 --> 00:03:19,770
+If we simulate the data and if what we expect to happen actually happens, right.
+
+30
+00:03:20,820 --> 00:03:26,910
+So if you're not familiar with the simulation study, here is the primer that I'm going to try and do today.
+
+31
+00:03:28,200 --> 00:03:31,440
+So there are two libraries that I'm going to use today.
+
+32
+00:03:31,470 --> 00:03:36,300
+One is for data generation and one is for analysis, you know, club sandwich.
+
+33
+00:03:36,900 --> 00:03:39,860
+You're asked to do that with homework number two. We're going to use that today.
+
+34
+00:03:39,900 --> 00:03:44,760
+We're going to see what sandwich standard errors do and if they do what we think they're going to do.
+
+35
+00:03:45,690 --> 00:03:53,160
+There is a library called Capital Assets that goes with a textbook that was written eons ago by Brian Brickley and others.
+
+36
+00:03:53,820 --> 00:03:57,660
+It has a really nice function for drawing from a multi, very normal distribution.
+
+37
+00:03:57,840 --> 00:04:03,060
+It doesn't have a default bar like it does our norm to draw from a unit very normal.
+
+38
+00:04:03,420 --> 00:04:07,680
+There isn't a default function from multivariate normal, but there is in this library.
+
+39
+00:04:08,310 --> 00:04:14,190
+So it's the only time I've ever used this library. So we're going to use that two terms to simulate the data.
+
+40
+00:04:15,870 --> 00:04:20,969
+So the first thing I do is decide how many participants are in this this set of data that we have.
+
+41
+00:04:20,970 --> 00:04:25,350
+And so I set in part as 100. And I'm going to compare two groups.
+
+42
+00:04:26,220 --> 00:04:31,170
+And so I just said the first group has half of the number and the other group has the other half.
+
+43
+00:04:31,350 --> 00:04:38,700
+And again, I could type in an odd number and the computer's not going to crash because later on I can't have half a person.
+
+44
+00:04:39,150 --> 00:04:42,470
+So I use the ceiling function just to go to the next highest number.
+
+45
+00:04:42,490 --> 00:04:46,470
+So anyway, that's basically 5050 here. Right.
+
+46
+00:04:46,740 --> 00:04:51,930
+So I have a study of 100 people. I'm going to have 50 and one group and 50 and another.
+
+47
+00:04:53,870 --> 00:04:58,100
+Maybe I should run that as I go along here. Right.
+
+48
+00:04:58,230 --> 00:05:02,560
+Things are opened up. All right. Got those numbers again.
+
+49
+00:05:02,580 --> 00:05:07,570
+I recommend that if you want to learn tried different time points, different number of time points.
+
+50
+00:05:07,590 --> 00:05:13,950
+Right now, they're equally spaced. You can think about creative ways to create observations that are not equally spaced.
+
+51
+00:05:14,280 --> 00:05:24,390
+But I've decided here to go with five time points. And the time variable, the actual calendar time is going to go from 0 to 4.
+
+52
+00:05:24,720 --> 00:05:28,320
+So zero one, two, three, four is continuous.
+
+53
+00:05:28,350 --> 00:05:34,530
+These are not factors, right? This is zero months, one month, two months, three months, four months, for example.
+
+54
+00:05:35,760 --> 00:05:39,750
+So I've decided to look at a study with five time points. No missing data.
+
+55
+00:05:40,410 --> 00:05:47,370
+Everybody's going to have five measurements. I now need to decide the mean of each individual.
+
+56
+00:05:49,290 --> 00:05:57,810
+And so I'm going to have an intercept, the time effects, a group effect and time times group.
+
+57
+00:05:58,080 --> 00:06:01,710
+So I'm setting two lines. One for zero, one for one.
+
+58
+00:06:03,370 --> 00:06:06,819
+I'm realizing know next year when I change the homework assignments a little bit,
+
+59
+00:06:06,820 --> 00:06:14,830
+it's really important for you all to get into the habit of whenever you fit a model in R or SAS or Stainer or Python or
+
+60
+00:06:14,830 --> 00:06:21,610
+whatever you use that you take a piece of paper out and write down the model and write with a grad student right now,
+
+61
+00:06:21,610 --> 00:06:27,070
+and she couldn't figure out what the heck was going on. And my colleague said, Did you write the model down?
+
+62
+00:06:27,190 --> 00:06:32,590
+Oh, no. Well, then, do you really know that what you're doing and what you think you're doing?
+
+63
+00:06:33,010 --> 00:06:39,290
+So let's think about the model we're talking about here. So he's not here.
+
+64
+00:06:39,290 --> 00:06:43,120
+So why state or not?
+
+65
+00:06:44,000 --> 00:06:53,690
+If there is surplus data. 1x12, two.
+
+66
+00:06:57,730 --> 00:07:02,670
+172 plus an error.
+
+67
+00:07:06,070 --> 00:07:14,050
+I try. That alone.
+
+68
+00:07:14,410 --> 00:07:25,060
+That is an error, right? Right.
+
+69
+00:07:25,390 --> 00:07:42,530
+Each of the errors is normally distributed. You say that the correlation of any residual within a person and another time quite right.
+
+70
+00:07:43,040 --> 00:07:52,819
+The crime that perhaps is Roe for all I am j not equal to j prime.
+
+71
+00:07:52,820 --> 00:08:00,870
+So everybody has errors that are correlated, and that's an eye for every person.
+
+72
+00:08:01,340 --> 00:08:06,530
+Right. And the correlation coefficient is the same. My observations have the same of correlation as yours.
+
+73
+00:08:06,530 --> 00:08:11,480
+Do so once.
+
+74
+00:08:16,720 --> 00:08:25,080
+That is why I wanted to use my space.
+
+75
+00:08:25,230 --> 00:08:29,630
+Here we go. Yes, I. One is equal to zero.
+
+76
+00:08:30,740 --> 00:08:35,430
+Some groups to zero and one for group one.
+
+77
+00:08:35,600 --> 00:08:51,330
+Right. So X1 is going to be the grouping variable. It's the best way to say that.
+
+78
+00:08:55,830 --> 00:09:06,050
+They can say, Hey, can I? I don't like that notation either.
+
+79
+00:09:12,290 --> 00:09:19,730
+So there are five time points. Shane Bacon's zero, G minus one.
+
+80
+00:09:20,780 --> 00:09:28,460
+So time zero. And the first time point has a value of zero, the second time has a value of one.
+
+81
+00:09:28,970 --> 00:09:34,310
+It is continuously fitting a line for each of the two groups.
+
+82
+00:09:36,830 --> 00:09:42,020
+Again, you could write this as someone's vector of observations.
+
+83
+00:09:43,530 --> 00:09:50,519
+Is equal to X. I you know, I think this is an insurance.
+
+84
+00:09:50,520 --> 00:09:59,409
+That's a vector. That's a vector. So why is equal to a one by two all the way through?
+
+85
+00:09:59,410 --> 00:10:04,970
+Why a five? It's transposed to be specific.
+
+86
+00:10:05,930 --> 00:10:09,350
+Someone's design matrix is an intercept.
+
+87
+00:10:12,170 --> 00:10:23,360
+And let's do it this way, which says 0000001234000000.
+
+88
+00:10:26,380 --> 00:10:30,580
+Zero. Okay, so there's intercept time.
+
+89
+00:10:30,580 --> 00:10:34,210
+Group time. Group time. Starting in Africa, zero.
+
+90
+00:10:35,140 --> 00:10:41,530
+And we have two columns here. And likewise.
+
+91
+00:10:44,890 --> 00:10:56,190
+This is going to be one. One, two, three, four, three, four.
+
+92
+00:10:57,150 --> 00:11:08,570
+For the other group. I guess a normal distribution would still be in zero.
+
+93
+00:11:11,510 --> 00:11:16,010
+And covariance variance. Covariance matrix sigma. I guess that's a matrix.
+
+94
+00:11:17,800 --> 00:11:30,230
+Sigma II right now is equal to Sigma squared. Diagonal of five once and a correlation coefficient row for the exchangeable correlation
+
+95
+00:11:30,990 --> 00:11:35,180
+is different because there are two ways of what I'm going to be doing today.
+
+96
+00:11:37,400 --> 00:11:43,190
+I'm going to simulate data with that model and then I'm going to see what happens
+
+97
+00:11:43,190 --> 00:11:48,919
+when I fit ordinary squares to these data is what I have said happens naturally,
+
+98
+00:11:48,920 --> 00:11:54,139
+happen, right? And I'm going to change the correlation structure to other things as well.
+
+99
+00:11:54,140 --> 00:11:58,730
+But so that's my goal there. That's the model that I am trying to simulate in the bar.
+
+100
+00:12:01,100 --> 00:12:07,009
+So I have defined the intercept to be 25 and I've made these numbers up so that I got a realistic things.
+
+101
+00:12:07,010 --> 00:12:10,850
+In the end. It's not they're not important. There's a time effect.
+
+102
+00:12:10,850 --> 00:12:14,569
+There's a slope for group zero. There it looks.
+
+103
+00:12:14,570 --> 00:12:15,080
+That's the time.
+
+104
+00:12:15,080 --> 00:12:23,720
+As I get to some form of zero, there is a difference in the mean between the two groups and in fact the slope for the second group is two minus one.
+
+105
+00:12:24,050 --> 00:12:27,530
+It's actually one. Right. So.
+
+106
+00:12:29,940 --> 00:12:32,940
+So I have to find again, this defines the mean of every person.
+
+107
+00:12:34,590 --> 00:12:42,329
+Now I need to find the residuals for every person. And again, in my our code, I'm going to allow myself to do two types of correlation structures,
+
+108
+00:12:42,330 --> 00:12:45,420
+either compound symmetric, which again is exchangeable,
+
+109
+00:12:45,420 --> 00:12:49,110
+which means every observation in the person has the same correlation with each other,
+
+110
+00:12:50,250 --> 00:12:55,620
+or they are one where things decay as an exponent of the distance between the measures.
+
+111
+00:12:57,390 --> 00:13:02,160
+So right now I'm going to simulate data with no correlation.
+
+112
+00:13:02,790 --> 00:13:10,260
+Everything's independent with zero. In fact, a variance parameter sigma squared as to that's ten.
+
+113
+00:13:11,640 --> 00:13:20,129
+And then I create this correlation matrix. So the first thing I'm going to do is put row everywhere in the matrix, including the diagonal.
+
+114
+00:13:20,130 --> 00:13:23,459
+This is the way I do. It doesn't need to be done this way, right?
+
+115
+00:13:23,460 --> 00:13:28,610
+So I've got row everywhere in a side by side matrix. And when did I last run the circle?
+
+116
+00:13:29,100 --> 00:13:42,380
+Way back here. Which. So our math now looks like a matrix five by five matrix of all zeros, because that's what row is.
+
+117
+00:13:44,990 --> 00:13:48,680
+And then, of course, if the correlation type is auto regressive as a diagonal,
+
+118
+00:13:48,680 --> 00:13:53,240
+I can't have row, I have to have row and then row squared row, cute and so forth.
+
+119
+00:13:53,870 --> 00:13:59,260
+So that's what that's doing. But of course, this statement will say it's not that, and so I won't run.
+
+120
+00:14:03,230 --> 00:14:07,490
+And I say that the diagonals remember the diagonal should be one.
+
+121
+00:14:08,000 --> 00:14:11,480
+The correlation of every observation with itself is one.
+
+122
+00:14:19,790 --> 00:14:23,810
+Look at run that.
+
+123
+00:14:26,330 --> 00:14:32,860
+Here we go. So our man looks like that right now. So I've got all the correlation there.
+
+124
+00:14:32,870 --> 00:14:36,380
+I don't have the variance to multiply by sigma squared.
+
+125
+00:14:37,160 --> 00:14:42,520
+So that's what this line says. All right.
+
+126
+00:14:42,540 --> 00:14:48,570
+So that's the variance covariance matrix of the residuals of every person who has five observations.
+
+127
+00:14:52,170 --> 00:14:58,170
+So now I have to find everything. Now I have to use a function to simulate each person in my study.
+
+128
+00:14:58,950 --> 00:15:04,260
+There are lots of ways to do this. I'm not showing you the best, but I think it's a great way to see it in class.
+
+129
+00:15:06,120 --> 00:15:12,330
+So I'm going to simulate complete data. So right now, complete data means everybody has the data as their data in the study.
+
+130
+00:15:12,750 --> 00:15:17,270
+Again, in this class, I hope to take this file and to start to throw problems into it.
+
+131
+00:15:17,280 --> 00:15:21,450
+Missing data and other issues so can count for complete data.
+
+132
+00:15:22,200 --> 00:15:27,749
+So right now it's no there's nothing there. I'm going to do the group zero.
+
+133
+00:15:27,750 --> 00:15:35,370
+First subgroup is zero for everybody. And again, because there are no other subjects specific covariates in this simulation.
+
+134
+00:15:35,370 --> 00:15:40,890
+Again, I could I could have everybody having a different age and I could incorporate that into the mean model.
+
+135
+00:15:41,100 --> 00:15:47,310
+But right now, everybody in Group Zero has the same mean it's the intercept plus times, times the slope coefficient.
+
+136
+00:15:48,180 --> 00:15:55,670
+So that's new. And now for capital n not two people, one at a time.
+
+137
+00:15:57,720 --> 00:16:03,150
+We need to draw residuals. And again, I should be earning my code here.
+
+138
+00:16:07,140 --> 00:16:11,459
+So again, what is new look like? It was a vector of five observations.
+
+139
+00:16:11,460 --> 00:16:19,530
+It's the mean at time zero one, two, three and four. And you can see it's going up by two units because that's what they don't want.
+
+140
+00:16:20,670 --> 00:16:29,579
+So for every person, the first thing I want to do is draw a set of five possibly correlated errors and
+
+141
+00:16:29,580 --> 00:16:34,649
+this is facilitated through this function MVR or multivariate random normal.
+
+142
+00:16:34,650 --> 00:16:38,309
+I would prefer r m the norm. Random multivariate normal.
+
+143
+00:16:38,310 --> 00:16:41,370
+But anyway, I want one draw.
+
+144
+00:16:43,610 --> 00:16:53,150
+This is the mean of the drawers. So it's a vector of five zeros and they have a correlation matrix equal to sigma, which I just defined.
+
+145
+00:16:57,330 --> 00:17:01,080
+So there are the five residuals normally distributed. They're correlated.
+
+146
+00:17:01,560 --> 00:17:02,400
+Possibly they're not.
+
+147
+00:17:02,400 --> 00:17:10,980
+Because as defined observer right now, I take those residuals, I add them to the mean, and that gives me the five observations for the first person.
+
+148
+00:17:12,880 --> 00:17:16,030
+In the dataset. I also don't want also another way.
+
+149
+00:17:16,030 --> 00:17:22,210
+I want to know there are variable time variable and so I have to put all that into it as well as the ID.
+
+150
+00:17:23,200 --> 00:17:29,440
+And so this is saying in the data, I'm going to take the ID number five times in a column,
+
+151
+00:17:30,040 --> 00:17:34,420
+then their Y values, then their group value and the time variable.
+
+152
+00:17:35,370 --> 00:17:39,020
+Right. As a volunteer, I was one.
+
+153
+00:17:43,340 --> 00:17:50,690
+So there is person number one and number one, their Y values, they're in group zero and there are five points.
+
+154
+00:17:52,160 --> 00:17:58,650
+And then I record that into my overall dataset. I'm going to do that capital in zero times.
+
+155
+00:17:59,640 --> 00:18:02,670
+So let's do that. Let's start over.
+
+156
+00:18:06,610 --> 00:18:14,220
+She decided that. Right.
+
+157
+00:18:17,130 --> 00:18:24,690
+So now I have 250 rows and four columns, 50 people, five charging points each person for variables.
+
+158
+00:18:25,200 --> 00:18:29,230
+So now I've done group one. It's the same thing now with group two.
+
+159
+00:18:29,250 --> 00:18:33,180
+The code looks the same, except now I've called over to my group to be one.
+
+160
+00:18:34,910 --> 00:18:38,200
+All the members in this group have the same mean. Except the mean is different, right?
+
+161
+00:18:38,210 --> 00:18:43,190
+They have a different intercept. It's the intercept from before, plus the group effect.
+
+162
+00:18:44,240 --> 00:18:52,190
+And the slope is the original slope. Plus the slope had to show interaction of group with time, so now have group equal to one.
+
+163
+00:18:52,970 --> 00:18:59,630
+There's mu. You should be a vector of five observations again going up by one unit as this group has a slope of one.
+
+164
+00:19:01,090 --> 00:19:06,580
+And then for all of the individuals in that group, I'm going to based on their data.
+
+165
+00:19:14,860 --> 00:19:19,809
+So now I have a data set, 500 observations, four columns. Everything there appears to look.
+
+166
+00:19:19,810 --> 00:19:24,730
+Okay. And I just I try to make my data look as much like a real data set.
+
+167
+00:19:24,730 --> 00:19:28,690
+So I give it columns and then I make it a dataframe.
+
+168
+00:19:30,040 --> 00:19:36,760
+There we are. I've now simulated a set of five correlated observations for each of five people.
+
+169
+00:19:36,820 --> 00:19:39,520
+I can't row right now with zero, but it could have been any value.
+
+170
+00:19:40,930 --> 00:19:47,350
+Let's look at what let's see if, in fact, what I thought I did actually occurred in this dataset.
+
+171
+00:19:48,360 --> 00:19:51,850
+And so, again, right now I have it in the long format.
+
+172
+00:19:52,000 --> 00:19:56,170
+I want it in the wide format because I want five columns of ways to use the core function.
+
+173
+00:19:56,170 --> 00:20:02,380
+And all right, so I'm just creating I'm just pulling out the way values time one time, two times, three times four.
+
+174
+00:20:03,100 --> 00:20:07,930
+And I'm going to separate out just to report right now just as a test. Right.
+
+175
+00:20:08,380 --> 00:20:12,280
+So I have now made that that set of data.
+
+176
+00:20:12,580 --> 00:20:17,410
+I'm not going to take a correlation of those observations. I'm going to get a side by side matrix.
+
+177
+00:20:18,340 --> 00:20:23,850
+The correlations should all be close to zero because that's what I designed the data to have.
+
+178
+00:20:26,160 --> 00:20:29,970
+Let's try that again. Let's try so you can see it on the screen.
+
+179
+00:20:34,800 --> 00:20:38,390
+Right. Are those close enough to zero?
+
+180
+00:20:41,480 --> 00:20:45,140
+I don't know. Right. It's hard to tell. I've only got.
+
+181
+00:20:46,190 --> 00:20:54,110
+But I have 100 people. So this is, again, as you're doing simulations and they tell us to focus all the time.
+
+182
+00:20:54,320 --> 00:20:58,490
+You you see the set of code now I had for the simulation.
+
+183
+00:20:58,910 --> 00:21:06,300
+I didn't start with four and then type on my code. I did the code for one person and then I put a four loop around it.
+
+184
+00:21:06,320 --> 00:21:14,570
+Right. And I built that way. Whenever you simulate, start small and build up with your for a loop and a word here.
+
+185
+00:21:15,410 --> 00:21:20,810
+Did I really get uncorrelated data? Because that's what I intended. And part of the problem is you only have 100 people.
+
+186
+00:21:21,740 --> 00:21:29,690
+So when you want to test things out before you start running, a new simulation study is simulate a lot of people and see what happens.
+
+187
+00:21:29,690 --> 00:21:47,410
+So let's try this again. Groups.
+
+188
+00:21:49,720 --> 00:21:53,320
+Phew. Right. So it seems to be a small sample problem.
+
+189
+00:21:53,330 --> 00:21:57,520
+Right? So again, I hope I have demonstrated to you that when you're checking out your data,
+
+190
+00:21:57,910 --> 00:22:02,350
+you've got to stimulate enough people that you get the sort of large sample kind of idea here.
+
+191
+00:22:02,680 --> 00:22:09,430
+So it looks like my code is right and it looks like I'm simulating data that have correlations close to zero perfectly, but very close.
+
+192
+00:22:10,300 --> 00:22:13,760
+Let's go back to where? 100? Right.
+
+193
+00:22:21,300 --> 00:22:27,330
+All right. We're going to trust that. All right. So I have a set of data, and I know what the data are.
+
+194
+00:22:27,690 --> 00:22:31,410
+I know their properties. I know the mean correlation structure.
+
+195
+00:22:32,280 --> 00:22:37,410
+Let's try fitting models to it now. So I'm going to set an ordinary, least squares model.
+
+196
+00:22:38,040 --> 00:22:43,320
+650 linear regression time group in the interaction and just a slope with time.
+
+197
+00:22:45,600 --> 00:22:49,290
+So there it is. What do I get?
+
+198
+00:22:53,820 --> 00:22:58,950
+Right. I got an intercept of zero. Well, that's the pivot.
+
+199
+00:22:59,010 --> 00:23:02,040
+It's like, what? It's not that far off.
+
+200
+00:23:03,150 --> 00:23:08,040
+Once again, they go to, I should say, the number of deaths was upfront.
+
+201
+00:23:11,970 --> 00:23:17,550
+There we go. So there's the coefficient table. So again and remember, the intercept was supposed to be 25.
+
+202
+00:23:19,230 --> 00:23:26,040
+The same effect was supposed to be to the group sector was supposed to be for and the interaction term was supposed to be negative.
+
+203
+00:23:26,040 --> 00:23:32,850
+One of the quotations to do what I think it's doing probably right.
+
+204
+00:23:32,880 --> 00:23:38,310
+I'm not going to get exactly 25 and two and four and negative ones because they're simply variability.
+
+205
+00:23:38,850 --> 00:23:43,520
+But it looks like my data are doing the right thing to say.
+
+206
+00:23:45,690 --> 00:23:49,610
+Are these standard errors? Okay. So know.
+
+207
+00:23:54,400 --> 00:24:01,520
+Are those valid standard errors for the coefficient estimates? Oh.
+
+208
+00:24:01,530 --> 00:24:07,260
+Anybody? Flip a coin? Yes, they're valid.
+
+209
+00:24:07,350 --> 00:24:11,669
+We simulated independent data. This is uncorrelated data.
+
+210
+00:24:11,670 --> 00:24:15,870
+The model base standard errors assume independence for the structure of the residuals.
+
+211
+00:24:16,890 --> 00:24:20,790
+So I simulated data and fit the model that matches the truth.
+
+212
+00:24:21,750 --> 00:24:25,080
+So these standard errors would be valid if this was an actual data set.
+
+213
+00:24:25,420 --> 00:24:29,690
+Right. And you know the truth. But now let's.
+
+214
+00:24:30,090 --> 00:24:38,940
+This is one data set. Right. And every time I do this. I mean, to get a slightly different answer.
+
+215
+00:24:38,970 --> 00:24:42,299
+Right now I've got a slightly different intercept and slope.
+
+216
+00:24:42,300 --> 00:24:46,560
+And so for us, different standard errors because from sample to sample, things change.
+
+217
+00:24:47,730 --> 00:24:54,450
+And so what I want to know in repeated sampling, we always talk about in repeated sampling, is this thing unbiased?
+
+218
+00:24:54,450 --> 00:24:58,080
+Is this thing whatever. And so we're going to do repeated sampling.
+
+219
+00:24:58,230 --> 00:25:01,860
+We're going to run the same simulation over and over and over,
+
+220
+00:25:02,550 --> 00:25:08,100
+get the results from every simulation and see if what we think is supposed to happen is happening.
+
+221
+00:25:09,250 --> 00:25:13,230
+The one thing I skated over is the sandwich estimate here.
+
+222
+00:25:14,880 --> 00:25:19,230
+And again, the function in that library is Vco bcr.
+
+223
+00:25:20,430 --> 00:25:24,860
+You run that function on a regression model. It doesn't necessarily have to be elm.
+
+224
+00:25:24,870 --> 00:25:30,390
+It can be jealous. You need to tell the computer where the level of correlation is.
+
+225
+00:25:30,510 --> 00:25:34,980
+So this cluster variable says people with the same ID number are correlated.
+
+226
+00:25:36,510 --> 00:25:44,700
+There are lots of different types of sandwich variants estimates because we need so many sandwich train system errors in life.
+
+227
+00:25:47,870 --> 00:25:53,630
+The course if you are interested as you are using this this semester.
+
+228
+00:25:57,760 --> 00:26:00,780
+Help, help. They list all kinds of them.
+
+229
+00:26:00,790 --> 00:26:07,479
+So Sierra Zero is the standard sandwich variance estimate that is used with generalized estimating.
+
+230
+00:26:07,480 --> 00:26:16,330
+Equation Sylvian and Ziegler are the folks who originally developed generalized estimating equations and the idea of sandwich variants as submitters.
+
+231
+00:26:17,080 --> 00:26:25,510
+But then there are lots of other ones to deal with by a small sample bias and so forth, but it was in large samples that are highly irrelevant.
+
+232
+00:26:25,510 --> 00:26:34,870
+So that's what all this code means would encompass sand speed.
+
+233
+00:26:39,990 --> 00:26:51,120
+Let's see if I can be smart to approach to this in a second.
+
+234
+00:26:53,040 --> 00:26:59,850
+All right. So what I'm trying to do here is compare the standard errors I got from Elm to the sandwich.
+
+235
+00:27:01,880 --> 00:27:06,860
+What do you think should happen if there is someone whispering?
+
+236
+00:27:10,510 --> 00:27:19,070
+Should they look like each other or should they be different? Do you feel like they should be the same?
+
+237
+00:27:19,080 --> 00:27:24,390
+Why should they be the same? The same clothes, let's say same healthy clothes.
+
+238
+00:27:24,990 --> 00:27:28,440
+But because you simulate the data with independence. Right.
+
+239
+00:27:28,890 --> 00:27:33,000
+The model is already taking care of. One correlation exists in the data, which is nothing.
+
+240
+00:27:33,570 --> 00:27:36,620
+So the residuals are going to tell you there's nothing more to account for.
+
+241
+00:27:37,410 --> 00:27:41,220
+And what you're going to get back is something close to, hopefully what the model had.
+
+242
+00:27:44,270 --> 00:27:47,990
+Huh? So are those close enough? Right. So there's the question. Are those close enough?
+
+243
+00:27:50,240 --> 00:27:54,620
+Probably. Now, let's talk about this somewhere.
+
+244
+00:27:56,990 --> 00:28:05,060
+So we didn't need to do a sandwich variance estimate here. We got the correlation structure right from our original model base standard errors.
+
+245
+00:28:06,500 --> 00:28:10,580
+So you have to be careful when you get the model right.
+
+246
+00:28:11,270 --> 00:28:18,500
+You're going to do a really good job. If you then fit the right model and then try to tweak it some more,
+
+247
+00:28:19,340 --> 00:28:23,420
+you start running into problems, you start losing efficiency, you start running into trouble.
+
+248
+00:28:23,800 --> 00:28:29,360
+All right. So the sandwich variance estimate isn't necessarily a panacea, because if you got everything right,
+
+249
+00:28:30,050 --> 00:28:35,820
+it's going to hurt you a little bit because you're doing too much. Nine times out of ten you have you're not doing the right thing.
+
+250
+00:28:36,070 --> 00:28:39,880
+We never have the right model. So the sandwich versus trader is usually a benefit.
+
+251
+00:28:40,330 --> 00:28:45,610
+But if you think you got the model right, don't go any further. You don't need a sandwich variance estimating necessarily.
+
+252
+00:28:45,850 --> 00:28:50,330
+Right. But he was right. These are generally close within sampling variability.
+
+253
+00:28:50,380 --> 00:28:56,020
+So the model based and the sandwich variants estimate are our close because again,
+
+254
+00:28:56,270 --> 00:29:00,339
+the residuals told me that there was really very little that you have to adjust for at this point.
+
+255
+00:29:00,340 --> 00:29:06,010
+It's all been taken care of. But the question is, is this is one simulation, right?
+
+256
+00:29:06,010 --> 00:29:09,850
+I can do this again. Let's run this again. So right now, the code again.
+
+257
+00:29:13,510 --> 00:29:20,710
+So now I got model based standard errors and sandwich standard errors that are really close to each other.
+
+258
+00:29:21,900 --> 00:29:25,630
+I could do this again. Could do this again. I could do this again. Let's do that.
+
+259
+00:29:26,230 --> 00:29:31,570
+Let's see what happens when I do this over and over again. On average, do things happen the way they should?
+
+260
+00:29:32,230 --> 00:29:37,360
+And so again, I could have written this all in one file. So again, we're going to use these data again.
+
+261
+00:29:38,410 --> 00:29:44,130
+Let's try something else. So before we do that. Let's leave everything alone.
+
+262
+00:29:45,180 --> 00:29:48,930
+But now let's, let's put a lot of correlation into the data.
+
+263
+00:29:48,990 --> 00:30:02,010
+1.6 So the correlation coefficient is now point six after doing this compound symmetric, nothing else has changed on this.
+
+264
+00:30:04,280 --> 00:30:09,040
+Right. So I've simulated data when using a compound symmetric structure with correlation point six.
+
+265
+00:30:09,670 --> 00:30:14,890
+I have assumed independence. The model is wrong.
+
+266
+00:30:15,430 --> 00:30:25,780
+The data do not match the model. So let's look at the results of fitting a model with independence.
+
+267
+00:30:27,970 --> 00:30:36,610
+The estimates aren't that bad. It was supposed to be 25 and two and five, four, four and negative one.
+
+268
+00:30:37,780 --> 00:30:46,150
+So as I said, even though I got the correlation structure wrong, my assumption of independence got me a pretty decent estimation.
+
+269
+00:30:48,480 --> 00:30:55,260
+Over. I told you that the senators are wrong. Right. So these are wrong because they didn't account for correlation.
+
+270
+00:30:56,190 --> 00:31:00,570
+Are they too big or too small? No, no, because we ain't really talked about that yet.
+
+271
+00:31:02,460 --> 00:31:09,840
+But I can compare the model based standard errors to the sandwich standard errors that I just fit to these data.
+
+272
+00:31:12,510 --> 00:31:15,060
+And you'll see that they are distinctly different from each other.
+
+273
+00:31:19,860 --> 00:31:24,780
+And you can see that it isn't always that the sandwich Variant's estimated is bigger and the other one is smaller.
+
+274
+00:31:25,200 --> 00:31:28,390
+There's both directions here. Right.
+
+275
+00:31:29,080 --> 00:31:34,510
+So we're going to point that out in a short bit here. So in this one data set here, I see that, in fact,
+
+276
+00:31:34,510 --> 00:31:39,340
+the seven senators are distinctly different from the model based because the residuals
+
+277
+00:31:39,910 --> 00:31:43,630
+told me that there was remaining correlation after I set a model was independence.
+
+278
+00:31:43,840 --> 00:31:48,460
+There was correlation that was taken care of in the residuals when I fit a sandwich variance system.
+
+279
+00:31:49,450 --> 00:31:55,690
+Right. So it looks like perhaps the time coefficient, the standard error was smaller than I thought it should be.
+
+280
+00:31:57,160 --> 00:32:05,830
+The coefficient on group should have a higher standard error and the interaction should have a smaller standard error for this one dataset.
+
+281
+00:32:05,930 --> 00:32:09,460
+Again. Can do this again. Oops.
+
+282
+00:32:13,640 --> 00:32:17,930
+And again, I see the same general trend with three different values.
+
+283
+00:32:17,930 --> 00:32:21,889
+Right. So again, I'm not going to care about the intercept intercepts.
+
+284
+00:32:21,890 --> 00:32:25,430
+Wrong to. But we don't typically do inference about the intercept.
+
+285
+00:32:27,140 --> 00:32:31,940
+All right. I can fit a compound symmetric or an air one.
+
+286
+00:32:31,940 --> 00:32:35,989
+So let's change this to air one, for example. Right. Let's change.
+
+287
+00:32:35,990 --> 00:32:41,420
+This will make an error one. Curious what happens if I type in garbage?
+
+288
+00:32:42,770 --> 00:32:49,249
+I guess it assumes compound symmetric because the statement anyway so let's do now an auto regressive correlation
+
+289
+00:32:49,250 --> 00:33:01,600
+structure row is is 0.6 so at 1.1 time point apart is .62 time points apart is .36 and then point six cubed and so forth.
+
+290
+00:33:01,610 --> 00:33:04,639
+Right. So again, I can simulate the data.
+
+291
+00:33:04,640 --> 00:33:15,410
+I can fit a model with independence. And generally good estimation.
+
+292
+00:33:15,430 --> 00:33:19,420
+The parameters are close to standard errors. As I told you are probably wrong.
+
+293
+00:33:20,000 --> 00:33:26,340
+Do the sandwich senators tell me that? Yeah, well.
+
+294
+00:33:27,780 --> 00:33:32,280
+Hmm. Interesting. So and this is why simulations are useful here.
+
+295
+00:33:32,670 --> 00:33:38,340
+But again, this is from one data set. I can't make any conclusions about the theory from one simulation.
+
+296
+00:33:38,910 --> 00:33:42,479
+I need to do things over and over and over again to see. Again.
+
+297
+00:33:42,480 --> 00:33:45,930
+Simulations are never proof of anything. The problem with our computers today is.
+
+298
+00:33:45,930 --> 00:33:51,180
+Are so powerful. It's much more fun to do simulations than five pages of algebra.
+
+299
+00:33:51,540 --> 00:33:59,580
+You can write especially peachy students. But simulations are never a substitute for proofs.
+
+300
+00:34:00,210 --> 00:34:03,380
+But they are very, very strong evidence. Just like a clinical trial.
+
+301
+00:34:03,900 --> 00:34:08,610
+We never prove anything, but we gather lots and lots of strong, strong evidence.
+
+302
+00:34:08,910 --> 00:34:12,810
+Right. So this has to run one data set and doing analysis.
+
+303
+00:34:13,530 --> 00:34:24,150
+I'm going to do this many, many times now. So I have written a separate file called LSM and it is going to run a bunch of simulations.
+
+304
+00:34:24,160 --> 00:34:27,100
+So my counter here says run a thousand simulations.
+
+305
+00:34:27,120 --> 00:34:34,200
+I don't know why a thousand is a number we use, but it seems to be enough we can figure out how many simulations to do.
+
+306
+00:34:35,250 --> 00:34:39,569
+But again, the more simulations the do you do, the better.
+
+307
+00:34:39,570 --> 00:34:42,990
+But you also have a life and you don't want to run the computer for three days.
+
+308
+00:34:43,950 --> 00:34:51,080
+Especially if I and I'll show you this anyway. So what do I want to keep track of from every simulation?
+
+309
+00:34:51,090 --> 00:34:58,260
+So again, I simulate the data. I fit the model assuming independence and I get a sandwich standard errors as well.
+
+310
+00:34:59,370 --> 00:35:03,810
+What do I want to keep track of? I want to keep track of the coefficient estimates from every simulation.
+
+311
+00:35:04,290 --> 00:35:07,860
+The model based standard errors and the sandwich senators.
+
+312
+00:35:07,890 --> 00:35:11,010
+Those three things. And again, they're they're not things.
+
+313
+00:35:11,010 --> 00:35:18,510
+They're vectors. They have four numbers each. So again, in our I'm going to make a blank holder for these things.
+
+314
+00:35:18,870 --> 00:35:25,499
+I'm going to keep track of all the estimates of the model base, standard errors and all of the sandwich standard errors.
+
+315
+00:35:25,500 --> 00:35:29,640
+So that's null right now. So let's race everything.
+
+316
+00:35:30,600 --> 00:35:34,800
+We go, right. So I want to do a thousand simulations.
+
+317
+00:35:35,190 --> 00:35:39,030
+So for I from one down seven. So I is now one.
+
+318
+00:35:43,060 --> 00:35:48,910
+What I do. Sometimes it's very frustrating to run a simulation for 8 hours and have no idea
+
+319
+00:35:49,750 --> 00:35:53,600
+if it's doing anything because you're just sitting there waiting for the cursor.
+
+320
+00:35:54,940 --> 00:35:56,950
+So when I'm running repeated simulations,
+
+321
+00:35:56,950 --> 00:36:04,839
+I just have always used this counter that I made about myself that just says for every 1/10 of the simulations spit out and tell me,
+
+322
+00:36:04,840 --> 00:36:07,720
+or at least that far, there's no wrong.
+
+323
+00:36:07,750 --> 00:36:13,090
+Nothing more frustrating than after 5 hours if you don't know if you're close to being done or barely close to being done.
+
+324
+00:36:13,840 --> 00:36:20,260
+So this again, it's not important for the simulations, but it tells me how quickly things are running and there are lots of other ways to do that.
+
+325
+00:36:20,260 --> 00:36:24,460
+But I'm an old man and back in the days we had nothing, so I had to make it to myself.
+
+326
+00:36:25,300 --> 00:36:29,100
+So for every simulation. I'm able.
+
+327
+00:36:29,180 --> 00:36:34,790
+So I'm going to simulate the data. So I'm going to source this other file that I just showed you I was doing.
+
+328
+00:36:35,450 --> 00:36:38,540
+So it's going to simulate the data.
+
+329
+00:36:38,900 --> 00:36:40,070
+It's going to fit the model.
+
+330
+00:36:40,070 --> 00:36:47,900
+And it's going to give the standard sandwich senators and then going to pull off the coefficient estimates from simulation one.
+
+331
+00:36:49,080 --> 00:36:56,540
+And save them. Save the model based standard errors from the function albums and the sandwich standard error.
+
+332
+00:36:58,120 --> 00:37:03,570
+Then I'm going to do that a bunch of times. So right now, all est dash.
+
+333
+00:37:04,530 --> 00:37:08,470
+Oh, est, right. It's got one row.
+
+334
+00:37:08,490 --> 00:37:12,210
+It's got the results from the first simulation. Here are the four coefficient estimates.
+
+335
+00:37:12,990 --> 00:37:20,430
+Oh, that's the MVP that has four numbers, you know, as the standard and so forth.
+
+336
+00:37:24,240 --> 00:37:28,330
+Let's go back. So because I figured let's start with independence.
+
+337
+00:37:28,350 --> 00:37:31,620
+Let's see what happens when I have no correlation on the data.
+
+338
+00:37:32,130 --> 00:37:39,760
+Right. The elm function should be doing the right thing. That's true.
+
+339
+00:37:43,760 --> 00:37:52,610
+Anyway. All right, so let's do this. Let's run a thousand simulations in which the data have no correlation whatsoever.
+
+340
+00:37:56,530 --> 00:38:03,770
+Right. So here we go. A thousand simulations. So, again, if we set it for a while, it'd be kind of frustrating to know what they're doing.
+
+341
+00:38:03,800 --> 00:38:06,890
+So 100 takes a couple of seconds. Right.
+
+342
+00:38:08,070 --> 00:38:10,320
+Again, this is a function of the number of people.
+
+343
+00:38:10,320 --> 00:38:17,640
+If I said there were 10,000 people in each dataset and you're fitting l am a thousand times and 10,000 people.
+
+344
+00:38:18,570 --> 00:38:22,680
+We might be here for the rest of the day. Right? So just keep that in mind.
+
+345
+00:38:24,430 --> 00:38:30,990
+All right. So here we go. They're done. So I've run a thousand datasets, and I've done the analysis each time and kept track of the results.
+
+346
+00:38:31,470 --> 00:38:39,690
+Now, what do I want to know? I want to know if, on average, these datasets produce coefficients that are close to the truth.
+
+347
+00:38:40,380 --> 00:38:44,610
+That's bias, right? The expected value of data minus beta.
+
+348
+00:38:44,610 --> 00:38:55,260
+True. So and the supply function says go to each row in this matrix of coefficient estimates.
+
+349
+00:38:57,150 --> 00:39:04,920
+So each column I want, I want the average of a thousand beta not that's the average of a thousand beta one and so forth.
+
+350
+00:39:05,430 --> 00:39:13,620
+So I'm going to get four averages and look at the difference between on average what the coefficients are relative to the truth, and that's bias.
+
+351
+00:39:15,310 --> 00:39:26,650
+And hopefully everything I've been telling you is that for all intents and purposes, again, the bias isn't perfectly zero.
+
+352
+00:39:27,370 --> 00:39:30,820
+These are just simulations, but they're pretty close to zero.
+
+353
+00:39:30,970 --> 00:39:35,600
+Remember that The Intercept, again, this is another thing is, is they as you move along in your career.
+
+354
+00:39:37,780 --> 00:39:42,340
+The Intercept is 25. This is not bias.
+
+355
+00:39:43,360 --> 00:39:48,160
+Right. Point old one six relative to 25 is zero.
+
+356
+00:39:48,500 --> 00:39:52,660
+She. So again, as you if you do do a Ph.D.,
+
+357
+00:39:52,670 --> 00:40:00,130
+please don't get caught up in the seventh decimal point because sometimes that much precision is irrelevant for what we do.
+
+358
+00:40:00,140 --> 00:40:04,550
+But anyways, so for all intents and purposes, we have almost zero bias here.
+
+359
+00:40:05,810 --> 00:40:15,650
+I want to know on average what do what does the computer output, what are the model base standard errors?
+
+360
+00:40:15,650 --> 00:40:22,910
+If we assume independence for the residuals, what on average do I get for the standard errors?
+
+361
+00:40:24,710 --> 00:40:28,100
+Again, the gas for their first rate.
+
+362
+00:40:28,460 --> 00:40:37,370
+So again, I recorded standard errors. I want to square the standard errors first, averaged those and then take the square root.
+
+363
+00:40:37,440 --> 00:40:43,220
+I don't want to take the average of much of square root. I want to average variance and then take the square root of the average variance.
+
+364
+00:40:43,700 --> 00:40:51,560
+So I'm doing the same thing here. So for every column square then to get variances, take the average and take the square root.
+
+365
+00:40:59,300 --> 00:41:08,030
+So across 2000 simulations, these are the average standard errors for the four coefficient estimates based upon the model.
+
+366
+00:41:10,870 --> 00:41:16,420
+They can do the same thing with the sandwich senators to get those.
+
+367
+00:41:18,180 --> 00:41:21,300
+Now the question we keep asking ourselves, are these right?
+
+368
+00:41:22,860 --> 00:41:27,660
+Do these mimic the actual sampling variability of the coefficients?
+
+369
+00:41:28,560 --> 00:41:32,280
+So what am I trying to get at here? If we go back to what I call advanced?
+
+370
+00:41:40,240 --> 00:41:43,930
+Right. So this was the slow cooker a on time.
+
+371
+00:41:46,520 --> 00:41:53,010
+We tell you guys that beta hat is a normal distribution around beta was standard error.
+
+372
+00:41:53,030 --> 00:42:03,410
+Such and such write it has a normal distribution with a mean of data one the truth two and it has a certain amount of variability.
+
+373
+00:42:03,420 --> 00:42:07,490
+This is the actual sampling variability across 2000 samples.
+
+374
+00:42:08,030 --> 00:42:12,890
+This is the variability in beta one hat, this is the actual sampling variability.
+
+375
+00:42:13,970 --> 00:42:17,900
+Now the model has told us what that standard error is.
+
+376
+00:42:19,890 --> 00:42:23,400
+And the sandwich estimate has told us what it thinks it is.
+
+377
+00:42:24,030 --> 00:42:30,899
+Are those right? We do that by taking the standard deviation of the beta.
+
+378
+00:42:30,900 --> 00:42:37,050
+Hence the standard deviation of the thousand beta hits tells me the true sampling variability.
+
+379
+00:42:37,770 --> 00:42:46,070
+And we hope. If those are the same or close to the other two numbers, because remember, we got the model right?
+
+380
+00:42:46,850 --> 00:42:53,410
+We got the model right. So the model based senators should be close to the truth and the sandwich estimate should tell us,
+
+381
+00:42:53,440 --> 00:42:56,390
+Yeah, you do need to do anything more because you got the model right in the first place.
+
+382
+00:42:59,920 --> 00:43:05,649
+So I take the beta hat such every column beta not hat made a one hat better to
+
+383
+00:43:05,650 --> 00:43:09,850
+be a three hat and I take the standard deviation of each of those four columns.
+
+384
+00:43:10,570 --> 00:43:19,200
+That's the observed sampling variability. I'm going to put all those into our table because it all runs.
+
+385
+00:43:19,620 --> 00:43:27,060
+So bias model based senators, sandwich senators and the truth of senators what we call empirical.
+
+386
+00:43:27,390 --> 00:43:33,940
+Across a thousand simulations. Those are the input senators. And let's not look at too many decimals here.
+
+387
+00:43:33,960 --> 00:43:37,650
+Let's see what we get when I hope for the best.
+
+388
+00:43:43,980 --> 00:43:48,660
+So again, we looked at the bias already. There's a little bit, but really negligible bias.
+
+389
+00:43:49,590 --> 00:43:52,470
+So I got the model right, so there shouldn't be any bias.
+
+390
+00:43:53,010 --> 00:43:57,839
+Here are the model based standard errors according to the formula that we've all learned, you know, sigma squared,
+
+391
+00:43:57,840 --> 00:44:06,270
+inverse x transpose x, inverse sigma squared x transpose x inverse sandwich adjustment didn't really have any effect.
+
+392
+00:44:07,590 --> 00:44:19,470
+And then here is what they should be. Well, again, not perfect, but pretty close because we're going to see in a second that this is great.
+
+393
+00:44:19,680 --> 00:44:24,720
+Right. So the empirical standard errors are pretty close to the model based standard errors.
+
+394
+00:44:25,020 --> 00:44:32,200
+That's the first thing to note. We got the model right there for the standard errors from the model should match the truth here.
+
+395
+00:44:32,810 --> 00:44:39,810
+And we see that we didn't need to do a sandwich adjustment because we got the model in the first place for the covariance structure of the residuals.
+
+396
+00:44:41,280 --> 00:44:48,540
+Important to know. Right. So that's all we get.
+
+397
+00:44:48,660 --> 00:44:52,260
+All right. Now let's start to mess things up for the computer.
+
+398
+00:44:53,190 --> 00:44:59,130
+Let's simulate data processing 8.6.
+
+399
+00:44:59,460 --> 00:45:05,220
+Let's start with compound symmetric. So I'm going to simulate data with a compound symmetric correlation structure.
+
+400
+00:45:08,490 --> 00:45:12,480
+I'm going to assume independence when I run my simulations and I'm going to see what happens.
+
+401
+00:45:13,290 --> 00:45:24,940
+So. All right. So now let's run another thousand simulations where we analyze correlated data, but assume independence when we set our models.
+
+402
+00:45:31,480 --> 00:45:53,040
+The excitement builds. There we are.
+
+403
+00:45:53,610 --> 00:46:03,960
+So hopefully I did everything right. I'm going to look at the results now again that I have saved on three extreme measures that we got.
+
+404
+00:46:04,800 --> 00:46:10,830
+So again, correlated data model, assuming independence, no bias.
+
+405
+00:46:11,610 --> 00:46:15,780
+It had a still unbiased correlation.
+
+406
+00:46:15,780 --> 00:46:20,460
+Didn't have this, as I told you. Correlation doesn't seem to have an impact on estimation.
+
+407
+00:46:21,600 --> 00:46:28,620
+There are the model based standard errors. You can see that they are distinctly different from the sandwich estimates because
+
+408
+00:46:28,620 --> 00:46:32,160
+the sandwich estimate is telling me there's some correlation structure you missed.
+
+409
+00:46:33,810 --> 00:46:38,130
+And in fact, there is what they should be. The last column is where they should be.
+
+410
+00:46:38,940 --> 00:46:43,980
+So you can see that the sandwich estimates got us close to the right answer.
+
+411
+00:46:44,700 --> 00:46:49,920
+So even though we got the correlation structure wrong, I got decent estimation.
+
+412
+00:46:50,640 --> 00:46:54,570
+And if I then use the sandwich estimate error, I've got the right standard errors in a way I go.
+
+413
+00:46:55,680 --> 00:47:00,590
+So this is one approach to analyzing correlated data. I like independence.
+
+414
+00:47:00,600 --> 00:47:03,900
+Those are easy models to fit genomes elements.
+
+415
+00:47:05,040 --> 00:47:08,700
+All I need to do is assume independence. Fit regression models.
+
+416
+00:47:08,730 --> 00:47:11,040
+Get sandwich senators. Off I go.
+
+417
+00:47:14,160 --> 00:47:20,880
+What we're going to learn is, well, let's model the correlation structure if we can and not worry about needing sandwich standard errors necessarily.
+
+418
+00:47:22,650 --> 00:47:25,920
+These model based are wrong. They didn't account for the correlation.
+
+419
+00:47:27,840 --> 00:47:33,540
+So here's the truth. So let's cut out the third calendar right now.
+
+420
+00:47:39,900 --> 00:47:47,850
+All right. So here a model based here is where they should be. We see that the standard error and the slope coefficient.
+
+421
+00:47:49,610 --> 00:47:56,210
+Is too big. The empiric is actually .089.
+
+422
+00:47:56,220 --> 00:48:02,550
+The model said it's .14 and that is what happens when we ignore correlated data.
+
+423
+00:48:03,510 --> 00:48:06,930
+Time is a within person comparison.
+
+424
+00:48:07,410 --> 00:48:12,900
+How are my numbers changing over time? How were your numbers changing over time?
+
+425
+00:48:13,380 --> 00:48:22,650
+I want to compare values within a person. If I ignore the correlation, remember I lose all that matching of my numbers belonging to each other.
+
+426
+00:48:23,580 --> 00:48:29,670
+There's that one minus row effect in the standard error. Positive correlation reduces variability.
+
+427
+00:48:31,050 --> 00:48:39,500
+So when you have a within person comparison, the computer doesn't have that benefit for it and it loses that benefit of positive correlation.
+
+428
+00:48:39,510 --> 00:48:43,320
+The standard error is too big when the model is fit.
+
+429
+00:48:44,550 --> 00:48:51,330
+So ignoring correlation, again, ignoring correlation for a within person comparison, you lose power.
+
+430
+00:48:51,330 --> 00:48:56,670
+Your standard error is too big because you've lost the benefit of the within subject correlation.
+
+431
+00:48:59,360 --> 00:49:02,690
+Time. Times shouldn't go that far. So group.
+
+432
+00:49:02,930 --> 00:49:07,640
+Group is a between person comparison. I am always in group zero.
+
+433
+00:49:08,360 --> 00:49:12,890
+He is always in group one. There's no comparison within me for group.
+
+434
+00:49:13,250 --> 00:49:20,800
+I have to compare among people. There you see that the standard error is too small.
+
+435
+00:49:22,280 --> 00:49:25,940
+And that's because one nastier error is computed.
+
+436
+00:49:27,340 --> 00:49:32,710
+There are too many of the computer thinks every observation in the dataset was drawn from a different person.
+
+437
+00:49:34,360 --> 00:49:39,160
+But they weren't. There's a positive correlation. There aren't 500 independent units in this dataset.
+
+438
+00:49:39,760 --> 00:49:46,610
+It's less than that. Right. So you divide sigma squared by some sample size to get a standard error estimate.
+
+439
+00:49:46,610 --> 00:49:53,660
+That number its dividing by is too big in the model based because it didn't account for the correlation.
+
+440
+00:49:54,660 --> 00:50:04,010
+Right. And so a between person and comparison when you ignore correlation you actually get senators that are too small.
+
+441
+00:50:05,700 --> 00:50:10,560
+So again, correlation doesn't affect standard errors in the same direction.
+
+442
+00:50:10,770 --> 00:50:15,660
+It depends upon the comparison you're making, whether it's between people or within the same individual.
+
+443
+00:50:17,210 --> 00:50:23,930
+In time interacting with a group that's within whenever you have within times between, it's the what's that?
+
+444
+00:50:23,930 --> 00:50:28,520
+Right. I want to see how time is changing for people in the same group.
+
+445
+00:50:28,520 --> 00:50:31,910
+And so that's taking my observations and comparing them across time.
+
+446
+00:50:32,750 --> 00:50:36,920
+So again, the last one is a within person comparison there.
+
+447
+00:50:36,920 --> 00:50:43,220
+Again, my module got standard errors that were too big because it didn't realize I was supposed to be comparing within the same person.
+
+448
+00:50:43,580 --> 00:50:48,980
+And there's a positive correlation there. And this is all because of positive correlation.
+
+449
+00:50:50,170 --> 00:50:59,460
+I'm very it's one minus role for the what's in person comparison that reduction which is what typically happens in human longitudinal data.
+
+450
+00:50:59,470 --> 00:51:02,570
+We rarely have a negative correlation against that.
+
+451
+00:51:02,590 --> 00:51:06,820
+I don't think I've ever seen a negative correlation. Oh, right.
+
+452
+00:51:08,110 --> 00:51:11,250
+So those are the concepts again that I presented to you.
+
+453
+00:51:11,260 --> 00:51:15,700
+Simulation is a nice way. Again, this is not proof I have.
+
+454
+00:51:15,700 --> 00:51:24,820
+That proves to you that the between group standard error is too small, which you could do in the matrix algebra if you want.
+
+455
+00:51:25,120 --> 00:51:31,060
+You could write out the you know with the the variance of beta had is and then show in fact that one is bigger than the other,
+
+456
+00:51:31,480 --> 00:51:36,670
+whether you have correlation or not. But you should get a formula that supports this.
+
+457
+00:51:37,870 --> 00:51:46,240
+Right? So again, one thing you can do is whenever you fit a longitudinal model,
+
+458
+00:51:47,800 --> 00:51:52,180
+even if you model the correlation structure, you can still fit a sandwich estimate, right?
+
+459
+00:51:52,180 --> 00:51:58,749
+You're going to use glass. And I've asked you to fit a compound symmetry and then also do a standard of sandwich,
+
+460
+00:51:58,750 --> 00:52:02,470
+senator, because that sandwich standard error still tells you is there.
+
+461
+00:52:02,620 --> 00:52:06,219
+Remember, you don't know if you got the correlation structure right. For me,
+
+462
+00:52:06,220 --> 00:52:10,209
+it's a nice check that maybe my model is pretty close to the right answer because
+
+463
+00:52:10,210 --> 00:52:16,300
+the two sets of standard errors line up with each other again within importance.
+
+464
+00:52:17,320 --> 00:52:22,240
+Don't get caught up in the fourth decimal. Right when we're talking about something that has a value of ten,
+
+465
+00:52:23,260 --> 00:52:28,060
+don't justify picking something simply because it's it's better than the fourth decimal place.
+
+466
+00:52:28,810 --> 00:52:38,639
+Those two numbers are the same in that case. Early at 3:00 one day, I'm going to go to 430.
+
+467
+00:52:38,640 --> 00:52:43,020
+You guys are going to flip out because I'm going to forget it's Friday, it's Wednesday.
+
+468
+00:52:44,820 --> 00:52:48,660
+So again, it's 330 and I'm going out on a Friday.
+
+469
+00:52:48,660 --> 00:52:57,240
+Please stop. I think it's Wednesday. That's the problem with having two different times of day days through this process.
+
+470
+00:52:58,470 --> 00:53:03,570
+Again, just one more hour to kill the dead horse here. Let's try not to regress this structure.
+
+471
+00:53:04,910 --> 00:53:12,600
+Now, let's call this 4.4. So I'm going to set five time points and let's let's let's have fun with this.
+
+472
+00:53:12,600 --> 00:53:16,800
+Let's have a lot of fun here. Let's do seven time points.
+
+473
+00:53:18,570 --> 00:53:21,719
+Right? And I could have stimulated a quadratic effective time.
+
+474
+00:53:21,720 --> 00:53:28,050
+I could program that and it's over. There's so many things you can now play with to try and see what happens when when things are changed.
+
+475
+00:53:28,950 --> 00:53:33,120
+I don't think this should slow down. That shouldn't slow down the simulations.
+
+476
+00:53:39,930 --> 00:53:45,239
+And remember, whenever you're doing regression simulations, although linear regression,
+
+477
+00:53:45,240 --> 00:53:49,770
+you don't have to invert matrices, you hopefully learn those short circuited compositions and so forth.
+
+478
+00:53:51,360 --> 00:53:57,600
+There's always the inversion of a matrix somewhere, and if that gets too big, that's what binds down the computer.
+
+479
+00:53:58,680 --> 00:54:02,280
+But in this case, everything is linear regression, so it runs pretty fast.
+
+480
+00:54:03,000 --> 00:54:08,850
+All right. So we had an auto regressive set of errors, but we assumed independence.
+
+481
+00:54:10,710 --> 00:54:13,770
+You should see the same results that I just showed you with compound symmetry.
+
+482
+00:54:14,970 --> 00:54:22,780
+What's. Right here, the model base.
+
+483
+00:54:22,800 --> 00:54:27,720
+Again, no bias. The coefficient estimates are good even though I got the wrong correlation structure.
+
+484
+00:54:29,010 --> 00:54:32,010
+These are the model based based upon the wrong model.
+
+485
+00:54:32,550 --> 00:54:37,260
+The sandwich said, well, you know, they need to be adjusted and they're close to the empirical values.
+
+486
+00:54:38,040 --> 00:54:42,610
+So again, this number is too small. This number.
+
+487
+00:54:46,120 --> 00:54:49,780
+Wait a minute. This should be too big. Interesting.
+
+488
+00:55:01,480 --> 00:55:07,780
+It's very interesting how much correlation did according to the data which saw.
+
+489
+00:55:09,240 --> 00:55:12,580
+Hmm. That's okay. I just want to make sure things are happening right here.
+
+490
+00:55:12,630 --> 00:55:17,370
+Let's see what happens. Again.
+
+491
+00:55:17,370 --> 00:55:22,590
+One of the challenges was an auto regressive model, as I told you, is the correlation decays pretty fast.
+
+492
+00:55:23,220 --> 00:55:31,200
+So a correlation coefficient in a compound symmetric model is very different than a, than in our other aggressive model.
+
+493
+00:55:34,050 --> 00:55:38,670
+So let's let's crazy here. Let's throw a lot of correlation in there.
+
+494
+00:55:42,670 --> 00:55:46,600
+And let's hope so. Again, I should get the same results.
+
+495
+00:55:47,620 --> 00:55:52,120
+Think about whether it's a within person comparison or a between the person comparison.
+
+496
+00:56:01,810 --> 00:56:05,610
+And this just might be on the test century.
+
+497
+00:56:07,040 --> 00:56:11,650
+So if you don't understand this. Come to office hours.
+
+498
+00:56:12,940 --> 00:56:16,339
+Keep looking at it. All right.
+
+499
+00:56:16,340 --> 00:56:30,720
+So let's hope for the best here. Very interesting.
+
+500
+00:56:34,110 --> 00:56:42,250
+So again, the between person is too low. But these are lower than these are by a little bit.
+
+501
+00:56:42,730 --> 00:56:46,840
+And I would have thought they would have been higher. Hmm.
+
+502
+00:56:48,450 --> 00:56:59,490
+I have to do some investigation there. That's really intriguing. In this relationship again and again.
+
+503
+00:56:59,550 --> 00:57:05,430
+This is the beauty of simulations, because something that also can be scratch my head.
+
+504
+00:57:08,070 --> 00:57:14,610
+And again, I've done this long enough, I will have a student come to me and say, Dr. Brown, this doesn't work.
+
+505
+00:57:16,500 --> 00:57:21,360
+These results aren't right. And then I'll say, Did you look at your simulation codes?
+
+506
+00:57:21,690 --> 00:57:25,380
+Oh, yeah, I looked at it. Did you look at it?
+
+507
+00:57:27,060 --> 00:57:31,100
+And lo and behold, the data were not being simulated the way you thought they were.
+
+508
+00:57:31,110 --> 00:57:37,470
+Right. So I'm pretty sure I'm simulating a lot of aggressive errors anyways.
+
+509
+00:57:37,570 --> 00:57:44,700
+Look, I want to waste time now, but see, this is a moment when you're instructor and you do something on the fly.
+
+510
+00:57:45,990 --> 00:57:55,650
+Sometimes it doesn't work out anyways, but in general, for a within person comparison, that correlation helps you.
+
+511
+00:57:55,770 --> 00:58:00,990
+So if you ignore it, your standard errors are too big for a between person comparison.
+
+512
+00:58:01,650 --> 00:58:06,900
+The correlation reduces the overall sample size of independent observations in your sample,
+
+513
+00:58:06,900 --> 00:58:10,790
+so your standard error will be too small unless you account for the correlation appropriately.
+
+514
+00:58:14,550 --> 00:58:21,390
+Hmm. More fun to work on here. So if you understand how to do this,
+
+515
+00:58:22,440 --> 00:58:27,510
+eventually we can start to start talking about how to simulate correlated binary observations
+
+516
+00:58:27,930 --> 00:58:33,930
+or correlated persona observations by using the same sort of concept to get to mean structure.
+
+517
+00:58:33,930 --> 00:58:39,960
+You've got a regression model, you've got a correlation of errors and so forth, and we can look forward.
+
+518
+00:58:45,700 --> 00:58:52,000
+Yes. Like I said, as I formulate this class next year, I think it would be beneficial for everybody to do a simulation study as a homework assignment.
+
+519
+00:58:52,660 --> 00:58:57,730
+But you've got enough to underplay it already. So with that it is five after three.
+
+520
+00:58:58,750 --> 00:59:01,990
+Happy to stick around. Work on homework number two.
+
+521
+00:59:03,160 --> 00:59:19,690
+Play for go off and enjoy what is a quite a nice day outside still and we'll see you guys on what's great decisions about jumping which is a.
+

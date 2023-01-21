@@ -1,0 +1,762 @@
+1
+00:00:09,350 --> 00:00:12,270
+Hey, this is Matt Zawistowski.
+
+2
+00:00:12,270 --> 00:00:13,830
+We're going to dive back into
+
+3
+00:00:13,830 --> 00:00:16,600
+our analysis of the MPLS dataset.
+
+4
+00:00:16,600 --> 00:00:19,830
+This time we're going to
+incorporate inference by using
+
+5
+00:00:19,830 --> 00:00:22,080
+the likelihood ratio
+test to perform
+
+6
+00:00:22,080 --> 00:00:24,360
+hypothesis testing on questions
+
+7
+00:00:24,360 --> 00:00:26,010
+we've already been exploring.
+
+8
+00:00:26,010 --> 00:00:29,460
+Particularly whether there's
+evidence for an effect
+
+9
+00:00:29,460 --> 00:00:33,570
+of time in risk group
+effect on reading scores.
+
+10
+00:00:33,570 --> 00:00:35,790
+We have fit mixed models to
+
+11
+00:00:35,790 --> 00:00:38,850
+the MPLS reading scores
+in our previous lectures.
+
+12
+00:00:38,850 --> 00:00:40,370
+We've argued that these models
+
+13
+00:00:40,370 --> 00:00:41,840
+are more appropriate because they
+
+14
+00:00:41,840 --> 00:00:43,250
+properly handle the within
+
+15
+00:00:43,250 --> 00:00:45,395
+student correlation
+of test scores.
+
+16
+00:00:45,395 --> 00:00:47,240
+Although we observe the trend of
+
+17
+00:00:47,240 --> 00:00:48,950
+increasing scores with grade,
+
+18
+00:00:48,950 --> 00:00:52,310
+we have not formally
+tested that hypothesis.
+
+19
+00:00:52,310 --> 00:00:55,420
+Likewise, we consider
+test scores by groups.
+
+20
+00:00:55,420 --> 00:00:59,075
+Most notably student risks,
+are graphical analysis,
+
+21
+00:00:59,075 --> 00:01:02,030
+descriptive statistics, and
+fitted mixed models all
+
+22
+00:01:02,030 --> 00:01:03,380
+hinted that scores tend to be
+
+23
+00:01:03,380 --> 00:01:05,570
+higher among the
+advantaged students.
+
+24
+00:01:05,570 --> 00:01:08,600
+But is there sufficient
+evidence to definitively reject
+
+25
+00:01:08,600 --> 00:01:12,050
+the notion that risk group
+does not affect test scores?
+
+26
+00:01:12,050 --> 00:01:13,670
+For these questions, we will use
+
+27
+00:01:13,670 --> 00:01:17,375
+likelihood ratio tests to
+perform hypothesis testing.
+
+28
+00:01:17,375 --> 00:01:19,135
+As a quick reminder,
+
+29
+00:01:19,135 --> 00:01:21,940
+the likelihood
+ratio test, or LRT,
+
+30
+00:01:21,940 --> 00:01:24,730
+tests the significance of
+regression parameters by
+
+31
+00:01:24,730 --> 00:01:27,635
+comparing the fit between
+a pair of nested models.
+
+32
+00:01:27,635 --> 00:01:29,920
+In the following
+slides we'll use R
+
+33
+00:01:29,920 --> 00:01:32,170
+to perform LRT that formally
+
+34
+00:01:32,170 --> 00:01:34,330
+tests for grade in
+group effects in
+
+35
+00:01:34,330 --> 00:01:37,375
+the mixed model framework
+for the MPLS data.
+
+36
+00:01:37,375 --> 00:01:39,880
+To perform an LRT and R we
+
+37
+00:01:39,880 --> 00:01:42,680
+first need to fit the
+two nested models.
+
+38
+00:01:42,680 --> 00:01:46,135
+In this case, if we want to
+test for a grade effect,
+
+39
+00:01:46,135 --> 00:01:48,430
+our full model will
+include fixed effects for
+
+40
+00:01:48,430 --> 00:01:51,160
+the intercept and the
+grade effect or slope.
+
+41
+00:01:51,160 --> 00:01:53,110
+We will include a
+random intercept to
+
+42
+00:01:53,110 --> 00:01:55,265
+account for the within
+student correlation.
+
+43
+00:01:55,265 --> 00:01:59,465
+This model is fit as usual
+using the lmer function.
+
+44
+00:01:59,465 --> 00:02:01,950
+Next, we fit the reduced model.
+
+45
+00:02:01,950 --> 00:02:04,160
+This model contains
+all the parameters
+
+46
+00:02:04,160 --> 00:02:05,225
+from the full model,
+
+47
+00:02:05,225 --> 00:02:06,740
+except for the ones
+that we want to
+
+48
+00:02:06,740 --> 00:02:08,765
+perform the hypothesis test on.
+
+49
+00:02:08,765 --> 00:02:10,550
+Here we will exclude just the
+
+50
+00:02:10,550 --> 00:02:12,445
+Beta one term for grade effect.
+
+51
+00:02:12,445 --> 00:02:14,420
+Note that we have left
+the random component
+
+52
+00:02:14,420 --> 00:02:15,800
+of the model unchanged,
+
+53
+00:02:15,800 --> 00:02:18,095
+specifically the
+random intercepts.
+
+54
+00:02:18,095 --> 00:02:20,495
+Finally, to perform the LRT,
+
+55
+00:02:20,495 --> 00:02:22,610
+we use the ANOVA function in R,
+
+56
+00:02:22,610 --> 00:02:24,830
+passing it the objects
+for the fitted,
+
+57
+00:02:24,830 --> 00:02:27,115
+full, and reduced models.
+
+58
+00:02:27,115 --> 00:02:29,945
+Here's the output
+that R will return
+
+59
+00:02:29,945 --> 00:02:32,710
+for the likelihood
+ratio test in ANOVA.
+
+60
+00:02:32,710 --> 00:02:34,819
+The output nicely summarizes
+
+61
+00:02:34,819 --> 00:02:37,130
+the nested models
+using the analysis.
+
+62
+00:02:37,130 --> 00:02:38,840
+Note that it's up
+to you to ensure
+
+63
+00:02:38,840 --> 00:02:40,775
+that the models
+are infact nested.
+
+64
+00:02:40,775 --> 00:02:44,120
+R will perform the ANOVA on
+whatever models you supply,
+
+65
+00:02:44,120 --> 00:02:46,600
+even if they are not
+nested. So be careful.
+
+66
+00:02:46,600 --> 00:02:48,710
+We can confirm that
+the difference between
+
+67
+00:02:48,710 --> 00:02:50,780
+our full model m.grade and
+
+68
+00:02:50,780 --> 00:02:55,460
+the reduced model m.null is
+the grade fixed effect term.
+
+69
+00:02:55,460 --> 00:02:58,430
+Details for each model
+are then provided,
+
+70
+00:02:58,430 --> 00:03:00,005
+including the number
+of parameters
+
+71
+00:03:00,005 --> 00:03:02,000
+in several goodness
+of fit measures.
+
+72
+00:03:02,000 --> 00:03:03,574
+Remember for the LRT,
+
+73
+00:03:03,574 --> 00:03:06,145
+we will be using the
+deviance metric.
+
+74
+00:03:06,145 --> 00:03:09,410
+Note that the full
+model m.grade contains
+
+75
+00:03:09,410 --> 00:03:11,930
+one additional parameter
+over the reduced model
+
+76
+00:03:11,930 --> 00:03:15,295
+m.null corresponding
+to the grade effect.
+
+77
+00:03:15,295 --> 00:03:18,400
+The red box shows the
+results of the LRT,
+
+78
+00:03:18,400 --> 00:03:20,575
+specifically the
+chi-square statistic,
+
+79
+00:03:20,575 --> 00:03:23,065
+the degrees of freedom,
+one in this case,
+
+80
+00:03:23,065 --> 00:03:26,380
+and the corresponding p-value
+for the hypothesis test.
+
+81
+00:03:26,380 --> 00:03:30,100
+The p-value for the hypothesis
+test that the grade effect
+
+82
+00:03:30,100 --> 00:03:32,260
+parameter is equal to zero is
+
+83
+00:03:32,260 --> 00:03:34,705
+8.2 times 10 to the minus 12.
+
+84
+00:03:34,705 --> 00:03:36,790
+Meaning we have very
+strong evidence to
+
+85
+00:03:36,790 --> 00:03:39,710
+reject the null hypothesis
+of no grade effect.
+
+86
+00:03:39,710 --> 00:03:42,865
+We finally have formal
+statistical evidence for
+
+87
+00:03:42,865 --> 00:03:44,470
+increasing reading test scores
+
+88
+00:03:44,470 --> 00:03:46,810
+between the fifth
+and eighth grades.
+
+89
+00:03:46,810 --> 00:03:49,195
+Now that we've established that,
+
+90
+00:03:49,195 --> 00:03:51,355
+let's take a look at how an LRT
+
+91
+00:03:51,355 --> 00:03:52,810
+based on standard linear
+
+92
+00:03:52,810 --> 00:03:54,325
+regression would have played out.
+
+93
+00:03:54,325 --> 00:03:55,900
+Remember, this is not
+
+94
+00:03:55,900 --> 00:03:57,750
+the correct way to
+analyze the data,
+
+95
+00:03:57,750 --> 00:04:00,790
+but let's look to see if it
+would have made a difference.
+
+96
+00:04:00,790 --> 00:04:04,085
+We start by fitting the
+standard regression analogs
+
+97
+00:04:04,085 --> 00:04:06,890
+of the full and reduced
+models by simply removing the
+
+98
+00:04:06,890 --> 00:04:09,605
+random intercept term and
+using the LM function in
+
+99
+00:04:09,605 --> 00:04:13,420
+R. The reduced model
+contains just an intercept,
+
+100
+00:04:13,420 --> 00:04:15,380
+and the full model contains
+
+101
+00:04:15,380 --> 00:04:18,305
+the intercept and
+grade effects slope.
+
+102
+00:04:18,305 --> 00:04:20,810
+Again, the ANOVA function will
+
+103
+00:04:20,810 --> 00:04:23,435
+perform the likelihood
+ratio test.
+
+104
+00:04:23,435 --> 00:04:26,150
+Here's the corresponding
+output table.
+
+105
+00:04:26,150 --> 00:04:27,800
+Like before, this is
+
+106
+00:04:27,800 --> 00:04:30,770
+a hypothesis tested Beta
+one, the grade effect.
+
+107
+00:04:30,770 --> 00:04:32,915
+Well, we get a very
+different answer if we
+
+108
+00:04:32,915 --> 00:04:35,285
+incorrectly use standard
+linear regression.
+
+109
+00:04:35,285 --> 00:04:39,890
+In this case, the
+p-value is 0.05182.
+
+110
+00:04:39,890 --> 00:04:41,750
+We would not even reject the null
+
+111
+00:04:41,750 --> 00:04:43,840
+for an Alpha level
+of five percent.
+
+112
+00:04:43,840 --> 00:04:46,055
+Contrast this to the mixed model,
+
+113
+00:04:46,055 --> 00:04:48,590
+which had a p-value
+of 8.2 times 10 to
+
+114
+00:04:48,590 --> 00:04:51,755
+the minus 12 for the
+same hypothesis tests.
+
+115
+00:04:51,755 --> 00:04:53,990
+This example clearly demonstrates
+
+116
+00:04:53,990 --> 00:04:55,130
+the effect that ignoring
+
+117
+00:04:55,130 --> 00:04:57,200
+correlation and improper use
+
+118
+00:04:57,200 --> 00:05:00,340
+of statistical methods
+can have on inference.
+
+119
+00:05:00,340 --> 00:05:02,960
+Finally, let's return to
+
+120
+00:05:02,960 --> 00:05:04,460
+a question that
+we've been exploring
+
+121
+00:05:04,460 --> 00:05:05,630
+throughout the course.
+
+122
+00:05:05,630 --> 00:05:08,030
+Namely, whether there's
+a difference in reading
+
+123
+00:05:08,030 --> 00:05:09,215
+test scores between
+
+124
+00:05:09,215 --> 00:05:12,050
+advantaged and
+disadvantaged students.
+
+125
+00:05:12,050 --> 00:05:13,670
+We now have the means to
+
+126
+00:05:13,670 --> 00:05:15,695
+formally test the null hypothesis
+
+127
+00:05:15,695 --> 00:05:19,915
+of equal test scores between
+students regardless of risk.
+
+128
+00:05:19,915 --> 00:05:23,090
+Here are model containing
+fixed effects for
+
+129
+00:05:23,090 --> 00:05:25,355
+intercepting grade
+and random intercepts
+
+130
+00:05:25,355 --> 00:05:26,855
+will be the reduced model,
+
+131
+00:05:26,855 --> 00:05:28,895
+and the model with
+an additional term
+
+132
+00:05:28,895 --> 00:05:31,225
+for risk group will
+be the full model.
+
+133
+00:05:31,225 --> 00:05:33,950
+Again, we will use the
+ANOVA function to perform
+
+134
+00:05:33,950 --> 00:05:35,600
+the likelihood ratio tests
+
+135
+00:05:35,600 --> 00:05:37,690
+and we get the following output.
+
+136
+00:05:37,690 --> 00:05:40,670
+This likelihood ratio
+tests corresponds to
+
+137
+00:05:40,670 --> 00:05:42,290
+the null hypothesis that
+
+138
+00:05:42,290 --> 00:05:44,780
+the risk parameter
+is equal to zero.
+
+139
+00:05:44,780 --> 00:05:46,580
+This test has a p-value of
+
+140
+00:05:46,580 --> 00:05:49,100
+1.8 times 10 to the minus fifth.
+
+141
+00:05:49,100 --> 00:05:51,505
+We have strong reason
+to reject the null.
+
+142
+00:05:51,505 --> 00:05:52,930
+Combined with the sign of
+
+143
+00:05:52,930 --> 00:05:56,260
+the risk parameter
+estimate, negative 19.6,
+
+144
+00:05:56,260 --> 00:05:58,645
+we finally have
+statistical evidence
+
+145
+00:05:58,645 --> 00:05:59,815
+to support the claim that
+
+146
+00:05:59,815 --> 00:06:02,350
+advantage students have
+higher mean test scores
+
+147
+00:06:02,350 --> 00:06:05,735
+than disadvantaged students
+based on this study.
+
+148
+00:06:05,735 --> 00:06:08,050
+With this step complete,
+
+149
+00:06:08,050 --> 00:06:11,320
+our analysis of the MPLS
+dataset has gone from
+
+150
+00:06:11,320 --> 00:06:13,990
+an exploratory
+graphical analysis to
+
+151
+00:06:13,990 --> 00:06:16,134
+a formal inferential analysis
+
+152
+00:06:16,134 --> 00:06:18,920
+of our original
+motivating questions.
+
+153
+00:06:18,920 --> 00:06:20,800
+In this lecture, we used
+
+154
+00:06:20,800 --> 00:06:23,350
+the likelihood ratio
+test to formally
+
+155
+00:06:23,350 --> 00:06:25,420
+perform hypothesis tests of
+
+156
+00:06:25,420 --> 00:06:27,540
+mixed model regression
+parameters.
+
+157
+00:06:27,540 --> 00:06:30,770
+Something we couldn't do with
+the usual Wald statistic.
+
+158
+00:06:30,770 --> 00:06:32,870
+In so doing, we provided
+
+159
+00:06:32,870 --> 00:06:34,700
+valid statistical evidence for
+
+160
+00:06:34,700 --> 00:06:38,120
+both grade in risk group
+effect on test scores.
+
+161
+00:06:38,120 --> 00:06:40,340
+We also showed why
+it's so important to
+
+162
+00:06:40,340 --> 00:06:42,770
+use models that are
+appropriate for the data.
+
+163
+00:06:42,770 --> 00:06:45,725
+Misuse of a standard
+linear regression model
+
+164
+00:06:45,725 --> 00:06:48,695
+would have obscured a true
+grade effect in these data,
+
+165
+00:06:48,695 --> 00:06:52,907
+highlighting the value of
+the mixed model framework.
+

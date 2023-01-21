@@ -1,0 +1,3940 @@
+1
+00:00:00,870 --> 00:00:06,419
+So I always like to check the COVID tracker just before class.
+
+2
+00:00:06,420 --> 00:00:09,749
+So I know whether it's a mask on or mask off day for me.
+
+3
+00:00:09,750 --> 00:00:13,620
+So it's a medium today.
+
+4
+00:00:14,100 --> 00:00:20,339
+So that means that mask wearing is more subject to individual choice.
+
+5
+00:00:20,340 --> 00:00:24,870
+And I am very socially distanced up here. So you'll see my face today.
+
+6
+00:00:25,500 --> 00:00:29,790
+And any anyone in this room, you make your own choice.
+
+7
+00:00:29,790 --> 00:00:34,570
+But at least we have a good choice today. So that's nice.
+
+8
+00:00:35,710 --> 00:00:41,030
+Let's also. Give a quick look at the schedule to see where we are.
+
+9
+00:00:42,960 --> 00:00:47,640
+So we are on the 26th here. So last time.
+
+10
+00:00:49,670 --> 00:00:58,520
+I don't have the Panopto link over here will be over here. Last time we were almost at the end of hand out five will finish hand out five today and
+
+11
+00:00:58,910 --> 00:01:03,680
+will likely also finish hand out six with no problem since that's a very short handout.
+
+12
+00:01:04,700 --> 00:01:08,410
+Handout seven I have not posted yet.
+
+13
+00:01:08,420 --> 00:01:13,580
+I'm almost done editing some R code for that slide so it'll go up later today.
+
+14
+00:01:14,680 --> 00:01:21,700
+And that will be all new material. So come on Wednesday ready to learn a brand new technique for you.
+
+15
+00:01:22,660 --> 00:01:28,840
+And every everything after for the rest of the course is going to be very quickly
+
+16
+00:01:28,840 --> 00:01:35,590
+building the capability to model all different kinds of data very quickly.
+
+17
+00:01:35,950 --> 00:01:42,310
+And the nice thing is, since you know how to do linear and logistic regression now very well,
+
+18
+00:01:43,360 --> 00:01:46,989
+these other techniques are going to be able to be picked up quite quickly.
+
+19
+00:01:46,990 --> 00:01:55,600
+It's just going to be a matter of, you know, figuring out the right outcome that goes with the right code, that goes with the right interpretation.
+
+20
+00:01:55,870 --> 00:02:00,069
+But with those things in mind, it'll be very similar to what you've done for all these other models.
+
+21
+00:02:00,070 --> 00:02:03,430
+So you're ready to learn like crazy numbers of models now.
+
+22
+00:02:04,660 --> 00:02:09,860
+Okay. So that'll be a lot of fun getting skills very quickly.
+
+23
+00:02:11,570 --> 00:02:19,580
+So for the assignments, the next homework assignment is to October the second, which is.
+
+24
+00:02:22,090 --> 00:02:29,590
+This Sunday. I have to warn you, I'm out of town this weekend, so my usual office hours on Friday are canceled.
+
+25
+00:02:29,890 --> 00:02:38,170
+But there's still lots of office hours to attend between my office hours over the next couple of days and the GSEs office hours.
+
+26
+00:02:38,170 --> 00:02:43,739
+So try to plan accordingly. And let's see.
+
+27
+00:02:43,740 --> 00:02:47,730
+What else? Is that all for the administrative stuff?
+
+28
+00:02:48,030 --> 00:02:55,380
+How are things going on your end? The first homework solutions were posted on Sunday.
+
+29
+00:02:56,100 --> 00:03:08,160
+So they're there. And I don't know how much of the grading that's been completed by the GSA, but the goal is for it to be back to within about a week.
+
+30
+00:03:08,550 --> 00:03:11,610
+Solutions will often be posted much earlier than that.
+
+31
+00:03:12,780 --> 00:03:17,320
+Okay. Any administrative kinds of questions.
+
+32
+00:03:21,260 --> 00:03:24,530
+All right. Hearing no questions. I'm going to go ahead and continue.
+
+33
+00:03:25,460 --> 00:03:28,500
+Did I press recording? Thank goodness. Yes.
+
+34
+00:03:28,550 --> 00:03:32,510
+Okay, good. So hand out five.
+
+35
+00:03:32,510 --> 00:03:43,180
+We were on slide 102. So we are completely finished how to do logistic regression that kind of review.
+
+36
+00:03:43,190 --> 00:03:52,790
+And so one of the things. That's quite nice to learn is how many things you know how to do just using the logistic regression tools.
+
+37
+00:03:52,790 --> 00:03:59,259
+So this week in lab, you're going to be going over how to do meta analysis and logistic regression.
+
+38
+00:03:59,260 --> 00:04:06,220
+We also covered that earlier in this handout, but something you may have heard about in seminars is propensity matching.
+
+39
+00:04:06,790 --> 00:04:10,810
+And this is also something that you can do just with your logistic regression tool.
+
+40
+00:04:10,820 --> 00:04:16,180
+So we're going to demystify this notion of what is propensity score matching.
+
+41
+00:04:19,890 --> 00:04:23,950
+Right. So I have a reference down here if you want to read further.
+
+42
+00:04:26,170 --> 00:04:35,410
+And I have an example here. This is kind of an old example, but it still works quite well for introducing you to this idea.
+
+43
+00:04:35,890 --> 00:04:45,880
+And so the outcome of interest in this particular study was DNA, protein cross links measured in white blood counts.
+
+44
+00:04:46,120 --> 00:04:50,900
+So it's a continuous outcome. So that's not the part that we model with logistic regression.
+
+45
+00:04:50,920 --> 00:04:56,470
+They really wanted to study these continuous outcomes and the data came from
+
+46
+00:04:56,530 --> 00:05:03,220
+two rail were railroad arc welders who were exposed to chromium and nickel.
+
+47
+00:05:04,390 --> 00:05:10,090
+So they're worried about that exposure. Right, and how it affects this continuous outcome variable.
+
+48
+00:05:10,390 --> 00:05:15,930
+And then they had 26 unexposed controls. So all 47 subjects were males.
+
+49
+00:05:15,930 --> 00:05:26,110
+So they matched on gender pretty perfectly. And there were three covariates that they collected and that I had access to from this textbook dataset.
+
+50
+00:05:26,110 --> 00:05:30,100
+Okay, so age, race and current smoking behavior.
+
+51
+00:05:31,670 --> 00:05:38,720
+So propensity score matching comes up when you you would like to do matching,
+
+52
+00:05:39,110 --> 00:05:43,580
+but it's hard to match on all the different features that you would like to use.
+
+53
+00:05:43,850 --> 00:05:49,760
+They've already matched perfectly on gender, but they have these other covariates they'd like to match on as well.
+
+54
+00:05:50,970 --> 00:05:55,080
+To do a fair comparison about what this continuous outcome looks like.
+
+55
+00:05:56,580 --> 00:06:01,590
+And so their response is going to be this DNA, protein cross length, continuous outcome thing.
+
+56
+00:06:01,860 --> 00:06:06,180
+And here's what the data set looks like. This is copied directly from this textbook source.
+
+57
+00:06:07,020 --> 00:06:09,700
+And so there's a lot of information here.
+
+58
+00:06:09,720 --> 00:06:22,440
+So the welders that had been exposed to this toxic stuff, their data is all over here on the left and the controls are on the right.
+
+59
+00:06:22,800 --> 00:06:29,730
+And so the outcome is marked deep sea and it's like a continuous looking number.
+
+60
+00:06:29,730 --> 00:06:36,809
+Right? And then they have all these variables they'd love to match on if they could age, race and smoking.
+
+61
+00:06:36,810 --> 00:06:44,549
+And they have kind of a legend up here where sees Caucasian as African-American current smoking.
+
+62
+00:06:44,550 --> 00:06:49,510
+Yes. No. And ages in years.
+
+63
+00:06:49,900 --> 00:06:52,140
+And they even have some summary statistics down here.
+
+64
+00:06:52,150 --> 00:07:05,110
+So the welders are a little bit younger, it looks like, and it looks like the controls had a higher percentage of African-American looks like.
+
+65
+00:07:05,440 --> 00:07:10,790
+And the welders smoked a lot more. All right.
+
+66
+00:07:10,790 --> 00:07:14,330
+So some of this I probably have summarized. More.
+
+67
+00:07:14,390 --> 00:07:21,580
+More clearly over here for your notes. So here's the summary statistics again, just copied from the past table.
+
+68
+00:07:21,910 --> 00:07:32,320
+So again, welders are younger, you know, mean age 38 versus 43, have fewer African-Americans, 10% versus 19% and more smokers than control.
+
+69
+00:07:32,330 --> 00:07:38,080
+And actually, that's a pretty big difference, 52% versus 35%.
+
+70
+00:07:39,760 --> 00:07:50,110
+And if you look at these differences statistically, even though it's a small data set, there's a statistically significant difference in age.
+
+71
+00:07:52,880 --> 00:08:00,590
+The other two rates are not statistically significant, but they do have these big exert observed differences, say, in the smoking.
+
+72
+00:08:00,710 --> 00:08:03,200
+I mean, those do look like big differences.
+
+73
+00:08:03,680 --> 00:08:14,960
+And what we know from looking at how power works is that when power for detecting differences in continuous things is lower than for category things.
+
+74
+00:08:15,380 --> 00:08:21,860
+So these aren't statistically different, but with big observed differences and low power to achieve statistical significance,
+
+75
+00:08:21,860 --> 00:08:28,069
+that imbalance may still be a serious issue. Okay.
+
+76
+00:08:28,070 --> 00:08:33,560
+So the exercise is to create matched pairs for the analysis.
+
+77
+00:08:34,130 --> 00:08:39,560
+And, and this is a bit of a challenge with all the different things you want to match on.
+
+78
+00:08:39,560 --> 00:08:44,180
+So we will eventually create 21 pairs of a welder and a control.
+
+79
+00:08:44,390 --> 00:08:50,000
+So we're going to have five controls that don't have a match to a welder just because there is different.
+
+80
+00:08:50,510 --> 00:08:56,510
+There's a smaller number of welders and the hope is that risk factors will be more balanced after matching.
+
+81
+00:08:57,410 --> 00:09:03,020
+And the hope is also that the analysis will be more effective if the pairs of outcomes are correlated.
+
+82
+00:09:03,020 --> 00:09:11,870
+So the more like you make the people that you're matching, the more correlated their outcomes are would tend to be.
+
+83
+00:09:12,470 --> 00:09:20,570
+This is a bit of a hope when I've done this in practice, I haven't seen a huge change in correlation, even for matching on several things.
+
+84
+00:09:20,870 --> 00:09:28,130
+So it's more of a hope, but it's possible that you'll get a little bit of a gain there by matching in power.
+
+85
+00:09:28,730 --> 00:09:37,129
+So the so here the problem. So even if we select the 21 youngest controls to match to the welders, they're still older than the welders.
+
+86
+00:09:37,130 --> 00:09:44,570
+So the mean age is not 39.6 versus 38.2, which is a bit better than what we had before.
+
+87
+00:09:45,230 --> 00:09:52,129
+But it's still a little unbalanced. And for smoking, 11 additive, 21 welders are smokers.
+
+88
+00:09:52,130 --> 00:09:55,700
+Well, only nine of the 26 potential controls are smokers.
+
+89
+00:09:55,700 --> 00:09:59,599
+So again, we won't be able to perfectly match the smoking either.
+
+90
+00:09:59,600 --> 00:10:06,750
+There's just aren't enough smokers in the controls. So you can't be perfectly balanced the covariance.
+
+91
+00:10:07,730 --> 00:10:11,629
+By hand. And this is just looking at one type of thing to match the times, though.
+
+92
+00:10:11,630 --> 00:10:15,230
+If you try to match age and smoking, that's going to be even more challenging.
+
+93
+00:10:15,860 --> 00:10:25,310
+So the inspiration behind propensity score matching is that it's a more flexible method to identify match controls for each welder.
+
+94
+00:10:29,210 --> 00:10:33,320
+So there's a little notation here, but it's it's not too bad.
+
+95
+00:10:34,520 --> 00:10:38,750
+So propensity scores in the in the materials.
+
+96
+00:10:40,700 --> 00:10:46,580
+Like the heat, the the photographs, the snapshots from the textbook are always referred to as e parentheses x.
+
+97
+00:10:47,000 --> 00:10:51,350
+You'll know what column of information they're talking about in these snapshots from the textbook.
+
+98
+00:10:52,780 --> 00:11:01,510
+And what they are are the probabilities, the estimated probabilities of being in the exposure group versus the control group,
+
+99
+00:11:01,810 --> 00:11:04,900
+given each patient's risk factors, the matching factors.
+
+100
+00:11:05,830 --> 00:11:13,450
+So in symbols, this propensity score is the probability of person is an exposure group given the covariates.
+
+101
+00:11:13,810 --> 00:11:21,610
+And so here we have welders and controls, and the welders were the ones who were exposed, right?
+
+102
+00:11:22,420 --> 00:11:32,139
+So we want to estimate propensity scores that correspond to the probability of being in the welder group for different values of the predictors.
+
+103
+00:11:32,140 --> 00:11:35,950
+And so the predictors that we have here are age, race and smoking status.
+
+104
+00:11:37,910 --> 00:11:45,620
+So this is where logistic regression comes in because you want to model this probability of being in one of two groups.
+
+105
+00:11:46,580 --> 00:11:52,730
+So you have an outcome that's one or zero that you can model to get those estimated probabilities.
+
+106
+00:11:53,780 --> 00:12:03,409
+So the propensity score estimates in this welder example are the p hat values that you get from a logistic regression where you have welder.
+
+107
+00:12:03,410 --> 00:12:11,060
+Yes. No is the outcome and the variables that you want to match on are predictors in that logistic regression model.
+
+108
+00:12:12,390 --> 00:12:16,110
+And I'm going to show you how we use those P hats soon.
+
+109
+00:12:16,320 --> 00:12:23,460
+How you use those propensity score soon. But that's basically the idea.
+
+110
+00:12:24,810 --> 00:12:30,450
+The propensity scores are the probabilities of being in one of the two groups that
+
+111
+00:12:30,450 --> 00:12:37,769
+you're trying to balance with matching and the predictors that you want to match on.
+
+112
+00:12:37,770 --> 00:12:50,680
+You stick in that logistic regression. So here's the intuition of what the propensity scores are trying to accomplish here.
+
+113
+00:12:50,700 --> 00:12:54,300
+So when risk factors are balanced in the comparison groups.
+
+114
+00:12:55,410 --> 00:12:59,280
+Then the covariate shouldn't be useful in predicting which group you have.
+
+115
+00:12:59,280 --> 00:13:09,030
+So if you've perfectly, you know, balanced all of the predictors age smoking race in the two groups,
+
+116
+00:13:09,390 --> 00:13:15,420
+then you should those those same predictors shouldn't be able to predict which group you're in.
+
+117
+00:13:15,630 --> 00:13:19,320
+Right. It's almost like you've randomized if they're so evenly evenly balanced.
+
+118
+00:13:20,040 --> 00:13:27,720
+So logistic regression analysis can identify such imbalances via significant predictors associated with the OR status.
+
+119
+00:13:28,080 --> 00:13:32,490
+So you fit the logistic regression model where the outcome is wilder versus not wilder.
+
+120
+00:13:32,700 --> 00:13:39,900
+And you can see if they're predictors with the betas that are significant in figuring out if they're wilder or non welter.
+
+121
+00:13:41,890 --> 00:13:50,410
+And logistic regression can be used to estimate these propensity scores for each welder and available control based on the covariates,
+
+122
+00:13:50,410 --> 00:14:00,070
+age, smoking status and race. And so the idea is that these P hats can be used to match the welders and the controls.
+
+123
+00:14:00,940 --> 00:14:07,390
+And so the idea is to match each welder to a control with a similar propensity score.
+
+124
+00:14:07,690 --> 00:14:12,340
+So they both have a similar probability of being a welder according to these predictors.
+
+125
+00:14:13,210 --> 00:14:22,270
+And then once you have the matches, then you can do a paired T test comparing the continuous outcome levels of interest,
+
+126
+00:14:22,840 --> 00:14:27,910
+you know, where you've accounted for this, this pairing that you've done.
+
+127
+00:14:33,190 --> 00:14:37,630
+All right. So just think about this a little bit further here.
+
+128
+00:14:37,660 --> 00:14:41,040
+So suppose you have two subjects with similar propensity scores.
+
+129
+00:14:42,100 --> 00:14:48,850
+All right. And you're you're thinking about mashing them based on that? Well, they might have different values of the predictors age, race, gender.
+
+130
+00:14:48,850 --> 00:14:54,309
+In fact, they're almost certainly not the same because we saw how hard it was to match people.
+
+131
+00:14:54,310 --> 00:14:59,650
+Exactly. So recall the rulers tended to be younger and tended to be smokers.
+
+132
+00:15:00,980 --> 00:15:07,400
+But a younger nonsmoker and an older smoker might have similar probabilities of being a welder or so,
+
+133
+00:15:07,400 --> 00:15:11,720
+even though the even though the covariates aren't the same,
+
+134
+00:15:11,750 --> 00:15:17,900
+maybe the probability of being a welder is similar when you use the logistic regression model.
+
+135
+00:15:18,440 --> 00:15:24,170
+So in this case, that propensity score won't differentiate well between these two different types of subjects,
+
+136
+00:15:24,620 --> 00:15:29,060
+even though it's trying to match them based on this probability of being a welder estimate.
+
+137
+00:15:29,420 --> 00:15:37,640
+So the hope is that the mismatches in the covariates will be due to a chance and will tend to balance, particularly in large samples.
+
+138
+00:15:38,270 --> 00:15:45,050
+So for example, if young nonsmokers and old smokers have the same propensity score,
+
+139
+00:15:45,350 --> 00:15:51,080
+then a match on the propensity score may pair a young nonsmoking welder to an older smoking control.
+
+140
+00:15:51,500 --> 00:15:58,310
+But it should do this about as often as it pairs an old smoking well or to a young nonsmoking control.
+
+141
+00:15:59,210 --> 00:16:09,410
+So what? There aren't perfect matches, but it's it's. Hopefully you're balancing these so that overall, you're getting a better match on average.
+
+142
+00:16:11,670 --> 00:16:18,149
+So let's see how this works out for the world are examples. So here is a table where they've got C that E had X.
+
+143
+00:16:18,150 --> 00:16:22,570
+Those are the estimated probabilities of being a welder based on these three covariates.
+
+144
+00:16:22,570 --> 00:16:29,040
+So they already fit the logistic regression ands and they got the p hats from that.
+
+145
+00:16:29,040 --> 00:16:32,189
+So you remember how this goes from earlier in the handout, right?
+
+146
+00:16:32,190 --> 00:16:37,590
+You get the beta, not plus beta one age plus beta to.
+
+147
+00:16:38,610 --> 00:16:43,110
+Probably a couple of Beatitudes here do account for race.
+
+148
+00:16:43,110 --> 00:16:49,079
+I guess we're showing two different categories here and then beta three smoking status or whatever.
+
+149
+00:16:49,080 --> 00:16:58,980
+And you do E to the model over one plus E to the kind of model to get the P hats or you get or south to estimate those for you.
+
+150
+00:16:59,760 --> 00:17:03,330
+So these are the P hats from the logistic regression based on these covariates.
+
+151
+00:17:03,590 --> 00:17:09,659
+Probably being a welder. And over here for the controls, you just there is in there as well.
+
+152
+00:17:09,660 --> 00:17:12,870
+And you get the P hats for the controls from the logistic regression model.
+
+153
+00:17:13,410 --> 00:17:22,260
+And so now you take this these columns of numbers and you're trying to figure out how to match a welder to a control based on these.
+
+154
+00:17:23,160 --> 00:17:30,080
+And so let's just look at some of these results to see what what they look like.
+
+155
+00:17:30,090 --> 00:17:33,240
+So here's for control number two, that's boxed in red.
+
+156
+00:17:33,840 --> 00:17:38,310
+So this is a 63 year old Caucasian nonsmoker.
+
+157
+00:17:39,400 --> 00:17:45,040
+And they have a very small probability of being a world or just a 9% estimated chance of being a welder.
+
+158
+00:17:45,820 --> 00:17:49,630
+You know, and here's control 12.
+
+159
+00:17:51,040 --> 00:18:01,579
+Control 12, the 36 year old smoker. Also Caucasian, and they have a 64% chance of being a welder.
+
+160
+00:18:01,580 --> 00:18:05,930
+That look, that's very in line with the demographics of the welders.
+
+161
+00:18:07,840 --> 00:18:12,130
+So his covariates are atypical of controls and more typical of welders.
+
+162
+00:18:13,600 --> 00:18:21,880
+And so you kind of go through here, and my favored way of creating the matches is to sort.
+
+163
+00:18:23,490 --> 00:18:31,050
+The individuals in each group by their propensity score and then try to come up with the closest matches I can within that.
+
+164
+00:18:34,010 --> 00:18:41,330
+And so matching on the the propensity scores tends to balance the converts between the two groups.
+
+165
+00:18:41,660 --> 00:18:49,790
+It's difficult to create the best matches by hand. So sorting by propensity score within each group can help you sort of tie together.
+
+166
+00:18:52,480 --> 00:19:00,790
+Each of the pairs that you're suggesting are close. So there's a propensity score, match or macro on canvas that looks interesting.
+
+167
+00:19:00,800 --> 00:19:02,010
+I haven't played with it.
+
+168
+00:19:02,030 --> 00:19:11,059
+This one, it's easy to do by hand, but if you have a very large data set, it may be more difficult to do the sorting and the matching by hand.
+
+169
+00:19:11,060 --> 00:19:14,660
+And so you might want to see what that macro does for you.
+
+170
+00:19:14,660 --> 00:19:20,719
+There's certainly a lot of references and software is increasing every day of how to do these.
+
+171
+00:19:20,720 --> 00:19:29,330
+Propensity score is in matches, but the underlying tool is one that you already own logistic regression where you're modeling
+
+172
+00:19:29,510 --> 00:19:35,360
+the the groups that you're trying to balance in terms of the matching factors you prefer to use.
+
+173
+00:19:39,720 --> 00:19:44,730
+So. So that's. So now you own propensity score matching.
+
+174
+00:19:44,730 --> 00:19:46,620
+You could do it if you wanted to.
+
+175
+00:19:47,160 --> 00:19:53,580
+I would tell you that in my own experience, I've played with this once thinking, you know, that it could be fun to toy around with.
+
+176
+00:19:54,150 --> 00:20:01,379
+And for my particular example, the propensity score matching with a little unsatisfying.
+
+177
+00:20:01,380 --> 00:20:05,940
+I didn't get huge gains in power. I had to toss out some people that I couldn't match.
+
+178
+00:20:06,570 --> 00:20:13,060
+And remember, you can adjust for confounding by just doing the model of the outcome and adding in covariates.
+
+179
+00:20:13,560 --> 00:20:17,100
+So propensity score matching becomes really attractive and sexy when you have
+
+180
+00:20:17,100 --> 00:20:22,200
+way too many confounders to actually use in a model and have that model work.
+
+181
+00:20:23,150 --> 00:20:31,370
+At that point you need if you can't fit the all the confounders that you know you have to deal with in your regression model,
+
+182
+00:20:31,610 --> 00:20:39,679
+you can't get your model to converge with that many. Then you need to kind of use whatever trick you can to adjust for confounders.
+
+183
+00:20:39,680 --> 00:20:42,739
+And so you can, in that case,
+
+184
+00:20:42,740 --> 00:20:48,799
+create a propensity score and either use it to match or you could actually use it as another covariate in the
+
+185
+00:20:48,800 --> 00:20:56,090
+model and adjust for kind of that that similarity according to these confounders as another covered in the model.
+
+186
+00:20:59,690 --> 00:21:04,860
+And so there are situations where. That is a really useful skill.
+
+187
+00:21:04,880 --> 00:21:11,540
+I just most of the situations that I've dealt with so far, I haven't had to deal with models that wouldn't converge.
+
+188
+00:21:12,170 --> 00:21:17,299
+So I've I've been able to adjust in other ways. All right.
+
+189
+00:21:17,300 --> 00:21:27,620
+So I wanted to wrap up this handout by just reviewing how nice these packages are at helping you do model selection.
+
+190
+00:21:27,620 --> 00:21:31,790
+And I don't know how deeply this was going into in your previous class,
+
+191
+00:21:31,790 --> 00:21:37,970
+but I rely heavily on model selection tools and they're getting very, very good in both SAS and AH.
+
+192
+00:21:38,540 --> 00:21:42,920
+And so just a review of my favorite tricks for doing analysis quickly.
+
+193
+00:21:44,360 --> 00:21:51,440
+So my favorite model selection tools and they're available in fact in r r forward selection.
+
+194
+00:21:51,800 --> 00:21:54,020
+And so if you remember from your earlier classes,
+
+195
+00:21:54,020 --> 00:22:04,460
+this is where you find the most significant predictor of all the predictors that you look at one at a time, and you add that to the model first.
+
+196
+00:22:04,880 --> 00:22:10,400
+And then with that covered in the model you see for the remaining covariates,
+
+197
+00:22:10,400 --> 00:22:18,500
+which is the most significant that you can add next and you kind of build your model from the most significant to the second most significant.
+
+198
+00:22:18,500 --> 00:22:23,629
+And so when you kind of build your model up. There's also things like backward selection,
+
+199
+00:22:23,630 --> 00:22:30,380
+which were really handy when I was a graduate student and they didn't have anything automated, backward selections quicker to do by hand.
+
+200
+00:22:31,190 --> 00:22:35,500
+But Ford's selection is by far the most stable way to build a model, in my opinion.
+
+201
+00:22:37,810 --> 00:22:47,090
+There's also something called include statements. There's incest, it's actually called include and are they have a different kind of term for it.
+
+202
+00:22:47,110 --> 00:22:57,519
+But the idea is that you can force inclusion of confounders that are required for face validity or you can force inclusion of anything you want,
+
+203
+00:22:57,520 --> 00:23:01,080
+actually. That's just the application I use most often.
+
+204
+00:23:01,090 --> 00:23:04,180
+So in the field I collaborate in the most.
+
+205
+00:23:05,350 --> 00:23:12,249
+It's it would be hard to publish a model that didn't already adjust for age,
+
+206
+00:23:12,250 --> 00:23:18,370
+gender, race, smoking status, things like that that are known to be confounders.
+
+207
+00:23:18,370 --> 00:23:23,560
+Even if they're not statistically significant in a particular dataset, they're known to be important.
+
+208
+00:23:23,770 --> 00:23:27,220
+And so for face validity, they have to be in every model.
+
+209
+00:23:27,550 --> 00:23:35,020
+And so included statements can force that behavior that things will never be removed for model.
+
+210
+00:23:35,020 --> 00:23:39,540
+And when you're looking at the model of selection tools. All right.
+
+211
+00:23:39,540 --> 00:23:48,190
+And then I like to combine some of this stuff to use kind of automated model selection tools to study interactions very quickly.
+
+212
+00:23:48,200 --> 00:23:56,480
+Interactions are very painful to do by hand, but they're very quick to do if you know how with these same automated.
+
+213
+00:23:57,550 --> 00:24:06,310
+Model selection tools. So I've got an example looking at mortality in the ICU.
+
+214
+00:24:06,310 --> 00:24:12,070
+And so this is a data set that has 200 patients who were admitted to an adult intensive care unit.
+
+215
+00:24:12,430 --> 00:24:19,990
+And the goal is to estimate the probability of surviving to hospital discharge based on the risk factors associated with ICU mortality.
+
+216
+00:24:21,010 --> 00:24:25,479
+So the binary outcome variables, ICU, viral status, it's stake was one,
+
+217
+00:24:25,480 --> 00:24:31,540
+if they died as kind of status equals one, if they died in zero, if they were alive when they were discharged.
+
+218
+00:24:32,260 --> 00:24:36,880
+And there were a lot of predictors to sift through here.
+
+219
+00:24:37,360 --> 00:24:43,330
+So, again, I don't want you to get too bogged down in all the variables here.
+
+220
+00:24:43,840 --> 00:24:51,340
+Message number one is there are a lot. So automated model selection could be a gift to help understand what's going on here.
+
+221
+00:24:52,180 --> 00:24:56,319
+And I've kind of just laid them out in terms of continuous predictors,
+
+222
+00:24:56,320 --> 00:25:02,680
+categorical predictors, binary predictors, some of these we'll spend some time with.
+
+223
+00:25:03,370 --> 00:25:10,530
+And so one thing that's going to come up that I'm going to talk about is this level of consciousness variable where
+
+224
+00:25:10,540 --> 00:25:17,770
+it has three levels and it's going to come up in future slides is something that we have to pay attention to.
+
+225
+00:25:20,860 --> 00:25:23,710
+And the rest will see when as we see them.
+
+226
+00:25:25,770 --> 00:25:32,880
+So I'm going to first do SAS and then I'm going to show ah, so this for SAS when I want to do forward selection.
+
+227
+00:25:33,900 --> 00:25:45,360
+I have my usual, you know, proc logistics statement and I have in yellow here this selection command.
+
+228
+00:25:45,360 --> 00:25:51,839
+And so this is where I'm asking for forward selection. Selection equals forward significance.
+
+229
+00:25:51,840 --> 00:25:58,720
+Level of entry equals .05. And all that I've done here is put the outcome,
+
+230
+00:25:59,140 --> 00:26:10,330
+the status whether and I like to always put the event I'm modeling so I'm modeling the log on to death and I just put in a
+
+231
+00:26:10,330 --> 00:26:17,950
+bunch of predictors here and I have class statements for race and this level of consciousness variable that had three levels.
+
+232
+00:26:19,490 --> 00:26:24,320
+And when I run this code, I get an error message in the log file.
+
+233
+00:26:25,220 --> 00:26:32,530
+When they looked at the level of consciousness variable in particular, they couldn't get the model to converge.
+
+234
+00:26:32,540 --> 00:26:38,119
+And this is just by itself. So we have to look and see what happened there.
+
+235
+00:26:38,120 --> 00:26:43,299
+And so level of consciousness. This is just a table of it.
+
+236
+00:26:43,300 --> 00:26:49,120
+And so what you see is there's very few people in that one category.
+
+237
+00:26:50,510 --> 00:26:53,839
+And so South couldn't fit the parameters.
+
+238
+00:26:53,840 --> 00:26:55,600
+And so what do you do in these situations?
+
+239
+00:26:55,610 --> 00:27:04,340
+Will you usually talk to invest, you know, your collaborators that are interested in the science aside from you,
+
+240
+00:27:04,670 --> 00:27:13,910
+and you ask them what they would like to do. But in the absence of any such conversation, you know, I just looked at the definition of the variables.
+
+241
+00:27:14,210 --> 00:27:18,410
+And basically, let's just flip back real quick here.
+
+242
+00:27:19,530 --> 00:27:27,240
+So it was zero if there was no comma or stupor, one if deep stupor and two of coma.
+
+243
+00:27:27,710 --> 00:27:32,210
+So this one of deep stupor, that was the very small group.
+
+244
+00:27:32,220 --> 00:27:39,360
+So I just threw it together with coma and I was modeling whether they were alert or not.
+
+245
+00:27:39,360 --> 00:27:48,220
+Alert. So zero is their alert and everything else is not alert.
+
+246
+00:27:50,870 --> 00:27:57,900
+And I. Went ahead and I coded it with a new name alert.
+
+247
+00:27:58,770 --> 00:28:02,050
+If the level of consciousness was zero, this is going to be one.
+
+248
+00:28:02,070 --> 00:28:05,850
+Remember, this is like the quick trick to get a10 variable.
+
+249
+00:28:06,340 --> 00:28:10,260
+Whatever's inside the parentheses will be a one and everything else is zero.
+
+250
+00:28:11,490 --> 00:28:13,559
+Or and now when I put that in my list,
+
+251
+00:28:13,560 --> 00:28:22,560
+I removed their level of consciousness and I replaced it with this alert variable and did the same forward selection, and now it should run.
+
+252
+00:28:22,560 --> 00:28:26,280
+Okay. And this is what the output kind of looks like.
+
+253
+00:28:27,060 --> 00:28:34,590
+So it this is the summary of what it put in first, second, third or fourth.
+
+254
+00:28:34,590 --> 00:28:39,149
+And actually that alert variable was the one that it put in first.
+
+255
+00:28:39,150 --> 00:28:42,810
+It was the most statistically significant, the smallest p value.
+
+256
+00:28:43,020 --> 00:28:50,790
+When you put everything in one at a time, it stood out as having the smallest p value and it was chosen first and then they went through
+
+257
+00:28:50,970 --> 00:28:57,600
+and looked at all the models that had alert in it and of those adding this type variable.
+
+258
+00:28:59,080 --> 00:29:02,410
+Was the one that was the most significant of those remaining.
+
+259
+00:29:02,830 --> 00:29:07,990
+And so on and so on. And so this model ended up having four predictors in it.
+
+260
+00:29:08,590 --> 00:29:15,520
+And once they decide on the predictors with forward selection, they'll show you the results of the model.
+
+261
+00:29:16,180 --> 00:29:24,219
+So here the parameter estimates, here are the odds ratios in wild confidence intervals where they're just this is just the default output.
+
+262
+00:29:24,220 --> 00:29:30,190
+I didn't do anything special to it. And the model fits statistics that you might want to use.
+
+263
+00:29:30,910 --> 00:29:35,020
+All right. So then you got to kind of go back and you make sure,
+
+264
+00:29:35,020 --> 00:29:40,360
+as any data analysis should you kind of go back and you make sure that the directions of the effect make sense.
+
+265
+00:29:40,360 --> 00:29:49,360
+You talk to your collaborators and you sort of see if there's anything that they want to look at, uh, aside from this.
+
+266
+00:29:51,880 --> 00:29:57,580
+So the other trigger I want to show you is how to really quickly test for interactions.
+
+267
+00:29:57,590 --> 00:30:05,500
+This is a step that I will confess is often something that you're like, Oh yeah, I should probably look to save their interactions.
+
+268
+00:30:05,720 --> 00:30:09,010
+It's something that we usually have to be kind of prodded to remember to do.
+
+269
+00:30:09,190 --> 00:30:13,060
+But it's very easy to do with logistic.
+
+270
+00:30:13,750 --> 00:30:22,390
+So what I've done here is in the selection command, I have this new thing that says include equals for.
+
+271
+00:30:23,740 --> 00:30:29,800
+And it will assume that the first four things that you put in the model statement are the things that must be in the model.
+
+272
+00:30:30,610 --> 00:30:38,260
+It's always the first four, it's always the first. Whatever this number is, it's those first terms that are forced in every model.
+
+273
+00:30:38,920 --> 00:30:42,910
+And so I put the main effects that came up with the automated forward selection here.
+
+274
+00:30:43,390 --> 00:30:49,320
+And now I've looked at all these different, you know, interactions between variables.
+
+275
+00:30:49,330 --> 00:30:54,220
+I think I looked at all the pairwise interactions. I don't think I'd put in any three or four way or higher stuff.
+
+276
+00:30:55,520 --> 00:31:04,880
+And so you can sort of see it's going to it's going to check for interactions if any of them are significant with a p value less than 0.05.
+
+277
+00:31:05,630 --> 00:31:09,320
+And so when you run this, this is what it says. No additional effects.
+
+278
+00:31:09,710 --> 00:31:12,710
+Met the point oh fives didn't get back level four entry in the model.
+
+279
+00:31:12,950 --> 00:31:17,930
+So with this one line of code, I've ruled out all these interactions as being important.
+
+280
+00:31:20,200 --> 00:31:24,430
+So it's a very quick assessment, resulting in no significant interactions added to the model.
+
+281
+00:31:24,880 --> 00:31:28,360
+Now what if I had seen an interaction that was important?
+
+282
+00:31:29,110 --> 00:31:38,470
+So if one of these two ways interactions were important, then I might look at, you know, three way just to see if I missed anything.
+
+283
+00:31:38,500 --> 00:31:41,980
+But with no important two way interactions, I'd probably stop there.
+
+284
+00:31:48,190 --> 00:31:52,100
+So here's how you do the same thing in R or something very similar.
+
+285
+00:31:52,120 --> 00:31:56,880
+So in. In SAS.
+
+286
+00:31:57,390 --> 00:32:03,330
+All of the forward selection is based on P values and I think they're just using the wild P values,
+
+287
+00:32:03,870 --> 00:32:13,220
+uh, in R they're basing forward selection on the AI cases information criteria.
+
+288
+00:32:13,590 --> 00:32:18,959
+If you remember the AIC value you can usually get in either SAS or output.
+
+289
+00:32:18,960 --> 00:32:25,410
+And the smaller it is, the better. So if you have a smaller AIC that model's generally preferred.
+
+290
+00:32:25,920 --> 00:32:28,110
+So it can the result can differ.
+
+291
+00:32:28,110 --> 00:32:38,459
+If you use forward selection based on P values versus forward selection based on AIC, AIC actually is very related to the likelihood ratio test.
+
+292
+00:32:38,460 --> 00:32:43,740
+It has a penalty for having too many predictors in it, but it's possible to get different answers.
+
+293
+00:32:43,740 --> 00:32:48,319
+And actually, this is a case where that happens. All right.
+
+294
+00:32:48,320 --> 00:32:56,120
+So I'm reading in the ICU data here and here. I put the formula in with the outcome and this little twiddle is like an equals.
+
+295
+00:32:56,120 --> 00:33:00,499
+And then I put in all the variables and the class statement is in R.
+
+296
+00:33:00,500 --> 00:33:04,820
+It's done by saying as don't factor in the variable when you're putting it in the formula.
+
+297
+00:33:06,410 --> 00:33:13,940
+So I've got, you know, the equivalent of a class statement for race and the level of consciousness.
+
+298
+00:33:14,120 --> 00:33:19,250
+And of course, because we did this in SAS, we already know there's going to be a problem with this level of consciousness variable.
+
+299
+00:33:20,120 --> 00:33:25,370
+And I just wanted to show you what that looks like. So here's what it looks like.
+
+300
+00:33:25,370 --> 00:33:32,120
+An Ah, it'll give you a warning, but it won't tell you which variable caused the problem.
+
+301
+00:33:32,600 --> 00:33:36,780
+So we know it's the level of consciousness because we saw that in SAS.
+
+302
+00:33:36,800 --> 00:33:43,550
+So our is telling you there's a problem, but you have to actually go through it and figure out which one was the problem.
+
+303
+00:33:44,420 --> 00:33:47,420
+So this might mean you fitting the variables one at a time.
+
+304
+00:33:47,780 --> 00:33:52,130
+It's almost always a categorical or binary variable that's causing the issue.
+
+305
+00:33:52,670 --> 00:33:58,399
+So you can kind of skip looking at the continuous ones. That's not going to be the problem and you'll eventually figure it out.
+
+306
+00:33:58,400 --> 00:34:02,480
+But SAS nicely showed you which of the models choked are will not.
+
+307
+00:34:02,960 --> 00:34:07,880
+So SAS wins that round. So we already knew it was level of consciousness.
+
+308
+00:34:07,880 --> 00:34:12,650
+So I created this variable alert to be similar to what we did in SAS.
+
+309
+00:34:12,650 --> 00:34:17,790
+So alert is one if they were conscious and alert and zero.
+
+310
+00:34:18,170 --> 00:34:21,440
+Otherwise, if they were groggy or in a coma.
+
+311
+00:34:22,850 --> 00:34:28,340
+And putting otherwise, I'm I've got this formula in here now with the new alert variable.
+
+312
+00:34:29,820 --> 00:34:33,280
+And. Here is the.
+
+313
+00:34:34,690 --> 00:34:39,040
+Here is the way we end up doing the model selection in.
+
+314
+00:34:39,430 --> 00:34:49,330
+So we have two models that we feed it. One is kind of the maximum model that has everything in it that you might want.
+
+315
+00:34:49,340 --> 00:34:52,720
+So that's this fit that I see you to.
+
+316
+00:34:53,620 --> 00:34:58,540
+Has all the predictors we wanted to sift through with with the Ford selection.
+
+317
+00:34:59,710 --> 00:35:05,020
+And so that's like kind of like the top model or they call it the upper model is referred down.
+
+318
+00:35:05,020 --> 00:35:17,590
+Here is the upper model. And then the lower model, which I'm calling include here is whatever the model is that you want to build from.
+
+319
+00:35:17,800 --> 00:35:23,260
+So in this first example, I just have the outcome equals like one.
+
+320
+00:35:23,260 --> 00:35:27,670
+So it's the intercept only model that's going to correspond to the,
+
+321
+00:35:27,720 --> 00:35:34,720
+the forward selection in SAS where you didn't force anything in so you can actually change what you forced in
+
+322
+00:35:34,720 --> 00:35:44,590
+by changing this include model to have more stuff in it and it will start with whatever this include model is.
+
+323
+00:35:46,300 --> 00:35:52,360
+And it will try to add in all the things from the the larger model.
+
+324
+00:35:53,480 --> 00:35:57,440
+So here's the step stepwise. Uh.
+
+325
+00:35:57,810 --> 00:36:02,820
+Command here to look through these. I'm saving the output in this thing called forwards that I made up.
+
+326
+00:36:03,300 --> 00:36:07,020
+And so you have the include model as the first option.
+
+327
+00:36:07,020 --> 00:36:14,730
+That's the kind of base model and then scope equals list lower equals formula include.
+
+328
+00:36:14,970 --> 00:36:25,080
+So this is again the lower the lower model with just the intercept and upper is the formula from the the larger model.
+
+329
+00:36:26,590 --> 00:36:31,600
+And direction equals forward. And so this is going to look and see, you know, the same kind of trick.
+
+330
+00:36:31,610 --> 00:36:35,680
+It'll look one at a time adding to this include model.
+
+331
+00:36:36,610 --> 00:36:39,880
+Are there things? What's the thing that lowers the AIC the most,
+
+332
+00:36:40,270 --> 00:36:47,080
+adding it in and then going through the next the leftover covariates and seeing if anything else lowers the AIC,
+
+333
+00:36:47,500 --> 00:36:50,530
+whichever one does it the most will be kept and so on.
+
+334
+00:36:53,970 --> 00:36:59,190
+And so this is the output that you get.
+
+335
+00:37:00,330 --> 00:37:07,320
+After that exercise. And. We have a lot of overlap here in the model,
+
+336
+00:37:08,070 --> 00:37:15,990
+but we only had four predictors with massive forward selection that was based on P value and we've got five here.
+
+337
+00:37:18,000 --> 00:37:20,820
+Based on the AIC. And look, Alerte isn't one of them.
+
+338
+00:37:21,920 --> 00:37:28,040
+So the one that was chosen based on the smallest p value was not chosen based on the smallest AIC.
+
+339
+00:37:29,360 --> 00:37:32,680
+So here's just kind of a summary of the different results you get.
+
+340
+00:37:32,690 --> 00:37:41,340
+So. Oh, and I guess I did look it up selections based on the score test and SAS not the real test.
+
+341
+00:37:42,920 --> 00:37:46,580
+That's that was a correction here. Okay. So both models.
+
+342
+00:37:47,690 --> 00:37:50,840
+Chose h t y. P and can.
+
+343
+00:37:52,430 --> 00:37:59,660
+And here in are CPR and see why as we're chosen instead of the alert variable.
+
+344
+00:38:01,350 --> 00:38:09,410
+And so you they give you the AIC that you ended up with for this small one, 71.64.
+
+345
+00:38:10,260 --> 00:38:20,190
+And when we look back to the SAS code and output, there is an AIC for SAS as chosen model and it actually did better even in terms of AIC.
+
+346
+00:38:20,910 --> 00:38:29,090
+So. You know, you can't judge a method based on one data set.
+
+347
+00:38:29,090 --> 00:38:34,550
+But I think Sasse won this round mainly because when you looked at the final models from each,
+
+348
+00:38:35,300 --> 00:38:41,810
+even using the criteria that are was using one at a time to pick stuff South did end up with the lower AIC.
+
+349
+00:38:41,820 --> 00:38:47,540
+So that model with alert in it is preferred to the one that are picked.
+
+350
+00:38:47,690 --> 00:38:50,390
+Of course, if you only use one package, you won't ever see this.
+
+351
+00:38:58,240 --> 00:39:05,650
+So again, looking at SAS versus Armed Forces selection, it's hard to make a recommendation based on one analysis, one data set.
+
+352
+00:39:05,890 --> 00:39:08,560
+SAS uses a score test to select the predictors,
+
+353
+00:39:08,560 --> 00:39:18,430
+and it had a final model AIC of 140 9135 are used AIC to select predictors and the final model AIC was one 71.64.
+
+354
+00:39:18,820 --> 00:39:22,240
+So SAS came up with the better fitting model this particular time.
+
+355
+00:39:23,740 --> 00:39:32,200
+There are several packages that offer a stepwise selection. So if you Google stepwise selection and are you're going to see a lot of results here.
+
+356
+00:39:32,200 --> 00:39:35,620
+There was not a clear leader in the pack that was obvious to me.
+
+357
+00:39:35,620 --> 00:39:40,810
+So I just use the one, you know, that I that looked good enough.
+
+358
+00:39:41,230 --> 00:39:45,190
+But there are other contenders. Here's another contender that you could look at, I think.
+
+359
+00:39:46,290 --> 00:39:50,370
+From what I saw or is using, I see all the time.
+
+360
+00:39:52,940 --> 00:39:58,879
+So one other kind of piece of advice. When you're looking at these models, once you get a final model,
+
+361
+00:39:58,880 --> 00:40:03,860
+it's a good idea to look at the univariate models for the individual predictors that were
+
+362
+00:40:03,860 --> 00:40:08,420
+selected and make sure that strong predictors are double checked after a stepwise procedure.
+
+363
+00:40:09,560 --> 00:40:20,730
+So. It's rare that you will have a model that has a univariate predictor selected that isn't significant on its own.
+
+364
+00:40:20,750 --> 00:40:28,389
+It can happen, but if that's what happens, you should probably be looking at that and talking with your collaborators about it.
+
+365
+00:40:28,390 --> 00:40:36,530
+Is it sensible? Is this a predictor that you would have expected to be quite important that it's skipping or using?
+
+366
+00:40:39,620 --> 00:40:50,120
+So I feel much more confident in my models if when they're in the final multivariable model that they were all so important individually on their own.
+
+367
+00:40:51,490 --> 00:40:54,730
+Otherwise there might be something really weird with overfitting happening.
+
+368
+00:40:58,630 --> 00:41:01,930
+Okay. So that is the end of the logistic regression handout.
+
+369
+00:41:01,930 --> 00:41:04,990
+And so it's a little early, but let's.
+
+370
+00:41:05,500 --> 00:41:12,730
+So here's a choice for you. Would you rather have me push on or in class early, or do you want to take a break now?
+
+371
+00:41:17,720 --> 00:41:23,840
+No one has shown any preference. So I'm going to go ahead and say, let's take a ten minute break.
+
+372
+00:41:23,840 --> 00:41:27,020
+Now, we still might end early because it's a very short handout next time.
+
+373
+00:41:27,380 --> 00:41:33,680
+So 851 And then we'll start with the multiple imputation handout.
+
+374
+00:42:25,790 --> 00:42:31,550
+Yes. I have.
+
+375
+00:42:57,120 --> 00:43:08,320
+I. There is an alternative collapse.
+
+376
+00:43:08,820 --> 00:43:13,930
+There is together. Situations where.
+
+377
+00:43:17,160 --> 00:43:20,860
+I guess for the situation, there were two observations. Category.
+
+378
+00:43:21,730 --> 00:43:25,200
+Category. Yeah. Whatever the middle one was. Yeah.
+
+379
+00:43:25,820 --> 00:43:29,620
+Or situations where. You have something specific examples where.
+
+380
+00:43:30,380 --> 00:43:36,770
+That's where the. There's only going to be a few observations in such a small rise of situations kind.
+
+381
+00:43:38,530 --> 00:43:43,440
+Ways to kind of get around that. Yeah. So again, you always want to talk with your collaborators.
+
+382
+00:43:43,460 --> 00:43:52,400
+So just channeling what my collaborators might say if if it was not sensible to combine five people into either group,
+
+383
+00:43:53,450 --> 00:43:56,960
+then maybe you don't have a story about those five people that you can share.
+
+384
+00:43:57,590 --> 00:44:07,580
+So either that variable is not important and it doesn't matter how you deal with it, but in our case it was an important variable.
+
+385
+00:44:08,240 --> 00:44:17,420
+So I'm guessing that if it couldn't be combined, my collaborators would have said, Well, delete those five people from the dataset,
+
+386
+00:44:18,140 --> 00:44:26,540
+put that in the consort diagram that five people were deleted because the group was too small to analyze.
+
+387
+00:44:27,020 --> 00:44:34,430
+So you have to whenever you remove people from the dataset and your concert diagram for the paper that says how you got to your final sample size,
+
+388
+00:44:34,850 --> 00:44:37,910
+you have to kind of say things like that.
+
+389
+00:44:38,210 --> 00:44:43,010
+So if we had removed those five people just so we could do multivariable modeling,
+
+390
+00:44:43,430 --> 00:44:52,130
+we would have put that in the concert diagram that five people were removed due to having too few people with this certain variable to analyze.
+
+391
+00:44:53,180 --> 00:44:58,820
+And and so your story, would it be about everybody else? So it's just an important variable, those five people.
+
+392
+00:44:59,090 --> 00:45:04,760
+It's really unfortunate if you care because if you just don't have the data,
+
+393
+00:45:04,760 --> 00:45:10,460
+you just don't have the data to really adequately address that small group that makes sense.
+
+394
+00:45:10,700 --> 00:45:23,240
+So it's actually going to be the first and second analysis to keep secret that you have situations where.
+
+395
+00:45:24,010 --> 00:45:29,140
+Because there isn't one consideration you have to make. Yes.
+
+396
+00:45:29,350 --> 00:45:34,780
+So it's a different role? Yes. What about situations where so?
+
+397
+00:45:39,720 --> 00:45:47,760
+But I was exposed to the category of the other person, I guess the other hand.
+
+398
+00:45:49,860 --> 00:45:55,769
+Continuously. These are. Combining all those things.
+
+399
+00:45:55,770 --> 00:46:03,060
+You're kind of combining estimates, I guess. Yeah, unfortunately, whatever estimates you're getting or estimating the same thing.
+
+400
+00:46:04,510 --> 00:46:08,740
+Oh, right. So if it's. Odds ratios.
+
+401
+00:46:09,490 --> 00:46:16,030
+The ones where they're categorical are odds ratios comparing different levels of the exposure and
+
+402
+00:46:16,030 --> 00:46:23,859
+the continuous variable odds ratio will be doing one unit increase for whatever that exposure is,
+
+403
+00:46:23,860 --> 00:46:31,930
+which may have very loose. I mean, they both might be in the same direction, but it's a bit of combining apples and oranges.
+
+404
+00:46:32,050 --> 00:46:41,980
+It doesn't make sense. So I guess I was here before them looking at the studies as categorized in one way.
+
+405
+00:46:42,730 --> 00:46:50,150
+Well, that's tough. That's a tough situation, right? Because you're going to have public you're going to you're trying to avoid publication bias by
+
+406
+00:46:50,150 --> 00:46:57,790
+including everything categorized into categories that make sense in such a way that made sense.
+
+407
+00:46:57,790 --> 00:47:04,989
+It makes sense to you, right? Because we we're to systematically just not like half of them because well, if it's half,
+
+408
+00:47:04,990 --> 00:47:11,290
+at least you can combine the categorical studies and combine the continuous studies.
+
+409
+00:47:12,040 --> 00:47:21,370
+But it's there's not a great solution because the whatever odds ratios do you have, half of them mean different things.
+
+410
+00:47:21,880 --> 00:47:25,810
+And so yeah, so you can't really just do it.
+
+411
+00:47:26,080 --> 00:47:28,780
+So what you could do.
+
+412
+00:47:30,140 --> 00:47:36,980
+If it's such an urgent like it's an urgent issue and you can get all these studies on board is try to get their original data sets.
+
+413
+00:47:37,880 --> 00:47:39,440
+If you get the original data sets,
+
+414
+00:47:39,440 --> 00:47:47,810
+you can create the binary star data or even potentially create the continuous step depending on how data was collected.
+
+415
+00:47:48,350 --> 00:47:53,569
+I'm involved in one of those projects right now and just the meetings to get
+
+416
+00:47:53,570 --> 00:48:00,790
+the data together to decide on what variables are going to be included in it.
+
+417
+00:48:00,810 --> 00:48:08,840
+It's it has to be really an important issue to get all of the study originators on board because people are so
+
+418
+00:48:08,840 --> 00:48:14,630
+protective of their own data until they publish ten papers from it and they think they've squeezed it to death.
+
+419
+00:48:15,890 --> 00:48:21,130
+So it's hard. Yeah, you're talking.
+
+420
+00:48:23,320 --> 00:48:27,300
+Two semesters ago, three or four years ago.
+
+421
+00:48:28,210 --> 00:48:36,010
+So I guess that makes sense. I was initially thinking you probably just have to get your hands on the original binary and tenuous variables.
+
+422
+00:48:36,900 --> 00:48:41,100
+You know. So I think it's yeah, even with the continuous variables,
+
+423
+00:48:41,100 --> 00:48:47,420
+you have to make sure the odds ratios are for the same unit increase because some people do it per ten units, you know,
+
+424
+00:48:47,430 --> 00:48:55,200
+I mean you could at least that you can kind of you can make them similar if you know what the unit is,
+
+425
+00:48:55,200 --> 00:48:59,370
+you can kind of convert them to the same unit pretty easily, but.
+
+426
+00:49:00,360 --> 00:49:03,480
+Yeah. Okay. Yeah. All right. Well, thank you so much.
+
+427
+00:49:03,720 --> 00:49:10,790
+Sure. I know.
+
+428
+00:49:13,750 --> 00:49:20,660
+Her. No.
+
+429
+00:49:29,520 --> 00:49:35,870
+Here's what. Yeah.
+
+430
+00:49:38,030 --> 00:49:42,720
+You know how like.
+
+431
+00:50:00,010 --> 00:50:10,700
+Good times. Yes. Yeah.
+
+432
+00:50:24,520 --> 00:50:29,260
+This. Yeah.
+
+433
+00:50:48,190 --> 00:50:56,700
+Yeah. Okay.
+
+434
+00:50:56,710 --> 00:51:09,330
+Let's go ahead and get back to work. So this is another technique that goes beyond logistic regression,
+
+435
+00:51:09,330 --> 00:51:15,090
+but I'm showing it in a familiar setting so that you you only need to learn one new thing at a time.
+
+436
+00:51:18,210 --> 00:51:29,900
+So this is. How to deal with missing covariate data in your dataset and multiple imputation is my preferred method for dealing with that.
+
+437
+00:51:29,900 --> 00:51:37,580
+So I'm going to kind of show you a little bit about, uh, you know, why, why this is an important issue.
+
+438
+00:51:37,610 --> 00:51:42,860
+How do software packages typically handle missing covariate data if you don't do multiple imputation?
+
+439
+00:51:43,740 --> 00:51:47,370
+And when can multiple imputation avoid biased inference?
+
+440
+00:51:47,980 --> 00:51:50,760
+So which of course is quite important.
+
+441
+00:51:50,760 --> 00:51:58,260
+And there's some further reading here that I recommend if you're interested in this, if you have to do this in your future.
+
+442
+00:52:00,660 --> 00:52:05,730
+So let's go ahead and take a look at this. So missing covariate data values or common analysis issue.
+
+443
+00:52:06,210 --> 00:52:14,760
+And I have for an example, taken data from one of my collaborators looking at interstitial pulmonary fibrosis.
+
+444
+00:52:15,150 --> 00:52:22,050
+When we were looking at biomarkers and trying to come up with a score that would predict a bad outcome, I think it was death actually.
+
+445
+00:52:22,500 --> 00:52:29,040
+And in this dataset there were 19 individuals who had a missing Delco value.
+
+446
+00:52:29,040 --> 00:52:33,779
+And this is a variable that kind of measures how well oxygen is being transported through your blood.
+
+447
+00:52:33,780 --> 00:52:43,120
+So when it's low, it's bad. And six of those 19 individuals also had a missing APC, Air Force vital capacity value.
+
+448
+00:52:46,500 --> 00:52:50,730
+Seven individuals had missing information on whether they had ever smoked or not.
+
+449
+00:52:52,350 --> 00:52:58,760
+Six individuals had missing race. And so this is not an uncommon situation.
+
+450
+00:52:59,180 --> 00:53:04,459
+Sometimes missing data is recoverable and you can go back to a chart review and try to figure out,
+
+451
+00:53:04,460 --> 00:53:11,960
+you know, can we actually fill in anything about smoking or race based on the chart?
+
+452
+00:53:12,470 --> 00:53:20,090
+And sometimes it's just not recoverable. So whatever DLC oh measure or FTC measure was meant to be taken.
+
+453
+00:53:20,090 --> 00:53:23,630
+It was meant to be taken at a certain calendar time relative to the follow up.
+
+454
+00:53:24,050 --> 00:53:29,750
+And it's not recoverable if it wasn't taken, because these things change over time as people progress.
+
+455
+00:53:32,190 --> 00:53:38,549
+And so you need some practical knowledge of how to gauge the impact of missing data on the results and the interpretation.
+
+456
+00:53:38,550 --> 00:53:41,160
+So multiple computations are popular approach,
+
+457
+00:53:41,160 --> 00:53:50,070
+either to replace the primary analysis or to augment the primary analysis with kind of treating this as a sensitivity analysis.
+
+458
+00:53:51,390 --> 00:53:55,980
+So the software that I'm going to be covering in this handout are in South Park.
+
+459
+00:53:55,980 --> 00:54:02,879
+Am I in park? And my analyzed and an are there's an MRI package for multiple amputation in our unit.
+
+460
+00:54:02,880 --> 00:54:10,170
+You may have learned already if you've been playing around with our our propagates software like crazy.
+
+461
+00:54:10,950 --> 00:54:14,880
+So there's going to be many, many packages that do some version of multiple amputation.
+
+462
+00:54:15,180 --> 00:54:20,530
+This version that I'm covering, I know that the authors are famous in this field,
+
+463
+00:54:20,540 --> 00:54:26,640
+so that that gives me a little bit more credibility that this will be a great package
+
+464
+00:54:27,030 --> 00:54:30,959
+as opposed to a package maybe that a graduate student might have done for a project.
+
+465
+00:54:30,960 --> 00:54:36,270
+You know, it's just really hard to to know the quality of the packages if you don't know the authors.
+
+466
+00:54:36,270 --> 00:54:39,540
+And I do know the authors. And this is going to be a good package.
+
+467
+00:54:40,480 --> 00:54:42,340
+But not necessarily only a good package.
+
+468
+00:54:44,810 --> 00:54:51,990
+So I'm just taking you through the steps in SAS in an hour and show you how you have to set up the workflow here.
+
+469
+00:54:52,010 --> 00:55:02,510
+So first, I'm just reading in the data set here and printing it out for you just so you can see for a few observations what it looks like.
+
+470
+00:55:02,540 --> 00:55:05,840
+So looking at the top three observations, looks like what I've got here.
+
+471
+00:55:06,350 --> 00:55:12,320
+And so here are the biomarker variables that were interesting to my collaborators,
+
+472
+00:55:12,770 --> 00:55:18,710
+and I kind of have them blinded so that, you know, they I got permission to use them in a blinded way.
+
+473
+00:55:19,370 --> 00:55:21,830
+And then here are some other predictors that are in the dataset.
+
+474
+00:55:22,640 --> 00:55:30,290
+And if you we're going to have to pay attention to the way some of these variables are put in.
+
+475
+00:55:31,040 --> 00:55:37,520
+So am I needs character and categorical variables to be coded as indicator variables.
+
+476
+00:55:37,820 --> 00:55:40,430
+The proc in my does not allow class statements.
+
+477
+00:55:40,430 --> 00:55:47,870
+So we've gotten so used to in regression models having a class statement that will take care of any categorical variables.
+
+478
+00:55:48,810 --> 00:55:52,460
+And really behind the scene, it's recoding them as zero one predictors.
+
+479
+00:55:53,030 --> 00:56:01,430
+But now you're going to have to be the one that actually codes these into zero one predictors physically because am I will not allow class statements.
+
+480
+00:56:02,210 --> 00:56:05,890
+So for race, we need to look at that variable.
+
+481
+00:56:05,900 --> 00:56:08,900
+And you know, right now we just have one, one, one.
+
+482
+00:56:08,900 --> 00:56:12,920
+But I believe this is a categorical variable with several levels, so we'll have to look at that.
+
+483
+00:56:13,460 --> 00:56:18,920
+Ever smoked as a no when a yes is not going to work either, it has to be changed to a01 variable.
+
+484
+00:56:19,370 --> 00:56:25,770
+So in SAS, this is something we need to work on. This third person has a missing value of DLC.
+
+485
+00:56:25,790 --> 00:56:30,470
+Oh, so in SAS if you see a dot, that's a missing value.
+
+486
+00:56:35,900 --> 00:56:45,590
+So kind of the pre-processing step in SAS is to create all these indicator variables from the categorical ones.
+
+487
+00:56:45,920 --> 00:56:50,149
+And you have to do this very carefully. I mean, you have missing data, you know, there's missing data.
+
+488
+00:56:50,150 --> 00:56:56,630
+So you have to pay attention and make sure you don't accidentally overwrite missing data.
+
+489
+00:56:57,530 --> 00:57:02,840
+So I'm going to create this smoked variable that's going to replace the ever smoked variable.
+
+490
+00:57:03,200 --> 00:57:07,279
+And I like to use my trick of creating a01 variable.
+
+491
+00:57:07,280 --> 00:57:17,770
+That's one every time the inside is true. So if I just run this first line, I'm going to have a01 variable and it's only going to be one.
+
+492
+00:57:18,220 --> 00:57:24,490
+If ever smoked is yes, but that means I'm going to be overriding all the missing values with zero.
+
+493
+00:57:25,460 --> 00:57:28,560
+Which would be fake fake data. Right.
+
+494
+00:57:28,580 --> 00:57:31,700
+So I can't I can't pretend missing equals zero.
+
+495
+00:57:32,120 --> 00:57:40,760
+So I have to go back with this next line that says, if ever smoked is missing, then smoked is a dot.
+
+496
+00:57:42,590 --> 00:57:47,510
+So this this is for the. Yes. This is what missing looks like for a yes no variable.
+
+497
+00:57:47,510 --> 00:57:50,749
+It's just a blank text value for numbers.
+
+498
+00:57:50,750 --> 00:57:57,990
+It it's like a dot. So I'm overwriting, using what I know about the original variable being missing.
+
+499
+00:57:58,000 --> 00:58:05,350
+I'm overwriting it with a dot for missing for the zero one variable, and you must do this step.
+
+500
+00:58:06,070 --> 00:58:11,770
+And so that similar kind of stuff with race. So race was coded, I guess.
+
+501
+00:58:11,770 --> 00:58:20,570
+One, two, three, four. And so I'm saying race too.
+
+502
+00:58:20,580 --> 00:58:25,860
+So I'm going to be creating race to race three, race four with race one is the reference category.
+
+503
+00:58:26,280 --> 00:58:34,859
+So I'm saying race two is one of race is equal to two, but then I'm making sure I remake missing the things that were missing.
+
+504
+00:58:34,860 --> 00:58:43,950
+So if race is equal to dot, then race two has to also be equal to dot dot being what SASS uses for numerical variables when they're missing.
+
+505
+00:58:44,970 --> 00:58:49,680
+And same thing here. Race three is going to be a one. One race is equal to three zero otherwise.
+
+506
+00:58:49,680 --> 00:58:54,050
+But if race is equal to date, then race three must also be equal to date and so on.
+
+507
+00:58:56,270 --> 00:59:04,219
+So. This is the one thing I worry about you forgetting if you ever do this on your own is you really have to
+
+508
+00:59:04,220 --> 00:59:10,550
+make sure missing remains missing for all the little zero one variables that you create on your own.
+
+509
+00:59:14,440 --> 00:59:21,879
+And Seth has this other thing that if you're going to use any other variables in the data set that you need to algebraically create,
+
+510
+00:59:21,880 --> 00:59:27,310
+usually in a data step, you have to do them prior to the imputation step.
+
+511
+00:59:27,310 --> 00:59:34,420
+So I'm not going to go into detail about why this particular score was of interest to my collaborator,
+
+512
+00:59:34,750 --> 00:59:39,670
+but it was a function of several of the other variables.
+
+513
+00:59:39,670 --> 00:59:48,430
+Biomarker one, biomarker two, biomarker three. And if biomarker one was greater than equal to three, they got a point for the score.
+
+514
+00:59:48,670 --> 00:59:52,360
+If biomarker two is greater than equal to six, they got a point for the score.
+
+515
+00:59:52,600 --> 00:59:58,600
+And if biomarker three was greater than or 62, they got a point for the score and none of the biomarkers were missing.
+
+516
+00:59:58,600 --> 01:00:04,750
+So I didn't have to worry about the scores being done incorrectly for missing values.
+
+517
+01:00:06,610 --> 01:00:15,040
+All right. So this variable, all the variables that you want to use in your analysis, you need to create them prior to the multiple imputation step.
+
+518
+01:00:19,280 --> 01:00:23,480
+All right. So that's kind of the reprocess reprocessing.
+
+519
+01:00:23,720 --> 01:00:31,280
+And I kind of wanted to take a look at the data set when we just have a score alone in the model and score is never missing.
+
+520
+01:00:31,280 --> 01:00:37,370
+So this is going to be kind of a reference that the unadjusted analysis doesn't have any missing data issues.
+
+521
+01:00:37,370 --> 01:00:43,430
+So sort of see what the IPF odds ratio is corresponding to a one unit increase in score.
+
+522
+01:00:43,940 --> 01:00:48,070
+So there's that model and it uses all the observations.
+
+523
+01:00:48,080 --> 01:00:55,220
+The score is never missing. And so very, very significant.
+
+524
+01:00:58,070 --> 01:01:06,649
+And the odds ratio was pretty close to two with the, you know, kind of the odds ratio on confidence intervals over here with a p value.
+
+525
+01:01:06,650 --> 01:01:12,950
+So this is kind of what we would write about in school about the unadjusted impact of scoring on that outcome.
+
+526
+01:01:14,200 --> 01:01:19,240
+And I. Don't try to remember which states that this is because they blinded it.
+
+527
+01:01:19,720 --> 01:01:26,070
+But I believe the outcome here was, you know, progression free survival.
+
+528
+01:01:26,080 --> 01:01:31,750
+So event equals one meant that they progressed or died by some criteria.
+
+529
+01:01:33,670 --> 01:01:37,930
+So the higher the score is, the more likely they were to have this poor event.
+
+530
+01:01:40,830 --> 01:01:48,000
+So again, all observations were observed here. So there's no missing data or any concerns about missing data for this particular analysis.
+
+531
+01:01:48,360 --> 01:01:55,890
+So things get hairy when you have to adjust for things and there's some missing values in the adjustment variables.
+
+532
+01:01:55,900 --> 01:02:03,330
+So here's the same model and I have it done multiple imputation, so I'm still using class for a reason.
+
+533
+01:02:03,330 --> 01:02:09,450
+Ever smoked and putting in all the variables that I'm interested in scores my primary interest.
+
+534
+01:02:09,720 --> 01:02:14,190
+But I want to adjust for some of the very common things in this field.
+
+535
+01:02:16,110 --> 01:02:22,560
+To see how well score holds up as a predictor once you adjust for other things that are known to affect the outcome.
+
+536
+01:02:24,530 --> 01:02:28,689
+And so right away. In the south output.
+
+537
+01:02:28,690 --> 01:02:34,090
+You can tell that 24 observations have been dropped and that's a fairly big proportion of of the data.
+
+538
+01:02:34,600 --> 01:02:42,070
+The sample size we started with. So I already know I'm going to be losing some power just because of the number of people who were dropped.
+
+539
+01:02:42,280 --> 01:02:50,950
+And South, by the way, will always drop. Any person who has any one of these variables missing, that is their default.
+
+540
+01:02:52,100 --> 01:02:59,060
+Operating characteristic any. If there's a predictor in here and it's missing, that person gets dropped from this analysis.
+
+541
+01:03:02,390 --> 01:03:06,800
+And so here's every, you know, the adjusted results and the variable I'm interested in.
+
+542
+01:03:07,640 --> 01:03:11,930
+You know, it it was very highly significant and they had an adjusted model.
+
+543
+01:03:12,170 --> 01:03:15,350
+It's still significant, but a little bit less in this model.
+
+544
+01:03:17,390 --> 01:03:28,670
+And so the question is, is it is this. Is it less significant because I lost 24 people or is it less significant because I adjusted for some
+
+545
+01:03:28,670 --> 01:03:35,600
+things that may have been partially responsible for the the results from that unadjusted analysis.
+
+546
+01:03:36,140 --> 01:03:43,130
+So I don't know. And I would like to know.
+
+547
+01:03:46,050 --> 01:03:50,150
+So and this is still just the next table with the odds ratio.
+
+548
+01:03:50,160 --> 01:03:55,410
+So the other issue was almost two in the unadjusted analysis and it's gone down a little bit.
+
+549
+01:03:55,410 --> 01:04:03,960
+I'm not sure if scientifically the odds ratio being 1.7, seven versus two is really something that's going to make me nervous.
+
+550
+01:04:03,990 --> 01:04:13,020
+They're both kind of in the same direction, but I would still like to show you the multiple mutation analysis that kind of
+
+551
+01:04:13,020 --> 01:04:17,100
+avoids a lot of the power and bias issues that can crop up in these things.
+
+552
+01:04:20,070 --> 01:04:26,280
+Okay. So it's very common for software packages to just drop individuals missing, convert values.
+
+553
+01:04:26,700 --> 01:04:32,790
+When you're fitting regression models, that's basically what most packages would do unless you tell them to do something differently.
+
+554
+01:04:34,140 --> 01:04:39,690
+And so in a sense, the model statement, whenever I have Delko in the model,
+
+555
+01:04:39,690 --> 01:04:44,009
+it's going to drop at least 19 individuals because we had 19 missing the AE.
+
+556
+01:04:44,010 --> 01:04:50,610
+And if a model statement includes ever smoked, that will drop at least seven individuals because that's how many people had missing ever smoked.
+
+557
+01:04:51,630 --> 01:04:53,280
+And including all the adjustment variables,
+
+558
+01:04:53,280 --> 01:05:02,370
+drop those 24 observations and the same thing happens in R when we use the GLM function to do the same analysis and that is on the next slide.
+
+559
+01:05:04,280 --> 01:05:09,590
+So here is again, just reading in the data and putting all the data in a data frame.
+
+560
+01:05:11,190 --> 01:05:15,149
+And just like in South, I'm going to need to create the score variables.
+
+561
+01:05:15,150 --> 01:05:25,209
+So I, I'm just doing the algebra here. And then the usual logistic regression model where I have my formula in here and then
+
+562
+01:05:25,210 --> 01:05:31,000
+I put that formula into GLM with the usual family equals binomial link equals logit.
+
+563
+01:05:33,260 --> 01:05:40,730
+And showing the results. We'll look like this.
+
+564
+01:05:42,640 --> 01:05:49,840
+And at the very bottom it will tell you how many were dropped due to missing this.
+
+565
+01:05:49,960 --> 01:05:55,150
+So it's a little bit less. It means suspected up front or puts it at the bottom.
+
+566
+01:05:55,530 --> 01:06:03,480
+It it's there. And this is basically the same analysis, the same adjusted analysis we saw in South.
+
+567
+01:06:05,710 --> 01:06:12,310
+And here is kind of on the odds ratio scale, kind of very similar results to what we got in South.
+
+568
+01:06:16,910 --> 01:06:20,570
+So what do we think about this discrete sample size in the adjusted analysis?
+
+569
+01:06:20,600 --> 01:06:29,990
+So first off, we've got less power to assess associations under study if one of the important regression converts has many missing values.
+
+570
+01:06:30,380 --> 01:06:37,100
+So it's roughly a fifth of the data we lost when we did the adjusted model.
+
+571
+01:06:38,090 --> 01:06:43,399
+We also need to pay attention if we. If you're in a situation where you need to do a likelihood ratio test,
+
+572
+01:06:43,400 --> 01:06:48,650
+this is going to be a little trickier than it was when you didn't have missing data.
+
+573
+01:06:49,010 --> 01:06:58,309
+Collected ratio tests require both of the data sets that you're both that the fits that you're comparing to be fit on the same number of people,
+
+574
+01:06:58,310 --> 01:07:04,460
+the same exact people. And so to be comparable,
+
+575
+01:07:05,210 --> 01:07:13,880
+both the full and the reduced models must be fit using those same patients and that the unadjusted model with just a score in it,
+
+576
+01:07:13,880 --> 01:07:16,910
+if you recall it had 24 more patients.
+
+577
+01:07:17,360 --> 01:07:20,840
+So if you need to do any likelihood ratio test between those two models,
+
+578
+01:07:21,230 --> 01:07:27,830
+you need to make sure that you drop all the people from the reduced model that the full model had dropped.
+
+579
+01:07:30,800 --> 01:07:36,380
+So missing covariate data for the parameter being tested will cause the sample size to be smaller in the full model.
+
+580
+01:07:36,830 --> 01:07:40,790
+And so you need to manually drop the patients with missing covert values from
+
+581
+01:07:40,790 --> 01:07:44,720
+the reduced model to match the patients that are utilizing the full model.
+
+582
+01:07:44,940 --> 01:07:52,040
+It's very easy. Forget that step, especially if you haven't thought about missing data at all when you're running your data.
+
+583
+01:07:52,520 --> 01:08:00,319
+You know, so if you just blithely go through and you fit two models and don't notice that they're fit on different sample sizes,
+
+584
+01:08:00,320 --> 01:08:04,760
+that there's been some people dropped, you're likely to race, your test will be wrong.
+
+585
+01:08:09,890 --> 01:08:14,420
+And it's a similar problem and solution for model comparisons based on I see you
+
+586
+01:08:14,810 --> 01:08:19,040
+as you still need to be comparing models that are fit on the same people in
+
+587
+01:08:19,040 --> 01:08:24,250
+the in the fall and the reduced model AC is adversely affected in the same way
+
+588
+01:08:24,260 --> 01:08:28,550
+you have to have the same exact people fit in both models that you're comparing.
+
+589
+01:08:31,770 --> 01:08:39,030
+So another issue with missing corporate values before we actually show you how to get the answers using multiple
+
+590
+01:08:39,030 --> 01:08:45,900
+imputation is that when missing data has the potential to bias the parameter estimates if you handle them incorrectly.
+
+591
+01:08:46,740 --> 01:08:57,149
+So software that drops these individuals with missing corporate values have an assumption that they're relying upon for this inference to be correct.
+
+592
+01:08:57,150 --> 01:09:06,190
+And so they're assuming that the dropped individuals are similar to the patients with complete covariate information that, you know,
+
+593
+01:09:06,210 --> 01:09:13,560
+there's nothing specially different about the people who are missing data, that they're very comparable to whoever was left in the analysis.
+
+594
+01:09:13,950 --> 01:09:17,099
+That assumption has a name that you'll read in the literature.
+
+595
+01:09:17,100 --> 01:09:21,390
+If you learn more about missing data theory, it's called missing completely at random.
+
+596
+01:09:23,440 --> 01:09:31,450
+And so if you are only relying on the analysis with complete data, you're assuming anybody who was dropped.
+
+597
+01:09:32,530 --> 01:09:39,880
+Is is not different in any way influentially from the people that you used in your analysis.
+
+598
+01:09:41,690 --> 01:09:48,019
+So one example of missing completely random is if the person building the data set could not decipher handwriting on a form,
+
+599
+01:09:48,020 --> 01:09:51,499
+so they didn't fill in that value. That's pretty random.
+
+600
+01:09:51,500 --> 01:09:53,420
+Has nothing to do with the patient's health status.
+
+601
+01:09:54,730 --> 01:09:59,410
+So there's no reason to suspect that handwriting for a particular patient response is related to any observed or
+
+602
+01:09:59,410 --> 01:10:05,410
+unobserved information related to the research question of interest that really does seem missing completely at random.
+
+603
+01:10:06,910 --> 01:10:11,260
+So if missing values are more systematic in nature, for instance,
+
+604
+01:10:11,260 --> 01:10:17,950
+more common for patients with certain risk profiles, then approaches that drop individuals can give biased inference.
+
+605
+01:10:22,190 --> 01:10:25,790
+So am I or am I in?
+
+606
+01:10:25,790 --> 01:10:31,880
+Or it can correct that potential bias in certain situations.
+
+607
+01:10:31,890 --> 01:10:37,880
+So when missing covariate values are associated with other observed values in the dataset and.
+
+608
+01:10:38,840 --> 01:10:39,919
+Any population.
+
+609
+01:10:39,920 --> 01:10:47,060
+Differences between those with complete versus missing values vanish once these other observed values in the dataset are taken into account.
+
+610
+01:10:48,560 --> 01:10:56,420
+So if the reason that they're missing is captured by other measured elements in the dataset that you're using for your analysis,
+
+611
+01:10:57,350 --> 01:11:06,470
+then multiple imputation can fix up any bias. This second criterion is hard to verify.
+
+612
+01:11:07,310 --> 01:11:14,450
+So let's read that again. Any population differences between those with complete versus missing values vanish
+
+613
+01:11:15,140 --> 01:11:18,440
+once these are other observed values in the dataset are taken into account.
+
+614
+01:11:19,100 --> 01:11:26,630
+So that's an assumption that can be wrong if missing values continue to depend on information that's not captured well by the study.
+
+615
+01:11:27,470 --> 01:11:31,730
+And so this is kind of a pedagogic example.
+
+616
+01:11:32,120 --> 01:11:36,700
+I don't know why I'm stumbling across that pronunciation, but it's one that I've come across before.
+
+617
+01:11:36,820 --> 01:11:38,690
+It's it's a very common thing to think about.
+
+618
+01:11:38,690 --> 01:11:46,220
+So hopefully this will be something that you can remember as a test for whether you can use modern invitation to fix these bias issues.
+
+619
+01:11:47,580 --> 01:11:56,040
+Since the Perth quality of life data is something that you're collecting and it's very easy to collect when the patient's feeling well,
+
+620
+01:11:56,040 --> 01:12:00,990
+they're happy to fill out all your forms, but it's impossible to collect when a patient's at their worst.
+
+621
+01:12:01,650 --> 01:12:08,400
+So think about quality of life. When someone's just gone through chemo or something, you know, they're really feeling terrible.
+
+622
+01:12:08,400 --> 01:12:12,070
+They don't want to fill out all these forms. They're really feeling awful.
+
+623
+01:12:12,510 --> 01:12:16,620
+And yet that's a time when it's important to know what's going on with quality of life.
+
+624
+01:12:17,340 --> 01:12:22,020
+So it's hard to multiple impute realistic quality of life values.
+
+625
+01:12:23,980 --> 01:12:31,300
+When they're missing at their sickest time based on the observed data, when we never see poor quality of life data in any patients in the study.
+
+626
+01:12:31,870 --> 01:12:35,139
+So every time they fill out, you know, just think of a cancer study.
+
+627
+01:12:35,140 --> 01:12:38,140
+And every time that they're willing to fill out data, they're feeling great.
+
+628
+01:12:38,860 --> 01:12:43,120
+And whenever they're feeling awful, they won't do it. They just physically can't.
+
+629
+01:12:43,630 --> 01:12:52,480
+So there's no there's nothing in the data set that reflects that state of quality of life that that can be drawn on to fill in those missing values.
+
+630
+01:12:53,350 --> 01:13:03,700
+So this is a situation where multiple imputation cannot help you because this standard, this criterion two isn't really true.
+
+631
+01:13:05,070 --> 01:13:11,160
+There's so again, catering to any population differences between those with complete versus missing values vanish.
+
+632
+01:13:11,520 --> 01:13:14,700
+One says other observed values in the dataset are taken into account.
+
+633
+01:13:15,240 --> 01:13:20,040
+And in this quality of life situation, there's just no observed data that will help you guess.
+
+634
+01:13:20,850 --> 01:13:25,740
+Poor quality of life since it never gets measured for any other risk profile.
+
+635
+01:13:26,310 --> 01:13:32,990
+In that example. Okay.
+
+636
+01:13:33,710 --> 01:13:38,970
+So. Steps for multiple imputation algorithm when using SAS.
+
+637
+01:13:39,000 --> 01:13:43,270
+I just want to kind of have a quick summary and then we'll go through some of these steps in more detail.
+
+638
+01:13:43,720 --> 01:13:47,680
+So the first step is to prepare the dataset, which we've already done a little bit.
+
+639
+01:13:48,130 --> 01:13:53,530
+So you want to create appropriate indicator variables for modeling, categorical variables,
+
+640
+01:13:53,530 --> 01:14:00,969
+all of the yes no things we did for ever smoking, which we created a variable that was a01 variable for the race variable.
+
+641
+01:14:00,970 --> 01:14:04,450
+We created several indicator variables to model that.
+
+642
+01:14:05,110 --> 01:14:12,740
+And so we've already done step one. And then you have to calculate all predictors needed for the analysis prior to calling programs.
+
+643
+01:14:12,790 --> 01:14:21,940
+So we did that too for the score variable. We put that in our data statement early on and we've got it available before we call Program I.
+
+644
+01:14:22,240 --> 01:14:29,860
+So then we're going to call Program I. And we'll look at this a little bit more detail in a little bit.
+
+645
+01:14:30,220 --> 01:14:36,820
+But what perking my does is it gives you some number of complete data sets.
+
+646
+01:14:37,330 --> 01:14:42,069
+And this is a choice that the user puts in a lot of missing data.
+
+647
+01:14:42,070 --> 01:14:50,280
+Experts say that if you have M equals ten completed data sets, then that will be enough to do inference.
+
+648
+01:14:50,290 --> 01:14:57,430
+But because staff does this so quickly and because my personality wants to look at more than ten,
+
+649
+01:14:59,110 --> 01:15:04,689
+then I think I used m equals 100 in the in the code for the handout, but really m equals ten.
+
+650
+01:15:04,690 --> 01:15:08,500
+I'm assured by the very leaders in the field works very well.
+
+651
+01:15:09,520 --> 01:15:19,360
+So you get however many you ask for completed datasets that are created by sampling imputes four missing data from an
+
+652
+01:15:19,360 --> 01:15:25,870
+estimated distribution of the covariate that takes into account the individual's characteristics in the original dataset.
+
+653
+01:15:26,350 --> 01:15:29,139
+And I kind of have here details omitted because it's a lot.
+
+654
+01:15:29,140 --> 01:15:37,959
+But the intuition is, for instance, if you have a continuous variable like Delko that's missing behind the scenes,
+
+655
+01:15:37,960 --> 01:15:41,950
+they've built a regression model for Delco as the outcome,
+
+656
+01:15:42,520 --> 01:15:49,540
+using other predictors that you feed into this multiple mutation proc, and they're trying to model that outcome.
+
+657
+01:15:49,540 --> 01:15:53,980
+Delco Using other predictors that has available in the data set.
+
+658
+01:15:54,370 --> 01:15:59,770
+And so guesses for the DLC outcome will be based on that regression model.
+
+659
+01:16:00,370 --> 01:16:04,630
+And there's some kind of iterative thing that's going on in the background because of course,
+
+660
+01:16:04,780 --> 01:16:08,860
+when you're fitting DLC, oh, there's missing covariates for race and APC.
+
+661
+01:16:09,310 --> 01:16:13,510
+And so as the algorithm goes through, it's filling in,
+
+662
+01:16:13,510 --> 01:16:19,930
+imputes for covariates in the whole dataset and then rerunning these into these regressions
+
+663
+01:16:19,930 --> 01:16:26,170
+over and over until there's some kind of a happy convergence criteria in the background.
+
+664
+01:16:26,680 --> 01:16:36,370
+So all of these guesses for missing values are based on regression models that take into account the variability of the predictions of the outcomes.
+
+665
+01:16:37,000 --> 01:16:45,579
+And again, details admitted because it's not just a one shot regression model that you could do on your own, they're filling in data values for APC.
+
+666
+01:16:45,580 --> 01:16:52,899
+Ever smoked DLC? How race and fitting the models again and then they're coming up with better
+
+667
+01:16:52,900 --> 01:16:56,650
+guesses for those missing values and fitting the models again and come in with
+
+668
+01:16:56,650 --> 01:16:59,559
+better guesses for those missing values entering the model again and again and
+
+669
+01:16:59,560 --> 01:17:06,790
+again until there's some nice convergence criteria that is part of this algorithm.
+
+670
+01:17:10,660 --> 01:17:17,319
+And it's recommended by many to include as many variables from the original dataset as possible in this step,
+
+671
+01:17:17,320 --> 01:17:26,050
+even if you don't need them for later analysis. And I've read this recommendation over and over again that you put in as many variables as you can,
+
+672
+01:17:26,290 --> 01:17:32,830
+and this is supposed to give you the best possible guesses and representation of the variability in those cases as you can.
+
+673
+01:17:33,310 --> 01:17:39,490
+I will say that if you have many, many, many predictors,
+
+674
+01:17:39,760 --> 01:17:45,579
+you might shoot yourself in the foot a little bit because there's regression models in the background,
+
+675
+01:17:45,580 --> 01:17:48,730
+have to converge and have nice properties for the guesses to be good.
+
+676
+01:17:49,030 --> 01:17:54,040
+So there have been cases actually very recently where I've done multiple imputation
+
+677
+01:17:54,400 --> 01:17:58,930
+and I've had to be selective about how many predictors to use so that the
+
+678
+01:17:58,930 --> 01:18:04,659
+models would in the background would still have good properties so recommended
+
+679
+01:18:04,660 --> 01:18:08,220
+to include as many variables from the original dataset as possible in the step.
+
+680
+01:18:08,230 --> 01:18:17,650
+But there's actually some limits to how many you can use and still have the models in the background have decent model prediction properties.
+
+681
+01:18:21,220 --> 01:18:31,300
+All right. And then then after you do the multiple amputation, you have all these completed data sets and so you call proc logistic or actually in,
+
+682
+01:18:31,450 --> 01:18:35,469
+you know, the same strategy can be used for all kinds of different models.
+
+683
+01:18:35,470 --> 01:18:42,970
+So I'm going to be showing it with proc logistic. But if you were doing a survival analysis or Poisson regression,
+
+684
+01:18:42,970 --> 01:18:48,910
+it would be the same trick you would call whatever that proc is and fit each of the
+
+685
+01:18:49,060 --> 01:18:53,470
+separate completed data sets and get your betas and standard errors of the betas.
+
+686
+01:18:53,710 --> 01:19:01,240
+So here I'm going to call proc logistic and I'm going to have betas for each of the completed data sets and
+
+687
+01:19:01,240 --> 01:19:06,940
+I'm going to save the the parameters and the standard of the parameters from each one of those data sets.
+
+688
+01:19:07,120 --> 01:19:08,470
+We'll see examples soon.
+
+689
+01:19:11,130 --> 01:19:23,190
+And then the staff has this part called M m I analyze missing my computation analyzed and it will actually put all of the data sets
+
+690
+01:19:23,340 --> 01:19:31,920
+and their analysis together for you and give you a single output of a coefficient table and and senators and p values for you.
+
+691
+01:19:35,340 --> 01:19:42,840
+And so this is kind of a graphic I like that kind of summarizes some of these steps for you.
+
+692
+01:19:42,840 --> 01:19:48,660
+And so here's your incomplete dataset that you start off with,
+
+693
+01:19:48,990 --> 01:19:55,950
+and you're going to do multiple computation based on a lot of predictors that you put in to your multiple computation.
+
+694
+01:19:55,960 --> 01:20:02,200
+The program I. And so it's going to create m different data set.
+
+695
+01:20:02,200 --> 01:20:08,919
+So I've said M equals ten is fine, but in this handout I'm using M equals one and each one of those data sets will
+
+696
+01:20:08,920 --> 01:20:14,350
+be completed with pretty decent guesses for what the missing variables are.
+
+697
+01:20:14,770 --> 01:20:15,729
+Decent guesses?
+
+698
+01:20:15,730 --> 01:20:24,610
+Meaning that, you know, they're within the range of plausibility, given what you know about the variables in the data set that you gave it.
+
+699
+01:20:25,660 --> 01:20:31,960
+And each data set will have different values plugged in for those missing values so that you kind of get a distribution.
+
+700
+01:20:32,970 --> 01:20:38,379
+Of what those values could have been. And from each one of those data sets,
+
+701
+01:20:38,380 --> 01:20:42,280
+you get your regression coefficients and they'll be slightly different because
+
+702
+01:20:42,280 --> 01:20:45,610
+you've got slightly different data sets for each one of the field and data sets,
+
+703
+01:20:46,450 --> 01:20:51,190
+and you're basically averaging the coefficients from those models in the end.
+
+704
+01:20:53,050 --> 01:21:00,070
+And so the figures taken from this reference over here, there's lots of reading you can do on the side about this stuff.
+
+705
+01:21:00,220 --> 01:21:08,430
+Yeah. Question about this. Well. So I'm having a hard time hearing you.
+
+706
+01:21:08,460 --> 01:21:12,330
+My hearing's not great on a good day, but could you just shout a little louder for me?
+
+707
+01:21:13,630 --> 01:21:18,740
+The. Okay.
+
+708
+01:21:18,740 --> 01:21:25,880
+So survey logistic. So in survey methods, it is similar.
+
+709
+01:21:27,050 --> 01:21:39,200
+You usually have inverse weights that you use in in surveys to overweight people who are more rare in your data and so on.
+
+710
+01:21:39,650 --> 01:21:43,070
+It's going to be similar, but it's not exactly the same.
+
+711
+01:21:45,080 --> 01:21:49,980
+Okay. It's a similar idea for sure. Yeah.
+
+712
+01:21:51,680 --> 01:21:55,190
+And the same experts and missing data have done both algorithms.
+
+713
+01:21:56,840 --> 01:22:00,220
+Yeah. Okay.
+
+714
+01:22:01,090 --> 01:22:05,490
+Um. All right.
+
+715
+01:22:05,770 --> 01:22:12,040
+So I just want to make one more remark, because I'm not sure the question came up on the recording, but the question was, you know,
+
+716
+01:22:12,040 --> 01:22:16,419
+is this the same thing that's happening when you're doing when you're dealing with
+
+717
+01:22:16,420 --> 01:22:21,790
+surveys where you have some people who don't fill in the surveys at a different rate?
+
+718
+01:22:21,820 --> 01:22:28,030
+Right. So so, again, the goal of those analyzes is to.
+
+719
+01:22:29,000 --> 01:22:38,120
+Wait hire the rarer responses, but you don't necessarily get any survey data from that type of person who just won't fill it in.
+
+720
+01:22:38,330 --> 01:22:42,310
+Right. So when you're doing survey methods, you'll have missing row,
+
+721
+01:22:42,350 --> 01:22:49,010
+entire missing rows of data because you have certain people who just don't want to fill in your results.
+
+722
+01:22:50,060 --> 01:22:55,520
+Here we have. Some at least some data on every person.
+
+723
+01:22:56,060 --> 01:23:01,760
+And we're just trying to fill in values that reflect who we did have in our dataset.
+
+724
+01:23:02,420 --> 01:23:08,510
+So it is similar in trying to account for the missing this.
+
+725
+01:23:09,110 --> 01:23:16,580
+But in survey results, those inverse weights might be based on other information in the population,
+
+726
+01:23:17,120 --> 01:23:22,280
+and we're not bringing in any of that information here. It's just based on this one data set.
+
+727
+01:23:22,790 --> 01:23:32,480
+But it's again, the ideas are very similar, trying to fill in representative people, but they're just different enough to be.
+
+728
+01:23:32,750 --> 01:23:42,290
+I wanted to make that distinction of whether the missing person is actually in your dataset in some form or not in your dataset in some,
+
+729
+01:23:42,290 --> 01:23:47,340
+you know, in any form. Okay.
+
+730
+01:23:49,960 --> 01:23:58,780
+All right. So I wanted to give you some technical details, and I don't like to drag you through technical details unless I have a purpose behind it.
+
+731
+01:23:59,290 --> 01:24:05,139
+And my purpose is that, you know, am I am I analyzed and there's something else and ah,
+
+732
+01:24:05,140 --> 01:24:11,830
+that will do this for you, will actually give you the overall averaged coefficients and standard errors.
+
+733
+01:24:11,830 --> 01:24:19,870
+But ah I don't know what methods are going to become available in SAS or R next week, next year.
+
+734
+01:24:20,650 --> 01:24:26,680
+And the way to combine inferences is the same regardless of what.
+
+735
+01:24:28,050 --> 01:24:29,730
+Results you're trying to combine.
+
+736
+01:24:29,820 --> 01:24:39,420
+So in this handout, we're combining parameters from logistic regression and getting their combined standard errors and P values.
+
+737
+01:24:39,720 --> 01:24:42,760
+But there might be a whole different regression model that's invented.
+
+738
+01:24:42,780 --> 01:24:48,570
+Next week, next year, you'll be able to get parameter estimates and standard errors from that here.
+
+739
+01:24:49,580 --> 01:25:00,440
+Here as of now unknown thing. And you'll be able to do a meta analysis just fine by running by doing the multiple imputation step,
+
+740
+01:25:00,440 --> 01:25:04,219
+which is based on the data, not based on the regression model you're about to do.
+
+741
+01:25:04,220 --> 01:25:09,170
+So that's that multiple computation step is the same regardless of what you're going to do with the data.
+
+742
+01:25:09,170 --> 01:25:14,959
+Next, get all the regression coefficients and standard errors from that model.
+
+743
+01:25:14,960 --> 01:25:22,910
+Whatever it is here, it's going to be related to log odds ratios, but it could be related to log Schmeichel de Bigly or whatever comes next.
+
+744
+01:25:23,960 --> 01:25:29,840
+And and you can get the overall multiple imputation results from these formulas.
+
+745
+01:25:29,840 --> 01:25:37,069
+So the overall parameter coefficients are just averages across the multiple imputed data set.
+
+746
+01:25:37,070 --> 01:25:43,280
+So if you're doing ten completed data sets, you average the beats from those ten data sets.
+
+747
+01:25:43,280 --> 01:25:51,910
+That part's very simple. And the variability is not I mean, it looks like a little bit of a longer formula, but it's not that bad.
+
+748
+01:25:52,450 --> 01:25:55,810
+So you can get the variability of the beta that's on your own as well.
+
+749
+01:25:56,020 --> 01:26:00,850
+You just need the standard errors from the individually analyzed datasets.
+
+750
+01:26:01,450 --> 01:26:10,090
+So these Beta M's are the parameters from the first, second, third and fourth completed dataset analysis.
+
+751
+01:26:10,930 --> 01:26:16,080
+And the so your so again of across all analyzes,
+
+752
+01:26:16,720 --> 01:26:23,470
+you're averaging the variance of debate hat is the standard error squared the the variance of the beta hat m.
+
+753
+01:26:25,190 --> 01:26:29,270
+So that's this side. And that is called the within variance.
+
+754
+01:26:31,390 --> 01:26:36,190
+And then this other part is pretty close to the between variant.
+
+755
+01:26:36,200 --> 01:26:39,669
+So there's an extra end time and divided by in minus one.
+
+756
+01:26:39,670 --> 01:26:43,870
+But the rest of it is like the between variance between the beta hat for the EMP,
+
+757
+01:26:43,870 --> 01:26:49,060
+the data set that you completed and the overall bay to have that you have up here.
+
+758
+01:26:51,350 --> 01:26:59,570
+And so it doesn't matter which which model you're using to generate the betas and the standard errors.
+
+759
+01:27:00,290 --> 01:27:06,920
+This is how the results are put together. So for instance, if I have a student, I make them create a new regression.
+
+760
+01:27:07,310 --> 01:27:16,340
+They can use multiple imputation too, and they get their average betas and they're the variance of the beta heads using these same formulas.
+
+761
+01:27:19,370 --> 01:27:29,089
+All right. So the hypothesis and the hypothesis test, statistical inference for regression is very similar from that point.
+
+762
+01:27:29,090 --> 01:27:31,340
+You're taking in the results from the, you know,
+
+763
+01:27:31,340 --> 01:27:40,210
+the in my analyzes or from the previous slides formulas and the T statistic is paid hat over the standard error by the hat.
+
+764
+01:27:40,220 --> 01:27:43,400
+So I'm getting that by taking the square root of the variance of beta hat.
+
+765
+01:27:45,700 --> 01:27:53,450
+And the degrees of freedom takes into account the number of mutations as well as within in between amputation variance terms.
+
+766
+01:27:53,470 --> 01:28:00,610
+So if you have very, very large sample sizes, it's going to behave like a normal test statistic.
+
+767
+01:28:01,120 --> 01:28:05,350
+But otherwise you want to calculate your degrees of freedom using this formula.
+
+768
+01:28:05,950 --> 01:28:09,309
+All right. And then I'm not going to go too much into this.
+
+769
+01:28:09,310 --> 01:28:13,540
+This is something, again, that says will do for you with my analyze.
+
+770
+01:28:18,370 --> 01:28:27,430
+And there's yet another improved degree of freedom approximation available when the data is that small and the amount of data missing data is minimal.
+
+771
+01:28:30,080 --> 01:28:34,610
+And I'm I'm just going to have you refer to other references to look into that.
+
+772
+01:28:34,760 --> 01:28:40,400
+So here is the SAS code for proc m i.
+
+773
+01:28:42,880 --> 01:28:53,130
+And so. Fitting in the data set that I already pre processed by putting zero one variables instead of class variables.
+
+774
+01:28:53,970 --> 01:28:57,510
+And I have some options here that are in yellow.
+
+775
+01:28:57,510 --> 01:29:02,520
+So remember I said that m equals ten data sets is fine,
+
+776
+01:29:02,520 --> 01:29:07,319
+but that my personality just makes me want to use and SAS does it for me and I don't have to do any extra work.
+
+777
+01:29:07,320 --> 01:29:18,660
+I just put 100 in there. So I'm asking with this with this hundred to do 100 complete data sets and I'm saving those data sets.
+
+778
+01:29:19,760 --> 01:29:25,250
+Into this out. File imputed data.
+
+779
+01:29:25,850 --> 01:29:31,760
+And so this imputed data will save all 100 completed data sets for me.
+
+780
+01:29:32,060 --> 01:29:36,680
+And it creates a variable that helps me keep track of which datasets are which.
+
+781
+01:29:37,100 --> 01:29:45,740
+So I'll show you that in a moment. And then this seed variable is setting a random seed.
+
+782
+01:29:46,900 --> 01:29:54,430
+Which you may not have had to do before, but what you know, every time you're generating these imputes, it's based on some randomness.
+
+783
+01:29:54,430 --> 01:29:56,860
+And if you want that to be reproducible,
+
+784
+01:29:57,310 --> 01:30:07,150
+then you save the random seed at the beginning so that running the same code over and over again will give you the same 100 data sets.
+
+785
+01:30:08,600 --> 01:30:09,970
+So this is useful.
+
+786
+01:30:09,980 --> 01:30:17,690
+You know, if you're writing a paper and you finished up all the tables and someone wants a new figure that's related to the analysis,
+
+787
+01:30:18,230 --> 01:30:23,240
+you want to be able to recreate all the same data sets to produce that figure from,
+
+788
+01:30:24,260 --> 01:30:31,510
+because otherwise, if you don't save the same data sets, you will have an entirely different betas come out because it is a random process.
+
+789
+01:30:31,520 --> 01:30:35,229
+They'll be close, but they won't be exactly the same. Right.
+
+790
+01:30:35,230 --> 01:30:38,370
+This is still within proc. Am I? So I've spaced it out a lot here.
+
+791
+01:30:38,380 --> 01:30:43,210
+So here are the variables that we're going to use to do the multiple computation.
+
+792
+01:30:43,960 --> 01:30:48,370
+And so all the versions of the variables that are now zero one are in here.
+
+793
+01:30:48,370 --> 01:30:53,260
+So that was raised to raise three, race four and the score verbal that I put in,
+
+794
+01:30:53,980 --> 01:31:01,990
+you get into trouble if you have variables in here that are completely correlated with one another.
+
+795
+01:31:02,290 --> 01:31:07,730
+So if I had tried to put in the reference group race, it would have not run.
+
+796
+01:31:07,780 --> 01:31:15,010
+It can't deal with trying to put all of the predictors in the model that are linear, linearly dependent in that way.
+
+797
+01:31:18,070 --> 01:31:21,399
+So the very statement should include all the available predictors in numerical form.
+
+798
+01:31:21,400 --> 01:31:29,060
+No class variables, as we said. And don't forget to include variables needed in the model statement that you had to create.
+
+799
+01:31:29,330 --> 01:31:38,690
+So that goes in there as well. And then the last part is some options for the algorithm that's running behind the scenes.
+
+800
+01:31:38,690 --> 01:31:41,950
+And these are the default options that staff have.
+
+801
+01:31:42,080 --> 01:31:46,930
+They seem to work well and stuff doesn't really give you any diagnostics to fiddle with them.
+
+802
+01:31:46,940 --> 01:31:52,400
+So I just stayed with SAS as default options in here.
+
+803
+01:31:54,750 --> 01:32:05,420
+All right, so just stick with those. They seem to work, okay? And here is what it looks like when you look at the first imputed data set.
+
+804
+01:32:05,600 --> 01:32:14,390
+So this input, this underscore, imputation underscore is a new variable that's in the imputed data that we saved.
+
+805
+01:32:14,660 --> 01:32:20,000
+That will tell you which dataset. Is a single imputed data set.
+
+806
+01:32:20,300 --> 01:32:29,420
+So there's going to be a huge long data set with 11111 for the first imputed data set until you reach your total sample size.
+
+807
+01:32:29,780 --> 01:32:34,490
+And then it'll start to try to teach you. And this is the raw data with the missing values filled in.
+
+808
+01:32:35,090 --> 01:32:43,040
+So remember the we looked at the first three people in the original dataset and there was a missing DLC value.
+
+809
+01:32:43,610 --> 01:32:53,059
+And here in this first imputed dataset, they have a filled in DLC value, and I'm not sure this is the greatest impute or not,
+
+810
+01:32:53,060 --> 01:33:01,129
+but we're going to do it 100 times so that we reflect kind of the distribution of good guesses that
+
+811
+01:33:01,130 --> 01:33:06,020
+DLC could have been for this patient based on all the other predictors that that we did know about.
+
+812
+01:33:10,450 --> 01:33:15,730
+So that guess will be different for each of the hundred imputed data sets that we did.
+
+813
+01:33:15,760 --> 01:33:19,810
+There will be some kind of a it'll go through quite a range of stuff.
+
+814
+01:33:20,290 --> 01:33:27,050
+And actually when we look at the our capabilities, will we'll be able to see how that works a little bit more clearly.
+
+815
+01:33:27,070 --> 01:33:33,550
+Our has some good graphics for understanding the distribution of the imputes that SAS doesn't really have.
+
+816
+01:33:35,900 --> 01:33:38,330
+Although I suppose you could program them yourself if you wanted to.
+
+817
+01:33:39,050 --> 01:33:43,870
+So step three is to collect the parameter estimates from each of the hundred imputed datasets.
+
+818
+01:33:43,880 --> 01:33:47,030
+So this is the part that is unique to logistic regression.
+
+819
+01:33:47,660 --> 01:33:55,550
+Everything. Up until now, you could just use those completed datasets with any regression approach you wanted to that uses those same variables.
+
+820
+01:33:55,970 --> 01:33:59,780
+So for our handout, we're doing it within logistic regression.
+
+821
+01:34:00,230 --> 01:34:05,960
+So we're taking data equals the imputed data, which is of course 100 datasets.
+
+822
+01:34:06,380 --> 01:34:11,959
+And so we're going to have this bi variable bi underscore imputation so that it will
+
+823
+01:34:11,960 --> 01:34:17,780
+do a separate logistic regression for each of the different imputed data sets.
+
+824
+01:34:18,800 --> 01:34:26,420
+It's, you know, as this goes through one through hundred. So the outputs are going to be massive and we're going to save it.
+
+825
+01:34:27,020 --> 01:34:30,700
+I hear this output parameter estimate equals parm.
+
+826
+01:34:31,070 --> 01:34:34,459
+We're saving all the betas and standard errors of the betas.
+
+827
+01:34:34,460 --> 01:34:38,600
+All of that stuff from each of those hundred model fits.
+
+828
+01:34:40,830 --> 01:34:47,040
+Otherwise. This is basically the same analysis that we did when we did the default.
+
+829
+01:34:47,040 --> 01:34:50,669
+So we had the outcome IPF and we had all these covariates in there.
+
+830
+01:34:50,670 --> 01:34:54,899
+It drops the ones with missing data. We had done the same model before,
+
+831
+01:34:54,900 --> 01:35:03,930
+but now we're applying the same model to each of the complete data sets so that all of the data will be used that we have available.
+
+832
+01:35:05,940 --> 01:35:14,820
+And I'm going to just look at what this data equals palms things look like for the first three data.
+
+833
+01:35:15,330 --> 01:35:19,080
+I guess the first two data sets, because I say were imputations strictly less than three.
+
+834
+01:35:19,320 --> 01:35:25,350
+So we're going to see a couple of the data sets in, the betas and what this imputation, what this Palm's data set looks like.
+
+835
+01:35:27,340 --> 01:35:33,480
+So a little note here, unfortunately says output for 100 models is printed.
+
+836
+01:35:33,490 --> 01:35:40,510
+So if you chose to do 100 for your M year, you can't not see that output.
+
+837
+01:35:40,510 --> 01:35:43,570
+So it's just going to be a massive amount of stuff that you don't really want to see.
+
+838
+01:35:47,110 --> 01:35:54,370
+And we are definitely saving what we want to use in my analyze in this Palm's data set.
+
+839
+01:35:56,850 --> 01:36:02,669
+All right, so here is the Palm's data set, and here's this imputation variable again.
+
+840
+01:36:02,670 --> 01:36:08,070
+So this everything with a one is the model fit for the first imputed data set.
+
+841
+01:36:08,730 --> 01:36:14,520
+And so just with that first imputed data set here, all the betas, you know,
+
+842
+01:36:14,850 --> 01:36:18,870
+here, all the standard errors of the betas and they've got P values and so on.
+
+843
+01:36:18,870 --> 01:36:23,550
+So this is if you only did the analysis on the first imputed data set, this is what it would look like.
+
+844
+01:36:24,000 --> 01:36:31,079
+And the analyzes going to use this estimate column and the standard error column from this one.
+
+845
+01:36:31,080 --> 01:36:34,470
+Data set is part of its formula and combining results.
+
+846
+01:36:35,370 --> 01:36:40,919
+So if I look at my score variable, I can look at the parameter estimate in the P value.
+
+847
+01:36:40,920 --> 01:36:47,010
+It's highly significant again, which is nice, but this is only one of several data sets.
+
+848
+01:36:47,460 --> 01:36:50,040
+So the second imputed dataset, if I look at that same thing,
+
+849
+01:36:50,040 --> 01:36:55,650
+it's going to wiggle a little bit because the imputes for the missing data vary a little bit.
+
+850
+01:36:56,100 --> 01:37:04,170
+And so I have a p value here. So in the end, I'm going to be combining these data across a hundred data sets.
+
+851
+01:37:05,210 --> 01:37:11,480
+And that's what we do in step four. So step four is to call proximate analyze.
+
+852
+01:37:12,110 --> 01:37:22,700
+And so you are using the same parameter estimates from all those hundred sets you're using them and am I analyzed and model
+
+853
+01:37:22,700 --> 01:37:32,300
+effects is just listing the predictors from from the separate models and I'm not sure exactly why you have to list those,
+
+854
+01:37:33,950 --> 01:37:41,450
+but it does require you to list the names of those variables and then it'll save the
+
+855
+01:37:41,810 --> 01:37:47,480
+combined the output for the combined analysis in this dataset that I just called combined.
+
+856
+01:37:49,810 --> 01:37:53,290
+And so this is the output from PROC. Am I analyzed?
+
+857
+01:37:53,620 --> 01:38:01,870
+It looks very much like the output for the parameter estimates that you would get in proc logistic and you can interpret them the same way.
+
+858
+01:38:02,410 --> 01:38:06,840
+So you have to estimate the confidence limits for the estimate and the p value.
+
+859
+01:38:07,510 --> 01:38:11,780
+But it doesn't know it does. You've seen this before.
+
+860
+01:38:11,800 --> 01:38:20,210
+I mean, this in my analyze. It doesn't really pay attention to whether this was logistic regression or survival analysis or count regression.
+
+861
+01:38:20,230 --> 01:38:23,500
+It just combined the betas and found you your standard errors.
+
+862
+01:38:24,010 --> 01:38:30,910
+So these are all on the because it was logistic regression, this is all in the log odds scale.
+
+863
+01:38:31,630 --> 01:38:36,640
+And so you have to know to get the odds ratio associated with a one unit increase in score,
+
+864
+01:38:36,640 --> 01:38:42,600
+you have to exponentially rate this and you have to exponential the confidence limits to the P values.
+
+865
+01:38:42,610 --> 01:38:54,560
+Fine. So here's kind of a summary of the three analyzes we've done for this data and the results.
+
+866
+01:38:54,580 --> 01:39:01,360
+So we did the unadjusted analysis that used 127 people, and it's been a long time since we saw that slide,
+
+867
+01:39:01,360 --> 01:39:06,460
+but the odds ratio was pretty close to two and it had a very significant p value.
+
+868
+01:39:07,840 --> 01:39:14,440
+When we did the adjusted logistic regression where we just put in the variables fit it as usual.
+
+869
+01:39:14,830 --> 01:39:21,879
+It dropped everybody who had even one missing covariate from the model statement and the we
+
+870
+01:39:21,880 --> 01:39:28,210
+got an odds ratio that was you know it wasn't completely unreasonable but it was 1.771.
+
+871
+01:39:28,870 --> 01:39:36,640
+The significance was slightly less. But the science seemed to bear up that the score is helpful in predicting the outcome,
+
+872
+01:39:37,210 --> 01:39:42,280
+and the magnitude has shifted slightly, but not terribly concerning.
+
+873
+01:39:42,610 --> 01:39:48,730
+If I publish this second row of data, I'm not worried I misleading the scientific community.
+
+874
+01:39:49,210 --> 01:39:57,070
+But the multiple imputed analysis, I would argue, is better in a number of ways.
+
+875
+01:39:57,520 --> 01:40:06,400
+One, we have not made this assumption that the second row does, that missing data is completely at random.
+
+876
+01:40:07,680 --> 01:40:13,860
+So the missing data on Delko, it can depend on how sick they were.
+
+877
+01:40:14,400 --> 01:40:20,520
+You know, as long as it's captured by the other variables in the analysis, like FEC and stuff like that.
+
+878
+01:40:21,480 --> 01:40:29,969
+So we've avoided that assumption in this analysis and we used all the data that was available as well.
+
+879
+01:40:29,970 --> 01:40:36,210
+So all the people who had partial information on what their factors were, we got to use that information.
+
+880
+01:40:37,110 --> 01:40:40,810
+So the P value is suddenly much more significant again.
+
+881
+01:40:40,860 --> 01:40:45,690
+So it looks like there was a power loss more than a loss of effect.
+
+882
+01:40:46,900 --> 01:40:51,490
+Since the significance got bumped to be much more statistically significant.
+
+883
+01:40:52,120 --> 01:40:57,249
+And the odds ratio is actually somewhere between these two values.
+
+884
+01:40:57,250 --> 01:41:03,549
+So it looks like the adjusted odds ratio was getting much closer to the unadjusted odds
+
+885
+01:41:03,550 --> 01:41:09,370
+ratio when you do the multiple imputation and a narrower confidence limit as well,
+
+886
+01:41:09,370 --> 01:41:20,040
+that comes from being able to use that extra amount of data. So the results are similar in magnitude for all analyzes.
+
+887
+01:41:20,430 --> 01:41:25,169
+But I think there is a you know, there is a loss of power for the analysis with 103.
+
+888
+01:41:25,170 --> 01:41:30,210
+And since I was very interested in score, that loss of power could have been really sad.
+
+889
+01:41:31,110 --> 01:41:36,209
+You know, we just happened to get statistical significance even without the multiple imputation.
+
+890
+01:41:36,210 --> 01:41:39,510
+But sometimes your loss of power will have a higher cost.
+
+891
+01:41:39,510 --> 01:41:44,370
+And then what we saw here. So the multiple computation approach recovers, lost power.
+
+892
+01:41:45,540 --> 01:41:49,500
+It does rely on this assumption of unbiased imputation.
+
+893
+01:41:49,510 --> 01:41:57,600
+So if Delko is missing because of some that they are so they're so sick that it's
+
+894
+01:41:57,600 --> 01:42:03,870
+not even it's sicker than even their FEC would indicate that it will still be off,
+
+895
+01:42:03,870 --> 01:42:06,420
+but it'll still be less biased than this middle row.
+
+896
+01:42:07,460 --> 01:42:13,220
+Because it's at least taking into account other factors related to their underlying health like efficacy.
+
+897
+01:42:14,530 --> 01:42:22,060
+Which also is a lung function measure. So in this situation,
+
+898
+01:42:23,680 --> 01:42:30,790
+this unbiased imputations likely to be reasonable unless the estimated distribution of coverage is based on the observed data are biased,
+
+899
+01:42:30,790 --> 01:42:38,110
+which can happen if missing values depend on unobserved information, as in the hypothetical missing quality of life data example.
+
+900
+01:42:42,280 --> 01:42:48,390
+And so missing values depend on unobserved information. Neither of these adjusted analyzes would be reliable,
+
+901
+01:42:48,400 --> 01:42:55,810
+but I would argue that the adjusted analysis adjusts for more missing those issues than just dropping the missing people.
+
+902
+01:42:57,000 --> 01:43:05,730
+So even if neither of them are completely reliable in that case, this has done more to adjust for possible missing this issues.
+
+903
+01:43:09,650 --> 01:43:17,090
+Okay. So now so that's the overall good start. And I want to just show you some of the nice things that are will do with this and my package.
+
+904
+01:43:17,090 --> 01:43:26,030
+So we're going to install it and load it and I'm going to go ahead and put my biomarker data into a data frame.
+
+905
+01:43:27,780 --> 01:43:35,700
+And I'm going to use this image MDF for my did my dairy free here and so it's going
+
+906
+01:43:35,700 --> 01:43:40,080
+to say the following pairs of variables appear to have the same missing this pattern.
+
+907
+01:43:40,890 --> 01:43:43,950
+Please verify whether or not they are logically distinct variables.
+
+908
+01:43:43,950 --> 01:43:49,350
+And you know, I didn't notice this in stats, but every time race is missing, FSC is also missing.
+
+909
+01:43:49,680 --> 01:43:59,729
+And so you just sort of say, Yeah, you know, I double checked that and it will show you this plot of the missing data.
+
+910
+01:43:59,730 --> 01:44:02,820
+So here are the vertical axis or people.
+
+911
+01:44:03,180 --> 01:44:09,899
+The horizontal axis are the variables. And when it's black, that means those variables were missing and look raised.
+
+912
+01:44:09,900 --> 01:44:15,090
+And FEC, by some strange coincidence, are missing for exactly the same people.
+
+913
+01:44:15,600 --> 01:44:20,669
+A lot of missing data for Delco and some for ever smoking.
+
+914
+01:44:20,670 --> 01:44:25,020
+There's overlap in the missing Delko and FEC values.
+
+915
+01:44:25,020 --> 01:44:36,059
+So that's that might be a bit of an issue. So the our package is little more sophisticated than SAS.
+
+916
+01:44:36,060 --> 01:44:40,200
+And the following way, SAS, I told you there were regression models behind the scenes.
+
+917
+01:44:40,740 --> 01:44:47,549
+SAS kind of just uses linear regression as a rough model for everything, even if it's a yes no outcome.
+
+918
+01:44:47,550 --> 01:44:54,960
+You know, it's figuring it's just doing imputes. It doesn't necessarily care about, you know, using the exact right model for the imputes.
+
+919
+01:44:55,230 --> 01:45:04,049
+On average it does very well. The my package is actually for each variable type, it's using the most appropriate model based, you know,
+
+920
+01:45:04,050 --> 01:45:11,430
+the kinds of models you're taught to use when you're publishing your papers and it will tell you what its guess is for those models.
+
+921
+01:45:11,430 --> 01:45:21,040
+And it's not always correct. So here are the various predictors and the models behind the scene that they're going to use to fill in imputes.
+
+922
+01:45:21,040 --> 01:45:22,780
+And all of these are okay.
+
+923
+01:45:22,900 --> 01:45:34,900
+So a gender is assumed to be binary, age is assumed to be continuous, but race is assumed to be order categorical, which we know is not correct.
+
+924
+01:45:34,900 --> 01:45:39,850
+So they were going to use an ordered logistic regression to fill to do those inputs.
+
+925
+01:45:39,850 --> 01:45:48,700
+And we know that race is not an ordered categorical variable. So we need to go back in and correct that before the imputation step happens.
+
+926
+01:45:51,910 --> 01:46:03,580
+And so here's some code to change that type of model for race to an ordered categorical and then we just double check it did that and now it's fine.
+
+927
+01:46:05,010 --> 01:46:12,690
+All right. So these are the regression models they're going to use behind the scenes to fill in some of these missing data elements.
+
+928
+01:46:16,410 --> 01:46:26,550
+And so this is the MRI. We didn't actually have to do any other pre-processing of the data so we can go ahead and do more computation.
+
+929
+01:46:28,410 --> 01:46:33,600
+And I've got some options here because our has some diagnostics.
+
+930
+01:46:33,600 --> 01:46:36,179
+I played with these options and it started getting out of hand.
+
+931
+01:46:36,180 --> 01:46:42,630
+So I eventually had to cap it off so that it didn't take more than 20 minutes to get my imputed data sets.
+
+932
+01:46:43,740 --> 01:46:48,740
+And you there's some plots that are kind of helpful to look at.
+
+933
+01:46:48,750 --> 01:46:54,210
+So the plot function shows the plots for a few of the imputed data sets with imputed data in red and the observed in blue.
+
+934
+01:46:54,480 --> 01:46:59,700
+And I'm just showing what it looks like for the telco variable, since that's the one that had the most missing data.
+
+935
+01:47:01,230 --> 01:47:04,620
+And so there's a lot of information to unpack here.
+
+936
+01:47:05,670 --> 01:47:14,610
+So the blue. Is the observed data and the read are imputed data.
+
+937
+01:47:14,730 --> 01:47:23,549
+So the histograms are kind of showing you the observed data for DELKO and that's that's the same for each data set.
+
+938
+01:47:23,550 --> 01:47:30,360
+This is for the first data set that was imputed. This is for the second data set that's imputed and this is for the third data set that's imputed.
+
+939
+01:47:30,870 --> 01:47:34,980
+And so the histogram of all the imputed DLC, this is what's shown in red.
+
+940
+01:47:35,640 --> 01:47:39,860
+So this first, all the DLC value DLC values that were filled in,
+
+941
+01:47:39,870 --> 01:47:45,900
+they look like they're consistent more or less with the observed data, and they vary from dataset to dataset.
+
+942
+01:47:47,330 --> 01:47:55,120
+And so it just gives you a summary of what that looks like. And the read of the read is all related to imputed stuff in these other graphics as well.
+
+943
+01:47:55,130 --> 01:48:05,310
+So they have the observed versus the expected values, uh, you know, for the, the very, the DLC models.
+
+944
+01:48:05,310 --> 01:48:10,280
+So if you look really you have to kind of blow this up a little bit, see the red versus the blue dots.
+
+945
+01:48:10,280 --> 01:48:15,200
+But the red dots are sort of within the range of the observed data and they vary from plot to plot.
+
+946
+01:48:16,760 --> 01:48:23,150
+Know, here's a lot more of the DLC values were imputed to below over here, and you can kind of see that over here in the histogram as well.
+
+947
+01:48:25,230 --> 01:48:32,219
+And this is residuals for the model for DLC, so versus the expected values.
+
+948
+01:48:32,220 --> 01:48:39,960
+And you can sort of see how the observed data and the imputed data is kind of, you know, seems like it's well within.
+
+949
+01:48:41,930 --> 01:48:44,090
+You know, the same range and so on.
+
+950
+01:48:44,120 --> 01:48:51,260
+It's just just a double check to see what your imports look like that you can see and are a little bit more clearly than in South.
+
+951
+01:48:53,170 --> 01:48:58,870
+And then there's a diagnostic here that's to make sure that the algorithm used enough iterations.
+
+952
+01:48:58,870 --> 01:49:06,580
+And we don't have this in, but it gives this to us here. So this my PPO y function will give that for you.
+
+953
+01:49:07,300 --> 01:49:12,910
+And what it does is it shows you for four columns.
+
+954
+01:49:13,360 --> 01:49:16,300
+You don't really need to appreciate what the chains are.
+
+955
+01:49:16,540 --> 01:49:25,180
+But when you look at the four columns, the goal is that the numbers for each of the rows should be about the same in each of the columns.
+
+956
+01:49:26,140 --> 01:49:33,250
+If the imputation algorithm had enough iterations and so the rows with missing data were ever smoked.
+
+957
+01:49:33,980 --> 01:49:41,180
+FC Delco and race and both race and ever smoked, they pretty close.
+
+958
+01:49:41,200 --> 01:49:46,450
+EPI c, l, f and dlc. Oh, there was still a little bit of wiggle room.
+
+959
+01:49:46,810 --> 01:49:51,969
+And this is where I obsessed doing more and more iterations, thinking if I could get those close to her.
+
+960
+01:49:51,970 --> 01:49:58,270
+And after 20 minutes, minutes for each imputation, I just sort of said, this is going to be good enough.
+
+961
+01:49:58,450 --> 01:50:06,390
+This has got to be good enough. So an argument could be made for increasing that iterations to get more similar means for those rows for DLC.
+
+962
+01:50:06,930 --> 01:50:18,970
+But I stopped after 20 iterations. And so once you've got your multiple computer data sets, you pool, you use this function pool.
+
+963
+01:50:20,750 --> 01:50:24,320
+And apply those to the imputation results that we got earlier.
+
+964
+01:50:26,120 --> 01:50:29,720
+And so here are your results for the multiple amputation.
+
+965
+01:50:30,050 --> 01:50:36,200
+This is the same thing that my analyzes doing. And so you get your estimate, senators p values.
+
+966
+01:50:36,200 --> 01:50:43,129
+And these are going to be slightly different from SAS because there's randomness, but they're, you know, they're comparable in the science.
+
+967
+01:50:43,130 --> 01:50:48,230
+So they're highly significant. Again, the estimates are pretty similar again.
+
+968
+01:50:49,620 --> 01:50:54,590
+And there's on canvas there's more reading material related to this am I.
+
+969
+01:50:54,930 --> 01:51:02,190
+Function that you can read that I thought was very useful. There's lots of tricks that I didn't show you that you can do with that software.
+
+970
+01:51:03,090 --> 01:51:07,409
+And I'm just going to finish up this last slide or two because it's the last.
+
+971
+01:51:07,410 --> 01:51:12,630
+But I wanted to let you know that sometimes imputation is not preferred.
+
+972
+01:51:13,110 --> 01:51:17,790
+So, for instance, if you're evaluating a new biomarker for the first time,
+
+973
+01:51:18,180 --> 01:51:22,860
+journals may frown upon imputing many missing values in any analysis touting its worth.
+
+974
+01:51:23,370 --> 01:51:26,069
+And that's not because multiple imputation is a bad thing.
+
+975
+01:51:26,070 --> 01:51:32,460
+It's because journals can be very skeptical if they're not the ones running the programs that what you did was solid.
+
+976
+01:51:33,390 --> 01:51:41,490
+And so a common approach is to give a clear accounting of how missing data influence the final sample size for the analysis.
+
+977
+01:51:41,520 --> 01:51:47,370
+This is done with some kind of a consort diagram of why individuals were dropped from the analysis in lots of different
+
+978
+01:51:47,370 --> 01:51:53,370
+ways and the summary of patient characteristics for those that were included versus not clouded in the analysis.
+
+979
+01:51:53,940 --> 01:52:01,590
+And then you can do the the complete case analysis based on whatever your consort diagram came up from.
+
+980
+01:52:02,040 --> 01:52:07,110
+And on the side, do the multiple imputation analysis and put that in supplemental materials.
+
+981
+01:52:07,680 --> 01:52:10,259
+So if they really don't allow multiple imputation,
+
+982
+01:52:10,260 --> 01:52:16,079
+your primary analysis can be on the complete case side with how you got to that sample size and then
+
+983
+01:52:16,080 --> 01:52:20,820
+show but show them the multiple imputation results in the supplemental to your materials as well,
+
+984
+01:52:21,060 --> 01:52:24,390
+because, you know, scientifically, it's a more solid result.
+
+985
+01:52:25,940 --> 01:52:31,700
+All right. That's it. We'll start next time with learning how to do count miles by.
+

@@ -1,0 +1,2780 @@
+1
+00:00:00,180 --> 00:00:07,110
+Anytime on Thursday. If you do have for some reason something that's popping up, it's going to make it difficult to do on Thursday.
+
+2
+00:00:07,290 --> 00:00:11,070
+Just shoot me a note. There have been a couple of folks that it's just reached out for whatever reason.
+
+3
+00:00:11,280 --> 00:00:15,150
+Can I have a little bit of time to do this? Yeah, that's fine. I promise it's not a big deal.
+
+4
+00:00:16,620 --> 00:00:19,620
+All right. Any other questions for the good of the car as well?
+
+5
+00:00:20,040 --> 00:00:28,100
+I get back to this. And I'm sorry, I just posted this saying I realized that I was trying to advance times at the time.
+
+6
+00:00:29,210 --> 00:00:36,470
+So the last three weeks we have been talking about the foundations of regression and multiple regression, which and I promise you,
+
+7
+00:00:36,470 --> 00:00:42,160
+I told you everything that we were going to be learning the last three weeks we were going to build on in the future.
+
+8
+00:00:42,190 --> 00:00:48,490
+In particular last week when we were going through all those different assumptions about whether or not we can trust the results of our model.
+
+9
+00:00:48,530 --> 00:00:52,670
+Are the findings valid? Those are important things to do.
+
+10
+00:00:52,680 --> 00:00:58,370
+We're going to be checking our model assumptions any time we want to run a regression model so that we can be confident in our results.
+
+11
+00:00:59,030 --> 00:01:03,800
+The rest of the semester, in its own way, it's some kind of special, endearing way.
+
+12
+00:01:04,130 --> 00:01:06,920
+We're going to start violating those assumptions one at a time.
+
+13
+00:01:07,430 --> 00:01:13,309
+So what happens when we take some of those and I guess those kind of foundational assumptions
+
+14
+00:01:13,310 --> 00:01:18,230
+that we think make our regression model tenable and then start to tweak them a little bit?
+
+15
+00:01:18,530 --> 00:01:23,270
+And our first example is going to be that very first assumption that I asked you to think about,
+
+16
+00:01:23,510 --> 00:01:28,760
+which is don't call it the linear relationship between our predictor variables and our own variables.
+
+17
+00:01:29,120 --> 00:01:32,860
+What happens when there is not a linear rela relationship?
+
+18
+00:01:32,870 --> 00:01:39,950
+What happens if it's curvilinear, or what happens when it varies by as a function of some other variable?
+
+19
+00:01:39,960 --> 00:01:42,980
+So that's what interactions are all about.
+
+20
+00:01:44,090 --> 00:01:53,420
+I was on a call this morning with some colleagues who are writing a chapter about gun violence, but it's a public health approach to gun violence.
+
+21
+00:01:53,780 --> 00:02:00,320
+And the reason why I like today, this week is when you start thinking about the way we approach problems in public health,
+
+22
+00:02:00,620 --> 00:02:05,600
+it's rarely a straightforward bivariate relationship or even a multivariate relationship.
+
+23
+00:02:05,630 --> 00:02:13,910
+We're usually looking for some sort of nuance and some sort of mechanism through which we think there is some sort of cause and effect relationship,
+
+24
+00:02:13,910 --> 00:02:17,059
+right, for interactions. These are our interventions.
+
+25
+00:02:17,060 --> 00:02:23,570
+How does our intervention change associations between, for example, risk factors and our outcome variables?
+
+26
+00:02:23,900 --> 00:02:28,580
+This is how we're going to test right is rarer than some of the work that we do in
+
+27
+00:02:28,580 --> 00:02:33,350
+public health can be boiled down to kind of your simple multiple regression equation.
+
+28
+00:02:33,350 --> 00:02:37,969
+So and then when we get into mediation later on in the semester where we start talking about some of
+
+29
+00:02:37,970 --> 00:02:42,740
+those intervening variables and how we can first manipulate those which then turn into the outcome,
+
+30
+00:02:43,130 --> 00:02:46,220
+then that's some of the exciting stuff that feels like public health,
+
+31
+00:02:46,490 --> 00:02:50,569
+that feels like where we want to be moving on, especially as our modeling gets more complex.
+
+32
+00:02:50,570 --> 00:02:56,020
+So that's this week. I should have had this slide up while I was talking through some of those things.
+
+33
+00:02:56,780 --> 00:03:04,670
+This is less in concert, but then just transpose these to like, oh know.
+
+34
+00:03:05,330 --> 00:03:12,410
+Oh, that's right. So this is really the only point of this slide is to say that when I think about nonlinear regression,
+
+35
+00:03:12,650 --> 00:03:16,440
+you can absolutely model things like kind of polynomials.
+
+36
+00:03:16,440 --> 00:03:20,749
+So think about what your quadratic curves and stuff like that. We're not going to cover that so much this week.
+
+37
+00:03:20,750 --> 00:03:23,389
+We're going to do that when we get into growth modeling later on,
+
+38
+00:03:23,390 --> 00:03:30,410
+because that's one of our standard kind of polynomials that we're looking for in when we're trying to model change over time,
+
+39
+00:03:30,590 --> 00:03:33,770
+we're really going to be focusing on interaction terms.
+
+40
+00:03:34,130 --> 00:03:37,820
+So this is an actually I'm asking you to tell me what interaction terms are for,
+
+41
+00:03:38,420 --> 00:03:44,450
+but that's where our focus is going to be this week and then come week, whatever it's going to be later on in November.
+
+42
+00:03:44,660 --> 00:03:50,600
+And we get into modeling change over time, that's going to be a great place to introduce nonlinear change.
+
+43
+00:03:50,600 --> 00:03:56,839
+So that's relevant. But first today, we're going to let's see here, what are we going to do?
+
+44
+00:03:56,840 --> 00:04:03,950
+We're going to recap a couple of ideas. We had some questions around missing data last week that just were kind of naturally popping up.
+
+45
+00:04:04,280 --> 00:04:05,780
+So I want to spend a little bit of time.
+
+46
+00:04:05,990 --> 00:04:13,370
+We can either do this first or second, going through some missing data examples, and then finally we'll get into interaction terms.
+
+47
+00:04:13,370 --> 00:04:18,620
+And so the order of this, I think, is going to be contingent on how folks are feeling about the content from this week.
+
+48
+00:04:19,010 --> 00:04:24,860
+So I'm asking you to be very honest with me about whether you watched the video and whether you have questions about interaction terms,
+
+49
+00:04:25,580 --> 00:04:30,140
+because these are complex. If it wasn't just like an automatic deal, yeah, I get this.
+
+50
+00:04:30,420 --> 00:04:34,340
+Don't feel bad. It takes a long time to really kind of understand what's happening behind the scenes.
+
+51
+00:04:34,850 --> 00:04:40,460
+So that's kind of where we are. Questions so far.
+
+52
+00:04:44,220 --> 00:04:48,030
+Before I get started with our recap of questions from the weekend's content.
+
+53
+00:04:48,390 --> 00:04:52,590
+The readings are going to videos. I was them up here.
+
+54
+00:04:52,590 --> 00:04:55,860
+I won't answer them right. Right now. They're just so you that I touch on.
+
+55
+00:04:58,980 --> 00:05:02,490
+Then we watch the videos and how are we watching the video game or.
+
+56
+00:05:03,390 --> 00:05:07,080
+Yeah, that's a pretty general question.
+
+57
+00:05:07,650 --> 00:05:14,490
+Talking about interaction terms, is that only like the moderator for others?
+
+58
+00:05:15,230 --> 00:05:29,670
+Okay. There's.
+
+59
+00:05:42,070 --> 00:05:43,730
+Just one question I'll ask again.
+
+60
+00:05:44,360 --> 00:05:50,569
+I think you sort of talked about it in the video, but also when you're looking at clients and looking at their lines,
+
+61
+00:05:50,570 --> 00:05:55,610
+whether they're parallel or not, and there's you mentioned figuring it out.
+
+62
+00:05:57,290 --> 00:06:02,990
+And mathematically, if there's actually an issue versus trying to figure out if there's pricing at some point.
+
+63
+00:06:03,140 --> 00:06:09,620
+Mm hmm. Okay. Yes.
+
+64
+00:06:13,410 --> 00:06:19,629
+I need. I need a reminder of, like what? Depending on the type of there you have variability.
+
+65
+00:06:19,630 --> 00:06:25,240
+You have what functions you're using. Like whether there's a factor when it's.
+
+66
+00:06:28,860 --> 00:06:36,179
+This is a problem. I forget what part of the neighborhood. So they're not necessarily functions.
+
+67
+00:06:36,180 --> 00:06:41,040
+But right now, depending on what type of variable you have variable classes.
+
+68
+00:06:41,040 --> 00:06:52,259
+Okay. You know what? There are a couple of times you had to change how we were telling Arthur, but I'll tell you what that was.
+
+69
+00:06:52,260 --> 00:06:57,980
+That also when we were talking about like simple slopes and we kind of broke down a factor five levels, maybe.
+
+70
+00:06:58,040 --> 00:07:01,980
+Maybe. That's all right. Okay, we'll see what else.
+
+71
+00:07:04,340 --> 00:07:08,290
+This is only so. I remember. I feel pretty shattered out now.
+
+72
+00:07:08,560 --> 00:07:17,040
+And. Good. Some do this here.
+
+73
+00:07:17,560 --> 00:07:22,680
+I know. What better way to enthusiasm than to talk about regression assumptions?
+
+74
+00:07:24,930 --> 00:07:29,040
+Where the plot. There's a promised plot. What's wrong with what?
+
+75
+00:07:31,700 --> 00:07:45,180
+This is a residual plot. At this point, we're like the mountain lions.
+
+76
+00:07:46,020 --> 00:07:49,680
+I like the first term. Yeah. What's wrong with the variability here?
+
+77
+00:07:52,040 --> 00:07:55,520
+Quite far away. Where is it? Quite far off.
+
+78
+00:08:01,920 --> 00:08:10,500
+Towards the end, you know. But then what about over here? And not that far off, is it?
+
+79
+00:08:10,960 --> 00:08:14,160
+Well, it is. What we have is we have a little bit of variability.
+
+80
+00:08:14,160 --> 00:08:17,210
+A little bit. A little. A little bit more. A little bit more. A little bit more. A little bit more a little bit more.
+
+81
+00:08:17,230 --> 00:08:20,760
+The the more what a violation are we know or we examined here.
+
+82
+00:08:20,790 --> 00:08:24,480
+Where are we noticing here? Okay.
+
+83
+00:08:26,370 --> 00:08:34,740
+This is Pedro's. Good answer. Yes. I mean, this is a header is going to ask, why do we have a violation of our homogeneity of variance?
+
+84
+00:08:34,800 --> 00:08:40,620
+Right. So we as we are assuming in a perfect world that across all values of our X variable,
+
+85
+00:08:40,890 --> 00:08:45,930
+these kind of residuals should be more or less even across the whole range of X.
+
+86
+00:08:46,500 --> 00:08:50,670
+There is a fairly clear funneling that's happening here as we go from right to left.
+
+87
+00:08:50,970 --> 00:08:52,170
+And that's a that's a problem.
+
+88
+00:08:52,170 --> 00:08:59,010
+This probably means that we have a lot more precision with our measurement on this side relative to many fewer observations there.
+
+89
+00:08:59,280 --> 00:09:05,220
+Or there could be some factor that just kind of keeps people all kind of saying the same thing about your variable here,
+
+90
+00:09:05,730 --> 00:09:08,400
+but then have a lot of variability towards the higher end of the scale.
+
+91
+00:09:08,670 --> 00:09:13,350
+And so it's difficult to necessarily just pinpoint it with that, just looking at a residual flow.
+
+92
+00:09:13,710 --> 00:09:23,760
+But there is something that we need to account for here in terms of that the variance that we see in the residuals you probably saw
+
+93
+00:09:23,770 --> 00:09:30,990
+in the data there is there's often like kind of a cut off and it looks like there's just a like a line kind of a slanted line.
+
+94
+00:09:31,680 --> 00:09:38,850
+And that's because we use scales that people will just say the lowest value to everything, kind of anchor on one end of the scale.
+
+95
+00:09:39,510 --> 00:09:46,380
+And so there are there's a lot of there's there's not as much variability down here by the zero and by the ones like a low and nzd.
+
+96
+00:09:46,650 --> 00:09:51,830
+But then when you get up to the signs of anxiety or whatever, you see a little bit more variability.
+
+97
+00:09:53,070 --> 00:09:56,340
+Just the basic questions about this.
+
+98
+00:09:58,260 --> 00:10:01,750
+Not as easy to see in empirically.
+
+99
+00:10:02,050 --> 00:10:08,690
+We you can use the 11 means tested we need to but it's going to force you to have some sort of factor variable.
+
+100
+00:10:08,700 --> 00:10:14,490
+Most of our predictor variables are continuous and so that just has maybe a little bit more limited utility.
+
+101
+00:10:14,820 --> 00:10:18,720
+So we can use plots to just to see if we think this is going to be an issue.
+
+102
+00:10:20,960 --> 00:10:27,870
+Uh, let's hear also from last week. Um.
+
+103
+00:10:28,060 --> 00:10:32,340
+Folks were testing, asking me about when and how you needed to plot.
+
+104
+00:10:32,560 --> 00:10:36,970
+Every single predictor, variable or run test for every single predictor variable.
+
+105
+00:10:37,510 --> 00:10:40,930
+I don't think it's the worst thing in the world to do that by very low level.
+
+106
+00:10:41,170 --> 00:10:46,900
+But really what we're talking about is the residuals after you're running your final model.
+
+107
+00:10:46,910 --> 00:10:52,690
+So when you have that, you know that model three, you think it's better than model two and one.
+
+108
+00:10:52,960 --> 00:10:58,750
+That's when I'll typically do a more intensive examination of those residuals to make sure that my preferred model,
+
+109
+00:10:58,750 --> 00:11:04,720
+based on my change in R squared or based on the coefficients or whatever, is the model that I want to move forward with.
+
+110
+00:11:05,050 --> 00:11:08,050
+Now, let me check some of those assumptions and make sure that it's still compelling.
+
+111
+00:11:08,890 --> 00:11:15,610
+You know, if you have all the time in the world, maybe you're still building your small one check residuals right now to send back to the Model three.
+
+112
+00:11:16,180 --> 00:11:23,680
+But in practice, I typically look at the N1 and that reminds me, I will get your video about the homework and even moving forward.
+
+113
+00:11:24,310 --> 00:11:28,990
+My Camtasia broke so I had to get a new license, but I have it now, so I should go make that video.
+
+114
+00:11:30,670 --> 00:11:32,140
+Questions about this, I mean,
+
+115
+00:11:32,430 --> 00:11:42,220
+this really is more your kind of decision about how much word you want to put into these examinations and how much you want to do it by variable.
+
+116
+00:11:42,520 --> 00:11:50,290
+I will say that sometimes it's a little easier to pick out errors or flaws or problems when you have just one or two variables in your model.
+
+117
+00:11:50,710 --> 00:11:55,570
+The more you have, the more likely things are to be kind of masked or confounded by other variables.
+
+118
+00:11:56,110 --> 00:12:00,520
+So it's a little harder to tease out which of these variables is starting to, you know,
+
+119
+00:12:00,610 --> 00:12:06,489
+mock up my model fit or the residuals are starting to wear out of alignment or something like that.
+
+120
+00:12:06,490 --> 00:12:12,100
+So you can think about kind of like stepwise either addition or deletion approaches.
+
+121
+00:12:12,400 --> 00:12:17,380
+So one variable at a time as you're, as you're making your new models or subtracting one variable at a time.
+
+122
+00:12:17,650 --> 00:12:24,550
+And so you get to a model that you feel doesn't have, you know, issues with some of the assumptions or something like that.
+
+123
+00:12:28,550 --> 00:12:34,170
+Question. All right.
+
+124
+00:12:35,590 --> 00:12:38,040
+Now we're going to show our shift for you today.
+
+125
+00:12:38,670 --> 00:12:46,290
+Uh, tell me, why are meaningful zero values for predictor variables really important when we want to create these interaction terms?
+
+126
+00:12:51,980 --> 00:13:01,250
+You need that kind of anger. So when we're using interesting variables, we're no longer able to say a direct association.
+
+127
+00:13:01,280 --> 00:13:06,430
+So by scaling your. It's like giving meaning to zero so we can.
+
+128
+00:13:09,170 --> 00:13:13,450
+So. Relationship assessment. Yeah.
+
+129
+00:13:13,590 --> 00:13:23,520
+I mean, essentially, this is there are there to interpret what I'll call the conditional manifests.
+
+130
+00:13:24,060 --> 00:13:31,320
+So when we run our standard regression equations and it's just a bunch of predictor variables predict, I know an outcome variable.
+
+131
+00:13:31,650 --> 00:13:35,060
+Those are what we call kind of main effects, the main effect of sex,
+
+132
+00:13:35,130 --> 00:13:46,440
+the main effect of reducing the effect of at a future orientation and the average effect across everybody has future orientation related to anxiety,
+
+133
+00:13:46,860 --> 00:13:50,130
+holding everything else constant. Okay, main effect.
+
+134
+00:13:51,990 --> 00:13:59,940
+When we have an interaction term, we have our interaction term that is literally that multiplication of two variables.
+
+135
+00:14:00,210 --> 00:14:07,230
+Right? And then we have those variables by themselves also in the model.
+
+136
+00:14:08,070 --> 00:14:18,540
+So I figure with my the examples would be here for generic, but if we had it was like feature orientation, interacting with sex,
+
+137
+00:14:18,990 --> 00:14:25,680
+predicting anxiety, we would have an interaction term that would include the multiplication of sex and teacher orientation.
+
+138
+00:14:26,130 --> 00:14:32,970
+But then typically standard practice is to also include determination by itself and sex by itself.
+
+139
+00:14:33,540 --> 00:14:42,780
+Those are what I call conditional main effects. When anything is, when you have a meaningful zero value for either of both or both of those terms,
+
+140
+00:14:43,260 --> 00:14:50,040
+you can find instances at certain levels of one variable where the interaction term will reduce out to zero.
+
+141
+00:14:50,670 --> 00:14:54,300
+Basically, anytime you multiply something by zero, you get a zero, right?
+
+142
+00:14:55,260 --> 00:15:02,490
+That leaves an interpretable, conditional main effect in your model that you can talk about in relation to the outcome variable.
+
+143
+00:15:02,820 --> 00:15:07,530
+And I'll give you an example of that, but this is why it's important. It's a little bit like The Intercept.
+
+144
+00:15:08,040 --> 00:15:13,679
+We're trying to get to a certain level of interpretability, and we can do that when,
+
+145
+00:15:13,680 --> 00:15:18,180
+for example, our energy interaction terms have a meaningful zero, right?
+
+146
+00:15:19,110 --> 00:15:24,480
+So we are either going to use factor variables which will have a zero value because of the domain coding.
+
+147
+00:15:24,810 --> 00:15:31,580
+Or we can think about the scaling of our continuous variables.
+
+148
+00:15:32,250 --> 00:15:39,240
+So we can do things like centering a variable so that when we talk about a meaningful value of a centered variable, that's the mean.
+
+149
+00:15:39,570 --> 00:15:43,920
+For example, the mean in future edition course.
+
+150
+00:15:43,920 --> 00:15:51,540
+Remember that from the value of my position, we'll spend a little bit of time today,
+
+151
+00:15:51,540 --> 00:15:58,319
+but that's sure to try to just kind of keep that in your head that it's really about interpretability we're trying to make forward,
+
+152
+00:15:58,320 --> 00:16:03,930
+you know, that equation, I don't know. I use into the equations too often we're trying to find situations where it's helpful
+
+153
+00:16:03,930 --> 00:16:10,320
+to have one of those values be zero and factor variables actually make for nice,
+
+154
+00:16:11,130 --> 00:16:16,290
+nice examples of that. Interactions and mediation each require three more variables.
+
+155
+00:16:16,290 --> 00:16:23,040
+What is the difference between the two approaches? Don't.
+
+156
+00:16:26,090 --> 00:16:38,300
+I remember mediation is like the causal link that shows acts, causes the moderator and which causes why the mediator.
+
+157
+00:16:38,330 --> 00:16:42,819
+When you go to the right, yeah. So usually, I mean, is that kind of an interface?
+
+158
+00:16:42,820 --> 00:16:45,380
+The example is something like this.
+
+159
+00:16:47,960 --> 00:16:58,490
+You know, and interaction is like two variables that causing one and I'm not sure if they look different from that.
+
+160
+00:16:59,060 --> 00:17:02,060
+Yeah. Want to help. I mean.
+
+161
+00:17:05,790 --> 00:17:17,529
+I can't see to somebody to answer. So I think the difference is that in the second one interactions X has a relationship with
+
+162
+00:17:17,530 --> 00:17:22,300
+Y and the interaction has some effect on that and the [INAUDIBLE] that's already there.
+
+163
+00:17:22,570 --> 00:17:26,440
+Exactly. So in this case, with an invasive mediation,
+
+164
+00:17:26,440 --> 00:17:35,280
+as the ways that are variable is first changing or explaining variability and or mediating variable, which in turn affects the outcome here.
+
+165
+00:17:36,210 --> 00:17:41,200
+Right. So in order to effect y, x is first doing something to M.
+
+166
+00:17:41,230 --> 00:17:44,050
+It is very much in this kind of causal framework.
+
+167
+00:17:44,440 --> 00:17:52,839
+There is a flow to the effect here and you can decide whether or not there's still kind of what they call a direct effect and versus indirect effect.
+
+168
+00:17:52,840 --> 00:17:56,680
+And what is the kind of relative proportion of indirect versus direct?
+
+169
+00:17:57,670 --> 00:18:06,550
+It's quite a set in moderation. The third variable is affecting the association or the relationship between X and Y.
+
+170
+00:18:06,970 --> 00:18:12,250
+So it changes the strength or direction of the relationship between these two variables.
+
+171
+00:18:12,580 --> 00:18:21,260
+It makes it stronger. And I said weaker or it changes by some level of this third or fourth sign or something.
+
+172
+00:18:21,260 --> 00:18:29,350
+My definitions are very might be so different sort of mechanisms operating there, different sorts of questions typically.
+
+173
+00:18:30,730 --> 00:18:39,760
+Again, our interventions, our moderators, right, we provide some additional training or curriculum or we expose people to some positive thing.
+
+174
+00:18:40,120 --> 00:18:44,410
+It changes to the strength of the relationship between the risk factor and the outcome there.
+
+175
+00:18:45,310 --> 00:18:52,630
+Right. The there's less anxiety and substance use.
+
+176
+00:18:52,900 --> 00:19:01,389
+Right. Anxiety predicts substance use. Well, we have some substance use intervention, perhaps that changes the relationship between the two or,
+
+177
+00:19:01,390 --> 00:19:08,500
+I don't know, future orientation intervention. Right. So the future orientation intervention is designed to change the risk their relationship,
+
+178
+00:19:08,500 --> 00:19:15,159
+those who are exposed to intervention, their relationship between substance use and anxiety and substance use actually.
+
+179
+00:19:15,160 --> 00:19:20,889
+Right. So if we attenuate something by trying to introduce people to thinking about the
+
+180
+00:19:20,890 --> 00:19:26,950
+future perspective and versus our intervention is rarely going to be a mediator.
+
+181
+00:19:27,490 --> 00:19:31,300
+People don't change or intervention, which then in turn changes are often variable.
+
+182
+00:19:31,570 --> 00:19:34,900
+Right. This is usually more kind of mechanistic descriptive.
+
+183
+00:19:35,350 --> 00:19:39,910
+I'm trying to describe some, some pathway through which people's behavior changes.
+
+184
+00:19:41,430 --> 00:19:49,030
+Uh, intervention changes.
+
+185
+00:19:49,030 --> 00:19:58,929
+Your belief that you can do a behavior which changes the behavior and maybe wants to shout out their own intervention?
+
+186
+00:19:58,930 --> 00:20:01,960
+That became quite a bit about this.
+
+187
+00:20:06,610 --> 00:20:11,320
+Yeah. So when we're doing our analysis.
+
+188
+00:20:12,250 --> 00:20:18,850
+Are we also running for office or are we?
+
+189
+00:20:21,470 --> 00:20:24,620
+Trying to assume that our intervention isn't the moderator.
+
+190
+00:20:26,510 --> 00:20:32,780
+So it's a great question and it comes down to how you're trying to conceptualize in your model, how you think things are related to each other.
+
+191
+00:20:32,780 --> 00:20:40,610
+I guess the last visit, the last model that I can put in here is what is really more of your kind of standard regression model.
+
+192
+00:20:44,000 --> 00:20:47,030
+So I'll just say this is either kind of a control or confounding variable.
+
+193
+00:20:47,690 --> 00:20:53,780
+Yeah, you're exhalation is breaking y and then you have these other variables that are kind of ability to access.
+
+194
+00:20:53,780 --> 00:20:57,080
+They're independent, but we also know that they affect the outcome variable.
+
+195
+00:20:57,530 --> 00:21:03,800
+So what we're trying to figure out is what's my relationship between X and Y after kind of controlling for or accounting for this variable?
+
+196
+00:21:04,220 --> 00:21:07,580
+So you have four variables that you want to include in your model.
+
+197
+00:21:08,090 --> 00:21:13,070
+How they kind of map on to these different examples is entirely up to you.
+
+198
+00:21:13,820 --> 00:21:15,440
+You can, believe it or not,
+
+199
+00:21:15,890 --> 00:21:22,190
+test indirect effects in every single one of the regression models that we ran this semester that has more than two thirds if you want it.
+
+200
+00:21:22,790 --> 00:21:28,849
+There's a big assumption there, right, that your one variable first explains variability in another variable,
+
+201
+00:21:28,850 --> 00:21:32,200
+which then in turn explains the outcome variable. But it can still be calculated.
+
+202
+00:21:32,810 --> 00:21:40,940
+Similarly, as you find out from video, you can create all kinds of crazy interactions true variable three variable for variable interactions.
+
+203
+00:21:41,740 --> 00:21:48,200
+And it really comes down to what can you justify? I mean, this is a supposed to be a model that kind of predicts frame rate.
+
+204
+00:21:48,200 --> 00:21:51,980
+This is a mathematical tool to represent the data or the reality that we see.
+
+205
+00:21:52,970 --> 00:21:53,900
+How are you going to do that?
+
+206
+00:21:53,900 --> 00:22:04,340
+How are you going to explain or justify why you feel that participant shoes should interact with height and therefore predict substance use?
+
+207
+00:22:05,520 --> 00:22:07,520
+I don't know what data is available to you.
+
+208
+00:22:07,530 --> 00:22:14,510
+I mean, there's lots of stuff in our data sets that could or could not be operationalized through these different forms of models.
+
+209
+00:22:17,160 --> 00:22:20,160
+Multiple regression interaction. Moderation, mediation.
+
+210
+00:22:29,980 --> 00:22:33,220
+Am I the only one who thinks this is really exciting stuff?
+
+211
+00:22:34,810 --> 00:22:42,680
+As her said her. Can we go?
+
+212
+00:22:42,680 --> 00:22:47,200
+Let's do interactions first and then. Well, then we can spend some time with missing the.
+
+213
+00:22:47,780 --> 00:22:50,930
+Okay. I want to make sure that folks are okay with that.
+
+214
+00:22:51,680 --> 00:22:58,760
+There there is. And it is kind of I have just it's a script file that I put on canvas and it's I mean, we can.
+
+215
+00:22:59,070 --> 00:23:01,880
+It's it is kind of like kind of walk us through just a couple of examples.
+
+216
+00:23:02,420 --> 00:23:06,959
+But if you want to make sure that folks are comfortable with this, this pops up with the residuals.
+
+217
+00:23:06,960 --> 00:23:15,320
+Their friends should do the same, which means they are wi fi. But the in particular, if you were trying to save files at different lengths,
+
+218
+00:23:15,890 --> 00:23:19,700
+this is one of the reasons why I want folks to understand how we handle missing data.
+
+219
+00:23:20,250 --> 00:23:22,880
+And it's good to know anyways. But. All right.
+
+220
+00:23:22,910 --> 00:23:28,490
+But let's go and let's try to spend some time in our interactions here, and then we can return to that example testing interactions.
+
+221
+00:23:30,590 --> 00:23:34,580
+This is the way that I like to do it. Doesn't mean this is the way you have to do it.
+
+222
+00:23:34,970 --> 00:23:37,010
+But what I like this.
+
+223
+00:23:37,160 --> 00:23:45,080
+I kind of start with anytime that I have some data, even if I know in my head I'm ultimately going to get to something that looks like this.
+
+224
+00:23:45,620 --> 00:23:49,490
+I'm still going to spend some time mucking around with my binary data.
+
+225
+00:23:49,940 --> 00:23:56,509
+I just think it's a good idea. Why? Because you're going to see what the relationships between your outcome variable and each of your
+
+226
+00:23:56,510 --> 00:24:00,800
+independent variables is going to be when there are just two things that we got to worry about.
+
+227
+00:24:01,370 --> 00:24:12,340
+I think this is good because as soon as you start creating multiplicative terms, you can lose some of that kind of kind of guiding light.
+
+228
+00:24:12,350 --> 00:24:19,310
+If you know that there is a strong positive correlation between what are your independent variables and your dependent variable,
+
+229
+00:24:19,610 --> 00:24:23,840
+and then all of a sudden you include some additional variables in your model or some interaction terms in your model.
+
+230
+00:24:24,110 --> 00:24:28,040
+And those signs start to flip or get much smaller or get much larger.
+
+231
+00:24:28,400 --> 00:24:34,670
+That does suggest that there's probably some interaction happening or could even indicate that there's some mediation or confounding happening.
+
+232
+00:24:35,360 --> 00:24:38,480
+So having a sense of where we are was just to.
+
+233
+00:24:38,900 --> 00:24:42,590
+Right. Just too can be helpful. Right.
+
+234
+00:24:44,030 --> 00:24:47,660
+Questions about model one or step one.
+
+235
+00:24:49,220 --> 00:24:55,280
+You know how to do step one if everyone feel comfortable generating a correlation matrix at this point.
+
+236
+00:24:58,700 --> 00:25:02,089
+Okay. Make a note if you don't see Justin.
+
+237
+00:25:02,090 --> 00:25:08,180
+I know Justin. I'm not quite sure I'm comfortable running correlation making to this point.
+
+238
+00:25:08,450 --> 00:25:17,510
+When we go over step two now we're going to move out of the boat over by the end zone and into kind of a multiple regression.
+
+239
+00:25:18,200 --> 00:25:21,230
+I call this main effects. Average effects.
+
+240
+00:25:21,560 --> 00:25:27,470
+Main effects model. These are all the predictor variables, all the independent variables by themselves.
+
+241
+00:25:28,340 --> 00:25:33,710
+This allows us to run a model like this where we get to say something like, you know, you didn't change an X.
+
+242
+00:25:34,280 --> 00:25:45,770
+Controlling for all these other things is associated with a beta coefficient change in or this is what we did two weeks ago or last week.
+
+243
+00:25:47,030 --> 00:25:54,979
+I think, yeah, you did the midterm for three weeks.
+
+244
+00:25:54,980 --> 00:25:58,280
+Two weeks? So how we do it? All right.
+
+245
+00:25:59,510 --> 00:26:05,090
+No problems. No problem. No problems. The next, we now introduce our interaction term.
+
+246
+00:26:06,060 --> 00:26:14,120
+You watch the video. This is incredibly easy to do in our software, which is a it's a positive thing.
+
+247
+00:26:14,120 --> 00:26:17,120
+And it can also be a little bit of a negative thing when it's too easy,
+
+248
+00:26:17,120 --> 00:26:21,890
+when it's just when you can start throwing around too many interaction terms really quickly.
+
+249
+00:26:22,580 --> 00:26:25,520
+We can lose sight of what the question is that we're really trying to answer.
+
+250
+00:26:26,000 --> 00:26:32,989
+So I would not suggest adding interaction terms unless you have a pretty good reason to believe that there's something about one
+
+251
+00:26:32,990 --> 00:26:41,240
+of our third variables that should change the strength and the direction of the relationship between X and the outcome variable.
+
+252
+00:26:44,660 --> 00:26:48,920
+Then we just revert back to week five, whichever model for the assumptions.
+
+253
+00:26:49,490 --> 00:26:52,960
+That's not going to change with our interaction model, right?
+
+254
+00:26:53,000 --> 00:26:56,180
+Especially with the kind of interaction models that we typically run which are still
+
+255
+00:26:56,180 --> 00:27:01,160
+assuming linear relationships at different levels of our moderating variable.
+
+256
+00:27:01,940 --> 00:27:06,110
+And the outcome variables are the very good.
+
+257
+00:27:06,890 --> 00:27:11,720
+So whether we're talking about a number one, two, three of this moderating variable,
+
+258
+00:27:12,410 --> 00:27:16,430
+we still assume that there is a linear association between X and Y.
+
+259
+00:27:19,070 --> 00:27:23,570
+So there are some basic assumptions that we covered last week that still pertain here.
+
+260
+00:27:25,670 --> 00:27:33,960
+Finally, if we do have a significant interaction, we are going to take a look at where that interaction is sort of happening.
+
+261
+00:27:33,980 --> 00:27:38,930
+And that's this kind of simple slopes idea. So we know that there is a significant interaction.
+
+262
+00:27:38,930 --> 00:27:43,820
+Ah, our multiplicative term has some stars by p value, less than point of fact.
+
+263
+00:27:44,360 --> 00:27:52,670
+All right. Now let's break down this moderating variable and check out what this association looks like at different levels.
+
+264
+00:27:53,570 --> 00:27:55,010
+That's what I mean when I say simple.
+
+265
+00:27:55,010 --> 00:28:02,810
+So you're now taking different levels of a moderating variable and looking at the exact same association across those different levels.
+
+266
+00:28:04,400 --> 00:28:07,580
+And there's going to be some nice visuals of that, too.
+
+267
+00:28:08,090 --> 00:28:09,710
+But those are the five steps.
+
+268
+00:28:10,130 --> 00:28:17,000
+If I ask you to do this in your homework assignment, if I ask you to do this in the in the midterm, I would expect something similar to this.
+
+269
+00:28:18,170 --> 00:28:22,880
+At the very least, you're running in this, then this.
+
+270
+00:28:25,820 --> 00:28:31,610
+You should listen, but and then definitely get the main effect model.
+
+271
+00:28:31,670 --> 00:28:36,470
+So that's the equation. Without the interaction term, what does it look like when you have the interaction term?
+
+272
+00:28:36,740 --> 00:28:44,280
+And then assuming this is significant, let's look a little bit deeper into that interaction and then studious work.
+
+273
+00:28:46,070 --> 00:28:54,050
+All right. If you leave today remembering nothing else, this is the slide I want you to remember.
+
+274
+00:28:54,320 --> 00:29:02,270
+And I'm sorry. It has to be an equation slide, but all it's doing is kind of breaking down an interaction equation.
+
+275
+00:29:03,290 --> 00:29:09,830
+Right? So this is our intercept x1x2x1 times two folks.
+
+276
+00:29:10,100 --> 00:29:14,240
+Okay, you recognize this now? Is is moderation interaction synonymous?
+
+277
+00:29:14,420 --> 00:29:16,730
+Same thing. Good.
+
+278
+00:29:18,200 --> 00:29:29,630
+All we're doing here is reorganizing a little bit to kind of show or use the language so that we can talk about when we have a third variable,
+
+279
+00:29:30,110 --> 00:29:35,210
+how it changes the strength or direction of the association between X and Y.
+
+280
+00:29:35,240 --> 00:29:41,390
+Like I said, okay, I kind of pick out one variable.
+
+281
+00:29:41,480 --> 00:29:45,410
+One manages to like this to be the moderator, right?
+
+282
+00:29:45,410 --> 00:29:57,770
+The one that I'm going to talk about. So which one of X or x one or x two is going to be kind of my focal variable that changes the relationship?
+
+283
+00:29:58,670 --> 00:30:05,930
+And the reason why that's important is because we can use kind of a reorganization of terms.
+
+284
+00:30:07,810 --> 00:30:11,990
+All right. We're just taking the equation of book and changing it down here.
+
+285
+00:30:12,660 --> 00:30:24,170
+What I want you to focus on is this piece. They want times next month that they don't want.
+
+286
+00:30:24,190 --> 00:30:27,190
+Is the effect of X on the outcome here?
+
+287
+00:30:27,640 --> 00:30:33,120
+Right. There's nothing that. Right.
+
+288
+00:30:33,840 --> 00:30:39,749
+Okay. And then just just the reason why this is important is because we've now shifted things.
+
+289
+00:30:39,750 --> 00:30:44,430
+We're inside this bracket that becomes a new baby.
+
+290
+00:30:44,670 --> 00:30:52,380
+That becomes a new effect. What we've done here is we've combined information from Beta one.
+
+291
+00:30:54,450 --> 00:30:58,560
+We've added the effect from the interaction term.
+
+292
+00:31:00,480 --> 00:31:06,900
+Okay. Is there three? You really add that here.
+
+293
+00:31:08,190 --> 00:31:11,340
+We've factored out our drawing.
+
+294
+00:31:12,030 --> 00:31:20,070
+We factored out the experience. The reason why this is really, really important and why I want you to remember this slide,
+
+295
+00:31:21,060 --> 00:31:27,960
+this chunk right here represents the effect of x one on our algebra.
+
+296
+00:31:32,260 --> 00:31:36,380
+What's different about this data?
+
+297
+00:31:36,430 --> 00:31:40,299
+One, the effect of a vaccine Y versus this.
+
+298
+00:31:40,300 --> 00:31:41,620
+Now, with the interaction term,
+
+299
+00:31:43,060 --> 00:31:58,930
+what's inside this bracket varies as a function of X to depending on X to what's inside this bracket gets bigger or smaller,
+
+300
+00:32:01,270 --> 00:32:04,330
+depending on whether this gets bigger or smaller.
+
+301
+00:32:04,870 --> 00:32:09,080
+The effect of X on our outcome variable changes.
+
+302
+00:32:10,060 --> 00:32:22,030
+That's the essence of moderation. And that's what I need you to have to remember that the effect of X and Y changes as a combination of itself,
+
+303
+00:32:22,690 --> 00:32:26,590
+as well as that second variable, that moderating variance.
+
+304
+00:32:28,450 --> 00:32:32,860
+And if that's true, believe or not, it's reduced down to a couple of numbers here.
+
+305
+00:32:33,130 --> 00:32:36,650
+But that's huge. That is huge.
+
+306
+00:32:36,670 --> 00:32:45,370
+Think about the variables in your world that matter and imagine that the effect of, for example, your program.
+
+307
+00:32:46,780 --> 00:32:54,460
+Right? My program's effect on y. Imagine if that varies by some function of another variable.
+
+308
+00:32:56,650 --> 00:33:05,799
+Who is it? Who attends my program? Some of the conditions that my program is operating in right are policies that are in place,
+
+309
+00:33:05,800 --> 00:33:13,360
+are not in place, all of which could have a major effect on how well my program predicts myself.
+
+310
+00:33:13,360 --> 00:33:16,600
+And that's the strength of interactions.
+
+311
+00:33:16,900 --> 00:33:23,860
+We can test some of those more nuanced relationships, and that's public healthy stuff that's go blue.
+
+312
+00:33:23,890 --> 00:33:25,910
+I like this. Right.
+
+313
+00:33:25,990 --> 00:33:34,660
+We want to think about, you know, not instead of just holding other things constant, what is the interplay between my predictor variable,
+
+314
+00:33:34,660 --> 00:33:39,639
+my focal predictor and some third extraneous variable that I know is coming in and
+
+315
+00:33:39,640 --> 00:33:44,410
+having an effect on the strength or direction of my whatever I think I do is so,
+
+316
+00:33:44,410 --> 00:33:53,700
+so important. Right. So in this case, I've kind of pulled out ex to somewhat arbitrarily because it's all reciprocal, right?
+
+317
+00:33:53,710 --> 00:33:58,870
+So interaction term, they don't care. There's not really an order. So you could have done the same thing over here,
+
+318
+00:34:00,430 --> 00:34:09,610
+but I've kind of pulled out X as my focal moderator because the relationship between x one is changing and different levels of x two.
+
+319
+00:34:10,540 --> 00:34:17,620
+But we could have easily done this where x two is the kind of key for a variable that changes as a function of an x.
+
+320
+00:34:20,110 --> 00:34:29,110
+Now, I'm sorry to spend 3 minutes yelling at you about an equation, but I needed to just kind of hang with this slide for a second,
+
+321
+00:34:30,190 --> 00:34:35,620
+a minute or whatever people say, now let's just give it a second to let it kind of sink in.
+
+322
+00:34:35,620 --> 00:34:45,250
+But if you can, nothing else. Today you got this bracketed term that represents the effect of our predictor variable on the outcome and that effect,
+
+323
+00:34:45,910 --> 00:34:49,280
+that association, that relationship depends on some third.
+
+324
+00:34:51,820 --> 00:34:54,970
+Do me a favor. Go home tonight or this afternoon.
+
+325
+00:34:55,180 --> 00:34:59,440
+Find a buddy, find a friend, grandparent, parent, friend, whomever, and just try to explain.
+
+326
+00:34:59,450 --> 00:35:05,290
+This doesn't have to be in with equations, just in your own language,
+
+327
+00:35:05,530 --> 00:35:14,479
+what it means to have a moderated relationship and maybe even to try to insert some of the variables that you care about into these equations.
+
+328
+00:35:14,480 --> 00:35:23,320
+And you can say, Well, what's really happening here is my I'm really bad at coming up with examples on the fly that are not from like a pass.
+
+329
+00:35:23,950 --> 00:35:30,940
+If anybody wants to just shout out a couple of variables cold weather and sweaters.
+
+330
+00:35:34,930 --> 00:35:46,890
+The relationship between cold weather and the likelihood of wearing this way could vary as a function to your how much fairness and your hipster ness.
+
+331
+00:35:47,170 --> 00:35:54,700
+Hipster ness? Yes, sure. So low level hipster ness might change thoroughly.
+
+332
+00:35:54,700 --> 00:36:06,090
+I mean, the the likelihood that someone when it's on our list would flip because I like hipster ness predicting sweaters and hipsters burning sweater.
+
+333
+00:36:06,100 --> 00:36:10,330
+This might vary as a function of how cold it is outside, right?
+
+334
+00:36:10,780 --> 00:36:17,590
+So typically at low levels of cold, 32 degrees, it doesn't matter how much of you answer you are you trying to wear sweaters?
+
+335
+00:36:18,670 --> 00:36:29,200
+Come on, let's go. But as it starts to warm, we might expect those with maybe less hipsters to say, you know, I'll forget this sweater.
+
+336
+00:36:29,200 --> 00:36:31,530
+I'm going to go ahead and. Just stop working.
+
+337
+00:36:31,920 --> 00:36:36,150
+And we're not talking about the economy so completely variable, which is really weak, seven or eight, but that's okay.
+
+338
+00:36:37,890 --> 00:36:42,360
+But as we start to see more and more, as the heat starts to go up and up and up and up,
+
+339
+00:36:43,020 --> 00:36:49,760
+the fact that you have this desire to wear your sweater versus not those things are not independent of one another.
+
+340
+00:36:49,770 --> 00:36:54,960
+We think that there's something about one that's informing the other that that is kind of predicting our relationship.
+
+341
+00:36:56,760 --> 00:37:01,920
+Try to it sounds goofy, I know, but try to explain this to somebody outside of this room.
+
+342
+00:37:02,490 --> 00:37:08,310
+Try, if you can, to think through just the numbers, but then absolutely trying to talk through the variables as well,
+
+343
+00:37:08,820 --> 00:37:15,270
+because this is the interesting stuff and it doesn't have to just be the interact and hear the intervention if you're interested or you're moderate.
+
+344
+00:37:16,060 --> 00:37:21,850
+I use lots of stuff in my work that's not an intervention, but I'm still looking at that.
+
+345
+00:37:21,880 --> 00:37:24,630
+Doesn't get moderated relationships, right?
+
+346
+00:37:24,690 --> 00:37:33,420
+Demographic variables are all often, very often levels of stress levels or any levels of socioeconomic status, urban, rural, suburban, right?
+
+347
+00:37:33,630 --> 00:37:39,520
+All of those things could be impacting or interacting with other terms, right?
+
+348
+00:37:39,690 --> 00:37:44,760
+And you start to see that multiple levels we can think about multilevel interactions.
+
+349
+00:37:45,090 --> 00:37:51,450
+So grouping variables that interact in individual variables will use these things quite a bit in this class or.
+
+350
+00:37:54,060 --> 00:37:58,560
+Questions. All right.
+
+351
+00:37:59,070 --> 00:38:07,680
+So the rest of this, I think, was to try to walk through an example I have here, the relationship between depression and emotional support.
+
+352
+00:38:11,920 --> 00:38:26,410
+Is that top variable in the interaction and that tops this and says now you're in that top sense relationship between provision of support,
+
+353
+00:38:27,250 --> 00:38:30,590
+social support and depression. This is a direct relationship.
+
+354
+00:38:30,610 --> 00:38:35,499
+In this case, it's a binary relationship. Also doesn't hurt to start talking through something you see.
+
+355
+00:38:35,500 --> 00:38:41,680
+Sounds like this. How would I model this? Hmm. All right, so we think that there's a relationship between these two variables.
+
+356
+00:38:42,310 --> 00:38:54,010
+Now, all of a sudden, we want to see whether or not age and sex change the strength of the relationship between social support and depression.
+
+357
+00:38:54,790 --> 00:38:58,149
+We think that there is no we don't have a hypothesis here.
+
+358
+00:38:58,150 --> 00:39:01,389
+But what's your hypothesis? You watched the videos crunching.
+
+359
+00:39:01,390 --> 00:39:04,540
+That's okay. What's the relationship between sessions for depression?
+
+360
+00:39:06,910 --> 00:39:13,760
+Positive, negative, marginal. No right.
+
+361
+00:39:13,870 --> 00:39:16,480
+As your social support goes up, maybe your pressures goes down.
+
+362
+00:39:17,050 --> 00:39:23,950
+This cross-sectional data could be possible that folks that are at the heart have higher levels of preferences for social support.
+
+363
+00:39:23,980 --> 00:39:28,450
+I don't know. But I think the way that we're kind of setting this up is more social support, less depression.
+
+364
+00:39:29,260 --> 00:39:35,230
+But we want to know whether or not two demographic variables might change the strength or direction of that relationship.
+
+365
+00:39:35,830 --> 00:39:40,780
+All right. My so we're not to we're going to skip that first step, that correlation step,
+
+366
+00:39:40,780 --> 00:39:45,160
+but to jump right to this is what I call, again, that main effect model.
+
+367
+00:39:45,520 --> 00:39:50,530
+Main effect model has no interaction terms. We're just trying to figure out kind of what is the issue, if you will,
+
+368
+00:39:50,530 --> 00:39:56,380
+kind of a baseline of the associations between these variables and the outcome variable.
+
+369
+00:39:56,620 --> 00:39:59,830
+And I didn't say in the video, I apologize that we had to use this.
+
+370
+00:40:00,700 --> 00:40:05,590
+I could have used an example from a pre-fab dataset, and actually I think I have one later on.
+
+371
+00:40:06,230 --> 00:40:11,980
+There's always work when you try to run interaction terms in practice with actual data, a lot harder to make them work.
+
+372
+00:40:12,370 --> 00:40:18,879
+So the only way that I could make this work was to include this substance use variable not only included,
+
+373
+00:40:18,880 --> 00:40:24,940
+but included as basically ordinal variable, which is why you have like one, two, three, four, five, six coefficients here.
+
+374
+00:40:25,420 --> 00:40:33,430
+So the only reason why this is really in here is so that the interaction term would be significant, but we can still interpret this.
+
+375
+00:40:33,450 --> 00:40:42,610
+Everyone, just give me a quick rundown of what you find here, what's jeopardizing this output?
+
+376
+00:40:52,550 --> 00:41:05,280
+Once they're gone. And people. Nonetheless, the relationship between sex and a depression.
+
+377
+00:41:10,530 --> 00:41:27,650
+Depression. But we want it to end.
+
+378
+00:41:28,330 --> 00:41:33,890
+Okay, so it's. Positive.
+
+379
+00:41:34,110 --> 00:41:40,590
+Yeah. Well, what does that mean for a variable like sex is due to the two of us.
+
+380
+00:41:42,710 --> 00:41:49,560
+Also isn't female and male. Yep. I think that means.
+
+381
+00:41:52,510 --> 00:41:57,720
+You have higher levels of depression in the sample, males and females compared with that.
+
+382
+00:41:57,990 --> 00:42:02,520
+Who has higher levels of depression in the sample? Males are females. Female Yeah.
+
+383
+00:42:03,000 --> 00:42:06,360
+So this is what our positive coefficient says relative to our referent category.
+
+384
+00:42:06,360 --> 00:42:12,629
+Males right. Our curator coefficient says it's a positive 26 and this is significant.
+
+385
+00:42:12,630 --> 00:42:19,470
+So relative to our standard error, a one year change in sex in this case, which is just moving from male to female,
+
+386
+00:42:20,640 --> 00:42:26,210
+is associated with about a 0.26 predicted difference or change interaction variable.
+
+387
+00:42:26,670 --> 00:42:31,360
+Good with that given that yes or no, you're mid-terms in two weeks.
+
+388
+00:42:31,360 --> 00:42:41,880
+So yeah, that's not important in this case. That is in this case it would you would I guess interpreted slightly different because of the interaction.
+
+389
+00:42:42,210 --> 00:42:47,580
+Oh interesting. There's no interaction here. Oh there's no interaction here.
+
+390
+00:42:48,360 --> 00:42:51,659
+Oh I it now we'll get there.
+
+391
+00:42:51,660 --> 00:42:56,819
+We'll get there and you're right but this is a main effect models them all to actually run correlations I mean
+
+392
+00:42:56,820 --> 00:43:04,770
+effect model interaction model you're missing check your assumption you should you really should remember.
+
+393
+00:43:04,920 --> 00:43:05,160
+Yeah.
+
+394
+00:43:06,060 --> 00:43:20,280
+So just to clarify, this is looking at like the effects of age and depression and then controlling for rate sex and differences in social support.
+
+395
+00:43:20,490 --> 00:43:23,490
+Yeah. And all this is model regression.
+
+396
+00:43:23,490 --> 00:43:26,760
+This is reinforcement based. You got this down right graph.
+
+397
+00:43:26,760 --> 00:43:39,190
+Yeah. What does this model explain? How much variability. Have you figured out what that means for square feet?
+
+398
+00:43:39,670 --> 00:43:40,120
+That's correct.
+
+399
+00:43:40,630 --> 00:43:47,710
+Explain about 13% of the variability or if you want to be conservative, about 12% draw with the effect of social support on depression.
+
+400
+00:43:59,250 --> 00:44:02,670
+But for the soldiers who worked through the evacuation, surrender.
+
+401
+00:44:04,930 --> 00:44:09,080
+So the negative correlation to a negative. Yeah. How would you say that?
+
+402
+00:44:09,100 --> 00:44:19,959
+Kind of formally when it came that that's sort of where you change in social support.
+
+403
+00:44:19,960 --> 00:44:23,650
+We predict about a .13 decrease in your brain, your reported depression.
+
+404
+00:44:27,230 --> 00:44:31,910
+Questions about this and the appearance of seems really unfamiliar.
+
+405
+00:44:33,740 --> 00:44:39,740
+Aside from the substance use variable, which is just another way of thinking like an inner or a factor, right?
+
+406
+00:44:39,770 --> 00:44:44,660
+So any of these would be interpreted relative to our referent category, which is no use.
+
+407
+00:44:45,200 --> 00:44:48,290
+So I drink one or two times a week relative to overeating.
+
+408
+00:44:49,070 --> 00:44:51,770
+Depression goes up, depression goes up and one down.
+
+409
+00:44:52,820 --> 00:45:02,630
+So all of these enter all of these terms because this was an important variable that we read in and that already has a factor.
+
+410
+00:45:03,250 --> 00:45:10,160
+It's a random thinking of like 1364137. It's just these are six categories relative to their referent category.
+
+411
+00:45:11,600 --> 00:45:17,300
+And again, normally I would include in here. Here we have another factor variable and it's just three levels.
+
+412
+00:45:17,390 --> 00:45:25,350
+Is there a race variable? No differences in depression based on race. Questions about this?
+
+413
+00:45:26,650 --> 00:45:37,410
+Uh, yeah. So you said you included in those terms, you get a significant you know, it's just from down here.
+
+414
+00:45:37,510 --> 00:45:43,499
+Yes. Who would we ever run into situations where we wouldn't want to do that for a date?
+
+415
+00:45:43,500 --> 00:45:47,980
+Or is it something that you just like? You know, and it's it's not my thing.
+
+416
+00:45:48,120 --> 00:45:55,319
+Like, ideally, if if I if it took me, I would like like I would like to see an interaction with just the variable as it was.
+
+417
+00:45:55,320 --> 00:46:00,360
+I wanted to include substance use as a as you can control variable if your mind is changing
+
+418
+00:46:00,360 --> 00:46:06,570
+a bunch based on the way that you operationalize or put in a couple of different variables,
+
+419
+00:46:06,780 --> 00:46:10,500
+that's not good. You want some stability across your coefficients.
+
+420
+00:46:11,040 --> 00:46:18,090
+You would expect that the effect of sex on depression to be fairly consistent no matter what else you put into your model.
+
+421
+00:46:18,630 --> 00:46:24,000
+If it's flying around, if it's getting really big and really small to a significant non-significant,
+
+422
+00:46:24,360 --> 00:46:29,790
+that's kind of a flag that there's something else going on and you're probably not capturing the data well.
+
+423
+00:46:30,660 --> 00:46:39,660
+So in this case, I would be a little dubious about this term that it took, including this variable as a factor,
+
+424
+00:46:40,260 --> 00:46:45,240
+when in reality I probably wanted to include it as a continuous variable in order for the interaction term to work.
+
+425
+00:46:46,770 --> 00:46:50,099
+Yeah. I have a question about the multiple R squared.
+
+426
+00:46:50,100 --> 00:46:56,339
+So, so when you convert into a percent that that is a like the model accounts for
+
+427
+00:46:56,340 --> 00:47:05,820
+13% of the variability so that low and what do you think seems kind of low.
+
+428
+00:47:07,130 --> 00:47:14,820
+Well so this and this is a straight set so we get to compare it to other models and I explain 20% or 30% the outcomes depression.
+
+429
+00:47:15,090 --> 00:47:24,300
+So if I can explain about a sixth or seventh of someone's depression levels, I mean, that's not too bad, but that's my field.
+
+430
+00:47:25,380 --> 00:47:29,490
+If you're in different fields, an effect size 2.13 might not be that great.
+
+431
+00:47:30,390 --> 00:47:38,220
+It's kind of like it is very much a clinical, practical, statistical significance type of question, rather, but it's a fair way of saying.
+
+432
+00:47:39,990 --> 00:47:46,190
+And what I'd be looking for is if I mean, which of these variables I mean, this is where I know who can kind of tell us a little something right away.
+
+433
+00:47:46,230 --> 00:47:49,920
+Which of these variables is really contrary, is contributing to some of the explanatory power.
+
+434
+00:47:50,400 --> 00:47:54,510
+If we can drop two or three of these or in particular my social support variable, that was what the question was.
+
+435
+00:47:54,510 --> 00:48:01,590
+Although if I drop this down, this goes down 2.1 to maybe my social support variable doesn't mean that much.
+
+436
+00:48:02,100 --> 00:48:09,390
+But if I drop this term out and it goes 2.6 or .06 and then I think I'm in business and I do have something that means something for depression.
+
+437
+00:48:12,420 --> 00:48:15,489
+Anything else about this table. Okay. What is this?
+
+438
+00:48:15,490 --> 00:48:23,760
+Dinner. Not very well.
+
+439
+00:48:25,010 --> 00:48:39,469
+Probably not. Why not? I think if you like presenting variables and not quite how do you interpret this intercept?
+
+440
+00:48:39,470 --> 00:48:43,190
+This is the this is what predictive value of Y when yeah.
+
+441
+00:48:43,280 --> 00:48:56,540
+When I'm calling everything else I'm saying here that with the intercept just all come to like whatever the correct impression is that we find.
+
+442
+00:48:58,290 --> 00:49:04,679
+Yes, absolutely. That's exactly what her intercept is. And to your point, the meaningfulness of that, probably not.
+
+443
+00:49:04,680 --> 00:49:07,080
+So because age, we're never going to have a real zero.
+
+444
+00:49:07,350 --> 00:49:13,469
+The dummy variables, yes, we'll have meaningful zeros, but social import will not have a meaningful zero unless, for example,
+
+445
+00:49:13,470 --> 00:49:18,690
+we center some of these things and very similar in concept of centering at this point because to do it here,
+
+446
+00:49:19,030 --> 00:49:24,870
+I'm behind the scenes, we know what it means. The center. Yeah, very similar to standardizing.
+
+447
+00:49:25,140 --> 00:49:29,100
+Yes. So standardizing actually centers variables at the same time.
+
+448
+00:49:29,490 --> 00:49:33,120
+Basically, we're we are they're just we're just going to be subtracting the mean from every
+
+449
+00:49:33,120 --> 00:49:37,680
+year we're doing a linear transformation where we're subtracting the same number.
+
+450
+00:49:38,250 --> 00:49:44,910
+In this case, the mean every variable. What that will do is and we end up with a zero value that is rate at the mean.
+
+451
+00:49:45,690 --> 00:49:49,169
+And there are other ways that we can consider center and we can center across the entire variable.
+
+452
+00:49:49,170 --> 00:49:54,450
+We can think of groups. So but for the context of most interaction terms,
+
+453
+00:49:54,450 --> 00:49:59,430
+what we're doing is we're creating a meaningful zero value to this point from earlier today
+
+454
+00:50:01,590 --> 00:50:08,729
+and standardizing would do the same thing you're going to subtract from every variable,
+
+455
+00:50:08,730 --> 00:50:18,520
+but then you're just dividing by nation and it would mean a zero and standard or standard or of a variance of that percentage.
+
+456
+00:50:20,160 --> 00:50:24,030
+So if you just center and you don't create so standardized variables,
+
+457
+00:50:24,660 --> 00:50:28,500
+you're going to keep the same level of variability in whatever your measurements.
+
+458
+00:50:28,880 --> 00:50:34,380
+And that's the difference in this example.
+
+459
+00:50:35,070 --> 00:50:43,050
+If you assume that you are if you're going to be covered, I do use I do standardize instead of just centering the scale.
+
+460
+00:50:43,680 --> 00:50:50,680
+It's just a personal choice. It should not. This is another example of a scaling decision like centering versus not centering versus
+
+461
+00:50:50,730 --> 00:50:56,070
+or centering versus using standardize or these scores should not change these too much.
+
+462
+00:50:56,610 --> 00:51:04,800
+If they do, that's a red flag for me. Somehow when I don't standardize and I just leave the terms in their original units, I get a significant value.
+
+463
+00:51:05,100 --> 00:51:08,219
+Or if I may not, that shouldn't happen.
+
+464
+00:51:08,220 --> 00:51:14,390
+But if I just center and it's in the original units versus standardizing, I get a significant value.
+
+465
+00:51:14,610 --> 00:51:20,820
+All those should be a little bit of a red flag because these are just small changes to the data to enter interpretability.
+
+466
+00:51:21,150 --> 00:51:24,299
+They should not be affecting relationships, right?
+
+467
+00:51:24,300 --> 00:51:28,920
+The significance of relationship shouldn't happen because of some of those small decisions.
+
+468
+00:51:30,750 --> 00:51:36,460
+Because that should be the variables after your meta.
+
+469
+00:51:38,810 --> 00:51:45,260
+Oh, yeah. That's when I would say the reason why is because here we're still in our kind of original units.
+
+470
+00:51:45,680 --> 00:51:47,059
+And I can think about one unit change.
+
+471
+00:51:47,060 --> 00:51:55,340
+I mean, it doesn't actually matter because you're just subtracting the same value from every single social support score.
+
+472
+00:51:55,790 --> 00:52:00,410
+You're going to get the same, um, you're going to get the same estimate.
+
+473
+00:52:03,810 --> 00:52:06,960
+And the correlation won't change based on just subtracting me.
+
+474
+00:52:08,510 --> 00:52:14,760
+Yeah. And you said you're doing this behind the scenes to center variables.
+
+475
+00:52:14,840 --> 00:52:17,900
+Do you. Did you think you had a center?
+
+476
+00:52:20,370 --> 00:52:25,290
+Uh, that's a good question. So it's going to make it easy for us.
+
+477
+00:52:25,320 --> 00:52:29,460
+There's a function called scale, and it's going to give us two options.
+
+478
+00:52:30,090 --> 00:52:36,210
+Or it's going to be, I think, two arguments. The first one is just going to follow and it is just going to say what variable to center.
+
+479
+00:52:37,110 --> 00:52:41,700
+And then the second of the second arguments is going to be that I want to standardize it or not.
+
+480
+00:52:42,450 --> 00:52:58,010
+So I can pull it up. So it's a handy little thing to know about because sometimes you might want to center it for whatever reason.
+
+481
+00:52:58,030 --> 00:53:06,730
+Sometimes you want to use these scores. The nice thing about centering without using the Z scores is you're still in the original units.
+
+482
+00:53:07,360 --> 00:53:21,160
+And I've said before, I like having the original units because the interpretability for me is just that much easier, uh, right around here.
+
+483
+00:53:24,990 --> 00:53:33,690
+Sorry. This is one of those happy functions that to me makes a lot of sense.
+
+484
+00:53:37,530 --> 00:53:43,290
+You know. Very well.
+
+485
+00:53:44,250 --> 00:53:48,120
+I'm adding a Z because I wanted to just indicating that center. You don't have to do that.
+
+486
+00:53:48,130 --> 00:53:51,960
+You can say, Well, we're just not free to just take over the function of scale.
+
+487
+00:53:53,490 --> 00:53:55,470
+You mean the actual variable that you going to change?
+
+488
+00:53:56,790 --> 00:54:03,300
+Center equals true scale is where we can decide whether or not we want it to be a Z score or not.
+
+489
+00:54:03,420 --> 00:54:07,560
+If we had that false, it would just center this. It would just subtract the mean from every single value.
+
+490
+00:54:15,000 --> 00:54:19,170
+So if it's true, then it's this in here.
+
+491
+00:54:19,410 --> 00:54:24,270
+The difference between this. Yeah. So the difference between this one.
+
+492
+00:54:30,540 --> 00:54:36,960
+So I'm 130 is creating these scores for every single one of my age values.
+
+493
+00:54:37,860 --> 00:54:46,470
+It's going to subtract the mean by my senior deviation. The one below it is just going to center my age value.
+
+494
+00:54:47,760 --> 00:54:50,969
+It's going to subtract the mean. And is it so?
+
+495
+00:54:50,970 --> 00:54:55,630
+The mean age in our sample is like 15 something. No, I have 14 somethings.
+
+496
+00:54:56,010 --> 00:55:04,500
+It would just take everybody's age, subtract 14 something, and what you ultimately get is the exact same distribution, same exact order.
+
+497
+00:55:04,950 --> 00:55:09,570
+Everybody who is younger stays younger. Everybody who is older stays older.
+
+498
+00:55:10,230 --> 00:55:19,200
+The difference is, instead of having a mean of 14.9, you now have a mean of zero because we subtracted 14.9 from every single value.
+
+499
+00:55:20,370 --> 00:55:23,009
+Do it. Do some arithmetic on your on your little pad.
+
+500
+00:55:23,010 --> 00:55:31,770
+If you need to like take a value of six and subtract eight from ultimately have one, two, three, four, five, six, one, two, three, four, five.
+
+501
+00:55:33,600 --> 00:55:39,060
+Take a value of one, two, three, four, five. You mean is three? Subtract three from every single day.
+
+502
+00:55:39,900 --> 00:55:43,760
+That's. That's an example of center. Yeah.
+
+503
+00:55:44,710 --> 00:55:49,930
+Why? To do these words that are something completely arbitrary.
+
+504
+00:55:51,070 --> 00:56:00,750
+Completely arbitrary. And so the only way or indeed the only thing you really need to do according to change in this century versus these scale are.
+
+505
+00:56:01,920 --> 00:56:10,370
+Yeah. So like one in 14 or just centered age instead of instead of standardizing general terms,
+
+506
+00:56:10,470 --> 00:56:14,820
+it would therefore be a situation where you would make a Z score,
+
+507
+00:56:15,990 --> 00:56:21,350
+where you would want to make a B score or just some do, or are they kind of interesting?
+
+508
+00:56:22,270 --> 00:56:29,910
+So we saw when we saw last week that ultimately I like to find myself in that one data command space,
+
+509
+00:56:30,180 --> 00:56:35,400
+right where we're looking at standardized data coefficients across all model,
+
+510
+00:56:36,420 --> 00:56:40,379
+which remember too that we took the regular model with the original coefficients,
+
+511
+00:56:40,380 --> 00:56:46,680
+we ran it elevator command and standardized every single coefficient in the model so we can directly compare those coefficients.
+
+512
+00:56:47,250 --> 00:56:53,730
+This making and including everything as a Z score to begin with is the exact same process.
+
+513
+00:56:54,240 --> 00:56:57,630
+So really in my mind, we're just getting to the same type of thing.
+
+514
+00:56:58,650 --> 00:57:05,080
+So the. I dropped out.
+
+515
+00:57:05,380 --> 00:57:10,900
+If you took standardized predictive values and standardized outcome variable, that's our standardized equation.
+
+516
+00:57:10,900 --> 00:57:16,450
+Those are those are the one beta values that we compared after the fact and we forward.
+
+517
+00:57:16,990 --> 00:57:23,390
+Right. That's essentially what Line 113 is starting to do already for me.
+
+518
+00:57:23,990 --> 00:57:27,310
+So I could have included just the centered values.
+
+519
+00:57:27,320 --> 00:57:30,410
+It really should not make a difference. If it does, that's a problem.
+
+520
+00:57:31,040 --> 00:57:38,780
+And the reason why is because this is a scaling decision. It's not actually it shouldn't be impacting relationships across variables.
+
+521
+00:57:39,680 --> 00:57:45,290
+That's a flag for all of us. When you make these little things that shouldn't change, it doesn't change again.
+
+522
+00:57:45,290 --> 00:57:52,420
+The order either centering or standardizing does not change the order of all your different values in the dataset,
+
+523
+00:57:52,940 --> 00:57:59,360
+like a relative position of everything that stays the same when we make decisions like this.
+
+524
+00:58:00,080 --> 00:58:05,270
+So you can still like very different variables on the same scale.
+
+525
+00:58:05,750 --> 00:58:07,820
+You just don't know.
+
+526
+00:58:08,900 --> 00:58:15,080
+But yeah, the advantage I guess in centering is when you're still talking about units, now you're talking about your change in edge.
+
+527
+00:58:16,220 --> 00:58:20,629
+That might be better for you interpretability wise, and probably that's fine.
+
+528
+00:58:20,630 --> 00:58:25,340
+I will make the change. I will go back, I will make some decisions.
+
+529
+00:58:25,460 --> 00:58:28,020
+I mean, it really shouldn't matter, but it's,
+
+530
+00:58:28,120 --> 00:58:36,709
+it's whatever is going to work for your mind to kind of think through what I'm interpreting here, what I think for interactions.
+
+531
+00:58:36,710 --> 00:58:42,470
+I mean, part of the other reason why it's me, it doesn't matter quite so much is because what we're really looking for at
+
+532
+00:58:42,470 --> 00:58:46,970
+this point is this and I know I didn't want folks just focusing on a p value,
+
+533
+00:58:47,180 --> 00:58:52,940
+but all I really care about because it's not so easy to interpret an interaction term directly is whether or not
+
+534
+00:58:52,940 --> 00:58:57,920
+we have something significant so that I can start to break down and really look closely at the simple source,
+
+535
+00:58:58,550 --> 00:59:07,430
+which is that stuff that we do after this is done. And I'm sorry if it doesn't sit super well.
+
+536
+00:59:08,210 --> 00:59:17,450
+But it is part of our world in the sense that that just isn't right, but it is part of our world,
+
+537
+00:59:17,450 --> 00:59:20,990
+and that there's lots of this stuff that kind of happens behind the scenes that's just going to be up to you.
+
+538
+00:59:22,160 --> 00:59:26,420
+Right. The goal would be to kind of document it, include your score file or whatever.
+
+539
+00:59:26,810 --> 00:59:33,860
+And again, be cognizant of when you are making changes or decisions that don't that shouldn't matter versus ones that really couldn't.
+
+540
+00:59:41,890 --> 00:59:50,740
+So the only difference here now is this. I want to just be mindful of two things coding an interaction and ah, it's actually quite easy.
+
+541
+00:59:50,740 --> 00:59:54,730
+As you can see, this colon just means multiply these two together.
+
+542
+00:59:56,050 --> 01:00:00,760
+The only reason why I have these scores here or sentence scores is for interpretability.
+
+543
+01:00:01,030 --> 01:00:04,860
+I could have just as easily multiply these two together in their original use.
+
+544
+01:00:05,440 --> 01:00:09,340
+Okay, there's nothing wrong with that. It's just. It needs interpretability.
+
+545
+01:00:10,690 --> 01:00:16,210
+If you want a little shortcut, you might see from time to time an asterisk instead of a colon.
+
+546
+01:00:18,070 --> 01:00:22,270
+An asterisk is this age and so sort.
+
+547
+01:00:29,310 --> 01:00:38,340
+This is equivalent to including marriage, including our social support and including.
+
+548
+01:00:42,860 --> 01:00:53,580
+The two year. So if I ever if I ever forget, if you do this, it will automatically populate your model with the conditional main effect,
+
+549
+01:00:54,000 --> 01:01:03,990
+the conditional main effect and the interaction term. That's just including the asterisk instead of the know all the three terms by themselves.
+
+550
+01:01:04,680 --> 01:01:08,250
+And it can be a helpful reminder because then it is automatically going to include these two.
+
+551
+01:01:09,770 --> 01:01:18,600
+Right. So all I've done here from the left, the last model, I did make that centering decision and now I've included the interaction term.
+
+552
+01:01:19,020 --> 01:01:26,940
+If I made this assignment, asked if I made the scenario decision before before I ran this model, the only thing that should change.
+
+553
+01:01:26,940 --> 01:01:32,820
+And you can check this out. This should be the exact same. The relative position of everybody in the sample is the exact same.
+
+554
+01:01:33,210 --> 01:01:38,430
+We're not doing anything to the relationship between variables. What's going to change is our scaling metric is their intercept.
+
+555
+01:01:38,760 --> 01:01:46,320
+That's what changes Y, because the intercept is the predicted value when every single other value is zero.
+
+556
+01:01:47,070 --> 01:01:50,340
+Now we've changed what a zero means for this particular term.
+
+557
+01:01:52,140 --> 01:01:56,880
+That makes sense. All right. So here's our interaction term.
+
+558
+01:01:57,140 --> 01:02:08,250
+Significant life is good. We now can say that sex or age and social support interacts in some way to affect depression based on what you see.
+
+559
+01:02:10,620 --> 01:02:20,920
+What's our relationship like? Yeah.
+
+560
+01:02:22,060 --> 01:02:25,320
+Well. Tell me about the interaction. How are these things or what's the interplay with like?
+
+561
+01:02:25,960 --> 01:02:32,440
+How does age moderate the association between social support and depression?
+
+562
+01:02:35,250 --> 01:02:38,910
+Yeah. I'm sorry.
+
+563
+01:02:44,680 --> 01:02:48,340
+It's doable and I would be super, super impressed.
+
+564
+01:02:48,850 --> 01:02:54,879
+But I don't do this. This is really difficult to just look at an interaction term and a bunch of conditional main effects and say,
+
+565
+01:02:54,880 --> 01:02:58,330
+this is what's happening, which is why we like to break things down.
+
+566
+01:02:58,840 --> 01:03:02,590
+What we've seen here is we have this significant interaction term. Life is good.
+
+567
+01:03:02,950 --> 01:03:07,720
+We can look to see that r v r squared exchange rate went from 12 to 13.
+
+568
+01:03:08,050 --> 01:03:15,310
+So our actually term is or was inverted 13, maybe one of 3.0042 is how to see it.
+
+569
+01:03:15,310 --> 01:03:18,100
+I mean, we can look to see if the ANOVA says it's a significant change or not.
+
+570
+01:03:18,490 --> 01:03:25,180
+But basically, you know, it explains a little bit of additional variability. So now we're going to do is called probing interaction.
+
+571
+01:03:25,190 --> 01:03:32,950
+We're going to try to look to see kind of at what levels are moderating variable h are
+
+572
+01:03:33,010 --> 01:03:37,180
+do we see these changes in the relationship or association between social support,
+
+573
+01:03:37,450 --> 01:03:41,290
+interact and the right to do that?
+
+574
+01:03:42,650 --> 01:03:47,880
+Uh, I guess we are gonna be watching this difference.
+
+575
+01:03:48,610 --> 01:03:57,790
+So this is the actual interpretation of conditional main effect here because we
+
+576
+01:03:57,790 --> 01:04:03,550
+center there are now going to be times when this interaction term will be zero.
+
+577
+01:04:04,720 --> 01:04:12,700
+This interaction term would be zero when you when someone ages is at the mean or when someone's level of social support, is that the mean?
+
+578
+01:04:14,560 --> 01:04:21,250
+We can only interpret what I call conditional effects when this interaction term is zero.
+
+579
+01:04:24,880 --> 01:04:32,650
+When you have a higher order term in the model, the only way to continue to report this or to to interpret these conditional main effects,
+
+580
+01:04:32,650 --> 01:04:36,430
+age and social support is when this interaction term is here.
+
+581
+01:04:37,300 --> 01:04:40,000
+The rest of the variables in the model don't change.
+
+582
+01:04:40,270 --> 01:04:45,190
+This is still the association between sex and the outcome variable, holding everything else in the model constant.
+
+583
+01:04:45,940 --> 01:04:49,270
+This is still the association between race and the outcome variable.
+
+584
+01:04:49,360 --> 01:05:01,239
+For everything else new there in the model constants. So this is now the association between social support and depression when this
+
+585
+01:05:01,240 --> 01:05:06,760
+interaction term is zero or for people who are at the mean age in the sample.
+
+586
+01:05:11,820 --> 01:05:15,660
+Does it work the same way with age? Yep. Okay. They are completely.
+
+587
+01:05:15,660 --> 01:05:19,950
+There's no, like, true order there.
+
+588
+01:05:20,340 --> 01:05:29,129
+So this is now the effect of age on depression and this interaction term is zero or when social support.
+
+589
+01:05:29,130 --> 01:05:34,170
+So. So people mean social support. This is the effect of age on.
+
+590
+01:05:36,840 --> 01:05:43,980
+So the biggest thing here is that we can no longer talk about age or social support by themselves.
+
+591
+01:05:44,400 --> 01:05:50,340
+It's now always thinking about when we're at a given level of that third variable.
+
+592
+01:05:51,000 --> 01:06:00,120
+We're only talking about social support at different ages of people in the sample when they're older, middle age, or indeed younger.
+
+593
+01:06:00,180 --> 01:06:03,960
+However, we want to think about it, but we can't think now to be models this way.
+
+594
+01:06:04,170 --> 01:06:07,590
+We can't think about social support, holding everything else constant.
+
+595
+01:06:08,520 --> 01:06:15,270
+That's a big shift for us. We can only think about social support in context when we know someone's age.
+
+596
+01:06:17,040 --> 01:06:20,369
+And that's kind of cool because what's going to happen is we're going to see
+
+597
+01:06:20,370 --> 01:06:25,170
+how that association with the relationship between social support changes,
+
+598
+01:06:25,620 --> 01:06:29,420
+given how old somebody is. Interesting question.
+
+599
+01:06:33,180 --> 01:06:36,209
+But do folks kind of also see the reason why it's not helpful?
+
+600
+01:06:36,210 --> 01:06:47,250
+This was Amy's point of beginning, why it's helpful to center. It's just to make these two terms by themselves in a model like this or otherwise.
+
+601
+01:06:47,310 --> 01:06:51,600
+If this could never be a zero, we wouldn't really be able to talk about those terms.
+
+602
+01:06:52,650 --> 01:06:59,790
+And maybe there's still I mean, there's limited utility to talk about the conditional effect here, but at least we can say something that,
+
+603
+01:07:00,120 --> 01:07:04,859
+you know, for the average person in the sample, this is the relationship or the average age person in the sample.
+
+604
+01:07:04,860 --> 01:07:13,160
+This is the association between social support and now. Oh, which.
+
+605
+01:07:15,870 --> 01:07:19,840
+This is just taking some of those turns like we did in that very first slide.
+
+606
+01:07:19,860 --> 01:07:25,830
+Remember the one that I want to see that I hope Netflix remember and this is just an example of doing so.
+
+607
+01:07:26,280 --> 01:07:33,360
+We can take the information from the conditional main effect and the outcome here and the interaction term.
+
+608
+01:07:34,950 --> 01:07:45,450
+And this is going to tell us how the association between social support and depression changes depending on your age.
+
+609
+01:07:46,770 --> 01:07:53,530
+So right here. Our new affect of social support.
+
+610
+01:07:53,890 --> 01:07:59,020
+This would be the brackets. We've taken the conditional main effect.
+
+611
+01:08:00,010 --> 01:08:04,030
+We've taken the interaction term, both of which have a social support in.
+
+612
+01:08:05,190 --> 01:08:09,399
+Okay, here they are. And I know this is a simplification.
+
+613
+01:08:09,400 --> 01:08:15,250
+We don't have anything else. We are factoring out the social support rate.
+
+614
+01:08:15,670 --> 01:08:18,790
+Remember, we take this out and we take this out to the common factors.
+
+615
+01:08:18,830 --> 01:08:21,850
+We put them on the outside. If I took this and I multiply them back in.
+
+616
+01:08:22,060 --> 01:08:27,219
+We get right back up there. I'm not doing any sort of magic here right now.
+
+617
+01:08:27,220 --> 01:08:38,680
+This. This is how the effect, like numerically, empirically, this is how the effect of social support on depression, changes based on how old you are.
+
+618
+01:08:39,100 --> 01:08:45,110
+So tell me, without looking at the next slide, how is the effect of social support going to change by age?
+
+619
+01:08:45,130 --> 01:08:50,980
+What's happening is someone who gets older or younger who can give me just a take a shot, it decreases.
+
+620
+01:08:51,910 --> 01:08:55,000
+So they are put they have like a cut of turn. It is decreasing.
+
+621
+01:08:55,000 --> 01:08:59,710
+So as you get older, what you have less compression.
+
+622
+01:09:00,910 --> 01:09:05,740
+Less effective social support on your depression. That's what's happening here.
+
+623
+01:09:06,070 --> 01:09:13,600
+For older students, the effect of social support on depression gets smaller and smaller.
+
+624
+01:09:15,460 --> 01:09:18,940
+Right. Because, you know, a friend is this age goes up.
+
+625
+01:09:19,360 --> 01:09:25,239
+This is going to subtract a little bit away or very little, I guess smaller or small in this case is actually larger.
+
+626
+01:09:25,240 --> 01:09:30,160
+The effect is actually going to get bigger, but more negative because there is the way in which we talking about this, right?
+
+627
+01:09:30,640 --> 01:09:35,680
+This effect is going to get more and more negative as people get older.
+
+628
+01:09:37,450 --> 01:09:45,650
+So it's actually the effect is increasing. But the the the the the actual term is getting smaller and smaller.
+
+629
+01:09:46,410 --> 01:09:48,400
+Right. So you can play any values in here.
+
+630
+01:09:52,450 --> 01:10:00,520
+And as the value you multiply those the age value by whatever these are and then combine with this information and
+
+631
+01:10:00,550 --> 01:10:07,120
+we're going to see how this coefficient changes that we then multiply by somebody given the whole social score.
+
+632
+01:10:09,070 --> 01:10:12,220
+So I think I do this next slide here. Yeah.
+
+633
+01:10:12,880 --> 01:10:19,020
+That's for. But the most important thing to think about now is when you have this interaction term.
+
+634
+01:10:19,620 --> 01:10:24,570
+The effect of social support now depends on how old somebody is.
+
+635
+01:10:30,020 --> 01:10:33,950
+We can do the same thing for a dichotomous variable or any other factor variable.
+
+636
+01:10:34,340 --> 01:10:38,930
+In this case we use females so we have social support multiplied by female.
+
+637
+01:10:39,260 --> 01:10:46,100
+Before we saw that females were just the mean and the mean levels were higher for females than for males.
+
+638
+01:10:46,760 --> 01:10:53,900
+When we multiply the two together, we now have another significant role model marginally similar to the interaction term.
+
+639
+01:10:54,200 --> 01:10:59,180
+We combine to combine the same information. Now our moderating variable is no longer age at sex.
+
+640
+01:11:00,860 --> 01:11:04,730
+We take the conditional and if it were to go right here,
+
+641
+01:11:05,990 --> 01:11:12,190
+we take the interaction term with a little bit different about a dichotomous variable or a factor variable here.
+
+642
+01:11:12,620 --> 01:11:23,240
+We have zero and one zero is our dummy variable ones are out there or too variable or whatever we want to call for females who are one,
+
+643
+01:11:24,050 --> 01:11:27,080
+we kind of we get to multiply them by one. This term stays in.
+
+644
+01:11:27,260 --> 01:11:35,660
+We combine this information. This is the effect for females because this term would be zero for males.
+
+645
+01:11:35,930 --> 01:11:39,620
+This drops out. This is actually the effect for males.
+
+646
+01:11:41,600 --> 01:11:47,810
+Right. Because if you if you're a female in the sample, we give them a zero value for here multiplies out to zero.
+
+647
+01:11:48,140 --> 01:12:01,370
+That's our effect for males. For females, the effect of social support on depression is almost twice the size, twice the size.
+
+648
+01:12:01,370 --> 01:12:07,110
+And that for males. That's interesting stuff.
+
+649
+01:12:08,460 --> 01:12:21,030
+That's really interesting. In both cases, though, the association between social support and depression varies as a function of some third variable,
+
+650
+01:12:21,810 --> 01:12:24,810
+whether it's age or the participant sex.
+
+651
+01:12:27,220 --> 01:12:33,050
+Kind of cool. But we could do this with any of these interaction terms, right?
+
+652
+01:12:33,070 --> 01:12:37,120
+We can take the combined information, but one more time. And also like a broken record.
+
+653
+01:12:37,420 --> 01:12:40,760
+What you can't do is interpret now social support by itself.
+
+654
+01:12:41,050 --> 01:12:45,970
+It's always going to be in the context of the third year, the levels of that third variable.
+
+655
+01:12:45,970 --> 01:12:51,900
+It's not just the first quarter.
+
+656
+01:12:52,300 --> 01:13:04,300
+The interaction value is set at 0.0, and that is concerning to us because it's kind of going, Yeah, throw it.
+
+657
+01:13:04,690 --> 01:13:10,809
+Yeah. But first they get it, right?
+
+658
+01:13:10,810 --> 01:13:16,330
+So you can make a decision about whether or not you'd want it from this interaction because it is, you know,
+
+659
+01:13:16,330 --> 01:13:24,040
+technically is not significant based on a point of like cut off if you really felt it that females or whatever sex is going to be important.
+
+660
+01:13:24,040 --> 01:13:33,160
+MODERATOR Here you know it kind of to you but you're is probably wouldn't have questions about these two like if you can get these two ideas down.
+
+661
+01:13:34,930 --> 01:13:40,110
+And again they go back to that the slide that we spent some time on earlier that's that's
+
+662
+01:13:40,150 --> 01:13:45,370
+got a heart of interactions and all it saying is that you have this third variable,
+
+663
+01:13:46,210 --> 01:13:53,980
+this third variable here that's kind of combined so that you can think about social support by itself that kind of like this one bit.
+
+664
+01:13:54,310 --> 01:13:59,950
+And you can see how this term changes based on how old you say you are or in this case,
+
+665
+01:13:59,950 --> 01:14:05,320
+you see how this term changes based on whether you say you're a male or female.
+
+666
+01:14:08,630 --> 01:14:15,560
+All that's kind of hidden in there. I think it's hard to see just looking at the output like this, but you could do this if you wanted.
+
+667
+01:14:17,840 --> 01:14:22,040
+I think in the video I kind of show you how to break it down with some.
+
+668
+01:14:22,130 --> 01:14:29,270
+Or maybe it's like I said in the our script, how you can know,
+
+669
+01:14:29,270 --> 01:14:36,410
+you can model some of these things or you can plot some of these things because I think it's a little bit easier to show how,
+
+670
+01:14:37,400 --> 01:14:41,360
+you know, different levels of one of our predictor variable or of our moderating variable.
+
+671
+01:14:41,690 --> 01:14:46,950
+That relationship has changed. But you can do it numerically and.
+
+672
+01:14:53,810 --> 01:14:57,200
+This is what we're going to do on Thursday.
+
+673
+01:14:57,800 --> 01:15:04,120
+So, again, not trying to do the missing data stuff right now. Maybe we can split that.
+
+674
+01:15:04,130 --> 01:15:11,030
+Maybe we can start with this for about 45, 50 minutes on Thursday, for only about 15 or 20 minutes to show, you know, the missing data piece.
+
+675
+01:15:11,990 --> 01:15:15,210
+It's really just one command an hour, which is nice. It's just an hour.
+
+676
+01:15:17,060 --> 01:15:22,180
+But the goal would be to take an analysis like this and see if you can replicate that.
+
+677
+01:15:28,770 --> 01:15:35,130
+This is to show you what happens when you have a factor with more than two levels.
+
+678
+01:15:36,380 --> 01:15:47,550
+Um. We don't have a lot of information.
+
+679
+01:15:48,030 --> 01:15:51,850
+All right. We can talk about this on. We've talked about this under.
+
+680
+01:15:51,940 --> 01:15:55,830
+If you want. It's from that prestige data.
+
+681
+01:15:56,250 --> 01:16:00,360
+So it works perfectly. I mean, it's like a beautiful interaction that you can see in a broad.
+
+682
+01:16:00,870 --> 01:16:06,150
+But we can talk about how we can break it down using the same kind of the same kind of interpretations.
+
+683
+01:16:06,450 --> 01:16:10,830
+But I'm going to go one more time. Why? You're just leaving the door before you walk out of here.
+
+684
+01:16:11,160 --> 01:16:17,280
+All right. Now you can pack up and go about your merry way. But if you have a question about this, please let me know.
+
+685
+01:16:17,550 --> 01:16:20,610
+But this is interaction. You've got this. You've got interactions.
+
+686
+01:16:21,240 --> 01:16:26,490
+Yes. Are you going to repeat that later this week or.
+
+687
+01:16:27,390 --> 01:16:33,900
+Yes. Thursday. Unless you want.
+
+688
+01:16:35,990 --> 01:16:46,070
+It's just this and know you go back or you go forward and describe that.
+
+689
+01:16:46,080 --> 01:16:55,670
+So the like the place so that the lab where all the other team members what comes into that.
+
+690
+01:16:56,060 --> 01:17:06,110
+Yeah that's that's your actual value of social support. So that's that final number that you did when you said that for females, males,
+
+691
+01:17:06,110 --> 01:17:13,010
+that number, that negative one, six, eight and then also that that that final value.
+
+692
+01:17:14,210 --> 01:17:17,990
+So this one, this would be multiplied by someone's social support.
+
+693
+01:17:18,830 --> 01:17:22,549
+So for females, this is the effect of social support. So it's still there.
+
+694
+01:17:22,550 --> 01:17:25,790
+There should be like a Times poster. Okay. So that's still.
+
+695
+01:17:25,850 --> 01:17:26,790
+Yeah, yeah.
+

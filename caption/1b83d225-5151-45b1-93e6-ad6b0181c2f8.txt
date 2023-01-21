@@ -1,0 +1,2628 @@
+1
+00:00:05,009 --> 00:00:15,599
+Chris Andrews: Speaking of recordings the recording from yesterday is on canvas it's under like an octo recordings or something like that.
+
+2
+00:00:15,599 --> 00:00:28,260
+Chris Andrews: And I didn't put it there till this morning, I think, is he had to click some buttons to actually publish it so it just became available recently i'll be more prompt with these I usually get an email.
+
+3
+00:00:28,260 --> 00:00:48,060
+Chris Andrews: In the evening, usually last night I got one in an email saying it was ready and then it took me about 15 to 20 minutes this morning to figure out what was going on, so hopefully it'll be up tonight not too distant after class ends.
+
+4
+00:00:48,060 --> 00:01:02,010
+Chris Andrews: Alright, yesterday we talked about sensor data in the CAP admire estimator today we're going to talk about comparing samples so often, you have groups of people draw versus control.
+
+5
+00:01:02,010 --> 00:01:18,750
+Chris Andrews: males or females whatever and you want to compare some time to event data between those two groups tomorrow will generalize to what happens if it's not groups were studying, but we have some continuous covariance that turns into a regression problem.
+
+6
+00:01:18,750 --> 00:01:34,890
+Chris Andrews: And then we'll take other regression methods after that particular time dependent covariance is a hot advancement from Cox regression and then Friday i'm still taking requests.
+
+7
+00:01:34,890 --> 00:01:45,900
+Chris Andrews: So if there's something that you'd like to hear more or less about make that known to me, so I can adapt Friday as best I can.
+
+8
+00:01:45,900 --> 00:01:49,230
+Chris Andrews: So this is the same as yesterday.
+
+9
+00:01:49,230 --> 00:01:53,850
+Chris Andrews: course objectives haven't changed.
+
+10
+00:01:53,850 --> 00:02:15,270
+Chris Andrews: Yesterday we went through these things learn about survival function, that is, the probability of not having an event by a certain time and that whole function so as time passes, what proportion of people have not had an event yet you've survived it had the event that.
+
+11
+00:02:15,270 --> 00:02:30,780
+Chris Andrews: estimating this is tricky when you have censoring and or truncation so we've been working on some methods to handle that case because that's, the most important use for survival analysis.
+
+12
+00:02:30,780 --> 00:02:41,700
+Chris Andrews: Today we're going to talk a little bit more about the kaplan Meier estimator and some other functions, the size of survival a function that we use and survival analysis and particularly the hazard.
+
+13
+00:02:41,700 --> 00:03:02,970
+Chris Andrews: hazard rate and the cumulative versions of those and briefly talk about other estimators and then get to comparing samples and talk briefly about what stratification is when you're using survival analysis.
+
+14
+00:03:02,970 --> 00:03:05,400
+Chris Andrews: So.
+
+15
+00:03:05,400 --> 00:03:09,810
+Chris Andrews: Often, when you have a distribution somebody height.
+
+16
+00:03:09,810 --> 00:03:17,730
+Chris Andrews: The BMI you're interested in where the Center of the distribution is and the natural thing to compute is the mean.
+
+17
+00:03:17,730 --> 00:03:27,180
+Chris Andrews: Unfortunately, you need to know the entire distribution of a variable to compute it's me and you need to know everything out to the very end of the tales.
+
+18
+00:03:27,180 --> 00:03:45,600
+Chris Andrews: And you don't always get that with survival data typically right centered observations and so your study and you've got several hundred people perhaps that you don't know what their value is all you know this is greater than five years or something like that.
+
+19
+00:03:45,600 --> 00:03:56,040
+Chris Andrews: And furthermore, the meat is best used for symmetric distributions and a good measure of Center when the tails are equal or relatively equal.
+
+20
+00:03:56,040 --> 00:04:10,680
+Chris Andrews: So I will times, on the other hand, are often skew their people have events early, but the distribution goes well out into the future and so maybe the meat isn't even the right thing to to want to compute here.
+
+21
+00:04:10,680 --> 00:04:19,230
+Chris Andrews: So there are a couple alternatives, one I mentioned yesterday, the median so time until some event occurs.
+
+22
+00:04:19,230 --> 00:04:27,780
+Chris Andrews: The media would be half the people or we expect half the people that have had their event by a certain time.
+
+23
+00:04:27,780 --> 00:04:35,850
+Chris Andrews: Another another one is a truncated me and I just complained about the long tail of survival data and.
+
+24
+00:04:35,850 --> 00:04:51,870
+Chris Andrews: If you truncate your calculation after a certain time, maybe you don't have to worry about that that tail and it's not going to be equal to the mean, but it is another measure of the Center of a distribution and perhaps.
+
+25
+00:04:51,870 --> 00:04:58,110
+Chris Andrews: it's it's adequate in this case.
+
+26
+00:04:58,110 --> 00:05:08,820
+Chris Andrews: So the meaning of a distribution is an average you take each possible value, you can get and multiply by the probability of that value.
+
+27
+00:05:08,820 --> 00:05:18,750
+Chris Andrews: and add that up and that's how you compute the mean that's how its defined expected value of something is a continuous version of it, if you like, it a Rolls.
+
+28
+00:05:18,750 --> 00:05:27,510
+Chris Andrews: There are other formulas that you can use to compute it, and the reason I write these up here is, we know how to estimate the survival function.
+
+29
+00:05:27,510 --> 00:05:44,190
+Chris Andrews: We have a kaplan Meier estimator so using the kaplan Meier estimator we could get an estimate of the me, except that the kaplan Meier estimator sometimes becomes undefined when you run out of data.
+
+30
+00:05:44,190 --> 00:05:54,030
+Chris Andrews: And so, here is a survival curve based on about 10 people, I think, and you know somebody had an event somebody else had an event another event.
+
+31
+00:05:54,030 --> 00:06:08,880
+Chris Andrews: Several events or perhaps a rose bunch of censoring this might still be one event but people dropped out and then the last event occurred at 25 months say weeks and.
+
+32
+00:06:08,880 --> 00:06:17,040
+Chris Andrews: Months as an example for months, and so we don't have a defined kaplan Meier estimator after this point.
+
+33
+00:06:17,040 --> 00:06:33,240
+Chris Andrews: Some people advocate for saying just make this go all the way down to zero hear other people say no to just be a horizontal line there aren't any more events so there's no there's no more reason for it to drop other people try to figure out kind of what's a good.
+
+34
+00:06:33,240 --> 00:06:42,720
+Chris Andrews: interpolation between those two extremes have a kind of go down to zero, but not just straight down to zero.
+
+35
+00:06:42,720 --> 00:07:00,420
+Chris Andrews: Because without what's happening here to the right you can't calculate the me the formula on the previous page requires that we know this function, all the way out to infinity or, at least until it goes down to zero because wanted to zero, it will be zero for the rest of the time.
+
+36
+00:07:00,420 --> 00:07:07,320
+Chris Andrews: So the truncated mean.
+
+37
+00:07:07,320 --> 00:07:26,940
+Chris Andrews: That only takes the curve out to a certain time point it says look let's summarize the survival during the first year, there are a couple things we can say about that the survival time at one year, excuse me, the survival probability at one year is 80%.
+
+38
+00:07:26,940 --> 00:07:46,140
+Chris Andrews: But that doesn't say whether drop straight down to 80 and goes or goes across the top and drops down so one way to summarize what's happened for the entire first years to average take the area under this curve, which is a so called truncated mean at 12 months.
+
+39
+00:07:46,140 --> 00:07:54,960
+Chris Andrews: And you can see it's just as a series of rectangles you're going to add up the areas of three rectangles to compute that.
+
+40
+00:07:54,960 --> 00:07:57,420
+Chris Andrews: So in this example.
+
+41
+00:07:57,420 --> 00:08:11,250
+Chris Andrews: The mean the truncated mean at 12 months is let's take the height of the curve and multiply by the width take the height of the curve multiply by the width so the curve starts out at one.
+
+42
+00:08:11,250 --> 00:08:27,780
+Chris Andrews: And as a width of three the next rectangle as the height of point nine with the two, and so on, and turns out the computation is 10.4, and so the interpretation of this.
+
+43
+00:08:27,780 --> 00:08:34,260
+Chris Andrews: Oh i'm sorry before I get into the interpretation I want to say.
+
+44
+00:08:34,260 --> 00:08:55,830
+Chris Andrews: We took it to 12 months that didn't have to be an event time might not have been a sensory time that's Okay, but my point is that 12 actually didn't appear in the data set but that's where the end of the interval is and so that's why the 12 goes in here.
+
+45
+00:08:55,830 --> 00:09:08,130
+Chris Andrews: A person is expected to live on average 10.4 months of the next year, so somebody who's starting at time zero ideally we'd have everybody survive survive the entire year.
+
+46
+00:09:08,130 --> 00:09:24,270
+Chris Andrews: area under this curve would be 12 months and we'd say great that's that's nice survival, however it's a little less than that it's only 10.4 months of the next year.
+
+47
+00:09:24,270 --> 00:09:41,340
+Chris Andrews: Any questions about a truncated means arrival.
+
+48
+00:09:41,340 --> 00:09:44,610
+Chris Andrews: Another measure of Center is median.
+
+49
+00:09:44,610 --> 00:09:53,880
+Chris Andrews: force skewed distributions the median is often preferred, even when you're not talking about survival analysis, so it seems reasonable to use it here as well.
+
+50
+00:09:53,880 --> 00:10:04,230
+Chris Andrews: survival distribution, excuse me, the survival, the median of a distribution is the point where.
+
+51
+00:10:04,230 --> 00:10:12,720
+Chris Andrews: The probability of point five that the event has already occurred and there's probably a point five, that is yet to occur so it's it's some time.
+
+52
+00:10:12,720 --> 00:10:19,500
+Chris Andrews: Which is right in the middle, half the events in some sense should have been to the left and the other half, should have been to the right.
+
+53
+00:10:19,500 --> 00:10:30,840
+Chris Andrews: And i'm using a little bit vague terminology here because because of censoring I don't want to just say take the the the 12 events that you found.
+
+54
+00:10:30,840 --> 00:10:47,580
+Chris Andrews: and pick some point between the first six events and the last six events, it could be that, due to censoring that that's not where the median occurs, so you have to pay attention to the censoring just like we did when we computed the kaplan Meier curve.
+
+55
+00:10:47,580 --> 00:11:07,530
+Chris Andrews: Anyway, so this kaplan Meier curve comes down here, and when it crosses one half that's what we're going to clear the median so here's a horizontal line and point five, so the median is going to be 2.4 like that.
+
+56
+00:11:07,530 --> 00:11:17,760
+Chris Andrews: Sometimes you get a situation where you don't have enough events to reach the median, and this is one of the downsides of using the median.
+
+57
+00:11:17,760 --> 00:11:35,910
+Chris Andrews: As a summary of your data if I wanted to compare two samples, and neither of them has survival below Point five and anytime we don't we don't have two mediums to compare in some sense it's not a good measure of the Center.
+
+58
+00:11:35,910 --> 00:11:42,900
+Chris Andrews: In this case, when we get out here to eight months.
+
+59
+00:11:42,900 --> 00:11:45,150
+Chris Andrews: Eight whatever's.
+
+60
+00:11:45,150 --> 00:11:54,450
+Chris Andrews: Then the survival curve is still above point five, so we don't have an estimate of the media and we don't know when this line is going to finally cross below the red Point five.
+
+61
+00:11:54,450 --> 00:12:05,190
+Chris Andrews: We do make we could make some statement perhaps about the confidence interval, we could say it's 95% confident that the median is above.
+
+62
+00:12:05,190 --> 00:12:08,370
+Chris Andrews: 7.8 or whatever it is here.
+
+63
+00:12:08,370 --> 00:12:11,010
+Chris Andrews: So that you'll get.
+
+64
+00:12:11,010 --> 00:12:27,270
+Chris Andrews: output like that, from a computer packet sometimes we're won't give you an actual estimate the median, but it will give you one of the endpoints of confidence interval.
+
+65
+00:12:27,270 --> 00:12:35,970
+Chris Andrews: When the curves don't reach one half and they don't they'll come down to have one thing you can do is pick a different quintile to compare.
+
+66
+00:12:35,970 --> 00:12:49,440
+Chris Andrews: Maybe you want to say okay what's the 25th percentile of distribution so at what point do we expect 25% of the events to occur what's the problem at what point is the probability of an event 25%.
+
+67
+00:12:49,440 --> 00:12:52,680
+Chris Andrews: And so we just have to look for.
+
+68
+00:12:52,680 --> 00:13:03,750
+Chris Andrews: At what point does this curve drop below 25% measured from the top we're waiting to see when the survival falls below.
+
+69
+00:13:03,750 --> 00:13:13,470
+Chris Andrews: 75% that means 25% of the events have occurred.
+
+70
+00:13:13,470 --> 00:13:29,580
+Chris Andrews: Any questions about the medians or quintiles of percentiles.
+
+71
+00:13:29,580 --> 00:13:33,660
+Chris Andrews: Are.
+
+72
+00:13:33,660 --> 00:13:42,360
+Chris Andrews: survival function is very important, because when you have a survival function, you can compute everything else from it.
+
+73
+00:13:42,360 --> 00:13:49,980
+Chris Andrews: We obviously don't get the entire survival function from the kaplan Meier curve we don't get the right tail all the time.
+
+74
+00:13:49,980 --> 00:14:08,310
+Chris Andrews: So there are some limitations to it, and the other thing that I don't really like about survival occurs is, if you graph several survival curves they all start to look the same they all start up here at one time equals zero and they go down from left to right.
+
+75
+00:14:08,310 --> 00:14:20,190
+Chris Andrews: Okay, great now maybe if you can draw several of them on the same graph you can tell the difference, and you know ones, to the left of the other ones above the other ones above the other.
+
+76
+00:14:20,190 --> 00:14:23,820
+Chris Andrews: Sometimes you want to know something a little bit more specific.
+
+77
+00:14:23,820 --> 00:14:25,980
+Chris Andrews: and
+
+78
+00:14:25,980 --> 00:14:31,170
+Chris Andrews: Those are often represented by the hazard function.
+
+79
+00:14:31,170 --> 00:14:37,590
+Chris Andrews: So I will function kind of tells you that the cumulative probability of an event.
+
+80
+00:14:37,590 --> 00:14:39,570
+Chris Andrews: At some time.
+
+81
+00:14:39,570 --> 00:14:54,660
+Chris Andrews: But you might be interested in Okay, I made it through the first five years of this disease or this incarceration or whatever, and I now want to look forward to say okay what's what's my chance of having an event now.
+
+82
+00:14:54,660 --> 00:15:02,430
+Chris Andrews: And that's what the hazard rate function is about it's at any point in time, given that you're alive.
+
+83
+00:15:02,430 --> 00:15:08,430
+Chris Andrews: what's your rate of failure at this point.
+
+84
+00:15:08,430 --> 00:15:23,310
+Chris Andrews: Is a generally getting higher of the longer I survived the higher my hazard is that kind of happens in old age, all else being equal, someone who's 90 has a higher death rate than somebody who's at.
+
+85
+00:15:23,310 --> 00:15:37,980
+Chris Andrews: Or is my function decreasing my, and this can happen at the other end of life, namely at birth there's a certain hazard, but as you've made it through one hour or two hours or three hours.
+
+86
+00:15:37,980 --> 00:15:45,510
+Chris Andrews: Your risk of dying decreases your hazard goes down.
+
+87
+00:15:45,510 --> 00:15:52,650
+Chris Andrews: Or can be relatively constant as it is most of the rest of your life.
+
+88
+00:15:52,650 --> 00:15:57,540
+Chris Andrews: So here's our little fact sheet about the survival function.
+
+89
+00:15:57,540 --> 00:16:03,930
+Chris Andrews: The hazard function is used for discrete distributions it's a probability.
+
+90
+00:16:03,930 --> 00:16:12,240
+Chris Andrews: So hazard function is what's the probability of having an event now time xj given that you are still at risk.
+
+91
+00:16:12,240 --> 00:16:19,890
+Chris Andrews: So i've made it to five years what's the chance that I die this year.
+
+92
+00:16:19,890 --> 00:16:23,100
+Chris Andrews: So this is a particularly.
+
+93
+00:16:23,100 --> 00:16:30,540
+Chris Andrews: useful piece of information for survival data, because it is as time passes what's my chance now.
+
+94
+00:16:30,540 --> 00:16:45,840
+Chris Andrews: We don't encounter in very many other areas of statistics, the example here being okay you're six foot four what's your chance that you're exactly six foot four not taller it's like.
+
+95
+00:16:45,840 --> 00:16:59,520
+Chris Andrews: that's not really an interesting question, whereas when you're talking about risk and time that is a relevant question.
+
+96
+00:16:59,520 --> 00:17:08,550
+Chris Andrews: A constant hazard function means that the chance of having an event per unit time given survival to that time does not change over time.
+
+97
+00:17:08,550 --> 00:17:19,860
+Chris Andrews: This is an important example if if the hazard of an event doesn't change over time, you have a very simple model in some sense.
+
+98
+00:17:19,860 --> 00:17:28,050
+Chris Andrews: Time is taking care of itself, the hazard isn't going up or down based on whether you're talking about the first year, the second year, the third year.
+
+99
+00:17:28,050 --> 00:17:36,120
+Chris Andrews: So, really, you can get away with just kind of one number to summarize how things are going, the you know the hazard is.
+
+100
+00:17:36,120 --> 00:17:49,470
+Chris Andrews: And then you can give a number because it's not going up or down over time it's just some number, so this is very important model it comes about through the so called exponential model.
+
+101
+00:17:49,470 --> 00:18:00,930
+Chris Andrews: And people often well unfortunately doesn't hold all the time, but when it does it's a very nice summary of the data.
+
+102
+00:18:00,930 --> 00:18:06,570
+Chris Andrews: anyway.
+
+103
+00:18:06,570 --> 00:18:16,650
+Chris Andrews: chance to becoming pregnant each cycle between ages 23 and 27 for non contraceptive women is relatively constant over that age period.
+
+104
+00:18:16,650 --> 00:18:21,120
+Chris Andrews: If you look at a wider age range this constant.
+
+105
+00:18:21,120 --> 00:18:27,660
+Chris Andrews: hazard and I know I said exponential distribution I should have said geometric distribution at this point.
+
+106
+00:18:27,660 --> 00:18:46,080
+Chris Andrews: will be at anyway it's a very this constant hazard is a is a good model for short periods of time, but over longer stretches of time it's not as good.
+
+107
+00:18:46,080 --> 00:18:55,200
+Chris Andrews: There are a few facts about this one, I want to remind you that it is a probability and probabilities are between zero and one.
+
+108
+00:18:55,200 --> 00:18:57,570
+Chris Andrews: So.
+
+109
+00:18:57,570 --> 00:19:08,460
+Chris Andrews: Something to keep my certainly isn't going to be negative, just like survival function is starts at one it goes down to zero that has it function has limitations as well.
+
+110
+00:19:08,460 --> 00:19:10,620
+Chris Andrews: You can compute.
+
+111
+00:19:10,620 --> 00:19:14,520
+Chris Andrews: The hazard function it's the.
+
+112
+00:19:14,520 --> 00:19:26,550
+Chris Andrews: probability of having an event now xj given that you survived until this time as the next day minus one, so the survival function comes in computing this hazard.
+
+113
+00:19:26,550 --> 00:19:35,400
+Chris Andrews: And because you can rearrange terms and write the hazard strictly in terms of S you get down to that last equation.
+
+114
+00:19:35,400 --> 00:19:44,040
+Chris Andrews: and say Okay, the hazard or one minus the hazard is this ratio, we can flip it around and right acids equal to this product.
+
+115
+00:19:44,040 --> 00:19:55,620
+Chris Andrews: Some of you might be saying that looks familiar, and that is familiar, because this is exactly what we did to estimate the survival function, the kaplan Meier estimator uses this.
+
+116
+00:19:55,620 --> 00:20:04,620
+Chris Andrews: function exactly where the hazard estimate, he is the number of events divided by the number of people at risk.
+
+117
+00:20:04,620 --> 00:20:12,660
+Chris Andrews: Which is a very simple calculation, if you were asking, I want to know what's the probability of failing now, given that i've survived till now.
+
+118
+00:20:12,660 --> 00:20:30,300
+Chris Andrews: you'd want to know well how many events were there, the how many people were at risk, how many people made it until now, and so this exactly leads to that capital Meyer estimator.
+
+119
+00:20:30,300 --> 00:20:41,280
+Chris Andrews: there's something called the cumulative hasn't function which just adds these hazards up over time it's how much hazard, have you experienced by a certain time.
+
+120
+00:20:41,280 --> 00:20:50,820
+Chris Andrews: And, in some ways, this is the expected number of events by time X and obviously one person is only going to suffer one event.
+
+121
+00:20:50,820 --> 00:21:04,680
+Chris Andrews: But the expected number of events could be higher or lower than that it could be that you know i'm a nine year old smoker with a bunch of co-morbidities I should have died, several times by now, but I haven't.
+
+122
+00:21:04,680 --> 00:21:16,320
+Chris Andrews: it's some sense saying my model is saying i'm lucky the expected events is very high, but I haven't had one yet.
+
+123
+00:21:16,320 --> 00:21:31,410
+Chris Andrews: Human hasn't function is most often just used for graphing purposes to compare things rather than too much interpretation.
+
+124
+00:21:31,410 --> 00:21:35,460
+Chris Andrews: I mentioned the Nelson Allen estimator briefly yesterday.
+
+125
+00:21:35,460 --> 00:21:57,870
+Chris Andrews: It works by estimating this human hazard function it's just adding up the hazard terms that's how its defined and then because you can get from the hazard function to the survival function this provides another estimate of the survival curve.
+
+126
+00:21:57,870 --> 00:22:12,930
+Chris Andrews: Our continuous versions of this hazard function, just like for the discrete distribution, we had probability mass function and for a continuous distribution, we have a density function, you can kind of do the same.
+
+127
+00:22:12,930 --> 00:22:19,710
+Chris Andrews: infinitesimal stuff calculus stuff to define a continuous hazard rate function.
+
+128
+00:22:19,710 --> 00:22:25,710
+Chris Andrews: it's defined for continuous times, instead of discrete times.
+
+129
+00:22:25,710 --> 00:22:43,020
+Chris Andrews: This again is a measure of your risk at a given time, given that you've survived so what's the probability of having an event in the next little time the X is a little bit of time, given that you are at risk and then you've survived this long.
+
+130
+00:22:43,020 --> 00:22:54,900
+Chris Andrews: Some other terms for some mortality instantaneous hazard.
+
+131
+00:22:54,900 --> 00:22:59,280
+Chris Andrews: So here's a typical example of.
+
+132
+00:22:59,280 --> 00:23:02,610
+Chris Andrews: hazard across the lifespan.
+
+133
+00:23:02,610 --> 00:23:06,390
+Chris Andrews: When you're very young, there is.
+
+134
+00:23:06,390 --> 00:23:15,540
+Chris Andrews: Some risk once you make it through early childhood and actually this would probably be go down even faster.
+
+135
+00:23:15,540 --> 00:23:19,080
+Chris Andrews: You come across with relatively.
+
+136
+00:23:19,080 --> 00:23:32,790
+Chris Andrews: Constant hazard they're probably a couple blips here like when you're 16 and learn how to drive and when you're 21 and learn how to drink, at the same time, and anyway, but for the most part is pretty.
+
+137
+00:23:32,790 --> 00:23:48,000
+Chris Andrews: stable until you get later in life and various diseases started to catch up with you, and then it has it really takes off.
+
+138
+00:23:48,000 --> 00:23:57,990
+Chris Andrews: An increasing hazard rate function means that people are more likely to experience the event per unit time given survival to that time as time goes on.
+
+139
+00:23:57,990 --> 00:24:08,040
+Chris Andrews: This is like death and elderly that's the very right hand side of this curve, where the older, you are the higher your instantaneous risk is.
+
+140
+00:24:08,040 --> 00:24:21,210
+Chris Andrews: On the other side there's risk right at the beginning that decreases over time, as you make it through the traumatic birth experience.
+
+141
+00:24:21,210 --> 00:24:25,020
+Chris Andrews: There are some more formulas, these are the analogs of the.
+
+142
+00:24:25,020 --> 00:24:33,420
+Chris Andrews: discrete version, so if you're calculus fan, you can look at some of these things, and they may look reasonable, if not don't worry about it.
+
+143
+00:24:33,420 --> 00:24:37,620
+Chris Andrews: But.
+
+144
+00:24:37,620 --> 00:24:45,660
+Chris Andrews: He has a rate function is not negative because it's like a density it's not bounded above by one.
+
+145
+00:24:45,660 --> 00:24:56,670
+Chris Andrews: So that's one difference between the discrete version, which is the probability continuous version which is events.
+
+146
+00:24:56,670 --> 00:24:59,010
+Chris Andrews: And, here are some.
+
+147
+00:24:59,010 --> 00:25:16,650
+Chris Andrews: relationships between a survival function and the hazard function and this one at the bottom I referred to, or I alluded to a little bit earlier when I talked about if we can use that Nelson Allen estimator out the cumin of hazzard we could get back to an estimate of the survival function.
+
+148
+00:25:16,650 --> 00:25:40,200
+Chris Andrews: So, in some cases it's a little more natural to compute an estimate of age of capital age by adding up the little hazard chunks and then transforming them to get an estimate of the survival curve.
+
+149
+00:25:40,200 --> 00:25:43,140
+Chris Andrews: here's a typical example of.
+
+150
+00:25:43,140 --> 00:25:52,860
+Chris Andrews: The cumulative hazard function it's increasing because, as you age, you have more risk of the event occurring the slope of this line.
+
+151
+00:25:52,860 --> 00:26:03,870
+Chris Andrews: Is the hazard that we saw graph earlier, so you can see it's fairly constant in this range from say five up to 40 I think it was it was the hazard function was very flat.
+
+152
+00:26:03,870 --> 00:26:21,120
+Chris Andrews: So this is very much a straight line but increasing here it's a little steeper at the beginning, indicating that higher hazard during the first couple years of life and then at the end is taking off again the slope is increasing, because.
+
+153
+00:26:21,120 --> 00:26:29,490
+Chris Andrews: That hazard is taking a hazard is higher.
+
+154
+00:26:29,490 --> 00:26:32,280
+Chris Andrews: survival function goes the other way.
+
+155
+00:26:32,280 --> 00:26:52,590
+Chris Andrews: If you transform that last function, by using eat the minus age, you know my CAP age, you get kind of a little bit of a steep drop at the beginning, and this is not a straight line it's either the minus of a straight line, but it appears straight, because our vision isn't isn't perfect.
+
+156
+00:26:52,590 --> 00:26:59,790
+Chris Andrews: And then it drops off more quickly at the end.
+
+157
+00:26:59,790 --> 00:27:17,640
+Chris Andrews: This is harder, in my opinion, to interpret where the risk of a hazard is than the previous graphs.
+
+158
+00:27:17,640 --> 00:27:20,370
+Chris Andrews: you've perhaps heard me.
+
+159
+00:27:20,370 --> 00:27:36,750
+Chris Andrews: slip into this already the hazard rate function is for continuous variables and hazard functions for discrete variables, but almost all is it's just the hazard function and because they're so similar doesn't really matter which term you use.
+
+160
+00:27:36,750 --> 00:27:46,590
+Chris Andrews: And so don't worry about it, if you never used the word rate in there.
+
+161
+00:27:46,590 --> 00:27:50,850
+Chris Andrews: Okay looks.
+
+162
+00:27:50,850 --> 00:27:54,450
+Chris Andrews: So.
+
+163
+00:27:54,450 --> 00:28:04,350
+Chris Andrews: Oh, I never got around to making the quiz on zoom that I was going to have here just to get some feedback.
+
+164
+00:28:04,350 --> 00:28:13,230
+Chris Andrews: Here are four has a great functions so on the horizontal axis of the two these is the.
+
+165
+00:28:13,230 --> 00:28:18,630
+Chris Andrews: Is time the vertical axis is H of T.
+
+166
+00:28:18,630 --> 00:28:22,950
+Chris Andrews: And the question was let's see.
+
+167
+00:28:22,950 --> 00:28:26,820
+Chris Andrews: I think you have the ability to.
+
+168
+00:28:26,820 --> 00:28:30,420
+Chris Andrews: react to things.
+
+169
+00:28:30,420 --> 00:28:32,790
+Chris Andrews: reactions.
+
+170
+00:28:32,790 --> 00:28:37,410
+Chris Andrews: I don't know if you could see this on my screen or not, but there's a.
+
+171
+00:28:37,410 --> 00:28:43,500
+Chris Andrews: clapping and thumbs up and all that good stuff.
+
+172
+00:28:43,500 --> 00:28:46,770
+Chris Andrews: Unfortunately, are four options.
+
+173
+00:28:46,770 --> 00:28:53,520
+Chris Andrews: So we'll just have to go with it, so the question is.
+
+174
+00:28:53,520 --> 00:28:56,400
+Chris Andrews: And after we get a few.
+
+175
+00:28:56,400 --> 00:29:08,880
+Chris Andrews: Initial reactions i'm going to ask why, but maybe you guys can just unmute yourself and shout out a letter between ABC or D, the question is which of these hazard right functions.
+
+176
+00:29:08,880 --> 00:29:12,870
+Chris Andrews: Is the graph of.
+
+177
+00:29:12,870 --> 00:29:20,760
+Chris Andrews: The hazard of reincarnation so you've just been released from prison at time zero.
+
+178
+00:29:20,760 --> 00:29:33,180
+Chris Andrews: And at some point, you may be incarcerated again and, obviously, it depends on many factors like who you are what was your original crime.
+
+179
+00:29:33,180 --> 00:29:45,540
+Chris Andrews: But all else being equal, or perhaps you'll pick a different curve based on some of these factors.
+
+180
+00:29:45,540 --> 00:30:19,980
+Chris Andrews: let's hear some answers so anybody who's willing to speak up and you can just all shout out you don't have to wait for each other.
+
+181
+00:30:19,980 --> 00:30:21,210
+Holli Loomans-Kropp: A.
+
+182
+00:30:21,210 --> 00:30:22,050
+Chris Andrews: Thank you.
+
+183
+00:30:22,050 --> 00:30:23,520
+Holli Loomans-Kropp: holly gets an A in the class because.
+
+184
+00:30:23,520 --> 00:30:24,210
+Chris Andrews: She gets.
+
+185
+00:30:24,210 --> 00:30:25,740
+A.
+
+186
+00:30:25,740 --> 00:30:31,560
+Chris Andrews: Now everyone gets a cuz but that's not the algorithm.
+
+187
+00:30:31,560 --> 00:30:37,110
+Chris Andrews: anybody else, please input.
+
+188
+00:30:37,110 --> 00:30:48,060
+Suzanne Bock: I thought it was a two because the time when you're released it starts at zero and then it's probably reincarnation sorry.
+
+189
+00:30:48,060 --> 00:30:58,080
+Suzanne Bock: chance to go back to jail is a greatest at the beginning, and then I would think it it kind of levels off and decreases as time goes by, but I don't know if that's right.
+
+190
+00:30:58,080 --> 00:31:01,140
+Chris Andrews: that's a good argument i'd.
+
+191
+00:31:01,140 --> 00:31:13,380
+Chris Andrews: be happy to hear some discussion or debate about whether that's true in real life, or whether that's not what's represented by a or anyway.
+
+192
+00:31:13,380 --> 00:31:14,880
+Geehan: well.
+
+193
+00:31:14,880 --> 00:31:28,020
+Geehan: I think I like see because let's say you're released things are going great, but over time, you have a hard time finding employment and.
+
+194
+00:31:28,020 --> 00:31:35,430
+Geehan: more likely to commit crimes and I don't know end up and present I guess i'd go with see.
+
+195
+00:31:35,430 --> 00:31:36,330
+Chris Andrews: Okay, great.
+
+196
+00:31:36,330 --> 00:31:51,960
+Thanks.
+
+197
+00:31:51,960 --> 00:31:55,620
+Chris Andrews: Alright, so no one voted for D.
+
+198
+00:31:55,620 --> 00:32:11,070
+Chris Andrews: That shows relatively constant hazard so at any point in time in the future, you have a you know 3% or 1% or 20% chance of going back to jail.
+
+199
+00:32:11,070 --> 00:32:19,050
+Chris Andrews: and none, and none of you argued for that, and I think that's that's probably correct.
+
+200
+00:32:19,050 --> 00:32:23,370
+Chris Andrews: Because there's no scale on any of this it's a little bit hard to say.
+
+201
+00:32:23,370 --> 00:32:33,240
+Chris Andrews: You know what arguments that you put forth apply to win but that's okay it's it's purposely vague.
+
+202
+00:32:33,240 --> 00:32:40,050
+Chris Andrews: But you know, nobody spoke up for D and I agree, I think these probably not a good choice, unless you think that.
+
+203
+00:32:40,050 --> 00:32:45,510
+Chris Andrews: Unless you think it's constant overtime.
+
+204
+00:32:45,510 --> 00:32:47,880
+Chris Andrews: B and C.
+
+205
+00:32:47,880 --> 00:32:50,580
+Chris Andrews: Both start.
+
+206
+00:32:50,580 --> 00:32:54,180
+Chris Andrews: At a positive hazard.
+
+207
+00:32:54,180 --> 00:33:02,610
+Chris Andrews: So at times zero there up some number of units on the vertical axis and.
+
+208
+00:33:02,610 --> 00:33:23,520
+Chris Andrews: Be falls and continues to fall and levels off very low, maybe 20th of the original hazard and whether you know whether it's just me trying to draw with a mouse or the fact that there's actual leveling off meaning anything I don't know.
+
+209
+00:33:23,520 --> 00:33:26,760
+Chris Andrews: See, on the other hand, dips.
+
+210
+00:33:26,760 --> 00:33:30,450
+Chris Andrews: And that increases again.
+
+211
+00:33:30,450 --> 00:33:46,530
+Chris Andrews: So both of these argue for there being a higher risk of reincarnation reincarnation not doing re incarceration early in the process, and then the question is, after that drops.
+
+212
+00:33:46,530 --> 00:33:49,680
+Chris Andrews: Does it go back up again.
+
+213
+00:33:49,680 --> 00:33:57,930
+Chris Andrews: So people in favor of be might say look you're at the highest risk and the further you are from prison in terms of time.
+
+214
+00:33:57,930 --> 00:34:01,470
+Chris Andrews: The better your chances are.
+
+215
+00:34:01,470 --> 00:34:10,920
+Chris Andrews: See, on the other hand, says, you know there's there's immediate risk, but once you get settled, or at least some people become settled.
+
+216
+00:34:10,920 --> 00:34:27,240
+Chris Andrews: Ideally people get settled your hazard goes down, but that is not a permanent situation and risk increases again.
+
+217
+00:34:27,240 --> 00:34:37,050
+Chris Andrews: hey says hazard reincarnation incarceration is essentially zero right at the beginning.
+
+218
+00:34:37,050 --> 00:34:52,500
+Chris Andrews: And then increases for a while and then decreases and the tale of a so the kind of right two thirds that graph looks a lot, like the graph for be.
+
+219
+00:34:52,500 --> 00:35:08,940
+Chris Andrews: So this is almost a question about you know what happens at the beginning, so A and B kind of agree it's kind of long term behavior there's some high point of risk and the risk decreases after that to very allow or zero.
+
+220
+00:35:08,940 --> 00:35:16,710
+Chris Andrews: A, on the other hand, says, you know what right when you're released for whatever reason.
+
+221
+00:35:16,710 --> 00:35:21,960
+Chris Andrews: you're at low risk of reincarnation.
+
+222
+00:35:21,960 --> 00:35:27,390
+Chris Andrews: And that might be true, depending on the time scale of all this.
+
+223
+00:35:27,390 --> 00:35:34,260
+Chris Andrews: You know if this is a study of prisoners being released into some.
+
+224
+00:35:34,260 --> 00:35:45,870
+Chris Andrews: halfway house or being released due to good behavior so in some sense, these are the people who are at low risk immediately or These are people who.
+
+225
+00:35:45,870 --> 00:35:54,210
+Chris Andrews: were put in, there were released into a into a job, and so, while they have that job.
+
+226
+00:35:54,210 --> 00:36:07,680
+Chris Andrews: Things are great they lose that job has it goes back up perhaps they find another job where they found new friends or whatever, and that risk retreats again.
+
+227
+00:36:07,680 --> 00:36:13,080
+Chris Andrews: But you can see why the shape of this curve whatever truly is.
+
+228
+00:36:13,080 --> 00:36:24,540
+Chris Andrews: would be interesting to a sociologist or prison reformer or politician it's like where are the risks.
+
+229
+00:36:24,540 --> 00:36:38,790
+Chris Andrews: How big are the risks would obviously need some scale along the vertical axis, to say that How long does the risk last, we need a scale on the horizontal axis or vertical axis.
+
+230
+00:36:38,790 --> 00:36:57,150
+Chris Andrews: Because you want to often put your resources at the places where there's highest risk, and it could be that be was what it was in 1980 and after some reform it's moved to a.
+
+231
+00:36:57,150 --> 00:37:10,290
+Chris Andrews: or B may have been, where it was early and then, when the war on drugs took off what to see and people got re incarcerated more.
+
+232
+00:37:10,290 --> 00:37:29,310
+Chris Andrews: And perhaps the goal is D where D is on a scale where that really is very close to zero and there's very little risk of re incarceration because everyone has been rehabilitated.
+
+233
+00:37:29,310 --> 00:37:31,200
+Chris Andrews: All right.
+
+234
+00:37:31,200 --> 00:37:35,400
+Chris Andrews: Great any questions about those.
+
+235
+00:37:35,400 --> 00:38:02,520
+Chris Andrews: grass.
+
+236
+00:38:02,520 --> 00:38:09,030
+Chris Andrews: alright.
+
+237
+00:38:09,030 --> 00:38:16,350
+Chris Andrews: let's see i'm going to start this section on comparing samples.
+
+238
+00:38:16,350 --> 00:38:23,460
+Chris Andrews: So you've got two groups of three groups of four groups and you want to compare their time to event distribution.
+
+239
+00:38:23,460 --> 00:38:27,390
+Chris Andrews: will do this for about 10 minutes and then.
+
+240
+00:38:27,390 --> 00:38:33,300
+Chris Andrews: Take a short break.
+
+241
+00:38:33,300 --> 00:38:43,170
+Chris Andrews: We talked about the survival function and said, you know if we know the survival function, we could say what's the probability of survival to six months say.
+
+242
+00:38:43,170 --> 00:38:53,940
+Chris Andrews: And if you've got a new treatment and old treatment, perhaps you want to compare these six months survival time, excuse me, six months survival probabilities.
+
+243
+00:38:53,940 --> 00:39:03,660
+Chris Andrews: And so you could explicitly right out, I want to compare this probability so on the standard of care what's my probability of survival at six months.
+
+244
+00:39:03,660 --> 00:39:19,980
+Chris Andrews: And on the new treatment what's my probability of survival at six months the null hypothesis is that those two things are equal and the research or alternative hypothesis is that they're not equal.
+
+245
+00:39:19,980 --> 00:39:33,120
+Chris Andrews: Potentially you're only interested in whether the new treatment is better so maybe you would say you know what I really want to use a less than sign here because I want to show this one is better.
+
+246
+00:39:33,120 --> 00:39:36,210
+Chris Andrews: it's it's fine to want to do that.
+
+247
+00:39:36,210 --> 00:39:50,550
+Chris Andrews: But often any regulatory agency will not let you do that, they know people cheat too much on their P value, that is, they don't want to let you cut your Alpha and half or double your alpha really I guess.
+
+248
+00:39:50,550 --> 00:40:07,740
+Chris Andrews: By using a one sided alternative so, even though it may logically makes sense to do one side alternatives turns out that most people just do the two sided alternative, even if they're really only care about one and.
+
+249
+00:40:07,740 --> 00:40:30,570
+Chris Andrews: Furthermore, you should also be interested in if your new treatment is decreasing survival So although it might not be publication worthy certainly want to know if that's true so that you can do something about it, instead of continuing.
+
+250
+00:40:30,570 --> 00:40:36,690
+Chris Andrews: How would you do this well i've talked about these things as probabilities or proportions.
+
+251
+00:40:36,690 --> 00:40:48,510
+Chris Andrews: The standard test statistic is to take one P hat and another P hat and look at their difference and then divide by some standard error.
+
+252
+00:40:48,510 --> 00:40:52,920
+Chris Andrews: This is simple test of proportions.
+
+253
+00:40:52,920 --> 00:40:58,950
+Chris Andrews: If you didn't have sensor data, this would be P one happy to have this would be.
+
+254
+00:40:58,950 --> 00:41:09,180
+Chris Andrews: O P one half times one minus P one add over ny now some some garbage like that that you may have learned an interest at class, because we are.
+
+255
+00:41:09,180 --> 00:41:17,130
+Chris Andrews: Working with sensor data, the formulas aren't quite that we're just going to use the kaplan Meier estimator here kaplan Meier estimator hear.
+
+256
+00:41:17,130 --> 00:41:26,040
+Chris Andrews: Something based on greenwood's formula for each of these two but it's the same basic idea we're going to compute something that should be approximately normal.
+
+257
+00:41:26,040 --> 00:41:40,680
+Chris Andrews: With means zero and variants one and Compare that to the normal distribution and see whether we can reject the null hypothesis or not.
+
+258
+00:41:40,680 --> 00:41:48,450
+Chris Andrews: If you want to know how big the difference was obviously the difference in the two kaplan Meier curves at that time is the number of interest.
+
+259
+00:41:48,450 --> 00:42:08,160
+Chris Andrews: But you want to know how accurate, that is one way to do that, then, is to take 1.96 times the square root of this margin of error, excuse me, what 1.6 times the standard error.
+
+260
+00:42:08,160 --> 00:42:21,330
+Chris Andrews: it's usually not appropriate to conduct this test at every single time point was very clear that we were studying the survival time at six months, but you could do it at anytime.
+
+261
+00:42:21,330 --> 00:42:35,970
+Chris Andrews: problem there is you're doing lots and lots of comparisons and you should do a some correction for that hypothesis test is built upon having a pre-specified null hypothesis.
+
+262
+00:42:35,970 --> 00:42:44,400
+Chris Andrews: Collecting some data computing a test statistic and computing a P value is directly rent linked to that null hypothesis.
+
+263
+00:42:44,400 --> 00:43:00,300
+Chris Andrews: it's not collect some data computer bunch of test statistics and P values and then say what your hypothesis is that you're interested in that will inflate your Type one error your alpha is not point 05 if you if you cheat.
+
+264
+00:43:00,300 --> 00:43:04,530
+Chris Andrews: And it's very easy to achieve even if you're not trying to.
+
+265
+00:43:04,530 --> 00:43:22,530
+Chris Andrews: That so you have to be careful when you get your data that you if you really want to trust your P values have used FIBA excuse me, have your hypotheses specified ahead of time do your primary analysis report those P values and then.
+
+266
+00:43:22,530 --> 00:43:32,460
+Chris Andrews: Yes, your data was difficult to collect you want to do as much as you can with it, but don't pretend to yourself or others that those P values are trustworthy.
+
+267
+00:43:32,460 --> 00:43:52,140
+Chris Andrews: At this point, you've entered the land of hypothesis generation, instead of hypothesis testing So if you have some pre-specified things to test great do that, but then after that at all exploratory.
+
+268
+00:43:52,140 --> 00:44:01,710
+Chris Andrews: You don't know at what time you want to compare it to distributions, the best thing to do is to compare it at all times.
+
+269
+00:44:01,710 --> 00:44:07,140
+Chris Andrews: It doesn't have the precise power of looking at where are the distributions most.
+
+270
+00:44:07,140 --> 00:44:20,490
+Chris Andrews: Different and comparing man, but it's averaging over all the time and if your treatment should be good should probably have a lasting effect.
+
+271
+00:44:20,490 --> 00:44:30,000
+Chris Andrews: So the null hypothesis I just described, is that the to survival curves are the same for all time.
+
+272
+00:44:30,000 --> 00:44:39,300
+Chris Andrews: The alternative, a research hypothesis is that they're different at some time you don't have to be different, all the time they can be the same for the first little while and diverged.
+
+273
+00:44:39,300 --> 00:44:44,370
+Chris Andrews: They can go and then come back together and cross.
+
+274
+00:44:44,370 --> 00:44:53,460
+Chris Andrews: But the idea is that some values of tea they're different.
+
+275
+00:44:53,460 --> 00:45:12,600
+Chris Andrews: i've specified these in terms of the survival function but because of the relationships between the survival function and the hazard functions and acumen of has it function, we could have written this in terms of age or cabbage as well.
+
+276
+00:45:12,600 --> 00:45:14,550
+Chris Andrews: Furthermore.
+
+277
+00:45:14,550 --> 00:45:28,410
+Chris Andrews: it's almost always you're interested in a to grow comparison, but there are plenty of times, also where maybe there's a third or a fourth group and your initial test is going to be, are they all the same.
+
+278
+00:45:28,410 --> 00:45:35,820
+Chris Andrews: is akin to doing an analysis of variance you compare maybe three or four groups and say, are there, means the same.
+
+279
+00:45:35,820 --> 00:45:49,410
+Chris Andrews: And then, when you reject the null hypothesis that all four means that the same you say okay well now i'm interested in which means are different and you start doing pairwise comparison, so all these.
+
+280
+00:45:49,410 --> 00:46:07,830
+Chris Andrews: that's what would happen here to you would build a test statistic to compare that all for survival functions are the same if you reject the null hypothesis, you would then go on and probably do all these pairwise comparisons.
+
+281
+00:46:07,830 --> 00:46:14,010
+Chris Andrews: Now we're not just talking about comparing two means or two proportions.
+
+282
+00:46:14,010 --> 00:46:22,350
+Chris Andrews: When you're comparing two means there's basically two things that can happen one mean can be higher than the other, or the first can be higher than the second.
+
+283
+00:46:22,350 --> 00:46:31,350
+Chris Andrews: I said the same thing twice i've got it right, where i'm supposed to switch but anyway they're kind of two ways that can be different, so we talked about one sided and two sided tests.
+
+284
+00:46:31,350 --> 00:46:39,840
+Chris Andrews: Now, if you imagine two functions to squiggly functions over time and say how can these things be different, it can be different in a lot of ways.
+
+285
+00:46:39,840 --> 00:46:51,390
+Chris Andrews: One can be higher than the other, at all times, the other one lower or they could be the same for a while and split apart, that one could be higher and then dip below the other.
+
+286
+00:46:51,390 --> 00:47:09,810
+Chris Andrews: And there's no one test statistic that's going to perfectly find all these differences between two groups, and so you end up using a test statistic that's kind of good against all those situations released, as many of those situations as possible, so that you can test.
+
+287
+00:47:09,810 --> 00:47:14,280
+Chris Andrews: and have some power against.
+
+288
+00:47:14,280 --> 00:47:18,720
+Chris Andrews: Against the null hypothesis.
+
+289
+00:47:18,720 --> 00:47:27,690
+Chris Andrews: Alright, so how can functions be different, the first thing we did was check at one particular time point.
+
+290
+00:47:27,690 --> 00:47:43,620
+Chris Andrews: The law of rank test is going to test a different procedure it's essentially whether one is larger than the other, in particular, is the ratio the hazard functions which you talked about, is it one meeting of the same words one.
+
+291
+00:47:43,620 --> 00:47:51,300
+Chris Andrews: condition consistently higher than the other, you know this one's almost 50% higher than the default or something like that.
+
+292
+00:47:51,300 --> 00:48:19,590
+Chris Andrews: that's the log rank test is the most powerful test in that situation, but also as good power and other situations where they start near each other and the effect grows or the effect is biggest at the beginning and decreases it's good at detecting all of these things.
+
+293
+00:48:19,590 --> 00:48:30,000
+Chris Andrews: Okay, before I go into this calculation i'm going to pause and ask for any questions about the the basic idea of comparing survival curves.
+
+294
+00:48:30,000 --> 00:48:40,800
+Chris Andrews: And then i'll i'll take a 10 minute break if there are no questions.
+
+295
+00:48:40,800 --> 00:48:42,570
+Holli Loomans-Kropp: And I have a question.
+
+296
+00:48:42,570 --> 00:48:43,650
+Chris Andrews: Yes, holly.
+
+297
+00:48:43,650 --> 00:48:52,950
+Holli Loomans-Kropp: Great, and so the for the library that you're showing it's between two different groups, so if we did like a placebo and a treatment, but if you had.
+
+298
+00:48:52,950 --> 00:49:03,390
+Holli Loomans-Kropp: Like a placebo treatment why and treatment to treatment one plus two is the log log rank still appropriate to do, are we going to kind of talk about.
+
+299
+00:49:03,390 --> 00:49:06,090
+Holli Loomans-Kropp: Something additional so we have four separate groups who want.
+
+300
+00:49:06,090 --> 00:49:07,260
+Chris Andrews: Okay, so.
+
+301
+00:49:07,260 --> 00:49:09,660
+Chris Andrews: You described it as four separate groups but.
+
+302
+00:49:09,660 --> 00:49:10,170
+Holli Loomans-Kropp: Right.
+
+303
+00:49:10,170 --> 00:49:21,000
+Chris Andrews: Now, also described it as treatment one treatment true treatment one into an either treatment one or two in some way that's a kind of a two factor test.
+
+304
+00:49:21,000 --> 00:49:22,230
+Holli Loomans-Kropp: Right right.
+
+305
+00:49:22,230 --> 00:49:24,630
+Chris Andrews: might be comparing.
+
+306
+00:49:24,630 --> 00:49:35,910
+Chris Andrews: One group, you know one treatment kind of adjusted for the other or controlling for the other and vice versa, is there an interaction blah blah blah blah blah so.
+
+307
+00:49:35,910 --> 00:49:53,610
+Chris Andrews: The answer is, you can do all of that in different ways, you can treat it as four groups and jam it into the Lord rank test i'm only going to show you the log rank test for two by two here prefer, excuse me for two groups, but it can extend to more groups.
+
+308
+00:49:53,610 --> 00:49:57,030
+Chris Andrews: If you want to use that structure of.
+
+309
+00:49:57,030 --> 00:49:57,990
+Chris Andrews: Having.
+
+310
+00:49:57,990 --> 00:50:12,450
+Chris Andrews: Two factors, instead of four groups, you can do that, either through stratification which will come up essentially you'll stratify and want to test the second and then your second test the first.
+
+311
+00:50:12,450 --> 00:50:16,440
+Chris Andrews: But really it's the.
+
+312
+00:50:16,440 --> 00:50:27,210
+Chris Andrews: The question you're asking is more like a two way Nova which is multiple regression, which asks you essentially just do the Cox model.
+
+313
+00:50:27,210 --> 00:50:31,740
+Chris Andrews: So the log rank test is particularly good for what it does.
+
+314
+00:50:31,740 --> 00:50:44,100
+Chris Andrews: But very quickly you're going to move on to cash proportional hazards regression models which subsumes the log rank test the special case of a group comparison.
+
+315
+00:50:44,100 --> 00:51:00,360
+Holli Loomans-Kropp: Okay yeah because I was just thinking for like I do a lot of my work and prevention and so we'll do like know prevent or no intervention intervention one intervention to and then intervention one into to see kind of along those lines so that's that's how.
+
+316
+00:51:00,360 --> 00:51:10,710
+Chris Andrews: You get ya know i'm so glad to hear that people are designing studies that have more than one factor, because if you wanted to do that study and only foot study factor one.
+
+317
+00:51:10,710 --> 00:51:23,040
+Chris Andrews: You would find out well you know one thing if you studied only factor to you to find out something else and and you wouldn't ever figure out how they work together or didn't work together, or whatever so.
+
+318
+00:51:23,040 --> 00:51:32,790
+Chris Andrews: yeah it's it's key to be able to analyze multiple factors from the same data set and thankfully, we can yeah.
+
+319
+00:51:32,790 --> 00:51:33,870
+Holli Loomans-Kropp: Thank you.
+
+320
+00:51:33,870 --> 00:51:34,590
+Chris Andrews: yeah great.
+
+321
+00:51:34,590 --> 00:51:47,520
+Other questions.
+
+322
+00:51:47,520 --> 00:52:06,120
+Chris Andrews: Alright, my clock on my computer just click to 252 so i'll see you back here at 302 and we'll see how many people us can remember to start the recording again.
+
+323
+00:52:06,120 --> 00:52:14,040
+Chris Andrews: Okay bad I remember.
+
+324
+00:52:14,040 --> 00:52:18,570
+Chris Andrews: Alright, we.
+
+325
+00:52:18,570 --> 00:52:26,850
+Chris Andrews: are learning about the log rank test and trying to figure out how it's going to tell the difference between two survival curves.
+
+326
+00:52:26,850 --> 00:52:47,730
+Chris Andrews: over an entire time period, instead of focusing on just one time period we're focusing on the entire distribution, so how can we possibly find out that one is having more events faster than another.
+
+327
+00:52:47,730 --> 00:52:56,190
+Chris Andrews: The log rank tests as lots of different names and lots of different varieties of it and so don't worry too much about.
+
+328
+00:52:56,190 --> 00:52:59,940
+Chris Andrews: The names associated with these things.
+
+329
+00:52:59,940 --> 00:53:03,990
+Chris Andrews: As I was kind of alluding to before the break.
+
+330
+00:53:03,990 --> 00:53:18,540
+Chris Andrews: The Cox model will be able to do a lot of these things very similarly some of the standard output from macaques model may include this law rank test and.
+
+331
+00:53:18,540 --> 00:53:23,250
+Chris Andrews: it's just.
+
+332
+00:53:23,250 --> 00:53:35,520
+Chris Andrews: The law of rank test is expected for comparing two groups, but as soon as you get more complicated than that it may be that other options are better.
+
+333
+00:53:35,520 --> 00:53:39,900
+Chris Andrews: So, how does the law rank test do what it's supposed to do.
+
+334
+00:53:39,900 --> 00:53:43,890
+Chris Andrews: Is first going to arrange.
+
+335
+00:53:43,890 --> 00:54:02,940
+Chris Andrews: The events according to their time, so if you're studying 100 people and they're 50 events that occur on 30 different days you're going to look at 30 different time periods know any day that an event occurred or more than one event occurred.
+
+336
+00:54:02,940 --> 00:54:05,970
+Chris Andrews: we're going to study that time period.
+
+337
+00:54:05,970 --> 00:54:16,230
+Chris Andrews: we're going to arrange it into a table, and I say we're going to arrange it like we're going to do any of this, but what we're gonna do is say you know proc life test or something like that.
+
+338
+00:54:16,230 --> 00:54:20,910
+Chris Andrews: But this is what's going on underneath the hood.
+
+339
+00:54:20,910 --> 00:54:31,260
+Chris Andrews: The understanding here let's not be understanding the notation here is, we have two groups who want to compare.
+
+340
+00:54:31,260 --> 00:54:34,980
+Chris Andrews: At time T sub J.
+
+341
+00:54:34,980 --> 00:54:43,740
+Chris Andrews: There are nj people at risk and one day of them are the first group and then to Jay or the second group.
+
+342
+00:54:43,740 --> 00:54:49,770
+Chris Andrews: At time T sub J, there are decent J events.
+
+343
+00:54:49,770 --> 00:54:59,880
+Chris Andrews: Usually, this is one, but sometimes you get things bunched up if you don't measure time very carefully and so maybe there are several events occurring at the same time.
+
+344
+00:54:59,880 --> 00:55:19,800
+Chris Andrews: And then we have how many events happened in each of the two groups, I mean deaths were the first group, how many desperate and second group obviously other people didn't die, and you know put these here, so the things add up in this two by two table.
+
+345
+00:55:19,800 --> 00:55:36,960
+Chris Andrews: So when you're studying a two by two table for just a contingency table of two categorical variables a Chi square test will compare how many observations, there were any cell to what would be expected if the two.
+
+346
+00:55:36,960 --> 00:55:39,540
+Chris Andrews: variables we're independent.
+
+347
+00:55:39,540 --> 00:55:55,830
+Chris Andrews: And that's what we're trying to get at here are the are the deaths and the group's independent or not, if I if I know what group you're in does it tell me that you're more or less likely to die that's what we're trying to figure out are the survival curves different.
+
+348
+00:55:55,830 --> 00:56:03,810
+Chris Andrews: And so to compare the observed events to the expected events.
+
+349
+00:56:03,810 --> 00:56:05,610
+Chris Andrews: darn.
+
+350
+00:56:05,610 --> 00:56:12,300
+Chris Andrews: there's a missing one on this slide.
+
+351
+00:56:12,300 --> 00:56:16,080
+Chris Andrews: No take it back okay.
+
+352
+00:56:16,080 --> 00:56:23,100
+Chris Andrews: gotta read more carefully so if the null hypothesis is true the expected number of events in group one.
+
+353
+00:56:23,100 --> 00:56:28,260
+Chris Andrews: should be the number of events total at that time.
+
+354
+00:56:28,260 --> 00:56:34,260
+Chris Andrews: The Sunday Times, the proportion of people that are actually in that first group.
+
+355
+00:56:34,260 --> 00:56:51,180
+Chris Andrews: So if I know that there were five events, I know that half the people are each group, so this is, you know 50 over 100 or whatever that I should expect two and a half, events in the first group and two and a half, and the second group.
+
+356
+00:56:51,180 --> 00:56:59,580
+Chris Andrews: Groups don't have to be the same size, if one group has had more events or more dropouts one group may be substantially smaller than the other.
+
+357
+00:56:59,580 --> 00:57:07,590
+Chris Andrews: And so maybe it's later on in the study or maybe by design these were never close to a half maybe only a third of the people are in the first group.
+
+358
+00:57:07,590 --> 00:57:20,310
+Chris Andrews: Well, if there were five events and a third of the people were in the first group we would expect five thirds of the events to be in the first group if there were actually.
+
+359
+00:57:20,310 --> 00:57:33,090
+Chris Andrews: Three events that group instead of five thurs obviously is going to be exactly five thirds but that's an indication that there are more events in the first group than we expected and we're gonna do this at each time point.
+
+360
+00:57:33,090 --> 00:57:36,900
+Chris Andrews: Because group one group to work exactly.
+
+361
+00:57:36,900 --> 00:57:41,580
+Chris Andrews: complements of each other, we only need to do this for one of the two groups.
+
+362
+00:57:41,580 --> 00:57:51,870
+Chris Andrews: But we're going to compare the number of observed events in the first group, the number of expected events in the first group with that formula from the previous page.
+
+363
+00:57:51,870 --> 00:58:02,910
+Chris Andrews: sort of compare how many occurred to how many were expected and if the null hypothesis is true that should be about zero.
+
+364
+00:58:02,910 --> 00:58:18,090
+Chris Andrews: However, if it's not if this is consistently, or at least more often than not, bigger than the expected, then this is going to add up, and this one will be positive and perhaps far from zero.
+
+365
+00:58:18,090 --> 00:58:37,170
+Chris Andrews: Indicating the null hypothesis is not true so under the null hypothesis, we expect these to be about the same just some random noise and we add up random noise and we expect to get something close to zero obviously there's some variants that we can compute using a uglier formula.
+
+366
+00:58:37,170 --> 00:58:52,650
+Chris Andrews: But the idea is on a null hypothesis, we know what this should be, and if it's too big or too small that's an indication that the null hypothesis is not correct.
+
+367
+00:58:52,650 --> 00:58:58,800
+Chris Andrews: There are several versions of this test that compute.
+
+368
+00:58:58,800 --> 00:59:13,500
+Chris Andrews: The test statistic slightly differently depending on what the alternative hypothesis is, what are we trying to detect or what do we think the most likely alternative is that we, we want to focus all our power on.
+
+369
+00:59:13,500 --> 00:59:22,470
+Chris Andrews: If we thought the biggest difference was going to be at six months and we just want to test at six months we've already done that.
+
+370
+00:59:22,470 --> 00:59:37,890
+Chris Andrews: If we think that the difference is going to be early during the study the drug is going to have a big effect early it's going to taper off after the body becomes accustomed to it or it's processed or whatever, maybe we want to focus on that early time period.
+
+371
+00:59:37,890 --> 00:59:46,620
+Chris Andrews: So there are other ways to arrange your log rank test or long range blog rank type test to stress those things.
+
+372
+00:59:46,620 --> 01:00:07,320
+Chris Andrews: But unless you really have a strong opinion or strong evidence are priori before you actually look at the data that you're going to be looking at a different specific part of the time frame just go with the log rank tests it's what's expected its most powerful and a common situation.
+
+373
+01:00:07,320 --> 01:00:10,320
+Chris Andrews: And just just use that.
+
+374
+01:00:10,320 --> 01:00:20,700
+Chris Andrews: Of course, even within the law of rank test, there are versions of it, this is one estimate of the variance collected a different estimate of the variance.
+
+375
+01:00:20,700 --> 01:00:43,320
+Chris Andrews: And so, if you want to be very careful and say what test you're writing about in a paper go look at the help file for whatever statistics package you chose to use, and it will tell you it's using this and i'll give you a reference and then you can say that.
+
+376
+01:00:43,320 --> 01:00:47,910
+Chris Andrews: So here's my comment about the law of attraction should be the default.
+
+377
+01:00:47,910 --> 01:01:06,390
+Chris Andrews: If you're in that situation where you expect the difference to be right at the beginning, the wilcockson test puts a little bit more emphasis on the early time when you have the most data and less emphasis on the right hand tail where you tend to have fewer observation.
+
+378
+01:01:06,390 --> 01:01:16,140
+Chris Andrews: There are other ways, you can wait things besides the log rank and then wilcox and test and you'll see those some places.
+
+379
+01:01:16,140 --> 01:01:31,380
+Chris Andrews: About half of you are using SAS or claim to be using SAS on your labs and will know that product life test spits out three things, by default, the log rank test the wilcox and test.
+
+380
+01:01:31,380 --> 01:01:42,690
+Chris Andrews: And this minus to log lr which an lr is not short for law ratio or excuse me law rank is short for likely to ratio.
+
+381
+01:01:42,690 --> 01:02:11,070
+Chris Andrews: and livelihoods show up when you have parametric analyses, so this is actually a parametric analysis which is great, if you have exponential distributions but unless you're going to go through the process of checking that don't you don't choose that option as as your test statistic.
+
+382
+01:02:11,070 --> 01:02:19,290
+Chris Andrews: I think SAS will give you up to six tests easily when asked for when he asked a lot rank test, you can get a whole bunch of others.
+
+383
+01:02:19,290 --> 01:02:38,280
+Chris Andrews: Do not be in the habit of asking for them all and then picking the one you like, because it has the smallest P value this is true not just about survival analysis is true about any statistical analysis that you do pick your tests before you actually analyze the data.
+
+384
+01:02:38,280 --> 01:02:46,020
+Chris Andrews: don't inflate your error and publish garbage.
+
+385
+01:02:46,020 --> 01:02:51,810
+Chris Andrews: So if I click on this chat do I see it, I don't know if anyone else.
+
+386
+01:02:51,810 --> 01:02:56,040
+Chris Andrews: Okay.
+
+387
+01:02:56,040 --> 01:03:05,730
+Chris Andrews: If survival curves cross, and this is a reminder that you should plot your survival curves to see what's going on.
+
+388
+01:03:05,730 --> 01:03:23,940
+Chris Andrews: Then the positive and negative deviations those D minus E things, maybe positive early on, for in time and negative late in time and average each other out and you'll end up saying I don't see a difference.
+
+389
+01:03:23,940 --> 01:03:33,810
+Chris Andrews: This is part of the problem with having functions that can do so many different things you can't design a test that will find all differences.
+
+390
+01:03:33,810 --> 01:03:45,510
+Chris Andrews: Anyway, so if you get a non significant law ranked test, there is a chance that there is a pattern that this dog drank test isn't designed to see.
+
+391
+01:03:45,510 --> 01:03:48,480
+Chris Andrews: I think this is important.
+
+392
+01:03:48,480 --> 01:04:05,490
+Chris Andrews: To do just about any statistical analysis, you know do your test and then check the conditions and say look Okay, we said we're going to do a T test we did a T test here's the p value point four, but we noticed that our data.
+
+393
+01:04:05,490 --> 01:04:07,620
+Chris Andrews: Were.
+
+394
+01:04:07,620 --> 01:04:18,330
+Chris Andrews: suffers significant outliers or whatever, and so as exploratory analysis we redid the test without those blah blah blah blah blah.
+
+395
+01:04:18,330 --> 01:04:32,640
+Chris Andrews: So make sure that you don't just stop when you get a non spammy result or they don't stop when you get a significant result it's probably just as bad as say Oh, we did a T test you got people's point 004.
+
+396
+01:04:32,640 --> 01:04:40,500
+Chris Andrews: And it's all because there's one huge outlier in one group that says that mean in this group is higher than any other group.
+
+397
+01:04:40,500 --> 01:04:46,020
+Chris Andrews: Now I checked the conditions of the tests that you're using.
+
+398
+01:04:46,020 --> 01:04:51,000
+Chris Andrews: If you happen to have crossing survival curves you can try to get fancier.
+
+399
+01:04:51,000 --> 01:05:05,310
+Chris Andrews: there's a Cox model approach to analyzing data like this, but unless this was kind of a pre specified analysis you knew this feature was going to happen, so you design your analysis to do that.
+
+400
+01:05:05,310 --> 01:05:19,020
+Chris Andrews: don't over model your data.
+
+401
+01:05:19,020 --> 01:05:21,060
+Chris Andrews: All right.
+
+402
+01:05:21,060 --> 01:05:33,750
+Chris Andrews: Here are just a few more details that you can look back at if you ever end up using some of these other things.
+
+403
+01:05:33,750 --> 01:05:40,710
+Chris Andrews: Anyway, function can be used and you could choose them in your stead package.
+
+404
+01:05:40,710 --> 01:05:50,040
+Chris Andrews: sorry that I labeled this as a boring extension, and it was the first question, I had about it, but you can't do this with more groups than just two or three.
+
+405
+01:05:50,040 --> 01:05:59,220
+Chris Andrews: The initial test the national question should be are they all the same, and then after that you can ask additional questions.
+
+406
+01:05:59,220 --> 01:06:16,770
+Chris Andrews: If I reject the null hypothesis that all three groups were equal I might then carry out three pairwise tests at alpha equals point 05 divided by three bond throw any correction and see what groups are different.
+
+407
+01:06:16,770 --> 01:06:20,820
+Chris Andrews: You can do a test for trend.
+
+408
+01:06:20,820 --> 01:06:32,430
+Chris Andrews: As soon as you get into looking for trends or into many, many groups that are ordered that's where you start saying you know what let's just do a Cox model do a regression analysis.
+
+409
+01:06:32,430 --> 01:06:58,830
+Chris Andrews: Where instead of thinking these as three distinct groups I think of one, two and three as being a cove area, and I expect the hazard to get a higher with as as this coverity increases so think of it as more as a continuous covariance instead of three distinct groups.
+
+410
+01:06:58,830 --> 01:07:05,610
+Chris Andrews: there's something called a stratified log rank test and stratification.
+
+411
+01:07:05,610 --> 01:07:08,760
+Chris Andrews: Well anyway okay.
+
+412
+01:07:08,760 --> 01:07:19,320
+Chris Andrews: So the problem here is sometimes you want to see the effect of one variable and a second variable is getting in the way or somehow muddying the water.
+
+413
+01:07:19,320 --> 01:07:41,250
+Chris Andrews: And so you want to control for the fact that this extra variable is causing difficulty, maybe some of the assumptions for the log rank tests aren't being met, because things are very different between the two to the in a second covariance.
+
+414
+01:07:41,250 --> 01:07:46,470
+Chris Andrews: So one solution would be to say look, I want to do this comparison about.
+
+415
+01:07:46,470 --> 01:07:59,670
+Chris Andrews: Drug a versus B, but I know it behaves very different in males and females so i'm going to study males in one test i'm going to study females, and another test.
+
+416
+01:07:59,670 --> 01:08:19,800
+Chris Andrews: that's fine if you have unlimited data or lots of data, then no break things into different groups and just report the effect or the lack of effect by law rank test among the males and do the same among the females.
+
+417
+01:08:19,800 --> 01:08:35,700
+Chris Andrews: But if you expect if you have less data and you expect the effect of treatments, to be essentially the same whether you're talking about males or females, even though males might have a much higher are much different hazard pattern and the females.
+
+418
+01:08:35,700 --> 01:08:41,430
+Chris Andrews: But do you think the effect of the treatment is the same it's protective for both.
+
+419
+01:08:41,430 --> 01:08:51,930
+Chris Andrews: You want to kind of analyze it all in one situation, and so, if you were doing a two way analysis of variance you might have you know the.
+
+420
+01:08:51,930 --> 01:09:05,310
+Chris Andrews: The one main effect or interested in crossed with some other cove area that pressure not is interested in and that's kind of what stratification does here.
+
+421
+01:09:05,310 --> 01:09:25,920
+Chris Andrews: The key is that the second variable is we've got time in the in these models and we really want to allow for the flexibility across time and that's where the stratification is as a little bit different for survival analysis that it is in the rest of epidemiology.
+
+422
+01:09:25,920 --> 01:09:34,110
+Chris Andrews: So the typical picture here is that in both these graphs.
+
+423
+01:09:34,110 --> 01:09:36,510
+Chris Andrews: In both these graphs.
+
+424
+01:09:36,510 --> 01:09:39,660
+Chris Andrews: The hazard rate function is.
+
+425
+01:09:39,660 --> 01:09:45,630
+Chris Andrews: much higher for a that is for be back it's twice as high.
+
+426
+01:09:45,630 --> 01:10:01,470
+Chris Andrews: If there were a horizontal line at zero you could see that the distance from zero to be a distance from beat a was the same regardless of what time period you're looking at across the horizontal axis and that's true both for males and females.
+
+427
+01:10:01,470 --> 01:10:08,670
+Chris Andrews: But obviously the hazard functions are very different for males and females, for whatever this.
+
+428
+01:10:08,670 --> 01:10:18,090
+Chris Andrews: event is that we're studying the risk increases over time for males and it decreases over time for females.
+
+429
+01:10:18,090 --> 01:10:27,900
+Chris Andrews: And if we were to to push these all into a single analysis and ignore sex in this analysis.
+
+430
+01:10:27,900 --> 01:10:36,750
+Chris Andrews: there's extra variability extra randomness that is going to lower the power of our test.
+
+431
+01:10:36,750 --> 01:10:44,430
+Chris Andrews: So, if you think there's a strong secondary predictor not the one you're interested in, but something you need to adjust for.
+
+432
+01:10:44,430 --> 01:10:58,320
+Chris Andrews: If you think there's a different hazard pattern between these different groups, these are times when you should consider a stratified log rank test.
+
+433
+01:10:58,320 --> 01:11:19,170
+Chris Andrews: The idea is that the calculation that we did in a single group is going to look the same are into it males and females, and then we're actually going to combine the test the test statistics and the variances and get a single test statistic instead of one for males and one for females.
+
+434
+01:11:19,170 --> 01:11:33,660
+Chris Andrews: And if all the conditions are right, this single test has more power than either of the two individual tests.
+
+435
+01:11:33,660 --> 01:11:46,110
+Chris Andrews: Any questions about those calculations or examples.
+
+436
+01:11:46,110 --> 01:11:48,780
+Holli Loomans-Kropp: I have a question about.
+
+437
+01:11:48,780 --> 01:12:03,060
+Holli Loomans-Kropp: The I guess it could be like a multi multi part question but going back to the wilcockson for kind of testing out the putting more weight on earlier, is it kind of.
+
+438
+01:12:03,060 --> 01:12:17,670
+Holli Loomans-Kropp: I guess is it kind of arbitrary what earlier means in the study time because, if I think about a study, where you have follow up for like five years versus 20 years like kind of how does it wait.
+
+439
+01:12:17,670 --> 01:12:31,410
+Holli Loomans-Kropp: Earlier on, and then, I guess, then, in addition to that, is there a test that kind of weights, a little like kind of weights later to the kind of the the right end because I think of.
+
+440
+01:12:31,410 --> 01:12:47,010
+Holli Loomans-Kropp: like an example that I use a lot of prevention studies, where you start to see effects like you have 20 something years of follow up and you start to see effects, like a year 15 and so like kind of much later in your follow up time.
+
+441
+01:12:47,010 --> 01:12:50,520
+Chris Andrews: Okay, both good questions.
+
+442
+01:12:50,520 --> 01:12:54,180
+Chris Andrews: The as far as the wilcox and goes.
+
+443
+01:12:54,180 --> 01:13:01,320
+Chris Andrews: And the scaling of time, what does more mean versus West all these are data driven.
+
+444
+01:13:01,320 --> 01:13:12,300
+Chris Andrews: And you can see, on this slide the weight that's put on this is and the people number of people at risk and so.
+
+445
+01:13:12,300 --> 01:13:20,970
+Chris Andrews: You know whether it's five years or 50 years doesn't matter so much it's how many people are at risk at a particular time point.
+
+446
+01:13:20,970 --> 01:13:28,650
+Chris Andrews: And so, if you happen to have a study with hundred people in it, and only 10 of them have events.
+
+447
+01:13:28,650 --> 01:13:33,210
+Chris Andrews: The wilcockson log rank are going to look very similar.
+
+448
+01:13:33,210 --> 01:13:40,860
+Chris Andrews: Unless you have a lot of drop out because and is going to be 100 of the beginning and it's 9998 90 and so those are kind of the.
+
+449
+01:13:40,860 --> 01:13:41,310
+Chris Andrews: The.
+
+450
+01:13:41,310 --> 01:13:41,700
+Chris Andrews: The.
+
+451
+01:13:41,700 --> 01:13:48,660
+Chris Andrews: weights that get entered in on these 10 events and for the law of rank they'd all be equal 11111.
+
+452
+01:13:48,660 --> 01:13:58,260
+Chris Andrews: If, on the other hand, you have a lot of drop out, and so one of them, although there are only 10 events by the end of the study you only have 10 people left.
+
+453
+01:13:58,260 --> 01:14:05,820
+Chris Andrews: them at that first segment is being waited 10 times as much as the.
+
+454
+01:14:05,820 --> 01:14:17,370
+Chris Andrews: piece of the end and so waiting to be how how extensive the waiting is depends on how big your sample size is over the course of the study.
+
+455
+01:14:17,370 --> 01:14:23,550
+Holli Loomans-Kropp: Okay, so it's not so much time it's more observations themselves and like how about observations drop.
+
+456
+01:14:23,550 --> 01:14:26,130
+Holli Loomans-Kropp: Yes, okay yep.
+
+457
+01:14:26,130 --> 01:14:27,870
+Chris Andrews: So the.
+
+458
+01:14:27,870 --> 01:14:29,370
+well.
+
+459
+01:14:29,370 --> 01:14:47,820
+Chris Andrews: For the studies we've got no one ever joined a study you know the maximum study samples at the beginning and then people leave and have events and that gets smaller and that's that's why the wilcox and puts more weight early time because that's where they're more people.
+
+460
+01:14:47,820 --> 01:15:01,410
+Chris Andrews: second piece of that you asked about is is there the opposite option, where there's a test that puts more emphasis late on the study and.
+
+461
+01:15:01,410 --> 01:15:18,240
+Chris Andrews: There are they're less popular because, as you go further on your sample sizes smaller and there's less certain be there, and so, by focusing your energies there you tend to be looking at a noisier part of the data.
+
+462
+01:15:18,240 --> 01:15:35,040
+Chris Andrews: Now that's a very broad generalization if you are studying hundred people and 10 of them have events, and you have no dropouts you still have just about as many people at the end is, you have the beginning so it's a relatively minor concern at that point.
+
+463
+01:15:35,040 --> 01:15:40,020
+Chris Andrews: So there are there is a family of tests by.
+
+464
+01:15:40,020 --> 01:15:42,750
+Chris Andrews: harrington and Fleming.
+
+465
+01:15:42,750 --> 01:15:48,390
+Chris Andrews: called.
+
+466
+01:15:48,390 --> 01:16:03,420
+Chris Andrews: That was one or two parameters, depending on how its implemented it's like the row family of anyway, and you can specify how strong you want the beginning and the end to count.
+
+467
+01:16:03,420 --> 01:16:16,260
+Chris Andrews: Anyway, so that I don't think there's anything in the slides about this, but there are options for what to do when you want to focus on the latter half of the distribution.
+
+468
+01:16:16,260 --> 01:16:21,960
+Chris Andrews: There are options for that.
+
+469
+01:16:21,960 --> 01:16:22,560
+Chris Andrews: yeah.
+
+470
+01:16:22,560 --> 01:16:42,690
+Chris Andrews: Great other questions.
+
+471
+01:16:42,690 --> 01:16:48,030
+Chris Andrews: Okay So how do we actually do this.
+
+472
+01:16:48,030 --> 01:16:53,490
+Chris Andrews: In SAS we can use Prague life test we use this once before.
+
+473
+01:16:53,490 --> 01:16:55,740
+Chris Andrews: yesterday.
+
+474
+01:16:55,740 --> 01:17:03,270
+Chris Andrews: we're use the same data set we're going to stratify on sex.
+
+475
+01:17:03,270 --> 01:17:19,890
+Chris Andrews: In this one or comparing the survival distribution between males and females in the PVC trial yesterday, I think we looked at only one arm of the trial only those who got treatment until the sample size was not 312 it was about half of that.
+
+476
+01:17:19,890 --> 01:17:30,330
+Chris Andrews: This time i've loaded a bit more of the data and run this code so down here for SAS.
+
+477
+01:17:30,330 --> 01:17:39,300
+Chris Andrews: Again this demonstration code is or will be available online shortly.
+
+478
+01:17:39,300 --> 01:17:52,440
+Chris Andrews: here's some code or load the data.
+
+479
+01:17:52,440 --> 01:17:59,940
+Chris Andrews: First lines.
+
+480
+01:17:59,940 --> 01:18:02,790
+Chris Andrews: like this, I saved.
+
+481
+01:18:02,790 --> 01:18:19,050
+Chris Andrews: A couple more variables, I think, last time I didn't have these variables, because I wasn't doing it with them, but now i've saved a couple more the sex of the participant and the stage of the participants disease at baseline.
+
+482
+01:18:19,050 --> 01:18:28,140
+Chris Andrews: The law rank test is implemented using this straight up statement so.
+
+483
+01:18:28,140 --> 01:18:33,450
+Chris Andrews: Unfortunately SAS.
+
+484
+01:18:33,450 --> 01:18:47,580
+Chris Andrews: uses this as it uses straight, a term not to refer exclusively to the stratified logged rank test it's used in other situations as well, and anyway we're using it here, so this actually.
+
+485
+01:18:47,580 --> 01:18:56,430
+Chris Andrews: is not going to produce a stratified log rank test there's there's no stratification variable for the test it's just going to compare.
+
+486
+01:18:56,430 --> 01:18:59,220
+Chris Andrews: males to females.
+
+487
+01:18:59,220 --> 01:19:01,950
+Chris Andrews: I put in a note table.
+
+488
+01:19:01,950 --> 01:19:17,850
+Chris Andrews: argument in the product life tag proc life test statement, so it wouldn't give us that long survival a capital bias biochar free to the groups, if you want those obviously don't say no table.
+
+489
+01:19:17,850 --> 01:19:32,340
+Chris Andrews: The stratification has caused SAS to the extreme to the strata statement has caused SAS to draw to capital Maya curves one for each of the two groups.
+
+490
+01:19:32,340 --> 01:19:35,850
+Chris Andrews: males are the red or color.
+
+491
+01:19:35,850 --> 01:19:39,930
+Chris Andrews: females or the blue or color.
+
+492
+01:19:39,930 --> 01:19:48,540
+Chris Andrews: There are many more females than males in this group, and so it's confidence intervals is narrower.
+
+493
+01:19:48,540 --> 01:19:52,770
+Chris Andrews: Many fewer males so that one's pretty wide.
+
+494
+01:19:52,770 --> 01:19:56,700
+Chris Andrews: Looking at the curves and the confidence intervals.
+
+495
+01:19:56,700 --> 01:20:01,260
+Chris Andrews: They start out pretty similar.
+
+496
+01:20:01,260 --> 01:20:10,170
+Chris Andrews: But here there's a sudden dip sudden I know this is over the years, but anyway there's a steep decline here.
+
+497
+01:20:10,170 --> 01:20:28,680
+Chris Andrews: Among the males and then it kind of levels off a bit females is a bit more consistent in its survival curve, maybe there's a little bit here, but I wouldn't want to read too much into it, given we're kind of out of the right hand side of the distribution at this point.
+
+498
+01:20:28,680 --> 01:20:35,430
+Chris Andrews: If you look at certain parts of the distribution, it appears that there's no difference between survival time.
+
+499
+01:20:35,430 --> 01:20:42,300
+Chris Andrews: For males and females other places it looks like there is a difference.
+
+500
+01:20:42,300 --> 01:20:51,540
+Chris Andrews: So it's a little unclear what the log rank tests will do there appears to be a difference here, but maybe because I had to look at this entire window.
+
+501
+01:20:51,540 --> 01:20:57,150
+Chris Andrews: This difference might just be chance variation.
+
+502
+01:20:57,150 --> 01:21:02,460
+Chris Andrews: So we scroll back up here a little bit.
+
+503
+01:21:02,460 --> 01:21:14,610
+Chris Andrews: It computes some test statistics test statistics for us covariance matrix we don't really care about.
+
+504
+01:21:14,610 --> 01:21:25,110
+Chris Andrews: And here are the actual test statistics and the p values associated with them notice the law of rank and wilcockson are nearly identical.
+
+505
+01:21:25,110 --> 01:21:42,180
+Chris Andrews: This often happens, there is a huge difference between these but as soon as this is point 0498, and this is point 0511 people start worrying about which one they should use when really they're still telling you about the same thing.
+
+506
+01:21:42,180 --> 01:21:48,060
+Chris Andrews: Here is that parametric tests that assumes, you have to exponential distributions.
+
+507
+01:21:48,060 --> 01:22:10,830
+Chris Andrews: exponential distribution might fit this curve for the females, at least for a little bit males probably not so, although this number is about the same I don't like how it's arrived at this situation.
+
+508
+01:22:10,830 --> 01:22:15,570
+Chris Andrews: We can generalize this somewhat some of the other tests.
+
+509
+01:22:15,570 --> 01:22:29,940
+Chris Andrews: Were what, if you have more than two groups in this case, we had the stage there are four stages of disease.
+
+510
+01:22:29,940 --> 01:22:36,330
+Chris Andrews: So by that command we get for capital Meyer curves.
+
+511
+01:22:36,330 --> 01:22:46,200
+Chris Andrews: Stage four is down here at the bottom, it has the worst survival Stage three is more in the middle stage two.
+
+512
+01:22:46,200 --> 01:22:58,650
+Chris Andrews: is better still, for the person Stage one a couple things I noticed is I think there's just one event and a lot of sense rings that's what these pluses are here and a huge standard air.
+
+513
+01:22:58,650 --> 01:23:07,200
+Chris Andrews: There are very few people in the first stage, and so we really shouldn't try to say too much about that group.
+
+514
+01:23:07,200 --> 01:23:18,150
+Chris Andrews: And if we had known that about our study, perhaps we would have excluded them in the first place or tried to get more of them if that was an important group.
+
+515
+01:23:18,150 --> 01:23:24,240
+Chris Andrews: Again statistics covariance matrix she's not interested that we're interested in.
+
+516
+01:23:24,240 --> 01:23:27,060
+Chris Andrews: These Chi square test statistics.
+
+517
+01:23:27,060 --> 01:23:38,160
+Chris Andrews: These are very large test statistics on three degrees of freedom P value is less than point 001.
+
+518
+01:23:38,160 --> 01:24:00,540
+Chris Andrews: And it's much smaller than 001 and I think, and I asked you just from the graph does it look like there's a difference, I think you all, would have said yes there's a there's a clear difference between these four pieces.
+
+519
+01:24:00,540 --> 01:24:08,970
+Chris Andrews: If you want to get the trend test across those four stages, because you probably knew what the order of those stages were going to be.
+
+520
+01:24:08,970 --> 01:24:23,130
+Chris Andrews: You could throw in a slash trend at the end of it i'll run it but it's not particularly exciting that the test statistics are going to change slightly.
+
+521
+01:24:23,130 --> 01:24:44,460
+Chris Andrews: computing them as the scores instead of us Chi Square and statistics are still point 0001 or more or less.
+
+522
+01:24:44,460 --> 01:24:49,140
+Chris Andrews: stratified logged rank test here.
+
+523
+01:24:49,140 --> 01:25:00,480
+Chris Andrews: SAS changes, a little bit so it's going to do a test of is there a difference between males and females stratified on stage.
+
+524
+01:25:00,480 --> 01:25:28,140
+Chris Andrews: so busy so up here, we said strata sex without a test about the difference sex here, it feels like maybe we should we should be testing this and stratified anyway, but this is the notation for doing a test of the effect of sex on survival strategy buying on stage.
+
+525
+01:25:28,140 --> 01:25:38,550
+Chris Andrews: Here we see this before was about point 04 still about now is point 05 or so this one's going up somewhat more.
+
+526
+01:25:38,550 --> 01:25:54,840
+Chris Andrews: indicating potentially that I don't know, maybe males and females work equally distributed distributed distributed across the different stages, it may be that that confounding has decreased the association between.
+
+527
+01:25:54,840 --> 01:25:57,840
+Chris Andrews: sex and survival.
+
+528
+01:25:57,840 --> 01:26:13,410
+Chris Andrews: On the other hand, this didn't change much sure that that changed some not that big of a deal still saying there's probably an effect or there might be an effect trending toward effect, whatever.
+
+529
+01:26:13,410 --> 01:26:29,130
+Chris Andrews: I don't like to split hairs about things just above and just below point 05.
+
+530
+01:26:29,130 --> 01:26:35,340
+Chris Andrews: we'll be talking about the Cox model tomorrow pH REG is the procedure we use for fitting Cox models.
+
+531
+01:26:35,340 --> 01:26:42,180
+Chris Andrews: Here is a test of the effect of sex on.
+
+532
+01:26:42,180 --> 01:26:51,000
+Chris Andrews: survival time again the p value is about the same nothing particularly interesting changed here.
+
+533
+01:26:51,000 --> 01:26:58,020
+Chris Andrews: You can also do stratified analysis.
+
+534
+01:26:58,020 --> 01:27:13,800
+Chris Andrews: Anyway, so that is SAS which I have a sense that most of you will be using something like this in the coming lab.
+
+535
+01:27:13,800 --> 01:27:23,790
+Chris Andrews: we've kind of gone through this output through the course of actually using SAS instead of looking at the slides.
+
+536
+01:27:23,790 --> 01:27:55,980
+Chris Andrews: Before I look at some other languages any questions about the SAS implementation or what I said about the p values and such.
+
+537
+01:27:55,980 --> 01:28:05,310
+Chris Andrews: So here's the our version and our studio again loaded the survival functions into the current session.
+
+538
+01:28:05,310 --> 01:28:12,480
+Chris Andrews: shouldn't take that long it's not doing much just my computer there we're going to read in the data.
+
+539
+01:28:12,480 --> 01:28:14,580
+Chris Andrews: names.
+
+540
+01:28:14,580 --> 01:28:23,970
+Chris Andrews: buying a few variables.
+
+541
+01:28:23,970 --> 01:28:31,260
+Chris Andrews: This is day one i'm just wondering why I was doing was on the open up bait to sorry.
+
+542
+01:28:31,260 --> 01:28:37,860
+Chris Andrews: Day to.
+
+543
+01:28:37,860 --> 01:28:42,750
+Chris Andrews: start out the same because we're using the same data set.
+
+544
+01:28:42,750 --> 01:28:50,430
+Chris Andrews: status stage.
+
+545
+01:28:50,430 --> 01:29:11,190
+Chris Andrews: create the event variable change timescale your PPC trials and new data set that only includes people in the trial, so we went from 418 people down to a 312 because 106 were just being followed not active participants in the trial.
+
+546
+01:29:11,190 --> 01:29:21,210
+Chris Andrews: rishi variable first few rows of the data set looks a lot like first eurozone loaded into SAS surprisingly.
+
+547
+01:29:21,210 --> 01:29:25,680
+Chris Andrews: Here i'm asking for kaplan Meier curve for.
+
+548
+01:29:25,680 --> 01:29:42,540
+Chris Andrews: Both groups, one for males one for females so previously, we had this survival outcome here till the one indicating just one group the end of the intercept here we're going to create two groups, one for each.
+
+549
+01:29:42,540 --> 01:29:47,790
+Chris Andrews: sex and then again, we could ask for.
+
+550
+01:29:47,790 --> 01:29:52,680
+Chris Andrews: A little bit about what here, it gives the median time to survival.
+
+551
+01:29:52,680 --> 01:30:04,740
+Chris Andrews: The Confidence interval goes from 8.7 up to infinity we the other half of compensating will never drops below point five, so we don't get a number for those things.
+
+552
+01:30:04,740 --> 01:30:08,670
+Chris Andrews: We can get the entire curve if we wanted print it out.
+
+553
+01:30:08,670 --> 01:30:13,050
+Chris Andrews: more likely we want to plot these things.
+
+554
+01:30:13,050 --> 01:30:16,860
+Chris Andrews: So here's a plot of males and females.
+
+555
+01:30:16,860 --> 01:30:20,370
+Chris Andrews: it's the same plot, we saw before.
+
+556
+01:30:20,370 --> 01:30:30,960
+Chris Andrews: I did not choose the fancier options to shake things in and whatever, but it should look fairly fairly familiar.
+
+557
+01:30:30,960 --> 01:30:39,990
+Chris Andrews: And the new stuff Today is the last rank test blog rank test is performed with this serve diff function.
+
+558
+01:30:39,990 --> 01:31:01,740
+Chris Andrews: The the formula that's given is the exact same one we just drew for males versus females to get their curves again we're using as PVC trial data set served if, by default, gives you the lot rank test scores 4.3 and one degree of freedom equals point 04.
+
+559
+01:31:01,740 --> 01:31:06,090
+Chris Andrews: Which is what SAS told us as well.
+
+560
+01:31:06,090 --> 01:31:11,940
+Chris Andrews: Perhaps we're interested in the effect of the drug again.
+
+561
+01:31:11,940 --> 01:31:27,120
+Chris Andrews: same type of output Chi squared equals point one P values Point seven so, for whatever reason there's a larger sex is a larger predictor of survival than the drug is.
+
+562
+01:31:27,120 --> 01:31:34,710
+Chris Andrews: This is not a good sign for the drug.
+
+563
+01:31:34,710 --> 01:31:38,340
+Chris Andrews: can do the same thing for stage.
+
+564
+01:31:38,340 --> 01:31:43,290
+Chris Andrews: Chi square is 53.8 on three degrees of freedom, I think that's the same number.
+
+565
+01:31:43,290 --> 01:31:56,970
+Chris Andrews: SAS gave us P is equal to one times 10 to the minus 1111 so very, very small indeed.
+
+566
+01:31:56,970 --> 01:32:01,170
+Chris Andrews: stratified log rank test.
+
+567
+01:32:01,170 --> 01:32:20,190
+Chris Andrews: can be conducted here we yeah we did a stratified version in SAS here, this is the variable I want to test, and I say, I want to stratify on this variable here, I put it in Australia statement.
+
+568
+01:32:20,190 --> 01:32:30,240
+Chris Andrews: Again 3.9 P equals point 05 I think that's the number, we got Alaska around from SAS.
+
+569
+01:32:30,240 --> 01:32:34,320
+Chris Andrews: I took a little bit of time to draw more complete graph.
+
+570
+01:32:34,320 --> 01:32:58,920
+Chris Andrews: For the four different stages, one for each so using just the stage one data I said what's the effect of sex and that's this and using just the stage to data what's the effect of sex and as this one, so on, and you see there's very little data knees much more data down here.
+
+571
+01:32:58,920 --> 01:33:06,390
+Chris Andrews: And just for completeness, you can run these this Cox model.
+
+572
+01:33:06,390 --> 01:33:09,510
+Chris Andrews: That again gives you.
+
+573
+01:33:09,510 --> 01:33:18,330
+Chris Andrews: A likelihood ratio test, but the likelihood ratio test is based on the Cox model now on the exponential level.
+
+574
+01:33:18,330 --> 01:33:44,790
+Chris Andrews: So that one i'm not going to complain about here's the law rank tests that we've already computed once before it comes out as part of the default output for a cogs model again P equals point 04 for the effect of sex.
+
+575
+01:33:44,790 --> 01:33:46,410
+Chris Andrews: alright.
+
+576
+01:33:46,410 --> 01:33:55,590
+Chris Andrews: Questions about the our implementation.
+
+577
+01:33:55,590 --> 01:33:58,320
+Sharmi Sen: quick question about this tracker function.
+
+578
+01:33:58,320 --> 01:34:04,410
+Sharmi Sen: Yes, is it the same as using just like a factor.
+
+579
+01:34:04,410 --> 01:34:06,330
+Sharmi Sen: So in today's I just.
+
+580
+01:34:06,330 --> 01:34:10,320
+Sharmi Sen: Do stages and I had the factor functional side.
+
+581
+01:34:10,320 --> 01:34:19,920
+Chris Andrews: So if you take let's see where is that this.
+
+582
+01:34:19,920 --> 01:34:24,180
+Chris Andrews: New just say stage here.
+
+583
+01:34:24,180 --> 01:34:27,540
+Sharmi Sen: Oh yes, def are factor stages.
+
+584
+01:34:27,540 --> 01:34:31,530
+Chris Andrews: Okay stage of it's already a factor but.
+
+585
+01:34:31,530 --> 01:34:32,040
+Chris Andrews: anyway.
+
+586
+01:34:32,040 --> 01:34:41,370
+Chris Andrews: Yes, so i'm not sure what it's either going to complain or it's going to do something we didn't want it to do so okay so.
+
+587
+01:34:41,370 --> 01:34:55,590
+Chris Andrews: what's happened here is rather than doing a test of sex adjusting for stage is creating all combinations of sex and stage and comparing all eight of them to each other.
+
+588
+01:34:55,590 --> 01:35:01,770
+Chris Andrews: So this is not the same as the step before.
+
+589
+01:35:01,770 --> 01:35:12,150
+Chris Andrews: Earlier, there was a brief conversation about what if I want to know if I have treatment one and treatment two and some people get neither or both, or one or the other.
+
+590
+01:35:12,150 --> 01:35:21,900
+Chris Andrews: If you had a variable treatment want another variable treatment to you could create the four groups and do this analysis by using this notation.
+
+591
+01:35:21,900 --> 01:35:37,650
+Chris Andrews: But Essentially, this is it turns out, I didn't know this until now what served if does is it can compute all possible groups by whatever variables you put here and compares them all to each other.
+
+592
+01:35:37,650 --> 01:35:39,330
+Thank you.
+
+593
+01:35:39,330 --> 01:35:39,720
+Chris Andrews: Very.
+
+594
+01:35:39,720 --> 01:35:47,790
+Chris Andrews: Good question.
+
+595
+01:35:47,790 --> 01:36:01,980
+Chris Andrews: Other questions.
+
+596
+01:36:01,980 --> 01:36:11,430
+Chris Andrews: there's that served if command and data we're going to use something called St set to start things up.
+
+597
+01:36:11,430 --> 01:36:27,420
+Chris Andrews: To define the follow up barrier, the time variable and a failure event variable and then we're going to do a test statement on sex so.
+
+598
+01:36:27,420 --> 01:36:30,420
+Chris Andrews: here.
+
+599
+01:36:30,420 --> 01:36:35,250
+Chris Andrews: Hopefully.
+
+600
+01:36:35,250 --> 01:36:38,760
+Chris Andrews: If I run this code.
+
+601
+01:36:38,760 --> 01:36:45,090
+says confidently.
+
+602
+01:36:45,090 --> 01:36:56,160
+When you run this code it's only been.
+
+603
+01:36:56,160 --> 01:37:03,900
+Chris Andrews: execute execute.
+
+604
+01:37:03,900 --> 01:37:10,170
+There it is.
+
+605
+01:37:10,170 --> 01:37:18,000
+Chris Andrews: Alright, so I got all of it sorry if I scroll back to quickly here to get to the beginning.
+
+606
+01:37:18,000 --> 01:37:22,530
+Chris Andrews: loaded some data.
+
+607
+01:37:22,530 --> 01:37:25,800
+Chris Andrews: males versus females expected.
+
+608
+01:37:25,800 --> 01:37:28,200
+Chris Andrews: Events versus expected.
+
+609
+01:37:28,200 --> 01:37:40,200
+Chris Andrews: Observers expected as i'm trying to say log writing test for quality of survival functions up this is the stage variable I have to go back up I missed the sex variable.
+
+610
+01:37:40,200 --> 01:37:42,360
+Chris Andrews: Sex here we are.
+
+611
+01:37:42,360 --> 01:37:50,010
+Chris Andrews: Chi square is equal 4.27 P equals point 0388 sounds familiar.
+
+612
+01:37:50,010 --> 01:37:58,500
+Chris Andrews: or stage because quarters for 3.8 P, is very small.
+
+613
+01:37:58,500 --> 01:38:04,500
+Chris Andrews: Which one is this is the trend version of that trend test.
+
+614
+01:38:04,500 --> 01:38:14,790
+Chris Andrews: stratified log rank test here, you can put a comma stratified on stage and get the same comparison that we got before.
+
+615
+01:38:14,790 --> 01:38:26,160
+Chris Andrews: And now we'll come back to the Cox model later, but obviously there's a Cox model version here as well.
+
+616
+01:38:26,160 --> 01:38:35,580
+Chris Andrews: P equals point 041 anyway they're all telling us the same story, some of them are identical others.
+
+617
+01:38:35,580 --> 01:38:43,110
+Chris Andrews: Sometimes the implementation matters a little bit.
+
+618
+01:38:43,110 --> 01:39:00,330
+Chris Andrews: So sts test is the way to perform law rank test in state any questions about that one.
+
+619
+01:39:00,330 --> 01:39:14,670
+Chris Andrews: And in spss I didn't have time to save the code to do this, but hopefully i'll be able to remember how I got here after loading the data analyze.
+
+620
+01:39:14,670 --> 01:39:17,850
+Chris Andrews: survival.
+
+621
+01:39:17,850 --> 01:39:20,430
+Chris Andrews: kaplan Meier.
+
+622
+01:39:20,430 --> 01:39:30,000
+Chris Andrews: feels like it should say log rank but it says kaplan Meier because we're going to compare it to kaplan Meier curves we stick in the fall of the time variable.
+
+623
+01:39:30,000 --> 01:39:46,560
+Chris Andrews: The event variable events were coded as death was equal to two, so I coded it this way, this time, I want to look at males versus females if I wanted to stratify by stage I would put it here.
+
+624
+01:39:46,560 --> 01:39:53,910
+Chris Andrews: Looking over here is what gives me the law rank test or I could choose a couple others if I wanted.
+
+625
+01:39:53,910 --> 01:40:02,730
+Chris Andrews: Here I can get a trend to test if I want to click there and get a trend to test.
+
+626
+01:40:02,730 --> 01:40:13,440
+Chris Andrews: options click on survival, if you want the survival curve plots on click this if you don't want the big tables.
+
+627
+01:40:13,440 --> 01:40:35,490
+Chris Andrews: And okay click and it gives me everything I just had up there again, there are the two survival curves for males and females.
+
+628
+01:40:35,490 --> 01:40:44,730
+Chris Andrews: Oh okay so everyone was wondering what that dramatic pause was, for I didn't get point 0388 here.
+
+629
+01:40:44,730 --> 01:41:05,100
+Chris Andrews: But I forgot to limit it limit my data set to just the 312 people in the trial it's, although I loaded the data and gave some of the variables names I forgot to chop off the last 106 observations, so I had I done that I would have gotten the same output here.
+
+630
+01:41:05,100 --> 01:41:09,090
+Chris Andrews: All right, something to fix for next time.
+
+631
+01:41:09,090 --> 01:41:17,520
+Chris Andrews: Any questions about spss there.
+
+632
+01:41:17,520 --> 01:41:35,520
+Chris Andrews: Alright, so the rest of the slides are going through the things that I went through in the demonstration files here's the four stage version, instead of two groups here's the output for that you can get a trend test there's the output for that.
+
+633
+01:41:35,520 --> 01:41:38,130
+Chris Andrews: In other languages.
+
+634
+01:41:38,130 --> 01:41:42,570
+Chris Andrews: I pointed out, where you get linear trend in spss.
+
+635
+01:41:42,570 --> 01:41:58,230
+Chris Andrews: In status you've got this common trend that the served if pack served a function actually doesn't have an option for trend, there are a couple other packages in our that can give you a trend tests, if you decide, you want to do it this way.
+
+636
+01:41:58,230 --> 01:42:08,010
+Chris Andrews: it's probably easier, just to do a Cox model and implement the trend there.
+
+637
+01:42:08,010 --> 01:42:12,720
+Chris Andrews: here's a little bit more output from a stratified test.
+
+638
+01:42:12,720 --> 01:42:15,750
+Chris Andrews: here's this straight options.
+
+639
+01:42:15,750 --> 01:42:20,130
+Chris Andrews: For the different languages.
+
+640
+01:42:20,130 --> 01:42:26,040
+Chris Andrews: And as i've mentioned we're going to be talking about the cost model tomorrow and.
+
+641
+01:42:26,040 --> 01:42:30,240
+Chris Andrews: Essentially, what we've done here is do a Cox regression on.
+
+642
+01:42:30,240 --> 01:42:50,760
+Chris Andrews: A binary or a categorical variable obviously the regression model allows you to do both categorical and continuous covariance and that's where the real power of the Cox model shows up is when you have more than one variable or at least a continuous variable.
+
+643
+01:42:50,760 --> 01:42:56,940
+Chris Andrews: And they're the Cox commands.
+
+644
+01:42:56,940 --> 01:42:58,800
+Chris Andrews: Right.
+
+645
+01:42:58,800 --> 01:43:20,490
+Chris Andrews: And the slides any questions about the slides.
+
+646
+01:43:20,490 --> 01:43:26,250
+Chris Andrews: So.
+
+647
+01:43:26,250 --> 01:43:36,450
+Chris Andrews: let's oh yes okay so yesterday, when we were all sitting in one large group during a lab there wasn't much interaction.
+
+648
+01:43:36,450 --> 01:43:42,990
+Chris Andrews: or at least not that I was aware of, perhaps you are guys were furiously writing back and forth to each other.
+
+649
+01:43:42,990 --> 01:43:50,460
+Chris Andrews: But i'm doubting it so i'm going to try something a little bit different today we're all going to work on the lab but i've created a breakout room.
+
+650
+01:43:50,460 --> 01:44:10,530
+Chris Andrews: For each of the four Stat packages and I encourage you to join, whichever one you're working on and see who else is working in the language you're working in perhaps ask questions within your breakout room of each other or comment on things.
+
+651
+01:44:10,530 --> 01:44:18,750
+Chris Andrews: I will bounce in and out of rooms and into the main room.
+
+652
+01:44:18,750 --> 01:44:30,000
+Chris Andrews: And just try to check up on people feel free to continue asking questions I think if you chat from the main room i'll be able to see it.
+
+653
+01:44:30,000 --> 01:44:45,510
+Chris Andrews: And therefore answer it I think if you're in a breakout room and i'm not I don't think I see that and I don't know that I can see it once I enter the room i'll investigate that but anyway, if I haven't shown up in a little while and you've got a question.
+
+654
+01:44:45,510 --> 01:44:49,200
+Chris Andrews: Just come try to find me.
+
+655
+01:44:49,200 --> 01:44:58,800
+Chris Andrews: So breakout rooms are now open feel free to join any one, at a time and.
+
+656
+01:44:58,800 --> 01:45:01,980
+Chris Andrews: feel free to.
+
+657
+01:45:01,980 --> 01:48:28,000
+Chris Andrews: Leave and go to the rooms now anyway yeah talk to you soon.
+

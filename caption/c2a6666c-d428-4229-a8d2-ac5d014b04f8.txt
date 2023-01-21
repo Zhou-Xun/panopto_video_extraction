@@ -1,0 +1,480 @@
+1
+00:00:01,000 --> 00:00:09,000
+Hello, welcome to the module on Dags Call Center in as directed Pasic lithographs.
+
+2
+00:00:09,000 --> 00:00:13,000
+So to start, I can't take credit for these slides.
+
+3
+00:00:13,000 --> 00:00:23,000
+They're made by a gentleman named Fausto Bustos. He's a PDA UC Berkeley, and I believe he also works at the CDC on infectious disease.
+
+4
+00:00:23,000 --> 00:00:31,000
+So thank you to Fausto for these great slides. So elektro outline here.
+
+5
+00:00:31,000 --> 00:00:36,000
+We're going to review DI luminaries to review their rules for Dag's to which
+
+6
+00:00:36,000 --> 00:00:42,000
+you've already been somewhat accustomed we going to go over some eamples
+
+7
+00:00:42,000 --> 00:00:47,000
+Most likely in during the synchronous lecture.
+
+8
+00:00:47,000 --> 00:00:55,000
+we're gonna review the concepts of confounding and selection bias on DAGs which you are already somewhat familiar with.
+
+9
+00:00:55,000 --> 00:01:00,000
+We're going to look at information bias on DAGs, which is relatively new.
+
+10
+00:01:00,000 --> 00:01:12,000
+And we're going to look at some advanced DAGs. So first, the review of DAG preliminaries.
+
+11
+00:01:12,000 --> 00:01:17,000
+So this is an example of taking a data driven approach to adjusting for confounding.
+
+12
+00:01:17,000 --> 00:01:22,000
+So it highlights why we need dags in epidemiologic research.
+
+13
+00:01:22,000 --> 00:01:27,000
+Suppose they want the total effect of treatment A on the outcome Y and you observe
+
+14
+00:01:27,000 --> 00:01:35,000
+two associations by examining a two by two table relating a to c and y to c.
+
+15
+00:01:35,000 --> 00:01:44,000
+So assuming you use the data driven compounder criteria that says if a variable associated with the exposure and associated with the outcome,
+
+16
+00:01:44,000 --> 00:01:59,000
+then you should adjust for it in an analysis. So the DAG above is compatable with three DAGs.
+
+17
+00:01:59,000 --> 00:02:07,000
+All three Dag's shown here are consistent with finding a statistical relationship between the C and A and Y,
+
+18
+00:02:07,000 --> 00:02:14,000
+In the first case, C is a confounder because it's a common cause of both A and Y.
+
+19
+00:02:14,000 --> 00:02:21,000
+And in this case, we want to adjust for C. We want to measure the association, the causal association between A and Y.
+
+20
+00:02:21,000 --> 00:02:24,000
+In the second case, C is called a mediator.
+
+21
+00:02:24,000 --> 00:02:34,000
+So it is along the causal pathway between A and Y. A has a direct effect on Y, but A also causes Y through C in this case.
+
+22
+00:02:34,000 --> 00:02:45,000
+We do not want to generally adjust for C because we want the causal effect, regardless of the pathway between A and Y. In the third case
+
+23
+00:02:45,000 --> 00:02:49,000
+We have a collider because C is a common effect of both A and Y.
+
+24
+00:02:49,000 --> 00:02:52,000
+In this case we don't want to adjust.
+
+25
+00:02:52,000 --> 00:03:01,000
+We know that conditioning on a collider opens up a non causal pathway between A and Y.
+
+26
+00:03:01,000 --> 00:03:06,000
+These examples highlight why we need Dag's or structural approaches to adjusting
+
+27
+00:03:06,000 --> 00:03:10,000
+for confounding in achieving a conditional exchangeability in our studies,
+
+28
+00:03:10,000 --> 00:03:19,000
+because using the data driven approach can give us the wrong answer two out of three times.
+
+29
+00:03:19,000 --> 00:03:24,000
+So some of the common nomenclature that we use for Dags, typically A, represents an exposure.
+
+30
+00:03:24,000 --> 00:03:31,000
+Y represents the outcome. W sometimes denotes some sort of measured variable that we want to look at.
+
+31
+00:03:31,000 --> 00:03:37,000
+And then U typically denote some sort of unmeasured variable.
+
+32
+00:03:37,000 --> 00:03:45,000
+In terms of temporal order, again, time generally flows from left to right and from top to bottom.
+
+33
+00:03:45,000 --> 00:03:53,000
+And there are no arrows from future factors into past factors.
+
+34
+00:03:53,000 --> 00:03:59,000
+The presence of an arrow between A and B, for instance, only denotes the possibility of its existence.
+
+35
+00:03:59,000 --> 00:04:07,000
+An arrow from A to B. doesn't necessarily mean that A definitely caused B, it only could cause B so....
+
+36
+00:04:07,000 --> 00:04:12,000
+DAGs are illustrations of our assumptions about causal relationships in reality
+
+37
+00:04:12,000 --> 00:04:21,000
+If there is no arrow between A and B. This denotes our assumption based on real causal knowledge that A and B are independent.
+
+38
+00:04:21,000 --> 00:04:29,000
+In our study population and sometimes this is called an exclusion restriction.
+
+39
+00:04:29,000 --> 00:04:38,000
+you can see there is no direct arrow from U to A which essentially denotes that our assumption is that there is no direct effect of U
+
+40
+00:04:38,000 --> 00:04:43,000
+Mother genetic diabetes risk on low income.
+
+41
+00:04:43,000 --> 00:04:53,000
+But there is a causal association between U and A through mother has diabetes.
+
+42
+00:04:53,000 --> 00:05:04,000
+So how do we construct DAGs? So we really do this by essentially having subject matter, expertize of our own and talking with collaborators.
+
+43
+00:05:04,000 --> 00:05:08,000
+And that usually yields some sort of useful and partially correct.
+
+44
+00:05:08,000 --> 00:05:14,000
+DAGs, if we get our DAGs totally wrong. Then they're meaningless and not useful.
+
+45
+00:05:14,000 --> 00:05:24,000
+Unmeasured variables that are common causes of your measured factors must be present on a DAG because they can still cause bias in our analysis.
+
+46
+00:05:24,000 --> 00:05:33,000
+And there are ways to potentially remove that analysis if we make assumptions about some unmeasured variables in our data.
+
+47
+00:05:33,000 --> 00:05:39,000
+You'll see examples of this later. So unmeasured confounders
+
+48
+00:05:39,000 --> 00:05:42,000
+can cause a spurious association even under the causal null.
+
+49
+00:05:42,000 --> 00:05:50,000
+So in this case, A, there is no arrow from a to Y. Mother has diabetes
+
+50
+00:05:50,000 --> 00:05:55,000
+is a common cause of both low income and diabetes.
+
+51
+00:05:55,000 --> 00:05:59,000
+So is father's diabetes status.
+
+52
+00:05:59,000 --> 00:06:05,000
+If we condition on mother's diabetes status the relationship between A and Y is still confounded by that variable.
+
+53
+00:06:05,000 --> 00:06:10,000
+We do the same for father's diabetes status. Same goes for that.
+
+54
+00:06:10,000 --> 00:06:17,000
+But what if there's an unmeasured variable U, mother's underlying health behaviors and fathers underlying health behaviors
+
+55
+00:06:17,000 --> 00:06:22,000
+we can't adjust for variables in our analysis that are unmeasured
+
+56
+00:06:22,000 --> 00:06:35,000
+And so you one and you two confound the relationships between A and Y, regardless of what we do with W1 W2 in our analysis.
+
+57
+00:06:35,000 --> 00:06:39,000
+This is an illustration of the time, specific nature of Dag's again.
+
+58
+00:06:39,000 --> 00:06:53,000
+Time flows from top to bottom and from left to right. So the status factors is time specific and must be examines seperately.
+
+59
+00:06:53,000 --> 00:06:57,000
+And so in this case.
+
+60
+00:06:57,000 --> 00:07:04,000
+In this case, there are multiple ways where there could be a statistical association between A and Y, depending on what path we look at.
+
+61
+00:07:04,000 --> 00:07:12,000
+So we can go from A low income to U1 one to W to Y.
+
+62
+00:07:12,000 --> 00:07:16,000
+That's assuming we didn't maybe adjust for W in this case.
+
+63
+00:07:16,000 --> 00:07:28,000
+But. In this case, since we did adjust for it, though, a statistical association can go from A to U1 to W to U1 to Y.
+
+64
+00:07:28,000 --> 00:07:42,000
+So this is an illustration of how things are path specific. A DAG is a simplified way of diagraming relevant factors.
+
+65
+00:07:42,000 --> 00:07:47,000
+And so we don't want to include things we don't really need on a DAG because it just makes it harder to read.
+
+66
+00:07:47,000 --> 00:07:55,000
+And it's not very useful. So. Variables that are either only related to the exposure or the outcome are typically
+
+67
+00:07:55,000 --> 00:08:00,000
+not included in DAG unless they're relevant to the scientific question.
+
+68
+00:08:00,000 --> 00:08:05,000
+So in this DAG of the effect of a BART strike, which is the subway in San Francisco,
+
+69
+00:08:05,000 --> 00:08:10,000
+if you don't know on bike crashes, typically we wouldn't include rain.
+
+70
+00:08:10,000 --> 00:08:16,000
+And less specifically related to the scientific question because it's only associated with bike crash.
+
+71
+00:08:16,000 --> 00:08:23,000
+But rain wouldn't necessarily be relevant to how we would find a causal association between A and Y.
+
+72
+00:08:23,000 --> 00:08:27,000
+So, again, we want to make our DAGs as simple as possible while providing all relevant
+
+73
+00:08:27,000 --> 00:08:33,000
+information on measuring the causal effects of the treatment and the outcome.
+
+74
+00:08:33,000 --> 00:08:42,000
+There are so-called backdoor paths in DAGs, and these are pathways from the exposure to the outcome, not including direct paths of interest.
+
+75
+00:08:42,000 --> 00:08:46,000
+So causal paths closing back doors is back to our paths,
+
+76
+00:08:46,000 --> 00:08:51,000
+is basically what we want to do to try to control for confounding and selection
+
+77
+00:08:51,000 --> 00:08:57,000
+bias sometimes in measuring the causal association between an exposure and an outcome.
+
+78
+00:08:57,000 --> 00:08:59,000
+To see if a back door path is open,
+
+79
+00:08:59,000 --> 00:09:07,000
+it's sometimes easier to assume that there is no causal association between A and Y and see if you can get from A to Y through some sort of backdoor path.
+
+80
+00:09:07,000 --> 00:09:14,000
+If you can't, then you have some kind of conditional exchangeability in your study.
+
+81
+00:09:14,000 --> 00:09:16,000
+To achieve conditional exchangeability,
+
+82
+00:09:16,000 --> 00:09:24,000
+you must condition on some set of factors so that all of these backdoor paths, so these non causal pathways are closed.
+
+83
+00:09:24,000 --> 00:09:28,000
+These sets are called adjustments sets sometimes.
+
+84
+00:09:28,000 --> 00:09:40,000
+A minimal adjustment set contains all factors need to block all non-causal or backdoor paths
+
+85
+00:09:40,000 --> 00:09:46,000
+So a review of sort of these underlying important guy rules.
+
+86
+00:09:46,000 --> 00:09:56,000
+So in this DAG, to get from A low income to Y diabetes through a backdoor path, you can move along any path regardless of the arrows directionality.
+
+87
+00:09:56,000 --> 00:10:01,000
+So you can go in this case from A to W one to W two to Y.
+
+88
+00:10:01,000 --> 00:10:15,000
+And as such, in this case, the relationship between  A andY is confounded. If we condition on a common cause of A and Y, either W one or
+
+89
+00:10:15,000 --> 00:10:27,000
+W2, we would block the statistical association, se, we would block that backdoor path between A and Y through W one.
+
+90
+00:10:27,000 --> 00:10:28,000
+Again, remember, though,
+
+91
+00:10:28,000 --> 00:10:35,000
+there may be unmeasured variables that we want to draw in our Dagg such that the relationship between A and Y can still be confounded,
+
+92
+00:10:35,000 --> 00:10:40,000
+even if we adjust for variables W one or W two.
+
+93
+00:10:40,000 --> 00:10:43,000
+And this case, the unmeasured variable is socio economic status.
+
+94
+00:10:43,000 --> 00:10:48,000
+So in this case, we would say, oh, we measured mother's diabetes, we controlled for it.
+
+95
+00:10:48,000 --> 00:10:56,000
+And as such, the relationship between a Y on the previous DAG says that the relationship between Y is unconfounded.
+
+96
+00:10:56,000 --> 00:11:05,000
+But in this case, there's an unmeasured variable that we didn't adjust for that's still confounding the relationship.
+
+97
+00:11:05,000 --> 00:11:14,000
+So the existence of a collider. So in this case, W1 is a common effect of both A and Y.
+
+98
+00:11:14,000 --> 00:11:26,000
+I'm sorry, w one is a common effect of a and also W2, which is associated with Y. The existence of a collider will block this backdoor path.
+
+99
+00:11:26,000 --> 00:11:39,000
+So statistical association in a way cannot flow from A to W1 to W2 to Y because there is a collider along that pathway, essentially.
+
+100
+00:11:39,000 --> 00:11:43,000
+Once you get to a certain node.
+
+101
+00:11:43,000 --> 00:11:56,000
+You can't move from that node unless it's controlled for you can't move from that node through another arrow that is pointing to that node.
+
+102
+00:11:56,000 --> 00:12:10,000
+But like we saw in the selection bias lectures, if we condition on a collider, then statistical association is free to flow from A to W1 W2 to Y.
+
+103
+00:12:10,000 --> 00:12:15,000
+So some examples of colliders, again, you saw this example in selection bias lecture.
+
+104
+00:12:15,000 --> 00:12:20,000
+Suppose we have a DAG on the right and we condition on the sidewalk being wet.
+
+105
+00:12:20,000 --> 00:12:25,000
+If we know the sprinklers weren't on, so our sprinklers, our neighbor's sprinklers were broken,
+
+106
+00:12:25,000 --> 00:12:31,000
+maybe that night, then the only way this sidewalk could have been wet is because of rain the day before.
+
+107
+00:12:31,000 --> 00:12:38,000
+And vice versa. This means that knowing about D gives us information about E which equates essentially, n data
+
+108
+00:12:38,000 --> 00:12:49,000
+we see we see a statistical association between D and E even though D can obviously not cause E.
+
+109
+00:12:49,000 --> 00:12:55,000
+Conditioning on the descendant of a collider will open a backdoor path partially.
+
+110
+00:12:55,000 --> 00:13:08,000
+So if we condition on W three, which is a descendant of the collider W one, then statistical association can flow from A to Y in this particular case.
+
+111
+00:13:08,000 --> 00:13:14,000
+If we have a DAG that looks like this, though, we might want to adjust for W three because W three could be a confounder.
+
+112
+00:13:14,000 --> 00:13:28,000
+Sorry, we wouldn't want to adjust for it because W three is actually along the causal pathway from A to Y.
+
+113
+00:13:28,000 --> 00:13:34,000
+Suppose we condition on the sidewalk being slippery again, since the only input into G is F
+
+114
+00:13:34,000 --> 00:13:44,000
+We know that the sidewalk must also be wet. So the sidewalk being slippery is a descendent of the sidewalk being wet and as such.
+
+115
+00:13:44,000 --> 00:13:52,000
+Since we're adjusting for the descendant of a collider, we still observe a statistical association between the sprinklers and the rain.
+
+116
+00:13:52,000 --> 00:14:01,000
+Even though we did not adjust correctly for the collider F.
+
+117
+00:14:01,000 --> 00:14:10,000
+So this means, again, that knowing something about D gives us information about E and we see a statistical association in our data.
+
+118
+00:14:10,000 --> 00:14:16,000
+In the next video, we'll do a review of the structure of confounding and selection bias on DAGs,
+
+119
+00:14:16,000 --> 00:14:21,000
+and then we'll move to the new topics of information bias on DAGs. And then some advance topics.
+
+120
+00:14:21,000 --> 00:14:33,980
+And we'll go through some examples and how to adjust appropriately for confounding and selection bias on DAG's in class.
+

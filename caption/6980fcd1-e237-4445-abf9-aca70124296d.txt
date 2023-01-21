@@ -1,0 +1,465 @@
+1
+00:00:07,580 --> 00:00:09,885
+After watching this video,
+
+2
+00:00:09,885 --> 00:00:12,525
+you will be able to
+use PROC PHREG to run
+
+3
+00:00:12,525 --> 00:00:14,805
+multivariable Cox
+regression models
+
+4
+00:00:14,805 --> 00:00:17,580
+and test for interaction terms.
+
+5
+00:00:17,580 --> 00:00:22,095
+Once more, we keep using our
+return to drug use example.
+
+6
+00:00:22,095 --> 00:00:23,670
+Now we're going back to
+
+7
+00:00:23,670 --> 00:00:26,280
+our original main
+exposure, treatment.
+
+8
+00:00:26,280 --> 00:00:28,380
+We're going to adjust
+for other variables in
+
+9
+00:00:28,380 --> 00:00:32,030
+the dataset that maybe
+potential confounders.
+
+10
+00:00:32,030 --> 00:00:34,890
+Remember the sum of
+the variables that
+
+11
+00:00:34,890 --> 00:00:37,005
+we have in the dataset are age,
+
+12
+00:00:37,005 --> 00:00:39,075
+number of previous
+drug treatments,
+
+13
+00:00:39,075 --> 00:00:41,475
+site, and heroin or cocaine use.
+
+14
+00:00:41,475 --> 00:00:43,545
+Note that those variables
+
+15
+00:00:43,545 --> 00:00:45,750
+could perfectly be
+potential confounders,
+
+16
+00:00:45,750 --> 00:00:48,160
+since they can affect
+drug relapsing,
+
+17
+00:00:48,160 --> 00:00:49,970
+and they could also
+be associated with
+
+18
+00:00:49,970 --> 00:00:53,600
+the type of program that
+the patient choose.
+
+19
+00:00:53,600 --> 00:00:57,395
+Remember that in any
+observational study,
+
+20
+00:00:57,395 --> 00:00:59,569
+the association between
+the main exposure
+
+21
+00:00:59,569 --> 00:01:02,180
+and the outcome can
+always be confounded.
+
+22
+00:01:02,180 --> 00:01:03,560
+So we will need to adjust
+
+23
+00:01:03,560 --> 00:01:05,585
+for other potential confounders.
+
+24
+00:01:05,585 --> 00:01:07,070
+The process to choose
+
+25
+00:01:07,070 --> 00:01:10,085
+potential confounders
+is the same as before.
+
+26
+00:01:10,085 --> 00:01:12,470
+We chose among
+known predictors of
+
+27
+00:01:12,470 --> 00:01:14,935
+the outcome using
+the prior knowledge.
+
+28
+00:01:14,935 --> 00:01:16,700
+Now we can check if they're also
+
+29
+00:01:16,700 --> 00:01:19,549
+associated to the exposure
+in our study population.
+
+30
+00:01:19,549 --> 00:01:22,390
+Let's assume that we
+have done already this,
+
+31
+00:01:22,390 --> 00:01:25,715
+and we want to adjust
+our final model by age,
+
+32
+00:01:25,715 --> 00:01:28,720
+number of previous
+treatments, and site.
+
+33
+00:01:28,720 --> 00:01:32,085
+We have already seen the
+code for running Cox models.
+
+34
+00:01:32,085 --> 00:01:33,830
+The only difference
+now is that we're
+
+35
+00:01:33,830 --> 00:01:36,200
+entering more than one
+variable in the model.
+
+36
+00:01:36,200 --> 00:01:38,120
+But just to review, remember that
+
+37
+00:01:38,120 --> 00:01:40,940
+the outcome variable is
+defined by both the time,
+
+38
+00:01:40,940 --> 00:01:42,280
+and the censor variable.
+
+39
+00:01:42,280 --> 00:01:44,610
+Once more, remember
+you need to specify
+
+40
+00:01:44,610 --> 00:01:47,395
+the code for censoring,
+in this case, zero.
+
+41
+00:01:47,395 --> 00:01:49,560
+Then you have your main
+exposure variable,
+
+42
+00:01:49,560 --> 00:01:51,870
+which is treatment,
+short versus long.
+
+43
+00:01:51,870 --> 00:01:54,510
+You add the three potential
+confounders that we
+
+44
+00:01:54,510 --> 00:01:56,910
+mentioned in the
+previous slide: age,
+
+45
+00:01:56,910 --> 00:01:59,745
+number of previous
+treatments, and site.
+
+46
+00:01:59,745 --> 00:02:02,460
+You get your variable
+estimate as before with
+
+47
+00:02:02,460 --> 00:02:03,960
+their corresponding
+[inaudible] test,
+
+48
+00:02:03,960 --> 00:02:05,595
+and the hazard ratios.
+
+49
+00:02:05,595 --> 00:02:08,180
+The interpretation
+of this hazard ratio
+
+50
+00:02:08,180 --> 00:02:09,575
+would be something like this.
+
+51
+00:02:09,575 --> 00:02:15,050
+The rate of relapse the
+decreases by 21.6 percent when
+
+52
+00:02:15,050 --> 00:02:17,450
+people follow the long
+program compared to
+
+53
+00:02:17,450 --> 00:02:20,945
+the short program adjusting
+for potential confounders.
+
+54
+00:02:20,945 --> 00:02:22,280
+Note that to decide
+
+55
+00:02:22,280 --> 00:02:24,785
+which variables to retain
+or not in the model,
+
+56
+00:02:24,785 --> 00:02:28,115
+you will do the same as you
+did before with other models,
+
+57
+00:02:28,115 --> 00:02:30,230
+checking the impact
+of those variables
+
+58
+00:02:30,230 --> 00:02:33,130
+in the data estimate
+of your main exposure.
+
+59
+00:02:33,130 --> 00:02:36,450
+So now, let's look at
+statistical interactions.
+
+60
+00:02:36,450 --> 00:02:38,100
+Exactly the same as before,
+
+61
+00:02:38,100 --> 00:02:40,075
+just enter a product term.
+
+62
+00:02:40,075 --> 00:02:42,245
+In older SAS versions,
+
+63
+00:02:42,245 --> 00:02:44,780
+you had to do it slightly
+different, but not anymore.
+
+64
+00:02:44,780 --> 00:02:46,850
+Imagine we want to
+test if there is
+
+65
+00:02:46,850 --> 00:02:49,055
+an interaction
+between age and site.
+
+66
+00:02:49,055 --> 00:02:52,220
+Because we hypothesize that
+the association between site
+
+67
+00:02:52,220 --> 00:02:56,395
+and drug relapse varies by
+age, or the other way around.
+
+68
+00:02:56,395 --> 00:02:59,100
+We can enter a
+product term to test
+
+69
+00:02:59,100 --> 00:03:01,095
+for the interaction
+between site and age,
+
+70
+00:03:01,095 --> 00:03:02,385
+same as we did before.
+
+71
+00:03:02,385 --> 00:03:05,535
+In this example, it will
+be the age by site term.
+
+72
+00:03:05,535 --> 00:03:07,950
+When we run the model
+because we said
+
+73
+00:03:07,950 --> 00:03:10,280
+variable is binary and
+age is continuous,
+
+74
+00:03:10,280 --> 00:03:13,070
+we get one unique [inaudible]
+for that product term.
+
+75
+00:03:13,070 --> 00:03:16,070
+We can evaluate the significance
+
+76
+00:03:16,070 --> 00:03:18,020
+with the corresponding
+[inaudible] test.
+
+77
+00:03:18,020 --> 00:03:21,875
+In this situation, the
+p-value is 0.0294,
+
+78
+00:03:21,875 --> 00:03:23,570
+so it's significant
+and therefore,
+
+79
+00:03:23,570 --> 00:03:26,770
+we will give the
+interaction in the model.
+
+80
+00:03:26,770 --> 00:03:29,630
+Note that we don't get
+
+81
+00:03:29,630 --> 00:03:31,355
+hazard ratios for the variables
+
+82
+00:03:31,355 --> 00:03:32,810
+involved in the interaction.
+
+83
+00:03:32,810 --> 00:03:34,100
+If you check the log,
+
+84
+00:03:34,100 --> 00:03:36,140
+it actually tells you
+that if you want them,
+
+85
+00:03:36,140 --> 00:03:38,645
+you will have to use the
+hazard ratio statement.
+
+86
+00:03:38,645 --> 00:03:40,700
+You can also use the statement to
+
+87
+00:03:40,700 --> 00:03:42,590
+get 95 percent
+confidence interval,
+
+88
+00:03:42,590 --> 00:03:44,660
+or you could also use contrast
+
+89
+00:03:44,660 --> 00:03:47,125
+or estimate statement
+as we did before.
+
+90
+00:03:47,125 --> 00:03:48,860
+But for the sake of simplicity,
+
+91
+00:03:48,860 --> 00:03:49,970
+we are not going to go over
+
+92
+00:03:49,970 --> 00:03:51,590
+that since I only want you to get
+
+93
+00:03:51,590 --> 00:03:53,450
+some flavor of Cox models
+
+94
+00:03:53,450 --> 00:03:56,020
+and not give you too
+much information.
+
+95
+00:03:56,020 --> 00:03:58,125
+In summary, in this video,
+
+96
+00:03:58,125 --> 00:03:59,760
+we use PROC PHREG to run
+
+97
+00:03:59,760 --> 00:04:01,625
+multi-variable Cox
+regression models
+
+98
+00:04:01,625 --> 00:04:03,245
+and test for interaction terms.
+
+99
+00:04:03,245 --> 00:04:05,015
+In the next video, we will talk
+
+100
+00:04:05,015 --> 00:04:07,531
+about time varying covariates.
+

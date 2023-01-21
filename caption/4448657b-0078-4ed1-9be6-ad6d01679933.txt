@@ -1,0 +1,2060 @@
+1
+00:00:02,310 --> 00:00:09,660
+Chris Andrews: A recording in progress Okay, I found a button.
+
+2
+00:00:09,660 --> 00:00:30,270
+Chris Andrews: All right, welcome to survival analysis, a lot of you mentioned epidemiology and medical field, so this title should should please use some of you are a little bit further abreast of these they're further wide but certainly we can cover that as well.
+
+3
+00:00:30,270 --> 00:00:45,060
+Chris Andrews: The agenda for the course you might have able to figure from the outline or the course description we're going to learn about types of data, where survival analysis is useful, namely sensor data.
+
+4
+00:00:45,060 --> 00:00:51,960
+Chris Andrews: The capital Meyer estimator is that the basic estimated that we use for survival data.
+
+5
+00:00:51,960 --> 00:00:59,340
+Chris Andrews: Tuesday we're going to summarize single samples compare groups of samples.
+
+6
+00:00:59,340 --> 00:01:07,080
+Chris Andrews: The scenes a lot like an intro Stat course where at the beginning, you learn how to kind of estimate some simple things like.
+
+7
+00:01:07,080 --> 00:01:20,640
+Chris Andrews: means is there deviations and compare things with Chi square it or T test or something like that, and then shortly after that you move on to a regression, so the survival analysis version of.
+
+8
+00:01:20,640 --> 00:01:33,360
+Chris Andrews: regression is Cox proportional hazards regression, there are a few other types of regression, but this is the one that is expected unless you have a reason to do something else.
+
+9
+00:01:33,360 --> 00:01:54,870
+Chris Andrews: Thursday will expand the Cox regression model to time dependent covariance maybe look briefly at parametric survival analysis, which is more common in engineering and industry, but certainly applicable to the situations that we encounter medicine as well.
+
+10
+00:01:54,870 --> 00:02:11,280
+Chris Andrews: Friday is kind of a free for all, and this is something that you guys have some control over what special topics in survival analysis, have you heard about that you want to know more about or that you haven't heard anything about.
+
+11
+00:02:11,280 --> 00:02:18,600
+Chris Andrews: But it sounds interesting some of the things i've done other years or analysis of repeated events.
+
+12
+00:02:18,600 --> 00:02:25,230
+Chris Andrews: Markov models competing risks analysis something called discrete regression.
+
+13
+00:02:25,230 --> 00:02:46,680
+Chris Andrews: And we can spend more time on the parametric models if if that's useful for people anyway or and it doesn't have to be those it could be something else if you find something that you're particularly interested in, let me know.
+
+14
+00:02:46,680 --> 00:03:03,990
+Chris Andrews: Daily what happens well today you guys all miss the officer were busy, but after that 11 o'clock is you'll be available 130 we start class we're a little bit slow getting going today because of missing codes.
+
+15
+00:03:03,990 --> 00:03:13,800
+Chris Andrews: and whatever please be prompt from here on out the beginning class will see who's here will ask questions about.
+
+16
+00:03:13,800 --> 00:03:23,100
+Chris Andrews: The day before the reading that you'll have an evening about the homework anyway, and then we'll have a quiz.
+
+17
+00:03:23,100 --> 00:03:32,190
+Chris Andrews: That it should only last about 20 minutes kind of like the attendance did today and then i'll break out of this lecture.
+
+18
+00:03:32,190 --> 00:03:36,330
+Chris Andrews: After about an hour we'll take a short break.
+
+19
+00:03:36,330 --> 00:03:40,260
+Chris Andrews: i'll talk for another hour so we'll take a.
+
+20
+00:03:40,260 --> 00:03:49,320
+Chris Andrews: Probably a short break and start the lab the lab is pretty open, so you know feel free to make that part of your break as well.
+
+21
+00:03:49,320 --> 00:04:03,360
+Chris Andrews: So the lab will consist of you guys answering half dozen questions or so about a data set or about a survival analysis technique on the computer in your favorite language.
+
+22
+00:04:03,360 --> 00:04:06,450
+Chris Andrews: And, as I met today i'll stick around.
+
+23
+00:04:06,450 --> 00:04:08,760
+Chris Andrews: Afterwards, and.
+
+24
+00:04:08,760 --> 00:04:17,040
+Chris Andrews: i'm happy to answer email, if you want to send me an email i'll get to it as soon as I can.
+
+25
+00:04:17,040 --> 00:04:25,710
+Chris Andrews: i'm on vacation from my real job, this week, so I shouldn't have anything else, keeping me too busy so feel free to reach out to me.
+
+26
+00:04:25,710 --> 00:04:30,090
+Chris Andrews: as well.
+
+27
+00:04:30,090 --> 00:04:44,640
+Chris Andrews: What should you be able to do by the end of the course understand the functions that are essential to survival analysis these some of them are quite specialized only to survival analysis, some of them are are things you'll have seen in any interest ads class.
+
+28
+00:04:44,640 --> 00:04:59,910
+Chris Andrews: we're going to compete one sample estimators what's the five year survival of something what's the median survival time of something those are one sample estimators will also want to be able to carry out comparisons between groups so.
+
+29
+00:04:59,910 --> 00:05:07,380
+Chris Andrews: Do males have longer survival time and females or two people on the drug have more.
+
+30
+00:05:07,380 --> 00:05:13,320
+Chris Andrews: Longer survival that people, not on a drug.
+
+31
+00:05:13,320 --> 00:05:23,430
+Chris Andrews: we're not going to be talking i'm not going to be asking you about dude great details about mathematical formula, but.
+
+32
+00:05:23,430 --> 00:05:38,670
+Chris Andrews: When you see what i'm hoping, you will understand why it's doing what it's doing, why does this measure risk, why is this measuring hazard or time to an event or something my bad.
+
+33
+00:05:38,670 --> 00:05:53,700
+Chris Andrews: Interpretation of Cox parameters once you get a Cox model, you get out of beta or maybe look at either the beta say it's a hazard hazard ratio, what does that mean.
+
+34
+00:05:53,700 --> 00:06:07,320
+Chris Andrews: Ideally you'll have some some basic code from SAS and or our to do some of these simple analyses through the course of the lab and looking at the lab solutions you'll have.
+
+35
+00:06:07,320 --> 00:06:20,130
+Chris Andrews: A set of set of codes that you might be able to refer back to when you're doing these on your own and say Okay, this is where I needed to do my lot rank test and here's the command.
+
+36
+00:06:20,130 --> 00:06:35,100
+Chris Andrews: On the other hand, there's plenty of stuff online about how to do this as well, so, although you'll have some examples of codes from here there's always more in the greater Internet.
+
+37
+00:06:35,100 --> 00:06:40,050
+Chris Andrews: Understand key assumptions underlying each method, this is.
+
+38
+00:06:40,050 --> 00:06:44,700
+Chris Andrews: Probably shouldn't have been relegated to sixth or seventh in this list.
+
+39
+00:06:44,700 --> 00:06:54,750
+Chris Andrews: survival analysis that I mentioned, is a very specialized field and it's used for very specific situations, and if you start bending it to use it in other situations.
+
+40
+00:06:54,750 --> 00:07:12,420
+Chris Andrews: you're often violating some of the assumptions that are made so that the estimators work so hopefully you'll know what those assumptions are what those conditions are for this procedure to work and may make sure that they are.
+
+41
+00:07:12,420 --> 00:07:21,030
+Chris Andrews: valid assumptions that good assumptions in your data.
+
+42
+00:07:21,030 --> 00:07:31,350
+Chris Andrews: Alright, so today introduction of time to event data what is a survival function, sensory and truncation are at the heart of survival analysis.
+
+43
+00:07:31,350 --> 00:07:48,600
+Chris Andrews: If you don't have survival, excuse me if you don't have censoring or truncation it's not clear to me that you really want to be using survival analysis techniques, it may be that you just have skewed data and that's you can handle that with other things.
+
+44
+00:07:48,600 --> 00:07:59,160
+Chris Andrews: The real power of survival analysis comes in, from using kind of this partial information you get from centered and truncated observations.
+
+45
+00:07:59,160 --> 00:08:10,410
+Chris Andrews: How to organize data for survival analysis, what are some of the key assumptions for the methods that we're going to use and a variety of examples.
+
+46
+00:08:10,410 --> 00:08:27,240
+Chris Andrews: And finally, the kaplan Meier estimate are kind of the you know when you when you think of analyzing a bunch of, say, continuous data, you say I need to compute the mean and the standard deviation or perhaps I need to compute to these five number summary, the.
+
+47
+00:08:27,240 --> 00:08:31,020
+Chris Andrews: The core tiles of the data.
+
+48
+00:08:31,020 --> 00:08:43,890
+Chris Andrews: When you see survival data that the first thing, did you often do is I need to compute the capital, I capital Meyer estimator it's it kind of tells you what the distribution of data and.
+
+49
+00:08:43,890 --> 00:08:50,430
+Chris Andrews: What you can do from there.
+
+50
+00:08:50,430 --> 00:08:54,180
+Chris Andrews: pause.
+
+51
+00:08:54,180 --> 00:09:04,800
+Chris Andrews: Any questions.
+
+52
+00:09:04,800 --> 00:09:10,140
+Chris Andrews: i'll pick That was a question if it was speak up.
+
+53
+00:09:10,140 --> 00:09:13,770
+Chris Andrews: Okay.
+
+54
+00:09:13,770 --> 00:09:24,000
+Chris Andrews: survival analysis, you may have heard the terms event history analysis or reliability analysis transition analysis, these are all names for the same.
+
+55
+00:09:24,000 --> 00:09:42,690
+Chris Andrews: same field survival analysis came about from study mortality data and its methods have been applied to many other fields, and they have many commonalities about what's needed for the analysis and what reported at the end of the analysis.
+
+56
+00:09:42,690 --> 00:09:58,500
+Chris Andrews: However, every field has its own peculiarities and they focus on different concerns is this violation more important or less important than that violation of the data.
+
+57
+00:09:58,500 --> 00:10:14,130
+Chris Andrews: Anyway, so we may talk about some of those things, but it sounded like most people are statistics epidemiology field and i'll focus on.
+
+58
+00:10:14,130 --> 00:10:20,100
+Chris Andrews: These methods of survival analysis, are useful for many different applications.
+
+59
+00:10:20,100 --> 00:10:39,930
+Chris Andrews: Obviously time to death is is where it all started, but time until onset of a disease it's perhaps you know that somebody has been exposed to some pathogen and you all know how long until they are clinically diagnosed with a disease or they show symptoms of the disease.
+
+60
+00:10:39,930 --> 00:10:53,070
+Chris Andrews: Perhaps part of that disease they've been hospitalized how and then you want to say how long if they they stay in the hospital before they released or perhaps before they die.
+
+61
+00:10:53,070 --> 00:11:03,120
+Chris Andrews: And if they're in the hospital there was going to be an insurance bill, and that is an interesting type of survival analysis, because it's not time it's it's money.
+
+62
+00:11:03,120 --> 00:11:22,620
+Chris Andrews: And it may be that, after a certain amount of time, you know how much you're paying for this, but there may be more claims coming in, so your information is censored you don't know the complete cost all you know is it's at least as much as something or other.
+
+63
+00:11:22,620 --> 00:11:35,490
+Chris Andrews: you'd be more interested in that if, instead of being a medical student, you were an actuary at an insurance firm or the head of insurance farm and wanted to know how these things were going to play out.
+
+64
+00:11:35,490 --> 00:11:38,010
+Chris Andrews: Time to equipment failure.
+
+65
+00:11:38,010 --> 00:11:57,780
+Chris Andrews: doesn't have to be a negative thing can be time to a birth or a marriage promotion or a divorce or an arrest anytime when you have kind of a nice well defined origin and a nice well defined event, you can think about what's the time between those two things.
+
+66
+00:11:57,780 --> 00:12:12,090
+Chris Andrews: So the key features, is the response variable is a positive value random variable doesn't they got negative values that the event happens after the exposure.
+
+67
+00:12:12,090 --> 00:12:22,380
+Chris Andrews: But, but really the more important one i've already mentioned this once, is that it the techniques here allow you to deal with incomplete or in precise observations.
+
+68
+00:12:22,380 --> 00:12:37,470
+Chris Andrews: All you know is that somebody survived at least five years you don't know how long they survived, but you know it's at least five years.
+
+69
+00:12:37,470 --> 00:12:43,830
+Chris Andrews: Sometimes events can be represented as transitions from one State to another.
+
+70
+00:12:43,830 --> 00:12:51,120
+Chris Andrews: If the event is death you're transitioning from allies to dead if the event is hospital discharge you're.
+
+71
+00:12:51,120 --> 00:12:55,170
+Chris Andrews: transitioning from hospitalized to released.
+
+72
+00:12:55,170 --> 00:13:03,990
+Chris Andrews: If the event is an infection that's the time from the wound infection, perhaps the asthma attack.
+
+73
+00:13:03,990 --> 00:13:11,910
+Chris Andrews: Perhaps you're at risk somewhat healthy and you have an asthma attack and then notice in this one i've drawn a little.
+
+74
+00:13:11,910 --> 00:13:25,590
+Chris Andrews: dash arrow going back the other way, at some point, your asthma attack is over, and you return to the at risk state and then at some later point, you may have another attack and so you get repeated events of this.
+
+75
+00:13:25,590 --> 00:13:28,620
+Chris Andrews: event.
+
+76
+00:13:28,620 --> 00:13:48,180
+Chris Andrews: Sometimes the birth of a child, you have you go from zero to one to two and so on, instead of kind of returning to the original state you're kind of in a new stage, you have one kid and what's the time until the second kid or the third kid or so on.
+
+77
+00:13:48,180 --> 00:13:52,290
+Chris Andrews: So the key piece of an event is.
+
+78
+00:13:52,290 --> 00:13:58,260
+Chris Andrews: it's got to be measured fairly well as far as the time goes.
+
+79
+00:13:58,260 --> 00:14:14,790
+Chris Andrews: You can deal with in precise measurements, if you want to you know we'll talk about interval sensory in a minute, but basic idea is you're following somebody over amount of time, and you know when it started, and you know what it ended and.
+
+80
+00:14:14,790 --> 00:14:21,270
+Chris Andrews: That that's that's the variable you're interested in the difference between those two things.
+
+81
+00:14:21,270 --> 00:14:26,970
+Chris Andrews: If your measurement is very imprecise.
+
+82
+00:14:26,970 --> 00:14:37,860
+Chris Andrews: Then everything becomes very clumpy you know if all you know is that somebody had an event during a particular year and you all, only follow people for two or three years.
+
+83
+00:14:37,860 --> 00:15:02,220
+Chris Andrews: It doesn't fit together quite as well as more like in a clinical trial, people are studied frequently if the outcome is death, you know the time, or at least the date of death very precisely relative to a relatively long years long studies.
+
+84
+00:15:02,220 --> 00:15:14,940
+Chris Andrews: i've issued this warning a couple times you can make a lot of different things into survival analysis questions it's not always the best way to do things i'm not saying you shouldn't ever.
+
+85
+00:15:14,940 --> 00:15:26,100
+Chris Andrews: But sometimes you're throwing away a lot of information to make the survival analysis question, and if it's not making the interpretation clear.
+
+86
+00:15:26,100 --> 00:15:28,110
+Chris Andrews: By doing this.
+
+87
+00:15:28,110 --> 00:15:35,400
+Chris Andrews: You really need something to counteract the loss of the information you're getting by throwing out.
+
+88
+00:15:35,400 --> 00:15:55,140
+Chris Andrews: The data, you need some benefit there and it's not always clear what that is so don't do survival analysis, just because it's the only tool, you have, there are other things out there, particularly longitudinal data analysis is more appropriate for some data and survival analysis is.
+
+89
+00:15:55,140 --> 00:16:00,270
+Chris Andrews: So one example is that if you measure somebody.
+
+90
+00:16:00,270 --> 00:16:15,450
+Chris Andrews: Annual household income, over time, that will fluctuate up and down at some point, they may cross down below and below the poverty level, and you could call that an event that on this day or this year.
+
+91
+00:16:15,450 --> 00:16:19,680
+Chris Andrews: This event happened for this household.
+
+92
+00:16:19,680 --> 00:16:29,640
+Chris Andrews: But you kind of throwing out all the ups and downs and squiggles and the fact that they left the poverty level later they climbed above it again.
+
+93
+00:16:29,640 --> 00:16:31,500
+Chris Andrews: So.
+
+94
+00:16:31,500 --> 00:16:52,020
+Chris Andrews: they're there if I be much more interesting to study that continuous multiply measured variable instead of just that will single time to an event variable.
+
+95
+00:16:52,020 --> 00:16:59,040
+Chris Andrews: Alright, so i've mentioned a couple times that when we want to study time to an event, we really need to have.
+
+96
+00:16:59,040 --> 00:17:12,720
+Chris Andrews: An origin, when does time measurement start when does the clock start sometimes it's obvious and you feel like why even asking, but other times it, it really is important about.
+
+97
+00:17:12,720 --> 00:17:19,800
+Chris Andrews: What the origin is so you know who you're comparing to each other, because everybody sometimes has a time zero.
+
+98
+00:17:19,800 --> 00:17:33,090
+Chris Andrews: You need to decide what that is for people sometimes if you're studying people birth might be the reasonable time you want to say Okay, you were born on certain day how long until some event happened.
+
+99
+00:17:33,090 --> 00:17:38,670
+Chris Andrews: Be it, you know first cigarette or puberty or whatever.
+
+100
+00:17:38,670 --> 00:17:44,130
+Chris Andrews: it's natural to start at zero when you're born.
+
+101
+00:17:44,130 --> 00:17:47,670
+Chris Andrews: Some of you mentioned doing clinical trials.
+
+102
+00:17:47,670 --> 00:18:00,780
+Chris Andrews: The time zero in a clinical trial is in in every experiment that I know and every trial trial, I know is is a time of randomization.
+
+103
+00:18:00,780 --> 00:18:04,770
+Chris Andrews: I don't know if there's any justification for using another time.
+
+104
+00:18:04,770 --> 00:18:22,320
+Chris Andrews: In a clinical trial because that's when you're assigned to one of the various treatments that's going to be done, and people are interested in how long, from that point until you stuffy study, excuse me till you suffer your event.
+
+105
+00:18:22,320 --> 00:18:35,970
+Chris Andrews: Other times it's a little bit more problem driven you know what, what are we studying from what do we have data on what can we possibly measure.
+
+106
+00:18:35,970 --> 00:18:53,430
+Chris Andrews: If you want to measure time to death to kidney disease, do you want to talk about since birth well, most people actually don't have kidney disease, so you don't really want to study that population, you want to limit yourself to people who are actually diagnosed with the disease.
+
+107
+00:18:53,430 --> 00:19:06,600
+Chris Andrews: And well do you want to start at the date of diagnosis, or do you want to say this is just the time that we caught it they had symptoms, they probably had disease earlier is that point in time should be starting.
+
+108
+00:19:06,600 --> 00:19:15,480
+Chris Andrews: All all fair options, but you need to make some choices about what time you're studying.
+
+109
+00:19:15,480 --> 00:19:30,960
+Chris Andrews: Time to death among smokers whenever you're studying death your age is very important it's it's a huge determine whether you're likely to die in a given year or not, is how old, are you so from birth is an option but.
+
+110
+00:19:30,960 --> 00:19:38,160
+Chris Andrews: Maybe you want to say let's let's start counting from when the person started smoking.
+
+111
+00:19:38,160 --> 00:19:48,150
+Chris Andrews: Maybe you're just going to start some study and you recruit smokers and you're going to start at that point, because that's when you've been studying them.
+
+112
+00:19:48,150 --> 00:19:53,070
+Chris Andrews: Instead of counting years since you started smoking, perhaps you're going to count.
+
+113
+00:19:53,070 --> 00:20:12,960
+Chris Andrews: Essentially, how many pack years of cigarettes has this person smoke before they died, and maybe that's your your so called timescale it's not actually a time it's the number of cigarettes, but it's a positive random variable that is passing through.
+
+114
+00:20:12,960 --> 00:20:21,450
+Chris Andrews: Here are some guidelines on how you might choose among those the basic idea is we're studying.
+
+115
+00:20:21,450 --> 00:20:24,660
+Chris Andrews: Hazardous things usually.
+
+116
+00:20:24,660 --> 00:20:30,090
+Chris Andrews: And when did you become at risk for the event.
+
+117
+00:20:30,090 --> 00:20:38,490
+Chris Andrews: So, at some point you become at risk of the event and that's when you should start the clock on the person.
+
+118
+00:20:38,490 --> 00:20:43,140
+Chris Andrews: that's kind of the easiest thing to interpret.
+
+119
+00:20:43,140 --> 00:20:48,720
+Chris Andrews: Plans as random as a randomization is optimal for clinical trials.
+
+120
+00:20:48,720 --> 00:20:52,680
+Chris Andrews: One thing you always want to have in your model is.
+
+121
+00:20:52,680 --> 00:21:08,160
+Chris Andrews: Strong predictors and so, if if some time frame is the straw as a strong predictor of when the events going to happen that would be an important option or a good option for your time origin.
+
+122
+00:21:08,160 --> 00:21:15,000
+Chris Andrews: And kind of a last resort, is you know if you really don't have a good way to predict what's going on.
+
+123
+00:21:15,000 --> 00:21:25,770
+Chris Andrews: The time scale in a cash proportional hazards model is not strictly model it's kind of an afterthought it's cash portion of Oslo cat.
+
+124
+00:21:25,770 --> 00:21:50,760
+Chris Andrews: coc proportional hazard modeling is a semi parametric model, this relationship with time is left unspecified so if the relationship with time is particularly difficult to model, perhaps that's a good candidate to choose your time origin.
+
+125
+00:21:50,760 --> 00:22:00,180
+Chris Andrews: survival analysis can be done on any time collected data, but some some ways are better than others.
+
+126
+00:22:00,180 --> 00:22:10,470
+Chris Andrews: If you are able to run a study, where you recruit people you observe them, starting at times zero for whatever condition is you're interested in.
+
+127
+00:22:10,470 --> 00:22:27,000
+Chris Andrews: And you follow until the event occurs or tell the study ends that's great perspective data there's very little chance that bias enters in much you've recruited people to beginning you're following them over time.
+
+128
+00:22:27,000 --> 00:22:47,280
+Chris Andrews: Clinical Trials a cohort study reliability studies are like this, however, these are very costly and time consuming so you actually have to wait for these events to occur, and if it's not rat studies, but human studies, where you're waiting years and years for things to occur.
+
+129
+00:22:47,280 --> 00:23:04,650
+Chris Andrews: that's that's troubling one of the things that i've done at the University of buffalo and still do here at Michigan is work with the women's health initiative which has been going on since the 90s and they're studying these are now elderly women.
+
+130
+00:23:04,650 --> 00:23:19,980
+Chris Andrews: And you know that we've got a lot of great information from it, thousands of papers have been published, but it's been a very costly program millions upon millions of dollars have supported this over the last 25 years.
+
+131
+00:23:19,980 --> 00:23:27,300
+Chris Andrews: So it's very useful but it's it's rare to get these big studies.
+
+132
+00:23:27,300 --> 00:23:32,070
+Chris Andrews: So you end up with retrospective data off and you look back at a chart.
+
+133
+00:23:32,070 --> 00:23:53,820
+Chris Andrews: You you identify a group of people who are either suffering the event you're looking for or at risk for it and you and you look back and try to figure out what's their history Ben, and this is a little bit more difficult to interpret because several selection bias is show up.
+
+134
+00:23:53,820 --> 00:24:13,080
+Chris Andrews: If you actually don't have information if this has been a really very long disease your charts your medical charts may not go back because the patient was referred to Michigan or or came from another country or whatever, so all all the original dates and details may not be there.
+
+135
+00:24:13,080 --> 00:24:21,660
+Chris Andrews: If you have to ask people questions they may not actually remember, or they may remember and lie about what things have happened in the past.
+
+136
+00:24:21,660 --> 00:24:31,950
+Chris Andrews: retrospective data is all is a little bit tricky to work with.
+
+137
+00:24:31,950 --> 00:24:36,150
+Chris Andrews: Sorry, I got through an extra slide there.
+
+138
+00:24:36,150 --> 00:24:47,520
+Chris Andrews: So here's an example at the bottom of the screen or horizontal lines representing how long people have been working at a company.
+
+139
+00:24:47,520 --> 00:24:49,770
+Chris Andrews: that's been.
+
+140
+00:24:49,770 --> 00:24:54,210
+Chris Andrews: that's had three employees, for a long time.
+
+141
+00:24:54,210 --> 00:25:11,010
+Chris Andrews: And the question, as you say let's look at the three people who are there working now How long have they been there, and you can see that the person who has held that first top job, whatever it is hasn't been there very long, maybe that's a year say.
+
+142
+00:25:11,010 --> 00:25:19,350
+Chris Andrews: A person in the middle second line might you know, be the founder and owner of the company and they've been there for 10 years.
+
+143
+00:25:19,350 --> 00:25:36,240
+Chris Andrews: And then there's one other person who's been there and they've been there for years, so, if you look, you know you get those three people and say Oh, the median time is however long that that bottom person's been there for years.
+
+144
+00:25:36,240 --> 00:25:39,570
+Chris Andrews: But that's really.
+
+145
+00:25:39,570 --> 00:25:52,440
+Chris Andrews: kind of mixing mixing things up, you could in some sense draw that vertical line that cross sectional sample at any time point and you get basically the same answer, how long is that middle person been there, even though.
+
+146
+00:25:52,440 --> 00:26:08,400
+Chris Andrews: There are nine people that have worked here, if you want to study how long somebody works at the company, you really need to look at all those people, not just three at a time.
+
+147
+00:26:08,400 --> 00:26:19,710
+Chris Andrews: So you could ask the question how long have the current employee has been here and that answers exactly that question how long have these employees been here.
+
+148
+00:26:19,710 --> 00:26:34,830
+Chris Andrews: If you want to know how long an average employee works there that's a different question you have to dig a little bit harder to find a better answer to that.
+
+149
+00:26:34,830 --> 00:26:42,570
+Chris Andrews: survivorship bias is another name for this problem, people who survived longer are more likely to be.
+
+150
+00:26:42,570 --> 00:27:08,880
+Chris Andrews: included in your sample people have short survival times don't ever make it to your study and, therefore, if you look at how long people have been around currently it's longer than people have been around historically.
+
+151
+00:27:08,880 --> 00:27:27,660
+Chris Andrews: So a key feature of survival analysis is this incomplete data issue, this is not missing data there's obviously lots of statistical approaches to dealing with missing data, where, for whatever reason, somebody age was not recorded or.
+
+152
+00:27:27,660 --> 00:27:37,800
+Chris Andrews: Somebody fills out a patient reported outcome measure and they don't answer some of the questions, what are we going to do with those missing data pieces.
+
+153
+00:27:37,800 --> 00:27:44,160
+Chris Andrews: So that's a separate problem that the problem with survival analysis that we deal with is when the outcome variable.
+
+154
+00:27:44,160 --> 00:27:56,430
+Chris Andrews: is only measured partially instead of knowing the exact event time, all we know is that usually it's it's longer than something we're following somebody until they suffer a condition.
+
+155
+00:27:56,430 --> 00:28:06,330
+Chris Andrews: we've been following them for five years it's time to publish the paper, all we know is that their survival, time is at least five years.
+
+156
+00:28:06,330 --> 00:28:13,290
+Chris Andrews: We don't want to throw that person out and say Oh, we didn't observe their time we're going to get rid of all.
+
+157
+00:28:13,290 --> 00:28:21,270
+Chris Andrews: That that's poor use of your data.
+
+158
+00:28:21,270 --> 00:28:39,030
+Chris Andrews: Errors using inadequate data or much less than using no data at all so let's use the partially observed data to our benefit rather than throwing it out and not using the data at all.
+
+159
+00:28:39,030 --> 00:28:57,600
+Chris Andrews: The most common type of survival data in medical research or right sensor data i've kind of described this several times, where you're waiting for an event to occur occur and it hasn't happened yet that's so called right censored on the right end of your data.
+
+160
+00:28:57,600 --> 00:29:03,690
+Chris Andrews: All you know is that the event is out there, further to the right somewhere.
+
+161
+00:29:03,690 --> 00:29:18,690
+Chris Andrews: And also something called left truncated right sensor data, which obviously it has something to do with the beginning observation time instead of the tail end and we'll get back to left truncation later.
+
+162
+00:29:18,690 --> 00:29:26,220
+Chris Andrews: toxicology is a another place where survival analysis as gain some footing.
+
+163
+00:29:26,220 --> 00:29:36,960
+Chris Andrews: And that's because sometimes you have so called left sensor data you try to measure the concentration of some percentage in or.
+
+164
+00:29:36,960 --> 00:29:40,080
+Chris Andrews: Just.
+
+165
+00:29:40,080 --> 00:29:43,530
+Chris Andrews: Any chemical or analyze.
+
+166
+00:29:43,530 --> 00:29:55,800
+Chris Andrews: And you're asked a comes back and says it's less than you know 1.1 beer grams per mole or later, or something like that.
+
+167
+00:29:55,800 --> 00:30:09,420
+Chris Andrews: And so that tells you something you want to just throw that piece of information out you want to say Okay, we know it's small we don't know exactly how small but can we can we use that so so many.
+
+168
+00:30:09,420 --> 00:30:18,060
+Chris Andrews: And one thing that happens in longitudinal surveys is say every two years you go out and hold this big national survey and.
+
+169
+00:30:18,060 --> 00:30:25,860
+Chris Andrews: People fill out, they give all the responses and the question is something like since we last saw you two years ago has this happened.
+
+170
+00:30:25,860 --> 00:30:31,230
+Chris Andrews: And you say yeah yeah I had a bone fracture and, yes, the doctor told me I had diabetes.
+
+171
+00:30:31,230 --> 00:30:39,150
+Chris Andrews: And so it's not like on that day, all these things happened to me it's just that, within the last two years, these things have happened to be.
+
+172
+00:30:39,150 --> 00:30:58,950
+Chris Andrews: And I don't know when or haven't been asked when and so all the research or knows, is that it's between the time I filled out the survey, this time and the time I filtered out last time so called interval sensor data.
+
+173
+00:30:58,950 --> 00:31:01,500
+Chris Andrews: Right sensory data.
+
+174
+00:31:01,500 --> 00:31:07,500
+Chris Andrews: The outcome variable here is obviously time from the origin to the event.
+
+175
+00:31:07,500 --> 00:31:10,380
+Chris Andrews: Hope I see a hand up just a moment.
+
+176
+00:31:10,380 --> 00:31:23,310
+Chris Andrews: The outcome may be either observed and you have complete data or not yet observed so there's something out there, further in time and all we know is that it's further in time because it hasn't happened yet.
+
+177
+00:31:23,310 --> 00:31:36,750
+Chris Andrews: And this graph at the bottom shows what's going on, you start studying some phenomenon, the clock starts time zero at some point the event death has not yet occurred.
+
+178
+00:31:36,750 --> 00:31:39,990
+Chris Andrews: And so, all we know is that this time.
+
+179
+00:31:39,990 --> 00:31:49,320
+Chris Andrews: The censoring occurs, the event is somewhere further in the future.
+
+180
+00:31:49,320 --> 00:31:52,950
+Chris Andrews: Yes, there was a hand up I think it's gone away, though yeah.
+
+181
+00:31:52,950 --> 00:31:54,420
+Yolaine A Civil: I had a question.
+
+182
+00:31:54,420 --> 00:32:03,240
+Yolaine A Civil: Yes, so since the truncation censoring art, the same what's the major difference between those two.
+
+183
+00:32:03,240 --> 00:32:05,580
+sure.
+
+184
+00:32:05,580 --> 00:32:10,260
+Chris Andrews: The major difference is that in censoring.
+
+185
+00:32:10,260 --> 00:32:11,520
+Chris Andrews: You kind of know.
+
+186
+00:32:11,520 --> 00:32:16,080
+Chris Andrews: The object is there you just don't know what the exact.
+
+187
+00:32:16,080 --> 00:32:21,630
+Chris Andrews: date of the death is or time until the death is truncation, on the other hand.
+
+188
+00:32:21,630 --> 00:32:40,260
+Chris Andrews: means you actually don't see the case so in this particular person that i've drawn on the bottom here Time started zero there was a censoring time at 273 days and they died sometimes after that we don't know when but there's an actual person that we're studying.
+
+189
+00:32:40,260 --> 00:32:58,890
+Chris Andrews: truncation is really something that happens, more like to a data set and it gets applied to an individual as well, but we're going to see in a few slides that truncation is more about you don't actually get to observe the event, if it were to happen in a certain time point.
+
+190
+00:32:58,890 --> 00:33:01,470
+Chris Andrews: So.
+
+191
+00:33:01,470 --> 00:33:20,100
+Chris Andrews: You know in left truncation what usually happens is somebody who you know Time starts at zero and then there's a left truncation time and if the person had died before then they never would have entered our study, so we never would have seen them.
+
+192
+00:33:20,100 --> 00:33:27,090
+Chris Andrews: And so we have to take that into account when we're deciding who's at risk for an event.
+
+193
+00:33:27,090 --> 00:33:30,990
+Chris Andrews: And who's actually having events.
+
+194
+00:33:30,990 --> 00:33:49,710
+Chris Andrews: So i'm going to go through some right sensor some sensory examples and then I will have a few examples about truncation it's less common to see truncation it's almost always censoring but it's good to keep in mind that they are different.
+
+195
+00:33:49,710 --> 00:34:13,980
+Chris Andrews: Great other questions.
+
+196
+00:34:13,980 --> 00:34:24,150
+Chris Andrews: When I share my screen I don't actually know how to put somebody's hand down so either izzy or lane put that hand down unless you've got another question.
+
+197
+00:34:24,150 --> 00:34:30,240
+Chris Andrews: Thank you.
+
+198
+00:34:30,240 --> 00:34:36,870
+Chris Andrews: Alright, so what happens with right sensor data, how is it recorded.
+
+199
+00:34:36,870 --> 00:34:53,880
+Chris Andrews: The theory in some sense behind it, is that there's an event time T and a censoring time see and you only get to see the smaller of those two things, so if we were on that previous slide there actually isn't event time when that person dies.
+
+200
+00:34:53,880 --> 00:35:02,790
+Chris Andrews: there's a sensory time earlier and we get to see that censoring time because it's before the event time.
+
+201
+00:35:02,790 --> 00:35:19,920
+Chris Andrews: On the other hand, perhaps we follow somebody and actually have an event in that case we observe the smaller to the event time to death, rather than censoring time, so we only get to observe whichever these things happens first.
+
+202
+00:35:19,920 --> 00:35:34,440
+Chris Andrews: And then we also get to observe a 01 variable an indicator that says, which of these is it that we see the event or did we see the censoring.
+
+203
+00:35:34,440 --> 00:35:36,960
+Chris Andrews: So survival data is often.
+
+204
+00:35:36,960 --> 00:35:43,110
+Chris Andrews: stored like this, at least simple survival data there's a pause ID or something to identify the person.
+
+205
+00:35:43,110 --> 00:35:53,700
+Chris Andrews: But then there's an observation time of the four people in my data set here were observed a time 3229 17 and 41.
+
+206
+00:35:53,700 --> 00:36:08,880
+Chris Andrews: And the first two people had events and the second two people did not have events so they were right centered at 1741 months.
+
+207
+00:36:08,880 --> 00:36:13,830
+Chris Andrews: And i'll i'll point out that.
+
+208
+00:36:13,830 --> 00:36:16,500
+Chris Andrews: Well okay.
+
+209
+00:36:16,500 --> 00:36:24,750
+Chris Andrews: i'll put something else out later yet, so this is how survival date is often recorded.
+
+210
+00:36:24,750 --> 00:36:30,240
+Chris Andrews: Some examples of right censoring.
+
+211
+00:36:30,240 --> 00:36:34,500
+Chris Andrews: event is not occurred by some analysis date that's going on.
+
+212
+00:36:34,500 --> 00:36:40,410
+Chris Andrews: The study period ends and it's entirely in entirety and that may mean that.
+
+213
+00:36:40,410 --> 00:36:50,580
+Chris Andrews: third year and do the analysis, then so maybe those two aren't that different, but the ideas we stop collecting information on people, because the study has ended.
+
+214
+00:36:50,580 --> 00:37:07,260
+Chris Andrews: During a women's health initiative, which I mentioned is been going on for over 25 years now there's display last to follow up either people moved and didn't respond to requests from the.
+
+215
+00:37:07,260 --> 00:37:18,060
+Chris Andrews: study to update their information or actually the original study involved an observational study and equipment several clinical trials.
+
+216
+00:37:18,060 --> 00:37:29,070
+Chris Andrews: And after a while they realized, you know, we should keep following these people, and so they they asked them all to consent to so called extension studies, I grind extension study five now, at least for.
+
+217
+00:37:29,070 --> 00:37:47,010
+Chris Andrews: Some of them said no, and so you can't include somebody in your study if they don't agree to it and so those people are also lost to follow up because they they declined to get sent for the extension studies.
+
+218
+00:37:47,010 --> 00:37:53,670
+Chris Andrews: Alright, so here's a an example fairly straightforward.
+
+219
+00:37:53,670 --> 00:38:05,280
+Chris Andrews: you're an md studying the time from disease diagnosis until death and a group of patients all these patients were diagnosed in your clinic and the data diagnosis is the time origin.
+
+220
+00:38:05,280 --> 00:38:10,950
+Chris Andrews: So when you do the diagnosis T is equal to zero it's not.
+
+221
+00:38:10,950 --> 00:38:32,850
+Chris Andrews: You know September 12 2010 for everybody, or something like that it's when you're diagnosed that's your time T equals zero so you and I are both patients in this clinic and we're both in this study, our times might not align with each other, because my diagnosis happened.
+
+222
+00:38:32,850 --> 00:38:44,280
+Chris Andrews: Five weeks before your diagnosis, or something, and so it does not have to be not does not have to be the same for everyone, at the same time.
+
+223
+00:38:44,280 --> 00:39:03,990
+Chris Andrews: If the patient is currently alive at the time of the analysis, the date of death is right censored death is not yet occurred that's just classic right censoring there you're waiting for some event to occur that hasn't happened yet.
+
+224
+00:39:03,990 --> 00:39:13,380
+Chris Andrews: Study of time of death from start of study, so instead of waiting for some they're diagnosing some disease that gets person into a study.
+
+225
+00:39:13,380 --> 00:39:25,620
+Chris Andrews: You have a bunch of people on dialysis and you recruit them for a study and the time origin, for your study is the date of recruitment your study is funded for three years and you follow.
+
+226
+00:39:25,620 --> 00:39:27,630
+Chris Andrews: Each patient.
+
+227
+00:39:27,630 --> 00:39:39,540
+Chris Andrews: For those three years the patient is live, three years after the date of death is again right sense.
+
+228
+00:39:39,540 --> 00:39:44,430
+Chris Andrews: i've talked a little bit about this.
+
+229
+00:39:44,430 --> 00:39:59,070
+Chris Andrews: Already, women have been last fall where they rescinded their consent over the course these 25 years we don't know when they develop the outcome of interest the observations are right censored at the last contacted date so at some point.
+
+230
+00:39:59,070 --> 00:40:15,600
+Chris Andrews: They filled out their last questionnaire, or they came in for the last study visit you collected, a lot of information on them, and after that time you don't know anything more about them, the idea here is if they stop suffered the event of interest, the incidence of the cancer death.
+
+231
+00:40:15,600 --> 00:40:39,300
+Chris Andrews: osteoporosis, or a lot of things that were studying the whi we don't know if they happened and, therefore, there are some says no longer at risk, not that they won't suffer it but in our study they're no longer at risk because we can't observe the event occurring.
+
+232
+00:40:39,300 --> 00:40:41,880
+Chris Andrews: got to remember is that correct but.
+
+233
+00:40:41,880 --> 00:41:12,480
+Chris Andrews: Less entering is less common in fact so less common i'm not going to skip it, but I should pause here at the end of right censoring and ask if anyone wants a clarification or follow up on any of this.
+
+234
+00:41:12,480 --> 00:41:27,030
+Chris Andrews: Left Center data may provide an upper bound on the actual time to event so whereas a right censored observation gives you a lower bound the earliest event could have occurred left censoring is more about.
+
+235
+00:41:27,030 --> 00:41:31,260
+Chris Andrews: Putting an upper bound on when something could have occurred.
+
+236
+00:41:31,260 --> 00:41:38,250
+Chris Andrews: So events have already occurred prior to data collection and the time of the event was not occur or not recorded.
+
+237
+00:41:38,250 --> 00:41:49,260
+Chris Andrews: This happens in studies, where you do some procedure and you're looking for tumor recurrence, this is not easy to detect it's not like some day happens so.
+
+238
+00:41:49,260 --> 00:42:03,600
+Chris Andrews: i've got a tumor so every three months the patient has brought in for some surgery and recurrences noted or not, some people come back in their first visit at three months and the recurrence has already happened.
+
+239
+00:42:03,600 --> 00:42:09,300
+Chris Andrews: And so, all we know is that the recurrence happened before three months.
+
+240
+00:42:09,300 --> 00:42:14,160
+Chris Andrews: Its so called left censoring.
+
+241
+00:42:14,160 --> 00:42:23,220
+Chris Andrews: values that are below level of detection of measuring instrument or lab tests, sometimes are left censored that before and.
+
+242
+00:42:23,220 --> 00:42:36,300
+Chris Andrews: Here I want to point out, this is not left truncation this left censoring we actually knew we had a sample and we requested something get acid, and it came back as a low value it's not like.
+
+243
+00:42:36,300 --> 00:42:42,750
+Chris Andrews: We missed it we couldn't even detect it because of whatever it's.
+
+244
+00:42:42,750 --> 00:42:47,220
+Chris Andrews: it's an actual response that we know is small.
+
+245
+00:42:47,220 --> 00:42:57,540
+Chris Andrews: Measuring scale sales with scales that have frequent zeros can sometimes we thought of being left censored you haven't really centered your questionnaire right a.
+
+246
+00:42:57,540 --> 00:43:18,060
+Chris Andrews: lot of people are answering zero to some liquid scale, you know, perhaps if you phrase things differently, we could have spread out all those zeros and gotten even smaller values and so sometimes people try to model add or account for that, by using methods that allow for less than.
+
+247
+00:43:18,060 --> 00:43:26,580
+Chris Andrews: or right censoring if it's bounded above.
+
+248
+00:43:26,580 --> 00:43:30,480
+Chris Andrews: It will censoring is less common.
+
+249
+00:43:30,480 --> 00:43:41,400
+Chris Andrews: It could happen, essentially the same way left censoring occurs and that you have visits every three months, and you know that the recurrence happened between two time points.
+
+250
+00:43:41,400 --> 00:43:45,990
+Chris Andrews: between nine and 12 months, for example on this slide.
+
+251
+00:43:45,990 --> 00:44:00,390
+Chris Andrews: And, in theory, any continuous time is interval centered you know if you have know what happened on a particular day well, was it, you know to 94.00 or 290 4.53 at united way.
+
+252
+00:44:00,390 --> 00:44:08,820
+Chris Andrews: As long as you're measuring things over a long time scale, and you know it to a relatively precise amount you don't need to worry about this interval censoring.
+
+253
+00:44:08,820 --> 00:44:18,840
+Chris Andrews: If you know the day that something occurs and your study only last three or four days that's pretty precise and maybe you need to worry about this interval censoring phenomenon.
+
+254
+00:44:18,840 --> 00:44:34,890
+Chris Andrews: But if you get to measure something to the nearest hour and you're studying things for several days, but you don't need to worry about the interval centering there.
+
+255
+00:44:34,890 --> 00:44:36,660
+Chris Andrews: alright.
+
+256
+00:44:36,660 --> 00:44:50,730
+Chris Andrews: summarizing censoring right sensor data, the event hasn't happened by the last observation time less censored event already happened by the first observation time after the time origin.
+
+257
+00:44:50,730 --> 00:45:05,490
+Chris Andrews: I kind of stress that a little bit to stay through events already occurred you don't really want that person in your study unless the event is a recurrent event, but if the event is time until.
+
+258
+00:45:05,490 --> 00:45:19,110
+Chris Andrews: Breast cancer and they've already got it it's didn't start your clock at the right time it's in some sense that person's not really a good person to study incidence of disease if they already have an.
+
+259
+00:45:19,110 --> 00:45:32,070
+Chris Andrews: interval Center of the time happened between two observation times that are fairly spread out.
+
+260
+00:45:32,070 --> 00:45:39,660
+Chris Andrews: So centering is incomplete data, and we have to be careful out why it's incomplete.
+
+261
+00:45:39,660 --> 00:45:48,090
+Chris Andrews: You can run into problems if the reason the data are missing is because of what the value actually is.
+
+262
+00:45:48,090 --> 00:45:50,160
+Chris Andrews: And so.
+
+263
+00:45:50,160 --> 00:46:06,300
+Chris Andrews: Just like your title when you worry about missing data and you start pulling out some last observation carried forward or multiple amputation, or some technique there's there's some assumptions being made about why is that data missing.
+
+264
+00:46:06,300 --> 00:46:15,060
+Chris Andrews: Any, we need to make sure that those conditions or similar conditions are hold true here.
+
+265
+00:46:15,060 --> 00:46:24,120
+Chris Andrews: So all the methods that we're going to talk about in our survival analysis course here assume that the censoring is non informative it's it's random.
+
+266
+00:46:24,120 --> 00:46:37,140
+Chris Andrews: And, in particular, somebody who's censored at a particular time has to be representative of all the subjects still alive at that time, all the people still at risk.
+
+267
+00:46:37,140 --> 00:46:39,840
+Chris Andrews: If the people who are.
+
+268
+00:46:39,840 --> 00:46:45,870
+Chris Andrews: Getting censored, are the people who were just about to have the event.
+
+269
+00:46:45,870 --> 00:46:56,820
+Chris Andrews: Then you know everyone's censored right before they had event, nobody ever has an event, and so you conclude Oh, the hazard of this is zero you know, nobody ever suffers this event it's like Well, we know that's not true.
+
+270
+00:46:56,820 --> 00:47:08,940
+Chris Andrews: Anyway, but if that censoring time is somehow biasing which events we get to see then there's bias and we need to be very concerned about that.
+
+271
+00:47:08,940 --> 00:47:18,780
+Chris Andrews: So some examples of non random censoring perhaps you're studying time from marriage to divorce so you've recruited a bunch of people to be in a study.
+
+272
+00:47:18,780 --> 00:47:37,290
+Chris Andrews: However, if a marriage is suffering if it's if it's about to be turned into a divorce, it may be that people don't want to be in your study they're not interested in this they've got other things on their mind at the time, so they drop out of your study.
+
+273
+00:47:37,290 --> 00:47:43,410
+Chris Andrews: That that's going to affect what you conclude from from your data.
+
+274
+00:47:43,410 --> 00:47:54,390
+Chris Andrews: suppose you are a pharmaceutical company and you're running a trial and there's a new drug this new drug and people start feeling so much better.
+
+275
+00:47:54,390 --> 00:48:04,620
+Chris Andrews: They don't bother with follow up, they just i'm great I don't know I don't care about the study I feel great and so they leave well.
+
+276
+00:48:04,620 --> 00:48:18,570
+Chris Andrews: All sudden you got all these people who are doing really well, but you don't have any data from them so again, there may be some bias introduced all sudden you're not seeing the benefit of the drug.
+
+277
+00:48:18,570 --> 00:48:21,960
+Chris Andrews: Time to death after hospitalization.
+
+278
+00:48:21,960 --> 00:48:25,320
+Chris Andrews: censored at hospital discharge.
+
+279
+00:48:25,320 --> 00:48:34,380
+Chris Andrews: Those that are discharged or are less likely to die soon, so you know you might be seeing some people die in the hospital.
+
+280
+00:48:34,380 --> 00:48:42,030
+Chris Andrews: But then you're not following the healthy people, so it may look like your event rate is very high.
+
+281
+00:48:42,030 --> 00:48:43,920
+Chris Andrews: Of course.
+
+282
+00:48:43,920 --> 00:48:54,540
+Chris Andrews: The their bias may go the other way, if people are being discharged a hospice and not dying in the hospital, instead of being discharged to go home.
+
+283
+00:48:54,540 --> 00:48:58,080
+Chris Andrews: This condition of random censoring.
+
+284
+00:48:58,080 --> 00:49:06,780
+Chris Andrews: can't be reliably checked with the traditional data you collect on survival analysis you collect the time till the event are censoring and you.
+
+285
+00:49:06,780 --> 00:49:18,360
+Chris Andrews: detect whether it's an event or a censoring with only those two pieces of information you can't tell whether there is biased censoring or informative censoring or not.
+
+286
+00:49:18,360 --> 00:49:28,740
+Chris Andrews: Perhaps if you have other external data that you can or once people leave the study, maybe you have a an exit.
+
+287
+00:49:28,740 --> 00:49:41,340
+Chris Andrews: poll or something he could find out why they're leaving it may be that you can collect additional data but kind of the traditional survival analysis that we do assume random censoring.
+
+288
+00:49:41,340 --> 00:49:44,070
+Chris Andrews: And if you don't have it.
+
+289
+00:49:44,070 --> 00:49:53,640
+Chris Andrews: You can't tell you have to think about this, as opposed to just running some test.
+
+290
+00:49:53,640 --> 00:50:10,830
+Chris Andrews: One forum informative censoring is a competing risk, so if you're studying a certain cause of death, if people are dying other causes that may be related to what you're studying and you can't really treat it as censoring.
+
+291
+00:50:10,830 --> 00:50:31,560
+Chris Andrews: Competing risk is something we can address later in the course if you'd like but, again, throwing other types of events into the censoring pop pool instead of treating them as other events may or may not be a problem.
+
+292
+00:50:31,560 --> 00:50:38,970
+Chris Andrews: So we need this random censoring so that we can do the analyses that we want to do.
+
+293
+00:50:38,970 --> 00:50:46,680
+Chris Andrews: What what can we do to do our best to make sure that whole well first don't.
+
+294
+00:50:46,680 --> 00:50:58,230
+Chris Andrews: Let people drop out of course you can't force them to stay but anything that you can do to entice them or or encourage them to stay on to make the study is.
+
+295
+00:50:58,230 --> 00:51:15,000
+Chris Andrews: Easy just to maintain as possible is better if you if you make it very onerous a lot of people going to drop out just because they don't want to bother and then all sudden you know you're left with possibly biased data.
+
+296
+00:51:15,000 --> 00:51:28,710
+Chris Andrews: there's always goes this falls under the heading of collect quality data once you screw up your data collection there's not a whole lot we can do about it so playing your study well.
+
+297
+00:51:28,710 --> 00:51:39,570
+Chris Andrews: measure and include the model in the model any covariance likely to affect the rate of censoring so it turns out that the missing this.
+
+298
+00:51:39,570 --> 00:51:49,530
+Chris Andrews: doesn't have to be missing completely at random just needs to the sensory needs to only depend on things you can observe like covariance in the model.
+
+299
+00:51:49,530 --> 00:52:03,480
+Chris Andrews: And so, if you have enough information about why the person might be dropping out why people do drop out that can help you avoid the bias of censoring them.
+
+300
+00:52:03,480 --> 00:52:08,880
+Chris Andrews: All as be cautious, if you think there might be non random censoring.
+
+301
+00:52:08,880 --> 00:52:19,680
+Chris Andrews: Sometimes you can assume best and worst case outcomes for the sense of values, you assume everybody had an event or nobody had an event or.
+
+302
+00:52:19,680 --> 00:52:26,520
+Chris Andrews: Everybody the treatment group had an event and everyone else, and the control group didn't vice versa, and you can see.
+
+303
+00:52:26,520 --> 00:52:35,310
+Chris Andrews: how badly, these things are going to affect what you're doing, ideally, you know you put in some really wild scenarios.
+
+304
+00:52:35,310 --> 00:52:53,730
+Chris Andrews: and your conclusions are robust to to them looks like you know what we may have had some informative drop out but it doesn't really affect the interpretation of my hazard ratio or something like that.
+
+305
+00:52:53,730 --> 00:53:14,280
+Chris Andrews: Alright, just a few words about truncation and then we'll stop for a break for a few minutes my truncation is not censoring, but it is not a form of incomplete data it's more along at your data set is incomplete, not so much your data set is.
+
+306
+00:53:14,280 --> 00:53:22,770
+Chris Andrews: That your actual observations are incomplete it's it's who's getting into the data set isn't complete.
+
+307
+00:53:22,770 --> 00:53:32,760
+Chris Andrews: So right interval sensor excuse me rights truncation is if your value is so large.
+
+308
+00:53:32,760 --> 00:53:48,030
+Chris Andrews: It won't make it into the data set and the easiest example that i've seen about that is that if you're looking out into the universe anything that's too far away, you can't see so you don't know if it's out there not.
+
+309
+00:53:48,030 --> 00:53:58,680
+Chris Andrews: So everything beyond the edge of the observable universe is on observe it's right truncated you get to see things that are within a certain.
+
+310
+00:53:58,680 --> 00:54:17,040
+Chris Andrews: distance from earth but anything beyond that you don't get to observe and it's not like there's a row, on your data set that says hey this is too large it's just like well we don't know how much how many extra rows should be in our data set for the stuff that's out there.
+
+311
+00:54:17,040 --> 00:54:39,810
+Chris Andrews: Left truncation is the same, on the other end, you might think of this as you're catching things in a net and anything that's too small, get through, and so you don't see it, and whether these are insects, or if these are bacteria in your in your water system if things are too small.
+
+312
+00:54:39,810 --> 00:54:50,490
+Chris Andrews: They go through the net and you don't know if there is one of them or billions of them all you have to observe are things that are larger than a certain size.
+
+313
+00:54:50,490 --> 00:54:54,870
+Chris Andrews: So called left truncation.
+
+314
+00:54:54,870 --> 00:55:04,140
+Chris Andrews: These two fit together right censoring and left truncation very often and survival of the data.
+
+315
+00:55:04,140 --> 00:55:17,130
+Chris Andrews: The idea is that we've already talked about how right censoring can be very common but turns out that you don't always get to observe people right from time T equals zero.
+
+316
+00:55:17,130 --> 00:55:21,420
+Chris Andrews: And that's going to turn out to be left truncation.
+
+317
+00:55:21,420 --> 00:55:32,760
+Chris Andrews: So here's our four person example yes it's not the same times here, but the first person started their study at time T equals zero they had an event at.
+
+318
+00:55:32,760 --> 00:55:40,830
+Chris Andrews: Time 31 delta equals one there, the second person is a little bit different they weren't at risk, for whatever reason.
+
+319
+00:55:40,830 --> 00:55:57,000
+Chris Andrews: We didn't know about them at time T equals zero, we only learned about them at time T equals 15 say and then at 44 they had an event, the idea being here if they had had their event at week 12.
+
+320
+00:55:57,000 --> 00:56:11,070
+Chris Andrews: We never would have been on our study we would never would have found out about them, and so they wouldn't they wouldn't have been here and so that's the idea behind left truncation is that if some thing couldn't have if the event couldn't have been observed for my study.
+
+321
+00:56:11,070 --> 00:56:14,940
+Chris Andrews: don't include them in the risks that.
+
+322
+00:56:14,940 --> 00:56:22,290
+Chris Andrews: The last two are more examples again somebody observed from their origin right censored at 39.
+
+323
+00:56:22,290 --> 00:56:31,620
+Chris Andrews: The last person ID, for they join the risks at a time T equals six and then we're right sensor to time 16.
+
+324
+00:56:31,620 --> 00:56:38,010
+Chris Andrews: Without having an event.
+
+325
+00:56:38,010 --> 00:56:50,340
+Chris Andrews: So each of the examples about right censoring can be extended to include some left truncation.
+
+326
+00:56:50,340 --> 00:56:59,220
+Chris Andrews: So here we are we're our md we're diagnosing patients in our clinic and studying them until they die following them until they die.
+
+327
+00:56:59,220 --> 00:57:05,670
+Chris Andrews: However, you are willing to accept patients from other practices to be in your study.
+
+328
+00:57:05,670 --> 00:57:26,400
+Chris Andrews: And so they are diagnosed at some time T equals zero by somebody else and referred to you at some point, maybe they were diagnosed, six months ago, your physician friend just learned about your study and said oh here's a patient that you could use they were diagnosed, six months ago.
+
+329
+00:57:26,400 --> 00:57:36,870
+Chris Andrews: what's to be said here, though, is that, if this person had died and those six months they wouldn't have been in your study and so you don't want to give them credit.
+
+330
+00:57:36,870 --> 00:57:52,980
+Chris Andrews: for making for surviving from time T equals zero the time to six months or lt left truncation time, and so we need to only have that person join the study at time T equals six.
+
+331
+00:57:52,980 --> 00:58:00,540
+Chris Andrews: This is often called delayed entry for, I hope, what sounds like a reasonable reason.
+
+332
+00:58:00,540 --> 00:58:04,140
+But.
+
+333
+00:58:04,140 --> 00:58:19,890
+Chris Andrews: Here we're we're studying a prevalent disease, instead of measuring time from recruitment of the study among patients on dialysis issues yeah.
+
+334
+00:58:19,890 --> 00:58:30,660
+Chris Andrews: Instead of studying time till death from startup of recruitment for a study of someone on kidney dialysis we now want to measure time from when they actually started kidney dialysis.
+
+335
+00:58:30,660 --> 00:58:43,560
+Chris Andrews: So in this example previously T equals zero was when the study started, but now we're saying we really want to start it we want to measure time so that we know how long are they on dialysis.
+
+336
+00:58:43,560 --> 00:58:50,850
+Chris Andrews: And so that in the future if somebody said hey i'm starting dialysis today what's my prognosis look like.
+
+337
+00:58:50,850 --> 00:58:58,650
+Chris Andrews: This is my time T equals zero what happens from here the this study would now be useful for that person.
+
+338
+00:58:58,650 --> 00:59:20,520
+Chris Andrews: Again, when somebody recruit recruited to the study that they're left truncation time if they had studied if they had suffered an event, they died before the study entry they wouldn't be part of our study, so we include that as the Left truncation time.
+
+339
+00:59:20,520 --> 00:59:25,230
+Chris Andrews: The last one is a little bit more subtle.
+
+340
+00:59:25,230 --> 00:59:29,280
+Chris Andrews: It kind of comes into pieces.
+
+341
+00:59:29,280 --> 00:59:37,950
+Chris Andrews: Who women's health initiative observational study participants were enrolled at time T equals zero, and they were asked to fill out a questionnaire.
+
+342
+00:59:37,950 --> 00:59:54,330
+Chris Andrews: Most people just submitted that questionnaire, however, the enrollment session was typically over four hours, sometimes eight hours, many of these were elderly women and it took a long time to collect all the medication and.
+
+343
+00:59:54,330 --> 00:59:57,420
+Chris Andrews: Physical measurements that needed to be.
+
+344
+00:59:57,420 --> 01:00:04,320
+Chris Andrews: completed to be in the study so some of the questionnaires were not completed until later.
+
+345
+01:00:04,320 --> 01:00:10,440
+Chris Andrews: and actually sometimes the question ever came back because the person died before filling it out.
+
+346
+01:00:10,440 --> 01:00:14,280
+Chris Andrews: Even though some of this was only days or weeks.
+
+347
+01:00:14,280 --> 01:00:17,550
+Chris Andrews: it's a questionnaire didn't come back.
+
+348
+01:00:17,550 --> 01:00:24,810
+Chris Andrews: We didn't have all the information we needed to do the analysis, so we threw that person out of the study.
+
+349
+01:00:24,810 --> 01:00:47,070
+Chris Andrews: So the idea here is that the date of submitting your questionnaire is your left truncation time because if you had died before that you wouldn't have been in the study, because we wouldn't had your questionnaire, so we wouldn't have the data we.
+
+350
+01:00:47,070 --> 01:00:55,470
+Chris Andrews: All right, so this part about functions describing very distributions of a random variable are.
+
+351
+01:00:55,470 --> 01:01:01,860
+Chris Andrews: The start of the second half, so we went a little bit long here.
+
+352
+01:01:01,860 --> 01:01:09,780
+Chris Andrews: i'm going to ask for questions and then we'll take a about a 10 minute break and we'll start up with.
+
+353
+01:01:09,780 --> 01:01:19,980
+Chris Andrews: The second half of today's lectures any questions.
+
+354
+01:01:19,980 --> 01:01:22,080
+Carly Joseph: question about left censoring.
+
+355
+01:01:22,080 --> 01:01:41,520
+Carly Joseph: Yes, so if people say like they had the event before you started your time zero is what we said that that means right like couldn't that also just be an exclusion criteria to your study like we aren't going to like do an analysis on people that already had the event, a time zero.
+
+356
+01:01:41,520 --> 01:01:43,950
+Chris Andrews: Yes.
+
+357
+01:01:43,950 --> 01:01:46,020
+Chris Andrews: Very often.
+
+358
+01:01:46,020 --> 01:01:50,730
+Chris Andrews: If somebody had an event before they're not eligible for the study and we're not interested in a.
+
+359
+01:01:50,730 --> 01:02:00,540
+Chris Andrews: Particular for for interested in incident disease that anybody already has the disease is is excluded and and, yes, that can be.
+
+360
+01:02:00,540 --> 01:02:05,610
+Chris Andrews: described as an inclusion exclusion criteria for the study.
+
+361
+01:02:05,610 --> 01:02:06,660
+Carly Joseph: Okay, thank you.
+
+362
+01:02:06,660 --> 01:02:18,870
+Chris Andrews: yeah I didn't buy I think we're on the same page there i'm sorry if I didn't make that clear earlier, you know negative times are not what we're interested in here and that's strictly.
+
+363
+01:02:18,870 --> 01:02:28,740
+Chris Andrews: Because that that would be a reasonable exclusion criteria.
+
+364
+01:02:28,740 --> 01:02:34,560
+Chris Andrews: Other questions.
+
+365
+01:02:34,560 --> 01:02:47,100
+Chris Andrews: All right, it's 302 i'll see you at 312 while i'm pause recording here.
+
+366
+01:02:47,100 --> 01:03:01,980
+Chris Andrews: Now it's a secret about how to do it, are now we're not doing SAS on the recording Okay, thank you, is he for the reminder to start that.
+
+367
+01:03:01,980 --> 01:03:12,570
+Chris Andrews: In SAS again there's a bunch of texts to enter the data into the system, because the data is just stored as a.
+
+368
+01:03:12,570 --> 01:03:22,320
+Chris Andrews: Fixed with format there's a bunch of stuff going on here again not too important.
+
+369
+01:03:22,320 --> 01:03:26,760
+Chris Andrews: it's good to check your log and make sure, everything is blue.
+
+370
+01:03:26,760 --> 01:03:41,760
+Chris Andrews: make sense, it looks like things are read in 158 observations like that's the same so I had our I can ask questions about this.
+
+371
+01:03:41,760 --> 01:03:54,120
+Chris Andrews: Here i've got kind of the same variables, I talked about in our follow up days the ID status that was at three level variable death was the two level variable.
+
+372
+01:03:54,120 --> 01:03:57,210
+Chris Andrews: Follow yours, was that.
+
+373
+01:03:57,210 --> 01:04:02,730
+transplanting.
+
+374
+01:04:02,730 --> 01:04:07,470
+Chris Andrews: Maybe I can print out the first few observations of this.
+
+375
+01:04:07,470 --> 01:04:12,420
+Chris Andrews: should look familiar.
+
+376
+01:04:12,420 --> 01:04:18,720
+Chris Andrews: These are the same 10 observations we saw on our.
+
+377
+01:04:18,720 --> 01:04:24,750
+Chris Andrews: And Okay, the LIFE test function, you can you can get help up here.
+
+378
+01:04:24,750 --> 01:04:30,600
+Chris Andrews: On life test, you can Google proc life test.
+
+379
+01:04:30,600 --> 01:04:41,010
+Chris Andrews: I am using SAS version SAS that version 15.1 which is 9.4 to.
+
+380
+01:04:41,010 --> 01:04:48,630
+Chris Andrews: Six I think Ts 1am seven is out, maybe eight to just seven at least anyway so.
+
+381
+01:04:48,630 --> 01:05:02,790
+Chris Andrews: You may have a more recent version of this, although this is fairly recent well, it says 2016 so little surprised anyway.
+
+382
+01:05:02,790 --> 01:05:12,000
+Chris Andrews: If you're working with a particular old version of sass this should still all work because it hasn't changed much in a long time anyway.
+
+383
+01:05:12,000 --> 01:05:14,400
+Chris Andrews: test.
+
+384
+01:05:14,400 --> 01:05:16,860
+Chris Andrews: produces.
+
+385
+01:05:16,860 --> 01:05:22,890
+Chris Andrews: Several things here, I had to provide the time.
+
+386
+01:05:22,890 --> 01:05:34,320
+Chris Andrews: And the event indicator notice in SAS it you don't list what the value of the event is you list all the values of censoring.
+
+387
+01:05:34,320 --> 01:05:39,750
+Chris Andrews: Oh it's the syntax is different there.
+
+388
+01:05:39,750 --> 01:05:53,250
+Chris Andrews: In this first line the proxy statement itself, I tell it what data set i'm using I tell you what plot do I want I want the SS survival plot cl is asking for the confidence limits.
+
+389
+01:05:53,250 --> 01:06:03,330
+Chris Andrews: Prague life test as a bunch of other options for various things will revisit proc life test proxy for the function serve it.
+
+390
+01:06:03,330 --> 01:06:09,540
+Chris Andrews: As we make our way through all right here's all the outcome.
+
+391
+01:06:09,540 --> 01:06:29,940
+Chris Andrews: Put again here's that dreaded survival table again it starts at one, at a time 1.123 it drops down and so on, it did not give me a confidence interval by default, to give me the standard air I could have asked for it, but I forgot to.
+
+392
+01:06:29,940 --> 01:06:39,120
+Chris Andrews: SAS by default includes all the censoring times as well, even though that the survival function is changing.
+
+393
+01:06:39,120 --> 01:06:45,120
+Chris Andrews: Particularly as you go further on, there are lots of censoring so not many events.
+
+394
+01:06:45,120 --> 01:06:53,010
+Chris Andrews: Here is the median survival time at 8.9854 and gives me a confidence interval.
+
+395
+01:06:53,010 --> 01:06:57,000
+Chris Andrews: This is not the same Conference, and when I got out of our.
+
+396
+01:06:57,000 --> 01:07:07,560
+Chris Andrews: As I recall, there are different ways to get confidence intervals and they get different answers.
+
+397
+01:07:07,560 --> 01:07:12,090
+Chris Andrews: Here again there were 65 events.
+
+398
+01:07:12,090 --> 01:07:26,250
+Chris Andrews: And 93 observation or 93 cents rings and here is the survival function surrounded by confidence limits.
+
+399
+01:07:26,250 --> 01:07:36,540
+Chris Andrews: Any questions about the SAS version.
+
+400
+01:07:36,540 --> 01:07:45,990
+Yolaine A Civil: If you had wanted to put the confidence limits and they like even hard what Where would you put that in the code.
+
+401
+01:07:45,990 --> 01:07:53,970
+Chris Andrews: So that would be part of the LIFE test table, so what I would do is i'd say.
+
+402
+01:07:53,970 --> 01:07:58,380
+Chris Andrews: This out of my way up here, I say.
+
+403
+01:07:58,380 --> 01:08:03,690
+Chris Andrews: rock.
+
+404
+01:08:03,690 --> 01:08:10,350
+Chris Andrews: Is 15.1 syntax.
+
+405
+01:08:10,350 --> 01:08:18,690
+Chris Andrews: and
+
+406
+01:08:18,690 --> 01:08:28,920
+Chris Andrews: let's see the reasonable places it might be would be up in the proc life test or perhaps in the time statement, these are are things that.
+
+407
+01:08:28,920 --> 01:08:41,610
+Chris Andrews: Where it might show up so here notice there's lots lots of stuff here we can look through here and hopefully find something.
+
+408
+01:08:41,610 --> 01:08:47,580
+Chris Andrews: Confidence limits for survival site, but that's.
+
+409
+01:08:47,580 --> 01:08:50,700
+Chris Andrews: The same Max time.
+
+410
+01:08:50,700 --> 01:09:00,270
+Chris Andrews: How far do you want to plot it control output.
+
+411
+01:09:00,270 --> 01:09:11,790
+Chris Andrews: Time list reduce out no table would get rid of it.
+
+412
+01:09:11,790 --> 01:09:19,110
+Chris Andrews: So maybe it's not going to be here, oh cough type.
+
+413
+01:09:19,110 --> 01:09:25,680
+Chris Andrews: So it seems like maybe we say conference type somewhere.
+
+414
+01:09:25,680 --> 01:09:30,510
+Chris Andrews: we'll get it.
+
+415
+01:09:30,510 --> 01:09:43,530
+Chris Andrews: I love programming on the fly not really.
+
+416
+01:09:43,530 --> 01:09:47,310
+Chris Andrews: Alright, not in the table.
+
+417
+01:09:47,310 --> 01:10:00,810
+Chris Andrews: But it changed the core tile estimate to match what there was in our.
+
+418
+01:10:00,810 --> 01:10:10,290
+Chris Andrews: Anyway, back to the syntax.
+
+419
+01:10:10,290 --> 01:10:14,340
+Chris Andrews: fail codes.
+
+420
+01:10:14,340 --> 01:10:18,930
+Chris Andrews: This doesn't look promising.
+
+421
+01:10:18,930 --> 01:10:27,510
+Chris Andrews: Very few options there.
+
+422
+01:10:27,510 --> 01:10:39,000
+Chris Andrews: So, probably means I missed it here.
+
+423
+01:10:39,000 --> 01:10:50,370
+Chris Andrews: One thing I can certainly do is save the survival function to a data set and included in the data set so there may not be a way to get it to show up I kind of believe there is.
+
+424
+01:10:50,370 --> 01:10:52,290
+Chris Andrews: But.
+
+425
+01:10:52,290 --> 01:10:54,120
+Chris Andrews: anyway.
+
+426
+01:10:54,120 --> 01:10:59,250
+Chris Andrews: I will let you know when I find out sometime during the lab today.
+
+427
+01:10:59,250 --> 01:11:00,300
+Yolaine A Civil: Okay, thank you.
+
+428
+01:11:00,300 --> 01:11:03,600
+Chris Andrews: yeah good question.
+
+429
+01:11:03,600 --> 01:11:14,580
+Chris Andrews: Other questions.
+
+430
+01:11:14,580 --> 01:11:20,790
+Chris Andrews: All right now, or the real circus begin here here's status.
+
+431
+01:11:20,790 --> 01:11:23,640
+Chris Andrews: and
+
+432
+01:11:23,640 --> 01:11:30,480
+Chris Andrews: here's a new file that will again read in the data that.
+
+433
+01:11:30,480 --> 01:11:38,610
+Chris Andrews: Is a little bit difficult in important, at least, it was difficult for me, because it was fixed with format, but eventually I learned how to do that.
+
+434
+01:11:38,610 --> 01:11:56,130
+Chris Andrews: I compute those extra variables that I was interested in, namely death is only as a person as status equal to otherwise it's going to be censoring I want to keep just the drug Group, I want to comfort comfort from days to years.
+
+435
+01:11:56,130 --> 01:12:03,450
+Chris Andrews: And then here is the crux of the issue here i'm going to do, St set.
+
+436
+01:12:03,450 --> 01:12:19,680
+Chris Andrews: don't say all but, most probably all of the survival functions that we use begin St we're setting up the problem, what is the follow up time, what is the failure variable this my indicator of death.
+
+437
+01:12:19,680 --> 01:12:32,550
+Chris Andrews: So there's failure and then, whatever the name of the variable is goes in here, I can print out the survival estimate, I can graph the kaplan Meier estimate with.
+
+438
+01:12:32,550 --> 01:12:38,460
+Chris Andrews: This.
+
+439
+01:12:38,460 --> 01:12:52,590
+stupid legs.
+
+440
+01:12:52,590 --> 01:13:03,660
+Chris Andrews: here's a second graph it probably is probably way to go back and maybe still here anyway here's the survival curve, I asked for it to print things that were at risk.
+
+441
+01:13:03,660 --> 01:13:08,520
+Chris Andrews: A number of people and that's this number right here.
+
+442
+01:13:08,520 --> 01:13:22,380
+Chris Andrews: This is a mass I don't like this presentation, but if you just stick with the previous one here you'll get the confidence interval instead anyway, I here's the survival table looks a lot, like the other ones that we just saw.
+
+443
+01:13:22,380 --> 01:13:40,500
+Chris Andrews: This one again chooses to include the censoring the last to follow up notice it's a final function doesn't change their.
+
+444
+01:13:40,500 --> 01:13:52,950
+Chris Andrews: Questions about data.
+
+445
+01:13:52,950 --> 01:13:59,070
+Chris Andrews: kaplan Meier as possible in spss as well, there are a couple different ways to do it.
+
+446
+01:13:59,070 --> 01:14:15,000
+Chris Andrews: One You can write code to do it or save code to do it, I don't write this but I loaded the data I didn't need most of the variables So those are excluded by read in these first variables I needed.
+
+447
+01:14:15,000 --> 01:14:22,140
+Chris Andrews: I compute the new variables that I needed I get myself just to the drug group that i'm interested in.
+
+448
+01:14:22,140 --> 01:14:24,120
+Chris Andrews: And then finally.
+
+449
+01:14:24,120 --> 01:14:58,620
+Chris Andrews: there's an actual kaplan Meier command that can be run here communicate, you need the response bear will follow up, you need the event indicator if death is equal to one that's an event and asked for some tables and survival and if you run everything here.
+
+450
+01:14:58,620 --> 01:15:04,230
+Chris Andrews: here's the output again the table.
+
+451
+01:15:04,230 --> 01:15:08,460
+Chris Andrews: followed by the graph.
+
+452
+01:15:08,460 --> 01:15:21,600
+Chris Andrews: I didn't have the confidence interval to it because I figured that out, you can also do this by analyze I mean this is how I did it the first time and I save the syntax but analyze survival kaplan Meier.
+
+453
+01:15:21,600 --> 01:15:29,400
+Chris Andrews: And then start filling in the various things the time variable is follow up years the status was death.
+
+454
+01:15:29,400 --> 01:15:32,880
+Chris Andrews: I need to say what the.
+
+455
+01:15:32,880 --> 01:15:37,980
+Chris Andrews: event value is.
+
+456
+01:15:37,980 --> 01:15:42,450
+Chris Andrews: And then I get all this stuff actually darn it.
+
+457
+01:15:42,450 --> 01:15:48,420
+Chris Andrews: analyze survival kaplan Meier.
+
+458
+01:15:48,420 --> 01:16:04,020
+Chris Andrews: options, I had to click here if I want to survival function.
+
+459
+01:16:04,020 --> 01:16:14,670
+Chris Andrews: function, this time.
+
+460
+01:16:14,670 --> 01:16:23,100
+Chris Andrews: Any questions about spss.
+
+461
+01:16:23,100 --> 01:16:27,810
+Chris Andrews: Okay, two slides to go.
+
+462
+01:16:27,810 --> 01:16:37,230
+Chris Andrews: An estimator is only good as its variants estimate, so if you can't tell how variable something is you really don't know much about it.
+
+463
+01:16:37,230 --> 01:16:42,360
+Chris Andrews: greenwood's formula is commonly used to figure out the variance.
+
+464
+01:16:42,360 --> 01:16:55,860
+Chris Andrews: looks a lot like things from a persona or a binomial distribution, but the idea here to keep in mind is this kind of an n in the denominator it's it's.
+
+465
+01:16:55,860 --> 01:17:12,810
+Chris Andrews: The standard air this and get smaller the standard air as a potential to get bigger bigger so there's more variability potentially on the right hand side of the of the formula.
+
+466
+01:17:12,810 --> 01:17:14,340
+Chris Andrews: anyway.
+
+467
+01:17:14,340 --> 01:17:17,640
+Chris Andrews: As you've seen their confidence intervals.
+
+468
+01:17:17,640 --> 01:17:21,390
+Chris Andrews: They probably did not use this exactly.
+
+469
+01:17:21,390 --> 01:17:26,880
+Chris Andrews: In our SAS one um did one of them didn't I don't know which one was using which one wasn't.
+
+470
+01:17:26,880 --> 01:17:33,840
+Chris Andrews: But it's important to get estimates of your variability of your get estimates of the variability of your estimator.
+
+471
+01:17:33,840 --> 01:17:53,820
+Chris Andrews: So you know whether, when you're estimating the five year survival probability, are you able to tell it's you know 70% plus or minus 2% or 70% plus or minus 20% and so you really don't have a good estimate for that.
+
+472
+01:17:53,820 --> 01:17:57,870
+Chris Andrews: Okay last slide What did we do today.
+
+473
+01:17:57,870 --> 01:18:03,630
+Chris Andrews: We spent a lot of time talking about what censoring and truncation are.
+
+474
+01:18:03,630 --> 01:18:12,210
+Chris Andrews: I spent a lot of time talking about what censoring and truncation are hopefully it's been a lot of time listening and thinking about what censoring and truncation are.
+
+475
+01:18:12,210 --> 01:18:23,850
+Chris Andrews: A key feature of the methods that we're using is that the incompleteness this censoring must be non informative otherwise they'll get bias results.
+
+476
+01:18:23,850 --> 01:18:32,460
+Chris Andrews: Right censoring is the most common form of incompleteness we're going to be using that in almost all analyses from here on out.
+
+477
+01:18:32,460 --> 01:18:42,360
+Chris Andrews: People are followed until they have an event or their last follow up or the end of the study or something right sensors them.
+
+478
+01:18:42,360 --> 01:18:48,780
+Chris Andrews: And because of that structure, because of people either dropping out or having an event.
+
+479
+01:18:48,780 --> 01:18:57,420
+Chris Andrews: You can estimate the kaplan Meier, excuse me, you can use kaplan Meier to estimate the survival function in that stepwise fashion.
+
+480
+01:18:57,420 --> 01:19:08,160
+Chris Andrews: And that's why the survival function is key to these methods is because it directly follows from the form of data that we have.
+
+481
+01:19:08,160 --> 01:19:26,700
+Chris Andrews: The right censoring leads you invariably to this type of estimate for the survival function from the survival function, we get the human distribution function and density functions and all kinds of other things, but this is where you have to start.
+
+482
+01:19:26,700 --> 01:19:37,770
+Chris Andrews: Other questions.
+
+483
+01:19:37,770 --> 01:19:42,660
+Chris Andrews: Alright, so what happens from here.
+
+484
+01:19:42,660 --> 01:19:48,540
+Chris Andrews: From here, there are some assignments.
+
+485
+01:19:48,540 --> 01:19:56,160
+Chris Andrews: My side I probably see oh student view, maybe I can see what you see here lab.
+
+486
+01:19:56,160 --> 01:20:03,720
+Chris Andrews: So there's a lab that you should start working on shortly, there are some instructions.
+
+487
+01:20:03,720 --> 01:20:06,210
+Chris Andrews: The word document.
+
+488
+01:20:06,210 --> 01:20:29,280
+Chris Andrews: you'll see that it's due tomorrow at the beginning of class and you can turn it in via canvas if that's not working well, for some reason, you can email it, but hopefully we'll figure out your we'll figure out how to submit everything through canvas.
+
+489
+01:20:29,280 --> 01:20:31,950
+Chris Andrews: let's.
+
+490
+01:20:31,950 --> 01:20:39,000
+Chris Andrews: So there are several questions, some of them you're going to do by hand, some of them let's see.
+
+491
+01:20:39,000 --> 01:20:59,490
+Chris Andrews: I take that back I don't think any of these need to be done by hand there's all computer work so you're going to load a data set here's a description of it, there are some basic questions to go through in one or more of the languages that you want to use.
+
+492
+01:20:59,490 --> 01:21:01,950
+Chris Andrews: Alright chat.
+
+493
+01:21:01,950 --> 01:21:04,380
+Chris Andrews: There it is.
+
+494
+01:21:04,380 --> 01:21:09,210
+Chris Andrews: Thank you izzy.
+
+495
+01:21:09,210 --> 01:21:22,620
+Chris Andrews: Alright, so if you have trouble loading the data set or starting SAS or or or state or spss or whatever it is you're going to be using, let us know.
+
+496
+01:21:22,620 --> 01:21:28,650
+Chris Andrews: we'll be here till five work on this, I encourage you also.
+
+497
+01:21:28,650 --> 01:21:35,640
+Chris Andrews: Before you sign out to note that there's a homework to work on this evening.
+
+498
+01:21:35,640 --> 01:21:41,340
+Chris Andrews: Hopefully, this will not take too long, this is something where you will do stuff by hand.
+
+499
+01:21:41,340 --> 01:21:52,770
+Chris Andrews: Again do at 130 tomorrow so there's time after class today to ask questions about this, if you stick around i'll also be here, you can ask questions tomorrow.
+
+500
+01:21:52,770 --> 01:22:05,190
+Chris Andrews: izzy 11 I don't know how many of you have a morning class as well, obviously, that doesn't work so well for that, but keep in touch with us we're happy to give you pointers.
+
+501
+01:22:05,190 --> 01:22:20,070
+Chris Andrews: Something that's not on the assignment page because I never moved it or never thought about moving it is that there's a there's a brief reading here just a couple pages pages 123 I guess that's three pages.
+
+502
+01:22:20,070 --> 01:22:34,050
+Chris Andrews: about an introduction to survival analysis so i'd encourage you to read that as well, so that you get another explanation of the important pieces of survival analysis.
+
+503
+01:22:34,050 --> 01:22:48,510
+Chris Andrews: There will be a quiz tomorrow morning tomorrow morning, tomorrow, the beginning of class that covers any of these things you know stuff I talked about today, the reading the lab homework so.
+
+504
+01:22:48,510 --> 01:22:57,030
+Chris Andrews: If you have questions about those things, make sure you ask them so that you're prepared for the quiz what happens.
+
+505
+01:22:57,030 --> 01:23:01,050
+Chris Andrews: Also on this page are the.
+
+506
+01:23:01,050 --> 01:23:13,260
+Chris Andrews: Data set that I was loading in that PVC stuff and code to run in each of the four languages just kind of the four things I just went through there.
+
+507
+01:23:13,260 --> 01:23:17,550
+Chris Andrews: I think these are the data sets that you need.
+
+508
+01:23:17,550 --> 01:23:20,490
+Chris Andrews: For the lab.
+
+509
+01:23:20,490 --> 01:23:34,920
+Chris Andrews: But maybe not I thought that said something about call it, but maybe oh yeah there it is okay, I am going to stop sharing this i'm going to leave everybody in the big group for a while.
+
+510
+01:23:34,920 --> 01:23:52,740
+Chris Andrews: If it turns out that we want to have a discussion that's more survival analysis or statistics package specific we can form breakout rooms for the different groups and busy, and I will go around and answer questions within each group.
+
+511
+01:23:52,740 --> 01:24:10,920
+Chris Andrews: If yeah sheet, so one thing that sometimes happens in the labs that people usually start talking with their neighbor about how to do things and asking questions another option would be to open up a bunch of breakout rooms, so that.
+
+512
+01:24:10,920 --> 01:24:16,560
+Chris Andrews: People could randomly go find each other and work on things.
+
+513
+01:24:16,560 --> 01:24:23,580
+Chris Andrews: Let me know if you want me to open up some breakout rooms, so that you guys can do that or.
+
+514
+01:24:23,580 --> 01:24:27,240
+Chris Andrews: or not we'll see how it goes.
+
+515
+01:24:27,240 --> 01:50:03,200
+Chris Andrews: Anyway, I am going to stop the recording again so feel free to come on until good jokes and ask questions that you might not want saved for posterity.
+

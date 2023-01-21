@@ -1,0 +1,3184 @@
+1
+00:00:02,420 --> 00:00:07,670
+Awesome. And to see it.
+
+2
+00:00:08,550 --> 00:00:11,820
+It's just. Is there are there folks on Zoom? I just know.
+
+3
+00:00:11,930 --> 00:00:17,040
+Just as cool. Okay, so.
+
+4
+00:00:17,310 --> 00:00:21,570
+Hi, everybody. So, obviously, I'm not Aubrey.
+
+5
+00:00:22,110 --> 00:00:26,610
+My name is John Zellner. I'm a faculty member also in the effort department.
+
+6
+00:00:27,750 --> 00:00:35,460
+And I work mainly on infectious disease from a kind of spatial or social perspective.
+
+7
+00:00:36,150 --> 00:00:40,450
+So thinking about, you know, these questions of clustering, right,
+
+8
+00:00:40,590 --> 00:00:48,750
+where we have people who have similar outcomes or similar exposures and we want to get at either the social determinants of those exposures
+
+9
+00:00:48,960 --> 00:00:55,290
+or maybe sometimes we just kind of want to deal with that question of exposure to gets at some sort of like mean treatment effect.
+
+10
+00:00:55,830 --> 00:00:56,210
+Um,
+
+11
+00:00:56,730 --> 00:01:05,520
+but my emphasis today really in talking about influences of clustering is mainly to kind of help you guys develop your feel for what cluster data are,
+
+12
+00:01:05,760 --> 00:01:12,780
+what challenges and difficulties they present. And also, you know, some of the methods that we use to address them.
+
+13
+00:01:13,050 --> 00:01:17,310
+But I would say methods is number three. Number one is what's this all about?
+
+14
+00:01:18,030 --> 00:01:19,530
+How does it potentially apply to you?
+
+15
+00:01:19,770 --> 00:01:28,470
+Number two is, you know, what can we do to address the clustering in data, either to take advantage of it or to kind of get rid of it?
+
+16
+00:01:29,370 --> 00:01:36,840
+And then number three is a little bit about the models. So can any point your questions please just interrupt our hands up.
+
+17
+00:01:37,770 --> 00:01:44,159
+I'm going to try and keep this as interactive as possible. This is one of those topics that if you're if you're me, it's like super like I love it.
+
+18
+00:01:44,160 --> 00:01:49,920
+It's my bread and butter. But I also understand it can be a bit dry or you might feel like you're getting lost a little bit.
+
+19
+00:01:49,920 --> 00:01:55,170
+So I've got some activities which the people I know always love to kind of keep you engaged
+
+20
+00:01:55,170 --> 00:01:59,180
+and to really force you to think a little bit about the implications of this stuff.
+
+21
+00:01:59,190 --> 00:02:06,110
+Food for you. Okay. So agenda wise, what is clustering and why does it matter?
+
+22
+00:02:06,710 --> 00:02:11,810
+I think this is one of those things that is more subtle, perhaps, than it appears at first glance.
+
+23
+00:02:12,410 --> 00:02:17,570
+How do we model these kinds of cluster data? What are the pitfalls of these different approaches?
+
+24
+00:02:18,140 --> 00:02:19,070
+And we'll take a little break.
+
+25
+00:02:20,340 --> 00:02:27,560
+And then at the end, we're going to have a hands on activity where hands on in this case means hands on your computer or tablet.
+
+26
+00:02:28,200 --> 00:02:35,749
+There's a link to this interactive thing in the slide where we're actually going to play with some models,
+
+27
+00:02:35,750 --> 00:02:38,149
+where we're going to generate data and, you know,
+
+28
+00:02:38,150 --> 00:02:44,690
+fit models fit the wrong models in the data and see how bad of a job we can do modeling cluster data to get a feel for,
+
+29
+00:02:44,870 --> 00:02:48,770
+you know, where and when these things are particularly applicable.
+
+30
+00:02:50,830 --> 00:02:53,950
+Okay. So, you know, I know it's that time of year.
+
+31
+00:02:53,950 --> 00:02:57,970
+It's great. And, you know, I felt some flurries on the bike ride up today.
+
+32
+00:02:58,450 --> 00:03:05,590
+This is I can't use this picture for too much longer. This is my daughter and she's two falling asleep in the bike on the way home from school.
+
+33
+00:03:06,070 --> 00:03:09,700
+She's now five, and she might be a little mad that I showed you that picture, but there it is.
+
+34
+00:03:10,030 --> 00:03:15,340
+But so I appreciate your intention and engagement and just let me know what you need to make this interesting.
+
+35
+00:03:16,030 --> 00:03:20,109
+Okay. So my first question is for you guys.
+
+36
+00:03:20,110 --> 00:03:28,300
+Obviously, I have some thoughts about this, but when we talk about cluster data, what exactly are we talking about?
+
+37
+00:03:31,380 --> 00:03:35,770
+But what does it mean to say that data are clustered or an exposure is clustered?
+
+38
+00:03:35,770 --> 00:03:39,370
+Like what is it just just on a like a gut like this, all kind of level.
+
+39
+00:03:42,690 --> 00:03:47,129
+So you grouped, right? So in some kind of grouping.
+
+40
+00:03:47,130 --> 00:03:57,130
+So what do those groups potentially look like? We're doing a study.
+
+41
+00:03:59,670 --> 00:04:03,719
+You're you're maybe sampling people multiple times.
+
+42
+00:04:03,720 --> 00:04:07,030
+Maybe you're enrolling households. You're looking at communities.
+
+43
+00:04:08,970 --> 00:04:13,260
+Like, what does it mean to be in a group like.
+
+44
+00:04:20,600 --> 00:04:29,210
+Mm hmm. Yeah. Mm hmm.
+
+45
+00:04:29,300 --> 00:04:31,110
+Yeah. So space is a huge part of it, right?
+
+46
+00:04:31,130 --> 00:04:38,570
+Like, if you're spatially close to each other, like people who are spatially nearby, each other are more likely to have the same exposures.
+
+47
+00:04:38,840 --> 00:04:43,459
+Right. Maybe if we think in socioeconomic terms are probably likely to be kind of socioeconomically similar.
+
+48
+00:04:43,460 --> 00:04:46,610
+So space is often a way in which we think a lot about clustering.
+
+49
+00:04:46,610 --> 00:04:47,840
+So I think that's a big part of it.
+
+50
+00:04:49,070 --> 00:04:57,070
+What are other if it's if like a cluster is like a bean you throw not physically but metaphorically throw people into.
+
+51
+00:04:57,110 --> 00:05:00,930
+Right. Like, what are other? Yeah.
+
+52
+00:05:06,980 --> 00:05:12,230
+Yeah. I mean, I think attribute rate. So in some ways this idea of clustering, like dealing with cluster data,
+
+53
+00:05:12,230 --> 00:05:18,830
+is not very different from what we do when we get a normal plain old regression model, right?
+
+54
+00:05:18,830 --> 00:05:24,980
+We're we're saying what are attributes that are going to make different groups of people have similar outcomes.
+
+55
+00:05:25,310 --> 00:05:33,980
+Right. So but rather than it being just like age, race, gender or what have you, it's also like neighborhood, right?
+
+56
+00:05:33,980 --> 00:05:41,990
+Something that is a little bit more like particular Ristic in the sense that it's like my neighborhood may have different risks in your neighborhood,
+
+57
+00:05:41,990 --> 00:05:45,200
+right? My household may have different risks than your household, right?
+
+58
+00:05:45,440 --> 00:05:48,499
+So it's like they're kind of smaller and they're like,
+
+59
+00:05:48,500 --> 00:05:56,240
+we can quibble and I think rightly about the accuracy of a lot of the categories we use in a population level to kind of store people.
+
+60
+00:05:56,360 --> 00:06:00,320
+But ultimately it's like we tend to say make fairly crisp boundaries around those.
+
+61
+00:06:00,560 --> 00:06:04,400
+Whereas a household, it's like, this is my household, this is your household, this is my neighborhood.
+
+62
+00:06:04,400 --> 00:06:07,450
+This is your neighborhood. Okay.
+
+63
+00:06:08,020 --> 00:06:12,820
+So, you know, another example of this is repeated measures of individuals.
+
+64
+00:06:13,210 --> 00:06:17,950
+Right. So often over time, we'll look at people multiple times over the course of a study.
+
+65
+00:06:18,160 --> 00:06:22,990
+Maybe if we're looking at the progression of a disease or we're running a cohort study to look at people,
+
+66
+00:06:23,590 --> 00:06:26,860
+people's risks of infection with some particular infectious disease.
+
+67
+00:06:27,370 --> 00:06:34,870
+We want to adjust for the fact that there may be something about a given individual that makes them more likely to contract the disease.
+
+68
+00:06:35,140 --> 00:06:38,290
+That's not necessarily observed. It's not a function of our coverage. It's.
+
+69
+00:06:41,650 --> 00:06:47,770
+Very common social risks. And then another thing is that this higher level rate policies, things like that,
+
+70
+00:06:48,430 --> 00:06:52,479
+state level policies and community level policies are obviously going to have
+
+71
+00:06:52,480 --> 00:06:56,980
+this kind of top down effect on health risks and outcomes in a given place.
+
+72
+00:06:59,450 --> 00:07:04,040
+Right. And this clustering can occur at multiple levels within a single set.
+
+73
+00:07:04,070 --> 00:07:11,480
+So this is just from this kind of next tutorial paper that I really like where you're looking at the different levels of variability.
+
+74
+00:07:11,870 --> 00:07:15,530
+Right. So each of those dark lines is a neighborhood level mean.
+
+75
+00:07:16,640 --> 00:07:20,180
+And then away from that you have individual level variation.
+
+76
+00:07:20,390 --> 00:07:23,630
+And then at the top, in the middle, here you have the city level.
+
+77
+00:07:24,110 --> 00:07:30,770
+Right. So just the idea that it's like when we take on this kind of cluster data or a hierarchical approach, right?
+
+78
+00:07:30,830 --> 00:07:35,989
+We're taking responsibility not just for the individual level variation in these outcomes.
+
+79
+00:07:35,990 --> 00:07:36,230
+Right?
+
+80
+00:07:36,250 --> 00:07:42,440
+So just like if I'm taking your blood, I'm going to talk about blood pressure way too much because it's just a simple kind of thing to think about.
+
+81
+00:07:42,650 --> 00:07:47,600
+If I take your systolic blood pressure over and over and over again, I'll get different answers, right?
+
+82
+00:07:47,600 --> 00:07:52,010
+Just through measurement error in my like taking of your blood pressure.
+
+83
+00:07:53,030 --> 00:07:57,229
+I used to be an EMT when I was like 16. Not very good at taking blood pressure.
+
+84
+00:07:57,230 --> 00:08:02,389
+So, like, if you got me, like, clamping that thing and, like, squeezing it down, like, way too high,
+
+85
+00:08:02,390 --> 00:08:07,100
+and then with my lousy stethoscope here, you know, when's your, you know, what your blood pressure is?
+
+86
+00:08:07,880 --> 00:08:10,820
+You would probably get a lot of variation in measurement, not to mention the fact that,
+
+87
+00:08:10,820 --> 00:08:14,150
+like, after the first time I do it, you might be like, oh, please, this junk, right?
+
+88
+00:08:14,360 --> 00:08:16,680
+So and your blood pressure might fluctuate based on that.
+
+89
+00:08:16,700 --> 00:08:26,160
+So we have within individual variation within group like neighborhood variation, and then we have kind of city or population wide rate.
+
+90
+00:08:26,180 --> 00:08:34,880
+My only point here is that things are moving in many directions and the typical models that we use really just think about this, right?
+
+91
+00:08:34,910 --> 00:08:38,600
+We think about individual level variation and sampling variability.
+
+92
+00:08:38,990 --> 00:08:40,340
+But when we think about clustering,
+
+93
+00:08:40,340 --> 00:08:47,510
+we're thinking about the cluster level variation that makes people within the cluster more similar to each other than people not in the cluster,
+
+94
+00:08:47,840 --> 00:08:54,070
+as well as that kind of inherent individual one for each. Okay.
+
+95
+00:08:55,210 --> 00:08:59,260
+You know, so from my perspective, these kind of data provide opportunities and challenges,
+
+96
+00:09:00,160 --> 00:09:05,230
+at least when I was getting trained, which, you know, every year get further and further kind of in the rearview,
+
+97
+00:09:06,010 --> 00:09:12,129
+we thought of this type of clustering is like a problem to be solved and not necessarily an opportunity where you had people in a household,
+
+98
+00:09:12,130 --> 00:09:16,209
+but you wanted to think what if they were independent in terms of their outcomes?
+
+99
+00:09:16,210 --> 00:09:20,500
+So can we adjust the way the effective being in the household and then measure the
+
+100
+00:09:20,500 --> 00:09:24,940
+effect of things like a hygiene intervention or some kind of other like exposure?
+
+101
+00:09:26,980 --> 00:09:34,360
+But, you know, ultimately they can let us get a sense not only of just like average effects across the whole population,
+
+102
+00:09:34,360 --> 00:09:37,600
+but potentially variability in those effects across different units.
+
+103
+00:09:38,770 --> 00:09:43,270
+Probably the biggest thing that most of us will use this approach for in our careers
+
+104
+00:09:43,900 --> 00:09:48,730
+is thinking about how to deal with unobserved or partially observed confounders,
+
+105
+00:09:49,360 --> 00:09:54,550
+right? So like if we're thinking about people's risk of infection in a given household,
+
+106
+00:09:54,970 --> 00:09:58,330
+but we don't go out and we measure the characteristics of the household,
+
+107
+00:09:58,570 --> 00:10:03,040
+like how many people are living there, maybe what the ventilation is like in that place.
+
+108
+00:10:04,060 --> 00:10:09,459
+We might have clustering of disease that we might attribute to the characteristics of the
+
+109
+00:10:09,460 --> 00:10:15,100
+people who live there because we haven't observed the characteristics of the household.
+
+110
+00:10:15,730 --> 00:10:19,450
+Right. That might be correlated, right? So poverty would be an example.
+
+111
+00:10:19,450 --> 00:10:27,070
+So if you measure people's socioeconomic status but you didn't measure their household environment, you know, if you're like, you know,
+
+112
+00:10:27,130 --> 00:10:37,180
+have your hands over your eyes, you might kind of come to some kind of conclusion that like lower x causally is related to an infection rate.
+
+113
+00:10:37,240 --> 00:10:40,150
+We're missing out on that kind of mechanistic stuff in the middle.
+
+114
+00:10:42,770 --> 00:10:49,730
+And another thing that these models can do really well is predict outcomes in new places where covariates are known.
+
+115
+00:10:50,030 --> 00:10:53,450
+So but our outcomes are unobserved. So in the spatial example,
+
+116
+00:10:53,960 --> 00:11:02,780
+if we measure outcomes in a bunch of different neighborhoods in a city and we have census data about a bunch of neighborhoods we didn't observe.
+
+117
+00:11:03,500 --> 00:11:08,090
+Right. We can start making some projections about the potential risk in that area.
+
+118
+00:11:08,340 --> 00:11:12,590
+Right. So we're using information not only about what makes individuals varied,
+
+119
+00:11:12,920 --> 00:11:17,620
+but potentially what makes neighborhoods or different locations or different clusters vary as well.
+
+120
+00:11:17,630 --> 00:11:24,320
+So you can put all that information in there. And often these models do a much better job of predicting outcomes in the
+
+121
+00:11:24,320 --> 00:11:28,730
+places we haven't observed than a model that ignores that contextual variation.
+
+122
+00:11:29,720 --> 00:11:36,710
+Right. So sometimes like clustering, I think another a better way of thinking about it for a lot of studies is context.
+
+123
+00:11:36,980 --> 00:11:43,060
+Right. It's like context is what makes things people have similar outcomes in that context could be household.
+
+124
+00:11:43,070 --> 00:11:45,560
+It could be where they live. It could be any number of things.
+
+125
+00:11:46,130 --> 00:11:52,130
+But these are models that kind of take account of not only individual variation that's consistent across the population,
+
+126
+00:11:52,370 --> 00:11:56,060
+but contextual variation across locations or what have.
+
+127
+00:11:58,310 --> 00:12:06,380
+Okay. So this is just a nice example of a way you could, you know, deal with an observed, confounding,
+
+128
+00:12:06,950 --> 00:12:14,089
+using a an approach where you adjust for the clustering in a way that kind of says,
+
+129
+00:12:14,090 --> 00:12:22,400
+well, here's a person who's getting treated in this eye, an untreated in this eye, and then you measure some outcome in each eye.
+
+130
+00:12:23,180 --> 00:12:27,470
+And the what's the challenge of the study like this?
+
+131
+00:12:29,220 --> 00:12:34,410
+Right. If I don't deal with the fact that I'm taking multiple generations of the same person.
+
+132
+00:12:36,420 --> 00:12:41,010
+Right. So the observations are are obviously correlated in the sense that they're like both my eyes.
+
+133
+00:12:41,430 --> 00:12:44,610
+Right. But what's the challenge?
+
+134
+00:12:44,880 --> 00:12:51,150
+So what would we normally do to like to deal with this kind of correlation?
+
+135
+00:12:53,470 --> 00:13:00,490
+Like, let's say instead of individuals, we have age groups had like five age groups.
+
+136
+00:13:02,140 --> 00:13:09,040
+And I take an observation, let's say, of visual acuity in the different age groups and among the treated in the untreated.
+
+137
+00:13:10,150 --> 00:13:17,320
+Right. And all I do is I say the treated have a higher risk of whatever outcome than the untreated.
+
+138
+00:13:17,920 --> 00:13:22,740
+But I haven't adjusted for age. What would I do?
+
+139
+00:13:25,520 --> 00:13:30,080
+Just for age. I plonk that variable in there because age might be confounding or fact you.
+
+140
+00:13:30,710 --> 00:13:35,690
+Right. So what's the problem with doing that for me?
+
+141
+00:13:36,980 --> 00:13:45,850
+How many observations do you have of me in this study? To write you have to observations potential my left eye and my right eye.
+
+142
+00:13:46,060 --> 00:13:49,420
+And then you have a John Covariate that goes into your model, right?
+
+143
+00:13:49,750 --> 00:13:54,670
+So you can see that the ratio of data to model is not good, right?
+
+144
+00:13:54,940 --> 00:13:58,030
+The degrees of freedom situation is not working in your favor here.
+
+145
+00:13:58,720 --> 00:14:03,790
+And so the methodological component of this is coming up with tools that can
+
+146
+00:14:03,790 --> 00:14:07,480
+let you do what that clustering without just completely overpowering the data.
+
+147
+00:14:08,140 --> 00:14:08,470
+Right.
+
+148
+00:14:09,070 --> 00:14:16,600
+But ultimately, it's the task of like adjusting for the person with the eyes and all the things about them that we haven't been able to measure.
+
+149
+00:14:17,620 --> 00:14:26,979
+Does that make sense? So spatial clustering, you know, is obviously another important component of this.
+
+150
+00:14:26,980 --> 00:14:29,020
+Personally, when I spent a lot of time on myself.
+
+151
+00:14:30,130 --> 00:14:35,530
+So, you know, obviously when we're thinking about facial clustering, we have to think about the physical environment.
+
+152
+00:14:35,800 --> 00:14:39,940
+Right. So this is John Snow's classic map of the broad through pump.
+
+153
+00:14:40,540 --> 00:14:44,680
+Just a shameless plug. It might have been 684 class on spatial archeology.
+
+154
+00:14:45,220 --> 00:14:49,720
+We'll talk about why this is a far more complex story than when John Snow woke up after
+
+155
+00:14:49,720 --> 00:14:53,740
+brunch on a Tuesday afternoon and took the pump handle off and into the outbreak.
+
+156
+00:14:53,740 --> 00:15:01,990
+Right. There's a lot more going on there. But, you know, the key insight was that there was an environmental source to this cholera outbreak.
+
+157
+00:15:02,260 --> 00:15:08,200
+And by connecting the locations of the cases where they were spatially clustering to
+
+158
+00:15:08,200 --> 00:15:13,390
+the different water pumps and through just like classic epidemiological investigation,
+
+159
+00:15:13,660 --> 00:15:19,330
+you know, it was pretty compelling. They had a pretty compelling explanation to say, like, something's going on with the Broad Street, right?
+
+160
+00:15:19,540 --> 00:15:22,299
+So this is just like very old example.
+
+161
+00:15:22,300 --> 00:15:29,230
+It's like almost 200 years old at this point, but it's really a classic epidemiological, spatial clustering problem.
+
+162
+00:15:32,400 --> 00:15:38,790
+This is another example from a recent graduate from U of M looking at the impact of
+
+163
+00:15:38,790 --> 00:15:45,780
+the spatial clustering of non vaccination on measles outbreak risk and showing how.
+
+164
+00:15:46,470 --> 00:15:53,740
+So you guys are probably, especially after the last couple of years, comfortable with this notion of herd immunity, right?
+
+165
+00:15:53,760 --> 00:15:58,440
+So that if we get enough people infected or we get enough people vaccinated against the disease,
+
+166
+00:15:58,890 --> 00:16:02,340
+you know, potentially we can reach a threshold where disease can't circulate anymore.
+
+167
+00:16:03,120 --> 00:16:05,040
+So that's true up to a point.
+
+168
+00:16:05,520 --> 00:16:14,850
+The problem is when you have spatial clusters of folks who are not vaccinated, even if the population as a whole is above the herd immunity threshold,
+
+169
+00:16:15,090 --> 00:16:20,010
+those areas where you have clustered non vaccination are significant risk of outbreaks.
+
+170
+00:16:20,280 --> 00:16:24,450
+Right. And we've actually seen this pattern play out over and over again in Michigan,
+
+171
+00:16:24,450 --> 00:16:32,280
+where we've had relatively large measles outbreaks, even though at the state level we're above the vaccination threshold.
+
+172
+00:16:34,930 --> 00:16:38,770
+Okay. So this is this is the other part.
+
+173
+00:16:39,610 --> 00:16:49,030
+So hopefully you guys have the link to this Google doc. What I'm gonna ask you to do is to spend a couple of minutes just on your own thinking about,
+
+174
+00:16:49,030 --> 00:16:53,720
+you know, what mechanisms make clustering happen for an applied problem that you care about.
+
+175
+00:16:54,070 --> 00:16:59,110
+And it's fine to speculate. Just kind of think really about the outcome of interest at first.
+
+176
+00:16:59,290 --> 00:17:04,960
+Think about your own personal or career interests and the levels in which that clustering occurs, right?
+
+177
+00:17:05,230 --> 00:17:09,220
+Is it households? Is it communities or is it something else entirely?
+
+178
+00:17:09,730 --> 00:17:15,610
+It doesn't have to have a spatial analog. That's totally fine. And, you know, just kind of think about that.
+
+179
+00:17:15,610 --> 00:17:18,429
+And then so I'm going to give you guys a few minutes to kind of chew on that
+
+180
+00:17:18,430 --> 00:17:24,160
+and then going to ask you to pair up with folks and chat about what you that.
+
+181
+00:17:25,060 --> 00:17:29,360
+Okay. So I'll start this handy timer.
+
+182
+00:17:43,820 --> 00:17:47,090
+We all should have access to it. But let me know if you can't get into.
+
+183
+00:20:41,210 --> 00:22:54,230
+Two or three more minutes. Good for everybody. 30 seconds.
+
+184
+00:22:54,250 --> 00:23:17,250
+Morning. Get up. Okay.
+
+185
+00:23:18,210 --> 00:23:26,520
+So hopefully that is what I say. So hopefully that gave you a moment to kind of chew over this stuff.
+
+186
+00:23:27,580 --> 00:23:30,990
+And so I was going to ask you guys to spend a few minutes with, you know,
+
+187
+00:23:31,470 --> 00:23:38,880
+one or two other folks and kind of just talking about your outcome of interest and the mechanisms that you've identified.
+
+188
+00:23:39,430 --> 00:23:41,870
+And and then I want you to think, you know,
+
+189
+00:23:41,880 --> 00:23:49,800
+so I think one of the best ways to kind of get our head around this stuff is thinking about what happens on the more meaningful levels of clustering.
+
+190
+00:23:50,190 --> 00:23:56,009
+Right. Because sometimes the the impetus is to run towards the most complicated of.
+
+191
+00:23:56,010 --> 00:24:01,680
+All right. I think sometimes that's a kind of side effect of like the future about all these kind of interesting methods.
+
+192
+00:24:01,700 --> 00:24:05,010
+It makes it seem like that's always like the one place you should go to.
+
+193
+00:24:05,370 --> 00:24:09,750
+But I think often the best question to ask is, what happens if I just pretend this doesn't exist?
+
+194
+00:24:09,800 --> 00:24:13,530
+Like, what if I just, like, don't deal with the clustering? What could go wrong?
+
+195
+00:24:13,590 --> 00:24:18,330
+And sometimes the answer is, like, not too much, right? And sometimes the answer is it can go completely sideways.
+
+196
+00:24:18,430 --> 00:24:24,690
+And so I think, you know, identifying the the situations where you need these approaches is really helpful because it
+
+197
+00:24:24,690 --> 00:24:28,830
+kind of keeps you out of the weeds and it can keep your concentration on the important stuff.
+
+198
+00:24:30,690 --> 00:24:34,320
+And on that note, right, so one is the first question is kind of analytic.
+
+199
+00:24:34,590 --> 00:24:36,550
+The second is about, you know,
+
+200
+00:24:36,570 --> 00:24:45,450
+how policies and interventions that are based on models or just kind of theoretical perspectives that ignore an important question go wrong.
+
+201
+00:24:45,690 --> 00:24:49,830
+And can you think of examples potentially of of where and when that might happen?
+
+202
+00:24:50,790 --> 00:24:56,819
+So I'm just going to ask you to get to your groups. And also, if you don't mind updating that in the document as well.
+
+203
+00:24:56,820 --> 00:25:01,049
+As you go, just a quick summary. We'll take about 10 minutes for those conversations.
+
+204
+00:25:01,050 --> 00:25:04,770
+I know this room is like ideally suited to group work, so I appreciate your patience.
+
+205
+00:25:05,550 --> 00:25:09,720
+I can join a similarly kind of ridiculous classroom for this purpose for my other course.
+
+206
+00:25:10,500 --> 00:25:16,050
+But we'll do the best we have of what we got. Okay.
+
+207
+00:25:29,300 --> 00:25:35,480
+So anything you want to hear, you want to hear.
+
+208
+00:25:48,200 --> 00:25:59,030
+What else do? But my legs or legs are.
+
+209
+00:26:07,440 --> 00:26:15,770
+Actually. There are so many others like it.
+
+210
+00:26:16,070 --> 00:26:22,130
+So I feel like there's. Immigrants.
+
+211
+00:26:22,150 --> 00:26:46,210
+It would not be true. Obviously.
+
+212
+00:26:50,900 --> 00:26:56,400
+Myself. Say.
+
+213
+00:27:00,130 --> 00:27:13,910
+No, not. Our consulting firm.
+
+214
+00:27:24,820 --> 00:27:54,370
+Oh. Problem that I don't care about is I like.
+
+215
+00:27:58,120 --> 00:28:03,400
+You are going around.
+
+216
+00:28:04,000 --> 00:28:08,670
+Oh, sorry. Know.
+
+217
+00:28:13,840 --> 00:28:18,910
+We have been waiting.
+
+218
+00:28:30,420 --> 00:28:34,180
+So it would be so.
+
+219
+00:28:41,330 --> 00:28:46,860
+You are now. Prime Minister Narendra modi.
+
+220
+00:28:52,870 --> 00:28:55,920
+I don't know.
+
+221
+00:28:56,050 --> 00:29:03,640
+We don't know what to think about how we.
+
+222
+00:29:11,160 --> 00:29:33,610
+It was nice to be out there in the first half of the year and at the end of it, I don't know.
+
+223
+00:29:34,510 --> 00:29:37,780
+Yeah, you know.
+
+224
+00:29:40,290 --> 00:29:52,420
+Yeah. All right. You wouldn't be able to talk to me about this before.
+
+225
+00:29:55,580 --> 00:30:00,350
+Yeah, there's something about that. Right.
+
+226
+00:30:04,690 --> 00:30:08,830
+I think all that sort of thing.
+
+227
+00:30:17,780 --> 00:30:21,780
+I heard about it.
+
+228
+00:30:25,440 --> 00:30:47,270
+Yeah. So I said, All right, we're trying to have it.
+
+229
+00:30:48,250 --> 00:30:59,630
+Yeah, I think there's never been so many support structures and there hasn't been that we're here for it.
+
+230
+00:31:00,040 --> 00:31:20,270
+So I wouldn't have started to do graphic content for families that I had differences with in the first quarter of 20.
+
+231
+00:31:24,500 --> 00:31:33,920
+Right? Right. Oh, you know, I did, you know.
+
+232
+00:31:34,350 --> 00:31:39,610
+Yeah. Yeah. Yeah, it's.
+
+233
+00:31:39,630 --> 00:31:42,780
+It's kind of interesting. Yeah.
+
+234
+00:31:43,010 --> 00:31:47,180
+Yeah, I know what you're saying.
+
+235
+00:31:49,330 --> 00:31:53,889
+Yeah. It's okay. I'm in no hurry.
+
+236
+00:31:53,890 --> 00:31:59,100
+You? Already.
+
+237
+00:32:01,900 --> 00:32:06,760
+Who's going to look after that?
+
+238
+00:32:09,170 --> 00:32:19,320
+And there's, like, a little correction.
+
+239
+00:32:20,080 --> 00:32:28,970
+Yeah. But I wasn't open.
+
+240
+00:32:31,350 --> 00:32:38,340
+But just a moment ago, I just saw.
+
+241
+00:32:40,630 --> 00:32:46,020
+Yeah, I know. Yeah. What's it like?
+
+242
+00:32:46,260 --> 00:32:55,300
+Oh, it's not like it has. I was like.
+
+243
+00:32:58,160 --> 00:33:01,850
+That's what it looks like.
+
+244
+00:33:02,720 --> 00:33:09,580
+So there it is, right.
+
+245
+00:33:17,020 --> 00:33:22,240
+Yeah, but is the building inside the building? That's the one that was.
+
+246
+00:33:24,430 --> 00:33:30,480
+That's right. So that is a high rise.
+
+247
+00:33:32,390 --> 00:33:41,740
+But. Oh, yeah, yeah, yeah, yeah, yeah.
+
+248
+00:33:41,750 --> 00:33:46,240
+How would you feel about my. How you remember what?
+
+249
+00:33:55,350 --> 00:33:59,320
+Right? Right.
+
+250
+00:34:01,160 --> 00:34:04,640
+Yeah, I felt like that. I thought you should know. Yeah.
+
+251
+00:34:05,090 --> 00:34:10,700
+That's kind of the problem. When we were like, Oh.
+
+252
+00:34:13,390 --> 00:34:17,040
+You have a significant celebrity.
+
+253
+00:34:19,160 --> 00:34:22,360
+Put your finger on it.
+
+254
+00:34:22,500 --> 00:34:25,800
+No, I. Yes.
+
+255
+00:34:25,890 --> 00:34:30,190
+Okay. You know, I really.
+
+256
+00:34:33,330 --> 00:34:43,270
+They feel like they have.
+
+257
+00:34:56,900 --> 00:35:00,130
+Like they should.
+
+258
+00:35:07,030 --> 00:35:10,990
+You got there. All right. All right.
+
+259
+00:35:11,080 --> 00:35:15,760
+So hopefully that was enough time for you guys to kind of chew on this a little bit.
+
+260
+00:35:15,790 --> 00:35:19,990
+I only made it to, like, a third of the room, but everything I heard was, like,
+
+261
+00:35:20,500 --> 00:35:25,810
+felt like you guys were kind of on the right trail here and were kind of working on these questions in an interesting way.
+
+262
+00:35:26,410 --> 00:35:32,830
+So I'm curious. Just before we move on to the next bit, we'll dive a little bit more into some of the more methods, the kinds of questions.
+
+263
+00:35:33,190 --> 00:35:36,040
+And I'm curious what example you guys came up with,
+
+264
+00:35:36,640 --> 00:35:44,260
+both just for your outcomes and mechanisms and the potential ramifications of not dealing appropriately with classroom.
+
+265
+00:35:54,870 --> 00:35:57,570
+One of the benefits of having small children is I'm very patient.
+
+266
+00:36:01,450 --> 00:36:05,790
+Yeah, we came up with if you don't take into account the clustering you're going to like,
+
+267
+00:36:06,450 --> 00:36:12,700
+you're ignoring all the variation between those groups and so you're going to like lose the ability to control for some of those confounding by group,
+
+268
+00:36:12,810 --> 00:36:17,790
+whether it's like with an individual or like between observations or between, like the spatial areas.
+
+269
+00:36:17,880 --> 00:36:24,870
+Mm hmm. Which one is likely to, like, give you a change and observe associations and you just overall be telling the wrong story about your gut?
+
+270
+00:36:25,110 --> 00:36:27,780
+Right. So if you care about some big main treatment effect,
+
+271
+00:36:27,780 --> 00:36:32,070
+you have a bunch of groups that have gotten the treatment, a bunch that haven't, whatever they are.
+
+272
+00:36:32,400 --> 00:36:39,420
+But you don't deal with the fact that there's reasons why these groups, whether that's like in a clinical trial or neighborhoods or households,
+
+273
+00:36:39,660 --> 00:36:43,319
+may be different from each other for reasons you've observed that classically,
+
+274
+00:36:43,320 --> 00:36:48,750
+just like adjusting for confounders and then reasons perhaps you haven't observed, which is dealing with that observed,
+
+275
+00:36:48,750 --> 00:36:54,120
+confounding you could potentially get either, you know, estimates that are way high,
+
+276
+00:36:54,120 --> 00:36:59,190
+way low rate or way to like confident when they should be more uncertain.
+
+277
+00:36:59,480 --> 00:37:02,580
+Right. So there are all these there's not one answer, right?
+
+278
+00:37:02,580 --> 00:37:06,900
+It's not like if I ignore the clustering I'll get I'll consistently overestimated my treatments.
+
+279
+00:37:06,910 --> 00:37:08,250
+I'll consistently underestimate.
+
+280
+00:37:08,670 --> 00:37:16,040
+All you can know is, like, you will, like, consistently, probably not get quite right, but the direction of that is harder.
+
+281
+00:37:16,650 --> 00:37:20,640
+And so that's one of these like real devil in the details thing where it's like we've got to deal with
+
+282
+00:37:20,850 --> 00:37:26,040
+the fact that it's there if we think it's important in order to kind of take us where we want to go.
+
+283
+00:37:27,630 --> 00:37:28,560
+Any other, you know,
+
+284
+00:37:28,560 --> 00:37:37,440
+concrete examples of of specific cases you're thinking about or how things might go wrong or like policy type things where things could go sideways?
+
+285
+00:37:38,760 --> 00:37:42,700
+Yeah, we're kind of talking about like two different scenarios.
+
+286
+00:37:42,700 --> 00:37:48,899
+So one, looking at the impact of natural disaster on like outcomes like health status,
+
+287
+00:37:48,900 --> 00:37:52,980
+if you regard clustering at the neighborhood level, at regional level or city level.
+
+288
+00:37:53,070 --> 00:37:56,010
+Mm hmm. You might have underestimated risk.
+
+289
+00:37:56,250 --> 00:38:00,960
+Yeah, because there might be a lot of neighborhoods that don't actually have a high risk, but certain ones really do.
+
+290
+00:38:00,990 --> 00:38:06,120
+Yeah. And so that could be policies that aren't really, like, helping the people who need it.
+
+291
+00:38:06,210 --> 00:38:10,670
+Yeah. And then another really good example from my presentation was, um,
+
+292
+00:38:11,220 --> 00:38:15,990
+if you are looking across a bunch of different studies to kind of come up with an example.
+
+293
+00:38:15,990 --> 00:38:20,430
+So in this case, if there's a master engineer.
+
+294
+00:38:20,550 --> 00:38:24,390
+Mm hmm. Yeah. And there are lots of things that they do.
+
+295
+00:38:24,390 --> 00:38:27,420
+And then like that. Yeah.
+
+296
+00:38:28,230 --> 00:38:33,860
+Anything that could be the right tool for that ability that maybe you guys have.
+
+297
+00:38:34,290 --> 00:38:38,370
+Yep. Yep. So you can move quickly, right?
+
+298
+00:38:38,610 --> 00:38:42,120
+Yeah. About that. Yeah. No, those are great.
+
+299
+00:38:42,270 --> 00:38:46,649
+Both really great examples that I think get at two different types of mechanisms potentially.
+
+300
+00:38:46,650 --> 00:38:51,610
+One is, you know, in the case of like a meta analysis of thinking about multiple studies, right?
+
+301
+00:38:51,630 --> 00:38:57,480
+Both you have heterogeneity in the underlying populations, but you probably also have heterogeneity in the way the studies were administered,
+
+302
+00:38:57,660 --> 00:39:03,430
+the instruments that people use in, you know, in asking the questions and so or taking samples.
+
+303
+00:39:03,430 --> 00:39:08,250
+So if you want to pull it together, it becomes a bit tricky, you know, when we do work on.
+
+304
+00:39:08,640 --> 00:39:10,980
+So for influenza, I do use these assays,
+
+305
+00:39:11,550 --> 00:39:18,820
+I titer assays and you could the outcomes are within a tolerance or two and maybe Aubrey's group does a lot of this.
+
+306
+00:39:18,840 --> 00:39:22,320
+I don't know if she's ever mentioned these things, but, you know,
+
+307
+00:39:22,650 --> 00:39:29,639
+essentially it's very dependent on like the day you do the assay, like who's doing it has some effect sometimes.
+
+308
+00:39:29,640 --> 00:39:35,430
+And also like the turkey red blood cells that are used, you know, if you have slightly different amounts,
+
+309
+00:39:35,670 --> 00:39:40,739
+you know, a more kind of immunogenic turkey, you know, by chance, you could get slightly different results.
+
+310
+00:39:40,740 --> 00:39:46,950
+And so there's clustering even based on like the day the assay was done right, which isn't really like about the underlying mechanism,
+
+311
+00:39:46,950 --> 00:39:50,820
+but it is about, you know, it doesn't use meaningful variation that you have to deal with.
+
+312
+00:39:51,720 --> 00:39:54,510
+You know, the natural disasters example I think is a really good one too.
+
+313
+00:39:54,720 --> 00:40:02,550
+Like when we think about like climate related flooding, you know, so I've done a little work on flooding and diarrheal disease in Vietnam.
+
+314
+00:40:02,760 --> 00:40:05,879
+Right? And so elevation is really important part of that. Right?
+
+315
+00:40:05,880 --> 00:40:09,240
+The higher up you live, the less likely you are to be affected by flooding. Right.
+
+316
+00:40:09,360 --> 00:40:16,710
+But you could imagine that within like kind of areas that are in the middle or potentially lower elevation, there's spatial variation in risk.
+
+317
+00:40:16,890 --> 00:40:20,610
+Right. And some of that may be like infrastructural, like some places have better drainage.
+
+318
+00:40:21,180 --> 00:40:26,910
+It also might be some ground is just more absorbed in some places or more kind of, you know, tarmac down.
+
+319
+00:40:27,630 --> 00:40:32,250
+And some of that may be observable, but some of that may be kind of unobserved variation in our model.
+
+320
+00:40:32,430 --> 00:40:36,120
+Right. So another thing that's important is just because we see some things clustered
+
+321
+00:40:36,120 --> 00:40:40,379
+or is like unobserved heterogeneity doesn't mean it's perfectly unobservable.
+
+322
+00:40:40,380 --> 00:40:42,660
+It just means that we have not observed it. Right.
+
+323
+00:40:43,200 --> 00:40:49,020
+And so we're dealing with some of the things that we just maybe the data we didn't clerk or we couldn't collect for one reason or another.
+
+324
+00:40:50,280 --> 00:40:56,650
+Right. Cool. So does anybody else dying to share their example, or should we keep going?
+
+325
+00:40:56,920 --> 00:41:03,079
+Yeah, I. I don't remember all the specifics of it,
+
+326
+00:41:03,080 --> 00:41:15,070
+but I was thinking about this problem I read about in environmental justice wise where the EPA set a certain like allowable.
+
+327
+00:41:16,200 --> 00:41:23,379
+Pollution in. Water source based on average fish intake.
+
+328
+00:41:23,380 --> 00:41:33,900
+They were technically America and they weren't properly accounting for higher fish consumption and the negative relation.
+
+329
+00:41:33,910 --> 00:41:42,670
+And so they ended up becoming the practices for interacting with the land for.
+
+330
+00:41:43,580 --> 00:41:47,480
+Cards close at hand. But the very first outcomes of that.
+
+331
+00:41:47,770 --> 00:41:55,250
+Yeah, no, I think that's a great example. I mean there's a tendency in the population to be studies so like overfocus on the mean.
+
+332
+00:41:55,580 --> 00:42:00,229
+Right. And so, you know in that example of like the vaccination coverage rate,
+
+333
+00:42:00,230 --> 00:42:05,630
+you can see that if we just assume that the mean vaccination coverage in population applies to all people,
+
+334
+00:42:05,780 --> 00:42:09,649
+we would predict that we have fewer outbreaks than we actually get.
+
+335
+00:42:09,650 --> 00:42:16,700
+And similarly, if you assume, you know, people's exposure to some environmental toxicant for whatever reason, you know, everywhere is the mean.
+
+336
+00:42:17,360 --> 00:42:24,200
+It's going to be really problematic and it's going to give you not only bad policy, but, you know, from a purely technical perspective,
+
+337
+00:42:24,200 --> 00:42:29,720
+you're going to make predictions that are way off, right, because you're not accounting for that contextual variation.
+
+338
+00:42:30,350 --> 00:42:42,100
+Yeah. So I think that's a great example. Did you. The fostering paradox for.
+
+339
+00:42:45,430 --> 00:42:49,150
+Overall. A population that looks like that.
+
+340
+00:42:50,380 --> 00:42:55,990
+Mm hmm. Yeah. So you're way ahead. And so when we do the hands on thing, we'll dig into some of that a little bit.
+
+341
+00:42:56,260 --> 00:43:01,479
+But essentially, it's like if we kind of mistake cluster of the characteristics for individual characteristics,
+
+342
+00:43:01,480 --> 00:43:03,840
+this is kind of the classic like sentence paradox idea.
+
+343
+00:43:04,180 --> 00:43:09,489
+If they run in the opposite direction, we can estimate an effect that gets in the wrong direction.
+
+344
+00:43:09,490 --> 00:43:12,980
+We're just mistaking the person for the place or the place for the person.
+
+345
+00:43:13,000 --> 00:43:21,940
+Right. So, yeah, absolutely. So not only can you get like the wrong answer, you can get the opposite of the right answer in a lot of situations.
+
+346
+00:43:23,280 --> 00:43:31,040
+Cool. Okay. So these are all great examples. So what I want to do now for the next, you know, 15,
+
+347
+00:43:31,040 --> 00:43:38,810
+20 minutes or so is to kind of just talk about generalized linear models in the context of clustering data.
+
+348
+00:43:39,110 --> 00:43:46,070
+So at this point, are you comfortable if I say the term glam, who feels like they're not going to run,
+
+349
+00:43:46,280 --> 00:43:51,020
+you know, run screaming from the room because you've been talking about these things up to this point.
+
+350
+00:43:51,050 --> 00:43:56,450
+Okay. And so I'm going to kind of introduce some notation, just ways of thinking about it.
+
+351
+00:43:56,720 --> 00:44:00,500
+But the reason I'm doing this is not because this particular approach is surprising.
+
+352
+00:44:00,770 --> 00:44:05,600
+I'm just trying to kind of relate the things that we just talked about to some of the models.
+
+353
+00:44:05,840 --> 00:44:09,080
+And then after the break, we'll play around with with models.
+
+354
+00:44:10,490 --> 00:44:18,380
+Okay. So this is the notation we often see for a kind of classic like cluster generalized linear model.
+
+355
+00:44:18,740 --> 00:44:24,290
+Right. So r y supply is an individual level measuring outcome.
+
+356
+00:44:24,770 --> 00:44:29,800
+And for our purposes today, we're just going to treat everything like it's plain old linear regression.
+
+357
+00:44:29,810 --> 00:44:31,870
+So all effects are additive. Right.
+
+358
+00:44:31,880 --> 00:44:38,600
+You can do all of these things for logistic regression or for account models or for hazard models, like all the cool stuff.
+
+359
+00:44:38,900 --> 00:44:42,770
+But we're just going to keep it simple to focus on this kind of structure, structural stuff.
+
+360
+00:44:43,630 --> 00:44:47,360
+Right. So this notation should feel reasonably comfortable.
+
+361
+00:44:48,440 --> 00:44:52,910
+Yeah. So here we have our observation, say, of a person's systolic blood pressure.
+
+362
+00:44:53,660 --> 00:44:57,020
+This little alpha is the intercept rate. The mean?
+
+363
+00:44:57,620 --> 00:45:04,950
+In the absence of a treatment for all of our per our discussion, we're going to assume that x abi here is the binary treatment.
+
+364
+00:45:04,970 --> 00:45:06,290
+So it's yes or no.
+
+365
+00:45:07,100 --> 00:45:16,430
+So if you don't get the treatment, you know, say some drug or some, you know, environmental exposure, you're expected value is this guy.
+
+366
+00:45:17,180 --> 00:45:21,380
+And if you do, it's this, plus this. And then this is our friend, the error here.
+
+367
+00:45:21,830 --> 00:45:27,650
+Right. So what what what do we think goes into the error?
+
+368
+00:45:30,050 --> 00:45:32,600
+So what's our what are some of our biggest options about this model?
+
+369
+00:45:32,720 --> 00:45:37,280
+What's the term you've heard over and over and over and over again about the model of this?
+
+370
+00:45:39,560 --> 00:45:44,120
+This guy across individuals rights. So each of us has our own error.
+
+371
+00:45:44,600 --> 00:45:48,730
+We're all special in that way. Right. And what are these errors?
+
+372
+00:45:48,740 --> 00:45:55,440
+Right. Across people, they're totally correlated with each other.
+
+373
+00:45:55,450 --> 00:45:59,860
+They have our our our errors are completely correlated.
+
+374
+00:46:00,190 --> 00:46:08,269
+Totally dependent. Their I.D., their right independently and identically distributed.
+
+375
+00:46:08,270 --> 00:46:11,510
+They come from the same distribution. Right.
+
+376
+00:46:12,350 --> 00:46:15,799
+And this is like this is really important.
+
+377
+00:46:15,800 --> 00:46:18,770
+Right. Because essentially the whole point of, you know,
+
+378
+00:46:19,100 --> 00:46:24,470
+modeling clustering is dealing with the fact we're dealing with what happens when your data violate that assumption.
+
+379
+00:46:24,890 --> 00:46:31,340
+Right. What happens when you fit a model where we assume it's like exposure at the individual
+
+380
+00:46:31,340 --> 00:46:35,690
+level and all the variation is at the individual level and not structural.
+
+381
+00:46:38,320 --> 00:46:45,370
+Right. So the other way of saying this and and so is this notation, is this familiar or does this look all different?
+
+382
+00:46:45,410 --> 00:46:48,819
+Okay. It changes every year. So. Right.
+
+383
+00:46:48,820 --> 00:46:55,209
+So we're saying that the errors are normally distributed with a mean of zero and some unknown standard deviation.
+
+384
+00:46:55,210 --> 00:47:00,940
+Right. So they're around the expected value for your individual observation.
+
+385
+00:47:01,750 --> 00:47:09,280
+So just another way of putting it is like that. And if you want to be fancy or annoying, you can write it this way.
+
+386
+00:47:10,630 --> 00:47:23,410
+So you can say my individual level outcome is you have a normal distribution with a mean of alpha plus beta excite an unknown standard deviation.
+
+387
+00:47:24,370 --> 00:47:29,059
+Right. And I think, you know, so obviously this is like really pedantic, right, in terms of the distinction.
+
+388
+00:47:29,060 --> 00:47:34,110
+But I think it's important because it kind of puts the emphasis on the variation, right?
+
+389
+00:47:34,120 --> 00:47:39,250
+So if you're why is like me taking your blood pressure over and over and over again,
+
+390
+00:47:40,090 --> 00:47:46,270
+we haven't necessarily in this model adjusted for the fact that there's some like random guy who doesn't know what you're doing,
+
+391
+00:47:46,270 --> 00:47:52,750
+who keeps taking your blood pressure. Does that make sense? Okay.
+
+392
+00:47:53,230 --> 00:47:56,920
+So I'm going to talk about kind of like three approaches to modeling foster data.
+
+393
+00:47:57,670 --> 00:48:02,200
+And, you know, I'm going to invite you to kind of think a little bit about, you know, which door we should go through here.
+
+394
+00:48:04,600 --> 00:48:12,730
+Okay. So door number one is we ignore clustering and we just kind of rush ahead and fit a normal job.
+
+395
+00:48:15,170 --> 00:48:19,790
+Okay. So we're pooling this is the other way of saying this is the form pooling model.
+
+396
+00:48:19,790 --> 00:48:25,010
+We're just throwing it all in there and we're fitting that model to our data.
+
+397
+00:48:25,670 --> 00:48:28,670
+I'm adding a new subscript here. Right.
+
+398
+00:48:28,880 --> 00:48:33,560
+So the J is your cluster. Let's say it's your household, your neighborhood, whatever.
+
+399
+00:48:33,920 --> 00:48:41,149
+So now my observation I from neighborhood j is a function of the population,
+
+400
+00:48:41,150 --> 00:48:47,480
+meaning for the treatment effect and for the in the absence of treatment and my individual level variation.
+
+401
+00:48:48,380 --> 00:48:51,590
+So obviously the thing that's wrong here is there's a J on the left side.
+
+402
+00:48:51,590 --> 00:48:55,460
+There's no J on the right. We're not dealing. Our model doesn't think about the cluster.
+
+403
+00:48:57,670 --> 00:49:03,570
+Okay. So good idea. Why or why not? You know, I think we all know bad idea.
+
+404
+00:49:03,580 --> 00:49:09,070
+Don't do it right. An observer ignores potential sources of observer, not observer can happen.
+
+405
+00:49:09,400 --> 00:49:13,810
+Right. We're throwing all that stuff potentially in there when we shouldn't.
+
+406
+00:49:15,490 --> 00:49:20,050
+Right. So and really what we're doing is we're violating that assumption that our errors are independent.
+
+407
+00:49:20,260 --> 00:49:27,740
+Right. Because our why some eye is a combination of that systematic variation in the exposure.
+
+408
+00:49:28,810 --> 00:49:32,380
+And we're assuming that it's uncorrelated random noise.
+
+409
+00:49:33,640 --> 00:49:37,090
+But in reality, within these clusters, we have correlation.
+
+410
+00:49:37,100 --> 00:49:44,020
+Right. But that's what's that mean is showing you. So if my household, my community has a higher or lower than the average, you know,
+
+411
+00:49:44,230 --> 00:49:50,140
+we're going to be more correlated with each other than with the rest of the community or the rest of the sample.
+
+412
+00:49:50,230 --> 00:49:59,470
+Right. So we're off the bat violating the idea that these are just like normal, like normally distributed, you know, totally independent errors.
+
+413
+00:50:01,120 --> 00:50:04,620
+And so when you you take your model and you look at the residuals, right?
+
+414
+00:50:04,630 --> 00:50:11,770
+So all the stuff that's left when you predict out, you know, you predict the values in your data and then you look at what's left in the data.
+
+415
+00:50:12,670 --> 00:50:15,850
+Right. If we're doing a good job, the residuals should look like this, right?
+
+416
+00:50:16,060 --> 00:50:22,900
+Does that feel so? If I'm gonna remember residuals and stuff, like, you feel people comfortable with that?
+
+417
+00:50:23,880 --> 00:50:31,180
+Um, right. So it should look like that. And this is data that I simulated from a model with and without clustering.
+
+418
+00:50:31,900 --> 00:50:41,230
+And so when you ignore the clustering, depending on how tightly clustered these different units are, you can end up with residuals like this.
+
+419
+00:50:42,100 --> 00:50:46,090
+Right. So the mean is over here, the zero is over here.
+
+420
+00:50:46,360 --> 00:50:53,350
+But you can see we've got a whole bunch of places where we're like way out there and a whole bunch of places or we're alone.
+
+421
+00:50:54,100 --> 00:50:56,590
+Right. So obviously, this can screw up our main effect.
+
+422
+00:50:57,280 --> 00:51:03,550
+The other thing you can really do is if we want to do that prediction thing of saying what might happen in these unobserved clusters,
+
+423
+00:51:04,070 --> 00:51:12,520
+we're going to be totally off because the model is going to be working from this perspective on us, assuming just normal variation across individuals.
+
+424
+00:51:12,820 --> 00:51:17,320
+And what you have in reality is there's all this this interesting variation.
+
+425
+00:51:17,990 --> 00:51:25,750
+Okay. So the task of doing this kind of hierarchical or cluster of modeling clustering is dealing with that variability in a principal way.
+
+426
+00:51:27,810 --> 00:51:37,230
+Okay. So indoor number two, we can do kind of the opposite so we can fit our totally uncool model to every classroom.
+
+427
+00:51:38,190 --> 00:51:52,650
+So here we got a lot of kids. So my y i j is a function of my alpha sub j which is now the cluster level intercept and then the beta sungjae.
+
+428
+00:51:53,070 --> 00:52:02,430
+So you're floating in effect in that cluster, plus the random variation for individuals in that cluster.
+
+429
+00:52:02,530 --> 00:52:05,759
+Right. So if I have, you know, 100 neighborhoods,
+
+430
+00:52:05,760 --> 00:52:13,830
+I'm going to fit 100 models and I'm going to get 100 intercept 100 treatment effects and 100 residual variances.
+
+431
+00:52:14,820 --> 00:52:21,870
+Okay. Again, we're assuming totally you know, I get residuals within each cluster.
+
+432
+00:52:23,520 --> 00:52:30,419
+But what's the problem? Obviously, I'm not advocating this approach, but instead of asking you when this could go wrong,
+
+433
+00:52:30,420 --> 00:52:41,340
+is there a scenario where you're like, maybe this isn't so terrible, so you maybe don't have very many clusters?
+
+434
+00:52:41,490 --> 00:52:44,790
+Yeah. And maybe you have a decent number of observations in each.
+
+435
+00:52:44,790 --> 00:52:49,589
+Right. So modeling of making a big cluster of models probably not worth the effort.
+
+436
+00:52:49,590 --> 00:52:54,030
+And so you have enough data within each one. You can just fit it and move on with life.
+
+437
+00:52:55,140 --> 00:53:02,100
+So that's definitely one, one place to do it, right? Obviously, the problem here is like if you have a bunch of small clusters, right, doing this,
+
+438
+00:53:02,100 --> 00:53:08,580
+like if we just fit a model to my left eye in my right eye, it's going to make the outcome is going to be like nonsensical, right?
+
+439
+00:53:08,610 --> 00:53:14,340
+Like, we can't tell the difference from left from right because we had one observation of each for each individual.
+
+440
+00:53:15,560 --> 00:53:18,930
+And so we obviously need to deal with that clustering in a slightly different way.
+
+441
+00:53:19,920 --> 00:53:25,810
+The other reason this could be go sideways, even if you have data that, you know,
+
+442
+00:53:25,830 --> 00:53:34,550
+we have a bunch of people in a lot of small clusters or in a few sorry, a lot of data on a few clusters.
+
+443
+00:53:35,370 --> 00:53:40,440
+You might want to estimate this average effect instead of a cluster level effect.
+
+444
+00:53:40,710 --> 00:53:43,820
+And so that would kind of make it harder for you to do that.
+
+445
+00:53:43,830 --> 00:53:49,620
+So even then, you might want to put them on the same model and adjust for cluster. But it's really a question of of what you're trying to get at.
+
+446
+00:53:51,300 --> 00:54:00,960
+Okay. So obviously this is problematic because we've run the risk of totally overfitting the data, particularly in the context of small samples.
+
+447
+00:54:01,290 --> 00:54:09,210
+Right. So overfitting is problematic for any number of reasons, not least of which is that if your predictions of new data are going to be way off.
+
+448
+00:54:12,110 --> 00:54:18,890
+Okay. So, you know, we kind of talked about these, but essentially some places might not have a lot of observations.
+
+449
+00:54:19,190 --> 00:54:22,580
+And, you know, we might want to let the exposure vary and so forth.
+
+450
+00:54:24,080 --> 00:54:28,130
+So door number three is what we would call partial pool, right?
+
+451
+00:54:28,790 --> 00:54:38,180
+And so in a partial pooling approach, we're going to allow the effects to vary across clusters, but we're going to constrain them in some way.
+
+452
+00:54:38,480 --> 00:54:42,260
+Right. So maybe we'll let each cluster have a different intercept, right?
+
+453
+00:54:42,260 --> 00:54:49,579
+So each neighborhood will have its own mean systolic blood pressure, but we're going to constrain them.
+
+454
+00:54:49,580 --> 00:54:49,940
+Essentially,
+
+455
+00:54:49,940 --> 00:54:57,769
+we're going to use some kind of statistical distribution or another approach to put like a rubber band effectively around the variability.
+
+456
+00:54:57,770 --> 00:55:04,219
+So it's not instead of just like fitting a model to each cluster independently, we're saying, well, yeah,
+
+457
+00:55:04,220 --> 00:55:08,930
+these should be these could be different, but I'm going to wait for the data to tell me that they are.
+
+458
+00:55:09,260 --> 00:55:14,030
+So if they're all the same, we're just going to get the same intercept for every cluster.
+
+459
+00:55:14,330 --> 00:55:18,890
+But if the data are really pulling in a different direction, then the model can accommodate that.
+
+460
+00:55:19,220 --> 00:55:25,820
+So it's trying to make a balance between, you know, on the one hand, the full pooling approach that there is no contextual variation.
+
+461
+00:55:26,210 --> 00:55:30,550
+The no pooling approach says it's all contextual variation, right?
+
+462
+00:55:30,710 --> 00:55:37,700
+But the truth is obviously somewhere in the middle. And so the whole point of these methods is to let you kind of split the difference
+
+463
+00:55:37,700 --> 00:55:42,979
+between those two approaches without necessarily having to take a side.
+
+464
+00:55:42,980 --> 00:55:46,760
+Right. You can let the model kind of decide, does that make sense?
+
+465
+00:55:51,530 --> 00:55:56,300
+And so another kind of tool for this approach is smoothing or regularization.
+
+466
+00:55:57,110 --> 00:56:02,659
+So I'm just including this in a Virunga story, talking about this specific kind of thing,
+
+467
+00:56:02,660 --> 00:56:07,070
+like this sort of like lowest to or is similar to what you might be familiar with.
+
+468
+00:56:07,700 --> 00:56:12,589
+And but, you know, the intuition of partial pooling is very, very similar to this.
+
+469
+00:56:12,590 --> 00:56:15,860
+Right? So here we have these red points.
+
+470
+00:56:15,860 --> 00:56:20,659
+Here we have the blue line in the green line. And both of them fit the data perfectly.
+
+471
+00:56:20,660 --> 00:56:29,690
+Right. There's no residual variation. Right. So which one of these do we possibly prefer as our model for making a choice?
+
+472
+00:56:32,150 --> 00:56:38,570
+Whose unseen blue go like those waves? Okay, freezing on team green.
+
+473
+00:56:39,200 --> 00:56:43,309
+Cool. You can stay for the rest of the class. Right.
+
+474
+00:56:43,310 --> 00:56:48,890
+And so, you know, the idea here, the reason that the green model is more intuitively sensible is it's kind of saying,
+
+475
+00:56:49,130 --> 00:56:53,690
+look to my left, look to my right if I'm just a point in between two of these red points.
+
+476
+00:56:53,960 --> 00:56:58,100
+And I'm saying, well, I don't want to go like way away from those.
+
+477
+00:56:58,100 --> 00:57:05,419
+Right? So here I am in a place with no data. But I'm going to I'm going to have the assumption that this places is similar
+
+478
+00:57:05,420 --> 00:57:08,960
+ish to this place and this place maybe as a function of how far apart they are.
+
+479
+00:57:09,410 --> 00:57:16,110
+Right. So we're taking information from the data, but we're imposing the reasonable assumption that things that are, you know,
+
+480
+00:57:16,250 --> 00:57:21,680
+otherwise not very different, like where there's no data to tell us that they're very different are similar.
+
+481
+00:57:22,340 --> 00:57:26,240
+Right? That's the intuition. And then there's like math and models and whatever behind that.
+
+482
+00:57:26,480 --> 00:57:30,170
+But ultimately, this is the. Okay.
+
+483
+00:57:31,900 --> 00:57:36,190
+Cool. So let's take a usually take five minute, ten minute.
+
+484
+00:57:37,210 --> 00:57:41,970
+All right. So we'll take a ten minute break and then we'll come back and we'll do this hands on activity.
+
+485
+00:57:50,370 --> 00:57:56,834
+Okay. Question for you.
+
+486
+00:57:57,599 --> 00:58:07,169
+Okay. Just give me a little bit, you know, phrases like I saw you guys able to pull it off.
+
+487
+00:58:07,359 --> 00:58:12,869
+Does that work? Okay. Um, okay.
+
+488
+00:58:12,869 --> 00:58:16,678
+So what we can do here is obviously this is kind of hands on,
+
+489
+00:58:16,679 --> 00:58:20,578
+but I think the way that this often works best is like we'll walk through it together
+
+490
+00:58:20,579 --> 00:58:24,689
+and there'll be a couple of minutes where you kind of try to step on your animal. We'll check in as we go.
+
+491
+00:58:25,349 --> 00:58:34,049
+Um, but, you know, the idea here really is to just think a little bit more about these tools that we use for analyzing cluster data.
+
+492
+00:58:34,589 --> 00:58:38,449
+And again, you know, we're going to focus a little bit on the, um, the failure modes here,
+
+493
+00:58:38,459 --> 00:58:44,338
+like trying to understand where things can go wrong when you ignore that clustering and also some of the limits,
+
+494
+00:58:44,339 --> 00:58:48,509
+I think, of what these, these models can do to kind of help you address it.
+
+495
+00:58:50,839 --> 00:58:55,109
+Okay. So I'll just give you a minute to read this part, right?
+
+496
+00:58:55,129 --> 00:59:03,409
+So unsurprisingly, this kind of just so example we're going to be talking about is about systolic blood pressure.
+
+497
+00:59:04,729 --> 00:59:10,229
+And we're looking at individual and neighborhood level variability in this.
+
+498
+00:59:22,079 --> 00:59:27,299
+And we're starting with the kind of almost silly example where like, kind of like care said, like,
+
+499
+00:59:27,299 --> 00:59:32,639
+we're going to have like a few neighborhoods with a bunch of observation before we kind of move
+
+500
+00:59:32,639 --> 00:59:37,469
+up to the higher test one where we have a lot of neighborhoods with not so many observations.
+
+501
+00:59:38,239 --> 00:59:47,369
+And so we're going to be looking at the relationship between this stock, blood pressure outcome and an individual level factor.
+
+502
+00:59:47,369 --> 00:59:51,509
+And in this case, we're going to measure you know, we're going to imagine it's this all simulated data,
+
+503
+00:59:52,319 --> 00:59:55,829
+you know, individual wealth or socioeconomic status.
+
+504
+00:59:56,189 --> 01:00:03,419
+And then each neighborhood is going to have some unobserved attribute that's associated with increasing or decreasing systolic blood pressure.
+
+505
+01:00:03,659 --> 01:00:10,589
+Right. So this could be, you know, the walkability of the neighborhood, some physical attributes.
+
+506
+01:00:11,279 --> 01:00:19,829
+And we're going to assume that as we go from neighborhood one to neighborhood six, the intensity of this effect increases.
+
+507
+01:00:20,519 --> 01:00:25,409
+Okay. So again, people are attracted to these different neighborhoods, these groups.
+
+508
+01:00:25,649 --> 01:00:32,459
+And as we go across neighborhoods, the effect of living in one of them on your systolic blood pressure increases.
+
+509
+01:00:33,029 --> 01:00:36,959
+Does that make sense? Just just setting up the example here.
+
+510
+01:00:40,049 --> 01:00:47,099
+And so we're going to do, again, this very simple thing of sorting people into neighborhoods by wealth.
+
+511
+01:00:47,789 --> 01:00:55,229
+And so the poorest one sixth of the population is going to be in neighborhood one and the wealthiest will be in neighborhood six.
+
+512
+01:00:55,389 --> 01:00:59,959
+Right. So we're sorting people into places as we do in real life, perhaps not so.
+
+513
+01:00:59,969 --> 01:01:03,359
+Exactly. So deterministically by socioeconomic status.
+
+514
+01:01:06,409 --> 01:01:12,999
+And so, you know, essentially we're having this model that looks, you know, now we have the eyes and the JS all together.
+
+515
+01:01:13,389 --> 01:01:22,309
+Right. So we have individual welfare to survive. And then we have the effect of living in neighborhood one versus neighborhood two.
+
+516
+01:01:22,669 --> 01:01:28,489
+That's and here because we assume that this fact increases or decreases linearly across these neighborhoods,
+
+517
+01:01:28,849 --> 01:01:35,409
+we just have one criterion and then we have our individual level variability in the outcomes, right?
+
+518
+01:01:35,539 --> 01:01:44,329
+So we have people with different well sorted into clusters that are similar by wealth and we're looking at their outcomes so far.
+
+519
+01:01:46,159 --> 01:01:49,819
+Feels okay. All right.
+
+520
+01:01:50,389 --> 01:01:54,019
+So this is the part where we get to kind of play with the effects a little bit.
+
+521
+01:01:55,039 --> 01:02:00,789
+So here. So if we look in this case where the wealth effect is zero and.
+
+522
+01:02:03,039 --> 01:02:10,539
+What are we seeing across these neighborhoods? So you can see on the x axis, right?
+
+523
+01:02:10,539 --> 01:02:15,999
+So the colors are different neighborhoods. And we're going from low wealth to high wealth.
+
+524
+01:02:16,719 --> 01:02:21,069
+And in this case, is there a difference between the neighborhoods?
+
+525
+01:02:22,239 --> 01:02:28,359
+The neighborhoods are all the same. And obviously, because the wealth effect is zero, there's no difference in terms of wealth.
+
+526
+01:02:28,899 --> 01:02:37,719
+Right. And you can kind of put your mouse over this and you can see, you know, the Y is the systolic blood pressure and and the is their wealth.
+
+527
+01:02:38,739 --> 01:02:42,189
+And then so, you know, we can do the simple thing of of doing that.
+
+528
+01:02:43,389 --> 01:02:52,659
+So now we have this increase. So as we go up in wealth, we have lower systolic blood pressure overall.
+
+529
+01:02:53,679 --> 01:02:56,829
+Right. And this is individual wealth. Right.
+
+530
+01:02:57,039 --> 01:02:58,869
+We haven't thought about the neighborhoods at all.
+
+531
+01:02:59,679 --> 01:03:10,749
+So what might if I were to fit a model where I where I don't measure individual wealth, but I do measure the neighborhood characteristics?
+
+532
+01:03:11,169 --> 01:03:23,059
+What conclusion I come away with? If I can get away with a similar rate,
+
+533
+01:03:23,099 --> 01:03:30,069
+be more ecological rate would be that neighborhoods that are wealthier on average have lower average systolic blood pressure.
+
+534
+01:03:30,219 --> 01:03:38,289
+Right. So that wouldn't necessarily be wrong in this case. But, you know, here, what we're looking at in this case is an individual level covariant.
+
+535
+01:03:38,619 --> 01:03:46,689
+And now the inference that we draw from looking at these clusters, again, not incorrect, but is a function of averaging across all those people.
+
+536
+01:03:47,499 --> 01:03:53,499
+Okay. But so far, so good, right? We can we can get the same answer no matter what we do conceptually.
+
+537
+01:03:55,299 --> 01:04:02,559
+And then the line here is just your estimate of the the the wealth and the ultimate factor.
+
+538
+01:04:04,529 --> 01:04:13,589
+Okay. So now we're going to make things more interesting by bringing in a kind of unobserved component of neighborhood level variation.
+
+539
+01:04:13,919 --> 01:04:17,999
+So everything you do and you did up here is reflective down here, too.
+
+540
+01:04:19,289 --> 01:04:27,569
+Okay. So like, if I go up here and I change this effect to be a little shallower, this affects a little shallower.
+
+541
+01:04:27,929 --> 01:04:37,679
+But now let's say the the neighborhoods are also associated with changes in walkability.
+
+542
+01:04:37,859 --> 01:04:45,449
+Right. So that as we go from neighborhood one to neighborhood six, it becomes more and more walkable.
+
+543
+01:04:45,809 --> 01:04:51,689
+Right. So that's like a contextual factor that's associated potentially with decreasing risk.
+
+544
+01:04:53,019 --> 01:05:00,459
+Right. So down here we have our very simple regression model where we're ignoring the neighborhood effect.
+
+545
+01:05:01,629 --> 01:05:09,389
+So if you look in here. What what are we what are we potentially getting wrong?
+
+546
+01:05:09,429 --> 01:05:16,139
+Right. And so you can kind of move up and down and try and I'll just give you like 2 minutes to kind of try this yourself, right?
+
+547
+01:05:16,169 --> 01:05:21,719
+Like, if, you know, if we zero out the wealth effect, let's say, at the individual level,
+
+548
+01:05:22,559 --> 01:05:30,659
+but we do have these neighborhood level effects that are about walkability or what have you, some other risk affected.
+
+549
+01:05:31,859 --> 01:05:35,059
+So remember, that wealth effect was supposed to be zero, right?
+
+550
+01:05:35,219 --> 01:05:43,049
+There should be no difference between the wealthiest individual and the poorest individual, you know, as on the basis of their wealth.
+
+551
+01:05:43,349 --> 01:05:53,699
+But you can see here that because the wealthier neighborhoods are more walkable, walkability is associated with decreased systolic blood pressure.
+
+552
+01:05:54,749 --> 01:05:59,789
+We get an effect of wealth that isn't necessarily causally related to the.
+
+553
+01:06:01,419 --> 01:06:08,889
+Does that make sense? And, you know, so take a second to kind of try the different things here.
+
+554
+01:06:10,059 --> 01:06:17,198
+I think this becomes almost more concrete if let's assume it's not, you know, it's some other thing, it's some environmental toxicant.
+
+555
+01:06:17,199 --> 01:06:22,449
+And it happens that the risk is highest now in the wealthy neighborhoods.
+
+556
+01:06:23,139 --> 01:06:30,189
+Right. So it's something ambient exposure that increases people's blood pressure or increases risk for some cancer.
+
+557
+01:06:30,699 --> 01:06:35,949
+Right. And here, you know, let's say we have a kind of gentle wealth effect.
+
+558
+01:06:35,949 --> 01:06:39,459
+So this is an Simpson paradox type of issue. Right.
+
+559
+01:06:39,699 --> 01:06:44,649
+So I'm saying that increasing wealth is protective in this instance, right.
+
+560
+01:06:44,919 --> 01:06:51,489
+From the wealthiest to the poorest neighborhood, I should see on average a decrease in risk.
+
+561
+01:06:52,329 --> 01:06:59,879
+But when I fit my simple, you know, unproved or fully foolish regression model, what am I?
+
+562
+01:06:59,889 --> 01:07:04,739
+What is that line showing me? Risk is going up.
+
+563
+01:07:06,179 --> 01:07:06,479
+Right.
+
+564
+01:07:07,709 --> 01:07:18,959
+And that's because the wealthier neighborhoods have this like environmental risk that's not accounted for in this model that only includes wealth.
+
+565
+01:07:20,479 --> 01:07:24,769
+Right. Does that make sense? So we can do something really simple.
+
+566
+01:07:25,309 --> 01:07:34,999
+And so if you click on this and you say, adjust for walkability or whatever this environmental exposure is at the neighborhood level, you know what?
+
+567
+01:07:35,019 --> 01:07:43,578
+What do we do? We get approximately the right answer. And try it for yourself.
+
+568
+01:07:43,579 --> 01:07:49,729
+Like just kind of go back and look at your fact and it doesn't have to be perfect or it doesn't have to absolutely nail it.
+
+569
+01:07:53,779 --> 01:08:07,709
+And hold off on adjusting for the neighborhood itself. So is adjusting for walkability more or less kind of take care of that?
+
+570
+01:08:12,109 --> 01:08:17,719
+But certainly gets you closer than not doing it right.
+
+571
+01:08:17,929 --> 01:08:22,818
+So here the in this case where I've said it so that, you know,
+
+572
+01:08:22,819 --> 01:08:28,369
+there's the wealthier neighborhoods have on average some kind of risk factor associated with them.
+
+573
+01:08:30,679 --> 01:08:36,168
+You know, and then I've only estimated the wealth effect and, you know,
+
+574
+01:08:36,169 --> 01:08:43,039
+I see an increasing risk associated with wealth, even though I know that it's protective at an individual level.
+
+575
+01:08:44,779 --> 01:08:51,729
+That makes sense, right? Because wealthier people on average, you know, in a kind of unrealistic version of the world we live in,
+
+576
+01:08:51,729 --> 01:08:56,349
+are living in neighborhoods with a greater a you know, with a greater environmental exposure.
+
+577
+01:08:57,489 --> 01:09:01,059
+Right. If we flip it around so that it's highly protective.
+
+578
+01:09:02,589 --> 01:09:06,189
+Right. So individual wealth is somewhat protective.
+
+579
+01:09:06,879 --> 01:09:12,969
+And then the wealthier neighborhoods are on average more walkable, more healthy environments to live in.
+
+580
+01:09:13,149 --> 01:09:16,389
+And so there's this big environmental effect of these neighborhoods.
+
+581
+01:09:17,259 --> 01:09:27,489
+Now, when I adjust for individual wealth, I'm getting a pretty big overestimate of that effect if I don't adjust for the contextual characteristics.
+
+582
+01:09:29,549 --> 01:09:34,409
+It makes sense. So then what happens if you do this guy?
+
+583
+01:09:34,599 --> 01:09:39,529
+Right. So we we're not doing a hierarchical model because we just have a few clusters.
+
+584
+01:09:39,549 --> 01:09:43,619
+We're just going to pop in a categorical variable for each neighborhood.
+
+585
+01:09:45,569 --> 01:09:49,359
+So then we get. Slightly.
+
+586
+01:09:49,399 --> 01:09:53,899
+So these are the regression lines now for each neighborhood, the predictions for each one.
+
+587
+01:09:54,859 --> 01:10:02,479
+Right. So you can see that there's ever so slightly different because there's some sampling variability in the means for the different neighborhoods.
+
+588
+01:10:03,199 --> 01:10:07,479
+Right. So now we're capturing the neighborhood level variation in the outcome.
+
+589
+01:10:08,089 --> 01:10:13,549
+We're getting the right wealth effect, but we haven't looked at the walkability.
+
+590
+01:10:13,679 --> 01:10:16,609
+Right. So as we go from neighborhood one to neighborhood five,
+
+591
+01:10:17,389 --> 01:10:22,249
+we can see that each neighborhood now we're attributing it just to the characteristics of the neighborhood unobserved.
+
+592
+01:10:23,439 --> 01:10:23,739
+Right.
+
+593
+01:10:23,919 --> 01:10:30,309
+We're we're adjusting for those clusters and we're saying, well, neighborhood five is different from neighborhood to I don't know why, but it is.
+
+594
+01:10:31,239 --> 01:10:40,419
+Right. And then if we put it all together, what we see is that we get some small differences between the neighborhoods.
+
+595
+01:10:40,689 --> 01:10:44,859
+When we adjust for the characteristics, what makes them different?
+
+596
+01:10:45,129 --> 01:10:51,488
+The average walkability of each one of these places and the impact of those neighborhoods is there.
+
+597
+01:10:51,489 --> 01:10:56,689
+But it's not huge, again, in this like very simple model. This making sense.
+
+598
+01:10:58,779 --> 01:11:02,169
+I know I'm sort of beating it to death, but like, I just want to make sure that everybody's feeling,
+
+599
+01:11:02,649 --> 01:11:05,979
+you know, reasonably comfortable with what's going on here.
+
+600
+01:11:07,089 --> 01:11:11,379
+Right. And just by random chance, like, if I did this a bunch of times, you know,
+
+601
+01:11:11,469 --> 01:11:16,329
+different neighborhoods would have different variants associated with them because maybe just by chance,
+
+602
+01:11:16,629 --> 01:11:21,159
+one of them would have a really high mean just or a very low one.
+
+603
+01:11:21,519 --> 01:11:23,229
+Right. So, you know,
+
+604
+01:11:23,589 --> 01:11:31,749
+there's nothing necessarily inherently meaningful about these estimates from clusters independent of the measurement of their attributes.
+
+605
+01:11:32,289 --> 01:11:39,309
+Right. So what we're trying to do here is include both the individual level variation in wealth to an individual level,
+
+606
+01:11:39,309 --> 01:11:43,539
+covariance, and then contextual variation in the same model.
+
+607
+01:11:43,689 --> 01:11:52,899
+And then we're dealing with clustering potentially of unobserved variation in these neighborhoods after we've done all that other stuff.
+
+608
+01:11:53,389 --> 01:11:57,399
+Right? So these are the ingredients of, of a basic hierarchical model.
+
+609
+01:11:57,399 --> 01:12:02,829
+And you can see it doesn't require any special machinery to do this in this very simple example where,
+
+610
+01:12:03,089 --> 01:12:09,039
+you know, people are determined deterministically towards the neighborhoods. Neighborhoods are reasonably big, there's not a ton of them and so forth.
+
+611
+01:12:10,069 --> 01:12:14,969
+Okay. That's the idea. Okay.
+
+612
+01:12:16,019 --> 01:12:22,279
+So we're going to do another thing where we're going to we're going to up the variability.
+
+613
+01:12:22,289 --> 01:12:26,909
+We're going to go into that more classical kind of multi level modeling place.
+
+614
+01:12:27,419 --> 01:12:35,399
+So I'll give you like 2 minutes just to read the example here and then we'll talk it through just to make sure everybody's feeling comfortable.
+
+615
+01:13:38,899 --> 01:13:43,158
+Okay. Is this making the focus in another couple of seconds?
+
+616
+01:13:43,159 --> 01:13:46,729
+Does this make you feel like it makes a reasonable amount of sense?
+
+617
+01:13:50,309 --> 01:13:55,549
+A little more explanation. So here we're doing our multilevel thing.
+
+618
+01:13:55,739 --> 01:14:01,369
+We have neighborhoods have some mean that are that comes from a model.
+
+619
+01:14:01,409 --> 01:14:06,889
+Right. So we have a neighborhood level model which says neighborhood one, two, three, four.
+
+620
+01:14:06,889 --> 01:14:18,559
+We're going to draw your mean from a normal distribution center of the population and then person i j whatever in that neighborhood,
+
+621
+01:14:18,559 --> 01:14:24,199
+we're going to draw your value conditional on the mean of your neighborhood.
+
+622
+01:14:25,279 --> 01:14:32,119
+Right? So we're we're taking a slightly different approach here than we normally do, which is kind of rather than thinking about here,
+
+623
+01:14:32,119 --> 01:14:38,299
+the data would fit the model to the data or in general, it's a generally preferred generating model data from the model.
+
+624
+01:14:38,539 --> 01:14:43,609
+And then we're going to kind of think about, you know, knowing exactly where the data came from,
+
+625
+01:14:43,819 --> 01:14:47,269
+when we fit the model to them, what happens, what works and what doesn't work?
+
+626
+01:14:48,559 --> 01:14:53,289
+Okay. Okay.
+
+627
+01:14:54,009 --> 01:15:00,399
+So, you know, the first thing we're going to do here is we're going to generate those neighborhood level mean systolic blood pressure values.
+
+628
+01:15:01,119 --> 01:15:09,159
+And this is, again, more the hierarchical kind of approach is similar but different to what we do when we model individual level data.
+
+629
+01:15:09,789 --> 01:15:14,438
+So just like for individual level observations, we have some systematic components.
+
+630
+01:15:14,439 --> 01:15:21,969
+So like the treatment or your age or some other thing that we expect to very systematically across levels of a variable,
+
+631
+01:15:21,969 --> 01:15:25,868
+whether that's continuous or categorical and then some random noise rate.
+
+632
+01:15:25,869 --> 01:15:33,428
+So the random variability. But rather than just having that happen at one level, we're going to have systematic variation across neighborhoods.
+
+633
+01:15:33,429 --> 01:15:37,959
+So walkability change across neighborhoods, random variation,
+
+634
+01:15:37,959 --> 01:15:43,149
+which is not just like so random in the sense of like we can't predict it, we don't know.
+
+635
+01:15:43,149 --> 01:15:49,239
+But it's all the stuff we don't observe across neighborhoods and then random variability across individuals.
+
+636
+01:15:50,019 --> 01:15:53,769
+Right. And both of those are going to have their own variances, right?
+
+637
+01:15:53,769 --> 01:16:00,969
+So maybe individuals have very little variability between them, but neighborhoods have a ton or maybe individuals have a ton of variability.
+
+638
+01:16:00,969 --> 01:16:05,199
+Like I'm walking around your city taking everybody's blood pressure, doing a bad job,
+
+639
+01:16:05,379 --> 01:16:08,589
+but actually everybody in the city has pretty consistent blood pressures as it happens.
+
+640
+01:16:12,029 --> 01:16:15,929
+Okay. So the first thing we can do is.
+
+641
+01:16:16,619 --> 01:16:20,729
+So this is generated individual level because we're going to work our way down to it.
+
+642
+01:16:20,729 --> 01:16:24,719
+But the first thing we're gonna do is generate neighborhood level data.
+
+643
+01:16:25,259 --> 01:16:30,479
+Right. So this is these are the neighborhood level means as a function of that walkability.
+
+644
+01:16:31,109 --> 01:16:35,879
+Right. So in here, we're going to constrain ourselves to the situation where it's only protective.
+
+645
+01:16:36,419 --> 01:16:42,929
+So the more walkable your neighborhood is and the lower your average systolic blood pressure.
+
+646
+01:16:43,649 --> 01:16:48,419
+But then on top of that, we have this systematic versus random variation.
+
+647
+01:16:48,929 --> 01:16:56,039
+So here's one where the neighborhood level standard error, standard deviation is really big, right?
+
+648
+01:16:56,459 --> 01:17:01,489
+And so you can see that they're kind of all over the place. Here's one where it's quite small.
+
+649
+01:17:01,499 --> 01:17:05,279
+The axes are changing, but you can see the ranges is really very tight here.
+
+650
+01:17:06,179 --> 01:17:13,109
+Right. And so let's say we just get rid of the effect of, you know, of walkability.
+
+651
+01:17:13,649 --> 01:17:21,789
+So you can see if I sample, I just kind of keep sampling these like super variable data sets, right?
+
+652
+01:17:21,809 --> 01:17:27,799
+So every time I do this, it gives me a different one. You can see that I can get kind of weird associations, right?
+
+653
+01:17:27,839 --> 01:17:35,009
+Like I can make it look like there's a positive effect, even though there's no actual mechanistic effect.
+
+654
+01:17:35,009 --> 01:17:39,329
+And it's just because the neighbor I'm just drawing meetings from different neighborhoods.
+
+655
+01:17:39,719 --> 01:17:43,479
+Right. From a normal distribution with a really big variance. Right.
+
+656
+01:17:43,499 --> 01:17:48,419
+Whereas if I if I kind of hand that in a little bit and I make it so there's not a ton of difference.
+
+657
+01:17:49,289 --> 01:17:53,049
+Again, the range here is quite small. Right.
+
+658
+01:17:53,069 --> 01:17:57,839
+So the sort of the axes are changing, which is like rule number one and what you shouldn't do when you're making a figure.
+
+659
+01:17:57,839 --> 01:18:01,559
+But hey, I get it. So does that make sense?
+
+660
+01:18:03,499 --> 01:18:09,169
+Okay. So here we have systematic and random components to the neighborhood level variability.
+
+661
+01:18:10,759 --> 01:18:16,069
+And then we go down here to this mass. So these are individual level observations.
+
+662
+01:18:16,909 --> 01:18:22,729
+And here what we're doing for now is we're just we're not worrying too much, I think about.
+
+663
+01:18:24,099 --> 01:18:33,359
+Let's see. How was the set up? Right. So there's no relationship between individual income and the walkability of your neighborhood.
+
+664
+01:18:33,369 --> 01:18:38,729
+We're actually just kind of randomly scattering people across the gradient here.
+
+665
+01:18:39,279 --> 01:18:52,509
+And now we can say, well, here's the kind of protective effect of individual income on top of the effect of neighborhood walkability.
+
+666
+01:18:55,269 --> 01:18:55,919
+Does that make sense?
+
+667
+01:18:59,529 --> 01:19:06,129
+And so you can kind of play with this a little bit just to kind of get a feel for the way that the different TV sets look and hear.
+
+668
+01:19:06,129 --> 01:19:09,188
+I'm not letting you play with the variation in individual outcomes.
+
+669
+01:19:09,189 --> 01:19:11,259
+So the only thing so the,
+
+670
+01:19:11,559 --> 01:19:18,789
+the individual outcomes have a fixed variability and the thing that we can kind of mess with is the between neighborhood variability.
+
+671
+01:19:19,419 --> 01:19:23,379
+And you can see that as you increase that neighborhood level variability,
+
+672
+01:19:24,249 --> 01:19:30,699
+you can maybe start to see clusters kind of pulling out a little bit right where you have you know,
+
+673
+01:19:30,699 --> 01:19:34,299
+this is these folks are clearly in similar neighborhood.
+
+674
+01:19:34,309 --> 01:19:41,169
+These folks are in a similar neighborhood. If we just ramp it all the way up, you start to get a lot of spread there.
+
+675
+01:19:42,039 --> 01:19:45,429
+Does that make sense? Okay.
+
+676
+01:19:46,149 --> 01:19:52,118
+So this is like this is the scenario where our, like, fancy hierarchical model that can account for,
+
+677
+01:19:52,119 --> 01:19:56,319
+you know, directly for these two levels of variation becomes really important.
+
+678
+01:19:58,179 --> 01:20:04,029
+So again, we're going to do the thing we did before. We just fit the absolutely wrong model to the data.
+
+679
+01:20:04,529 --> 01:20:11,709
+Um, so here, um, what we're doing is we're only adjusting for income in a plain old linear model.
+
+680
+01:20:12,279 --> 01:20:22,029
+And here you can see there's little labels that tell you what the actual the true value is of the input and the true entry for the walkability.
+
+681
+01:20:22,989 --> 01:20:29,859
+Right. So what are we seeing in my example, if you go.
+
+682
+01:20:31,309 --> 01:20:38,879
+Backwards. We're have a ton of variation and I have differences between neighborhoods.
+
+683
+01:20:41,159 --> 01:20:46,449
+And some neighborhoods are just like very walkable. Some are very not walkable and.
+
+684
+01:20:49,549 --> 01:20:56,479
+You know, it's like the effect, the income effect is like totally swamped by the neighborhood level variation.
+
+685
+01:20:57,979 --> 01:21:05,599
+So if we adjust for that variability and we don't quite get the right value, let's see.
+
+686
+01:21:06,859 --> 01:21:13,909
+But if we use our hierarchical model, where now we're including random intercepts for each one of these neighborhoods.
+
+687
+01:21:14,779 --> 01:21:20,179
+You get estimates that are actually closer, although not as you can see exactly quite there.
+
+688
+01:21:20,419 --> 01:21:27,409
+I'm for the walkability effect. But this one is not significant because the impact of these clusters is so big.
+
+689
+01:21:29,309 --> 01:21:39,498
+Does this make sense? Yeah.
+
+690
+01:21:39,499 --> 01:21:43,159
+So. So let's say we let's get rid of which is doing wrong.
+
+691
+01:21:43,459 --> 01:21:52,029
+Right. And here we just have our, our, we're, we're doing the model where we only adjust for income, right?
+
+692
+01:21:52,129 --> 01:21:58,389
+We don't adjust for neighborhood characteristics and we don't adjust for clustering within neighborhoods.
+
+693
+01:21:59,329 --> 01:22:03,529
+So you can look at the these are the the residuals.
+
+694
+01:22:04,249 --> 01:22:08,009
+This is have you guys seen like I bought this kind a cute few plot, right.
+
+695
+01:22:08,059 --> 01:22:11,389
+So this is telling you, you know, about the normality of the residuals.
+
+696
+01:22:11,689 --> 01:22:16,428
+So you can see here that in the tails it's doing a pretty bad job and you can look
+
+697
+01:22:16,429 --> 01:22:24,889
+at like a histogram or these are the predicted residuals for each one observation.
+
+698
+01:22:25,159 --> 01:22:33,409
+And you can see that these are you know, they're very clustered when we don't adjust for anything at the neighborhood level,
+
+699
+01:22:34,489 --> 01:22:40,519
+if we adjust for neighborhood level variation in walkability, you can see that we get something there.
+
+700
+01:22:41,029 --> 01:22:47,269
+But the problem is there's so much and sorry, you have to click backwards to do this.
+
+701
+01:22:47,659 --> 01:22:53,329
+There's so much variability that the variation between areas is really driven primarily
+
+702
+01:22:53,329 --> 01:22:57,859
+by that random variation and not by the systematic variability across places.
+
+703
+01:22:58,609 --> 01:23:06,649
+So like, let's say I ramped it down and I make these neighborhoods a lot closer to the median in general, right?
+
+704
+01:23:07,339 --> 01:23:13,909
+So that the variation between them is driven primarily by the systematic component, by what's more walkable and what's not it.
+
+705
+01:23:14,959 --> 01:23:21,618
+And I go back over here now in my model where I adjust for walkability,
+
+706
+01:23:21,619 --> 01:23:26,239
+you can see you don't see those like distinct clusters falling out in the same way.
+
+707
+01:23:26,899 --> 01:23:30,529
+And if you look at the residuals, they're they're not typically normal, but they're a lot closer.
+
+708
+01:23:32,869 --> 01:23:40,219
+Right. So this is a situation where maybe you could kind of get away without dealing too much with the individual level clustering
+
+709
+01:23:40,219 --> 01:23:47,569
+because they're just ultimately it's like the first example where it's like wealth was a function of the neighborhood,
+
+710
+01:23:48,199 --> 01:23:54,309
+right? So they were so perfectly aligned with each other that you would get the same qualitative answer either way, right?
+
+711
+01:23:54,409 --> 01:23:57,439
+But if there's something else going on that's making these neighborhoods different,
+
+712
+01:23:57,439 --> 01:24:06,199
+that's not just this walkability or whatever effect, then you can't do it right without, you know, some kind of higher cost model.
+
+713
+01:24:07,569 --> 01:24:12,269
+Because. Any sense? Okay.
+
+714
+01:24:12,419 --> 01:24:16,799
+So I'm just going to give you a minute to kind of play around with this a little bit.
+
+715
+01:24:18,359 --> 01:24:26,969
+And when we talk about these frame effects. What this model is doing is we're saying we're directly modeling that data generating process.
+
+716
+01:24:26,969 --> 01:24:39,269
+So we're saying, okay, each cluster now has its own interface and that is a function that has a mean of the population mean and some unknown variable.
+
+717
+01:24:40,079 --> 01:24:45,989
+Right. And so we're estimating the variation in those as well as the variation at the individual level.
+
+718
+01:24:47,369 --> 01:24:56,159
+And you should be able to see the standard deviation of those effects.
+
+719
+01:24:56,459 --> 01:25:03,449
+So it gives you the standard deviation as well of the interval of the neighborhood level intercept.
+
+720
+01:25:04,999 --> 01:25:15,699
+Does that make sense? And you can see here, that's the input standard deviation.
+
+721
+01:25:15,819 --> 01:25:23,859
+So this model is is capturing not only the because those was very effective, it's modeling that variability.
+
+722
+01:25:23,889 --> 01:25:34,059
+So then if you made a prediction about some unobserved place, it would be more likely to capture the systematic and random attributes of the place.
+
+723
+01:25:36,559 --> 01:25:41,009
+He's feeling good. I'm seeing, like, mixed results here, which is fine.
+
+724
+01:25:41,029 --> 01:25:46,129
+Like, this is like, this is a concept I think takes a while to sink in and it's like test driving.
+
+725
+01:25:46,129 --> 01:25:47,538
+It is all for the good.
+
+726
+01:25:47,539 --> 01:25:55,338
+But if you're interested and confused, I would definitely encourage you to, like, bookmark this and go back to it in here and play around with that.
+
+727
+01:25:55,339 --> 01:25:58,549
+I mean, I think, you know, there's a good start.
+
+728
+01:25:58,549 --> 01:26:03,498
+There's kind of a gut sense of how these things work. And and that's why I like to teach this this way.
+
+729
+01:26:03,499 --> 01:26:08,929
+But, you know, there's no expectation of it making perfect sense in the span of under 2 hours.
+
+730
+01:26:12,509 --> 01:26:16,979
+Anybody have specific questions or things, you know, points of confusion on the plan.
+
+731
+01:26:21,569 --> 01:26:28,089
+Ultimately, you know, we have two things that when we're kind of coming back to this theme of clustering, right?
+
+732
+01:26:28,109 --> 01:26:33,389
+The two things that can drive clustering within a spatial unit in this case in a neighborhood
+
+733
+01:26:33,389 --> 01:26:38,699
+are what like what's going to make risk cluster in the in our simulated neighborhoods.
+
+734
+01:26:43,599 --> 01:26:51,709
+What are the two potential mechanisms? Yes.
+
+735
+01:26:51,719 --> 01:26:57,459
+Or non systematic variability or unobserved variability, things that just make different neighborhoods different.
+
+736
+01:26:57,479 --> 01:27:00,118
+Maybe one neighborhood is really hilly, one is really flat,
+
+737
+01:27:00,119 --> 01:27:05,449
+and you haven't kind of looked at that and then observed characteristics like the walkability of the place, right?
+
+738
+01:27:05,669 --> 01:27:10,349
+But those are both ways that we can get clustering in this example.
+
+739
+01:27:10,619 --> 01:27:19,528
+You know, if you think about it, even if we have very little random variation, we have a ton of systematic variation, right?
+
+740
+01:27:19,529 --> 01:27:23,249
+So there's definitely clustering in terms of these neighborhood means.
+
+741
+01:27:24,539 --> 01:27:30,629
+Right. What these new this neighborhood is very different from this neighborhood, even if it's all driven by the walkability.
+
+742
+01:27:32,309 --> 01:27:39,418
+And then you go down to this model here, you don't do any of these things where you would just you know,
+
+743
+01:27:39,419 --> 01:27:45,029
+in this case, we actually do seem to be getting reasonably close to that that income effect.
+
+744
+01:27:46,589 --> 01:27:54,869
+But when we use our hierarchical model, we can capture the fact that it's, you know, a combination of all of these factors.
+
+745
+01:27:55,199 --> 01:28:00,059
+Right. So like income is driving clustering within neighborhoods.
+
+746
+01:28:00,059 --> 01:28:03,509
+In this case, walkability is driving clustering within neighborhoods.
+
+747
+01:28:04,679 --> 01:28:15,209
+And then we can adjust for like just other attributes of these places that we haven't observed by fitting our our rubber band model to us intercepts.
+
+748
+01:28:18,059 --> 01:28:21,389
+Okay. All right.
+
+749
+01:28:21,689 --> 01:28:25,109
+So one more thing I want to do.
+
+750
+01:28:25,169 --> 01:28:32,219
+Just to put a cherry on top to kind of, you know, kind of bring us back to the really simple example from before.
+
+751
+01:28:33,209 --> 01:28:42,479
+So remember, before, you know, we talked about as we go up in walkability, we go up in neighborhood wealth here.
+
+752
+01:28:42,479 --> 01:28:48,899
+We've been assuming people are randomly distributed across neighborhoods without respect to our right.
+
+753
+01:28:49,259 --> 01:28:54,959
+But the only difference between these neighborhoods is walkability. But obviously, we know that that's not true.
+
+754
+01:28:55,649 --> 01:28:58,378
+In the first example, we did this thing that was like very deterministic.
+
+755
+01:28:58,379 --> 01:29:02,159
+So it was just like if you were in a wealthier group, you're in the wealthier neighborhood.
+
+756
+01:29:02,849 --> 01:29:07,199
+In this case, we're going to make it more random. And so we're going to say, you know,
+
+757
+01:29:08,099 --> 01:29:16,499
+there's a bit of a correlation between neighborhood walkability and the average income of people in those neighborhoods.
+
+758
+01:29:17,279 --> 01:29:20,539
+So if you induce a little bit of that correlation, go back over here,
+
+759
+01:29:20,549 --> 01:29:29,489
+spend a minute just kind of playing with the the the bits and bobs and see, you know, under what scenarios things go sideways.
+
+760
+01:29:29,939 --> 01:29:34,889
+And when we kind of have this more realistic assumption that, you know,
+
+761
+01:29:35,009 --> 01:29:42,839
+people are sorting into neighborhoods as a function of income and those their individual effects at that level,
+
+762
+01:29:43,649 --> 01:29:48,209
+their individual level effects that are spatially or clustered correlated.
+
+763
+01:29:48,539 --> 01:29:53,839
+But then there are what other cluster effects that have nothing to do with the individual level covariance.
+
+764
+01:30:02,539 --> 01:30:08,409
+Right. And this is this is a good time to try and break it. Right. Like see how you can get the worst possible answers.
+
+765
+01:30:08,419 --> 01:30:14,748
+Right? So, like, how can you just, like, completely overestimate the walkability effect or the income effect?
+
+766
+01:30:14,749 --> 01:30:18,049
+Whatever. Whatever suits your fancy.
+
+767
+01:30:20,489 --> 01:30:26,069
+And remember, you can go back over here and you could change this variation at the neighborhood level.
+
+768
+01:30:54,009 --> 01:30:58,329
+And these residual plots on here, I think sometimes are the most kind of instructive thing.
+
+769
+01:30:59,019 --> 01:31:10,449
+Right. Like you can see the colors here are clustering by neighborhood walkability and you can see that there are in my example,
+
+770
+01:31:10,449 --> 01:31:16,479
+at least, I haven't adjusted for any of those effects for neighborhood walkability or neighborhood level clustering.
+
+771
+01:31:16,779 --> 01:31:22,899
+And you see there's this like gradient of like income that isn't captured by my model.
+
+772
+01:32:45,999 --> 01:32:51,219
+And you're also you can find regimes, too, in here where the hierarchal model can't solve your problems.
+
+773
+01:32:51,839 --> 01:32:56,259
+I don't know if anybody has tried that. Like if you ramp up all the variation,
+
+774
+01:32:56,829 --> 01:33:04,779
+like so if you just have it be totally the neighborhood variability is totally dominated by randomness across neighborhoods.
+
+775
+01:33:05,139 --> 01:33:10,449
+You know, you can get just completely wacky results because the signal to noise ratio is just too small.
+
+776
+01:33:10,929 --> 01:33:16,389
+Right. Like they're just it's so driven by that non systematic variation that you can't identify any of the.
+
+777
+01:33:20,189 --> 01:33:23,699
+Yeah. I mean, I think in that case you feel it's harder because you don't know.
+
+778
+01:33:23,879 --> 01:33:32,729
+In reality, we never really like we don't get to hold the hold back and say like, here's what's going on, you know, where the data are coming from.
+
+779
+01:33:32,969 --> 01:33:37,018
+But I think it's a fair bet that if you look across like the average, you know,
+
+780
+01:33:37,019 --> 01:33:42,389
+value in each neighborhood and they're like way all over the place as a function of,
+
+781
+01:33:42,389 --> 01:33:48,909
+you know, some cover if you care about, then, you know, it might be time to say, well, why don't we divide it into groups, right?
+
+782
+01:33:48,959 --> 01:33:57,149
+Like high and low, right? Like kind of bring down the like ambitions of the model to meet the data where they're at, if that makes sense.
+
+783
+01:33:59,919 --> 01:34:05,799
+Cool. Okay. So that's more or less what I have for today.
+
+784
+01:34:06,459 --> 01:34:13,609
+We've covered a lot of ground in a reasonably short amount of time, but hopefully at the very least kind of walking out.
+
+785
+01:34:13,809 --> 01:34:20,379
+You feel like you have a better sense of this notion of clustering and some of the tools that are associated with dealing with it.
+
+786
+01:34:20,639 --> 01:34:27,128
+And then when we start to look at 10:00, but again, this is like this is a journey certainly for for me,
+
+787
+01:34:27,129 --> 01:34:31,748
+like dealing, you know, getting my arms around some of these topics, too, like yours.
+
+788
+01:34:31,749 --> 01:34:36,578
+And so, you know. But how do you build that intuition about how this works?
+
+789
+01:34:36,579 --> 01:34:39,609
+The kind of mechanics of it becomes much easier to do. Right.
+
+790
+01:34:39,619 --> 01:34:46,029
+So my goal here is, is not to completely drown you in the specifics of these models,
+
+791
+01:34:46,299 --> 01:34:52,119
+but more to kind of work from the intuitive problem of clustering down to some of the tools.
+
+792
+01:34:52,389 --> 01:34:57,909
+But, you know, one into like what causes clustering, you know, what problems can it cause?
+
+793
+01:34:58,359 --> 01:35:03,119
+Or on the other side, like what benefits can we track from it? That's the most important thing for me from today.
+
+794
+01:35:03,129 --> 01:35:06,409
+And then number three is a little bit of the sense of what happens when you try.
+
+795
+01:35:08,199 --> 01:35:17,289
+Okay. So, yeah. So thanks, guys. And if you have any questions or anything, you know, I'm happy to help you out however I can.
+
+796
+01:35:19,629 --> 01:35:27,729
+Thank you. Yeah, thank you. Crazy stuff.
+

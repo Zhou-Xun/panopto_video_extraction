@@ -1,0 +1,1804 @@
+1
+00:00:06,990 --> 00:00:08,250
+All right. Good morning, everybody.
+
+2
+00:00:16,820 --> 00:00:26,870
+Did anyone have any questions before we get started today about maybe the lab last week or lecture or the homework?
+
+3
+00:00:33,720 --> 00:00:41,130
+No. All right. Your second homework is going to be released today, so you'll have a week to do that.
+
+4
+00:00:41,610 --> 00:00:42,240
+So you're aware.
+
+5
+00:00:43,530 --> 00:00:52,050
+And we're going to continue talking about importing data today, but in the slightly more complex situation where you use the data step.
+
+6
+00:00:53,600 --> 00:01:09,020
+So let's go ahead and get started on that. So remember that a data step is what reads in our external data from different sources.
+
+7
+00:01:09,770 --> 00:01:14,210
+You can manipulate data within a data stab. You can combine data and so on.
+
+8
+00:01:14,690 --> 00:01:19,310
+And the output from a data step is some data set.
+
+9
+00:01:20,180 --> 00:01:23,420
+So that's the key thing to keep in mind about a data step.
+
+10
+00:01:23,990 --> 00:01:32,210
+So what we're going to be doing today is kind of bringing in data from some external source with these data steps.
+
+11
+00:01:34,460 --> 00:01:37,640
+The reason this went right to the end. Okay.
+
+12
+00:01:38,750 --> 00:01:40,010
+So let's go back a.
+
+13
+00:01:42,830 --> 00:01:51,830
+The reason the data step is being used sometimes instead of just the import was there like we learned last week, it's it's a lot more flexible.
+
+14
+00:01:52,580 --> 00:02:01,460
+You can do more complicated things with it. So for example, you can input just fractions of a file.
+
+15
+00:02:02,060 --> 00:02:06,710
+So if I just wanted this pink part as highlighted, I could just get that out.
+
+16
+00:02:08,280 --> 00:02:15,390
+Okay. Or if I wanted to skip columns, I could skip columns that were gibberish in this case.
+
+17
+00:02:16,470 --> 00:02:23,070
+If I don't want those, I can skip them. I can also extract data from multiple portions of the same file.
+
+18
+00:02:23,640 --> 00:02:28,770
+So if I wanted the numbers as part of that in the header, there is another part.
+
+19
+00:02:29,130 --> 00:02:30,150
+I could do that as well.
+
+20
+00:02:33,280 --> 00:02:41,050
+So the learning objectives here are going to be to understand the function of the data step, identify the main building blocks of that data step code.
+
+21
+00:02:42,550 --> 00:02:48,790
+We're going to want to be able to start with SAS datasets and as well as other external sources and be able to hand enter data as well.
+
+22
+00:02:51,400 --> 00:02:56,710
+So another thing to keep in mind is that there are many ways to import data.
+
+23
+00:02:58,000 --> 00:03:04,660
+There's many ways to do lots of different things in SAS and importing is no exception.
+
+24
+00:03:05,650 --> 00:03:09,170
+So. Make it work.
+
+25
+00:03:09,230 --> 00:03:12,800
+That's the that's the idea here. Whatever works.
+
+26
+00:03:13,900 --> 00:03:18,580
+It's like, okay, if it doesn't work the first time, try differently.
+
+27
+00:03:19,510 --> 00:03:28,960
+That's the idea. So don't be afraid to say, well, this this particular route I'm taking isn't working, so let's try something else.
+
+28
+00:03:29,500 --> 00:03:36,660
+Don't be afraid to do that. Yes.
+
+29
+00:03:37,330 --> 00:03:41,020
+So the main data step structure looks like this.
+
+30
+00:03:41,800 --> 00:03:48,100
+So you'll have a data statement where you'll tell SAS the dataset name you want to create.
+
+31
+00:03:49,930 --> 00:03:53,320
+And then we'll have some other statement where you tell Saskpower to get the data.
+
+32
+00:03:55,090 --> 00:03:58,540
+And then you'll have some statement where if you're creating new data sets,
+
+33
+00:03:59,020 --> 00:04:02,440
+you'll need to list your variables and what their characteristic characteristics are.
+
+34
+00:04:04,210 --> 00:04:08,700
+And then you can have multiple other statements telling says other things to do with your data.
+
+35
+00:04:08,710 --> 00:04:17,230
+So this might be creating variables or maybe creating formats or labels, things like that.
+
+36
+00:04:17,330 --> 00:04:24,280
+We'll talk about more of those those things later. And then you want to end your data step with the run statement.
+
+37
+00:04:25,410 --> 00:04:31,110
+So this is the basic structure. So this is what we just talked about.
+
+38
+00:04:31,410 --> 00:04:38,910
+So again, that first line, the data data statement is going to tell you what name you want to give your new data set.
+
+39
+00:04:39,480 --> 00:04:42,690
+And this could be the work that name or location, not name.
+
+40
+00:04:43,620 --> 00:04:50,910
+However, you if you depending on whether you want to save it permanently or just save it temporarily in the work folder.
+
+41
+00:04:53,820 --> 00:04:56,850
+When you're telling stats where to get your data, you've got a few options.
+
+42
+00:04:57,570 --> 00:05:02,220
+There's a set statement and this is what we're going to use when we start with existing SAS data.
+
+43
+00:05:03,840 --> 00:05:06,960
+You can use data lines if you're actually hand entering your data.
+
+44
+00:05:09,280 --> 00:05:13,860
+Cards is just a pseudonym for datelines. It's a.
+
+45
+00:05:15,800 --> 00:05:21,650
+It's a really old throwback to the days when you actually put punch cards into a computer and send them in that way.
+
+46
+00:05:22,400 --> 00:05:28,730
+And so usually I just use datelines because no one gets into that concept, which is fine.
+
+47
+00:05:29,990 --> 00:05:32,030
+Or you can also use it in file statement.
+
+48
+00:05:32,990 --> 00:05:39,350
+So that's what you'll use if you've got some other kind of external data source, like an Excel file or CSV or something like that.
+
+49
+00:05:43,670 --> 00:05:50,210
+If you are creating new data sets, you'll need to listen to the input variables with an input statement.
+
+50
+00:05:53,170 --> 00:06:00,730
+This is also where you're going to tell SAS what characteristics those variables have, whether they're numeric or whether they're character.
+
+51
+00:06:01,750 --> 00:06:06,880
+You can also tell at some other things about how long those variables are and so on.
+
+52
+00:06:09,800 --> 00:06:15,110
+And like I said before, there's many things you can do to manipulate the data in this data step as well.
+
+53
+00:06:15,830 --> 00:06:24,140
+Labels. Formats. Other equations. You'll notice each statement does end with a semicolon.
+
+54
+00:06:26,120 --> 00:06:34,100
+Right. All statements end with a semicolon all the time and says if it doesn't end in a semicolon, it's not a complete statement.
+
+55
+00:06:35,380 --> 00:06:45,990
+Okay. And you end all your data steps with a run statement that will tell SAS to execute that code, not just compile it, but to actually execute it.
+
+56
+00:06:49,640 --> 00:06:51,770
+So he take home messages in that section.
+
+57
+00:06:53,640 --> 00:06:59,820
+They just have to comprised of one statement, a name you say dataset, one statement to tell SAS where to find the data.
+
+58
+00:07:00,720 --> 00:07:06,440
+And if there's new new data that you're entering, you'll need to tell the variable list.
+
+59
+00:07:07,450 --> 00:07:13,240
+And then you can add optional things as well and make sure you end your step with a run statement.
+
+60
+00:07:17,270 --> 00:07:21,770
+Any questions so far? All right.
+
+61
+00:07:23,400 --> 00:07:27,840
+So let's read data. That's. We start with some existing SAS data.
+
+62
+00:07:29,420 --> 00:07:30,530
+This is the easiest case.
+
+63
+00:07:30,740 --> 00:07:38,030
+You just need to use a set statement and point to the existing data that that's already there, either in work or in some permanent folder.
+
+64
+00:07:41,600 --> 00:07:48,640
+Sast data is denoted with the extension that sas seven v that OC.
+
+65
+00:07:49,850 --> 00:07:53,840
+So that's how, you know, it's SAS data if it has that extension.
+
+66
+00:07:55,630 --> 00:08:07,450
+The Dot SAS extension is for your SAS code that you save, so try not to confuse the two dot SAS is for code that SAS seven B that is for SAS data.
+
+67
+00:08:13,950 --> 00:08:20,730
+So if we have some SAS data already, all we need is basically these three statements, a data statement.
+
+68
+00:08:21,790 --> 00:08:29,350
+A set statement and a run statement. So here's an example in its most simple form.
+
+69
+00:08:30,810 --> 00:08:36,150
+We have a existing data set called My Data.
+
+70
+00:08:38,340 --> 00:08:42,060
+And we're telling it to create a new dataset with the same name.
+
+71
+00:08:44,240 --> 00:08:50,180
+And not do anything to it. So this really just makes a copy and then overwrites.
+
+72
+00:08:51,320 --> 00:08:55,820
+The original with the new one. So literally, this does nothing at all.
+
+73
+00:08:56,750 --> 00:09:05,960
+That's really what this means. But if you give it a new name now, it does do something.
+
+74
+00:09:06,170 --> 00:09:09,380
+It makes a copy of it with that new name.
+
+75
+00:09:10,900 --> 00:09:15,910
+So in this case we start with my data and create a copy of it called My Data New.
+
+76
+00:09:19,760 --> 00:09:25,720
+Does that make sense? Now, where do both of these where are both of these datasets going to live?
+
+77
+00:09:26,780 --> 00:09:35,970
+Do you suppose? Where they saved. You saved and work, right?
+
+78
+00:09:36,840 --> 00:09:41,010
+We didn't specify a location. For either one's,
+
+79
+00:09:41,370 --> 00:09:50,580
+so my data must be already in the work folder and the new one I create is also in the work folder because I didn't specify anyplace else to save it.
+
+80
+00:09:51,920 --> 00:09:55,510
+Okay. All right.
+
+81
+00:09:56,830 --> 00:10:02,140
+You can also switch very easily between temporary and permanent data files.
+
+82
+00:10:04,500 --> 00:10:07,980
+So in the first example there, we start with something that's permanent.
+
+83
+00:10:08,820 --> 00:10:12,930
+It lives in the 640 library, which we've previously created.
+
+84
+00:10:14,130 --> 00:10:20,010
+In a live name statement. And it creates a copy of it in the work folder.
+
+85
+00:10:21,200 --> 00:10:29,679
+And calls it my data. In the example below, it does the exact opposite.
+
+86
+00:10:29,680 --> 00:10:33,760
+So we have some data called your data that lives in the work folder.
+
+87
+00:10:35,060 --> 00:10:40,490
+And it creates a copy of it that saved permanently in the epic 640 library.
+
+88
+00:10:43,410 --> 00:10:47,810
+And remember, a library is just a pointer to a location on your computer.
+
+89
+00:10:48,740 --> 00:10:53,090
+Right. So it's going to save that to wherever your pointer is for episode 640.
+
+90
+00:10:56,110 --> 00:11:00,870
+Makes sense. Okay.
+
+91
+00:11:03,460 --> 00:11:06,660
+What's that like? Can you talk? Sure.
+
+92
+00:11:06,680 --> 00:11:14,680
+The first one. We have some data that already exists in the Epic 640 library, which is a permanent library.
+
+93
+00:11:15,830 --> 00:11:20,150
+Which is some location on your computer. So we start with that.
+
+94
+00:11:20,630 --> 00:11:25,400
+And this code simply tells it to make a copy of that data.
+
+95
+00:11:27,200 --> 00:11:30,500
+And save it in the work. The temporary work folder.
+
+96
+00:11:35,000 --> 00:11:41,990
+A lot of times it's easier just to do a lot of your code by working with things that are in that temporary work folder.
+
+97
+00:11:43,370 --> 00:11:54,590
+That way you're not continuously saving different copies and you're not having to over overwrite something permanent all the time.
+
+98
+00:11:55,130 --> 00:11:57,620
+So you can kind of work within the work folder.
+
+99
+00:11:58,040 --> 00:12:03,530
+And once you're satisfied with your complete product, then you can save it for your final step somewhere permanent.
+
+100
+00:12:07,820 --> 00:12:14,370
+All right, thought question how many files are there when these data with this data after the first code and the second.
+
+101
+00:12:16,250 --> 00:12:21,890
+Well. So we already said this one literally does nothing at all.
+
+102
+00:12:23,420 --> 00:12:31,290
+So we still just have one data set in the end. It does kind of overwrite it.
+
+103
+00:12:31,300 --> 00:12:36,610
+It's a new version, but it's exactly the same as the first in the same location.
+
+104
+00:12:38,760 --> 00:12:44,780
+We're in this one. We have given it a new name. So we do have two data sets now.
+
+105
+00:12:47,180 --> 00:12:52,320
+They're both identical, but they have different names. Okay.
+
+106
+00:12:57,130 --> 00:13:03,010
+So take home messages there. Use a set statement to read an existing Sast data.
+
+107
+00:13:05,880 --> 00:13:10,530
+If you use different file names, then you create copies of the old ones.
+
+108
+00:13:12,580 --> 00:13:19,120
+And you can kind of switch between permanent and temporary by using the location, that name.
+
+109
+00:13:21,840 --> 00:13:28,760
+Okay. So now let's learn how to hand enter data.
+
+110
+00:13:31,140 --> 00:13:32,850
+Again, this is your data set structure.
+
+111
+00:13:33,840 --> 00:13:42,690
+When your hand entering data, you need two additional statements besides the normal data statement in the run statement.
+
+112
+00:13:42,690 --> 00:13:48,060
+At the end, you're going to need an input statement to list your variables and their characteristics.
+
+113
+00:13:49,280 --> 00:13:57,980
+And you'll need a datelines statement which simply tells SAS that you're about to enter data manually by typing it in.
+
+114
+00:14:01,590 --> 00:14:04,770
+Okay. So here's an example of that.
+
+115
+00:14:07,730 --> 00:14:13,520
+This example is creating a dataset called BMI 21.
+
+116
+00:14:14,540 --> 00:14:18,440
+It's going to live in the work folder. So we didn't specify a location there.
+
+117
+00:14:21,570 --> 00:14:27,190
+It's going to include variables. ID number treatment group.
+
+118
+00:14:29,040 --> 00:14:34,930
+Probably height and weight there as well. So those are just variable names that you can.
+
+119
+00:14:36,200 --> 00:14:39,920
+But you can give. However you want. You can name them however you want.
+
+120
+00:14:42,530 --> 00:14:45,110
+You notice that little dollar sign after the treatment group?
+
+121
+00:14:46,560 --> 00:14:54,420
+That's actually telling SAS that that variable is going to be character instead of numeric.
+
+122
+00:14:56,340 --> 00:15:01,410
+Okay. SAS considers numerics to be the default.
+
+123
+00:15:02,390 --> 00:15:07,780
+Type. So unless you tell it otherwise, it's going to assume the variable is numeric.
+
+124
+00:15:08,760 --> 00:15:12,960
+But here's a treatment group. We want to be character. It's either A or B, it looks like.
+
+125
+00:15:13,980 --> 00:15:19,340
+So. We need to tell it that it's character and we do that with that little dollar sign.
+
+126
+00:15:21,850 --> 00:15:25,280
+Okay. Then you see the Dateline statement.
+
+127
+00:15:28,360 --> 00:15:33,310
+Again. That's just telling SAS that we're about to enter our data manually.
+
+128
+00:15:35,500 --> 00:15:41,550
+Right. Then we enter that data manually. One line for observation.
+
+129
+00:15:42,840 --> 00:15:48,230
+And we enter it in the order in which we. Place the variables in the input statement.
+
+130
+00:15:52,480 --> 00:15:58,580
+Okay. Once we're done typing in all our observations one per line.
+
+131
+00:16:00,450 --> 00:16:04,019
+Will end it all with a semicolon to tell sass.
+
+132
+00:16:04,020 --> 00:16:09,850
+We're done entering data. That should be on a new line, by the way, as well.
+
+133
+00:16:10,920 --> 00:16:16,440
+If not, it's going to think that semicolon is part of the entire data and it's going to not like that.
+
+134
+00:16:17,890 --> 00:16:21,610
+Especially if we put it at the end of t 29 here.
+
+135
+00:16:22,510 --> 00:16:24,580
+We told it that it's supposed to be numeric.
+
+136
+00:16:26,460 --> 00:16:32,430
+And if it sees that semicolon, it's going to say, Oh, that's character and it's not going to fill that out correctly.
+
+137
+00:16:34,290 --> 00:16:38,200
+Okay. And then finally we end this whole thing with the run, the statement.
+
+138
+00:16:41,750 --> 00:16:47,530
+So if you run this code. You should see in your log.
+
+139
+00:16:47,770 --> 00:16:54,840
+You should check your log. And you should see that we've got five observations and four variables that will tell you that in the note there.
+
+140
+00:16:55,890 --> 00:17:01,860
+And then if you go to your navigate to your explorer and open it up, you should see exactly what you typed in here.
+
+141
+00:17:04,300 --> 00:17:08,140
+So you do want to check this to make sure it worked properly.
+
+142
+00:17:11,260 --> 00:17:14,530
+All right. If you forgot that little dollar sign, for example.
+
+143
+00:17:15,580 --> 00:17:19,360
+You would see this entire column blank.
+
+144
+00:17:20,820 --> 00:17:24,450
+As you told it, it was numeric, but you entered character data.
+
+145
+00:17:25,500 --> 00:17:28,860
+And so it's not going to know what to do and it's just going to leave a blank.
+
+146
+00:17:31,330 --> 00:17:34,850
+Okay. So always check it just to make sure you did it right.
+
+147
+00:17:39,780 --> 00:17:45,080
+So key takeaways for that. These data lines enter your data manually.
+
+148
+00:17:46,310 --> 00:17:53,660
+You do need to tell SAS the names of your variables and the and the what we call in formats in the input statement.
+
+149
+00:17:56,000 --> 00:17:59,620
+Uh, I guess we haven't actually talked about the last period. We'll talk about that later.
+
+150
+00:18:02,460 --> 00:18:13,180
+All right. So for this next one. Let's import some external delimited data.
+
+151
+00:18:13,750 --> 00:18:20,860
+We did do this with import wizard last week. But if you have some, this is an alternate way to do it.
+
+152
+00:18:20,860 --> 00:18:24,910
+And if you have something more complex, you can you can do it with the data step.
+
+153
+00:18:27,060 --> 00:18:31,590
+So the main difference now is that we're going to need an individual statement.
+
+154
+00:18:32,930 --> 00:18:36,170
+Which points to the location of that external file.
+
+155
+00:18:39,400 --> 00:18:43,390
+We're again, again going to need an input statement to tell it what variables to expect.
+
+156
+00:18:44,530 --> 00:18:48,040
+As well as their characteristics. Just like with the hand enter data.
+
+157
+00:18:50,350 --> 00:18:55,180
+Right. So here's an example.
+
+158
+00:18:57,540 --> 00:19:06,690
+Well, the beginning of example, anyway, we've got a data statement, so it's going to create a dataset called demand.
+
+159
+00:19:08,260 --> 00:19:14,020
+We've got an in file statement. And this is just a path pointing to a path for the external file.
+
+160
+00:19:16,030 --> 00:19:20,680
+In this case, some file called Autism Mag and it's a CSV file.
+
+161
+00:19:24,150 --> 00:19:29,610
+Okay. You notice that that path is in quotation marks.
+
+162
+00:19:32,500 --> 00:19:36,220
+As all tech strings are in SAS. Okay.
+
+163
+00:19:37,180 --> 00:19:42,490
+You can use single or double quotes. It doesn't really matter as long as they match or read them both the same.
+
+164
+00:19:47,580 --> 00:19:51,780
+All right. Whenever possible.
+
+165
+00:19:52,350 --> 00:19:57,270
+It's a good idea to actually copy the file path from the Explorer window.
+
+166
+00:19:58,020 --> 00:20:02,400
+So if you simply use your normal windows Explorer.
+
+167
+00:20:03,930 --> 00:20:07,620
+Navigation and you go to the folder that the file is in.
+
+168
+00:20:08,070 --> 00:20:12,120
+You can copy the path up top and then paste it into Sass.
+
+169
+00:20:12,750 --> 00:20:18,480
+That way you don't have any typing errors and things like that, so it's a lot easier and quicker.
+
+170
+00:20:19,170 --> 00:20:26,150
+So that's a good, good trick. What's missing here so far?
+
+171
+00:20:29,710 --> 00:20:32,890
+Yeah. We haven't completed the statement yet. There's no semicolon.
+
+172
+00:20:33,730 --> 00:20:36,730
+Well, that's because we're going to add some options. Okay.
+
+173
+00:20:37,360 --> 00:20:41,810
+Options are part of the statement itself. Okay.
+
+174
+00:20:41,860 --> 00:20:48,220
+They modify the statement. So this is the BLM equals option.
+
+175
+00:20:48,550 --> 00:20:52,750
+It's for you for telling SAS what the delimiter on the file is.
+
+176
+00:20:55,480 --> 00:21:00,180
+Okay. It's actually.
+
+177
+00:21:01,660 --> 00:21:08,649
+This is kind of an unusual example because it's a CSV file, but the delimiter is a space normally.
+
+178
+00:21:08,650 --> 00:21:11,860
+See us files have a common delimiter. That's okay.
+
+179
+00:21:12,310 --> 00:21:17,830
+We're telling it that the delimiter is a space. With empty quotes there.
+
+180
+00:21:20,280 --> 00:21:24,420
+If it was comma delimited, you could tell it so with just a comma inside quotes.
+
+181
+00:21:27,420 --> 00:21:32,170
+Or if it was weird vertical bar like you saw in your lab, you can put that vertical bar.
+
+182
+00:21:34,440 --> 00:21:39,060
+There's a couple odd cases like Tab. Tab doesn't really have.
+
+183
+00:21:40,940 --> 00:21:51,590
+An actual character. Right. So there's a special code you use for tab two limited and that's this 09x09 being in quotations all by an x.
+
+184
+00:21:52,970 --> 00:21:56,600
+So if you do have tab delimited data, you can tell it so with that code.
+
+185
+00:21:59,950 --> 00:22:05,450
+All right. A space is the default delimiter.
+
+186
+00:22:06,350 --> 00:22:11,240
+So if you don't use this option at all, sass will assume that it's space limited.
+
+187
+00:22:13,850 --> 00:22:17,180
+If truly is based eliminated, then you don't really need this option.
+
+188
+00:22:19,340 --> 00:22:25,640
+It's not a bad idea to still put it in. So you see, you remember and know that it's based on limited, but you don't really need it.
+
+189
+00:22:27,060 --> 00:22:30,930
+All right. All right.
+
+190
+00:22:30,960 --> 00:22:36,370
+I can't emphasize enough. You're going to have to open up your data first, see what you're dealing with.
+
+191
+00:22:37,450 --> 00:22:41,120
+Got to know the delimiter so that you know what to put in that deal and option.
+
+192
+00:22:41,150 --> 00:22:44,330
+Right. You need to know if there's headers. You need to know.
+
+193
+00:22:46,600 --> 00:22:49,600
+You know, you should look at how many observations you have and stuff.
+
+194
+00:22:49,600 --> 00:22:53,710
+So when you do import it, you can look at it and make sure you have the same amount.
+
+195
+00:22:55,340 --> 00:22:59,860
+Okay. All right.
+
+196
+00:22:59,950 --> 00:23:02,350
+So after the end file statement, you'll need your input statement.
+
+197
+00:23:03,840 --> 00:23:11,850
+And just like before with the with a hand enter data, you'll need to list your variables and their characteristics.
+
+198
+00:23:13,180 --> 00:23:16,960
+This time we have ID number gender, which is going to be character.
+
+199
+00:23:18,090 --> 00:23:21,210
+Indicated by the dollar sign. And we've got a height and weight again.
+
+200
+00:23:25,830 --> 00:23:34,030
+Okay. Whenever possible.
+
+201
+00:23:35,340 --> 00:23:41,740
+Another good trick. Is when you open up your raw data file, your external file and looked at it.
+
+202
+00:23:43,030 --> 00:23:50,280
+If there is a header line. You can simply copy that header line and stick it into the input statement.
+
+203
+00:23:51,220 --> 00:23:54,220
+Right. That way you don't have to retype them.
+
+204
+00:23:55,540 --> 00:24:02,890
+You don't have to come up with new names for them. You do need to make sure that you go back and put any characteristics.
+
+205
+00:24:03,900 --> 00:24:13,350
+In there that that might be necessary. So if you just copy the variable list from the raw file here and stick it in there.
+
+206
+00:24:14,860 --> 00:24:18,580
+That won't metal assume that they're all numeric because you haven't told it in otherwise.
+
+207
+00:24:18,820 --> 00:24:21,850
+So do make sure you enter those dollar signs if necessary.
+
+208
+00:24:26,040 --> 00:24:30,750
+All right. Here's another example of a space delimited file.
+
+209
+00:24:33,120 --> 00:24:36,930
+You notice on that last line, last couple of lines.
+
+210
+00:24:37,200 --> 00:24:42,240
+There's multiple spaces in between some of the values. That's okay.
+
+211
+00:24:42,250 --> 00:24:47,350
+Sass can handle that. You're telling it it's based on limited here.
+
+212
+00:24:48,010 --> 00:24:51,670
+So even if there's multiple spaces, it'll still be okay with that.
+
+213
+00:24:54,880 --> 00:25:00,540
+So if you run this thing. You should see in your log that you get four observations for variables.
+
+214
+00:25:01,490 --> 00:25:10,390
+You open it up and it looks like you expect. All right.
+
+215
+00:25:15,270 --> 00:25:18,870
+Now there is quite a bit more sophistication that is possible.
+
+216
+00:25:20,830 --> 00:25:33,940
+For example, if you've got you've got observations that are kind of multi lines in your raw data, you can tell it to kind of skip lines.
+
+217
+00:25:34,450 --> 00:25:39,880
+So in this case, we're going to tell SAS to read from a new line with a forward slash.
+
+218
+00:25:41,400 --> 00:25:44,550
+We can also tell you to go to a specific line with a pound end.
+
+219
+00:25:45,030 --> 00:25:52,440
+So in this input statement here. We're saying the first variable is city and its character.
+
+220
+00:25:52,480 --> 00:25:56,720
+The next one states character. And then that forward slash is telling it.
+
+221
+00:25:56,770 --> 00:26:04,240
+Okay, now go to the next line to read in the next variable, which is Norm High.
+
+222
+00:26:05,730 --> 00:26:15,790
+And Norm Low. And then we tell it to skip again, to line three, to read in record high and record low.
+
+223
+00:26:18,670 --> 00:26:23,200
+So this was all the entire data. This would equate to.
+
+224
+00:26:24,560 --> 00:26:32,720
+Importing one observation. So this is all going to end up being one observation on the same line in SAS.
+
+225
+00:26:35,410 --> 00:26:46,760
+Okay. You can also tell us that you've got multiple records per line.
+
+226
+00:26:49,170 --> 00:27:01,360
+And he used the double act sign for that. So in this case, you got like a name, a weight and a gender, and then a name, weight and gender.
+
+227
+00:27:01,360 --> 00:27:03,340
+Name, weight, gender. They're all in the same line.
+
+228
+00:27:06,490 --> 00:27:13,840
+You can still read it in just fine with sass as long as you tell it to look for more than one observation per line with the same.
+
+229
+00:27:16,140 --> 00:27:21,959
+Okay. So it's literally going to look at that file and it's going to input name, weight,
+
+230
+00:27:21,960 --> 00:27:26,220
+gender, and then it's going to see more and it's going to go back to the beginning.
+
+231
+00:27:26,220 --> 00:27:31,490
+Name weight, gender, mean weight, gender until it's done. Okay.
+
+232
+00:27:35,070 --> 00:27:43,560
+Makes sense. This is an unusual case where you're reading in data, but it is something that's possible.
+
+233
+00:27:47,020 --> 00:27:53,620
+Key takeaways. You need the full statement to direct SAS to an external file.
+
+234
+00:27:55,440 --> 00:27:59,460
+You need an input statement to list those variables and their characteristics.
+
+235
+00:28:00,620 --> 00:28:04,190
+Very similar to hand entering data.
+
+236
+00:28:10,490 --> 00:28:17,080
+Any questions so far? Hopefully it's working.
+
+237
+00:28:17,440 --> 00:28:23,130
+Sounds like it is. Okay. Yes.
+
+238
+00:28:25,230 --> 00:28:30,900
+If I want to read the entire data without specifying the contents.
+
+239
+00:28:31,550 --> 00:28:35,360
+Is that any good statement with quiet souls?
+
+240
+00:28:39,130 --> 00:28:45,450
+So you want to. The question is you want to. Import the entire data set.
+
+241
+00:28:47,030 --> 00:28:56,520
+What kind of data is it to start with? Just the lady goes to.
+
+242
+00:28:57,760 --> 00:29:05,620
+Yeah, that one. So, for example, the entire dataset, just half full scale analysis.
+
+243
+00:29:06,010 --> 00:29:10,750
+Mm hmm. Do I have to do and pull out? You do need to give them names.
+
+244
+00:29:10,760 --> 00:29:21,320
+Yeah. Trying to think of what would happen if you skip the input statement here on this particular code.
+
+245
+00:29:22,580 --> 00:29:30,710
+Um. So wanting to do that is so family.
+
+246
+00:29:30,950 --> 00:29:34,660
+See that there. You have to do it right.
+
+247
+00:29:34,670 --> 00:29:41,980
+So if there is a header line already, you do still actually need to to tell it what to expect.
+
+248
+00:29:42,760 --> 00:29:48,460
+Right. Because not only does this input statement list the variables, but it also tells it that they're numeric or character and so on.
+
+249
+00:29:49,240 --> 00:29:53,230
+So if you skip that sass as I'm going to like it.
+
+250
+00:29:53,800 --> 00:29:57,980
+Yeah. I'm not quite sure what would happen.
+
+251
+00:29:58,520 --> 00:30:03,920
+There might be some you can play with in your land today. Yes. Also allow us to.
+
+252
+00:30:10,340 --> 00:30:15,570
+I mean. Kind of.
+
+253
+00:30:16,680 --> 00:30:21,540
+Yes. But we'll see how that works a little bit later in the lecture.
+
+254
+00:30:22,170 --> 00:30:30,570
+Yeah. For for this basic code, if you just skipped one of those, it wouldn't work if you just didn't list it.
+
+255
+00:30:31,920 --> 00:30:37,110
+If you left off this last one, for example, you would think there was only three variables.
+
+256
+00:30:37,890 --> 00:30:46,530
+And so you'd read the first three, and then the 120 would probably be read in as 80 number for the next observation and so on.
+
+257
+00:30:46,530 --> 00:30:52,140
+So it would get confused, but there is a way to skip columns, which we'll see shortly.
+
+258
+00:30:53,200 --> 00:30:57,510
+Okay. All right.
+
+259
+00:30:57,570 --> 00:31:03,740
+Any other questions? Right.
+
+260
+00:31:05,360 --> 00:31:10,650
+So let's talk about those in formats a little bit more. Um.
+
+261
+00:31:11,770 --> 00:31:17,470
+Again, I can't emphasize enough. You gotta open your data and know what you're dealing with, so please do that.
+
+262
+00:31:20,460 --> 00:31:27,870
+We've already seen this, but the the actual structure of that input statement is variable name in format, variable name and format.
+
+263
+00:31:28,350 --> 00:31:36,190
+Variable name format. If you don't put it in format, SAS by default assumes that it's numeric.
+
+264
+00:31:37,560 --> 00:31:43,330
+Okay. And again, that dollar sign indicates that it's character.
+
+265
+00:31:44,730 --> 00:31:51,810
+Now also when it's character is going to assume a default length of eight characters.
+
+266
+00:31:53,940 --> 00:31:58,620
+Which is not always convenient because most of the time things are longer than eight characters.
+
+267
+00:31:59,980 --> 00:32:03,370
+But if you don't specify, it's going to assume it's eight.
+
+268
+00:32:06,030 --> 00:32:09,440
+It's long in that we're going to have to specify a longer length. Okay.
+
+269
+00:32:11,850 --> 00:32:16,170
+There are some variable name restrictions. So when you're naming your variables.
+
+270
+00:32:18,240 --> 00:32:24,810
+So a couple of things to keep in mind. Most versions of SAS have a 32 character limit for variable names.
+
+271
+00:32:25,800 --> 00:32:31,170
+That's pretty long. So it's usually not a concern, right?
+
+272
+00:32:33,120 --> 00:32:39,570
+They do have to start with a letter or an underscore. So no numbers to start the variable name.
+
+273
+00:32:41,420 --> 00:32:48,810
+It does have to be alphanumeric. So no symbols. You can use underscore, but any other symbol is not allowed.
+
+274
+00:32:53,880 --> 00:32:57,330
+And just like most things in SAS names are.
+
+275
+00:32:58,420 --> 00:33:00,190
+Not case sensitive.
+
+276
+00:33:01,660 --> 00:33:10,840
+So if you name it gender and it's all lowercase and you go back and refer to it later, gender all capitalized, it's not going to make any difference.
+
+277
+00:33:10,840 --> 00:33:16,170
+It's going to know that that's the same variable. Okay.
+
+278
+00:33:20,720 --> 00:33:28,310
+Informants are going to be needed in other situations other than just character and numeric.
+
+279
+00:33:30,030 --> 00:33:35,309
+So here's some data we have. They've got some last names, some of their data.
+
+280
+00:33:35,310 --> 00:33:43,530
+It's got some dates in there as well. So if we were to put this input statement into our data, step and run it.
+
+281
+00:33:45,660 --> 00:33:49,290
+Look at our log, we're going to see a lot of invalid data notes.
+
+282
+00:33:50,320 --> 00:33:56,410
+And if we open it up, we're going to see a couple of things that went wrong. First of all, the last names.
+
+283
+00:33:57,160 --> 00:34:04,060
+Some of them got cut off. And over here at the dates, it didn't it didn't capture those at all.
+
+284
+00:34:06,840 --> 00:34:11,100
+Okay. The names.
+
+285
+00:34:11,100 --> 00:34:15,400
+The last names are because we told her it was character.
+
+286
+00:34:15,680 --> 00:34:19,410
+We didn't specify a length, so it defaulted to eight.
+
+287
+00:34:20,430 --> 00:34:24,060
+And so it cut it off at eight characters. Okay.
+
+288
+00:34:28,420 --> 00:34:32,440
+The dates. We told it nothing, so I assumed it was numeric.
+
+289
+00:34:33,730 --> 00:34:39,340
+And you can see the way that they're entered there is a. Two digit month slash two digit.
+
+290
+00:34:41,130 --> 00:34:46,830
+Day or digit year. Caesar's character values in their.
+
+291
+00:34:49,750 --> 00:34:53,740
+But you told it it was numeric. Doesn't like it. Okay.
+
+292
+00:34:55,320 --> 00:34:58,400
+Doesn't know what to do with those characters in a numeric variable.
+
+293
+00:34:59,430 --> 00:35:05,140
+So let them link. Well, there's an easy fix.
+
+294
+00:35:05,150 --> 00:35:13,740
+We just need to tell it more specific in format. And here's kind of a nice table of some of the formats that are built into SAS.
+
+295
+00:35:14,850 --> 00:35:28,140
+So in general, a character in format will have this form of dollar sign and then length or width might call it either one with a dot.
+
+296
+00:35:29,520 --> 00:35:34,920
+All formats and informants have a little dot to indicate that it's in format or format.
+
+297
+00:35:38,890 --> 00:35:44,530
+So if you had this long 12 character thing that you wanted to read in, you could tell it and it has a dollar sign.
+
+298
+00:35:44,590 --> 00:35:55,900
+Well, that in format. Numeric in formats have this form where you have a with a width.
+
+299
+00:35:57,070 --> 00:36:01,330
+A. And then another number which indicates how many decimal places you want.
+
+300
+00:36:03,530 --> 00:36:11,740
+Okay. So the six years the diet doesn't count as a cure, as a part of the length as well.
+
+301
+00:36:12,130 --> 00:36:18,380
+So here this is is with six. And there's two decimal places.
+
+302
+00:36:19,440 --> 00:36:25,570
+So that's six that to inform it. Okay?
+
+303
+00:36:26,170 --> 00:36:32,550
+Yes. What are you. Yeah, yeah, yeah.
+
+304
+00:36:32,600 --> 00:36:37,810
+So if you've got a variables, some have length 12, some are eight.
+
+305
+00:36:38,620 --> 00:36:42,730
+Choose the longest one. Yeah. Choose the longest one you've got.
+
+306
+00:36:45,640 --> 00:36:51,220
+To make everything fit. It's okay if you specify the length is longer than the actual length.
+
+307
+00:36:51,970 --> 00:36:57,540
+It'll still be fine. What if you if it's shorter than the actual length and it's going to get cut off?
+
+308
+00:37:00,120 --> 00:37:07,610
+Okay. That's a good question. There some?
+
+309
+00:37:09,060 --> 00:37:13,050
+Special built in date in formats as well for SAS.
+
+310
+00:37:14,810 --> 00:37:21,680
+If you've got a two digit month, three digit a two digit year like this first one.
+
+311
+00:37:23,990 --> 00:37:28,790
+This first one here that's known as M.D. yy8 that.
+
+312
+00:37:30,650 --> 00:37:35,480
+So you're kind of telling it's a two digit month a year and it has length eight.
+
+313
+00:37:37,650 --> 00:37:48,660
+Which includes the slashes here. Right. This next one is similar, but it's got day, then month and a four digit year.
+
+314
+00:37:49,300 --> 00:37:56,320
+It's length is ten. There's various other ones, including date times which.
+
+315
+00:37:57,660 --> 00:38:02,280
+Sometimes you have a date which goes along with a specific time as well.
+
+316
+00:38:02,520 --> 00:38:06,070
+So if you had something like that, you could read it in as date time at that.
+
+317
+00:38:09,310 --> 00:38:12,370
+You can also read like karma numbers.
+
+318
+00:38:12,370 --> 00:38:16,510
+Karma seperated numbers with the karma inform it like this.
+
+319
+00:38:20,030 --> 00:38:24,150
+There's many, many others. And many, many others.
+
+320
+00:38:24,720 --> 00:38:29,640
+Lots of dates in common and all kinds of weird in formats that are possible.
+
+321
+00:38:33,790 --> 00:38:35,200
+These are some of the common ones, however.
+
+322
+00:38:37,360 --> 00:38:47,380
+So if we want to fix our problem with our our last our last attempt, we're going to have to do one of a couple of things.
+
+323
+00:38:49,660 --> 00:38:59,170
+One thing we can do is add an informal statement to actually specify explicitly what those variables are going to look like.
+
+324
+00:39:01,250 --> 00:39:09,710
+So here are the format statements included. We're telling it that the L name variable in the last name is character with length 12.
+
+325
+00:39:12,610 --> 00:39:19,600
+And that the date variable looks like a two digit month, two digit year for digit.
+
+326
+00:39:19,900 --> 00:39:26,390
+Ah, sorry. Two digit day for digit year. Okay.
+
+327
+00:39:28,630 --> 00:39:41,260
+With Length ten. Notice if we do include the in format statement, we don't have to specify the N formats in the input statement.
+
+328
+00:39:43,990 --> 00:39:47,850
+So really you're going to specify them one place of the end. Right?
+
+329
+00:39:48,390 --> 00:39:57,310
+Yes. Matters of water. Does it matter the order of the variables in the informant statement?
+
+330
+00:40:00,930 --> 00:40:04,600
+Oh. Yes, that's a good question.
+
+331
+00:40:10,770 --> 00:40:17,940
+Yes. I think you're going to want your informed statement before your input statement in this case so that sass knows ahead of time what to expect.
+
+332
+00:40:23,590 --> 00:40:26,950
+Most of the time, the order of these statements isn't that important.
+
+333
+00:40:27,640 --> 00:40:31,330
+But there are cases like this where it needs to know ahead of time what to do.
+
+334
+00:40:32,730 --> 00:40:46,880
+Okay. So if we run this code and open it up from our explorer, we'll see that it it looks like it got everything.
+
+335
+00:40:48,230 --> 00:40:55,430
+There is a couple interesting quirks so that you might notice. All our last names are fine now.
+
+336
+00:40:55,440 --> 00:40:59,830
+They're not cut off. You'll notice the order changed.
+
+337
+00:41:01,010 --> 00:41:11,240
+Which is odd, but that's because we specified those in formats ahead of that input statement.
+
+338
+00:41:11,690 --> 00:41:16,120
+So it's looking for those variables first. It puts them first.
+
+339
+00:41:17,320 --> 00:41:20,680
+In that order. Right. And then everything else follows after.
+
+340
+00:41:23,770 --> 00:41:27,940
+That's that's fine. It doesn't really affect anything. And that's just the variables are.
+
+341
+00:41:29,060 --> 00:41:37,940
+In slightly different order. If it bothers you. Well, you can do a couple of other tricks to keep the order.
+
+342
+00:41:38,560 --> 00:41:44,060
+But most cases, it doesn't really matter. Okay.
+
+343
+00:41:45,890 --> 00:41:50,720
+The other interesting quirk you might see is that these dates look bizarre.
+
+344
+00:41:54,230 --> 00:42:03,200
+Some weird numbers here. The date in format is a numeric format.
+
+345
+00:42:04,240 --> 00:42:08,410
+We like dates to be numeric. Why do we like dates to be numeric?
+
+346
+00:42:08,570 --> 00:42:16,300
+Any idea? You can calculate with them, right?
+
+347
+00:42:17,920 --> 00:42:22,960
+You can subtract dates and get a period of time that's elapsed.
+
+348
+00:42:24,630 --> 00:42:28,050
+We'd like to be able to do that. So we'd like dates to be numeric.
+
+349
+00:42:30,120 --> 00:42:40,830
+So the way SAS deals with this. Is to store dates as a number of days since January 1st, 1960.
+
+350
+00:42:42,360 --> 00:42:47,490
+So that's what's showing up here is the number of days since January 1st, 1960.
+
+351
+00:42:49,630 --> 00:42:52,750
+Obviously if the date is before that, it's going to be a negative number.
+
+352
+00:42:54,300 --> 00:42:57,570
+Okay. Any date after, that's going to be a positive memory.
+
+353
+00:42:59,340 --> 00:43:06,960
+Yes. No, I don't think it really does.
+
+354
+00:43:08,730 --> 00:43:14,700
+That's interesting. But no, I think it's more they just needed a reference point.
+
+355
+00:43:15,790 --> 00:43:25,890
+For storing. In fact, this wouldn't really be affected by that at all because it has a reference date.
+
+356
+00:43:26,250 --> 00:43:32,390
+And so when you get to the year 2000, it's just continuing to add on days, right?
+
+357
+00:43:32,400 --> 00:43:36,510
+So it wouldn't really wouldn't really affect it. Yeah.
+
+358
+00:43:38,850 --> 00:43:42,780
+Obviously this isn't the most convenient to look at. I mean, what the heck do these things mean?
+
+359
+00:43:43,800 --> 00:43:46,320
+And that's actually where formats come into play.
+
+360
+00:43:47,290 --> 00:43:56,050
+An informant tells us what an A variable looks like, what to expect it to look like when you're importing and a format.
+
+361
+00:43:57,180 --> 00:44:03,660
+Is tell SAS how you want the actual data to be displayed.
+
+362
+00:44:05,760 --> 00:44:09,810
+Okay. So if I add this format statement statement at the end.
+
+363
+00:44:11,980 --> 00:44:15,700
+Notice I'm using the same notation for the format as the format.
+
+364
+00:44:17,850 --> 00:44:28,360
+Because they work for both in formats and formats. If I add that in and open it up, it will now display.
+
+365
+00:44:29,660 --> 00:44:35,810
+With that look that we're more familiar with. This does not mean.
+
+366
+00:44:38,390 --> 00:44:43,820
+That those dates aren't still stored as the number of days since June 1st, 1968.
+
+367
+00:44:43,820 --> 00:44:46,820
+They still are. There's still that weird number.
+
+368
+00:44:47,810 --> 00:44:50,840
+If this is just telling it how to display the data.
+
+369
+00:44:52,090 --> 00:45:00,460
+For your viewing pleasure. Okay. You can still subtract these things and everything just like it was a numeric variable.
+
+370
+00:45:01,750 --> 00:45:07,910
+Yes. That's a great question.
+
+371
+00:45:08,050 --> 00:45:13,380
+We'll get to that very shortly. Yep.
+
+372
+00:45:14,380 --> 00:45:23,080
+It's a good question. You know, the question is, though, about these formats or in formats.
+
+373
+00:45:23,950 --> 00:45:32,890
+Yes. I know you said in formats, but you don't have to for the characters you would you have to figure out to format for.
+
+374
+00:45:34,140 --> 00:45:39,090
+Like the time. If that.
+
+375
+00:45:43,560 --> 00:45:51,890
+Yeah. So. I think the question you're asking here is if you had a character variable.
+
+376
+00:45:53,840 --> 00:46:02,260
+Um. Perhaps like the last name here. Which is in format has 12 that right.
+
+377
+00:46:04,220 --> 00:46:08,460
+And you wanted to format that again. I'm.
+
+378
+00:46:14,020 --> 00:46:18,640
+I'm having a hard time thinking of a situation where you would want to do that because it's already character.
+
+379
+00:46:19,930 --> 00:46:22,990
+Right. So it's a character string already.
+
+380
+00:46:24,600 --> 00:46:29,110
+If you wanted to. If you wanted to.
+
+381
+00:46:31,160 --> 00:46:39,590
+Cut it off again, you might format it as eight that and then it's going to display it with cutoffs at eight.
+
+382
+00:46:41,040 --> 00:46:46,620
+It's not going to change the length. It's still going to be 12, but it would display it as only eight.
+
+383
+00:46:47,520 --> 00:46:50,130
+So if you wanted to do that for some reason, you could.
+
+384
+00:46:50,250 --> 00:46:54,990
+If you just wanted to shorten the variable or whatever, when you're looking at it, you could do that.
+
+385
+00:46:57,420 --> 00:47:03,450
+And in that case, you would use a format statement and you'd put dollar sign.
+
+386
+00:47:07,750 --> 00:47:13,710
+Okay. No other questions about these.
+
+387
+00:47:19,200 --> 00:47:33,190
+Okay. So again, in formats versus formats in formats are going to be needed by the data step to know what the variables look like,
+
+388
+00:47:33,210 --> 00:47:40,000
+what to expect in the formats. Just telling Sass how to display that data, it's not really needed.
+
+389
+00:47:40,390 --> 00:47:44,160
+It's just nice for the user. Okay.
+
+390
+00:47:47,830 --> 00:47:53,559
+Placement of informants. They do either need to come before the input statement.
+
+391
+00:47:53,560 --> 00:48:02,050
+As we already discussed. There was a good question there about that. They can also happen in the input statement itself.
+
+392
+00:48:02,650 --> 00:48:11,890
+So if you don't want to do the in format statement, you can specify the actual in format in the input statement like this.
+
+393
+00:48:13,990 --> 00:48:22,160
+Okay. And they don't work exactly the same. It will have the nice effect that the order won't change like it did before.
+
+394
+00:48:22,340 --> 00:48:26,080
+So if you do want to keep the order, you can do it this way. Instead.
+
+395
+00:48:30,860 --> 00:48:41,190
+All right. We talked about that. So it's a slightly more complicated situation where you have data in columns.
+
+396
+00:48:45,940 --> 00:48:49,150
+You know, it's columns instead of like tab, for example,
+
+397
+00:48:49,900 --> 00:48:54,850
+because if you open it up and you kind of put your pointer in here and you'll be able to move
+
+398
+00:48:54,850 --> 00:48:59,710
+your arrow left and right and it won't jump from one to the next like it does with TAB.
+
+399
+00:49:00,100 --> 00:49:12,280
+There'll be nice little consistent spaces in here, but they're also all lined up like this in specific columns, so we can deal with that in as well.
+
+400
+00:49:13,570 --> 00:49:16,750
+The nice things about this type of data is not required.
+
+401
+00:49:17,830 --> 00:49:22,059
+Characters can have embedded spaces if you want. You can.
+
+402
+00:49:22,060 --> 00:49:25,180
+And this is where you can skip the unwanted variables if you want as well.
+
+403
+00:49:27,940 --> 00:49:32,490
+So you're going to you're going to approach it the same way as we just did with any external data.
+
+404
+00:49:34,570 --> 00:49:42,640
+But now, instead of just a regular in format, we're going to have to tell it actually a range of values.
+
+405
+00:49:44,560 --> 00:49:48,760
+Where it should look for the variables and we can do that in the input statement.
+
+406
+00:49:50,110 --> 00:49:56,920
+So here first variables, fruit, it's character and we're telling it to look in the range 1 to 8.
+
+407
+00:49:56,980 --> 00:50:01,450
+So character 1 to 8, which is actually right here.
+
+408
+00:50:03,200 --> 00:50:08,939
+Okay. And then variable one that's from 12 to 15.
+
+409
+00:50:08,940 --> 00:50:14,850
+That's 12 to 15 on this column and 16 to 19 and so on.
+
+410
+00:50:15,600 --> 00:50:26,270
+So we just have to specify the exact range. So if you run this thing, it should look like you expect.
+
+411
+00:50:30,220 --> 00:50:36,520
+Okay. So if you want to skip one of them, that's no problem.
+
+412
+00:50:36,520 --> 00:50:40,510
+In this case, use spacing. Find the exact place to look for these variables.
+
+413
+00:50:41,200 --> 00:50:45,970
+So if you want to skip this third column, just skip it in your input statement.
+
+414
+00:50:51,730 --> 00:51:08,290
+Okay. Now, if you do have dates in your column data, that kind of throws a wrench in things a little bit.
+
+415
+00:51:09,480 --> 00:51:19,290
+There's this art indicator where you can, instead of telling it the full range, you can tell it the starting value with an at.
+
+416
+00:51:22,060 --> 00:51:28,750
+Okay. So if I use at one, I start looking for fruit at the first space.
+
+417
+00:51:29,970 --> 00:51:35,700
+And it all. Look for variable two from 16 to 17.
+
+418
+00:51:36,000 --> 00:51:40,800
+So essentially it's going to start looking here and then go until it starts reading another variable.
+
+419
+00:51:41,820 --> 00:51:49,860
+Okay. So we'll look in that whole range up to the next one. But you're going to need this if you've got dates in your account data.
+
+420
+00:51:50,580 --> 00:51:55,590
+So just use an app to indicate the beginning of that date. Okay.
+
+421
+00:51:57,510 --> 00:52:07,430
+So no big deal. It's just, uh. SAS doesn't like dates for columns very well, so you need to indicate it in a slightly different way.
+
+422
+00:52:10,010 --> 00:52:13,309
+All right. Trying to hurry along, because I know we're close to time.
+
+423
+00:52:13,310 --> 00:52:24,860
+Here we are. Okay, we're over time. There's a couple options, and I just want to make sure you understand.
+
+424
+00:52:26,970 --> 00:52:36,480
+If you are trying to read this data in its tab delimited and you run this code, you're going to get a problem here.
+
+425
+00:52:37,080 --> 00:52:40,350
+The Heights and Waits didn't quite read in appropriately.
+
+426
+00:52:41,280 --> 00:52:47,040
+You'll notice gender showed up under gender. Well, now, this is because we had a header.
+
+427
+00:52:47,420 --> 00:52:54,520
+We didn't tell it. There was a header. So the way to fix that is with a first jobs option.
+
+428
+00:52:55,740 --> 00:53:00,060
+So we just need to tell it to start looking for data at line two instead of line one.
+
+429
+00:53:04,880 --> 00:53:11,190
+And we can also tell at the last. Line to look at with an equals option.
+
+430
+00:53:11,880 --> 00:53:15,510
+So if you only wanted to read nine through 19, it had both these options.
+
+431
+00:53:20,950 --> 00:53:25,810
+Missing this. If you're hand entering data, you can deal with that with dots.
+
+432
+00:53:25,840 --> 00:53:29,200
+Whether it's character or numeric, normally that is only a character missing.
+
+433
+00:53:29,590 --> 00:53:32,980
+If you're hand entering data, you can fix any missing issues with a dot.
+
+434
+00:53:34,590 --> 00:53:42,540
+Okay. And there's a couple of other interesting.
+
+435
+00:53:44,850 --> 00:53:56,970
+Options as well. There's something called myths over and shrunk over these both tell SAS to not go to the next line by default.
+
+436
+00:53:57,970 --> 00:54:07,680
+So if you had something. Like this data on the right here is kind of some double there's some missing stuff there.
+
+437
+00:54:08,790 --> 00:54:11,790
+And if you tried to run this, you'd see it.
+
+438
+00:54:11,790 --> 00:54:14,790
+Read Sarah 31 for Beth 12.
+
+439
+00:54:16,110 --> 00:54:26,670
+And then there's some missing. Right. So the mis over is telling it not to go to the next line to to to find that missing data.
+
+440
+00:54:27,420 --> 00:54:34,290
+If you don't have that, it's going to read in, try to read in and for the next size value.
+
+441
+00:54:35,690 --> 00:54:39,700
+Okay. Of course, being character like that and me still missing.
+
+442
+00:54:39,700 --> 00:54:42,640
+But basically the idea is.
+
+443
+00:54:43,780 --> 00:54:55,240
+If you don't want it to read the next line, which you usually don't, then use the mouse over for regular external files where you can use trunk over.
+
+444
+00:54:56,670 --> 00:55:04,470
+Here if you've got columnar data for the same purpose. Sorry I'm skipping through this long, but I know we're out of time.
+
+445
+00:55:07,120 --> 00:55:13,270
+I guess the other one we didn't talk about is DSD. This will allow the delimiter to have.
+
+446
+00:55:15,240 --> 00:55:23,580
+Allow there to be multiple deliveries in a row. And that's telling says to indicate multiple dilemmas in a row means that there's missing.
+
+447
+00:55:24,760 --> 00:55:30,140
+This is usually four comma separated. Separated files.
+
+448
+00:55:31,370 --> 00:55:36,110
+But you can use it for other ones as long as you specify the deal and option.
+
+449
+00:55:38,780 --> 00:55:42,460
+Okay. But.
+
+450
+00:55:44,920 --> 00:55:53,000
+That was a lot to talk about today. Sorry if we're going to be in a little over any questions anyone has.
+
+451
+00:55:57,680 --> 00:56:00,410
+All right. Good luck in your lab today.
+

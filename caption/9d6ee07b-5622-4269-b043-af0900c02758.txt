@@ -1,0 +1,3208 @@
+1
+00:00:01,420 --> 00:00:04,750
+You're with that. Yeah.
+
+2
+00:00:11,430 --> 00:00:19,680
+All right. Back to what I was saying. So, yes, we will have different file paths that are different or different and appendices to the
+
+3
+00:00:19,680 --> 00:00:22,860
+file that's going to tell us it's going to distinguish between the types of files.
+
+4
+00:00:23,310 --> 00:00:26,490
+So text files are nice because they're fairly standardized.
+
+5
+00:00:26,490 --> 00:00:29,790
+You can use them across many systems and read them in statutory demand.
+
+6
+00:00:29,790 --> 00:00:37,740
+SPSS Lots Editors. If you're doing that kind of stuff, Python is going to know how to work with text or with the text files.
+
+7
+00:00:38,100 --> 00:00:41,580
+SPSS files are going to come in the form of SPV.
+
+8
+00:00:42,120 --> 00:00:48,480
+So that's just the it's just going to wait for a way for the computer to distinguish what type of file it is.
+
+9
+00:00:48,780 --> 00:00:53,160
+So when you download this, you're probably going to get asked with a notepad editor, can you open it up?
+
+10
+00:00:53,400 --> 00:00:59,490
+That's fine. When you download, this is going to be a safety file that your computer, if it doesn't have SPSS, is not going to be able to open.
+
+11
+00:00:59,790 --> 00:01:06,090
+The good news about R is it doesn't care whether or not you have SPSS, you can still open it within the software.
+
+12
+00:01:06,390 --> 00:01:12,299
+So and I try to do for it throughout the semester is give folks different files some from status.
+
+13
+00:01:12,300 --> 00:01:14,730
+I'm from SAS, I'm from a lot of text files.
+
+14
+00:01:15,240 --> 00:01:21,840
+Have you started to open them so you feel comfortable and then it's never going to be, Oh shoot, I don't remember this kind of a file.
+
+15
+00:01:22,080 --> 00:01:26,340
+I don't know what sort of software it's supposed to be used for, but I still know how to read it.
+
+16
+00:01:26,340 --> 00:01:28,860
+And the problem is you're going to have to do a little bit of that.
+
+17
+00:01:29,130 --> 00:01:34,860
+So for example, our base R and we'll talk about this today cannot read in SPSS files by itself.
+
+18
+00:01:35,460 --> 00:01:41,760
+You have to have a specific package that will allow it to read the SPSS file and access all the metadata that's within it.
+
+19
+00:01:42,270 --> 00:01:47,430
+So we're going to be able to we're going to want to tell our I know I'm working with an SPSS file.
+
+20
+00:01:47,640 --> 00:01:51,750
+I'm going to bring in some additional functionality so they can read it in and get all that rich information.
+
+21
+00:01:52,410 --> 00:01:59,430
+So for today, long winded answer, I can download both and then we'll start with the IQ data example the next data,
+
+22
+00:02:00,240 --> 00:02:09,780
+I can talk about it just a little bit, but this is a data set that Zimmerman here in our department started to collect back in 1994.
+
+23
+00:02:10,530 --> 00:02:14,129
+It's a dataset that I've worked with pretty extensively over the last ten years.
+
+24
+00:02:14,130 --> 00:02:18,510
+It's also freely available from AICPA SA. You might know what ICP users.
+
+25
+00:02:19,840 --> 00:02:25,930
+I suppose there is a consortium of everything data that's over in the Institute for Social Research.
+
+26
+00:02:26,200 --> 00:02:31,900
+And the purpose of the whole consortium, really, is to get a good data available to the public.
+
+27
+00:02:32,260 --> 00:02:37,210
+So faculty or anybody else can register their data with ICP this hour and give folks access to it.
+
+28
+00:02:37,510 --> 00:02:41,890
+So there are thousands, literally thousands of data sets that you can access here at the University of Michigan.
+
+29
+00:02:42,610 --> 00:02:47,680
+If you have interest and you can search by the types of questions that you're interested in or the data that you're interested in,
+
+30
+00:02:48,130 --> 00:02:53,740
+an interest in adolescence and interested in older people. I'm interested in HIV and whatever.
+
+31
+00:02:54,010 --> 00:02:59,710
+You can search and find datasets that people are making freely available so that you can access it all well and good.
+
+32
+00:03:00,190 --> 00:03:04,750
+But the reason, one of the reasons why we're using advance is because the first actually know all 12 ways of that data.
+
+33
+00:03:05,050 --> 00:03:09,310
+It's longitudinal data. It's available for you from ICP. Sorry, we can download it pretty easily.
+
+34
+00:03:09,820 --> 00:03:12,820
+We don't have to go through IAB or anything like that, all good stuff.
+
+35
+00:03:13,090 --> 00:03:18,430
+And so this code book here is just a it's going to be detailed on,
+
+36
+00:03:18,430 --> 00:03:22,510
+I think just the first wave, but I can provide more of that information within later.
+
+37
+00:03:22,780 --> 00:03:25,930
+So we'll do some exercises with that data. We'll run some examples with that data.
+
+38
+00:03:26,590 --> 00:03:30,850
+So please download all of those. Keep track of where you're downloading.
+
+39
+00:03:31,060 --> 00:03:38,710
+So I'm going to encourage folks to start setting particular directory so that you always know that when I'm working in our studio,
+
+40
+00:03:39,100 --> 00:03:46,299
+these are where my files are going to be. It is not good practice to just throw stuff up on your desktop and access it that way if you are
+
+41
+00:03:46,300 --> 00:03:49,900
+working with a network drive or something and that's where you plan to be spending most of your time.
+
+42
+00:03:50,110 --> 00:03:57,430
+We can talk about how you can set our studio to be able to access those files pretty readily versus each time.
+
+43
+00:03:57,760 --> 00:04:03,400
+All right. Well, now I'm going to create a a folder, and this is how I'm going to sort of organize.
+
+44
+00:04:03,760 --> 00:04:07,120
+There is a nice class over saw are in the summer times.
+
+45
+00:04:07,120 --> 00:04:13,480
+It's taught by Jeffrey Scott Lang, who is a kind of literally wrote books on how to work with Stata,
+
+46
+00:04:13,960 --> 00:04:22,600
+but the classes on like the reproducibility and replication of research and he talks all about trying to spend some time upfront,
+
+47
+00:04:23,080 --> 00:04:30,129
+organizing your syntax files, organizing your data so that you're not using Justin's data.
+
+48
+00:04:30,130 --> 00:04:35,320
+Version 2.1, you know, August 31st 22.
+
+49
+00:04:35,740 --> 00:04:42,730
+And then you see a little bit later Justin's data version 2.2, August 27th.
+
+50
+00:04:43,240 --> 00:04:48,309
+Right? And you start to get some of that mixed up file names. You don't remember what exactly are pulling from you.
+
+51
+00:04:48,310 --> 00:04:53,860
+Maybe don't have a tidy script file. It allows you to to really understand where you started and how you got to a
+
+52
+00:04:53,860 --> 00:04:57,270
+particular data set that you're in the analysis and there's a reason to this.
+
+53
+00:04:57,280 --> 00:05:01,900
+I can give you some personal experience. I sent a paper into the journal of these in adolescence.
+
+54
+00:05:02,410 --> 00:05:05,440
+Happily, it was as if they asked me to revise the data.
+
+55
+00:05:05,740 --> 00:05:13,210
+This was after a year. I was trying to reproduce the analysis that I had Ron written up and sent and had reviewed and everybody was excited about.
+
+56
+00:05:13,390 --> 00:05:17,890
+I could not do I absolutely could not do enough. I'd the thought it's embarrassing.
+
+57
+00:05:18,460 --> 00:05:22,690
+I could not figure out how I got to where I was and I had to start all over again.
+
+58
+00:05:23,110 --> 00:05:26,380
+All that work all over again. No good resolution. I got published.
+
+59
+00:05:26,560 --> 00:05:31,150
+Couple of words trying to avoid those types of things.
+
+60
+00:05:31,390 --> 00:05:35,290
+A little bit of time upfront is going to save you a lot of headache and heartache in the future.
+
+61
+00:05:35,950 --> 00:05:40,750
+All right. So and so Bucks, you can go down to your file window here.
+
+62
+00:05:43,520 --> 00:05:51,070
+I mean, I can show folks I know we just ran through it briefly on Tuesday.
+
+63
+00:05:51,580 --> 00:05:59,500
+So here's your are windows. So if you're working from your from university machine or if you downloaded our studio, you will have our as well.
+
+64
+00:05:59,800 --> 00:06:05,320
+It should be this version or something newer. I think it's four point something at this point, but it's not going to matter.
+
+65
+00:06:06,070 --> 00:06:15,580
+I don't think we're going to spend too much time in here. But just as a as an analog to our studio, it's maybe nice to have that window open.
+
+66
+00:06:15,880 --> 00:06:24,860
+Here is our studio. Right.
+
+67
+00:06:26,510 --> 00:06:30,210
+And I mean, isn't it over? Right.
+
+68
+00:06:30,560 --> 00:06:35,570
+We'll figure that out. All right.
+
+69
+00:06:35,600 --> 00:06:43,730
+Who's winning? I mean, do you want to pop on to one of the university ones?
+
+70
+00:06:43,760 --> 00:06:46,910
+Oh, no, no, I'm with you. I'm just. There. There's no, no, there.
+
+71
+00:06:46,940 --> 00:06:49,970
+There's nothing. There's this. This is happy.
+
+72
+00:06:50,210 --> 00:06:54,780
+This is good stuff. This this is something to be nervous about.
+
+73
+00:06:54,800 --> 00:06:58,129
+This is not user friendly. This is not happy.
+
+74
+00:06:58,130 --> 00:07:04,700
+This is students getting frustrated and saying, you know, screw this, forget this, I'm going to go and use SPSS from now on.
+
+75
+00:07:05,690 --> 00:07:07,100
+It does not have to be this.
+
+76
+00:07:07,400 --> 00:07:14,780
+We don't have to be afraid of syntax, language, we don't have to be afraid of the almost infinite possibilities and functionalities of this program.
+
+77
+00:07:14,780 --> 00:07:19,340
+What we're going to do is we're going to find our happy place. There is no one there doing the types of things that we need.
+
+78
+00:07:19,640 --> 00:07:27,230
+But at the end of the day, folks, this is really a tool. This is a big part of our class, but this isn't the main reason for the class.
+
+79
+00:07:27,530 --> 00:07:33,109
+This is what's going to help us do some of the analyzes to try to interpret and disseminate some of that data.
+
+80
+00:07:33,110 --> 00:07:37,550
+That's the only reason we're we're going to use this thing for its functions, but that's it.
+
+81
+00:07:37,880 --> 00:07:42,440
+And there are other ways that we can do this. You can use Python, you can use SAS or SPSS data.
+
+82
+00:07:42,770 --> 00:07:51,499
+It's all going to give you the same results with perhaps some differences at the 50th decimal place, right?
+
+83
+00:07:51,500 --> 00:07:54,530
+That's the level of precision that all these programs have at this point.
+
+84
+00:07:54,890 --> 00:08:01,490
+So we may not be too spooked about our studio and it's going to make our lives a lot easier than it used to be.
+
+85
+00:08:01,970 --> 00:08:06,080
+All right. So three big windows here. We're missing a fourth that we're going to use extensively.
+
+86
+00:08:06,470 --> 00:08:12,740
+But I mentioned last Tuesday, we start with just the console. This is where all the data and operations are going to happen.
+
+87
+00:08:13,100 --> 00:08:16,880
+Right, right from this console. The problem is, as I mentioned, it's ephemeral.
+
+88
+00:08:17,300 --> 00:08:21,290
+It's going to we're going to have this information. Well, it's kind of up on our screen.
+
+89
+00:08:21,500 --> 00:08:27,230
+As soon as we close what's called a workspace or a project space, all that information will be lost to the void.
+
+90
+00:08:27,650 --> 00:08:31,969
+We're not going to build to get it back, which is why we're either going to save our workspace,
+
+91
+00:08:31,970 --> 00:08:38,629
+which you can think of as kind of the desktop, that when when we open our studio,
+
+92
+00:08:38,630 --> 00:08:41,750
+it's going to be our our way of of holding some information,
+
+93
+00:08:41,750 --> 00:08:46,340
+kind of keeping track of the objects and stuff that we've done or we're going to
+
+94
+00:08:46,340 --> 00:08:50,810
+have our script file that's going to allow us to replicate exactly what we did.
+
+95
+00:08:51,140 --> 00:08:58,490
+I'm a fan of the latter because the workspace is just a big bunch of data that's stored in a file on a computer.
+
+96
+00:08:58,790 --> 00:09:03,200
+That's to me is dangerous because any time that file gets corrupted, it gets lost.
+
+97
+00:09:03,410 --> 00:09:05,690
+Something leaves the university that could be gone.
+
+98
+00:09:06,020 --> 00:09:12,320
+That script file, it's like kill kilobytes rather than megabytes or gigabytes, depending on how much data we're using.
+
+99
+00:09:12,800 --> 00:09:19,100
+Kilobytes, sharable text, file. Anybody can pop it open if you have Windows or Mac or something like that.
+
+100
+00:09:19,490 --> 00:09:24,140
+And it's always that record. It might not be all the data, but it says This is where the data live.
+
+101
+00:09:24,650 --> 00:09:30,530
+This is the data that I'm going to import. This is these are the initial cleaning that I want to do all the way down to.
+
+102
+00:09:30,800 --> 00:09:34,790
+Here is my fancy analysis in the windows, in plots that I've created.
+
+103
+00:09:35,360 --> 00:09:38,660
+All right. But it's all going to happen through the magic of our console.
+
+104
+00:09:38,870 --> 00:09:45,230
+You can see now log on or if you want to in the upper right hand screen here we have our environment,
+
+105
+00:09:45,350 --> 00:09:49,220
+which is going to start to populate as we as we use this workspace,
+
+106
+00:09:49,700 --> 00:09:54,500
+as we start to do stuff and create stuff, our environment is going to start to fill in.
+
+107
+00:09:54,950 --> 00:09:55,310
+All right.
+
+108
+00:09:55,730 --> 00:10:02,540
+So when we when we run functions or calculations or create data sets or import dataset, these are all going to start to populate in this space.
+
+109
+00:10:02,900 --> 00:10:08,060
+If you're using a computer like this in the room, this is almost going to always start from a blank slate.
+
+110
+00:10:08,570 --> 00:10:13,880
+If you're using yours at home or on your computer, you're going to see a lot of that stuff start to just be there,
+
+111
+00:10:14,060 --> 00:10:16,710
+which is okay as long as it doesn't get unwieldy. Okay.
+
+112
+00:10:17,090 --> 00:10:22,970
+So you're going to you'll see if you close down the window and you don't say don't don't say anything, which rarely folks do.
+
+113
+00:10:23,480 --> 00:10:30,200
+You'll still see some of those things left over. This history is something that didn't exist with the original or I love it.
+
+114
+00:10:30,440 --> 00:10:34,100
+I love it because it's a record of everything that you've done in your session, right?
+
+115
+00:10:34,430 --> 00:10:38,360
+So you've been working in a session. If you say, give me two plus two, it's going to show up in your history.
+
+116
+00:10:38,720 --> 00:10:44,480
+It's an easy way to replicate things. Is it a great way to save things and monitor your your previous work?
+
+117
+00:10:44,810 --> 00:10:49,970
+Nope. Nope. All right, so use it now.
+
+118
+00:10:50,050 --> 00:10:53,690
+It's there. Save yourself some steps, but don't rely on it for.
+
+119
+00:10:53,900 --> 00:10:57,130
+Oh, I can just go check my history and figure out what to do. That's not there.
+
+120
+00:10:57,290 --> 00:11:00,919
+That's not a good function of these connections I never really use.
+
+121
+00:11:00,920 --> 00:11:12,020
+But this is if you're going to be working kind of with networks and such down here in the bottom right hand corner, it's going to be helpful files.
+
+122
+00:11:12,020 --> 00:11:17,600
+This is just going to be access to your local environment. You should start to see some of the pathways and folders that you want to link to.
+
+123
+00:11:18,110 --> 00:11:26,089
+So again, if you are if you're not quite used to, I'm going to have a specific set of information that I'm going to use for my R studio.
+
+124
+00:11:26,090 --> 00:11:31,220
+I'm going to have a file on my C drive or I'm a user, a network drive folder or something like that.
+
+125
+00:11:31,670 --> 00:11:34,970
+This is probably where you're going to start to see some of that information popping up.
+
+126
+00:11:35,600 --> 00:11:37,970
+These are where I'm drawing my files from. I downloaded something.
+
+127
+00:11:38,370 --> 00:11:44,040
+Chances are once you're down those folders, depending on how everybody has their things set up, you'll probably start to see some of those paths.
+
+128
+00:11:44,490 --> 00:11:50,370
+I'm going to say let's move away from just your downloads folder, which will be deleted every two years or something like that.
+
+129
+00:11:50,880 --> 00:11:54,600
+Could you probably still find your Dallas folder? Yes. Is it a good practice?
+
+130
+00:11:54,810 --> 00:12:00,600
+No. So we're going to find ourselves a folder that we like to access to, to pull some of these files out.
+
+131
+00:12:02,310 --> 00:12:06,960
+Plots just like it sounds. This is where all our happy visualizations are going to pop up.
+
+132
+00:12:07,350 --> 00:12:13,170
+Right. Whether we use bazaar functionality or whether we use fancy packages like did you plot to they're going to show up here.
+
+133
+00:12:15,480 --> 00:12:20,510
+Packages are there and they are the real innovation behind.
+
+134
+00:12:20,520 --> 00:12:24,839
+Are there like apps for your phone? Your phone can make phone calls.
+
+135
+00:12:24,840 --> 00:12:31,170
+It can send texts. It can open your whatever music library or something like that when you get it from the store.
+
+136
+00:12:32,100 --> 00:12:41,000
+All the apps that you download from the App Store, wonderful things like social media, like web,
+
+137
+00:12:41,100 --> 00:12:45,510
+like news, like whatever else is wonderful in your life thanks to these magic devices.
+
+138
+00:12:47,040 --> 00:12:53,130
+Same thing with all you can download additional functionality in the form of packages.
+
+139
+00:12:53,460 --> 00:13:03,630
+These are user written software that just build on the base are and they are updated with pretty good regularity and
+
+140
+00:13:03,630 --> 00:13:10,709
+they have just made our kind of exponentially more powerful than other programs because it's open source right now.
+
+141
+00:13:10,710 --> 00:13:16,740
+Open source has its, you know, caveats. You have to kind of trust the developer in the sense that do you really know what you're talking about?
+
+142
+00:13:17,100 --> 00:13:21,630
+But the folks that tend to get into the developing packages really do know what they're talking about.
+
+143
+00:13:22,050 --> 00:13:28,530
+And there's a lot of norms within R and the R community to make sure that when people are developing packages and sharing them,
+
+144
+00:13:28,830 --> 00:13:31,620
+that you can trust them, that their calculations are correct, etc., right.
+
+145
+00:13:31,620 --> 00:13:39,090
+So there is a lot of what kind of peer overview, if you will, but they are open source and because they are user developed,
+
+146
+00:13:39,390 --> 00:13:45,690
+chances are they're going to be moving at a lot faster pace than those base packages for SAS and Data and SPSS.
+
+147
+00:13:45,690 --> 00:13:52,230
+Right. Or if there are just little tweaks like geez, I know the whole field likes to do this kind of analysis this way,
+
+148
+00:13:52,530 --> 00:13:55,560
+but there's also a little subfield that likes to have a little tangent.
+
+149
+00:13:56,040 --> 00:14:00,749
+For example, maybe they just like to share just certain sorts of data or something like that,
+
+150
+00:14:00,750 --> 00:14:03,810
+or a particular sub analysis that not everybody else does.
+
+151
+00:14:03,990 --> 00:14:11,010
+Somebody might write a package for that or there's a there there are some there are increasingly more packages around how to manage your data.
+
+152
+00:14:11,370 --> 00:14:16,940
+So somebody in a medical school might manage data differently than somebody in a school of public health or social sciences, for example.
+
+153
+00:14:17,280 --> 00:14:20,399
+So somebody might write packages to make that process easier.
+
+154
+00:14:20,400 --> 00:14:23,940
+In fact, there are a couple that I'll talk to you about, like the Twitterverse verse and such,
+
+155
+00:14:24,690 --> 00:14:29,340
+that are helping us work a little bit more easily with an arm. But packages are great.
+
+156
+00:14:29,610 --> 00:14:33,690
+I will give you lots of packages that I like to work with.
+
+157
+00:14:34,500 --> 00:14:41,010
+The promise and the challenge with are again, you might find that there are four packages to do the same thing and each one has
+
+158
+00:14:41,100 --> 00:14:44,399
+a slightly different code or slightly different arguments for their functions,
+
+159
+00:14:44,400 --> 00:14:47,070
+whatever it's going to be, or they have overlapping functions.
+
+160
+00:14:47,070 --> 00:14:53,190
+So we use the same name of a function, something to make an out to, to run an operation in different packages.
+
+161
+00:14:53,550 --> 00:14:57,660
+And then all of a sudden we have some redundancies that we have to be careful for because we need to know what we're doing.
+
+162
+00:14:58,140 --> 00:15:02,040
+So those are some things just to consider and we'll walk through those as the semester goes on.
+
+163
+00:15:02,820 --> 00:15:06,390
+Help menu. It's like it sounds.
+
+164
+00:15:07,380 --> 00:15:13,140
+Try to use it. I think the more and more you check out their help menus for different R function packages,
+
+165
+00:15:13,140 --> 00:15:17,070
+etc., the more you're going to get used to seeing where the pertinent information is.
+
+166
+00:15:17,370 --> 00:15:21,989
+There's going to be a lot more information than you need. But you can find, for example, what the different arguments are.
+
+167
+00:15:21,990 --> 00:15:26,220
+Those are the things that you put into a function, the things that you're going to ask it to do before you execute it.
+
+168
+00:15:26,640 --> 00:15:30,300
+You'll see what the arguments for any given function or whatever packages are going to be.
+
+169
+00:15:30,810 --> 00:15:35,610
+It's going to give you some examples like run this line of text and you're going to get something there.
+
+170
+00:15:36,060 --> 00:15:40,770
+And then from there we can kind of tweak the the examples to fit our purposes.
+
+171
+00:15:42,120 --> 00:15:52,010
+Oftentimes there's a lot more of the the minutia around, for example, the underlying statistics or the development of the app or the package.
+
+172
+00:15:52,020 --> 00:15:57,780
+Choose me and I'll leave it to you as to whether or not you really want to get into all that, but it's there.
+
+173
+00:15:58,920 --> 00:16:07,649
+That said, I typically will go to Google before I go to the home and I figure what the viewer does.
+
+174
+00:16:07,650 --> 00:16:16,860
+And not only is it, it's for if you're going to guess and I really use this for like local files if you want to view like some like this,
+
+175
+00:16:16,890 --> 00:16:20,190
+some of your local Internet files and stuff. All right.
+
+176
+00:16:20,550 --> 00:16:25,320
+So I imagine there are three things here. There is one more pain that we absolutely want to know about.
+
+177
+00:16:25,320 --> 00:16:37,770
+That's our script file or our source page. And if you go up here into file and click on new file and our script or more expediently if you click on.
+
+178
+00:16:38,560 --> 00:16:43,090
+There's a little one right here. You can click on our script, you'll see our script.
+
+179
+00:16:43,660 --> 00:16:49,720
+And it works just like a a note file or like a text file on your on your desktop.
+
+180
+00:16:50,080 --> 00:16:53,680
+So you can type in anything that you want and it's not going to hurt anything.
+
+181
+00:16:53,680 --> 00:16:58,000
+You can press enter, you see, it's just going to give you new command lines.
+
+182
+00:16:58,480 --> 00:17:02,680
+The script file does nothing except for record what you're going to do.
+
+183
+00:17:03,130 --> 00:17:07,990
+So all of our code is going to be in a script file. The execution is going to happen down here in the console.
+
+184
+00:17:08,440 --> 00:17:15,640
+If I try to do the same thing down on my console, this is where I start to get those errors right.
+
+185
+00:17:16,420 --> 00:17:20,260
+So the nice thing about the script files for our studio,
+
+186
+00:17:20,800 --> 00:17:30,130
+which is not true for the script files for R is you're going to start to see some colors pop up when you're making views and that's really helpful.
+
+187
+00:17:30,610 --> 00:17:35,620
+It's going to kind of tell you when the code that you've written is consistent with what it's expecting.
+
+188
+00:17:36,160 --> 00:17:41,170
+And there are also a little few shortcuts in terms of help me fill in this code in some other areas,
+
+189
+00:17:41,170 --> 00:17:46,720
+even some menus to kind of think through how are we going to do this more or how can we do this correctly?
+
+190
+00:17:47,140 --> 00:17:49,840
+So it's not going to mean that we're never going to name air.
+
+191
+00:17:50,140 --> 00:17:58,450
+But by and large, our studio is making the coding aspect of our work, the syntactical aspect of our work much easier.
+
+192
+00:17:58,960 --> 00:18:05,080
+So as we're moving through the semester, if it's if this is the first time that you've been doing this, expect a few kind of headaches.
+
+193
+00:18:05,410 --> 00:18:12,489
+But by and large, I think people are very surprised with how well they can use this functionality.
+
+194
+00:18:12,490 --> 00:18:16,210
+And again, it's going to be a great record for how we want to move forward.
+
+195
+00:18:16,780 --> 00:18:25,090
+And I'll let folks on their own kind of explore around how you want to, you know, use some of these different windows.
+
+196
+00:18:25,900 --> 00:18:28,990
+All of these little buttons here can be helpful.
+
+197
+00:18:29,050 --> 00:18:34,720
+And this is just a saved button source on save just means if you click it every time you save it, it's going to run the entire file.
+
+198
+00:18:34,720 --> 00:18:43,030
+So when you click it, this is fine to replace kind of editing the code tools.
+
+199
+00:18:43,150 --> 00:18:48,010
+These are going to be some tools. Don't worry, I'm just going to go on through this rapid fire to help you do a little bit of that coding.
+
+200
+00:18:48,370 --> 00:18:53,499
+This is probably the one that I want you to know about because this is to run a line of script from your text, right?
+
+201
+00:18:53,500 --> 00:18:59,680
+So down here in my console window, if I want to run an operation, I type in the values and I hit enter.
+
+202
+00:19:01,060 --> 00:19:07,840
+That was my command right here. I'm sorry. And it returns the result of that command.
+
+203
+00:19:09,450 --> 00:19:14,960
+Now, again, there's not going to be any sort of record really of this in my tonsil.
+
+204
+00:19:15,480 --> 00:19:21,090
+Right. So when I ask you on Tuesday, what was the very first command that we ran on Thursday?
+
+205
+00:19:21,330 --> 00:19:23,310
+You either have to remember that it was two plus two.
+
+206
+00:19:23,850 --> 00:19:32,280
+If you are using your computer at home and you don't ever save your file or sorry if you don't ever close out your studio,
+
+207
+00:19:32,490 --> 00:19:38,790
+you're going to have this history there for you. But by and large, it's not going to be there for perpetuity.
+
+208
+00:19:39,600 --> 00:19:49,350
+Your script file which you can save. For example, CBS says Date September 1st and the break.
+
+209
+00:19:49,350 --> 00:19:57,210
+All my rules stick second. September versus happy September, everyone.
+
+210
+00:20:00,420 --> 00:20:05,430
+Now has just thrown a little moniker up there.
+
+211
+00:20:06,000 --> 00:20:10,540
+Even working now, it's going to put you right up in there.
+
+212
+00:20:10,590 --> 00:20:15,490
+Good old tab. It's got his name. So we know it's going to be located on desktop.
+
+213
+00:20:16,620 --> 00:20:22,280
+If I can get there. Practice here?
+
+214
+00:20:23,960 --> 00:20:27,680
+Yeah. Here. Here. Just an alpha. All right.
+
+215
+00:20:28,850 --> 00:20:34,400
+If you have. I'm actually a little surprised that it's not recognizing this as a, um.
+
+216
+00:20:35,060 --> 00:20:40,100
+Our studio file or in our file. But it's good to open it up from wherever you decide to set.
+
+217
+00:20:41,150 --> 00:20:45,200
+Usually it'll pop up in the Y kind of stood indicates that it's a it was create an our.
+
+218
+00:20:47,240 --> 00:20:57,230
+Right so the difference here again is when we make the same command oops if I just press enter now it just goes to the next one.
+
+219
+00:20:58,150 --> 00:21:04,620
+Right. So we have to use something like this run icon in focus.
+
+220
+00:21:04,620 --> 00:21:12,139
+See that third which will run the data or the one of the command or if you notice when you just hovered over it is control.
+
+221
+00:21:12,140 --> 00:21:16,640
+And there are nice little keyboard shortcuts throughout our studio, which is what I'll typically use.
+
+222
+00:21:17,060 --> 00:21:24,620
+So I just use control. Enter notice here that the the console is just showing us what we're doing, right?
+
+223
+00:21:24,620 --> 00:21:30,439
+It's returning the results. The environment shouldn't be changing much because we're not using any new files.
+
+224
+00:21:30,440 --> 00:21:38,480
+The history, though, is just spitting back out what we did so each time, including the errors, which can be a good thing or a bad thing.
+
+225
+00:21:39,320 --> 00:21:44,660
+And what's nice about the history window is that you can go back and say, all right, well, let me fix this line of code.
+
+226
+00:21:45,140 --> 00:21:49,380
+Now, when I double click on that line of code, notice that it pop down on the console.
+
+227
+00:21:49,400 --> 00:21:55,220
+And we want to avoid just running stuff from the console window because again, now I'm getting out of order.
+
+228
+00:21:55,580 --> 00:22:01,160
+I ran these three, two plus twos and then I jump back to this line and if I ran, right,
+
+229
+00:22:01,170 --> 00:22:05,450
+so there's just not going to be any sort of documentation of what I've been doing.
+
+230
+00:22:06,110 --> 00:22:10,790
+So better to take that information, put it back in my script file.
+
+231
+00:22:11,560 --> 00:22:21,120
+I can. So they had a record, and I just started it from there.
+
+232
+00:22:21,970 --> 00:22:25,590
+Okay, uh, let's see here.
+
+233
+00:22:28,310 --> 00:22:35,030
+Kind of basic functionality of artists looks an awful lot like Windows or even Macs to a certain extent creating new files,
+
+234
+00:22:35,030 --> 00:22:38,600
+creating your workspace, script file versus a workspace. What's the difference?
+
+235
+00:22:45,320 --> 00:22:49,100
+It's the workspace like everything together in this script is just that.
+
+236
+00:22:49,900 --> 00:22:57,860
+Yeah. Yeah. So the workspace is going to be the entirety of kind of your our studio window and all the things that you've created within our studio.
+
+237
+00:22:58,850 --> 00:23:04,340
+In this case, it would be saving some of this history. Right? So it should return some of this history that you run.
+
+238
+00:23:06,020 --> 00:23:12,410
+Errors and not errors. Anything that you might have saved as plots will all stay within your workspace.
+
+239
+00:23:12,710 --> 00:23:17,180
+The script file is simply just what we've been testing on this little notepad right now.
+
+240
+00:23:17,180 --> 00:23:21,840
+If I don't see my script file, it's not going to. We won't have any of that information, so we're going to keep that saved.
+
+241
+00:23:22,700 --> 00:23:25,339
+I just tried to save my script files.
+
+242
+00:23:25,340 --> 00:23:35,749
+I didn't hear about the type of file is no longer in our script or something that I clicked about, so it's here to fix that piece of it.
+
+243
+00:23:35,750 --> 00:23:40,459
+You don't need to do that if you don't want to, but it's going to be boring at the end.
+
+244
+00:23:40,460 --> 00:23:44,390
+That's the. Suffix.
+
+245
+00:23:47,710 --> 00:23:51,280
+So when we go see see that is that saving the script pilots for saving the hallway
+
+246
+00:23:51,490 --> 00:23:55,690
+when you go to save as this is saving this should be saving your script okay.
+
+247
+00:23:56,200 --> 00:23:59,470
+Oh yeah I get that off final thing and that's when it gets in.
+
+248
+00:24:00,580 --> 00:24:17,440
+But you said that dot service, if I want to save as if that are okay for that workspace, it should if you when I just try to close out of our studio.
+
+249
+00:24:19,710 --> 00:24:28,860
+So since season 22, when I close out of our studio, this was a script file.
+
+250
+00:24:28,860 --> 00:24:36,360
+But when you close your studio, it should say same workspace image and that will allow you to keep was basically
+
+251
+00:24:36,400 --> 00:24:42,300
+on your our studio and frankly that's what I tend to do on my own my own laptop.
+
+252
+00:24:42,780 --> 00:24:46,799
+But I'm still going to push people even if you have a lot of the information
+
+253
+00:24:46,800 --> 00:24:50,940
+that you're going to need in your in your environments or up in your history,
+
+254
+00:24:52,980 --> 00:24:59,670
+fall back on this script. Don't just assume that the data that you saved from last time is still going
+
+255
+00:24:59,670 --> 00:25:02,730
+to be hanging on our studio and that you're going to want to access it again.
+
+256
+00:25:03,090 --> 00:25:06,540
+I'd rather you start to get in the habit of I'm just going to re-import the data,
+
+257
+00:25:06,540 --> 00:25:12,000
+reclaim the data, and then move from there, because it only takes a half second to run,
+
+258
+00:25:12,300 --> 00:25:20,220
+you know, 150 lines of code that could pull in data, clean the data, get it ready for your basic analysis and then move forward.
+
+259
+00:25:20,850 --> 00:25:26,440
+Right? If you're really, really stubborn about it and you want to just have it sitting there on your studio, that's fine.
+
+260
+00:25:26,440 --> 00:25:33,960
+It's a nice back up. But again, I think in terms of replicability and making sure that you're on top of what did I save and when the script files
+
+261
+00:25:33,970 --> 00:25:45,120
+nice way to go and teach so yeah let's see here so projects are going to be isn't just another name for workspace.
+
+262
+00:25:45,630 --> 00:25:51,150
+So if you did want to have, for example, a workspace that was entirely dedicated to your midterm because you know,
+
+263
+00:25:51,150 --> 00:25:56,040
+you're going to be working with a data set, you know you're going to be reducing a data, clean the data set, getting it ready to go.
+
+264
+00:25:56,550 --> 00:26:01,770
+That might be a good example of when you would want to have a separate workspace that when you're only doing the midterm,
+
+265
+00:26:02,220 --> 00:26:06,420
+that's where you're going to be working. Same thing with a paper or a specific project.
+
+266
+00:26:07,260 --> 00:26:16,620
+Other times, again, I think I would rely more on just rerunning my script files, save buttons, all that kind of stuff are pretty self-explanatory.
+
+267
+00:26:16,980 --> 00:26:21,990
+This net document and compile report that's going to be working with what's called are markdown,
+
+268
+00:26:22,230 --> 00:26:27,719
+which is a lot text editor for our output and we'll talk about that over the course of the semester.
+
+269
+00:26:27,720 --> 00:26:32,040
+Folks will learn about that. I think I showed you an example and all those resources were built in are marked down.
+
+270
+00:26:32,340 --> 00:26:36,389
+So it's just a nice way to avoid some of the formatting headaches that we have
+
+271
+00:26:36,390 --> 00:26:39,570
+to deal with if we just put a copy and paste everything into a word document,
+
+272
+00:26:41,890 --> 00:26:47,520
+see here. Edit This is where you're going to save copy and paste, blah blah blah.
+
+273
+00:26:47,640 --> 00:26:52,440
+Looks a lot like a windows or windows code.
+
+274
+00:26:54,540 --> 00:26:58,169
+This is when we get down to the actual our script files.
+
+275
+00:26:58,170 --> 00:27:03,749
+So if we're going to begin to work with our script file, if we want to run things, if we want to move to sections,
+
+276
+00:27:03,750 --> 00:27:09,540
+if we want to do like repeated operations or functions like find and replace, we can use this code.
+
+277
+00:27:09,780 --> 00:27:15,690
+This code menu view is just the, the, the interface and what we're looking at within our studio.
+
+278
+00:27:16,140 --> 00:27:21,630
+I'm going to show you one thing that I'm going to do pretty consistently, because this, for whatever reason, doesn't work for me.
+
+279
+00:27:22,050 --> 00:27:33,600
+I love this Panes menu and I go to pane layout and for whatever reason it's just in my head that I like to have my output on the right hand side.
+
+280
+00:27:33,900 --> 00:27:37,860
+I do something on the left, it moves to the right. That's good for me.
+
+281
+00:27:38,010 --> 00:27:45,000
+Now might not be good for you, but that's just what I like to do. So all I've done is I've just moved this upper right hand corner to.
+
+282
+00:27:48,890 --> 00:28:02,740
+So it's kind of. Right. All I've done is move this pain, which was the console to the upper right hand corner.
+
+283
+00:28:03,370 --> 00:28:08,820
+And again, that's just my own mental block. But I do something here and just translate right over to training.
+
+284
+00:28:09,230 --> 00:28:17,110
+All right. But in this new manual, if you want your studio to be fancy colors, if you want your studio to look a little bit different,
+
+285
+00:28:17,410 --> 00:28:21,879
+if you want to have just to be able to view some things or for example, I told you,
+
+286
+00:28:21,880 --> 00:28:26,440
+I never use that connection when if you don't see that tab anymore, it's very customizable in that regard.
+
+287
+00:28:26,830 --> 00:28:32,620
+So I'll let folks do that. We don't have any plots, but we'll have one in a little bit that we could start to work with.
+
+288
+00:28:35,030 --> 00:28:41,590
+Session is going to be helpful because this is when we're going to direct our to fill out the files we want to use.
+
+289
+00:28:42,100 --> 00:28:46,240
+So everybody downloaded those files. They're all in a file, a folder on your computer.
+
+290
+00:28:46,870 --> 00:28:51,240
+I'm hoping folks have at least some sense of where those files are or is not going to build.
+
+291
+00:28:51,250 --> 00:28:55,750
+Now for us, we're going to tell. All right. So I download all those things.
+
+292
+00:28:55,750 --> 00:29:00,400
+It's going to go right to a downloads folder and it'll r that if I want my IQ data set.
+
+293
+00:29:00,730 --> 00:29:07,300
+This is where you got to look. Right? And so this is where you can do some of that directory operations.
+
+294
+00:29:07,870 --> 00:29:11,320
+You can load new sessions or workspaces or that kind of stuff.
+
+295
+00:29:13,420 --> 00:29:15,610
+Building and debugging.
+
+296
+00:29:15,610 --> 00:29:23,409
+If you're into creating packages, which we are not going to do in this class, we will do things like maybe creating functions if folks are interested.
+
+297
+00:29:23,410 --> 00:29:27,820
+But building a package is a whole nother level and it's pretty advanced coding.
+
+298
+00:29:28,570 --> 00:29:32,980
+So both the build and debug are all about creating packages.
+
+299
+00:29:33,990 --> 00:29:38,140
+And I figure what profiling does I have to look at?
+
+300
+00:29:38,150 --> 00:29:46,150
+I forget tools is going to be a helpful one because in particular this kind of this install packages.
+
+301
+00:29:46,540 --> 00:29:52,350
+So with packages, there are two things that you have to do. The first is you have to go in, right?
+
+302
+00:29:52,360 --> 00:29:55,839
+If they don't come with our you have to go to a server. It's not as bad as it sounds.
+
+303
+00:29:55,840 --> 00:29:58,930
+You just click on install packages and look for the one that you want to bring in.
+
+304
+00:29:59,860 --> 00:30:04,899
+Once you've brought it in. Once assuming you're not using a university computer, it's going to be on your computer.
+
+305
+00:30:04,900 --> 00:30:11,620
+It's going to be saved. If you're using a university computer, you probably will have to reinstall it each time we have it.
+
+306
+00:30:11,620 --> 00:30:15,220
+We started a new session and I'm sorry about that, but it takes 30 seconds.
+
+307
+00:30:15,280 --> 00:30:18,850
+It's not too bad. That's the first thing you need to do with the package.
+
+308
+00:30:18,880 --> 00:30:22,270
+The second thing is, it's like I got a book from the library.
+
+309
+00:30:22,660 --> 00:30:25,420
+It's got additional information, but you've got to pull it off the shelf.
+
+310
+00:30:25,540 --> 00:30:29,440
+So any time that you're starting a session, you have to call a package from the library.
+
+311
+00:30:29,890 --> 00:30:32,980
+Otherwise, you're going to be asking R to do some things with that package.
+
+312
+00:30:33,160 --> 00:30:34,600
+And it's going to say, I don't know what you're talking about.
+
+313
+00:30:34,990 --> 00:30:39,160
+I don't recognize this command or function because I have not pulled the book off the library.
+
+314
+00:30:39,970 --> 00:30:44,010
+So we'll do that in just 2 seconds. Well, how can you just tell me? All right.
+
+315
+00:30:44,020 --> 00:30:47,230
+So that was a quick and dirty kind of overview of our studio.
+
+316
+00:30:48,190 --> 00:30:52,809
+If folks have specific questions about any of the menus, let me know.
+
+317
+00:30:52,810 --> 00:31:00,360
+And I can either give you the answer. I can find answer for sure. The good news is this is way more user friendly than original are.
+
+318
+00:31:00,700 --> 00:31:04,569
+All right so the bazaar than the other window, it's just not going to have all this information.
+
+319
+00:31:04,570 --> 00:31:10,810
+It's not going to be nearly as plain clicky. Now, that said, clicky is okay, but we're going to move away from that.
+
+320
+00:31:11,260 --> 00:31:20,320
+So let's now go to this script file lab one big 700 lab wants to please find that download.
+
+321
+00:31:20,770 --> 00:31:28,300
+If you just click on it, hopefully it's going to pop up. It's going to recognize that it's a studio file and you can say, Yes, I want.
+
+322
+00:31:30,460 --> 00:31:37,770
+So our studio, helpfully enough, has multiple tabs for multiple, multiple script files.
+
+323
+00:31:38,410 --> 00:31:41,860
+This is great if you have complementary information.
+
+324
+00:31:42,190 --> 00:31:47,140
+This is not so great if you're one of the Chrome users that has like 60 billion tabs at the top of the screen.
+
+325
+00:31:47,800 --> 00:31:54,940
+I know who you are. Right? So yes, it's all good, but let's just keep things a little bit manageable.
+
+326
+00:31:54,940 --> 00:32:00,099
+Let's keep things under control. We don't want to have redundant script or we don't want to forget what we're doing for different parts of it.
+
+327
+00:32:00,100 --> 00:32:06,879
+But all right. So I'm going to pull this environment window down to the bottom because we don't need it quite so much.
+
+328
+00:32:06,880 --> 00:32:09,280
+I'm also going to pull this plot window down to the bottom,
+
+329
+00:32:09,640 --> 00:32:15,760
+and all I'm doing is dragging down the the boxes so that we can see script, file, console window.
+
+330
+00:32:16,240 --> 00:32:19,540
+We edit here, we execute here. All right.
+
+331
+00:32:22,240 --> 00:32:26,170
+So getting to know commands, objects and functions, an example command.
+
+332
+00:32:26,530 --> 00:32:30,159
+You don't have to use bioplastics. You're welcome to use my script files.
+
+333
+00:32:30,160 --> 00:32:35,530
+We're moving to this example, but if you already even have some your own data or you want to try just a little bit of an extension, I encourage you.
+
+334
+00:32:35,800 --> 00:32:40,420
+Why? Because you're not just copying my stuff. You get to kind of toy around with, all right.
+
+335
+00:32:40,420 --> 00:32:43,900
+When it's not this specific file that I know exactly location,
+
+336
+00:32:44,290 --> 00:32:50,380
+how much are a different file and I'm let's see if our studio can read it and go for it or if you don't want to use five plus six.
+
+337
+00:32:54,100 --> 00:33:02,500
+So I'm just going to use control enter. But you could also it run or you can highlight and run.
+
+338
+00:33:03,520 --> 00:33:07,660
+Stay away from the source menu button. The source menu is going to execute the entire file.
+
+339
+00:33:08,020 --> 00:33:10,780
+Sometimes you're going to want to do that. And I'll give you an example.
+
+340
+00:33:11,260 --> 00:33:17,320
+I might have a chunk of code in my my script file that says data cleaning and readiness or something.
+
+341
+00:33:17,740 --> 00:33:26,080
+And it's going to be pulling the data installer to load the packages that I need clean any errors that I know are going to be there.
+
+342
+00:33:26,380 --> 00:33:33,670
+Run it all real quick and succession so it is ready to go. Save it as an object or save it as a data frame or a data set and I'm ready to go.
+
+343
+00:33:34,270 --> 00:33:39,040
+I might do that pretty consistently when I have a data set that I know I'm going to be returning to over and over.
+
+344
+00:33:39,550 --> 00:33:45,400
+So all that piece of it could be in a big chunk of script that I might want to run with a source menu.
+
+345
+00:33:45,760 --> 00:33:49,630
+By and large, I'm just going through line by line and running them individually.
+
+346
+00:33:52,150 --> 00:33:57,370
+But you see, when we run five plus six, starting the script file ends up in the console.
+
+347
+00:33:58,130 --> 00:34:03,250
+Okay, we could have just put it directly into the console. But again, now I know what I did on line ten.
+
+348
+00:34:03,730 --> 00:34:11,980
+And when I say the. What's your name, sir?
+
+349
+00:34:12,250 --> 00:34:15,790
+Kate. Yes. When I say Katie, go to line ten.
+
+350
+00:34:16,090 --> 00:34:18,100
+You know exactly what I'm talking about, right?
+
+351
+00:34:18,280 --> 00:34:22,209
+So even just as the communication tools, we started to share some of these things and it's not just in the class,
+
+352
+00:34:22,210 --> 00:34:26,440
+I promise you, there's going to be reasons to be able to say, look at this chunk of script.
+
+353
+00:34:27,040 --> 00:34:31,450
+Make sure that you feel this is correct. Right. So it's nice to have your reference point.
+
+354
+00:34:32,170 --> 00:34:36,020
+An object is anything that we create in our SO starting on line 12 here.
+
+355
+00:34:36,040 --> 00:34:38,940
+See, look, the utilities are already just jumping out. Right.
+
+356
+00:34:39,370 --> 00:34:46,600
+Well, starting on line 12, we're going to create something new in our right now, the value of X means nothing.
+
+357
+00:34:46,930 --> 00:34:53,379
+Nothing to our if I type in X here in the console, it does not know what I'm asking for.
+
+358
+00:34:53,380 --> 00:34:58,360
+It does not know what it means because we have not assigned any sort of value to x.
+
+359
+00:34:59,410 --> 00:35:10,630
+What we're going to do is take an arbitrary text in this case X and assign it a very we are going to assign it the value of five plus six.
+
+360
+00:35:11,860 --> 00:35:13,239
+We can assign it many things.
+
+361
+00:35:13,240 --> 00:35:24,760
+I'm just choosing five plus six right now after running this line, notice that in the console window we get no return from that function.
+
+362
+00:35:24,970 --> 00:35:30,370
+We did not execute the operation, at least that we can see a 5.5 plus six.
+
+363
+00:35:30,910 --> 00:35:37,690
+What it did is simultaneously execute that operation and then assign that value to the letter X.
+
+364
+00:35:38,980 --> 00:35:42,880
+This might seem impossibly basic if you've never worked with our before.
+
+365
+00:35:43,120 --> 00:35:43,900
+I wouldn't blame him,
+
+366
+00:35:44,380 --> 00:35:54,160
+but this is just a very foundational piece of one of the extremely lovely pieces of R and that we can assign all sorts of stuff to objects.
+
+367
+00:35:54,670 --> 00:36:05,800
+This can be, in this case, a single value of what's five plus 611, or it can be an entire dataset that has hundreds of thousands of values.
+
+368
+00:36:06,340 --> 00:36:10,980
+Yes, sir. No, I think it's a great question.
+
+369
+00:36:11,140 --> 00:36:19,810
+What was your question? Just that like so essentially when you're saying X equals five plus six, it's already calculating that 48, right?
+
+370
+00:36:19,810 --> 00:36:24,430
+So it'd be X equals 11 versus that. Okay. Again, exact position in your name.
+
+371
+00:36:25,030 --> 00:36:31,540
+There is my question. You can't say now when we run. So remember just a few lines above here in the console window.
+
+372
+00:36:31,600 --> 00:36:34,510
+We had X and it said, I don't know what you're talking about.
+
+373
+00:36:34,960 --> 00:36:40,660
+If I asked for X again, we now have the value notice that it's not the entire command line.
+
+374
+00:36:41,110 --> 00:36:45,729
+And this is important because we assigned it. We're not getting the whole five plus six thing.
+
+375
+00:36:45,730 --> 00:36:48,640
+It's just returning the actual value itself. All right.
+
+376
+00:36:48,910 --> 00:36:54,550
+So the function is getting represented as part as X, and we could have chosen any sort of arbitrary numbers.
+
+377
+00:36:54,560 --> 00:37:02,080
+In this case. We're going to assign the value of 19 divided by six to the letter Y.
+
+378
+00:37:02,440 --> 00:37:09,760
+I said I talked about this briefly on Tuesday equals and an arrow, whether you point left or right.
+
+379
+00:37:10,090 --> 00:37:13,690
+And that is that's the direction of the assignment. Do the same thing.
+
+380
+00:37:14,470 --> 00:37:19,660
+I'm going to encourage folks to use this arrow because every now and again we might
+
+381
+00:37:19,660 --> 00:37:24,070
+actually want to use equals as part of a logic or part of some sort of coding.
+
+382
+00:37:24,340 --> 00:37:28,080
+And we just don't want it. We want to have as much disambiguation as possible, right?
+
+383
+00:37:28,090 --> 00:37:35,620
+So we want it to be very clear if this new we're not trying to save, for example, statement, I like a logical statement or something.
+
+384
+00:37:35,830 --> 00:37:39,880
+We want to say that this value is getting assigned to the latter one.
+
+385
+00:37:41,320 --> 00:37:46,640
+Right. The minus after the arrow.
+
+386
+00:37:46,650 --> 00:37:52,800
+You need both kisses. Yes. And a question I am going to answer for myself here.
+
+387
+00:37:53,130 --> 00:38:01,410
+I think you need them together. So when you have when you when you don't when you have this little space between sometimes,
+
+388
+00:38:01,410 --> 00:38:04,920
+ah, is forget forgetting when it comes to little syntactical errors.
+
+389
+00:38:05,340 --> 00:38:14,900
+In this case, we've now moved this arrow assigning to to less than probably -19 over the Jane.
+
+390
+00:38:16,680 --> 00:38:23,190
+It's like a stupid question, but it's related to that. So I did just like five this that many faces and it still works.
+
+391
+00:38:23,400 --> 00:38:26,850
+Is there a reason why you'd put space in between?
+
+392
+00:38:28,110 --> 00:38:31,330
+There is no reason you are. And that isn't that stupid question at all.
+
+393
+00:38:31,350 --> 00:38:36,240
+So, again, depending on what exactly we're trying to do, art can be forgiving.
+
+394
+00:38:36,780 --> 00:38:40,980
+This works. That works. This also works.
+
+395
+00:38:41,640 --> 00:38:44,760
+It's going to be looking for certain pieces of information.
+
+396
+00:38:44,760 --> 00:38:50,100
+And this is where a lot like the little coding errors are probably going to happen that are going to demarcate, for example,
+
+397
+00:38:50,370 --> 00:38:54,689
+the arguments of a function or if it's going to be looking for something a little bit
+
+398
+00:38:54,690 --> 00:38:59,510
+different because semicolon has a different sort of indication than a a plus or something.
+
+399
+00:38:59,520 --> 00:39:05,160
+So depending on what we're doing. Chances are you can get away with small little deviations.
+
+400
+00:39:05,820 --> 00:39:11,490
+And that's just trying to attend to what exactly the code should be and what we're playing.
+
+401
+00:39:13,680 --> 00:39:16,960
+Yes. It was like 2 seconds ago. Yes.
+
+402
+00:39:17,070 --> 00:39:24,390
+No, I too. Am I just. Yeah. So essentially when you do that, assigning the value to y.
+
+403
+00:39:24,600 --> 00:39:30,659
+Hmm. That's like is that just for you to know in there or do we enter.
+
+404
+00:39:30,660 --> 00:39:35,350
+It's r is knowing that. I love that question. R is now knowing that.
+
+405
+00:39:35,370 --> 00:39:40,559
+So at this point, if because I still have not run it correctly, notice when I tried to run this,
+
+406
+00:39:40,560 --> 00:39:44,310
+I had this less than saying, well, the minus doesn't understand this.
+
+407
+00:39:44,310 --> 00:39:47,910
+If I ask for R to give me y, it's still going to return an error.
+
+408
+00:39:48,660 --> 00:39:54,940
+As soon as I start to assign values, I've created an object called Y.
+
+409
+00:39:56,400 --> 00:40:05,760
+And if I asked for why it should return that value even better in my environment window, I now have a record of the new objects that I've created.
+
+410
+00:40:07,880 --> 00:40:11,570
+These are very basic objects. They're just a single value that would be recalled vectors.
+
+411
+00:40:12,350 --> 00:40:16,030
+But we can have datasets, matrices, logical statements.
+
+412
+00:40:16,040 --> 00:40:24,650
+Yes, sir. Questions. Yeah, I was here. First one is, does it matter where on the line your cursor is when you hit control, turn to run it?
+
+413
+00:40:25,310 --> 00:40:32,180
+No, I don't think so. Okay. The only thing that I would caution is don't accidentally hit enter like, you know.
+
+414
+00:40:32,540 --> 00:40:36,020
+Yeah, exactly. So I'll do this all the time. I'll do something like this.
+
+415
+00:40:37,490 --> 00:40:42,860
+But even there you can if you highlight this, it should be okay.
+
+416
+00:40:43,940 --> 00:40:51,320
+So it's it's the plus sign here. And this is one nice thing about a console is it tells you the code that it's executing.
+
+417
+00:40:51,650 --> 00:40:59,270
+So if you wanted to just do this within your script file, you could copy this without the little command line or command prompt.
+
+418
+00:40:59,660 --> 00:41:04,850
+If you just copy this with the plus sign, it's going to know we're on this plus whatever else else is on this line.
+
+419
+00:41:05,390 --> 00:41:13,520
+So that's one of the kind of the opposite journey of when you can kind of demo or when you can kind of indicate that I'm not stopping.
+
+420
+00:41:13,520 --> 00:41:14,480
+Actually, I want to keep going.
+
+421
+00:41:15,890 --> 00:41:24,920
+And the second question second question is, once you tell, are y is is there a way to make our forget what why is if you wanted to,
+
+422
+00:41:25,280 --> 00:41:30,950
+you go, Oh, crap, I meant to tell it something else jumping ahead of me and that's just fine.
+
+423
+00:41:32,060 --> 00:41:41,390
+It's an hour and stands for remove. Now notice in our global or environment down here we no longer have an object called way.
+
+424
+00:41:42,440 --> 00:41:45,880
+Right? We would have to. And if I asked for it to.
+
+425
+00:41:45,890 --> 00:41:59,840
+To return the value of why it can't find anything now easy to remove, even easier in some ways good and some ways bad to replace.
+
+426
+00:42:05,510 --> 00:42:16,790
+Right. So it is scarily easy to take an object which I just told you can be anything from a single number to your dissertation,
+
+427
+00:42:17,750 --> 00:42:22,160
+your dissertation data, or the final report data for your boss or for whatever it could be.
+
+428
+00:42:22,370 --> 00:42:30,170
+It's all saved as it is a big report and it's the object that is call.
+
+429
+00:42:30,680 --> 00:42:35,030
+And you accidentally saved something else like the number two as a big report.
+
+430
+00:42:35,210 --> 00:42:41,690
+It's gone. Hopefully it's in your history. Ideally it's in your script file so that you can reproduce it easily enough.
+
+431
+00:42:42,050 --> 00:42:49,310
+But it is very easy to overwrite different objects, and it's a blessing and a curse, more often than not a curse.
+
+432
+00:42:49,850 --> 00:42:52,430
+But know that you can do it pretty, pretty easily.
+
+433
+00:42:52,730 --> 00:42:58,970
+You can also amend objects if you really want to be overwriting them is going to be the easiest thing, but let's keep going.
+
+434
+00:42:59,300 --> 00:43:07,760
+So right now we're only dealing with numerical vectors or objects here, but we can also use any other forms of data.
+
+435
+00:43:07,760 --> 00:43:08,780
+So there are different,
+
+436
+00:43:09,140 --> 00:43:17,510
+different sort of what are called atomic vectors and are these are like kind of the base units that are looking for their things like integers,
+
+437
+00:43:18,320 --> 00:43:21,559
+true false statements or logical statements, characters, right.
+
+438
+00:43:21,560 --> 00:43:27,620
+So depending on the types of data that we're going to be working with or is going to ask you to make some distinctions,
+
+439
+00:43:27,620 --> 00:43:29,600
+it's going to do a pretty good job of guessing.
+
+440
+00:43:30,050 --> 00:43:36,170
+I bet you this is a character of texturing versus actually, I have some there's some logic to the reason.
+
+441
+00:43:36,170 --> 00:43:42,710
+It's that these these number, these letters, they're like strongly agree and agree in neutral.
+
+442
+00:43:43,160 --> 00:43:48,440
+There's some underlying values that I want to assign to those character strings.
+
+443
+00:43:48,830 --> 00:43:54,170
+So we're going to work a little bit on how to tell R that even though these look like words or letters,
+
+444
+00:43:54,740 --> 00:44:03,380
+I have some numbers that are kind of underlying one, two, three, four or five, for example, but here's an example of a character vector.
+
+445
+00:44:03,800 --> 00:44:08,540
+So what we're doing here is going to create a new object called What Are My Native?
+
+446
+00:44:13,420 --> 00:44:18,210
+Now so arbitrarily there, the new object is going to be called core.
+
+447
+00:44:18,850 --> 00:44:25,300
+All right. Now to my arbitrary name. I'm going to assign a certain set of values.
+
+448
+00:44:25,720 --> 00:44:32,710
+Now, there are a few things here that are a little funky when we're dealing with characters or text that we don't have to deal with with numbers.
+
+449
+00:44:33,460 --> 00:44:41,740
+So within the parentheses, skipping over to see for a second is everything that I want to be part of my new core object.
+
+450
+00:44:42,490 --> 00:44:50,290
+It's something that we're creating within our. These are numbers, but they have different meanings to all of us.
+
+451
+00:44:50,290 --> 00:44:54,050
+Not number of. Right.
+
+452
+00:44:54,230 --> 00:44:59,110
+These are questions, right? This program.
+
+453
+00:44:59,110 --> 00:45:07,390
+You know, it's not the number 622. I figure dress for the museum and art class or whatever.
+
+454
+00:45:07,630 --> 00:45:13,360
+They have some that have some meaning to us bound, but we don't want to treat them as numbers.
+
+455
+00:45:13,750 --> 00:45:19,540
+So when we put something in parentheses, it's going to say, okay, this is going to be text data.
+
+456
+00:45:19,540 --> 00:45:22,660
+I'm going to say this is character data. All right.
+
+457
+00:45:23,110 --> 00:45:32,110
+So what I'm doing here within the parentheses for now is I'm using a sorry quotation, sorry within the parentheses.
+
+458
+00:45:32,110 --> 00:45:35,860
+I'm putting the number, the number 600 in parentheses.
+
+459
+00:45:36,310 --> 00:45:40,720
+So they are treated as a character as soon as a string of text.
+
+460
+00:45:41,320 --> 00:45:47,950
+I cannot take this number now once it's in parentheses and add five to it, because adding five to a word doesn't make sense.
+
+461
+00:45:49,000 --> 00:45:55,840
+That makes sense. All right. So we're going to do this for each one of our classes because they still do coordinate.
+
+462
+00:45:55,840 --> 00:46:05,390
+But there we go. And I'm using a comma for a weighted to indicate when a new piece of information is happening.
+
+463
+00:46:05,410 --> 00:46:11,590
+So when we're in the parentheses, by and large, using commas is the way that we say, all right, 602 is one word.
+
+464
+00:46:12,220 --> 00:46:16,120
+Now, comma, here's the next word or here's the next value that we're inputting.
+
+465
+00:46:16,690 --> 00:46:21,190
+All right. So you can type all of those things in within the parentheses, right?
+
+466
+00:46:22,030 --> 00:46:29,439
+See, it is short for Concatenate or if you want to think about it combined, I want to take one, two,
+
+467
+00:46:29,440 --> 00:46:34,300
+three, four or five, six, seven, eight pieces of information and I want to combine them into one.
+
+468
+00:46:35,330 --> 00:46:41,410
+Right. This is the way to take multiple pieces of information and create an object called HB, which in court,
+
+469
+00:46:41,650 --> 00:46:48,160
+if you didn't have this C value here, it would return it because it doesn't know how to do what we're asking it to do.
+
+470
+00:46:48,400 --> 00:46:53,590
+Differ for our purposes, it's saying these are just random strings of characters.
+
+471
+00:46:53,950 --> 00:46:58,570
+I don't quite understand what you want me to do. The C is saying create a vector.
+
+472
+00:46:58,870 --> 00:47:02,440
+Basically, this is an array of values of a single type.
+
+473
+00:47:03,550 --> 00:47:08,710
+Right. So these are going to be eight different pieces of character information.
+
+474
+00:47:09,310 --> 00:47:15,370
+We could have created a vector with eight pieces of integer information or logical values or whatever you want to talk about.
+
+475
+00:47:15,520 --> 00:47:16,629
+Logical is like true false.
+
+476
+00:47:16,630 --> 00:47:29,890
+In order to let it sit inside of one of these, you can create something that's got work in numbers like you so that it had a value and also.
+
+477
+00:47:30,280 --> 00:47:33,520
+Right. So, yes. And now we're going to get to that.
+
+478
+00:47:34,510 --> 00:47:41,050
+It's the first four vectors. It's going to look for a thing. I mean, this is kind of a more specific definition of a vector.
+
+479
+00:47:41,260 --> 00:47:43,479
+It's our first single that we will take.
+
+480
+00:47:43,480 --> 00:47:50,020
+We want to make extensive use of what are called data frames, which for most people's purposes you can call it data set.
+
+481
+00:47:50,380 --> 00:47:55,900
+They can have both characters and numerical values or logical values as well.
+
+482
+00:47:56,470 --> 00:48:04,000
+Matrices are a data set, and from an Excel file or Excel sheet that only has one type of atomic vector.
+
+483
+00:48:04,900 --> 00:48:09,820
+Atomic vector being character data, integer data, logical values true false.
+
+484
+00:48:09,820 --> 00:48:16,600
+That happens, right? And we do our gets a little persnickety about this stuff at times and says, well, we'll continue.
+
+485
+00:48:16,610 --> 00:48:21,760
+Now we're working with major keys here. You can't just throw a few different types of vector to different types of data.
+
+486
+00:48:22,420 --> 00:48:27,430
+All right. Other times it's like, yeah, okay, you didn't do this, right?
+
+487
+00:48:27,430 --> 00:48:30,909
+But I'll help you along here and we can make it work, right?
+
+488
+00:48:30,910 --> 00:48:39,490
+So depending on what we're trying to do, but for this case, we're just going to create a single vector that has multiple values of the same type.
+
+489
+00:48:44,050 --> 00:48:53,330
+So if you just use like 600 with or without the quotation marks and then later in the curve of that look like,
+
+490
+00:48:53,530 --> 00:48:58,090
+would you still use the numbers or would it?
+
+491
+00:48:58,810 --> 00:49:07,970
+This is going to make it map because it's saying we may you have eight words and then one number, right?
+
+492
+00:49:08,080 --> 00:49:13,480
+So in the quotation words, it means that's that's how we're indicating that it's a word or a texture.
+
+493
+00:49:14,740 --> 00:49:19,630
+So then you could just do a 600 plus two and two separate lines could be totally different.
+
+494
+00:49:19,990 --> 00:49:20,200
+Yeah.
+
+495
+00:49:22,570 --> 00:49:31,510
+And again, when we want to combine things that are, for example, characters and integers, it is possible we just have to do a little bit of addition.
+
+496
+00:49:31,510 --> 00:49:37,630
+I think I have an example of that, but I can show for to go to planning that.
+
+497
+00:49:38,140 --> 00:49:50,770
+Um, if we haven't told it like what it means if we run it is, it can put this on here, we may run it like if we just run this line right now.
+
+498
+00:49:51,190 --> 00:49:58,100
+Well that's true. So what have you got to. Where do you see?
+
+499
+00:50:02,810 --> 00:50:06,709
+Each be due for not. All right.
+
+500
+00:50:06,710 --> 00:50:10,400
+So in line 19 here, we're going to run this whole thing.
+
+501
+00:50:11,440 --> 00:50:21,050
+All right. And on my right hand side, I should get just the return of line 19.
+
+502
+00:50:21,260 --> 00:50:28,250
+So what you get now when you run HP Core on line 20 where you should see and actually
+
+503
+00:50:28,380 --> 00:50:31,430
+before I run it and if no one else has run it yet or someone who hasn't run it,
+
+504
+00:50:31,430 --> 00:50:35,830
+what do you predict you're going to see? This is a good practice.
+
+505
+00:50:35,840 --> 00:50:38,899
+If you're not used to coding, it's great to just see.
+
+506
+00:50:38,900 --> 00:50:42,710
+Okay, let's let's see what happens. But it's even better to say I just coded this.
+
+507
+00:50:42,980 --> 00:50:46,430
+What am I what I think I'm going to find and then give it to people?
+
+508
+00:50:46,430 --> 00:50:50,239
+Don't be surprised if it works. More often than not less.
+
+509
+00:50:50,240 --> 00:51:00,559
+So let's look at a return. So it's good it's a return but as the stuff in the quotes but unlike the the the
+
+510
+00:51:00,560 --> 00:51:03,920
+mathematical operation right it's not going to have an easy way to combine it.
+
+511
+00:51:03,920 --> 00:51:07,230
+So we should see just these individual various. Right.
+
+512
+00:51:09,180 --> 00:51:12,569
+That's what we're getting at. Why does it have the square brackets?
+
+513
+00:51:12,570 --> 00:51:18,330
+One and the square it's five. Is that just because it's wrapping the text or something on the console part?
+
+514
+00:51:20,100 --> 00:51:24,000
+One, two, three, four, five, six, seven, eight, one.
+
+515
+00:51:25,200 --> 00:51:30,310
+And you're going to love this when it spits out like results with like, like a thousand or something like that.
+
+516
+00:51:30,330 --> 00:51:33,660
+You can find case number seven, 62.
+
+517
+00:51:34,080 --> 00:51:38,610
+And yes, you'll probably have to go to line 760 and then count over or something.
+
+518
+00:51:38,850 --> 00:51:44,190
+But we can actually also call specific values within a matrix or dataframe or whatever.
+
+519
+00:51:44,520 --> 00:51:52,740
+So if we wanted to find 699 or if we wanted to find the seventh, the seventh item in this object HPLC core, we can do that.
+
+520
+00:51:53,070 --> 00:51:56,850
+And then the number sign just means it ignores it completely.
+
+521
+00:51:57,630 --> 00:52:02,970
+Yep. Sensitive thing. Yeah. So these are a great way to annotate your script files.
+
+522
+00:52:03,480 --> 00:52:08,700
+Remind yourself that you want to have some pieces of information or remind yourself what you did.
+
+523
+00:52:09,030 --> 00:52:15,750
+I love putting little notes about the functions that I'm using or the packages that I'm using or this didn't work.
+
+524
+00:52:16,650 --> 00:52:21,780
+This did work. You know, like in terms of like the analysis, not not significance signaling and that type of thing.
+
+525
+00:52:22,140 --> 00:52:27,320
+So anything with the Fed hashtags is going to be grayed out in any camera.
+
+526
+00:52:28,770 --> 00:52:35,159
+So it is possible. So I showed you how to overwrite a function, which is one way to think about editing a function.
+
+527
+00:52:35,160 --> 00:52:36,390
+But maybe we don't want to do that.
+
+528
+00:52:36,750 --> 00:52:45,330
+Maybe we want to just say we had this object that had eight values and 700, although it probably should be, is not part of our core.
+
+529
+00:52:45,630 --> 00:52:55,140
+So what do I want to do? I want to get rid of it. So this is a nice example of a step that you can either follow or you can ignore.
+
+530
+00:52:55,660 --> 00:52:59,250
+I'm still on line 23 here overwriting an object.
+
+531
+00:52:59,940 --> 00:53:04,860
+Right. The object that we know from 2120 is going to be gone here.
+
+532
+00:53:05,400 --> 00:53:10,200
+All right. Whether or not this whole line of code works, this has changed.
+
+533
+00:53:10,860 --> 00:53:13,980
+All right. So all your hard work from up through 20 is going to be gone.
+
+534
+00:53:14,310 --> 00:53:20,310
+When I run that new line of code. So you might consider on 23, if you're not confident, something like this,
+
+535
+00:53:20,850 --> 00:53:27,090
+it's not my favorite, but at least it it differentiates 23 from what you did in line 19 here.
+
+536
+00:53:27,990 --> 00:53:33,700
+I'm pretty confident that this is going to work. But what I'm going to do is take my new object.
+
+537
+00:53:34,530 --> 00:53:43,470
+You know, it's the same HPLC core. I'm going to take my existing object because I haven't run this line yet, which is down here for C that.
+
+538
+00:53:45,630 --> 00:53:48,960
+I can use brackets to say from that existing object.
+
+539
+00:53:49,410 --> 00:53:56,670
+What do I want to do? Right. So in these two brackets here, this would allow me to say,
+
+540
+00:53:56,670 --> 00:54:07,649
+if I want to find a specific row or column within my object or in this case if I want to remove or I can also add something.
+
+541
+00:54:07,650 --> 00:54:11,070
+So if I thought, oh, shoot, I forgot about a class. I could add it.
+
+542
+00:54:11,760 --> 00:54:15,420
+But in this case I'm going to say from my object for line 19.
+
+543
+00:54:16,960 --> 00:54:22,630
+Take my dad and my my object and remove 700.
+
+544
+00:54:24,820 --> 00:54:34,389
+So it's a little it seems a little redundant, but I have to kind of tell it what to do with the the data,
+
+545
+00:54:34,390 --> 00:54:36,730
+the piece of data or the piece of information that I want to.
+
+546
+00:54:40,070 --> 00:54:44,840
+So the exclamation point can be either add or remove depending on what throw in there or is it just removed?
+
+547
+00:54:45,410 --> 00:54:53,530
+That's going to be just remove does not equal. So when I run this value.
+
+548
+00:54:58,420 --> 00:55:03,550
+Now when I try to run 24, we see that 700 was removed.
+
+549
+00:55:06,270 --> 00:55:14,220
+So I've kind of said from my old object, I don't want HPLC core to have 700.
+
+550
+00:55:15,210 --> 00:55:18,270
+So it's a logical statement that we've kind of written here.
+
+551
+00:55:18,450 --> 00:55:22,110
+They don't have to be logical statements. And that's one of the ways that we can use.
+
+552
+00:55:22,230 --> 00:55:27,820
+Is this true or is this false? And so doing so.
+
+553
+00:55:28,290 --> 00:55:35,760
+I know you just explained why it's redundant there with HBO cheaper from the HBO chain for 100 of 700.
+
+554
+00:55:36,030 --> 00:55:40,680
+Mm hmm. An example of, like, instead of HBO, the second HBO.
+
+555
+00:55:40,980 --> 00:55:49,140
+Or would there be could you pass something else in there from the HBO series?
+
+556
+00:55:49,560 --> 00:55:55,770
+So I think if I did this, it would take everything out except for 700.
+
+557
+00:55:56,430 --> 00:56:00,330
+Oh. I think I would just reassigned.
+
+558
+00:56:01,440 --> 00:56:07,920
+Yeah, well, yeah. So anything that we do over on the right hand side is going to reassign a rage speech.
+
+559
+00:56:08,490 --> 00:56:12,270
+And even if this is an error, this is going to make this basically unrecognizable.
+
+560
+00:56:12,270 --> 00:56:16,940
+So that's the end of our HPLC core. But we could have it again.
+
+561
+00:56:16,950 --> 00:56:21,149
+We could add a text, we could if we wanted to just return.
+
+562
+00:56:21,150 --> 00:56:30,930
+I think like this might say this might tell us its position, not positive about this, but so here we don't want to assign this to a value.
+
+563
+00:56:31,530 --> 00:56:44,280
+We just want to. You're missing out because it's going to give them the impression that maybe we want to go.
+
+564
+00:56:49,320 --> 00:57:03,110
+Uh. Do equals is going to just make everything 700.
+
+565
+00:57:08,990 --> 00:57:12,440
+I can go back and read the whole thing. That's basically what I do.
+
+566
+00:57:13,310 --> 00:57:16,320
+But now there is a way. Let me. I'm playing it right now. But I can.
+
+567
+00:57:18,200 --> 00:57:25,400
+It's going to be plus. No, it's not going to work because that's a it's.
+
+568
+00:57:27,870 --> 00:57:38,520
+Jesus. I think we're going to have to use the C function again.
+
+569
+00:57:39,480 --> 00:57:45,960
+It would have to be, uh. I forget.
+
+570
+00:57:46,620 --> 00:57:50,820
+All right. I will. I will post it on canvas, because as good as anybody.
+
+571
+00:57:52,380 --> 00:57:59,270
+But there is an undue burden. But that's going to be just within a text editor.
+
+572
+00:57:59,310 --> 00:58:04,470
+It's not going to undo some of the things that you ran. So you can't undo, for example, the fact that we saved over speech in court.
+
+573
+00:58:05,790 --> 00:58:09,270
+But so this type of thing is good to look out for because it can be frustrating.
+
+574
+00:58:09,660 --> 00:58:14,250
+For just a second ago, we had. I mean, why why wouldn't this work?
+
+575
+00:58:14,940 --> 00:58:19,110
+Especially core is looking for this very 700. I would think it should return something.
+
+576
+00:58:19,110 --> 00:58:25,560
+It should return. In my mind, it should have returned the value number eight because this would have been the eight value within that that thing.
+
+577
+00:58:25,890 --> 00:58:30,660
+It gets what are uses as not available or missing. You're going to see this in a quite a bit.
+
+578
+00:58:30,930 --> 00:58:35,100
+It's a big, big function error, a big, big value in.
+
+579
+00:58:35,460 --> 00:58:40,500
+Because that's it's missing and it doesn't know necessarily how to work with missing values unless we tell it.
+
+580
+00:58:40,980 --> 00:58:45,720
+So now is going to be a big part of what we'll do as we start to really work with data and manipulate it.
+
+581
+00:58:47,010 --> 00:58:59,470
+All right. Moving down here, we're going to take a list of a few values and we want to create is now a data sets.
+
+582
+00:59:00,660 --> 00:59:06,690
+Data set is just arbitrary. We can use the C function, but this is a C bind function.
+
+583
+00:59:06,690 --> 00:59:15,269
+It just means column bind function. And if we run this, we're going to get a new object and down in our our values window.
+
+584
+00:59:15,270 --> 00:59:25,680
+That's called dataset because we, you see, bind it gets a slightly different moniker than it did if it was just using the C function.
+
+585
+00:59:26,490 --> 00:59:29,130
+So now it's recognizing this as something different.
+
+586
+00:59:29,550 --> 00:59:37,440
+So the C and C bind have similar functions, but they result in different kind of objects for R, right?
+
+587
+00:59:38,070 --> 00:59:40,890
+We can also use like a data frame function or a matrix function,
+
+588
+00:59:41,340 --> 00:59:52,140
+but basically this becomes a more operable object than a simple vector, even though in many cases we can use them interchangeably.
+
+589
+00:59:52,770 --> 00:59:57,170
+But if I run this dataset T we're just getting our values back.
+
+590
+00:59:57,180 --> 01:00:02,310
+This looks so again, the output looks a little bit different here because it's seeing this as a data set.
+
+591
+01:00:02,760 --> 01:00:08,010
+It gives us not just the the row value, but also the column values.
+
+592
+01:00:09,350 --> 01:00:12,690
+And this is still a vector. It's only has one direction.
+
+593
+01:00:12,690 --> 01:00:21,450
+It's just integers. But because it's a because it's a data set, we can also manipulate that dataset directly.
+
+594
+01:00:21,690 --> 01:00:24,900
+So, for example, we can repeat operations. This was 29 is doing ten.
+
+595
+01:00:25,920 --> 01:00:34,830
+So is the dataset or the C find the one that's adding the names to the column and row headers.
+
+596
+01:00:35,190 --> 01:00:45,150
+Now this, this, this is just kind of arbitrarily assigned so in parentheses and r this is kind of a matrix algebra row column.
+
+597
+01:00:45,780 --> 01:00:47,000
+So there's two spaces.
+
+598
+01:00:47,010 --> 01:00:54,690
+Ah, see if you can just remember that our comma C row chemical and that's how R is going to index all of your data sets and data frames.
+
+599
+01:00:54,690 --> 01:00:59,460
+It's going to say this is the value of row one, count six.
+
+600
+01:00:59,640 --> 01:01:02,760
+So if you didn't have to divide, it wouldn't have those in the console.
+
+601
+01:01:02,850 --> 01:01:07,530
+It would just kind of create this as just like we did with. Yeah, right.
+
+602
+01:01:08,940 --> 01:01:13,500
+Although it might infer what you're trying to do with.
+
+603
+01:01:16,610 --> 01:01:21,350
+So sometimes, again, our can be more forgiving. I'm just curious.
+
+604
+01:01:31,000 --> 01:01:37,180
+Yeah. So it doesn't read it in as a, as a data frame of itself per day.
+
+605
+01:01:37,570 --> 01:01:40,690
+So I use data set and data frame interchangeably.
+
+606
+01:01:40,990 --> 01:01:51,580
+Our uses data, data frame, language I it's just the data but the, the distinction for ours that a data frame can have different both.
+
+607
+01:01:52,540 --> 01:01:57,640
+To Heather's point, it can have both characters as well as numbers, whereas matrices can only have one.
+
+608
+01:01:59,170 --> 01:02:03,670
+So when you have a data set or data frame, you can run repeat operations.
+
+609
+01:02:03,970 --> 01:02:10,030
+So rather than just taking a function of one specific value, I can take it of the whole of the whole data set.
+
+610
+01:02:10,480 --> 01:02:16,030
+So in this case, I want to take the cube of every single value in my object called data set.
+
+611
+01:02:16,600 --> 01:02:21,580
+Now, rather than just running that operation, I'm going to save all that information in a new object.
+
+612
+01:02:22,420 --> 01:02:29,770
+So what we should see is just the just the the 129 repeated, right.
+
+613
+01:02:29,770 --> 01:02:34,750
+We're not actually it's not going to give us values until we then call the actual object itself.
+
+614
+01:02:35,440 --> 01:02:42,670
+And the operator is. If you just run this by itself, you should get the return values.
+
+615
+01:02:43,760 --> 01:02:49,170
+Yeah. Yeah. In the in this file.
+
+616
+01:02:49,180 --> 01:02:54,489
+Should we be saving it or it was an auto save or it does.
+
+617
+01:02:54,490 --> 01:02:57,360
+How to save, thank goodness. But yes.
+
+618
+01:02:57,370 --> 01:03:04,479
+Never hurts to save the files that I'm that you're getting for me are kind of ordinary saves though not as big deal but yes absolutely save
+
+619
+01:03:04,480 --> 01:03:15,790
+when you want anything you anti those everything this function 33 is deprecated at this point because we have a global environment window.
+
+620
+01:03:16,060 --> 01:03:19,360
+But if you want to see what objects you have else will give them to you.
+
+621
+01:03:19,780 --> 01:03:26,050
+That was a godsend back in these days when you didn't have this window saying, Oh yeah, you create an object and this is what it is.
+
+622
+01:03:26,090 --> 01:03:31,540
+This is already what this is equals. So all of none of this stuff in this correct.
+
+623
+01:03:32,170 --> 01:03:36,159
+But this is great. Let's see here.
+
+624
+01:03:36,160 --> 01:03:39,240
+So to remove objects, I think we are we went through that.
+
+625
+01:03:39,250 --> 01:03:42,610
+I just use the arm function. Here's the thing.
+
+626
+01:03:42,610 --> 01:03:43,689
+As soon as you remove an object,
+
+627
+01:03:43,690 --> 01:03:50,280
+don't get mad if you ask for that object again down the road and it doesn't show up in an it's going to look like this and you're not
+
+628
+01:03:50,330 --> 01:03:58,330
+understand why you know I created that how can you can't find it just because we removed it or saved over it or in some way don't have it.
+
+629
+01:03:58,360 --> 01:04:07,840
+Don't have it within our window. If you did all this work, saved your workspace image closed out, came back, started a brand news hour studio session.
+
+630
+01:04:08,200 --> 01:04:11,860
+This stuff is not going to be done here in your environment. Right?
+
+631
+01:04:12,070 --> 01:04:18,070
+So don't expect our to know that you've been in the last time you're working here, you created something called data set.
+
+632
+01:04:18,310 --> 01:04:22,660
+If it's on your personal laptop, chances are you're going to keep saving that image and it will be down here.
+
+633
+01:04:23,110 --> 01:04:31,419
+But more often than not, we save small kind of intermediate steps like this, this value x, it's going to change 100 times during this class.
+
+634
+01:04:31,420 --> 01:04:32,320
+We're going to use it a lot.
+
+635
+01:04:32,740 --> 01:04:38,590
+So don't you don't want to get into a habit of kind of assuming that it's going to be there waiting for us when we're done.
+
+636
+01:04:40,090 --> 01:04:46,300
+All right. So those are just going to be some of the initial functions around are like just kind of initial operations.
+
+637
+01:04:46,630 --> 01:04:53,200
+A big one for us is going to be taking existing data are as far as okay,
+
+638
+01:04:53,200 --> 01:05:02,620
+it's getting better at manipulating data directly within the software and by and large working in cell working SPSS, it's more than easier.
+
+639
+01:05:02,980 --> 01:05:06,280
+And so we're often interested in pulling in data from the outside.
+
+640
+01:05:06,730 --> 01:05:10,120
+Case in point, the IQ data, there are multiple ways to do this.
+
+641
+01:05:10,540 --> 01:05:15,189
+All right. So we're going to walk through them because they have lessons for each of us as we're kind of moving through.
+
+642
+01:05:15,190 --> 01:05:19,810
+Step one, this was you know, this might be a little deprecated, too.
+
+643
+01:05:20,260 --> 01:05:25,060
+Used to be back in the day, you could take a file and drag it into this console window.
+
+644
+01:05:25,400 --> 01:05:31,510
+You might still do this in our studio. It would give you this patterning. I personally, these things are like reading Greek to me.
+
+645
+01:05:31,510 --> 01:05:34,930
+I struggle with patterns myself here.
+
+646
+01:05:35,390 --> 01:05:39,040
+It's really savvy with finding those bad names and including them in here.
+
+647
+01:05:39,430 --> 01:05:44,140
+You can type your name in. This is a function.
+
+648
+01:05:44,410 --> 01:05:48,070
+This is going to tell our to do something in this case, it's going to tell it to do something very specific.
+
+649
+01:05:48,610 --> 01:05:55,900
+I want to read in an FCC file this is part of base R, so our already knows how to do this.
+
+650
+01:05:56,770 --> 01:06:04,959
+Our studio very conveniently when we highlight this or just even I think hover over that function gives us the function.
+
+651
+01:06:04,960 --> 01:06:12,070
+And it's arguments. Arguments are the pieces of information that we need to give a function in order for it to execute its operations.
+
+652
+01:06:12,560 --> 01:06:16,390
+All right. So in this case, are going to ask for.
+
+653
+01:06:16,630 --> 01:06:20,020
+Well, I found do you want me to keep the headers in that file.
+
+654
+01:06:20,290 --> 01:06:24,579
+Are they are they're actually they're sort of the first is the first row of information.
+
+655
+01:06:24,580 --> 01:06:28,959
+Are there your headers are going to be called names or not. How is this data?
+
+656
+01:06:28,960 --> 01:06:32,950
+Separated is a comma, is a tab, is it space, whatever you need to use.
+
+657
+01:06:33,340 --> 01:06:39,790
+Right. And that's just additional information that you might want to use to indicate the kind of information that it's going to expect to read in.
+
+658
+01:06:40,900 --> 01:06:47,290
+You can then read in this data file, which I don't think I've downloaded yet, so I shall do that here.
+
+659
+01:06:48,970 --> 01:06:56,980
+All right. So this should now be in my downloads folder on this particular computer, right?
+
+660
+01:06:57,460 --> 01:07:02,320
+If you are using a different way of storing your data and stuff, you're going to have to find the appropriate file name.
+
+661
+01:07:03,520 --> 01:07:07,330
+But I want to read in this data and then on the left hand side, what am I assigning this to?
+
+662
+01:07:07,600 --> 01:07:11,960
+It's an object called what? Thank you.
+
+663
+01:07:12,160 --> 01:07:18,590
+Thank you. The Natalie IQ could be anything you want to call the blue on the right.
+
+664
+01:07:18,630 --> 01:07:31,610
+Go. Blue means we have a data set and that's just handy how it the stands for observations and we see we have three variables.
+
+665
+01:07:31,700 --> 01:07:38,570
+So we have a data file called IQ that has 60 observations and three variables.
+
+666
+01:07:43,100 --> 01:07:46,370
+If we opened up this file.
+
+667
+01:07:53,760 --> 01:07:58,810
+That opens up. But. We should see.
+
+668
+01:08:03,900 --> 01:08:05,690
+Here we go. This is our data file.
+
+669
+01:08:08,110 --> 01:08:14,190
+And they're trying if you're having trouble getting this one in the door, we're going to go through a couple of easier, easier options.
+
+670
+01:08:14,870 --> 01:08:18,620
+This is just a nice one for kind of a direct. Here's my data file.
+
+671
+01:08:19,640 --> 01:08:26,600
+Three observations are three variables with 60 observations. So now all of that should be read into, ah, the file name piece.
+
+672
+01:08:26,600 --> 01:08:29,900
+Again, it returns for me. Errors more often than not.
+
+673
+01:08:30,620 --> 01:08:35,390
+What I like to do is find a directory that I plan to use.
+
+674
+01:08:36,020 --> 01:08:41,059
+So if you know that you're going to store all of your class information in a folder called HB 8700,
+
+675
+01:08:41,060 --> 01:08:49,250
+for example, you can set your working directory, set WD to where you want the files to go.
+
+676
+01:08:50,570 --> 01:08:53,930
+When you do that, you don't have to mess around with all this path.
+
+677
+01:08:53,930 --> 01:09:00,740
+Nonsense. You can go right to just the name of the file in your working directory.
+
+678
+01:09:01,550 --> 01:09:04,970
+So you see the distinction between line 48 and line 55.
+
+679
+01:09:05,720 --> 01:09:12,410
+When I set my working directory in line 54 and we'll do this in just a second, instead of having to pull in all this stuff,
+
+680
+01:09:13,250 --> 01:09:17,360
+I can just say what's the name of my file and include some of the additional information.
+
+681
+01:09:17,390 --> 01:09:20,630
+Hello, General. Yeah. Mine keeps returning to error.
+
+682
+01:09:21,970 --> 01:09:25,670
+You use without hex digits. When I try to.
+
+683
+01:09:27,250 --> 01:09:36,159
+The same rule which we rely on when when I just have like the file location, write the right method,
+
+684
+01:09:36,160 --> 01:09:40,809
+want it to go to the right and you have to write the back slashes or four slashes.
+
+685
+01:09:40,810 --> 01:09:49,450
+I copied it by going to the properties that so I see maybe that's probably part of it.
+
+686
+01:09:49,810 --> 01:09:54,220
+All right. So did you try I said you're working directory and I did.
+
+687
+01:09:54,790 --> 01:10:00,690
+I tried. All right. So if you don't have that, if that piece again, it just this gives me a lot of fits.
+
+688
+01:10:00,970 --> 01:10:09,070
+You can also go to session. See them out there.
+
+689
+01:10:09,970 --> 01:10:15,160
+Set working directory. Choose directory.
+
+690
+01:10:16,360 --> 01:10:20,920
+Source file location will automatically choose it for you and then put your way into the folder that you want.
+
+691
+01:10:23,490 --> 01:10:27,540
+So one more time sessions. It's giving me the same error.
+
+692
+01:10:27,940 --> 01:10:33,360
+I don't know what's going on there. You say it's not working for you.
+
+693
+01:10:33,380 --> 01:10:38,690
+Is that for each different script that you're working on or is it working?
+
+694
+01:10:38,880 --> 01:10:41,970
+It's going to be for the session or the workspace that you're using.
+
+695
+01:10:41,970 --> 01:10:47,130
+Heather I'll try to help you troubleshoot, work it because there's still two more ways that we can do this.
+
+696
+01:10:48,120 --> 01:10:56,270
+When I set this working directory here, it's saying Now I know to look in my downloads folder for the data file IQ,
+
+697
+01:10:56,280 --> 01:11:01,200
+CSP, and if I go to my downloads folder, sure enough, there it is.
+
+698
+01:11:02,520 --> 01:11:09,540
+Right. Q Data 22. CSP So now instead of having to have this whole rigmarole of in line 48,
+
+699
+01:11:09,540 --> 01:11:17,040
+I should be able to now save over my IQ variable for my IQ data set and run it in just this way.
+
+700
+01:11:19,080 --> 01:11:25,110
+Okay. That's file number two. And if folks are struggling with this, I'm going to make sure that we get you there,
+
+701
+01:11:25,110 --> 01:11:28,140
+because that's one of the ways I'd prefer you use number one or number two.
+
+702
+01:11:29,370 --> 01:11:36,000
+If, however, that's not working. 60. Here is a nice little function, this file that's used in parentheses.
+
+703
+01:11:36,780 --> 01:11:40,290
+So what I'm saying is I want to create an object.
+
+704
+01:11:40,860 --> 01:11:45,270
+I'm going to assign a value of this function. Read CSP. Give me a CSP file.
+
+705
+01:11:45,690 --> 01:11:52,770
+But I don't know if this file that choose with two an open parentheses is going to return a window.
+
+706
+01:11:58,310 --> 01:12:05,880
+It's going to return a window. I guess it's going to help you point and click through a file that you want.
+
+707
+01:12:06,570 --> 01:12:10,380
+So this this device bypasses any sort of setting or working directory.
+
+708
+01:12:11,310 --> 01:12:14,580
+And then you can just kind of figure out where did you go? Where was your file?
+
+709
+01:12:16,410 --> 01:12:21,600
+And then here in this case on the downloads folder and click on I can do to say openness.
+
+710
+01:12:24,320 --> 01:12:28,879
+Where I don't like about this file choose is it's not obvious that you might want to for
+
+711
+01:12:28,880 --> 01:12:32,660
+example include additional information like I want to make sure that there's a header.
+
+712
+01:12:34,070 --> 01:12:37,160
+Now I say the easiest for last and that was me.
+
+713
+01:12:37,850 --> 01:12:41,600
+But that is the reason I did that is because I don't want you to give up on
+
+714
+01:12:41,630 --> 01:12:46,250
+setting your working directory and I'll explain why as we're moving forward,
+
+715
+01:12:47,150 --> 01:12:51,320
+our studio very, very conveniently has an import is a function.
+
+716
+01:12:52,670 --> 01:12:55,900
+It allows you to import data from text files.
+
+717
+01:12:55,910 --> 01:13:00,470
+I'm sorry, this is so small. That's files from Excel from SPSS stats are state.
+
+718
+01:13:01,430 --> 01:13:08,240
+What I need folks to know is that we're no longer using base R commands when we use this import function and that's okay.
+
+719
+01:13:08,570 --> 01:13:16,670
+You can use different packages to do different things, but our studio is either going to use the read R package or the Haven package.
+
+720
+01:13:17,090 --> 01:13:23,600
+And the only reason why you need to know about that is because they're going to have different sorts of arguments when we're reading in the data.
+
+721
+01:13:24,110 --> 01:13:28,099
+So you remember when I hovered over that read that CSP file, it had things like,
+
+722
+01:13:28,100 --> 01:13:31,370
+What's the file, what's the header, what kind of characters, that kind of stuff.
+
+723
+01:13:31,760 --> 01:13:34,790
+All customizable, which is great or read.
+
+724
+01:13:34,790 --> 01:13:38,930
+R and Stephen are going to have the same things you just have to be aware of.
+
+725
+01:13:39,710 --> 01:13:47,030
+Otherwise you could inadvertently read in this data file and your first three values could be IQ achievement in school.
+
+726
+01:13:47,720 --> 01:13:53,030
+We don't want that. We want our variable names to be IQ achievement in school.
+
+727
+01:13:53,720 --> 01:14:00,350
+And I understand this. It seems very, very basic. But again, when it's a brand new data set and we're not we've never looked at it before,
+
+728
+01:14:00,590 --> 01:14:06,350
+we want to make sure that it's in a position where we're we're not making kind of mistakes just with the read in part of things.
+
+729
+01:14:06,950 --> 01:14:13,340
+So if I do this, I click on import dataset. In this case I'm going to read from text using read are.
+
+730
+01:14:17,430 --> 01:14:23,750
+It's going to ask me to find a file. So I'm just going in my downloads folder.
+
+731
+01:14:27,400 --> 01:14:34,600
+And it's even going to give me a little bit of a preview and see down here on the left is the import options, this kind of piece.
+
+732
+01:14:35,140 --> 01:14:40,810
+This is where you can make some of those distinctions in terms of like first row as names and what's the delimiter,
+
+733
+01:14:40,810 --> 01:14:44,800
+which means is this a comma separated file, a tab, separated file, etc.
+
+734
+01:14:45,490 --> 01:14:49,060
+So you kind of have to know a little bit about your data as you're reading it out, or you can just kind of take a look here.
+
+735
+01:14:49,990 --> 01:14:55,690
+I like that. They also include this code preview. If you know that this is how you want your data, look.
+
+736
+01:14:55,870 --> 01:14:59,620
+Copy and paste it in your script. Don't do this point click stuff.
+
+737
+01:15:00,670 --> 01:15:05,000
+Right. We're coders. Now take the code. Plop it in your script file.
+
+738
+01:15:05,020 --> 01:15:09,450
+That's how you're going to get this data now. Okay. You can just click import.
+
+739
+01:15:09,460 --> 01:15:14,200
+My name is going to be like, you know, I don't want that. I want my name to be just like you.
+
+740
+01:15:16,830 --> 01:15:24,680
+See some of that customizability is going to change here. So ideally the code over here changes, you know.
+
+741
+01:15:25,020 --> 01:15:28,830
+Okay, nothing wrong with accepting defaults. There really is nothing wrong with accepting defaults.
+
+742
+01:15:29,220 --> 01:15:32,580
+But we also want to be a little intentional about the way that we're reading things out.
+
+743
+01:15:33,810 --> 01:15:38,250
+And there's my data. So a few things that just happened without you probably realizing it.
+
+744
+01:15:38,700 --> 01:15:47,129
+And of course then we read the code in like a fool up here are library reader was telling ah hey
+
+745
+01:15:47,130 --> 01:15:52,830
+we need to use a package specifically we need to use the read our package so it accesses that.
+
+746
+01:15:53,730 --> 01:16:00,629
+Then we ran a line of code that we saw in a preview assigned to IQ, the CFD notes.
+
+747
+01:16:00,630 --> 01:16:04,890
+Now we have an underscore instead of a period so small changes,
+
+748
+01:16:04,890 --> 01:16:10,170
+but they're going to look things up if you don't pay attention to them and IQ data that CSP this was the
+
+749
+01:16:10,170 --> 01:16:18,480
+file name right includes an additional information view it's just RS way of saying show me your data.
+
+750
+01:16:18,960 --> 01:16:25,620
+So if I do capital v i uw iq my object, you should give something that looks like this.
+
+751
+01:16:29,780 --> 01:16:37,730
+So this is my data file in our size for different ways of doing the exact same thing.
+
+752
+01:16:38,630 --> 01:16:41,630
+Right. What you choose to use is really up to you.
+
+753
+01:16:42,080 --> 01:16:47,570
+But I just want the folks to really understand when you're doing some of these operations, what exactly are you expecting?
+
+754
+01:16:47,580 --> 01:16:51,260
+What should you be doing? We are right about at time.
+
+755
+01:16:52,730 --> 01:16:56,600
+I am going to probably pause so it's not too overwhelming to walk around if
+
+756
+01:16:56,600 --> 01:16:59,210
+anybody has a few minutes and wants some help trying to get your data files in.
+
+757
+01:16:59,690 --> 01:17:06,380
+Just the last but not least, foreign is a package that we're going to use pretty frequently.
+
+758
+01:17:06,740 --> 01:17:09,890
+It's the other the the analog for our studio is called Haven.
+
+759
+01:17:10,130 --> 01:17:16,070
+And that's because Art Self doesn't know how to read in files from stars, the stars data, SPSS,
+
+760
+01:17:16,070 --> 01:17:24,740
+etc. So when you use the like, when you get you need to install a package installed that packages the name of the package.
+
+761
+01:17:26,630 --> 01:17:30,830
+Okay. How do I know that this is the package? I didn't google it.
+
+762
+01:17:30,830 --> 01:17:34,380
+Or you didn't just know from advance or advance that this is the variant we're looking for.
+
+763
+01:17:34,890 --> 01:17:40,880
+All right. How do I read the messages as well? Oh, form does that. I'm going to download the foreign package in parentheses.
+
+764
+01:17:42,740 --> 01:17:47,660
+Quotations in quotations. Comma, this is important.
+
+765
+01:17:48,270 --> 01:17:49,580
+I know. I'll go over this again.
+
+766
+01:17:50,270 --> 01:17:59,060
+Dependencies equals true means that any sort of package that this package needs to function well should also be downloaded.
+
+767
+01:18:00,260 --> 01:18:04,669
+So a lot of packages borrow from others. That's my foreign package to read.
+
+768
+01:18:04,670 --> 01:18:12,440
+An SPSS file is actually going to use one or two other packages to do its job and rather than making you go through and download them all by itself.
+
+769
+01:18:12,890 --> 01:18:17,330
+If you use dependencies, this package depends on equals.
+
+770
+01:18:17,330 --> 01:18:20,480
+True. It's going to just download download them all simultaneously.
+
+771
+01:18:20,900 --> 01:18:27,080
+So by default I would almost always do this little appendix to what package you install.
+
+772
+01:18:28,130 --> 01:18:31,130
+Once you have that package, you can call this.
+
+773
+01:18:31,130 --> 01:18:44,780
+You pull it from your library and then you can use the specific function of that package to in to upload a an SPSS file report in SPSS file.
+
+774
+01:18:45,920 --> 01:18:51,860
+All right. So small tweaks depending on the type of data that you're expecting up here.
+
+775
+01:18:51,860 --> 01:19:00,259
+We were using a 65 and the two different ways that I showed you had two different functions to get a 65 that read
+
+776
+01:19:00,260 --> 01:19:05,479
+our package had a slightly different one in the base to find the one that you're comfortable with and go with that.
+
+777
+01:19:05,480 --> 01:19:14,090
+Now, I need to switch back and forth. Somali foreign and haven are two packages that read in like SPSS files.
+
+778
+01:19:14,780 --> 01:19:19,009
+Find the one that you want to use and you're comfortable with it because they're going to
+
+779
+01:19:19,010 --> 01:19:24,560
+have different sorts of auxiliary commands that I can turn to try to talk you through.
+
+780
+01:19:24,890 --> 01:19:31,370
+But trying to understand what's going on beyond just give me the data is going to be really important.
+
+781
+01:19:31,820 --> 01:19:37,070
+Okay? So I will hang around for a few minutes even after class.
+
+782
+01:19:37,070 --> 01:19:42,320
+And folks want but I want to try if you if you were unsuccessful pulling of some of your data
+
+783
+01:19:42,560 --> 01:19:47,270
+your homework are really about your homework for the weekend try to upload one of these files,
+
+784
+01:19:47,270 --> 01:19:53,570
+try to import it in and see if you can get to at least this stage where you have a working dataset,
+
+785
+01:19:53,870 --> 01:19:58,699
+you'll be able to see it in your in your what you might call in your global environment.
+
+786
+01:19:58,700 --> 01:20:04,310
+Here, it'll be an object, you'll be happy. And then you start playing around and we'll do a lot more of this next time.
+
+787
+01:20:05,270 --> 01:20:12,230
+So for my, some things didn't work for me if I want to start over.
+
+788
+01:20:14,200 --> 01:20:16,730
+And for that matter, shouldn't really matter.
+
+789
+01:20:16,740 --> 01:20:23,760
+But, uh, it doesn't hurt to start over when you have your script, but because think it's really easy to go back to where you were.
+
+790
+01:20:24,150 --> 01:20:26,370
+So when I'm starting to make, I can be consistent here.
+
+791
+01:20:26,730 --> 01:20:32,640
+A good programing tip is to go way back and just keep walking through the steps again to figure out where the years happened.
+
+792
+01:20:34,140 --> 01:20:40,090
+All right, everybody. Thank you. I hope you have a great weekend and we'll be doing a lot more of this next week.
+
+793
+01:20:41,040 --> 01:20:45,390
+So if you have some time, play around with our studio if you want these.
+
+794
+01:20:46,560 --> 01:20:52,959
+These are kind of like step by step tutorials and other resources page or you're going
+
+795
+01:20:52,960 --> 01:20:58,710
+to hear these for our folks right here said if you want to look at the importing data,
+
+796
+01:20:59,490 --> 01:21:01,260
+that's just kind of a step by step tutorial.
+
+797
+01:21:01,260 --> 01:21:08,410
+If folks are still struggling on how I can make a video and then you can walk through it with me in our studio and week infomercial and YouTube.
+
+798
+01:21:08,970 --> 01:21:09,210
+All right.
+
+799
+01:21:09,540 --> 01:21:15,840
+And just to confirm, you want us to email the pre assessment finance class by next Tuesday, please send a free assessment and get a couple of them.
+
+800
+01:21:16,050 --> 01:21:22,050
+But before too soon, what we're focusing on. All right. How really good could you upload the recording of today's?
+
+801
+01:21:22,470 --> 01:21:25,490
+It should be automatically uploaded. Is it?
+
+802
+01:21:25,500 --> 01:21:26,190
+I think you.
+

@@ -1,0 +1,3288 @@
+1
+00:00:03,840 --> 00:00:11,950
+Okay. So last class before a well-deserved break for all of us.
+
+2
+00:00:13,000 --> 00:00:18,910
+And we were on hand out 18, which is the last handout that's covered on the final quiz.
+
+3
+00:00:20,600 --> 00:00:30,770
+So we started last time we were we were working on an obesity data set where children had been measured over time for their obesity status.
+
+4
+00:00:30,770 --> 00:00:34,580
+So briefly, remind ourselves how that goes.
+
+5
+00:00:36,410 --> 00:00:42,550
+Heads up on assignments. Everything that you need is posted.
+
+6
+00:00:43,150 --> 00:00:49,260
+Homework five is due. Tomorrow and homework six.
+
+7
+00:00:49,350 --> 00:00:54,540
+Do I think that's the last day of class? So after today, you'll have everything you need.
+
+8
+00:00:54,540 --> 00:00:56,400
+And actually, towards the end of this handout,
+
+9
+00:00:57,150 --> 00:01:04,500
+there's some tricky formulas that you're going to be working through for the fourth problem on your homework.
+
+10
+00:01:04,500 --> 00:01:08,760
+And so I thought it would be useful to kind of go through a similar example.
+
+11
+00:01:09,210 --> 00:01:13,860
+So let's make sure we get time to look at that before the end of class.
+
+12
+00:01:16,990 --> 00:01:20,740
+Any questions before I get started?
+
+13
+00:01:24,180 --> 00:01:30,230
+All right, hearing now. Let's get going. So there's two different models that we're going to be looking at.
+
+14
+00:01:30,250 --> 00:01:42,340
+When you have dependent binary outcomes and we've been focusing first and foremost on the G regression outcomes and but later on,
+
+15
+00:01:42,340 --> 00:01:49,720
+we're going to also be looking at conditional logistic regression and just as a bit of a mental jog,
+
+16
+00:01:50,560 --> 00:01:58,630
+we looked at conditional things earlier on in the course when we had case control studies that were matched.
+
+17
+00:01:59,560 --> 00:02:07,120
+And and we looked at things like odds ratios, conditional odds ratios that accounted for matching.
+
+18
+00:02:07,570 --> 00:02:12,070
+And this is going to be the regression model that extends those methods.
+
+19
+00:02:13,570 --> 00:02:17,590
+So whereas, you know, we're we're basically modeling.
+
+20
+00:02:17,590 --> 00:02:22,719
+Yes, no dependent outcomes that can vary the.
+
+21
+00:02:22,720 --> 00:02:25,180
+Yes, no outcomes can vary within the match set.
+
+22
+00:02:25,720 --> 00:02:32,440
+In the conditional logistic regression setting, we're going to have matched sets where all the outcomes are kind of predetermined.
+
+23
+00:02:32,440 --> 00:02:37,690
+There will be one case and four control say, and that would be the same for all the matched sets.
+
+24
+00:02:38,290 --> 00:02:42,010
+So we'll have to learn how to, when to use which model.
+
+25
+00:02:44,330 --> 00:02:50,650
+Let's briefly just remind ourselves about this obesity data set that we were looking at.
+
+26
+00:02:51,790 --> 00:02:57,220
+And I'll go to slide show momentarily after we kind of do this brief review.
+
+27
+00:02:57,700 --> 00:03:06,430
+So only variables in the data set were the ID variable, which is used to identify which outcomes are correlated with one another.
+
+28
+00:03:07,030 --> 00:03:11,680
+The obesity outcome, which I guess is on this slide.
+
+29
+00:03:11,980 --> 00:03:16,210
+One, if they were obese for that child in that measurement time and zero otherwise.
+
+30
+00:03:18,360 --> 00:03:24,920
+And then there's gender variable and the current age at that obesity measure.
+
+31
+00:03:24,930 --> 00:03:28,290
+So this current age is like the time variable for this data set.
+
+32
+00:03:29,760 --> 00:03:34,740
+And we had gotten to the point in the handout where we had fit a model.
+
+33
+00:03:36,650 --> 00:03:47,450
+With age. Current age female and an interaction between female and current age.
+
+34
+00:03:48,080 --> 00:03:54,770
+And so we were just at the point where we're going to be interpreting the results.
+
+35
+00:03:55,370 --> 00:03:59,179
+So this is just a reminder down here of, you know,
+
+36
+00:03:59,180 --> 00:04:06,620
+how to fit these models in production model and how to, you know, make sure you're modeling the event.
+
+37
+00:04:06,620 --> 00:04:13,790
+The obesity equals one variable. And there's different ways to do that, either with the ascending option or in SAS,
+
+38
+00:04:13,790 --> 00:04:22,159
+you can actually put the outcome into the class statement and it'll give you the same results as the descending options.
+
+39
+00:04:22,160 --> 00:04:27,260
+So I think that's a general thing that you can do. But I haven't field tested it with more than just this data set.
+
+40
+00:04:28,850 --> 00:04:30,260
+All right. So after you.
+
+41
+00:04:30,680 --> 00:04:39,950
+Oh, and another important thing to remind your SAS users of is that if you're going to be relying on wild tests that involve more than one parameter,
+
+42
+00:04:40,220 --> 00:04:42,620
+you need to use this type three world command.
+
+43
+00:04:42,950 --> 00:04:52,910
+We have that situation here because we have several categories for age, for current age, but even for binary variables,
+
+44
+00:04:53,030 --> 00:04:59,870
+every categorical and binary variable that you want to interpret with this type three world output, you need to put in the class statement.
+
+45
+00:05:00,230 --> 00:05:04,040
+They actually have errors for the P values.
+
+46
+00:05:05,340 --> 00:05:06,959
+When you use this output,
+
+47
+00:05:06,960 --> 00:05:15,330
+unless you have that variable in the class statement that if you just need to interpret one wall p value in the regular parameter estimate table,
+
+48
+00:05:15,330 --> 00:05:23,069
+those numbers are fine. But if you're looking at this table and you don't put, say, female in the class statement,
+
+49
+00:05:23,070 --> 00:05:27,870
+you'll get p values that don't match between the parameter estimate table in this
+
+50
+00:05:27,870 --> 00:05:32,580
+world table because they have some error in sense that they have corrected.
+
+51
+00:05:35,230 --> 00:05:41,680
+Okay. And we had fit and structured covariance because this data set was huge.
+
+52
+00:05:41,680 --> 00:05:47,860
+We didn't have to worry about modeling anything more conservative in the number of parameters
+
+53
+00:05:47,860 --> 00:05:52,030
+we just went straight to in structure because the dataset was huge and that's a fairly safe.
+
+54
+00:05:53,060 --> 00:06:01,330
+Choice when you have a huge data set. And so here's what the wild statistic data looks like.
+
+55
+00:06:01,340 --> 00:06:04,670
+So this is a parameter of just the P values.
+
+56
+00:06:05,060 --> 00:06:14,810
+And this because we put female in the class statement, this p value will match the p value in the next table that we see for female.
+
+57
+00:06:18,050 --> 00:06:26,470
+Right. So those match. But without that in the class statement, it would have given you something wonky for this p value for female.
+
+58
+00:06:27,470 --> 00:06:33,950
+And then we need this table to look at things like current age and the interaction between female and current age,
+
+59
+00:06:34,280 --> 00:06:38,210
+where you have several parameters, you're all testing to see if they're needed in the model at once.
+
+60
+00:06:39,130 --> 00:06:45,580
+And the interaction is significant. So we do need to have that interaction between female and current age.
+
+61
+00:06:47,720 --> 00:06:50,690
+And I think that's where we left off last time.
+
+62
+00:06:51,830 --> 00:07:02,840
+And so now I want to give you some practice with figuring out how to estimate things for different risk profiles.
+
+63
+00:07:03,050 --> 00:07:07,730
+Here were really the only things that we alter are gender and age.
+
+64
+00:07:08,780 --> 00:07:12,050
+So here's the table of the parameter estimates.
+
+65
+00:07:12,650 --> 00:07:19,460
+And because of this large sample size, I went straight to the empirical standard estimates.
+
+66
+00:07:19,470 --> 00:07:22,700
+You could have gone to the unstructured, and that would have been fine as well.
+
+67
+00:07:22,710 --> 00:07:27,620
+But I just went straight to the empirical standard error estimates because it was a large data set.
+
+68
+00:07:27,620 --> 00:07:30,860
+And it's very it's very easy to to do this.
+
+69
+00:07:31,460 --> 00:07:35,480
+This is also going to match what our gives you are only gives you this table.
+
+70
+00:07:35,480 --> 00:07:37,400
+It doesn't give you the model based table.
+
+71
+00:07:39,030 --> 00:07:48,590
+And from here, we and we, you know, when we're writing manuscript worthy sentences, this is the extension of logistic regression.
+
+72
+00:07:48,600 --> 00:07:53,700
+So everything that we're going to talk about has to do with odds ratios and odds again,
+
+73
+00:07:54,600 --> 00:07:58,650
+because and you always figure this out by the link that's used for the model.
+
+74
+00:07:58,660 --> 00:08:02,639
+So for logistic regression with the logit link, you know,
+
+75
+00:08:02,640 --> 00:08:08,610
+we go to the odds ratios for count models with a log link, we go to multiplicative factors, right?
+
+76
+00:08:10,520 --> 00:08:20,510
+For the. So here we're dealing with odds ratios and we've got a lot going on here with the age variables and the interactions and.
+
+77
+00:08:23,380 --> 00:08:28,780
+So first off, let's just look at this interaction stuff again.
+
+78
+00:08:29,170 --> 00:08:37,030
+Now, one of the things that is very, very true when you are dealing with categorical variables and categorical interactions,
+
+79
+00:08:37,600 --> 00:08:43,330
+is that the P values are completely determined by the reference group you pick.
+
+80
+00:08:44,410 --> 00:08:51,310
+So if I switch the reference group from 12 to some other group, all of these P values will change.
+
+81
+00:08:51,640 --> 00:09:00,320
+And so it can be hard to just spot significantly important variables at a glance using these p values.
+
+82
+00:09:00,340 --> 00:09:03,760
+So when we looked at the world test.
+
+83
+00:09:05,440 --> 00:09:08,930
+You know, that interaction was statistically significant. Right.
+
+84
+00:09:08,950 --> 00:09:13,650
+So it's an important variable in the model here.
+
+85
+00:09:13,660 --> 00:09:21,010
+Looking at the P values, it's kind of hard to get a sense that that you only see one significant P value for age six.
+
+86
+00:09:21,010 --> 00:09:30,130
+But what is this p value? This P value is saying, is this interaction term different for someone who's six versus someone who's 12?
+
+87
+00:09:31,640 --> 00:09:43,610
+Right. And so it might very well be a stronger difference for this p value if you compared it to.
+
+88
+00:09:45,630 --> 00:09:52,590
+These groups with positive parameters. Really this this row is comparing that parameter estimate to zero.
+
+89
+00:09:52,590 --> 00:09:56,450
+And it might very well be that you. Get stronger.
+
+90
+00:09:56,470 --> 00:10:01,460
+People say if you're comparing this .64 to this minus .16.
+
+91
+00:10:02,030 --> 00:10:06,140
+So when you change your reference group, all the P values change with categorical variables.
+
+92
+00:10:10,580 --> 00:10:19,760
+All right. So so the main the bottom line is just use that wall tests to help you decide whether that variable is important.
+
+93
+00:10:20,420 --> 00:10:26,720
+And if you want to choose a reference group that makes the P values all look sexier, that's fine.
+
+94
+00:10:27,740 --> 00:10:34,790
+But but use the use the p value for testing all six parameters that wants to see that interactions useful.
+
+95
+00:10:39,180 --> 00:10:46,290
+All right. So we're going to be doing some estimate statements to figure out things like odds ratios,
+
+96
+00:10:46,290 --> 00:10:53,250
+comparing females to males for obesity status at different ages.
+
+97
+00:10:53,670 --> 00:10:59,370
+And it's it's a lot to try to figure out what to do for your estimate statement
+
+98
+00:10:59,580 --> 00:11:04,709
+and sass does you're a little bit of a favor and trying to help you out.
+
+99
+00:11:04,710 --> 00:11:14,730
+So when you are looking at your estimate statement and you're trying to decide the number to put after the variable name for the binary variable,
+
+100
+00:11:14,730 --> 00:11:20,190
+it's pretty easy. It's either zero or, you know, one to talk about.
+
+101
+00:11:20,190 --> 00:11:27,300
+The parameter that goes with being a female would be a one for current age with this.
+
+102
+00:11:28,230 --> 00:11:31,830
+You know, class statement. It's harder.
+
+103
+00:11:33,210 --> 00:11:43,050
+You have to pick a row here. To figure out, you know, the data that you want from the estimate statement.
+
+104
+00:11:44,010 --> 00:11:49,020
+And all that's really happening here is that they're looking at the table here.
+
+105
+00:11:49,980 --> 00:11:57,629
+And deaf and trying to figure out, you know, how many of this parameter do you need in your formula, how many of this parameter?
+
+106
+00:11:57,630 --> 00:11:59,550
+Jane Your formula and so on.
+
+107
+00:11:59,850 --> 00:12:11,780
+They're doing it in the order here that you've given it and they they've got a placeholder for the H current age was 12 as well I think I'll
+
+108
+00:12:11,790 --> 00:12:20,070
+but I'll check in a moment so we can just do it that right now there's not a placeholder for 12 that just makes all the variables zero.
+
+109
+00:12:21,710 --> 00:12:29,660
+So you're just going through the order here that they put out the parameter estimates and trying to decide,
+
+110
+00:12:29,660 --> 00:12:33,950
+does your formulae need one of these pages? Does it need one of these betas and so on?
+
+111
+00:12:34,820 --> 00:12:37,549
+And there's only one name for the variable.
+
+112
+00:12:37,550 --> 00:12:47,330
+So it wants you to put current age and then all the ones and zeros or whatever number you need for all of these parameter estimates in your formula.
+
+113
+00:12:48,260 --> 00:12:56,629
+So for example, if you want to include a parameter, the beta corresponding to a kid whose current age is 14,
+
+114
+00:12:56,630 --> 00:13:06,020
+in an estimate statement, you would go to this red box row and this is the this is SAS telling you what to code for a 14 year old.
+
+115
+00:13:07,130 --> 00:13:13,400
+So 000100. Now our does the same thing without giving you this table,
+
+116
+00:13:13,400 --> 00:13:23,210
+it just expects you to go to whatever this table is and figure out row by row, you know what to put in the list.
+
+117
+00:13:23,480 --> 00:13:28,190
+You'll turn out to be the same. Okay.
+
+118
+00:13:29,160 --> 00:13:34,180
+So I'm going to go to SlideShare now. Finally. Right.
+
+119
+00:13:34,210 --> 00:13:35,590
+So there's a lot here. So.
+
+120
+00:13:38,400 --> 00:13:49,880
+So I added these estimate statements to the previous gen mod code to get odds ratio estimates for female versus male at different ages.
+
+121
+00:13:49,890 --> 00:13:56,040
+So here is that I put in this label and here is the formula that we're going to need to get this odds ratio.
+
+122
+00:13:56,050 --> 00:14:03,120
+So this first one is the odds ratio for an age six female versus an age six male.
+
+123
+00:14:03,900 --> 00:14:08,010
+So first off, you need to know which formula you're going for, right?
+
+124
+00:14:08,010 --> 00:14:13,830
+So in the model for age six.
+
+125
+00:14:15,960 --> 00:14:23,340
+Uh. The current actually the current age for age six is going to cancel out in this
+
+126
+00:14:23,340 --> 00:14:28,020
+odds ratio because both the top person and the bottom person are both age six.
+
+127
+00:14:28,990 --> 00:14:33,880
+So current age will cancel out and we'll have all zeros for all of those parameters.
+
+128
+00:14:34,360 --> 00:14:36,760
+All six of the parameters that we're showing in the output.
+
+129
+00:14:38,410 --> 00:14:49,090
+But in the top of the odds ratio, we're going to have female and with a, you know, with a one for that data and male is a zero for that same data.
+
+130
+00:14:49,090 --> 00:14:53,490
+So female we're going to have a one here. In our formula.
+
+131
+00:14:55,460 --> 00:14:59,390
+The intercept actually cancels out on the top and the bottom when we're doing a ratio.
+
+132
+00:14:59,690 --> 00:15:05,660
+So it was the intercept was both in the top and the bottom cancels and then the interaction.
+
+133
+00:15:06,870 --> 00:15:11,010
+Is going to look like this.
+
+134
+00:15:12,220 --> 00:15:18,280
+So. The female stays in the top.
+
+135
+00:15:20,430 --> 00:15:29,420
+The current age. It's going to be for a six year old, but it's going to be for the same six year old in the top and the bottom.
+
+136
+00:15:30,360 --> 00:15:42,420
+So it's going to be. Female in that first spot for the parameter of the six year old female here.
+
+137
+00:15:46,180 --> 00:15:51,510
+Okay. Four questions about. How this formula came about.
+
+138
+00:15:53,070 --> 00:15:57,660
+So when we go to the table, we're saying that we're going to need.
+
+139
+00:16:01,370 --> 00:16:03,680
+So the intercept cancels out in the top. In the bottom.
+
+140
+00:16:05,360 --> 00:16:10,999
+But this one doesn't cancel out because it's going to be female on the top and it's going to be male on the bottom.
+
+141
+00:16:11,000 --> 00:16:17,309
+So we'll need one of these terms. And then everybody is six in the top.
+
+142
+00:16:17,310 --> 00:16:20,060
+In the bottom. So all of these are going to cancel out.
+
+143
+00:16:20,070 --> 00:16:28,229
+We would have had a one followed by a bunch of zeros in the top, but also a one followed by bunches, years in the bottom.
+
+144
+00:16:28,230 --> 00:16:32,210
+So this cancels out. And then we have all these terms.
+
+145
+00:16:32,330 --> 00:16:39,170
+And the only one that shows up in the top but not the bottom is this line here.
+
+146
+00:16:39,860 --> 00:16:43,800
+So when they're six years old. Times female.
+
+147
+00:16:45,270 --> 00:16:50,950
+We'll need this parameter. But in the bottom it'll be mail times a six year old.
+
+148
+00:16:53,180 --> 00:16:56,750
+So it won't cancel out and it'll have this remaining.
+
+149
+00:16:58,230 --> 00:17:03,760
+And so to indicate that this is the parameter that we want. The estimate statement.
+
+150
+00:17:05,230 --> 00:17:10,000
+Is catching that first of the interaction terms, but none of the others are relevant.
+
+151
+00:17:16,330 --> 00:17:27,570
+Okay. And so this is just for age six, but you can imagine the same algebra is going to hold for the other age groups as well.
+
+152
+00:17:28,510 --> 00:17:33,550
+And all that's happening here is changing the age.
+
+153
+00:17:34,240 --> 00:17:37,660
+So this next line is for age eight, female versus age eight.
+
+154
+00:17:37,660 --> 00:17:45,830
+Age eight, male. And the only thing that's different is which of the terms from the interaction doesn't cancel out.
+
+155
+00:17:45,830 --> 00:17:51,860
+And it's going to be this term that has female by the current age equals a variable.
+
+156
+00:17:53,590 --> 00:17:57,850
+And age ten kind of switches it to that next parameter.
+
+157
+00:17:58,330 --> 00:18:04,210
+Age 12 was the reference group, so this ends up all being zeros for the reference group.
+
+158
+00:18:05,360 --> 00:18:10,070
+And then at age 14 is over here. Age 16. Over here, age 18, over here.
+
+159
+00:18:20,330 --> 00:18:24,649
+And this is an example of the estimate statement output.
+
+160
+00:18:24,650 --> 00:18:31,160
+I don't think you have all these for everybody, but just to show you where everything is and what it looks like and how you write a sense about it.
+
+161
+00:18:32,060 --> 00:18:35,510
+All right. Here is the output for that estimate statement.
+
+162
+00:18:35,750 --> 00:18:40,610
+And I've kind of wrapped it around so that you could still read it, because otherwise it would be very small.
+
+163
+00:18:41,360 --> 00:18:51,799
+And so we're estimating this odds ratio 2.0799, the confidence interval over here that goes along with it and the p value over here.
+
+164
+00:18:51,800 --> 00:18:57,830
+So a manuscript worthy the sentence if we were to write one about this particular table would be at age six.
+
+165
+00:18:57,830 --> 00:19:01,010
+Females have an odds of obesity.
+
+166
+00:19:01,370 --> 00:19:11,899
+That is 2.0799. In real life, I would assume that 2.08 at most times higher than that about odds of obesity.
+
+167
+00:19:11,900 --> 00:19:15,800
+Males the same age with the confidence interval times higher in the p value.
+
+168
+00:19:18,240 --> 00:19:22,830
+Which is actually quite depressing at six, I mean, or any age actually.
+
+169
+00:19:25,690 --> 00:19:30,339
+So I mainly just kept the number of significant digits so you could recognize where I got it from the output.
+
+170
+00:19:30,340 --> 00:19:35,410
+But in real life, I don't use more than two significant digits in any of these places.
+
+171
+00:19:35,420 --> 00:19:41,110
+So this would have been like P equals 0.02, for example, when you're actually writing your real manuscript worthy sentence.
+
+172
+00:19:43,240 --> 00:19:54,520
+And so here is all of the output for all of the AIDS rate, all odds ratios for ages, confidence intervals and P values.
+
+173
+00:19:55,450 --> 00:20:04,210
+And so just at a glance, all of these P values are, if it was statistically significant, comparing.
+
+174
+00:20:05,350 --> 00:20:14,170
+Females to males for these different ages. So significant differences in age sex, age ten.
+
+175
+00:20:15,320 --> 00:20:24,020
+Age 16. But aside from age eight, I mean, most of them are kind of trending on females having a higher odds of obesity.
+
+176
+00:20:24,020 --> 00:20:29,419
+Right. So here's the sentence that comes that I that I use to interpret this.
+
+177
+00:20:29,420 --> 00:20:38,720
+In this cohort of Iowa children, the obesity odds for females tended to exceed, oh, I should say the odds for males at the same age,
+
+178
+00:20:39,230 --> 00:20:47,150
+with the exception of age eight, although statistical significance at the .05 level was or was observed only at ages six, ten and 16.
+
+179
+00:20:48,180 --> 00:20:57,900
+Obesity odds ratios at those ages were 2.8, 1.27 and 1.27 respectively, with corresponding confidence intervals respectively.
+
+180
+00:21:05,750 --> 00:21:09,829
+And here is our code for doing the same analysis.
+
+181
+00:21:09,830 --> 00:21:13,940
+And a lot of the code is the same as what you've been doing so far.
+
+182
+00:21:14,300 --> 00:21:20,360
+This is code for resetting the reference group so that it matches what SAS gave you.
+
+183
+00:21:20,360 --> 00:21:25,280
+So I wanted the age group to be 12 and this will accomplish that.
+
+184
+00:21:26,270 --> 00:21:38,330
+I will warn you that if you try to use this command to set the reference group for your outcome, it will cause problems for you.
+
+185
+00:21:39,780 --> 00:21:47,130
+This is changing these variables to categorical variables with a certain reference group.
+
+186
+00:21:47,460 --> 00:21:54,930
+If you attempt to do that for the outcome, are doesn't know how to model a categorical thing.
+
+187
+00:21:54,930 --> 00:21:57,160
+It needs it to be a numerical thing.
+
+188
+00:21:57,720 --> 00:22:06,930
+And so if you try to use this re level command, which actually I did try to do for the outcome, you're when you call the regression,
+
+189
+00:22:07,260 --> 00:22:11,219
+it'll give you an error and say it doesn't really know what to do with this outcome, that you keep it.
+
+190
+00:22:11,220 --> 00:22:17,880
+So just you need to keep it numerical zero one numerical outcome when you're doing this and r.
+
+191
+00:22:19,450 --> 00:22:28,540
+And for this analysis, I'm using this function g g alarm, which is in the same package as the one we've been using.
+
+192
+00:22:28,990 --> 00:22:36,490
+But I found it a lot easier to get that wild test with six degrees of freedom from this g g home.
+
+193
+00:22:37,420 --> 00:22:43,120
+It allows you to use the ANOVA function to get these wild tests that we also saw in SAS.
+
+194
+00:22:43,750 --> 00:22:49,420
+And so here's the rest is kind of standard coding for our, you know, outcome.
+
+195
+00:22:49,420 --> 00:22:59,000
+Tilde And then the model and I've got the same model with the interaction that we saw before and it's the same thing of putting the formula here.
+
+196
+00:22:59,020 --> 00:23:03,100
+The family and I use the unstructured correlation here.
+
+197
+00:23:04,030 --> 00:23:10,870
+And it will give you all of the results just using the empirical robot sandwich standard errors.
+
+198
+00:23:11,810 --> 00:23:14,810
+And so I'll summarize that here.
+
+199
+00:23:15,470 --> 00:23:24,110
+And then for comparison, the model without the interaction is going to be useful because we're going to compare those two with the real test.
+
+200
+00:23:25,980 --> 00:23:32,400
+And then when you're using this gold to let you use this ANOVA command, comparing the output from those two fits.
+
+201
+00:23:33,460 --> 00:23:39,970
+And so this is what the estimated parameter estimates can look like.
+
+202
+00:23:39,970 --> 00:23:46,550
+And. They're going to be very similar, but not quite the same as what you get.
+
+203
+00:23:46,560 --> 00:23:54,510
+And so I think they're using overall the same algorithm, but there must be some kind of rounding issues that's making these slightly different.
+
+204
+00:23:56,170 --> 00:24:04,629
+And again, here's the wild statistic output saying that it's significant and this is also scientifically it's close enough,
+
+205
+00:24:04,630 --> 00:24:08,470
+but it's a little bit different from what SATs gives you, just a smidge.
+
+206
+00:24:09,340 --> 00:24:17,800
+So here, the significant interaction between gender and age at time of the least resistance 0.049 not exactly the same as test results, but close.
+
+207
+00:24:19,520 --> 00:24:28,520
+And here are the contrast statements for the same low odds ratios that we did and.
+
+208
+00:24:29,950 --> 00:24:35,320
+You just have to know to go through the table parameter, parameter here.
+
+209
+00:24:35,350 --> 00:24:41,590
+You have to put in numbers even if you don't need that data for your formula.
+
+210
+00:24:42,160 --> 00:24:46,180
+So but otherwise it's the same. So the first thing is the intercept.
+
+211
+00:24:46,180 --> 00:24:53,200
+And then you kind of go through the rows of your parameter table deciding which ones you want to collect for your estimate statement.
+
+212
+00:24:55,270 --> 00:25:03,670
+And I've made up labels just so that you can find them in the output more easily and put in code so they all kind of line up.
+
+213
+00:25:06,310 --> 00:25:14,350
+And this is the best that my programing could do is to do the real labels, followed by this other stuff.
+
+214
+00:25:14,350 --> 00:25:18,890
+And you're supposed to connect this first row with this first row of estimates.
+
+215
+00:25:19,430 --> 00:25:22,540
+That's my programing skill level for this.
+
+216
+00:25:23,530 --> 00:25:28,269
+All right. So that's the same interpretive sentence that we had before.
+
+217
+00:25:28,270 --> 00:25:34,090
+But the numbers have shifted slightly using our. So it's the same pattern of how to write that.
+
+218
+00:25:35,700 --> 00:25:38,519
+And just so you can sort of see how much they've wiggled from Seth,
+
+219
+00:25:38,520 --> 00:25:44,879
+here's a quick just summary of what you would have gotten in South for these same things.
+
+220
+00:25:44,880 --> 00:25:48,060
+And so scientifically, it's similar.
+
+221
+00:25:48,120 --> 00:25:54,810
+Right. All of this signal looks like it's coming from the same places and the odds ratios are kind of in the same ballpark.
+
+222
+00:25:56,940 --> 00:26:00,540
+I'm not sure which one has the technically better rounding.
+
+223
+00:26:00,950 --> 00:26:07,740
+Look, you know, if I knew which one used more significant digits, I would tell you use that one, but I can't tell just from the output.
+
+224
+00:26:08,310 --> 00:26:12,990
+And I don't know this code enough to tell you which one did it.
+
+225
+00:26:13,320 --> 00:26:16,980
+But you're going to be okay. And either package, it's not going to wiggle much.
+
+226
+00:26:17,980 --> 00:26:25,430
+So scientifically, you'll come up with the same story. All right.
+
+227
+00:26:25,430 --> 00:26:29,600
+So that is the wrap up for the G. Material.
+
+228
+00:26:29,600 --> 00:26:38,959
+And so what I did, the rest of the handout is talking about logistic regression that's developed for matched case control studies.
+
+229
+00:26:38,960 --> 00:26:41,960
+And so this you'll have to know when to use which method.
+
+230
+00:26:42,530 --> 00:26:48,140
+And so for this type of study, design cases and controls comprise match sets.
+
+231
+00:26:48,560 --> 00:26:57,320
+So remember when you're doing this, you usually find one case and then you find, you know, one or more controls that are similar to the case.
+
+232
+00:26:58,310 --> 00:27:03,410
+And so by design, all of the outcomes are going to look the same for these sets.
+
+233
+00:27:03,410 --> 00:27:12,470
+There's no variability in the outcomes. If you have one case and one control, it's going to be like case control, case control, case control.
+
+234
+00:27:12,740 --> 00:27:19,670
+Every single pair would have a one and a zero for the outcomes over and over and over.
+
+235
+00:27:20,870 --> 00:27:23,870
+That's actually how you recognize which model is appropriate,
+
+236
+00:27:24,200 --> 00:27:31,850
+that there's no variability in the outcomes that you see when you've selected a match for a case.
+
+237
+00:27:33,110 --> 00:27:35,800
+And she doesn't know how to deal with that. They don't.
+
+238
+00:27:35,810 --> 00:27:43,160
+They expect the variability to be in the ones and zeros, they're expecting the ones and zero outcomes to not be predetermined.
+
+239
+00:27:43,760 --> 00:27:47,450
+So in the obesity study, we didn't know in advance.
+
+240
+00:27:49,350 --> 00:27:53,020
+You know what the ABC was going to do over time for these kids.
+
+241
+00:27:53,160 --> 00:27:59,969
+Any of them could have been a one or a zero over time. But in these matched sets, everything is predetermined.
+
+242
+00:27:59,970 --> 00:28:03,390
+By the way, you selected the data for the outcomes. So.
+
+243
+00:28:03,960 --> 00:28:10,680
+So for this type of study design cases and controls prize matched sets and there is correlation
+
+244
+00:28:10,680 --> 00:28:17,010
+in these matched sets because you've matched them on characteristics that make them similar.
+
+245
+00:28:17,040 --> 00:28:25,050
+That was the whole goal, in fact, to try to control for some things that could be confounders through the matching, making them more similar.
+
+246
+00:28:25,410 --> 00:28:33,600
+So those people and the data related to those people are correlated, but the outcomes are already determined to have a particular pattern.
+
+247
+00:28:34,030 --> 00:28:37,710
+Cases have an outcome of one. Controls have an outcome of zero.
+
+248
+00:28:38,710 --> 00:28:42,810
+And there's usually a fixed number of cases attached to a fixed number of controls.
+
+249
+00:28:42,820 --> 00:28:48,130
+This can vary a little bit, but most of the time it's the same number of controls for every case.
+
+250
+00:28:48,970 --> 00:28:53,060
+And so this is what your data looks like in these studies pair.
+
+251
+00:28:53,060 --> 00:28:56,110
+Remember 123101010.
+
+252
+00:28:56,110 --> 00:29:00,250
+There's nothing random about the outcome here. We picked it to look this way.
+
+253
+00:29:01,120 --> 00:29:04,720
+The randomness is coming from the covariance.
+
+254
+00:29:04,870 --> 00:29:11,650
+So remember in these designs, we we match based on case control status.
+
+255
+00:29:12,610 --> 00:29:17,739
+We don't know the exposure until we go back and look for each case, control what the exposure is.
+
+256
+00:29:17,740 --> 00:29:23,590
+You're not actually allowed to peek at the exposure when you're getting your your matched pairs together.
+
+257
+00:29:24,740 --> 00:29:28,390
+So it's like the exposure is the randomness.
+
+258
+00:29:29,630 --> 00:29:32,930
+In the data between all the different pair members.
+
+259
+00:29:33,380 --> 00:29:41,480
+And so when we looked at this type of data very early on and hand out for we learned things like
+
+260
+00:29:41,480 --> 00:29:47,930
+McNamara's test and conditional odds ratios that were ratios of destroyed Gordon's cell counts and so on.
+
+261
+00:29:48,380 --> 00:29:53,300
+And there were a few lessons that we learned. One, you have to account for the correlation.
+
+262
+00:29:54,390 --> 00:30:06,440
+If you don't account for the fact that you selected these as matched sets, then all of the odds ratios that you estimate are attenuated towards one.
+
+263
+00:30:06,450 --> 00:30:14,580
+Like you lose the signal if you don't take into account they were correlated and so in hand out four we showed.
+
+264
+00:30:14,790 --> 00:30:23,030
+It's not just fixing the variability. Your estimates won't be correct if you assume everybody is independent here.
+
+265
+00:30:23,580 --> 00:30:33,670
+And we kind of looked at that. In hand out for when we didn't have anything other than, you know, to buy to table kind of stuff.
+
+266
+00:30:33,670 --> 00:30:40,209
+Like either our to buy to table would have been some, you know,
+
+267
+00:30:40,210 --> 00:30:46,750
+pair member one pair member to and then combinations of, you know, was the case exposed?
+
+268
+00:30:46,750 --> 00:30:48,160
+Was the control exposed?
+
+269
+00:30:50,490 --> 00:30:57,930
+All right, so now we have more covariates, you know, so we have the exposure could vary, but we might have another covariate or even more out here.
+
+270
+00:31:00,200 --> 00:31:06,020
+And so we want to move it to a regression setting. So.
+
+271
+00:31:06,930 --> 00:31:10,630
+Matched case control studies are not suitable for G methods.
+
+272
+00:31:10,650 --> 00:31:17,010
+We just can't use that tool to analyze this data because the pattern of outcomes are predetermined by the study design.
+
+273
+00:31:17,580 --> 00:31:23,550
+It's problematic to assume there be a random mechanism that follows a particular correlation structure.
+
+274
+00:31:24,420 --> 00:31:32,490
+Frankly, it doesn't know how to estimate correlation in the outcomes when they're all like predetermined and nonrandom over time.
+
+275
+00:31:32,790 --> 00:31:39,160
+I'll show you in a little bit what the output would look like if you attempted it, and it'll look wonky.
+
+276
+00:31:39,180 --> 00:31:44,010
+I mean, you'll see clear signals that something is wrong if you use the wrong model.
+
+277
+00:31:45,190 --> 00:31:48,669
+So such a random mechanism. If you had a map,
+
+278
+00:31:48,670 --> 00:31:53,530
+if it's a g e random mechanism that you can use that would allow the possibility of the
+
+279
+00:31:53,530 --> 00:31:59,440
+outcomes having patterns of zeros and ones that deviate from any matched set restriction.
+
+280
+00:32:02,900 --> 00:32:07,639
+So a correlated set of binary outcome suitable for JE modeling should allow the possibility
+
+281
+00:32:07,640 --> 00:32:13,310
+of all zeros or all ones or any other combination of outcomes in your matched sets.
+
+282
+00:32:14,800 --> 00:32:20,980
+Your correlated sets. So for this setting with matched cases and controls,
+
+283
+00:32:20,980 --> 00:32:26,920
+the appropriate regression method is called conditional logistic regression and the conditional labels
+
+284
+00:32:26,920 --> 00:32:31,540
+appropriate since the predetermined pattern of outcomes in each match set is taken into account.
+
+285
+00:32:31,990 --> 00:32:35,230
+An estimation inference procedures behind the scenes.
+
+286
+00:32:36,810 --> 00:32:47,370
+So we looked at this data set in hand out for the endometrial cancer study, and I'm sure this is so long ago you might have a vague memory of this.
+
+287
+00:32:47,370 --> 00:32:50,969
+But just as a reminder, this is a study.
+
+288
+00:32:50,970 --> 00:33:00,120
+We had 63 matched sets of women who were living in an L.A. retirement community with one case and four controls in each of the matched sets.
+
+289
+00:33:00,990 --> 00:33:06,809
+And cases were women diagnosed with endometrium, cancer and controls were matched on age,
+
+290
+00:33:06,810 --> 00:33:11,340
+their residence, their marital status and time spent in the community.
+
+291
+00:33:11,520 --> 00:33:16,310
+And so they were trying to reduce the amount of confounding by matching on these things.
+
+292
+00:33:17,950 --> 00:33:26,550
+And one of the study objectives was to investigate the relationship between endometrial cancer and the history of gallbladder disease.
+
+293
+00:33:26,590 --> 00:33:28,900
+That was one of the variables in the data set.
+
+294
+00:33:31,110 --> 00:33:40,020
+The conditions are part of the conditional logistic regression takes into account that each match set has exactly one case and exactly four controls.
+
+295
+00:33:41,530 --> 00:33:48,549
+And the randomness in this analysis comes from the fact that aside from the variables used in creating matched sets, we don't know exposure,
+
+296
+00:33:48,550 --> 00:33:55,630
+status or other risk factors leading to each case versus control status when we select the matched sets for analysis.
+
+297
+00:33:56,050 --> 00:34:07,120
+So again, just to reemphasize this idea, the whole design is first creating the matched sets, knowing nothing about their covariance, right?
+
+298
+00:34:07,810 --> 00:34:12,370
+And then looking to see what those various covariates are.
+
+299
+00:34:12,760 --> 00:34:19,330
+After the sets are created, you can't match on both the outcomes and the exposure or you're biasing your analysis.
+
+300
+00:34:19,720 --> 00:34:27,700
+You can only either pick people based on their predictors and do an analysis, or you can pick people based on case control status and do the analysis.
+
+301
+00:34:27,700 --> 00:34:36,570
+But you can't do both or you bias it. So here is the case control centers that was selected on in everything else.
+
+302
+00:34:36,580 --> 00:34:42,160
+We have no idea until we go back and look at them specifically what their covariates are going to turn out to be.
+
+303
+00:34:46,610 --> 00:34:47,420
+So there's.
+
+304
+00:34:50,400 --> 00:35:02,580
+One downside of this whole game is that variables that are used to create the match sets like age or gender, or while they're all going to be women.
+
+305
+00:35:02,580 --> 00:35:11,370
+But any variable that you use to create the match set that matches exactly for everybody in your match set can't be
+
+306
+00:35:11,370 --> 00:35:18,390
+included as predictors in the conditional logistic regression model unless they still vary for members in the matched set.
+
+307
+00:35:20,050 --> 00:35:24,150
+As if, as they might say, if you were matching based on a propensity score,
+
+308
+00:35:24,180 --> 00:35:28,919
+then maybe they're still propensity scores don't match perfectly all the covariates in the matched set.
+
+309
+00:35:28,920 --> 00:35:32,250
+So that might still allow you to look at that.
+
+310
+00:35:32,640 --> 00:35:40,350
+But if you have a data set where every match set has all the same ages.
+
+311
+00:35:41,580 --> 00:35:47,530
+The same to the year. Then the model will not know how to estimate a parameter for agers.
+
+312
+00:35:47,580 --> 00:35:55,300
+No information within the matched set. To just distinguish between how age would have led to a case or control.
+
+313
+00:35:56,350 --> 00:35:59,560
+Everybody had the same age. So there's no there's no way to tell.
+
+314
+00:36:00,710 --> 00:36:04,190
+If a difference in age was more likely a case of control.
+
+315
+00:36:04,790 --> 00:36:07,639
+There's just no data there, and the model reflects that.
+
+316
+00:36:07,640 --> 00:36:15,110
+So that's the intuitive explanation that match predictors can't differentiate between cases and controls on a matched set.
+
+317
+00:36:15,110 --> 00:36:20,000
+If the same risk factor is shared by all in that set, it just doesn't have any.
+
+318
+00:36:20,420 --> 00:36:24,680
+Usually we need to know differences to be able to detect these kinds of associations.
+
+319
+00:36:34,460 --> 00:36:39,050
+So technical details are omitted for why this is the case.
+
+320
+00:36:39,050 --> 00:36:45,709
+But briefly, are these types of predictors completely vanish from a conditional likelihood
+
+321
+00:36:45,710 --> 00:36:49,700
+formula used in estimation after like terms are canceled in software packages?
+
+322
+00:36:49,700 --> 00:36:54,409
+Don't know how to estimate the parameters for terms that vanish from estimation
+
+323
+00:36:54,410 --> 00:37:00,590
+formulas so that it's nothing to do with any judgment about the variable as it's.
+
+324
+00:37:01,010 --> 00:37:05,450
+It's just. Not possible to get an estimate.
+
+325
+00:37:08,600 --> 00:37:13,070
+And this also means that we don't get an estimate of an intercept term.
+
+326
+00:37:13,820 --> 00:37:18,680
+This is also matched for everyone in the same sense that these models won't have an intercept estimate.
+
+327
+00:37:22,300 --> 00:37:27,340
+So there's one cool exception, and that is if you're looking.
+
+328
+00:37:30,060 --> 00:37:33,090
+I said intercept, not interaction right in my head somehow.
+
+329
+00:37:33,750 --> 00:37:36,900
+This is definitely about the intercept. This one's about the interaction.
+
+330
+00:37:36,910 --> 00:37:42,239
+So interaction terms between a matched and unmatched variable can be studied since
+
+331
+00:37:42,240 --> 00:37:45,830
+the interaction terms potentially different for members within the same matched set.
+
+332
+00:37:45,850 --> 00:37:52,200
+So the interaction has to be with at least something that varies in the matched set between people.
+
+333
+00:37:52,830 --> 00:37:57,180
+So for instance and endometrial cancer study were not able to assess the
+
+334
+00:37:57,180 --> 00:38:03,030
+association of age and cancer since age was used to match each set of five women.
+
+335
+00:38:04,440 --> 00:38:11,640
+However, we can assess the interaction between age and estrogen use as a predictor of cancer.
+
+336
+00:38:11,940 --> 00:38:18,209
+Since this interaction term can be different for the five matched women, we didn't match on estrogen status.
+
+337
+00:38:18,210 --> 00:38:24,540
+So within these matched sets, we can see differences in figure out which is more likely to be a case for control.
+
+338
+00:38:25,950 --> 00:38:32,400
+So for a woman taking estrogen, the interaction term would be age times one for the estrogen variable.
+
+339
+00:38:32,790 --> 00:38:37,680
+And for women not taking estrogen, the interaction term is age time zero for the estrogen variable.
+
+340
+00:38:38,220 --> 00:38:44,820
+And so you'll get some of these terms that look like age and some of these terms that look like zero in the formulas.
+
+341
+00:38:44,820 --> 00:38:49,390
+And and suddenly you can. Get estimates for these things.
+
+342
+00:38:52,610 --> 00:38:57,800
+So match sets with members that have different estrogen exposure help estimate this interaction.
+
+343
+00:39:01,510 --> 00:39:07,089
+So there's a few more variables in the endometrial cancer study that are in the dataset.
+
+344
+00:39:07,090 --> 00:39:12,220
+We'll see. In the code set is the variable that tells you which match set they come from.
+
+345
+00:39:13,810 --> 00:39:17,950
+Gaul equals one if they have a history of gallbladder disease and zero.
+
+346
+00:39:17,950 --> 00:39:22,660
+Otherwise S-t is one if they're taking estrogen and zero otherwise.
+
+347
+00:39:24,160 --> 00:39:32,500
+And so to get this logistic this conditional logistic regression, you can use proc logistic again.
+
+348
+00:39:32,500 --> 00:39:41,020
+So it has this same this nice feature being able to say, which is your reference group and which is your outcome.
+
+349
+00:39:41,020 --> 00:39:45,460
+So model cancer event equals one is saying I'm modeling the the.
+
+350
+00:39:46,550 --> 00:39:50,390
+Odds of the cancer being one.
+
+351
+00:39:52,020 --> 00:40:00,180
+So odds ratios, conditional odds ratios are going to be about getting cancer for different risk factors.
+
+352
+00:40:01,120 --> 00:40:06,370
+And so this particular model, which is gallbladder disease in here and nothing else,
+
+353
+00:40:06,640 --> 00:40:12,280
+we could have done that before and hand out for that was the only predictor that we were interested in looking at.
+
+354
+00:40:13,120 --> 00:40:22,149
+We could have done that in hand out for using Copper, Mantle, Hansell or some other kind of, you know, Mat and Mars test.
+
+355
+00:40:22,150 --> 00:40:31,600
+If we just wanted to get a p value, that sort of thing. And the main thing that you need to have in here is a straight a statement saying,
+
+356
+00:40:31,600 --> 00:40:37,570
+which are the what's the variable that it identifies people who were in the matched set, the same matched set.
+
+357
+00:40:39,510 --> 00:40:45,290
+And this regression setting makes it a lot easier to add covariates in here.
+
+358
+00:40:45,300 --> 00:40:55,860
+So if I wanted to adjust for estrogen status or look at an interaction between estrogen status and gallbladder disease,
+
+359
+00:40:56,100 --> 00:41:03,960
+it's very easy to do this in the regression setting. It's not we can't use Cochrane Mental Hansel methods once we get a lot of covariates in here.
+
+360
+00:41:04,650 --> 00:41:08,370
+So this is a nice, like new skill that you'll have.
+
+361
+00:41:10,780 --> 00:41:19,640
+So here is the output where the only predictor was gallbladder disease and it was highly statistically significant here.
+
+362
+00:41:19,660 --> 00:41:21,580
+Odds ratios and confidence limits.
+
+363
+00:41:22,090 --> 00:41:30,010
+And though the way you write the sentence from here would be something like after accounting for the match nature of the study design,
+
+364
+00:41:30,370 --> 00:41:40,900
+the endometrial cancer odds was found to be 3.69, two times higher for those with a history of gallbladder disease versus no such history.
+
+365
+00:41:41,530 --> 00:41:57,000
+And the confidence limits and p value. And if you had done this analysis similar to what we did in hand out for,
+
+366
+00:41:57,420 --> 00:42:03,870
+we would have used proc freak table set cancer girl Cochrane mental Hansell and we
+
+367
+00:42:03,870 --> 00:42:08,790
+would have looked at this p value and we would have looked at this row for the
+
+368
+00:42:08,790 --> 00:42:13,379
+odds ratio and confidence limits and it's it's similar not quite algebraically
+
+369
+00:42:13,380 --> 00:42:16,860
+the same but similar to what we got with this conditional logistic regression.
+
+370
+00:42:19,510 --> 00:42:27,100
+So this again, this is an extension. The conditional logistic regression is an extension of this type of analysis to the regression setting.
+
+371
+00:42:29,690 --> 00:42:32,170
+So here is the output.
+
+372
+00:42:32,180 --> 00:42:39,820
+When you have not just gallbladder disease but estrogen use and interactions and everything looks really exciting and interesting here,
+
+373
+00:42:39,830 --> 00:42:43,310
+just glancing at the world tests. So there's a story here.
+
+374
+00:42:44,720 --> 00:42:53,830
+And I think that this is a good chance for you to practice, you know, estimating odds ratios and interpreting what you've got.
+
+375
+00:42:53,840 --> 00:43:01,070
+So here's an exercise for you to practice getting these formulas.
+
+376
+00:43:01,080 --> 00:43:05,360
+You know, we need more prep, more and more practice because formulas can be quite complicated.
+
+377
+00:43:06,050 --> 00:43:13,160
+So for instance, what's the conditional endometrial cancer odds ratio for each of the following combinations
+
+378
+00:43:13,490 --> 00:43:18,790
+of risk profiles compared to women with neither gallbladder disease nor estrogen use.
+
+379
+00:43:18,800 --> 00:43:28,310
+So the denominator denominator of the odds ratio is a woman who has no issues with either gallbladder disease or history estrogen use.
+
+380
+00:43:28,940 --> 00:43:32,450
+And so the numerator is going to vary for each of these.
+
+381
+00:43:32,450 --> 00:43:36,950
+So how would you get the formula? And this is in the privacy of your own room.
+
+382
+00:43:36,950 --> 00:43:42,979
+You can practice these things. So what's the formula for comparing both, you know,
+
+383
+00:43:42,980 --> 00:43:49,640
+for someone who has both estrogen use and gallbladder disease history compared to this woman with neither.
+
+384
+00:43:49,700 --> 00:44:01,080
+So what is that conditional odds ratio look like? And what is the initial ratio look like if a woman is has been using estrogen but
+
+385
+00:44:01,380 --> 00:44:06,000
+has no gallbladder disease history compared to the woman with neither of these.
+
+386
+00:44:07,090 --> 00:44:16,750
+And what's the the conditional odds ratio comparing one with a gallbladder disease history but no estrogen use compared to women with neither.
+
+387
+00:44:16,940 --> 00:44:20,920
+So all of these are formulas that you can practice getting.
+
+388
+00:44:21,370 --> 00:44:24,339
+And then to, you know, just to help you study,
+
+389
+00:44:24,340 --> 00:44:32,409
+could you recognize estimate statement coded output for producing these odds ratios in confidence intervals either in SAS or because remember,
+
+390
+00:44:32,410 --> 00:44:41,110
+I provide both SAS and R. So just this is the kind of thing make sure you practice getting these kinds of things.
+
+391
+00:44:43,500 --> 00:44:48,180
+So what happens if you try to force a GM model?
+
+392
+00:44:49,450 --> 00:44:52,450
+When you should be using conditional as just a regression.
+
+393
+00:44:52,450 --> 00:45:01,930
+So this is just kind of the code that you might mistakenly use and really you should have a big red X over this because it won't work.
+
+394
+00:45:02,560 --> 00:45:12,010
+But you would, you know, have class with set goal est, you know, model the outcome and the predictors and all these are all the right options.
+
+395
+00:45:12,010 --> 00:45:19,930
+And then you would for a g put something with the repeated statement and then what's the variable that is,
+
+396
+00:45:20,020 --> 00:45:26,050
+is the match variable and you'd have to pick some correlation structure.
+
+397
+00:45:26,380 --> 00:45:33,370
+So I've just stuck unstructured here. And so if you try to run this model, you'll get an error.
+
+398
+00:45:33,430 --> 00:45:46,720
+So the log file will show us something like, you know, the generalized hessian matrix is not positive, definite and um.
+
+399
+00:45:47,620 --> 00:45:55,150
+Erin Parameter estimate, covariance computation. So you'll get some symptoms here that something went wrong in your log file.
+
+400
+00:45:56,810 --> 00:46:00,840
+And then this is what the output will look like. So you'll know something is wrong.
+
+401
+00:46:00,860 --> 00:46:04,489
+It doesn't have and mean there's an error in estimation, routine.
+
+402
+00:46:04,490 --> 00:46:07,310
+And then there's just junk here.
+
+403
+00:46:08,750 --> 00:46:17,240
+So it doesn't know how to deal with the fact that all the outcomes are identical for all the people doesn't know how to deal with that it is.
+
+404
+00:46:17,300 --> 00:46:22,129
+You can't put people in columns and try to figure out correlation structures.
+
+405
+00:46:22,130 --> 00:46:35,360
+You know, everybody's the same. And similarly running a conditional logistic SAS code for the previous G model looks weird.
+
+406
+00:46:35,370 --> 00:46:40,670
+So if you tried to run for the obesity data set, if you tried to do conditional logistic regression.
+
+407
+00:46:41,480 --> 00:46:44,760
+You would also get really strange looking results.
+
+408
+00:46:44,780 --> 00:46:57,559
+So this is the how you could attempt to code conditional logistic regression for the obesity dataset with class setting your reference groups.
+
+409
+00:46:57,560 --> 00:47:01,010
+And then this model statement, everything's the same,
+
+410
+00:47:02,300 --> 00:47:07,520
+but you're using proc logistic with a straight statement and this is conditional logistic regression, right?
+
+411
+00:47:08,560 --> 00:47:15,820
+And so here is what Seth will kind of show you, that proc logistics modeling,
+
+412
+00:47:15,820 --> 00:47:22,210
+the probability that a piece is one and the linear dependency amongst the parameters has been detected.
+
+413
+00:47:22,900 --> 00:47:29,860
+But if you don't look at your log file, you you might miss it.
+
+414
+00:47:29,860 --> 00:47:34,809
+I mean, there's something that SAS will actually put out for you.
+
+415
+00:47:34,810 --> 00:47:40,750
+So that's a little bit of the dangerous feature here is that SAS will give you output that is,
+
+416
+00:47:41,050 --> 00:47:47,410
+you know, you might misinterpret so you know, to look for the warning signs in your output here.
+
+417
+00:47:47,410 --> 00:47:53,920
+So symptom number one that this is not doing the right thing is there should be an intercept term, but there's not.
+
+418
+00:47:57,950 --> 00:48:11,360
+So everybody in each matched set, you know, they had the conditional logistic regression you know is is not able to estimate intercept terms.
+
+419
+00:48:12,680 --> 00:48:19,610
+And. So you would expect to see that unless you've got matched sets.
+
+420
+00:48:19,610 --> 00:48:24,739
+And then the other symptom that you've got here is that the female parameter isn't
+
+421
+00:48:24,740 --> 00:48:31,100
+estimable with conditional logistic regression because in the obesity dataset,
+
+422
+00:48:31,730 --> 00:48:37,100
+ah, the person, the kid has the same gender in the entire match set.
+
+423
+00:48:37,100 --> 00:48:41,870
+So conditional logistic regression doesn't know how to estimate things that are the same within each matched set.
+
+424
+00:48:43,330 --> 00:48:48,120
+So that's the other symptom. That will show up.
+
+425
+00:48:48,130 --> 00:48:53,950
+But everything else, if you just don't have your if you're not perked up,
+
+426
+00:48:53,950 --> 00:48:58,390
+you might miss these symptoms and try to interpret all the rest of this stuff.
+
+427
+00:49:03,260 --> 00:49:06,889
+So the remaining terms give answers but are quite different from GAAP results.
+
+428
+00:49:06,890 --> 00:49:10,670
+They're not correct for the research design you won't have.
+
+429
+00:49:11,420 --> 00:49:20,209
+This is nonsense to interpret. Just for completeness.
+
+430
+00:49:20,210 --> 00:49:24,470
+Here's our code for conditional logistic regression. The code is pretty straightforward.
+
+431
+00:49:24,470 --> 00:49:35,660
+You're just using a different function called C logit. And so it's from the survival package and the formula.
+
+432
+00:49:35,660 --> 00:49:38,750
+And then the way you use the code, just the function is changed.
+
+433
+00:49:38,750 --> 00:49:44,960
+Everything else is fairly similar. And so this is what the output would look like.
+
+434
+00:49:45,320 --> 00:49:51,320
+It actually looks like Cox H, you know, is being called behind the scenes.
+
+435
+00:49:51,320 --> 00:49:57,860
+And it is it turns out that the estimation formulas for conditional logistic regression are very similar to Cox,
+
+436
+00:49:58,340 --> 00:50:06,340
+and so this programmer is taking advantage of that. And so it actually he did they didn't even change the way this looks in their output.
+
+437
+00:50:06,340 --> 00:50:09,580
+But this is the conditional logistic regression output.
+
+438
+00:50:09,670 --> 00:50:15,049
+It's very similar to what you get in SAS. All right.
+
+439
+00:50:15,050 --> 00:50:21,470
+So here is just a quick. Mental jog.
+
+440
+00:50:22,800 --> 00:50:25,860
+Of thinking about which regression method to use.
+
+441
+00:50:25,860 --> 00:50:33,149
+So perk up because there's subtleties here I want you to hear on and so you can make the right choice.
+
+442
+00:50:33,150 --> 00:50:38,310
+So don't look at your handout because the answers are right there in your hand.
+
+443
+00:50:38,940 --> 00:50:48,209
+So without looking at your handout, suppose you have a matched pair case control study on binary obesity outcome with
+
+444
+00:50:48,210 --> 00:50:55,800
+several predictors so each person in the dataset has their own obesity outcome.
+
+445
+00:50:56,890 --> 00:51:02,469
+But it's a matched pair case control design with several predictors.
+
+446
+00:51:02,470 --> 00:51:09,040
+Which regression method do you use? Do you use conditional logistic regression or g for this?
+
+447
+00:51:12,380 --> 00:51:18,740
+Conditional logistic regression is correct. And what is the big the big tell?
+
+448
+00:51:18,890 --> 00:51:22,190
+It's because you've got match pair cases and controls.
+
+449
+00:51:22,700 --> 00:51:27,980
+She doesn't know how to deal with all the same outcomes when they're prespecified like this.
+
+450
+00:51:28,490 --> 00:51:33,000
+So conditional logistic regression. Good.
+
+451
+00:51:33,000 --> 00:51:43,960
+Good. All right. Next one study of paired binary obesity outcomes measured on married couples with several predictors.
+
+452
+00:51:44,440 --> 00:51:53,050
+So you have to think about what the outcomes are look like. So married couples and each one of them has their obesity zero one outcome.
+
+453
+00:51:53,990 --> 00:52:00,800
+And you have other predictors you want to look at, too. So which is the correct model to use?
+
+454
+00:52:01,220 --> 00:52:05,570
+Is it conditional logistic regression or is it G.
+
+455
+00:52:15,890 --> 00:52:20,090
+Break is coming soon. But I want you to think about this.
+
+456
+00:52:20,090 --> 00:52:26,330
+How do we tell? Are these outcomes all going to be the same for every matched pair?
+
+457
+00:52:31,170 --> 00:52:34,620
+No. Right. So some people are going to have to obese people.
+
+458
+00:52:35,690 --> 00:52:39,380
+Some of these couples are going to be. One is obese and one is not.
+
+459
+00:52:40,650 --> 00:52:47,900
+Some of these are going to be neither zombies, and we don't have any predetermined knowledge of that based on this design.
+
+460
+00:52:47,910 --> 00:52:58,290
+Right. So for this set, you excuse me for this situation, we use G when the outcomes are in a predetermined pattern.
+
+461
+00:52:59,620 --> 00:53:05,320
+We use G. Okay.
+
+462
+00:53:06,130 --> 00:53:11,610
+All right. We're going to take a break and then I'm going to with the requests are a stretch.
+
+463
+00:53:11,620 --> 00:53:15,180
+Yes. Yeah. You were just saying.
+
+464
+00:53:23,590 --> 00:53:31,780
+Why? Oh, that's such a good question.
+
+465
+00:53:32,170 --> 00:53:40,780
+So as a married couple person myself, do you eat the same dinner all the time?
+
+466
+00:53:42,250 --> 00:53:47,710
+So if you have like if you're married to like a good cook, like I am, and I'm the luckiest woman in the world for this,
+
+467
+00:53:48,370 --> 00:53:53,680
+you know, we eat all the same food, all the same snacks are in the house, you know.
+
+468
+00:53:54,130 --> 00:54:00,340
+So if if we eat healthy, we tend to both eat healthy, if we terribly.
+
+469
+00:54:01,230 --> 00:54:05,610
+We both eat terribly in it, but it's not for all couples.
+
+470
+00:54:05,610 --> 00:54:11,310
+Right. So there's a correlation. But I mean, some some couples, no matter what, is put on the table.
+
+471
+00:54:11,700 --> 00:54:17,730
+You know, one of them is at the gym and is doing like good choices.
+
+472
+00:54:19,980 --> 00:54:25,230
+But when I go to Wash Nondairy and I buy a dozen donuts, I'm not the only one eating them in my house.
+
+473
+00:54:25,270 --> 00:54:32,430
+There's correlation in these outcomes from living in the same household and having the same routines.
+
+474
+00:54:33,570 --> 00:54:38,760
+So you have to kind of know to look for it, right?
+
+475
+00:54:39,510 --> 00:54:44,190
+So if you're not sure. So, first of all, you have to think, I better look at this.
+
+476
+00:54:45,120 --> 00:54:50,189
+But you can always go to the correlated version and then back check to see if an independence
+
+477
+00:54:50,190 --> 00:54:55,470
+working correlation matrix is says or what the correlation turned out to be in your output.
+
+478
+00:54:55,800 --> 00:55:03,600
+You can always kind of see, but you have to try fitting the model that allows for correlation before you can tell for sure.
+
+479
+00:55:03,930 --> 00:55:12,450
+Right? So my intuition went straight to correlation because I, you know, I eat whatever my husband gives me, actually.
+
+480
+00:55:12,900 --> 00:55:16,840
+So. All right.
+
+481
+00:55:16,840 --> 00:55:19,450
+So let's take a ten minute break, meet at 910,
+
+482
+00:55:19,450 --> 00:55:26,799
+and then what I'm going to do is take you through the last problem on your homework six and kind of give you a head start.
+
+483
+00:55:26,800 --> 00:55:32,890
+There's some complexity here. You're going to learn a lot, but I think this will help get you to a good start.
+
+484
+00:56:11,760 --> 00:56:47,110
+I. Yeah, absolutely.
+
+485
+00:56:47,110 --> 00:56:52,060
+I'm just going to do this for my elderly in-laws that I'm visiting soon.
+
+486
+00:56:52,820 --> 00:56:55,910
+Yeah. All right, so see what's going on.
+
+487
+00:56:56,390 --> 00:57:03,990
+So I'm getting a different insight from a lot of my friends, and I think they're determined that it's because I'm using.
+
+488
+00:57:04,630 --> 00:57:11,250
+This like log. Log is my difference and it's getting this, but everybody else is getting like a sweep, is it?
+
+489
+00:57:11,260 --> 00:57:15,820
+Don't. That's what I got. So. Okay. Because I'm not confident about that.
+
+490
+00:57:15,940 --> 00:57:19,160
+Yeah, I. I am, too.
+
+491
+00:57:19,310 --> 00:57:22,600
+I think I remember that. And I think that's what it looks like. Okay.
+
+492
+00:57:22,970 --> 00:57:29,980
+So everybody else is getting like a swoop down and like, are they using AR or they're using AR as well.
+
+493
+00:57:29,990 --> 00:57:34,100
+But they did this lately. They don't have this in it.
+
+494
+00:57:34,100 --> 00:57:39,410
+And I don't know whether is. It stands for complementary log log.
+
+495
+00:57:39,440 --> 00:57:42,890
+And that's what's giving you more months of survival.
+
+496
+00:57:42,950 --> 00:57:48,200
+You kind of have to have that. There's two different. There's WOOP is probably kaplan-meier.
+
+497
+00:57:48,500 --> 00:57:51,530
+Mm hmm. Is it starting from one and swooping down?
+
+498
+00:57:51,560 --> 00:57:54,650
+Yeah. They're plotting the kaplan-meier. They're not plotting along.
+
+499
+00:57:54,650 --> 00:57:58,850
+My thought. Survival. Oh, okay. So you have to have that seal of log.
+
+500
+00:57:59,030 --> 00:58:03,650
+I think there's three. They're close together in slides in the lab, and maybe that's where they can see.
+
+501
+00:58:05,200 --> 00:58:09,710
+Yeah. Okay. Do me a favor and let them know what the cause is.
+
+502
+00:58:10,220 --> 00:58:19,950
+I'm pretty sure they're doing a couple more. Okay. And then my second question, go back up to your, um, I mean, I know you can see your good.
+
+503
+00:58:20,300 --> 00:58:25,040
+Yeah, I don't know. There's probably a way to, like, build that a little bit more.
+
+504
+00:58:25,070 --> 00:58:34,820
+No, no, you can see it. You can see this. Yeah. And then my other question was, when I'm doing this, like getting similar from everyone else,
+
+505
+00:58:34,820 --> 00:58:41,920
+but for some reason my which one is the same one and two, even though I've told it that I want zero and one.
+
+506
+00:58:47,160 --> 00:58:50,380
+I mean, I. So.
+
+507
+00:58:55,630 --> 00:58:58,930
+It's doing the right thing to get to.
+
+508
+00:59:02,640 --> 00:59:09,500
+It's probably in the legend. Title that you would have to change something.
+
+509
+00:59:11,040 --> 00:59:16,090
+Um. But I'd have to go. It's got to be another option.
+
+510
+00:59:17,490 --> 00:59:21,950
+Is that like. I mean, we can what I get marked down for something like that.
+
+511
+00:59:22,980 --> 00:59:36,970
+I mean, it doesn't really make sense. Well, you know, you can always just recode the outcome to match your search and what the Google thing.
+
+512
+00:59:37,070 --> 00:59:41,270
+Yeah. Okay. So talk a little more about that.
+
+513
+00:59:41,270 --> 00:59:44,510
+But I. And then my other question was.
+
+514
+00:59:45,490 --> 00:59:52,290
+My friend wanted me to ask. She used the age ten, like the ten units throughout the entire home.
+
+515
+00:59:52,840 --> 00:59:57,570
+And I was like, you're getting like very similar output, just like it says.
+
+516
+00:59:57,580 --> 01:00:00,840
+Like some of the output just looks slightly different, but all the numbers are so you.
+
+517
+01:00:01,540 --> 01:00:07,930
+Yeah, I think that's right. I don't think that there is. In fact, in the one place I ask the same thing about age, I think it's about.
+
+518
+01:00:08,690 --> 01:00:12,370
+Yeah, yeah, yeah. She's fine on that.
+
+519
+01:00:12,370 --> 01:00:16,780
+Yeah. But on these ones.
+
+520
+01:00:18,810 --> 01:00:23,820
+And we're talking about like male and women, we don't have to include the other covariance.
+
+521
+01:00:23,820 --> 01:00:28,000
+Right. Since you didn't specify those. That was something we also argue.
+
+522
+01:00:30,070 --> 01:00:38,430
+Yeah. That's interesting. I didn't specify whether you had to do this for university or multivariate.
+
+523
+01:00:39,630 --> 01:00:43,380
+So I think I did what you did. Okay.
+
+524
+01:00:44,960 --> 01:00:48,650
+I'd be curious if they find the same issue after adjusting for everything.
+
+525
+01:00:48,740 --> 01:00:55,870
+But I think I did what you did. Well, all of her her numbers were different, but we were getting the same interpretation.
+
+526
+01:00:55,920 --> 01:01:00,680
+Like as far as significance goes. Oh, this huge email was still significant after adjusting for everything else.
+
+527
+01:01:00,710 --> 01:01:12,750
+Yeah, that's so good to know. Yeah. Yeah. So the effect of mail and and even if they're going to be shifted once you're out of the picture.
+
+528
+01:01:13,290 --> 01:01:18,500
+Right. Yeah. So that's completely normal.
+
+529
+01:01:19,680 --> 01:01:27,900
+I think the. Okay. Okay. The main thing is to have this right.
+
+530
+01:01:29,700 --> 01:01:34,110
+I got the final stretch. So we're all just like, yeah, it's happening.
+
+531
+01:01:34,400 --> 01:01:38,430
+Yeah, yeah, yeah. And then my last thing was, I am really?
+
+532
+01:01:41,660 --> 01:01:47,600
+I don't know, which is why I'm a little overwhelmed with the formula like the equation.
+
+533
+01:01:47,600 --> 01:01:54,110
+And so there there probably was a slide. If you pull up the slide deck of the products, you find it.
+
+534
+01:02:22,230 --> 01:02:30,230
+Gras. You can do that.
+
+535
+01:02:37,750 --> 01:02:41,090
+Is it? I think I saw something in the handout.
+
+536
+01:02:42,920 --> 01:02:50,860
+Yeah, it would be in the last handout for survivors. So she's going to go.
+
+537
+01:02:54,080 --> 01:03:06,660
+Yeah. It's going to be 13. If the use control.
+
+538
+01:03:07,920 --> 01:03:11,110
+Oh, yeah. So.
+
+539
+01:03:14,260 --> 01:03:19,600
+Just look for emoji, parentheses or something like that.
+
+540
+01:03:21,220 --> 01:03:27,400
+Okay. Next. A lot.
+
+541
+01:03:27,520 --> 01:03:31,740
+You. He's probably around here, but it's just a few.
+
+542
+01:03:32,640 --> 01:03:39,540
+Here we go. So this is going to be the way you write out your hazards.
+
+543
+01:03:39,540 --> 01:03:42,780
+I think on the very next slide, I'll show you that.
+
+544
+01:03:46,200 --> 01:03:51,330
+This is like an example. Doing a hazard ratio where you have these types.
+
+545
+01:03:55,150 --> 01:04:03,330
+Just. The.
+
+546
+01:04:04,220 --> 01:04:08,170
+That was very interesting. I can't remember which one I.
+
+547
+01:04:09,780 --> 01:04:13,920
+This is kind of how you start out the whole ball with your taxes.
+
+548
+01:04:14,160 --> 01:04:27,250
+Yeah. So as long as the hazard ratio stays stays constant.
+
+549
+01:04:27,250 --> 01:04:30,830
+Right. Well, no, because it has now just.
+
+550
+01:04:32,130 --> 01:04:37,610
+Go back to the slide. We'll see how long.
+
+551
+01:04:39,740 --> 01:04:45,130
+So that means that as you change from. One day to three days to five days.
+
+552
+01:04:47,120 --> 01:04:54,070
+Whatever. Whatever. So it could be that the hazard ratio over time is getting less like that.
+
+553
+01:04:54,370 --> 01:05:00,279
+Yeah, I like that. But there's some change of what that hazard ratio.
+
+554
+01:05:00,280 --> 01:05:05,900
+That depends on what time it is. Study or sorry. What study time you were asked to follow.
+
+555
+01:05:06,040 --> 01:05:12,180
+Yeah. And every other time for like this or memorial.
+
+556
+01:05:14,530 --> 01:05:17,880
+Yeah. Oh is that right?
+
+557
+01:05:17,920 --> 01:05:26,890
+So if there is if everything on, the only thing that's usually in our control is the baseline hazard, it is almost always cancel out.
+
+558
+01:05:28,380 --> 01:05:31,950
+So that's what this does. That's what we call personal hazard.
+
+559
+01:05:32,910 --> 01:05:39,210
+The theory is that having that ruins, that's why when you're trying to see if this is a significant.
+
+560
+01:05:40,410 --> 01:05:45,240
+Parameter. We're kind of testing the seed because we'll have a discussion still okay for that.
+
+561
+01:05:46,450 --> 01:05:51,960
+So I think I just had that one thing in my head about it being like steam where you got that stuff.
+
+562
+01:05:53,070 --> 01:05:56,220
+Yeah. It's not on. It's time. Yeah. Think it's on?
+
+563
+01:05:57,810 --> 01:06:23,880
+Oh, no. All right, so let's get back to work, okay?
+
+564
+01:06:25,300 --> 01:06:32,290
+And something that I wanted to mention that I didn't mention earlier was that.
+
+565
+01:06:34,080 --> 01:06:37,510
+In thinking about. Your break.
+
+566
+01:06:38,030 --> 01:06:43,430
+I know some of you will enjoy your break like a proper individuals and some of you will just keep studying.
+
+567
+01:06:44,420 --> 01:06:47,880
+So for this second group of people who just keep studying.
+
+568
+01:06:47,900 --> 01:06:58,850
+I know that's a big proportion of you. I have put up materials that you should be able to see here for quiz to review.
+
+569
+01:06:59,330 --> 01:07:07,250
+And I'm going to cover that the last class. But you can read ahead and and look at this if you choose to do so.
+
+570
+01:07:07,760 --> 01:07:13,730
+And my plan is to also. Your way here student view just to make sure you can still see that.
+
+571
+01:07:13,910 --> 01:07:16,040
+Yeah. So that's open to you now.
+
+572
+01:07:16,460 --> 01:07:29,780
+And I plan to post the practice quiz to us sometime in the next day or two so that if you choose to just study all 523 all the time,
+
+573
+01:07:30,530 --> 01:07:34,790
+you know, if you really don't like your family, then I highly recommend studying.
+
+574
+01:07:34,790 --> 01:07:40,430
+523 Then you'll have everything you need to study for the final.
+
+575
+01:07:42,890 --> 01:07:48,920
+Okay. All right. Now back to the handout, slide 47.
+
+576
+01:07:52,180 --> 01:08:01,239
+So Problem four is based on a pretty large dataset borrowed from some colleagues of mine looking
+
+577
+01:08:01,240 --> 01:08:08,500
+at 8004 COPD participants with up to three study visits taken roughly five years apart.
+
+578
+01:08:08,740 --> 01:08:12,040
+So that's where the depicts is coming from.
+
+579
+01:08:12,040 --> 01:08:17,050
+Each person is up to three study visits. So that's where there's correlation.
+
+580
+01:08:18,260 --> 01:08:24,499
+And the interest is in associations between clinically significant COPD.
+
+581
+01:08:24,500 --> 01:08:28,430
+So that's the outcome one or zero depending on whether they have clinically
+
+582
+01:08:28,560 --> 01:08:33,470
+significant COPD and other patient and clinical and demographic characteristics.
+
+583
+01:08:33,830 --> 01:08:38,270
+And just parenthetically, for those of you who know something about COPD,
+
+584
+01:08:38,750 --> 01:08:46,700
+clinically significant COPD is defined to be people who have COPD with FTD, 1% predicted less than 80%.
+
+585
+01:08:47,270 --> 01:08:55,490
+So it's and for people who really know a lot about COPD, this is kind of people who have goal two, three, four.
+
+586
+01:08:57,290 --> 01:09:01,330
+Stage. So this is a zero win outcome.
+
+587
+01:09:01,350 --> 01:09:05,409
+This, you know, having this really clinically significant COPD.
+
+588
+01:09:05,410 --> 01:09:09,640
+Yes. Know over time where they're looked at once every five years.
+
+589
+01:09:11,050 --> 01:09:15,820
+And so that's the outcome. The variables. Clin underscore SIG underscore COPD.
+
+590
+01:09:17,390 --> 01:09:22,490
+And there's a subject identifier called ID in this data set.
+
+591
+01:09:24,900 --> 01:09:35,190
+Now, there's a lot of predictors here in this data set. And because it's already a long homework, I've built a model for you.
+
+592
+01:09:35,760 --> 01:09:43,190
+You won't be doing model selection. I will provide the model, but the models are a nightmare to interpret.
+
+593
+01:09:43,200 --> 01:09:44,880
+So that's where you come in.
+
+594
+01:09:45,930 --> 01:09:55,380
+You're going to be interpreting different parts of this model, using all of your finely honed skills at writing out formulas and estimate statements.
+
+595
+01:09:56,390 --> 01:10:01,190
+Okay. So there is a visit coded 1 to 3.
+
+596
+01:10:01,190 --> 01:10:06,799
+Male one for male zero female agent visit one whether they're still smoking, you get the idea.
+
+597
+01:10:06,800 --> 01:10:12,350
+MRC Uh, and these other variables, you know.
+
+598
+01:10:13,390 --> 01:10:24,820
+In the dataset. And then in my model fitting, I also had a spline variable that was useful, which is allowing a bend at age 65 years.
+
+599
+01:10:24,820 --> 01:10:32,110
+So if their age at visit one was 65 or older, they have a little bend in their age variable.
+
+600
+01:10:33,610 --> 01:10:39,150
+That is in this model. And so just as a.
+
+601
+01:10:40,640 --> 01:10:44,010
+A prompt since we're learning this so well, so is G.
+
+602
+01:10:44,570 --> 01:10:50,630
+Or conditional logistic regression appropriate for this setting? Which models should you be using for these outcomes?
+
+603
+01:10:54,990 --> 01:11:02,730
+So the outcome is clinically significant. COPD one zero, and they're measured over time within the same person.
+
+604
+01:11:04,340 --> 01:11:10,160
+So the kinds of outcomes you're likely to see, are they predetermined or not predetermined?
+
+605
+01:11:11,380 --> 01:11:16,130
+They are not pre-determined. So you are using G.E. here.
+
+606
+01:11:16,150 --> 01:11:22,650
+That's the model you use when you're outcomes and zeros and ones aren't predetermined to look like a pattern.
+
+607
+01:11:24,160 --> 01:11:32,380
+Right. So since each outcome is not pre-specified match case control format.
+
+608
+01:11:33,120 --> 01:11:38,219
+And then the next question is, is the status that large enough to rely on the empirical,
+
+609
+01:11:38,220 --> 01:11:42,270
+robust sandwich variance estimates rather than the model based variance estimates?
+
+610
+01:11:42,270 --> 01:11:47,850
+Remember, for G, we always have two of these, the empirical one in the model based one.
+
+611
+01:11:48,770 --> 01:11:54,860
+And is the data, is that large enough to just ignore the model based one and go straight to the empirical one?
+
+612
+01:12:06,780 --> 01:12:12,510
+Oh, boy. Guys, I'm taught to wait you out until you interact with me.
+
+613
+01:12:12,520 --> 01:12:16,979
+That's what they tell your instructors to do. But I'm really bad at this.
+
+614
+01:12:16,980 --> 01:12:21,990
+So tell me, is this dangers at large f?
+
+615
+01:12:24,040 --> 01:12:31,239
+Thank you. Yes, it was like 8000. So one of the nice things about large data sets is you don't have to think through this very hard.
+
+616
+01:12:31,240 --> 01:12:34,270
+You can just use the empirical variance. Yes.
+
+617
+01:12:43,420 --> 01:12:49,360
+So the question is, you know, what's the what's the sample size that you need for this to work out?
+
+618
+01:12:49,360 --> 01:12:53,620
+And I don't have a good remember how this is a personality test issue.
+
+619
+01:12:56,530 --> 01:13:00,550
+So if it was just a single outcome and you were doing logistic regression.
+
+620
+01:13:01,630 --> 01:13:06,890
+Do you have an answer for that scenario? No.
+
+621
+01:13:08,340 --> 01:13:16,530
+Well, we have the two by two. When we break it down to two by two tables, we want an expected cell count of five for each possible cell.
+
+622
+01:13:16,920 --> 01:13:23,040
+So translate that up to logistic regression and then translate that up again when you have correlated outcomes.
+
+623
+01:13:23,580 --> 01:13:29,060
+You know, like beef it up even a little more. Just to be conservative.
+
+624
+01:13:30,020 --> 01:13:33,140
+But 8000. I think we're pretty safe. Yeah.
+
+625
+01:13:35,180 --> 01:13:35,810
+So. Yes.
+
+626
+01:13:36,380 --> 01:13:42,950
+And is that is that large enough to assume an unstructured correlation matrix across study visits without worrying about too much about chuckling,
+
+627
+01:13:43,190 --> 01:13:48,830
+checking for simpler correlation structures? And again, yes, I mean, we have an embarrassment of riches here,
+
+628
+01:13:49,610 --> 01:13:56,570
+and we don't have to worry about estimating just a few more correlation terms by using unstructured or not.
+
+629
+01:13:56,660 --> 01:14:01,010
+This is not our pancreatic enzyme, teeny, tiny dataset of six people we're dealing with.
+
+630
+01:14:01,400 --> 01:14:04,430
+We have plenty of data to estimate the all these parameters.
+
+631
+01:14:05,150 --> 01:14:11,960
+So that kind of makes it easy for us to start, you know, at least we don't have to work hard on modeling the variability here.
+
+632
+01:14:12,260 --> 01:14:20,660
+We can lean on our sample size, but this is the model that ends up being the model after some,
+
+633
+01:14:21,290 --> 01:14:25,790
+you know, forward selection kind of strategies that we get.
+
+634
+01:14:26,790 --> 01:14:29,909
+And it's very complicated, right? So look at this model.
+
+635
+01:14:29,910 --> 01:14:39,030
+I mean, everything is super interesting. And we have the agent visit one with this age spine.
+
+636
+01:14:39,030 --> 01:14:44,190
+So anything we deal with age is going to have to take into account this blind term.
+
+637
+01:14:44,520 --> 01:14:55,079
+We have interactions between the percentage of emphysema in the lung and the percentage of FS that small airways.
+
+638
+01:14:55,080 --> 01:14:59,580
+Is it in the lung and and gender? There's a lot going on here.
+
+639
+01:14:59,580 --> 01:15:04,229
+And so once you have a model that says complex, you know, how do you interpret it?
+
+640
+01:15:04,230 --> 01:15:10,180
+How do you share your results? I mean, there's an embarrassment of riches and significance here as well.
+
+641
+01:15:10,180 --> 01:15:17,200
+And we're used to interpreting simple models. But this is real life and things are complicated.
+
+642
+01:15:17,200 --> 01:15:28,120
+So how do you interpret it? So what's the odds of having clinically significant COPD visit one for this risk profile aged 60 years male,
+
+643
+01:15:28,120 --> 01:15:35,319
+not still smoking 25% pure emphysema, 40%, pure ampersand and more equals to no chronic bronchitis.
+
+644
+01:15:35,320 --> 01:15:40,060
+No Gerd. And just writing out this formula.
+
+645
+01:15:40,070 --> 01:15:41,970
+We have so many terms here.
+
+646
+01:15:41,990 --> 01:15:50,990
+So what I'm going to do is take you through, you know, how to think about the algebra where I'm focusing on this emphysema variable.
+
+647
+01:15:51,000 --> 01:15:57,050
+I think in your homework I have you focus on the sad variable, but I want to give you some at least some examples to go by.
+
+648
+01:15:59,650 --> 01:16:04,120
+So here's one way to just organize to attack the problem.
+
+649
+01:16:04,130 --> 01:16:11,800
+So I have risk profile. One, this is going to end up eventually being the numerator of an odds ratio formula.
+
+650
+01:16:11,830 --> 01:16:18,940
+Right? So here's risk profile one. And what I'm thinking about for the variables that go along with that profile.
+
+651
+01:16:19,900 --> 01:16:24,010
+So I need to log on. So that means I need to intercept.
+
+652
+01:16:24,010 --> 01:16:29,020
+Haven't radioed it out to cancel out the intercept when I'm looking at an odds, the intercept is there.
+
+653
+01:16:29,600 --> 01:16:32,380
+Right. This is something we learned when we were doing logistic regression.
+
+654
+01:16:33,490 --> 01:16:41,460
+But I'm talking about visit one, so I'm not going to need either of these parameter estimates for visit one agent.
+
+655
+01:16:41,530 --> 01:16:45,310
+Visit one is 60 based on the profile I put together.
+
+656
+01:16:46,000 --> 01:16:52,700
+So I'm going to need that parameter. Mail was one, so I'm going to need that parameter.
+
+657
+01:16:53,850 --> 01:16:59,910
+Still smoking was zero. So I'm not going to need to keep track of that parameter for this law.
+
+658
+01:16:59,940 --> 01:17:04,040
+God's. Pure emphysema is 25%.
+
+659
+01:17:04,040 --> 01:17:09,140
+So I'm going to need this parameter and I'm going to need a 25 times that parameter for my formula.
+
+660
+01:17:10,630 --> 01:17:20,020
+Perram f sad was 40. So I'm going to need this number times that parameter for pyramid stat and then Morsi was to.
+
+661
+01:17:22,160 --> 01:17:29,450
+And then we have to think about this age 65 line to figure out what term to put here.
+
+662
+01:17:29,450 --> 01:17:33,290
+And we need to think about how the formula's created.
+
+663
+01:17:34,560 --> 01:17:40,500
+And so this was age at visit one -65.
+
+664
+01:17:41,800 --> 01:17:47,380
+Times the indicator that age at visit one was greater than 65.
+
+665
+01:17:47,770 --> 01:17:55,090
+And we lucked out here because the term vanishes, unless you're actually greater than 65 and this person is 60.
+
+666
+01:17:56,020 --> 01:18:02,510
+So the spline term is going to reduce to zero. Uh, but that's.
+
+667
+01:18:02,540 --> 01:18:05,630
+That's the one you really have to think about a lot.
+
+668
+01:18:06,770 --> 01:18:10,970
+In terms of how you create the variable and not just the variable name itself.
+
+669
+01:18:12,850 --> 01:18:17,860
+Chronic bronchitis was zero. So we don't need that parameter and we don't need the parameter for GERD either.
+
+670
+01:18:18,670 --> 01:18:25,050
+But we have interactions with paramount and gender and paramount minimum said.
+
+671
+01:18:25,060 --> 01:18:34,090
+So for this term, when we're doing the log odds we have Pyramid was 25% and Male is one.
+
+672
+01:18:34,570 --> 01:18:38,710
+So we're going to need a 25 times that parameter in our formula for the log odds.
+
+673
+01:18:40,770 --> 01:18:44,220
+And we had 25% emphysema and 40% F said.
+
+674
+01:18:44,940 --> 01:18:50,480
+So we're going to need 20 times, 25 times 40 for this one, and we'll have to multiply this out.
+
+675
+01:18:50,490 --> 01:18:54,930
+We don't put like products in our estimate formulas.
+
+676
+01:18:54,930 --> 01:18:58,050
+We're going have to multiply that out. But that's where that number is going to come from.
+
+677
+01:18:59,340 --> 01:19:06,860
+And all the interactions with visit are going to go away because we're only dealing with visit one and that's the reference visit.
+
+678
+01:19:06,870 --> 01:19:09,210
+So these will all be zeroed out.
+
+679
+01:19:10,890 --> 01:19:21,510
+So everything in yellow has to do with pure emphysema because I'm going to be asking about pure emphysema in upcoming question.
+
+680
+01:19:21,510 --> 01:19:25,139
+So I just wanted to highlight those. But we're to get the laggards.
+
+681
+01:19:25,140 --> 01:19:32,459
+We're going to need all of these things in red and for the everything but the intercept.
+
+682
+01:19:32,460 --> 01:19:38,230
+We're going to need to know some numbers that go along with that. So by hand.
+
+683
+01:19:38,950 --> 01:19:48,070
+The log odds are clinically significant. COPD is all these terms and red times, whatever their multiple is over here, right?
+
+684
+01:19:48,490 --> 01:19:53,440
+So I'm just kind of ticking through all the things that I boxed in red that we need for
+
+685
+01:19:53,440 --> 01:20:01,089
+a formula and then plugging in the numbers for emphysema at sad mail visit and MRC.
+
+686
+01:20:01,090 --> 01:20:06,580
+ET cetera. So this by hand is going to be the log odds of clinically significant COPD.
+
+687
+01:20:07,820 --> 01:20:16,640
+And the best we could get it with an estimate statement as well by just putting in these terms and the intercept as well.
+
+688
+01:20:20,530 --> 01:20:25,239
+So there was a little bit of around off air for for my calculations compared to SAS.
+
+689
+01:20:25,240 --> 01:20:33,850
+So this is the SAS result with no round up error when you use estimate statements and so the odds of clinically significant.
+
+690
+01:20:33,850 --> 01:20:42,130
+So COPD for this risk profile is astoundingly high when you exponential it this is.
+
+691
+01:20:43,180 --> 01:20:55,820
+A person who's really quite sick. And because this is a cohort study, I don't have to just stick to interpreting odds.
+
+692
+01:20:55,840 --> 01:21:00,850
+I can actually look at probabilities of clinically significant COPD, you know,
+
+693
+01:21:00,850 --> 01:21:05,500
+with this algebra or ask SAS or Arctic, get it for me and I'll get a number.
+
+694
+01:21:05,950 --> 01:21:10,390
+So this person has a huge probability of having clinically significant COPD.
+
+695
+01:21:13,780 --> 01:21:19,870
+So here is the the risk profile for this person one.
+
+696
+01:21:19,870 --> 01:21:23,110
+And I'm kind of trying to keep track of that because I'm going to have a two person, two in a minute.
+
+697
+01:21:24,220 --> 01:21:30,700
+And here's the SaaS code that you would add to production mod to get this estimated for you.
+
+698
+01:21:31,390 --> 01:21:41,170
+And the one that's the hardest to deal with is visit because it has two numbers that you need to put in to tell what visit you're dealing with.
+
+699
+01:21:42,480 --> 01:21:46,440
+So that's why I'm grabbing this role, because everything's about visit one.
+
+700
+01:21:46,890 --> 01:21:53,940
+So I'm grabbing this row with a zero and a zero for those two parameters that are involved with the categorical facet variable.
+
+701
+01:21:58,950 --> 01:22:02,730
+And I've multiplied out that 25 times 40 here.
+
+702
+01:22:06,710 --> 01:22:10,970
+And but you get the same kind of results that you got by hand.
+
+703
+01:22:10,970 --> 01:22:18,350
+And for myself. You know, if it's complicated, I like working it out by hand and making sure the output matches when I got my
+
+704
+01:22:18,350 --> 01:22:22,490
+hand so that I can make sure I get the right confidence intervals and p values.
+
+705
+01:22:23,450 --> 01:22:25,360
+And it does give you all that you need here.
+
+706
+01:22:25,370 --> 01:22:35,840
+So here's the log odds of clinically significant COPD in this elbow to estimate spot here in this spot is the odds of clinically significant COPD.
+
+707
+01:22:36,380 --> 01:22:42,620
+And the mean estimate that they put here is actually going to be our probability of clinically significant COPD.
+
+708
+01:22:42,620 --> 01:22:46,829
+They put that in there to. All right.
+
+709
+01:22:46,830 --> 01:22:54,030
+So here's a second particular risk profile and how you would get the odds.
+
+710
+01:22:54,090 --> 01:22:59,180
+So this is going to one of these is going to be a numerator. One is going to be a denominator, say, in an odds ratio.
+
+711
+01:22:59,190 --> 01:23:04,890
+So here's another one. And so when you're doing an odds, remember, the intercept is always there.
+
+712
+01:23:06,600 --> 01:23:10,409
+But we have to figure out what the other risk profile is to get that formula together.
+
+713
+01:23:10,410 --> 01:23:13,950
+So here's the question What's the odds of having clinically significant COPD?
+
+714
+01:23:13,950 --> 01:23:18,189
+It is at one. For the risk profile.
+
+715
+01:23:18,190 --> 01:23:24,310
+It looks like this. And the main thing I've changed is the amount of pure emphysema.
+
+716
+01:23:25,650 --> 01:23:35,160
+So before. Sorry.
+
+717
+01:23:35,910 --> 01:23:44,450
+It was 25% pure emphysema and I've changed it to 20% pure emphysema.
+
+718
+01:23:46,290 --> 01:23:50,850
+Okay. But otherwise I think everything else is the same.
+
+719
+01:23:52,290 --> 01:23:59,970
+So 60 years old, male, not still smoking 40% pure meth, said MRC to know it's no good.
+
+720
+01:24:00,510 --> 01:24:02,639
+So I'm going to be looking at this.
+
+721
+01:24:02,640 --> 01:24:10,110
+You know what, if you had 5% less per emphysema, but otherwise it was the same risk profile and how you get that formula.
+
+722
+01:24:12,280 --> 01:24:15,190
+And so, again, for the out, I'm going to need the intercept.
+
+723
+01:24:16,180 --> 01:24:21,780
+And then I've just got kind of a a list of all the variables and whether I need them or not.
+
+724
+01:24:21,790 --> 01:24:26,939
+So it's still visit one. So I'm not going to need these two parameters.
+
+725
+01:24:26,940 --> 01:24:32,490
+And in our estimate statement, this looked like a zero for this one and a zero for this one.
+
+726
+01:24:33,030 --> 01:24:45,110
+That's why it had two spots, four zeros there. Age visit one there's still 60 so that's the same male is still one, still smoking is still zero.
+
+727
+01:24:45,530 --> 01:24:49,940
+But everything that relates to emphysema has changed from 25 to 20.
+
+728
+01:24:50,300 --> 01:24:54,830
+And so it's changed over here. It's changed over here with the interaction with mail.
+
+729
+01:24:55,160 --> 01:25:03,350
+It's changed over here with the interaction with FZ. And I'm going to have to multiply these two out to get 800 when I write my SAS or my R.
+
+730
+01:25:05,190 --> 01:25:14,110
+Everything else is kind of the same. And so here's the formula where I've just changed all the emphysema numbers from 25 to 20.
+
+731
+01:25:15,190 --> 01:25:18,190
+In gotten my log. I took clinically significant COPD.
+
+732
+01:25:19,640 --> 01:25:30,500
+And so the odds of clinically significant COPD with just 5% less emphysema, it looks so it looks a lot better on the scale of the odds.
+
+733
+01:25:32,180 --> 01:25:36,770
+But the probability of clinically significant COPD is still pretty high, honestly.
+
+734
+01:25:40,890 --> 01:25:49,560
+And so writing out the estimate statements, you know, here's our risk profile to again.
+
+735
+01:25:51,330 --> 01:25:59,120
+And everything here is the same, except I've changed 25 to 20 everywhere.
+
+736
+01:25:59,130 --> 01:26:06,660
+So this is actually 20 times 40 here. And I've gotten all my results here.
+
+737
+01:26:08,100 --> 01:26:12,929
+And so the parts that I can check by hand, it's comforting to check by hand because then, you know,
+
+738
+01:26:12,930 --> 01:26:17,340
+the confidence limits that you can't check by hand or correct that you've gotten the right thing.
+
+739
+01:26:20,440 --> 01:26:23,769
+So what's the odds ratio for clinically significant COPD?
+
+740
+01:26:23,770 --> 01:26:34,360
+Comparing these two patient risk profiles and by hand, when you have the 25% emphysema versus the 20% emphysema,
+
+741
+01:26:34,720 --> 01:26:41,020
+that odds ratio should be 2.05 if we get all of our ducks in a row correctly.
+
+742
+01:26:42,820 --> 01:26:50,770
+And so here's risk profile one and two, just so that you can kind of look and when you've got stuff this complicated bookkeeping is everything.
+
+743
+01:26:51,340 --> 01:27:00,010
+And when you're looking at the odds ratio, it's helpful because it'll help you see which terms cancel in your odds ratio and which do not.
+
+744
+01:27:00,550 --> 01:27:03,940
+So The Intercept was there for both risk profiles.
+
+745
+01:27:04,030 --> 01:27:07,810
+So when you do a ratio, the intercept is canceling out.
+
+746
+01:27:08,170 --> 01:27:11,320
+So ratios don't include intercepts in our formulas. Right.
+
+747
+01:27:12,280 --> 01:27:16,910
+That's been a common theme. And then we're talking about the same visit.
+
+748
+01:27:16,930 --> 01:27:21,310
+So that parameter is going to cancel out. We're talking about the same age that's going to cancel out.
+
+749
+01:27:21,670 --> 01:27:27,450
+Gender hasn't changed. Smoking hasn't changed. But this year, emphysema went from 25 to 20.
+
+750
+01:27:27,460 --> 01:27:29,710
+So this is going to end up staying in our formula.
+
+751
+01:27:32,050 --> 01:27:39,400
+If that didn't change, that'll cancel and or C will cancel the spleen term with zero in both places.
+
+752
+01:27:39,790 --> 01:27:47,620
+So that will cancel here. Same here and here. But everywhere we have a PR term, including in these interaction terms.
+
+753
+01:27:47,980 --> 01:27:54,940
+It won't cancel. Right. There's a 25 here and a 20 here, so there will still be a five left over.
+
+754
+01:27:55,970 --> 01:28:00,530
+That won't cancel out. And the same thing here for pyramid hence pyramid I've.
+
+755
+01:28:02,210 --> 01:28:06,530
+So bookkeeping. I'm keeping track of that very carefully here.
+
+756
+01:28:07,520 --> 01:28:14,630
+And I'm and these are the variables that will still have stuff remaining and what that remaining number will be.
+
+757
+01:28:14,840 --> 01:28:19,010
+And I'll again, I'm putting these here so you can see, but I'll have to put five times 40.
+
+758
+01:28:19,880 --> 01:28:22,070
+Not not a multiplication here.
+
+759
+01:28:25,160 --> 01:28:35,090
+So the odds ratio here, the estimate statement just has in the sense at least you only have to have the pyramid at five, the pyramid four times.
+
+760
+01:28:35,090 --> 01:28:42,499
+Male five in the pyramid four times pyramid sad of five times 40 or 200 to get your results are is a bit more
+
+761
+01:28:42,500 --> 01:28:48,470
+painful because you have to put in zeros for all the things you don't want in your formula as placeholders.
+
+762
+01:28:50,010 --> 01:28:53,100
+So keeping that's one more level of bookkeeping.
+
+763
+01:28:53,880 --> 01:29:00,150
+So here is the odds ratio that I was hoping to get that matches more or less what I got by hand.
+
+764
+01:29:01,200 --> 01:29:09,000
+And the confidence interval and the p value. So.
+
+765
+01:29:12,090 --> 01:29:15,280
+Last question, that's practice for this homework problem is, you know,
+
+766
+01:29:15,300 --> 01:29:22,800
+what's the odds ratio formula for having clinically significant COPD associated with a five unit increase in pure emphysema?
+
+767
+01:29:24,090 --> 01:29:30,060
+And we looked at just one particular example going from 20 to 25,
+
+768
+01:29:30,360 --> 01:29:37,680
+but with all those interaction terms in the model, the general formula will still have emphysema in it.
+
+769
+01:29:38,840 --> 01:29:42,230
+And so how do you ride out that formula in the general case?
+
+770
+01:29:43,990 --> 01:29:55,410
+And so. There are three terms involving pyramid emphysema and the odds formula that don't cancel when you do the odds ratio.
+
+771
+01:29:55,410 --> 01:29:59,090
+We saw the example looking at 20 versus 25.
+
+772
+01:29:59,760 --> 01:30:07,140
+So that's kind of a tip for, you know, what terms you need to focus on in these expressions.
+
+773
+01:30:07,650 --> 01:30:14,310
+All right. So this is the formula. And what I've done here is I've written the odds.
+
+774
+01:30:16,410 --> 01:30:20,670
+Instead of the law. God. So I have e to everything in the model.
+
+775
+01:30:20,670 --> 01:30:24,450
+That's kind of what happens when you do it to the whole big long model.
+
+776
+01:30:24,450 --> 01:30:30,840
+You can separated into E to the first term times E to whatever comes after the next plus or minus.
+
+777
+01:30:31,050 --> 01:30:39,660
+Every time there's a plus or minus in the formula, you can just start over with another multiplicative E race to that P so this is just algebra.
+
+778
+01:30:40,080 --> 01:30:43,890
+And so this will help us see what cancels very quickly and our odds ratios.
+
+779
+01:30:46,670 --> 01:30:50,330
+And so when we increase payment by five in this OG's formula.
+
+780
+01:30:51,400 --> 01:30:58,330
+This is the same long formula. But wherever Pyramid appeared, I added five to it.
+
+781
+01:30:59,080 --> 01:31:02,850
+So here, here and here. And.
+
+782
+01:31:04,320 --> 01:31:07,440
+I will have to, you know, write out the odds ratio.
+
+783
+01:31:07,440 --> 01:31:13,559
+But fortunately, everything that isn't yellowed here hasn't changed from the previous formula.
+
+784
+01:31:13,560 --> 01:31:20,170
+And so we'll cancel out. So when we take the ratio of those to odds.
+
+785
+01:31:21,150 --> 01:31:25,380
+Most of the terms will cancel except for these terms.
+
+786
+01:31:27,310 --> 01:31:36,610
+All right. And with a little bit more algebra, you can reduce it to this expression here.
+
+787
+01:31:39,300 --> 01:31:48,360
+And so this odds ratio depends not only on gender, but it depends on how much smaller witnesses you have as well.
+
+788
+01:31:48,930 --> 01:31:55,410
+So you have a story about what the odds of having clinically significant COPD is.
+
+789
+01:31:55,650 --> 01:32:06,480
+And it depends on not just how much increase you have of emphysema, but what your gender is and how much small airways disease you have.
+
+790
+01:32:06,960 --> 01:32:14,850
+And so to understand it, when it's this complicated, I do plots and I might and it can be really great if you have plots,
+
+791
+01:32:14,850 --> 01:32:24,480
+you know, when your story makes it more interesting. Our code for how I got this particular plots in the footnote to this slide but in general.
+
+792
+01:32:27,340 --> 01:32:37,630
+Males, you know, regardless of what their small airways disease status is, males have a smaller odds of having clinically significant COPD.
+
+793
+01:32:38,200 --> 01:32:42,760
+You know, they're always under neath their odds ratios.
+
+794
+01:32:43,240 --> 01:32:52,060
+Their odds ratios for different increases in emphysema are less impactful than it is for women to have a 5% increase in emphysema.
+
+795
+01:32:55,370 --> 01:33:05,029
+And the more small airways disease you have, the more impact for a 5% increase in emphysema is I mean,
+
+796
+01:33:05,030 --> 01:33:14,890
+you're losing more and more of your work functioning lung. So in your homework you're going to be dealing with the same model.
+
+797
+01:33:16,340 --> 01:33:22,310
+You're going to have to code it and run it, but you can check that you got the right answer because it's in this handout.
+
+798
+01:33:22,850 --> 01:33:29,300
+So selecting the model selection of all the parameters, I'm not asking you to do that in this problem.
+
+799
+01:33:30,050 --> 01:33:39,560
+What I'm asking you to do is to help understand what happens when you increase prm f stat and then the odds ratios are all about,
+
+800
+01:33:40,940 --> 01:33:45,800
+you know, having clinically significant. So COPD when you increase pure math sad.
+
+801
+01:33:47,620 --> 01:33:50,940
+Here is our output for those who are users.
+
+802
+01:33:50,950 --> 01:33:58,600
+Here's the output you should get when you're fitting that model in, or just so you can check you're using the right model.
+
+803
+01:33:59,110 --> 01:34:07,450
+And here's our code for the contracts where you have a placeholder for every single row in your parameter table that you need to put in.
+
+804
+01:34:07,870 --> 01:34:14,800
+So it's a bit it's just more bookkeeping. And so homework.
+
+805
+01:34:14,830 --> 01:34:19,660
+The homework problem is going to focus on instead of emphysema, it's going to be focusing on small airways disease.
+
+806
+01:34:20,500 --> 01:34:27,610
+So what's the odds of having clinically significant COPD visit one for this risk profile where you know,
+
+807
+01:34:27,610 --> 01:34:31,210
+you have all these features, but I'm focusing on pure Mets that.
+
+808
+01:34:32,480 --> 01:34:36,320
+So you'll have a question like that. And then what happens to that?
+
+809
+01:34:36,320 --> 01:34:39,850
+Odds when you have 30% less, peer MF said.
+
+810
+01:34:39,860 --> 01:34:44,000
+But everything else is the same. So this is very much like what we did for the emphysema.
+
+811
+01:34:45,400 --> 01:34:53,230
+And then what's the odds ratio comparing 40% versus 30% per method for these otherwise similar risk profiles?
+
+812
+01:34:54,760 --> 01:34:59,589
+And then finally derive the general formula for the odds ratio of having
+
+813
+01:34:59,590 --> 01:35:04,180
+clinically significant COPD associated with a ten year to increase in pure math.
+
+814
+01:35:04,180 --> 01:35:10,960
+Sad, so not just 40 versus 30, but any 10% increase in pure math sad.
+
+815
+01:35:11,170 --> 01:35:16,630
+So it's going to just like we saw with emphysema, there's going to be a formula you need to derive.
+
+816
+01:35:18,520 --> 01:35:21,930
+And so your brain has been warmed up for that problem.
+
+817
+01:35:21,940 --> 01:35:31,719
+And so if you have any mental juice left after seeing all the slides, your your muscles been stretched.
+
+818
+01:35:31,720 --> 01:35:37,180
+I don't know if you need to take a day break to have it reform the muscle because I've just worn it down.
+
+819
+01:35:37,690 --> 01:35:45,100
+But doing this while this is fresh, there's an advantage to to working that muscle after you've just stretched it out.
+
+820
+01:35:47,140 --> 01:35:52,400
+Okay. So I think I'm going to go ahead and end here.
+
+821
+01:35:56,420 --> 01:36:03,310
+Have a wonderful holiday. Tryptophan is a wonderful thing from your turkey.
+
+822
+01:36:05,120 --> 01:36:19,050
+So enjoy your holiday and I will see you when you get back. Hmm.
+

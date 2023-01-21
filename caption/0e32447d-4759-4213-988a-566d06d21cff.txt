@@ -1,0 +1,476 @@
+1
+00:00:01,040 --> 00:00:05,140
+In this video, we will talk about calculating life expectancies.
+
+2
+00:00:05,140 --> 00:00:06,101
+There are two methods.
+
+3
+00:00:06,101 --> 00:00:10,640
+One is a life table method and two is a Markov model.
+
+4
+00:00:10,640 --> 00:00:14,322
+What life tables do are they show population level mortality and
+
+5
+00:00:14,322 --> 00:00:16,340
+life expectancy by age.
+
+6
+00:00:16,340 --> 00:00:21,340
+And the US Life tables can be found in the National Vital Statistics report.
+
+7
+00:00:21,340 --> 00:00:25,340
+So here's an example of a Life Table from 2008.
+
+8
+00:00:25,340 --> 00:00:28,118
+It lists ages here as different rows and
+
+9
+00:00:28,118 --> 00:00:33,168
+it tells us the probability of dying number surviving number of dying,
+
+10
+00:00:33,168 --> 00:00:37,490
+person years lived, person years and expectation of life.
+
+11
+00:00:37,490 --> 00:00:40,940
+Let's take a look at these individually here.
+
+12
+00:00:40,940 --> 00:00:47,287
+So first we have aged 0-1 and the probability of dying here is
+
+13
+00:00:47,287 --> 00:00:53,640
+about 6.593 out of 1000 or 0.006593.
+
+14
+00:00:53,640 --> 00:00:59,040
+So mortality is is low but it's it's kind of high in the first year of life,
+
+15
+00:00:59,040 --> 00:01:01,340
+all things considered.
+
+16
+00:01:01,340 --> 00:01:06,340
+And it starts with a sample population of 100,000 people.
+
+17
+00:01:06,340 --> 00:01:10,733
+And so if you had a sample population of 100,000 people, they say if
+
+18
+00:01:10,733 --> 00:01:15,686
+you had that probability of dying then 659 people would have died Between age 0 or
+
+19
+00:01:15,686 --> 00:01:18,240
+birth and age 1.
+
+20
+00:01:18,240 --> 00:01:24,461
+If you had a population of 100,000 people, then about 99,425 years of life,
+
+21
+00:01:24,461 --> 00:01:31,540
+person years of life would have been lived between time 0 and time 1.
+
+22
+00:01:31,540 --> 00:01:35,710
+The total number of person years lived above age x is calculated here Tx.
+
+23
+00:01:35,710 --> 00:01:39,350
+And the last thing is the expectation of life at age x.
+
+24
+00:01:39,350 --> 00:01:45,788
+So this is saying if all the mortality in all the ages were to hold,
+
+25
+00:01:45,788 --> 00:01:54,040
+then someone born at age 0 here would live 78.1 years.
+
+26
+00:01:54,040 --> 00:01:57,031
+So let's walk through an example of how this kind of thing gets filled out.
+
+27
+00:01:57,031 --> 00:01:58,420
+And so here's an example.
+
+28
+00:01:58,420 --> 00:02:00,451
+You've been going, your project meeting and
+
+29
+00:02:00,451 --> 00:02:03,230
+your job is to calculate life expectancies for 95 year olds.
+
+30
+00:02:03,230 --> 00:02:05,956
+You have the life table, what you spell red bull on it and
+
+31
+00:02:05,956 --> 00:02:09,240
+the toxic substances and red bull turning the paper green.
+
+32
+00:02:09,240 --> 00:02:13,440
+Now you're only left with the following information.
+
+33
+00:02:13,440 --> 00:02:14,981
+We want to calculate life expectancy.
+
+34
+00:02:14,981 --> 00:02:18,068
+So you're left with the following information that looks something like this
+
+35
+00:02:18,068 --> 00:02:19,020
+probability of dying.
+
+36
+00:02:19,020 --> 00:02:26,840
+And you know the expectation of life at age 100 is 2.3 years.
+
+37
+00:02:26,840 --> 00:02:31,162
+So we can actually back calculate this and figure out the expectation of life at
+
+38
+00:02:31,162 --> 00:02:35,550
+age 95 by back calculating knowing how long someone will live at age 100 and
+
+39
+00:02:35,550 --> 00:02:38,840
+their mortality each year between 95 and 100.
+
+40
+00:02:38,840 --> 00:02:42,515
+So what we're gonna do is add a couple of columns here for person years lived and
+
+41
+00:02:42,515 --> 00:02:46,321
+counted the person years lived for those who lived, and also for those who died.
+
+42
+00:02:46,321 --> 00:02:50,271
+So people who die in a year may live partially during that year.
+
+43
+00:02:50,271 --> 00:02:53,440
+And so their life expectancy would count for part of a year.
+
+44
+00:02:53,440 --> 00:02:54,631
+So let's go through this here.
+
+45
+00:02:54,631 --> 00:02:58,411
+If someone is age 99 and they live to age 100,
+
+46
+00:02:58,411 --> 00:03:03,452
+we think their life expectancy would be one year from 99 to 100
+
+47
+00:03:03,452 --> 00:03:09,240
+plus the 2.3 years they would live if they were 100 and older.
+
+48
+00:03:09,240 --> 00:03:13,181
+Now, someone who died is going to live there, not going to get zero life years.
+
+49
+00:03:13,181 --> 00:03:15,041
+Maybe they die about halfway through the year.
+
+50
+00:03:15,041 --> 00:03:21,440
+So we'll give them about half a year of life expectancy if they die.
+
+51
+00:03:21,440 --> 00:03:25,275
+So the question is, what's the overall expected life expectancy for
+
+52
+00:03:25,275 --> 00:03:26,390
+someone aged 99?
+
+53
+00:03:26,390 --> 00:03:30,210
+Well here we're saying, there's about a 30% chance they'll die and
+
+54
+00:03:30,210 --> 00:03:32,520
+a 70 chance they will live to 100.
+
+55
+00:03:32,520 --> 00:03:37,225
+So we take 70 chance that they'll live to 100 times the 3.3
+
+56
+00:03:37,225 --> 00:03:42,240
+life years they'll live or they'll get from age 99 and above.
+
+57
+00:03:42,240 --> 00:03:47,833
+And then we add that to the 30 who will die the 0.3 times the 0.5
+
+58
+00:03:47,833 --> 00:03:53,440
+life years they would live if they died between 99 and 100.
+
+59
+00:03:53,440 --> 00:03:57,855
+And that gives us an average of 2.4 life years lived.
+
+60
+00:03:57,855 --> 00:04:01,771
+And we can do an iterative process and go back.
+
+61
+00:04:01,771 --> 00:04:06,487
+So let's walk through this what it would look like for someone aged 98 while
+
+62
+00:04:06,487 --> 00:04:11,221
+someone age 98 who lives to 99 would live that year between 98 and 99.
+
+63
+00:04:11,221 --> 00:04:15,424
+That's one life here plus an additional 2.4 years on average,
+
+64
+00:04:15,424 --> 00:04:18,640
+which someone who turns 99 would live.
+
+65
+00:04:18,640 --> 00:04:21,344
+So I'd be 3.4 life years that they would live.
+
+66
+00:04:21,344 --> 00:04:25,394
+NowiIf someone is unfortunate enough to die between age 98 and
+
+67
+00:04:25,394 --> 00:04:29,760
+99, we think they live for about half a year so they get a half year.
+
+68
+00:04:29,760 --> 00:04:35,317
+And so then the average life expectancy for someone aged 98 is gonna be 72%
+
+69
+00:04:35,317 --> 00:04:40,536
+chance they don't die times 3.4 life years they'd get plus the 28%
+
+70
+00:04:40,536 --> 00:04:45,620
+chance that person would die times the half of life here they would get.
+
+71
+00:04:45,620 --> 00:04:50,620
+So we can go back and forth here and go all the way back to age 95.
+
+72
+00:04:50,620 --> 00:04:55,067
+And we can calculate that someone aged 95 has
+
+73
+00:04:55,067 --> 00:05:00,340
+average life expectancy of three 0.2 years.
+
+74
+00:05:00,340 --> 00:05:05,216
+And that's how the CDC calculates those life tables is they figure out
+
+75
+00:05:05,216 --> 00:05:09,927
+what's the mortality in each age by looking at population death and
+
+76
+00:05:09,927 --> 00:05:12,251
+population census statistics.
+
+77
+00:05:12,251 --> 00:05:14,970
+And figure out what's the chance that someone dies between a certain age?
+
+78
+00:05:14,970 --> 00:05:18,887
+And then they fill out this table in this manner to calculate what is life
+
+79
+00:05:18,887 --> 00:05:20,940
+expectancy at any particular age.
+
+80
+00:05:20,940 --> 00:05:22,761
+These life expectancies are useful.
+
+81
+00:05:22,761 --> 00:05:28,740
+So let's say we had an intervention that would reduce the risk of dying at age 95.
+
+82
+00:05:28,740 --> 00:05:31,896
+Where we can figure out if someone doesn't die at age 95 what is their
+
+83
+00:05:31,896 --> 00:05:32,770
+life expectancy?
+
+84
+00:05:32,770 --> 00:05:41,440
+So for every person saved from death at age 95 we're adding about 3.2 life years.
+
+85
+00:05:41,440 --> 00:05:43,831
+Now we can walk through a Markov Model Example.
+
+86
+00:05:43,831 --> 00:05:48,136
+So let's figure out life expectancy with a disease not so
+
+87
+00:05:48,136 --> 00:05:53,640
+horrible disease where you have a 10% chance of dying each year.
+
+88
+00:05:53,640 --> 00:05:56,016
+And the question then, is what fraction of people with not so
+
+89
+00:05:56,016 --> 00:05:57,841
+horrible disease will be alive in 10 years?
+
+90
+00:05:57,841 --> 00:06:02,140
+And what's the life expectancy for someone with not so horrible disease?
+
+91
+00:06:02,140 --> 00:06:05,894
+So we can build a Markov model here, we'll build a very simple Markov model
+
+92
+00:06:05,894 --> 00:06:09,590
+with two health states alive and dead, and in any particular year you have
+
+93
+00:06:09,590 --> 00:06:13,940
+a 10% chance of dying if you have not so horrible disease.
+
+94
+00:06:13,940 --> 00:06:17,268
+So here we can build the Markov model, the Markov model here,
+
+95
+00:06:17,268 --> 00:06:18,807
+each row represents a year.
+
+96
+00:06:18,807 --> 00:06:21,281
+And the columns representing health states alive and dead.
+
+97
+00:06:21,281 --> 00:06:25,784
+And you can see after one year, 10% have died and
+
+98
+00:06:25,784 --> 00:06:33,031
+90% are still alive in year two, 10% of the 90 which is 9% overall died.
+
+99
+00:06:33,031 --> 00:06:39,440
+So now we're left with after two years, 19% dead, 81% alive and so forth.
+
+100
+00:06:39,440 --> 00:06:44,345
+So how do we calculate life expectancies with these market models
+
+101
+00:06:44,345 --> 00:06:49,069
+when we go out of a sufficient period of time to figure out how and
+
+102
+00:06:49,069 --> 00:06:52,670
+give people one year of life if they're alive.
+
+103
+00:06:52,670 --> 00:06:56,271
+And if you want to, you can give half a year to those who die in that particular
+
+104
+00:06:56,271 --> 00:06:58,040
+year, then we add up the life years.
+
+105
+00:06:58,040 --> 00:06:59,841
+So here we'll just do a simple example.
+
+106
+00:06:59,841 --> 00:07:02,845
+We won't add in a half a year of life for the people who died, but
+
+107
+00:07:02,845 --> 00:07:04,161
+just do something simple.
+
+108
+00:07:04,161 --> 00:07:10,590
+So here at time zero we have 100% is alive, so we'll give them one life here.
+
+109
+00:07:10,590 --> 00:07:12,671
+Time 1, 90% alive.
+
+110
+00:07:12,671 --> 00:07:18,191
+So on average where the people in this population would be living 0.9 life years
+
+111
+00:07:18,191 --> 00:07:24,340
+and we go down the line here until year 10, 35% of the population is still alive.
+
+112
+00:07:24,340 --> 00:07:29,162
+And so we get a population average of .35 life years lived
+
+113
+00:07:29,162 --> 00:07:31,880
+in that population at year 10.
+
+114
+00:07:31,880 --> 00:07:37,401
+So if we want to add up the total life years lived in here adding it from time
+
+115
+00:07:37,401 --> 00:07:42,950
+0 to 10, we get 6.87 life years lived over this this time period.
+
+116
+00:07:42,950 --> 00:07:46,441
+The life expectancy is 6.87 or so.
+
+117
+00:07:46,441 --> 00:07:52,540
+So this is one way we can calculate life expectancy using a Markov model.
+
+118
+00:07:52,540 --> 00:07:55,914
+And so those are some methods for calculating life expectancy,
+
+119
+00:07:55,914 --> 00:07:59,013
+which are useful in cost effectiveness analysis.
+

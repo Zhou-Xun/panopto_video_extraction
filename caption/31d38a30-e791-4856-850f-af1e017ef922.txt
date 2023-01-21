@@ -1,0 +1,256 @@
+1
+00:00:09,450 --> 00:00:15,269
+One of the most important things that epidemiologists must consider in evaluating associations is
+
+2
+00:00:15,270 --> 00:00:20,340
+whether or not they're confounding or alternate explanations to the associations that they observe.
+
+3
+00:00:21,210 --> 00:00:29,220
+Often, researchers try to be overly cautious and adjust for everything that they can think of that's related to their exposures or their outcomes.
+
+4
+00:00:29,880 --> 00:00:36,750
+While very well-intentioned, this approach can often introduce bias of its own, leading to the wrong causal conclusions.
+
+5
+00:00:38,070 --> 00:00:45,870
+In this video, we're going to spend a little bit of time talking about how to identify potential pitfalls of adjusting for too many variables.
+
+6
+00:00:46,350 --> 00:00:54,090
+We'll talk about how to predict the impacts of conditioning on an intermediate, and we'll talk about what happens when you condition on a collider.
+
+7
+00:00:55,890 --> 00:01:02,940
+So you may recall that we previously were looking at how educational attainment related to diabetes.
+
+8
+00:01:03,300 --> 00:01:06,690
+These were the dogs that we use to look at these associations.
+
+9
+00:01:07,350 --> 00:01:12,930
+What we talked about was how you can conditioned on variables to adjust for confounding.
+
+10
+00:01:13,710 --> 00:01:23,010
+And we also talked about how conditioning for more variables than what's in the minimal adjustment set can often be fine but will reduce power.
+
+11
+00:01:23,760 --> 00:01:28,770
+In this particular video, what I want to tell you about are two important exceptions to that rule.
+
+12
+00:01:30,420 --> 00:01:33,840
+The first example would be conditioning on a non collider.
+
+13
+00:01:33,840 --> 00:01:44,580
+That's an intermediate. Here I've added inflammation as the biological mechanism by which educational attainment ultimately impacts diabetes risk.
+
+14
+00:01:45,540 --> 00:01:51,629
+You can see here in this DAG that inflammation is an intermediate or mediator on the causal
+
+15
+00:01:51,630 --> 00:01:57,960
+pathway because education causes inflammation and inflammation in turn causes diabetes.
+
+16
+00:01:58,710 --> 00:02:06,330
+Conditioning on inflammation as an intermediate will close the open causal path between education and
+
+17
+00:02:06,330 --> 00:02:13,320
+diabetes and minimize sometimes even potentially eliminating the association that we wish to detect.
+
+18
+00:02:14,160 --> 00:02:18,989
+Why does this happen? Well, if education only acts through inflammation,
+
+19
+00:02:18,990 --> 00:02:25,080
+you could imagine that there will no longer be a link between education and diabetes among those without inflammation.
+
+20
+00:02:25,710 --> 00:02:30,240
+This would be a case of people who are immune to the impacts of education on diabetes.
+
+21
+00:02:30,720 --> 00:02:34,380
+Clearly not what we want to do if we're looking for that association.
+
+22
+00:02:35,310 --> 00:02:39,120
+This is a rule that frequently makes it into the basic rules of confounding.
+
+23
+00:02:39,540 --> 00:02:41,670
+You guys have probably heard more than once.
+
+24
+00:02:41,880 --> 00:02:48,450
+A confounder cannot be an intermediate on the causal pathway between your exposure and your outcome of interest.
+
+25
+00:02:50,280 --> 00:02:58,440
+So another way that we can introduce bias by over conditioning on variables in your causal model is to condition on a collider.
+
+26
+00:02:59,100 --> 00:03:03,240
+For example, let's say that I conducted a study of education in diabetes,
+
+27
+00:03:03,570 --> 00:03:14,010
+but I first restricted my population to those people who had a family history of diabetes as classified by whether or not their moms were diabetics.
+
+28
+00:03:14,430 --> 00:03:21,180
+In effect, what I'm doing when I restrict to that population is I'm conditioning on that variable.
+
+29
+00:03:22,080 --> 00:03:33,180
+Now, why is this problematic? Well, conditioning on a collider here being maternal diabetes or family history opens the path between two variables.
+
+30
+00:03:33,750 --> 00:03:36,750
+In other words, if I conditioned on maternal diabetes,
+
+31
+00:03:36,750 --> 00:03:42,809
+I would newly introduced a crude relationship between genetic risk and socioeconomic
+
+32
+00:03:42,810 --> 00:03:47,880
+status that would confound the relationship between educational attainment and diabetes.
+
+33
+00:03:48,510 --> 00:03:51,900
+Pretty interesting, right? So why does this happen?
+
+34
+00:03:53,580 --> 00:03:57,000
+Well, to see why conditioning on a collider will open a path.
+
+35
+00:03:57,030 --> 00:03:59,790
+Let's go back to the example of wet grass.
+
+36
+00:04:00,450 --> 00:04:07,680
+You remember that I told you a story that wet grass could occur either by having my sprinkler on or if it was raining.
+
+37
+00:04:08,730 --> 00:04:15,780
+When considering all days, I would expect no association between sprinkler and rain because rain occurs randomly.
+
+38
+00:04:16,200 --> 00:04:26,459
+But if I look only on days when grass is wet and it hasn't rained, I now know that the sprinkler must have gone off in contrast, right?
+
+39
+00:04:26,460 --> 00:04:32,580
+If the grass is wet and my sprinkler has not gone off, I know that it must have rained.
+
+40
+00:04:33,120 --> 00:04:37,710
+Similarly, if the day is a dry day, the grass is dry.
+
+41
+00:04:38,040 --> 00:04:42,270
+I now know that it both has not rained and the sprinkler has not gone off.
+
+42
+00:04:42,960 --> 00:04:49,200
+So in effect, what I've done by conditioning on wet grass or only looking among the wet days or the dry days,
+
+43
+00:04:49,560 --> 00:04:54,840
+is by introducing relationships between rain and sprinklers.
+
+44
+00:04:55,320 --> 00:05:05,280
+Said one more way by looking at days only when there's wet grass or by dry grass, I can often predict if it has rained or if a sprinkler has happened.
+
+45
+00:05:06,990 --> 00:05:15,060
+Interestingly, I have the. Same problem if I condition on a downstream consequence of my collider known as a descendant,
+
+46
+00:05:15,540 --> 00:05:19,470
+for example, let's assume that wet grass makes worms come out to play.
+
+47
+00:05:20,130 --> 00:05:23,160
+Therefore, if I condition on the presence of worms,
+
+48
+00:05:23,160 --> 00:05:27,930
+I'm effectively conditioning on wet grass because the worms are only coming out when there's wet grass.
+
+49
+00:05:28,440 --> 00:05:34,560
+Again, I now have a situation that I can make educated guess about either rain or sprinklers.
+
+50
+00:05:34,800 --> 00:05:37,650
+Once I know if there's worms or the grass is wet.
+
+51
+00:05:38,280 --> 00:05:44,610
+In our case, we're talking about restricting our population to only those people with family history.
+
+52
+00:05:44,910 --> 00:05:52,830
+So it could be that a downstream consequence or a descendant of our collider might be diabetic medication or something like that.
+
+53
+00:05:54,600 --> 00:05:59,490
+So now that we understand a little bit more about colliders, let's return back to our scenario.
+
+54
+00:06:00,150 --> 00:06:03,690
+Let's say I've inappropriately conditioned on maternal diabetes.
+
+55
+00:06:03,960 --> 00:06:09,330
+It's all lost from this analysis. No, the good news is that not all is lost.
+
+56
+00:06:09,720 --> 00:06:18,000
+While I have opened a new back door path between diabetes and education, I can actually block this newly open path between genetic risk score,
+
+57
+00:06:18,210 --> 00:06:24,390
+maternal diabetes, socioeconomic status and education by adjusting for socioeconomic status.
+
+58
+00:06:24,930 --> 00:06:29,850
+Either I can do it like this or more efficiently like this.
+
+59
+00:06:30,270 --> 00:06:35,670
+You'll see here in this diagram that only by conditioning on socioeconomic status,
+
+60
+00:06:35,880 --> 00:06:46,050
+I've blocked both the newly opened pathway that occurs because of the collider, as well as the original open backdoor path that goes between diabetes.
+
+61
+00:06:46,290 --> 00:06:51,120
+Healthy food access, childhood socioeconomic status, and low educational attainment.
+
+62
+00:06:52,860 --> 00:06:54,509
+So based on today's video,
+
+63
+00:06:54,510 --> 00:07:03,180
+you should now be thinking about how conditioning or adjusting for variables in your analysis can actually introduce bias if you're not careful.
+
+64
+00:07:03,630 --> 00:07:08,970
+Specifically, we talked about the dangers of conditioning on intermediates as well as colliders.
+

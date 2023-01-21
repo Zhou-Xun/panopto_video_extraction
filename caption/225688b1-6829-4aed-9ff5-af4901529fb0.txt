@@ -1,0 +1,2592 @@
+1
+00:00:04,416 --> 00:00:10,296
+An associate professor of human genetics and the associate director of the Population Genetics at the Institute of Precision
+
+2
+00:00:10,296 --> 00:00:20,226
+Health Center in Los Angeles speak with us today on computational methods for genomic studies of mixed populations.
+
+3
+00:00:22,006 --> 00:00:31,256
+Great. Thank you so much. So much, and you guys hear me all the way in the back so I don't have to.
+
+4
+00:00:32,166 --> 00:00:35,136
+All right. Thank you so much for the invitation. I'm really excited to be here in person.
+
+5
+00:00:35,496 --> 00:00:44,645
+I know that I give a talk here virtually during the zoom time and I make sure that this topic does not overlap that much with that topic.
+
+6
+00:00:44,646 --> 00:00:52,356
+So by way of introduction, this is the group that essentially has done most of the work with trainees,
+
+7
+00:00:52,356 --> 00:01:00,516
+and I'm going to be presenting the results today. And for the past five, ten years, my group has been focusing mainly on three main areas.
+
+8
+00:01:01,296 --> 00:01:05,585
+One is genomic risk prediction that deals with all different course uncertainty.
+
+9
+00:01:05,586 --> 00:01:09,606
+And this is the topic that I covered during the pandemic.
+
+10
+00:01:09,726 --> 00:01:17,045
+When I give you guys, hopefully some of you listen to the other focus area of my group has been on methods
+
+11
+00:01:17,046 --> 00:01:21,516
+for underrepresented populations and I'll talk more about it today about this.
+
+12
+00:01:21,966 --> 00:01:28,266
+And who knows, maybe if I'll come back in the future, I'll talk about the third and a third things there,
+
+13
+00:01:28,506 --> 00:01:32,376
+which is all about, you know, methods for functional genomics,
+
+14
+00:01:32,376 --> 00:01:36,246
+such as transcript, wide association studies and fly mapping is is important,
+
+15
+00:01:36,516 --> 00:01:40,925
+which I know that there you know you guys have amazing expertise in that area.
+
+16
+00:01:40,926 --> 00:01:44,406
+It was really exciting to talk to you. All right.
+
+17
+00:01:44,556 --> 00:01:50,616
+So without further ado, I'm going to spend some time introducing a mixed populations.
+
+18
+00:01:51,036 --> 00:01:57,086
+And this is an area that it's a list that has a lot of conceptions and misperceptions.
+
+19
+00:01:57,106 --> 00:02:03,336
+I'm going to have those lower in terms of deliberate in introducing the concept and I'm going to be using today.
+
+20
+00:02:03,756 --> 00:02:09,906
+And I'm really curious how you guys see this, and I'm really curious to hear your feedback about all of the things that you're doing.
+
+21
+00:02:10,566 --> 00:02:18,396
+Then I'm going to dive into statistical methodologies that we and others have been developing to do, but it's called disease mapping.
+
+22
+00:02:18,606 --> 00:02:25,986
+So this will be association mapping all the way to trying to understand how genetic risk gets propagated in the mixed populations.
+
+23
+00:02:26,926 --> 00:02:36,036
+And then finally, with a very interesting topic that's kind of like we started this year and we're very, very excited and fascinating about this,
+
+24
+00:02:36,396 --> 00:02:39,126
+this fundamental question that we're all grapple with,
+
+25
+00:02:39,486 --> 00:02:46,176
+which is whether the genetics plays the same role of disease across different ancestry populations.
+
+26
+00:02:46,176 --> 00:02:53,706
+And I'm going to try to argue that you're looking at a mixed individuals or the mixed populations is a unique way where we could,
+
+27
+00:02:53,916 --> 00:02:56,586
+you know, answer this question. And finally,
+
+28
+00:02:56,586 --> 00:03:05,526
+I'm going to show you a little bit of the results of how we're kind of operationalizing all this methodologies within our Biobank at UCLA,
+
+29
+00:03:05,526 --> 00:03:14,435
+which is called Atlas, and try to convince you that we should move away from clustering clustering individuals into units of ancestry.
+
+30
+00:03:14,436 --> 00:03:18,696
+And just we should start thinking about, you know, a continuum of genetic ancestry.
+
+31
+00:03:19,116 --> 00:03:24,306
+And again, this is a buzzword continuum that I'll try to convince you that it's actually something that we can compute.
+
+32
+00:03:24,306 --> 00:03:27,716
+And that's something interesting to. All right.
+
+33
+00:03:27,726 --> 00:03:37,086
+So when you think about that mixture, generally, we started thinking about admixture between different continental ancestry sources.
+
+34
+00:03:37,386 --> 00:03:39,726
+So we typically think about African-Americans.
+
+35
+00:03:39,726 --> 00:03:47,616
+We think about Hispanic, Latino Americans, which are a result of the transatlantic slave trade, other forms of democracies or migrations.
+
+36
+00:03:48,066 --> 00:03:52,376
+But in general, that mixture occurs that all sorts of different types of foods,
+
+37
+00:03:52,416 --> 00:03:59,646
+all the way from Neanderthals introversion into the ancestors of currently Europeans and Asians all the way.
+
+38
+00:03:59,676 --> 00:04:07,746
+So currently, you know, a mixture or a mixture of different genetic ancestries within, you know, virtually every city worldwide.
+
+39
+00:04:07,776 --> 00:04:14,826
+Well, people come from having ancestry from various different genetic genetic sources.
+
+40
+00:04:15,486 --> 00:04:24,936
+And really what we are starting to emerge to see in the biobanks is that mixture between different subcontinental ancestry is a bit of this,
+
+41
+00:04:24,936 --> 00:04:31,566
+and virtually everyone that we're looking at is somehow some degree of genetically evidence.
+
+42
+00:04:32,046 --> 00:04:37,776
+And we've gotten to the point where the papers, the perspective papers, all they're one from most results in colleagues,
+
+43
+00:04:38,196 --> 00:04:43,326
+noting that what we thought about homogeneity in the genetic ancestry within populations.
+
+44
+00:04:43,566 --> 00:04:51,626
+It's an idealized concept that doesn't really exist and unpacked this a little bit before I got into further.
+
+45
+00:04:51,636 --> 00:04:54,995
+I want to make the point that when we think about genetic ancestry,
+
+46
+00:04:54,996 --> 00:05:02,556
+that's a distinct concept from the self-reported socioeconomic for social determinants of race and ethnicity.
+
+47
+00:05:03,006 --> 00:05:07,896
+There are many different papers that have been reported this, and here I'm just highlighting just one of them.
+
+48
+00:05:08,766 --> 00:05:17,166
+You know, a couple of years ago, that really makes the point that what people self-identify as distinct from that history of one's genome.
+
+49
+00:05:17,826 --> 00:05:24,636
+And there's no other populations to exemplify this than a mixed individual where
+
+50
+00:05:24,876 --> 00:05:29,406
+genetically genetic ancestry varies across the genome and various individuals.
+
+51
+00:05:31,386 --> 00:05:36,005
+The other big punch line here, which is I'm sure all of us are fully aware of this,
+
+52
+00:05:36,006 --> 00:05:42,726
+is that such individuals that have, you know, mixed ancestry are vastly underrepresented in genomics.
+
+53
+00:05:43,566 --> 00:05:53,046
+Here's one of this log where on the x axis you see years ago going all the way back to 2000 and the wide scale,
+
+54
+00:05:53,056 --> 00:05:58,986
+you see the percentage of individuals in genomic studies that are essentially from various ancestry populations.
+
+55
+00:05:59,496 --> 00:06:02,796
+And as we move forward, we get more diverse ancestries.
+
+56
+00:06:03,036 --> 00:06:08,256
+It remains the case that individuals or by mixed ancestry continue to be underrepresented,
+
+57
+00:06:08,676 --> 00:06:19,746
+partly because there's such a misconception that the statistics or we don't have the methodologies to analyze them correct for ancestry properly.
+
+58
+00:06:20,106 --> 00:06:25,716
+And if if there's one take of message that I have with you today, is that that's wrong.
+
+59
+00:06:25,746 --> 00:06:35,376
+We do have quite a sophisticated statistical tool set to analyze data from from the following admixture individuals.
+
+60
+00:06:36,096 --> 00:06:43,236
+And just just like on trivia, roughly one third or one in three people within the U.S.
+
+61
+00:06:43,746 --> 00:06:46,896
+Self-report as having mixed or mixed ancestry.
+
+62
+00:06:47,256 --> 00:06:51,966
+Whereas in the genomics studies, it's roughly, you know, but it's like one in 20.
+
+63
+00:06:51,996 --> 00:07:00,426
+So you see like this massive underrepresentation. And according to the U.S. Census, that number is going to go to around 50% within by 2050.
+
+64
+00:07:00,546 --> 00:07:08,166
+So for all of you that are more on the junior side within your career, you'll have, you know, working with mixed populations.
+
+65
+00:07:08,436 --> 00:07:13,086
+Roughly one in two individuals will be impacted by your research.
+
+66
+00:07:14,256 --> 00:07:24,156
+Okay. So in order to kind of like dissect and unpack some of the methodologies here, let me go into how we traditionally model that mix pockets.
+
+67
+00:07:24,696 --> 00:07:29,886
+So that's in the most simplistic form would think about it as two ancestrally diverged populations,
+
+68
+00:07:29,886 --> 00:07:34,535
+let's say the red and the blue population there that have been diverged for a while.
+
+69
+00:07:34,536 --> 00:07:41,616
+And then, you know, people from from those ancestry come and have offspring in a different environment and a different population.
+
+70
+00:07:42,096 --> 00:07:51,156
+And due to recombination events, the genome of the mixed individuals starts recombining between segments from the different ancestral sources,
+
+71
+00:07:51,456 --> 00:07:59,196
+such that the the genome that makes individuals have this unique features that they're a mosaic of segments of ancestry from.
+
+72
+00:07:59,526 --> 00:08:05,826
+In this case, the red and the blue population and the length and the distribution of this ancestry segment is
+
+73
+00:08:05,876 --> 00:08:12,606
+another molecular part that we can use to investigate the properties of this demographic about.
+
+74
+00:08:13,596 --> 00:08:22,596
+But I'm not going to be talking about that today. I'm talking about how do we use that in, you know, genetic study with genetics of disease.
+
+75
+00:08:24,576 --> 00:08:31,186
+So that type of. Genetic segments of different ancestral sources.
+
+76
+00:08:31,516 --> 00:08:38,356
+It uses the unique feature for the mix individuals, where every individual has its own unique mosaic of ancestry,
+
+77
+00:08:38,506 --> 00:08:42,836
+which leads to unique proportions in genome wide ancestry.
+
+78
+00:08:42,856 --> 00:08:48,726
+So the proportion of how much of that one's genome comes from the red or the blue population in that case.
+
+79
+00:08:49,186 --> 00:08:57,616
+And here on the left side, as you're looking, you see the standard way that people plot genetic data using principal component analysis,
+
+80
+00:08:57,916 --> 00:09:03,376
+where individuals with mixed ancestry form a line from their ancestral sources.
+
+81
+00:09:03,706 --> 00:09:09,516
+Here on the bottom here to see individuals outside of the world as African American forming a line from this,
+
+82
+00:09:09,926 --> 00:09:19,636
+an African genetic ancestry cluster towards a European genetic basis cluster, the same type of thing or variation across individuals.
+
+83
+00:09:19,636 --> 00:09:24,676
+You can see it on the right side. The various populations within Central and South America,
+
+84
+00:09:24,976 --> 00:09:33,126
+where you do see every individual have it has its own unique proportion of African Europeans or Native Americans.
+
+85
+00:09:33,496 --> 00:09:36,886
+So every unique is personalized, if you will, based on this proportion.
+
+86
+00:09:38,476 --> 00:09:46,515
+The fact that the segments of ancestry come on different or the common different ancestry
+
+87
+00:09:46,516 --> 00:09:52,666
+segment allows us to think about how do we consider disease mapping in mixed populations.
+
+88
+00:09:53,116 --> 00:09:56,775
+So the first one is we need to correct all these for genome wide ancestry
+
+89
+00:09:56,776 --> 00:10:01,816
+because genome more ancestry is correlated with social determinants of health.
+
+90
+00:10:02,116 --> 00:10:09,616
+So by correcting for it, we can remove that potential bias from from our studies and really did that.
+
+91
+00:10:10,066 --> 00:10:14,206
+The most interesting point here is that every allele,
+
+92
+00:10:14,206 --> 00:10:18,046
+every potential causal issue appears of multiple backgrounds in populations
+
+93
+00:10:18,056 --> 00:10:23,446
+of an to here I'm showing you an example of an individual that it's a mixed
+
+94
+00:10:23,456 --> 00:10:27,915
+European African and we see an animal that's potentially causal having an effect
+
+95
+00:10:27,916 --> 00:10:35,626
+size on the African background or rather economic round here or or relevance.
+
+96
+00:10:36,346 --> 00:10:41,895
+Okay. So the fact that these values appear on different backgrounds allows us to ask
+
+97
+00:10:41,896 --> 00:10:47,376
+questions whether these effects by ancestry are distinct or not in these populations.
+
+98
+00:10:48,796 --> 00:10:55,546
+So in the next three slides, I'll try to disentangle one of the concepts that it's often misunderstood in this area,
+
+99
+00:10:56,086 --> 00:10:59,206
+and that's the concept of heterogeneity by ancestry.
+
+100
+00:10:59,476 --> 00:11:05,376
+So how do we measure this distinction? How do we measure differences in the genetic effects across ancestry?
+
+101
+00:11:05,896 --> 00:11:17,086
+The first one is the simplest one, the causal. You could have different impacts on disease as as if it comes on, let's say, red or blue ancestry.
+
+102
+00:11:17,446 --> 00:11:23,646
+So the effect size could be different because interactions exist divided by and so on and so forth, right?
+
+103
+00:11:23,896 --> 00:11:27,066
+So that's the simplest way to think about heterogeneity by ancestry.
+
+104
+00:11:27,976 --> 00:11:36,136
+The other one is even when the causal effects are the same, even when biology is all the same in every cell in the body,
+
+105
+00:11:37,606 --> 00:11:42,076
+it could still be the case that these mutations have different frequencies in the two populations.
+
+106
+00:11:42,616 --> 00:11:50,085
+So the fact that the frequency of this causal you has a very poor population induces a difference
+
+107
+00:11:50,086 --> 00:11:54,586
+in the variance explained by these mutations in the disease status across populations,
+
+108
+00:11:54,916 --> 00:12:00,346
+which is usually leads to a mixture signal and I'll get back to it in a few slide.
+
+109
+00:12:00,646 --> 00:12:08,046
+But that's also been referred to as heterogeneity by ancestry because now you can explain different proportions of the variants and the disease,
+
+110
+00:12:08,056 --> 00:12:12,886
+even though biological the same and the B of the Middle East have the exact same effect by France.
+
+111
+00:12:14,236 --> 00:12:19,306
+And finally, which kind of encompasses a lot of the challenges here,
+
+112
+00:12:19,786 --> 00:12:25,245
+we often don't know the causal and we're looking at something that it's tagging the causal and
+
+113
+00:12:25,246 --> 00:12:33,166
+therefore we have this tag ability issue and target tagging variants or it's ancestry specific.
+
+114
+00:12:33,526 --> 00:12:39,916
+So every potential causal animal, it's tagged differentially, whether it's on, let's say European versus African, I come back.
+
+115
+00:12:40,486 --> 00:12:45,916
+So every time we think about heterogeneity, we need to think about at least these three sources and which I want to focus on the fact a little.
+
+116
+00:12:47,776 --> 00:12:54,556
+So how do we kind of combine these into a statistical model to do disease mapping and say in mixed populations, well,
+
+117
+00:12:54,556 --> 00:13:00,915
+the standard way to do it is, you know what, it's been infectious genome wide association studies, which I'm sure all of you are familiar with.
+
+118
+00:13:00,916 --> 00:13:06,196
+So I'm not going to dive too much into it, but essentially I'm going to present it in the case control setting.
+
+119
+00:13:06,196 --> 00:13:13,665
+But you can think about continuous as well. What do you is looking for is looking for associations or a difference in the frequencies of a
+
+120
+00:13:13,666 --> 00:13:18,796
+particular particular potential cases versus controls people that haven't gone after the disease,
+
+121
+00:13:19,276 --> 00:13:26,686
+which is rather straightforwardly modeled by the likely ratio test where we're simply testing for an effect.
+
+122
+00:13:26,756 --> 00:13:32,816
+Size of a particular mutation or a particular variant in the causal versus the normal.
+
+123
+00:13:33,176 --> 00:13:40,976
+So I put it here as that like the original test, but obviously in practice in all sorts of different ways to do this associations.
+
+124
+00:13:41,576 --> 00:13:47,846
+And as I said before, it's critical for any information to model it as or always correct for the genome what has.
+
+125
+00:13:49,566 --> 00:13:52,986
+Because I think populations have low levels, not a pure multiple backgrounds.
+
+126
+00:13:53,226 --> 00:13:59,735
+We can actually disentangle this and we can ask whether we or we can write a model
+
+127
+00:13:59,736 --> 00:14:03,666
+in which the effect sizes are decoupled based on this local ancestry background.
+
+128
+00:14:04,176 --> 00:14:10,596
+So we can it's equivalent a meta analysis for those that are more interested in that area where
+
+129
+00:14:10,896 --> 00:14:16,656
+we ask whether the effect size in the European background and in fact size on the African
+
+130
+00:14:16,656 --> 00:14:22,836
+background are a helpful and we assign them the same causal link and this allows us to run
+
+131
+00:14:23,286 --> 00:14:29,526
+associations and that is treating this to effect sizes in different components of the link.
+
+132
+00:14:30,336 --> 00:14:35,196
+And because I'm here, I'm assuming a set of the same odds ratio or the same effect size,
+
+133
+00:14:35,556 --> 00:14:42,516
+then it's still a 1 to 1 degree of freedom test that it's equivalent to running this test,
+
+134
+00:14:42,636 --> 00:14:47,706
+you know, it's an average of them and then analyzing under a fixed effect assumption.
+
+135
+00:14:49,206 --> 00:14:52,886
+So because we can do that, then we can already start modeling differentially.
+
+136
+00:14:53,316 --> 00:14:57,606
+So we can, if we believe that the effect size might vary, but that's just the start.
+
+137
+00:14:57,606 --> 00:15:04,866
+Modeling them as a effect size being on a couple European versus African on the two local ancestor background.
+
+138
+00:15:05,466 --> 00:15:10,865
+And, you know, we can allow them to vary as we want and that will keep us to a degree of know testing or we can,
+
+139
+00:15:10,866 --> 00:15:17,776
+you know, make them similar or similar. And that will allow us to play the game between one degree total freedom plus.
+
+140
+00:15:18,186 --> 00:15:26,676
+And as you might expect, that will give us a tradeoff between power versus the local ancestry signal.
+
+141
+00:15:26,706 --> 00:15:35,496
+You can think about it as if the disease causing the level is higher frequency in one of the ancestries.
+
+142
+00:15:35,616 --> 00:15:42,756
+In this case, let's say the red ancestry that individuals that carry the disease will have more of those alleles and the disease causing locus,
+
+143
+00:15:43,296 --> 00:15:47,705
+and that induces what it's called an admixture signal or a correlation between the
+
+144
+00:15:47,706 --> 00:15:51,966
+average looking ancestry in the cases versus either genome wide or versus control,
+
+145
+00:15:52,086 --> 00:15:53,376
+depending on the onset of.
+
+146
+00:15:53,976 --> 00:16:00,996
+And for those of you that originated in the field, this was actually one of the first ways to do, you know, disease mapping even before gwas.
+
+147
+00:16:01,266 --> 00:16:05,826
+So it's kind of interesting that now we're in some ways we're getting back to it and trying to merge it.
+
+148
+00:16:08,176 --> 00:16:12,706
+Exactly follow the same kind of paradigm where we can write a likely ratio test where we
+
+149
+00:16:12,706 --> 00:16:17,565
+have under the now the there's no effect for the local ancestry under the alternate,
+
+150
+00:16:17,566 --> 00:16:19,336
+there's an effect for the local ancestry.
+
+151
+00:16:19,546 --> 00:16:28,276
+And we can write again a one degrees of freedom test that would be essentially equivalent to running a regression between,
+
+152
+00:16:28,936 --> 00:16:31,966
+you know, time and the local ancestry status.
+
+153
+00:16:31,966 --> 00:16:41,686
+And in this case, because we uncouple these now, we can start doing something more exciting or more and more or more fun if we can,
+
+154
+00:16:41,866 --> 00:16:46,996
+because we uncouple the local ancestry in the first step in the case control study,
+
+155
+00:16:47,326 --> 00:16:52,966
+we can essentially add these two likelihoods together or multiply them or add the look likelihoods.
+
+156
+00:16:53,296 --> 00:16:55,366
+And we can mathematically show that these are independent.
+
+157
+00:16:55,696 --> 00:17:01,996
+And this is this would be a way where we can sum the effect of the association with the effect of the admixture.
+
+158
+00:17:02,656 --> 00:17:06,586
+And, you know, we paid the penalty off to the degree of final test.
+
+159
+00:17:06,976 --> 00:17:14,565
+But again, now we're essentially gaining more insights into into how do we do admixture or association spouses.
+
+160
+00:17:14,566 --> 00:17:15,526
+And that makes a difference.
+
+161
+00:17:16,996 --> 00:17:24,856
+The really interesting bit that that you just of like writing down with the math there is that you can actually under some very simple assumptions,
+
+162
+00:17:25,126 --> 00:17:31,606
+you can write down the induced effect on the local ancestry if you know the effect size of the causal genes.
+
+163
+00:17:32,026 --> 00:17:35,536
+And you know what some very straightforward manipulations can show,
+
+164
+00:17:35,536 --> 00:17:45,346
+that the ancestry effect is a function of the allele effects of the causal, and the gene has this very nice and simple formula there.
+
+165
+00:17:45,796 --> 00:17:54,346
+And you can clearly see that if the snip is not causal or is equal to one there, that the the ancestry effect size will be essentially one.
+
+166
+00:17:55,366 --> 00:18:02,926
+Or if you see that the earlier frequencies are the same in two of the two ancestries, again it can cancel out irrespective of the causal.
+
+167
+00:18:03,586 --> 00:18:08,206
+So this gives you insights of when should you expect a little bit ancestry studies.
+
+168
+00:18:08,656 --> 00:18:12,616
+It's either you need both effect size as well as differentiating the frequencies.
+
+169
+00:18:13,756 --> 00:18:14,806
+Okay. So I'll show you.
+
+170
+00:18:15,076 --> 00:18:20,446
+I showed you a bunch of, like, squares, and, you know, there's a map behind it, which I can show you, but we can talk about it.
+
+171
+00:18:20,776 --> 00:18:24,076
+How does it look? How do all these tests operate in practice?
+
+172
+00:18:24,616 --> 00:18:28,345
+And here are a bunch of simulations based on advanced individuals in the UK.
+
+173
+00:18:28,346 --> 00:18:31,816
+Five. So these are individuals, Africans and Europeans.
+
+174
+00:18:32,656 --> 00:18:36,256
+The simulations are called simulations under some reasonable effect size,
+
+175
+00:18:36,396 --> 00:18:45,316
+which is but the the the the poorer simulations are distinguish them between.
+
+176
+00:18:45,646 --> 00:18:49,186
+On the left side is what happens at a randomly picked variant of the genome.
+
+177
+00:18:49,696 --> 00:18:55,036
+And on the right side, what happens it varies that happens to have different audio frequencies between the two.
+
+178
+00:18:55,036 --> 00:19:02,176
+But with the idea that those with a little frequency difference are some are more biologically interesting to look at.
+
+179
+00:19:02,836 --> 00:19:07,756
+So with the methods that are comparing, here are just a flavor of the ones that I showed you before.
+
+180
+00:19:07,966 --> 00:19:11,556
+The top one is just the vanilla juice with a correction for genome one ancestry.
+
+181
+00:19:11,806 --> 00:19:15,946
+One is the one where you partition it by looking at the street.
+
+182
+00:19:16,356 --> 00:19:26,056
+It's just combining them tractors. A recently proposed approach that allows for a lot of heterogeneity defined by ancestry by Elizabeth.
+
+183
+00:19:26,296 --> 00:19:29,806
+So now and again, pull test, correct, for for genomic tests.
+
+184
+00:19:30,856 --> 00:19:34,726
+So here's the the most powerful thing that you can see in this series.
+
+185
+00:19:35,296 --> 00:19:41,566
+If you just compare, you know, these methods that do not adjust for looking at them just for local ancestry,
+
+186
+00:19:42,106 --> 00:19:50,026
+you can already see that in fact, per unit of individual sample size at the same sample size of you us,
+
+187
+00:19:50,476 --> 00:19:56,235
+you get more power by looking at mixed populations than by looking at homogeneous population because you
+
+188
+00:19:56,236 --> 00:20:01,126
+get more signal between the differentiation because on the average every snap is slightly differentiated.
+
+189
+00:20:01,786 --> 00:20:08,086
+So per unit, per individual that you are told you are you're more powerful to detect disease causing associations.
+
+190
+00:20:08,476 --> 00:20:14,906
+You know, it makes populations. The other part is, as you might expect, if you condition all the affected local ancestry,
+
+191
+00:20:15,206 --> 00:20:20,186
+you're actually removing some of the effects and then you might lose some of the,
+
+192
+00:20:20,456 --> 00:20:26,096
+you know, a little bit about positives that you might be able to adjust for different heterogeneity by ancestry.
+
+193
+00:20:26,936 --> 00:20:34,556
+And finally, if you're really going for, you know, lots of differences by ancestry, you reduce far by around 10% or so.
+
+194
+00:20:34,826 --> 00:20:39,356
+But you're gaining in robustness because some regions might truly have heterogeneity.
+
+195
+00:20:41,576 --> 00:20:44,786
+Those are some regions. Here's what happened in real results.
+
+196
+00:20:45,086 --> 00:20:54,086
+Essentially, you get slightly 10% less power by methods that account for heterogeneity across the board.
+
+197
+00:20:54,476 --> 00:21:00,266
+And this is fully expected because you need to pay a penalty by because of the extra degree of freedom.
+
+198
+00:21:02,066 --> 00:21:10,976
+But really, one would be if you focus on just loci where you see a large frequency differentiation and this is the case for this.
+
+199
+00:21:11,406 --> 00:21:16,196
+Duffy Smoot, which happens to be one of the highest differentiated snippets in Europeans and Africans.
+
+200
+00:21:17,246 --> 00:21:20,376
+You see this method that correct for looking at three completely missing.
+
+201
+00:21:21,356 --> 00:21:28,886
+And this is a well known causing a Lille that causes a condition that it's been labeled by clinician as benign ethnic neutropenia,
+
+202
+00:21:29,336 --> 00:21:32,266
+which in non-medical terms means that, you know,
+
+203
+00:21:32,486 --> 00:21:36,956
+the neutrophil counts as one standard deviation lower than the expectation, but it doesn't cause anything.
+
+204
+00:21:37,466 --> 00:21:41,245
+So that's why it's too benign. So, you know, clinicians know that, that that's what's happening.
+
+205
+00:21:41,246 --> 00:21:47,816
+This mutation causes this. And you see that my condition look honestly, completely missed all the single bit, which is what you would expect.
+
+206
+00:21:48,266 --> 00:21:54,326
+Simply because local antigen tags perfectly the the the association thing.
+
+207
+00:21:55,626 --> 00:22:03,626
+Okay so if I come visit them, we have a lot of statistical methods to, you know, mapping in that mixed populations as many more.
+
+208
+00:22:03,656 --> 00:22:13,216
+I'm happy to talk more about you, but the the really the fundamental question here that you might have is how do we select among these methods?
+
+209
+00:22:13,226 --> 00:22:22,076
+What is our guiding principle? And what's fundamental there is whether we believe that the causal effects are the same or not across ancestry.
+
+210
+00:22:22,676 --> 00:22:30,476
+And I, I posed this as you know, this is probably fundamental, not just for mixed individuals, but also as we think about,
+
+211
+00:22:30,476 --> 00:22:35,336
+you know, transferring genetic finding from, let's say, Europeans to Asians to worldwide population.
+
+212
+00:22:36,956 --> 00:22:46,796
+And the unique features of different segments of global ancestry allows us or at least individuals to actually ask this question in a very,
+
+213
+00:22:46,796 --> 00:22:54,826
+very controlled environment. So within a given cell, you know, all the cellular context is all the same for a particular individual, right?
+
+214
+00:22:55,166 --> 00:23:01,586
+So we can study the effect of this the on disease with we without confounders from the environment.
+
+215
+00:23:03,026 --> 00:23:10,345
+And, you know, we wanted to utilize this unique feature of, you know, individuals ancestries to try to tackle this question.
+
+216
+00:23:10,346 --> 00:23:13,766
+Are the effects on European backgrounds the same thing as in on Africans?
+
+217
+00:23:15,176 --> 00:23:25,256
+And because we've found out for the past ten, 15 years that all the human diseases have lots and lots of other variants or risk associated regions.
+
+218
+00:23:25,676 --> 00:23:31,286
+We shifted this from looking one at a time towards a genome wide model that simply says,
+
+219
+00:23:31,646 --> 00:23:35,486
+If I plot the effect size in Europeans versus the effect size in Africans,
+
+220
+00:23:35,906 --> 00:23:41,216
+is the slope close to one or not and is, you know, the advantage of playing, you know, one.
+
+221
+00:23:41,606 --> 00:23:45,616
+So is and in fact, size is predictive really well.
+
+222
+00:23:46,976 --> 00:23:53,156
+And you can label that as a correlation that the causal effect or a genetic correlation across ancestries, if you will.
+
+223
+00:23:53,456 --> 00:23:56,546
+But it's really just saying whether the effect sizes are the same or not.
+
+224
+00:23:57,536 --> 00:24:07,946
+And the way we solve this problem is through a mixed model approach in which we leverage the fact that old all human diseases are kind of flagellum.
+
+225
+00:24:08,156 --> 00:24:16,886
+And we're literally just figuring out a genetic relationship matrix between pairs of individuals that is restricted to the Europeans,
+
+226
+00:24:17,166 --> 00:24:23,636
+the segments that are restricted to the African segment. And we fit that through a model that's listed here on the right,
+
+227
+00:24:23,996 --> 00:24:30,836
+but makes an assumption that the effect sizes are distinct across cultures and then they're allowed to be as distinct as possible.
+
+228
+00:24:31,196 --> 00:24:36,206
+And we fit this parameters, which would be the covariance between the causal effects,
+
+229
+00:24:36,206 --> 00:24:43,976
+but the which is just rolled here on the right side versus the, you know, Sigma Square, which we the variance or the heritability of.
+
+230
+00:24:45,536 --> 00:24:53,636
+And under this model, this quantity, this covariance divide by the by the master, this correlation, right next week, we will label it.
+
+231
+00:24:53,636 --> 00:24:57,736
+It will tell us whether the effect sizes are similar or not.
+
+232
+00:24:57,746 --> 00:25:01,406
+So if this number is one, essentially that the genetic effects are all the same,
+
+233
+00:25:01,646 --> 00:25:06,086
+if this correlation is zero, then essentially they're completely uncut. Hopefully that makes sense.
+
+234
+00:25:06,986 --> 00:25:12,576
+And I should say that should interrupt me if. You have any questions along the way or not?
+
+235
+00:25:15,096 --> 00:25:17,886
+So as well as with all mathematic models,
+
+236
+00:25:17,896 --> 00:25:25,536
+first we run a lot of simulations and I guide you to the preprint that it's listed there too, to see all the stories that we've done.
+
+237
+00:25:25,536 --> 00:25:34,116
+But they are encapsulated in this figure on the left side, pretty much we observed that this method correctly recovers the genetic correlation,
+
+238
+00:25:35,286 --> 00:25:38,195
+albeit a downward biased linear,
+
+239
+00:25:38,196 --> 00:25:47,765
+because when if we mask all the true causes and we try to use the tags in the number of viruses small, but it's consistently downward.
+
+240
+00:25:47,766 --> 00:25:54,606
+And so all that that motivates us to think that this is a lower band of the actual genetic correlation
+
+241
+00:25:54,606 --> 00:26:00,276
+in really virtually any simulations that we've done or any breaking of the model leads to downward buys.
+
+242
+00:26:00,276 --> 00:26:09,216
+And so you see here that we simulate 4.91 and you see that the that estimate is very close to that country.
+
+243
+00:26:10,536 --> 00:26:17,136
+So then we applied to lots of lots of data and that here we kind of like try to look at all the data that we could get our hands on.
+
+244
+00:26:17,826 --> 00:26:18,186
+Again,
+
+245
+00:26:18,396 --> 00:26:26,946
+guided by the fact that sample size matters in this case and that we find that it's very hard to look at individuals of African European admixture.
+
+246
+00:26:27,366 --> 00:26:33,786
+So in the page study, which is a multi ancestry cohort, we looked in UK Biobank,
+
+247
+00:26:34,116 --> 00:26:40,175
+we look at the all of us, which overall gives us a sample size of around 50,000 African,
+
+248
+00:26:40,176 --> 00:26:45,876
+European mixed individuals, and that includes African Americans, that includes African women from UK Biobank,
+
+249
+00:26:45,876 --> 00:26:49,476
+that includes all sorts of individuals that are self-reported different.
+
+250
+00:26:50,586 --> 00:26:54,786
+So, you know, long story short, what we found is that the correlation is very, very low.
+
+251
+00:26:54,966 --> 00:27:01,955
+So it's on the order of like 0.95. You can see the credible intervals there on the left side here you see us select
+
+252
+00:27:01,956 --> 00:27:05,556
+the ten traits that we have that happened to have the larger sample size.
+
+253
+00:27:05,976 --> 00:27:08,526
+And you can see that, you know, the, the,
+
+254
+00:27:08,686 --> 00:27:15,815
+the credible interval or the credible range for our estimate varies widely across trait because of the sample size,
+
+255
+00:27:15,816 --> 00:27:20,346
+because of number of cases by a trait. But in a meta analysis, it's very close to one.
+
+256
+00:27:20,916 --> 00:27:29,046
+And I'll get you on the right side here where we compare what would happen if we look at across continents.
+
+257
+00:27:29,436 --> 00:27:34,026
+So this is like if you look at African versus European, you get something on the wrong order, like a correlation.
+
+258
+00:27:34,026 --> 00:27:40,626
+2.5.6 If you look at an African or European versus Asian, you can get something around point eight.
+
+259
+00:27:41,136 --> 00:27:45,256
+And if you look at the mixed individuals, you get something that is point 95, which is much less about.
+
+260
+00:27:45,736 --> 00:27:52,836
+So this is very consistent with this idea that by looking or by disentangling by and ancestry within the same individuals,
+
+261
+00:27:53,406 --> 00:27:58,716
+your it it's more robust to this confounders by environment.
+
+262
+00:27:59,196 --> 00:28:07,596
+And in many ways it's kind of illuminating as a local genetic interactions as a source or, you know, differential effect by ancestors.
+
+263
+00:28:07,986 --> 00:28:14,466
+It's also consistent with the fact that maybe environment contributes more when you look at, you know, across continents than when you look.
+
+264
+00:28:15,486 --> 00:28:18,686
+So there's a debate that might come of my contribute to that.
+
+265
+00:28:18,686 --> 00:28:28,146
+So, you know looking at transcontinental genetic ancestors so that that happens with that method, that sort of global method.
+
+266
+00:28:28,596 --> 00:28:32,946
+We confirmed this by just focusing only on the genome, one significant snapshot,
+
+267
+00:28:32,946 --> 00:28:37,916
+that's what's showing here now over here is just one genome wide significance snip.
+
+268
+00:28:38,256 --> 00:28:44,976
+There's less power or this type of approach, but the number is very similar to what we got from our apologetic method.
+
+269
+00:28:45,036 --> 00:28:52,306
+It's still, you know, higher than 90%. So the answer that we kind of convince ourselves after, you know,
+
+270
+00:28:52,326 --> 00:28:57,126
+lots of work within the past year is that genetic causal effects seem to be the same percentage.
+
+271
+00:28:57,546 --> 00:29:05,435
+So they seem to be, you know, very, very similar. And really what may be contributing to the fact that we see lack of transferability
+
+272
+00:29:05,436 --> 00:29:10,966
+across population is the frequency and maybe tagging of unknown causal groups.
+
+273
+00:29:11,436 --> 00:29:16,986
+But once we narrow down on the causal man, they seem to be operating the same across ancestries.
+
+274
+00:29:17,316 --> 00:29:27,156
+That's kind of a carbon loop. So if you haven't heard my in my last statement, there's some inconsistency there.
+
+275
+00:29:27,726 --> 00:29:34,536
+So how can just different frequencies contribute to such a low transferable, apologetic risk for the processes?
+
+276
+00:29:35,136 --> 00:29:42,006
+And we started to try to impact that a little bit and I'll show you how that could occur.
+
+277
+00:29:43,206 --> 00:29:50,456
+So. I don't want to spend as much time with probably all of you guys have heard of apologetic risk cause they're hyped to be,
+
+278
+00:29:50,456 --> 00:29:55,316
+you know, the next best thing, the next life brand again, I guess, in personalized medicine.
+
+279
+00:29:55,736 --> 00:29:58,496
+But essentially it's saying that in due course,
+
+280
+00:29:59,036 --> 00:30:05,096
+we found a lot of small effects and minor none of these small effects can predict individuals that will get the disease.
+
+281
+00:30:05,456 --> 00:30:12,035
+But if we aggregate them through some linear combination, we've seen nonlinear combination as well.
+
+282
+00:30:12,036 --> 00:30:18,416
+But if we aggregate demand, we might be able to predict which individuals might be at the time of distribution
+
+283
+00:30:19,136 --> 00:30:22,496
+or which individuals might have higher genetic risk for some diseases.
+
+284
+00:30:22,766 --> 00:30:29,306
+And we might be able to either, you know, do prevention or personalize their treatment decisions or in general,
+
+285
+00:30:30,626 --> 00:30:38,216
+you know, change our our medication or change our clinical decision making based on their inherited categories.
+
+286
+00:30:39,866 --> 00:30:46,855
+And like I was saying before, this is probably one of the biggest challenges in making polygenic risk boards applicable in the
+
+287
+00:30:46,856 --> 00:30:54,476
+clinic is the fact that they seem to work much poorer the further away from the European ancestry.
+
+288
+00:30:55,766 --> 00:31:02,836
+This figure that has been, you know, probably one of the most consequential figure in the past, you know,
+
+289
+00:31:02,846 --> 00:31:10,606
+four or five years that you've seen it probably everywhere from Alicia martin and colleagues is showing the predictive accuracy,
+
+290
+00:31:10,616 --> 00:31:18,386
+polygenic, risk course, all referred back to the European ancestry training that they see here on the first column.
+
+291
+00:31:18,776 --> 00:31:23,456
+Seriously 100% European Ancestry Angel videos that if you move to, you know,
+
+292
+00:31:23,646 --> 00:31:32,046
+preschool marks from American individuals, then you see that that 50% South Asian, East Asian Africanism.
+
+293
+00:31:33,276 --> 00:31:37,016
+And also, in fact, the way I put the code mark, it's unclear what America means.
+
+294
+00:31:37,316 --> 00:31:41,696
+It's like are these are these folks that are coming from the U.S.?
+
+295
+00:31:41,736 --> 00:31:44,456
+Are these folks that self-identify as American?
+
+296
+00:31:44,726 --> 00:31:53,516
+You know, there's a lot of admixture happening in various different forms and not that there's huge error bars there for some American individuals.
+
+297
+00:31:53,786 --> 00:32:01,316
+It might be point nine. I curious if when Europeans for some American individuals might be 4.5.
+
+298
+00:32:02,666 --> 00:32:13,736
+So we we try to unpack, you know, the spread of of of of performance with the idea that maybe a mixture is driving a lot of a lot of the.
+
+299
+00:32:15,876 --> 00:32:17,466
+And we're not new to this.
+
+300
+00:32:17,496 --> 00:32:27,096
+This is work from a young mathison and many others that are trying to look at the transfer a little to positive response directly,
+
+301
+00:32:27,096 --> 00:32:31,056
+not mixed individuals. And I apologize that they shift the scale.
+
+302
+00:32:31,056 --> 00:32:37,536
+So now you have to look on the right side for like higher European ancestry versus on the left side, which is lower European ancestry.
+
+303
+00:32:38,466 --> 00:32:46,776
+And the whites get security. And when they plotted here, they looked at multiple African American or African.
+
+304
+00:32:48,126 --> 00:32:52,896
+Some of them are African-American, but some of them are African, European and mixed individuals from UK Biobank,
+
+305
+00:32:53,256 --> 00:32:58,476
+and they find it here on the x axis, the average European ancestry proportion.
+
+306
+00:32:58,926 --> 00:33:07,716
+So higher on the right, another one on the left. And you see how, you know, individuals that have less and less European ancestry in their genome,
+
+307
+00:33:07,836 --> 00:33:12,126
+which would be on the left side, they have lower, lower of two or C in the politicians.
+
+308
+00:33:13,626 --> 00:33:20,136
+So you see how this effect is not just a population wide, but it's from individual to individual, right?
+
+309
+00:33:20,136 --> 00:33:25,295
+So individual that one African adolescents do.
+
+310
+00:33:25,296 --> 00:33:31,626
+This is a risk factor for wall for diabetes, that kind of stuff that in this case is height.
+
+311
+00:33:31,806 --> 00:33:36,545
+So it's it's it's it's kind of the fact that they call it polygenic risk score.
+
+312
+00:33:36,546 --> 00:33:48,905
+It's it's a little bit but it's a lot of the that that's why I tend to use polygenic patients as a possibly yes but I should say that the
+
+313
+00:33:48,906 --> 00:33:58,246
+statements extent of most common diseases so if you do the same thing for coronary artery disease or lipids or whatever you call cancers,
+
+314
+00:33:58,566 --> 00:34:00,046
+you would see the exact same trends.
+
+315
+00:34:03,116 --> 00:34:13,106
+And because you asked that question, the error bars here, I think the beer bars are across trends, across individuals.
+
+316
+00:34:13,526 --> 00:34:18,236
+So essentially in this plot, they looked at a couple of hundred over 80 or 100 traits.
+
+317
+00:34:18,776 --> 00:34:23,936
+And what they they plotted the bars here is the standard deviation across those terms.
+
+318
+00:34:26,416 --> 00:34:32,126
+Any questions? All right,
+
+319
+00:34:32,966 --> 00:34:37,226
+so now I should introduce to you the by event that we're we're kind of applying
+
+320
+00:34:37,556 --> 00:34:41,005
+applied this data and this is for those of you that have never been to L.A.,
+
+321
+00:34:41,006 --> 00:34:45,656
+this is a very colorful map of L.A. that we use.
+
+322
+00:34:45,746 --> 00:34:48,776
+So it's somewhere there in the blue shaded version.
+
+323
+00:34:48,776 --> 00:34:54,836
+There you have the color coded is based on on the self-reported race, ethnicity.
+
+324
+00:34:55,316 --> 00:35:01,736
+And, you know, I don't know exactly how they they they actually, you know, color coded there,
+
+325
+00:35:01,736 --> 00:35:06,626
+but it's presumably as a function of which one is the most the majority in that neighborhood.
+
+326
+00:35:07,016 --> 00:35:10,166
+And the punchline here is that it's very colorful.
+
+327
+00:35:10,436 --> 00:35:14,486
+You see a little in L.A., it's it's it's one of those cities where there's no majority.
+
+328
+00:35:15,146 --> 00:35:18,806
+There's the largest population of European ancestry.
+
+329
+00:35:18,806 --> 00:35:25,136
+So you're like 40, 40 something percent and Hispanic, but not the 42% of a lot of other factors.
+
+330
+00:35:25,826 --> 00:35:34,886
+You're on the right side. I'll show you a principle little a of of the first 40,000 genetic data from the Biobank matches your life.
+
+331
+00:35:35,846 --> 00:35:40,096
+So this is literally patients that come through the clinic get they get biobank they get the families
+
+332
+00:35:40,146 --> 00:35:48,986
+to participate in the study that was very similar to how the Michigan Biobank is described here.
+
+333
+00:35:49,376 --> 00:35:53,365
+And, you know, it's color coded based on genetic ancestry, not based on self-report.
+
+334
+00:35:53,366 --> 00:36:00,696
+But the point that I'm making here is that it's very colorful and hopefully some of the colorful illness kind of matches what was here.
+
+335
+00:36:00,716 --> 00:36:07,526
+So we see diversity in our bio then throughout, and I'll focus more on this in the next couple of slides.
+
+336
+00:36:10,256 --> 00:36:15,956
+The kind of the message that we are kind of beginning to emerge from all the big events in here.
+
+337
+00:36:16,076 --> 00:36:19,646
+This is the same plot that I showed you before at UCLA in Los Angeles.
+
+338
+00:36:19,916 --> 00:36:25,766
+This is a plot from a recent paper in science by units at all that shows in a way,
+
+339
+00:36:25,766 --> 00:36:29,426
+more refined color scheme that we've been in because it's in science.
+
+340
+00:36:29,816 --> 00:36:37,016
+They show what happens in Miami and the buyback at Mount Sinai and which is kind of like
+
+341
+00:36:37,046 --> 00:36:42,026
+take home from this is that the fact that we assign clusters and promote this movie,
+
+342
+00:36:42,266 --> 00:36:50,906
+the fact that we assign cluster is very suboptimal. It's clear that you can see that individuals kind of like span the entire range from, let's say,
+
+343
+00:36:51,356 --> 00:36:55,646
+the European genetic hazard stream cluster all the way to African cluster and so on and so forth.
+
+344
+00:36:56,156 --> 00:37:01,406
+So you see individuals happening, you know, kind of like occupying all sorts of space in this continuum.
+
+345
+00:37:02,036 --> 00:37:04,286
+And that motivates us for, you know,
+
+346
+00:37:04,286 --> 00:37:13,166
+trying to disentangle or try to see how do we incorporate this continuous way of looking at ancestry into polygenic risk.
+
+347
+00:37:15,116 --> 00:37:22,406
+And just to make this a little bit more what happens in the film, the figures that I showed you before is that somebody,
+
+348
+00:37:22,796 --> 00:37:27,745
+you know, ran this PCR test before then drew some circles around it all.
+
+349
+00:37:27,746 --> 00:37:32,636
+This individual says, you know, Europe, Africa, the East Asian and so on, and be assigned this label.
+
+350
+00:37:32,636 --> 00:37:39,596
+So this clusters and then within every cluster, you know, they they computed some single metric of accuracy.
+
+351
+00:37:39,836 --> 00:37:45,985
+And that's what you see is you so plotted. So you see European, Hispanic, Latino, American.
+
+352
+00:37:45,986 --> 00:37:51,456
+So but that's kind of like the what happens under the hood every time that you see one of these, you know,
+
+353
+00:37:51,536 --> 00:37:58,126
+organic resource decay, you know, as a performance ticking as as further you move away from Europe.
+
+354
+00:38:00,116 --> 00:38:03,686
+I'll try to argue in the next couple of slides. Yes.
+
+355
+00:38:03,926 --> 00:38:07,076
+So what does accuracy mean, Amara? Absolute, exactly.
+
+356
+00:38:07,826 --> 00:38:15,236
+Accuracy in this case means that they are somewhere between the polygenic score and the trade back in a test LP.
+
+357
+00:38:19,916 --> 00:38:26,116
+When you calculate the polygenic risk, or do you scale it once and use the same scale across all your samples?
+
+358
+00:38:26,116 --> 00:38:29,446
+So do you scale it in every so.
+
+359
+00:38:29,476 --> 00:38:33,686
+That's a great question, which if you give me ten slides, I'll, I'll get back to it.
+
+360
+00:38:34,226 --> 00:38:46,706
+Except for this one, they don't reach scale because they can put this R square in each of the population pipelines and yeah, the risk killing.
+
+361
+00:38:47,396 --> 00:38:52,186
+I'm going to argue that we need to do a risk. Okay.
+
+362
+00:38:52,186 --> 00:38:58,876
+So this clustering way to to think about the impact of genetic cancer risk or prediction comes with at least
+
+363
+00:38:58,876 --> 00:39:04,116
+three caveats that we'll try to convince you that and probably you already kind of like hinted towards it.
+
+364
+00:39:04,456 --> 00:39:11,956
+So the first one is that by assigning a single number to in the entire population ignore the fact that there's variability across individual.
+
+365
+00:39:12,646 --> 00:39:17,686
+I don't know why this is so ignored by scientists in a number to the table that African-Americans
+
+366
+00:39:17,686 --> 00:39:22,026
+ignore the fact that individuals that have more or less African ancestry then,
+
+367
+00:39:23,286 --> 00:39:29,446
+you know, they'll have different expected appearance. The second one is the arbitrary boundary.
+
+368
+00:39:29,896 --> 00:39:38,756
+And the third one is there's a lot of people that are left out from this clustering so that it's a little bit into the individual variables.
+
+369
+00:39:39,316 --> 00:39:47,446
+So if I take the cluster of East Asian Americans and UCLA and then I run another principal component just on those individual labels that move there,
+
+370
+00:39:47,776 --> 00:39:50,926
+then you start seeing more interesting, you know, clusters.
+
+371
+00:39:51,046 --> 00:39:56,176
+So you see individuals that are of Filipino ancestry, individual Korean, individual, Japanese.
+
+372
+00:39:56,416 --> 00:40:01,456
+It seems very silly to assign a single accuracy barrier to all of them while ignoring the fact that,
+
+373
+00:40:01,456 --> 00:40:04,876
+you know, these individuals are really for forming different subjects.
+
+374
+00:40:05,896 --> 00:40:08,746
+So there's variability within every clusters.
+
+375
+00:40:10,066 --> 00:40:16,846
+The other one is, you know, like I said, assigning a single value for the table and mixed individuals in this case, let's say African-American,
+
+376
+00:40:17,986 --> 00:40:25,696
+makes this very unreasonable guesses where you take two individuals that just happened to be on the one side or the other of the boundaries,
+
+377
+00:40:26,716 --> 00:40:32,876
+and you would assign them totally different IQ. So you might have an individual that you might think that is, you know,
+
+378
+00:40:32,956 --> 00:40:39,645
+has an accuracy and are square two versus point four, because then you assign them to different clusters.
+
+379
+00:40:39,646 --> 00:40:46,726
+And that seems very unusual and problematic given that this individual is very similar in terms of their genetic risk.
+
+380
+00:40:47,356 --> 00:40:53,416
+And finally, there's a lot of individuals that are left unclassified by all these clustering techniques.
+
+381
+00:40:53,686 --> 00:40:59,866
+And that was a question that I don't know what this was moving forward, but that was a question that, you know, some of you asked me over lunch.
+
+382
+00:41:00,496 --> 00:41:06,706
+We actually looked more thoroughly and more and more individuals over time get to be, you know,
+
+383
+00:41:07,066 --> 00:41:12,676
+so complex in terms of genetic ancestries that all these clustering methods, you know, just fail to produce.
+
+384
+00:41:12,686 --> 00:41:22,726
+And so if you see in adolescence, after we did our best, we have around 6% economic growth, 5% and finally 4%.
+
+385
+00:41:23,056 --> 00:41:29,806
+And there's reason to believe that the numbers will keep on growing up over time because individuals will have more and more complex.
+
+386
+00:41:30,196 --> 00:41:33,696
+You know, they'll move to different places and the genetic counselor will continue to jump.
+
+387
+00:41:35,026 --> 00:41:45,706
+And so our idea is to try to incorporate what we call genetic assets continuum and to come up with an individual based measure of actions.
+
+388
+00:41:46,126 --> 00:41:53,146
+And so already has to take the clustering method approach with this label labeled individuals.
+
+389
+00:41:53,446 --> 00:41:56,155
+And just simply, again, I developed this moving,
+
+390
+00:41:56,156 --> 00:42:03,766
+but just move it to a way where we can assign a distance for a given individual as, as farther away from the training data.
+
+391
+00:42:04,276 --> 00:42:11,596
+And in terms of distance here, we look at Euclidean distance and PC space, but believe me that you would try the bunch of things.
+
+392
+00:42:11,986 --> 00:42:15,976
+All the things that I'm going to say today are kind of insensitive to the choice of the distance.
+
+393
+00:42:17,026 --> 00:42:20,866
+But there's a very interesting thing about how you weight this species.
+
+394
+00:42:21,946 --> 00:42:27,406
+Okay, so after you get the distance, instead of having this like clumps of single number for populations,
+
+395
+00:42:27,706 --> 00:42:38,086
+you can actually estimate an individual form of accuracy for a project risk score and hopefully that that individual metric will go down for us.
+
+396
+00:42:39,376 --> 00:42:43,426
+How do we go about estimating this? I know. I don't know why this slide of people moving,
+
+397
+00:42:44,806 --> 00:42:49,635
+but essentially you can write down the mathematics of what will be the correlation between the genetic
+
+398
+00:42:49,636 --> 00:42:55,216
+risk score and the genetic values of the general is the estimate of interest for apologetic risk score.
+
+399
+00:42:55,636 --> 00:43:01,486
+And you can write it down essentially under some Bayesian approach and has that that that form.
+
+400
+00:43:01,816 --> 00:43:06,646
+Again, you can read more about it in the paper that we put out on how do you actually go about estimating it?
+
+401
+00:43:07,036 --> 00:43:14,136
+But essentially you can take the posterior of the variance of the genetic value divided by the, you know,
+
+402
+00:43:14,146 --> 00:43:24,706
+the heritability and say essentially and that gives you an estimated measure of R squared for every individual the posterior genetic value it's
+
+403
+00:43:24,706 --> 00:43:35,056
+estimated by sampling from from a method that gives you a polygenic risk for such a self disability to again I'm happy to dive into the details of it.
+
+404
+00:43:35,386 --> 00:43:40,755
+It gets very complicated very fast in this space with a it's I'm happy to write the
+
+405
+00:43:40,756 --> 00:43:46,306
+equation for you and try to drive them in terms of two paths we're approximating it with,
+
+406
+00:43:46,306 --> 00:43:50,625
+you know, the heritability of the tree. And that's an approximate. All right.
+
+407
+00:43:50,626 --> 00:44:01,026
+So how does. Look in in real data. So this is real know data from UK Biobank where we similarly data in the white British individuals.
+
+408
+00:44:01,206 --> 00:44:03,006
+That's on the left side over there on top.
+
+409
+00:44:03,306 --> 00:44:14,556
+And that we estimate this quantity as we look at individuals of different European ancestry and and more within UK but so you can buy bank
+
+410
+00:44:14,556 --> 00:44:23,016
+is a collection of half a million individuals collected within the UK and after they collected they reported where they're coming from,
+
+411
+00:44:23,406 --> 00:44:33,306
+although they're living in the UK. So we see their that accuracy begins to drop quite linearly as the genetic distance
+
+412
+00:44:33,666 --> 00:44:39,066
+moves these people away from the training data which is labeled as white British.
+
+413
+00:44:39,906 --> 00:44:50,126
+And you see that, for example, even if you move between individuals that are from Italy or Poland or let's say India,
+
+414
+00:44:50,136 --> 00:44:55,806
+so you see that is that there's a decay in the accuracy that it happens to be.
+
+415
+00:44:57,276 --> 00:45:05,645
+Now, this is an estimate. So we can actually validate this by just building individuals and then computing this are spread between simulated people.
+
+416
+00:45:05,646 --> 00:45:10,566
+So it's simulated trade and actual values and we see exactly the same.
+
+417
+00:45:10,836 --> 00:45:15,946
+So we see that our approximation works false and moreover we have lots of other results,
+
+418
+00:45:15,946 --> 00:45:21,456
+but that kind of convince us that by approximating the security you get a pretty good result.
+
+419
+00:45:22,906 --> 00:45:25,846
+The really interesting bit happens when we actually look at real people.
+
+420
+00:45:26,206 --> 00:45:36,256
+So here's real data in the atmosphere when I'm covering this relationship between the genetic distance of the x axis and the individual level.
+
+421
+00:45:36,736 --> 00:45:45,256
+Polygenic expected polygenic accuracy. So if you thought there's one individual and I followed that in all these different populations,
+
+422
+00:45:46,396 --> 00:45:56,356
+or with the idea that maybe we can see whether they're populations, where they're just where genetic distance does not impact items.
+
+423
+00:45:56,866 --> 00:46:03,556
+And so first approximation, there's no such organism. So genetic distance impacts accuracy in all population.
+
+424
+00:46:03,976 --> 00:46:09,406
+So there's nothing really special about that mix individual where all that makes sense or we're all
+
+425
+00:46:10,156 --> 00:46:17,296
+we all have some distance from the training might the that's a quality on the quantitative sense.
+
+426
+00:46:17,566 --> 00:46:22,126
+It is true that if you focus on the mix individuals like Hispanic, Latino and Germany,
+
+427
+00:46:22,126 --> 00:46:29,856
+the correlation is closer to minus one versus if you look at, you know, more homogeneous population where the correlation is not as right.
+
+428
+00:46:30,406 --> 00:46:36,626
+But that's a secondary. So just focusing on European-American that are labeled as from.
+
+429
+00:46:38,476 --> 00:46:45,555
+We do see from that to that source the closest and the furthest that there are, there's a roughly 6% decrease.
+
+430
+00:46:45,556 --> 00:46:50,656
+So individuals are further away from the UK by British.
+
+431
+00:46:50,986 --> 00:46:58,066
+They vary, but there's like a 6% increase. We see a much bigger if you focus on mixed individuals,
+
+432
+00:46:58,366 --> 00:47:07,816
+which is what you would expect because genetic ancestry has much wider variability up to essentially the closest half.
+
+433
+00:47:08,386 --> 00:47:13,126
+I'm curious about similar to Europeans, while the furthest have an experience that it's roughly half.
+
+434
+00:47:13,696 --> 00:47:22,956
+And in fact if you just plot it in the same scale in the blue are European-American individuals within our Biobank in the same color plots.
+
+435
+00:47:22,966 --> 00:47:28,126
+You know, we see that, you know, the top or the closest have the same reputations, the furthest.
+
+436
+00:47:29,776 --> 00:47:35,236
+And finally, just to kind of orient about what happens, let's look at all the data.
+
+437
+00:47:37,666 --> 00:47:43,216
+We see that there's way more variability across individuals that across population late.
+
+438
+00:47:43,726 --> 00:47:47,386
+And that's what I'm trying to show you in this. So this is what happens in Europeans.
+
+439
+00:47:47,896 --> 00:47:56,786
+This is what happens in Hispanic, Latino. This is what happens in South Asians, East Asians and African-Americans.
+
+440
+00:47:57,376 --> 00:48:06,076
+So you see a consistent linear decrease in the accuracy as you move further away from the training data where this polygenic risk where.
+
+441
+00:48:10,416 --> 00:48:13,596
+Most of that stuff that I showed you before is one example trees.
+
+442
+00:48:14,046 --> 00:48:17,676
+But really we tried to look at all the trees that we could put our hands on.
+
+443
+00:48:18,006 --> 00:48:23,556
+Some of them are listed here until first approximation, there's no trade where this does not fall.
+
+444
+00:48:23,946 --> 00:48:29,706
+So this is kind of answering your question probably for the lowest correlation that we will observe
+
+445
+00:48:29,706 --> 00:48:36,845
+from any trade was -$0.20 across eight or so of the trees spanning all sorts of different,
+
+446
+00:48:36,846 --> 00:48:41,226
+different waters. And that also holds across biomass. So that's UK Biobank.
+
+447
+00:48:41,226 --> 00:48:48,786
+This is an adolescent UCLA. And then even if you look at just the European Americans, not us, there's still a much higher coverage.
+
+448
+00:48:49,926 --> 00:48:51,756
+Okay, so that's all about accuracy.
+
+449
+00:48:51,766 --> 00:48:58,746
+The second question is and the final question is whether the polytechnic researchers themselves actually vary with genetics.
+
+450
+00:48:59,586 --> 00:49:04,776
+So so far I showed you how accuracy goes down the further,
+
+451
+00:49:06,096 --> 00:49:14,136
+but how about the polygenic scores themselves and I put to me that the genetic risk or the measure of genetic risk or measure of
+
+452
+00:49:14,136 --> 00:49:22,626
+genetic value so it could go down or up as a function of maybe the genetics of that particular trait bears with or with ancestry.
+
+453
+00:49:22,896 --> 00:49:26,916
+Or it could be a biased estimate of genetic risk.
+
+454
+00:49:28,266 --> 00:49:36,486
+So what we found is that all the pigs is 80 to 94, so virtually all actually have a significant correlation with the genetic distance.
+
+455
+00:49:37,056 --> 00:49:41,226
+So all apologetic resource, very cells of cross ancestry,
+
+456
+00:49:41,796 --> 00:49:47,616
+but unlike the unlike the the accuracy, the magnitude and signs that it's all over the place.
+
+457
+00:49:47,976 --> 00:49:53,346
+And so some for some traits it goes up for some reason goes down. And that's kind of a reflection of maybe true signal.
+
+458
+00:49:53,496 --> 00:50:01,146
+So selection changing this or most likely some bias inference in the in the genetic predictors.
+
+459
+00:50:01,836 --> 00:50:05,106
+And I'm going to simplify this with just two example traits and then I'll finish.
+
+460
+00:50:05,436 --> 00:50:10,505
+One is about height where we see on the top this is the apologetic risk or just in
+
+461
+00:50:10,506 --> 00:50:18,696
+Europeans going down just in the according to the distance in the training data.
+
+462
+00:50:19,116 --> 00:50:24,335
+So you see how it goes down the progenitor score there and then matches really well with that with actually
+
+463
+00:50:24,336 --> 00:50:30,186
+what we see measured for this is the average height of this individual's bid across the genetic distance.
+
+464
+00:50:30,606 --> 00:50:34,895
+And some people have used this as a sign of, you know, natural selection.
+
+465
+00:50:34,896 --> 00:50:38,946
+Maybe genetics drives the difference. North to South Europe.
+
+466
+00:50:38,946 --> 00:50:40,985
+Europe or in all that works,
+
+467
+00:50:40,986 --> 00:50:51,186
+have reason that this is an artifact of incomplete accounting for population structure when estimating the weights for the project groups.
+
+468
+00:50:52,566 --> 00:50:57,336
+This is the neutrophil count that I showed you before. And what you see here is that, you know,
+
+469
+00:50:57,396 --> 00:51:03,246
+neutrophil polygenic risk for goes up at some genetic distance while the measure resistance actually goes down.
+
+470
+00:51:04,536 --> 00:51:15,276
+And this is again probably, you know, modest probably indicating the encoding of this Duffy snip that has such a oversize role in that.
+
+471
+00:51:17,676 --> 00:51:23,405
+So the point that I'm trying to make here is that we should time that we use any polygenic risk before any disease.
+
+472
+00:51:23,406 --> 00:51:32,316
+We should put it across the continuum. Just one reason about what could in fact these correlations before we actually use it in diverse individuals.
+
+473
+00:51:33,096 --> 00:51:38,266
+So in conclusions I cover lots of stuff and I kind of like us.
+
+474
+00:51:38,466 --> 00:51:45,306
+I didn't go into a lot of details on, you know, please reach out if you if you have any comments.
+
+475
+00:51:45,306 --> 00:51:51,426
+I would like to go into specific ones. Hopefully, I convinced you that we have lots of methods for this individual.
+
+476
+00:51:51,436 --> 00:52:00,815
+So we don't don't want to remove any of those individuals from all the studies, all the all the all the methods that I showed you before are actually,
+
+477
+00:52:00,816 --> 00:52:06,366
+you know, we put them in this and this can do anywhere from mapping all the way to project risk.
+
+478
+00:52:06,366 --> 00:52:12,126
+Or there's also, you know, very nice software package from Elizabeth Atkins and others like Tracker.
+
+479
+00:52:12,366 --> 00:52:18,786
+So we have lots of methodologies for mixed individuals. Public companies are that causal events are similar represents the streets.
+
+480
+00:52:18,876 --> 00:52:27,096
+So to a first approximation we believe that difference and frequencies are really the culprit for why polygenic risk course you know
+
+481
+00:52:27,756 --> 00:52:36,786
+like and performance across ancestry we are I'm a firm believer that any time that we look at any positive risk towards the clinic,
+
+482
+00:52:37,086 --> 00:52:42,606
+we should first interpret it through the lens of genetic ancestry and in a continuous fashion.
+
+483
+00:52:43,266 --> 00:52:50,075
+And you know, by looking at individual level, it's probably gives us a different look to where it's all we can identify.
+
+484
+00:52:50,076 --> 00:52:56,976
+Subsets of patients, subset of individuals for which. Well, Jennifer sports were great and we can use them in the in practice.
+
+485
+00:52:57,546 --> 00:53:05,646
+So I'll stop here by acknowledging a lot of the folks that created the UCLA Biobank is just believe it or not this is just part of them.
+
+486
+00:53:06,336 --> 00:53:09,256
+Those of you that the. But I'm back here in Michigan,
+
+487
+00:53:09,256 --> 00:53:15,976
+probably recognize how big of an endeavor it is to create a biobank with a medical system that was built as part of them
+
+488
+00:53:16,306 --> 00:53:24,945
+and ultimately knowledge of the all the people that have done most of the work that I'm actually before them and say,
+
+489
+00:53:24,946 --> 00:53:28,056
+gee, hopefully we can do something. All right.
+
+490
+00:53:28,066 --> 00:53:31,606
+So I'll stop here and hopefully you guys have questions.
+
+491
+00:53:38,236 --> 00:53:44,566
+Let's start to see if some students had questions before the faculty actually pulled.
+
+492
+00:53:46,276 --> 00:53:59,266
+If anybody knows. I think whoever asks the question gets one of these squares and then they laugh and laugh.
+
+493
+00:53:59,506 --> 00:54:04,306
+So when you're evaluating the R squared by genetic distance for you,
+
+494
+00:54:04,396 --> 00:54:11,176
+evaluating the R squared in an all of the sample together instead of like the different populations,
+
+495
+00:54:11,176 --> 00:54:14,746
+like how you set your theory comparing R squared in the different populations.
+
+496
+00:54:15,526 --> 00:54:20,776
+Yeah. So we're looking at one, there's two ways that we did so one is by an individual.
+
+497
+00:54:21,166 --> 00:54:26,846
+So we have an estimate of that size or all the individuals at this genetic distance.
+
+498
+00:54:26,866 --> 00:54:29,026
+This is what we estimate the R squared would be.
+
+499
+00:54:29,116 --> 00:54:37,336
+So if you sample an infinite amount of individuals just for a genetic distance, that will be the estimate that our method predicts contains.
+
+500
+00:54:37,966 --> 00:54:41,596
+And then to validate that we bend individual across genetic distance.
+
+501
+00:54:42,706 --> 00:54:47,986
+And that's been computed in a test held out DNA.
+
+502
+00:54:48,436 --> 00:54:52,846
+But we observed A, B, R squared between the peaks and the treatment.
+
+503
+00:54:53,506 --> 00:55:00,716
+And that's how we validated that. Everything lines up. Questions.
+
+504
+00:55:05,266 --> 00:55:08,586
+Family. The tough questions come from.
+
+505
+00:55:12,446 --> 00:55:23,095
+There was any reason to think it has to be a one dimensional metric if it matters for PC World in PC two or maybe PC into one dimension.
+
+506
+00:55:23,096 --> 00:55:28,286
+But you can imagine a two dimensional space with customers were sort of interpreting things.
+
+507
+00:55:28,916 --> 00:55:33,866
+Yes, that's right. And we did this just for convenience, just as a first step.
+
+508
+00:55:34,406 --> 00:55:38,966
+So we looked at the top 20 pieces and we look at the Euclidean distance across them.
+
+509
+00:55:38,966 --> 00:55:44,926
+So that gives us a single number. But you're absolutely right that there's no reason to just look at one dimension.
+
+510
+00:55:46,196 --> 00:55:53,366
+And we hope that in the future we might be able to look at not just the PC, but other ways in which, you know,
+
+511
+00:55:53,966 --> 00:55:59,636
+we can come up with measures in multiple dimensions that give us a continuous reasoning
+
+512
+00:55:59,636 --> 00:56:04,916
+of how one individual's further away from the training data of the split screen.
+
+513
+00:56:05,396 --> 00:56:08,426
+Yeah, that's a terrific suggestion.
+
+514
+00:56:08,426 --> 00:56:13,826
+That kind of probably motivates some of our future work or somebody else's future work as well.
+
+515
+00:56:14,366 --> 00:56:21,556
+And I should say that that's probably goes really well with maybe looking at other factors that we typically add when you predict it,
+
+516
+00:56:21,656 --> 00:56:30,026
+such as environmental and other types of variables that we typically add when we
+
+517
+00:56:30,176 --> 00:56:34,196
+take the pictures to actually predict relative or absolute risk for our patients.
+
+518
+00:56:38,636 --> 00:56:42,085
+So I don't work in genetics, so just hope this isn't a silly question,
+
+519
+00:56:42,086 --> 00:56:51,206
+but that the supposed genetic risk score weights the snips and the assumption is of the way to the same across the races,
+
+520
+00:56:51,956 --> 00:56:58,496
+that if there are interactions with genetic genetic factors, with environmental factors, then assuming that wouldn't be the case.
+
+521
+00:56:59,336 --> 00:57:02,306
+Is that a reasonable assumption, if that's true? Yes.
+
+522
+00:57:02,366 --> 00:57:11,716
+So the the the the the the the basic assignment polygenic risk course is that, you know, what's that to the causal band?
+
+523
+00:57:11,726 --> 00:57:17,816
+The weight that's been used is the same when you employ it across different ancestry groups.
+
+524
+00:57:19,076 --> 00:57:21,586
+But then there are ways because you know,
+
+525
+00:57:21,646 --> 00:57:30,926
+we see that apologetic records in various different ancestry vary across different, different, different genetic distances.
+
+526
+00:57:31,466 --> 00:57:38,486
+We can rescale the predictions of the apologetic risk course, which essentially would mean to readjust the weight because everything's linear.
+
+527
+00:57:38,726 --> 00:57:43,826
+We need to readjust every way that we use in the model according to this genetic distance.
+
+528
+00:57:44,786 --> 00:57:51,716
+So to account for the relative contributions, you read the same material to control the sequence, which might not be the case.
+
+529
+00:57:51,806 --> 00:58:01,926
+So if you file for the case, yes. And there's like there in many ways, there's more work to be done about how do we model?
+
+530
+00:58:02,156 --> 00:58:09,156
+Do you buy this for straight we borrow.
+
+531
+00:58:10,586 --> 00:58:14,756
+Okay. So it's kind of related to Rod's question.
+
+532
+00:58:14,756 --> 00:58:20,096
+So when you showed at the start, when you look at admixture individuals,
+
+533
+00:58:20,096 --> 00:58:33,446
+your figures for the causal variants look pretty similar to each other within admixture individuals depending on who you're choosing.
+
+534
+00:58:33,446 --> 00:58:43,526
+Like if you're choosing African-American individuals, there still is a pretty most individuals are closer to 80%.
+
+535
+00:58:44,036 --> 00:58:47,245
+Right. And mixed African to European.
+
+536
+00:58:47,246 --> 00:58:55,946
+So the genetic background that they're feeling globally when you think about interactions is still pretty similar.
+
+537
+00:58:56,246 --> 00:59:01,506
+So when you try to infer that they're I think all you talk about local, right?
+
+538
+00:59:01,526 --> 00:59:08,576
+You can infer what the local thing is, but it doesn't actually say if there are different genetic backgrounds.
+
+539
+00:59:08,756 --> 00:59:14,846
+Right. More different than you get in admixture individuals that are influencing those effects.
+
+540
+00:59:15,076 --> 00:59:16,106
+Yeah. Yeah, it's very subtle.
+
+541
+00:59:16,466 --> 00:59:25,166
+So most of the I think that the average genome, one assistant African-American in the US is a 28 plus minus the standard is 4.12.
+
+542
+00:59:25,676 --> 00:59:33,566
+So there's, there's that the range is somewhere between, let's say 60%, the average up to 100%.
+
+543
+00:59:34,916 --> 00:59:42,866
+But you're absolutely right that the the the backgrounds that might exist in other ancestries might be
+
+544
+00:59:43,076 --> 00:59:49,466
+wider variance and that may allow for the environments that contribute more to body were just different.
+
+545
+00:59:49,466 --> 00:59:57,116
+E will correspond to different phenotyping that will introduce different in different ways and in many ways they can.
+
+546
+00:59:57,566 --> 01:00:02,456
+And this is not cooperating, but it will seem like it's going forward by itself.
+
+547
+01:00:02,546 --> 01:00:08,726
+Let's see if I can make it go backwards. I showed you and I went super fast.
+
+548
+01:00:09,056 --> 01:00:15,506
+My apologies, but who wants to do something?
+
+549
+01:00:16,016 --> 01:00:19,016
+But this is exactly what this plant is trying to show.
+
+550
+01:00:19,346 --> 01:00:25,286
+So this is African, European mixture and there's a bunch of populations there.
+
+551
+01:00:25,286 --> 01:00:28,986
+But for first of all, we can consider what you said, 80% plus minus.
+
+552
+01:00:29,336 --> 01:00:34,436
+Right. This is African versus European. So this is people from Africa versus people from Europe.
+
+553
+01:00:34,766 --> 01:00:38,116
+And looking applying a very similar model. Right.
+
+554
+01:00:38,336 --> 01:00:39,926
+Ignore the statistical part.
+
+555
+01:00:40,316 --> 01:00:47,606
+But you see that the the similarity with the causal effect is, you know, pulling back here and this is, you know, 0.6.5 points.
+
+556
+01:00:47,726 --> 01:00:55,766
+So you see a massive difference, which in many ways this was kind of, to me, the most surprising finding in this one,
+
+557
+01:00:56,246 --> 01:01:04,826
+which suggests that there's a lot of e or environment that either fluctuates between Europeans and African exist.
+
+558
+01:01:05,396 --> 01:01:09,896
+But yeah, you know, that could indicate that there's a lot of argy bargy that exists.
+
+559
+01:01:10,016 --> 01:01:15,656
+So that's 111 on a professional, you know, direction of work.
+
+560
+01:01:15,926 --> 01:01:20,156
+Or it could be like this, the phenotype that we measure and this individuals could be it'll be different.
+
+561
+01:01:20,786 --> 01:01:24,536
+There's a lot of work that looked at, you know, of mental health phenotypes.
+
+562
+01:01:24,536 --> 01:01:30,206
+And those are measured, totally different across continents, which will induce looking at different traits and methods.
+
+563
+01:01:30,836 --> 01:01:34,616
+But that's consistent with exactly what you were saying that.
+
+564
+01:01:36,506 --> 01:01:41,696
+There might be a lot of e that we need to take into account, particularly if you look at different continents.
+
+565
+01:01:42,236 --> 01:01:49,766
+I guess I was trying to actually say the opposite that you don't know if you're if everybody wants 80%.
+
+566
+01:01:49,766 --> 01:02:00,056
+And next year, for argument's sake. Right. Those European and those African illegals are feeling the same genetic background.
+
+567
+01:02:00,536 --> 01:02:03,596
+So we pretend there's no difference in environment.
+
+568
+01:02:03,896 --> 01:02:09,286
+Right now, you take in you put them in somebody who is European or you put that in someone who's African,
+
+569
+01:02:09,296 --> 01:02:11,936
+they're using a different genetic background.
+
+570
+01:02:12,596 --> 01:02:20,186
+So you don't really have a way to, even from what you've done, say that it's not that it's environment and not genetics.
+
+571
+01:02:23,246 --> 01:02:26,996
+Right. Because there that also varies.
+
+572
+01:02:27,026 --> 01:02:33,146
+Yeah. But I think you're making the assumption that if you look at individuals with 80%, that it's always the same 80%.
+
+573
+01:02:33,746 --> 01:02:38,396
+That's never the case. So that if you look at two individuals that have the same 80% African,
+
+574
+01:02:39,026 --> 01:02:44,605
+the actual illegals that are summing up to be 80% are all over the all over the genome.
+
+575
+01:02:44,606 --> 01:02:48,266
+So there's a randomization that happens there. I would agree with your statement.
+
+576
+01:02:48,686 --> 01:02:54,036
+If you're assuming that individuals 80% are always have the same, let's say a well,
+
+577
+01:02:54,046 --> 01:03:00,116
+a genetic program that's always the same 80% throughout the genome. But that's not really the case.
+
+578
+01:03:01,436 --> 01:03:05,516
+But again, we can then discuss some African wrong.
+
+579
+01:03:06,566 --> 01:03:13,226
+Right. So perfect. So the the main conclusions, I think all make sense to me.
+
+580
+01:03:14,246 --> 01:03:17,736
+I'm curious about the your suggestions move forward.
+
+581
+01:03:18,236 --> 01:03:24,326
+So what you observe these two seemingly contradicting things.
+
+582
+01:03:24,326 --> 01:03:32,966
+One is the causal variance, while the positive effects are pretty consistent across the population, groups done that before.
+
+583
+01:03:34,566 --> 01:03:39,476
+And thirdly, the transferability of the PR, the PGS.
+
+584
+01:03:39,596 --> 01:03:46,376
+So what should we do? Yes, I think the Prospero, both of which is directly addressable by difference in frequencies.
+
+585
+01:03:46,916 --> 01:03:55,405
+So I think that that would explain almost everything. I do think that in mixed individuals, the causal effects are almost always going to be the same.
+
+586
+01:03:55,406 --> 01:04:01,686
+So we can, you know, use that knowledge in the sign and file calls.
+
+587
+01:04:01,696 --> 01:04:09,026
+And I mean, the allele frequency will still filter when we design, you know, all sorts of methods from magic to project response.
+
+588
+01:04:10,136 --> 01:04:16,706
+And when we look at transcontinental or other types of noninfectious, if you will,
+
+589
+01:04:17,126 --> 01:04:24,506
+individuals that there's a role for a lot of environment to change the way we observe these things.
+
+590
+01:04:24,746 --> 01:04:32,716
+Right. I think a lot of, you know, the reasoning cited is this environmental effect is possible.
+
+591
+01:04:32,846 --> 01:04:39,786
+You know, we're focused on the UAS findings, mostly using European individuals.
+
+592
+01:04:39,836 --> 01:04:47,516
+So there's some risk of needles maybe is very rare in the European, but quite common.
+
+593
+01:04:47,726 --> 01:04:50,966
+So the point is probably ask it for your comment.
+
+594
+01:04:51,416 --> 01:04:54,596
+Should we do more g ones in other cities? Yeah, of course. It's.
+
+595
+01:04:55,226 --> 01:05:01,226
+I think it's I think it's just the overall set of the causal variance are yes, there are too much.
+
+596
+01:05:01,316 --> 01:05:09,176
+So maybe I didn't emphasize that enough. Yes. There's all the data that we're using and all these studies are things that were observed,
+
+597
+01:05:09,686 --> 01:05:14,216
+you know, mostly in the Europeans, because in Europeans we have large sample size.
+
+598
+01:05:14,516 --> 01:05:17,306
+There are a lot of variance that contributes to disease that are, let's say,
+
+599
+01:05:17,306 --> 01:05:22,736
+absent or low frequency in Europeans and may have high frequencies in, you know, non Europeans.
+
+600
+01:05:23,186 --> 01:05:28,316
+And, you know, I can make an instant or I didn't make any statements about that because we haven't really observed it.
+
+601
+01:05:28,676 --> 01:05:33,506
+So we definitely need, you know, more studies in non European for sure.
+
+602
+01:05:34,526 --> 01:05:44,176
+And that's just one principal level you it's probably not all of you know that you know by analyzing this these populations together we can,
+
+603
+01:05:44,186 --> 01:05:48,235
+you know, narrow down where the causal variants are more, more, more accurately.
+
+604
+01:05:48,236 --> 01:05:52,946
+And we can essentially answer these questions about the existence of Dubai or not.
+
+605
+01:05:53,876 --> 01:06:03,026
+So by any means. I didn't want to make the point that that we should, you know, study only a homogeneous population by the country.
+
+606
+01:06:03,146 --> 01:06:12,386
+I think looking get as much diversity as possible kind of gives us this new insights about diversity mean you genetic diversity in our studies.
+
+607
+01:06:15,296 --> 01:06:26,996
+So I'm a little bit confused when you say that you expect that environmental differences make a big difference in transcontinental population.
+
+608
+01:06:27,386 --> 01:06:32,666
+That seems to be in a contradiction with a very nice linear decay of the right.
+
+609
+01:06:33,116 --> 01:06:38,816
+That is much more my. What would. Perspective. It's really just differences in language, definitely around a little frequency.
+
+610
+01:06:39,396 --> 01:06:45,686
+Yeah. Yeah, that's that's where I find really that's where, you know, I think it's worthwhile to dissect.
+
+611
+01:06:45,686 --> 01:06:48,716
+This is what I think it's consistent with, like into your body.
+
+612
+01:06:48,716 --> 01:06:54,536
+But I'm not fully convinced yet that it's that you buy or it's just, you know, bad estimation.
+
+613
+01:06:54,656 --> 01:07:01,546
+We don't. Hopefully we can tackle.
+
+614
+01:07:04,556 --> 01:07:15,106
+Other questions. In fact, given everything you know, these are not mine to give it up.
+
+615
+01:07:17,536 --> 01:07:22,906
+I was thinking about this contra memorial without, like, recovering facts or concepts such as.
+
+616
+01:07:23,686 --> 01:07:28,996
+I just do like. Like focusing on a specific reason or saying nonsense,
+
+617
+01:07:29,086 --> 01:07:35,516
+like trying to calibrate or just nonsense rather than frankly saying one causal snippet is causal for once,
+
+618
+01:07:35,576 --> 01:07:38,716
+the exact cause of what the other is causing.
+
+619
+01:07:38,986 --> 01:07:44,756
+I've got to ask you, is that an average proportional or is just like each causal narrative?
+
+620
+01:07:44,776 --> 01:07:55,546
+And what's that? Is that possible that we have potentially you could have causal violence or the tactics that caused such resentment?
+
+621
+01:07:55,816 --> 01:07:56,566
+And therefore,
+
+622
+01:07:56,656 --> 01:08:05,376
+even though they did have like very similar causally facts across that substrate in terms of the contribution of the heart of the script.
+
+623
+01:08:05,776 --> 01:08:10,186
+But there's still different commonality across different types aspects.
+
+624
+01:08:10,736 --> 01:08:13,966
+Yeah, that's it's also just that they went super fast over that.
+
+625
+01:08:13,966 --> 01:08:21,226
+So my apologies for not going. So in all, all this where we've finished different effects sizes and that's a problem.
+
+626
+01:08:21,406 --> 01:08:27,316
+So we allow them to be assessed as clear. And we, we did it in two ways.
+
+627
+01:08:27,736 --> 01:08:34,726
+But in one way is to average across all the variants of the genome in apologetic community by
+
+628
+01:08:34,726 --> 01:08:42,296
+saying that the similarity in the genetic relationship matrix should match the similarity sizes.
+
+629
+01:08:42,676 --> 01:08:47,506
+So this is the standard ramble type of approach, and that gives us that single number quantified.
+
+630
+01:08:48,016 --> 01:08:54,196
+And then we did it the other way where we just looked at the top indexed variance of the G once before.
+
+631
+01:08:54,296 --> 01:08:58,336
+Events of the slide before it's given allows me to do.
+
+632
+01:08:58,816 --> 01:09:04,096
+So we did. This is where every dot here is one very uncomfortable digits.
+
+633
+01:09:04,666 --> 01:09:09,645
+And in this case we did the clumping tool kind of and it played with a bunch of different
+
+634
+01:09:09,646 --> 01:09:14,266
+ways to do it in terms of how do we account for the fact we don't have the costs.
+
+635
+01:09:14,746 --> 01:09:17,426
+What you're saying you're saying that these words are not causal.
+
+636
+01:09:17,426 --> 01:09:25,716
+We're looking at this that have been divided by region and we have the whole world and we might see something to go on, first of all.
+
+637
+01:09:25,716 --> 01:09:36,856
+So we tried all the ways that we could look into it and we only see this, which is that that's why they call it either by index, by by find mapping.
+
+638
+01:09:37,786 --> 01:09:42,406
+And I think this results in what our energy costs. So we did all the clumping.
+
+639
+01:09:45,046 --> 01:09:52,185
+And then your other question, I think it's we can still see different effects sizes biased by particular regions.
+
+640
+01:09:52,186 --> 01:09:56,176
+And you'll see here that there are some loci, especially those red ones there,
+
+641
+01:09:56,746 --> 01:10:03,976
+where although overall it's very similar to one of the regions where it's really the case that the effects vary by ancestry.
+
+642
+01:10:04,996 --> 01:10:14,626
+And then finally, I think it touches a little bit to your question about whether the the causal mechanism might be slightly different by ancestry.
+
+643
+01:10:15,046 --> 01:10:18,076
+I don't know. It seems a little bit hard to say.
+
+644
+01:10:18,646 --> 01:10:27,856
+But as far as all the work that we've done with or we've seen it slightly causal mechanism seems to be more or less similar across,
+
+645
+01:10:28,936 --> 01:10:33,316
+albeit that bands might have different frequencies and it might explain different.
+
+646
+01:10:37,226 --> 01:10:42,826
+Probably that that addresses the original question. One more.
+
+647
+01:10:47,046 --> 01:11:08,996
+Okay. Let's thank. It's very difficult to do that under different circumstances.
+
+648
+01:11:10,696 --> 01:11:13,186
+Yes. Know you.
+

@@ -1,0 +1,2448 @@
+1
+00:00:03,850 --> 00:00:07,959
+Good afternoon, everybody. So we'll come to the 653.
+
+2
+00:00:07,960 --> 00:00:14,590
+So we're going to continue to finish talking about how do we do the modeling for longitudinal data analysis.
+
+3
+00:00:14,590 --> 00:00:26,800
+And our goal today is trying to cover handouts 05c and D, and it will be primarily centered around how to do SPI modeling in the next week.
+
+4
+00:00:27,040 --> 00:00:28,780
+In the next lecture, which is on Wednesday,
+
+5
+00:00:28,990 --> 00:00:35,470
+we will start talking about modeling the other component of the general model, which is the variance covariance model.
+
+6
+00:00:35,830 --> 00:00:41,799
+So hopefully these two handouts will provide a transition before I get started.
+
+7
+00:00:41,800 --> 00:00:45,790
+Any burning questions I should answer at this time?
+
+8
+00:00:52,210 --> 00:00:56,770
+All right, so if you have any questions, just post on Piazza or come to our office hour.
+
+9
+00:00:58,420 --> 00:01:04,060
+So let's get started. I'll be going back a few slides just to warm everybody up,
+
+10
+00:01:04,780 --> 00:01:13,000
+because I know you learned last Wednesday and you probably were busy taking a break over the weekend, which is understandable.
+
+11
+00:01:13,570 --> 00:01:16,630
+So we have three learning objectives for and out of five.
+
+12
+00:01:17,620 --> 00:01:25,000
+So the first one is more conceptual, is trying to point out the advantages and drawbacks of main profile analysis.
+
+13
+00:01:25,010 --> 00:01:27,250
+So it is versatile, it is very flexible,
+
+14
+00:01:27,520 --> 00:01:34,750
+but it does come with a price of too many parameters and it cannot deal with RMS time to measurements across people.
+
+15
+00:01:35,050 --> 00:01:40,030
+So we will need to list them one by one.
+
+16
+00:01:40,060 --> 00:01:48,370
+Advantages and the Disadvantages. The second is we need to introduce a general parametric approach to model naming.
+
+17
+00:01:48,610 --> 00:01:55,059
+And this should not be surprising to you because in 650, mostly what you did were parametric modeling.
+
+18
+00:01:55,060 --> 00:02:01,300
+You use any new trends or quadratic trends or polynomial trends to do the modeling for the main component.
+
+19
+00:02:01,720 --> 00:02:08,950
+Number three, this is basically to put everything into a a compound mathematical notation that you have learned before.
+
+20
+00:02:09,490 --> 00:02:15,730
+And that is a trying to get your eyes familiar with these mathematical notations.
+
+21
+00:02:16,570 --> 00:02:25,960
+So let's get started. The part one is about the conceptual merits and relative merits and drawbacks of being response profile analyzes.
+
+22
+00:02:26,290 --> 00:02:31,689
+So just to give you a quick recap, in the previous lecture,
+
+23
+00:02:31,690 --> 00:02:41,700
+we have seen the mean response profile analyzes using the example of a very complete and very balanced design.
+
+24
+00:02:41,710 --> 00:02:44,830
+So everybody has has four measurements, right?
+
+25
+00:02:45,190 --> 00:02:47,890
+So for example, this is the measurements from one person.
+
+26
+00:02:48,610 --> 00:02:56,680
+We connect them by segments and this is a measurements from another person and we connect them and everybody has the same.
+
+27
+00:02:57,040 --> 00:03:01,810
+So the same number of measurements occurred at the same set of occasions.
+
+28
+00:03:02,050 --> 00:03:06,960
+So this is what we call balance and balanced design.
+
+29
+00:03:06,970 --> 00:03:12,660
+And there we chose to model the mean of the outcome for each occasion.
+
+30
+00:03:14,080 --> 00:03:17,820
+Like one, two, three, four and for both groups.
+
+31
+00:03:18,020 --> 00:03:21,610
+So in total, for the main, there are four of eight parameters.
+
+32
+00:03:23,850 --> 00:03:24,930
+18 parameters.
+
+33
+00:03:27,550 --> 00:03:37,120
+And second part is that we do need to consider how to model the variance covariance structure of the measurements collected within the person.
+
+34
+00:03:37,660 --> 00:03:47,260
+So for four measurements per person we are considering sigma I equals say sigma that has a four by four.
+
+35
+00:03:48,370 --> 00:03:53,160
+Sorry for that for. Dimension.
+
+36
+00:03:53,520 --> 00:04:02,800
+So you need four numbers at the time along the diagonal, and you need to have, you know, all the off diagonal pairs.
+
+37
+00:04:03,210 --> 00:04:06,600
+So it's four plus four, choose to write in four.
+
+38
+00:04:06,720 --> 00:04:17,180
+These means the diagonal elements. And these are the off diagonal elements indicating the covariance between pairs of measurements you can choose.
+
+39
+00:04:17,720 --> 00:04:25,990
+So in total, this is how many? Four plus one times four divided by two.
+
+40
+00:04:26,150 --> 00:04:37,290
+So it's ten. So in total you have 18 parameters, uh, for both the main and various components.
+
+41
+00:04:37,680 --> 00:04:41,850
+So this is a round, this is just parameter counting.
+
+42
+00:04:41,850 --> 00:04:46,469
+And as you can see, we increase the number of them, increase the number of measurements per person.
+
+43
+00:04:46,470 --> 00:04:55,860
+This number can go up pretty quickly. So these are the review words.
+
+44
+00:04:56,790 --> 00:04:57,660
+It is straightforward.
+
+45
+00:04:58,380 --> 00:05:06,930
+It applies to situations where the design is totally balanced when and the timings of these repeated measurements are common to all.
+
+46
+00:05:07,230 --> 00:05:11,380
+And we have illustrated extensively using to group analyzes.
+
+47
+00:05:11,400 --> 00:05:16,620
+Clearly this approach applies to any discrete timing variant covers.
+
+48
+00:05:19,290 --> 00:05:22,949
+The advantage is that it allows for arbitrary patterns in the response to the
+
+49
+00:05:22,950 --> 00:05:28,319
+time because you do not specify how these dots are going up or going down,
+
+50
+00:05:28,320 --> 00:05:32,380
+just let them be very flexible, no pre-specified relationship among them.
+
+51
+00:05:33,630 --> 00:05:38,910
+And when we were doing the various governance modeling, we were being very flexible.
+
+52
+00:05:39,030 --> 00:05:44,719
+We specified on the diagonal and also had madeleines without any restrictions.
+
+53
+00:05:44,720 --> 00:05:51,990
+The moment, for example, we do not require the diagonal elements to be identical or for the off diagonal elements to be identical.
+
+54
+00:05:51,990 --> 00:05:59,740
+Right. So all these flexibility confers some notion of robustness because you can never be wrong.
+
+55
+00:05:59,750 --> 00:06:04,800
+But this comes at the cost of too many parameters for two groups for time points.
+
+56
+00:06:04,970 --> 00:06:08,090
+You you can see that we have 18 parameters, which just a lot.
+
+57
+00:06:12,810 --> 00:06:16,290
+Here, as you can see, based on what I drew last time.
+
+58
+00:06:18,570 --> 00:06:26,940
+So indeed, when we were using them in response profiles, we basically threw away the information about the relative timings of these measurements.
+
+59
+00:06:26,940 --> 00:06:37,740
+We don't care about whether the outcome obtained a time one comes before or after the outcome collected at a time to during the analysis stage.
+
+60
+00:06:38,370 --> 00:06:38,610
+Right.
+
+61
+00:06:41,910 --> 00:06:52,800
+And another important thing is that here in this, in the context of this class, we were concerned about the outcome measured repeatedly over time.
+
+62
+00:06:52,870 --> 00:06:57,200
+Right. So say we're measuring the weight of a person over four time points.
+
+63
+00:06:57,210 --> 00:07:06,570
+It's all about body weight. But in response, profile analysis, actually, you can just measure four completely different things from one person.
+
+64
+00:07:06,570 --> 00:07:11,490
+Say the first location, you can measure the weight for the second occasion, you can measure blood pressure.
+
+65
+00:07:11,490 --> 00:07:19,210
+For the third occasion, you can measure what? Body fat percentage.
+
+66
+00:07:19,480 --> 00:07:25,270
+You can do blockchains logit transformation that's going to convert to a real number and so on and so forth.
+
+67
+00:07:25,570 --> 00:07:29,950
+So when you're doing response, profile analyzes because it is super flexible,
+
+68
+00:07:31,030 --> 00:07:36,670
+it even works for measurements that are not commensurate with each other, a very different nature.
+
+69
+00:07:37,390 --> 00:07:48,400
+So that's where we sort of divert, you know, discuss this remark, which is about the notion of different kinds of outcomes.
+
+70
+00:07:48,520 --> 00:07:53,469
+So here you can see a very diagram. In a most.
+
+71
+00:07:53,470 --> 00:07:58,350
+It's repeated measurements. It's shaded by the red color indicating one outcome.
+
+72
+00:07:58,360 --> 00:08:00,370
+So wait, measure it multiple times.
+
+73
+00:08:00,700 --> 00:08:08,860
+So the repeated means that you just measure one thing over time is slightly more general than the repeated one, which is the green part.
+
+74
+00:08:09,330 --> 00:08:16,720
+And it is called clustered outcome because we were concerned about outcomes that are likely correlated.
+
+75
+00:08:16,750 --> 00:08:25,810
+But correlation does not only come from, you know, adjacency in terms of timing, but also in adjacency in terms of, you know, locations.
+
+76
+00:08:26,410 --> 00:08:33,790
+For example, if we measure, you know, weights for members of a family, you know,
+
+77
+00:08:33,790 --> 00:08:40,840
+likely there would be some correlation due to some factors like genetic factors or nutritional factors or dietary preferences.
+
+78
+00:08:40,880 --> 00:08:49,480
+Right. So they can be correlated, but they do not necessarily mean the outcomes were collected over time, just means outcomes are correlated.
+
+79
+00:08:49,630 --> 00:08:57,310
+So that's called clustered. And more generally, if you have a vector outcomes, they can be totally different things and that's.
+
+80
+00:08:58,400 --> 00:09:05,370
+Just means we collect information on one person. Along many different dimensions, which is called a multi varied outcome.
+
+81
+00:09:06,390 --> 00:09:16,380
+So going back to the Bing response profile analysis, so Bing response profile analysis works for the most general situation of multivariate outcome.
+
+82
+00:09:18,300 --> 00:09:26,310
+And final point is that, again, we by using the mean response profile analysis, we ignored the timing.
+
+83
+00:09:26,310 --> 00:09:33,540
+Hence we did not explicitly model whatever underlying biological process there was that generated the outcomes.
+
+84
+00:09:34,920 --> 00:09:39,000
+So those are some important information for us to incorporate when doing the modeling.
+
+85
+00:09:41,940 --> 00:09:53,280
+Final point, maybe next. The second to final point is that in terms of testing, so we have learned different ways to conduct testing.
+
+86
+00:09:53,280 --> 00:09:55,020
+We have learned what test we have learned,
+
+87
+00:09:55,410 --> 00:10:03,060
+like the racial test and the primary goal there were trying to detect whether there were group and time interaction.
+
+88
+00:10:04,150 --> 00:10:07,990
+Even in Japan, all of there have been no group and time interruption.
+
+89
+00:10:08,020 --> 00:10:16,780
+We say that regardless of what group you're in. There is no no, not enough evidence in the data against all that to change.
+
+90
+00:10:18,080 --> 00:10:22,240
+Over time in both groups. Are different, right?
+
+91
+00:10:23,260 --> 00:10:30,580
+So in this case, if you reject the null, you do not really know how different they are.
+
+92
+00:10:32,290 --> 00:10:40,120
+So this is the drawback of this kind of general test in the framework of immune response profile analyzes.
+
+93
+00:10:40,570 --> 00:10:48,730
+Sometimes we're rather interested in modeling the data using DNA trends and then say, Hey, for two groups.
+
+94
+00:10:50,020 --> 00:10:52,900
+For two groups, are these two lines parallel?
+
+95
+00:10:53,170 --> 00:11:02,740
+Right before we just saying that's not necessarily within the subset of models that are, you know, are the two curves parallel.
+
+96
+00:11:02,860 --> 00:11:07,080
+We do not specify whether the curve is 90 or not.
+
+97
+00:11:07,090 --> 00:11:12,730
+Right. But there are some situations where the NINA models actually fit the data well.
+
+98
+00:11:14,720 --> 00:11:23,600
+And then it's probably appropriate to constrain yourself to a to a subset of models, for example, inner trend.
+
+99
+00:11:28,510 --> 00:11:32,020
+Finally, this is a point I made earlier.
+
+100
+00:11:32,140 --> 00:11:38,740
+It is about the number of parameters that can grow rapidly with the number of measurements per person.
+
+101
+00:11:40,760 --> 00:11:44,360
+So this is a general formula for the main parameter we have g.
+
+102
+00:11:44,720 --> 00:11:51,350
+Times in G represent number of groups and represents the number of measurements per person here.
+
+103
+00:11:51,470 --> 00:11:56,630
+And it has to be identical. Right, because we are using mean response profile analysis.
+
+104
+00:11:56,900 --> 00:12:03,049
+So we've got to have balanced design and we have this number of various covariance
+
+105
+00:12:03,050 --> 00:12:09,260
+parameters and you can see this is quadratic in n which can grow very quickly within.
+
+106
+00:12:10,670 --> 00:12:14,450
+So these two are two some quick exercises you can do.
+
+107
+00:12:14,450 --> 00:12:20,630
+And trust me that they are correct. But if you are wondering how to plug in numbers, you can try.
+
+108
+00:12:23,470 --> 00:12:30,090
+So. In general, being responsible for analysis will be more reasonable.
+
+109
+00:12:30,090 --> 00:12:38,070
+When you have a large an indicator, you have a lot of samples and for a relatively small number of measurements per person.
+
+110
+00:12:38,100 --> 00:12:44,880
+Right. So you basically can allocate more degrees of freedom per unknown parameter, and that's usually a good thing.
+
+111
+00:12:47,890 --> 00:12:53,150
+But it's not always the case that MN is large, especially for longitudinal studies that are very expensive.
+
+112
+00:12:53,170 --> 00:12:58,860
+You've got to have people come back to the clinic or hospital to get certain expensive measurements taken.
+
+113
+00:12:59,770 --> 00:13:05,230
+So the study often is constrained by budget to recruit and say only 100, 200 people.
+
+114
+00:13:05,530 --> 00:13:08,260
+And there, if you have a lot of measurements per person,
+
+115
+00:13:08,890 --> 00:13:14,950
+the number of parameters under the wing response profile analysis can quickly exceed the number of subjects.
+
+116
+00:13:15,340 --> 00:13:21,650
+So this is where we need to consider alternative models to reduce the number of parameters in the mean.
+
+117
+00:13:27,840 --> 00:13:35,260
+So this brings us to the parametric curves. So the word parametric basically means that we are using a.
+
+118
+00:13:37,200 --> 00:13:43,840
+A finite number. Of unknowns, unknown parameters.
+
+119
+00:13:50,040 --> 00:13:56,670
+So it is this finite fineness of the number of unknowns that would define the word parametric.
+
+120
+00:13:56,970 --> 00:14:06,370
+So you must have heard a number, a metric that. It basically means that the number of parameters is infinite.
+
+121
+00:14:08,870 --> 00:14:17,839
+What is one example? Well, suppose you want to estimate a curve, but you are not willing to specify specified from per metric family.
+
+122
+00:14:17,840 --> 00:14:22,980
+So you say all the continuous functions. Well, clearly that's an infinite dimensional space.
+
+123
+00:14:24,330 --> 00:14:27,960
+More discussion require functional data analysis, but a functional analysis.
+
+124
+00:14:28,440 --> 00:14:34,709
+But I think the basic idea is that you can try to ask yourself whether you can use a small number of fine,
+
+125
+00:14:34,710 --> 00:14:40,950
+a number of parameters to characterize the structure. If so, then you're using parametric curves.
+
+126
+00:14:45,320 --> 00:14:50,390
+I will refrain myself from talking about semi parametric, but I don't think that's kind of relevant.
+
+127
+00:14:50,930 --> 00:14:53,690
+It will be relevant later in the study, but I think it's less relevant now.
+
+128
+00:14:54,050 --> 00:15:00,670
+So I'm going to focus on the distinction between the parametric non parametric in the slides to follow,
+
+129
+00:15:00,680 --> 00:15:05,210
+we are going to focus on parametric models second curve.
+
+130
+00:15:05,660 --> 00:15:15,890
+So this is basically to say that we are envisioning that we model the mean using some flexible curves and a line can be a curve.
+
+131
+00:15:17,220 --> 00:15:22,220
+It's kind of a you know, a line works well for modeling these thoughts.
+
+132
+00:15:22,620 --> 00:15:29,790
+Right. And you can use quadratic. And you can use, you know.
+
+133
+00:15:31,050 --> 00:15:35,960
+I don't know sine or other degrees of functions.
+
+134
+00:15:43,280 --> 00:15:46,580
+Sorry. Right.
+
+135
+00:15:47,940 --> 00:15:51,030
+And we will be talking about how to specify them.
+
+136
+00:15:53,510 --> 00:15:57,020
+So the first example is called a polynomial trends over time.
+
+137
+00:15:57,860 --> 00:16:01,520
+As I have alluded to, we are just trying to model the mean.
+
+138
+00:16:05,040 --> 00:16:10,500
+For this person. So the index, Irene, is for indicating which subject we're talking about.
+
+139
+00:16:10,980 --> 00:16:24,630
+And T.J. here is to indicate that what if we want to get the true value of the mean 1st of July when he or she was measured at time, T.J.
+
+140
+00:16:25,200 --> 00:16:29,309
+Okay. So a quick notation and the notation of comment here.
+
+141
+00:16:29,310 --> 00:16:37,920
+I do put I here for the T because we are prepared to deal with situations where the measurements are mis timed.
+
+142
+00:16:37,930 --> 00:16:42,900
+For example, in the measurements for you will obtain that say two time points like.
+
+143
+00:16:44,320 --> 00:16:48,640
+Week one, week three. But for me, my data points will be like a week to week four.
+
+144
+00:16:49,060 --> 00:16:56,110
+So we do need this index i for t to indicate that different people may have different timings.
+
+145
+00:16:56,650 --> 00:17:02,890
+And how do we model? Basically we just say it is a function and there are many such examples.
+
+146
+00:17:09,950 --> 00:17:18,260
+And often people would put in a parameter here to indicate that we use a small number of betas to characterize this function.
+
+147
+00:17:19,400 --> 00:17:25,880
+And when you can estimate beta, right, you just plug this back in and you will have an estimate of the.
+
+148
+00:17:29,220 --> 00:17:32,390
+Of the missing. So it would be you. I had to find you.
+
+149
+00:17:32,870 --> 00:17:43,320
+Hmm. Okay.
+
+150
+00:17:44,280 --> 00:17:48,360
+So let's look at a few examples of FTI here.
+
+151
+00:17:49,800 --> 00:17:52,770
+Let's start with the near term.
+
+152
+00:17:53,730 --> 00:18:01,590
+So this is the simple as possible and should not be unfamiliar to you because I think all the most of the models you did in 650 years of this nature,
+
+153
+00:18:02,280 --> 00:18:10,760
+this is called straight line model for the mean responses, which indicates that the mean trend over time for a subject is going to be on here.
+
+154
+00:18:12,300 --> 00:18:16,500
+Let's consider one model in in point number three.
+
+155
+00:18:16,830 --> 00:18:22,950
+So here we're modeling the mean by a few different parameters for parameters, actually.
+
+156
+00:18:23,640 --> 00:18:27,360
+So the first thing to say. The second one is the main focus for time.
+
+157
+00:18:28,440 --> 00:18:32,100
+And the third one is the main effects of group. The final one is the interruption.
+
+158
+00:18:32,640 --> 00:18:37,470
+So two things to point you to draw your attention.
+
+159
+00:18:37,620 --> 00:18:42,270
+First, it is this one. Now, look, time age is the actual number input in here.
+
+160
+00:18:42,750 --> 00:18:56,460
+Compared to the slides you have seen in hand out. 05bi guess there you would have indicators like week I equals one or four or six, right.
+
+161
+00:18:56,640 --> 00:19:01,620
+So those are the indicators before. But now we are just plug in the actual time.
+
+162
+00:19:02,660 --> 00:19:05,750
+For AJ Right. So this is treated now as a continuous variable.
+
+163
+00:19:06,320 --> 00:19:11,480
+So for every unit increase in time, you will see beta two increase in the mean.
+
+164
+00:19:14,270 --> 00:19:18,180
+In the outcome. For one particular group.
+
+165
+00:19:19,290 --> 00:19:25,950
+The second thing is that for the interaction term now, because we are using time as a continuous variable,
+
+166
+00:19:26,250 --> 00:19:33,659
+you don't need to interact group with each of the indicators for a week as in the previous example of alert level.
+
+167
+00:19:33,660 --> 00:19:38,130
+Right. So beta four here is just one parameter to capture all the interruptions.
+
+168
+00:19:39,300 --> 00:19:48,930
+Let's do some quick interpretation. So let's assume that group equals Y, indicates a subject received a novel treatment and it's zero.
+
+169
+00:19:49,650 --> 00:19:58,930
+If this person is in the control group. Okay. Let's plug in the group equals zero.
+
+170
+00:19:58,990 --> 00:20:02,280
+So let's look at a control group. So these two terms are gone. Right.
+
+171
+00:20:02,650 --> 00:20:06,100
+So what you get is beta one plus beta two.
+
+172
+00:20:06,310 --> 00:20:10,330
+So this is a new year trend for the control group. For the treatment group.
+
+173
+00:20:10,360 --> 00:20:13,810
+Then you just plug in everything here.
+
+174
+00:20:14,650 --> 00:20:18,640
+So this will need to be one one and this needs to be one.
+
+175
+00:20:19,120 --> 00:20:27,550
+So what you get is beta one, beta three as intercept and beta two plus beta four as the slope.
+
+176
+00:20:27,940 --> 00:20:31,839
+That's what you got here, right? Now what?
+
+177
+00:20:31,840 --> 00:20:36,850
+These two sub models written out, there will be a few tests.
+
+178
+00:20:37,280 --> 00:20:46,990
+You know, all these were all these are questions and your task is find out what parameter indicates that matches that interpretation.
+
+179
+00:20:48,590 --> 00:20:51,799
+First response in the control room at time zero.
+
+180
+00:20:51,800 --> 00:20:55,760
+Right. So you need to look at the this model and you plug in time zero.
+
+181
+00:20:56,210 --> 00:21:00,710
+So that's just beta one. So beta one is the mean response in the control group at times zero.
+
+182
+00:21:01,840 --> 00:21:05,770
+All right. Number two, what's the mean response in the treatment group at times zero?
+
+183
+00:21:05,800 --> 00:21:10,470
+Well, now you look at the second model. You plug in time equals zero and this term is gone.
+
+184
+00:21:10,480 --> 00:21:13,380
+So you've got beta one plus beta three. All right.
+
+185
+00:21:13,940 --> 00:21:22,460
+So now if you compare the first two, it just means that Beta three represents a difference in the response between the two two groups at time zero.
+
+186
+00:21:22,800 --> 00:21:30,490
+Right. Okay. Number three for the control group, the constant rate of change in the mean response per unit, change in time.
+
+187
+00:21:30,790 --> 00:21:40,320
+And clearly that indicates slope which should be better to. Finally, what's the cost and rate of change for the treatment group?
+
+188
+00:21:40,380 --> 00:21:43,590
+Now you look at the second model model.
+
+189
+00:21:44,370 --> 00:21:49,030
+It is a slope prior to before the the term time.
+
+190
+00:21:49,390 --> 00:21:53,640
+So that's been a two plus 3 to 4. Again, by contrast, in final two questions,
+
+191
+00:21:53,970 --> 00:21:58,200
+you can see that there is a parameter beta for dictating what's the difference in the
+
+192
+00:21:58,200 --> 00:22:02,939
+constant rates of change or of the main response over time between the two groups.
+
+193
+00:22:02,940 --> 00:22:04,050
+Right. So that's beta for.
+
+194
+00:22:06,950 --> 00:22:17,450
+And just to help you focus on the parameters of interest paid for is often of primary interest because that indicates two different treatments.
+
+195
+00:22:17,870 --> 00:22:21,739
+The responses seems to increase or decrease at different rates.
+
+196
+00:22:21,740 --> 00:22:26,330
+So often the norm would be testing whether beta four is zero or not.
+
+197
+00:22:27,170 --> 00:22:29,990
+So here is some quick visualization that should be very simple.
+
+198
+00:22:31,760 --> 00:22:38,030
+This is basically one example with particular values of beta 024 beta zero two beta four.
+
+199
+00:22:38,690 --> 00:22:49,000
+So this one is the. Is the main model for group one.
+
+200
+00:22:49,570 --> 00:22:57,820
+For every unit change in time, you have this much this much change in the response.
+
+201
+00:22:57,850 --> 00:23:04,640
+What's this? What's this? Valley. Should be the slope right below to the four.
+
+202
+00:23:05,750 --> 00:23:11,500
+And for the same amount of change unit time. You have the strange kind of beta too.
+
+203
+00:23:12,950 --> 00:23:16,760
+So going back to the previous slide, essentially it is the final two questions.
+
+204
+00:23:17,750 --> 00:23:22,070
+So just to remind you guys that two is actually the control group.
+
+205
+00:23:23,470 --> 00:23:27,670
+And this is the treated group. All right.
+
+206
+00:23:27,740 --> 00:23:38,210
+So you can see that Beta four again dictates the the difference in the rates of change of the mean responses over time between two groups.
+
+207
+00:23:44,060 --> 00:23:48,920
+So as I have alluded to, often we're interested in testing this particular null hypothesis.
+
+208
+00:23:49,580 --> 00:23:54,710
+The noise on the two groups do not differ in terms of the change in the mean response over time.
+
+209
+00:23:58,820 --> 00:24:06,030
+So this is just one example where the trends in both groups can be described by straight lines, right.
+
+210
+00:24:06,110 --> 00:24:11,989
+Clearly, this is some. You know, reasonable assumption,
+
+211
+00:24:11,990 --> 00:24:20,120
+but it may be less reasonable if you're talking about certain trends are going to plateau or are going to have other curve like features.
+
+212
+00:24:20,120 --> 00:24:27,490
+Right. So that's where people are going to be entertaining with higher degrees of polynomials instead of just one up.
+
+213
+00:24:27,500 --> 00:24:31,040
+So this is when people would use curvilinear on.
+
+214
+00:24:33,800 --> 00:24:41,120
+Interpretation wise. The key change is that the rate of change in the mean response over time is not going to be constant.
+
+215
+00:24:41,210 --> 00:24:44,890
+If you look at this. Particular illustration.
+
+216
+00:24:44,890 --> 00:24:50,650
+Why does it matter where I draw on that unit change in time? If I move that too.
+
+217
+00:24:50,950 --> 00:24:56,020
+By that I mean this one delivered to the left a little bit to right and still ask What's the change in me?
+
+218
+00:24:56,030 --> 00:25:00,530
+Responds. It will still be better to place better for AI.
+
+219
+00:25:00,850 --> 00:25:04,120
+The rate of change is constant. It does not depends on when you look at it.
+
+220
+00:25:04,900 --> 00:25:09,790
+But often in many biological processes, these rate of change can depend on the follow up time.
+
+221
+00:25:12,170 --> 00:25:17,030
+So that's what this means. The real change in immune response is no longer constant as a model.
+
+222
+00:25:17,150 --> 00:25:19,970
+We will have some some examples to illustrate this.
+
+223
+00:25:23,430 --> 00:25:29,820
+And also when you're actually writing a report, it depends on which period are you focused on, right.
+
+224
+00:25:30,630 --> 00:25:35,370
+So you can report rate of change earlier in the follow up period or later in the follow up period,
+
+225
+00:25:35,910 --> 00:25:42,090
+depending on how the whatever treatments you are investigating. Is it acting earlier in the follow up period or or later?
+
+226
+00:25:42,840 --> 00:25:48,300
+So so the invitation totally depends on this, the science there.
+
+227
+00:25:49,620 --> 00:25:52,770
+So this is just one generic example here.
+
+228
+00:25:53,550 --> 00:25:58,680
+All I did was just to add quadratic terms into this model.
+
+229
+00:25:59,190 --> 00:26:05,260
+Again, here we are only considering me model. So this term is new.
+
+230
+00:26:05,950 --> 00:26:09,280
+This term is new. Right. So we just added beta three and beta six in here.
+
+231
+00:26:11,230 --> 00:26:19,570
+Beta three is the coefficient for the quadratic term and beta six is the interruption term between the group indicator and the quadratic term.
+
+232
+00:26:24,780 --> 00:26:29,340
+Now again, let's do that exercise of splitting this bigger model into two models.
+
+233
+00:26:29,670 --> 00:26:33,840
+The first is trying to set group. Equals zero.
+
+234
+00:26:34,660 --> 00:26:41,100
+So every term that involves group has gone. So I'm going to use another color to remove those terms.
+
+235
+00:26:42,360 --> 00:26:46,589
+So all you get is beta one plus beta two times.
+
+236
+00:26:46,590 --> 00:26:50,030
+Beta three times squared. Right. That's very simple. Next, you just.
+
+237
+00:26:51,570 --> 00:26:56,820
+Say plug in group equals one and see what you got. Now, if you compare these two models,
+
+238
+00:26:56,820 --> 00:27:05,219
+clearly you can see that for every term in the for every coefficient in the model for the control subjects you have a shift,
+
+239
+00:27:05,220 --> 00:27:08,820
+right is characterized by beta 4 to 5, beta six respectively.
+
+240
+00:27:14,770 --> 00:27:18,500
+Now. How do we interpret these coefficients?
+
+241
+00:27:19,130 --> 00:27:28,970
+Let's just use one control subject as an example, or rather any control, because here we just model them to be following the same quadratic trend.
+
+242
+00:27:29,040 --> 00:27:34,940
+Right. So let's say we fix one particular time and then take the derivative with respect to time.
+
+243
+00:27:35,090 --> 00:27:38,330
+After all, the rate of change is a derivative with respect to time.
+
+244
+00:27:38,990 --> 00:27:42,700
+So for this one, you just do. The say.
+
+245
+00:27:44,590 --> 00:27:52,930
+Time. So this is just start being a two plus two times where the three time major.
+
+246
+00:27:55,180 --> 00:28:01,700
+So I reproduce that calculation here. Which is called the instantaneous rate of change.
+
+247
+00:28:02,920 --> 00:28:06,370
+The reason why it's called instantaneous is because you look at this derivative.
+
+248
+00:28:06,670 --> 00:28:10,870
+It depends on when you're looking at this. You plug it in. Time equals zero.
+
+249
+00:28:11,020 --> 00:28:16,360
+Clearly that the rate of change is beta two, which means that when your study just began,
+
+250
+00:28:17,080 --> 00:28:20,650
+the rate of change in response for a control subject is going to be better too.
+
+251
+00:28:21,340 --> 00:28:24,340
+Now, if you plug it another time, say time equals one.
+
+252
+00:28:25,720 --> 00:28:28,290
+That rate of change you'll be able to pass to Beta three.
+
+253
+00:28:28,360 --> 00:28:35,350
+So depending on when you're looking at in the follow up period, the rate of change will be different.
+
+254
+00:28:36,550 --> 00:28:40,090
+So that's just some very quick.
+
+255
+00:28:41,870 --> 00:28:50,600
+Way of doing the invitations. Now, if we visualize this, this is a typical comparison between the two groups.
+
+256
+00:28:55,830 --> 00:29:08,210
+Group one and group two. And one side note is that when you are doing polynomial modeling,
+
+257
+00:29:09,230 --> 00:29:16,460
+it is also it is sometimes very tempting to continue drawing these curves beyond the window of study.
+
+258
+00:29:17,300 --> 00:29:23,840
+So your study was designed to measure subjects within five years of follow up.
+
+259
+00:29:26,350 --> 00:29:30,370
+And you fitted fitted a quadratic model for both groups.
+
+260
+00:29:32,300 --> 00:29:37,090
+Right. All these things were based on the parametric assumption.
+
+261
+00:29:40,650 --> 00:29:43,920
+During the study period. So these will be called extrapolation.
+
+262
+00:29:49,320 --> 00:29:58,260
+It is very likely that by collecting more data, the trend will be not exactly following this quadratic form.
+
+263
+00:29:59,740 --> 00:30:05,290
+So whenever you are doing modeling or analysis of launching of data, you have to ask yourself,
+
+264
+00:30:05,800 --> 00:30:12,920
+are you doing interpolation or are doing extrapolation after extrapolation is quite, quite, you know.
+
+265
+00:30:14,880 --> 00:30:18,660
+How to say problematic, as I recall earlier in the pandemic.
+
+266
+00:30:18,810 --> 00:30:30,090
+That said, there is a institution I affiliate with who called me and they were doing all these extrapolation based on predictions, lots of criticisms.
+
+267
+00:30:30,990 --> 00:30:39,240
+And they don, they fixed the model to to respect more about the biology process to epidemiology models for pandemics.
+
+268
+00:30:39,630 --> 00:30:41,430
+So later on, they were more mechanistic.
+
+269
+00:30:42,180 --> 00:30:50,640
+Here, I'm just pure in saying that if you're fitting data in a very empirical way, just be aware of possible misfit outside of the study period.
+
+270
+00:31:04,190 --> 00:31:07,280
+Sounds. I have to keep talking. So.
+
+271
+00:31:10,410 --> 00:31:14,130
+So if you up one more practical comment.
+
+272
+00:31:14,660 --> 00:31:22,620
+I recall one data setting where parametric models are very useful is for data that are not balanced.
+
+273
+00:31:22,740 --> 00:31:31,620
+In particular, we will have these models for measurements obtained at completely different timings across subjects.
+
+274
+00:31:32,250 --> 00:31:36,720
+Then it is often asked How do we do the centering?
+
+275
+00:31:37,820 --> 00:31:41,360
+And that will matter in terms of invitation. Why?
+
+276
+00:31:42,140 --> 00:31:45,440
+Well, if you recall this particular model here.
+
+277
+00:31:47,460 --> 00:31:54,040
+How did we interpret Peter one? We just say that the response in the control room at time zero.
+
+278
+00:31:54,790 --> 00:32:01,180
+Right. What if we want beta one to represent represents kind of a middle point in terms of time.
+
+279
+00:32:01,540 --> 00:32:07,910
+What do we mean by the center? Well, if you are dealing with the TLC trial data, it's pretty straightforward.
+
+280
+00:32:07,930 --> 00:32:13,090
+Everybody has a sense of numbers, just, you know, get the middle time.
+
+281
+00:32:13,630 --> 00:32:21,280
+But if you have totally different time points than my and everybody seems to be blessed to be having this time measurements,
+
+282
+00:32:21,610 --> 00:32:26,100
+how do we define the center? Usually not saying always.
+
+283
+00:32:26,110 --> 00:32:30,970
+Usually it's a bad idea to center the times in individual by individual.
+
+284
+00:32:31,270 --> 00:32:36,800
+Usually you want to center the time. Across all the subjects.
+
+285
+00:32:38,460 --> 00:32:43,200
+You pull all the timings across subjects and you find out what's the meaning of that time.
+
+286
+00:32:44,190 --> 00:32:52,340
+Comedian Will. Okay.
+
+287
+00:32:52,820 --> 00:32:57,890
+But why do we do this century? Well, clearly, it has some benefits in terms of our interpretation.
+
+288
+00:32:59,210 --> 00:33:05,340
+But often. It is trying to reduce what we call continuity.
+
+289
+00:33:05,490 --> 00:33:10,800
+So usually T and T square can be highly correlated.
+
+290
+00:33:13,150 --> 00:33:25,770
+And if you do the centering. This coalition can be reduced.
+
+291
+00:33:26,040 --> 00:33:34,590
+So when you put in all the needier and quadratic terms in there, by reducing the continuity, your parameter estimates will be much more stabilized.
+
+292
+00:33:36,770 --> 00:33:46,300
+So these are just some very empirical comments. Any questions so far?
+
+293
+00:33:48,250 --> 00:33:54,040
+Before we move on to a more boring part of just notations, which I guess I can go through pretty quickly.
+
+294
+00:34:04,680 --> 00:34:14,360
+All right. So the final part, as I have promised, is trying to show you that all these modeling can be casting to the framework of general models.
+
+295
+00:34:15,750 --> 00:34:21,090
+So the specific task will be trying to write out the design matrices and all the betas.
+
+296
+00:34:21,690 --> 00:34:25,890
+So here, let's consider one example of two group quadratic curve setting.
+
+297
+00:34:26,280 --> 00:34:29,940
+So we are doing the modeling for the conditional means.
+
+298
+00:34:30,180 --> 00:34:36,660
+Recall here you are is the mean for the subject line across all the occasions.
+
+299
+00:34:36,780 --> 00:34:40,200
+Right. So it's a vector here.
+
+300
+00:34:40,740 --> 00:34:51,480
+And this should be better. Yes. So for a control subject, we wanted to model it using a quadratic term.
+
+301
+00:34:52,110 --> 00:34:59,010
+So we just put in all the quadratic features in there with all the bases up to the second power.
+
+302
+00:35:00,330 --> 00:35:07,560
+And we also had that with additional three columns, zeros, and those are reserved for the treated group.
+
+303
+00:35:08,100 --> 00:35:18,090
+And in the in the third bullet point, we're going to have the quadratic basis functions for for people in the treated group.
+
+304
+00:35:20,320 --> 00:35:33,020
+So if you write out everything here. So for the control group, the final three does not matter.
+
+305
+00:35:33,020 --> 00:35:36,650
+Right? Beethoven. Better to better three matters. So they will give you.
+
+306
+00:35:54,010 --> 00:36:15,990
+It will give you this vector. So I times data is a vector of all the main responses over time.
+
+307
+00:36:16,410 --> 00:36:23,400
+And as you can see, this is just to represent that as your time evolves from one to 2 to 3,
+
+308
+00:36:23,940 --> 00:36:29,099
+the mean value changes correspondingly and for the treated subject.
+
+309
+00:36:29,100 --> 00:36:33,900
+As we have discussed, it always represents an additional shift in all of these parameters.
+
+310
+00:36:34,110 --> 00:36:38,880
+So if you write anything down, it will be just beta one plus b the four plus beta, two plus beta.
+
+311
+00:36:40,820 --> 00:36:43,850
+Five times one. And so on and so forth.
+
+312
+00:36:44,060 --> 00:36:49,580
+So I'm not going to write that down entirely. Here, this slide provides you a visual about how that looks like.
+
+313
+00:36:49,820 --> 00:36:53,000
+So pretty much the same. Is that the same? I think it's the same.
+
+314
+00:36:58,810 --> 00:37:17,870
+Yeah. It's the same as on page 15. So hopefully this provides you with some evidence that indeed you can write down all of
+
+315
+00:37:17,870 --> 00:37:23,960
+these polynomial models or current models in terms of the general mean in model notation.
+
+316
+00:37:24,110 --> 00:37:31,220
+So not the most exciting part, but it can be done up to provide a summary to the this particular handle.
+
+317
+00:37:31,250 --> 00:37:37,320
+I'm just going to. You know, read these points with you first.
+
+318
+00:37:37,620 --> 00:37:41,100
+We have deviated from analysis and response profiles.
+
+319
+00:37:41,280 --> 00:37:47,940
+We have listed all many of the advantages and drawbacks of the mean response profiles and parametric curves.
+
+320
+00:37:48,230 --> 00:37:57,490
+You know, most prominently can. Help you deal with miss time measurements, i.e. data sets that are not a balanced.
+
+321
+00:37:57,940 --> 00:38:03,130
+And also by using need trends, quality trends or other polynomial trends.
+
+322
+00:38:03,340 --> 00:38:07,840
+You can use a small number of parameters to characterize the mean trend over time,
+
+323
+00:38:08,050 --> 00:38:15,000
+which is a which is which saves the number of parameters at the cost of possible mis specification.
+
+324
+00:38:15,010 --> 00:38:19,460
+I. And second.
+
+325
+00:38:21,620 --> 00:38:25,160
+It's about testing our analysis, immune response profiles.
+
+326
+00:38:25,370 --> 00:38:29,240
+We were all interested in whether, say, two groups have parallel curves.
+
+327
+00:38:29,510 --> 00:38:32,960
+We do not care what are those curves of engineer quadratic.
+
+328
+00:38:32,990 --> 00:38:35,600
+They don't care. And they just ask are they parallel?
+
+329
+00:38:35,930 --> 00:38:43,900
+In parametric models, often you have the option of specifying or rather restricting the curves to a particular family,
+
+330
+00:38:43,910 --> 00:38:52,760
+say your Australian curves, and then if you conduct the null hypothesis, you will know exactly what you're finding evidence for.
+
+331
+00:38:53,630 --> 00:39:01,880
+Within the near trend family, you can find that the null can be rejected, and I know the model can be providing better fits the data.
+
+332
+00:39:02,150 --> 00:39:07,730
+Clearly you want to justify results that need a model as a good fit to the data in the first place.
+
+333
+00:39:08,180 --> 00:39:13,100
+So if we consider that data can be fitted by straight line models,
+
+334
+00:39:13,100 --> 00:39:20,390
+then often the test will be more powerful compared to the generic mean response profile based tests.
+
+335
+00:39:22,550 --> 00:39:28,850
+And again, finally, as I said, parametric curves works for measurements that are unbalanced.
+
+336
+00:39:44,580 --> 00:39:51,780
+I just want to pause for 30 seconds before we move on to hand out all five D, which is going to talk about in your slides.
+
+337
+00:40:21,600 --> 00:40:28,050
+Okay. So let's move on to the New Year Splice. Just by raising your hands, how many of you have heard about spy models?
+
+338
+00:40:30,640 --> 00:40:33,370
+Actually more than half. Well done. Well done.
+
+339
+00:40:33,640 --> 00:40:40,330
+So here I worry that this may bore you, but for the sake of completeness, I just want to go through them.
+
+340
+00:40:40,660 --> 00:40:46,690
+And for those of you who have not heard about this is a perfect time to learn. And I think these materials are very self-contained.
+
+341
+00:40:46,690 --> 00:40:53,620
+So you can review them after class as well. So you do have the option of just do your own thing if you want.
+
+342
+00:40:54,760 --> 00:41:04,540
+Three Learning Objectives. The first is trying to be a little more specific about what are the additional families or parametric curves you can do.
+
+343
+00:41:05,020 --> 00:41:07,929
+This is called your suppliers. And by the way, explaining is basically a tool.
+
+344
+00:41:07,930 --> 00:41:15,190
+That's a carbon I would use to, you know, how to say pain, the control of whatever materials go on trying to cut in.
+
+345
+00:41:15,610 --> 00:41:22,930
+And that's I believe that gives a name. So it explains just one example of many possible supply chains.
+
+346
+00:41:23,110 --> 00:41:28,360
+And later, in your research career or professional career, you will hear like project explains theme templates.
+
+347
+00:41:28,360 --> 00:41:35,440
+Blinds, penalize blinds. Cuba explains natural supplies be supplies.
+
+348
+00:41:36,400 --> 00:41:42,880
+I'm not making this up, by the way. So. So these are there are many, many different kinds of supplies.
+
+349
+00:41:43,090 --> 00:41:48,760
+And I am a person, big fan of these planes, which I believe some of you will encounter.
+
+350
+00:41:48,760 --> 00:41:55,360
+And indeed, they are lower dimensional approximations of some complex functions.
+
+351
+00:41:55,630 --> 00:42:03,220
+So this is, I believe, the first baby step you're going to take if you're going to deal with planes in your actual data analysis.
+
+352
+00:42:03,430 --> 00:42:07,920
+So if in your projects you have to use all this, planes know, please feel free to do so.
+
+353
+00:42:07,930 --> 00:42:11,470
+But indeed that involves you need to figure out what that's flying want to use.
+
+354
+00:42:11,890 --> 00:42:16,750
+Number two, again, it's a boring part. We want to cast this flight model.
+
+355
+00:42:17,880 --> 00:42:22,890
+Which we introduced conceptually an objective one into a more rigid mathematical formulation.
+
+356
+00:42:23,700 --> 00:42:27,570
+So this is basically, again, the boring part,
+
+357
+00:42:27,660 --> 00:42:31,379
+but hopefully it can help you with coding because you have to tell computer
+
+358
+00:42:31,380 --> 00:42:36,780
+what to do and you got to tell computer a lot of boring notations to do this.
+
+359
+00:42:37,710 --> 00:42:41,610
+Number three, one example. And the most important thing.
+
+360
+00:42:43,630 --> 00:42:47,890
+Arguably one of the most important thing this class is to understand that there is this
+
+361
+00:42:47,890 --> 00:42:52,060
+phenomena of interdependence between the mean model and the variance coherence model.
+
+362
+00:42:52,420 --> 00:43:00,249
+Just some very quick conceptual note about why this is important, in my opinion, is that as you recall in your model,
+
+363
+00:43:00,250 --> 00:43:05,740
+right, we have been talking about not in the main, the new right and the the second part, which is variance, covariance.
+
+364
+00:43:06,250 --> 00:43:15,880
+And in general, any model is a combination of what you can systematically measure or systematically model and whatever you don't know which we call,
+
+365
+00:43:16,120 --> 00:43:18,700
+I call human ignorance. You put them into residuals, right?
+
+366
+00:43:19,000 --> 00:43:23,920
+So depending on how much you pushing to this systematic model, which in our case is the mean model,
+
+367
+00:43:24,550 --> 00:43:28,480
+you will have the rest of the data explained by the residuals, right?
+
+368
+00:43:29,140 --> 00:43:34,060
+So in there it is that subtle balance of how much to be put into the model,
+
+369
+00:43:34,060 --> 00:43:37,450
+how much to be put into the residual has to be modeled by the various quadrants.
+
+370
+00:43:37,840 --> 00:43:47,649
+That's interdependence is critical. We will see at the end of this particular handout one example that if you have a grossly misfit me model,
+
+371
+00:43:47,650 --> 00:43:57,310
+you will inflate your various governance estimate. So that's, I believe, a high level summary of what you will need to master.
+
+372
+00:43:58,180 --> 00:44:01,720
+So in three parts we will be addressing each of these objectives.
+
+373
+00:44:01,930 --> 00:44:04,719
+So hopefully when you are reviewing this slide, are you going to ask yourself,
+
+374
+00:44:04,720 --> 00:44:11,410
+do I understand these technologies and do I understand these concepts and they will be a good test of your mastery of these materials?
+
+375
+00:44:12,190 --> 00:44:19,570
+So let's go back to the and I'll go back to let's start talking about the specifics.
+
+376
+00:44:21,770 --> 00:44:23,960
+The Parametric curves for modeling the mean.
+
+377
+00:44:25,220 --> 00:44:36,260
+We have been talking about simple examples like straight line quadratic or cubic and we will be introducing linear splice.
+
+378
+00:44:39,870 --> 00:44:44,430
+So there must be some reason why polynomial based models are not good enough.
+
+379
+00:44:45,630 --> 00:44:51,300
+Indeed, it can handle any nonlinearity. Theoretically, it can approximate any function.
+
+380
+00:44:51,510 --> 00:45:01,890
+Any continuous function. But the problem is that invitation actually kind of is very hard when you have a lot of.
+
+381
+00:45:03,580 --> 00:45:08,569
+You know, high degree polynomials. So people were thinking, Hey,
+
+382
+00:45:08,570 --> 00:45:15,590
+can we use low degree polynomials to approximate a flexible function and still maintain a good
+
+383
+00:45:15,590 --> 00:45:21,920
+indentation at each segment where a lower complexity polynomial function will be good enough?
+
+384
+00:45:22,760 --> 00:45:25,700
+So this is where the splitting come from.
+
+385
+00:45:25,880 --> 00:45:35,480
+It is trying to divide trends into segments and within each segment information just follows the regular modeling operation.
+
+386
+00:45:41,110 --> 00:45:50,319
+In practice. You know, besides the mathematical reasons of, you know, doing approximation in practice,
+
+387
+00:45:50,320 --> 00:45:58,630
+usually the period of time when the in response changes rapidly is often like in the restricted in restricted windows.
+
+388
+00:45:58,930 --> 00:46:05,050
+So it is of interest to have more flexibility in certain windows, but not over the entire study period.
+
+389
+00:46:09,900 --> 00:46:21,480
+Here comes the Niners. Blink. So Nina's plan basically extends the most simple parametric curve that's possible, which is a straight line.
+
+390
+00:46:22,440 --> 00:46:30,930
+It extends in the following fashion. It basically is a sequence of joined or connected segments that produce a piecewise part.
+
+391
+00:46:31,170 --> 00:46:34,410
+So Nina's y is also called Piecewise Nina model.
+
+392
+00:46:40,670 --> 00:46:44,150
+So these are the, you know, high level recipe.
+
+393
+00:46:44,600 --> 00:46:48,140
+First, you needed this divide the time axis into a series of segments.
+
+394
+00:46:49,400 --> 00:46:57,020
+Number two, you will need to be content that the model for the main trend of the time are straight lines.
+
+395
+00:46:57,590 --> 00:47:00,650
+Well, that's there's a question about whether straight lines are good enough.
+
+396
+00:47:01,880 --> 00:47:12,560
+But for now, let's say linear trends are adequate and you want to have different slopes within each segment.
+
+397
+00:47:15,810 --> 00:47:19,010
+Number four, you want to join these segments together.
+
+398
+00:47:19,020 --> 00:47:22,230
+So it forms a continuous curve, not necessarily differentiable.
+
+399
+00:47:24,560 --> 00:47:33,380
+Finally, the term naughts refers to where you divide all those time segments and the choice of nots is a very classical problem.
+
+400
+00:47:34,700 --> 00:47:38,270
+I don't think I can introduce that in the short lecture.
+
+401
+00:47:39,590 --> 00:47:46,160
+Indeed, there are papers like in top journals I just like and this year can be talking about how to select Nazi models.
+
+402
+00:47:46,640 --> 00:47:52,250
+So it could be complicated. We will be talking about some general guidance of how to choose nuts,
+
+403
+00:47:52,850 --> 00:48:01,370
+but for numerical criteria that she nuts not got to take advanced national DNA analysis I guess or non parametric models.
+
+404
+00:48:02,450 --> 00:48:08,300
+So these models are called broken stick model, very visual or a piecewise nina model, as we have alluded to.
+
+405
+00:48:09,500 --> 00:48:16,310
+Now, let's look at the actual graphing of these models.
+
+406
+00:48:16,730 --> 00:48:19,940
+Here we are looking at the main trends for two groups.
+
+407
+00:48:20,600 --> 00:48:23,870
+As you can see, there seems to be an elbow at time.
+
+408
+00:48:26,910 --> 00:48:33,030
+Two. For both groups. Right. It is to say that the Notts is adds to.
+
+409
+00:48:34,080 --> 00:48:42,780
+Of course there are boundary knots like zero and five. But I think most important one is the knot are two and within the period zero two.
+
+410
+00:48:45,360 --> 00:48:51,230
+The subjects in one group will have one particular rate of change. And within the window, 2 to 5.
+
+411
+00:48:53,070 --> 00:48:58,950
+Any subject in one group will have one particular rate of change, which is likely different from the previous period between zero and two.
+
+412
+00:49:00,510 --> 00:49:03,510
+So this is just one simple example of a nine year plan.
+
+413
+00:49:04,440 --> 00:49:08,520
+Mathematically, this can be reached now more rigorously like this.
+
+414
+00:49:09,060 --> 00:49:14,580
+Suppose not as a t start. So T starting our case is basically two.
+
+415
+00:49:16,720 --> 00:49:22,630
+In the previous figure. So what are the new things here?
+
+416
+00:49:22,960 --> 00:49:29,390
+So this term is new. This from his new round said to stray late model with interruptions.
+
+417
+00:49:30,740 --> 00:49:34,420
+So some notation needs to be introduced. First.
+
+418
+00:49:34,930 --> 00:49:39,070
+This function is called positive part function or truncated line function.
+
+419
+00:49:39,970 --> 00:49:48,260
+So we all know that. This is the way contracts lie, right?
+
+420
+00:49:50,020 --> 00:50:00,460
+Basically the two line function is trying to keep it as it is for the positive part, but push it to zero of.
+
+421
+00:50:02,260 --> 00:50:07,630
+So the negative parts. All right. So this is called truncated line function.
+
+422
+00:50:07,640 --> 00:50:09,710
+In real analysis. We call this positive part.
+
+423
+00:50:11,110 --> 00:50:17,080
+Clearly you can imagine there is this thing called executive action using a lot of color to not confuse people.
+
+424
+00:50:19,740 --> 00:50:25,290
+There are like x negative as well. It's connected parts, you know, but.
+
+425
+00:50:26,520 --> 00:50:33,300
+We can do that too. But I guess customarily people use the passive part, so we will not talk about this.
+
+426
+00:50:35,420 --> 00:50:42,290
+So applying that definition or chunky line function, let's look at the final two calculations and this is critical for interpretation.
+
+427
+00:50:43,460 --> 00:50:47,930
+Let's look at the first one. So time AJ minus t star positive part.
+
+428
+00:50:48,050 --> 00:50:54,540
+Right. So if you have T Starr plugged in here, t -0.
+
+429
+00:50:54,600 --> 00:51:00,270
+So that is just zero. But if you have something like T, stop plus one, right?
+
+430
+00:51:00,840 --> 00:51:04,000
+The difference will be one. And one is a positive number.
+
+431
+00:51:04,020 --> 00:51:07,620
+So keep it keep it as value. So it's just one.
+
+432
+00:51:07,980 --> 00:51:11,690
+But what if it is t star minus one plugged in?
+
+433
+00:51:12,210 --> 00:51:18,840
+Well, then the difference will be minus one. But any any negative number will be pushed up to zero.
+
+434
+00:51:18,930 --> 00:51:22,440
+So it'll be zero, right. And this is exactly what it means.
+
+435
+00:51:25,130 --> 00:51:31,970
+If time i j is greater than t start, you just got a difference which is positive number or zero.
+
+436
+00:51:32,960 --> 00:51:39,350
+If you have a time, much less now equal to two star, then you just got 0.0.
+
+437
+00:51:41,110 --> 00:51:45,760
+Now, if we go back to this particular model and do some interpretation.
+
+438
+00:51:46,840 --> 00:51:50,170
+And let's look at this then.
+
+439
+00:51:51,510 --> 00:52:01,229
+So here I'm just looking at the control group. If I scroll back, you can see that I just decided to remove all these terms that I have crossed.
+
+440
+00:52:01,230 --> 00:52:04,250
+Right. These are terms that involve Group II.
+
+441
+00:52:04,470 --> 00:52:08,310
+If I am focusing on the control group, all these groups, I will be zero.
+
+442
+00:52:08,460 --> 00:52:13,710
+So all that, all that's remaining will just be the equation in the first bullet point.
+
+443
+00:52:14,430 --> 00:52:18,090
+And our interest is to interpret. Beta one, beta two and beta three.
+
+444
+00:52:18,690 --> 00:52:26,500
+Okay. And if this is your first time trying to interpret this, it is could be a bit interesting.
+
+445
+00:52:31,300 --> 00:52:37,420
+So let's just give it a try. If we are talking about a time before T start, so the final term will be gone.
+
+446
+00:52:37,600 --> 00:52:43,729
+Right. Because. Any time earlier than two star will give you a negative difference.
+
+447
+00:52:43,730 --> 00:52:49,510
+And if you apply the positive. Part function, they'll be zero.
+
+448
+00:52:49,750 --> 00:53:02,110
+So all you have is this one. So I'm going to ask you, what's this number?
+
+449
+00:53:09,170 --> 00:53:21,010
+And what's this number? So clearly this needs to I need to say that this is zero correspond to time equals zero.
+
+450
+00:53:23,030 --> 00:53:29,200
+So the x is a time. So the first one is The Intercept, right?
+
+451
+00:53:29,770 --> 00:53:36,570
+So that's speed one. The second one is the value of the expected outcome.
+
+452
+00:53:37,320 --> 00:53:42,870
+Add time to star so that it could just be the one plus two times to start.
+
+453
+00:53:43,470 --> 00:53:48,240
+Right? So the slope here for every unit change in time.
+
+454
+00:53:48,570 --> 00:53:52,790
+What you got here is just on. Uh hmm.
+
+455
+00:53:58,760 --> 00:54:02,270
+This is just beta two. So this slope is better, too.
+
+456
+00:54:02,810 --> 00:54:04,730
+Now, let's look at the second part.
+
+457
+00:54:05,510 --> 00:54:12,650
+When you have time greater than two star, if you plug in any value greater than t star, the difference will be positive.
+
+458
+00:54:12,680 --> 00:54:15,890
+The positive part of function will give you exactly that critical difference.
+
+459
+00:54:15,960 --> 00:54:22,490
+Right. So when you simplify things, it will be this, plus this.
+
+460
+00:54:23,620 --> 00:54:30,910
+The first question is that can we check whether the two segments what first, this segment after time to start is still alive.
+
+461
+00:54:31,150 --> 00:54:40,030
+All right. And we want to ask whether the right in point of the current line joins the left endpoint of the line indicated by the blue arrow here.
+
+462
+00:54:41,500 --> 00:54:46,000
+So what do we do? We just plug it into Star. So you plug in ti star here.
+
+463
+00:54:46,690 --> 00:54:50,860
+Right. So. This will give the three plus where the two.
+
+464
+00:54:52,030 --> 00:54:59,260
+Beta one minus made a3t star, and as you can see that it contains the t star.
+
+465
+00:55:00,250 --> 00:55:03,610
+Oh, okay. I mean, hopefully this is correct.
+
+466
+00:55:04,780 --> 00:55:09,260
+See? One minus three to start.
+
+467
+00:55:16,060 --> 00:55:21,720
+Oh, this one. For the top one.
+
+468
+00:55:21,730 --> 00:55:29,230
+It has been a one plus 3 to 2 to start. So the question is whether the two equations in blue are the same.
+
+469
+00:55:30,100 --> 00:55:33,280
+Well, you can see that. So the three star cancels out.
+
+470
+00:55:33,420 --> 00:55:37,720
+Right. So what you get are both beta one plus beta two to star.
+
+471
+00:55:38,050 --> 00:55:42,550
+So indeed the two lines, the two segment joins at the time t star.
+
+472
+00:55:42,880 --> 00:55:51,250
+So I can start plotting here. But now if you look at the again, the second segment, which has a slope of being a two plus beta three,
+
+473
+00:55:51,520 --> 00:55:58,840
+you can see that that slope is likely different from beta two, which is the rate of change in the first segment.
+
+474
+00:55:58,940 --> 00:56:02,260
+Right. So let's say let's make it more dramatic like this one.
+
+475
+00:56:02,410 --> 00:56:15,190
+Right. So now here we know for every unit change in time we have a change in response have been two times beta three which is again constant.
+
+476
+00:56:24,400 --> 00:56:29,200
+Okay. So now Bill three represents a difference in the rate of change.
+
+477
+00:56:29,620 --> 00:56:35,470
+How do we characterize a no? That's for the control group. A straight line model is good enough.
+
+478
+00:56:41,000 --> 00:56:54,860
+Which parameter we set the zero. Well, let's take a break.
+
+479
+00:56:54,890 --> 00:57:00,140
+The answer is below three equals zero. If you're not convinced that we can talk about this, but I think this should be pretty straightforward.
+
+480
+00:57:02,180 --> 01:01:12,970
+So we will come back at 403. So for example.
+
+481
+01:02:00,260 --> 01:02:51,480
+Yeah. Yes.
+
+482
+01:02:54,550 --> 01:03:39,570
+Yeah. All right, everybody.
+
+483
+01:03:39,570 --> 01:03:43,170
+So let's get back to work. We have 50 more, 50 minutes, more lecture.
+
+484
+01:03:44,490 --> 01:03:54,300
+So one parting thoughts of this are usually when you write in model, what you got to see is this part, which I'm going to highlight by the red circle.
+
+485
+01:03:54,900 --> 01:04:00,600
+So what you see is, hey, you know, Beta one plus failed to dump time and beta three times a truncated function.
+
+486
+01:04:01,140 --> 01:04:11,250
+Now it is often tempting to consider beta three as the rate of change after time to start, which you know from this figure, well, it is not right.
+
+487
+01:04:11,520 --> 01:04:17,280
+Beta three is a difference in the rate of change. So actually beta three is additional rate of change.
+
+488
+01:04:18,850 --> 01:04:23,140
+Added to the existing rate of change characterized by the second term beta two.
+
+489
+01:04:24,670 --> 01:04:31,630
+So this is a part why I believe whenever you're doing a spy modeling, you want to make your head straight about invitations.
+
+490
+01:04:32,050 --> 01:04:36,370
+So if I ask, Hey, you know, what's the rate of change of the responsibility?
+
+491
+01:04:36,400 --> 01:04:44,920
+Star, you should answer beta two plus beta three, not just beta three, although it's quite tempting to say it's just beta three because you see,
+
+492
+01:04:44,950 --> 01:04:49,270
+hey, you know that final term is about something has happened after t start.
+
+493
+01:04:49,720 --> 01:04:58,000
+True. But that is only characterizing difference in rate of change. So that's a, um, just some mistakes I saw many, many times.
+
+494
+01:04:58,000 --> 01:05:08,739
+So I just want to preemptively point out that pointed out hopefully that's going to give you a, um, indication that you probably do this.
+
+495
+01:05:08,740 --> 01:05:15,100
+Right. So, all right. Where we were before we took the break.
+
+496
+01:05:15,520 --> 01:05:22,720
+All right. So we finished talking about this new near splicing for the control group, and we decided or not.
+
+497
+01:05:22,820 --> 01:05:26,980
+So we found that the null of a straight line just to said beta three equals zero.
+
+498
+01:05:27,010 --> 01:05:31,270
+Right? Similarly, we can do the same thing with the treated group.
+
+499
+01:05:32,070 --> 01:05:36,400
+Uh, it's just much more complicated with much more, many more parameters.
+
+500
+01:05:36,760 --> 01:05:40,060
+But trust me, the invitation will be the same.
+
+501
+01:05:40,180 --> 01:05:48,730
+So I'm going to skip. But the point here is that I want to draw your attention to two questions.
+
+502
+01:05:49,660 --> 01:05:53,230
+The first question is, what's the rate of change?
+
+503
+01:05:56,550 --> 01:06:04,110
+After T star. If you can answer these two questions, I think you're golden and I don't need to repeat everything I said.
+
+504
+01:06:04,380 --> 01:06:11,470
+The number two is on. How to represent.
+
+505
+01:06:13,540 --> 01:06:17,870
+The novel. Of straight line.
+
+506
+01:06:21,840 --> 01:06:30,130
+For the case group. So let's just work through them quickly.
+
+507
+01:06:30,400 --> 01:07:36,700
+I'll give you, like, 30 seconds. I think it should be pretty quick. All right.
+
+508
+01:07:37,300 --> 01:07:42,600
+Anybody wants to quickly say, what's the first one? What's the rate of change after t.
+
+509
+01:07:42,630 --> 01:07:54,080
+Star for the case group. Or how about the second question?
+
+510
+01:07:54,080 --> 01:08:00,410
+How to represent the no straight line for the case group? Which parameters set the zero or how representing general?
+
+511
+01:08:56,100 --> 01:10:10,440
+Need more time. I can give you one more minute. Yes.
+
+512
+01:10:11,190 --> 01:10:18,600
+The first. Plus we have six.
+
+513
+01:10:19,840 --> 01:10:36,770
+Final answer. Okay, Peter.
+
+514
+01:10:39,100 --> 01:10:42,250
+So the second question I ask everyone.
+
+515
+01:10:44,150 --> 01:10:51,430
+Plus waiting for. How they represent, although you've got to equate that to something.
+
+516
+01:10:53,210 --> 01:10:59,360
+So remember in the previous slide you have, for example, I said beta three equals zero,
+
+517
+01:10:59,360 --> 01:11:03,620
+which is the difference in the rate of change are going to be the same before and after.
+
+518
+01:11:03,620 --> 01:11:10,040
+So we've got to set something to zero. And with that, you are you going to modify your answers?
+
+519
+01:11:14,590 --> 01:11:23,830
+We didn't. I think.
+
+520
+01:11:27,150 --> 01:11:34,470
+Awesome. Perfect answer. Yeah.
+
+521
+01:11:34,990 --> 01:11:37,990
+This is great. Anybody else disagrees with us?
+
+522
+01:11:39,500 --> 01:11:42,979
+All right. Thanks a lot. Thanks for having me. All right.
+
+523
+01:11:42,980 --> 01:11:46,700
+So this is the answer and perfect.
+
+524
+01:11:47,300 --> 01:11:50,720
+Let's move on to other no hypotheses we can discuss.
+
+525
+01:11:51,560 --> 01:11:56,930
+So all these things were just within each of the control or treatment group.
+
+526
+01:11:57,350 --> 01:12:03,560
+Indeed. These are kind of of secondary interest in the investigation in longitudinal data analysis.
+
+527
+01:12:04,160 --> 01:12:08,100
+You would also ask whether the two groups have parallel trends, right?
+
+528
+01:12:08,450 --> 01:12:15,080
+So there you will need to specify some null hypothesis that different from what you have seen before.
+
+529
+01:12:16,010 --> 01:12:22,760
+It has been a five and a60. Not surprisingly, how do we specify this null?
+
+530
+01:12:22,970 --> 01:12:29,299
+Well, if you look at the original model here, you can see beta five.
+
+531
+01:12:29,300 --> 01:12:33,980
+Beta six are the interaction terms between the group and time.
+
+532
+01:12:34,790 --> 01:12:38,880
+Regardless whether it's original time or a truncated time.
+
+533
+01:12:38,910 --> 01:12:45,110
+Right. So it's just beta five and beta six. If these two terms are going to be zero, then you have parallel curves.
+
+534
+01:12:46,850 --> 01:12:50,390
+So the know of no group differences in the patterns.
+
+535
+01:12:51,730 --> 01:12:55,540
+Of change over time can be expressed by beta five equals beta six equals zero.
+
+536
+01:12:56,170 --> 01:12:59,620
+And there are other hypotheses that can be specified.
+
+537
+01:12:59,920 --> 01:13:07,360
+For example, if you want to just focus on the null that the two groups have parallel curves before time to start,
+
+538
+01:13:07,690 --> 01:13:12,160
+then you only need to identify what is the interaction term before t start.
+
+539
+01:13:12,370 --> 01:13:18,250
+So if you look back at the particular specification of the model, you can see that it is beta five,
+
+540
+01:13:18,760 --> 01:13:28,020
+not beta six that matters prior to time t start right because the truncated function will be zero if the time is prior to t start.
+
+541
+01:13:28,030 --> 01:13:33,040
+So only beta five equals zero. So this this.
+
+542
+01:13:33,340 --> 01:13:44,140
+I'm going to pause here for a little while. So 30 seconds, just to give you a sense that these are the kind of primary hypotheses you can specify.
+
+543
+01:14:06,260 --> 01:14:09,290
+All right. Moving on, a few more remarks.
+
+544
+01:14:10,160 --> 01:14:14,750
+First is that clearly you have more than one.
+
+545
+01:14:14,750 --> 01:14:17,810
+Not right. We just look at winter a lot.
+
+546
+01:14:18,410 --> 01:14:23,540
+You can have more knots. So monads can accommodate more flexible curves.
+
+547
+01:14:25,550 --> 01:14:29,280
+A second the placement of notes empirically.
+
+548
+01:14:30,510 --> 01:14:32,850
+It can be guided by substantive knowledge.
+
+549
+01:14:32,860 --> 01:14:41,310
+For example, if you are studying hormonal response change during the around the onset of puberty or menopause,
+
+550
+01:14:41,610 --> 01:14:47,070
+you want to place more knots during that period of time because you anticipate a lot of change.
+
+551
+01:14:49,470 --> 01:14:54,690
+So, you know, it's kind of, as it says here, a mix of art and science.
+
+552
+01:14:55,050 --> 01:15:02,400
+And some people are going to be using pure numerical criteria to choose an arts, which is called empirical choice.
+
+553
+01:15:02,400 --> 01:15:07,770
+And that's those are beyond the scope of this class, though.
+
+554
+01:15:07,950 --> 01:15:13,680
+These things falls into a general model selection kind of research.
+
+555
+01:15:18,080 --> 01:15:29,840
+Part two, as I promised we do, can put everything we have studied so far into a more rigid, general, neat and model notational framework.
+
+556
+01:15:30,650 --> 01:15:31,910
+So this is what we have here.
+
+557
+01:15:34,630 --> 01:15:45,130
+Assuming we have a knot at four and assume that we have a continuous time and the timings of these measurements can be different across people.
+
+558
+01:15:46,510 --> 01:15:54,820
+Again, we are talking about two groups, the control group and Treaty Group, and this is how we would represent being model.
+
+559
+01:15:55,990 --> 01:16:04,200
+Underneath your supply with that one knot heads for. So in general you will just write down beta one, two, beta.
+
+560
+01:16:05,460 --> 01:16:10,970
+For. And you can easily check that to.
+
+561
+01:16:15,100 --> 01:16:19,810
+Depending on which group you're in, you will get. The corresponding curves.
+
+562
+01:16:19,930 --> 01:16:41,690
+I will not work that out. I think should be pretty straightforward. So we will proceed to talk about one example, but as I have purposefully omitted.
+
+563
+01:16:43,200 --> 01:16:47,820
+You know, you may ask, you know, Crow, what are the various programs model for all these things?
+
+564
+01:16:49,300 --> 01:16:58,250
+Um, if you're asking this question. Great because all these measurements were not obtained at the communications.
+
+565
+01:16:58,480 --> 01:17:02,860
+Right. How can you just use on structure models?
+
+566
+01:17:03,820 --> 01:17:08,680
+Should there be some kind of technique to model against coherence? Indeed, that will be needed.
+
+567
+01:17:10,300 --> 01:17:17,270
+But because we do need to sort of feel a bit self contained when talk about my model structure.
+
+568
+01:17:17,890 --> 01:17:23,380
+So we assume that we have assumed sort of variance coherence model has been specified.
+
+569
+01:17:23,740 --> 01:17:27,310
+We did not talk about how to choose them and how to fit them.
+
+570
+01:17:32,100 --> 01:17:38,640
+So we will try to discuss them in and out of oh six and 06b, which is on Wednesday.
+
+571
+01:17:41,580 --> 01:17:49,800
+So this one, you can read them after class. This is just to say that here we are focusing on the MC model part.
+
+572
+01:17:58,580 --> 01:18:04,040
+So let's look at an example. This is the example that you have seen repeatedly.
+
+573
+01:18:04,850 --> 01:18:10,730
+It is good because you know the data well and it's a simple enough situation to program it quickly.
+
+574
+01:18:12,530 --> 01:18:20,900
+Here we have been we know that the data were collected at the same set of occasions across people.
+
+575
+01:18:21,530 --> 01:18:28,010
+And so for this particular data set, we can assume that the various and structure is unstructured.
+
+576
+01:18:28,790 --> 01:18:36,559
+Okay. And we just focus on the ME model. And the benefit of this is that we could not get this wrong in terms of variance,
+
+577
+01:18:36,560 --> 01:18:40,280
+coherence, modeling, because we did not place any restrictions to it.
+
+578
+01:18:41,210 --> 01:18:44,360
+You may be able to simplify the governance model.
+
+579
+01:18:46,040 --> 01:18:53,120
+But we will not discuss them here. So we focus on the ME model and we will illustrate a NINA spline model here.
+
+580
+01:18:54,020 --> 01:18:57,200
+So this is a familiar plot. You see the trial.
+
+581
+01:18:57,230 --> 01:19:05,670
+Two groups ran for the control group. Blue or Tiffany blue for the eczema group.
+
+582
+01:19:06,300 --> 01:19:18,720
+You can see that they do not differ too much at baseline and the eczema group had a drop in the blood level and then increases after that.
+
+583
+01:19:21,130 --> 01:19:28,570
+So it sounds like it looks like for the bow group you can use your year to do it with a not set week one.
+
+584
+01:19:29,260 --> 01:19:33,340
+Right. So if you. Specify this model.
+
+585
+01:19:35,920 --> 01:19:39,309
+This is just something very simple. You have the main four week,
+
+586
+01:19:39,310 --> 01:19:48,820
+you have the Niners blind term for week with a not at one and you have the interaction term between the group and the week term and the.
+
+587
+01:19:51,540 --> 01:19:56,850
+Truncated function. So Group II equals zero means it's a control group.
+
+588
+01:19:56,940 --> 01:20:08,570
+Group equals one. It indicates it's treated group. So what you can do is just to fit this model, right, and we can use the g less function.
+
+589
+01:20:08,900 --> 01:20:13,790
+And here you can see that I am just put in all these terms.
+
+590
+01:20:13,790 --> 01:20:22,580
+So Wicker's, let me zoom in a little bit and apologize. So here you can see that's a week is the.
+
+591
+01:20:23,780 --> 01:20:29,410
+Medium term week one is what I created as the truncated function here.
+
+592
+01:20:31,320 --> 01:20:39,420
+And finally, the interaction terms between the treatment and the week and treatment and truncated week function at week one.
+
+593
+01:20:39,960 --> 01:20:47,550
+So we're putting all the data and here the screen structure, again, is the is the.
+
+594
+01:20:50,800 --> 01:20:54,620
+I think it's unstructured. Right? Let me see. Yeah.
+
+595
+01:20:54,640 --> 01:21:00,610
+It's unstructured. So when we feed the model, we can by default we use Remo.
+
+596
+01:21:01,090 --> 01:21:07,780
+So what you get here are all these coefficients which I will not interpret too much.
+
+597
+01:21:09,160 --> 01:21:13,390
+You can plug in these coefficients into these models.
+
+598
+01:21:14,870 --> 01:21:24,069
+Oh, what did I do here? And then you can get the new lines for the time period before the night,
+
+599
+01:21:24,070 --> 01:21:29,830
+which is week one and the for the time period after the night, which is week, which is after week one.
+
+600
+01:21:31,050 --> 01:21:34,080
+Okay. So you can do the same thing.
+
+601
+01:21:34,080 --> 01:21:40,050
+Plug in. And this is the predictions or estimations for the treated group.
+
+602
+01:21:51,350 --> 01:21:54,380
+Let's make this this final slide, this lecture. We will continue after this.
+
+603
+01:21:54,680 --> 01:21:59,720
+So here I am, showing you all the fit and value by the inner spine.
+
+604
+01:22:04,190 --> 01:22:10,300
+And these are the observed mean. For a group at one time.
+
+605
+01:22:10,810 --> 01:22:16,960
+So all you need to do is to compare all those numbers. So it seems to me that the fit is pretty good, at least by eyeballing.
+
+606
+01:22:18,220 --> 01:22:22,180
+So the newest blend model seems to be working fine for the.
+
+607
+01:22:22,210 --> 01:22:31,810
+Especially for the treated group. Where in your fit will be not adequate because you recall that particular elbow shape in the treated group.
+
+608
+01:22:32,440 --> 01:22:37,120
+So I do have like six more slides, but I will continue on Wednesday.
+
+609
+01:22:37,420 --> 01:22:42,430
+And the main points there were trying to compare the two models.
+
+610
+01:22:42,430 --> 01:22:46,290
+One is the model with the newer supply, the other model, just straight line model.
+
+611
+01:22:46,300 --> 01:22:49,750
+So we will use like a ratio test. All right. See you on Wednesday.
+
+612
+01:22:50,140 --> 01:22:50,650
+Have a good day.
+

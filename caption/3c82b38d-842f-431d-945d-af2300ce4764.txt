@@ -1,0 +1,2580 @@
+1
+00:00:10,770 --> 00:00:32,239
+Okay. Let's get started. So in that last lecture we learn the piecewise linear interpolation and also higher pulling.
+
+2
+00:00:32,240 --> 00:00:34,310
+How are you putting them into interpolation?
+
+3
+00:00:34,790 --> 00:00:50,930
+Well, so this is an example of a logic phenomenon where a hybrid of polynomial gives you unexpected fluctuations in the theory value.
+
+4
+00:00:51,980 --> 00:01:02,000
+But the piecewise linear interpolation does perform some of the feeding of this curve.
+
+5
+00:01:04,270 --> 00:01:13,979
+So. But piecewise piecewise linear functions doesn't look like visually,
+
+6
+00:01:13,980 --> 00:01:21,340
+it doesn't look like a typical function and they have some undesirable properties, right?
+
+7
+00:01:21,420 --> 00:01:32,700
+So for example, if you wanted to take the derivative, the, you know, the derivative function is not going to be continuous for.
+
+8
+00:01:39,160 --> 00:01:44,560
+There is not going to be continuous for the coalition so that there'll be a problem.
+
+9
+00:01:45,520 --> 00:01:52,300
+So alternative way to do it is that if we use a first degree polynomial,
+
+10
+00:01:52,570 --> 00:01:57,970
+that would be, you know, it would look nice because but there are a lot of problems.
+
+11
+00:01:58,450 --> 00:02:01,840
+So what, what if we we use a higher order polynomial?
+
+12
+00:02:02,330 --> 00:02:14,800
+So that's the idea. So a potentially practical solution is using cubic plane because it's very well established,
+
+13
+00:02:15,490 --> 00:02:24,460
+it's a reasonable request and it does give a very nice property in terms of differential ability and a continuity of the curve.
+
+14
+00:02:25,990 --> 00:02:30,610
+So cubic supply is basically using cubic functions to.
+
+15
+00:02:32,020 --> 00:02:40,600
+So you're doing the interpolation like piecewise interpolation, but instead of using linear function, you're using cubic function.
+
+16
+00:02:41,140 --> 00:02:50,500
+Okay. So then it construct a differentiable integrate into integral and smooth curve.
+
+17
+00:02:51,940 --> 00:02:55,060
+Even if you join multiple functions together. Right.
+
+18
+00:02:55,630 --> 00:03:08,860
+So you have so in the piecewise linear interpolation, there's a guarantee that the y value in those in the intersection will be the same.
+
+19
+00:03:09,700 --> 00:03:17,680
+But the. The derivative will not be continuous anymore.
+
+20
+00:03:18,400 --> 00:03:23,950
+If you use a quadratic function, derivative will be continuous of a second derivative will not be continuous.
+
+21
+00:03:23,950 --> 00:03:30,250
+So in this case you guarantee that derivative and second derivative where we continuous across the joint.
+
+22
+00:03:32,000 --> 00:03:36,290
+So and if you use a pulling them out degree of free three.
+
+23
+00:03:36,770 --> 00:03:48,410
+But there are a lot of analytic algorithms. You just delay in the first and second order, second of their functions.
+
+24
+00:03:48,530 --> 00:03:56,120
+So the different derivatives, so those are those are usually good enough and those will be sufficient for running
+
+25
+00:03:56,120 --> 00:04:02,990
+most of the the algorithm that assumes the field of function is fully differentiable.
+
+26
+00:04:04,100 --> 00:04:10,580
+Then you can, you can plug them in and you can still calculate the gradient in hessian and so on.
+
+27
+00:04:10,880 --> 00:04:15,680
+Okay. So that's that's the you've explained.
+
+28
+00:04:15,980 --> 00:04:23,990
+Okay. So in a how do we make cubic splay so that that is not your problem?
+
+29
+00:04:24,320 --> 00:04:34,010
+Okay. So, I mean, some people may think this is a tedious because it's a lot of algebra and figuring out,
+
+30
+00:04:34,880 --> 00:04:44,030
+you know, how to, you know how to find out these coefficient B equally to, to fit into the supplies.
+
+31
+00:04:44,270 --> 00:04:55,600
+Right. So but there are some, I mean this that we can have some nice tricks and good algebraic knowledge required.
+
+32
+00:04:55,670 --> 00:04:58,100
+So I think these are these are good practice.
+
+33
+00:04:58,100 --> 00:05:09,470
+You can try to prove yourself and see where how close your solution is compared to the well known attributes that everything.
+
+34
+00:05:11,480 --> 00:05:21,010
+So, uh, so let's say we have a quick explain function representing, uh, so I,
+
+35
+00:05:21,430 --> 00:05:33,470
+I think you mean in music and I thought they had, uh, we compiled the slide, but probably was not.
+
+36
+00:05:35,190 --> 00:05:39,330
+Okay. It was not fixed.
+
+37
+00:05:39,390 --> 00:05:43,140
+So it is fixed now. So all of that, a load of data slides.
+
+38
+00:05:43,710 --> 00:05:50,370
+Okay. So you have a data points, right?
+
+39
+00:05:50,670 --> 00:05:54,060
+And we assume that the all the data points are sorted.
+
+40
+00:05:54,330 --> 00:05:59,340
+Okay. Right. Excite X is equal to the X side plus one.
+
+41
+00:06:00,360 --> 00:06:10,740
+And for any data point to be constructed in minus one interpolating cubic polynomial for each of these and minus two intervals.
+
+42
+00:06:11,250 --> 00:06:14,500
+Okay. So how do we construct that?
+
+43
+00:06:14,520 --> 00:06:23,730
+Right. So. So let's say s of I of x is a supply and we want it to fit for each of the interval.
+
+44
+00:06:23,750 --> 00:06:27,870
+So we have and minus one different lines. We need to figure it out.
+
+45
+00:06:28,950 --> 00:06:35,880
+So the supplying function is a cubic function so you can represent this way or this way.
+
+46
+00:06:35,940 --> 00:06:45,240
+Both of them are fine, but it's only valid to have a valid value between the x when x is between x x i to x a plus one.
+
+47
+00:06:45,690 --> 00:06:53,940
+Okay. Then if you take the derivative of this spline function, this is the derivative.
+
+48
+00:06:54,420 --> 00:06:57,760
+If you take the second derivative, this is a secondary.
+
+49
+00:06:58,140 --> 00:07:07,770
+So. So far, so good. So then how many coefficient do you need to figure out if you if you do this.
+
+50
+00:07:10,110 --> 00:07:18,419
+For each of the supply and therefore coefficient you need to figure out there's a minus at minus one coefficient you need to figure out.
+
+51
+00:07:18,420 --> 00:07:29,640
+So this is a quite a large solution to solve and it is not straightforward because you need to guarantee that both so.
+
+52
+00:07:31,480 --> 00:07:40,280
+So Vex. So it is actually a function. And first, so the derivative and secondly, the derivative, they should be all continuous, right?
+
+53
+00:07:40,310 --> 00:07:43,570
+So those are the creator you're going to use.
+
+54
+00:07:43,960 --> 00:07:47,710
+We have a lot of equations to solve. So. So.
+
+55
+00:07:49,460 --> 00:07:52,460
+So maybe things you wanted to check is that.
+
+56
+00:07:52,460 --> 00:07:59,690
+Do I have the right number of patients? Right. Because you need to so four times and minus one coefficient.
+
+57
+00:08:00,080 --> 00:08:10,460
+So you want to make sure that you have all these the independent equations you can use so that that's one thing you may want to check.
+
+58
+00:08:11,150 --> 00:08:15,260
+And second thing is that, you know, how do I solve this, right?
+
+59
+00:08:17,210 --> 00:08:21,620
+So, so these are the conditions you can you can use.
+
+60
+00:08:21,620 --> 00:08:28,699
+So basically you want to use the fact that these are continuous.
+
+61
+00:08:28,700 --> 00:08:31,070
+So that means that because a,
+
+62
+00:08:31,080 --> 00:08:39,890
+your given the way value usually when you you can easily evaluate the way you value in a way value is actually sorry but why value is a given.
+
+63
+00:08:40,310 --> 00:08:46,730
+So you want to use the way value. So the fact that these are continuous so you can represent this way.
+
+64
+00:08:47,360 --> 00:08:56,150
+So as of x over so as the idea of x i is y of I, right?
+
+65
+00:08:57,110 --> 00:09:08,230
+So, so this is a this is one one equation and another equation is that this function display function is defined from the interval X,
+
+66
+00:09:08,240 --> 00:09:16,879
+it s eight plus one. So the equation also holds.
+
+67
+00:09:16,880 --> 00:09:26,810
+So these are, these are it looks it looks like it's the same inductive formula, but it's not because the indexes are doing the same same client.
+
+68
+00:09:27,350 --> 00:09:31,610
+This is a left leftmost value and there should be equivalent of y,
+
+69
+00:09:31,610 --> 00:09:42,290
+but that's plain also should also cross x eight plus when x is x plus one then that value should be yy8 plus one.
+
+70
+00:09:42,980 --> 00:09:52,400
+So then in the next play in particular as of I plus one x of eight plus one should be y y y y plus one.
+
+71
+00:09:52,400 --> 00:10:01,370
+Then that then means that they are continuous, right? So you basically have to if you have only these two equations,
+
+72
+00:10:01,370 --> 00:10:10,970
+you can only fit into two and two times a minus one coefficient because those are, those are number of solutions you have.
+
+73
+00:10:11,720 --> 00:10:22,750
+So that'll, that'll make you be able to solve linear population problem but not cubic explain problem because you need twice
+
+74
+00:10:22,790 --> 00:10:36,440
+many parameters we need to of fit so the other so this is the other parameters you want to use okay is that.
+
+75
+00:10:40,530 --> 00:10:44,820
+So this one. So you want to you.
+
+76
+00:10:45,420 --> 00:10:49,650
+So we were assuming that, first of all, the derivative is continuous.
+
+77
+00:10:50,070 --> 00:10:52,620
+He also issuing the second of the derivative is continuous.
+
+78
+00:10:52,620 --> 00:11:01,439
+But these can be true only between the so between the supplies and their end minus one supply.
+
+79
+00:11:01,440 --> 00:11:04,530
+So that means that there must and minus two competitions you can make.
+
+80
+00:11:05,070 --> 00:11:08,820
+So this is at minus two. This is my suit is a minus one, the most source.
+
+81
+00:11:08,840 --> 00:11:18,340
+So these are four and minus six equations you have and you need two more equations to solve these parameters.
+
+82
+00:11:18,660 --> 00:11:28,590
+Okay, so all the parameters. So we're putting extra boundary conditions, which is not obvious, but this is a sort of natural choice,
+
+83
+00:11:29,550 --> 00:11:35,700
+which is I'm going to assume that the second derivative of X of one and x0 away.
+
+84
+00:11:35,710 --> 00:11:41,040
+So when you, when you have an X with when you extrapolate at the end,
+
+85
+00:11:41,340 --> 00:11:51,230
+you need to decide what the value of the second derivative will be and that you can just fix, then fix the second derivative a certain value.
+
+86
+00:11:51,240 --> 00:11:58,440
+So that's a reasonable choice because you don't want to really like restrict the first derivative, because the first derivative,
+
+87
+00:11:58,440 --> 00:12:04,919
+if you restrict it, you're just steering too much on the hard part, what the extrapolation should be.
+
+88
+00:12:04,920 --> 00:12:12,840
+But if you assume that the second derivatives and you know, then that that or that works out sort of naturally like that.
+
+89
+00:12:12,990 --> 00:12:21,240
+So looks like a natural extension of the curve the last supply that that was used for interpolation.
+
+90
+00:12:21,600 --> 00:12:24,810
+So that's why it's called a natural cubic supply.
+
+91
+00:12:25,350 --> 00:12:29,669
+And because it's so many people agree that this is a natural choice,
+
+92
+00:12:29,670 --> 00:12:34,470
+although there is no mathematical justification that this is the right thing to do.
+
+93
+00:12:35,580 --> 00:12:38,650
+Okay. So.
+
+94
+00:12:39,130 --> 00:12:42,400
+So that's what we're going to solve. So how do we solve that?
+
+95
+00:12:42,530 --> 00:12:51,690
+Okay, so this is a lot of equations and I, I, if I can, I can go all these individual creations, but it's very easy to get lost.
+
+96
+00:12:51,700 --> 00:12:55,319
+I often get lost, like when I follow this.
+
+97
+00:12:55,320 --> 00:13:00,920
+This slide we have. You know, we have several slides to go on.
+
+98
+00:13:01,370 --> 00:13:07,370
+So my strategy to go back and forth multiple times and try to figure out where we're going.
+
+99
+00:13:07,820 --> 00:13:18,980
+This is almost like a maze. So I'm going to go back and forth in multiple slide and try to show where we want to get to.
+
+100
+00:13:19,580 --> 00:13:24,410
+And I'm going to explain briefly like how you can get there.
+
+101
+00:13:24,420 --> 00:13:29,659
+But if you. So it's a it's a matter of plugging one equation to the other.
+
+102
+00:13:29,660 --> 00:13:33,680
+And it's a it's a lot of a lot of complication happening.
+
+103
+00:13:34,160 --> 00:13:44,930
+So I'll just to give you a big picture and you can try to follow the actual, you know, details later if you get confused with the details.
+
+104
+00:13:45,080 --> 00:13:48,560
+Okay. So here here is what?
+
+105
+00:13:50,160 --> 00:14:00,220
+Here's a some convenience values that that that actually are useful to keep track of the values of X and Y.
+
+106
+00:14:00,340 --> 00:14:07,070
+So instead of using an X and Y directly, if you use this value H of AI,
+
+107
+00:14:07,370 --> 00:14:17,090
+so h of AI is basically the difference between so each of the interval sides of each interval basically.
+
+108
+00:14:17,930 --> 00:14:28,220
+So that's h of I that of I is that, you know, the, there's the delta delta Y over Delta X.
+
+109
+00:14:28,430 --> 00:14:32,490
+So this is the slope. Okay. So average slope.
+
+110
+00:14:32,540 --> 00:14:39,080
+So Delta is the it's not really linear function, but let's say I use a little data place n but this would be,
+
+111
+00:14:39,290 --> 00:14:43,160
+would have been a slope for this particular interval.
+
+112
+00:14:43,220 --> 00:14:56,530
+Right. So and a g of I feel I can be defined as just the summation of two two interval.
+
+113
+00:14:56,530 --> 00:15:02,109
+So g of I can be defined as a side of the two intervals, not just the only interval.
+
+114
+00:15:02,110 --> 00:15:09,099
+Tweetable. Okay. In a V of i is there is a delta.
+
+115
+00:15:09,100 --> 00:15:12,810
+Y is a slope, right? So you change it. Change the slope.
+
+116
+00:15:12,820 --> 00:15:21,460
+So a difference of the slope. How slope change it between the interval so that that that is the interpretation of V of I.
+
+117
+00:15:21,910 --> 00:15:28,350
+So these values are chosen just because it makes the calculation easier.
+
+118
+00:15:28,360 --> 00:15:40,030
+There is no real there is no necessarily a connection with this sort of a concept to be actually used for deriving the equation.
+
+119
+00:15:40,180 --> 00:15:44,469
+Okay. So let me let me jump through this slide.
+
+120
+00:15:44,470 --> 00:15:48,460
+And I'm I'm I promise that I'm I'm going to come back.
+
+121
+00:15:49,210 --> 00:15:54,630
+So eventually what we are going to do is we're going to show this creation is true.
+
+122
+00:15:55,250 --> 00:16:00,510
+Okay. So and this involves so, so limited.
+
+123
+00:16:00,700 --> 00:16:05,499
+So when you do this complicated algebra, always remember what you want to do.
+
+124
+00:16:05,500 --> 00:16:10,690
+And what you want to do is try to figure out a coefficient of a.
+
+125
+00:16:11,110 --> 00:16:16,149
+So this equation is interesting because it only involves a a of two.
+
+126
+00:16:16,150 --> 00:16:26,170
+So there are three coefficient a0818283282 is basically a quadratic term, so this is a quadratic term coefficient.
+
+127
+00:16:26,170 --> 00:16:30,490
+We're going to solve it first and there is a three parts.
+
+128
+00:16:30,850 --> 00:16:34,320
+Okay, but so these three are unknowns.
+
+129
+00:16:34,330 --> 00:16:39,159
+We don't know. We want to solve that, but this H and G and V,
+
+130
+00:16:39,160 --> 00:16:47,350
+which which was defined previously are all can be calculated because of x of I and y of I is already given, right?
+
+131
+00:16:47,560 --> 00:16:53,140
+So those observe values. So you basically have a equation with three.
+
+132
+00:16:53,470 --> 00:17:00,130
+So three unknown values and all coefficients are known if the data is given.
+
+133
+00:17:00,370 --> 00:17:11,079
+Okay. So this is the equation we are going to solve. And let me because this part is a is all very complicated, but this is not the poor part.
+
+134
+00:17:11,080 --> 00:17:19,390
+This is just a the this is this is the required for for all the details that the figuring out all the details.
+
+135
+00:17:19,810 --> 00:17:23,290
+I'm going to skip the rules. There is some boundary condition you need to make.
+
+136
+00:17:23,530 --> 00:17:33,460
+I'm going to skip this now. And this is a matrix representation you are going to get if you believe that this equation is correct.
+
+137
+00:17:33,910 --> 00:17:45,550
+So basically you have a three, three consecutive of values and three consecutive values you can multiply multiplied to to to match for your VI.
+
+138
+00:17:45,580 --> 00:17:50,950
+So this is exactly the same equation. So the same equation like this.
+
+139
+00:17:51,490 --> 00:17:59,530
+But instead of using this way, you can represent with the matrix operation by feeling the all value to be zero.
+
+140
+00:17:59,920 --> 00:18:04,450
+Okay. So I'm going to explain this part first.
+
+141
+00:18:04,600 --> 00:18:20,470
+How do you solve this? Because all these are all these derivation of the details eventually get into this equation and you need to solve these a 2/1.
+
+142
+00:18:20,770 --> 00:18:25,239
+And after that you're going to solve other coefficients.
+
+143
+00:18:25,240 --> 00:18:27,520
+So I'm going to do backward way.
+
+144
+00:18:27,520 --> 00:18:33,940
+So I'm going to show this part because of this part is more important and then this is a poor part of the cube explained.
+
+145
+00:18:34,510 --> 00:18:38,169
+So I'm going to explain this part first and we're going to get back to the details
+
+146
+00:18:38,170 --> 00:18:44,470
+later so that I think that's a lot easier to understand without getting copied.
+
+147
+00:18:44,740 --> 00:18:50,880
+I didn't quite get this part because pieces are like ten equations, you know,
+
+148
+00:18:51,430 --> 00:18:54,579
+putting, putting back together so that that part is a little complicated.
+
+149
+00:18:54,580 --> 00:19:04,120
+So let's, let's do it later. Okay. But if you believe me that this is the this is the eventually the equation you're going to have, okay?
+
+150
+00:19:04,570 --> 00:19:12,100
+But this is not done yet. Okay. So let's say you have magically have this equation came out, then what what would you do?
+
+151
+00:19:12,100 --> 00:19:18,489
+So you have basically this doesn't have the boundary values.
+
+152
+00:19:18,490 --> 00:19:21,880
+These only have a nice two values of a two.
+
+153
+00:19:22,630 --> 00:19:31,990
+So but this is a matrix operations, right? So presumably you can use the matrix operation to do this is a right.
+
+154
+00:19:32,290 --> 00:19:41,890
+Can you can you so these values known value, this is the value you want to estimate and these values also known value.
+
+155
+00:19:41,900 --> 00:19:52,610
+So you can just use a linear. Old media system too is just a useful function in trying to get the value of of a is a fair.
+
+156
+00:19:54,250 --> 00:19:57,670
+Okay. What's the what do you think is the problem?
+
+157
+00:19:58,420 --> 00:20:03,370
+What what what kind of problem do you think we will have if we use a matrix operation to do this?
+
+158
+00:20:06,100 --> 00:20:11,380
+Have anyone used the lead to explain for your research?
+
+159
+00:20:13,830 --> 00:20:16,740
+How many points have have you used for cubic supply?
+
+160
+00:20:19,660 --> 00:20:26,140
+Looks like you haven't you haven't used this point a lot, but if you use a thousand points, maybe, okay.
+
+161
+00:20:26,620 --> 00:20:33,280
+But if you do 10,000 points, this involves the inverting 10,000 by 10,000 matrix.
+
+162
+00:20:34,350 --> 00:20:37,440
+How much do it take? How long does it take? That takes a lot of time.
+
+163
+00:20:37,470 --> 00:20:47,400
+But if you have a million points, so this is not going to be scalable if you use a matrix operation because it involves a lot of values.
+
+164
+00:20:47,640 --> 00:20:57,680
+Okay. So. So even if you have these matrix representation you are not in,
+
+165
+00:20:58,140 --> 00:21:03,770
+you are strongly not encouraged to use the matrix operation to solve this because this has
+
+166
+00:21:03,770 --> 00:21:09,530
+a lot of zeros and really linear system doesn't know how to solve this linear system.
+
+167
+00:21:09,540 --> 00:21:13,310
+One, you could try to use a sparse matrix. I haven't done it.
+
+168
+00:21:13,940 --> 00:21:19,040
+I suspect they can be faster. But you still don't know this banded structure exactly.
+
+169
+00:21:19,040 --> 00:21:23,780
+So it doesn't leverage those this specific tribunal structure.
+
+170
+00:21:23,790 --> 00:21:36,290
+So it's not going to be you know, it's not going to be like super fast compared to this particular algorithm that that that is feature this year.
+
+171
+00:21:37,520 --> 00:21:44,960
+So so that so but before before getting to that how how you solve this,
+
+172
+00:21:45,350 --> 00:21:51,350
+let's say you are able to solve this y you know, it doesn't matter whether you use a matrix operation or not.
+
+173
+00:21:51,470 --> 00:21:58,250
+So it's a now doing whatever the computation efficiency you just need are talking about the correctness.
+
+174
+00:21:58,250 --> 00:22:07,100
+Then we, we, so we all agree that we can get a two values except for the very, very, the end of the values.
+
+175
+00:22:07,130 --> 00:22:11,540
+Okay, so these so we all get we cannot get this value,
+
+176
+00:22:11,840 --> 00:22:21,680
+but this is only we need the four end times four for n minus four parameters and we need oh, sorry.
+
+177
+00:22:21,680 --> 00:22:24,830
+We need to for NPR News, as I said, for four and minus.
+
+178
+00:22:24,920 --> 00:22:31,580
+So four in my four parameters, because there's N minus one efficiency supply the supplies to fit.
+
+179
+00:22:31,970 --> 00:22:36,440
+And among them, this is less than one one quarter.
+
+180
+00:22:36,440 --> 00:22:40,700
+So what how well, how can we get the other parts?
+
+181
+00:22:40,880 --> 00:22:51,350
+Okay. So because we're using the natural cubic plane, assuming that the second derivative is zero, that means that that we have all values a of two.
+
+182
+00:22:52,040 --> 00:22:58,670
+So then in the equation we had, we just skipped over there is this equation.
+
+183
+00:22:58,940 --> 00:23:06,440
+Okay, so we'll get back to that so you can using the situation you can you can get the A of three, okay.
+
+184
+00:23:06,620 --> 00:23:13,580
+So the Q cubic cubic coefficient and you can also use that if you have a.
+
+185
+00:23:16,490 --> 00:23:22,130
+If you have a quadratic term coefficient, you can also use this equation to get the linear.
+
+186
+00:23:22,370 --> 00:23:37,009
+So the first order coefficient and the y value y of ise, just each of the constant cluster and time itself is the way of ise.
+
+187
+00:23:37,010 --> 00:23:43,219
+So we, we can solve everything because these are these are relatively easy to figure out.
+
+188
+00:23:43,220 --> 00:23:46,910
+So really the core part is now getting a of two.
+
+189
+00:23:46,940 --> 00:23:51,679
+How do we get these two? Okay, so and how so?
+
+190
+00:23:51,680 --> 00:24:03,889
+Basically this slide is core slide because before this slide, it's all explaining about how you can represent all these question with eliminating A0,
+
+191
+00:24:03,890 --> 00:24:11,900
+A1 and A3 only using the A2 and using the all the combination of known values of X and Y.
+
+192
+00:24:11,900 --> 00:24:15,350
+That's that's the core equation you're going to get here.
+
+193
+00:24:15,620 --> 00:24:26,570
+Okay. So and after that, after this slide, what we are going to do is that how do we do the computation more efficiently?
+
+194
+00:24:26,750 --> 00:24:35,780
+Okay. So that part, because you are doing the steps to computing that the linear algebra class or just so the doing this proof,
+
+195
+00:24:36,360 --> 00:24:39,469
+I would I would think that that part is more important.
+
+196
+00:24:39,470 --> 00:24:42,500
+So I'm going to go that part first and come back to this part.
+
+197
+00:24:42,650 --> 00:24:51,350
+Okay. So these slides are quite, quite tricky to adjust, but I'm trying to give sort of roadmap to how to digest these slides.
+
+198
+00:24:51,440 --> 00:25:00,650
+This slide contains all the all the details I believe in. If you have any difficulty in following something, I'm happy to provide more information.
+
+199
+00:25:01,940 --> 00:25:05,420
+But yeah, that's what I'm trying to get it.
+
+200
+00:25:05,570 --> 00:25:14,059
+Okay. So basically so you have a complete values, but then now it doesn't matter what exact values are.
+
+201
+00:25:14,060 --> 00:25:24,140
+Just let's say I'm going to say this is a tri diagonal, which means that there there is a diagonal element here and one up.
+
+202
+00:25:24,560 --> 00:25:28,190
+So just that there's a there's a upper triangular.
+
+203
+00:25:28,190 --> 00:25:32,210
+There is a one on a extra bend and there's a row triangle, the extra bend.
+
+204
+00:25:32,870 --> 00:25:36,320
+And these are but these are symmetry.
+
+205
+00:25:36,620 --> 00:25:43,729
+So but those are those are the structure of this equation.
+
+206
+00:25:43,730 --> 00:25:49,340
+But it doesn't have to be symmetric. So let's try to figure out the algorithm to solve this of CRI.
+
+207
+00:25:49,340 --> 00:25:54,590
+They are going to they're going to matrix over in in general.
+
+208
+00:25:54,590 --> 00:25:58,730
+So let's say you have a diagonal one and upward triangular bend and road ring event.
+
+209
+00:25:59,390 --> 00:26:07,100
+So in the everything else is know in this case how they solve this linear system without paying for the cubic time complexity.
+
+210
+00:26:07,340 --> 00:26:10,490
+So that's the question. Okay. So,
+
+211
+00:26:12,140 --> 00:26:19,750
+so now you can you can forget about this because if you we get these are these are
+
+212
+00:26:19,760 --> 00:26:23,030
+which you can just plug in this are good because this is more general problem.
+
+213
+00:26:23,780 --> 00:26:32,470
+Okay so so if you solve this with linear system, with typical linear algebra solution, it's going to be slow, right?
+
+214
+00:26:32,480 --> 00:26:37,610
+So it's going to work, but it's going to be slow. So how do we solve this?
+
+215
+00:26:38,000 --> 00:26:47,180
+Okay, so so we are going to go so we are going to solve this in the two step.
+
+216
+00:26:47,450 --> 00:26:54,860
+Okay. One is of what is called a force sweep and a second is a backwards sweep.
+
+217
+00:26:55,520 --> 00:27:06,140
+Okay. So force sweep is that we are transforming these matrix each rows and columns into different way.
+
+218
+00:27:06,530 --> 00:27:15,499
+So by simple linear operation, addition or or multiplication and those simple operations,
+
+219
+00:27:15,500 --> 00:27:24,470
+we're going to simplify this form into so simplify this matrix form into simpler format that is more straightforward to solve.
+
+220
+00:27:25,010 --> 00:27:29,780
+And after that, we're going to do the backward sweep where we solve the equation from the backward.
+
+221
+00:27:29,930 --> 00:27:34,520
+Okay. So for sweep, okay, how do we do it?
+
+222
+00:27:34,550 --> 00:27:45,170
+Okay. So, so when you have this equation, okay, so my objective here is that first objective is that I'm going to make all the diagonal to one.
+
+223
+00:27:45,560 --> 00:27:49,400
+Okay. So y because that's easy to understand.
+
+224
+00:27:50,120 --> 00:27:53,150
+So how do we do it? You just you can divide.
+
+225
+00:27:53,660 --> 00:27:59,299
+So as long as you can scale the, the row in the same way that nothing is changing.
+
+226
+00:27:59,300 --> 00:28:03,260
+Right. So you just divide everything by one here, okay?
+
+227
+00:28:03,950 --> 00:28:07,220
+And because of that equation will get messy.
+
+228
+00:28:07,640 --> 00:28:12,350
+I'm going to define this as you want, Star.
+
+229
+00:28:13,070 --> 00:28:16,470
+I'm going to define this as a. One star is a new value.
+
+230
+00:28:16,790 --> 00:28:21,750
+Okay, so. So far, so good. And after that.
+
+231
+00:28:21,810 --> 00:28:26,250
+So now I have a diagonal effect, size one, and I have a new you one value.
+
+232
+00:28:26,940 --> 00:28:33,630
+And, and then so here ticket part is I want to get rid of this lower triangle triangular part.
+
+233
+00:28:33,960 --> 00:28:44,910
+Okay, so how do we do it? You just subtract some some some multiplication over your first row, subtract that to make it.
+
+234
+00:28:44,920 --> 00:28:49,140
+You can you can find the right subtraction factor, which is our one here.
+
+235
+00:28:49,330 --> 00:28:55,709
+Okay, so just multiply multiply l one with with this because this is would be one star
+
+236
+00:28:55,710 --> 00:29:02,940
+just multiply by l one is subtracted and the rewrite the the second row this way.
+
+237
+00:29:03,370 --> 00:29:08,759
+Okay. So there's nothing wrong with that. And you can you can prove that that's all mathematically correct.
+
+238
+00:29:08,760 --> 00:29:12,270
+The equivalent interpreting the interval but sorry,
+
+239
+00:29:12,300 --> 00:29:23,440
+mathematically equivalent way to write the same equation as long as it doesn't doesn't make the equation, it doesn't reduce the rank of the matrix.
+
+240
+00:29:23,440 --> 00:29:25,110
+So. So then.
+
+241
+00:29:25,140 --> 00:29:35,520
+Then you have this part where basically you don't have any lower triangular part anymore and you have these two values and you can do the same thing.
+
+242
+00:29:35,550 --> 00:29:39,120
+Okay. In the in the second round, I'm going to do the same thing again.
+
+243
+00:29:39,390 --> 00:29:45,660
+Okay? So make the diagonal is one and divide this value with this diagonal vector.
+
+244
+00:29:46,020 --> 00:29:51,420
+So these values becomes a little more trickier to calculate, but you can still represent these.
+
+245
+00:29:51,490 --> 00:29:56,700
+So I'm going to say this is a U2 star. I'm going to say that this is ab2 star.
+
+246
+00:29:57,000 --> 00:30:05,670
+Okay. So now I made until the second row, I made a diagonal to one and make up the name of the lower down.
+
+247
+00:30:05,970 --> 00:30:11,490
+Right. So that's what I what I did. Okay. So now I think you get.
+
+248
+00:30:12,000 --> 00:30:16,260
+So this is a now repeatable because I want to get rid of al2,
+
+249
+00:30:16,740 --> 00:30:23,180
+I want to make the diagonal to one so you can keep doing this by me, by repeated read later.
+
+250
+00:30:23,200 --> 00:30:32,579
+It's going through the loop. So if equal to two and minus one, you define U of I this way you have a star.
+
+251
+00:30:32,580 --> 00:30:39,570
+This way you define B of a star this way. And at the end you just defined at the end there.
+
+252
+00:30:39,930 --> 00:30:43,290
+So at the end there is no u of gn.
+
+253
+00:30:43,320 --> 00:30:46,520
+So U of because because at the end.
+
+254
+00:30:47,340 --> 00:30:51,060
+So you you don't have the this part is basically zero.
+
+255
+00:30:51,300 --> 00:30:58,920
+There's nothing. So once you get rid of everything at the end, you only have the n like this, right?
+
+256
+00:30:58,920 --> 00:31:02,280
+So and then you hope you won't have a beep of RN as well.
+
+257
+00:31:03,270 --> 00:31:08,310
+So then the if you simply because a u u of.
+
+258
+00:31:09,150 --> 00:31:14,760
+So all this value because you are trying to find the X here which is a actually by the way,
+
+259
+00:31:14,760 --> 00:31:19,100
+this is a to your actually calculate trying to calculate in the previous equation.
+
+260
+00:31:19,110 --> 00:31:28,049
+I just because this is a general general representation, I change it to X so and then all the other values are just the constant.
+
+261
+00:31:28,050 --> 00:31:33,990
+So it looks complicated, but you're just calculating this, rescaling those constants in different way.
+
+262
+00:31:33,990 --> 00:31:36,860
+Then you basically have this equation, okay,
+
+263
+00:31:37,380 --> 00:31:49,140
+you have now I have a triangular matrix that has only one of a triangular band and that thing is in the lower triangular parts.
+
+264
+00:31:49,530 --> 00:31:52,740
+So this is a much easier to solve. Agreed. Okay.
+
+265
+00:31:53,310 --> 00:31:57,710
+How do we solve? Well, last call.
+
+266
+00:31:57,810 --> 00:32:02,030
+Last row. We have only just one. There is not nothing else.
+
+267
+00:32:02,030 --> 00:32:13,650
+So last row is a super easy to solve because you have this means that you multiply this only x of n is left, so x of pn is equal to b of and star.
+
+268
+00:32:13,890 --> 00:32:19,590
+Okay, so if went star whatever it was calculate does that should be just of seven and
+
+269
+00:32:19,740 --> 00:32:23,700
+your this is called backwards three because I now know what the X of PN is.
+
+270
+00:32:24,090 --> 00:32:26,700
+Now let's use this. The second row.
+
+271
+00:32:26,880 --> 00:32:35,220
+The second row is basically X of n minus one plus you star of nice one times x of n, but I know what the x of n values are.
+
+272
+00:32:35,610 --> 00:32:42,959
+So now you just use this simple rule to calculate backward what the x over and minus one x of n minus two is.
+
+273
+00:32:42,960 --> 00:32:51,480
+So on. Okay. So you can use these are these steps to to solve this.
+
+274
+00:32:51,690 --> 00:33:03,120
+Okay. So, so basically you are just a, you know, rewriting the matrix in a slightly different way to solve this equation.
+
+275
+00:33:04,090 --> 00:33:09,400
+What do you think the comp time complexity of these algorithms?
+
+276
+00:33:14,120 --> 00:33:20,580
+They looked very complicated. You have to like convert the matrix and so on.
+
+277
+00:33:20,600 --> 00:33:27,160
+So this this doesn't seem to be very easy, but actually you can do this only conceptually.
+
+278
+00:33:27,170 --> 00:33:34,400
+You don't have to rewrite the matrix every time. What you need to do is you just need to calculate these three values.
+
+279
+00:33:35,390 --> 00:33:40,370
+Right. So this is a this is actually for three evolve you just need to calculate this.
+
+280
+00:33:40,420 --> 00:33:47,690
+You knew this. This is the part you need to do and you just need to do it over a single loop.
+
+281
+00:33:47,990 --> 00:33:56,870
+So this is a linear time complexity. And when you do the backward sweep, you're just doing it again backward.
+
+282
+00:33:57,170 --> 00:34:08,120
+This is also a single look. This is linear time. So we just converted, apparently two cubic time complex delivery them into linear time,
+
+283
+00:34:08,120 --> 00:34:20,360
+out of rhythm by leveraging the fact that this is a binary matrix where the only three elements are non-zero at the at the end in any given row.
+
+284
+00:34:20,750 --> 00:34:23,840
+So that's that's what we just did. Okay.
+
+285
+00:34:24,500 --> 00:34:32,040
+So you don't really have to you know, you don't have to implement this cubic spline every time.
+
+286
+00:34:32,180 --> 00:34:43,290
+Obviously, that that's not the. The the core part of this and I don't know if so this track this is called Friday econometrics with
+
+287
+00:34:43,290 --> 00:34:50,819
+them and this is are only of only working when you have a this specific condition but you get the idea,
+
+288
+00:34:50,820 --> 00:34:55,620
+right. So when you have when your matrix of a spatial structure,
+
+289
+00:34:55,620 --> 00:35:03,570
+in a lot of cases you will you have you deal with the banded matrix or some sort of matrix that has a lot of zeros of diagonal.
+
+290
+00:35:03,600 --> 00:35:10,260
+Right. And in that case, you can use you can there is this kind of particle overlays and you can implement yourself and try to solve it,
+
+291
+00:35:10,680 --> 00:35:17,850
+or at least try to find an algorithm that leverages this structure to reduce your time complexity a lot.
+
+292
+00:35:17,850 --> 00:35:24,030
+And, you know, so then, then if you didn't know, this is like if someone asked you,
+
+293
+00:35:24,030 --> 00:35:29,009
+oh, can you, can you fit to explain with a million points then oh it's impossible.
+
+294
+00:35:29,010 --> 00:35:32,610
+Yeah. You know, come back next year then I'm going to come back and come back.
+
+295
+00:35:32,820 --> 00:35:37,950
+I'll come back with your answer. But now you could say that.
+
+296
+00:35:39,000 --> 00:35:43,290
+Oh, I can do it in just 10 seconds. Okay. So that's possible, right?
+
+297
+00:35:43,290 --> 00:35:46,949
+So that that's the that's the important part of the computation.
+
+298
+00:35:46,950 --> 00:35:55,889
+Sometimes when you work with a very large scale data, these kind of these might be very trivial detail for some people,
+
+299
+00:35:55,890 --> 00:36:00,090
+but these these things make becomes game changer when you.
+
+300
+00:36:00,360 --> 00:36:05,910
+So sometimes this kind of inference becomes possible when you when you thought that it was impossible.
+
+301
+00:36:06,090 --> 00:36:19,310
+Okay. So this is this is the main part I wanted to go back go to in a this you can use this trigonometric equation to solve this a of two.
+
+302
+00:36:19,590 --> 00:36:23,180
+Okay? Because of that, that's this one representation, this triangle.
+
+303
+00:36:23,310 --> 00:36:29,550
+Oh, to start with them and it wants you solve it a of two you can solve a one of three.
+
+304
+00:36:30,000 --> 00:36:36,000
+Okay, so those are the height of a part I wanted to get through.
+
+305
+00:36:36,330 --> 00:36:42,660
+And now if you didn't believe that this actually worked, which is a totally, totally,
+
+306
+00:36:44,660 --> 00:36:49,830
+totally good idea, actually very good attitude, there's a mathematically vigorous person.
+
+307
+00:36:50,250 --> 00:36:58,380
+So let's try to see whether this actually is true, that the trigonometric forum a game is indeed correct.
+
+308
+00:36:59,790 --> 00:37:05,990
+Okay. Any questions so far? Okay.
+
+309
+00:37:07,850 --> 00:37:12,500
+So we're going to plug a bunch of equations, as I said.
+
+310
+00:37:12,680 --> 00:37:17,030
+So first, the equation we're going to plug in is a continuity equation.
+
+311
+00:37:17,030 --> 00:37:20,570
+Where it is, there's an equation one in two.
+
+312
+00:37:20,890 --> 00:37:26,300
+Okay, we're going to use equation one and two. So the equation one, we just have this.
+
+313
+00:37:26,510 --> 00:37:30,530
+Right. Okay. Equation two, we have this.
+
+314
+00:37:30,950 --> 00:37:42,920
+Okay. So then if you subtract the from the second equation to the first equation, then you just get this part.
+
+315
+00:37:43,220 --> 00:37:52,820
+Okay? And Y. Amos, one minus y is defined as a delta I and there was an eight.
+
+316
+00:37:53,090 --> 00:38:01,129
+So these are a Delta I and H of I because if you remember, this is a this is how Delta I was defined.
+
+317
+00:38:01,130 --> 00:38:05,180
+So these are if you subtract them, that that can be replaced.
+
+318
+00:38:05,180 --> 00:38:09,350
+The delta of H of I. So you said there was a H of I,
+
+319
+00:38:09,350 --> 00:38:17,850
+but as you see that H of well H of eight +13 over eight plus one there was a one over one was multiplied
+
+320
+00:38:17,870 --> 00:38:24,050
+h and that those are cancel out and now this is a quadratic form of H in terms of H of a plus one.
+
+321
+00:38:24,440 --> 00:38:35,850
+So this is just a merely the combination of those first two and do just represent in terms of Delta is that Y.
+
+322
+00:38:35,870 --> 00:38:41,390
+So this was a simple equation, but let's say this is equivalent five because I'm going to reuse it later.
+
+323
+00:38:43,070 --> 00:38:51,410
+Okay. And from three, which means that you need to have a continuity in terms of the first or the derivative.
+
+324
+00:38:52,160 --> 00:38:55,490
+And that's this is it.
+
+325
+00:38:55,610 --> 00:39:04,540
+Okay. Okay. So and you also have a second or the second order derivative here.
+
+326
+00:39:04,550 --> 00:39:17,570
+So this one's right. So you have that the second derivative, you can you can you can use this to represent this way.
+
+327
+00:39:17,630 --> 00:39:31,460
+Okay. So here so the poor part of this slide is that I'm going to represent a one everything else in terms of a of two,
+
+328
+00:39:31,640 --> 00:39:36,980
+because that's what I'm going to focus on later. Okay. So here you have this.
+
+329
+00:39:37,250 --> 00:39:45,100
+Okay. So well, this one, because this is a derivative, it's convenient that you don't have any A1 or a zero.
+
+330
+00:39:45,110 --> 00:39:49,850
+So I'm going to represent the A of three as a function of a of two.
+
+331
+00:39:49,860 --> 00:40:01,880
+So if I find the quadratic equation for the quadratic part, then I will get the cubic coefficient immediately.
+
+332
+00:40:02,000 --> 00:40:05,300
+Okay. And this one.
+
+333
+00:40:05,870 --> 00:40:15,380
+Okay, if you plug a of three here into here that that is a basically becomes a function of a of one and a of two only.
+
+334
+00:40:15,920 --> 00:40:24,770
+So I'm not going to write it down, but you can if you are very quick calculator of the mathematical equation,
+
+335
+00:40:24,770 --> 00:40:28,579
+you you might be able to see that this is equivalent to this.
+
+336
+00:40:28,580 --> 00:40:39,250
+So basically 23h is a so 238 is gone and you have a two minus eight, eight, eight.
+
+337
+00:40:39,260 --> 00:40:42,440
+So this subtraction between those two.
+
+338
+00:40:43,190 --> 00:40:48,440
+And so now now you have you have two terms of these.
+
+339
+00:40:48,440 --> 00:40:52,399
+So, so one, two, one time, one time will be gone.
+
+340
+00:40:52,400 --> 00:40:56,840
+So and you can move things around that then you will have this.
+
+341
+00:40:57,050 --> 00:41:05,240
+Okay. So it's not, it's not super straightforward, but it's not it's not very complicated either.
+
+342
+00:41:05,420 --> 00:41:16,430
+Okay. Okay. So, so now so this part is just to show that you can represent a whenever you see a three and a one,
+
+343
+00:41:16,760 --> 00:41:20,629
+you're going to basically you use a representation.
+
+344
+00:41:20,630 --> 00:41:26,650
+They use a of two. Okay? In this equation, we had it before.
+
+345
+00:41:26,690 --> 00:41:30,320
+So with the number five, we have this equation before.
+
+346
+00:41:30,800 --> 00:41:36,470
+Now let's represent this as a so.
+
+347
+00:41:36,980 --> 00:41:44,270
+So instead. So it instead of using this part, let's get rid of a of three.
+
+348
+00:41:44,630 --> 00:41:47,650
+Then you can have this equation.
+
+349
+00:41:47,900 --> 00:41:58,310
+Okay. So and because this works with that, I have one, two in my one, you also have the equation.
+
+350
+00:41:58,970 --> 00:42:02,660
+So just to change a time and so on in the equivalent equation.
+
+351
+00:42:02,840 --> 00:42:06,170
+Okay. Now if you subtract B.
+
+352
+00:42:06,490 --> 00:42:11,309
+Those two. Okay. Then because you have this equation,
+
+353
+00:42:11,310 --> 00:42:17,010
+the subtraction between two a ones in the in the nearby junction can be also
+
+354
+00:42:17,010 --> 00:42:22,740
+represented a of two so subtracted and represent a everything is a of two.
+
+355
+00:42:23,070 --> 00:42:27,450
+That's what it what what is trying to do all these derivation is basically trying
+
+356
+00:42:27,450 --> 00:42:32,700
+to represent everything is a in terms of quadratic coefficient and you have
+
+357
+00:42:32,700 --> 00:42:38,639
+this so I didn't derive everything but I think each of the step is a modular
+
+358
+00:42:38,640 --> 00:42:44,070
+enough that you can you can reproduce it usually by plugging in other equations,
+
+359
+00:42:44,070 --> 00:42:54,930
+but that's where, where we are now. So then, then the rest part is that we need to deal with the boundary conditions.
+
+360
+00:42:54,960 --> 00:43:03,650
+Okay. So. So because so we have these equation A of two.
+
+361
+00:43:04,460 --> 00:43:10,520
+So because because of the second derivative of the first, the plane is a zero.
+
+362
+00:43:11,090 --> 00:43:15,950
+We have these this value and using this value you can.
+
+363
+00:43:17,390 --> 00:43:20,930
+So at the end where I equal one in, I call in minus one.
+
+364
+00:43:20,930 --> 00:43:23,720
+You need the some special treatment because you don't have this.
+
+365
+00:43:24,200 --> 00:43:30,740
+So but the bottom line is that because so if are equal equal one, you actually don't have this part.
+
+366
+00:43:31,100 --> 00:43:41,179
+But this this equation still holds. You can you can basically show that this equation without without this coefficient is still equivalent.
+
+367
+00:43:41,180 --> 00:43:51,649
+So this works okay. And the when when, when I equal and minus one, there is a more calculation you need to do.
+
+368
+00:43:51,650 --> 00:44:02,690
+But the bottom line is that you still have this equation of holding without so these parties without having these these are third parts.
+
+369
+00:44:02,690 --> 00:44:06,230
+So usually so when when I call.
+
+370
+00:44:06,290 --> 00:44:13,880
+So what is what is showing is that when I equal one or so, when I equal one, these party can be ignored.
+
+371
+00:44:14,230 --> 00:44:19,790
+The equation still holds when I equal minus one, this part can be ignored.
+
+372
+00:44:19,790 --> 00:44:28,129
+The equation still holds. Okay, so that's what it shows. Okay, so this part in this part that this is a derivation that that works.
+
+373
+00:44:28,130 --> 00:44:35,210
+Basically, if you use the leverage, the effect that the second derivative is zero, you will get this.
+
+374
+00:44:35,540 --> 00:44:40,159
+Okay, so that's why you have this equation.
+
+375
+00:44:40,160 --> 00:44:48,080
+So from the second to the from the second and in minus to second row,
+
+376
+00:44:48,650 --> 00:44:54,620
+there is a three coefficient in the first and last row you have a two coefficient.
+
+377
+00:44:55,130 --> 00:45:00,140
+Okay. But these, these works very nicely you mentioned.
+
+378
+00:45:02,810 --> 00:45:14,770
+Okay. So, so that that explains the most of this cubic spline part and we can go through the exercise before going through the exercise.
+
+379
+00:45:14,790 --> 00:45:18,820
+Any questions? Okay.
+
+380
+00:45:20,080 --> 00:45:32,260
+So again, most of you will be will be the user of this cubic spline rather than being developers.
+
+381
+00:45:32,680 --> 00:45:36,940
+But still, I think this is a good exercise to try.
+
+382
+00:45:37,660 --> 00:45:44,530
+And because the decision to use so much and understanding how this works is actually quite useful.
+
+383
+00:45:44,830 --> 00:45:51,760
+So I suspect that I need to load a lot of cells here.
+
+384
+00:45:51,760 --> 00:46:03,249
+So let me just try to load everything because I so I'm using a lot of, uh, a lot of equations here.
+
+385
+00:46:03,250 --> 00:46:11,410
+So let me just we do what we have done last lecture, even though, you know, we're not going to use everything because that's in here.
+
+386
+00:46:12,580 --> 00:46:19,690
+So yeah, we've finished a piecewise linear interpolation and so we probably will use these
+
+387
+00:46:19,690 --> 00:46:24,370
+piecewise ever poly function again because this is still polynomial function piecewise.
+
+388
+00:46:25,690 --> 00:46:30,730
+So that's the okay, so let's, let's go to the nature of cubic.
+
+389
+00:46:31,150 --> 00:46:38,370
+So this is a try, try diagonal matrix solving with them.
+
+390
+00:46:38,680 --> 00:46:50,350
+Okay. So, uh, so we, we're just implementing this particular part with a simple loop, so we're going through the loop, okay?
+
+391
+00:46:50,350 --> 00:46:56,469
+So finding the you want and b one so you want and B one is a new basically you start in B start.
+
+392
+00:46:56,470 --> 00:47:08,770
+I'm just updating instead of the making new, you start here. So why do boundary conditions hold this one or this one?
+
+393
+00:47:08,770 --> 00:47:15,220
+You mean y. So as I said, this is not mathematically justifiable.
+
+394
+00:47:16,060 --> 00:47:20,379
+This is so you just need to give us two more equation.
+
+395
+00:47:20,380 --> 00:47:28,120
+You have a four minus so you, you have a format for n minus six equations based on this condition.
+
+396
+00:47:28,600 --> 00:47:37,950
+So you need to provide two equations more, two additional more equations to, uh, to make this solvable problem.
+
+397
+00:47:38,210 --> 00:47:49,780
+Right? So this is another of identifiable problem as it is, and you need to make some extra assumption on the two to be able to solve and you can.
+
+398
+00:47:49,990 --> 00:47:54,940
+So because of this boundary, there is no guarantee that this has to be tied into something else.
+
+399
+00:47:54,940 --> 00:48:02,400
+You just make to make arbitrary assumptions. And these two two assumptions particularly is an arbitrary assumption.
+
+400
+00:48:02,410 --> 00:48:10,900
+You can you can say, oh, y y this is a true thing. So this is just, you know, there is no reason this is true.
+
+401
+00:48:11,080 --> 00:48:20,340
+You can make other assumptions, but if you make this assumption first, this is reasonable assumption because at the end,
+
+402
+00:48:20,360 --> 00:48:23,620
+you if you wanted to be able to extrapolate,
+
+403
+00:48:24,160 --> 00:48:31,030
+you need to make some assumption about the what the behavior of the derivatives, you know, after the boundary.
+
+404
+00:48:31,420 --> 00:48:38,350
+So this is one assumption that, oh, I want to make the second derivative of zero because I'm making the first derivative,
+
+405
+00:48:38,350 --> 00:48:41,649
+as you know, where certain value seems less like less natural.
+
+406
+00:48:41,650 --> 00:48:44,750
+So that's so natural. This is called natural.
+
+407
+00:48:44,750 --> 00:48:52,660
+Critics explained this is subjective, but I think many people will agree that the you know, that that will make the function reasonably nice.
+
+408
+00:48:53,200 --> 00:48:56,860
+That's 1111 explanation.
+
+409
+00:48:57,790 --> 00:49:02,230
+And after that, it also makes the equation much cleaner.
+
+410
+00:49:02,380 --> 00:49:07,600
+So if you didn't have that boundary condition, this would be much messier, this part and this part.
+
+411
+00:49:08,050 --> 00:49:16,540
+Okay. So that that tells us that, oh, there's something special with the particular assumption because it makes the equation much cleaner.
+
+412
+00:49:17,050 --> 00:49:20,110
+That is this is a probably natural thing to do. Okay.
+
+413
+00:49:20,140 --> 00:49:23,890
+So that's another way to explain it. Okay. Yeah, yeah.
+
+414
+00:49:23,890 --> 00:49:30,070
+Good question. Yeah. So that's definitely not not straightforward to understand.
+
+415
+00:49:31,630 --> 00:49:34,900
+Okay. So we're just trying to implement that these are to them.
+
+416
+00:49:34,990 --> 00:49:44,260
+Okay. So then so this, this is just going through the loop to implement the for is for sweep.
+
+417
+00:49:44,710 --> 00:49:52,750
+Now you have a newly defined the values of a B and you so which is a just a piece to replace the value of B star.
+
+418
+00:49:52,750 --> 00:50:01,600
+And you start now assuming that B and you contains a B star in the new star, you can now back to the square sweep.
+
+419
+00:50:01,600 --> 00:50:09,669
+I'm going to solve the equation for the X event first and I the I'm going backward from the from the bottom row,
+
+420
+00:50:09,670 --> 00:50:13,330
+from the first row to solve this all part.
+
+421
+00:50:15,090 --> 00:50:18,190
+Okay. So.
+
+422
+00:50:18,190 --> 00:50:22,450
+And this is a cubic supply. It's a very long.
+
+423
+00:50:22,810 --> 00:50:31,640
+Okay, let me try to explain it. So first part is a pretty much a similar to the linear piecewise linear interpolation.
+
+424
+00:50:31,660 --> 00:50:37,660
+We are just getting the input and try to order the input in the in the other way.
+
+425
+00:50:37,660 --> 00:50:45,620
+Because when you give, when you use a cubic supply, when you give an X and Y, the users may not necessarily know that the input has to be sorted.
+
+426
+00:50:45,640 --> 00:50:55,060
+So we're just making sure that input is sorted by the X values just to to to make sure that this doesn't break things.
+
+427
+00:50:55,420 --> 00:51:01,930
+Okay. After that, this is just the implementation of all these different things.
+
+428
+00:51:02,530 --> 00:51:10,740
+But basically, these calculate the H and G and we using the all the aspect operations, then this is a08.
+
+429
+00:51:10,750 --> 00:51:21,579
+So then a zero can be easily calculated because a zero is just simply the value of the Y value for each of the each of those points,
+
+430
+00:51:21,580 --> 00:51:28,960
+except for the last value. Because if there's a n minus one equation and then a two, we are solving it first using this triangle on matrix operation.
+
+431
+00:51:29,070 --> 00:51:40,240
+Right. So when we do the when you when you do the trigonometric solver, you will see that this only solves for the the H2 value,
+
+432
+00:51:40,240 --> 00:51:47,450
+excluding the first and last value and the first and last value by plugging into this boundary condition.
+
+433
+00:51:47,520 --> 00:51:51,009
+You can see that the first values are second.
+
+434
+00:51:51,010 --> 00:51:54,340
+There is three v. So this is what you have. Okay.
+
+435
+00:51:58,920 --> 00:52:02,980
+Sorry. Sorry. Um, I think I. I didn't.
+
+436
+00:52:04,230 --> 00:52:07,950
+So that's the value is not. It does not have to be calculated.
+
+437
+00:52:08,070 --> 00:52:12,090
+So let me, let me just to make sure. So, yeah.
+
+438
+00:52:12,360 --> 00:52:18,479
+So you have minus one. You just need. So we are this is a PN minus two equations, so you just need one more value.
+
+439
+00:52:18,480 --> 00:52:22,650
+I'm sorry. So. So last one. There is nothing. Nothing that was appended.
+
+440
+00:52:22,770 --> 00:52:26,370
+I misread it. So you just add what?
+
+441
+00:52:26,730 --> 00:52:29,040
+So to add a boundary condition you have,
+
+442
+00:52:29,070 --> 00:52:39,150
+you add a zero in the first value of a to these part in total is a solving to try try, try, try that on a matrix.
+
+443
+00:52:40,920 --> 00:52:49,050
+And if you have a two now you calculate the eight three and a one using the equation that was describing this slide.
+
+444
+00:52:49,350 --> 00:52:56,999
+Now you have all the coefficient, you have 48081282 and eight three as a sort of a matrix form.
+
+445
+00:52:57,000 --> 00:53:08,280
+So this is a matrix form that is and minus one different value for each of those spline junctions and for coefficient.
+
+446
+00:53:08,880 --> 00:53:09,120
+Okay.
+
+447
+00:53:10,320 --> 00:53:27,990
+Now this, uh, this plane function is basically e to the, this is a routine that does apply this plane approximation to return the interpolated value.
+
+448
+00:53:28,320 --> 00:53:32,729
+So what is part is that, oh, this is a new value.
+
+449
+00:53:32,730 --> 00:53:43,620
+I want to interpolate in arbitrary value then it's a pretty similar to what I had done before with a piecewise linear interpolation.
+
+450
+00:53:43,620 --> 00:53:54,040
+But basically I'm going to expand the boundary beyond the first and last point and figure out the each of the point,
+
+451
+00:53:54,040 --> 00:53:58,560
+the which interval that belongs to the calculate them.
+
+452
+00:53:59,100 --> 00:54:02,700
+So when it when it belongs to a specific interval,
+
+453
+00:54:03,120 --> 00:54:17,010
+I'm going to update the Y value using the using the polynomial evaluator and I just using that interpolation for each of those interval.
+
+454
+00:54:18,030 --> 00:54:32,090
+Then that's what I do if. So this one has a special spatial value where if you have only if if you have a quadratic function.
+
+455
+00:54:32,100 --> 00:54:37,020
+So this one is that if an equal to then there is some spatial thing you need to do.
+
+456
+00:54:37,020 --> 00:54:49,370
+I think this plane. The function assumes that this is a you have three or more points, but if you have a two points, you just apply applied.
+
+457
+00:54:49,490 --> 00:54:56,960
+So this is a this is not really important. And if there's only one value, is just the return a constant value.
+
+458
+00:54:57,060 --> 00:55:04,650
+Okay. So that's what it does. So. So basically if you have a two points, usually in a interpolation,
+
+459
+00:55:04,670 --> 00:55:09,980
+if you have one point to use the constant otherwise use plane so that that's what it is.
+
+460
+00:55:11,180 --> 00:55:19,920
+So. Then, uh, and this is just a polynomial interpolation function, basically.
+
+461
+00:55:20,120 --> 00:55:26,840
+It's a, we already have done this, so this is just polynomial interpolation and then we're just going to compare this.
+
+462
+00:55:27,500 --> 00:55:35,450
+So let's see whether a cubic is trying to work. So it's a very simple for point of the case.
+
+463
+00:55:35,450 --> 00:55:42,680
+And if you see this four point case, a previously the piecewise linear operation, it kind of worked.
+
+464
+00:55:42,830 --> 00:55:48,170
+So if you see that this this is what the piecewise linear interpolation has done,
+
+465
+00:55:48,710 --> 00:55:55,280
+now you have a cubic spleen that looks more smoother, so it seems working.
+
+466
+00:55:55,940 --> 00:56:02,269
+So now you can try to compare how this works with this range of this phenomenon.
+
+467
+00:56:02,270 --> 00:56:06,469
+So now compared to the piecewise linear case,
+
+468
+00:56:06,470 --> 00:56:18,170
+it looks smoother and it doesn't go crazy like a polynomial interpolation because it only uses about two thirds of third degree polynomial.
+
+469
+00:56:18,170 --> 00:56:31,790
+So there is a limitation where the error can go up to even if the value of of x is quite, you have a bit better log of multiplying a lot of errors.
+
+470
+00:56:33,080 --> 00:56:45,030
+Okay. So that's I believe the end of the end of this could be explained part.
+
+471
+00:56:45,330 --> 00:56:49,770
+And there is some of these questions. Okay. So this is a lot to digest.
+
+472
+00:56:49,950 --> 00:56:55,380
+So I'm going to give you 3 minutes to discuss about it.
+
+473
+00:56:56,280 --> 00:57:02,430
+And, uh, and, uh, yeah, let's, uh, let's move on to the next part.
+
+474
+00:57:17,930 --> 00:57:24,680
+So if you have a question. Feel free to ask. Raise your hand as question after discussion.
+
+475
+00:57:49,170 --> 00:59:27,510
+So. Moving on to.
+
+476
+00:59:35,900 --> 00:59:48,200
+Okay. So let's get to the edge of the equation first to I think it's a straightforward I think each of them has of their own advantages over it.
+
+477
+00:59:48,290 --> 00:59:58,100
+I'm not going to enumerate everything, but you know it in the easy to do implement if you have to implement like you don't if you don't have
+
+478
+00:59:58,760 --> 01:00:05,329
+this lecture note or you know they'll call that the implementing nature to explain will be challenging.
+
+479
+01:00:05,330 --> 01:00:11,510
+So if you have to implement yourself something quick, then I wouldn't mind doing the linear interpolation, but.
+
+480
+01:00:11,990 --> 01:00:16,250
+Q Explain his advantage of being smooth and differentiable and so on.
+
+481
+01:00:17,060 --> 01:00:19,580
+Okay, so in that we have a large phenomenon,
+
+482
+01:00:19,580 --> 01:00:30,409
+so I don't really recommend to use a polynomial interpolation until you are sure that those errors wouldn't matter in your feeding time complexity.
+
+483
+01:00:30,410 --> 01:00:33,500
+So what if a time complexity is a cubic.
+
+484
+01:00:35,200 --> 01:00:40,930
+Of the that you're curious display because it's a it's a matrix operation then.
+
+485
+01:00:41,710 --> 01:00:51,130
+Well, that that's true if you have a inefficient implementation, but you can make the network you explain to linear in a way.
+
+486
+01:00:51,760 --> 01:00:56,110
+So this is the more interesting question. So why why would you do cubic spline?
+
+487
+01:00:56,110 --> 01:01:04,980
+So why? So what kind of problem you would have if you do the quadratic plot?
+
+488
+01:01:05,170 --> 01:01:11,680
+Quadratic. So second, if you use a second of the report of the formula, you can you can imagine you can do similar thing.
+
+489
+01:01:12,520 --> 01:01:19,390
+What's the problem? We used the second with our second of the feeding.
+
+490
+01:01:21,540 --> 01:01:29,370
+What? What do you think? What kind of problem do you think we will have if you don't have second derivative being continuous?
+
+491
+01:01:36,530 --> 01:01:43,980
+Anything to do with diversion. So when we write it visually, it looks.
+
+492
+01:01:44,190 --> 01:01:48,399
+It doesn't. Sometimes. Sometimes. So. Well, your.
+
+493
+01:01:48,400 --> 01:01:54,760
+Your first. So that. That I would imagine. So it looks it looks continuous, much more continuous than the linear interpolation.
+
+494
+01:01:55,540 --> 01:02:03,130
+But it it does look weird when you have like, let's say you have a parabola, let's say you have two.
+
+495
+01:02:03,370 --> 01:02:10,359
+So two parabola coming joining both of them has exactly have a00 coefficient of one.
+
+496
+01:02:10,360 --> 01:02:16,840
+One is very, very, very, very big and one is bad with a thing that, that that looks just the not right.
+
+497
+01:02:17,350 --> 01:02:22,690
+So that, that visually that, that that could give us of a strange feeling.
+
+498
+01:02:22,690 --> 01:02:31,570
+But also in the more importantly, you know, many are you're using like gradient descent or something.
+
+499
+01:02:32,140 --> 01:02:38,260
+So if you want to use these actually as if it's a real function, a lot of cases you you want to do that.
+
+500
+01:02:38,680 --> 01:02:44,410
+So then, you know, it works well for many of the algorithm because you have a derivative,
+
+501
+01:02:44,620 --> 01:02:50,770
+but some are wisdom quite second derivative and that that that fails, it doesn't work.
+
+502
+01:02:50,920 --> 01:02:58,840
+So it does do strange thing. So at least guaranteeing that you have a second derivative being continuous has a has advantages.
+
+503
+01:02:59,540 --> 01:03:09,339
+Why not use a port order? So you can even oh you know, a third of the works in the photo the.
+
+504
+01:03:09,340 --> 01:03:13,540
+Why not. You could try that first, you know.
+
+505
+01:03:13,960 --> 01:03:21,850
+Have you do you know why you know middle school teaches the how the solution for the quadratic
+
+506
+01:03:21,850 --> 01:03:31,170
+equation but not QB creation it's much harder to do over memorize right so but it's for photo
+
+507
+01:03:31,180 --> 01:03:38,799
+the plan is a much more work it's a it's an additional layer to solve it's a very messy but more
+
+508
+01:03:38,800 --> 01:03:45,530
+importantly there are a very limited number of cases you will need a third order derivative,
+
+509
+01:03:45,610 --> 01:03:57,990
+right. So, so to be continuous. So that's that's the main reason I'm seeing if you have a very frequent use of a having to use a third of the order,
+
+510
+01:03:58,060 --> 01:04:02,080
+some someone will develop very nice television to do that.
+
+511
+01:04:02,080 --> 01:04:06,130
+So that's, that's the region from my perspective.
+
+512
+01:04:06,370 --> 01:04:10,900
+Okay. So I know that there's no right. Ask any other questions.
+
+513
+01:04:13,110 --> 01:04:20,520
+Okay. So now we have only 50 minutes left, which I hope that we have more.
+
+514
+01:04:21,180 --> 01:04:25,020
+But let me go through some of the some of the logistics.
+
+515
+01:04:25,380 --> 01:04:36,810
+Okay. So we have, uh, we have a final project coming up in two months.
+
+516
+01:04:37,230 --> 01:04:41,280
+Okay. So now we need to form a group today.
+
+517
+01:04:41,820 --> 01:04:52,380
+Okay. So I'm going to briefly explain what the final project is, and I'm going to explain how you know how we're going to do it.
+
+518
+01:04:52,650 --> 01:04:58,620
+Okay. So it's a team project that you're you're going to most of you will be assigned with a team of three.
+
+519
+01:04:58,930 --> 01:05:04,710
+There are there will be two teams that has to be going to go to, unfortunately, because if we're not.
+
+520
+01:05:05,680 --> 01:05:08,730
+Yeah, we don't have exactly a multiple of three.
+
+521
+01:05:09,510 --> 01:05:14,370
+Okay. So the group assignment will be random if you have.
+
+522
+01:05:15,240 --> 01:05:19,430
+Yeah. That that's so that that's no exception.
+
+523
+01:05:19,440 --> 01:05:25,200
+So even if you have a preferred group of members you wanted to interact with, we, we need to be alone, not here.
+
+524
+01:05:26,010 --> 01:05:31,710
+So, and the project is a independent project.
+
+525
+01:05:32,280 --> 01:05:36,650
+Each group should proposed a proposal their their topic.
+
+526
+01:05:36,660 --> 01:05:43,500
+So. And if you have a specific research interest that you wanted to pursue,
+
+527
+01:05:43,800 --> 01:05:49,680
+then if your project project is very tailored to that, your research topic, that would be ideal.
+
+528
+01:05:49,980 --> 01:05:54,990
+But I also understand that many of you don't have specific topics yet.
+
+529
+01:05:54,990 --> 01:05:58,230
+In that case, you know, you just team can decide, right?
+
+530
+01:05:59,250 --> 01:06:08,760
+You need to do our programing. RCP is a highly encouraged and I'm going to teach you briefly how to do the RCP, but those are not required.
+
+531
+01:06:08,760 --> 01:06:17,100
+But this if you can learn how to do the RCP and implement at least some a partnership, that will be good experience for you.
+
+532
+01:06:17,310 --> 01:06:24,810
+Okay. And the grading will be novelty, difficulty and degree of accomplished completion and the presentation and writing.
+
+533
+01:06:24,810 --> 01:06:33,660
+So those are the based on the the the rubrics that serve the grading criteria to this vision.
+
+534
+01:06:35,040 --> 01:06:41,460
+Okay. So you have 25 days from now on to propose a project.
+
+535
+01:06:41,700 --> 01:06:48,479
+Okay. So and there is a template that it's available here.
+
+536
+01:06:48,480 --> 01:06:52,080
+So I'm you're going to see the assignment after the of the class.
+
+537
+01:06:52,080 --> 01:06:56,610
+So I'm going to, uh, we need to group form a group first.
+
+538
+01:06:56,760 --> 01:07:04,980
+Okay. So in the way, how you submit it is that you shared your Google document with me and GSI.
+
+539
+01:07:05,160 --> 01:07:14,450
+Okay. So I am pretty sure that all of you know how to do it so that that's that important to turn your permission to comment on.
+
+540
+01:07:14,460 --> 01:07:20,700
+We don't need to edit the document, but we need to be able to comment on the document so that we can give feedback.
+
+541
+01:07:20,880 --> 01:07:31,830
+Okay. Okay. So and you you will be given a chance to present your project in class.
+
+542
+01:07:33,270 --> 01:07:36,780
+The plan is the last two classes in December.
+
+543
+01:07:36,900 --> 01:07:40,709
+I have. But because we have 15 teams.
+
+544
+01:07:40,710 --> 01:07:44,000
+So that means that we will be a little bit over actually.
+
+545
+01:07:44,010 --> 01:07:47,549
+So I'll have to decide like how many minutes I can give you.
+
+546
+01:07:47,550 --> 01:07:51,120
+But the roughly 10 minutes is what I what I think we can afford.
+
+547
+01:07:51,900 --> 01:08:02,370
+And now you need to write a final report by December 16th, which is actually the final exam date, but we don't have final exam.
+
+548
+01:08:02,370 --> 01:08:07,020
+So this is the the replacement took the final exam.
+
+549
+01:08:07,300 --> 01:08:12,420
+Okay. Okay. And what do you what do I choose?
+
+550
+01:08:12,420 --> 01:08:18,010
+And I'm going to leave it open ended. You can you can read a lot of journals of interest here.
+
+551
+01:08:18,030 --> 01:08:24,840
+So here, here. I'm just giving giving some example, but you don't definitely have to limit yourself to those journals.
+
+552
+01:08:25,290 --> 01:08:31,139
+And these are the possible just, you know, possible, you know, topics.
+
+553
+01:08:31,140 --> 01:08:37,110
+So if there is any so anything that that is that is a research topic.
+
+554
+01:08:37,110 --> 01:08:40,290
+That is, you know, research topic has to be new. It has to be cutting edge.
+
+555
+01:08:40,300 --> 01:08:48,070
+So you have very high bar. So it'll be ideal that if you make something totally new, right?
+
+556
+01:08:48,120 --> 01:08:52,200
+So and the write a paper and a publishing nature, that will be ideal.
+
+557
+01:08:52,440 --> 01:08:56,010
+But I don't want you I don't require you to everyone to do that.
+
+558
+01:08:56,700 --> 01:08:58,920
+So, yeah.
+
+559
+01:08:58,950 --> 01:09:11,940
+So what's what's ideal, you know, in there practically is that either you make something new or you can implement something that doesn't exist.
+
+560
+01:09:12,440 --> 01:09:16,940
+A lot of these days, a lot of Python packages that are cool, that are very useful.
+
+561
+01:09:17,180 --> 01:09:22,480
+There's no hard implementation. Those are very good targets. So I want to make all package of this.
+
+562
+01:09:22,490 --> 01:09:26,810
+I am using this, but there is there was no other package, so you can do that.
+
+563
+01:09:27,150 --> 01:09:34,390
+But there is some research paper that gives a very nice mathematical concept, but there is no very good software to do it.
+
+564
+01:09:34,400 --> 01:09:40,340
+So those are the things you probably want to target. And I'm very happy to discuss with you during office hours.
+
+565
+01:09:40,340 --> 01:09:44,660
+So if you need a consulting, please, you know,
+
+566
+01:09:44,690 --> 01:09:53,120
+I only like usually the that the area I'm interested is only like genomics and genetics and special transcriptomics and those things.
+
+567
+01:09:53,120 --> 01:09:58,330
+So I probably will be biased. My opinion will be biased, but I'm happy to give them some directions.
+
+568
+01:09:59,000 --> 01:10:04,390
+Okay. And these are just part of a project. These are definitely not something you should do.
+
+569
+01:10:04,400 --> 01:10:13,760
+This is just a possible project. Like there are some existing packages I think are making something better than this is actually very hard.
+
+570
+01:10:13,760 --> 01:10:19,680
+So I know some of some of them would be bad choice because the existing packages would be really good already.
+
+571
+01:10:19,700 --> 01:10:29,299
+So there is a limited amount of novelty or performance gain, but some of these are good and might be useful to try.
+
+572
+01:10:29,300 --> 01:10:36,560
+And it's a if you can find a problem that is practical, useful but doesn't have the solution yet, that'll be that'll be better.
+
+573
+01:10:36,560 --> 01:10:39,320
+But these are the examples. Okay.
+
+574
+01:10:39,860 --> 01:10:52,550
+So and so just on topic, obviously, that's that's better and more recommended and whatever motivate your creative creativity, that will be the best.
+
+575
+01:10:54,120 --> 01:11:02,480
+Okay. So and clustering single cell data, this was like, you know, now it's not that maybe clustering is special.
+
+576
+01:11:03,740 --> 01:11:12,290
+The task of data would be would it be better and that there's other other examples that things are areas are always changing rapidly.
+
+577
+01:11:12,800 --> 01:11:20,580
+But these are these are some of the possible algorithms. You can you can try it in a film inference, rapid inference.
+
+578
+01:11:20,690 --> 01:11:25,550
+This has been you know, there's already some existing packages, but you can you can try this.
+
+579
+01:11:25,670 --> 01:11:32,360
+But these are really just simple project AI. These are these simple project are so just like years before.
+
+580
+01:11:32,360 --> 01:11:38,959
+So these are not necessarily cutting edge anymore. But yeah, these are all things you can, you can consider.
+
+581
+01:11:38,960 --> 01:11:49,160
+And the best way is to reach out to me and GSI to try to come up with good ideas and do more to more pouring brainstorming.
+
+582
+01:11:49,550 --> 01:12:00,530
+So the the reason why I am trying to scare you a little bit is because it's important to think about this more much more earlier.
+
+583
+01:12:00,530 --> 01:12:04,490
+If you if you have only a few days and you don't have time to discuss with your,
+
+584
+01:12:06,890 --> 01:12:12,860
+you know, your GSI, GSI or instructor, that'll be you know, it will be your limitation.
+
+585
+01:12:12,860 --> 01:12:18,860
+Basically, you can change your project project topic later.
+
+586
+01:12:18,860 --> 01:12:23,659
+After your project, you just need to discuss with your instructor.
+
+587
+01:12:23,660 --> 01:12:26,809
+Oh, I, we thought about this. This wouldn't work.
+
+588
+01:12:26,810 --> 01:12:32,629
+So we change the goal. That's okay. So try not to be too worried about.
+
+589
+01:12:32,630 --> 01:12:35,990
+Oh, I promise this. I'm not going to deliver it. So don't worry about this.
+
+590
+01:12:35,990 --> 01:12:41,500
+You can change that goal. But I want you to be clear enough that what you want to do.
+
+591
+01:12:41,520 --> 01:12:46,010
+So you need to know what you want to do before before the end of this month.
+
+592
+01:12:46,760 --> 01:12:51,650
+Okay, here we have 7 minutes.
+
+593
+01:12:52,940 --> 01:12:59,839
+Populate all of the numbers here. So this is the this is the site call.
+
+594
+01:12:59,840 --> 01:13:04,100
+Like they they claim that they generate the total random numbers.
+
+595
+01:13:04,430 --> 01:13:09,589
+So I don't know if that's true or not, but hey, you know, I can't dispute that.
+
+596
+01:13:09,590 --> 01:13:12,830
+So we're going to use the random as possible.
+
+597
+01:13:12,850 --> 01:13:19,370
+I'll just click on the ones I just said, doing that in life, just to make sure that I'm doing the fair thing.
+
+598
+01:13:20,420 --> 01:13:28,250
+What I'm going to do is I'm going to randomize if I do randomize, you are going to see that one to the 43 numbers, each of them.
+
+599
+01:13:28,490 --> 01:13:41,180
+Okay, so one, two, three, the one, one group four or five, 6 to 1 group until 37, 38, 34, 39 is one group if your name is are 40 and 41.
+
+600
+01:13:41,180 --> 01:13:44,330
+Those are pairs. One group, 42 and 43 is one.
+
+601
+01:13:44,750 --> 01:13:51,560
+Okay. So that, that that's what's going to happen if one of, or one of your team member happen to drop the class,
+
+602
+01:13:52,280 --> 01:13:59,209
+you're going to still have to keep up with your group if you if you.
+
+603
+01:13:59,210 --> 01:14:04,850
+So two, if you if your group is two sides of two, you still need to maintain your group.
+
+604
+01:14:04,850 --> 01:14:10,280
+If your main group is reduced to say to one, then you you have option to join the other groups.
+
+605
+01:14:10,430 --> 01:14:18,500
+Okay. Okay. I mean, in the case someone drops it because that that that happens.
+
+606
+01:14:18,650 --> 01:14:22,640
+Okay. So this is the most exciting part of this lecture ever.
+
+607
+01:14:23,210 --> 01:14:26,300
+So I'm going to I'm going to do this and I'm going to post this.
+
+608
+01:14:26,300 --> 01:14:30,379
+I'm going to create a group in the in here.
+
+609
+01:14:30,380 --> 01:14:35,840
+But you can see probably in the video lectures, theses is the numbers you have.
+
+610
+01:14:36,350 --> 01:14:39,850
+So I'm going to just copy this. Okay.
+
+611
+01:14:40,040 --> 01:14:43,700
+Just slowly going over so that you can check your name.
+
+612
+01:14:44,540 --> 01:14:49,790
+Okay. And put it here for now.
+
+613
+01:14:49,790 --> 01:14:54,530
+And I'm going to make a group assignment after the lecture.
+
+614
+01:14:55,610 --> 01:15:06,110
+Okay. And if you are curious about what the what the project template should look like, this is what it looks like.
+
+615
+01:15:06,980 --> 01:15:13,700
+So this is a template. So do do do do, do do.
+
+616
+01:15:13,710 --> 01:15:19,130
+Yeah. So. So you basically need to share with us and just try to use this template.
+
+617
+01:15:19,340 --> 01:15:31,520
+Get rid of all the green. Yeah. Get rid of all these green and blue letters and replace it with what, what is what is necessary in ask.
+
+618
+01:15:33,710 --> 01:15:40,460
+Yeah. Asking me you get you can just make a copy of it and make your write your proposal.
+
+619
+01:15:42,420 --> 01:15:51,620
+Okay. That looks like they give the 4 minutes for us to start a lecture seven, which is a plenty of time,
+
+620
+01:15:51,620 --> 01:16:00,350
+but it's a lot, plenty of time to start not play, time to finish, but happy to take any other questions.
+
+621
+01:16:07,530 --> 01:16:21,479
+Okay. So, uh, yeah, let's, uh, let's just try then just given the overview of what this part is,
+
+622
+01:16:21,480 --> 01:16:28,500
+so where we're moving to, okay, so we're handling many different things.
+
+623
+01:16:28,590 --> 01:16:38,819
+So this, uh, the nice thing about the design of the A 615 is that you have very broad spectrum of things.
+
+624
+01:16:38,820 --> 01:16:44,990
+You're not gonna imprecision, you're supplying interpolation, you're going need, you know,
+
+625
+01:16:45,060 --> 01:16:50,430
+type programing divided concords these are all like something that usually don't get taught.
+
+626
+01:16:50,850 --> 01:16:54,719
+They're going to be taught in a single lecture.
+
+627
+01:16:54,720 --> 01:16:58,680
+But this is also could be could it be a little bit less focused?
+
+628
+01:16:58,830 --> 01:17:07,680
+Right. Are these so you're going to we're going to go through the single dimension optimization and multidimensional optimization.
+
+629
+01:17:08,370 --> 01:17:12,840
+I would consider this part is the core part of the 615.
+
+630
+01:17:13,080 --> 01:17:19,350
+You definitely need to understand these optimization, numerical optimization,
+
+631
+01:17:19,800 --> 01:17:27,540
+because if you take the 615 and if you don't know how to do this function, no, there is something wrong with you.
+
+632
+01:17:27,540 --> 01:17:30,960
+Instructor Right. So you, you need to know this because that,
+
+633
+01:17:31,050 --> 01:17:38,340
+that's what everyone would expect you to learn no matter what kind of staging or computing sections you have, you have taken.
+
+634
+01:17:38,670 --> 01:17:41,850
+So we're going to go to the other things later on.
+
+635
+01:17:41,850 --> 01:17:48,430
+But those are yeah, those are both optimization part is important enough.
+
+636
+01:17:48,990 --> 01:17:55,590
+So lecture seven is that we're going to do the single dimension optimization first that that is the basis of these optimization.
+
+637
+01:17:55,890 --> 01:18:02,280
+We are going to go a lot of details here and we're going to move to the multidimensional optimization in Lecture eight.
+
+638
+01:18:02,490 --> 01:18:10,500
+So those are you know, the former for will be using these optimization techniques.
+
+639
+01:18:11,280 --> 01:18:19,770
+And these are these are you know, what are the most important part I would consider as a relevant for your research.
+
+640
+01:18:20,640 --> 01:18:29,370
+So and these part two will be also relevant for your midterm project to which it will be announced soon after after the of the homework.
+
+641
+01:18:30,330 --> 01:18:37,450
+So yeah, that's, that's what I can explain and I can explain the first slide, but there's no point.
+
+642
+01:18:37,470 --> 01:18:42,630
+So we're trying to solve the root finding problem first.
+
+643
+01:18:43,440 --> 01:18:47,129
+And after that, we're going to the single dimension optimization.
+
+644
+01:18:47,130 --> 01:18:51,690
+So that's what we will have. So we'll so we'll finish one minute earlier.
+
+645
+01:18:52,320 --> 01:19:06,090
+Okay. Thank you. Okay. So we're going to start our office hour 26, five 526, nine five in the second floor because it'll be crowded.
+

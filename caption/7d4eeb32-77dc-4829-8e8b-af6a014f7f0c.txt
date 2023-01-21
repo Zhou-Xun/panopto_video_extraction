@@ -1,0 +1,2584 @@
+1
+00:00:01,998 --> 00:00:07,998
+Yeah. Yeah. Okay, folks, I think we're going to go ahead and get going here at 330.
+
+2
+00:00:08,928 --> 00:00:18,378
+Very happy to introduce Lamin Payne, who's joining us from Emory University, where she is, professor of biostatistics in the School of Public Health.
+
+3
+00:00:19,128 --> 00:00:24,687
+Her work is focused in a number of areas, including survival analysis, dynamic regression, parametric,
+
+4
+00:00:24,688 --> 00:00:29,568
+consumer parametric inference, and in particular quantile regression, which you were to learn a little bit about today.
+
+5
+00:00:30,348 --> 00:00:34,038
+So I'm turned over to you. Thank you. Thanks, Michael, for the nice introduction.
+
+6
+00:00:34,038 --> 00:00:40,068
+And it's really my pleasure to visit department and to present my written my recent research work.
+
+7
+00:00:40,488 --> 00:00:42,138
+So at the beginning of my talk,
+
+8
+00:00:42,138 --> 00:00:50,988
+I want to acknowledge that the work I'm presenting today is based on the collaboration within our mental health research team at Emory Biostatistics.
+
+9
+00:00:51,528 --> 00:00:59,028
+So our research team includes three key faculty members and including two great colleagues early on myself,
+
+10
+00:00:59,358 --> 00:01:03,138
+Dr. Amina Mullen, Hunger, and Dr. Engel and myself.
+
+11
+00:01:03,588 --> 00:01:10,698
+And we're also fortunate to have very hardworking and creative students and also postdocs on here.
+
+12
+00:01:10,698 --> 00:01:14,688
+Only name a few who work on the project related to this park.
+
+13
+00:01:15,498 --> 00:01:21,168
+So this is a Dr. Daza and he is our current postdoc and Dr. Beauté.
+
+14
+00:01:21,168 --> 00:01:27,798
+So he's my formal passion is do that and Dr. Jeff Hinshaw and he's our former postdoc and
+
+15
+00:01:27,798 --> 00:01:32,538
+we're also grateful to all of our subject matter collaborators and our Dr. Carrie Resler,
+
+16
+00:01:32,868 --> 00:01:36,618
+Dr. Tanya Jovanovic and the Dr. Jennifer Stevens.
+
+17
+00:01:37,188 --> 00:01:45,768
+And also special thanks to Dr. Joshua Lukemire and the he has help us to prepare the neuroimaging data used by our project.
+
+18
+00:01:46,278 --> 00:01:52,458
+And so our research team has been sponsored by several and our own grants.
+
+19
+00:01:54,558 --> 00:02:01,638
+So at the beginning of my talk, I want to first kind of briefly introduce the background and the motivation of our work.
+
+20
+00:02:02,088 --> 00:02:07,008
+So the first question after reading the title is, okay, what are neuroimaging data?
+
+21
+00:02:07,548 --> 00:02:17,208
+So tensor is a formal terminology for the market, the emotional array and the for example, the vector essentially is a one way kind of ray.
+
+22
+00:02:17,328 --> 00:02:23,778
+So it goes back to the first order tensor. A matrix is a four way, a two way array.
+
+23
+00:02:23,958 --> 00:02:31,577
+So you correspond to a second order tensor and a cube correspond to the third order tensor, neuro imaging and tensor.
+
+24
+00:02:31,578 --> 00:02:35,598
+They have become more frequently on rice in biomedical research.
+
+25
+00:02:36,048 --> 00:02:41,177
+For example, in many mental health studies, the neuroimaging technologies,
+
+26
+00:02:41,178 --> 00:02:50,568
+like the kind of FLIR has been often used to help to probe the kind of the passive phase of physiology of complex mental disorders.
+
+27
+00:02:51,498 --> 00:03:02,568
+So, so and these activities can account for a lot of neuroimaging data in the forms of the cancers and the, for example, the structural MRI.
+
+28
+00:03:03,018 --> 00:03:09,258
+So basically produce a of the images which can be formulated as are other tensor.
+
+29
+00:03:09,678 --> 00:03:15,768
+And the the raw FMR data include a series of 3D images collected over time.
+
+30
+00:03:16,098 --> 00:03:20,898
+And so such data can be formulated as kind of first order of cancers.
+
+31
+00:03:21,768 --> 00:03:23,688
+In this kind of studies,
+
+32
+00:03:23,688 --> 00:03:33,888
+a common interest is regarding the association between neuroimaging phenotype and the clinical disease manifestation Anatolia luxury at this point.
+
+33
+00:03:33,888 --> 00:03:39,558
+So let me first introduce our motivating study from the Grady Trauma Project.
+
+34
+00:03:40,158 --> 00:03:45,408
+So the Grady Trauma Project is a large cross-sectional inner city study,
+
+35
+00:03:45,648 --> 00:03:55,607
+and the overarching goal of this study is to investigate genetic and environmental trauma related risk factors for post-traumatic stress disorder,
+
+36
+00:03:55,608 --> 00:04:05,208
+PTSD. And so in this study, it recorded over 12,000 of the study participants and over 40% of this study,
+
+37
+00:04:05,208 --> 00:04:11,718
+plus the people had PTSD and those patients were recruited from a primary care setting.
+
+38
+00:04:12,258 --> 00:04:16,248
+And this study, this project also involved very rich data collection.
+
+39
+00:04:16,638 --> 00:04:22,607
+So the cognitive data include the typical demographics such as age, gender, race and those.
+
+40
+00:04:22,608 --> 00:04:32,388
+They also include data on the PTSD, sometimes measure the by the clinical scale, such as SAS caps and depression symptoms,
+
+41
+00:04:32,688 --> 00:04:42,498
+for example, assessed by the BDA and the trauma exposure history such as the scale by the scale CPQ and here and so on, so forth.
+
+42
+00:04:43,458 --> 00:04:51,917
+And our motivating problem actually comes from a substudy well, which collect a neuroimaging data from 118 subjects.
+
+43
+00:04:51,918 --> 00:04:58,118
+This is a relatively small a study cohort and the continuity in view they've had in some school
+
+44
+00:04:58,128 --> 00:05:04,818
+like the functional I found our data a task data and also resting state and I'm our data.
+
+45
+00:05:05,418 --> 00:05:12,928
+Okay so that will be the ability of this kind of neuroimaging data along with a kind of rich collection of the clinical data,
+
+46
+00:05:13,128 --> 00:05:21,258
+provides the opportunity for us to have a very in-depth investigation regarding the passive is all integral mechanism underlying PTSD,
+
+47
+00:05:21,498 --> 00:05:27,138
+for example, the connection between the brain and the clinical symptoms of the PTSD.
+
+48
+00:05:27,798 --> 00:05:35,867
+So the for example, are the the brain function or active connectivity is you were able to feel type
+
+49
+00:05:35,868 --> 00:05:40,748
+of interest in many studies and basically the kind of help to describe what
+
+50
+00:05:41,448 --> 00:05:47,238
+measure the kind of intrinsic and neural kind of circuitry in the PTSD symptoms
+
+51
+00:05:47,598 --> 00:05:52,728
+and that the brain functional connectivity is often measured as a big matrix,
+
+52
+00:05:52,728 --> 00:05:59,448
+so which is a second, second order tensor. And then we call this kind of matrix as a functional connective activity matrix.
+
+53
+00:06:00,468 --> 00:06:04,218
+At the same time, we also we often use the PTSD,
+
+54
+00:06:04,518 --> 00:06:13,338
+these symptoms scale piece as total score as kind of overall provides overall assessment regarding the severity of the PTSD symptoms.
+
+55
+00:06:13,638 --> 00:06:17,838
+Okay. So this gives they've had in the regular kind of scalar form.
+
+56
+00:06:18,438 --> 00:06:21,318
+Okay. So it's of something to us then. Thank you.
+
+57
+00:06:21,318 --> 00:06:28,788
+Interested to understand how does a PTSD symptoms severity influence the brain functional connectivity?
+
+58
+00:06:29,238 --> 00:06:36,708
+And another question is how does a brain function connected with you predict what suggest the severity of the PTSD symptoms?
+
+59
+00:06:37,488 --> 00:06:44,268
+And so addressing this question basically pose a types of regression problems to address the first the question.
+
+60
+00:06:44,278 --> 00:06:50,538
+So we have a regression problem with tensor response which course that with a functional connectivity matrix.
+
+61
+00:06:50,988 --> 00:06:52,758
+And to address the second question.
+
+62
+00:06:53,048 --> 00:07:01,808
+We've got a regression problem with tensor predictor, which corresponds to the functional connectivity matrix and the response is PSC total score.
+
+63
+00:07:02,378 --> 00:07:09,968
+Okay. So we have conducted a research work to addressing both type of the kind of tensor regression problems.
+
+64
+00:07:10,268 --> 00:07:16,388
+And in this talk, our primary focus are talking about our walk out tensor regression with tensor predictor.
+
+65
+00:07:20,648 --> 00:07:25,118
+Okay. So to address either type of the regression path, hence the regression problem.
+
+66
+00:07:25,388 --> 00:07:30,188
+So we are facing notable challenges posed by the new image.
+
+67
+00:07:30,398 --> 00:07:38,707
+Special features of newer imaging cancers. The first so new were imaging cancer usually involve a large number of elements
+
+68
+00:07:38,708 --> 00:07:44,498
+which can be greater greatly and much greater than the relevant sample size.
+
+69
+00:07:44,888 --> 00:07:51,338
+For example, a typical brain function looking at these images can have a dimension of 300 by 300.
+
+70
+00:07:51,518 --> 00:07:58,448
+This gives 90,000 elements. This can be much greater than a realistic sample size for a newer imaging study.
+
+71
+00:07:58,988 --> 00:08:03,468
+Another important challenging is that a newer imaging cancer usually has the
+
+72
+00:08:03,488 --> 00:08:08,138
+inherent a spatial structure which carries importance and even implication.
+
+73
+00:08:08,468 --> 00:08:16,808
+Ignore this kind of intrinsic spatial structure of the cancer can come for some results which are not interpretable.
+
+74
+00:08:17,828 --> 00:08:24,038
+Okay, so at the same time, when we do the neuroimaging data analysis, sometimes we have some kind of special considerations.
+
+75
+00:08:24,398 --> 00:08:31,688
+That is not average. What I mean, you look how outcomes can be of key interest in your imaging applications.
+
+76
+00:08:32,138 --> 00:08:32,978
+For example,
+
+77
+00:08:33,158 --> 00:08:43,538
+a newer imaging feature indicating more severe disease symptoms may be of higher diagnostic water relative value or comparing to the the newer,
+
+78
+00:08:43,538 --> 00:08:47,198
+even more features. Explain the average symptoms. Right.
+
+79
+00:08:47,438 --> 00:08:55,748
+So at the same time, we know that most of the masses kind of of adolescence traditional linear regression modeling and I say,
+
+80
+00:08:55,838 --> 00:09:05,408
+well, elaborating a nicer slice. Linear regression has a fundamental limitation in terms of addressing the increase of the average outcomes.
+
+81
+00:09:05,858 --> 00:09:12,098
+And of course, a promising solution to address this limitation is to consider control regression.
+
+82
+00:09:13,868 --> 00:09:22,298
+So here I gave a brief introduction about how regression called how regression was formally introduced by Cancro and Basil in 1978.
+
+83
+00:09:22,628 --> 00:09:26,948
+And that is a significant extension of the traditional linear regression.
+
+84
+00:09:27,338 --> 00:09:34,358
+And a regression basically using the key strategy of the contribution is to model the courthouse,
+
+85
+00:09:34,358 --> 00:09:38,408
+such as median 1/90 percentile instead of a single mean.
+
+86
+00:09:38,858 --> 00:09:45,578
+Okay. So here in this plot I illustrate control regression in the summary set to sample setting.
+
+87
+00:09:45,938 --> 00:09:51,847
+And here the two curves represent the kind of response distribution functions for two groups, for example,
+
+88
+00:09:51,848 --> 00:09:58,828
+a treatment group versus a control group and under control regression, the kind of regression called the coefficients.
+
+89
+00:09:59,048 --> 00:10:02,468
+But how basically represent the difference?
+
+90
+00:10:02,798 --> 00:10:08,978
+The group difference in income is of course can't help the response and the easiest graph.
+
+91
+00:10:08,978 --> 00:10:16,057
+You just capture the whole sample distance between the two distribution functions and other quantile regression the coefficient.
+
+92
+00:10:16,058 --> 00:10:19,538
+But how is allowed to change or what? How right.
+
+93
+00:10:19,688 --> 00:10:24,847
+So this implies that now called how regression allows kind of covariance to change
+
+94
+00:10:24,848 --> 00:10:29,168
+across different segment of the response distribution and the for example,
+
+95
+00:10:29,348 --> 00:10:35,978
+this figure illustrates me luxury the scenario well the kind of treatment effect is speaker of the upper
+
+96
+00:10:35,978 --> 00:10:42,158
+compels on average of the response compared to the treatment effect and the lower range of the response.
+
+97
+00:10:43,208 --> 00:10:45,427
+And so from this kind of simple illustration,
+
+98
+00:10:45,428 --> 00:10:53,378
+we can see that called how regression provides a very flexible natural tool to accommodate and assess dynamic response,
+
+99
+00:10:53,378 --> 00:10:58,837
+predictor association and in contrast other linear regression.
+
+100
+00:10:58,838 --> 00:11:04,508
+So it confine the two distributions to differ only by the location shift.
+
+101
+00:11:04,808 --> 00:11:13,208
+So that means the horizontal these between the two distribution functions are consistent across different segment of the response distribution.
+
+102
+00:11:13,598 --> 00:11:19,358
+And by this kind of constraint we know that so linear regression has no capacity,
+
+103
+00:11:19,358 --> 00:11:28,388
+lack lacks the capacity to really capture a potentially different effects under now average outcomes versus the effect on average outcomes.
+
+104
+00:11:28,718 --> 00:11:34,298
+So this is why I mentioned the premise the linear regression has some fundamental
+
+105
+00:11:34,598 --> 00:11:38,858
+limitation comes addressing the interests are the now average outcomes.
+
+106
+00:11:41,808 --> 00:11:45,558
+Okay. So, so motivated by those considerations.
+
+107
+00:11:45,588 --> 00:11:55,158
+And so we have conducted the kind of research work, the contribution with tensor response and also the interest in this life.
+
+108
+00:11:55,398 --> 00:12:01,538
+I will just provide some kind of very high level summary of our work on tensor response on our regression.
+
+109
+00:12:02,198 --> 00:12:08,268
+So more specifically, basically, we assume this tensor is based on the regression model.
+
+110
+00:12:08,598 --> 00:12:18,888
+And under this model, so that the error term, if not how is assumed to have an element has has equal to zero.
+
+111
+00:12:19,278 --> 00:12:21,257
+So by this assumption, essentially,
+
+112
+00:12:21,258 --> 00:12:31,698
+we assume that each response of each element of the cancer response is assumed to be related to the predictor through a control regression.
+
+113
+00:12:32,658 --> 00:12:41,778
+Okay. So all of this model, the tensor coefficient and beta zero, how captures are kind of predictors effect on the tension response.
+
+114
+00:12:42,108 --> 00:12:46,368
+But at the same time, we know that it has a very high dimension, right?
+
+115
+00:12:46,368 --> 00:12:49,098
+So you include a lot of kind of elements.
+
+116
+00:12:49,248 --> 00:12:59,118
+The number of elements involving the P zero count equals the number of Amazon, the tensor response times, the dimension of the kind of predictor of X.
+
+117
+00:12:59,688 --> 00:13:08,327
+Okay. So in order to produce a very parsimonious and at the same time interpret the whole picture regarding the quantum effects of the predictor.
+
+118
+00:13:08,328 --> 00:13:16,368
+Alexa Response Our strategy is to impose no red city structures on the P zero count.
+
+119
+00:13:17,028 --> 00:13:21,077
+Okay. So we propose a two step estimation procedure,
+
+120
+00:13:21,078 --> 00:13:31,008
+very intuitive to step an estimation procedure with the first step being the point of out regression and then performing the city.
+
+121
+00:13:31,008 --> 00:13:34,368
+Decomposition are the resulting kind of tensor coefficient estimate.
+
+122
+00:13:35,538 --> 00:13:42,768
+This approach is very short here. At the same time, we provide solid theoretical justification for our approach.
+
+123
+00:13:43,608 --> 00:13:51,588
+And then we also apply the method to the motivating study and the SO in our Canadian analysis,
+
+124
+00:13:51,828 --> 00:14:02,928
+the why the Tensor response was down to the functional connectivity matrix and the predictor acts include the total score and age.
+
+125
+00:14:03,438 --> 00:14:11,358
+Okay, so this graph, so we, I just show some part of the kind of analysis results and the graph shows the
+
+126
+00:14:11,358 --> 00:14:19,278
+connectivity edges OC associated with PSA coefficient z-score greater than 2.5,
+
+127
+00:14:19,908 --> 00:14:29,148
+less than a -2.5. So essentially these shows that okay under of four, what kind of the edges the PSA total score will have significant effect.
+
+128
+00:14:30,198 --> 00:14:33,918
+Okay. So from this graph, we have some kind of interesting observations.
+
+129
+00:14:34,368 --> 00:14:45,378
+So first of all, we noticed that the the PSA total score has significant effect on the connectivity towards edges between and
+
+130
+00:14:45,618 --> 00:14:55,848
+some nodes in the network and l indicated by the green and and the thumbnails in the right kind of network.
+
+131
+00:14:56,358 --> 00:15:06,568
+However, Sacha in effect only present and Loeb was coming to Tao equal 2.25 not on the outperformed and the regarding the
+
+132
+00:15:06,568 --> 00:15:14,898
+effect of the PSA total score and the kind of connectivity of edges between the network asthma and the and the via.
+
+133
+00:15:15,468 --> 00:15:23,858
+So we observe a different pattern. So the fact only present was added approximately here, not as low accomplice.
+
+134
+00:15:24,378 --> 00:15:29,478
+All right. Yes. Just lost track. So the outcome here is, is the functional connectivity matrix.
+
+135
+00:15:29,958 --> 00:15:34,118
+Okay. Index is the is the is the is the PSC total?
+
+136
+00:15:34,178 --> 00:15:35,348
+Yes. Yes.
+
+137
+00:15:35,658 --> 00:15:45,798
+So so basically, which the the line indicates kind of the edges between two kind of the brain, those within different kind of the functional network.
+
+138
+00:15:46,488 --> 00:15:49,738
+So the functional network is indicated by different colors here.
+
+139
+00:15:50,958 --> 00:15:54,828
+So some kind of a summary of kind of connectivity.
+
+140
+00:15:55,608 --> 00:16:03,768
+And so so basically we just show those kind of edges which which the PSC has some significant effect.
+
+141
+00:16:05,358 --> 00:16:09,077
+But how is somehow related to the, I guess the functional connectivity here?
+
+142
+00:16:09,078 --> 00:16:14,358
+Not to exactly. So that means 25% health of the connectivity.
+
+143
+00:16:14,508 --> 00:16:17,568
+So the connectivity basically essentially is just correlation.
+
+144
+00:16:18,228 --> 00:16:21,377
+Okay. Okay. Is continuous binary. Yeah.
+
+145
+00:16:21,378 --> 00:16:27,318
+He said continuous. And that we need to do some transformation to make it as a regular continuous response.
+
+146
+00:16:28,398 --> 00:16:32,898
+So just so you know why Matrix is, it's like a binary matrix.
+
+147
+00:16:32,898 --> 00:16:36,908
+Are your values then what are the values? A Sorry I forgot to measure.
+
+148
+00:16:36,918 --> 00:16:40,338
+So this is a connectivity matrix. So each element.
+
+149
+00:16:41,618 --> 00:16:48,498
+This kind of connectivity and metrics basically capture the correlation between two brain knows what brain regions.
+
+150
+00:16:49,598 --> 00:16:55,008
+So basically that kind of went towards yeah these kind of is the yeah, yeah, it's minus minus one.
+
+151
+00:16:55,448 --> 00:17:00,848
+But for this analysis, we need to do some of this transformation to make it, to spread it out in total real time.
+
+152
+00:17:01,298 --> 00:17:05,108
+Yeah. So sort of average correlation. Yeah.
+
+153
+00:17:05,118 --> 00:17:08,518
+Because this is a kind of the time series data, right.
+
+154
+00:17:08,528 --> 00:17:15,058
+So, so they can really for each individual, they can calculate the kind of correlations and they just call you.
+
+155
+00:17:15,798 --> 00:17:20,828
+And these represent the connectivity between two brain and open regions.
+
+156
+00:17:23,138 --> 00:17:30,128
+So then. Sorry. Sorry. So the correlation is spatial that you have repeated measures across time.
+
+157
+00:17:30,488 --> 00:17:36,638
+Yeah. Yeah. Repeated matrix across time. Yes. Okay. But that's collapse to find that conversion rate.
+
+158
+00:17:36,848 --> 00:17:40,618
+Yes, that's right. Negations across time. Yes. Yes. So that's what they did.
+
+159
+00:17:40,808 --> 00:17:46,868
+So this is how they had to produce this connectivity matrix so they can sorry.
+
+160
+00:17:46,928 --> 00:17:53,288
+Just at the low values of Tao corresponds to log weight connectivity in connectivity.
+
+161
+00:17:53,288 --> 00:17:59,918
+But, but then so these are the parts of the brain that are weakly connect and so, so that means so awesome.
+
+162
+00:18:00,128 --> 00:18:08,648
+So basically the simple interpretation result is that this just shows that we have kind of different kind of has a physiological mechanism.
+
+163
+00:18:08,648 --> 00:18:15,118
+Explain the weak connectivity versus strong connectivity between the network I smell and me.
+
+164
+00:18:15,128 --> 00:18:21,457
+And so I think in the tunnel of the small matter of how basically indicates okay you tend to have the way
+
+165
+00:18:21,458 --> 00:18:27,248
+connectivity and between this pairs of the kind of brain those who will prefer other kind of regions.
+
+166
+00:18:28,028 --> 00:18:32,078
+Okay. But it's still associated with PDA and PTSD. So, yes.
+
+167
+00:18:34,238 --> 00:18:41,988
+So how does the spatial structure of the connectivity is that coming into the x bottom here?
+
+168
+00:18:41,988 --> 00:18:43,838
+It was I'm not part of this. Yeah.
+
+169
+00:18:44,378 --> 00:18:51,277
+So I think the spatial stuff here, we, we try to reduce the dimension that would be zero here by using that kind of the CPE decomposition,
+
+170
+00:18:51,278 --> 00:18:57,247
+we see that these are very common way to reduce the number of free parameters at the same time return the kind of
+
+171
+00:18:57,248 --> 00:19:03,938
+spatial information in the B0 tau because you essentially the spatial kind of information is kind of pincer response,
+
+172
+00:19:03,938 --> 00:19:10,958
+right. By doing this kind of regression that has spatial structure should be passed on to the kind of coefficients physically.
+
+173
+00:19:10,958 --> 00:19:19,648
+Fisher So, so in terms of effect on that kind of response that we should have a reasonable kind of meaningful kind of spatial structure of what
+
+174
+00:19:19,658 --> 00:19:27,638
+be there with how so I think our what we just use the composition based approach to or cannot return that spatial kind of structure.
+
+175
+00:19:30,648 --> 00:19:34,188
+I think it seems to me that from a causal perspective, you might want to flip it around.
+
+176
+00:19:35,478 --> 00:19:44,278
+I would have said that the behavioral outcome is more the outcome, and you're trying to predict that using the brain structure.
+
+177
+00:19:44,358 --> 00:19:47,958
+But I mean, I guess, you know, you could go either way.
+
+178
+00:19:48,288 --> 00:19:53,327
+This is what I have been raising. So we are doing this also addressing this kind of problem in a reverse way.
+
+179
+00:19:53,328 --> 00:19:56,528
+So I think we've hands are how you formulate a path out, right?
+
+180
+00:19:56,538 --> 00:19:59,988
+So so so that's why at the beginning I thought about there are two types of regression problems.
+
+181
+00:20:00,348 --> 00:20:07,608
+I think people an investigator may have different preference. This is more like an association to follow up on the brain activity.
+
+182
+00:20:07,788 --> 00:20:10,788
+So there is how to say causation. Is it?
+
+183
+00:20:10,998 --> 00:20:17,028
+Yeah. Yeah. Okay. So as I mentioned, I also it's there's all kinds of different ways.
+
+184
+00:20:17,028 --> 00:20:23,568
+And so this is a kind of a quick overview about our work on our question, which is tensor predictor,
+
+185
+00:20:23,568 --> 00:20:29,508
+in this case, a tensor, the functional connectivity is a predictor and has told us what will be the response.
+
+186
+00:20:30,008 --> 00:20:37,038
+So, so basically so as a quick summary, so I will talk about this in detail in the later slides.
+
+187
+00:20:37,478 --> 00:20:49,338
+And so all we propose to adopt the core principle of the partially Cisco applies to a tool to address this kind of the Alcatel tensor model.
+
+188
+00:20:49,578 --> 00:20:57,378
+And so the highlights of all message is that our procedure is computationally efficient and also scalable to large sized sensors.
+
+189
+00:20:57,678 --> 00:21:04,938
+At the same time, we establish some more population fabrication for the resulting asymmetries for our estimation procedure.
+
+190
+00:21:05,388 --> 00:21:10,068
+And also we conduct some theoretical studies which provide very useful insight.
+
+191
+00:21:10,758 --> 00:21:15,167
+For example, we build a connection between and our estimation procedure,
+
+192
+00:21:15,168 --> 00:21:20,148
+always a new kind of envelope model, which we call the avaliacao tensor regression model.
+
+193
+00:21:20,688 --> 00:21:28,128
+And so this kind of effort leads to kind of revealing the general set of a spotlight condition payload with a chronic health, hence the question.
+
+194
+00:21:28,848 --> 00:21:32,038
+Okay. Okay.
+
+195
+00:21:32,038 --> 00:21:35,548
+So just to study the question, is this a predictor?
+
+196
+00:21:35,588 --> 00:21:41,038
+The key problem is about how to handle a tensor predictor, because if it's a regular predictor,
+
+197
+00:21:41,038 --> 00:21:44,698
+so we have a lot of methods to do that, kind of the regression problem.
+
+198
+00:21:45,148 --> 00:21:52,017
+So under control regression and some intuition intuitive approach include a first vector rise,
+
+199
+00:21:52,018 --> 00:21:56,488
+the tensor predictor that apply a high dimensional kind of regression analysis.
+
+200
+00:21:57,058 --> 00:22:06,238
+And using this approach, however, may suffer from having computation or unstable result because the tensor predictor can involve a lot of elements.
+
+201
+00:22:06,898 --> 00:22:15,957
+And another intuitive approach is to first extract a few features from the tensor predictor, then do the regression under extra features.
+
+202
+00:22:15,958 --> 00:22:20,458
+This is an also very intuitive approach, and however we find that, okay,
+
+203
+00:22:20,458 --> 00:22:26,818
+so if the type of cancer is not related to the response, then we would guess I'll have dubious results.
+
+204
+00:22:27,358 --> 00:22:35,398
+And at the same time, both of these two approach ignore the spatial or intrinsic spatial structure of the tensor predictor.
+
+205
+00:22:35,758 --> 00:22:39,838
+So. So that means sometimes the results may not be easy to interpret.
+
+206
+00:22:42,358 --> 00:22:44,178
+Okay. So. So that's why.
+
+207
+00:22:44,218 --> 00:22:53,547
+And more reason to work on this regression is leaning towards return the principal predictor in the original tensor form and a popular
+
+208
+00:22:53,548 --> 00:23:03,268
+strategy as as with you for the other project is to use a kind of low intensity a composition to approximate the tensor predictor.
+
+209
+00:23:03,508 --> 00:23:06,028
+For example, we can use a CPV composition well,
+
+210
+00:23:06,028 --> 00:23:14,248
+we can use a faculty composition and this approach can effectively reduce a number of kind of the free parameters.
+
+211
+00:23:14,608 --> 00:23:20,398
+At the same time it also return in fact people with handle kind of a spatial structure of the tensor predictor.
+
+212
+00:23:20,878 --> 00:23:23,338
+And however, by using this approach,
+
+213
+00:23:23,518 --> 00:23:31,078
+we may still encounter some very challenging optimization settings where the number of free parameters exceeding the sample size.
+
+214
+00:23:31,528 --> 00:23:40,468
+So let me give an example. So if we have kind of 300 by 300 tensor predictor and if we use the LI at as a kind of algorithm,
+
+215
+00:23:40,468 --> 00:23:48,808
+they call it like a block, a relaxation algorithm that at each step there would involve at least 299 free parameters.
+
+216
+00:23:49,078 --> 00:23:54,778
+And this can still be larger than a realistic sample size for new images study.
+
+217
+00:23:55,408 --> 00:24:01,498
+And at the same time, another issue is that this kind of kind of hesitate composition for example.
+
+218
+00:24:01,498 --> 00:24:09,688
+C.P what how could you composition is not unique so that means we will require we will require some kind additional identify be control.
+
+219
+00:24:10,048 --> 00:24:14,428
+And so this can further complicate the kind of optimization algorithm.
+
+220
+00:24:16,648 --> 00:24:27,718
+So and the the PR as the loop partial is a square has emerged as a very promising strategy for handling a tensor predictor under regulation and
+
+221
+00:24:27,758 --> 00:24:38,878
+the you may have some experience is four years about post so it was originally designed to handle maniacally narrative in a linear regression.
+
+222
+00:24:39,298 --> 00:24:44,818
+And so there are different type versions of the APL algorithm in the classic setting.
+
+223
+00:24:45,238 --> 00:24:52,468
+So the course APL algorithm basically implements supervised damage reduction with a vector predictor.
+
+224
+00:24:53,578 --> 00:24:59,848
+And then so here so I present one popular version of the prize algorithm with vector predictor.
+
+225
+00:25:00,208 --> 00:25:04,318
+So X is a P dimensional predictor and the Y is our dimensional response.
+
+226
+00:25:04,798 --> 00:25:12,388
+And at the beginning we start with kind of calculating the covariance between the response and the predicted X on the way.
+
+227
+00:25:12,898 --> 00:25:17,248
+And then at step two and a step from step two to step five.
+
+228
+00:25:17,548 --> 00:25:22,138
+So was this algorithm in trying to do is trying to find the projection of the predictor
+
+229
+00:25:22,138 --> 00:25:29,038
+acts such that the cross a covariance or the deflator across covariance is maximums.
+
+230
+00:25:29,788 --> 00:25:33,388
+Okay. So after we do that for these times,
+
+231
+00:25:33,598 --> 00:25:42,657
+then we reduce the kind of the original kind of predictor to a lower dimension vector t taking this form as at the N,
+
+232
+00:25:42,658 --> 00:25:45,868
+we just regress Y versus the lower dimension of activity.
+
+233
+00:25:46,948 --> 00:25:49,378
+So from reading this algorithm,
+
+234
+00:25:49,378 --> 00:25:58,588
+we see that the classic appeal is essentially follow the strategy of using the response predictor covariance to guide the prediction,
+
+235
+00:25:59,188 --> 00:26:02,998
+the projection, and also the dimension reduction of the factor predictor.
+
+236
+00:26:04,198 --> 00:26:09,628
+Okay. So this also has a lot of kind of efforts made to provide a build out of the
+
+237
+00:26:09,628 --> 00:26:14,548
+population interpretation of the price algorithm based on latent variable model.
+
+238
+00:26:14,728 --> 00:26:18,267
+Taking this kind of very simple form and the classic PR.
+
+239
+00:26:18,268 --> 00:26:23,698
+S algorithm essentially serves to find this kind of latent score of activity.
+
+240
+00:26:24,298 --> 00:26:31,978
+Okay. So and also, yeah, multiple authors build up the connection of the process with the Nielsen available models.
+
+241
+00:26:36,598 --> 00:26:36,987
+Okay.
+
+242
+00:26:36,988 --> 00:26:48,178
+So many research efforts were made to kind of try to extend the closet PR as pure as altruism to handle tens of predicted under control regression
+
+243
+00:26:48,598 --> 00:26:56,038
+and the the early work develop as an algorithm right but did not provide population interpretation of the algorithm only until recently.
+
+244
+00:26:56,188 --> 00:27:04,288
+JHA And the leading year 2017 paper formally the developer policy algorithm and also establish
+
+245
+00:27:04,288 --> 00:27:09,328
+a rigorous population interpretation for the algorithm by using the notion of available.
+
+246
+00:27:09,958 --> 00:27:20,008
+And so one nice feature opened up about this algorithm is that is flexible enough to make the size of that reducer tensor to be smaller,
+
+247
+00:27:20,158 --> 00:27:23,398
+to be sufficiently smaller, for example, less in the sample size.
+
+248
+00:27:23,398 --> 00:27:30,028
+N And so as a result, as comparing to as compared to that computation based approach,
+
+249
+00:27:30,388 --> 00:27:35,008
+this kind of appeal algorithm is more scalable to a larger size tensor.
+
+250
+00:27:36,328 --> 00:27:44,308
+And despite the very promising utility of APL, APL as strategy demonstrated in the linear regression setting,
+
+251
+00:27:44,638 --> 00:27:52,108
+it hasn't been exploited for control regression with tensor predictor so motivated by this very important again.
+
+252
+00:27:52,468 --> 00:27:59,997
+So we proposed a new framework where we adopt the PR strategy tool kind of to achieve effect.
+
+253
+00:27:59,998 --> 00:28:05,157
+You can measure reduction and also theoretically justify the kind of as a kind of effect
+
+254
+00:28:05,158 --> 00:28:10,738
+estimation for the regression with tensor predictor and the way cause the new framework.
+
+255
+00:28:11,008 --> 00:28:17,198
+The partial can help percent regression framework. Okay.
+
+256
+00:28:17,198 --> 00:28:21,998
+So here I just introduce unnecessary indications. An operation related to tensor.
+
+257
+00:28:22,358 --> 00:28:29,708
+I use the bolded uppercase letters to denote matrices and the calligraphic letters to denote general tensor.
+
+258
+00:28:30,158 --> 00:28:39,278
+And for IBM's order tensor. We use this expression to and generally denote is the element of the kind of the tensor.
+
+259
+00:28:39,608 --> 00:28:45,728
+And though we use I k with parenthesis to denote the most k actually salvation.
+
+260
+00:28:45,908 --> 00:28:51,758
+So basically by this operation we transform a tensor to a kind of 2D matrix matrix.
+
+261
+00:28:52,328 --> 00:28:56,838
+And so this notation means the Elmo, the Matrix product.
+
+262
+00:28:56,858 --> 00:29:02,498
+So the Elmo of a product between a tensor and the Matrix and this notation in those,
+
+263
+00:29:02,708 --> 00:29:08,968
+the kind of inner product between two tests and this kind of notation and denotes the connection
+
+264
+00:29:09,498 --> 00:29:19,298
+to two matrices and the topological composition of a tensor is defined as some core tensor.
+
+265
+00:29:19,418 --> 00:29:30,848
+Okay, multiply a sequence of fact, a kind of matrices, a1n through the model, one more to Dada model kind of the product.
+
+266
+00:29:31,148 --> 00:29:33,848
+And that is often denoted by this notation.
+
+267
+00:29:34,268 --> 00:29:42,858
+And this is also very useful with your additive relationship regarding that kind of in the product between the decomposition and the tensor and
+
+268
+00:29:42,858 --> 00:29:52,058
+that to define the covariance between two tenses we define as the covariance between the vector rise tensor x and the vector rise attends a y.
+
+269
+00:29:52,388 --> 00:29:56,407
+Okay. Okay.
+
+270
+00:29:56,408 --> 00:30:06,758
+So here, just move on to our method. So for continuous response y and the tensor predictor and also Z are low dimensional vector predictor.
+
+271
+00:30:07,088 --> 00:30:12,668
+So we are interesting kind of study this comfortable tensor regression model taking this form.
+
+272
+00:30:13,658 --> 00:30:21,878
+So out of this model, basically we assumed assumed that the pulse conditional here of the response Y and is linearly related
+
+273
+00:30:21,878 --> 00:30:27,878
+to the low dimensional vector predictor and also the tensor predictor through the kind of inner product.
+
+274
+00:30:28,328 --> 00:30:33,398
+So here we can see that this term actually can be viewed as an inner product between two vectors,
+
+275
+00:30:33,638 --> 00:30:39,998
+the Gamma Zero and the Z and the here that the order is the interval between zero and a one.
+
+276
+00:30:40,208 --> 00:30:45,038
+And then if it just include all the animals which are powers of interest.
+
+277
+00:30:45,908 --> 00:30:52,808
+Okay, so to study this, to make this model a very naive approach is to just minimize the standard,
+
+278
+00:30:52,838 --> 00:31:00,698
+some whole controller's function given in this form. However, this problem is not computationally feasible.
+
+279
+00:31:01,088 --> 00:31:08,828
+So the reason is that always a this kind of objective function involve a large number of unknown parameters.
+
+280
+00:31:09,068 --> 00:31:17,468
+The number of unknown parameters equals one plus Z, which denotes the dimension of the vector Z plus the product of peak.
+
+281
+00:31:17,918 --> 00:31:22,598
+So we can see that this number can be really large, even when each individual peak is not large.
+
+282
+00:31:23,018 --> 00:31:31,838
+Okay, so, so this approach, this naive approach is not computationally feasible to tackle the challenge with the dimensionality.
+
+283
+00:31:32,108 --> 00:31:39,108
+So as I mentioned earlier, so we are going to adapt the strategy LPL s and it will just introduce our idea is what
+
+284
+00:31:39,108 --> 00:31:44,858
+is well to kind of revisit the tensor PR as algorithm develop under linear regression.
+
+285
+00:31:45,458 --> 00:31:56,858
+So for some analysis algorithm develop in 2070, the main line of the algorithm is first, reduce the Pensar predictor X to a smaller density,
+
+286
+00:31:57,128 --> 00:32:04,148
+which comes us through the faculty composition and then regress the kind of response away over the reduce of cancer.
+
+287
+00:32:04,358 --> 00:32:10,508
+So here you can see that you follows very similar lines, similar rationales of the classic PI's algorithm.
+
+288
+00:32:10,988 --> 00:32:20,468
+And in this kind of first step, the close covariance between the response Y and the tensor predictor plays a very important role in terms
+
+289
+00:32:20,468 --> 00:32:27,158
+of finding and the kind of factor matrices that block evolves in this kind of faculty composition.
+
+290
+00:32:28,328 --> 00:32:39,818
+And from the final step, we notice that as you stab the total dimension of the reduce, it has a equals the product of the okay, okay.
+
+291
+00:32:40,058 --> 00:32:49,148
+So this means that okay, the total dimension can be made small enough to be less than the sample size if we probably select the peak.
+
+292
+00:32:49,568 --> 00:32:58,928
+Okay. So for example, if we have a 300 by 300 tensor predictor and if we set a B1 equals DX to equal equals three, okay,
+
+293
+00:32:59,048 --> 00:33:08,078
+then we reduce the dimension from 90000 to 1909 is a wide, manageable dimension for our kind of more moderate sample size.
+
+294
+00:33:09,218 --> 00:33:19,718
+Okay. So however here I just want to emphasize that this algorithm that applies algorithm is not appropriate for the quantile tensor question.
+
+295
+00:33:20,198 --> 00:33:27,818
+The key reason is that the cross covariance between the response Y and tensor predictor X is not expected to
+
+296
+00:33:27,818 --> 00:33:34,388
+contain sufficient information on the effects of the tensor predictor different quality of the response.
+
+297
+00:33:34,658 --> 00:33:38,528
+Right. So particularly when those effects are different of course, even on the house.
+
+298
+00:33:39,398 --> 00:33:47,768
+Okay. So yeah, addition as a minor point, the TPO algorithm does not accommodate that low dimensional vector predictor.
+
+299
+00:33:48,218 --> 00:33:57,288
+So. So that's why one with his own admission algorithm, we make it generally enough to be able to accommodate kind of classic low dimensional vector.
+
+300
+00:34:00,178 --> 00:34:05,218
+Okay. So our strategy tool can address to overcome a key obstacle.
+
+301
+00:34:05,218 --> 00:34:13,978
+Always that kind of classic cross covariance is to consider a control partial tentacle virus, which is defined by this equation.
+
+302
+00:34:15,358 --> 00:34:18,598
+Okay, so, so here is this definition.
+
+303
+00:34:18,868 --> 00:34:24,538
+The our core is defined by this formula and it can be viewed as palace hotel score
+
+304
+00:34:24,838 --> 00:34:29,428
+after adjusting for the marginal effect of the low dimensional vector predictor.
+
+305
+00:34:30,118 --> 00:34:34,978
+And this so this quantile partial tensor covariance is a generalization of the canonical
+
+306
+00:34:34,978 --> 00:34:40,498
+partial covariance and then proportionally at all into a sum of 15 for the vector predictor.
+
+307
+00:34:41,548 --> 00:34:42,987
+Okay, then you may ask.
+
+308
+00:34:42,988 --> 00:34:51,058
+Okay, can we just kind of replace the classical covariance by the quintile patriotism covariance in those kind of people as algorithm?
+
+309
+00:34:51,838 --> 00:34:57,238
+So the answer is yes, but the location for this procedure is not straightforward.
+
+310
+00:34:57,868 --> 00:35:05,638
+So the reasoning is that all the linear regression, we have a very convenient kind of linear relationship between the covariance,
+
+311
+00:35:05,638 --> 00:35:09,988
+between the predictor and the response with the kind of the regression coefficient, right?
+
+312
+00:35:10,438 --> 00:35:18,028
+However, this kind of a simple kind of linear relationship plays an important role in terms of justifying the classic PR as altruism.
+
+313
+00:35:18,598 --> 00:35:22,828
+However, this simple linear relationship that's in the contrary question.
+
+314
+00:35:24,778 --> 00:35:33,478
+Okay, so nevertheless, on the power equation, we can know if we find out a useful pseudo linear structure for the ponytail,
+
+315
+00:35:33,478 --> 00:35:37,768
+partial kind of tensor covariance, which is given by this equation.
+
+316
+00:35:38,518 --> 00:35:45,688
+Okay. So this linear structure is much more complicated than the kind of the somewhat linear relationship and the linear regression.
+
+317
+00:35:46,078 --> 00:35:50,578
+This is because the matrix meet how here involves the p zeroth.
+
+318
+00:35:50,578 --> 00:35:59,368
+How a very complicated way. Okay. So nevertheless we can show that the matrix with how is positive a definite.
+
+319
+00:35:59,938 --> 00:36:05,577
+Okay. So this will implies that the quote at this quantile can partial physical variance will
+
+320
+00:36:05,578 --> 00:36:11,378
+vanish if and only if all the elements of the kind of physical efficient b0 at zero.
+
+321
+00:36:11,968 --> 00:36:13,497
+So this implies that. Okay.
+
+322
+00:36:13,498 --> 00:36:22,258
+And so we extend the code how partial physical variance and the kind of the B0 with how they are kind of informative about each other.
+
+323
+00:36:22,858 --> 00:36:34,138
+Okay. So this provides some kind of insight for us to figure out that the justification for that intuitive algorithm we're going to develop,
+
+324
+00:36:34,498 --> 00:36:37,798
+I will present you later. Okay.
+
+325
+00:36:37,798 --> 00:36:45,178
+So our kind of the partial quartile tensor regression procedure are some kind of typical assumptions,
+
+326
+00:36:45,478 --> 00:36:49,128
+which is similar to the assumptions adopted by the TPR and TPL,
+
+327
+00:36:49,138 --> 00:36:57,808
+as always on the linear question, and that we assume the tensor predictor and the kind of the vector predictor has expectation zero.
+
+328
+00:36:58,258 --> 00:37:04,348
+And the more importantly, we assume a separable cronico structure, covariance structure for the tensor predictor.
+
+329
+00:37:04,888 --> 00:37:11,878
+So, so that means the covariance matrix for tensor predictor x basically take this form.
+
+330
+00:37:12,418 --> 00:37:21,178
+So what does this mean? So this essentially means that, okay, so the tensor, a kind of predictor, has this kind of spatial kind of kind of structure.
+
+331
+00:37:21,628 --> 00:37:31,258
+And the core tensor has the entries of this quote of mutual independent kind of random variables was mean zero and variance one.
+
+332
+00:37:31,888 --> 00:37:35,818
+And also the fact the matrix here is connected with a sigma.
+
+333
+00:37:35,818 --> 00:37:40,338
+Okay, this means this way. Sigma K was eight times it transpose.
+
+334
+00:37:41,008 --> 00:37:47,788
+And so this kind of separable cronico structure covariance assumption has been widely used in composite regression,
+
+335
+00:37:47,788 --> 00:37:51,928
+even richer, and also in the kind of the covariance estimation literature.
+
+336
+00:37:52,858 --> 00:37:58,348
+Okay, so all these also assumptions. So we develop a kind of a,
+
+337
+00:37:59,038 --> 00:38:04,947
+we adapt algorithm to tackle the quantile tensor equation and following the conclusion
+
+338
+00:38:04,948 --> 00:38:11,488
+that we are going to kind of reduce the kind of the partial or the tensor,
+
+339
+00:38:12,028 --> 00:38:19,167
+the control partial tensor covariance and to to a kind of to the sequence of the fact of the matrix.
+
+340
+00:38:19,168 --> 00:38:25,948
+And users can affect the matrix to reduce the tensor predictor and to reduce the kind of the tensor teeth.
+
+341
+00:38:27,838 --> 00:38:35,248
+And so here is the kind of the description of the particular algorithm we developed.
+
+342
+00:38:35,728 --> 00:38:48,358
+So again, the first that we calculate the kind of the all partial physical errors and then then then as that to to step four.
+
+343
+00:38:48,658 --> 00:38:58,978
+So basically we use the most k cross covariance matrix to guide the projections or to guide the kind of the revision of the fact the matrix.
+
+344
+00:38:59,458 --> 00:39:04,737
+Okay. And then we would do that for each mode that came right one to.
+
+345
+00:39:04,738 --> 00:39:11,818
+And so at the end. So we would reduce the kind of the tensor predictor into a smaller tensor t power.
+
+346
+00:39:12,058 --> 00:39:20,367
+So this kind of categorization, using the fact the matrix would derive from the step 2 to 4 and so and step six would perform.
+
+347
+00:39:20,368 --> 00:39:28,978
+The controversial way with respect to is a note that low dimensional vector a kind of predictor Z and T call and at step seven.
+
+348
+00:39:28,978 --> 00:39:37,108
+So basically which has form the coefficient estimate for the reducer passive to the coefficient for the original tensor predictor.
+
+349
+00:39:38,128 --> 00:39:41,398
+And here I want to make a couple of kind of important remarks.
+
+350
+00:39:41,728 --> 00:39:44,808
+So first, so we can, but based on definition,
+
+351
+00:39:44,818 --> 00:39:52,048
+so we can see that the seen how can be equivalently expressed as a covariance between our core and the the tensor predictor.
+
+352
+00:39:52,438 --> 00:39:55,648
+So, so this gives us some kind of insight in terms. Okay.
+
+353
+00:39:55,798 --> 00:40:03,238
+So the step one and the PHI essentially a minor variance of the TPL algorithm with response equal to our top.
+
+354
+00:40:03,808 --> 00:40:08,308
+Okay. So this this insight can help with some of the theoretical justifications.
+
+355
+00:40:09,038 --> 00:40:15,778
+And the second remark I want to make is that throughout the whole procedure, it doesn't involve any complex optimization.
+
+356
+00:40:16,258 --> 00:40:21,568
+So I step seven So this is well, maximizing this objective function subject to this constraint,
+
+357
+00:40:21,958 --> 00:40:31,768
+but this maximization problem can be reduced to and to finding the eigenvectors associated with the largest eigenvalues of this kind of matrix.
+
+358
+00:40:32,248 --> 00:40:36,538
+So this can be easily done by using existing functions in MATLAB when you are.
+
+359
+00:40:40,168 --> 00:40:45,987
+So to implement the TV and pick your algorithm, we need to input the sick.
+
+360
+00:40:45,988 --> 00:40:49,198
+How sick? Anarchy and decay. Right. Okay. So.
+
+361
+00:40:49,618 --> 00:40:59,998
+So we can use the sigma. We can compute Sigma K by sigma he had, which Asmi Sigma came up to mathematically is the constant.
+
+362
+00:41:00,298 --> 00:41:03,208
+Okay. And then to compute the see how.
+
+363
+00:41:03,388 --> 00:41:12,388
+So what we can do is that we first perform a kind of congregation of Y and over the low dimensional kind of the vector predict Z.
+
+364
+00:41:12,598 --> 00:41:17,008
+And then we have the resulting estimate into a definition of the C,
+
+365
+00:41:17,308 --> 00:41:23,338
+then we get this estimate and it to select the decay so we can either use cross-validation
+
+366
+00:41:23,578 --> 00:41:30,268
+or we can use the agam eigenvalue ratio approach which choose the decay as a value,
+
+367
+00:41:30,268 --> 00:41:34,648
+which maximize the ratio of the two objects and the eigenvalues of this matrix.
+
+368
+00:41:35,308 --> 00:41:39,148
+So this approach has been used in some other other work.
+
+369
+00:41:39,538 --> 00:41:42,658
+And so and the bizarre or numerically spurious,
+
+370
+00:41:42,838 --> 00:41:50,008
+the eigenvalue ratio approach is more computationally efficient as comparing as compared to the cross-validation approach.
+
+371
+00:41:53,128 --> 00:42:00,388
+And this lies. I want to highlight the computational process of our peculiar algorithm and first from
+
+372
+00:42:00,388 --> 00:42:06,267
+using that the quantum partial tensor covariance over a procedure naturally a common,
+
+373
+00:42:06,268 --> 00:42:13,708
+this low dimensional vector predictor. Okay. And secondly of our altruism avoid complex optimization.
+
+374
+00:42:13,708 --> 00:42:22,798
+I already discusses point earlier and the last but not least important is that okay, our altruism allows for much smaller sample size.
+
+375
+00:42:23,248 --> 00:42:28,648
+So the reason is that although altruism only post very weak empirical constraint in terms of a sample
+
+376
+00:42:28,648 --> 00:42:35,818
+size so so that use the sample size earned time support and OPG is not equal to K is greater peak.
+
+377
+00:42:36,448 --> 00:42:43,618
+Okay so so these are we need these come spread because all we want make sure that the signal actually is positive definite.
+
+378
+00:42:44,218 --> 00:42:51,957
+Okay so and the a small good small sample size a performance of our procedure is confirmed by our numerical studies,
+
+379
+00:42:51,958 --> 00:42:57,508
+for example with a sample assess equal to 50. Okay.
+
+380
+00:42:57,748 --> 00:43:01,198
+So now comes to the more technical part.
+
+381
+00:43:01,738 --> 00:43:07,378
+So we develop the algorithm and that is critically important to understand.
+
+382
+00:43:07,738 --> 00:43:16,138
+Okay. So how the algorithm, the particular procedure will serve to address the content tensor regression model that we're interested in.
+
+383
+00:43:16,318 --> 00:43:19,378
+Right. So we develop the algorithm. Okay.
+
+384
+00:43:19,588 --> 00:43:22,738
+So by some of our kind of theoretical work.
+
+385
+00:43:23,068 --> 00:43:33,568
+So we find that the acute heat and the hours up basically decompose that has a predictor into two parts, into these two parts.
+
+386
+00:43:34,018 --> 00:43:42,928
+And these two parts are uncorrelated because we can show that the covariance between the H2O and the top equals zero.
+
+387
+00:43:43,348 --> 00:43:46,438
+Okay. So we can be composed of LP something compulsive,
+
+388
+00:43:46,438 --> 00:43:54,238
+hence a predictor into a tool according to the path and plugging this alternative expression into the model one.
+
+389
+00:43:54,718 --> 00:44:03,538
+And we can further show that the conditional how a Y given the tensor predictor accent z can be expressed in this form.
+
+390
+00:44:04,108 --> 00:44:10,198
+And this is because we can show that the inner product between zero and each equals zero.
+
+391
+00:44:10,828 --> 00:44:14,878
+So the result given in the equation certainly has very important implications.
+
+392
+00:44:14,908 --> 00:44:24,738
+So what does it mean? So that means. Okay, so the conditional about how only relates to the first part of this kind of as a
+
+393
+00:44:24,748 --> 00:44:32,338
+predictor only the tip how okay impact the the kind of the conditional control Y.
+
+394
+00:44:33,178 --> 00:44:38,728
+Okay. So this the equations six and seven basically come forth.
+
+395
+00:44:39,358 --> 00:44:45,597
+Very nice. Kind of a population later the variable interpretation for the proposal p r altruism.
+
+396
+00:44:45,598 --> 00:44:52,588
+And it shares a very similar spirit with the classic literary void, the partition of the place on that linear question.
+
+397
+00:44:56,238 --> 00:45:03,258
+And we also want to understand what kind of the business scenarios would attach to that
+
+398
+00:45:03,258 --> 00:45:08,688
+kind of nice fleet and the variable model or representation of the peak of your algorithm.
+
+399
+00:45:09,078 --> 00:45:16,578
+So that's why we further formulated the study, a new avenue model, which we call the Avalon Chemical Tensor Regression model.
+
+400
+00:45:17,028 --> 00:45:21,798
+So this model basically the impulse to additional assumptions, E1 and E2.
+
+401
+00:45:23,058 --> 00:45:25,848
+Okay, so what does this assumption mean?
+
+402
+00:45:26,238 --> 00:45:37,488
+So this assumption means that we can have the Model Y's division of the cancer predictor into more immature repair and of the material part.
+
+403
+00:45:38,148 --> 00:45:48,978
+So, so this part is essentially the most key projection of has a predictor into some sub space denoted by scale
+
+404
+00:45:49,998 --> 00:45:58,468
+and this part and really represent the more the projection of the tensor predictor into the meniscus of ice.
+
+405
+00:45:59,658 --> 00:46:07,018
+And then we see this is material part. This is because by the assumption E2 so we can see that.
+
+406
+00:46:07,278 --> 00:46:14,568
+Okay. So only this component order can affect the conditional part one.
+
+407
+00:46:15,108 --> 00:46:22,648
+So, so that's really the you form as a part of the tensor predictor, which is informative about the task conditional on Y.
+
+408
+00:46:24,018 --> 00:46:29,078
+And then this tool part, I can sort of also go, no, I'm, I'm, I'm coordinating.
+
+409
+00:46:29,908 --> 00:46:32,028
+And so by this assumption, essentially,
+
+410
+00:46:32,238 --> 00:46:41,028
+the kind of kind of of can be viewed as a set of specific conditions can attach to the kind of the Commonwealth Tensor regression model.
+
+411
+00:46:44,178 --> 00:46:52,428
+And so like a typical kind of I have a little model and the idea would imply some kind of special structures of the covariance matrix.
+
+412
+00:46:52,848 --> 00:46:56,298
+And our obviously radical study basically shows that,
+
+413
+00:46:56,518 --> 00:47:03,738
+that the the new envelope model or the plug the sigma, okay, take this special kind of structure.
+
+414
+00:47:04,128 --> 00:47:11,327
+So this means that the Sigma K can can be divided into two or something in part by projecting the sigma
+
+415
+00:47:11,328 --> 00:47:19,638
+came into this subspace as Keith Hall and the project into the complement space of the the ask how.
+
+416
+00:47:20,118 --> 00:47:26,928
+And at the same time. So the coefficient takes this kind of takeover kind of decomposition form.
+
+417
+00:47:27,828 --> 00:47:33,798
+Okay so by this result, so we also got that very important message.
+
+418
+00:47:34,038 --> 00:47:40,518
+So that is the ask how is a kind of the reducing subspace of the sigma, okay.
+
+419
+00:47:40,728 --> 00:47:45,948
+Which include the, uh, the monarch matrix of the B zero.
+
+420
+00:47:46,788 --> 00:47:55,308
+So, so this means that we can define we can define that as KEITH How the subspace as Keith Hall as the outer lobe of sigma.
+
+421
+00:47:55,308 --> 00:48:01,718
+Okay. That includes the Spence space, the space bound by the K and more the matrix of B0.
+
+422
+00:48:02,628 --> 00:48:11,368
+Okay, so by the definition for the IDOLO, so that means the ice cube hall exists and also can be kind of uniquely defined.
+
+423
+00:48:11,838 --> 00:48:15,498
+Okay. So this means as the proposed available model is well defined.
+
+424
+00:48:18,368 --> 00:48:21,408
+Okay. So other further technical derivations.
+
+425
+00:48:22,448 --> 00:48:25,748
+So here, I'm just ignore those additional assumptions.
+
+426
+00:48:25,928 --> 00:48:30,638
+So the main message is that the leading variable by the representation of algorithm
+
+427
+00:48:30,638 --> 00:48:35,108
+given by the equations six and seven would host under the proposed available model.
+
+428
+00:48:35,558 --> 00:48:37,668
+So, so what's the implication of this result?
+
+429
+00:48:37,688 --> 00:48:46,028
+So that means if the data follows the new outlook model, then if we apply the PICO Theory procedure, then the results are interpretable.
+
+430
+00:48:47,168 --> 00:48:51,548
+And furthermore, we show that OC under some kind of regularity conditions,
+
+431
+00:48:51,548 --> 00:48:57,818
+we can show that the the smoother from the particular TR procedure is smooth and consistent.
+
+432
+00:48:58,238 --> 00:49:02,978
+So that means when the kind of the absolute health hazard regression model holds,
+
+433
+00:49:03,338 --> 00:49:09,788
+then the Pico TR procedure not only provides interpretable results but also provide the consistent results.
+
+434
+00:49:12,698 --> 00:49:16,758
+Okay. So I don't know you for a few minutes.
+
+435
+00:49:16,778 --> 00:49:20,888
+When I tried, I tried to break out the simulation studies.
+
+436
+00:49:21,278 --> 00:49:23,678
+So I see. And we conduct extensive simulation study.
+
+437
+00:49:23,688 --> 00:49:34,358
+And here I only I only focus on one simulation settings and in this simulated listen setting so that this a predictor has a heterogeneous effect.
+
+438
+00:49:34,538 --> 00:49:39,698
+So we can see that the coefficient is really a kind of piecewise constant function.
+
+439
+00:49:40,058 --> 00:49:45,548
+And also we can see the three different cases where these three matrices have the same, same shape.
+
+440
+00:49:45,758 --> 00:49:48,878
+Waseem runs a different shape with different runs and different shapes.
+
+441
+00:49:49,568 --> 00:49:58,148
+And also, we would compare to different measures the using the trends, using the rest, selected by the eigenvalue ratio measure.
+
+442
+00:49:58,388 --> 00:50:03,757
+The rank selected by cross-validation Mazur for would just imply the angel and ask Mazur
+
+443
+00:50:03,758 --> 00:50:09,218
+which user a decomposition for the tensor predictor and also with the sensitivity analysis.
+
+444
+00:50:09,458 --> 00:50:16,808
+Comparing the data scenario. Well the data follows the of model versus does it narrow the data doesn't and don't follow the available
+
+445
+00:50:16,808 --> 00:50:22,928
+model and the source uses figures which show that empirical average of the coefficient estimate.
+
+446
+00:50:23,198 --> 00:50:31,448
+And this columns shows that panel the short answer coefficient and the so we can see that the sum of that 50, 102 hundred.
+
+447
+00:50:31,838 --> 00:50:37,298
+And here we can see that the proposed measure fixed area can apply the well can
+
+448
+00:50:37,298 --> 00:50:41,948
+now capture the kind of pincer coefficient even with a sample size effective.
+
+449
+00:50:42,068 --> 00:50:48,848
+Right. And in contrast, the key kind of measure generates very noisy admission results.
+
+450
+00:50:49,358 --> 00:50:59,138
+And so and the window kind of in the hope when the sample size is right large, for example, 200 that are measured and it's not clear.
+
+451
+00:50:59,198 --> 00:51:04,718
+Sure, it can still roughly capture the kind of true tensor coefficient and this is more
+
+452
+00:51:04,718 --> 00:51:09,607
+clear in the kind of a simulation result for a second case which has you got,
+
+453
+00:51:09,608 --> 00:51:11,408
+you know, a sample size 100.
+
+454
+00:51:11,588 --> 00:51:19,898
+So the proposed measure to roughly capture those two kinds of coefficient and we have similar result in a more challenging case.
+
+455
+00:51:21,488 --> 00:51:26,918
+And so in this pass basically will assess estimation of our ability of the proposal masses
+
+456
+00:51:27,398 --> 00:51:32,557
+and as always is to really calculate the empirical average of the admission errors.
+
+457
+00:51:32,558 --> 00:51:40,927
+And this is the counterpart of the new squared arrow. And here we can see that of course the P always generate the largest estimation by
+
+458
+00:51:40,928 --> 00:51:46,058
+our ability and if we comparing the kind of the yeah and the we MAZUR we can see
+
+459
+00:51:46,058 --> 00:51:52,237
+that the key cross-validation approach may meet may or may have slightly smaller
+
+460
+00:51:52,238 --> 00:51:56,588
+kind of the estimation of RBD as comparing to the eigenvalue kind of approach.
+
+461
+00:51:58,298 --> 00:52:03,848
+Okay. So now I just go to the of application to the motivating PTSD study.
+
+462
+00:52:04,118 --> 00:52:10,388
+And so our data set includes 98 female patients with PTSD recruited by the British combat projects.
+
+463
+00:52:10,898 --> 00:52:17,858
+And our interest is how does a brain function, no connectivity such as will predict the severity of the PTSD symptoms.
+
+464
+00:52:18,428 --> 00:52:25,208
+And so our data analysis of why was found to the SAS total score and as a test predictor is a functional
+
+465
+00:52:25,208 --> 00:52:35,537
+connectivity matrix and the Z correspond to H and so I just uses slides to present the results.
+
+466
+00:52:35,538 --> 00:52:41,678
+So we applied the particular TR procedure was the all time equal 2.4.4.5 points, 8.75.
+
+467
+00:52:41,978 --> 00:52:51,548
+So that we can really estimate assess the effect of the functional connectivity of the low, middle and high range of the SAS total score.
+
+468
+00:52:51,998 --> 00:53:00,518
+And the so our results actually uncover of heterogeneous patterns in terms of effects of green color, a functional connectivity on the total score.
+
+469
+00:53:01,358 --> 00:53:10,148
+And so in this figure, so what I show is that the kind of function, the content, a few of the edges.
+
+470
+00:53:10,658 --> 00:53:24,818
+Okay, so which show was shock, significance and the effect on the 25% house of the SAS total score or the 75% house of the SAS total score.
+
+471
+00:53:24,818 --> 00:53:27,878
+And then we adopt a kind of the threshold as a five.
+
+472
+00:53:28,058 --> 00:53:33,278
+Okay, in order to make the visual visualization of the result, to be smart enough.
+
+473
+00:53:33,908 --> 00:53:39,398
+So the interesting result is that we can see that some edges within the default,
+
+474
+00:53:40,568 --> 00:53:50,858
+default kind of mode network basically show some kind of significant negative effect on the lower house of SAS, but not on the Opera House.
+
+475
+00:53:51,278 --> 00:53:59,948
+And in contrast, some edges within the symptom, although not work, has positive you can find in the opera house but not on the lower on.
+
+476
+00:54:00,878 --> 00:54:04,327
+Okay. So some of the interpretation of those result is that.
+
+477
+00:54:04,328 --> 00:54:11,048
+Okay, so the connectivity, for example, the connectivity within that default mode network may have some predictive power.
+
+478
+00:54:11,898 --> 00:54:22,548
+Regarding the severity of the PTSD symptoms in the patient was relatively mild symptoms, but not for a patient with very severe symptoms.
+
+479
+00:54:23,208 --> 00:54:30,437
+And so we also tried to keep our eyes out as the algorithm which attacked linear regression and towards this
+
+480
+00:54:30,438 --> 00:54:36,318
+dataset and that we didn't find any color effect estimate that exceeds the kind of this passive threshold fight.
+
+481
+00:54:36,828 --> 00:54:44,898
+And so this may represented a phenomena of dilutive, in fact estimation from assuming a constant effect across compounds.
+
+482
+00:54:45,108 --> 00:54:50,778
+So those can manifest get dilutive. So this as you flush with you by this example,
+
+483
+00:54:50,778 --> 00:55:01,157
+we can see that the quality of cancer of pleasure as addressed by the the over peak TR procedure really can provide a very kind of useful insight,
+
+484
+00:55:01,158 --> 00:55:09,468
+provide very detailed view regarding association between the functional connectivity network, work function of connectivity and the PSC total score.
+
+485
+00:55:09,678 --> 00:55:14,508
+And this cannot be really uncovered by the traditional method using that in your question.
+
+486
+00:55:16,428 --> 00:55:19,728
+Okay. So I drew up how we find some remarks.
+
+487
+00:55:19,998 --> 00:55:28,487
+So our work delivers some viable approach to exploring the dynamic association between image enhancers and traditional clinical phenotypes.
+
+488
+00:55:28,488 --> 00:55:36,678
+Based on our regression and the highlight of our measures, the simple and efficient implementation and the.
+
+489
+00:55:36,678 --> 00:55:45,468
+Furthermore, we solely investigated the theoretical justification of the proposal masses and our empirical work suggests a very good,
+
+490
+00:55:45,888 --> 00:55:49,338
+quite impressive is calibrated here to handle large cancers.
+
+491
+00:55:49,728 --> 00:55:56,957
+However, our current theoretical work assume this dimension case as fixed and your worst kind of
+
+492
+00:55:56,958 --> 00:56:03,408
+future of theoretical work method of work to allow the peak to diverge with the small size.
+
+493
+00:56:04,008 --> 00:56:07,668
+Okay, so that's all my presentation and thank you for your attention.
+
+494
+00:56:07,998 --> 00:56:16,768
+Welcome. Any questions? Okay.
+
+495
+00:56:17,328 --> 00:56:22,268
+Okay. Okay. They're going to sit here. So I.
+
+496
+00:56:22,598 --> 00:56:26,588
+I don't know. I think this is definitely a over simplification of your.
+
+497
+00:56:26,768 --> 00:56:30,488
+I think I. I wonder if I could summarize the method.
+
+498
+00:56:30,748 --> 00:56:33,758
+Got the same idea behind this as. Right.
+
+499
+00:56:34,078 --> 00:56:45,188
+And consider these and not your defenders as. So you have a relative large number of you managing of covariance and you actually decompose
+
+500
+00:56:45,188 --> 00:56:51,668
+that covariance by removing the part that is unrelated to both the response and the other.
+
+501
+00:56:51,998 --> 00:56:58,388
+Yeah, I think it and I think yeah she is very that was hard to imagine but at the same
+
+502
+00:56:58,388 --> 00:57:03,758
+time I need to emphasize is a tensor so it has a is not just the long vectors,
+
+503
+00:57:03,908 --> 00:57:08,548
+it does have some kind of spatial structure we want to preserve. Yeah, yeah, yeah.
+
+504
+00:57:08,558 --> 00:57:15,068
+So, so that's why we desire some kind of kind of more the sort of do this kind of package decomposition.
+
+505
+00:57:15,368 --> 00:57:20,198
+So we try to use a strategy to figure out those kind of factor matrices.
+
+506
+00:57:20,438 --> 00:57:24,578
+But I see you understanding about that measure reduction part these is right.
+
+507
+00:57:24,698 --> 00:57:27,698
+So so that's why I show that I have a little model laid out, right?
+
+508
+00:57:27,938 --> 00:57:28,868
+So I have a little model.
+
+509
+00:57:29,408 --> 00:57:37,448
+Basically, the idea is that for any predictor I had decompose it into a mature or immature pie, more mature a pie basis and useful part.
+
+510
+00:57:37,628 --> 00:57:40,718
+You mature of how you something not really relevant to the response.
+
+511
+00:57:41,348 --> 00:57:44,468
+So so I think that's sort of in line with what you've described.
+
+512
+00:57:44,558 --> 00:57:49,177
+Okay. Yeah. So I yeah, I think that's a that's just an oversimplification of what you did.
+
+513
+00:57:49,178 --> 00:57:53,918
+But I was trying to understand sort of the central idea behind it.
+
+514
+00:57:54,158 --> 00:57:57,398
+So another thing is related to those modeling values.
+
+515
+00:57:57,848 --> 00:58:03,247
+So you view is having some positive results. I can have your results, right?
+
+516
+00:58:03,248 --> 00:58:09,938
+Yeah. That's probably somebody that is fusion, right. No, I think we only show the router, um, inconsistency the, the saying.
+
+517
+00:58:09,938 --> 00:58:17,348
+Is that so or because I think this really depends on the study result on W hat.
+
+518
+00:58:17,858 --> 00:58:19,868
+So because we need to use that algorithm,
+
+519
+00:58:19,868 --> 00:58:26,347
+we gather those kind of factor matrix and the because those factor matrix really related to the eigenvalue itself.
+
+520
+00:58:26,348 --> 00:58:32,858
+So the matrices. So I think it's very tricky to say establish some traditional supporting normality for those estimates.
+
+521
+00:58:33,338 --> 00:58:41,138
+And then, but unfortunately we have this to show the root and consistency for those factor matrix estimation and then to show this theorem.
+
+522
+00:58:41,138 --> 00:58:45,967
+And then we just plug it into the empirical process framework for the contribution.
+
+523
+00:58:45,968 --> 00:58:49,358
+And then we can show that the resulting estimate for the see the hat so,
+
+524
+00:58:49,988 --> 00:58:55,538
+so they are inconsistent, but we don't have the asymptotic normality at this point.
+
+525
+00:58:55,958 --> 00:58:58,118
+And then probably that that's not true. Okay.
+
+526
+00:58:59,288 --> 00:59:11,138
+And the the became more by the sampling for this you to the you are assuming that the there is no fixed right so so so so I think like some
+
+527
+00:59:11,138 --> 00:59:19,298
+some parameter we use in the algorithm our key sort of underlying structure of what's the random two random for the underlying structure.
+
+528
+00:59:19,478 --> 00:59:27,188
+Okay. So I think that if we assume decay is just selected, okay, good enough, then we have to do this with, um, consistency.
+
+529
+00:59:27,518 --> 00:59:34,328
+But our odyssey is rather results shows that if we overestimate our okay, that's the okay.
+
+530
+00:59:34,688 --> 00:59:39,718
+But if we underestimate the arc, so decays, less arc decays later.
+
+531
+00:59:39,728 --> 00:59:43,448
+Okay, then, then sometimes we had some bias.
+
+532
+00:59:46,598 --> 00:59:54,278
+So I know like implementation, verification and subsequent for that application the interpretation of this.
+
+533
+00:59:54,278 --> 00:59:59,328
+So you do apply the model, you choose style and you run the models have different values opt out.
+
+534
+00:59:59,588 --> 01:00:04,088
+Yes. So no. So you use 4.5.25.
+
+535
+01:00:04,118 --> 01:00:09,278
+Mm hmm, yes. So from an interpretation angle, like your outcome is a disease severity, right?
+
+536
+01:00:09,458 --> 01:00:14,708
+Yes. In a seven save, for example if I choose 138.35.
+
+537
+01:00:14,768 --> 01:00:19,327
+Mm. Right. Yeah. I would expect the brain network to have some.
+
+538
+01:00:19,328 --> 01:00:23,228
+Right. I would go in disease severity that would be different. But as you pick up.
+
+539
+01:00:23,438 --> 01:00:28,028
+Yes. Higher disease severity, this should be something like a continuous change.
+
+540
+01:00:28,028 --> 01:00:35,017
+Right. And you miss that. Now, how do you communicate that to you, this verbal question?
+
+541
+01:00:35,018 --> 01:00:41,438
+Because I walk away for a long time. I think how does a choose that how he's always people.
+
+542
+01:00:42,548 --> 01:00:47,528
+This kind of question was always coming up on our get out the bottom strength of most comes.
+
+543
+01:00:47,768 --> 01:00:50,587
+I think it was. I think he did. Yeah, that's a good question.
+
+544
+01:00:50,588 --> 01:00:57,997
+I think for this walk, actually, we do sort of have the whole point of wisely, we just serve, as you just describe earlier.
+
+545
+01:00:57,998 --> 01:01:06,098
+So we apply this procedure for each given how. So actually we don't borrow information across town, but in some of my other work,
+
+546
+01:01:06,098 --> 01:01:11,438
+I think I do provide some kind of where you can send a contribution in that kind of framework.
+
+547
+01:01:11,438 --> 01:01:19,988
+And we really try to have more information, plus how to have more robust verbal selection so that can be potentially expensive, all this type of work.
+
+548
+01:01:20,708 --> 01:01:25,578
+I think that's a very good question. Yeah. Yeah.
+
+549
+01:01:26,508 --> 01:01:30,448
+Oh, God. This is a very interesting topic. Yeah. I have a couple of questions.
+
+550
+01:01:30,448 --> 01:01:37,738
+The one here, ask questions. So you applied for for you to college after you run from affirmation.
+
+551
+01:01:38,158 --> 01:01:42,808
+Yes. And guarantee that the holder of the penthouse like all fell upon.
+
+552
+01:01:43,348 --> 01:01:46,768
+They should be truly sorted by now, I think.
+
+553
+01:01:46,768 --> 01:01:48,868
+I cannot guarantee the final sample.
+
+554
+01:01:49,198 --> 01:01:57,338
+One as long as the people are the consistency result I can guarantee as a party come no one that honesty so with a real desire.
+
+555
+01:01:57,358 --> 01:02:02,818
+So. And you may not be strictly one at home, but they're trying to show you might as well yeah.
+
+556
+01:02:03,028 --> 01:02:12,087
+So another best friends are very how you actually I probably missed that part but how you actually introduce the bars of united up I can we appreciate
+
+557
+01:02:12,088 --> 01:02:21,568
+that I hope so basically you show your you have connectivity at the price so the sparsity is really base is related to a selection of the UK.
+
+558
+01:02:22,468 --> 01:02:25,857
+Okay. So, so so that's also why they have the price.
+
+559
+01:02:25,858 --> 01:02:31,248
+Right. So I think is kind of reduced dimension from the P to the D, D and all.
+
+560
+01:02:31,258 --> 01:02:34,378
+Okay. So that's why I hope he came to with for that.
+
+561
+01:02:34,678 --> 01:02:41,998
+Okay. So that's empirically that's how we can control the specific, I think in terms of the theoretical sparsity.
+
+562
+01:02:42,268 --> 01:02:48,358
+So as I mentioned, so this Avant provides a kind of the key anxiety come with some of the specific condition.
+
+563
+01:02:49,078 --> 01:02:54,328
+So I think, I don't know is culturally related to the kind of remark of the sufficient dimension reduction.
+
+564
+01:02:55,048 --> 01:02:58,828
+So, so this really kind of follows similar, similar ideas.
+
+565
+01:03:00,518 --> 01:03:04,638
+So I know my last question is, do you have these functional connectivity matrix?
+
+566
+01:03:04,668 --> 01:03:10,018
+Either there should be symmetric, right you know, with your ten so coefficients always imagining.
+
+567
+01:03:10,198 --> 01:03:14,277
+Yeah. So that's a good question. I see. Yes, I think of this as a measure matrix.
+
+568
+01:03:14,278 --> 01:03:23,698
+So that's why I we validate analysis as a measure. We first do the kind of features is this transformation so to and at the same time as this step.
+
+569
+01:03:24,088 --> 01:03:25,978
+So I didn't get into details.
+
+570
+01:03:26,368 --> 01:03:35,847
+So this is our algorithm at this that actually where we after we get how we only use the longer triangular triangular area to
+
+571
+01:03:35,848 --> 01:03:43,528
+do that the control questions anyway just the refractive to the upper triangular part just to make sure the kind of symmetric.
+
+572
+01:03:43,618 --> 01:03:47,778
+Otherwise, if it's not symmetric, it's not right. Thank you.
+
+573
+01:03:48,768 --> 01:03:52,827
+So I have I don't have any technical questions because it's beyond my pay grade.
+
+574
+01:03:52,828 --> 01:03:57,038
+I have to say. It's a very complicated modeling.
+
+575
+01:03:57,438 --> 01:04:08,268
+And I imagine you have some difficulty explaining this to to your collaborators, because a lot of matrices intensive.
+
+576
+01:04:08,498 --> 01:04:18,198
+Well, I'm wondering if and this seems like the results that you you're telling them are not kind of what they might be hoping for in a sense,
+
+577
+01:04:18,198 --> 01:04:22,337
+that you it looks like you are looking for patterns when you have high, high severity,
+
+578
+01:04:22,338 --> 01:04:26,208
+but you'll get your showing apparently showing something when there's not much severity.
+
+579
+01:04:26,208 --> 01:04:30,888
+But not that that doesn't happen, though, high severity. So anyway, the short thing is,
+
+580
+01:04:31,608 --> 01:04:38,988
+do they pay or do they buy your results for one thing and you get it published in a technical in a non statistical journal.
+
+581
+01:04:39,618 --> 01:04:48,167
+And, and also our neurologists know something about, about different brain areas and function of different brain areas.
+
+582
+01:04:48,168 --> 01:04:52,487
+So I would thought you might be able to boil down this huge matrix to a smaller
+
+583
+01:04:52,488 --> 01:04:57,258
+number of variables by making use of what you actually know about the brain.
+
+584
+01:04:57,528 --> 01:05:01,218
+Yeah. So, so actually that's a good point. I think. Very good comments.
+
+585
+01:05:01,218 --> 01:05:06,668
+And so I think we do have kind of subject matter collaborators and we have a meeting to discuss, okay,
+
+586
+01:05:07,248 --> 01:05:13,968
+how to kind of manipulate data and the what kind of the kind of the heart or kind of frame that kind of the functional outcome,
+
+587
+01:05:13,968 --> 01:05:19,338
+the collective matrix, actually, this result is actually consistent with the findings in the previous literature.
+
+588
+01:05:19,608 --> 01:05:32,418
+They did find some kind of a positive association between that and that work and also that the different sort of this season kind of the association.
+
+589
+01:05:32,598 --> 01:05:36,608
+But they just do not just have those kind of details in terms of okay,
+
+590
+01:05:36,618 --> 01:05:45,378
+the really the association is many lives in the lower part of the picture go to function or the patient always kind of less severe sometimes.
+
+591
+01:05:45,888 --> 01:05:50,747
+And the also in terms of the regression, I see what you are this kind of model for a long time.
+
+592
+01:05:50,748 --> 01:05:56,178
+And so I feel that another thing I want to mention there, so this is a perfect example.
+
+593
+01:05:56,418 --> 01:06:04,997
+So if we just assume very simple model, assume they are all have constant effect sometimes you can actually I the quantile is that
+
+594
+01:06:04,998 --> 01:06:09,618
+to say I that's the thought is the dimension reduction part that I'm skeptical about.
+
+595
+01:06:09,918 --> 01:06:13,968
+I would be skeptical about it if I didn't if I didn't understand the model, which I don't.
+
+596
+01:06:14,298 --> 01:06:23,028
+Oh, so I just say you have 300 by 300, but I don't think it's really 90,000 because I think we know quite a lot about the brain.
+
+597
+01:06:23,328 --> 01:06:30,678
+So so you could reduce that a lot, I think just using knowledge of programs and that's the ones I thought I really like.
+
+598
+01:06:32,058 --> 01:06:35,127
+Yeah. So, so that's the second thing. Could you approach our comment earlier?
+
+599
+01:06:35,128 --> 01:06:42,498
+Right. So you can first reduce a dimension by using a clinical certificate expertise and then you just walk out.
+
+600
+01:06:42,798 --> 01:06:48,228
+And I think if you did that and did something more straightforward and got similar result,
+
+601
+01:06:48,258 --> 01:06:56,088
+a somewhat similar idea that would make me more confident about your model that if there's nothing to compare it with,
+
+602
+01:06:56,758 --> 01:07:02,418
+I'm, you know, I'm going to send this and I'm just talking as a kind of an investigator.
+
+603
+01:07:03,938 --> 01:07:07,998
+I might be a little skeptical. Okay.
+
+604
+01:07:10,528 --> 01:07:17,578
+Yeah, but I have two simple questions. First, I see that you used the ten search predictor.
+
+605
+01:07:17,908 --> 01:07:24,098
+Do you re do you have to assume that the tensor predictor have the same dimension across all subjects?
+
+606
+01:07:25,668 --> 01:07:37,198
+Like I'm thinking about this network and maybe some of the connected devices are now easy to estimate due to some data quality issue.
+
+607
+01:07:37,228 --> 01:07:42,717
+Yeah, I think that that's a good question actually. We do require that you have an assumed dimension.
+
+608
+01:07:42,718 --> 01:07:51,348
+And so that's why in the data analysis, we now only have 279 times 209 because I need to remove some missing edges.
+
+609
+01:07:51,478 --> 01:07:59,278
+So if some subject don't have those edges, so we have to sort of shrink the kind of the kind of matrix you want to make.
+
+610
+01:07:59,578 --> 01:08:02,658
+Everybody has a say dementia for the intensive.
+
+611
+01:08:03,278 --> 01:08:10,288
+Is this the limitation of Tom Tucker or p c decomposition or is your just the choice of your.
+
+612
+01:08:10,408 --> 01:08:18,208
+I feel for the decomposition becomes a problem. They also require the same kind of the same dimension from a predictor.
+
+613
+01:08:18,438 --> 01:08:24,538
+Now, I have a question. I mean, I have a problem where people actually measure different size of the tensor.
+
+614
+01:08:24,538 --> 01:08:28,527
+I was wondering how people would deal with that. Probably.
+
+615
+01:08:28,528 --> 01:08:30,808
+I don't know. But I'm not in that field.
+
+616
+01:08:30,808 --> 01:08:41,368
+But I just feel that this sort of fixed image reality is kind of a limitation to more efficiently used data on actual imbalances.
+
+617
+01:08:41,768 --> 01:08:50,508
+Okay. I mean, not questions that. Do you have any other inference because you have the and sort of consistent patterns?
+
+618
+01:08:50,738 --> 01:08:55,198
+Yeah. But over into we do data analysis. You use the word significance.
+
+619
+01:08:55,298 --> 01:09:00,398
+No. I wonder like how these images have any build out and and.
+
+620
+01:09:00,598 --> 01:09:04,138
+Yeah. So what extent do you here for assessing. We can show that with um,
+
+621
+01:09:04,138 --> 01:09:13,228
+consistency by the we can not really at this moment that we didn't achieve any sort of more detail as to how the distribution happened for us.
+
+622
+01:09:13,628 --> 01:09:21,298
+I think for the recording analysis, what we use is to just use a kind of typical parametric bootstrapping procedure.
+
+623
+01:09:21,298 --> 01:09:26,907
+And then if I talk about those have inference is more like a typical practice in the new data analysis.
+
+624
+01:09:26,908 --> 01:09:33,958
+When we have this score for the coefficient and the, we can kind of select the significant edges based on the cut off on this one.
+
+625
+01:09:34,258 --> 01:09:38,458
+So that's kind of typically implemented in the neural imaging data analysis.
+
+626
+01:09:39,148 --> 01:09:45,267
+Yeah, yeah, I that's my guess. I guess I'll try to get this look at consistency probably with the bootstrap.
+
+627
+01:09:45,268 --> 01:09:48,348
+I would just want. Yes. Yeah, that's right.
+
+628
+01:09:48,658 --> 01:09:52,108
+That's a would be a problem for sometimes particularly if you look in extreme
+
+629
+01:09:52,108 --> 01:09:59,068
+percentiles and bootstrap doesn't work exactly when you look at like 45.05.
+
+630
+01:09:59,098 --> 01:10:06,118
+Yeah, that's true. I think what is always challenging is that kind of extreme controls, particularly when the sample size is smaller.
+
+631
+01:10:06,448 --> 01:10:12,118
+So I think the assumptions that benefit you always the regular vector produc sometimes you cannot be able.
+
+632
+01:10:14,598 --> 01:10:22,068
+So in your data example that you can get it back up to the last the previous slide which had the lines and
+
+633
+01:10:22,068 --> 01:10:28,848
+the connectivity lines and you found five of them were in the data is real data for the real data example.
+
+634
+01:10:30,258 --> 01:10:37,208
+So they were top right. I see like five, five lines that were possibly 900,000 or something about 2000.
+
+635
+01:10:37,728 --> 01:10:41,948
+So this is some concept of kind of this has a Z score bigger than the five.
+
+636
+01:10:41,958 --> 01:10:45,827
+Yes. So a false discovery rate concept because there's always going to be.
+
+637
+01:10:45,828 --> 01:10:51,108
+Yeah, this is true. So that's our meeting in January here when they try to find the significance.
+
+638
+01:10:51,238 --> 01:10:54,468
+So they use a typical way. So they have this score.
+
+639
+01:10:54,468 --> 01:10:57,587
+They just use a conservative cutoff, whether they score.
+
+640
+01:10:57,588 --> 01:11:00,678
+And here we use the five as the cutoff for the Z score.
+
+641
+01:11:00,918 --> 01:11:08,678
+So sort of in some way that they make the kind of cutoff greater than took the in order to sort of give some room.
+
+642
+01:11:08,688 --> 01:11:14,718
+So it's just one multiple comparison. So there's no false narrative, false discovery controls.
+
+643
+01:11:15,198 --> 01:11:20,928
+So it's more like the way to adjust for the kind of multiple comparison by using a more conservative cutoff on this score.
+
+644
+01:11:22,898 --> 01:11:26,648
+Bob Rooney basically, yeah. Have a very similar flair.
+
+645
+01:11:26,648 --> 01:11:29,968
+What would be the top 5% discovers?
+
+646
+01:11:30,368 --> 01:11:40,408
+I mean, FDR. That's why people.
+

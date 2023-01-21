@@ -1,20 +1,20 @@
 import json
 import re
 from urllib import request
+import requests
+from panopto_oauth2 import PanoptoOAuth2
+
+server = "sph.hosted.panopto.com"
+client_id = "29bd20b2-fd78-4bdd-9c40-af7a0133c139"
+client_secret = "oZVXzyYlRQun/+xrxaItsdSDm1n7Np6rNqlmjHjgcyQ="
 
 
-def download_caption(json_path):
-    with open(json_path) as json_file:
-        videos = json.load(json_file)
-
-    for video in videos['Results']:
-        print(video['Urls']['CaptionDownloadUrl'])
-        request.urlretrieve(video['Urls']['CaptionDownloadUrl'], "caption/" + video['Id'] + ".txt");
-
-
-def read_coursera_to_time_sentence(input_path):
+def read_coursera_to_time_sentence(input_path, video_id):
     with open(input_path) as f:
         lines = f.readlines()
+
+    if not lines:
+        print("{} has caption url but doesn't have caption".format(video_id))
 
     index = 1
     start, timestamp, sen, sen_list, time_list = True, False, "", [], []
@@ -92,7 +92,7 @@ def generate_word_list(time_list_second, sen_list):
     return word_list
 
 
-def generate_output_dictionary(sen_list, word_list, output_path):
+def generate_output_dictionary(sen_list, word_list):
     full_transcript = ""
     for sen in sen_list:
         full_transcript += sen + " "
@@ -102,16 +102,44 @@ def generate_output_dictionary(sen_list, word_list, output_path):
     output_dict['timedtext'] = word_list
     output_dict['full_transcript'] = full_transcript
 
-    with open(output_path, 'w', encoding="utf-8") as file_obj:
+    return output_dict
+
+
+def output_json(output_dict):
+    with open("output_with_caption/output.json", 'w', encoding="utf-8") as file_obj:
         json.dump(output_dict, file_obj, indent=2)
 
 
 def main():
-    download_caption("output_with_caption_url/output.json")
-    # time_list, sen_list = read_coursera_to_time_sentence('sample-coursera-transcript.txt')
-    # time_list_second = convert_time_list_to_seconds(time_list)
-    # word_list = generate_word_list(time_list_second, sen_list)
-    # generate_output_dictionary(sen_list, word_list, "output_v1.json")
+    with open("output_with_caption_url/output.json") as json_file:
+        videos = json.load(json_file)
+
+    video_list = []
+    count = 1
+    for i in range(len(videos['Results'])):
+        video = videos['Results'][i]
+        url = video['Urls']['CaptionDownloadUrl']
+        if url is not None:         
+            print("================={}=================".format(i))
+            count += 1
+            video_dict = video.copy()
+            time_list, sen_list = read_coursera_to_time_sentence("caption/" + video['Id'] + ".txt", video['Id'])
+            time_list_second = convert_time_list_to_seconds(time_list)
+            word_list = generate_word_list(time_list_second, sen_list)
+            caption_dict = generate_output_dictionary(sen_list, word_list)
+
+            video_dict['caption'] = caption_dict
+            video_list.append(video_dict)
+
+            # Just convert one caption
+            #  To convert all captions, please comment the following if statement
+            if count == 2:
+                break
+
+    print("================")
+    print(len(video_list))
+    output_dict = {"Results": video_list}
+    output_json(output_dict)
 
 
 if __name__ == '__main__':

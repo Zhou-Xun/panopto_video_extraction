@@ -1,0 +1,737 @@
+1
+00:00:07,970 --> 00:00:10,290
+After watching this video,
+
+2
+00:00:10,290 --> 00:00:12,510
+you will be able to
+use PROC UNIVARIATE to
+
+3
+00:00:12,510 --> 00:00:15,000
+get the distribution of
+a continuous variable,
+
+4
+00:00:15,000 --> 00:00:17,100
+and use PROC TTEST to calculate
+
+5
+00:00:17,100 --> 00:00:20,700
+t-tests for normally distributed
+continuous variables.
+
+6
+00:00:20,700 --> 00:00:24,600
+First, let's remember where
+we stand in an algorithm.
+
+7
+00:00:24,600 --> 00:00:26,100
+In the last video,
+
+8
+00:00:26,100 --> 00:00:28,140
+we talked about
+categorical predictors.
+
+9
+00:00:28,140 --> 00:00:31,890
+Let's move now into
+continuous variables.
+
+10
+00:00:31,890 --> 00:00:33,870
+In this video, we will be
+
+11
+00:00:33,870 --> 00:00:36,450
+focusing on not matched data and
+
+12
+00:00:36,450 --> 00:00:38,710
+continuous variables
+that are normally
+
+13
+00:00:38,710 --> 00:00:42,265
+distributed as highlighted here.
+
+14
+00:00:42,265 --> 00:00:45,160
+We're going to use the
+same example that we
+
+15
+00:00:45,160 --> 00:00:47,770
+used during the last
+video for the outcome.
+
+16
+00:00:47,770 --> 00:00:50,935
+Remember, I studied a
+cross-sectional study
+
+17
+00:00:50,935 --> 00:00:54,785
+and our outcome is abdominal
+obesity, yes or no.
+
+18
+00:00:54,785 --> 00:00:58,210
+Now, I suppose there's going
+to be a continuous variable.
+
+19
+00:00:58,210 --> 00:00:59,230
+We are going to use
+
+20
+00:00:59,230 --> 00:01:01,540
+dietary carbohydrates
+expressed as
+
+21
+00:01:01,540 --> 00:01:03,725
+a percentage of total calories.
+
+22
+00:01:03,725 --> 00:01:05,430
+To give you some background,
+
+23
+00:01:05,430 --> 00:01:07,935
+although not all
+carbohydrates are the same,
+
+24
+00:01:07,935 --> 00:01:10,000
+for the purposes
+of our hypothesis,
+
+25
+00:01:10,000 --> 00:01:12,130
+we're going to assume that
+carbohydrates will be
+
+26
+00:01:12,130 --> 00:01:15,095
+positively associated
+with abdominal obesity.
+
+27
+00:01:15,095 --> 00:01:18,460
+This is definitely true
+if you think about sugar,
+
+28
+00:01:18,460 --> 00:01:21,370
+although it may not be true
+for total carbohydrates.
+
+29
+00:01:21,370 --> 00:01:24,380
+Let's test our hypothesis.
+
+30
+00:01:24,380 --> 00:01:26,900
+I told you that in this video,
+
+31
+00:01:26,900 --> 00:01:29,195
+we will deal with normally
+continuous variables.
+
+32
+00:01:29,195 --> 00:01:31,250
+But before knowing
+what to do with them,
+
+33
+00:01:31,250 --> 00:01:33,290
+you actually need to check
+
+34
+00:01:33,290 --> 00:01:35,860
+first if they are normally
+distributed or not.
+
+35
+00:01:35,860 --> 00:01:39,560
+The first step is to
+check the distribution.
+
+36
+00:01:39,560 --> 00:01:41,585
+If they are normally distributed,
+
+37
+00:01:41,585 --> 00:01:44,255
+we will do t-tests,
+if they are not,
+
+38
+00:01:44,255 --> 00:01:45,815
+we have two options;
+
+39
+00:01:45,815 --> 00:01:47,675
+we can transform the variable
+
+40
+00:01:47,675 --> 00:01:49,790
+or use a non-parametric test.
+
+41
+00:01:49,790 --> 00:01:52,030
+We will see that
+in the next video.
+
+42
+00:01:52,030 --> 00:01:54,620
+In order to check the
+distribution of a variable,
+
+43
+00:01:54,620 --> 00:01:56,480
+we will run PROC UNIVARIATE.
+
+44
+00:01:56,480 --> 00:01:58,280
+We already saw that before,
+
+45
+00:01:58,280 --> 00:01:59,720
+and we will make sure to include
+
+46
+00:01:59,720 --> 00:02:02,915
+the options Normal and
+Plot in the state.
+
+47
+00:02:02,915 --> 00:02:06,515
+Before moving into checking
+our carbohydrates variable,
+
+48
+00:02:06,515 --> 00:02:08,690
+let's look at the key output
+
+49
+00:02:08,690 --> 00:02:11,275
+from PROC UNIVARIATE
+for another variable.
+
+50
+00:02:11,275 --> 00:02:13,900
+By adding normal and plot,
+
+51
+00:02:13,900 --> 00:02:15,550
+you're getting first the test for
+
+52
+00:02:15,550 --> 00:02:17,380
+normality and second the plot.
+
+53
+00:02:17,380 --> 00:02:21,115
+Be Be here, because all
+the test for normality,
+
+54
+00:02:21,115 --> 00:02:22,780
+and yes, there are four of them,
+
+55
+00:02:22,780 --> 00:02:25,120
+says gives you more
+test than you need.
+
+56
+00:02:25,120 --> 00:02:26,740
+I'm telling you that the data is
+
+57
+00:02:26,740 --> 00:02:29,060
+not normally distributed here,
+
+58
+00:02:29,060 --> 00:02:30,430
+so you will be rejecting
+
+59
+00:02:30,430 --> 00:02:31,900
+the null hypothesis that
+
+60
+00:02:31,900 --> 00:02:33,755
+the data is normally distributed.
+
+61
+00:02:33,755 --> 00:02:37,030
+However, the test for
+normality are very
+
+62
+00:02:37,030 --> 00:02:40,240
+sensitive to detect
+departures from normality.
+
+63
+00:02:40,240 --> 00:02:42,369
+If you look at the plots,
+
+64
+00:02:42,369 --> 00:02:45,980
+the data does not
+look terribly skew.
+
+65
+00:02:45,980 --> 00:02:48,340
+Sure, it's not perfectly normal,
+
+66
+00:02:48,340 --> 00:02:50,515
+but it's probably okay normal.
+
+67
+00:02:50,515 --> 00:02:52,795
+If you give this plot
+to a hundred people,
+
+68
+00:02:52,795 --> 00:02:54,680
+most likely a high
+percentage of them
+
+69
+00:02:54,680 --> 00:02:57,415
+will see it normal
+and the others won't.
+
+70
+00:02:57,415 --> 00:03:01,024
+The same as in the
+classical visual illusion
+
+71
+00:03:01,024 --> 00:03:03,094
+of the cup and the faces,
+
+72
+00:03:03,094 --> 00:03:06,185
+normality here is in the
+eye of the beholder.
+
+73
+00:03:06,185 --> 00:03:09,560
+Bottom line; with
+large sample sizes,
+
+74
+00:03:09,560 --> 00:03:12,845
+you can afford some
+departure from normality.
+
+75
+00:03:12,845 --> 00:03:15,605
+Don't use the test for normality.
+
+76
+00:03:15,605 --> 00:03:18,800
+They are incredibly
+sensitive, remember.
+
+77
+00:03:18,800 --> 00:03:20,605
+Look at the plot,
+
+78
+00:03:20,605 --> 00:03:22,470
+if they look more or less okay,
+
+79
+00:03:22,470 --> 00:03:24,980
+you can probably go
+ahead and assume that
+
+80
+00:03:24,980 --> 00:03:28,161
+the distribution is [inaudible] .
+
+81
+00:03:28,161 --> 00:03:31,670
+Now, let's look at our
+sample and let's check
+
+82
+00:03:31,670 --> 00:03:35,935
+the distribution with PROC
+UNIVARIATE for carbohydrates,
+
+83
+00:03:35,935 --> 00:03:38,190
+and this is what we get.
+
+84
+00:03:38,190 --> 00:03:41,510
+Note that because I have a
+reasonably large sample size,
+
+85
+00:03:41,510 --> 00:03:43,670
+I'm not looking at
+the normality test.
+
+86
+00:03:43,670 --> 00:03:46,100
+But in any case, the plot
+looks pretty normal,
+
+87
+00:03:46,100 --> 00:03:49,705
+and by they way, the test
+was not significant anyway.
+
+88
+00:03:49,705 --> 00:03:52,100
+Now that we know
+that our variable
+
+89
+00:03:52,100 --> 00:03:53,285
+is normally distributed,
+
+90
+00:03:53,285 --> 00:03:55,525
+we can run the test.
+
+91
+00:03:55,525 --> 00:03:59,945
+We will use PROC t-test
+and we just need to add
+
+92
+00:03:59,945 --> 00:04:01,460
+our outcome variable to
+
+93
+00:04:01,460 --> 00:04:03,950
+the classic statement
+on a response variable,
+
+94
+00:04:03,950 --> 00:04:06,490
+to the value
+statement. That's it.
+
+95
+00:04:06,490 --> 00:04:08,495
+When running this code,
+
+96
+00:04:08,495 --> 00:04:10,100
+SaaS first gives you
+
+97
+00:04:10,100 --> 00:04:11,750
+the descriptives of the variable
+
+98
+00:04:11,750 --> 00:04:13,765
+by categories of the outcome.
+
+99
+00:04:13,765 --> 00:04:17,180
+Here, you see mean
+carbohydrates for people
+
+100
+00:04:17,180 --> 00:04:20,779
+with abdominal obesity and
+with no abdominal obesity,
+
+101
+00:04:20,779 --> 00:04:24,860
+together with standard
+deviation, minimum and maximum.
+
+102
+00:04:24,860 --> 00:04:27,410
+You can ignore the second tape.
+
+103
+00:04:27,410 --> 00:04:30,395
+Then if you remember from
+your statistics test,
+
+104
+00:04:30,395 --> 00:04:32,630
+you have two options for t-test;
+
+105
+00:04:32,630 --> 00:04:34,535
+when the variances are equal,
+
+106
+00:04:34,535 --> 00:04:36,305
+you will do a Pooled t-test,
+
+107
+00:04:36,305 --> 00:04:37,460
+and when they're unequal,
+
+108
+00:04:37,460 --> 00:04:39,460
+you do a Satterthwaite test.
+
+109
+00:04:39,460 --> 00:04:42,260
+The first thing you
+have to do is to check
+
+110
+00:04:42,260 --> 00:04:45,170
+the test that tells you the
+variances are equal or not.
+
+111
+00:04:45,170 --> 00:04:49,720
+If you will do the table that
+says equality of variances,
+
+112
+00:04:49,720 --> 00:04:51,590
+your null hypothesis here is
+
+113
+00:04:51,590 --> 00:04:53,180
+that the variances are equal.
+
+114
+00:04:53,180 --> 00:04:55,895
+Therefore, if the test
+is not significant,
+
+115
+00:04:55,895 --> 00:04:57,440
+you fail to reject the null,
+
+116
+00:04:57,440 --> 00:04:59,410
+that the variances
+are equal, and now,
+
+117
+00:04:59,410 --> 00:05:02,795
+you can check the pooled
+t-test like in this example.
+
+118
+00:05:02,795 --> 00:05:05,535
+But if your test is significant,
+
+119
+00:05:05,535 --> 00:05:07,110
+then you reject the null and use
+
+120
+00:05:07,110 --> 00:05:10,040
+the Satterthwaite test instead.
+
+121
+00:05:10,040 --> 00:05:13,275
+Now, that we know
+which t-test to use,
+
+122
+00:05:13,275 --> 00:05:14,990
+the pooled one in this case,
+
+123
+00:05:14,990 --> 00:05:16,820
+how do we interpret our data?
+
+124
+00:05:16,820 --> 00:05:19,340
+Well, I mean the P-values
+telling us that we
+
+125
+00:05:19,340 --> 00:05:22,145
+are failing to reject
+the null hypothesis,
+
+126
+00:05:22,145 --> 00:05:24,110
+that the main
+carbohydrate intake is
+
+127
+00:05:24,110 --> 00:05:26,160
+equal among the two groups.
+
+128
+00:05:26,160 --> 00:05:28,055
+Actually, if you
+look at the means,
+
+129
+00:05:28,055 --> 00:05:29,210
+you can see that it's true,
+
+130
+00:05:29,210 --> 00:05:31,360
+that the means are
+not that different.
+
+131
+00:05:31,360 --> 00:05:33,800
+Which makes sense
+with the biology,
+
+132
+00:05:33,800 --> 00:05:36,140
+since I told you that
+not all carbohydrates
+
+133
+00:05:36,140 --> 00:05:37,220
+are necessarily the same,
+
+134
+00:05:37,220 --> 00:05:39,455
+and although some
+specific carbohydrates,
+
+135
+00:05:39,455 --> 00:05:41,660
+such as sugar would
+likely be associated,
+
+136
+00:05:41,660 --> 00:05:44,885
+this may not be true for
+total carbohydrates.
+
+137
+00:05:44,885 --> 00:05:47,630
+Throughout this semester,
+I will emphasize
+
+138
+00:05:47,630 --> 00:05:50,135
+a lot that you have to
+look at your estimates,
+
+139
+00:05:50,135 --> 00:05:52,505
+your means, you radars,
+your off ratios,
+
+140
+00:05:52,505 --> 00:05:54,020
+or whatever you are estimating,
+
+141
+00:05:54,020 --> 00:05:56,620
+and not only to your P-values.
+
+142
+00:05:56,620 --> 00:06:00,510
+Remember that P-values are
+highly driven by sample size,
+
+143
+00:06:00,510 --> 00:06:03,065
+and therefore, when you
+have a small sample size,
+
+144
+00:06:03,065 --> 00:06:05,270
+you may still see
+differences that may be
+
+145
+00:06:05,270 --> 00:06:07,670
+clinically or
+biologically important,
+
+146
+00:06:07,670 --> 00:06:09,590
+but that are not
+significant because
+
+147
+00:06:09,590 --> 00:06:11,570
+you're under power
+to detect them.
+
+148
+00:06:11,570 --> 00:06:12,905
+The opposite is true,
+
+149
+00:06:12,905 --> 00:06:15,470
+if you have a really
+large sample size,
+
+150
+00:06:15,470 --> 00:06:17,525
+every small difference, even
+
+151
+00:06:17,525 --> 00:06:20,245
+if meaningless will
+be significant.
+
+152
+00:06:20,245 --> 00:06:22,130
+Please make sure that you look at
+
+153
+00:06:22,130 --> 00:06:25,115
+both things when
+interpreting your data.
+
+154
+00:06:25,115 --> 00:06:27,425
+In summary, in this video,
+
+155
+00:06:27,425 --> 00:06:29,570
+we learned how to use
+PROC UNIVARIATE to
+
+156
+00:06:29,570 --> 00:06:31,930
+get the distribution of
+continuous variables,
+
+157
+00:06:31,930 --> 00:06:35,040
+and we learned how to use
+PROC TTEST to calculate
+
+158
+00:06:35,040 --> 00:06:38,090
+t-tests for normally distributed
+continuous variables,
+
+159
+00:06:38,090 --> 00:06:40,535
+and how to interpret
+its output properly.
+
+160
+00:06:40,535 --> 00:06:42,590
+In the next video,
+we will move into
+
+161
+00:06:42,590 --> 00:06:46,528
+non-normally distributed
+continuous variables.
+

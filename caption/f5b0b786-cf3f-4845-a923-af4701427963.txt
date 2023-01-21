@@ -1,0 +1,4000 @@
+1
+00:00:00,720 --> 00:00:04,960
+We're going to get some more shots.
+
+2
+00:00:05,080 --> 00:00:25,250
+And right now, the breaking news over the last time that we know and it has been the.
+
+3
+00:00:38,630 --> 00:00:42,520
+Yes. She's that kind of good.
+
+4
+00:00:43,390 --> 00:00:46,460
+Yeah. You don't have to ask. That's up to her.
+
+5
+00:00:46,480 --> 00:00:50,740
+I do. Okay. That's about all. But listen, I'm going to go.
+
+6
+00:00:51,420 --> 00:00:55,660
+It's almost like I was so angry.
+
+7
+00:00:59,890 --> 00:01:04,090
+Sorry more.
+
+8
+00:01:11,980 --> 00:01:23,390
+Or you might want to think about what it's going to be like.
+
+9
+00:01:23,750 --> 00:01:44,360
+I sense that I'd like to be just like you, but I like to think that you can also be like me.
+
+10
+00:01:45,290 --> 00:01:49,189
+Yeah. So there's also this kind of conceptual signal.
+
+11
+00:01:49,190 --> 00:01:58,720
+But I don't know, I suppose I kind of wish my focus right there.
+
+12
+00:02:00,590 --> 00:02:04,150
+Yeah, I think that's right.
+
+13
+00:02:04,930 --> 00:02:17,230
+I don't think. Really. Like I said, you know.
+
+14
+00:02:25,610 --> 00:02:35,270
+For 34 years it's been like you have 622 and then other people do.
+
+15
+00:02:35,870 --> 00:02:43,970
+So that's kind of where my head. But I think it's not, you know, having enough time that.
+
+16
+00:02:44,910 --> 00:02:50,270
+Yeah. Have something like that. All right. Good afternoon, fellows.
+
+17
+00:02:50,540 --> 00:02:55,139
+Sorry, I'm running behind. I left my phone in the room, my office.
+
+18
+00:02:55,140 --> 00:02:58,350
+So you can't do anything about the duo anymore, so.
+
+19
+00:02:59,870 --> 00:03:05,060
+Good thing I had it with me in the office, at least. Okay, well, welcome again.
+
+20
+00:03:05,960 --> 00:03:13,730
+Good to see you all. Today, we're going to talk about proximity analysis, which we kind of knew we didn't start last week.
+
+21
+00:03:13,820 --> 00:03:17,630
+Right. We kind of did work on distance measures and things like that.
+
+22
+00:03:18,200 --> 00:03:23,659
+So today we're going to dig a little deeper into proximity analysis and hopefully we can get started
+
+23
+00:03:23,660 --> 00:03:30,770
+with cluster analysis of hotspots and cold spots and things like that by the end of today's session.
+
+24
+00:03:31,460 --> 00:03:33,620
+So that's kind of the overall plan for today.
+
+25
+00:03:34,520 --> 00:03:42,710
+I have also on Zoom today because one of the student presenters is at a conference and she was willing to present via Zoom.
+
+26
+00:03:43,610 --> 00:03:50,300
+So we're on Zoom at the moment. Just to let you know, I just made a slide so I can keep the link readily available to me.
+
+27
+00:03:51,500 --> 00:03:58,490
+Today is election day. If you did not know that. So please, if you haven't done so already, vote.
+
+28
+00:03:59,660 --> 00:04:02,720
+Now, the polling places here close at 8 p.m. today, right?
+
+29
+00:04:03,230 --> 00:04:07,010
+I haven't voted, so I've got a rush right after class and vote.
+
+30
+00:04:07,520 --> 00:04:13,340
+So if you haven't done so already, I encourage you to participate in our civil society by voting.
+
+31
+00:04:13,850 --> 00:04:20,300
+All right. So just a little reminder of that for all of you.
+
+32
+00:04:21,290 --> 00:04:34,160
+Okay. Today, we're going to think about proximity analysis by looking at issues of buffers and buffers and joins to measure density.
+
+33
+00:04:34,730 --> 00:04:43,850
+We've talked a bit about this in class to the concept of developing buffer zones around a specific features on a map like schools,
+
+34
+00:04:44,070 --> 00:04:49,520
+banks or grocery stores or hospitals, things like that.
+
+35
+00:04:49,520 --> 00:04:53,690
+Some of you reviewed papers like that for your first or second assignment,
+
+36
+00:04:55,040 --> 00:05:04,700
+so we're going to get into how to create those buffers and how to use them with this spatial drawing tool to create measures of density,
+
+37
+00:05:05,210 --> 00:05:08,240
+meaning the intensity of something on your map.
+
+38
+00:05:08,930 --> 00:05:17,810
+Okay. And then we're going to talk about distance measures and how distance measures can be used to measure clustering.
+
+39
+00:05:18,320 --> 00:05:27,770
+So we'll talk about the near tool and measures of clustering that use distance as a way to to define clustering as point level data.
+
+40
+00:05:28,820 --> 00:05:35,719
+And then I hope that we can get to the idea of clustering in more broadly and talk
+
+41
+00:05:35,720 --> 00:05:43,310
+about these concepts of global and local clustering of GIS data and spatial data.
+
+42
+00:05:44,270 --> 00:05:51,350
+So global clustering, I'll define what that is and describe a commonly used measure for global clustering.
+
+43
+00:05:51,830 --> 00:06:02,209
+And then we'll talk about local clustering, which is really the the analysis you do to identify hotspots, cold spots and outliers.
+
+44
+00:06:02,210 --> 00:06:09,080
+And we'll try to get into that today. And if you don't cover all of that today, we'll have some time next week to work on that stuff.
+
+45
+00:06:09,620 --> 00:06:15,680
+And I want you to start thinking about how you may incorporate some of these concepts in your final project if it's relevant to you.
+
+46
+00:06:16,250 --> 00:06:21,080
+Okay. Next week, just looking ahead a little bit.
+
+47
+00:06:21,620 --> 00:06:26,720
+Most of this session will be focused on you guys working on your final project.
+
+48
+00:06:27,170 --> 00:06:30,680
+And we'll wrap up any of the clustering work that we don't finish today.
+
+49
+00:06:30,770 --> 00:06:39,149
+On Tuesday next week, we were supposed to talk about field data collection today, but I just don't think we have time to get into that very much.
+
+50
+00:06:39,150 --> 00:06:45,260
+So we're going to skip that material and then talk about these issues around proximity analysis.
+
+51
+00:06:45,650 --> 00:06:52,960
+Now, if you're interested in learning about collecting your own data, there are a variety of tools out there.
+
+52
+00:06:53,420 --> 00:06:56,480
+And I'll just point you out to a couple of history tools.
+
+53
+00:06:56,510 --> 00:07:08,180
+One is called our online field maps, and that's a relatively easy to use system to create forms that also collect this information.
+
+54
+00:07:08,960 --> 00:07:19,280
+Okay. The other commonly used tool in this is survey one, two, three, which is also an Israeli product.
+
+55
+00:07:20,600 --> 00:07:24,800
+And that collects more complicated kind of questionnaire data, which you could.
+
+56
+00:07:25,040 --> 00:07:34,430
+Too often she'll tag the question you do or you collect, but lot of different tools out there that do questionnaire research or survey research.
+
+57
+00:07:35,420 --> 00:07:42,800
+You know, does it have to be household surveys where you can survey locations, businesses, parks, all kinds of things?
+
+58
+00:07:44,210 --> 00:07:49,790
+A lot of those survey tools collect this data on the background so you can get location data pretty readily,
+
+59
+00:07:50,210 --> 00:07:53,810
+like Qualtrics does that as a default Redcap,
+
+60
+00:07:53,810 --> 00:08:02,270
+which is a commonly used system to collect patient data and and survey data that uses that very, very readily.
+
+61
+00:08:02,660 --> 00:08:08,870
+So those tools also captured the black lung information, which then you can use to display on G.I.s.
+
+62
+00:08:09,140 --> 00:08:12,980
+You guys should all know how to do that by now. Okay. All right.
+
+63
+00:08:12,980 --> 00:08:16,760
+So that's what we're going to cover today and what we're kind of missing today.
+
+64
+00:08:18,290 --> 00:08:22,700
+All right. So let's talk about proximity analysis in these three broad categories.
+
+65
+00:08:23,210 --> 00:08:24,470
+Right. Basically,
+
+66
+00:08:24,470 --> 00:08:36,440
+the idea we're thinking about here is thinking about of distance between features and how if distances between features is not randomly distributed,
+
+67
+00:08:37,370 --> 00:08:42,770
+then you can measure measure concepts of clustering together or dispersion.
+
+68
+00:08:43,610 --> 00:08:48,020
+Okay. And then this also issue that features have attributes.
+
+69
+00:08:48,350 --> 00:08:54,679
+So our like features surrounding each other and dislike features dispersing away from each other.
+
+70
+00:08:54,680 --> 00:09:00,829
+Is that happening in the data? There are some things we can understand by doing proximity analysis in.
+
+71
+00:09:00,830 --> 00:09:07,220
+One type of proximity allows us to look at density of things in a specific area.
+
+72
+00:09:08,180 --> 00:09:19,400
+For example, we've talked about the number of tobacco retailers within maybe 500 feet or 1000 feet of schools in parks.
+
+73
+00:09:20,000 --> 00:09:27,800
+Similarly, you can measure the number of homes within one mile radius of grocery stores and vice versa.
+
+74
+00:09:28,730 --> 00:09:35,900
+How many grocery stores are around a neighborhood? So you can create measures of density that way that are relatively simple.
+
+75
+00:09:36,530 --> 00:09:43,850
+You can also measure distance, which we kind of did last time, where we measure the distance between injury and and parks.
+
+76
+00:09:44,060 --> 00:09:51,200
+Right. You can also measure like nearest distance that we saw we did last time.
+
+77
+00:09:52,430 --> 00:10:01,010
+So we can talk about nearest grocery stores or near parks or nearest service providers for health care services and things like that.
+
+78
+00:10:01,580 --> 00:10:13,850
+And then there's the idea of clustering, which is the clustering of of like attribute features on a map, right?
+
+79
+00:10:13,850 --> 00:10:22,730
+So for example, we can look at the degree of clustering in lung cancer mortality rates, which we've examined through corporate maps.
+
+80
+00:10:24,560 --> 00:10:28,940
+So we'll do that a little bit, the clustering exercises if we get to them today.
+
+81
+00:10:29,390 --> 00:10:35,100
+All right. So that's just an overview of what kinds of things we're trying to work on as we move forward.
+
+82
+00:10:37,880 --> 00:10:45,820
+Okay. So in terms of the tools we use for clustered for density, we'll use a buffering tool in the spatial joint.
+
+83
+00:10:46,300 --> 00:10:56,110
+For distance, we'll use a linear tool and for clustering, we'll use global and local clustering tools in this probe.
+
+84
+00:10:56,950 --> 00:11:05,320
+So this is just a reminder of one of the studies we read that looks at tobacco retailers and uses buffers, right?
+
+85
+00:11:05,710 --> 00:11:07,960
+So there were these little buffers that were created.
+
+86
+00:11:07,960 --> 00:11:16,360
+The green ones are around parks and the blue ones are around school parcels and they counted how many dots,
+
+87
+00:11:16,510 --> 00:11:20,980
+meaning the retailers the points are within these buffer zones.
+
+88
+00:11:21,760 --> 00:11:30,940
+So we will be doing a similar exercises to exercise today, to create buffers and then count the number of points within those buffer zones.
+
+89
+00:11:32,080 --> 00:11:37,479
+Okay, so let's do that. Let's get started with life activity activities.
+
+90
+00:11:37,480 --> 00:11:41,889
+We have a bunch of them to do today, so let's get started with that.
+
+91
+00:11:41,890 --> 00:11:52,690
+So that involves all of us going on to canvas and downloading the zip file for the lab data.
+
+92
+00:11:54,280 --> 00:11:58,450
+So I'm going to there are more data in there than last time.
+
+93
+00:11:59,050 --> 00:12:09,610
+So you do need to download and use a file for today. So I'm going to delete the old ones and download the new one.
+
+94
+00:12:15,970 --> 00:12:21,280
+And I'm going to put it in the see.
+
+95
+00:12:27,660 --> 00:12:32,520
+Here. Once you get that downloaded, you can open up your ArcGIS pro software.
+
+96
+00:12:36,630 --> 00:12:40,920
+While you're doing that, I just want to remind you all to sign up for meetings with me.
+
+97
+00:12:41,070 --> 00:12:46,560
+I think I have most people signed up, but not all teams have signed up to me.
+
+98
+00:12:46,740 --> 00:12:55,380
+So please do that by the end of this week. And if none of those times work for you, just send me an email and we'll find another time to meet.
+
+99
+00:12:55,680 --> 00:13:04,800
+Okay. And I also mentioned this to folks who are meeting with, which is if you need to meet more than once, I am happy to meet with you again.
+
+100
+00:13:05,460 --> 00:13:13,710
+So you may do a little thinking and working after we meet and then set up another meeting sometime next week for the following and so forth.
+
+101
+00:13:14,130 --> 00:13:54,540
+Okay. But.
+
+102
+00:14:07,320 --> 00:14:12,750
+So I think we we stopped at lap 28 last time because that's we're going to pick up.
+
+103
+00:14:13,680 --> 00:14:22,990
+So go to your lab activities, PowerPoint or you can follow on on today's slides which have all the command activity slides embedded within them.
+
+104
+00:14:23,350 --> 00:14:29,610
+Okay. So we're going to do first is we're going to look at injury data again.
+
+105
+00:14:30,570 --> 00:14:35,270
+So we didn't do this last time, right?
+
+106
+00:14:35,280 --> 00:14:36,660
+Yeah, I'm pretty sure we did. Okay.
+
+107
+00:14:37,560 --> 00:14:45,000
+So the idea here is, you know, you work for the Pittsburgh Health Department, you're interested in issues around injury prevention.
+
+108
+00:14:45,300 --> 00:14:52,920
+It's part of your work. And there have been a lot of serious pedestrian injuries involving cars in your area.
+
+109
+00:14:53,610 --> 00:15:01,709
+So you want to examine these injuries and and see has that have occurred around parks and playgrounds?
+
+110
+00:15:01,710 --> 00:15:07,410
+Because those are areas where children tend to hang out the most and see what's
+
+111
+00:15:07,410 --> 00:15:11,790
+going on in terms of these injuries relative to places where kids may hang out.
+
+112
+00:15:12,600 --> 00:15:17,250
+You have two years of data. All the data are located in two different tables.
+
+113
+00:15:17,730 --> 00:15:21,540
+And in this activity, what you're going to do is just append the tables,
+
+114
+00:15:22,440 --> 00:15:30,570
+meaning that one table of injuries in 2019 and another in 2020, and you want to bring them together in one table,
+
+115
+00:15:30,930 --> 00:15:39,270
+actually talk to a couple of students in their final projects who may need to do that for a number of counties in their in their state.
+
+116
+00:15:40,110 --> 00:15:46,770
+They can do this type of work in Excel, which is easy to do, but you can also do it in Genius Proof.
+
+117
+00:15:47,430 --> 00:15:53,190
+So let's open up. A new map project.
+
+118
+00:15:54,300 --> 00:15:57,480
+And we'll call it pedestrian injuries.
+
+119
+00:15:57,600 --> 00:16:02,880
+So go to the middle area here and go to the map, name it,
+
+120
+00:16:04,230 --> 00:16:16,560
+put this tree in injuries and you can add your own name to the end of that if that helps and place that in your
+
+121
+00:16:16,950 --> 00:16:28,950
+guys files project folder so that since the C drive our lab folder in my genius file and project and then push.
+
+122
+00:16:28,960 --> 00:16:36,750
+Okay so the location here should change and point to that specific folder and then push.
+
+123
+00:16:36,770 --> 00:16:44,930
+Okay, so a new. Pedestrian injuries.
+
+124
+00:16:46,640 --> 00:17:00,400
+Projects should open up. You can turn off the bass players if you like, and usually speed things up.
+
+125
+00:17:02,350 --> 00:17:11,440
+And then what we're gonna do is when you created this new project, right,
+
+126
+00:17:11,440 --> 00:17:17,610
+a new GIO database should have been created into that project folder called Pedestrian Injuries.
+
+127
+00:17:19,150 --> 00:17:35,470
+So what we're going to do is copy the pedestrian injuries data and other data and put it into the the new geo database that has been created.
+
+128
+00:17:36,490 --> 00:17:44,860
+So to do that, we need to get to that data. So you can add a folder by right clicking on the folder button or going up here and clicking that folder.
+
+129
+00:17:46,160 --> 00:17:49,600
+All right. And let's find that data.
+
+130
+00:17:49,660 --> 00:17:52,870
+It should be it should be in a couple of places, actually.
+
+131
+00:17:53,560 --> 00:17:57,430
+One is the data folder. No, I did not put it there.
+
+132
+00:17:57,460 --> 00:18:00,460
+Okay. So go to the projects folder.
+
+133
+00:18:01,210 --> 00:18:06,400
+And there's a pedestrian injuries project already created in the projects folder.
+
+134
+00:18:11,990 --> 00:18:15,320
+Well, that's right. So you know what?
+
+135
+00:18:16,220 --> 00:18:22,130
+I'm making a folder of connection. I apologize. So just make a folder connection to the map folder here.
+
+136
+00:18:24,220 --> 00:18:33,480
+Okay. And then let's view where the data are to see if it's in it is here in HB G 66 lab data.
+
+137
+00:18:33,490 --> 00:18:39,160
+There should be a pedestrian injuries dataset and there are a bunch of different files here.
+
+138
+00:18:39,240 --> 00:18:53,580
+You want to just copy over. If you pull shift down, you can do more than one selection of injuries 1219, 2020 neighborhoods and parks.
+
+139
+00:18:53,900 --> 00:19:02,930
+Okay, if you copy them and then you can place them into your due database.
+
+140
+00:19:16,410 --> 00:19:24,780
+You're just doing this so you can get kind of used to moving data around in future classes around for one geo database to the next.
+
+141
+00:19:25,650 --> 00:19:29,220
+Okay. All right. So let's do this.
+
+142
+00:19:29,460 --> 00:19:41,350
+Let's add all of these things that we just copy and paste it into the geo database and add it to our map so you can select all of these features.
+
+143
+00:19:41,370 --> 00:19:46,340
+Right. Click on them and add to Current. Okay.
+
+144
+00:19:46,600 --> 00:19:49,920
+So you should add those features to the current map.
+
+145
+00:19:59,700 --> 00:20:06,530
+Okay. So you should see a map of Pittsburgh.
+
+146
+00:20:07,670 --> 00:20:12,530
+The green areas are the parks.
+
+147
+00:20:13,250 --> 00:20:18,500
+The blue areas are the different neighborhoods in Pittsburgh where the purple
+
+148
+00:20:18,500 --> 00:20:27,400
+areas and the dots are the two different featured classes of pedestrian injuries.
+
+149
+00:20:28,060 --> 00:20:34,010
+Okay, so this let's look at these feature classes for pedestrian injuries.
+
+150
+00:20:35,270 --> 00:20:48,950
+So if you look at the 2021, we see that there are 46 records in this table for player to look at.
+
+151
+00:20:49,340 --> 00:20:53,240
+They have to be table for the other one you see there, 48 of them.
+
+152
+00:20:54,820 --> 00:21:00,470
+And so what we're going to do now is just append the two future crosses together.
+
+153
+00:21:01,410 --> 00:21:04,520
+So to do that, you go to the append tool.
+
+154
+00:21:05,330 --> 00:21:08,510
+So go to command, search that append.
+
+155
+00:21:09,710 --> 00:21:20,910
+And there should be an append data management tool. And in the end that opens up in the input data.
+
+156
+00:21:21,150 --> 00:21:25,590
+You could put 2019 and then the.
+
+157
+00:21:27,670 --> 00:21:36,720
+Uh, and I think, uh, the. Target data, you put 2020.
+
+158
+00:21:37,750 --> 00:21:49,750
+Okay, so you can select input fields, must match target fields and you can select enable and do it when you do this type of work.
+
+159
+00:21:49,750 --> 00:21:58,600
+That could be mistakes made. So if you take that as a easy way to undo your work and then you just click Run.
+
+160
+00:22:02,700 --> 00:22:06,240
+Okay. So it's completed as a quick task.
+
+161
+00:22:06,450 --> 00:22:12,870
+So let's now look at the injuries 2020 table.
+
+162
+00:22:13,140 --> 00:22:19,200
+The records should have gone up to 94. So now you'll find that the two tables together.
+
+163
+00:22:20,740 --> 00:22:36,309
+Okay. Now, what we should do is rename injuries 2022 injuries, all where you can do 2019 and 20.
+
+164
+00:22:36,310 --> 00:22:41,440
+If that even works for me, I'm just going to say all okay.
+
+165
+00:22:43,090 --> 00:22:47,980
+And you can remove the other injuries table because that data is replicated if you look.
+
+166
+00:22:52,560 --> 00:22:57,060
+Save this work if you just go back to.
+
+167
+00:23:00,270 --> 00:23:06,790
+Their catalog window. And refresh the database.
+
+168
+00:23:08,580 --> 00:23:11,770
+How do we not put this in the right spot? Just check it out.
+
+169
+00:23:24,680 --> 00:23:30,180
+It's there. Okay. One thing that we didn't do.
+
+170
+00:23:30,600 --> 00:23:34,919
+I don't know why it's not updating the name. I think you should do that the next time you open it.
+
+171
+00:23:34,920 --> 00:23:44,940
+The Jew database that we didn't do is we didn't project this data to the right area.
+
+172
+00:23:45,030 --> 00:23:55,589
+Right. So that should be something we should do before we go on to any other activities when we use this data.
+
+173
+00:23:55,590 --> 00:23:58,850
+So let's do that. The way to do that is you go to map.
+
+174
+00:24:00,240 --> 00:24:08,220
+You go to properties. You go to coordinate system and.
+
+175
+00:24:12,600 --> 00:24:25,460
+See, these are all kind of in different. So it's projected to stay in Pennsylvania South.
+
+176
+00:24:26,090 --> 00:24:30,440
+So you've got projected systems, state plains.
+
+177
+00:24:36,290 --> 00:24:42,850
+Mid 1983 US feet two thirds of Pennsylvania.
+
+178
+00:24:43,080 --> 00:24:49,860
+So. Right.
+
+179
+00:24:49,950 --> 00:24:55,650
+You push your kid and you could see that the map looks a little better.
+
+180
+00:24:56,250 --> 00:25:01,980
+And when you project it this way, your distance measures will be a little bit more accurate.
+
+181
+00:25:02,820 --> 00:25:05,940
+All right. And now let's see. Yep.
+
+182
+00:25:06,510 --> 00:25:11,100
+How would we know which one to choose for? Yeah, we should know.
+
+183
+00:25:11,110 --> 00:25:16,830
+You should kind of look that up. So let's say you're working in your particular part of the country or the world.
+
+184
+00:25:17,400 --> 00:25:22,390
+Just look up projection systems for that state. I know that this is in the southern part of Pennsylvania.
+
+185
+00:25:23,460 --> 00:25:28,620
+And then I know that for prior work that there are two different projection systems for the state.
+
+186
+00:25:28,980 --> 00:25:31,980
+In many states, we have a few of them depending on their size.
+
+187
+00:25:32,610 --> 00:25:36,870
+So you have to kind of look it up and choose the one that's right for your area.
+
+188
+00:25:37,620 --> 00:25:40,650
+And that type of information is available right away.
+
+189
+00:25:42,780 --> 00:25:53,130
+Okay. They did say in the catalog window, you should rename this.
+
+190
+00:25:53,850 --> 00:26:00,569
+So let's rename that and you should open that to this lady for.
+
+191
+00:26:00,570 --> 00:26:11,370
+Yeah, I think the naming you did on the map contents page will not be remembered by the catalog data.
+
+192
+00:26:11,370 --> 00:26:21,730
+So let's just rename that and call this all. It didn't that you do it.
+
+193
+00:26:22,560 --> 00:26:25,600
+It's probably. Ooh. Did it just crash.
+
+194
+00:26:26,050 --> 00:26:29,770
+Yeah. Which it's probably because it's. It's in here. Let's just leave it alone.
+
+195
+00:26:30,190 --> 00:26:37,540
+I think it's a mistake on my part. Okay, so let's do the next thing, which is to create these buffers.
+
+196
+00:26:37,580 --> 00:26:48,310
+Right. So now what we'll do is use buffers to find out how many injuries are within a specific buffer zone around the park's environment.
+
+197
+00:26:48,700 --> 00:26:52,060
+Okay. And I think we did part two already.
+
+198
+00:26:52,450 --> 00:26:57,849
+So I'd forgotten that I had you guys do the correct projection system as a second step here.
+
+199
+00:26:57,850 --> 00:27:05,680
+So we'll go on to number three, uh, which we already have done.
+
+200
+00:27:05,980 --> 00:27:12,970
+And so as to the number four, we will first create a buffer for 250 feet around plaques.
+
+201
+00:27:13,780 --> 00:27:25,169
+Send the command line. Let's type buffer. You can see there's two options you want.
+
+202
+00:27:25,170 --> 00:27:37,680
+The second one, the window analysis tools and in the input feature, you will put the parks, the things you want to create.
+
+203
+00:27:37,680 --> 00:27:48,510
+Buffers around in the output feature will pop up and say Bar parks underscore buffer.
+
+204
+00:27:49,260 --> 00:27:55,110
+Let's put the number to 50 after the word buffer.
+
+205
+00:27:56,070 --> 00:28:00,090
+I'm just making sure it's in the right location, which it is.
+
+206
+00:28:00,120 --> 00:28:05,069
+It should be in your gas files. Pedestrian injuries.
+
+207
+00:28:05,070 --> 00:28:11,310
+Due database. The next you will put down 250.
+
+208
+00:28:12,990 --> 00:28:17,970
+And in terms of the units, we'll put down fit.
+
+209
+00:28:18,660 --> 00:28:25,410
+Okay. Linear units, ft side type, full.
+
+210
+00:28:25,440 --> 00:28:29,280
+Meaning that all sides of the park will be. There will be a buffer.
+
+211
+00:28:29,700 --> 00:28:36,270
+Let's say if you're doing streets and you create street buffers, you can pick right side of the street, left side street, that type of thing.
+
+212
+00:28:37,290 --> 00:28:47,550
+Okay. And under method would use a geodesic method, so preserve the shape of the curvature of the planet.
+
+213
+00:28:47,580 --> 00:28:53,500
+It's really important when you have large distances that you might be measuring and no dissolve.
+
+214
+00:28:53,850 --> 00:28:57,060
+Right. And then you press the run button.
+
+215
+00:29:03,180 --> 00:29:13,080
+So once you do that right above the plaques layer, this should be a new layer called plaques buffer to 50.
+
+216
+00:29:13,950 --> 00:29:21,650
+And if you notice, it has created these little buffers around the parks.
+
+217
+00:29:22,350 --> 00:29:26,000
+They extend that to around 50 feet.
+
+218
+00:29:28,070 --> 00:29:38,070
+Okay. Okay.
+
+219
+00:29:38,310 --> 00:29:45,630
+One way we can count the number of injuries within 250 feet is using our selection tool.
+
+220
+00:29:46,470 --> 00:29:56,400
+In the past, go to maps. We've used selection by attribute, but we haven't really used selection by location.
+
+221
+00:29:57,790 --> 00:30:04,910
+And so you can select by location for injuries.
+
+222
+00:30:05,580 --> 00:30:15,210
+Okay. So the input feature and injuries, you want to select the injuries that intersect with the selecting feature, which is the plaque buffers.
+
+223
+00:30:16,140 --> 00:30:23,650
+So this will tell us which buffers are or which injuries are within those buffer zones.
+
+224
+00:30:23,670 --> 00:30:28,920
+And this is a new selection type to just push it so you can't really notice.
+
+225
+00:30:28,920 --> 00:30:35,880
+But some of these that's changed color to the bluish color that's used for selection.
+
+226
+00:30:36,420 --> 00:30:40,620
+I can zoom in to one of them right down here.
+
+227
+00:30:41,340 --> 00:30:50,730
+Okay. Or if you go to the attribute table for injuries all.
+
+228
+00:30:55,150 --> 00:31:04,770
+It has highlighted. The different injuries that fall within 250 feet.
+
+229
+00:31:05,880 --> 00:31:14,490
+And I have here 15 injuries that fall within that are within two infinity that what most people die.
+
+230
+00:31:15,180 --> 00:31:20,970
+Look, I don't know why you put 16 on the left file, so that must be a couple graphical error.
+
+231
+00:31:21,780 --> 00:31:30,380
+So you have to change that. Okay.
+
+232
+00:31:31,400 --> 00:31:39,440
+So it's one way to kill off. Look at other ways you can clear this so you can clear the selection.
+
+233
+00:31:39,860 --> 00:31:43,460
+Okay, then you can save the work that you do.
+
+234
+00:31:48,890 --> 00:31:56,210
+Now, how about you guys take a few moments? You can work by yourself or work with the partner and create other buffers.
+
+235
+00:31:56,690 --> 00:31:59,719
+500 feet. 1000 feet.
+
+236
+00:31:59,720 --> 00:32:05,360
+And 1500 feet around the parks in this area in Pittsburgh.
+
+237
+00:32:05,900 --> 00:32:11,540
+And then figure out how many injuries are happening within those buffer zones.
+
+238
+00:32:13,040 --> 00:32:19,790
+So first, create the three buffer layers and then you can use selection by location to count.
+
+239
+00:32:20,300 --> 00:33:06,890
+Right. The nice thing about Chuck just proves once you use a tool, it will remain there for them to close it out.
+
+240
+00:33:06,900 --> 00:37:21,620
+So you have to really plan it again. Okay.
+
+241
+00:37:21,740 --> 00:37:24,790
+Maybe anybody need more time. Okay.
+
+242
+00:37:24,800 --> 00:37:28,820
+So what did you guys get? How many? Within 500 feet.
+
+243
+00:37:35,510 --> 00:37:41,570
+Great. Anybody get something different? Okay, how about five 1000 feet?
+
+244
+00:37:42,470 --> 00:37:47,960
+60 and 1500 feet. Okay.
+
+245
+00:37:48,260 --> 00:37:59,270
+So, given this type of information, what are some general recommendations you could make to address injuries near parks?
+
+246
+00:38:00,660 --> 00:38:04,140
+Vehicular injuries with pedestrians near parks.
+
+247
+00:38:10,790 --> 00:38:19,990
+Yeah. Don't allow vehicles within 200 feet of terms, but although that may not be exactly realistic, he offers.
+
+248
+00:38:20,870 --> 00:38:25,820
+Yeah. One thing that's nice to you get to see is like how much the lander is covered by the buffers.
+
+249
+00:38:26,450 --> 00:38:30,769
+So let's say you did restrict to the heat kills within 5000 feet.
+
+250
+00:38:30,770 --> 00:38:41,270
+That would be most of the city of Pittsburgh, although you would probably remove or reduce most injuries with cars and pedestrians.
+
+251
+00:38:42,020 --> 00:38:51,260
+Right. Um, so maybe there's a middle way somewhere that you find a buffer zone that's a little more, uh,
+
+252
+00:38:51,950 --> 00:39:01,640
+that allows vehicles or something, but still addresses a lot of the injuries, maybe 500 or 1000 feet.
+
+253
+00:39:02,120 --> 00:39:10,360
+You'd have to remove cars. You could also do like speed bumps that are signage better lighting, right?
+
+254
+00:39:10,660 --> 00:39:14,060
+Like reduce the speed limit. Reducing the speed limit.
+
+255
+00:39:14,420 --> 00:39:18,649
+Great other information you may want to know as well.
+
+256
+00:39:18,650 --> 00:39:22,040
+What's happening is what type of people are getting hurt.
+
+257
+00:39:22,430 --> 00:39:25,790
+Is it kids, young kids, teenagers?
+
+258
+00:39:25,790 --> 00:39:29,900
+Is it what time of day is this happening?
+
+259
+00:39:30,230 --> 00:39:34,760
+Right. So that type of information I this. All right.
+
+260
+00:39:35,390 --> 00:39:41,300
+So let's do the next exercise which is using multiple ring buffers.
+
+261
+00:39:41,420 --> 00:39:44,990
+So we created these buffer zones individually.
+
+262
+00:39:45,440 --> 00:39:48,610
+There is a way to create all of them at once. Okay.
+
+263
+00:39:48,860 --> 00:39:54,680
+And they use that and for me, that tool to really generate the same kind of information.
+
+264
+00:39:55,190 --> 00:39:58,280
+So is learn about multiple ring buffers.
+
+265
+00:39:58,280 --> 00:40:06,019
+So we're going to continue working with this data set and and map project.
+
+266
+00:40:06,020 --> 00:40:19,370
+So in the command line type mode to pull ring buffer, the first one that pops up analysis tools.
+
+267
+00:40:22,660 --> 00:40:34,820
+Okay. And in the input feature, you want to put buffers around parks right through the parks in the name is multiple ring buffers.
+
+268
+00:40:35,550 --> 00:40:40,970
+You can change it, but I think that's good enough for now and it's being placed in the right spot.
+
+269
+00:40:41,570 --> 00:40:45,330
+So this time we're just going to put multiple values here.
+
+270
+00:40:45,330 --> 00:40:57,950
+We can put 501st in distance and as they add another 1000, add another and then do 1500.
+
+271
+00:40:59,230 --> 00:41:03,740
+Okay. And those are the three buffers will create the same.
+
+272
+00:41:07,410 --> 00:41:19,050
+Units will usually use feets feet. There will be a field that's created in the new data set and distances.
+
+273
+00:41:19,380 --> 00:41:28,320
+I guess you could write for a distance for that because that feel will denote what the buffer length sizes are,
+
+274
+00:41:29,410 --> 00:41:40,140
+will be non overlapping rings and again use geodesic as the method in any push for.
+
+275
+00:41:48,470 --> 00:41:58,050
+Something happened. Did that happened to you guys?
+
+276
+00:42:00,390 --> 00:42:11,840
+Some. Yes, some would have some. The table has been edited field to execute a field.
+
+277
+00:42:13,880 --> 00:42:28,950
+Okay, let's try it again. Something a lot. You may have to change the name of the output feature class to something different.
+
+278
+00:42:29,700 --> 00:42:35,130
+Okay. So I'm just calling it multiple ring buffered two. All of this looks correct.
+
+279
+00:42:42,220 --> 00:42:47,710
+And I'm going to run it again. Maybe the right closed, huh?
+
+280
+00:43:03,780 --> 00:43:27,870
+The table is being edited, filled to execute. Q And I don't understand what's happening.
+
+281
+00:43:28,390 --> 00:43:32,940
+I, I close what I'm doing and I respect my job.
+
+282
+00:43:34,020 --> 00:43:48,420
+So I'm going to do that right now. You see noticeable edits and I'm going to open it up again and start over.
+
+283
+00:44:02,990 --> 00:44:06,860
+Okay. So we're going to work with the same project file.
+
+284
+00:44:09,470 --> 00:44:18,410
+The software. And I will be.
+
+285
+00:44:25,510 --> 00:44:30,660
+You said your processing. We did the multiple ring buffers.
+
+286
+00:44:33,750 --> 00:44:37,810
+Try it again, Parkes. All right.
+
+287
+00:44:42,610 --> 00:44:47,060
+Okay. One seems to be okay. Distance.
+
+288
+00:44:47,210 --> 00:45:02,000
+500. And if the government.
+
+289
+00:45:04,470 --> 00:45:15,130
+Do you feel it's the. Just keep this name buffer?
+
+290
+00:45:16,710 --> 00:45:23,590
+No. No rings. And you guys.
+
+291
+00:45:54,150 --> 00:46:02,250
+Okay. So that did solve the problem. So the folks who are restarting, we can wait a couple of minutes.
+
+292
+00:46:05,020 --> 00:46:14,140
+Okay. Yeah, there must have been some editing table that was not finished from a previous job that I'm good at.
+
+293
+00:46:14,590 --> 00:46:24,669
+I'm not sure. But while you're waiting for your computer to reload this, I can talk about this new layer.
+
+294
+00:46:24,670 --> 00:46:31,630
+A new layer popped up on top of all the other buffered layers and the contents pane.
+
+295
+00:46:31,660 --> 00:46:35,320
+So let's take a look at that layer of data.
+
+296
+00:46:36,160 --> 00:46:39,670
+Right. Click on it and see the attribute table.
+
+297
+00:46:41,290 --> 00:46:49,630
+And here it's kind of interesting. You only have three features in this table and feature class.
+
+298
+00:46:50,290 --> 00:46:55,180
+So one feature is four 500 feet buffers.
+
+299
+00:46:56,560 --> 00:47:01,960
+The next is for 1000, and the third is for 1500.
+
+300
+00:47:02,290 --> 00:47:06,330
+Okay. So we can use.
+
+301
+00:47:10,980 --> 00:47:17,430
+This this table to count the number of injuries within each of these buffer zones.
+
+302
+00:47:18,510 --> 00:47:23,760
+So we look to have the attribute table open. Let's go to selection by location again.
+
+303
+00:47:25,680 --> 00:47:35,220
+Selected by location. And again, we want to clear out injuries.
+
+304
+00:47:36,150 --> 00:47:45,300
+Okay. And it's intersecting in the selecting feature should be the ring buffer layer, multiple ring buffer.
+
+305
+00:47:45,360 --> 00:47:50,310
+We're okay. And then push.
+
+306
+00:47:50,670 --> 00:47:59,250
+Okay. Okay. So now if you click on the injuries all table and right click on it.
+
+307
+00:48:04,560 --> 00:48:09,330
+Oh, no, we don't have 46 in here.
+
+308
+00:48:14,400 --> 00:48:30,620
+So I think what I need to do. I need to bring in the other layer or redo the append, depending on where I'm at.
+
+309
+00:48:30,620 --> 00:48:36,260
+So please bear with me. You want to.
+
+310
+00:48:48,050 --> 00:49:06,270
+Don't look. So I need to agree to the append.
+
+311
+00:49:06,450 --> 00:49:22,880
+So let me do that really quickly. Okay. She would do the same.
+
+312
+00:50:19,400 --> 00:50:25,710
+All right. So let's do that then with the multiple ring buffers.
+
+313
+00:50:47,280 --> 00:50:50,910
+Okay. So what we're doing is opened up this multiple ring buffers.
+
+314
+00:50:51,320 --> 00:51:00,690
+Attribute table. Highlight the first row, which is the 500 feet buffer zones.
+
+315
+00:51:01,140 --> 00:51:06,330
+Okay. So those are all selected in a map here. Okay.
+
+316
+00:51:06,330 --> 00:51:22,740
+Then go to selection by location and we want to kill injuries in yours and make the injuries all intersect with the multiple ring buffers later.
+
+317
+00:51:24,240 --> 00:51:27,660
+And then you push. Okay. All right.
+
+318
+00:51:28,650 --> 00:51:36,930
+So if you go to the injuries attribute table 29 of the the 94 will be selected
+
+319
+00:51:37,380 --> 00:51:43,140
+just like you got when you did it previously with the different buffer cells.
+
+320
+00:51:43,740 --> 00:51:51,750
+So quickly, do number six and count the number that are within 1000 feet and within 1500 feet.
+
+321
+00:51:53,020 --> 00:51:58,760
+And so what you need to do first is to go to the park, multiple ring buffers,
+
+322
+00:51:58,770 --> 00:52:07,380
+layer and select the second column a row and then redo the selection by location.
+
+323
+00:52:23,600 --> 00:52:34,580
+Actually, there's a hint. Uh, if you do it this way, it will only kill the ones that are between 501,000 feet.
+
+324
+00:52:35,270 --> 00:52:47,840
+So if you want everything within 1000 feet, you have to select both of these rules and then do so like by location.
+
+325
+00:52:59,560 --> 00:53:06,380
+And the number should be close to hopefully the same. The man actually aged 66 instead of 68.
+
+326
+00:53:09,100 --> 00:53:13,540
+I think what happened is when I reopened it, the projection may have not stayed the same.
+
+327
+00:53:13,870 --> 00:53:17,230
+So I think that could cause a problem.
+
+328
+00:53:19,100 --> 00:53:30,750
+Okay. But that's okay. But you get the idea. Okay.
+
+329
+00:53:31,080 --> 00:53:35,580
+So you guys caught up. All right, so let's do the exercise now.
+
+330
+00:53:36,000 --> 00:53:39,160
+So now you have these different buffers, right?
+
+331
+00:53:39,180 --> 00:53:42,780
+The 500, 1000 5000 and 2050.
+
+332
+00:53:43,740 --> 00:53:50,370
+Let's use something we learned last time or the previous session about spatial joints.
+
+333
+00:53:50,990 --> 00:54:03,420
+Okay. So you spatial joints to count the number of buffers within the different buffer zones and to identify which parks have the most injuries.
+
+334
+00:54:03,780 --> 00:54:12,360
+Okay. So under number one, it says now you want to know which parts are the most in the least injuries.
+
+335
+00:54:13,020 --> 00:54:21,000
+Recall from previous class that we used a point to polygon spatial joint to count of patients within zip codes.
+
+336
+00:54:21,330 --> 00:54:30,090
+You can use the same approach and the buffer tool to help identify which parks are the most and least injuries within 500 feet.
+
+337
+00:54:31,740 --> 00:54:38,580
+And then next, you can do the same kind of work with neighborhoods to see which neighborhoods have the most injuries.
+
+338
+00:54:39,720 --> 00:54:52,140
+Using the point two polygon spatial joint. And then there's other data in the data set here for playgrounds and schools,
+
+339
+00:54:52,440 --> 00:54:57,480
+and you can use the buffer tool to map injuries near those features as well.
+
+340
+00:54:58,470 --> 00:55:03,420
+So this is let's do oh, let's do all three of these, if possible.
+
+341
+00:55:03,420 --> 00:55:09,660
+It may take a little bit time, but I think it brings in different elements of things you've learned over the last couple of weeks.
+
+342
+00:55:11,290 --> 00:55:18,610
+Okay. Remember to clear your selection before you start the next kind of exercise.
+
+343
+00:56:24,090 --> 00:57:36,040
+I. I think they need to for folks who have had to restart their computer.
+
+344
+00:57:37,790 --> 00:57:43,800
+Uh, something happened with my. Buffer zones here.
+
+345
+00:57:45,690 --> 00:57:55,740
+So in the end. They're not on the map.
+
+346
+00:58:01,660 --> 00:58:04,420
+Hmm. See there? Something wrong?
+
+347
+00:58:05,560 --> 00:58:13,330
+So I need to create my buffers for folks who have had to restart their first year per minute to create your buffers again.
+
+348
+00:59:36,360 --> 01:00:04,820
+So. I may have these in a different location.
+
+349
+01:01:44,550 --> 01:01:58,260
+Yeah. It didn't make any.
+
+350
+01:01:58,310 --> 01:02:02,280
+I think it just clicked. Whatever. Yeah.
+
+351
+01:03:23,600 --> 01:03:27,080
+Is anybody stuck? All right.
+
+352
+01:03:28,160 --> 01:03:39,680
+I had to recreate my buffers. So the first step is, if you don't have your park buffer, 500 feet buffer, recreate it.
+
+353
+01:03:40,400 --> 01:03:44,870
+Because I had when I restarted my actress pro, those were not retained.
+
+354
+01:03:45,680 --> 01:03:51,710
+Okay. The next thing you do, once you have those buffers, the buffer created,
+
+355
+01:03:53,360 --> 01:03:58,430
+you can use spatial drawings to count the number of points within that buffer zone.
+
+356
+01:03:59,780 --> 01:04:05,120
+So what you do first is you right click on the park buffer layer.
+
+357
+01:04:05,630 --> 01:04:12,680
+So I have a park buffer, 500 foot layer, and you go to join and relate.
+
+358
+01:04:15,700 --> 01:04:26,500
+And go to spatial job. So the target feature is a part buffer, 500 foot layer,
+
+359
+01:04:27,220 --> 01:04:34,630
+which you're going to add new variables to depending on the number of injuries or points that fall within that buffer.
+
+360
+01:04:35,290 --> 01:04:38,860
+Okay. So the joint feature is injuries.
+
+361
+01:04:39,190 --> 01:04:43,540
+In my case is 20. These are all the injuries on the map.
+
+362
+01:04:44,740 --> 01:04:50,890
+It'll create a new output feature class. That is the joint information.
+
+363
+01:04:51,820 --> 01:04:57,130
+It creates a name for you. I'm not going to change it. You do a 1 to 1 join.
+
+364
+01:04:57,940 --> 01:05:02,120
+Match option is intersect and then you push.
+
+365
+01:05:02,140 --> 01:05:10,290
+Okay. So once it's done, there should be a new layer that pops up.
+
+366
+01:05:10,300 --> 01:05:15,670
+It popped up right on top here. Park buffer, spatial joint one.
+
+367
+01:05:16,600 --> 01:05:25,299
+If you open up that layer, you can go to the attribute table and in the attribute table there will be a field
+
+368
+01:05:25,300 --> 01:05:32,260
+called Join Count that tells you how many points were within that buffer zone.
+
+369
+01:05:33,220 --> 01:05:45,910
+So you can see that the numbers, if you sort this field in go sort descending, you can see which parks have the most injuries.
+
+370
+01:05:46,000 --> 01:05:47,980
+So if you highlight number one,
+
+371
+01:05:48,430 --> 01:05:55,630
+because I have a very sorted you could highlight the first row and you can see on the map which park that's referring to.
+
+372
+01:05:56,470 --> 01:06:06,550
+Okay, if you let's see you do three and all the twos, you can highlight all those that have two or more injuries around.
+
+373
+01:06:08,800 --> 01:06:14,150
+So about you guys practice with the 1000 foot buffer and see what you get.
+
+374
+01:06:15,050 --> 01:06:18,320
+Yes. Yeah. Let's do it together.
+
+375
+01:06:19,000 --> 01:06:22,310
+Uh, do you have the buffer zones?
+
+376
+01:06:22,670 --> 01:06:31,040
+All right, so what you do first is you click on the layer of data that you want to join the points to.
+
+377
+01:06:31,940 --> 01:06:38,240
+So if you click on the polygon layer here, it's the buffer layer part underscore buffer 500.
+
+378
+01:06:38,900 --> 01:06:42,620
+So right click on that window to join in deletes.
+
+379
+01:06:43,760 --> 01:06:45,830
+And there's an option called spatial joint.
+
+380
+01:06:47,150 --> 01:06:57,380
+So you click on that and then the target features you'll be populated with the one you right click on, which is Park Underscore Buffer 500.
+
+381
+01:06:58,070 --> 01:07:07,910
+The join feature are the injuries. Yours probably says injuries all length is 20 and then you will create an output feature named for you,
+
+382
+01:07:07,970 --> 01:07:15,830
+which is fine for in my opinion, it puts it in the GIO database for your project folder that you're working on.
+
+383
+01:07:16,640 --> 01:07:22,160
+Choose to join 1 to 1. There are multiple options here, but just choose 1 to 1.
+
+384
+01:07:22,610 --> 01:07:34,970
+Keep all target features. Match Option Intersect meaning when those two features intersect with each other, you know there are multiple options.
+
+385
+01:07:35,510 --> 01:07:39,020
+So we'll just select Intersect and then that's it.
+
+386
+01:07:39,850 --> 01:07:52,160
+Okay. So another layer popped up at the top here called part underscore buffer 500, underscore spatial, trying to look at that actually table.
+
+387
+01:07:53,600 --> 01:08:01,880
+And in that attribute table, a new fields were added.
+
+388
+01:08:01,940 --> 01:08:07,100
+They're not added at the end, for whatever reason. They're near the beginning of the table.
+
+389
+01:08:07,400 --> 01:08:10,400
+And there's a new field called Joint Count.
+
+390
+01:08:10,460 --> 01:08:18,560
+It's not in the park buffer 500 attribute to see there is not there.
+
+391
+01:08:18,740 --> 01:08:29,180
+It's added to the new layer and this joint count is the number of points within those that buffer area.
+
+392
+01:08:30,590 --> 01:08:35,220
+Okay. All right.
+
+393
+01:08:53,820 --> 01:08:57,330
+So you could try number two. Number two is the same concept.
+
+394
+01:08:57,350 --> 01:09:05,250
+You're counting points within polygons and the polygons for question two, which is neighborhoods which neighborhoods have the most injuries?
+
+395
+01:09:06,300 --> 01:09:06,660
+All right.
+
+396
+01:09:07,020 --> 01:09:22,170
+So what you would do is you right click on the neighborhoods, polygon layer, go to join and release spatial joint target features and neighborhoods,
+
+397
+01:09:23,490 --> 01:09:31,860
+and they'll create a new layer called Neighborhoods Underscore Spatial Joint and the feature we want to count or injuries.
+
+398
+01:09:32,720 --> 01:09:36,930
+We will keep the rest the same and push. Okay. Right.
+
+399
+01:09:37,590 --> 01:09:42,810
+And then a new layer will pop up near the top called neighborhoods underscore spatial joint.
+
+400
+01:09:43,650 --> 01:09:49,920
+You're right. Click on it and look at the attribute table. You'll see a joint count variable there as well.
+
+401
+01:09:50,700 --> 01:10:01,440
+And you can sort that descending and you'll see that the neighborhood number 17 called Garfield has the most injuries.
+
+402
+01:10:01,620 --> 01:10:02,370
+It's right up here.
+
+403
+01:10:04,410 --> 01:10:15,899
+And you can actually do symbology of the neighborhoods now on the count variable to get some kind of a corpus map of the variable later,
+
+404
+01:10:15,900 --> 01:10:23,850
+we're learning about clustering analysis. You can do cluster analysis with the joint count variable to see if there are hotspots in terms of
+
+405
+01:10:23,850 --> 01:10:30,770
+neighborhoods that have more significantly more injuries than other ones or significantly less injuries.
+
+406
+01:10:31,480 --> 01:10:42,510
+Okay. How about you guys work on number three for a few minutes?
+
+407
+01:10:42,520 --> 01:10:47,770
+Because I kind of walk you through one and two. So number three has to do with playgrounds, right?
+
+408
+01:10:48,070 --> 01:10:53,050
+And school shapefile they're located in.
+
+409
+01:10:59,570 --> 01:11:15,260
+Expand this out. Under data, each page is 66 lab data and they are pay schools and then their playgrounds maybe just work with playgrounds actually,
+
+410
+01:11:15,260 --> 01:11:23,360
+because as schools you have to you have to do an additional step, which is you need to geo content or displayed level on data.
+
+411
+01:11:23,840 --> 01:11:28,130
+So you can just work with playgrounds or you can drag in playgrounds here.
+
+412
+01:11:29,810 --> 01:11:38,360
+And the playgrounds are going to put them above all the other stuff.
+
+413
+01:11:39,670 --> 01:11:45,080
+And then you can see that the playgrounds in many of them, they're pink on my map.
+
+414
+01:11:47,140 --> 01:11:55,630
+So these are the playgrounds. So you can do a similar thing, create buffers around playgrounds, maybe create a thousand foot buffer or something,
+
+415
+01:11:56,500 --> 01:12:03,399
+and then see how many do a spatial joint to count the number of injuries within
+
+416
+01:12:03,400 --> 01:12:11,950
+a thousand feet and then figure out which playground has the most injuries.
+
+417
+01:13:43,300 --> 01:16:25,340
+Let me know if you need any help and I'll come on back. Okay.
+
+418
+01:16:25,850 --> 01:16:35,260
+Do people need more time? No.
+
+419
+01:16:37,360 --> 01:17:05,450
+Yes. Okay. Cool.
+
+420
+01:17:06,250 --> 01:17:10,580
+All right. You want me to walk you through it? Yes.
+
+421
+01:17:10,600 --> 01:17:17,570
+No. Does it look like you're okay if you need to raise your hand?
+
+422
+01:17:18,290 --> 01:17:22,769
+Okay, good. Did you find out which park has the most or not?
+
+423
+01:17:22,770 --> 01:17:27,950
+The park playground has the most injuries.
+
+424
+01:17:28,460 --> 01:17:37,690
+Kids. I haven't done it, so I don't have the answer.
+
+425
+01:17:38,350 --> 01:17:47,280
+I do remember nine object 89 and 32 three.
+
+426
+01:17:47,590 --> 01:17:51,879
+Okay. And I see consistency. So. Excellent. All right. All right.
+
+427
+01:17:51,880 --> 01:17:58,960
+So that's our use of buffer tool and buffer and spatial joints to measure things like issues around density.
+
+428
+01:18:00,910 --> 01:18:04,239
+So, you know, just to give the summary, right.
+
+429
+01:18:04,240 --> 01:18:07,300
+We basically used how many points are within a buffer area.
+
+430
+01:18:07,930 --> 01:18:12,370
+So we looked at injuries within 250 feet, etc.
+
+431
+01:18:13,150 --> 01:18:23,260
+Similarly, you can count other things like alcohol outlets within a buffer zone, grocery stores or health care service points, etc.
+
+432
+01:18:23,770 --> 01:18:27,550
+And these are the tools you would use to get that type of information.
+
+433
+01:18:27,670 --> 01:18:31,960
+Buffer, multiple ring buffer and spatial joints.
+
+434
+01:18:32,410 --> 01:18:40,180
+All right. And how many points are there in a set of polygons?
+
+435
+01:18:41,240 --> 01:18:47,870
+Right. And we did this with the zipcode data.
+
+436
+01:18:47,890 --> 01:18:53,230
+And you would use a spatial drawing to do that if you had pointed out already.
+
+437
+01:18:53,230 --> 01:18:58,480
+And polygon data, all you need to do is a spatial join the count, the point to the important points.
+
+438
+01:18:59,860 --> 01:19:08,320
+And there are other measures of density for point data, not just counts, which is the simplest form.
+
+439
+01:19:08,720 --> 01:19:11,590
+There's something called point density and kernel density,
+
+440
+01:19:12,760 --> 01:19:19,450
+which takes into account issues of distance between points in the measurement of density in more nuanced ways.
+
+441
+01:19:20,200 --> 01:19:26,800
+So if you're interested in learning about those measures, there are great examples of them in the RTX profile.
+
+442
+01:19:27,370 --> 01:19:32,080
+So I encourage you guys to learn about new tools on your own and see if you can apply it to your work.
+
+443
+01:19:32,880 --> 01:19:40,330
+Okay. And now I think we can start a little bit on distance measures.
+
+444
+01:19:41,770 --> 01:19:45,819
+I think we can pull this off before we do the student presentation.
+
+445
+01:19:45,820 --> 01:19:48,940
+So let's do that. So we're going to measure distance now.
+
+446
+01:19:48,940 --> 01:19:52,420
+I thought we did this last time, but I guess I didn't remember correctly.
+
+447
+01:19:52,900 --> 01:19:59,860
+So we're going to measure the nearest distance between points and polygons and necessary lines.
+
+448
+01:20:00,310 --> 01:20:07,360
+So in this case, we're going to find out which are the parks that are the closest to pedestrians,
+
+449
+01:20:07,410 --> 01:20:11,710
+which means we figured out how many injuries within a specific zone.
+
+450
+01:20:12,220 --> 01:20:24,400
+Now we're going to see which parks are within which are the closest parks to the injuries to doing this type of work we can use to do this work,
+
+451
+01:20:24,400 --> 01:20:31,570
+we'll use the near tool. So let's go to a lab activity number 31.
+
+452
+01:20:32,560 --> 01:20:38,770
+I think we can continue to work with the same Pyrex file.
+
+453
+01:20:39,860 --> 01:20:46,729
+Okay. And we're going to use the injuries all layer in the park slope and all the other layers
+
+454
+01:20:46,730 --> 01:20:52,830
+you could probably turn off and set maybe neighborhoods so that we can oriented ourselves.
+
+455
+01:20:52,850 --> 01:20:56,860
+Okay. So parks, neighborhoods and injuries zones, all we need at the moment.
+
+456
+01:20:58,750 --> 01:21:06,370
+So the near tool will help us figure out which which are the parks nearest to the injuries.
+
+457
+01:21:08,140 --> 01:21:27,650
+So in the command line, you can type in near. And in the input feature to cope injuries all in the new three near feature is parks.
+
+458
+01:21:32,970 --> 01:21:42,840
+Okay. And then check the box for location and angle and it tells you which fields will be created.
+
+459
+01:21:45,530 --> 01:21:55,700
+When you take those marks and we want to use geodesic as the method and then you push round.
+
+460
+01:22:00,420 --> 01:22:03,540
+So new fields should be added to the injuries all.
+
+461
+01:22:06,490 --> 01:22:19,390
+Blair. So if you open up that layer, you'll see that more stuff was added near feature, near distance.
+
+462
+01:22:19,510 --> 01:22:24,190
+I think this is the distance in feet.
+
+463
+01:22:26,230 --> 01:22:33,550
+These are the coordinates and this is the angle at which that feature is located relative to the parks.
+
+464
+01:22:35,570 --> 01:22:41,440
+Mm hmm. So let's look at the symbolize this information that we've just generated here.
+
+465
+01:22:42,280 --> 01:22:45,310
+You can right click on the injuries all layer.
+
+466
+01:22:51,200 --> 01:22:57,550
+We've got a symbology and we're going to use single symbology here, single symbol.
+
+467
+01:22:58,130 --> 01:23:02,780
+Click on this red dot or whatever color it is on your screen.
+
+468
+01:23:03,840 --> 01:23:13,160
+You know, I'll give you some options there. And under Gallery, let's search for Arrow.
+
+469
+01:23:13,170 --> 01:23:19,000
+So we're going to turn these dots into arrows and then point them towards the nearest talk.
+
+470
+01:23:19,320 --> 01:23:24,020
+Okay. So there are multiple areas of pop up.
+
+471
+01:23:24,020 --> 01:23:29,120
+The one I'm choosing to work with is arrow marker four right here.
+
+472
+01:23:30,090 --> 01:23:36,709
+Okay. And let's change the size of that arrow to be appropriate.
+
+473
+01:23:36,710 --> 01:23:41,570
+It's 14. Now, if you go to properties, you can change the size of it and it's going to make it ten.
+
+474
+01:23:42,890 --> 01:23:46,850
+Okay. And then the angle of the arrow, let's make it point up.
+
+475
+01:23:47,780 --> 01:23:51,020
+Okay. So it's right now it's sideways then. Right, horizontal.
+
+476
+01:23:51,140 --> 01:23:56,720
+We're going to make it 90 degrees and pointed up and then you put apply.
+
+477
+01:23:57,440 --> 01:24:10,910
+So all the points that turn into these arrows pointing up and click back and there there's option very symbology by attribute.
+
+478
+01:24:11,270 --> 01:24:22,520
+Okay. And the attribute you want to change it by is the rotation attribute which is located in the field near angle.
+
+479
+01:24:23,450 --> 01:24:27,020
+Okay. And it tells you there are two options.
+
+480
+01:24:27,650 --> 01:24:38,060
+We want to choose a geographic area and once you choose geographic in the field, the arrows will be pointing in all different directions.
+
+481
+01:24:39,440 --> 01:24:43,579
+Okay. And if you examine the arrow, let's just pick one randomly.
+
+482
+01:24:43,580 --> 01:24:51,770
+I'm going to just pick this quadrant up here. And you should see that, you know, this is an injury and it's pointing towards the nearest.
+
+483
+01:24:57,020 --> 01:25:04,280
+Okay. And this is another entry pointing towards its nearest point, so on and so forth.
+
+484
+01:25:06,290 --> 01:25:18,349
+Okay. Okay.
+
+485
+01:25:18,350 --> 01:25:21,589
+So let's let's make another use symbology again.
+
+486
+01:25:21,590 --> 01:25:25,490
+But this time will symbolize a different variable that was created.
+
+487
+01:25:25,790 --> 01:25:34,220
+Right, which is the near distance variable. So they'll tell us how far that injury is from a plot.
+
+488
+01:25:34,610 --> 01:25:46,190
+Okay. So if you right click on injuries all and make a copy of it and then click on map, right click on map and push paste.
+
+489
+01:25:46,760 --> 01:25:54,350
+You should see two instances of injury. Okay, let's pick the top one in the symbolize that one a bit differently.
+
+490
+01:25:55,640 --> 01:26:00,020
+So go to symbology. And this time you want to do graduated symbols.
+
+491
+01:26:01,930 --> 01:26:05,770
+So you choose graduated symbols.
+
+492
+01:26:07,270 --> 01:26:11,620
+The field we will use to do that with is near distance.
+
+493
+01:26:13,660 --> 01:26:18,760
+There's no normalization because you don't need to divide by anything method.
+
+494
+01:26:20,020 --> 01:26:28,240
+I prefer quantile. In most cases so many is quantile, especially because this doesn't look well distributed.
+
+495
+01:26:29,140 --> 01:26:34,330
+And we can say we have five different classes groups,
+
+496
+01:26:34,930 --> 01:26:43,870
+five different classes and minimum size of make it to the smallest circle and the largest circle will be.
+
+497
+01:26:46,500 --> 01:26:49,650
+Okay. And then you can just push.
+
+498
+01:26:49,890 --> 01:27:03,990
+I guess you don't really need to push anything. Dockett And then you can see on the map, uh, we turn off the other injuries later.
+
+499
+01:27:03,990 --> 01:27:15,420
+So each circle is an injury and the size of that circle tells you how far it is from the park.
+
+500
+01:27:16,050 --> 01:27:21,480
+So the bigger the circle, the further away that injury is from, okay?
+
+501
+01:27:21,990 --> 01:27:25,680
+The smaller the circle, the closer it is to a park.
+
+502
+01:27:27,060 --> 01:27:35,070
+So one example would be maybe in this one area here, there is a circle here which is really right next to a park.
+
+503
+01:27:36,030 --> 01:27:41,280
+There's an injury here, which is a little bit maybe further away from a park.
+
+504
+01:27:41,280 --> 01:27:46,140
+And then you have a larger circle, which is even further than this one from the park.
+
+505
+01:27:46,950 --> 01:27:52,590
+So in this way, you can identify the injuries that are closest to park.
+
+506
+01:27:52,830 --> 01:27:58,200
+And with this angle, information identifying which park was the closest yet.
+
+507
+01:27:58,590 --> 01:28:02,640
+I can't blame my therapist or my circle from my mouth.
+
+508
+01:28:03,960 --> 01:28:07,980
+Hmm. I just had the. The background, like the neighborhoods in the parks.
+
+509
+01:28:08,010 --> 01:28:11,370
+But my symbols let me come around and take a look.
+
+510
+01:28:12,280 --> 01:28:19,769
+I mean, maybe your layers are not organized. The purple there, like, for example, I want to you an arrow.
+
+511
+01:28:19,770 --> 01:28:28,380
+They just disappeared off my map. During his.
+
+512
+01:28:40,480 --> 01:28:46,450
+So when something like this happens, obviously this community is pretty good now.
+
+513
+01:28:46,780 --> 01:28:53,470
+So just so that they can finish it, so that they can stick around otherwise.
+
+514
+01:28:54,670 --> 01:28:58,420
+But, you know, I think we're. Yeah, maybe you want to do that.
+
+515
+01:29:01,590 --> 01:29:05,970
+So that we can do the remaining work.
+
+516
+01:29:07,740 --> 01:29:12,690
+You may be able to do the remaining without starting.
+
+517
+01:29:12,690 --> 01:29:15,260
+Let's see. Let's let's keep working. Okay.
+
+518
+01:29:19,670 --> 01:29:26,700
+I think we have a couple of more exercises and they're relatively quick, so let's go through them and then we will do the.
+
+519
+01:29:31,460 --> 01:29:39,880
+Then we'll do the student presentations. Okay. All right.
+
+520
+01:29:40,690 --> 01:29:44,440
+All right. So we learned how to use the near tool.
+
+521
+01:29:45,400 --> 01:29:49,930
+Now let's do the same kind of work. But what we can do is generate a near table.
+
+522
+01:29:50,530 --> 01:29:54,580
+So this time we added data to an existing feature class.
+
+523
+01:29:55,000 --> 01:30:03,760
+Right. We can do the same kind of exercise, but we can create a table of the data in a tabular format instead of a future class.
+
+524
+01:30:04,000 --> 01:30:08,170
+Okay. So that's exercise number 32. Okay.
+
+525
+01:30:08,180 --> 01:30:14,170
+So we're going to work with the same data. So this time we're going to use the generate near table tool.
+
+526
+01:30:19,210 --> 01:30:27,940
+Okay. And once you get that to know that the input feature should be near Paul.
+
+527
+01:30:28,840 --> 01:30:37,810
+I don't think it matters which women choose. I'm just going to use the first one, the same data in the near future as again, clerks.
+
+528
+01:30:41,320 --> 01:30:49,600
+And the generated table and I creates a name for you and it places into your existing projects to your database.
+
+529
+01:30:50,860 --> 01:30:54,730
+Right. Yeah.
+
+530
+01:30:55,950 --> 01:31:12,180
+Okay. And and we want to check, uh, you know, angle, location and only the closest feature and method should be to your desk.
+
+531
+01:31:13,110 --> 01:31:23,300
+And then you can push, right? So once you do that, a table should have popped up at the bottom of your contents page.
+
+532
+01:31:24,180 --> 01:31:33,180
+And if you look at that table, it'll have the same data that was generated and added to the injuries of future class.
+
+533
+01:31:34,490 --> 01:31:43,510
+Okay. I think you can do the exercise on your own.
+
+534
+01:31:43,510 --> 01:31:48,310
+And I think these are pretty straightforward tools that you need to worry about it in the interest of time.
+
+535
+01:31:48,820 --> 01:31:57,700
+Let's go to the next exercise, which is lab activity 33, when you make sure not skipping any slides before that activity.
+
+536
+01:31:59,920 --> 01:32:08,650
+Well, I am skipping slides. So let's stop here because this next lab activity has to do with cluster analysis.
+
+537
+01:32:09,220 --> 01:32:12,940
+So using distance to measure clustering of point data.
+
+538
+01:32:13,480 --> 01:32:18,970
+So we'll talk a little bit about clustering before we get into lab activity 33 at this moment.
+
+539
+01:32:19,330 --> 01:32:24,399
+Let's take a short break and then we'll start with the student presentations and
+
+540
+01:32:24,400 --> 01:32:28,420
+we'll start with the remote student first and then go on to the rest of you.
+
+541
+01:32:28,960 --> 01:32:32,830
+The three presentations today did I get slides from every presenter?
+
+542
+01:32:32,950 --> 01:32:37,090
+If you didn't send them to me, please send them to me because I think only have two of the three.
+
+543
+01:32:37,840 --> 01:32:43,870
+Okay, so let's take a five minute break. We'll do presentations and then they'll do another five minute break after that.
+
+544
+01:32:44,080 --> 01:32:49,990
+Okay. So let's come back at four.
+
+545
+01:32:50,170 --> 01:32:53,830
+Let's say 4/5, 4 to 415.
+
+546
+01:32:53,950 --> 01:32:57,400
+Okay. Give you a little longer break. I think you guys are getting tired.
+
+547
+01:32:57,850 --> 01:33:01,630
+And so my that's the time frame. Yeah.
+
+548
+01:33:02,980 --> 01:33:06,760
+And I'll support this stuff here.
+
+549
+01:33:07,360 --> 01:33:15,759
+So I think I am very active on this.
+
+550
+01:33:15,760 --> 01:33:17,650
+Let me know that she's not going to be in class.
+
+551
+01:33:17,830 --> 01:33:28,210
+I'm going to grab you to ask her just to, um, he's had some issues with a friend of hers and so things for sure that yeah,
+
+552
+01:33:28,420 --> 01:33:36,790
+I didn't see any email from him, so I'm glad he told me to in a class or anything else like I was on my way is so open.
+
+553
+01:33:37,660 --> 01:33:38,770
+All right. Yeah, absolutely.
+
+554
+01:33:38,770 --> 01:33:46,599
+And then he said he would reach out to you either tomorrow or the next day about scheduling because he lives just half hour like an hour away.
+
+555
+01:33:46,600 --> 01:33:53,770
+So I am just going to let him figure out when it would be best for him to meet with you, to be on campus, and then I'll just work it into my schedule.
+
+556
+01:33:54,310 --> 01:33:57,850
+Okay. For your group meeting, you guys signed up?
+
+557
+01:33:58,240 --> 01:34:04,370
+I don't think so yet. And so you have to meet in person.
+
+558
+01:34:04,930 --> 01:34:11,530
+Okay? Okay. Okay. Okay. Thank you. I found it like a forum, but I don't know.
+
+559
+01:34:14,230 --> 01:34:20,290
+I can't hear anything. What's up?
+
+560
+01:34:21,940 --> 01:34:28,890
+If you knew what the patch was on arc to get it, the symbology to work towards.
+
+561
+01:34:29,080 --> 01:34:36,490
+I think I have to say that to do the arrow portion of this because every time I try to do it, it would crash my arc.
+
+562
+01:34:36,760 --> 01:34:42,340
+Really. Okay, because I think I have the same software as you guys on this.
+
+563
+01:34:43,060 --> 01:34:46,450
+So let me. Oh, only when I go to try and I'm doing it on my own.
+
+564
+01:34:46,720 --> 01:34:50,200
+The only thing that I can update to is 3.0. And I know we don't want to do that.
+
+565
+01:34:50,260 --> 01:34:53,020
+You don't want to do that. Yeah, there are some instructions for this.
+
+566
+01:34:53,020 --> 01:34:58,750
+I'm going to have to send you all an email right after class, so I'll send the whole class an email about it.
+
+567
+01:34:59,230 --> 01:35:03,190
+If you don't get it right away, like before you go to bed, can you remind me?
+
+568
+01:35:03,610 --> 01:35:06,670
+Yes. Okay. Yes, I'm going to say right away I'm going to.
+
+569
+01:35:06,820 --> 01:35:12,640
+Yeah. And other people around. But if I don't get it by the end of the day. Yeah, you should do it tonight before I go to bed.
+
+570
+01:35:12,670 --> 01:35:20,170
+Okay. Thank you so much. I appreciate it because you want to. I know what you seem to do, but every time I click on it, I can do everything else.
+
+571
+01:35:20,170 --> 01:35:23,590
+That's okay. Cool. Thank you. All right.
+
+572
+01:35:23,870 --> 01:35:27,490
+The question we're all asked the other class, if you're that's okay.
+
+573
+01:35:27,560 --> 01:35:32,230
+We can talk now and I'll sort this thing out in the second. And just really a question.
+
+574
+01:35:32,300 --> 01:35:36,340
+Okay. Oh, okay. You're on it, right?
+
+575
+01:35:36,340 --> 01:35:39,430
+Yeah. Okay. Because I can't tell from the Zoom meetings. I know.
+
+576
+01:35:39,430 --> 01:35:40,750
+I know with masks at the time.
+
+577
+01:35:41,140 --> 01:35:49,930
+But yeah, we've been I've been emailing you and with Sarah there's the other student comes here and we're trying to set up this.
+
+578
+01:35:49,930 --> 01:35:53,739
+I don't know if you've seen that. I have about the student feedback meeting.
+
+579
+01:35:53,740 --> 01:35:59,770
+Yeah. And so our idea, it sounded like I was okay with doing it next Thursday the 17th I think.
+
+580
+01:36:00,570 --> 01:36:04,710
+And we have a room. Yeah. We've been approved to go in and to try to get students actually current.
+
+581
+01:36:04,930 --> 01:36:11,440
+Yeah. And the only thing I think we're really doing is having the president suggested
+
+582
+01:36:11,440 --> 01:36:15,940
+putting a cap like a cap just in case a lot of students were interested.
+
+583
+01:36:16,810 --> 01:36:19,930
+So I think we have. Do you think, Sarah and we haven't heard back.
+
+584
+01:36:20,230 --> 01:36:23,530
+I just wanted to ask, do you think we should 20 for that would be.
+
+585
+01:36:23,770 --> 01:36:26,830
+I think that's probably more than sufficient. Yeah.
+
+586
+01:36:27,070 --> 01:36:30,610
+And I kind of a more you have to start to have discussions right.
+
+587
+01:36:31,000 --> 01:36:34,030
+Yeah. Yeah. So it seems reasonable to me or should it.
+
+588
+01:36:34,270 --> 01:36:37,929
+Would you in should be even smaller. There's always the chance.
+
+589
+01:36:37,930 --> 01:36:39,240
+I don't know. 20 students. What are your.
+
+590
+01:36:40,320 --> 01:36:49,000
+But yeah, I mean, for me, ideally it's like ten people because I think the more you have harder it gets to get feedback.
+
+591
+01:36:50,200 --> 01:37:00,370
+But if we're going to do it, I would defer to her. Yeah, I wish I could come, but I have to take my wife to the airport so I can't do it.
+
+592
+01:37:00,530 --> 01:37:00,910
+Okay.
+
+593
+01:37:01,840 --> 01:37:09,760
+Yeah, I think she's traveling because I she said in a little earlier this week that she's in D.C. for a conference, so that might be worth the women.
+
+594
+01:37:11,710 --> 01:37:14,830
+This is great for a day or so, if not just in early January.
+
+595
+01:37:15,460 --> 01:37:20,920
+I'll send it in actually. Now. Okay. Yeah, we can call.
+
+596
+01:37:20,970 --> 01:37:27,660
+Thank you. Yeah, it's hard.
+
+597
+01:37:30,120 --> 01:37:35,150
+Yeah. Oh, yeah. You know, there's nothing like, you know, whatever.
+
+598
+01:37:35,210 --> 01:37:42,970
+No, I think you need to know somebody who can hear me.
+
+599
+01:37:43,510 --> 01:37:51,420
+I to do it like I don't want to go when? I don't know, until I listen to anything.
+
+600
+01:37:51,580 --> 01:37:55,930
+Great. Can you say something to see if we can hear you?
+
+601
+01:37:56,520 --> 01:38:00,490
+Good. Yeah. Yes, we're here in person.
+
+602
+01:38:02,880 --> 01:38:06,580
+So right here in about 3 minutes to.
+
+603
+01:38:07,800 --> 01:38:10,950
+So the first week is very remote.
+
+604
+01:38:11,040 --> 01:38:16,910
+I mean, you had a middle ground with the rest of the two speakers from the north and to the.
+
+605
+01:38:17,980 --> 01:38:23,790
+Sure. So I'm going to just check or say something when we're ready to get started.
+
+606
+01:38:23,860 --> 01:38:30,150
+Yeah. So just bear with. We understand that you have to be.
+
+607
+01:41:59,640 --> 01:42:04,590
+My take. Can you hear me? Excellent.
+
+608
+01:42:04,800 --> 01:42:12,390
+So we're ready for you to present. You want to share screen or how do you want to share your slides?
+
+609
+01:42:14,810 --> 01:42:22,940
+Great. We do see it.
+
+610
+01:42:22,970 --> 01:42:29,020
+Yeah. Yup.
+
+611
+01:42:29,530 --> 01:42:34,640
+It looks good. So.
+
+612
+01:42:47,900 --> 01:43:18,290
+But. Right.
+
+613
+01:45:46,180 --> 01:45:50,430
+If there's a hand. Can you hear me? Yeah.
+
+614
+01:45:51,200 --> 01:45:51,400
+Okay.
+
+615
+01:45:51,760 --> 01:46:00,550
+Well, this is just based off my knowledge of the US, but I know in the US the tobacco industry has sued on the grounds like free speech violation.
+
+616
+01:46:13,710 --> 01:46:22,800
+There are tobacco ads in person in stores like corner stores, and there are also ads like online and social media and YouTube.
+
+617
+01:47:42,200 --> 01:54:03,520
+They? Yeah.
+
+618
+01:54:04,750 --> 01:54:07,989
+Considering it's like a cultural kind of phenomenon,
+
+619
+01:54:07,990 --> 01:54:14,770
+I'd probably do something that's like a community level intervention or an education campaign that seems to
+
+620
+01:54:14,770 --> 01:54:20,710
+work pretty well in the US to kind of shift the message that a lot of the tobacco companies were putting out.
+
+621
+01:54:21,010 --> 01:54:40,720
+So I would maybe suggest something similar in Greece. I think there is a way to like couple what I was talking about with school policies.
+
+622
+01:54:40,740 --> 01:54:45,389
+I think this like if you if you want to go to school policy that is be really careful to not
+
+623
+01:54:45,390 --> 01:54:50,610
+just make it super punitive because I think people like kids won't respond well to that.
+
+624
+01:54:50,970 --> 01:54:53,360
+But I feel like something's wrong.
+
+625
+01:54:53,400 --> 01:55:03,000
+I don't know if there's an incentive based system or like a thing that would occupy their time when they might only use it to to use tobacco.
+
+626
+01:55:03,450 --> 01:55:08,910
+And that could be coupled with like what Matt was talking about, like about a greater education.
+
+627
+01:55:09,230 --> 01:57:53,080
+And I think that could be useful as. All right.
+
+628
+01:57:53,090 --> 01:57:58,970
+Thank you very much. Nicely done. I think that report presentation worked well.
+
+629
+01:57:59,090 --> 01:58:05,030
+So good job. I'm going to put you on mute, but if you wish to.
+
+630
+01:58:05,840 --> 01:58:12,870
+I'm not going to put you on mute so you can hear the next speaker. If you wish to speak, please, please remain on the call.
+
+631
+01:58:12,870 --> 01:58:17,030
+Okay. All right. How about Isabella?
+
+632
+01:58:17,510 --> 01:58:22,880
+Go next, and then we'll have her. They are going to need to.
+
+633
+01:58:25,440 --> 01:58:34,740
+No. This is your right.
+
+634
+01:58:34,910 --> 01:58:39,490
+You know. And who?
+
+635
+01:58:50,170 --> 01:58:52,270
+Okay. Hi, everyone. I'm Isabella.
+
+636
+01:58:52,270 --> 01:58:59,140
+And today I'm going to be presenting on the other article that we are reading class, which is the outdoor media diet,
+
+637
+01:58:59,530 --> 01:59:06,700
+the development and reader reliability of a tool designed to measure food and beverage outlets and outdoor advertising.
+
+638
+01:59:08,290 --> 01:59:13,779
+And so here's just, um, oh, here is our agenda for today.
+
+639
+01:59:13,780 --> 01:59:19,180
+So first, I'm going to start with the introduction and the purpose of the study.
+
+640
+01:59:19,600 --> 01:59:21,069
+So at the beginning of the article,
+
+641
+01:59:21,070 --> 01:59:29,290
+they were talking about how increasing rates of childhood obesity could be linked to use food environment surrounding schools,
+
+642
+01:59:29,860 --> 01:59:36,850
+particularly fast food options being readily available to youth, which can influence their dietary choices.
+
+643
+01:59:37,360 --> 01:59:43,930
+And so the research team was just thinking about how they can reduce obesity rates, which leads us to the purpose of the study.
+
+644
+01:59:45,130 --> 01:59:49,270
+And so essentially if they focus on the food outlets that are near the schools,
+
+645
+01:59:49,270 --> 01:59:55,180
+the research can provide us information on the type of food options youth are exposed to frequently.
+
+646
+01:59:55,630 --> 02:00:01,840
+And so the purpose of this study is to develop a tool that documents and describes
+
+647
+02:00:01,900 --> 02:00:07,630
+survey data collected on outdoor food and beverage advertising and outlets.
+
+648
+02:00:08,140 --> 02:00:17,650
+And so they really emphasize the importance of using primary data rather than secondary, because the majority of the state,
+
+649
+02:00:17,830 --> 02:00:26,350
+the majority of studies use secondary data as their main source, which has major implications for turning out conclusions and policy decisions.
+
+650
+02:00:26,860 --> 02:00:30,729
+And so secondary data doesn't really appropriately represent the food environment.
+
+651
+02:00:30,730 --> 02:00:34,270
+And so they wanted to do a study that had primary data.
+
+652
+02:00:34,270 --> 02:00:41,379
+And so that was the other purpose. And so on.
+
+653
+02:00:41,380 --> 02:00:46,180
+Two methods The location in which the study took place in was central Texas.
+
+654
+02:00:46,600 --> 02:00:50,920
+And so they chose 34 middle schools and 13 high schools to be in the study.
+
+655
+02:00:51,610 --> 02:00:53,680
+And some of these schools were in the same school district.
+
+656
+02:00:53,690 --> 02:01:03,430
+So they were near each other and they used ARGs to create a 100 meter or half a mile buffer zones like we learned today around these schools.
+
+657
+02:01:04,090 --> 02:01:06,520
+And so essentially within those buffer zones,
+
+658
+02:01:06,520 --> 02:01:14,920
+they drove through each of the streets and they documented and took pictures of any fast food restaurants, gas stations, things of that nature.
+
+659
+02:01:15,790 --> 02:01:18,940
+And so they collected all that information using an iPod touch.
+
+660
+02:01:19,150 --> 02:01:22,450
+I guess you heard me write iPod Touch. I haven't seen those since 2000.
+
+661
+02:01:22,480 --> 02:01:28,690
+Well, because it was compatible with an app called FileMaker, though.
+
+662
+02:01:32,120 --> 02:01:38,010
+And the variables they collected during this study were organized into three categories.
+
+663
+02:01:38,030 --> 02:01:47,150
+So the first one is the advertisement, which is any signage promoting food and beverage that is free standing or not attached to an establishment.
+
+664
+02:01:47,900 --> 02:01:54,170
+Some examples of that are signs on gas pumps, sidewalks, frames, banners and billboards.
+
+665
+02:01:54,800 --> 02:02:02,960
+The next category is establishment advertisement, which is signage promoting food and beverage attached to establishments.
+
+666
+02:02:03,830 --> 02:02:08,270
+Anything like posters on windows, walls, doors.
+
+667
+02:02:09,620 --> 02:02:15,140
+And then you have the establishment, which is any outlet that sells food and beverage to the public.
+
+668
+02:02:15,470 --> 02:02:19,430
+So like gas stations, convenience stores, grocery stores, stuff like that.
+
+669
+02:02:20,030 --> 02:02:23,209
+And then the type of variable was also collected.
+
+670
+02:02:23,210 --> 02:02:28,400
+And it just means where the advertisement was located and what type of establishment.
+
+671
+02:02:28,400 --> 02:02:31,550
+So billboards, street signs, gas station, etc.
+
+672
+02:02:32,270 --> 02:02:39,140
+And then the subject is also collected, which just means if the advertisement was pertaining food and beverage, tobacco or alcohol.
+
+673
+02:02:39,740 --> 02:02:44,300
+But the main purpose of the study was for food and beverage. So tobacco, the whole out.
+
+674
+02:02:46,010 --> 02:02:54,370
+And so I have a question. Um, can you think of other types of advertisement for food and beverage?
+
+675
+02:03:07,640 --> 02:03:11,940
+A lot of the stuff we see on TV will now people extreme like on commercials and
+
+676
+02:03:11,940 --> 02:03:15,630
+stuff that's like usually now we're probably a lot of times if you're not driving.
+
+677
+02:03:16,140 --> 02:03:19,200
+Yeah it's like your media intake. Mm hmm.
+
+678
+02:03:19,380 --> 02:03:22,650
+Yeah, that's true. There, you say something.
+
+679
+02:03:23,580 --> 02:03:28,070
+You pay attention to product placement and like shows like that.
+
+680
+02:03:28,300 --> 02:03:29,640
+Mhm. Yeah.
+
+681
+02:03:29,640 --> 02:03:36,270
+I was also thinking of like social media which if you're ever scrolling through Instagram and you see like an ad for like Wendy's or Olive Garden,
+
+682
+02:03:36,270 --> 02:03:46,710
+just like how did that get there? Um, okay, so onto the next slide.
+
+683
+02:03:47,940 --> 02:03:53,130
+Um, so this is what they put all the information from that previous slide into here.
+
+684
+02:03:53,550 --> 02:03:57,780
+So in the left side, this is what FileMaker Pro looks like on a desktop.
+
+685
+02:03:58,350 --> 02:04:06,959
+It looks very vintage and old, in my opinion. Um, and then over on the right, that's what it looks like on an iPod Touch and so on.
+
+686
+02:04:06,960 --> 02:04:09,600
+That blue box at the very top is score information.
+
+687
+02:04:10,050 --> 02:04:15,780
+So basically what school was in that half mile radius from the establishment or advertisement site?
+
+688
+02:04:17,670 --> 02:04:23,879
+As you can see, Subway was an example. So it's an establishment restaurant that's food, food and beverage.
+
+689
+02:04:23,880 --> 02:04:26,070
+And then they put the GPS coordinates on there.
+
+690
+02:04:28,080 --> 02:04:34,200
+And so basically they went down every street within that half mile radius of the school collecting all the food and beverage advertisements.
+
+691
+02:04:35,450 --> 02:04:42,030
+Um, so my next question is what other details might be important for this type of study?
+
+692
+02:04:57,530 --> 02:05:03,740
+Go ahead. Maybe you're just like, what? Like your dreams that students are like the grades.
+
+693
+02:05:06,110 --> 02:05:11,290
+Yes, those are demographics. And students at the school are really, you know,
+
+694
+02:05:11,300 --> 02:05:15,350
+like maybe the hours that like the business is open because if maybe they're open during school hours,
+
+695
+02:05:15,350 --> 02:05:21,830
+like would it be relevant to like school children? But if it's like open after school, that's when school children will be visiting those places.
+
+696
+02:05:21,980 --> 02:05:25,340
+Mm hmm. That's a good point that you exposed.
+
+697
+02:05:26,330 --> 02:05:30,100
+Yeah. Mm hmm. Yeah. Those are really good points, too.
+
+698
+02:05:30,110 --> 02:05:37,310
+Like income level, especially if there's food swamps, where there's a lot of fast food restaurants and you want to know those type of demographics.
+
+699
+02:05:38,260 --> 02:05:41,810
+So, and then I have another question.
+
+700
+02:05:42,440 --> 02:05:48,649
+Um, so just thinking of when the research team is taking these pictures of these sites,
+
+701
+02:05:48,650 --> 02:05:52,070
+what are some barriers that they could face when taking the photos?
+
+702
+02:06:03,750 --> 02:06:09,420
+So I can give some examples. So we've talked about some of them in the paper and they were talking about.
+
+703
+02:06:13,040 --> 02:06:21,110
+Traffic. So there's a lot of traffic and you can't get off to take pictures or if they do a wrong turn if they're traveling by car.
+
+704
+02:06:21,390 --> 02:06:23,810
+Unclear directions, road closures,
+
+705
+02:06:24,650 --> 02:06:32,150
+no sidewalks or the owner or the manager of the establishment doesn't agree for you to take a picture of their place.
+
+706
+02:06:34,100 --> 02:06:38,690
+And also malfunctioning of the device so it doesn't get itself working for some reason.
+
+707
+02:06:41,750 --> 02:06:49,210
+And so going back, one of the main purposes of the study was to rate this tool, which, by the way,
+
+708
+02:06:49,220 --> 02:06:56,450
+media stands for measuring and evaluating the determinants and influence of advertising direct observation tool.
+
+709
+02:06:57,230 --> 02:07:02,750
+And so in order to do that, first, they randomly selected seven schools out of their sample,
+
+710
+02:07:03,230 --> 02:07:10,220
+and then next they sent out two separate teams that each completed a four data collection within 24 hours.
+
+711
+02:07:10,550 --> 02:07:14,930
+So going around that half mile radius of the schools and collecting that data.
+
+712
+02:07:15,440 --> 02:07:22,070
+And then third, after they did all that, they came back and manually compared both sets of data for matching and coding.
+
+713
+02:07:25,150 --> 02:07:31,000
+And so in order to register, in order to measure into greater reliability, they used percent agreement.
+
+714
+02:07:31,660 --> 02:07:37,060
+Percent agreements provide an overall indication of reliability between the different teams.
+
+715
+02:07:37,990 --> 02:07:41,559
+So basically they are easy to understand and to interpret.
+
+716
+02:07:41,560 --> 02:07:46,120
+And so that's why they use it. And so they separate the data into two levels.
+
+717
+02:07:46,360 --> 02:07:55,599
+Level one was measured. If these variables right here in the bullet points were documented by both teams, level two was measured.
+
+718
+02:07:55,600 --> 02:08:01,090
+If the details of the variables were coded similar, meaning that they had similar documented details.
+
+719
+02:08:02,530 --> 02:08:12,340
+And so if you get both of those and you combine them, if you get perfect matching between the two, then you have a percent agreement of 100%.
+
+720
+02:08:17,850 --> 02:08:28,980
+And so for the real results that they did for level one, there was a 71% match from both teams, which was pretty high.
+
+721
+02:08:29,430 --> 02:08:32,730
+And then for level two, there is an 84% match.
+
+722
+02:08:33,660 --> 02:08:40,200
+And so this is just the more in-depth detail of the other results that they collected.
+
+723
+02:08:41,040 --> 02:08:44,130
+As you can see, the matching was pretty accurate, in my opinion.
+
+724
+02:08:47,930 --> 02:08:55,940
+And so what does this mean? So the media diet can be used to document and code food and beverage advertisements and outlets with high reliability.
+
+725
+02:08:56,780 --> 02:09:01,640
+This tool can be easily adapted for future research and other research topics too.
+
+726
+02:09:02,930 --> 02:09:11,239
+And the success of this research study adds on to existing literature with primary data,
+
+727
+02:09:11,240 --> 02:09:14,300
+which is more accurately represented compared to secondary data.
+
+728
+02:09:14,950 --> 02:09:19,850
+So essentially, this provides leverage for other researchers that are interested in this similar topic.
+
+729
+02:09:22,040 --> 02:09:29,750
+And my next question is what other adaptations of this tool can be useful in public health in general?
+
+730
+02:09:39,710 --> 02:09:43,220
+Oftentimes we try to encourage people to take a healthier behavior.
+
+731
+02:09:43,220 --> 02:09:48,260
+But I think with this, like you're actually considering the actual environment and like what children are being exposed to.
+
+732
+02:09:48,530 --> 02:09:52,609
+So I feel like that's really helpful when thinking about creating an intervention of like what?
+
+733
+02:09:52,610 --> 02:09:57,920
+What are they exposed to in their environment? How can you crack your intervention to kind of mitigate those factors?
+
+734
+02:09:58,130 --> 02:10:06,520
+Mm hmm. Yeah, go ahead. There's a lot more using social media around there, like kids are using social media a lot more to.
+
+735
+02:10:06,530 --> 02:10:10,130
+And so I wanted to talk about, like, cutting those advertisements.
+
+736
+02:10:10,160 --> 02:10:16,879
+Mm hmm. Reliability. I think you have a better understanding of everything that they're seeing,
+
+737
+02:10:16,880 --> 02:10:27,020
+because I think that's something that not is not being monitored maybe as much as like your external physical environment.
+
+738
+02:10:27,050 --> 02:10:32,390
+Yeah. The child. I mean, when I was. When. Yeah.
+
+739
+02:10:32,660 --> 02:10:38,720
+So those are both good points, you know, looking at the environment and social media for different health behaviors.
+
+740
+02:10:39,380 --> 02:10:48,260
+Um, and so in the article they had some suggestions that would improve data collection in the future.
+
+741
+02:10:49,010 --> 02:10:56,899
+So the first one is training. So more extensive training among the research team to minimize coding mismatches, photo quality.
+
+742
+02:10:56,900 --> 02:11:00,590
+If you remember from the previous slide, there was only room for three pictures,
+
+743
+02:11:01,040 --> 02:11:05,900
+so adding more photo boxes and implementing a protocol for taking high quality photos.
+
+744
+02:11:06,260 --> 02:11:11,360
+This is important because you get a blurry photo that it's going to be hard to code, which could impact the results.
+
+745
+02:11:11,930 --> 02:11:14,950
+Um, especially those in iPod Touch. Sure.
+
+746
+02:11:14,990 --> 02:11:18,930
+But the quality, um, uh,
+
+747
+02:11:19,200 --> 02:11:25,100
+conflict resolution in preparation for interacting with store owners and managers that
+
+748
+02:11:25,760 --> 02:11:30,290
+they don't agree with you taking pictures of their establishment reliable technology.
+
+749
+02:11:31,040 --> 02:11:36,110
+So using a database that wouldn't be compromised if the device got lost or malfunctioned.
+
+750
+02:11:36,440 --> 02:11:41,540
+And so in the study, they said that they kept all the data on the iPod Touch, but they also had backup.
+
+751
+02:11:41,870 --> 02:11:43,310
+So just in case they got lost or something.
+
+752
+02:11:45,350 --> 02:11:50,660
+And then lastly, reliable driving instructions, which is something that they actually struggled with during data collection.
+
+753
+02:11:51,050 --> 02:11:58,670
+So for future research would be preferable to have reliable driving instructions to minimize any wrong turns,
+
+754
+02:11:58,670 --> 02:12:03,860
+left turns and crossing to see intersections. But but I'm pretty sure people so struck with that today.
+
+755
+02:12:05,690 --> 02:12:11,360
+And then lastly, um, some strengths and weaknesses I found of the article.
+
+756
+02:12:11,690 --> 02:12:12,559
+So overall,
+
+757
+02:12:12,560 --> 02:12:20,780
+I thought that the article was pretty easy to read and it was interesting and I thought that the tool can be applicable to other public health topics.
+
+758
+02:12:21,260 --> 02:12:25,460
+And I also appreciated the great level of detail when collecting the data.
+
+759
+02:12:26,330 --> 02:12:31,879
+However, some weaknesses. There were no maps presented and I'm a visual person,
+
+760
+02:12:31,880 --> 02:12:38,060
+so I would have liked to see like those buffer zones and what they look like and how many establishments were in those zones.
+
+761
+02:12:38,720 --> 02:12:42,920
+And also they didn't connect the conclusion back to childhood obesity.
+
+762
+02:12:43,370 --> 02:12:49,460
+So I find that kind of odd. And then lastly, I would have liked to learn more about the application of this.
+
+763
+02:12:49,790 --> 02:12:54,349
+So kind of like what we're learning today on density and distance, we didn't really talk about that.
+
+764
+02:12:54,350 --> 02:12:58,880
+So both in that, it was a pretty cool article. That's it.
+
+765
+02:13:04,590 --> 02:13:08,370
+Thank you. Nicely done, John.
+
+766
+02:13:09,240 --> 02:13:20,280
+All right. This will be the last student presentation of the semester.
+
+767
+02:13:21,240 --> 02:13:27,990
+We get to see the last word there. Hopefully, I don't always feel moving.
+
+768
+02:13:29,400 --> 02:13:49,720
+There you go. Okay. Take it away. But everyone knows everyone doing it.
+
+769
+02:13:54,100 --> 02:14:01,460
+All right. So this was a study while we table of contents.
+
+770
+02:14:01,490 --> 02:14:02,920
+Okay. Background here.
+
+771
+02:14:02,990 --> 02:14:14,840
+So this is a study done post there being a lot of research done associating physical activity environments and obesity rates in children.
+
+772
+02:14:15,290 --> 02:14:20,329
+And then there's also well, yeah, there's a lot of studies done just that factor specifically.
+
+773
+02:14:20,330 --> 02:14:30,830
+And then there's quite a few studies done, I guess on the side also with associations of like food accessibility and health
+
+774
+02:14:30,830 --> 02:14:38,370
+outcomes and not many that combine and not many that combine these two together.
+
+775
+02:14:38,390 --> 02:14:41,180
+So that's what these researchers did.
+
+776
+02:14:41,720 --> 02:14:55,850
+And yeah, so they looked at two main factors, which is physical activity environment and nutritional environment in San Diego County,
+
+777
+02:14:56,000 --> 02:14:59,720
+California, and King County, Seattle, Washington.
+
+778
+02:15:01,790 --> 02:15:13,340
+So methods they split where they split up their regions by block groups and they used census data for that.
+
+779
+02:15:13,940 --> 02:15:21,469
+And so these block groups were essentially split into combinations of physical activity environments and nutritional environments.
+
+780
+02:15:21,470 --> 02:15:26,870
+And then also the specific age group that they were looking at was where 6 to 11 year olds.
+
+781
+02:15:32,550 --> 02:15:45,510
+So okay. So physical activity environment was made up of walkability index and park, park proximity and park quality.
+
+782
+02:15:45,810 --> 02:15:51,680
+So for walkability they looked at residential density, intersection density,
+
+783
+02:15:51,690 --> 02:16:01,530
+also land use for civic educational entertainment, retail under 300,000 square feet and single family homes and offices.
+
+784
+02:16:02,670 --> 02:16:07,770
+They also used a point 25 mile shadow buffer around each group,
+
+785
+02:16:08,130 --> 02:16:14,640
+around each block group to kind of account for people that are on the edges that also might be influenced by these factors.
+
+786
+02:16:16,590 --> 02:16:21,360
+They also use silver park proximity and park quality.
+
+787
+02:16:21,690 --> 02:16:32,159
+They looked at public parks, open spaces, fields, anything indicating public recreational use, and then park quality measures were used,
+
+788
+02:16:32,160 --> 02:16:41,280
+I mean, were assessed using the environmental assessment of public or relational sorry public recreational spaces tool,
+
+789
+02:16:42,450 --> 02:16:52,320
+which looked at activity activity in water areas, playground equipment, athletic fields and surrounding neighborhoods like safety and sidewalk.
+
+790
+02:16:52,950 --> 02:16:59,550
+So with these three things, they created like a GI suit file that had all these things on it.
+
+791
+02:16:59,580 --> 02:17:06,659
+Also, they source these from like census data, road work, road network data and that.
+
+792
+02:17:06,660 --> 02:17:20,370
+Yes. All right. Database nutritional environment was made up of these factors which were which
+
+793
+02:17:20,370 --> 02:17:25,230
+were kind of like the grocery stores and like food accessibility points.
+
+794
+02:17:27,210 --> 02:17:32,880
+And so these are split into high nutritional environment and low nutrition moment.
+
+795
+02:17:33,450 --> 02:17:36,690
+And just from what's on bottom.
+
+796
+02:17:37,170 --> 02:17:42,360
+Low nutritional environment was insane here in San Diego County,
+
+797
+02:17:42,370 --> 02:17:47,969
+it was if there was more than 31 fast food restaurants within 0.5 miles of the block group.
+
+798
+02:17:47,970 --> 02:17:57,270
+And in King County, low nutritional environment was more than 16 fast food restaurants within 0.5 miles of a block group.
+
+799
+02:17:57,960 --> 02:18:07,050
+And then for high it was with opposite. If there was less than that were less than 31 or less than 16 for San Diego and King County.
+
+800
+02:18:07,650 --> 02:18:11,070
+And then. So.
+
+801
+02:18:15,150 --> 02:18:23,190
+All right. So results, this is just kind of the breakdown of the block block groups.
+
+802
+02:18:23,820 --> 02:18:26,840
+They're like eligible eligibility requirements.
+
+803
+02:18:26,890 --> 02:18:31,950
+There are a couple there. Have there had to be like 10% participation rate in each block group,
+
+804
+02:18:31,950 --> 02:18:37,259
+meaning there had to be like 10% participation from those 6 to 11 year olds that
+
+805
+02:18:37,260 --> 02:18:40,530
+were included and then also like a certain amount of restaurants and whatnot.
+
+806
+02:18:41,160 --> 02:18:44,610
+So this was just kind of how that was broken up between the two.
+
+807
+02:18:45,450 --> 02:18:54,300
+And then this is the map they created. I personally thought it wasn't super great because it didn't tell you a whole lot,
+
+808
+02:18:55,410 --> 02:18:59,610
+but they did break it up into four into those like four, four quadrants.
+
+809
+02:19:00,600 --> 02:19:11,579
+And those colors are kind of based on that that you can see there's like there's low physical activity environment and low nutritional environment,
+
+810
+02:19:11,580 --> 02:19:18,690
+high physical activity, low nutritional, low physical, high nutritional and then low of both.
+
+811
+02:19:19,890 --> 02:19:23,970
+So those are the more general findings that they found.
+
+812
+02:19:24,330 --> 02:19:31,830
+Again, it doesn't actually tell you anything about like the correlation or association between this and obesity rates.
+
+813
+02:19:33,870 --> 02:19:38,790
+I think there is a lot of interesting findings that either like did it make much
+
+814
+02:19:38,790 --> 02:19:42,479
+sense compared to what you would generally think of these type of environments,
+
+815
+02:19:42,480 --> 02:19:50,969
+but kind of like the at the bottom of those, like the quadrants that scored highly or poorly on both measures had the greatest,
+
+816
+02:19:50,970 --> 02:19:55,140
+like had the greatest discrepancy, which I guess that makes sense.
+
+817
+02:19:55,140 --> 02:19:58,140
+But in the next one's.
+
+818
+02:20:00,960 --> 02:20:07,810
+And. So for me was like, Oh, yeah, okay.
+
+819
+02:20:07,820 --> 02:20:10,610
+So again, from this you can't see it.
+
+820
+02:20:10,610 --> 02:20:19,310
+But the findings that they had found were that King County was more compact, higher land use mix, but lower retail floor area.
+
+821
+02:20:21,740 --> 02:20:31,550
+But another finding they found was that King County had more supermarkets within five miles of a block group and less food outlets.
+
+822
+02:20:31,820 --> 02:20:43,700
+While San Diego County only had like a higher proportion of block groups that had supermarkets within point, five mile point, about five miles away.
+
+823
+02:20:44,090 --> 02:20:48,620
+So that doesn't tell a whole lot about the specifics.
+
+824
+02:20:48,620 --> 02:21:00,260
+So that in these demographic information, this kind of traffic information, and then there was some more interpretations aside.
+
+825
+02:21:01,490 --> 02:21:10,760
+So an interesting one was that in San Diego, only 5.8% of households earned more than 100,000, but there was nearly 63%.
+
+826
+02:21:10,760 --> 02:21:17,090
+Or there was yeah, there was there was nearly 63% that earned less than 50,000 or 50,000 or below.
+
+827
+02:21:17,450 --> 02:21:26,210
+But in King County, 18.8% earned 100,000, and only 36.6% earned 50,000.
+
+828
+02:21:26,930 --> 02:21:33,920
+So just from this, because there's like pretty big discrepancies.
+
+829
+02:21:35,480 --> 02:21:45,410
+Just think about, I guess, the credibility of comparing these two types of spaces and the credibility of comparing or being able to generalize a
+
+830
+02:21:45,410 --> 02:21:54,110
+county like King County said there is like quite a few differences that they found between these two different places.
+
+831
+02:21:54,770 --> 02:22:04,100
+But yeah. So. QUESTION Do you think you would find similar results if you compared to other counties or to other places?
+
+832
+02:22:04,670 --> 02:22:06,620
+So you compared like Detroit and Flint.
+
+833
+02:22:06,620 --> 02:22:16,070
+Would you find more similarities between each other and between those two groups and say like Seattle or King County and San Diego?
+
+834
+02:22:20,680 --> 02:22:26,200
+Okay. I think we would. But you know what goes before me here?
+
+835
+02:22:27,610 --> 02:22:28,389
+I guess what?
+
+836
+02:22:28,390 --> 02:22:40,960
+Strategic assets like income, if you're going, it's in the community that they have the income as well, then yeah, it could be different.
+
+837
+02:22:41,550 --> 02:22:44,570
+Hmm. Yeah, I. I agree.
+
+838
+02:22:46,810 --> 02:22:55,480
+So in general, there again, we're like mixed findings from this too.
+
+839
+02:22:56,200 --> 02:23:04,269
+But one of the things so another thing about this article, but it was a it was like a piece of a companion paper.
+
+840
+02:23:04,270 --> 02:23:08,530
+So it's like the methods, like the GIS related stuff from this like larger study.
+
+841
+02:23:08,920 --> 02:23:14,410
+So I think I did mention a note about not having like educational attainment on these graphs.
+
+842
+02:23:15,280 --> 02:23:21,370
+I mention that because I think that it makes a much bigger difference than just the variables that are on here.
+
+843
+02:23:21,670 --> 02:23:30,700
+And I also think that they also think that that would have probably told us more about the information that we are getting from the crops.
+
+844
+02:23:33,120 --> 02:23:39,400
+So I guess that gets into the my last thing of like strengths and limitations and
+
+845
+02:23:40,750 --> 02:23:44,890
+some of the strengths that they had to use that the methodology was pretty good.
+
+846
+02:23:45,010 --> 02:23:50,799
+I do think that there is again like discrepancies in the the counties that we did choose,
+
+847
+02:23:50,800 --> 02:23:59,080
+but I think their method of creating these like categorize variables that have a bunch of other variables in it was pretty useful.
+
+848
+02:24:00,490 --> 02:24:09,130
+But yeah, and that's like pretty much there's like specific cut points and there's like, oh, everything was objectively defined.
+
+849
+02:24:10,100 --> 02:24:16,660
+The, the thresholds that they used for both counties were kind of like calculated based on the population in those areas.
+
+850
+02:24:17,800 --> 02:24:24,260
+But limitation, these are kind of the ones that they listed that like they didn't have really like sidewalk safety data,
+
+851
+02:24:24,280 --> 02:24:29,710
+which I'm assuming would make a difference, would make an impact on whether you could actually use it, right?
+
+852
+02:24:29,770 --> 02:24:33,040
+Like if they have a bunch of these and none of them are safe,
+
+853
+02:24:33,250 --> 02:24:39,700
+then you might have like a high p e area without actually having anything that's accessible.
+
+854
+02:24:41,710 --> 02:24:51,190
+But that was. But personally, I thought the limitations kind of what I had mentioned earlier were that, um, I don't,
+
+855
+02:24:52,060 --> 02:24:56,830
+I personally wouldn't use these two counties if I was looking at this type of
+
+856
+02:24:56,830 --> 02:25:02,800
+factor because there is a lot more to factor and there's a lot more to consider.
+
+857
+02:25:03,430 --> 02:25:07,749
+I just kind of compare it to like a city like Detroit where you could have this study and
+
+858
+02:25:07,750 --> 02:25:14,920
+you would probably have very different results and probably much more uniformed results,
+
+859
+02:25:14,920 --> 02:25:17,920
+like from from this from this map.
+
+860
+02:25:19,370 --> 02:25:24,639
+There aren't there isn't like there isn't a lot of potter there aren't a lot of patterns going on.
+
+861
+02:25:24,640 --> 02:25:30,700
+Right. There's no like clusters of of one type of place or one type of like quadrant.
+
+862
+02:25:31,150 --> 02:25:38,920
+So it's a little bit harder to look at this and be like, oh, okay, this area is like this income and this education associated with this stuff.
+
+863
+02:25:39,820 --> 02:25:43,180
+So those are kind of my things.
+
+864
+02:25:43,180 --> 02:25:54,370
+And another thing to note was that from this study, again, the newest areas were performing the worst and the oldest areas were performing the best,
+
+865
+02:25:54,760 --> 02:26:04,990
+which kind of again like gets into questioning whether that's kind of like plausible to what we already know and what we see in studies.
+
+866
+02:26:05,530 --> 02:26:09,669
+So I would look into that. And again, the last thing,
+
+867
+02:26:09,670 --> 02:26:14,920
+I think education plays a much bigger role enough that this graph would probably
+
+868
+02:26:14,980 --> 02:26:20,710
+make more sense or have more work to interpret if that was included in it.
+
+869
+02:26:22,060 --> 02:26:25,920
+So. Yeah, no question.
+
+870
+02:26:28,380 --> 02:26:37,080
+Perfect. Thank you very much.
+
+871
+02:26:37,710 --> 02:26:41,960
+All right. Thank you, everyone, for your presentations.
+
+872
+02:26:44,610 --> 02:26:50,640
+Yeah. Sorry we didn't get to deal with the issues of data collection in terms of gas information.
+
+873
+02:26:51,390 --> 02:26:59,820
+But as you can see, the technology moves pretty fast, you know, but the basic concepts remain the same.
+
+874
+02:27:00,600 --> 02:27:05,250
+You basically need to develop a good form to collect the data that you need.
+
+875
+02:27:06,000 --> 02:27:10,229
+And the I think the technology is almost agnostic, in my opinion.
+
+876
+02:27:10,230 --> 02:27:17,190
+You can use an iPod or an iPad or, you know, a Ricoh camera, G.P.S. chip in it.
+
+877
+02:27:17,940 --> 02:27:28,640
+But you will get probably similar information. We use iPads and tablet Samsung tablets in India to collect our primary data and we use field maps.
+
+878
+02:27:28,650 --> 02:27:33,450
+But we started with a totally different software just a few years ago, so things changed quite a bit.
+
+879
+02:27:34,560 --> 02:27:37,770
+So I think there is a lot of value in collecting your own.
+
+880
+02:27:37,770 --> 02:27:45,120
+Gee, I did all of this last paper was not really talking about that, but if you're interested in stuff like that,
+
+881
+02:27:45,120 --> 02:27:48,150
+let me know and I can talk to you a little bit more about how to do it.
+
+882
+02:27:49,260 --> 02:27:55,649
+Okay. We have about 20 minutes, so I think we can do maybe one or two more activities,
+
+883
+02:27:55,650 --> 02:28:00,690
+maybe one more, because the other stuff is a little bit more involved.
+
+884
+02:28:00,690 --> 02:28:14,459
+So let's get back to our lab assignments or activities and let me see tell you if you want to stay on, you're welcome to or you can hang up.
+
+885
+02:28:14,460 --> 02:28:20,280
+Okay. I'm just going to leave this open for you if you need. Okay.
+
+886
+02:28:24,310 --> 02:28:34,990
+You're welcome. Have a good meeting. Well, it's going to be fun.
+
+887
+02:28:35,200 --> 02:28:42,189
+All right. So let's go back to our activities. We're going to do lab activity 13 now and direct 33.
+
+888
+02:28:42,190 --> 02:28:45,400
+Sorry. Sure. It's getting late. Right.
+
+889
+02:28:47,200 --> 02:28:55,120
+So we looked at these pedestrian injuries. We created these buffers to counter measures of density right in proximity.
+
+890
+02:28:56,020 --> 02:29:02,470
+Now we can use the same point data right on injuries to measure clustering.
+
+891
+02:29:02,920 --> 02:29:09,100
+And there's a simple way of doing that in our GS 4.0, which is called the nearest neighbor ratio.
+
+892
+02:29:09,580 --> 02:29:11,890
+And what that basically does is it counts,
+
+893
+02:29:12,430 --> 02:29:20,139
+it measures the distance between all the points in your dataset and then compares that with what would be what would
+
+894
+02:29:20,140 --> 02:29:27,820
+those the the the distances between points be if they were randomly distributed across that geographic space.
+
+895
+02:29:28,210 --> 02:29:28,510
+Okay.
+
+896
+02:29:29,740 --> 02:29:39,940
+So let me talk a little bit about the issue of clustering and then we'll do lab activity 33 to give you some more context about this kind of work.
+
+897
+02:29:40,750 --> 02:29:48,280
+So so spatial clustering is basically talking about this idea of random distribution or rent or
+
+898
+02:29:48,280 --> 02:29:57,160
+nonrandom distribution of the features and or and or their attributes across a geographic space.
+
+899
+02:29:57,700 --> 02:30:05,080
+For example, if you can imagine if you had a, you know, a box of marbles with a flat surface with absolutely no friction,
+
+900
+02:30:05,410 --> 02:30:10,660
+and you throw it out there, those marbles out there, they would be randomly distributed in that space.
+
+901
+02:30:10,660 --> 02:30:14,559
+Right. And then in terms of nonrandom distribution,
+
+902
+02:30:14,560 --> 02:30:22,990
+if you have some friction or slopes or curvature that brings marbles into a specific area and pushes them out,
+
+903
+02:30:23,530 --> 02:30:27,190
+an analysis of spatial clustering tries to look at those differences.
+
+904
+02:30:28,060 --> 02:30:36,580
+Okay. So in terms of point data, right, you look at these two figures,
+
+905
+02:30:36,940 --> 02:30:45,360
+the top figures looking at the clustering is pointing out to the right side of the figure where you have clusters of points right in the middle.
+
+906
+02:30:45,370 --> 02:30:48,580
+The figure is a random distribution of points.
+
+907
+02:30:49,000 --> 02:30:55,960
+And then the left side of this figure is the dispersion point that they're being pushed far away from each other in a non random way.
+
+908
+02:30:57,130 --> 02:31:02,890
+And that's kind of the issue that we want to try to measure statistically in the data that we're working with.
+
+909
+02:31:03,530 --> 02:31:09,630
+In terms of Polygon, do we think about Polygon data with attributes with that?
+
+910
+02:31:09,820 --> 02:31:16,330
+Okay. So in this case, these polygons have the color attribute, you know, like green, dark, green and purple.
+
+911
+02:31:16,900 --> 02:31:26,080
+Then a clustered kind of data would look like the similar polygons are next to each other in terms of their shading or their color.
+
+912
+02:31:26,950 --> 02:31:37,930
+In a randomly dispersed polygon space, you would see that those attributes are randomly distributed across the polygon in that geographic space.
+
+913
+02:31:38,200 --> 02:31:44,140
+And then here they're kind of pushed away in a nonrandom way, as far away from each other as possible.
+
+914
+02:31:44,770 --> 02:31:48,100
+That's what we're going to try and measure today and next time.
+
+915
+02:31:48,720 --> 02:31:53,320
+And there's these two ideas about clustering that we need to keep in mind.
+
+916
+02:31:53,650 --> 02:32:02,860
+You probably came across these words in the readings many times already in in your literature review for your final projects.
+
+917
+02:32:03,430 --> 02:32:07,360
+But there are two basic concepts of first clustering.
+
+918
+02:32:07,360 --> 02:32:13,150
+One is the presence of clustering, and the other is the location of that cluster.
+
+919
+02:32:13,750 --> 02:32:20,020
+It's a first step is to measure the presence of clustering, using the measures of global clustering.
+
+920
+02:32:21,580 --> 02:32:26,830
+And the next step, if you find clustering in your data, is to figure out where it is.
+
+921
+02:32:27,530 --> 02:32:30,790
+Okay? So the first step would be to see if there is significant clustering.
+
+922
+02:32:30,790 --> 02:32:37,630
+The next step is to find out where it is using some tool to measure what the what we call local clustering.
+
+923
+02:32:38,520 --> 02:32:49,720
+And and this is an example of a paper reviewed in our class earlier which looked at I think would be killer collisions in Cincinnati.
+
+924
+02:32:50,260 --> 02:32:58,330
+At the top figure is a figure of just the distribution of vehicular accidents across the space.
+
+925
+02:32:58,510 --> 02:33:03,489
+Right. One thing to notice, you can examine that there is a difference.
+
+926
+02:33:03,490 --> 02:33:11,890
+There is some variability from the top figure, but you can't really speak to whether those differences are statistically significant,
+
+927
+02:33:12,580 --> 02:33:21,300
+that the red area is statistically higher than the blue, the lightest or the darkest food area.
+
+928
+02:33:22,150 --> 02:33:29,500
+It's just a matter of how you created those bins or the categories and to how you shaded them.
+
+929
+02:33:30,220 --> 02:33:33,320
+But there is no information on. About statistical significance.
+
+930
+02:33:33,320 --> 02:33:37,090
+The inference that you can make from the top figures for the top analysis.
+
+931
+02:33:37,630 --> 02:33:47,140
+What you need to do is an analysis of clustering, which is what the bottom figure tries to tell us that these red areas actually statistically
+
+932
+02:33:47,440 --> 02:33:56,080
+different and are clustered with like high collision areas then other parts of the map.
+
+933
+02:33:56,470 --> 02:34:07,360
+So there is a statistically significant higher rate of vehicular collisions in this specific area relative to the rest of the map.
+
+934
+02:34:07,870 --> 02:34:13,419
+Okay. And even the lighter field of red or whatever this color might be, Salman,
+
+935
+02:34:13,420 --> 02:34:18,400
+I guess, is also indicating that there is likely a statistical difference here.
+
+936
+02:34:18,970 --> 02:34:24,640
+And that's the point of doing this kind of cluster analysis is to add to the corpus maps
+
+937
+02:34:24,640 --> 02:34:29,110
+that we've been making in class already to really talk about statistical differences.
+
+938
+02:34:29,410 --> 02:34:37,930
+Okay. So you should really move to the cluster analysis if you're working with core maps, even with pointy end,
+
+939
+02:34:37,930 --> 02:34:45,639
+because you can aggregate them up to polygons and then measure clustering as we discuss with the neighborhood data.
+
+940
+02:34:45,640 --> 02:34:45,910
+Right.
+
+941
+02:34:45,910 --> 02:34:54,700
+And then juries, you can aggregate the injuries to the neighborhood level, make your corporate maps, and then make a map of hotspots and cold spots.
+
+942
+02:34:57,570 --> 02:35:04,170
+Okay. So global clustering again assesses the presence of spatial clustering within an area,
+
+943
+02:35:04,560 --> 02:35:08,370
+but does not provide any information on where those clusters are.
+
+944
+02:35:09,060 --> 02:35:16,710
+And in terms of point data, you can use something called the nearest neighbor statistic, okay?
+
+945
+02:35:17,550 --> 02:35:19,379
+You can use it with polygon data.
+
+946
+02:35:19,380 --> 02:35:27,150
+But what we will do is will take the center of the polygon in Turkey and look at that as a point and compare it with the centroid of
+
+947
+02:35:27,150 --> 02:35:40,440
+other polygons and global Morenci is another statistic to to examine polygon data primarily and not just the location of those features,
+
+948
+02:35:40,440 --> 02:35:42,450
+but also the attributes of those features.
+
+949
+02:35:43,770 --> 02:35:53,070
+So if you had point data, you would have to aggregate them up into a polygon and then around the global margins like the calculation point.
+
+950
+02:35:53,670 --> 02:36:01,380
+So let's talk about this nearest neighbor ratio. We'll try to calculate it and then we'll call it a day and focus on the rest of the stuff next week.
+
+951
+02:36:02,100 --> 02:36:10,020
+Okay. So the average nearest neighbor tool it measure the distance between each feature centroid,
+
+952
+02:36:10,290 --> 02:36:15,959
+either a polygon or a point in its nearest neighbor center is location.
+
+953
+02:36:15,960 --> 02:36:19,870
+And then it averages out all of those location distances.
+
+954
+02:36:19,870 --> 02:36:24,989
+So it takes every single point A to kill and then looks at that over what you
+
+955
+02:36:24,990 --> 02:36:31,800
+would expect if those points are randomly distributed across the geographic space.
+
+956
+02:36:32,490 --> 02:36:42,480
+So if the ratio is less than the hypothetical random distribution, you would say that those features are clustered,
+
+957
+02:36:42,750 --> 02:36:50,730
+but the distances are less than what you would expect if the randomly distributed footprint and if they're greater than the random distribution,
+
+958
+02:36:52,020 --> 02:36:59,130
+the features are considered dispersed. So the index goes from a negative value to a positive value.
+
+959
+02:37:00,240 --> 02:37:09,180
+A nested one is clustering created, the one is an is dispersion, then one is no clustering or dispersion.
+
+960
+02:37:09,780 --> 02:37:19,650
+Okay. So in this case, to look at the little figure we looked at earlier cluster data and in R is less than one dispersed data is greater than one.
+
+961
+02:37:19,950 --> 02:37:24,030
+And if it's not clustered or dispersed, it's randomly distributed.
+
+962
+02:37:24,660 --> 02:37:32,340
+The statistic is around one. So let's do a quick calculation from the data that we're working with, which is the injuries data in Pittsburgh.
+
+963
+02:37:33,660 --> 02:37:36,510
+So it's steps one and two we've already done.
+
+964
+02:37:36,960 --> 02:37:47,340
+All you need to do is open up the project that we've been working on in class today and do a search for the nearest average nearest neighbor tool.
+
+965
+02:37:48,150 --> 02:37:55,500
+So you can type in the command search line type of bridge and it should pop up as a first tool.
+
+966
+02:38:01,390 --> 02:38:04,550
+And what we want to examine are the injuries data.
+
+967
+02:38:04,590 --> 02:38:10,510
+Is the input feature? Is injuries all. I have two versions of it doesn't matter which one you choose.
+
+968
+02:38:13,450 --> 02:38:17,020
+If you take the generate report button, we won't need to do it today.
+
+969
+02:38:17,320 --> 02:38:22,959
+It will create a report like a PDF file or each HTML file depending on which to use it.
+
+970
+02:38:22,960 --> 02:38:29,020
+Put it in your project folder. We don't need it now because it's relatively simple exercise.
+
+971
+02:38:29,050 --> 02:38:32,590
+Just push run two and it's running.
+
+972
+02:38:33,550 --> 02:38:41,260
+The one thing that it gives you a little warning of is that we I think in my closing and not closing of the software,
+
+973
+02:38:41,650 --> 02:38:46,840
+I didn't re project my data to Pennsylvania, South Pennsylvania.
+
+974
+02:38:47,290 --> 02:38:51,280
+So the warning has to do with the fact that there is no projection system.
+
+975
+02:38:51,610 --> 02:38:58,360
+So you use the default projection system here and it's doing this work in meters, which is totally fine.
+
+976
+02:38:58,570 --> 02:39:02,650
+But the numbers may be slightly different than what you would get otherwise.
+
+977
+02:39:02,660 --> 02:39:11,080
+For example, here we got a value of sorry view details.
+
+978
+02:39:16,690 --> 02:39:20,740
+So we've got a value for the nearest neighbor ratio of 0.65.
+
+979
+02:39:21,280 --> 02:39:29,140
+The lab is 6.66 because I think I ran that on the projected data rather than the projected data here.
+
+980
+02:39:30,100 --> 02:39:42,970
+And so that value is, uh, is less than one, right, meaning that there is clustering of injuries in the data that we're looking at.
+
+981
+02:39:43,960 --> 02:39:52,600
+And the p value is highly significant, indicating that this estimate is different than one.
+
+982
+02:39:54,400 --> 02:40:03,280
+So you can say from these results that the nearest neighbor ratio or the average nearest neighbor ratio indicates there's significant
+
+983
+02:40:03,280 --> 02:40:11,830
+clustering of injuries in the Pittsburgh area where the pedestrian vehicular collision injuries in in the in the Pittsburgh area.
+
+984
+02:40:13,880 --> 02:40:20,660
+Okay. So that's that's how you would measure presence of clustering, global clustering.
+
+985
+02:40:21,230 --> 02:40:24,560
+Now, if you wanted to see where those clusters are,
+
+986
+02:40:25,070 --> 02:40:34,820
+you would have to aggregate these these point data into polygons and run a measure of local clustering somehow.
+
+987
+02:40:36,230 --> 02:40:42,410
+All right. So let's stop there. And then next week, we'll look at the global more.
+
+988
+02:40:42,410 --> 02:40:51,410
+And I statistic will calculate the local moorlands statistic for lung cancer mortality rates in the U.S. and Michigan.
+
+989
+02:40:51,950 --> 02:41:01,730
+And then we'll learn about something called the It Is or Die Star statistic, which is also a measure of hot spot, cold spot analysis.
+
+990
+02:41:02,780 --> 02:41:10,870
+And finally, we'll talk about some nuances around how to think about setting up this analysis.
+
+991
+02:41:11,390 --> 02:41:17,810
+And this has to do with issues of how you conceptualize the relationship between the features in your dataset.
+
+992
+02:41:19,460 --> 02:41:29,840
+This came up in one of the lectures over the papers where uh, uh, features beyond a certain point were ignored in the calculation of clustering.
+
+993
+02:41:30,560 --> 02:41:39,709
+And there's different options for that. And we'll talk about which one might be better to use and can talk about maybe
+
+994
+02:41:39,710 --> 02:41:44,510
+using the data to help you find the right conceptualization of relationships.
+
+995
+02:41:44,900 --> 02:41:48,740
+So that'll be next week and we'll start for today.
+
+996
+02:41:49,250 --> 02:41:54,650
+Any questions or concerns? No.
+
+997
+02:41:54,920 --> 02:42:05,540
+Good. And I will send today some information about how to update your GI is pro so your symbology doesn't crash all the time.
+
+998
+02:42:06,090 --> 02:42:09,110
+All right. You're welcome. Sorry I forgot to do that.
+
+999
+02:42:09,740 --> 02:42:26,700
+Have a good evening and I'll talk to you guys next week. Okay.
+
+1000
+02:42:30,100 --> 02:42:38,370
+So it's not an easy to find out.
+

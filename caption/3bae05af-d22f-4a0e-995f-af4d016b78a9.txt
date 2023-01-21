@@ -1,0 +1,1608 @@
+1
+00:00:04,250 --> 00:00:09,680
+All right. Welcome to Another Fight, a sci fi thriller.
+
+2
+00:00:09,800 --> 00:00:16,520
+Today, we're going to cover How About 16, which is the start of homework six.
+
+3
+00:00:17,240 --> 00:00:27,880
+Just a reminder, Hunger five is due November 22 on There Will Be No Love Next Week, Thanksgiving week.
+
+4
+00:00:28,760 --> 00:00:31,760
+And our last blog will be the week after Thanksgiving.
+
+5
+00:00:32,010 --> 00:00:39,080
+Okay, so let's just start on our second, please.
+
+6
+00:00:51,600 --> 00:01:01,630
+So we are going to. Continue following the line of longitudinal analyzes where I do like maybe three things today.
+
+7
+00:01:03,420 --> 00:01:15,270
+Use baseline covariate. Use a covariate like a week zero times you ask a covariate that's like adjusting for baseline.
+
+8
+00:01:15,750 --> 00:01:24,420
+And then we are going to model like post baseline response based on like a bunch of the various plots that like baseline covariance.
+
+9
+00:01:24,900 --> 00:01:28,350
+And then we are just going to assess them relative to change of the outcomes.
+
+10
+00:01:29,130 --> 00:01:33,570
+Finally, we are going to talk about the population model and then we're going to repeat the same for our.
+
+11
+00:01:33,690 --> 00:01:37,800
+So are we all SAS users.
+
+12
+00:01:38,760 --> 00:01:46,950
+Our users stats. Okay. So I'm going to go first with size those just because that's the order of the presentation and then we'll review everything.
+
+13
+00:01:49,200 --> 00:01:54,540
+Okay. So what is the baseline covariance? So what does longitudinal analysis is?
+
+14
+00:01:54,660 --> 00:02:01,379
+Basically, I have um, so in general in my regression analysis we are used.
+
+15
+00:02:01,380 --> 00:02:07,380
+So I have one response for every individual, for every idea in my dataset.
+
+16
+00:02:07,410 --> 00:02:15,030
+Now here we have like multiple responses for like each person and that's we want to like be able to model those things.
+
+17
+00:02:15,630 --> 00:02:26,580
+So for example, if I measuring f e V, which is, I think you're ready to use this thing from your homeworks.
+
+18
+00:02:28,140 --> 00:02:31,410
+I just measure it to time, right?
+
+19
+00:02:31,830 --> 00:02:36,420
+So let's see. Let's think of it like this way. I have three different levels.
+
+20
+00:02:36,430 --> 00:02:40,710
+So, for example, this is great, zero grade two, grade three, and this is time.
+
+21
+00:02:41,250 --> 00:02:47,340
+So this is like how my variable is changing with respect to time for like different treatment options.
+
+22
+00:02:48,480 --> 00:02:55,290
+You can see that their longitudinal effect that we are like interested in analyzing is this slope of these lines.
+
+23
+00:02:55,470 --> 00:02:59,970
+Right. Um, for example, whether these lines are parallel or not, however,
+
+24
+00:03:01,380 --> 00:03:06,790
+something that we should account for and we should like take into account is that the base value,
+
+25
+00:03:06,810 --> 00:03:11,070
+which is like times zero here, may be different for individual subjects.
+
+26
+00:03:11,430 --> 00:03:18,900
+Right. So for example, a baseline for group three is like definitely lower than baseline for 3 to 1, the baseline for a grade two.
+
+27
+00:03:19,200 --> 00:03:24,240
+So we want to adjust for that. And by adjusting for that, we want to change to like this picture.
+
+28
+00:03:24,960 --> 00:03:31,170
+We want to be able to adjust for baseline creating like a covariate adjust for baseline.
+
+29
+00:03:31,350 --> 00:03:35,280
+And now we're going to think, okay, I already know that all of my career,
+
+30
+00:03:35,650 --> 00:03:42,390
+like either start of the same time and now I want to like evaluate the different slopes of these lines.
+
+31
+00:03:42,810 --> 00:03:46,350
+You see the difference. This is like adjusting for baseline.
+
+32
+00:03:47,670 --> 00:03:57,180
+Okay, so just a review of the data side that I see where you already work with these data setting plans, these see key for dataset.
+
+33
+00:03:57,630 --> 00:04:04,320
+So in my dataset I have I b for each subject.
+
+34
+00:04:04,320 --> 00:04:08,220
+I have 1309 patients.
+
+35
+00:04:08,520 --> 00:04:17,880
+I have group for different group assignment age, ab baseline sex, whether male or female week,
+
+36
+00:04:17,970 --> 00:04:26,790
+which is like the time we measure that I have this is the only time dependent covariate and then my outcome which is log of CD4.
+
+37
+00:04:27,000 --> 00:04:36,390
+Okay, and that's it. Based on these variables, we also created two very important variables, one that is called triple.
+
+38
+00:04:36,690 --> 00:04:41,730
+That is like a different assignment for the treatment assignment here, something like a different grouping.
+
+39
+00:04:42,060 --> 00:04:45,090
+And then we also created a line of week 16.
+
+40
+00:04:46,320 --> 00:04:49,680
+Okay, so let's assume we already have that into our dataset.
+
+41
+00:04:57,510 --> 00:05:07,170
+Based on that. What we want to do is first check if there was anything of value in the baseline.
+
+42
+00:05:07,620 --> 00:05:13,260
+Why is it important? Because if I want to have baseline as a covariate, I have to make sure there are no missing values.
+
+43
+00:05:13,530 --> 00:05:18,600
+If you use missing values in R is not even going to run is going to be like an error.
+
+44
+00:05:19,500 --> 00:05:25,560
+So we should account for not clean the data set and then proceed to like do our baseline and estimate.
+
+45
+00:05:25,980 --> 00:05:29,070
+So the first thing you are going to do is check for missing values.
+
+46
+00:05:29,070 --> 00:05:36,840
+Remove those missing values, create a new variable for the correct for the baseline value of my output,
+
+47
+00:05:37,140 --> 00:05:40,470
+and then just run the model and analyze the result.
+
+48
+00:05:42,180 --> 00:05:46,020
+Okay, so how do we check for missing values in SAS?
+
+49
+00:05:48,580 --> 00:05:51,610
+Okay. Let's assume I already have my data set loaded.
+
+50
+00:05:52,120 --> 00:06:02,100
+And then here I'm just going to create. So what I'm going to do in general that applies to our unsubs is that I have my full dataset.
+
+51
+00:06:02,580 --> 00:06:08,880
+I'm going to create a subset of that data set that only includes week equals zero, which will be our baseline.
+
+52
+00:06:09,120 --> 00:06:18,210
+So I have a subset of my data that only like the baseline measurements, and I'm going to count how many these I have in both dataset.
+
+53
+00:06:18,510 --> 00:06:22,410
+And the difference in that will tell me how many missing values do I have?
+
+54
+00:06:22,530 --> 00:06:28,800
+Correct. So that's what I'm doing here. I'm creating my subset of my big dataset.
+
+55
+00:06:29,190 --> 00:06:33,390
+And then this is just as you can see, is just a subset using the easiest statement.
+
+56
+00:06:33,400 --> 00:06:43,370
+So if we can see equal to zero, which means like give me only the baseline measurements, okay, for these based data set.
+
+57
+00:06:43,770 --> 00:06:50,549
+So, Nicole, lab nine, double check. What I'm going to do is just like count how many people do I have?
+
+58
+00:06:50,550 --> 00:06:58,080
+So that's from confidence data. My new dataset that I have here, and then I'm going to do exactly the same time.
+
+59
+00:06:59,550 --> 00:07:04,710
+I'm going to count how many of these do I have. So for that, I'm going to use prop means.
+
+60
+00:07:05,070 --> 00:07:11,040
+So prop means of my subset of my dataset bar idea and that's going to come.
+
+61
+00:07:11,040 --> 00:07:22,830
+How many ideas do I have? If you run this line, particularly based on baseline, you will see that the output, it's 1299.
+
+62
+00:07:23,130 --> 00:07:28,500
+However, I know that my dataset contains 1309 patients.
+
+63
+00:07:28,710 --> 00:07:33,300
+That means that I have ten patients without baseline variables.
+
+64
+00:07:33,600 --> 00:07:38,459
+So I would like like to remove those patients from my dataset for my this is
+
+65
+00:07:38,460 --> 00:07:42,510
+because I simply don't have all of the information for those that make sense.
+
+66
+00:07:43,890 --> 00:07:48,080
+Okay. All right.
+
+67
+00:07:48,360 --> 00:07:51,570
+So that's what you want to do. So.
+
+68
+00:07:57,270 --> 00:08:02,750
+Now remember that what I want to do is like additional to all of this amazing stuff.
+
+69
+00:08:03,060 --> 00:08:06,990
+I want to include a new covariance that has the baseline measure.
+
+70
+00:08:07,500 --> 00:08:14,550
+So for that, what I'm going to do is two steps. I have my big dataset that includes all of the measurements, all of the people.
+
+71
+00:08:14,820 --> 00:08:18,090
+Well, excluding those like ten patients, but like all of the people.
+
+72
+00:08:18,420 --> 00:08:28,020
+And then I'm going to create a subset of that data set again. That subset is that subset of measure measurements in the baseline at baseline.
+
+73
+00:08:28,020 --> 00:08:32,009
+So when we can see low in that subset of the dataset,
+
+74
+00:08:32,010 --> 00:08:41,470
+I'm going to create a new variable that is measured at baseline and then I'm going to merge those two datasets.
+
+75
+00:08:41,790 --> 00:08:53,459
+That way, my final output data set is going to be a data set that includes every I.D. and every measurement in that for that I.D. and additionally,
+
+76
+00:08:53,460 --> 00:08:59,610
+a new covariate that includes the value of the measure of the outcome at baseline.
+
+77
+00:08:59,790 --> 00:09:02,900
+Does that make sense? Okay.
+
+78
+00:09:03,350 --> 00:09:12,620
+So that's what I'm doing here in the Phases statement, when I have data CD4 base that's just creating my subset of the data set.
+
+79
+00:09:13,040 --> 00:09:16,069
+So I have set these, my big data set here.
+
+80
+00:09:16,070 --> 00:09:23,030
+I'm creating my new variables. So that's baseline. My outcome is going to be just like the value of the outcome.
+
+81
+00:09:23,390 --> 00:09:30,770
+I do only these for the variable for the rows in which rank is equal to zero.
+
+82
+00:09:31,100 --> 00:09:37,219
+So what I'm doing here is creating a subset of my big dataset that only has a week equals zero.
+
+83
+00:09:37,220 --> 00:09:42,680
+So I have only the measurement variables and I'm creating a new variable.
+
+84
+00:09:42,710 --> 00:09:46,070
+In this case I'm going to call it based log C four.
+
+85
+00:09:46,070 --> 00:09:50,180
+So baseline measurement for my output, and that's just the value of my output.
+
+86
+00:09:50,510 --> 00:09:58,430
+Okay. Now if you print these to be able to see what we are doing, it looks something like this.
+
+87
+00:09:58,760 --> 00:10:05,629
+So I have my different ideas. I have all of my covariates of group age male notice of week is only zero.
+
+88
+00:10:05,630 --> 00:10:08,600
+And that's just because here I have a week equals zero.
+
+89
+00:10:08,600 --> 00:10:19,010
+I only want the baseline measurement and then creating these is the outcome and I'm like duplicating these variable here.
+
+90
+00:10:19,370 --> 00:10:28,610
+So base log CD4 is the new variable that we created and this contains the information of the outcome for the baseline measure.
+
+91
+00:10:28,910 --> 00:10:35,420
+Does that make sense? Okay. Now I'm going to merge that dataset with my big data.
+
+92
+00:10:37,160 --> 00:10:43,790
+So data, my new data is going to be called I decided to name it new ce4.
+
+93
+00:10:44,450 --> 00:10:54,770
+I'm using the merger statement. So marriage, my big data with my asmall dataset and that C and I want to I want to merge by a B,
+
+94
+00:10:55,250 --> 00:10:57,650
+you know, because all of the A's have the same information.
+
+95
+00:10:58,430 --> 00:11:05,090
+If I do this, the data set, my final data set on the data set I'm going to work with has the following information.
+
+96
+00:11:05,450 --> 00:11:08,510
+So I have I d for HIV?
+
+97
+00:11:08,540 --> 00:11:11,630
+No. Is that for HIV? I have multiple observations.
+
+98
+00:11:12,020 --> 00:11:18,560
+So for example, here this is week zero, this is week 7.57, this is 50 and so on and so forth.
+
+99
+00:11:18,950 --> 00:11:26,660
+I have the different variables and more importantly, I created a new variable that was not there before.
+
+100
+00:11:27,020 --> 00:11:30,590
+That is the measure of baseline. Does that make sense?
+
+101
+00:11:30,920 --> 00:11:38,320
+That's all we're doing is creating these variable. Now that we created that dataset in SAS,
+
+102
+00:11:38,590 --> 00:11:47,140
+I decided to name it a new underscore for those a data set that we are going to use to perform all of our in our analysis.
+
+103
+00:11:48,280 --> 00:11:50,980
+Okay. So what do we want to do?
+
+104
+00:11:51,340 --> 00:12:01,540
+We want to model the changing the outcome, which is that log of C for using the baseline measurement as a very good predictor.
+
+105
+00:12:02,440 --> 00:12:06,960
+We want to include the predictor, the predictors in our model.
+
+106
+00:12:06,970 --> 00:12:10,960
+Are we my treatment assignment,
+
+107
+00:12:11,710 --> 00:12:17,380
+my baseline measurement that we created on that interaction term for treatment
+
+108
+00:12:17,410 --> 00:12:22,380
+on time and another interaction term for treatment on my basement covariate,
+
+109
+00:12:22,720 --> 00:12:25,890
+right? Yeah, that's it.
+
+110
+00:12:25,900 --> 00:12:30,250
+We just want to run a model that's able to do all of those things. So.
+
+111
+00:12:33,270 --> 00:12:35,940
+There are a couple of ways to do this analysis.
+
+112
+00:12:39,210 --> 00:12:49,290
+So because of this, my data is right, because I have a Bible that tells me the measurement of baseline.
+
+113
+00:12:50,040 --> 00:12:51,490
+I can do two things.
+
+114
+00:12:51,540 --> 00:13:00,720
+I can run a model that includes includes all of the variables that comes out of all of the time measurements that includes baseline,
+
+115
+00:13:00,810 --> 00:13:06,420
+unlike post baseline. Or I can just run a models that include spots baseline.
+
+116
+00:13:06,870 --> 00:13:15,270
+So if I do this first thing, which is like run a model with all of my measurements, that's just like using directly these dataset.
+
+117
+00:13:15,840 --> 00:13:21,989
+However, I know it's like a little tricky because I want to predict these variables by like,
+
+118
+00:13:21,990 --> 00:13:25,470
+see, this variable you don't have already has like a lot of information, right?
+
+119
+00:13:25,800 --> 00:13:32,130
+Because for example, for when we can zero, I directly know that volume because I'm using that as a predictor.
+
+120
+00:13:32,310 --> 00:13:36,240
+So that's kind of like cheating. So what we're going to do is.
+
+121
+00:13:36,360 --> 00:13:46,770
+Okay, the analysis that I want to do now, it's instead of using all of my weak information, I'm just going to use.
+
+122
+00:13:54,550 --> 00:14:03,190
+I'm just going to use the information for which way is different on zero because with zero I already have it here in discovery.
+
+123
+00:14:03,460 --> 00:14:13,100
+Does that make sense? That's like this type of analysis is like name or is called post baseline measures.
+
+124
+00:14:13,490 --> 00:14:17,540
+So instead of. Treat like before.
+
+125
+00:14:17,700 --> 00:14:23,970
+Nothing is up here is that I'm not losing information at all because at the beginning I just have weeks zero.
+
+126
+00:14:23,980 --> 00:14:27,150
+I'm like the measurement of week zero as the output.
+
+127
+00:14:27,420 --> 00:14:33,479
+Now what I'm doing is instead of having that as an output added as I could vary it and then my output
+
+128
+00:14:33,480 --> 00:14:42,120
+is not going to be like the in this case the log of CD four count for like the defined measurement.
+
+129
+00:14:42,360 --> 00:14:48,720
+Now it's going to be log of CD4 counts after week zero because week zero I already included it.
+
+130
+00:14:48,840 --> 00:14:54,040
+Also comparing my model does not make sense. So that's where we are going to.
+
+131
+00:14:55,080 --> 00:15:09,730
+Okay. So here, what I'm doing is to this big dataset, I'm going to see three, four week difference you to remove these rows in my dataset.
+
+132
+00:15:10,070 --> 00:15:15,270
+So I'm going to filter for a week different than zero. That's what I have here.
+
+133
+00:15:16,410 --> 00:15:29,820
+So I'm using a so let me see before post is the one I had before but still studying such that my variable weight is different than zero.
+
+134
+00:15:30,090 --> 00:15:40,130
+And that's. Oh, it's not that interesting part, the models.
+
+135
+00:15:40,640 --> 00:15:45,710
+So we are going to use proc mixed because proc makes.
+
+136
+00:15:47,090 --> 00:15:50,630
+Enables me to run a mix effect model,
+
+137
+00:15:50,990 --> 00:15:55,670
+meaning that I'm going to run fix effects which are like the population effects
+
+138
+00:15:56,000 --> 00:16:00,800
+and then also random effects which are for each individual in my dataset,
+
+139
+00:16:00,920 --> 00:16:05,150
+right? That's a fix effect model. So that's what I have here.
+
+140
+00:16:06,410 --> 00:16:16,010
+Very important that when you use prop mixed, at least in source, make sure matter is equal to our RTM.
+
+141
+00:16:16,280 --> 00:16:23,450
+Okay. That should be it. That should be the method that we use to estimate this things in our.
+
+142
+00:16:23,480 --> 00:16:29,590
+There's also like, there's also a parameter that we can check. But make sure you're using Remo.
+
+143
+00:16:30,660 --> 00:16:36,360
+Okay. So here. Very important to use this statement.
+
+144
+00:16:36,360 --> 00:16:39,690
+Class I.D., this statement, class I.D.
+
+145
+00:16:40,020 --> 00:16:42,810
+So basically, when I'm using a mix effect model,
+
+146
+00:16:42,930 --> 00:16:51,120
+I have to make sure either spouse or part of their sons that I have a population effect and then I have an individual effect.
+
+147
+00:16:51,510 --> 00:16:54,780
+The population effect is what we have been doing like forever.
+
+148
+00:16:55,200 --> 00:17:01,469
+So every time I fix, I like run out logistic model or whatever I'm fixing.
+
+149
+00:17:01,470 --> 00:17:11,129
+Like I'm getting population effects, right? Now I also want to add to my model individual effects, meaning that for each subject in my dataset,
+
+150
+00:17:11,130 --> 00:17:15,570
+I also want to estimate a different is log on a different interest.
+
+151
+00:17:16,260 --> 00:17:21,120
+So to start on to our I have to make sure to tell like SAS for Nas,
+
+152
+00:17:21,390 --> 00:17:27,630
+which are like the ideas to separate the population effects to the individual effects.
+
+153
+00:17:27,780 --> 00:17:37,020
+Right. So in this case, individual effects for me means that each I.D. in my dataset is going to have their own intercept and their own slope.
+
+154
+00:17:37,500 --> 00:17:40,649
+So that's the last idea statement. Here. Here.
+
+155
+00:17:40,650 --> 00:17:50,220
+I'm telling SAS each I.D., my dataset is going to have an individual effect.
+
+156
+00:17:50,340 --> 00:18:02,400
+Right? For each I.D., you are not. Also, you are also going to estimate one intercept on one a slope that is like unique for every I.D.
+
+157
+00:18:02,880 --> 00:18:07,560
+Okay. That's what we are doing. Okay. And then Brock.
+
+158
+00:18:07,920 --> 00:18:13,830
+Brock makes is divided into parts. The first part is like the population effect.
+
+159
+00:18:14,520 --> 00:18:17,760
+And the second part is the individual effects.
+
+160
+00:18:19,050 --> 00:18:24,360
+So the population effects affect this, our classic model statement.
+
+161
+00:18:24,810 --> 00:18:32,640
+So model my outcome, which is like log of C four and then all of my covariates on my possible interaction events.
+
+162
+00:18:32,940 --> 00:18:39,240
+So I have my own home week and all of my possible interactions such as like the things that we did before.
+
+163
+00:18:42,810 --> 00:18:46,110
+Very important that we include the following.
+
+164
+00:18:46,110 --> 00:18:53,159
+So after B is specified in models that I want to run for the population effect and when I'm
+
+165
+00:18:53,160 --> 00:18:59,820
+asked these as particularly in SAS is what gives me the estimates for the population effects.
+
+166
+00:18:59,880 --> 00:19:05,490
+Okay, if you don't get me as the outcome is not going to have the population efforts, so make sure you have that.
+
+167
+00:19:06,420 --> 00:19:10,440
+Okay. So the population effects is literally what we have been doing like.
+
+168
+00:19:11,830 --> 00:19:16,090
+All year, all semester long, just like running on water.
+
+169
+00:19:17,070 --> 00:19:24,100
+Now, the interesting part is the random effects random for us, meaning like the individual effects.
+
+170
+00:19:24,490 --> 00:19:28,270
+So here I have to tell that I'm calm later.
+
+171
+00:19:28,690 --> 00:19:32,410
+Which variables do I want to create random effects on?
+
+172
+00:19:33,070 --> 00:19:37,570
+For every particle in my model? I can create random effects.
+
+173
+00:19:37,630 --> 00:19:45,160
+That means that I can have. So in my population model, I have, for example, an intercept which is like the population intercept.
+
+174
+00:19:45,580 --> 00:19:51,069
+I have I have an estimate, population estimate for week.
+
+175
+00:19:51,070 --> 00:19:53,590
+I have a population estimate for the treatment effect.
+
+176
+00:19:53,860 --> 00:20:00,729
+I have a population estimate for the baseline covariance for every estimate that I have in the population level.
+
+177
+00:20:00,730 --> 00:20:05,320
+I can also ask for the same thing, but at an individual level.
+
+178
+00:20:05,680 --> 00:20:13,560
+So what we are doing in the random statement is indicating to us which variables we want to create the individual effects.
+
+179
+00:20:13,810 --> 00:20:21,730
+In this case, we are just going to create individual intercepts and then individual s loads for the week variable.
+
+180
+00:20:22,090 --> 00:20:26,590
+Okay. However, you can expand these as much as you want.
+
+181
+00:20:26,620 --> 00:20:31,510
+So for example, I could have intercept week and there is, I don't know, triple.
+
+182
+00:20:31,930 --> 00:20:41,830
+You know, that means that I'm going to have an individual intercept for each edit for HIV and you need one week effect for each adding.
+
+183
+00:20:41,860 --> 00:20:47,500
+And then if I triple, I would also have an individual treatment effect for each side.
+
+184
+00:20:47,800 --> 00:20:57,040
+Okay, but for the sake of the lab we are just going to use random intercept on a random is load per week.
+
+185
+00:20:57,910 --> 00:21:02,920
+Does that make sense? Oh, and then same thing goes here.
+
+186
+00:21:04,240 --> 00:21:11,410
+But is that subject maybe is indicating to source that these are statements I want to have it for each.
+
+187
+00:21:11,410 --> 00:21:21,760
+And so it means that you are going to source you are going to estimate an intercept and estimate for a week for each i
+
+188
+00:21:22,240 --> 00:21:35,860
+o and then g record the yen record in just getting all of the covariance and variance and standard errors estimates.
+
+189
+00:21:36,250 --> 00:21:48,700
+And that is very important as well. Make sure you have s to actually get the random population of statement, more values in the outcome.
+
+190
+00:21:49,150 --> 00:21:54,820
+So these s just guarantees that when you train the output, you actually can see the estimate.
+
+191
+00:21:54,830 --> 00:21:57,910
+So it doesn't do anything more than that.
+
+192
+00:21:59,410 --> 00:22:03,940
+Okay, if you run this, you're going to have a ginormous output.
+
+193
+00:22:05,140 --> 00:22:13,150
+So here we are just like giving you a little bit of the very important you have the estimated matrix.
+
+194
+00:22:13,360 --> 00:22:16,810
+This estimated chicken matrix is for doing random effects.
+
+195
+00:22:17,230 --> 00:22:28,240
+So these are some something you the variance among all of the intercepts for all of the ideas is 0.38.
+
+196
+00:22:28,900 --> 00:22:37,350
+And then the variance for all of these lobes, individual slopes for week is 0.0002.
+
+197
+00:22:37,630 --> 00:22:44,860
+Right. So that the variance among all of the intercepts and all of the estimates of the week slope.
+
+198
+00:22:46,530 --> 00:22:50,490
+We also have something that is called solution solution for fix effects.
+
+199
+00:22:50,700 --> 00:22:54,300
+So this is our population effect, population important.
+
+200
+00:22:55,140 --> 00:23:00,510
+This looks like a normal table that we have encountered before we have intercept.
+
+201
+00:23:00,510 --> 00:23:09,870
+And all of my predictors, I have the estimates, the estimator errors and importantly, the p value to assess whether those are significant or not.
+
+202
+00:23:11,100 --> 00:23:15,479
+So the population effects we already know how to analyze because that's what we have done.
+
+203
+00:23:15,480 --> 00:23:22,350
+So finding like every class we don't treat and I didn't, I,
+
+204
+00:23:22,680 --> 00:23:30,270
+we didn't include like a screenshot of the individual effects and that's just because well, it doesn't make sense.
+
+205
+00:23:30,810 --> 00:23:42,209
+So in immediate effect means that for every I.D. I have is low in the in this case, I have I mean, there's a and as look, there are 8309 individuals.
+
+206
+00:23:42,210 --> 00:23:46,110
+I was not going to print that table. That's just like like it doesn't make sense.
+
+207
+00:23:46,440 --> 00:23:52,829
+But if you want to print that on I give you are interested in looking at that how output is going to look something like this you're going
+
+208
+00:23:52,830 --> 00:24:04,470
+to have I.D. here for example ID ten I live in ID 12 and you're going to have an estimate for the intercept and an estimate for this log.
+
+209
+00:24:05,010 --> 00:24:15,360
+And you want to have values here on this table has 100 on the weight, 1300 rows.
+
+210
+00:24:15,630 --> 00:24:23,520
+So for each I.D., I estimated one individual intercept, one individual is lobe for week.
+
+211
+00:24:24,300 --> 00:24:29,220
+Okay. How do we like analyze this things?
+
+212
+00:24:29,970 --> 00:24:35,880
+So for example. I don't know.
+
+213
+00:24:38,880 --> 00:24:44,010
+Let's say for individual ten the is low this remember that this is weak.
+
+214
+00:24:44,610 --> 00:24:53,580
+How do I know this is weak? Because in the previous slide I include weak as the random effect here.
+
+215
+00:24:54,720 --> 00:25:00,540
+Okay. So just like to give you an understanding of what this table means.
+
+216
+00:25:01,110 --> 00:25:16,290
+So if I hold the weak here, these -0.01 is telling me that the population effect of weak on the log of CD4 count is -0.018.
+
+217
+00:25:17,010 --> 00:25:23,490
+Now, if I combine that information with the individual effect, I have to analyze it for each subject.
+
+218
+00:25:23,580 --> 00:25:34,500
+So, for example, for subjects ten, the effect of weight is going to be the population effect on the individual effect.
+
+219
+00:25:35,040 --> 00:25:45,450
+So this is how this is like the difference or the deviance, this individual like this log of these individual has on the on the population effect.
+
+220
+00:25:47,990 --> 00:25:51,290
+I wrote up no number here, but he's very busy.
+
+221
+00:25:51,650 --> 00:26:01,460
+So, like, in this case, for individual ten, that just means that for a team or for like that, a specific subject we has are way more.
+
+222
+00:26:04,030 --> 00:26:09,970
+Bigger effect of weak. Right. Because the population effect is -0.01.
+
+223
+00:26:10,330 --> 00:26:14,260
+But for them, it's that plus 2.3.
+
+224
+00:26:15,220 --> 00:26:19,290
+Does that make sense? So it's like the deviants of life.
+
+225
+00:26:19,620 --> 00:26:23,730
+How different is that individual compared to like the population on average?
+
+226
+00:26:24,600 --> 00:26:25,380
+Does that make sense?
+
+227
+00:26:26,790 --> 00:26:33,120
+However, like, as you can see, it doesn't alter normally these that we are used to doing because you will have to do that analysis for like.
+
+228
+00:26:34,640 --> 00:26:38,930
+1000 individuals, which like doesn't make a lot of sense.
+
+229
+00:26:39,710 --> 00:26:42,950
+However, these is very, very good for prediction.
+
+230
+00:26:43,280 --> 00:26:51,410
+Why? Because normally before these to predict something, I always predict using the population average.
+
+231
+00:26:51,720 --> 00:26:57,790
+However, since we are also feeding individual effects,
+
+232
+00:26:57,800 --> 00:27:03,620
+I can also I can predict more accurately because I'm not only predicting using the population information,
+
+233
+00:27:03,920 --> 00:27:11,120
+but I'm giving more value or more weight to the individual prediction because I have the individual effects.
+
+234
+00:27:11,300 --> 00:27:13,630
+Does that make sense? Okay.
+
+235
+00:27:16,260 --> 00:27:28,890
+So let's ask the question in week two, what is the relative change of the population mean between the triple and dual therapy groups?
+
+236
+00:27:30,390 --> 00:27:39,300
+With baseline CD4. So between triple and dual therapy groups, that is like our triple variable.
+
+237
+00:27:42,930 --> 00:27:48,960
+And very importantly is asking me for the change of the population mean model,
+
+238
+00:27:49,320 --> 00:27:57,420
+which means that to answer this question, I only need to go to my solution for fix a fix table.
+
+239
+00:27:57,780 --> 00:28:04,670
+I don't need anything related to like the individual effect because the question is like the population need different.
+
+240
+00:28:05,670 --> 00:28:11,400
+Okay. What is a relative change? It just means logging the two groups.
+
+241
+00:28:11,850 --> 00:28:19,319
+So if this is my population me model. So we expect that outcome.
+
+242
+00:28:19,320 --> 00:28:26,520
+The expected log of CD4. I'm modeling with an intercept estimate for a week for my treatment.
+
+243
+00:28:26,520 --> 00:28:29,700
+Affect my baseline covariate and then my.
+
+244
+00:28:31,730 --> 00:28:40,100
+And then my interaction of interaction terms, what I want to do now is plug in the different values that I have here.
+
+245
+00:28:40,550 --> 00:28:45,530
+So week is going to be two because that's just like what I have here.
+
+246
+00:28:45,890 --> 00:28:52,220
+Week is going to be two. Baseline is C, D, four equals four.
+
+247
+00:28:52,280 --> 00:28:59,149
+So this is going to be four. The value for week is going to be two.
+
+248
+00:28:59,150 --> 00:29:03,170
+Here on baseline is going to be for here.
+
+249
+00:29:03,890 --> 00:29:06,890
+The only thing that I don't know is like three.
+
+250
+00:29:07,250 --> 00:29:12,420
+Right. So that's what we are going to, like play with. And what I see.
+
+251
+00:29:12,650 --> 00:29:16,240
+I'm not going to say that I'm going to.
+
+252
+00:29:18,650 --> 00:29:19,500
+I'm working,
+
+253
+00:29:19,520 --> 00:29:30,020
+known for my grandma's equation using triple equal one and then using triple equals zero and then assessing that difference in the two equations.
+
+254
+00:29:30,440 --> 00:29:35,420
+So that's what I have here, logging in. That was what I was asking.
+
+255
+00:29:35,960 --> 00:29:44,150
+So if you look in that equation triple before, one big question would look something like this and then you plug in triple equals zero.
+
+256
+00:29:44,150 --> 00:29:46,430
+The equation would look something like this.
+
+257
+00:29:47,300 --> 00:29:57,950
+So if you assess the difference between this equation and this equation, note is that both things would be zero.
+
+258
+00:29:58,790 --> 00:30:05,060
+Both include beta one times week. Both include beta beta three times baseline.
+
+259
+00:30:05,420 --> 00:30:08,660
+The difference between the two equation it's in.
+
+260
+00:30:10,360 --> 00:30:17,230
+Data tool beta four times week and beta five times baseline, which is what I have here.
+
+261
+00:30:17,740 --> 00:30:24,520
+However, for week I already know that I want to devalue tool because that's what the question was asking.
+
+262
+00:30:24,740 --> 00:30:30,310
+I'm baseline. I already know that this takes value for it because I was also part of the question.
+
+263
+00:30:30,580 --> 00:30:38,530
+So if I plug in those variables, I have been at two plus two times data, four plus four times beta five.
+
+264
+00:30:39,100 --> 00:30:44,020
+So what I want to do now is test whether this is equal to zero or not.
+
+265
+00:30:44,530 --> 00:30:49,749
+Okay, you go first for that manually because you have all of the information,
+
+266
+00:30:49,750 --> 00:30:55,870
+you have the estimated time based on the energy and the covariance, so you can actually test for those things.
+
+267
+00:30:56,230 --> 00:31:02,110
+However, we are going to ask us to test that for us.
+
+268
+00:31:04,210 --> 00:31:10,450
+So Brooks makes these part is exactly the same as we reviewed before.
+
+269
+00:31:11,470 --> 00:31:18,730
+So I have my population model and then my random individual models and then these, if part will.
+
+270
+00:31:19,000 --> 00:31:23,230
+This is just to estimate and to test whether that thing is equal to zero now.
+
+271
+00:31:23,530 --> 00:31:31,780
+So remember that we wanted to test whether beta two plus two times, beta four plus four times beta five is equal to zero.
+
+272
+00:31:33,130 --> 00:31:37,120
+The intercept is beta zero. Week one is beta one.
+
+273
+00:31:37,900 --> 00:31:42,190
+This is beta two. This is beta three.
+
+274
+00:31:42,760 --> 00:31:46,210
+This is beta four. And the last one is beta five.
+
+275
+00:31:46,690 --> 00:31:51,340
+So as you can see, the intercept is noting this equation.
+
+276
+00:31:51,490 --> 00:31:55,420
+So I assign a zero beta what is not in these equations.
+
+277
+00:31:55,420 --> 00:32:01,570
+I also sign as zero beta two is in this equation and is like a combined compound by a one.
+
+278
+00:32:01,690 --> 00:32:04,870
+So is like one times beta two. So that's what I have here.
+
+279
+00:32:05,200 --> 00:32:09,400
+Then two times beta four, which is what I have here.
+
+280
+00:32:09,430 --> 00:32:12,940
+Then four times beta five, which is what I have here. Right.
+
+281
+00:32:13,150 --> 00:32:14,620
+And for the rest, I have a zero.
+
+282
+00:32:16,450 --> 00:32:24,550
+We run this and then if you scroll down a lot in the output because remember that the output will have the V table with the.
+
+283
+00:32:26,270 --> 00:32:30,680
+Thousand. 1003 hundred rolls for like the individual effects.
+
+284
+00:32:30,980 --> 00:32:35,330
+So if you scroll down a lot in the output, you're going to have the following.
+
+285
+00:32:36,910 --> 00:32:41,440
+Table. So is a table typical, as it's called, estimates?
+
+286
+00:32:42,910 --> 00:32:48,940
+The labels that I have here, group triple dual mean is the name that I assign here.
+
+287
+00:32:51,880 --> 00:32:58,060
+And that is telling me the estimate of vaccine, vcenter error and more importantly, the fee value.
+
+288
+00:32:58,960 --> 00:33:02,650
+So in this case means the P value is based on 5%.
+
+289
+00:33:03,010 --> 00:33:12,250
+I know that Bob and Hollis Friedman is the friend on zero and their statement was just checking whether the triple
+
+290
+00:33:12,640 --> 00:33:22,540
+treatment versus the dual treatment has any difference in the expected outcome at baseline equal for for week two.
+
+291
+00:33:23,980 --> 00:33:27,580
+So in this case, yes, it has a difference because that thing is different.
+
+292
+00:33:27,580 --> 00:33:34,400
+But to those that make sense. Okay, great.
+
+293
+00:33:35,510 --> 00:33:40,580
+So that's everything. Now we're going to review the same thing, but in art.
+
+294
+00:33:41,180 --> 00:33:55,430
+So how do we do all of these things, you know? So the first thing is checking for how many meeting status meeting bodies that I,
+
+295
+00:33:56,190 --> 00:34:04,260
+I have so to check for that and then I use first my data set is called CD4.
+
+296
+00:34:04,500 --> 00:34:09,120
+So CD4 I b I'm going to count how many unique I'd say have.
+
+297
+00:34:09,420 --> 00:34:14,580
+And that tells me like that my data and has 1000 and 309 IDs.
+
+298
+00:34:15,030 --> 00:34:20,910
+Now I'm going to do the same, but only for the at least four weeks, which is equal to zero.
+
+299
+00:34:21,240 --> 00:34:27,600
+And if I do that, I get 101,002 hundred and know the differences of ten,
+
+300
+00:34:27,600 --> 00:34:36,470
+meaning that I have ten individuals for which I don't have information at baseline and I should remove those individuals from my hours.
+
+301
+00:34:37,730 --> 00:34:43,460
+Okay. So I'm going to create my baseline variable.
+
+302
+00:34:43,580 --> 00:34:49,610
+So to create my baseline variable, I'm creating a new data set that is called.
+
+303
+00:34:50,670 --> 00:34:56,010
+See for bass. So see, the four bass is just the data set.
+
+304
+00:34:56,850 --> 00:35:00,990
+Only one week is equal to zero, and that's it.
+
+305
+00:35:02,040 --> 00:35:07,410
+And then two, that data said, I'm going to change the names.
+
+306
+00:35:09,240 --> 00:35:14,120
+I'm going to. Use the same I.D. name,
+
+307
+00:35:14,450 --> 00:35:19,939
+but to the outcome I'm going to name it based log CD four and then I'm going to
+
+308
+00:35:19,940 --> 00:35:26,810
+merge these data set with my old data set because I just created that new variable.
+
+309
+00:35:27,260 --> 00:35:31,130
+So until now, my new data set looks something like this.
+
+310
+00:35:31,580 --> 00:35:37,730
+So for each I.D., I just created the base log C for variable, right?
+
+311
+00:35:38,150 --> 00:35:42,170
+And now what I want is to merge these variable E to my old dataset.
+
+312
+00:35:42,710 --> 00:35:48,950
+So what I'm doing is using the merged statement here, merge my all data set,
+
+313
+00:35:48,950 --> 00:35:56,240
+which is CD for my new data set on my I.D. because like every I.D. has the same information.
+
+314
+00:35:56,660 --> 00:36:01,160
+And I'm going to save that into something that is called new underscore CD for.
+
+315
+00:36:03,860 --> 00:36:12,620
+Mind you this course before look something like this. So each IB has multiple observations varying like it changes.
+
+316
+00:36:12,620 --> 00:36:17,390
+Then we I have the same variables that I did before.
+
+317
+00:36:17,600 --> 00:36:24,080
+So I have my group assignment, I have age, I have sex, I have week, I have my outcome, I have three people.
+
+318
+00:36:24,380 --> 00:36:29,030
+And then importantly I have my new covariates at baseline.
+
+319
+00:36:29,510 --> 00:36:34,280
+Okay. And that C okay.
+
+320
+00:36:34,580 --> 00:36:45,409
+Now modeling post baseline. So the first thing is that to that big data set before I one only I want to remove the rows
+
+321
+00:36:45,410 --> 00:36:50,090
+one week is equal to zero because that information I already have adding on the covariate.
+
+322
+00:36:50,450 --> 00:36:59,140
+So what I'm doing is like. Field filtering such that week is different than C in this case.
+
+323
+00:37:02,600 --> 00:37:12,850
+That's my CD4 post. They were so city post code for post is my previous data.
+
+324
+00:37:14,050 --> 00:37:17,860
+Filtering such that week is different than zero.
+
+325
+00:37:18,520 --> 00:37:22,940
+Okay. And that's. And now we are ready to run our model.
+
+326
+00:37:23,830 --> 00:37:28,210
+So to run the model, we are going to use the n l m e media.
+
+327
+00:37:30,580 --> 00:37:34,630
+Nonlinear mix effects. I guess that's the name of the library.
+
+328
+00:37:35,440 --> 00:37:40,360
+Remember to first install the package on there. Use library, that thing.
+
+329
+00:37:40,960 --> 00:37:46,000
+Okay. We are going to use the l m e function.
+
+330
+00:37:46,390 --> 00:37:48,760
+It works very similar as in source.
+
+331
+00:37:49,120 --> 00:37:57,160
+So first I have to give an equation for the population model and then you have to give an equation for the random effects model.
+
+332
+00:37:57,400 --> 00:38:07,090
+Okay. So the equation for the fixed model, it's like on any equation we have like will be in the past.
+
+333
+00:38:08,200 --> 00:38:18,250
+So I have my outcome and then feedback, which means like all comparisons and then this is all of my covariance if I like using upload sign.
+
+334
+00:38:18,730 --> 00:38:23,080
+So we create all day something like my interaction effects.
+
+335
+00:38:26,200 --> 00:38:37,330
+So this is my fix or population model and then random will give me my random immediate one effect model.
+
+336
+00:38:37,990 --> 00:38:41,020
+So this one is the intercept.
+
+337
+00:38:41,470 --> 00:38:47,200
+So unlike SAS in size, you actually have to type intersect in R.
+
+338
+00:38:47,200 --> 00:38:51,130
+What you do is like the one this represents the intercept.
+
+339
+00:38:51,700 --> 00:38:55,660
+So I have intercept and I also want a random effect for weak.
+
+340
+00:38:56,080 --> 00:39:01,060
+So I feel weak. It applies the same logic as source.
+
+341
+00:39:01,360 --> 00:39:12,669
+If I like to add more individual effects on different variables, I could also include a false a plus sign, for example, triple or flow sign.
+
+342
+00:39:12,670 --> 00:39:17,920
+Something else. Okay. And then the very important part.
+
+343
+00:39:19,970 --> 00:39:33,890
+These vertical bar IP. So vertical bar i-D is telling us to run or to like estimated individual if those six is lopes for week for every 80.
+
+344
+00:39:34,460 --> 00:39:41,540
+Okay that's what we are getting estimate individual intercepts on is low for week for
+
+345
+00:39:41,540 --> 00:39:50,360
+every trading method equal Dremel make sure you have mental equal Remo and then data.
+
+346
+00:39:51,470 --> 00:40:00,010
+My dataset very important. Any very important these last five.
+
+347
+00:40:01,010 --> 00:40:05,210
+In SAS, you don't have to do it so automatically like does it for you.
+
+348
+00:40:05,540 --> 00:40:12,800
+In art, you need to state that you should only be meeting values.
+
+349
+00:40:13,040 --> 00:40:18,949
+So that's what I'm doing here in this last line. I'm just saying, ah, ah, forget about the missing values.
+
+350
+00:40:18,950 --> 00:40:30,389
+Just tell me that or get it like. If you don't have these particular parameters set up, he's going to give you an error.
+
+351
+00:40:30,390 --> 00:40:42,050
+Is not that valid? And then I do a summary of my viral summary of my like huge m l e function and that's it.
+
+352
+00:40:43,670 --> 00:40:47,090
+I run the theme and then the output looks something like this.
+
+353
+00:40:48,890 --> 00:40:55,190
+You have here be a standard deviations of the intercepts on the random notes for weeks.
+
+354
+00:40:55,520 --> 00:41:05,660
+So this is like for HIV. I estimated that means right now you also have the population saying that aside for HIV,
+
+355
+00:41:05,900 --> 00:41:13,610
+I estimated on the intercept I can you if I have a thousand individuals, I have a thousand different intercepts.
+
+356
+00:41:14,390 --> 00:41:21,320
+This is just like the standard error. Like, I'm sorry, this is just your standard deviation of those values of the intercept.
+
+357
+00:41:21,650 --> 00:41:25,190
+And the same applies for the weakest slope.
+
+358
+00:41:26,030 --> 00:41:33,390
+And then you also have the fix effects, which is like the population effects on like in SaaS size.
+
+359
+00:41:33,410 --> 00:41:35,900
+We already give you like a huge table.
+
+360
+00:41:36,530 --> 00:41:47,270
+For every observation you will have the intercept and the slope values in ints in our if you run this summary function,
+
+361
+00:41:47,570 --> 00:41:50,930
+this is all this is the only thing that you get.
+
+362
+00:41:51,020 --> 00:41:55,820
+You don't get the individual effects. There's some way to ask for them.
+
+363
+00:41:55,910 --> 00:42:01,340
+But for the sake of the class, some of you we will not how to use them.
+
+364
+00:42:02,570 --> 00:42:08,270
+However, there's a way to like ask for. Okay.
+
+365
+00:42:09,080 --> 00:42:14,450
+Now, we will also want to assess whether Veda two plus two times.
+
+366
+00:42:14,450 --> 00:42:19,580
+Veda four plus four times Veda five is equal or not to zero.
+
+367
+00:42:19,940 --> 00:42:26,600
+So we're going to use something that we already did in the past sort of library mock comp.
+
+368
+00:42:27,320 --> 00:42:31,970
+We are going to create a contest matrix. So my contest matrix is.
+
+369
+00:42:35,590 --> 00:42:39,400
+In this case, this zero represents beta zero.
+
+370
+00:42:40,000 --> 00:42:47,140
+These ones represent Bateman Beta two, beta three and so on and so forth.
+
+371
+00:42:47,830 --> 00:42:53,320
+Right. So in my equation, I don't have the intercept. So zero zero, 40%.
+
+372
+00:42:53,350 --> 00:42:56,470
+I also don't have video one. So zero for beta one.
+
+373
+00:42:56,830 --> 00:42:59,950
+Better to have some one. So one times beta two.
+
+374
+00:42:59,950 --> 00:43:07,830
+So when I. Okay. And then this one is just because I only have one equation, right?
+
+375
+00:43:08,220 --> 00:43:17,730
+This is only one equation. And then I'm going to use the function g, l, h t and I have my model.
+
+376
+00:43:19,080 --> 00:43:24,630
+This is the LME function. Remember that the name of the model here is FT, both past.
+
+377
+00:43:25,320 --> 00:43:33,300
+So I have my model and then I also have like my contrast matrix and that why I do summary of the thing.
+
+378
+00:43:33,930 --> 00:43:40,930
+And then these are the results. All right.
+
+379
+00:43:43,050 --> 00:43:48,810
+Any questions so far? Okay.
+
+380
+00:43:54,360 --> 00:44:03,700
+Oh, I forgot to mention if you compare side by side, the results from starts to are they are not exactly the same.
+
+381
+00:44:03,720 --> 00:44:14,010
+So for example here for the population of the intercept 0.9059 if we run it in are similar bodies not exactly the
+
+382
+00:44:14,010 --> 00:44:24,299
+same time this case is 0.9 something it changes just because to estimate this things it's only part of this process.
+
+383
+00:44:24,300 --> 00:44:32,580
+I mean like the way things that work programing programing differently is going to give you different results but there is slightly different.
+
+384
+00:44:32,580 --> 00:44:40,650
+Okay, they are not going to change. I don't like the interpretation of what we are doing or moreover like whether things are significant or not.
+
+385
+00:44:42,540 --> 00:44:47,620
+Okay. Same. Yeah.
+
+386
+00:44:48,000 --> 00:44:53,160
+So last thing for today. What time is it? Oh, okay.
+
+387
+00:44:53,640 --> 00:45:04,760
+So. But a lot of us for today is we have the following question What is the estimated population model for the average for trajectory over time?
+
+388
+00:45:05,210 --> 00:45:10,730
+If one of the triple therapies for pneumonia with baseline for Ebola count thus activated.
+
+389
+00:45:11,090 --> 00:45:19,190
+So like what they are asking us is like basically can you interpret these like population model?
+
+390
+00:45:20,210 --> 00:45:28,880
+So in this population model, the interpretation works like very similar as anything that we have done before.
+
+391
+00:45:29,810 --> 00:45:37,400
+So for example, if I were to write the estimated model, I have to use these values, right?
+
+392
+00:45:38,480 --> 00:45:41,570
+So these values come from our on this one.
+
+393
+00:45:41,600 --> 00:45:49,520
+These are the ones from SAS. So if I were to write the estimated model, the estimated model would look something like this.
+
+394
+00:45:49,850 --> 00:45:52,970
+The intercept in SAS is 0.9.
+
+395
+00:45:53,570 --> 00:46:02,420
+So I have my intercept minus beta one times week and then I just write the estimate for beta one times week.
+
+396
+00:46:02,810 --> 00:46:06,080
+Right. And then beta two times week, so on and so forth.
+
+397
+00:46:06,320 --> 00:46:15,200
+So this is just us writing the estimate and model for any other type of model that you have done like in the past.
+
+398
+00:46:15,590 --> 00:46:20,159
+The only difference is that we. Linear means different models.
+
+399
+00:46:20,160 --> 00:46:25,680
+You can estimate not only the population model, but also a super model for each individual.
+
+400
+00:46:25,920 --> 00:46:33,900
+And that is very helpful in predicting you know, that's very helpful for predicting future trajectories for each individual.
+
+401
+00:46:34,470 --> 00:46:39,350
+And that's it. Mm hmm. Any questions so far? Okay.
+
+402
+00:46:41,620 --> 00:46:46,900
+Remember, I have office hours right after this. So if you have questions, just.
+

@@ -1,0 +1,3152 @@
+1
+00:00:02,435 --> 00:00:05,422
+All right, good morning everyone,
+
+2
+00:00:05,422 --> 00:00:10,249
+we are back to finish off Lab Zero for the [INAUDIBLE] 521.
+
+3
+00:00:10,249 --> 00:00:16,085
+So last time, we worked our way through most of this lab tutorial, okay?
+
+4
+00:00:16,085 --> 00:00:21,036
+So I'm using the environmental health science data set, you should be using
+
+5
+00:00:21,036 --> 00:00:26,160
+whichever one you're gonna use for the labs, the code will be the same, okay?
+
+6
+00:00:26,160 --> 00:00:30,293
+The numbers and the pictures that you get might be slightly different, but
+
+7
+00:00:30,293 --> 00:00:31,614
+that's okay, right?
+
+8
+00:00:31,614 --> 00:00:37,033
+So the place we left off was we had read in our data set, right, that looked like
+
+9
+00:00:37,033 --> 00:00:42,811
+this, we had a variety of variables and we started to look at various plots of them.
+
+10
+00:00:42,811 --> 00:00:46,932
+So we've made some histograms, we've made some box plots,
+
+11
+00:00:46,932 --> 00:00:51,527
+we computed some descriptive statistics, we made some bar plots for
+
+12
+00:00:51,527 --> 00:00:55,825
+categorical variables and we also ordered a ordinal variable.
+
+13
+00:00:55,825 --> 00:01:02,783
+So in my case, I believe it was this diet quality there, a diet, is it diet quality?
+
+14
+00:01:02,783 --> 00:01:05,930
+I believe it was diet quality.
+
+15
+00:01:05,930 --> 00:01:08,059
+Yeah, diet quality, correct, right?
+
+16
+00:01:08,059 --> 00:01:12,442
+So that we would have these, our bar plot would be lined up in the order that
+
+17
+00:01:12,442 --> 00:01:15,281
+makes sense, instead of alphabetical order.
+
+18
+00:01:15,281 --> 00:01:19,578
+So the next thing we're gonna do to finish off sort of the copy paste portion of this
+
+19
+00:01:19,578 --> 00:01:23,780
+lab is we're gonna look at how to create a new variable if we want to, all right.
+
+20
+00:01:23,780 --> 00:01:29,819
+So the idea here the setup is that, I have an age variable.
+
+21
+00:01:29,819 --> 00:01:33,423
+Actually I need to need to rename my age variable.
+
+22
+00:01:33,423 --> 00:01:36,044
+So if I run my previous code.
+
+23
+00:01:36,044 --> 00:01:41,095
+So as a reminder, if you want to rename a variable,
+
+24
+00:01:41,095 --> 00:01:44,276
+do it with the rename function.
+
+25
+00:01:44,276 --> 00:01:49,805
+So if you tell it it's the variable of data I want it to be called AGE.
+
+26
+00:01:49,805 --> 00:01:55,646
+And it was originally called RIDAGEYR.
+
+27
+00:02:01,245 --> 00:02:06,557
+I'll run that command and you can see how my name for age changes.
+
+28
+00:02:06,557 --> 00:02:09,558
+You should have done this last time, I'm just repeating this stuff.
+
+29
+00:02:09,558 --> 00:02:17,526
+So imagine that I want to capture who in this data set is over, say age 50, right?
+
+30
+00:02:17,526 --> 00:02:19,298
+So how could I do that?
+
+31
+00:02:19,298 --> 00:02:23,980
+Well, one way I could do is I could create a new variable that's a binary variable.
+
+32
+00:02:23,980 --> 00:02:28,647
+Takes on values of 0 and 1, it's 0 if the person is less than 50 and
+
+33
+00:02:28,647 --> 00:02:31,829
+it's 1 if the person is over 50, all right?
+
+34
+00:02:31,829 --> 00:02:34,608
+So the way we can do that is we can use something called the mutate
+
+35
+00:02:34,608 --> 00:02:35,512
+function, right?
+
+36
+00:02:35,512 --> 00:02:39,966
+So if we go into this copy and paste area, so the function is called mutate,
+
+37
+00:02:39,966 --> 00:02:44,796
+because what we're gonna do is we're gonna take this original data set, okay?
+
+38
+00:02:44,796 --> 00:02:50,291
+We're gonna mutate it by adding on another column to it.
+
+39
+00:02:50,291 --> 00:02:54,842
+The first thing you pass it is the name of the data set that you wanna use, okay?
+
+40
+00:02:54,842 --> 00:02:59,848
+This age 50 is the name of the new variable that you're creating, okay?
+
+41
+00:02:59,848 --> 00:03:02,950
+And then you need sort of a definition or a recipe for
+
+42
+00:03:02,950 --> 00:03:06,355
+how you're going to create that variable, all right?
+
+43
+00:03:06,355 --> 00:03:09,013
+So we're gonna use for this another function,
+
+44
+00:03:09,013 --> 00:03:11,476
+it's called the if else function, right?
+
+45
+00:03:11,476 --> 00:03:16,802
+So if you have just a logic thing, that if else function has three arguments.
+
+46
+00:03:16,802 --> 00:03:19,521
+The first one is some condition, okay?
+
+47
+00:03:19,521 --> 00:03:23,287
+So we're looking at the condition age greater than or equal to 50.
+
+48
+00:03:23,287 --> 00:03:27,187
+So what it's doing is it's going down each row and it's looking to see, okay,
+
+49
+00:03:27,187 --> 00:03:29,007
+is age greater than or equal to 50?
+
+50
+00:03:29,007 --> 00:03:34,757
+No, if it's not, okay, the answer to that question is yes, you put in the value for
+
+51
+00:03:34,757 --> 00:03:40,025
+the first thing, if the answer is no you put in the value for the second thing.
+
+52
+00:03:40,025 --> 00:03:40,955
+That makes sense?
+
+53
+00:03:40,955 --> 00:03:43,215
+So it just all packaged up together, right?
+
+54
+00:03:43,215 --> 00:03:45,539
+But just go ahead and take that and copy and paste it in.
+
+55
+00:03:45,539 --> 00:03:52,827
+>> [COUGH] >> Here
+
+56
+00:03:52,827 --> 00:03:58,189
+are my script, running from there.
+
+57
+00:03:58,189 --> 00:04:03,385
+Now you should have in your data set you should see this new column age 50 pop up.
+
+58
+00:04:03,385 --> 00:04:05,706
+All right, sense?
+
+59
+00:04:05,706 --> 00:04:10,386
+So that's the mutate part, the mutate added on a new column,
+
+60
+00:04:10,386 --> 00:04:13,458
+a new variable and we caught it, right?
+
+61
+00:04:13,458 --> 00:04:20,199
+This piece right here is catching it and sort of saving it to the data file.
+
+62
+00:04:20,199 --> 00:04:21,843
+Right, as you go down, right, just look.
+
+63
+00:04:21,843 --> 00:04:27,968
+So in my example, right, this first person is 42, they get a 0, 15, 0, 45 0.
+
+64
+00:04:27,968 --> 00:04:32,038
+Here's our first person over age 50, so age 67 gets a 1, right?
+
+65
+00:04:32,038 --> 00:04:35,987
+So now I've created this new binary variable or
+
+66
+00:04:35,987 --> 00:04:41,332
+I can easily identify who is greater than age 50 in my data set.
+
+67
+00:04:41,332 --> 00:04:46,447
+And if I wanna get some kind of summary of that, well,
+
+68
+00:04:46,447 --> 00:04:52,813
+we used this table function before if I just have a counted zeros and
+
+69
+00:04:52,813 --> 00:04:58,519
+ones or I can just type in table and down here it will return.
+
+70
+00:04:58,519 --> 00:05:04,921
+Here's the number of zeros 1195, here's the number of ones,
+
+71
+00:05:04,921 --> 00:05:11,004
+so there's 798 people over age 50 in this data set, okay?
+
+72
+00:05:11,004 --> 00:05:15,904
+And I've made a variable that captured that so I was able to reuse it,
+
+73
+00:05:15,904 --> 00:05:16,927
+makes sense?
+
+74
+00:05:16,927 --> 00:05:18,889
+Any questions?
+
+75
+00:05:18,889 --> 00:05:23,524
+All right, so what I've showed you is in this
+
+76
+00:05:23,524 --> 00:05:29,023
+tutorial is the basics to get you started, correct.
+
+77
+00:05:29,023 --> 00:05:32,712
+The big thing about coding is when you're learning first,
+
+78
+00:05:32,712 --> 00:05:34,867
+you start with copy paste, okay?
+
+79
+00:05:34,867 --> 00:05:38,505
+You sometimes don't exactly understand what's going on when you're doing the copy
+
+80
+00:05:38,505 --> 00:05:40,283
+paste, but you work your way through it.
+
+81
+00:05:40,283 --> 00:05:43,901
+And then you start to answer some questions where you take those original
+
+82
+00:05:43,901 --> 00:05:45,620
+lines of code that you worked on and
+
+83
+00:05:45,620 --> 00:05:49,140
+you learn how to tweak them slightly to answer new questions, right?
+
+84
+00:05:49,140 --> 00:05:51,930
+And then the end goal is that you can just write your own code,
+
+85
+00:05:51,930 --> 00:05:55,775
+you can start from scratch, you don't have to be copying and pasting everything.
+
+86
+00:05:55,775 --> 00:06:00,261
+But there is a lot of copying and pasting that gets done in coding,
+
+87
+00:06:00,261 --> 00:06:01,902
+right, the same time.
+
+88
+00:06:01,902 --> 00:06:06,043
+All right, so again, these questions are the same regardless of which lab you're
+
+89
+00:06:06,043 --> 00:06:08,783
+working on but you'll be working in your own data set.
+
+90
+00:06:08,783 --> 00:06:12,793
+So your actual answers that gets spit out might be slightly different.
+
+91
+00:06:12,793 --> 00:06:17,836
+Okay, so each data set contains a variable for self reported race.
+
+92
+00:06:17,836 --> 00:06:24,601
+First thing I want you to do is rename that variable to simply race, okay?
+
+93
+00:06:24,601 --> 00:06:28,640
+And then is there any need to order the levels of the race variable?
+
+94
+00:06:28,640 --> 00:06:29,437
+Why?
+
+95
+00:06:29,437 --> 00:06:34,635
+So this is going back to, if you remember up here, when we first looked at
+
+96
+00:06:34,635 --> 00:06:39,858
+categorical variables, I looked at diet quality of my data set, okay?
+
+97
+00:06:39,858 --> 00:06:42,162
+So I had to order them because it was an ordinal variable.
+
+98
+00:06:42,162 --> 00:06:44,659
+>> [COUGH] >> So
+
+99
+00:06:44,659 --> 00:06:47,735
+the first thing we wanna do is we wanna.
+
+100
+00:06:52,638 --> 00:06:55,780
+Rename the race variable in this dataset,
+
+101
+00:06:55,780 --> 00:07:00,415
+I always type variable wrong, I spelled wrong the first time.
+
+102
+00:07:00,415 --> 00:07:05,292
+So this one is, if you remember, actually I have the code right here,
+
+103
+00:07:05,292 --> 00:07:06,789
+so I'll just run it.
+
+104
+00:07:06,789 --> 00:07:10,993
+This was the code we used to rename the age variable, right?
+
+105
+00:07:10,993 --> 00:07:15,354
+Okay, so the idea is you take that what you need, okay?
+
+106
+00:07:15,354 --> 00:07:19,559
+So we need this rename part, paste that.
+
+107
+00:07:19,559 --> 00:07:23,057
+We're gonna work on the dataset again, okay?
+
+108
+00:07:23,057 --> 00:07:27,101
+So now we wanna save this as just simply race.
+
+109
+00:07:27,101 --> 00:07:30,180
+That's gonna be our new variable name, okay?
+
+110
+00:07:30,180 --> 00:07:33,116
+And what was the one that it's originally saved as in the data set?
+
+111
+00:07:33,116 --> 00:07:41,204
+So it's this very tough to remember RIDRETH3.
+
+112
+00:07:41,204 --> 00:07:44,083
+So again, I don't know exactly what it stands for but
+
+113
+00:07:44,083 --> 00:07:46,454
+that's based on N Haines surveys, right?
+
+114
+00:07:46,454 --> 00:07:50,091
+They store, I remember I showed in the lecture they started this next separately.
+
+115
+00:07:50,091 --> 00:07:52,862
+So all we have to do is you RIDRETH3.
+
+116
+00:07:56,790 --> 00:07:59,661
+This should run, here we go.
+
+117
+00:07:59,661 --> 00:08:04,690
+So then if I go back and look up top very nicely it's done, right?
+
+118
+00:08:04,690 --> 00:08:05,755
+So I've renamed it.
+
+119
+00:08:05,755 --> 00:08:09,153
+If you go back to this data file and it and it hasn't updated the name,
+
+120
+00:08:09,153 --> 00:08:10,687
+sometimes you need to do this.
+
+121
+00:08:10,687 --> 00:08:15,174
+Sometimes you need to close it and then just click update again and
+
+122
+00:08:15,174 --> 00:08:16,489
+it should update.
+
+123
+00:08:16,489 --> 00:08:19,975
+Sometimes depending on your version of R or whatever,
+
+124
+00:08:19,975 --> 00:08:22,871
+sometimes it lags a little bit there, okay?
+
+125
+00:08:22,871 --> 00:08:27,242
+So let's take a look how do we look at data in a categorical variable?
+
+126
+00:08:27,242 --> 00:08:32,369
+Well, the simplest way to to take a look is to do this table function, right?
+
+127
+00:08:32,369 --> 00:08:37,863
+That'll take that whole row of data for the race variable.
+
+128
+00:08:37,863 --> 00:08:40,557
+It'll find all the different options that exist for it and
+
+129
+00:08:40,557 --> 00:08:41,878
+it'll count them up for me.
+
+130
+00:08:48,094 --> 00:08:48,594
+Okay.
+
+131
+00:08:52,977 --> 00:08:57,750
+What this is telling me is that there are one, two, three,
+
+132
+00:08:57,750 --> 00:09:00,621
+four, five, six options, okay?
+
+133
+00:09:00,621 --> 00:09:02,421
+This is based on the enhanced survey, okay?
+
+134
+00:09:02,421 --> 00:09:05,645
+This is how they collected this information.
+
+135
+00:09:05,645 --> 00:09:09,068
+Is this an ordinal or nominal variable?
+
+136
+00:09:09,068 --> 00:09:10,039
+>> Nominal. >> Nominal, right, so
+
+137
+00:09:10,039 --> 00:09:12,749
+we don't have to do anything with using that border function, right?
+
+138
+00:09:12,749 --> 00:09:13,904
+This thing is fine as is.
+
+139
+00:09:23,551 --> 00:09:27,482
+Okay, so that answers question one.
+
+140
+00:09:27,482 --> 00:09:31,562
+One way you might want to do this is,
+
+141
+00:09:31,562 --> 00:09:37,558
+in your R script, you could do something like this.
+
+142
+00:09:37,558 --> 00:09:39,861
+You can break your code right in there, right?
+
+143
+00:09:39,861 --> 00:09:44,846
+You could type your answer.
+
+144
+00:09:44,846 --> 00:09:49,173
+Race is a nominal variable,
+
+145
+00:09:49,173 --> 00:09:53,497
+so we do not need to order it,
+
+146
+00:09:53,497 --> 00:09:58,202
+something like this, right?
+
+147
+00:09:58,202 --> 00:10:03,074
+So you can submit, this can help you with submitting your code and your answers.
+
+148
+00:10:10,962 --> 00:10:14,454
+So the second question, how many levels are included in the race variable?
+
+149
+00:10:14,454 --> 00:10:18,871
+One of the proportions for each group in your data set.
+
+150
+00:10:18,871 --> 00:10:22,383
+Okay, well, we already made this table and we saw that there are six levels.
+
+151
+00:10:29,575 --> 00:10:33,120
+Right, and how can we look at the proportions?
+
+152
+00:10:36,347 --> 00:10:39,192
+All right, you have to leave it, if you write,
+
+153
+00:10:39,192 --> 00:10:42,268
+if you write an answer, it has to be commented out.
+
+154
+00:10:42,268 --> 00:10:48,723
+So, that's what can make this a little bit tricky, right, otherwise Okay,
+
+155
+00:10:48,723 --> 00:10:53,379
+so again, we made a table of counts, this is asking for proportions.
+
+156
+00:10:53,379 --> 00:10:58,529
+If you go back into this tutorial document,
+
+157
+00:10:58,529 --> 00:11:05,355
+we did this already, we looked at proportions over here.
+
+158
+00:11:05,355 --> 00:11:10,977
+So right here, remember what we did when we were looking at the sex variable,
+
+159
+00:11:10,977 --> 00:11:16,772
+is first we passed the table that sort of collapsed all the data into the counts,
+
+160
+00:11:16,772 --> 00:11:17,395
+right?
+
+161
+00:11:17,395 --> 00:11:19,459
+So told me that here's how many labels?
+
+162
+00:11:19,459 --> 00:11:20,392
+So, are there some counts?
+
+163
+00:11:20,392 --> 00:11:24,556
+There are, and then you pass those counts to something called prop.table.
+
+164
+00:11:24,556 --> 00:11:27,922
+So proportion table, okay?
+
+165
+00:11:27,922 --> 00:11:28,751
+And that's what we're gonna do.
+
+166
+00:11:28,751 --> 00:11:34,700
+So you can do this, type it from scratch or you can just grab this whole piece
+
+167
+00:11:34,700 --> 00:11:40,191
+of code right here, copy that, bring it over to R, place it in here.
+
+168
+00:11:40,191 --> 00:11:41,834
+Now this is what I'm talking about,
+
+169
+00:11:41,834 --> 00:11:44,222
+where you've gotta make just simple changes right?
+
+170
+00:11:44,222 --> 00:11:48,918
+Now, I don't wanna ask you to do this on that gender sex variable.
+
+171
+00:11:48,918 --> 00:11:53,374
+What I want this to do this on is the race variable, right?
+
+172
+00:11:53,374 --> 00:11:56,232
+So how do I tell it to do it on a different variable?
+
+173
+00:11:56,232 --> 00:12:00,149
+Well I just change the variable that's after that dollar sign, right?
+
+174
+00:12:00,149 --> 00:12:03,338
+So can enter on that.
+
+175
+00:12:03,338 --> 00:12:06,089
+There you go, right, so now instead of counts, I have proportions.
+
+176
+00:12:11,425 --> 00:12:17,179
+If you want, you can, I'll be there Sammy.
+
+177
+00:12:17,179 --> 00:12:22,445
+That's what the output looks like.
+
+178
+00:12:25,037 --> 00:12:26,708
+Questions?
+
+179
+00:12:26,708 --> 00:12:29,650
+You see what I mean by now, just making little changes in the lines of code,
+
+180
+00:12:29,650 --> 00:12:30,174
+[INAUDIBLE]?
+
+181
+00:12:41,025 --> 00:12:44,524
+Correct, so
+
+182
+00:12:44,524 --> 00:12:48,981
+next question.
+
+183
+00:12:48,981 --> 00:12:53,154
+Compute the mean standard deviation and five number summary for
+
+184
+00:12:53,154 --> 00:12:55,402
+the BMI variable in your data set.
+
+185
+00:12:55,402 --> 00:12:59,333
+Okay, so this is what descriptive statistics is now.
+
+186
+00:12:59,333 --> 00:13:01,754
+So if we go back to our dataset.
+
+187
+00:13:01,754 --> 00:13:07,729
+So first you have to find where BMI is, it's BMX BMI, that's not that bad.
+
+188
+00:13:07,729 --> 00:13:13,239
+But if it's me, I wanna clean that up a little bit, so I'm just gonna rename it.
+
+189
+00:13:17,596 --> 00:13:24,361
+This just takes a second bmi = BMXBMI.
+
+190
+00:13:24,361 --> 00:13:27,033
+Okay, so now I've got to select a simpler name, right?
+
+191
+00:13:27,033 --> 00:13:30,624
+And that a couple times already,
+
+192
+00:13:30,624 --> 00:13:34,855
+remember what we can use to compute mean
+
+193
+00:13:34,855 --> 00:13:39,740
+standard deviation, five number summary?
+
+194
+00:13:39,740 --> 00:13:42,112
+You may remember what the command was?
+
+195
+00:13:42,112 --> 00:13:43,637
+What was the command?
+
+196
+00:13:43,637 --> 00:13:50,923
+>> [INAUDIBLE] standard deviation [INAUDIBLE].
+
+197
+00:13:50,923 --> 00:13:52,177
+>> Summary, exactly, right.
+
+198
+00:13:52,177 --> 00:13:52,939
+>> [LAUGH] >> Yeah, I know.
+
+199
+00:13:52,939 --> 00:13:57,386
+Good, so I'll start with this, I'm gonna do summary first, right?
+
+200
+00:13:57,386 --> 00:14:02,534
+So now I'll just tell it,
+
+201
+00:14:02,534 --> 00:14:06,749
+DATA$bmi, right?
+
+202
+00:14:06,749 --> 00:14:09,859
+So there's my five no summary plus, I get the mean for free, so
+
+203
+00:14:09,859 --> 00:14:13,641
+I don't even have to compute the mean separately, okay, so that's good.
+
+204
+00:14:13,641 --> 00:14:16,848
+And like you said, SD was for
+
+205
+00:14:16,848 --> 00:14:22,068
+standard deviation, so that's DATA$bmi.
+
+206
+00:14:22,068 --> 00:14:24,219
+What happened?
+
+207
+00:14:24,219 --> 00:14:26,627
+>> You have to do the RN.
+
+208
+00:14:26,627 --> 00:14:27,742
+>> Yeah, exactly, right?
+
+209
+00:14:27,742 --> 00:14:29,331
+There's missing values, right?
+
+210
+00:14:29,331 --> 00:14:34,433
+For BMI, so I have
+
+211
+00:14:34,433 --> 00:14:41,583
+to do the na.rn=TRUE.
+
+212
+00:14:41,583 --> 00:14:42,083
+There we go.
+
+213
+00:14:45,153 --> 00:14:51,702
+This is sort of an aside, but if you want to ask yourself how many missing values?
+
+214
+00:14:51,702 --> 00:14:53,433
+You could do something like this.
+
+215
+00:14:53,433 --> 00:15:00,610
+So if you wanna know whether a value is missing is .na.
+
+216
+00:15:00,610 --> 00:15:03,388
+it's not na will tell you,
+
+217
+00:15:10,399 --> 00:15:13,087
+It'll go down the road be my values and
+
+218
+00:15:13,087 --> 00:15:18,892
+it'll tell you it'll be one of the values missing, it'll be a zero if it's not.
+
+219
+00:15:18,892 --> 00:15:24,200
+If I do some of that it'll just add up the ones that are true.
+
+220
+00:15:24,200 --> 00:15:27,306
+Okay, so as returns to me at 16 so
+
+221
+00:15:27,306 --> 00:15:33,220
+that's telling me they're 16 missing values for bmi, okay.
+
+222
+00:15:33,220 --> 00:15:36,424
+So what I'm doing here is this is the cool thing about r,
+
+223
+00:15:36,424 --> 00:15:39,440
+cool if you like programming and you can get into it.
+
+224
+00:15:39,440 --> 00:15:41,927
+But you see I'm starting to build on top of each other,
+
+225
+00:15:41,927 --> 00:15:43,941
+right these different functions, right?
+
+226
+00:15:43,941 --> 00:15:47,888
+And so in one line of code I can do some fairly complicated things, okay and
+
+227
+00:15:47,888 --> 00:15:50,827
+we're just scratching the surface on what you can do.
+
+228
+00:15:53,780 --> 00:15:57,403
+All right, very good, so that was question number three,
+
+229
+00:15:57,403 --> 00:15:59,442
+all right question number four.
+
+230
+00:15:59,442 --> 00:16:02,526
+Based on the descriptive statistics for bmi,
+
+231
+00:16:02,526 --> 00:16:06,920
+do you have any concerns about potential outlier values?
+
+232
+00:16:06,920 --> 00:16:11,556
+All right so this one is going to depend on your
+
+233
+00:16:11,556 --> 00:16:17,610
+specific data set but we can use the same logic here.
+
+234
+00:16:17,610 --> 00:16:19,851
+I have my five number summary right here,
+
+235
+00:16:19,851 --> 00:16:22,600
+no look at this notice I didn't even realize this.
+
+236
+00:16:22,600 --> 00:16:25,860
+The five number summary actually gave you the number of missing values right in it.
+
+237
+00:16:25,860 --> 00:16:30,090
+Right so I just confirmed it, there you go somebody could help that out told me.
+
+238
+00:16:30,090 --> 00:16:35,177
+All right, so if I look at my five number summary,
+
+239
+00:16:35,177 --> 00:16:40,770
+any concern about outliers or extreme measurements.
+
+240
+00:16:40,770 --> 00:16:45,863
+Where would you be looking in the five number summary to
+
+241
+00:16:45,863 --> 00:16:50,967
+be thinking about extreme measurements or outliers?
+
+242
+00:16:50,967 --> 00:16:52,028
+>> The max.
+
+243
+00:16:52,028 --> 00:16:54,286
+>> The max and the mid, right?
+
+244
+00:16:54,286 --> 00:16:57,866
+If you're an extreme value, you either have to sit way off to the left or
+
+245
+00:16:57,866 --> 00:16:59,371
+way off to the right, right.
+
+246
+00:16:59,371 --> 00:17:04,271
+And if there's an outlier it's got to be the men or the max, right?
+
+247
+00:17:05,310 --> 00:17:10,980
+So and out back up here an outlier
+
+248
+00:17:10,980 --> 00:17:17,493
+would need to be the min or max value.
+
+249
+00:17:21,920 --> 00:17:26,081
+So this is where it's gonna be a little bit different in everybody's dataset.
+
+250
+00:17:27,320 --> 00:17:30,962
+So if I'm looking at mine, my minimum bmi is 14,
+
+251
+00:17:30,962 --> 00:17:35,367
+this is where you might have to break out of like a chart look and
+
+252
+00:17:35,367 --> 00:17:38,866
+see what bmi is look like, it's so cold in here.
+
+253
+00:17:38,866 --> 00:17:39,555
+>> Yeah.
+
+254
+00:17:39,555 --> 00:17:45,201
+>> [LAUGH] So 14, so remember we've got some younger people in here, right.
+
+255
+00:17:45,201 --> 00:17:47,385
+So bmi of 14 they got on the lowest side but
+
+256
+00:17:47,385 --> 00:17:50,431
+I don't think it's certainly not negative four, right?
+
+257
+00:17:50,431 --> 00:17:53,813
+It's not biologically impossible, it's pretty low,
+
+258
+00:17:53,813 --> 00:17:58,920
+right but we've got some younger some teenagers and stuff in here, so okay.
+
+259
+00:17:58,920 --> 00:18:03,093
+A max of 64.5 is that
+
+260
+00:18:03,093 --> 00:18:07,901
+biologically plausible?
+
+261
+00:18:07,901 --> 00:18:08,550
+>> Yeah.
+
+262
+00:18:08,550 --> 00:18:14,187
+>> Yeah, I mean it is, it's high for sure, if you look in a large group of people,
+
+263
+00:18:14,187 --> 00:18:19,010
+thousands of people are you gonna get some larger values like that?
+
+264
+00:18:19,010 --> 00:18:23,550
+You will, you'll get extreme values, it's not 4000, right?
+
+265
+00:18:23,550 --> 00:18:27,066
+I'd be worried about 4000, right because the stuff I do electronic health
+
+266
+00:18:27,066 --> 00:18:29,651
+records stuff, you do see weird stuff like that, right?
+
+267
+00:18:29,651 --> 00:18:34,281
+And the reason why it's often cuz like sometimes somebody
+
+268
+00:18:34,281 --> 00:18:37,692
+enters something in like feet and pounds.
+
+269
+00:18:37,692 --> 00:18:42,980
+Or inches and pounds instead of grams and centimeters like this, right?
+
+270
+00:18:42,980 --> 00:18:46,668
+And there's like these unit conversions and you get these like crazy numbers,
+
+271
+00:18:46,668 --> 00:18:49,101
+right and this is the way you can catch them, right?
+
+272
+00:18:49,101 --> 00:18:51,823
+So here I might wanna look here and
+
+273
+00:18:51,823 --> 00:18:55,830
+see like are there lots of people in the sixties.
+
+274
+00:18:55,830 --> 00:19:00,121
+But I don't think so because I can see this the rest of my distribution.
+
+275
+00:19:00,121 --> 00:19:03,822
+So, I don't have any major concerns here,
+
+276
+00:19:03,822 --> 00:19:07,840
+I do see some a very small value, a large value.
+
+277
+00:19:07,840 --> 00:19:13,456
+We can't immediately exclude them because they're say less than zero or
+
+278
+00:19:13,456 --> 00:19:17,190
+absurdly high within the realm of possibility.
+
+279
+00:19:17,190 --> 00:19:20,831
+So I don't think there's any concern in my specific dataset,
+
+280
+00:19:20,831 --> 00:19:23,041
+does anybody see something in there?
+
+281
+00:19:23,041 --> 00:19:27,856
+So I don't know what episode or nutrition look like, yeah.
+
+282
+00:19:27,856 --> 00:19:30,170
+>> I have a max is 130.
+
+283
+00:19:30,170 --> 00:19:33,489
+>> So that one might be concerning, right?
+
+284
+00:19:33,489 --> 00:19:34,507
+>> Yeah.
+
+285
+00:19:34,507 --> 00:19:39,168
+>> So that might be one that you need to think about what data set are you
+
+286
+00:19:39,168 --> 00:19:40,094
+looking at?
+
+287
+00:19:40,094 --> 00:19:44,497
+>> I think was
+
+288
+00:19:44,497 --> 00:19:49,622
+max, so >> That's fine.
+
+289
+00:19:53,014 --> 00:19:56,481
+So that's one we might need to drop forever, right?
+
+290
+00:19:56,481 --> 00:19:58,307
+That one seems unrealistic,
+
+291
+00:19:58,307 --> 00:20:02,542
+that might be something that's the results of a measurement there,
+
+292
+00:20:02,542 --> 00:20:07,700
+nutrition anybody looking at nutrition, any nutrition people in here?
+
+293
+00:20:07,700 --> 00:20:08,662
+Okay.
+
+294
+00:20:10,691 --> 00:20:14,541
+Right, so I'll just say for
+
+295
+00:20:14,541 --> 00:20:18,714
+HS neither value certain, for
+
+296
+00:20:18,714 --> 00:20:24,810
+your data set I would point out that 130 and
+
+297
+00:20:24,810 --> 00:20:29,640
+say that might be one we wanna drop.
+
+298
+00:20:39,990 --> 00:20:44,000
+All right, question five, everybody good on that one?
+
+299
+00:20:44,000 --> 00:20:45,230
+Let's move along.
+
+300
+00:20:45,230 --> 00:20:50,294
+Yeah, question five, based on the descriptive statistics of bmi,
+
+301
+00:20:50,294 --> 00:20:55,444
+do you think the distribution for bmi is most likely to be left skewed,
+
+302
+00:20:55,444 --> 00:20:58,770
+right skewed or symmetric, why?
+
+303
+00:20:58,770 --> 00:21:02,281
+Okay, so we'll go back to our descriptive statistics.
+
+304
+00:21:03,540 --> 00:21:09,741
+So, I'm looking at this one, what should I be looking at for skewness?
+
+305
+00:21:11,880 --> 00:21:14,646
+>> Mean versus median. >> Mean versus median it's usually a good
+
+306
+00:21:14,646 --> 00:21:16,183
+thing to look at, right?
+
+307
+00:21:16,183 --> 00:21:19,480
+You can also there's a couple things you can look at,
+
+308
+00:21:19,480 --> 00:21:22,123
+sometimes you can look at like how far out.
+
+309
+00:21:22,123 --> 00:21:26,095
+Your max and your min r from your first quartile and your third quartile but
+
+310
+00:21:26,095 --> 00:21:30,590
+yeah, the first place you should be looking for sure is mean and median.
+
+311
+00:21:30,590 --> 00:21:31,711
+What's going on here?
+
+312
+00:21:31,711 --> 00:21:36,447
+So my mean is greater than my median, so
+
+313
+00:21:36,447 --> 00:21:40,327
+what do I think this is gonna be?
+
+314
+00:21:40,327 --> 00:21:44,322
+Think about it this way, imagine facing it, my mean is this way so
+
+315
+00:21:44,322 --> 00:21:49,280
+that means the tail had to be pulled on this side so that's right skewed, right.
+
+316
+00:21:49,280 --> 00:21:49,780
+Okay hold on one sec.
+
+317
+00:21:54,970 --> 00:21:59,580
+I'm gonna put the word probably in here because remember we said the descriptive
+
+318
+00:21:59,580 --> 00:22:03,124
+statistics, they don't tell you exactly what's going on.
+
+319
+00:22:03,124 --> 00:22:07,701
+Right gives you some clue as to what's going on, did you have a question?
+
+320
+00:22:07,701 --> 00:22:12,565
+>> Yeah, so I was just wondering what is the range in which you can assume that is
+
+321
+00:22:12,565 --> 00:22:17,961
+symmetric because it's off by one point, so does it have to be literary gives that?
+
+322
+00:22:17,961 --> 00:22:23,512
+>> Yeah, so it won't be exactly, right so part of this depends, is a great question,
+
+323
+00:22:23,512 --> 00:22:28,383
+part of this depends on what the scale that you're looking at is, right?
+
+324
+00:22:28,383 --> 00:22:35,580
+So bmi, a one point jump in bmi is not a trivial jump, right?
+
+325
+00:22:35,580 --> 00:22:40,100
+So that's kind of what you have to be thinking about a little bit too.
+
+326
+00:22:40,100 --> 00:22:42,468
+I agree these are fairly close,
+
+327
+00:22:42,468 --> 00:22:47,829
+part of the reason I sort of hedged a little bit by putting probably here.
+
+328
+00:22:47,829 --> 00:22:52,824
+Is because yeah I wouldn't bet my house that this thing is definitely
+
+329
+00:22:52,824 --> 00:22:54,901
+right skewed based on this.
+
+330
+00:22:54,901 --> 00:23:00,256
+But if it is skewed I think it's probably skewed to the right, okay.
+
+331
+00:23:03,620 --> 00:23:06,635
+So following up on this, right,
+
+332
+00:23:06,635 --> 00:23:11,805
+confirm your answer to the previous question by creating
+
+333
+00:23:11,805 --> 00:23:17,311
+the appropriate plot to visualize the distribution of bmi.
+
+334
+00:23:17,311 --> 00:23:18,901
+Right, this is getting at this issue, right?
+
+335
+00:23:18,901 --> 00:23:23,091
+I can look at the descriptive statistics and it makes me think something but
+
+336
+00:23:23,091 --> 00:23:25,570
+let's confirm it, how would I confirm it?
+
+337
+00:23:25,570 --> 00:23:28,912
+I would need to confirm this thing,
+
+338
+00:23:28,912 --> 00:23:33,726
+what plot can I make to look at the distribution of bmi?
+
+339
+00:23:33,726 --> 00:23:36,248
+>> Histogram >> Histogram would be good,
+
+340
+00:23:36,248 --> 00:23:37,340
+what's another option?
+
+341
+00:23:37,340 --> 00:23:42,290
+Box plot would be fine too, probably wanna look at the histogram first to make sure
+
+342
+00:23:42,290 --> 00:23:46,190
+that it's unimodal, right and that box plot would make sense.
+
+343
+00:23:46,190 --> 00:23:49,243
+Does anybody remember the formation for histogram?
+
+344
+00:23:49,243 --> 00:23:50,472
+>> Hissed.
+
+345
+00:23:50,472 --> 00:23:51,141
+>> Hissed, very good.
+
+346
+00:23:52,220 --> 00:23:54,344
+Okay so start simple when you're doing these, so
+
+347
+00:23:54,344 --> 00:23:55,818
+remember what do I have to pass it?
+
+348
+00:23:55,818 --> 00:24:00,460
+I just have to pass it the variables that I wanna make.
+
+349
+00:24:00,460 --> 00:24:05,110
+Right, we know we can get this to work then we can pretty it up the labels and
+
+350
+00:24:05,110 --> 00:24:07,128
+all that later.
+
+351
+00:24:07,128 --> 00:24:11,298
+There I go, so I can zoom in on that,
+
+352
+00:24:11,298 --> 00:24:17,001
+I can move it around if I want, thoughts on this.
+
+353
+00:24:18,890 --> 00:24:22,320
+Does this confirm what I thought above?
+
+354
+00:24:22,320 --> 00:24:27,086
+It is, is it like a very strong right skew?
+
+355
+00:24:27,086 --> 00:24:32,141
+I don't think so, right it's a sort of a subtle right skew part.
+
+356
+00:24:32,141 --> 00:24:36,187
+I mean look at how much farther there's many more of these boxes that have these
+
+357
+00:24:36,187 --> 00:24:39,207
+lower values on the right side than the left side, right?
+
+358
+00:24:45,384 --> 00:24:53,341
+Another thing to note here is that you can't have bmi less than zero, right?
+
+359
+00:24:53,341 --> 00:24:57,450
+So there's this like natural lower bound on your bmi anyway.
+
+360
+00:24:57,450 --> 00:25:01,380
+And so there's only so far they can go to this direction, right?
+
+361
+00:25:01,380 --> 00:25:05,271
+Whereas they can sort of a little bit more space to spread out here, right?
+
+362
+00:25:05,271 --> 00:25:07,898
+It gets to be like sort of impossible to some degree but yeah,
+
+363
+00:25:07,898 --> 00:25:09,660
+they've got more room to move out here.
+
+364
+00:25:09,660 --> 00:25:14,394
+And when you have that situation that's almost always gonna lead to skewing away
+
+365
+00:25:14,394 --> 00:25:17,259
+from wherever your natural boundary is, okay.
+
+366
+00:25:22,142 --> 00:25:28,490
+And then just to show like you can do basic stuff here, you can do color equals.
+
+367
+00:25:28,490 --> 00:25:35,053
+I said my favorite color is blue, I love this cadet blue color, I don't know why.
+
+368
+00:25:35,053 --> 00:25:37,609
+Man, let's take a minute.
+
+369
+00:25:37,609 --> 00:25:41,037
+>> [LAUGH] >> Let's take a minute here.
+
+370
+00:25:42,825 --> 00:25:48,631
+So if you go to r, [NOISE] You are so
+
+371
+00:25:48,631 --> 00:25:54,460
+here we go and r you want colors?
+
+372
+00:25:54,460 --> 00:25:59,284
+Look at this, you can get so all you gotta do
+
+373
+00:25:59,284 --> 00:26:04,121
+is pick the color you like and just grab it.
+
+374
+00:26:04,121 --> 00:26:10,350
+So you want magenta three, I'll do magenta three for you so you can put that in here.
+
+375
+00:26:10,350 --> 00:26:13,806
+Okay say I don't wanna main title on this,
+
+376
+00:26:13,806 --> 00:26:18,318
+I can just get rid of it like that just put empty quotes and
+
+377
+00:26:18,318 --> 00:26:22,561
+say I wanna do an X label and just have that basic bmi.
+
+378
+00:26:24,710 --> 00:26:29,719
+There you go and yes you are not limited,
+
+379
+00:26:29,719 --> 00:26:33,420
+there are many many options.
+
+380
+00:26:33,420 --> 00:26:39,890
+Okay, so all you gotta do is search for r colors and you can find this thing.
+
+381
+00:26:39,890 --> 00:26:41,931
+>> You'll do like upload?
+
+382
+00:26:41,931 --> 00:26:46,057
+>> No, this is all built right into r,
+
+383
+00:26:46,057 --> 00:26:51,020
+so you can do any pick any different color.
+
+384
+00:26:51,020 --> 00:26:55,535
+Thistle one, we can go in here and we could say up and
+
+385
+00:26:55,535 --> 00:26:59,670
+gentle was a little little much for me.
+
+386
+00:26:59,670 --> 00:27:01,870
+Let's do thistle one instead.
+
+387
+00:27:01,870 --> 00:27:06,498
+Actually that's not even showing up as nicely on here as
+
+388
+00:27:06,498 --> 00:27:11,425
+it is on my screen but yeah, it's definitely got a bit of a.
+
+389
+00:27:11,425 --> 00:27:13,346
+>> [LAUGH] >> What was that?
+
+390
+00:27:13,346 --> 00:27:14,621
+>> He said it's so boring.
+
+391
+00:27:14,621 --> 00:27:20,121
+>> Yeah, there you go, see it's not so bad learning r, all right.
+
+392
+00:27:20,121 --> 00:27:24,783
+So that made my histogram,
+
+393
+00:27:24,783 --> 00:27:29,850
+go back to magenta, okay, so
+
+394
+00:27:29,850 --> 00:27:36,744
+yes this confirms that the distribution
+
+395
+00:27:36,744 --> 00:27:41,421
+is slightly right skewed.
+
+396
+00:27:42,890 --> 00:27:46,486
+People looking at other native sets, the applicator, that was just the same thing.
+
+397
+00:27:46,486 --> 00:27:47,279
+>> Yeah.
+
+398
+00:27:47,279 --> 00:27:50,956
+>> Yeah most of the time when you look at something like bmi it's gonna look
+
+399
+00:27:50,956 --> 00:27:52,008
+like that, right?
+
+400
+00:27:52,008 --> 00:27:57,729
+For partially for the reasons I just described, it's capped on the lower
+
+401
+00:27:57,729 --> 00:28:03,465
+end and you're gonna have that tail that goes off towards higher values.
+
+402
+00:28:06,550 --> 00:28:11,740
+All right, question number seven.
+
+403
+00:28:18,130 --> 00:28:22,922
+All right, we'll trick you here create a new variable called
+
+404
+00:28:22,922 --> 00:28:28,110
+the log age containing the natural log rhythm of the age variable.
+
+405
+00:28:28,110 --> 00:28:28,654
+Okay, so
+
+406
+00:28:28,654 --> 00:28:32,676
+sometimes you wanna take a function of a variable that we already had.
+
+407
+00:28:32,676 --> 00:28:37,638
+So give me a hint here, if you wanna take a natural
+
+408
+00:28:37,638 --> 00:28:41,290
+log you use log just a function log.
+
+409
+00:28:41,290 --> 00:28:44,366
+If you wanna take a log base 10 function it would be log 10,
+
+410
+00:28:44,366 --> 00:28:46,280
+okay those are two different things.
+
+411
+00:28:46,280 --> 00:28:49,836
+Usually you use the natural log, okay?
+
+412
+00:28:49,836 --> 00:28:55,344
+And so if you wanna do for example down here just
+
+413
+00:28:55,344 --> 00:29:02,839
+just to show you remember like the test stuff out on the bottom.
+
+414
+00:29:02,839 --> 00:29:07,462
+So if I do log of the data, dollar sign age down
+
+415
+00:29:07,462 --> 00:29:12,099
+here it'll show me, well I think that a lot.
+
+416
+00:29:12,099 --> 00:29:16,355
+I think that was gonna print them all out but it did put them out a lot but
+
+417
+00:29:16,355 --> 00:29:21,068
+you can see what it's doing is it's giving me the log values of age, right?
+
+418
+00:29:21,068 --> 00:29:26,944
+So the first age is 42, so the log of 42 is 3.7,
+
+419
+00:29:26,944 --> 00:29:30,217
+log of 15 is 2.7 change.
+
+420
+00:29:30,217 --> 00:29:35,292
+Okay so now we just wanna what we just did right there we just wanna catch this,
+
+421
+00:29:35,292 --> 00:29:36,640
+okay and save it so.
+
+422
+00:29:36,640 --> 00:29:39,496
+Okay so data equal for making a new variable,
+
+423
+00:29:39,496 --> 00:29:41,770
+what do we start the class off with?
+
+424
+00:29:41,770 --> 00:29:42,714
+What was that? Remember
+
+425
+00:29:42,714 --> 00:29:44,061
+that function >> Mutate.
+
+426
+00:29:44,061 --> 00:29:48,011
+>> Mutate good, so we use mutate, okay so
+
+427
+00:29:48,011 --> 00:29:52,338
+we got to tell what data we're looking at.
+
+428
+00:29:52,338 --> 00:29:56,637
+Often these are redundant you're saving it to the same but not always, okay,
+
+429
+00:29:56,637 --> 00:29:58,180
+so we wanna call this thing.
+
+430
+00:29:58,180 --> 00:30:00,123
+log age.
+
+431
+00:30:00,123 --> 00:30:04,692
+Remember that's the name of the variable thing that I'm gonna create and
+
+432
+00:30:04,692 --> 00:30:07,500
+now I have to give it the definition, right?
+
+433
+00:30:07,500 --> 00:30:09,557
+Or the recipe for how you're gonna make that variable?
+
+434
+00:30:09,557 --> 00:30:13,935
+So that is logged each like that.
+
+435
+00:30:13,935 --> 00:30:17,889
+Okay.
+
+436
+00:30:17,889 --> 00:30:22,355
+So one thing I just want to point out here is that notice that when I ran it
+
+437
+00:30:22,355 --> 00:30:23,946
+the console right here,
+
+438
+00:30:23,946 --> 00:30:29,053
+I had to put data dollar sign age because there I had it doesn't know what age is.
+
+439
+00:30:29,053 --> 00:30:30,678
+Right. I have to tell it where age lives.
+
+440
+00:30:30,678 --> 00:30:33,032
+Right? The reason why I want you to go look for
+
+441
+00:30:33,032 --> 00:30:35,653
+it when I do it within this mutate function.
+
+442
+00:30:35,653 --> 00:30:37,414
+I've already told it where I wanted to look.
+
+443
+00:30:37,414 --> 00:30:40,376
+So we know. So I don't need the data dollar sign age
+
+444
+00:30:40,376 --> 00:30:41,398
+right there.
+
+445
+00:30:41,398 --> 00:30:45,918
+That's why I want to make sure that that makes sense.
+
+446
+00:30:45,918 --> 00:30:51,425
+So if we've done that, then fine go back to my data sets.
+
+447
+00:30:51,425 --> 00:30:56,952
+You should see a new variable got tacked on right there.
+
+448
+00:30:56,952 --> 00:31:04,550
+Okay.
+
+449
+00:31:04,550 --> 00:31:09,830
+Did you just show me
+
+450
+00:31:09,830 --> 00:31:18,080
+what the regular right here.
+
+451
+00:31:18,080 --> 00:31:21,743
+So, you know, if I just wanted to run that, you know,
+
+452
+00:31:21,743 --> 00:31:24,626
+to compute the value outside, you could.
+
+453
+00:31:24,626 --> 00:31:25,930
+Does that make sense to what I did there.
+
+454
+00:31:25,930 --> 00:31:34,532
+Right.
+
+455
+00:31:34,532 --> 00:31:38,165
+You know, and it doesn't, you know, you can you can, you know, run it,
+
+456
+00:31:38,165 --> 00:31:39,748
+run it on any anything, right?
+
+457
+00:31:39,748 --> 00:31:43,675
+And you can run it on any number, right?
+
+458
+00:31:43,675 --> 00:31:45,010
+We just ran it on.
+
+459
+00:31:45,010 --> 00:31:46,740
+Instead of running it on one number.
+
+460
+00:31:46,740 --> 00:31:51,294
+We ran it on the entire column of ages and
+
+461
+00:31:51,294 --> 00:31:58,207
+then save that as a new variable called log age makes sense.
+
+462
+00:31:58,207 --> 00:32:02,388
+All right.
+
+463
+00:32:02,388 --> 00:32:05,251
+Question number eight.
+
+464
+00:32:05,251 --> 00:32:09,283
+What does the distribution of your new variable?
+
+465
+00:32:09,283 --> 00:32:10,071
+Who?
+
+466
+00:32:10,071 --> 00:32:11,116
+That's not murdered properly.
+
+467
+00:32:11,116 --> 00:32:14,936
+Should say what is the distribution of your new variable log age.
+
+468
+00:32:14,936 --> 00:32:16,287
+Okay. So long gauges.
+
+469
+00:32:16,287 --> 00:32:19,251
+A numerical variable.
+
+470
+00:32:19,251 --> 00:32:21,277
+Right? So we want to make a list a gram or
+
+471
+00:32:21,277 --> 00:32:25,772
+box plot and then compare it to the shape of the original age variable.
+
+472
+00:32:25,772 --> 00:32:28,384
+And then just think about how to apply in the natural log function.
+
+473
+00:32:28,384 --> 00:32:30,427
+Change the shape of the distribution.
+
+474
+00:32:30,427 --> 00:32:31,651
+Okay. Have agents.
+
+475
+00:32:31,651 --> 00:32:33,119
+All right, so let's do this.
+
+476
+00:32:33,119 --> 00:32:37,916
+We'll go back to our set up
+
+477
+00:32:37,916 --> 00:32:43,373
+something for questioning.
+
+478
+00:32:43,373 --> 00:32:47,704
+First thing I have to do is create a hissed a gram or
+
+479
+00:32:47,704 --> 00:32:53,003
+box plot for the log age variables and we have a preference.
+
+480
+00:32:53,003 --> 00:32:57,337
+I'm gonna create a box plot this time.
+
+481
+00:32:57,337 --> 00:33:01,611
+The box plot of data, dollar sign log.
+
+482
+00:33:01,611 --> 00:33:04,186
+See how it's see how it's It's it's looking for me.
+
+483
+00:33:04,186 --> 00:33:06,129
+It helps me know I'm in the right spot.
+
+484
+00:33:06,129 --> 00:33:07,219
+Go ahead and be lazy.
+
+485
+00:33:07,219 --> 00:33:09,673
+Right? Just click it finished for you.
+
+486
+00:33:09,673 --> 00:33:15,995
+If I hit enter on that, it's gonna show up right here.
+
+487
+00:33:15,995 --> 00:33:17,785
+What's that distribution look like?
+
+488
+00:33:17,785 --> 00:33:19,321
+Actually, let me help you.
+
+489
+00:33:19,321 --> 00:33:21,244
+I don't like the way it defaults it.
+
+490
+00:33:21,244 --> 00:33:22,011
+You know what I prefer?
+
+491
+00:33:22,011 --> 00:33:28,303
+I prefer my box plots for example.
+
+492
+00:33:28,303 --> 00:33:29,456
+Yeah, I like that.
+
+493
+00:33:29,456 --> 00:33:32,902
+Better helps me think left.
+
+494
+00:33:32,902 --> 00:33:34,354
+Right. Small values, big values.
+
+495
+00:33:34,354 --> 00:33:36,258
+What would you say?
+
+496
+00:33:36,258 --> 00:33:41,569
+The distribution of this is which direction?
+
+497
+00:33:41,569 --> 00:33:42,529
+Let's see.
+
+498
+00:33:42,529 --> 00:33:45,180
+Right, slightly less speed.
+
+499
+00:33:45,180 --> 00:33:45,694
+Right. I mean,
+
+500
+00:33:45,694 --> 00:33:49,691
+what you're getting is this longer tail right here, longer than this?
+
+501
+00:33:49,691 --> 00:33:53,034
+Okay. So yeah, let's do you also see that.
+
+502
+00:33:53,034 --> 00:33:54,649
+Right? The median, you know,
+
+503
+00:33:54,649 --> 00:33:57,161
+has a longer distance to out here to Q.
+
+504
+00:33:57,161 --> 00:33:58,308
+One than this.
+
+505
+00:33:58,308 --> 00:33:59,601
+Q two to Q three.
+
+506
+00:33:59,601 --> 00:34:00,482
+Medium to Q. Three.
+
+507
+00:34:00,482 --> 00:34:03,128
+That's left skew.
+
+508
+00:34:03,128 --> 00:34:08,051
+What if we go back to and create a hissed a gram or a box?
+
+509
+00:34:08,051 --> 00:34:13,685
+Excuse me for not log age or regular age.
+
+510
+00:34:13,685 --> 00:34:14,887
+So how do I do that?
+
+511
+00:34:14,887 --> 00:34:17,271
+Well, same code. All I gotta do is get rid of that
+
+512
+00:34:17,271 --> 00:34:17,991
+log part.
+
+513
+00:34:17,991 --> 00:34:24,618
+Right? That's the variable
+
+514
+00:34:24,618 --> 00:34:28,193
+an answer.
+
+515
+00:34:28,193 --> 00:34:31,238
+And now this was my original age.
+
+516
+00:34:31,238 --> 00:34:36,644
+We think that distribution is
+
+517
+00:34:36,644 --> 00:34:43,353
+I would almost call this symmetric.
+
+518
+00:34:43,353 --> 00:34:46,644
+Your standards for symmetry are very high, very high.
+
+519
+00:34:46,644 --> 00:34:48,426
+I would call this symmetric.
+
+520
+00:34:48,426 --> 00:34:49,897
+If anything it's light.
+
+521
+00:34:49,897 --> 00:34:51,761
+Right. Skew? So what did this thing do?
+
+522
+00:34:51,761 --> 00:34:53,191
+Right. What did the log function do?
+
+523
+00:34:53,191 --> 00:34:55,524
+Right. It took a little bit easier to do this.
+
+524
+00:34:55,524 --> 00:34:57,200
+It took this variable.
+
+525
+00:34:57,200 --> 00:35:00,732
+This was the original age variable, right.
+
+526
+00:35:00,732 --> 00:35:04,000
+Which was pretty nicely behaved, right?
+
+527
+00:35:04,000 --> 00:35:07,244
+And it took it and it pulled it off.
+
+528
+00:35:07,244 --> 00:35:10,790
+Right? So it it created skew in it, right.
+
+529
+00:35:10,790 --> 00:35:12,540
+It took a variable that was pre symmetric.
+
+530
+00:35:12,540 --> 00:35:13,317
+And then skewed it.
+
+531
+00:35:13,317 --> 00:35:18,454
+You know, if you want, we can we can even do
+
+532
+00:35:18,454 --> 00:35:23,884
+if it makes it a little bit easier show you this.
+
+533
+00:35:23,884 --> 00:35:28,049
+There's the instagram for age actually look at that when you look at that.
+
+534
+00:35:28,049 --> 00:35:29,491
+This is kind of misleading, almost.
+
+535
+00:35:29,491 --> 00:35:31,885
+Right. For our We were thinking symmetric.
+
+536
+00:35:31,885 --> 00:35:34,653
+This thing is actually a little flat to some degree.
+
+537
+00:35:34,653 --> 00:35:36,580
+Right.
+
+538
+00:35:36,580 --> 00:35:43,808
+And then what if I do the history Graham for made a dollar sign log ege.
+
+539
+00:35:43,808 --> 00:35:46,002
+That thing's definitely left ski right.
+
+540
+00:35:46,002 --> 00:35:50,966
+So we took a variable that was pretty flat and we put skew on it.
+
+541
+00:35:50,966 --> 00:35:55,608
+So that was the effect of doing a log transformation.
+
+542
+00:35:55,608 --> 00:35:58,317
+So this is kind of a weird example, to be honest with you.
+
+543
+00:35:58,317 --> 00:36:00,940
+Right. I created this because I wanted you to see
+
+544
+00:36:00,940 --> 00:36:05,796
+that you could make a function of a variable that's already in your data set.
+
+545
+00:36:05,796 --> 00:36:06,419
+Okay.
+
+546
+00:36:06,419 --> 00:36:09,541
+Do something like a log transformation.
+
+547
+00:36:09,541 --> 00:36:13,547
+Normally what you'll use a log transformation for is the reverse of this.
+
+548
+00:36:13,547 --> 00:36:18,241
+If you've got something that's highly skewed, you'll take a log transformation
+
+549
+00:36:18,241 --> 00:36:21,621
+and it'll it'll make it a little more unimodal symmetric.
+
+550
+00:36:21,621 --> 00:36:26,604
+Okay, so, you know, I'm just trying to show you how you can if
+
+551
+00:36:26,604 --> 00:36:30,667
+you need to fix fix the distribution of a variable.
+
+552
+00:36:30,667 --> 00:36:32,314
+Right? This becomes important when we do linear
+
+553
+00:36:32,314 --> 00:36:32,851
+regression.
+
+554
+00:36:32,851 --> 00:36:34,496
+Right. If you've seen linear regression
+
+555
+00:36:34,496 --> 00:36:35,321
+before, right.
+
+556
+00:36:35,321 --> 00:36:37,634
+We think about normal distributions for that.
+
+557
+00:36:37,634 --> 00:36:40,252
+Okay. Here, here, I'm being the reverse of.
+
+558
+00:36:40,252 --> 00:36:43,494
+It makes sense.
+
+559
+00:36:43,494 --> 00:36:45,590
+Code makes sense.
+
+560
+00:36:45,590 --> 00:36:50,075
+Are you seeing how we're just recycling the same pieces of code before?
+
+561
+00:36:50,075 --> 00:36:54,822
+Sometimes we just add a little bit extra on change variable names.
+
+562
+00:36:54,822 --> 00:36:56,758
+All right.
+
+563
+00:36:56,758 --> 00:36:58,013
+Question nine.
+
+564
+00:36:58,013 --> 00:36:59,583
+Look at this. We're flying through this.
+
+565
+00:36:59,583 --> 00:37:04,086
+Alright, suppose that you are interested in designing a study with
+
+566
+00:37:04,086 --> 00:37:06,298
+individuals age 65 and above.
+
+567
+00:37:06,298 --> 00:37:09,241
+How many such samples are in your data set?
+
+568
+00:37:09,241 --> 00:37:10,528
+So I'm gonna give you a minute to do that.
+
+569
+00:37:10,528 --> 00:37:12,976
+I want you to do try to take a shot at that on your own.
+
+570
+00:37:12,976 --> 00:37:15,309
+So I'm giving you a hint.
+
+571
+00:37:15,309 --> 00:37:17,742
+But this is a situation where there are many,
+
+572
+00:37:17,742 --> 00:37:20,761
+many different ways that you can answer this question.
+
+573
+00:37:20,761 --> 00:37:21,975
+We get to the same answer.
+
+574
+00:37:21,975 --> 00:37:23,056
+Right? This is pretty common.
+
+575
+00:37:23,056 --> 00:37:25,861
+And coding. You've got an objective something you're
+
+576
+00:37:25,861 --> 00:37:29,093
+trying to do, but there are many different solutions.
+
+577
+00:37:29,093 --> 00:37:32,875
+So think about how you could identify,
+
+578
+00:37:32,875 --> 00:37:37,927
+remember question is how many aged 65 plus after.
+
+579
+00:37:37,927 --> 00:37:43,880
+If you want
+
+580
+00:37:43,880 --> 00:37:50,495
+to answer,
+
+581
+00:37:50,495 --> 00:37:55,125
+give you
+
+582
+00:37:55,125 --> 00:37:59,759
+a hint.
+
+583
+00:37:59,759 --> 00:38:00,801
+Right?
+
+584
+00:38:00,801 --> 00:38:04,498
+That's how we that's how we did it in the lab.
+
+585
+00:38:04,498 --> 00:38:09,532
+If you if you think of something
+
+586
+00:38:09,532 --> 00:38:16,509
+a little bit slicker, that's great too.
+
+587
+00:38:16,509 --> 00:38:22,032
+And an equal
+
+588
+00:38:22,032 --> 00:38:29,211
+to 65 greater
+
+589
+00:38:29,211 --> 00:38:34,182
+than equal
+
+590
+00:38:34,182 --> 00:38:38,599
+to Okay,
+
+591
+00:38:38,599 --> 00:38:43,569
+wait till I
+
+592
+00:38:43,569 --> 00:38:49,092
+see you have
+
+593
+00:38:49,092 --> 00:38:55,177
+a question.
+
+594
+00:38:55,177 --> 00:38:55,805
+No.
+
+595
+00:38:55,805 --> 00:38:58,635
+Okay, I'll just wait, wait till I see some some eyes looking up.
+
+596
+00:38:58,635 --> 00:38:59,135
+You're working.
+
+597
+00:38:59,135 --> 00:39:09,135
+That's
+
+598
+00:39:16,911 --> 00:39:26,911
+good.
+
+599
+00:39:31,868 --> 00:39:34,986
+How many people are following along with how we did in the tutorial?
+
+600
+00:39:34,986 --> 00:39:38,246
+Created a new variable in the Canada Okay, that's good.
+
+601
+00:39:38,246 --> 00:39:41,740
+Anybody come up with a different way.
+
+602
+00:39:41,740 --> 00:39:46,330
+A little bit of a little bit, a little bit of experience, but
+
+603
+00:39:46,330 --> 00:39:48,133
+do that way in a second.
+
+604
+00:39:48,133 --> 00:39:51,514
+What if I can just do something as easy as So what do you think?
+
+605
+00:39:51,514 --> 00:39:57,669
+Some does that's what summary does add them up.
+
+606
+00:39:57,669 --> 00:39:58,312
+Right? It's a sum.
+
+607
+00:39:58,312 --> 00:40:04,060
+Right? So if I pass this thing I can
+
+608
+00:40:04,060 --> 00:40:10,443
+say hey go down the column of age.
+
+609
+00:40:10,443 --> 00:40:12,065
+Okay.
+
+610
+00:40:12,065 --> 00:40:15,983
+See which ones are bigger than 65 bigger than or equal to 65.
+
+611
+00:40:15,983 --> 00:40:20,805
+Okay that will return a one if you're bigger than or equal to 65 or turn zero.
+
+612
+00:40:20,805 --> 00:40:24,039
+Otherwise I had an answer for
+
+613
+00:40:24,039 --> 00:40:30,384
+that I get an answer of 300 meat for my data set right?
+
+614
+00:40:30,384 --> 00:40:31,994
+For E. H. S.
+
+615
+00:40:31,994 --> 00:40:36,316
+So in one line that quickly I can get an answer to that question.
+
+616
+00:40:36,316 --> 00:40:41,350
+Alternatively I can do the other way E.
+
+617
+00:40:41,350 --> 00:40:42,462
+T.
+
+618
+00:40:42,462 --> 00:40:44,139
+There you go.
+
+619
+00:40:44,139 --> 00:40:49,236
+And I could call this Age 65
+
+620
+00:40:49,236 --> 00:40:54,817
+is equal to that else function.
+
+621
+00:40:54,817 --> 00:40:59,155
+If age greater than or equal to 65.
+
+622
+00:40:59,155 --> 00:41:05,102
+If you are making a one if you're not making it zero.
+
+623
+00:41:05,102 --> 00:41:06,370
+Well I made a mistake.
+
+624
+00:41:06,370 --> 00:41:07,861
+Where's my mistake?
+
+625
+00:41:07,861 --> 00:41:09,540
+If that's very good.
+
+626
+00:41:09,540 --> 00:41:14,593
+So the first thing you gotta do when you see red like this assume it's your fault.
+
+627
+00:41:14,593 --> 00:41:15,564
+You made a silly mistake.
+
+628
+00:41:15,564 --> 00:41:19,428
+That's what I did right I didn't do that on purpose I just forgot.
+
+629
+00:41:19,428 --> 00:41:23,123
+Okay So I made that variable and then how can I summarize that variable?
+
+630
+00:41:23,123 --> 00:41:26,421
+How can I get information out of that age 60 five.
+
+631
+00:41:26,421 --> 00:41:34,683
+Table right I can do table Data dollar sign age 65.
+
+632
+00:41:34,683 --> 00:41:36,232
+There's 380 that's the same.
+
+633
+00:41:36,232 --> 00:41:38,119
+380 I got right there.
+
+634
+00:41:38,119 --> 00:41:43,088
+Okay so moral of the story for this one is that I've given
+
+635
+00:41:43,088 --> 00:41:48,163
+you some some ways of being able to manipulate your data,
+
+636
+00:41:48,163 --> 00:41:53,979
+do basic things as you become more experienced with our you know,
+
+637
+00:41:53,979 --> 00:41:58,447
+you'll learn how to do things like this, right?
+
+638
+00:41:58,447 --> 00:42:01,639
+Sometimes it's just a matter of seeing somebody else doing it and
+
+639
+00:42:01,639 --> 00:42:03,914
+being like I didn't know you could do that.
+
+640
+00:42:03,914 --> 00:42:06,017
+I want to throw that away now if I need to do it again.
+
+641
+00:42:06,017 --> 00:42:07,982
+Right? Makes it a little bit easier.
+
+642
+00:42:07,982 --> 00:42:10,618
+No, nothing wrong with doing it this way.
+
+643
+00:42:10,618 --> 00:42:11,225
+Right? The long,
+
+644
+00:42:11,225 --> 00:42:14,550
+you know the longer way you know, you save yourself a little bit,
+
+645
+00:42:14,550 --> 00:42:18,359
+a little bit of code when you have when you have like a big programs, you know
+
+646
+00:42:18,359 --> 00:42:22,403
+sometimes it can make a big difference and things are easier to understand.
+
+647
+00:42:22,403 --> 00:42:26,405
+But yeah, I think I think either of these these solutions were fun and
+
+648
+00:42:26,405 --> 00:42:30,278
+of course the most important part is to get back to the same answer.
+
+649
+00:42:30,278 --> 00:42:35,038
+Either way,
+
+650
+00:42:35,038 --> 00:42:38,937
+correct.
+
+651
+00:42:38,937 --> 00:42:40,046
+Yeah right that's right there.
+
+652
+00:42:40,046 --> 00:42:44,241
+You know, you could totally take this.
+
+653
+00:42:44,241 --> 00:42:46,943
+You know, you could do, we should do this real quick.
+
+654
+00:42:46,943 --> 00:42:51,036
+I should show you right? So if I want the number of people that
+
+655
+00:42:51,036 --> 00:42:54,948
+are greater than 65 it's 3 53.
+
+656
+00:42:54,948 --> 00:42:59,205
+Alright, so that's greater then if you're doing
+
+657
+00:42:59,205 --> 00:43:03,870
+equality in programming it's always two equal signs.
+
+658
+00:43:03,870 --> 00:43:07,950
+Okay a single equal sign means an assignment.
+
+659
+00:43:07,950 --> 00:43:10,057
+Right? So like like right here data equals
+
+660
+00:43:10,057 --> 00:43:12,531
+when you do something like this encoding,
+
+661
+00:43:12,531 --> 00:43:16,530
+it's saying okay whatever you do on the right side, I'm saving it.
+
+662
+00:43:16,530 --> 00:43:17,980
+Is this thing on the left side.
+
+663
+00:43:17,980 --> 00:43:20,543
+If you want to check to see if two things are equal,
+
+664
+00:43:20,543 --> 00:43:22,325
+it's always a double equal sign.
+
+665
+00:43:22,325 --> 00:43:22,892
+Okay?
+
+666
+00:43:22,892 --> 00:43:25,376
+So actually watch if I get rid of this,
+
+667
+00:43:25,376 --> 00:43:28,649
+this is gonna this is gonna give an error, right?
+
+668
+00:43:28,649 --> 00:43:29,990
+It's gonna be like what do you mean?
+
+669
+00:43:29,990 --> 00:43:30,756
+This doesn't make sense.
+
+670
+00:43:30,756 --> 00:43:35,246
+I can't set inequality in here, right?
+
+671
+00:43:35,246 --> 00:43:42,349
+I get a double equal dot com.
+
+672
+00:43:42,349 --> 00:43:46,694
+Any other questions makes sense.
+
+673
+00:43:46,694 --> 00:43:52,129
+You feel like you feel like you're making Progress, can you make a new variable?
+
+674
+00:43:52,129 --> 00:43:56,586
+And just have the people that are greater than you lose 65 and not make it finally.
+
+675
+00:43:56,586 --> 00:43:58,225
+Okay so that be something different.
+
+676
+00:43:58,225 --> 00:43:59,196
+Let's let's take a minute to do this.
+
+677
+00:43:59,196 --> 00:44:03,883
+So what you could do is this so there there are here's a function
+
+678
+00:44:03,883 --> 00:44:07,784
+called filter that comes in the tidyverse package.
+
+679
+00:44:07,784 --> 00:44:08,522
+Okay. And
+
+680
+00:44:08,522 --> 00:44:12,301
+what it does is it'll take your full data set.
+
+681
+00:44:12,301 --> 00:44:16,320
+So mine has 1993.
+
+682
+00:44:16,320 --> 00:44:17,110
+Right? And
+
+683
+00:44:17,110 --> 00:44:22,372
+I can say you know what I just want to look at people over age 65 or
+
+684
+00:44:22,372 --> 00:44:26,771
+65 or over Whatever we're gonna call it over 65.
+
+685
+00:44:26,771 --> 00:44:27,802
+Okay?
+
+686
+00:44:27,802 --> 00:44:29,584
+And I can say filter.
+
+687
+00:44:29,584 --> 00:44:32,809
+Well I want to go to that data set and
+
+688
+00:44:32,809 --> 00:44:37,943
+I want to take people age Greater than or equal to 65.
+
+689
+00:44:37,943 --> 00:44:44,469
+Actually, before I say it, let me just show you what it does.
+
+690
+00:44:46,068 --> 00:44:49,486
+So remember if I don't if I don't say that if I don't put anything to the left with
+
+691
+00:44:49,486 --> 00:44:51,950
+an equal sign, I'm just running it at the command line and
+
+692
+00:44:51,950 --> 00:44:54,393
+it's doing the command if I want to capture that.
+
+693
+00:44:54,393 --> 00:44:58,132
+you know, I have to have to make it equal to something but look what this is doing
+
+694
+00:44:58,132 --> 00:45:01,035
+is I said hey, just go through this data set filter, right?
+
+695
+00:45:01,035 --> 00:45:01,963
+We think filtered up.
+
+696
+00:45:01,963 --> 00:45:04,733
+It's you know, it's putting things, you know, one side or the other.
+
+697
+00:45:04,733 --> 00:45:06,895
+Right? It's saying just keep for
+
+698
+00:45:06,895 --> 00:45:09,537
+me people over age 6500 and 65.
+
+699
+00:45:09,537 --> 00:45:13,197
+Alright, so look at the age very well, All these people are over age 65.
+
+700
+00:45:13,197 --> 00:45:15,343
+Right? How many of them are there?
+
+701
+00:45:15,343 --> 00:45:16,964
+380?
+
+702
+00:45:16,964 --> 00:45:19,158
+Because that was the question.
+
+703
+00:45:19,158 --> 00:45:20,318
+The nice thing about this,
+
+704
+00:45:20,318 --> 00:45:23,251
+this format is it gives you this like nice little summary right here.
+
+705
+00:45:23,251 --> 00:45:24,694
+Right? So I could have just done this and
+
+706
+00:45:24,694 --> 00:45:26,733
+I still could have gotten to that three eighties.
+
+707
+00:45:26,733 --> 00:45:31,268
+That's another way I could have gotten to 3 80 if I want to make this a different
+
+708
+00:45:31,268 --> 00:45:34,352
+dataset because maybe I want to do an analysis on this.
+
+709
+00:45:34,352 --> 00:45:40,704
+I can just say this, I can say maybe I call this data _ 65.
+
+710
+00:45:40,704 --> 00:45:44,969
+I kind of like these these these naming conventions because it's it helps me
+
+711
+00:45:44,969 --> 00:45:46,503
+remember that, you know,
+
+712
+00:45:46,503 --> 00:45:49,649
+this was originally from this thing called data right?
+
+713
+00:45:49,649 --> 00:45:51,407
+Like like full data set.
+
+714
+00:45:51,407 --> 00:45:56,181
+And you know, the criteria is people you know greater than or equal to 65.
+
+715
+00:45:56,181 --> 00:46:01,641
+So if I could enter on this right up there in your top right corner.
+
+716
+00:46:01,641 --> 00:46:03,622
+Okay, you have data 65 Pop up.
+
+717
+00:46:03,622 --> 00:46:07,399
+That's a whole new data set again, 380 observations.
+
+718
+00:46:07,399 --> 00:46:12,106
+If I click on it, it's got all the same stuff that was in there.
+
+719
+00:46:12,106 --> 00:46:15,164
+Okay, I'll show you one more real quick.
+
+720
+00:46:15,164 --> 00:46:17,010
+I know I know we're over.
+
+721
+00:46:17,010 --> 00:46:23,622
+Another thing about the plier Tidyverse has these these pipe commands.
+
+722
+00:46:23,622 --> 00:46:25,613
+Okay so it looks like this.
+
+723
+00:46:25,613 --> 00:46:30,742
+It's a it's an ampersand not an ampersand a percent sign.
+
+724
+00:46:30,742 --> 00:46:35,512
+Right facing carrot I guess.
+
+725
+00:46:35,512 --> 00:46:37,164
+And then another percent sign.
+
+726
+00:46:37,164 --> 00:46:38,709
+So this thing is called a pipe.
+
+727
+00:46:38,709 --> 00:46:42,185
+And what it does is it says run this command and
+
+728
+00:46:42,185 --> 00:46:46,773
+then send whatever you got from there to the next function.
+
+729
+00:46:46,773 --> 00:46:52,640
+Okay So we already know what happens when I run this command makes this thing.
+
+730
+00:46:52,640 --> 00:46:56,645
+Now what I'm gonna do is I'm gonna use a function called select.
+
+731
+00:46:56,645 --> 00:47:02,783
+Okay If filter only keeps certain roads select only keep certain columns.
+
+732
+00:47:02,783 --> 00:47:04,567
+Right? So maybe I don't want all the columns.
+
+733
+00:47:04,567 --> 00:47:07,688
+So maybe what I want is S.
+
+734
+00:47:07,688 --> 00:47:08,201
+D. Q.
+
+735
+00:47:08,201 --> 00:47:08,924
+N.
+
+736
+00:47:08,924 --> 00:47:10,452
+Right? The number and
+
+737
+00:47:10,452 --> 00:47:15,964
+well I know everybody's over 65 so I don't need that one anymore.
+
+738
+00:47:15,964 --> 00:47:21,082
+Maybe what I want is this this gender variable which
+
+739
+00:47:21,082 --> 00:47:26,212
+I think is probably better called biological sex.
+
+740
+00:47:26,212 --> 00:47:27,384
+And you're wanting to change it to death.
+
+741
+00:47:27,384 --> 00:47:29,339
+That's what I would do and say I want B.
+
+742
+00:47:29,339 --> 00:47:35,276
+M. I maybe I would name
+
+743
+00:47:35,276 --> 00:47:40,021
+it this right.
+
+744
+00:47:40,021 --> 00:47:43,328
+I'd say okay What is in this data set?
+
+745
+00:47:43,328 --> 00:47:46,051
+Okay this is started with the original data.
+
+746
+00:47:46,051 --> 00:47:53,326
+People over age 65 and I'm just keeping the sex and be my variables.
+
+747
+00:47:53,326 --> 00:47:57,125
+So if I had to enter on this this will create a new data set up here.
+
+748
+00:47:57,125 --> 00:47:59,556
+You can see it right here.
+
+749
+00:47:59,556 --> 00:48:02,520
+I don't think it's gonna let me pull over but
+
+750
+00:48:02,520 --> 00:48:07,908
+now instead of having all the columns, I've only picked off the ones that I want.
+
+751
+00:48:07,908 --> 00:48:16,073
+Okay.
+
+752
+00:48:16,073 --> 00:48:16,815
+Makes sense.
+
+753
+00:48:16,815 --> 00:48:20,906
+Is that you get that to work for you?
+
+754
+00:48:20,906 --> 00:48:24,510
+So again, these are these are you know what I just did here was
+
+755
+00:48:24,510 --> 00:48:27,781
+two functions that we haven't haven't quite used yet.
+
+756
+00:48:27,781 --> 00:48:29,110
+But a filter, right?
+
+757
+00:48:29,110 --> 00:48:34,346
+Is removing just keeping things that satisfy this certain condition right here.
+
+758
+00:48:34,346 --> 00:48:39,673
+You know, if you want just men or just women, you can use filter you want,
+
+759
+00:48:39,673 --> 00:48:44,834
+you know just one race group if you want just one of these diet categories,
+
+760
+00:48:44,834 --> 00:48:46,602
+okay you can use filter.
+
+761
+00:48:46,602 --> 00:48:49,986
+You know if you want to cut down the number of variables,
+
+762
+00:48:49,986 --> 00:48:52,226
+you know you would use the select ok.
+
+763
+00:48:52,226 --> 00:48:54,282
+And then this pipe is saying,
+
+764
+00:48:54,282 --> 00:48:59,302
+you know what it did is it first created this data set which was just people
+
+765
+00:48:59,302 --> 00:49:05,172
+over age 65 then passed it to the select function which what it selected, it said.
+
+766
+00:49:05,172 --> 00:49:07,377
+Well just just keep for me the I.
+
+767
+00:49:07,377 --> 00:49:08,075
+D.
+
+768
+00:49:08,075 --> 00:49:08,755
+The gender B.
+
+769
+00:49:08,755 --> 00:49:09,947
+M. I. Variable.
+
+770
+00:49:09,947 --> 00:49:16,818
+So it created that You know these things are pretty powerful because
+
+771
+00:49:16,818 --> 00:49:22,180
+it saves you having to do repetitive pieces of coding.
+
+772
+00:49:22,180 --> 00:49:25,578
+Yeah coders are, you know they're kind of lazy and
+
+773
+00:49:25,578 --> 00:49:30,333
+come up with these creative ways to called one liners offense, right?
+
+774
+00:49:30,333 --> 00:49:32,710
+How can you do something in one line of code?
+
+775
+00:49:32,710 --> 00:49:38,101
+Right, just like how before, when it was counts up, the number of people
+
+776
+00:49:38,101 --> 00:49:43,069
+over age 65, you know, this is like a one liner could do it in one line
+
+777
+00:49:43,069 --> 00:49:48,573
+instead of having to break it out across multiple lines like we did over here.
+
+778
+00:49:48,573 --> 00:49:51,785
+Alright, so I'm gonna stop recording now,
+
+779
+00:49:51,785 --> 00:49:57,614
+Hopefully this should get you well on your way to completing the lab the tutorial,
+
+780
+00:49:57,614 --> 00:50:03,189
+and at this point you should be set to get started on working on lab module one and
+
+781
+00:50:03,189 --> 00:50:05,916
+next week in your lab you will have a G.
+
+782
+00:50:05,916 --> 00:50:06,604
+S. I.
+
+783
+00:50:06,604 --> 00:50:08,804
+Give you a quick overview of, you know,
+
+784
+00:50:08,804 --> 00:50:11,910
+the big idea sort of sell you like how you can get started,
+
+785
+00:50:11,910 --> 00:50:16,442
+we'll also show you my sample lab report, which you should have looked at okay, or
+
+786
+00:50:16,442 --> 00:50:20,714
+to look at it before next week, and we'll sort of really pinpoint, you know,
+
+787
+00:50:20,714 --> 00:50:25,249
+here's the pieces where you know, you're doing this and here's the pieces where
+
+788
+00:50:25,249 --> 00:50:29,090
+you're doing this sort of break it down for you to help you get started
+

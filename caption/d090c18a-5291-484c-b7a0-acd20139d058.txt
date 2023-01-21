@@ -1,0 +1,876 @@
+1
+00:00:00,000 --> 00:00:12,630
+Hey, this is Matt Zawistowski.
+
+2
+00:00:12,630 --> 00:00:14,140
+In our previous videos,
+
+3
+00:00:14,140 --> 00:00:16,930
+we've introduced
+longitudinal studies and
+
+4
+00:00:16,930 --> 00:00:20,185
+the concept of correlated
+repeated measures data.
+
+5
+00:00:20,185 --> 00:00:22,900
+We've learned how to make
+good summaries of the data
+
+6
+00:00:22,900 --> 00:00:26,155
+using longitudinal techniques
+and descriptive statistics.
+
+7
+00:00:26,155 --> 00:00:28,690
+We've also discussed why some of
+
+8
+00:00:28,690 --> 00:00:31,090
+the existing statistical
+methods you're already familiar
+
+9
+00:00:31,090 --> 00:00:33,875
+with just don't work well
+with correlated data.
+
+10
+00:00:33,875 --> 00:00:35,875
+We're now ready to introduce
+
+11
+00:00:35,875 --> 00:00:37,810
+the linear mixed effect model,
+
+12
+00:00:37,810 --> 00:00:40,930
+a common tool for analyzing
+repeated measures data.
+
+13
+00:00:40,930 --> 00:00:42,715
+Over the next two videos,
+
+14
+00:00:42,715 --> 00:00:45,835
+we'll introduce the simplest
+version of the next model,
+
+15
+00:00:45,835 --> 00:00:48,160
+the random intercept model.
+
+16
+00:00:48,160 --> 00:00:50,140
+Let's start by recalling
+
+17
+00:00:50,140 --> 00:00:52,585
+the notation for
+repeated measures data.
+
+18
+00:00:52,585 --> 00:00:54,780
+We defined YIJ to be
+
+19
+00:00:54,780 --> 00:00:57,670
+the Jth observed outcome
+for the Ith subject.
+
+20
+00:00:57,670 --> 00:00:59,995
+This notation provided
+a good method
+
+21
+00:00:59,995 --> 00:01:01,210
+for handling a range of
+
+22
+00:01:01,210 --> 00:01:05,125
+repeated measures data,
+including unbalanced designs.
+
+23
+00:01:05,125 --> 00:01:07,210
+We've already discussed why
+
+24
+00:01:07,210 --> 00:01:09,130
+standard linear
+regression models are
+
+25
+00:01:09,130 --> 00:01:13,105
+not applicable to repeated
+measure longitudinal data.
+
+26
+00:01:13,105 --> 00:01:15,250
+The residuals for measurements
+
+27
+00:01:15,250 --> 00:01:17,215
+on the same subject
+are correlated,
+
+28
+00:01:17,215 --> 00:01:20,545
+therefore violating the
+independence assumption.
+
+29
+00:01:20,545 --> 00:01:23,050
+What is a model that
+more accurately
+
+30
+00:01:23,050 --> 00:01:25,760
+describes the structure of
+repeated measures data?
+
+31
+00:01:25,760 --> 00:01:27,615
+We previously discussed allowing
+
+32
+00:01:27,615 --> 00:01:30,570
+each subject to have their
+own distinct regression line.
+
+33
+00:01:30,570 --> 00:01:32,660
+One that differs from
+the regression line,
+
+34
+00:01:32,660 --> 00:01:34,910
+defining the overall
+relationship between
+
+35
+00:01:34,910 --> 00:01:37,895
+outcome and time averaged
+across the population,
+
+36
+00:01:37,895 --> 00:01:39,715
+shown here in red.
+
+37
+00:01:39,715 --> 00:01:43,055
+We can imagine a model
+in which each subject
+
+38
+00:01:43,055 --> 00:01:46,010
+has their own subject-specific
+regression line,
+
+39
+00:01:46,010 --> 00:01:48,890
+and that all subject-specific
+lines are parallel
+
+40
+00:01:48,890 --> 00:01:51,785
+to each other and to the
+population regression line.
+
+41
+00:01:51,785 --> 00:01:54,800
+That is the subject-specific
+regression lines have
+
+42
+00:01:54,800 --> 00:01:58,745
+a common slope but differ
+with respect to intercepts.
+
+43
+00:01:58,745 --> 00:02:01,670
+Let's think about how we
+would build such a model,
+
+44
+00:02:01,670 --> 00:02:04,835
+starting with the simple
+linear regression equation.
+
+45
+00:02:04,835 --> 00:02:07,340
+Let Beta zero and Beta one define
+
+46
+00:02:07,340 --> 00:02:08,690
+the intercepted slope of
+
+47
+00:02:08,690 --> 00:02:12,055
+the red population
+regression line as usual.
+
+48
+00:02:12,055 --> 00:02:15,185
+We can add a single term
+to the model that gives
+
+49
+00:02:15,185 --> 00:02:17,965
+each subject a distinct
+intercept value.
+
+50
+00:02:17,965 --> 00:02:20,300
+This term is called
+a random intercept.
+
+51
+00:02:20,300 --> 00:02:23,570
+It is indexed by I to indicate
+that it differs between
+
+52
+00:02:23,570 --> 00:02:25,340
+subjects and it lasts between
+
+53
+00:02:25,340 --> 00:02:28,130
+subjects variation in intercepts.
+
+54
+00:02:28,130 --> 00:02:31,670
+This new model is a linear
+mixed effect model,
+
+55
+00:02:31,670 --> 00:02:33,919
+specifically a random intercept
+
+56
+00:02:33,919 --> 00:02:35,750
+linear mixed effect model.
+
+57
+00:02:35,750 --> 00:02:37,610
+Let's take a look
+at the individual
+
+58
+00:02:37,610 --> 00:02:39,445
+components of the model.
+
+59
+00:02:39,445 --> 00:02:42,710
+The two Beta terms are
+called fixed effects.
+
+60
+00:02:42,710 --> 00:02:45,050
+They're population-level
+parameters that
+
+61
+00:02:45,050 --> 00:02:47,150
+define the population
+regression line.
+
+62
+00:02:47,150 --> 00:02:49,850
+In the figure, Beta
+zero and Beta one,
+
+63
+00:02:49,850 --> 00:02:53,185
+give the form of the red
+population regression line.
+
+64
+00:02:53,185 --> 00:02:57,095
+Our new B_0I term is
+a random effect term,
+
+65
+00:02:57,095 --> 00:02:59,285
+specifically a random intercept.
+
+66
+00:02:59,285 --> 00:03:02,795
+Each sample has its own
+random intercept term,
+
+67
+00:03:02,795 --> 00:03:05,270
+and it is this random
+effect term that
+
+68
+00:03:05,270 --> 00:03:08,135
+captures the repeated
+measures nature of the data.
+
+69
+00:03:08,135 --> 00:03:10,970
+By giving each sample
+a distinct intercept,
+
+70
+00:03:10,970 --> 00:03:12,560
+the model is acknowledging that
+
+71
+00:03:12,560 --> 00:03:14,195
+measurements on the same subject
+
+72
+00:03:14,195 --> 00:03:17,779
+are more likely to be similar
+or positively correlated.
+
+73
+00:03:17,779 --> 00:03:20,720
+We call this between
+subjects variability.
+
+74
+00:03:20,720 --> 00:03:24,835
+For example, the B_01 term
+in the picture is positive,
+
+75
+00:03:24,835 --> 00:03:25,940
+and indicates that the
+
+76
+00:03:25,940 --> 00:03:27,560
+yellow measurements
+corresponding to
+
+77
+00:03:27,560 --> 00:03:29,390
+the first sample tend to be
+
+78
+00:03:29,390 --> 00:03:32,200
+well above the population
+regression line.
+
+79
+00:03:32,200 --> 00:03:34,970
+Alternatively, the
+random intercept for
+
+80
+00:03:34,970 --> 00:03:38,330
+the third subject
+B_03 is negative,
+
+81
+00:03:38,330 --> 00:03:40,775
+indicating that measurements
+for this sample,
+
+82
+00:03:40,775 --> 00:03:42,350
+shown by blue dots tend to
+
+83
+00:03:42,350 --> 00:03:45,440
+reside below the population
+regression line.
+
+84
+00:03:45,440 --> 00:03:48,440
+The final component of
+the random intercept
+
+85
+00:03:48,440 --> 00:03:52,285
+mixed model is the random
+error term Epsilon IJ.
+
+86
+00:03:52,285 --> 00:03:56,140
+The random errors captured
+within subjects variability,
+
+87
+00:03:56,140 --> 00:03:58,670
+or the part of the observed
+outcome that cannot
+
+88
+00:03:58,670 --> 00:04:01,250
+be explained by the
+population regression line,
+
+89
+00:04:01,250 --> 00:04:03,980
+and the subject specific
+random intercepts.
+
+90
+00:04:03,980 --> 00:04:06,470
+Pictorially, the random errors
+
+91
+00:04:06,470 --> 00:04:08,705
+shown here as black
+arrowed lines,
+
+92
+00:04:08,705 --> 00:04:11,435
+are the distances between
+each observed outcome
+
+93
+00:04:11,435 --> 00:04:14,515
+and the respective
+subject-specific regression line.
+
+94
+00:04:14,515 --> 00:04:18,335
+Collectively, the random error
+terms for a given sample
+
+95
+00:04:18,335 --> 00:04:20,060
+are randomly distributed about
+
+96
+00:04:20,060 --> 00:04:22,970
+the subject specific
+regression line.
+
+97
+00:04:22,970 --> 00:04:25,010
+It is the mixture of
+
+98
+00:04:25,010 --> 00:04:28,580
+fixed and random effects that
+gives this model its name,
+
+99
+00:04:28,580 --> 00:04:31,385
+the mixed effect
+regression model.
+
+100
+00:04:31,385 --> 00:04:34,505
+Now that we've built the
+random intercept model,
+
+101
+00:04:34,505 --> 00:04:36,125
+let's take a minute
+to think about
+
+102
+00:04:36,125 --> 00:04:38,825
+the intuition behind
+the terms in the model.
+
+103
+00:04:38,825 --> 00:04:41,540
+Suppose we have a
+population for which we are
+
+104
+00:04:41,540 --> 00:04:44,675
+interested in studying a
+specific outcome over time.
+
+105
+00:04:44,675 --> 00:04:46,190
+As with most studies,
+
+106
+00:04:46,190 --> 00:04:47,390
+suppose we are unable to
+
+107
+00:04:47,390 --> 00:04:48,830
+get measurements
+from each person in
+
+108
+00:04:48,830 --> 00:04:52,255
+the entire population and
+therefore take a sample.
+
+109
+00:04:52,255 --> 00:04:54,545
+From the first subject sampled,
+
+110
+00:04:54,545 --> 00:04:55,790
+we get multiple measurements of
+
+111
+00:04:55,790 --> 00:04:57,485
+the outcome taken over time,
+
+112
+00:04:57,485 --> 00:05:00,760
+and we can imagine a regression
+line for this subject.
+
+113
+00:05:00,760 --> 00:05:04,475
+Now, for the next subjects
+samples from the population,
+
+114
+00:05:04,475 --> 00:05:07,070
+we again take measurements
+over time and imagine
+
+115
+00:05:07,070 --> 00:05:08,390
+fitting a regression line
+
+116
+00:05:08,390 --> 00:05:10,595
+specific to this subject's data.
+
+117
+00:05:10,595 --> 00:05:12,485
+As we previously discussed,
+
+118
+00:05:12,485 --> 00:05:14,540
+the regression line for
+this subject will be
+
+119
+00:05:14,540 --> 00:05:17,840
+slightly different than that
+of the first subjects line.
+
+120
+00:05:17,840 --> 00:05:20,750
+Imagine if we could compute
+the regression line
+
+121
+00:05:20,750 --> 00:05:23,045
+for all subjects
+in the population,
+
+122
+00:05:23,045 --> 00:05:25,775
+and then average
+across those lines.
+
+123
+00:05:25,775 --> 00:05:28,595
+What we get is the
+population regression line,
+
+124
+00:05:28,595 --> 00:05:32,850
+which is indicated by Beta
+zero plus Beta one times time.
+
+125
+00:05:32,850 --> 00:05:36,670
+We've considered two
+subject-specific regression lines
+
+126
+00:05:36,670 --> 00:05:37,750
+that differ slightly from
+
+127
+00:05:37,750 --> 00:05:39,805
+the red population
+regression line.
+
+128
+00:05:39,805 --> 00:05:42,505
+The difference from the
+population regression line
+
+129
+00:05:42,505 --> 00:05:44,950
+is the random
+intercept term B_0I.
+
+130
+00:05:44,950 --> 00:05:46,990
+Therefore, the equation for
+
+131
+00:05:46,990 --> 00:05:49,300
+the first subjects
+regression line is Beta
+
+132
+00:05:49,300 --> 00:05:54,160
+zero plus B_01 plus
+Beta one times time.
+
+133
+00:05:54,160 --> 00:05:55,870
+Each subject has
+
+134
+00:05:55,870 --> 00:05:58,375
+its own corresponding
+random intercept term.
+
+135
+00:05:58,375 --> 00:06:00,415
+Again, we can write
+the equation of
+
+136
+00:06:00,415 --> 00:06:02,860
+each subject-specific line using
+
+137
+00:06:02,860 --> 00:06:06,250
+a mixture of the fixed
+effect population parameters
+
+138
+00:06:06,250 --> 00:06:09,205
+and the subject-specific
+random effect.
+
+139
+00:06:09,205 --> 00:06:12,235
+In reality, there
+are many such lines,
+
+140
+00:06:12,235 --> 00:06:14,775
+one from each subject
+in the population,
+
+141
+00:06:14,775 --> 00:06:17,540
+each with its own random
+effect term capturing
+
+142
+00:06:17,540 --> 00:06:18,800
+its respective distance from
+
+143
+00:06:18,800 --> 00:06:20,575
+the population regression line.
+
+144
+00:06:20,575 --> 00:06:22,205
+When considered as a whole,
+
+145
+00:06:22,205 --> 00:06:23,945
+the lines form a distribution,
+
+146
+00:06:23,945 --> 00:06:25,250
+and that distribution is
+
+147
+00:06:25,250 --> 00:06:27,995
+centered at the population
+regression line.
+
+148
+00:06:27,995 --> 00:06:30,920
+Since the regression
+lines are all parallel,
+
+149
+00:06:30,920 --> 00:06:33,170
+they differ only in
+their intercepts.
+
+150
+00:06:33,170 --> 00:06:35,840
+We can summarize
+the distribution of
+
+151
+00:06:35,840 --> 00:06:38,810
+subject-specific lines
+by the distribution
+
+152
+00:06:38,810 --> 00:06:40,730
+of random intercept terms,
+
+153
+00:06:40,730 --> 00:06:43,220
+corresponding to the
+subject lines being
+
+154
+00:06:43,220 --> 00:06:45,490
+centered at the population
+regression line,
+
+155
+00:06:45,490 --> 00:06:47,839
+the distribution of
+random intercepts
+
+156
+00:06:47,839 --> 00:06:49,645
+will be centered at zero.
+
+157
+00:06:49,645 --> 00:06:51,260
+It is customary to put
+
+158
+00:06:51,260 --> 00:06:53,780
+an assumption on the shape
+of the distribution.
+
+159
+00:06:53,780 --> 00:06:57,050
+Typically, the random intercepts
+are normally distributed
+
+160
+00:06:57,050 --> 00:07:01,295
+with a variance indicated
+by Sigma B0 squared.
+
+161
+00:07:01,295 --> 00:07:04,040
+Given this framework,
+we can consider
+
+162
+00:07:04,040 --> 00:07:06,410
+this subject-specific
+regression line for
+
+163
+00:07:06,410 --> 00:07:09,905
+a randomly chosen individual
+from the population.
+
+164
+00:07:09,905 --> 00:07:13,790
+The subject-specific regression
+line for this sample
+
+165
+00:07:13,790 --> 00:07:15,530
+is a random line that differs
+
+166
+00:07:15,530 --> 00:07:17,885
+from the population
+regression line.
+
+167
+00:07:17,885 --> 00:07:20,810
+That difference is the
+random intercept term,
+
+168
+00:07:20,810 --> 00:07:22,100
+which is essentially a draw
+
+169
+00:07:22,100 --> 00:07:24,065
+from a probability distribution.
+
+170
+00:07:24,065 --> 00:07:26,480
+It is this distribution
+that describes
+
+171
+00:07:26,480 --> 00:07:29,810
+between subject differences
+in the regression lines.
+
+172
+00:07:29,810 --> 00:07:32,780
+The actual observations
+for this sample are
+
+173
+00:07:32,780 --> 00:07:35,570
+then realizations from the
+subject specific line.
+
+174
+00:07:35,570 --> 00:07:37,100
+Of course, we do not expect
+
+175
+00:07:37,100 --> 00:07:39,515
+the observations will
+fit exactly on the line,
+
+176
+00:07:39,515 --> 00:07:41,945
+instead they'll be
+scattered around the line.
+
+177
+00:07:41,945 --> 00:07:44,960
+That is, they'll have some
+noise or random error to them.
+
+178
+00:07:44,960 --> 00:07:46,910
+This is precisely
+what is captured in
+
+179
+00:07:46,910 --> 00:07:50,060
+the random error term Epsilon IJ.
+
+180
+00:07:50,060 --> 00:07:52,040
+I hope this video gives you
+
+181
+00:07:52,040 --> 00:07:53,180
+a good introduction to
+
+182
+00:07:53,180 --> 00:07:55,430
+the random intercept
+mixed effect model.
+
+183
+00:07:55,430 --> 00:07:57,620
+Specifically, for the intuition
+
+184
+00:07:57,620 --> 00:07:59,270
+and notation for the model.
+
+185
+00:07:59,270 --> 00:08:01,895
+We'll continue our discussion
+in the next video,
+
+186
+00:08:01,895 --> 00:08:04,505
+where we'll put our random
+intercept model to use
+
+187
+00:08:04,505 --> 00:08:08,683
+for interpretation,
+prediction, and inference.
+

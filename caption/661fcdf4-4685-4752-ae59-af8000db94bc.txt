@@ -1,0 +1,2672 @@
+1
+00:00:28,460 --> 00:01:38,760
+Yeah. Thank you. All right, so looks like we don't have class next Monday.
+
+2
+00:01:39,240 --> 00:01:42,340
+Uh, Martin Luther King's Day. There's no regular class.
+
+3
+00:01:44,560 --> 00:01:51,970
+Wow. So the next lecture will be next Wednesday, a week from today.
+
+4
+00:02:04,350 --> 00:02:19,670
+All right. I think we're ready. Okay.
+
+5
+00:02:20,030 --> 00:02:28,730
+So let's continue the so last time we're talking about the general principles about supervised learning.
+
+6
+00:02:28,850 --> 00:02:33,740
+So specifically, how do you fit algorithm?
+
+7
+00:02:35,180 --> 00:02:43,410
+How do you evaluate the algorithm? Right. So despite different approaches, what we talked about, there are two different approaches.
+
+8
+00:02:43,430 --> 00:02:53,809
+One is probabilistic learning, which will assume the relationship between X and Y, the predictor and outcome, right?
+
+9
+00:02:53,810 --> 00:03:03,620
+So that the problematic relationship there is usually explicit statistical modeling about probability Y given the X.
+
+10
+00:03:06,110 --> 00:03:16,310
+And then if you go this road Y with a given loss function, then it's a by product that you find your learning algorithm.
+
+11
+00:03:17,060 --> 00:03:20,719
+So the second approach is more functional machine learning,
+
+12
+00:03:20,720 --> 00:03:34,100
+or there's more popular machine learning approaches is instead of what is completely avoid to specify the relationship between that X and Y,
+
+13
+00:03:34,520 --> 00:03:39,180
+specifically the the probabilistic relationship between X and Y.
+
+14
+00:03:39,200 --> 00:03:44,629
+So based on that type of approach, you may not be able to simulate your data,
+
+15
+00:03:44,630 --> 00:03:51,890
+so to speak, because that information is not part of your algorithm development.
+
+16
+00:03:52,070 --> 00:03:57,620
+Right. But instead, you can assume a functional family.
+
+17
+00:03:57,620 --> 00:04:04,820
+And now within dysfunctional family, you focus on minimize the expected loss.
+
+18
+00:04:05,570 --> 00:04:08,270
+So so these are two types of the philosophy.
+
+19
+00:04:08,270 --> 00:04:20,900
+They all share the same principle of statistical decision theory, but of results two completely different ways you develop our with them.
+
+20
+00:04:22,160 --> 00:04:32,020
+So going forward, we're going to talk a little bit about specialty for the functional view or this popular machine learning view.
+
+21
+00:04:32,390 --> 00:04:38,510
+How do you fit your algorithm? How do you choose your parameter property next week?
+
+22
+00:04:39,890 --> 00:04:47,660
+But there are also some even within this, despite using different types of approaches.
+
+23
+00:04:47,660 --> 00:04:54,260
+If there are still some important guiding principles we need to know specifically today,
+
+24
+00:04:54,260 --> 00:05:04,630
+we should talk about the bias of variance tradeoff, which is the most important theory in supervised learning.
+
+25
+00:05:05,050 --> 00:05:06,860
+Okay, but even before that,
+
+26
+00:05:07,010 --> 00:05:18,260
+we should take what we have already learned and then put it into illustration and then see how different approaches work in practice.
+
+27
+00:05:18,710 --> 00:05:23,800
+So to do that. You see if I can.
+
+28
+00:05:26,640 --> 00:05:33,870
+We're going to see a toy because this is a completely simplified illustration.
+
+29
+00:05:38,080 --> 00:05:41,940
+I mean, first set this up. Um.
+
+30
+00:05:43,410 --> 00:05:47,420
+Turn on the system. No.
+
+31
+00:05:47,420 --> 00:06:02,200
+This one. This. Oh.
+
+32
+00:06:02,240 --> 00:06:10,319
+Computer. Okay. All right.
+
+33
+00:06:10,320 --> 00:06:18,090
+So so this example in the lecture note too, by the way, I updated the lecture note to a little bit.
+
+34
+00:06:18,090 --> 00:06:23,670
+There was some typo and added a little bit of the comments.
+
+35
+00:06:26,820 --> 00:06:31,860
+All right. So here we are. So the data here is simulated.
+
+36
+00:06:31,950 --> 00:06:36,599
+This is trying to create some sort of scenario.
+
+37
+00:06:36,600 --> 00:06:39,840
+So there is a well-defined the problem nevertheless.
+
+38
+00:06:40,650 --> 00:06:45,660
+So the code is written in our it's.
+
+39
+00:06:46,260 --> 00:06:53,980
+So if you attack the canvas, there is a file. Tab and within that there is a code folder.
+
+40
+00:06:54,130 --> 00:06:57,880
+So the code of this is a written in are marked down.
+
+41
+00:06:59,070 --> 00:07:08,350
+The source code is there so you can download and play with, by the way, any code distributed there you can actually use for homework purpose.
+
+42
+00:07:09,370 --> 00:07:16,240
+Kind of be important for sometimes recreate the data set so it can make comparison.
+
+43
+00:07:18,100 --> 00:07:23,560
+So the problem here is going to be a classification problem.
+
+44
+00:07:24,850 --> 00:07:30,520
+The training data we can see is going to be in this screen.
+
+45
+00:07:30,520 --> 00:07:34,000
+So you can see the orange and the blue dots are here.
+
+46
+00:07:34,450 --> 00:07:38,500
+So this is your training data. So supervise the learning problem.
+
+47
+00:07:39,040 --> 00:07:48,420
+So you're going to get the training data like this. So the information associate with this dataset is the coordinates of the points, right?
+
+48
+00:07:48,430 --> 00:07:52,149
+This is a two dimensional problem.
+
+49
+00:07:52,150 --> 00:07:59,380
+You get every point, again, the X coordinate and then Y coordinates and then also additional information is the color of the point.
+
+50
+00:07:59,410 --> 00:08:10,420
+So that's the point of interest. Okay, so this looks a little bit noisy, but it's actually generated from a systematic scheme.
+
+51
+00:08:10,840 --> 00:08:12,320
+I'll explain that later on.
+
+52
+00:08:12,790 --> 00:08:24,459
+So the problem here is if you gave you this training data, there's a 500 data points you have and then I'm going to use this as your training data.
+
+53
+00:08:24,460 --> 00:08:31,510
+So the question is, if it were randomly pick up points from this two dimensional unit plane.
+
+54
+00:08:31,540 --> 00:08:40,030
+So the unit plane, because the X and Y are both unit like one from 0 to 1, from 0 to 1.
+
+55
+00:08:40,390 --> 00:08:45,820
+So I'll say if I pick a points here and you say, well, the color of the point, right.
+
+56
+00:08:45,820 --> 00:08:57,760
+So this kind of a predict the class or predict that that the category or classify the the data points that's not in the training data.
+
+57
+00:08:57,760 --> 00:09:00,960
+And then can you predict the color of that points. Right.
+
+58
+00:09:01,920 --> 00:09:05,910
+So that's the the the example any questions? This is important.
+
+59
+00:09:06,240 --> 00:09:09,300
+So the predictor here is the spatial location.
+
+60
+00:09:09,700 --> 00:09:16,650
+Right. So you have an X coordinate. So you can roughly see there is a pad and if you use your just eyeballing the.
+
+61
+00:09:18,760 --> 00:09:23,440
+The picture here. Right. So the orange points is mostly on the pulp.
+
+62
+00:09:23,440 --> 00:09:27,970
+And then the. On the.
+
+63
+00:09:29,060 --> 00:09:32,240
+Of the blue points on the bottom. So. But.
+
+64
+00:09:33,080 --> 00:09:37,790
+So this is a kind of a vertical separation of the two classes.
+
+65
+00:09:38,080 --> 00:09:41,120
+And horizontally they are also.
+
+66
+00:09:41,270 --> 00:09:49,730
+There is some structure there. Right. So the on this side, there's one small ax seems to have.
+
+67
+00:09:49,820 --> 00:09:55,550
+If you look at this slice, there are some less blue points.
+
+68
+00:09:55,940 --> 00:10:00,290
+But if you move to the the middle, there are some more blue points.
+
+69
+00:10:01,310 --> 00:10:05,900
+If you're if you look at the. A slice of the uni.
+
+70
+00:10:07,040 --> 00:10:10,280
+This you the unit square. Okay.
+
+71
+00:10:11,000 --> 00:10:13,909
+Right. So is that clear? The question. Right.
+
+72
+00:10:13,910 --> 00:10:22,190
+So to be more specific, you what you want to do is usually in this type of the spatial type of the problem,
+
+73
+00:10:22,190 --> 00:10:27,200
+you want to find out this so called a decision boundary.
+
+74
+00:10:27,540 --> 00:10:38,810
+Right. So in US unit square, so your physician boundary may be something like here and then you can say and your points,
+
+75
+00:10:39,260 --> 00:10:44,960
+Bob, would be our range and then points below will be plural.
+
+76
+00:10:45,410 --> 00:10:48,650
+So that decision boundary doesn't necessarily occur.
+
+77
+00:10:48,830 --> 00:10:53,580
+You could have those types of the pockets. Kids here.
+
+78
+00:10:54,430 --> 00:10:57,730
+This is our physician, Barbara. If you are in this island, you are.
+
+79
+00:10:58,510 --> 00:11:00,540
+So those are all valid decision boundary.
+
+80
+00:11:00,550 --> 00:11:08,350
+Anyway, the point is to summarize, you are out with them in the two dimensional type of the spatial type of the problem.
+
+81
+00:11:09,370 --> 00:11:14,320
+Finding the decision boundary usually is the deliverable of your algorithm, right?
+
+82
+00:11:14,740 --> 00:11:23,470
+So you gave the output. So if you have that these is a boundary, you have that these are rules, then for any given point, you can have an input.
+
+83
+00:11:23,890 --> 00:11:31,209
+I can tell you what the color of the forms. Right. You you specify the X and Y and then this decision boundary.
+
+84
+00:11:31,210 --> 00:11:35,260
+I tell you the color of the points. So it's a bit noisy.
+
+85
+00:11:35,260 --> 00:11:39,830
+There is no clear cut. So you know where the decision boundary would be.
+
+86
+00:11:39,850 --> 00:11:44,620
+So this is kind of a common starting point.
+
+87
+00:11:45,820 --> 00:11:50,740
+And before I'll tell you what, how the data is generated.
+
+88
+00:11:51,940 --> 00:12:00,550
+Let's just think about given what we have already know from other classes or your statistical trainings,
+
+89
+00:12:01,750 --> 00:12:07,030
+what kind of the the the decision boundary or the classifier, you can view the path, right?
+
+90
+00:12:11,940 --> 00:12:17,720
+Start from here. So, okay, so this plot is the raw data.
+
+91
+00:12:17,780 --> 00:12:21,200
+The right line is actually the true decision boundary.
+
+92
+00:12:21,650 --> 00:12:32,960
+I'll explain how the you know this. So if your algorithm generate the decision boundary is identical to the right line, you are doing a perfect job.
+
+93
+00:12:33,870 --> 00:12:38,480
+Right. So this is a because this is simulated data. I know how the data simulated.
+
+94
+00:12:38,780 --> 00:12:45,140
+So this one is showing some sort of the ceiling of your learning algorithm.
+
+95
+00:12:45,200 --> 00:12:50,780
+If your algorithm is very, very accurate, then you get something very similar to the right line.
+
+96
+00:12:51,380 --> 00:12:56,510
+Okay. But usually you don't observe this in practice.
+
+97
+00:12:56,510 --> 00:13:05,690
+You don't observe this. So the the purpose of adding in this right line is just give you a reference point to evaluate how,
+
+98
+00:13:06,110 --> 00:13:13,510
+how, how well the performance of the of these algorithms you are going to build.
+
+99
+00:13:13,940 --> 00:13:18,680
+Okay. So most of us come from a statistical background.
+
+100
+00:13:18,830 --> 00:13:25,550
+And then in this type of the problem, you resort to the things you feel the most comfortable with.
+
+101
+00:13:26,360 --> 00:13:34,340
+And then in this case, there will be a linear classifier you can directly build from logistic regression.
+
+102
+00:13:34,520 --> 00:13:44,030
+Right. I think some of you haven't taken the course or you are taking the course, but may not get to the point of talking about logistic regression.
+
+103
+00:13:44,030 --> 00:13:54,769
+But I think this is usually the go to to if you have a binary outcome zero one and then you have a bunch of predictors.
+
+104
+00:13:54,770 --> 00:14:01,759
+And so the first thing you go is logistic regression, I have to say is statistics.
+
+105
+00:14:01,760 --> 00:14:08,780
+Usually the purpose is different. Here we're doing a classification is a classic machine learning problem.
+
+106
+00:14:09,110 --> 00:14:13,580
+So in statistics, it's usually about association.
+
+107
+00:14:13,680 --> 00:14:25,370
+Right? So you want to use a logistic regression to determine if a predictor and then the outcome are associated or not.
+
+108
+00:14:25,820 --> 00:14:28,430
+So the problem is fundamental difference.
+
+109
+00:14:28,730 --> 00:14:40,070
+The visit, um, but nevertheless they can be used together because, you know, I will explain a little bit why that's the case.
+
+110
+00:14:42,590 --> 00:14:49,010
+Right. So if you run the logistic regression, is that so logistic regression is essentially a.
+
+111
+00:14:52,770 --> 00:14:55,910
+So for those of you who haven't taken the 61.
+
+112
+00:14:58,380 --> 00:15:07,440
+It's trying to determine. The law of probability.
+
+113
+00:15:08,200 --> 00:15:13,230
+Why to one. So let's not use the Y because.
+
+114
+00:15:13,980 --> 00:15:20,440
+So the Z is. Zero on one.
+
+115
+00:15:20,440 --> 00:15:26,080
+Let's say zero zero is blue and then orange.
+
+116
+00:15:29,100 --> 00:15:35,620
+Right. So. So the Z is a probability that each point has.
+
+117
+00:15:35,860 --> 00:15:41,010
+Right? So either the point is either blue or orange.
+
+118
+00:15:41,070 --> 00:15:45,490
+So you can think about. The situation is affected a lot.
+
+119
+00:15:45,510 --> 00:15:53,489
+Infected or. Well, I mean, if it's infectious disease as a disease or on the affected individuals.
+
+120
+00:15:53,490 --> 00:16:08,400
+So you have a01. So if you run a logistic regression, you are assessed the probability of a point of that being blue versus orange.
+
+121
+00:16:08,550 --> 00:16:19,950
+In this way, the probability z equal to zero, while somewhat also right conditional on the the coordinate spatial coordinates.
+
+122
+00:16:19,980 --> 00:16:25,650
+I'm not right in that way. Equals, let's say, new.
+
+123
+00:16:28,940 --> 00:16:37,680
+Just because it's always my notes. Okay.
+
+124
+00:16:38,190 --> 00:16:43,200
+I said you plus alpha x plus beta one.
+
+125
+00:16:44,480 --> 00:16:49,690
+So what you are assuming is this type of the. Functional form.
+
+126
+00:16:50,290 --> 00:16:56,530
+But more specifically, this is basically saying the probability is equal to one.
+
+127
+00:16:56,590 --> 00:17:00,249
+If you're running a logistic regression,
+
+128
+00:17:00,250 --> 00:17:11,680
+this is equivalent to say you are assuming the probability Z equals one equals one over one plus the exponential function.
+
+129
+00:17:13,560 --> 00:17:16,730
+The negative new plus x.
+
+130
+00:17:18,540 --> 00:17:27,080
+Speaker one. So the point is this function has all the characteristics of a learning function, right?
+
+131
+00:17:27,530 --> 00:17:34,910
+So the outcome is right here where we're thinking about the probability of one and then the affiliate.
+
+132
+00:17:35,030 --> 00:17:42,900
+So the the function is predicted or is described by this input X on Y.
+
+133
+00:17:42,920 --> 00:17:46,390
+So the coordinates will determine the probability.
+
+134
+00:17:46,460 --> 00:17:51,230
+So except this one makes a pretty strong assumption.
+
+135
+00:17:51,970 --> 00:17:58,480
+This relationship, not just this particular functional relationship, the also thinking,
+
+136
+00:17:58,900 --> 00:18:07,000
+this new class of X plus theta y have some linear relationship as additive linear relationship.
+
+137
+00:18:07,590 --> 00:18:15,040
+Right. So we call this type of the assumption there's kind of a global assumption
+
+138
+00:18:15,370 --> 00:18:21,490
+because geometrically they give you corresponding to a linear position bound.
+
+139
+00:18:22,430 --> 00:18:27,410
+To see that. Let me turn this off for a minute.
+
+140
+00:18:28,700 --> 00:18:32,520
+Can I? It doesn't work.
+
+141
+00:18:32,580 --> 00:18:49,560
+Okay, good. So to see why that boundary is sublime here or in the way it.
+
+142
+00:18:51,800 --> 00:19:00,620
+You can think about this. So the log of the probability ratio numeral, you can only write as a lawyer.
+
+143
+00:19:01,730 --> 00:19:07,430
+So this is just a shorthand location equal to one.
+
+144
+00:19:12,520 --> 00:19:16,930
+Equals new plus x plus eight Y.
+
+145
+00:19:18,890 --> 00:19:29,650
+All right. So if you're thinking about this is assuming a probabilities relationship, that particular formula gave you that, right.
+
+146
+00:19:29,660 --> 00:19:40,040
+So this is how you generate the probability and the color of the theta points according to this coordinate and then to see.
+
+147
+00:19:40,040 --> 00:19:45,350
+So here I'm trying to show you why this is responding to all.
+
+148
+00:19:46,330 --> 00:19:51,670
+A linear decision foundry. So if you look at the law function.
+
+149
+00:19:53,430 --> 00:19:56,940
+We're interested in this, the neutral line.
+
+150
+00:19:57,330 --> 00:20:00,660
+So what is the most difficult?
+
+151
+00:20:01,530 --> 00:20:05,910
+The probability value is for you to make a decision. If this is an orange or a blue.
+
+152
+00:20:08,640 --> 00:20:13,590
+Yes. 5050. Exactly. So why do you have 5050?
+
+153
+00:20:14,310 --> 00:20:17,890
+The left hand side will be zero. Right.
+
+154
+00:20:17,940 --> 00:20:21,330
+So it's a one, two, one, the law of one zero.
+
+155
+00:20:21,990 --> 00:20:29,610
+So you can imagine there is a line, so there is a geometric shape or the boundary responding to this coin.
+
+156
+00:20:31,450 --> 00:20:34,560
+So on this line, Gore has the most uncertain.
+
+157
+00:20:35,120 --> 00:20:38,920
+This is why. So this will be your decision boundary.
+
+158
+00:20:39,190 --> 00:20:42,640
+And then you can see if you'll fix everything else.
+
+159
+00:20:42,720 --> 00:20:52,840
+I say, if you look at the the two dimensional unit square vertically, that means you'll fix X, right?
+
+160
+00:20:53,320 --> 00:20:58,330
+So increasing Y, that depends on the value of the base.
+
+161
+00:20:58,600 --> 00:21:02,220
+So this is going to be a monotonic function. Right.
+
+162
+00:21:02,360 --> 00:21:05,390
+So because speed is fixed, you don't know the value, though.
+
+163
+00:21:05,810 --> 00:21:14,090
+So all the data points beyond that, that particular line with the same.
+
+164
+00:21:16,070 --> 00:21:26,410
+While at the same value and that all the points below that line going to be just because the mana quality is of this function, right?
+
+165
+00:21:26,570 --> 00:21:33,540
+Because it's a linear function. So that makes this geometric shape of the very natural, efficient boundary.
+
+166
+00:21:33,750 --> 00:21:41,900
+And then it's easy to see this is a line, right? So if you're not convinced, you can you can say y is equal to.
+
+167
+00:21:42,950 --> 00:21:54,769
+Of over I think negative. I'm over X, so this is the slope of the line and then minus.
+
+168
+00:21:54,770 --> 00:21:58,740
+So this is the intercept of the line. You overpaid.
+
+169
+00:21:58,750 --> 00:22:03,010
+And so this is so this is a life. I don't need to convince anybody.
+
+170
+00:22:03,030 --> 00:22:06,080
+So there is a slope intercept.
+
+171
+00:22:06,100 --> 00:22:09,450
+So that's the line. Okay.
+
+172
+00:22:09,630 --> 00:22:19,570
+So. So what we have here, if we assume this parametric relationship between X and Y and then the Z,
+
+173
+00:22:19,570 --> 00:22:23,740
+so that statistically we usually do that without even saying,
+
+174
+00:22:24,460 --> 00:22:31,870
+right, we assume there is a logistic regression model that is with X or Y, this is how you generate the probability.
+
+175
+00:22:31,870 --> 00:22:35,199
+And then this is A and then you do what sort of a trial, right?
+
+176
+00:22:35,200 --> 00:22:40,719
+You get the probability of a flip. A coin. That coin may not be a fair point.
+
+177
+00:22:40,720 --> 00:22:48,160
+Depends on the probability is usually a bias point and then you can determine the the color of the point.
+
+178
+00:22:50,430 --> 00:23:02,100
+And that this will be the decision boundary. And then the point here is this all of these assumptions specify the parametric family.
+
+179
+00:23:03,220 --> 00:23:07,450
+Right. So this is all good. We talk about this without even look at the.
+
+180
+00:23:08,350 --> 00:23:12,100
+Training data. Right. So how the training data help us?
+
+181
+00:23:13,900 --> 00:23:20,320
+So the training data will help us to determine the estimate of new operators.
+
+182
+00:23:20,320 --> 00:23:25,540
+So subsequently that will determine the slope of the line and then the intercept.
+
+183
+00:23:25,570 --> 00:23:32,740
+All right. So. What is the principle for us to find all these estimates?
+
+184
+00:23:33,580 --> 00:23:41,050
+To know if you are right there. What are what what is the statistical principle we use to find those estimate?
+
+185
+00:23:41,830 --> 00:23:45,500
+For logistic regression. Anybody.
+
+186
+00:23:48,040 --> 00:23:50,190
+Are you are you in your first year? I think you are.
+
+187
+00:23:50,200 --> 00:23:54,370
+You have excuse not saying the answer, but if you're your second year, you should know the answer.
+
+188
+00:23:56,840 --> 00:24:00,370
+Which is maximum. Yes.
+
+189
+00:24:00,670 --> 00:24:04,210
+Maximum. Like we would just speak. I think most of you know the answer, but.
+
+190
+00:24:05,110 --> 00:24:09,780
+Don't want to talk to. It's based on maximum likelihood.
+
+191
+00:24:10,890 --> 00:24:14,640
+So there is a bit discrepancy, right?
+
+192
+00:24:14,740 --> 00:24:25,650
+So what we set last time is we have to maximize some sort of a loss function and then here you are maximizing the likelihood.
+
+193
+00:24:26,010 --> 00:24:29,550
+So it turns out these two things are connected.
+
+194
+00:24:30,330 --> 00:24:34,500
+So the maximum likelihood corresponding to a specific form.
+
+195
+00:24:35,580 --> 00:24:42,830
+Of loss function. This may not as trivial as a01 loss.
+
+196
+00:24:43,380 --> 00:24:49,310
+What it's actually called entropy loss in the in the in the context of machine learning.
+
+197
+00:24:49,730 --> 00:24:52,910
+But for for the purpose of today, you know,
+
+198
+00:24:53,120 --> 00:25:02,779
+if you are maximizing according to observe the data you're trying to find estimate according to the the maximum likelihood or you find the
+
+199
+00:25:02,780 --> 00:25:17,209
+maximum likelihood estimate is for alpha beta you then you are actually equivalently are minimizing a particular form of the loss function.
+
+200
+00:25:17,210 --> 00:25:20,450
+So that loss function is not explicitly written.
+
+201
+00:25:20,450 --> 00:25:27,610
+There is no need to explicitly reason that because you know, there is a 1 to 1 relationship between the likelihood and number.
+
+202
+00:25:28,260 --> 00:25:35,540
+Last function. The point is. This is the way we see the probabilistic.
+
+203
+00:25:38,300 --> 00:25:42,380
+Statistical training. A statistical learning is.
+
+204
+00:25:43,280 --> 00:25:45,670
+This operate in practice. Right.
+
+205
+00:25:45,710 --> 00:25:54,710
+So you start with a statistical model and then you come up with this and then you trying to estimate all these qualities and then you get up.
+
+206
+00:25:54,710 --> 00:25:57,770
+Had made a hat and then you have.
+
+207
+00:26:00,220 --> 00:26:03,160
+And that actually the only useful things are these.
+
+208
+00:26:03,340 --> 00:26:09,820
+So you also get you, if you're fit, a logistic regression model, you also get standard error alpha and beta.
+
+209
+00:26:09,910 --> 00:26:18,219
+I also had the center arrow beta and then there arrow if you have the right and then sometimes you are in the association problem,
+
+210
+00:26:18,220 --> 00:26:28,000
+you're interested to compute a p value. All of that that becomes irrelevant in machine learning problem because we're interested in prediction.
+
+211
+00:26:28,270 --> 00:26:32,320
+And then as I said, if you get that decision boundary, you're done.
+
+212
+00:26:33,610 --> 00:26:40,000
+This is one of the reason there is although you're using the same model, the same statistical model,
+
+213
+00:26:40,230 --> 00:26:45,240
+you are not necessarily carrying out over the same statistical inference.
+
+214
+00:26:45,250 --> 00:26:50,620
+Right. So there's kind of a task to determine where you are.
+
+215
+00:26:53,040 --> 00:26:57,600
+Right. Okay. Any questions about this?
+
+216
+00:26:59,210 --> 00:27:09,100
+Next, we're going to see how you look like. I think all of these are should be somewhat familiar.
+
+217
+00:27:09,280 --> 00:27:16,329
+You should be familiar with all of these. But the point is, later on we're going to see a different algorithm,
+
+218
+00:27:16,330 --> 00:27:23,110
+its more classic machine learning algorithm, how, how this how the algorithm operate.
+
+219
+00:27:23,110 --> 00:27:27,399
+So you can make a comparison between the two. So this is a call.
+
+220
+00:27:27,400 --> 00:27:34,780
+The linear classifier is also known as a global classifier, because if you were making that assumption,
+
+221
+00:27:34,780 --> 00:27:42,520
+as I said, you already predetermined the decision boundary is a line, right?
+
+222
+00:27:43,300 --> 00:27:48,460
+Which in the way is wrong, because I show you it's not a line, it's a curve.
+
+223
+00:27:49,000 --> 00:27:55,390
+Your starting point is already wrong. Does it matter?
+
+224
+00:27:56,020 --> 00:28:04,360
+Of course it matters. Does it matter practically that you don't know the question, but this is the code you can fit.
+
+225
+00:28:04,360 --> 00:28:09,160
+A logistic regression in is just one line after you get all these.
+
+226
+00:28:11,080 --> 00:28:17,000
+Estimates you can compute. The Intercept like this.
+
+227
+00:28:18,490 --> 00:28:24,130
+I zeroed in on the board. So how do you compute for that decision boundary?
+
+228
+00:28:24,420 --> 00:28:28,100
+Now you need to use to plot all that decision boundary.
+
+229
+00:28:28,100 --> 00:28:34,879
+Right. So the how do you. So it's actually the negative alpha divided by beta.
+
+230
+00:28:34,880 --> 00:28:38,510
+And then it's a behind the screen. So you can see.
+
+231
+00:28:38,870 --> 00:28:45,290
+So if you're a plot out there, this is a look like this. So this is a linear boundary.
+
+232
+00:28:45,410 --> 00:28:48,560
+You ask for a line and then you get a line.
+
+233
+00:28:49,040 --> 00:28:53,330
+Okay. So there's nothing to complain about that because you made that assumption.
+
+234
+00:28:54,440 --> 00:28:59,679
+Is that good? Visually, it's looking pretty well.
+
+235
+00:28:59,680 --> 00:29:08,800
+I mean, it's all about comparison, but visually, if this is the only thing you see, you have training data, you assume a linear,
+
+236
+00:29:09,190 --> 00:29:14,260
+you see some of the things are even the training data are going to be misclassified by this,
+
+237
+00:29:14,680 --> 00:29:22,630
+but that's rightfully so because we know that data is always contaminated by random noise.
+
+238
+00:29:23,110 --> 00:29:26,140
+So there is. Absolutely, there is.
+
+239
+00:29:27,840 --> 00:29:37,140
+No such acquisition boundary can make sure you know it's not the desire to property that the decision boundary classify.
+
+240
+00:29:37,470 --> 00:29:40,980
+The training data point perfectly.
+
+241
+00:29:42,500 --> 00:29:51,079
+Okay so that remember that. So you statistics if the the the if the fitted model has that property we usually
+
+242
+00:29:51,080 --> 00:29:57,200
+worried about so called overfitting problem right so we don't want overfitting.
+
+243
+00:29:57,200 --> 00:30:04,670
+So occasionally there is misclassified training points showing up on this decision.
+
+244
+00:30:04,970 --> 00:30:08,240
+Using this decision boundary is not nothing to worry about.
+
+245
+00:30:08,660 --> 00:30:18,500
+So from an absolute sense, if you don't have comparison, you feel like this is a classifier doing adequate job, fair to say, right?
+
+246
+00:30:19,010 --> 00:30:20,930
+But if you compare it with the truth,
+
+247
+00:30:21,560 --> 00:30:31,070
+then you start thinking probably not the best the thing you can get right because you made that straight line assumption.
+
+248
+00:30:31,430 --> 00:30:34,700
+And then the truth is actually a curvature.
+
+249
+00:30:34,700 --> 00:30:40,820
+There have some curvature and then there's pretty. Obvious cover during this.
+
+250
+00:30:41,160 --> 00:30:49,320
+So. Comparative analysis can be improved.
+
+251
+00:30:51,030 --> 00:30:54,330
+It is true. It can be improved. We'll talk about that later on.
+
+252
+00:30:55,850 --> 00:31:00,680
+But next, so we're going to talk about a classic machine learning algorithm in this type of the problem.
+
+253
+00:31:01,130 --> 00:31:09,180
+So those type of that, the the algorithm is actually operating in the functional machine learning way.
+
+254
+00:31:09,200 --> 00:31:13,640
+So they don't consider any. The probability problems.
+
+255
+00:31:13,690 --> 00:31:17,290
+There is no probability explicitly specified.
+
+256
+00:31:17,620 --> 00:31:24,280
+It's going to be presented as our with them and then looks like a very intuitive algorithm.
+
+257
+00:31:24,520 --> 00:31:34,960
+So this is a call the Kane years, the neighbor classifier also known as a K and so the algorithm is pretty straightforward.
+
+258
+00:31:36,250 --> 00:31:40,890
+There are roughly. And we.
+
+259
+00:31:47,660 --> 00:31:51,230
+Okay. Before I go to the K, any questions about autistic?
+
+260
+00:31:52,430 --> 00:31:57,920
+Okay. So in the lecture notes, it's a different type of the regression of the regression.
+
+261
+00:31:59,060 --> 00:32:03,080
+Explain a little bit why that's it's.
+
+262
+00:32:04,680 --> 00:32:08,670
+Give very similar numerical results, the just regression.
+
+263
+00:32:09,900 --> 00:32:16,340
+But they has the interpretation that is very close to how this data generated.
+
+264
+00:32:16,410 --> 00:32:19,770
+So that's why I think that on the lecture notes.
+
+265
+00:32:20,620 --> 00:32:32,640
+But we should talk about the ten years than the earth. Again.
+
+266
+00:32:32,650 --> 00:32:35,980
+So. So this one won't have any Malvo in it.
+
+267
+00:32:36,370 --> 00:32:42,980
+Meaning they're not going to be any assumptions in relationship between Y and acts.
+
+268
+00:32:43,060 --> 00:32:48,610
+Maybe that's a good thing. I think you're selecting one less one fewer thing to worry about.
+
+269
+00:32:48,940 --> 00:32:57,070
+Maybe a bad thing. So, you know, you don't know what the mechanism of the data driven, but it's very practical.
+
+270
+00:32:57,100 --> 00:33:00,460
+That's a very practical viewpoint. So.
+
+271
+00:33:03,090 --> 00:33:12,890
+What's this? The cane here's the neighbor going to do is there is a parameter you need to determine to apply that is okay.
+
+272
+00:33:13,680 --> 00:33:24,900
+So the cane defines the nearest data points with respect to to the point you're interested in to interested in classifying.
+
+273
+00:33:25,290 --> 00:33:29,100
+So okay, let's first of all those points.
+
+274
+00:33:29,520 --> 00:33:35,110
+So this is a training point I'm trying to.
+
+275
+00:33:36,780 --> 00:33:40,250
+Like. Looked like this way.
+
+276
+00:33:42,260 --> 00:33:45,920
+Maybe there is something here. All right. So this is our training data.
+
+277
+00:33:47,390 --> 00:33:57,830
+So obviously, you are not interested in in the real classification, your peaking of points, let's say, in here.
+
+278
+00:33:59,320 --> 00:34:03,300
+So that's the square you're trying to classify. Okay.
+
+279
+00:34:03,840 --> 00:34:07,470
+So what came first? A neighbor who is very intuitive.
+
+280
+00:34:07,890 --> 00:34:16,150
+So there is. Kind of a parameter you need to determine the parameter for the algorithm.
+
+281
+00:34:16,540 --> 00:34:22,000
+Let's say K equal to five. So that's the number of points you're gonna.
+
+282
+00:34:23,330 --> 00:34:34,280
+Look for reference. So if you go to five, then you carry all of the algorithm by looking, by searching for the five.
+
+283
+00:34:34,340 --> 00:34:37,670
+Near is the points nearest the training points.
+
+284
+00:34:38,270 --> 00:34:42,349
+Okay. So in this case, it's pretty easy. So you see there is a strong one.
+
+285
+00:34:42,350 --> 00:34:52,450
+There's a one, two, three, four, five. So these four, five points, are you going to be your reference points to classify the square, which is answer?
+
+286
+00:34:53,560 --> 00:35:04,300
+Okay. And then how do you determine the, the color or the, uh, the color of the, uh, the, the testing point?
+
+287
+00:35:04,600 --> 00:35:11,950
+You simply do a majority voting, so you have four cross and one circle for two one.
+
+288
+00:35:11,950 --> 00:35:16,990
+So you can classify this points as a. Cross, right?
+
+289
+00:35:17,150 --> 00:35:22,140
+I think I use orange. In our example.
+
+290
+00:35:22,220 --> 00:35:29,830
+But you get the point. So for every single data points now it's a very straightforward a learning algorithm.
+
+291
+00:35:29,840 --> 00:35:35,639
+You get the point. And then I'm looking for five clubs.
+
+292
+00:35:35,640 --> 00:35:40,680
+Is that so? In this case, it's pretty trivial. Everything bolted for the circle.
+
+293
+00:35:40,680 --> 00:35:43,470
+You can classify this point as the circle.
+
+294
+00:35:43,980 --> 00:35:52,860
+All right, so the only thing you need to specify is K of apparently if you were using different K going to get very different results,
+
+295
+00:35:52,860 --> 00:35:56,970
+that's for sure. Right. The extreme case is that you've.
+
+296
+00:35:58,560 --> 00:36:05,780
+If you're using K equals one than that, then you know, then that's the number of the collar.
+
+297
+00:36:05,790 --> 00:36:17,110
+So. So for example, in this one, if you're only just using one, but instead of like using five, you would classify this as a cross, but using one.
+
+298
+00:36:17,590 --> 00:36:21,370
+The closest one is actually a circle. You can change that to a circle.
+
+299
+00:36:21,580 --> 00:36:28,840
+So you see this parameter is this algorithm is sensitive to how many neighbors you're going to have.
+
+300
+00:36:29,620 --> 00:36:36,370
+Right. So you could the largest the K you can choose is over the training data points.
+
+301
+00:36:37,850 --> 00:36:42,760
+Right. But so in this case, so, you know, we're going to be 500.
+
+302
+00:36:42,890 --> 00:36:47,690
+So. Well, nobody could stop you using the 500. It's a little bit silly.
+
+303
+00:36:48,140 --> 00:36:59,000
+Why? Because if you're using all the data points to classify a single training data points, then you will have every data point the same way.
+
+304
+00:36:59,760 --> 00:37:05,180
+Right. It's always the the tally of the total bloom versus the total.
+
+305
+00:37:05,190 --> 00:37:08,430
+So and there is no variation at all.
+
+306
+00:37:09,090 --> 00:37:13,980
+So the key points here, this is known as the local learn.
+
+307
+00:37:14,190 --> 00:37:21,420
+So you want to choose the the number of them that you are nearest the neighbor.
+
+308
+00:37:21,690 --> 00:37:27,120
+To capture the sufficient characteristic in the local area.
+
+309
+00:37:28,660 --> 00:37:33,180
+Right. You don't want to be a global. If you make very large,
+
+310
+00:37:33,190 --> 00:37:38,349
+then you are actually using the global information and then you may argue or whatever
+
+311
+00:37:38,350 --> 00:37:43,570
+the points out there far away has nothing to do with the characteristic of the.
+
+312
+00:37:44,370 --> 00:37:49,720
+The data points right here, for example. This is a far away points may not be the relevant.
+
+313
+00:37:50,960 --> 00:37:57,170
+Only the surrounding data points have the information, the sharing of the information.
+
+314
+00:37:57,620 --> 00:38:02,510
+So it's always intuitive, but you need to determine, okay, so we're going to be late.
+
+315
+00:38:02,780 --> 00:38:11,330
+So that the way we do the trick is going to be exactly from by minimizing the lost function and so on, so forth.
+
+316
+00:38:11,570 --> 00:38:16,580
+So we skip that for now. We'll probably talk about that next Wednesday.
+
+317
+00:38:16,640 --> 00:38:22,400
+I think how we carry out. But let's just look at the performance of this type of the algorithm.
+
+318
+00:38:23,930 --> 00:38:32,620
+So if you run the selection process, you're going to get the K a wrong area like for oh sorry for the,
+
+319
+00:38:32,790 --> 00:38:40,549
+the example we have here, you're going to get K around 15, it's not exactly 15.
+
+320
+00:38:40,550 --> 00:38:47,360
+So you're always kind of overreactions. But you know once you have closed value of case they don't really.
+
+321
+00:38:49,910 --> 00:38:57,270
+Change much. So this is how you do it is just represent the overall.
+
+322
+00:38:59,240 --> 00:39:04,210
+You know, so the K nearest the neighbor algorithm is actually coded here.
+
+323
+00:39:04,570 --> 00:39:09,400
+So what you want to present is something like this.
+
+324
+00:39:10,450 --> 00:39:19,360
+Right. So this is actually, you know, the algorithm itself applicable to any arbitrary data points.
+
+325
+00:39:19,370 --> 00:39:23,260
+But the our purpose is actually showing some of the decision boundary.
+
+326
+00:39:23,380 --> 00:39:27,880
+Right. Implicated implicated by by this algorithm.
+
+327
+00:39:28,150 --> 00:39:36,370
+So what we could do is give a very dense grid of points like here you can get even denser data points
+
+328
+00:39:36,370 --> 00:39:42,280
+and then classify each of the data points according to the the the converse the neighbor rule.
+
+329
+00:39:42,760 --> 00:39:49,090
+Right. So I'm just coloring these. So now you see there is some sort of a structure in this.
+
+330
+00:39:49,420 --> 00:39:53,100
+So if you look carefully. Um.
+
+331
+00:39:53,470 --> 00:40:03,240
+I think there is some pocket. In somewhere, but there's some fine structure, so this is absolutely not smooth.
+
+332
+00:40:03,900 --> 00:40:10,070
+So the decision boundary is you can roughly see is around this line and that is actually.
+
+333
+00:40:15,630 --> 00:40:20,650
+Fits pretty good with the true decision boundary that the right line right.
+
+334
+00:40:22,860 --> 00:40:26,280
+Such a simple algorithm with all any you know.
+
+335
+00:40:29,620 --> 00:40:35,670
+For fund war. These complicated mathematical arguments give you a very good performance.
+
+336
+00:40:35,680 --> 00:40:44,800
+You have to. All right. So, you know, if you know the truth, how do you know the relative performance of these classifier?
+
+337
+00:40:45,220 --> 00:40:54,000
+So in this case, so the area of misclassify coercion going to happen in this area.
+
+338
+00:40:54,010 --> 00:40:58,650
+Right. So that the. The right line and then the.
+
+339
+00:41:00,240 --> 00:41:08,309
+The right curve and then the the green line here versus on this area and then this area.
+
+340
+00:41:08,310 --> 00:41:16,780
+So. Comparatively. Is much larger than the discrepancy area showing in this case.
+
+341
+00:41:17,180 --> 00:41:18,560
+And they can.
+
+342
+00:41:20,180 --> 00:41:33,920
+What we didn't talk about is, you know, so this is a well, I mean serve multiple purpose this example one is with your existing statistical knowledge,
+
+343
+00:41:35,300 --> 00:41:39,770
+you are already able to be with machine learning algorithms.
+
+344
+00:41:39,890 --> 00:41:44,630
+So you can be with the global algorithms, just like I did in the logistic regression.
+
+345
+00:41:45,380 --> 00:41:52,320
+Secondly, this is show a different mind site tool to build learning algorithms.
+
+346
+00:41:52,370 --> 00:41:56,450
+In this case, the local learning algorithm, Kenya's the neighbor.
+
+347
+00:41:57,740 --> 00:42:01,440
+So don't look down on these simple algorithms.
+
+348
+00:42:01,460 --> 00:42:09,080
+They may have very good practical performance, but you need to know when to use it.
+
+349
+00:42:09,080 --> 00:42:16,280
+And the one is that. So the subsequent question of these are maybe two important ones.
+
+350
+00:42:16,670 --> 00:42:21,230
+One is, can we improve the global classifier?
+
+351
+00:42:21,830 --> 00:42:31,100
+Right. So the straight line doesn't look very well in this case, but this is a usual starting point for statisticians.
+
+352
+00:42:31,580 --> 00:42:40,459
+But if you know there is something going wrong, for example, you know, there is a curvature exist in the decision boundary.
+
+353
+00:42:40,460 --> 00:42:44,690
+You can improve your global classifier by just adding in.
+
+354
+00:42:47,780 --> 00:42:54,440
+The higher order terms. Right. So instead of assuming your position boundaries align,
+
+355
+00:42:55,070 --> 00:43:02,270
+you kind of assume these eastern boundary is a quadratic in terms of cubic terms and so on and so forth.
+
+356
+00:43:02,690 --> 00:43:10,810
+And then so this shows if you do that, you get better and better decision boundary even for statistical model,
+
+357
+00:43:10,820 --> 00:43:13,880
+and then you've got the very smooth decision boundary.
+
+358
+00:43:14,180 --> 00:43:26,780
+So this one is only adding a quadratic term so that the decision boundary will have y equals you plus alpha x plus.
+
+359
+00:43:29,030 --> 00:43:41,660
+No, this is not the same thing. So logistic regression happens form logit probability z equals one.
+
+360
+00:43:44,700 --> 00:43:56,820
+We just had enough for grinding form. So this is the new plus x plus comma x squared plus either y.
+
+361
+00:43:57,870 --> 00:44:03,839
+So if you fit this, then the decision boundary going to be a quadratic curve, right?
+
+362
+00:44:03,840 --> 00:44:07,200
+So that's showing on the the green line.
+
+363
+00:44:07,200 --> 00:44:10,340
+So you see it's already very close to the truth.
+
+364
+00:44:13,520 --> 00:44:16,520
+Let me talk about. So the truth is actually fourth.
+
+365
+00:44:18,720 --> 00:44:23,470
+Order. So this is a. Polynomial curve.
+
+366
+00:44:24,430 --> 00:44:30,490
+So the you still making a wrong assumption on the decision even you include quadratic form.
+
+367
+00:44:30,700 --> 00:44:39,430
+But this is already very close. And then if you are adding the force in here, you could do that.
+
+368
+00:44:40,540 --> 00:44:44,589
+You see this fitting is sufficiently improved, but it's even better.
+
+369
+00:44:44,590 --> 00:44:51,150
+So if you're no the true generative model, even the model itself is different than logistic.
+
+370
+00:44:51,160 --> 00:44:57,550
+But you kind feel the decision boundary much, much better if you including that flexibility.
+
+371
+00:44:57,950 --> 00:45:02,230
+Right. So this is so there is actually a question.
+
+372
+00:45:03,930 --> 00:45:06,180
+Which one is a stronger assumption?
+
+373
+00:45:06,210 --> 00:45:15,180
+You assume that the position boundary as a quadratic form is not a strong assumption versus you assume that the decision boundary.
+
+374
+00:45:16,180 --> 00:45:20,110
+It's a linear it's just a line as a straight line.
+
+375
+00:45:20,110 --> 00:45:27,280
+Which assumption is stronger? Let me repeat and I'm going to take a poll.
+
+376
+00:45:28,600 --> 00:45:39,280
+So if you think the strong you know, if you're a assume I say quadratic curve is a strong assumption, you should raise your hand now.
+
+377
+00:45:40,840 --> 00:45:45,400
+If you think the straight line is a strong assumption, you should raise your hand now.
+
+378
+00:45:46,790 --> 00:45:54,769
+All right. So most people have no opinion, but all these people think the straight line is a stronger assumption.
+
+379
+00:45:54,770 --> 00:45:59,030
+Actually, they are correct. Why?
+
+380
+00:45:59,870 --> 00:46:05,420
+Why do you think the straight line is a strong assumption? Yes, please.
+
+381
+00:46:06,690 --> 00:46:10,680
+Just, you know. Assuming.
+
+382
+00:46:13,870 --> 00:46:21,460
+Whatever. Yes. Very good. So if you assume a straight line you are particular you can think of.
+
+383
+00:46:21,760 --> 00:46:27,790
+It's a special case of the quadratic edition boundary with gamma being zero.
+
+384
+00:46:28,180 --> 00:46:36,480
+Right. That has to be a stronger assumption because is a special case of the former.
+
+385
+00:46:36,520 --> 00:46:47,219
+So. You know, sometimes we we go with the simple one because this is maybe counterintuitive because the straight line seems like a simple thing.
+
+386
+00:46:47,220 --> 00:46:56,710
+Simple doesn't mean. You know, weaker assumptions, simple things usually come from very strong assumptions.
+
+387
+00:46:57,880 --> 00:47:01,090
+So this is sort of a misconception, so to speak.
+
+388
+00:47:01,990 --> 00:47:10,920
+The other question, though. So okay, so if you make global assumptions, make the shape, like make the parametric form,
+
+389
+00:47:10,930 --> 00:47:21,490
+then in this in this particular case, you could do as well as the as the K nearest a neighbor algorithm.
+
+390
+00:47:21,970 --> 00:47:29,200
+But you got to be impressed by the performance of this, a simple, intuitive algorithm.
+
+391
+00:47:29,290 --> 00:47:33,350
+Right. I mean, it doesn't seem like you need to is.
+
+392
+00:47:33,580 --> 00:47:36,670
+Well, I mean, you need statistical knowledge.
+
+393
+00:47:36,670 --> 00:47:43,420
+So this is usually it is commonly used the bible implementation of computer science doesn't seem like.
+
+394
+00:47:43,780 --> 00:47:47,170
+And if you need your statistical training.
+
+395
+00:47:49,490 --> 00:47:55,070
+So the question is, does it always do very well in all situations?
+
+396
+00:47:56,300 --> 00:48:05,000
+Right. The short answer is that, like this type of the question is always if there is something is always well done.
+
+397
+00:48:05,000 --> 00:48:10,300
+We probably don't sit here on the learning this class that we are just just learning that one thing will.
+
+398
+00:48:11,200 --> 00:48:15,850
+Be done. So one that's this type of the thing doesn't work well.
+
+399
+00:48:15,940 --> 00:48:22,690
+So that's the key thing, right? The characteristic of two things are quite different.
+
+400
+00:48:22,720 --> 00:48:25,570
+One is making a global assumption on the shape.
+
+401
+00:48:25,960 --> 00:48:34,060
+The other is not making any assumption or that if you compare this to which one has a stronger assumption.
+
+402
+00:48:35,330 --> 00:48:40,100
+Again, this one, the Kenya's the neighbor is actually making a stronger assumption.
+
+403
+00:48:40,100 --> 00:48:50,230
+Right. Because the global smoothness type assumption can be seen as a special case of this unconstrained.
+
+404
+00:48:53,390 --> 00:49:03,530
+You know, boundary shapes. So so this is a more complex model, even though in terms of algorithm, it looks simple.
+
+405
+00:49:04,100 --> 00:49:07,460
+It's actually the underlying assumption. It's much.
+
+406
+00:49:09,530 --> 00:49:12,890
+You know, it's a it's a much complex it's a it's a more.
+
+407
+00:49:15,990 --> 00:49:24,090
+It's more sophisticated in a way its include these smoothes as a sop as a special case, so to speak.
+
+408
+00:49:25,880 --> 00:49:26,270
+Okay.
+
+409
+00:49:26,960 --> 00:49:38,840
+So, you know, we're going to write into the issues of how do we choose a specific algorithm for our specific for the particular problems at hand.
+
+410
+00:49:39,260 --> 00:49:49,430
+But these are two different philosophies. You can come up with the algorithm, which one is you're going to use eventually to solve the real problem.
+
+411
+00:49:50,270 --> 00:49:57,020
+In practice, you probably try different things if it's, you know, the computation is affordable,
+
+412
+00:49:57,380 --> 00:50:00,440
+but there are some principle where look at you, you know, you could.
+
+413
+00:50:01,420 --> 00:50:05,500
+Completely avoid one type of the algorithm and go for the other one.
+
+414
+00:50:05,890 --> 00:50:10,120
+So let's talk about that sort of a principle. Any questions about this?
+
+415
+00:50:10,130 --> 00:50:13,870
+So we're going to repeatedly use this?
+
+416
+00:50:14,230 --> 00:50:20,960
+I don't know. So there's a lot of ideas packed into this.
+
+417
+00:50:21,590 --> 00:50:25,790
+Examples. You can revisit this problem.
+
+418
+00:50:27,600 --> 00:50:35,160
+Back in a few weeks, you'll probably have some new ways of thinking, right?
+
+419
+00:50:35,190 --> 00:50:39,880
+Which way is the better way to deal with this type of the problem or this?
+
+420
+00:50:39,900 --> 00:50:43,010
+What kind of lessons you can learn from this toy?
+
+421
+00:50:43,020 --> 00:50:49,060
+Examples. Questions. Yes part.
+
+422
+00:50:49,160 --> 00:50:54,910
+But what it's like. Yeah.
+
+423
+00:50:55,090 --> 00:50:59,170
+So the Cain years, the neighbor doesn't require any global structure.
+
+424
+00:51:00,760 --> 00:51:03,550
+Right. So it there is no constraint.
+
+425
+00:51:03,560 --> 00:51:11,740
+So you can think about, you know, global you want to curb they put the smoothness constraints on your position boundary.
+
+426
+00:51:12,370 --> 00:51:20,100
+This one is absent from became your neighbor. But you can think well if the underlying is really smooth.
+
+427
+00:51:20,110 --> 00:51:25,750
+Kenya's the neighbor is supposed to be fine. To be able to find it because it doesn't really constrain all that.
+
+428
+00:51:26,500 --> 00:51:31,100
+It's just how you know. So that related to the principle we're going to talk about.
+
+429
+00:51:31,120 --> 00:51:40,180
+But in terms of, you know, if you have more constraints on your on the things you are looking for usually means stronger assumption.
+
+430
+00:51:40,690 --> 00:51:50,610
+Right. This type of the global classifier is usually require a lot of constraints on the overall behavior.
+
+431
+00:51:50,620 --> 00:51:55,780
+So the smoothness is one of the, you know, the most obvious one.
+
+432
+00:51:57,220 --> 00:52:01,120
+Sometimes we require differentiable for no reasons.
+
+433
+00:52:01,120 --> 00:52:08,019
+But those are the. No reason means no particular practical implication.
+
+434
+00:52:08,020 --> 00:52:09,820
+But it's just easy for computers.
+
+435
+00:52:10,150 --> 00:52:19,060
+But that you should think that this assumption that there is no particular reason in your data science going to say this is a reasonable assumption.
+
+436
+00:52:19,470 --> 00:52:26,650
+All right. So we want every assumption is backed up by context dependent.
+
+437
+00:52:30,140 --> 00:52:33,380
+You know, thinking. But. But not always.
+
+438
+00:52:33,410 --> 00:52:38,000
+Sometimes it's just for. For the ease of execution.
+
+439
+00:52:38,910 --> 00:52:42,360
+In this case, we know how to fit the smooth curves.
+
+440
+00:52:42,380 --> 00:52:46,880
+But it's rather difficult to face something like without.
+
+441
+00:52:48,600 --> 00:52:54,390
+If I give you some function, it's very, very difficult to say it everywhere.
+
+442
+00:52:56,210 --> 00:53:00,980
+Discontinuous. It's probably not easy to fix this from computational perspective.
+
+443
+00:53:01,600 --> 00:53:05,230
+Good question. More assumptions, more stronger.
+
+444
+00:53:10,090 --> 00:53:15,850
+Okay. So MeToo system of I don't need okay this is already off.
+
+445
+00:53:16,800 --> 00:53:20,940
+Good. So let's move on to the next.
+
+446
+00:53:22,100 --> 00:53:27,080
+So you have so many things to choose from. You already know a lot of.
+
+447
+00:53:28,430 --> 00:53:35,640
+All the other things I want to emphasize is. We're not going to do any hypothesis testing in this class.
+
+448
+00:53:35,910 --> 00:53:41,670
+Right. Because hypothesis testing is not one of the the key machine learning tasks.
+
+449
+00:53:42,090 --> 00:53:49,260
+So. There is nobody going to ask you how significant your.
+
+450
+00:53:50,750 --> 00:53:55,580
+But we do do model comparison or algorithm comparison.
+
+451
+00:53:57,140 --> 00:54:01,130
+As for the cane years and they are to 15 versus to ten.
+
+452
+00:54:01,400 --> 00:54:09,560
+So there is a different mindset on how to choose. So the principle there is the risk, the expected, the prediction error.
+
+453
+00:54:09,950 --> 00:54:18,650
+But you're not going to do I mean, in some sense, the machine learning problem gave you all output.
+
+454
+00:54:19,250 --> 00:54:25,430
+It's sort of like point estimate, but they don't really characterize the uncertainty.
+
+455
+00:54:26,280 --> 00:54:30,150
+Of that. Right. The to be able to you know,
+
+456
+00:54:31,230 --> 00:54:39,050
+so it's a valid question to ask you come up with a decision boundary but how uncertain you are about that decision boundary.
+
+457
+00:54:39,060 --> 00:54:46,110
+Right. So that's an open problem in in machine learning to characterize uncertainty.
+
+458
+00:54:46,770 --> 00:54:54,690
+The only the. Well, I mean. I don't want to say the only mathematical tools out there is probability, but it's.
+
+459
+00:54:55,260 --> 00:55:02,240
+Other than probability I'm not aware of. Other things you can use to quantify uncertainty.
+
+460
+00:55:02,960 --> 00:55:03,230
+Right.
+
+461
+00:55:03,560 --> 00:55:14,470
+So as we see a lot of of these algorithms are people that with all the publicity consumption, so they may not be able to get there in the first place.
+
+462
+00:55:14,480 --> 00:55:18,470
+So. So that's something you should keep in mind.
+
+463
+00:55:18,590 --> 00:55:22,730
+It's statistics always about uncertainty.
+
+464
+00:55:23,420 --> 00:55:31,130
+Potential high point our attempt to erode this given the uncertainty of the estimate.
+
+465
+00:55:31,580 --> 00:55:36,320
+But here we may not see that sort of things very often.
+
+466
+00:55:38,120 --> 00:55:41,540
+Okay. All right. Let's go to the topic today.
+
+467
+00:55:41,870 --> 00:55:45,560
+Well, we don't really have a lot of time for that, but like so.
+
+468
+00:55:48,430 --> 00:55:55,910
+The key question is what is? It's a good.
+
+469
+00:55:57,440 --> 00:56:01,320
+Learning. Algorithm.
+
+470
+00:56:05,300 --> 00:56:09,590
+So practically we know how to compare one versus the other.
+
+471
+00:56:09,800 --> 00:56:16,160
+Right. So we can compute the expected prediction arrow to do pairwise comparison.
+
+472
+00:56:16,520 --> 00:56:23,900
+So this question is more profound. So when you start applying computing algorithm, what should you consider?
+
+473
+00:56:24,350 --> 00:56:33,110
+What kind of factors can affect the behave the the performance of an algorithm?
+
+474
+00:56:33,530 --> 00:56:34,690
+So this is a trying.
+
+475
+00:56:36,780 --> 00:56:52,230
+Decompose the overall expected prediction narrow last time we we seen and see how many what are the major players contribute to the expected.
+
+476
+00:56:56,910 --> 00:57:00,800
+Prediction arrow. All right.
+
+477
+00:57:00,810 --> 00:57:04,770
+So I'm going to write this a little bit different form last time.
+
+478
+00:57:04,770 --> 00:57:10,500
+We just do the the probability of the expectation of X on Y.
+
+479
+00:57:10,950 --> 00:57:17,460
+I'm going to add in another notation. So this one, the T here is a function of X on Y.
+
+480
+00:57:17,780 --> 00:57:21,890
+But. So this present the training data.
+
+481
+00:57:23,430 --> 00:57:33,510
+Okay. So the training data is, is a sample from the population of your of your interest rate and then you have a particular, um, training data.
+
+482
+00:57:33,810 --> 00:57:38,810
+And then in this case, we should see that the training data is a random.
+
+483
+00:57:40,050 --> 00:57:47,140
+All right. So if you're going to a different you do a different sampling, you get different training data.
+
+484
+00:57:47,380 --> 00:57:49,690
+Why are you training data is important here.
+
+485
+00:57:49,780 --> 00:57:59,690
+Because you are asked to made your choice on your key algorithm parameters are determined by the training data.
+
+486
+00:57:59,710 --> 00:58:08,190
+So it's sort of a useful to explicitly label those, although they are the functional ones.
+
+487
+00:58:09,490 --> 00:58:14,740
+So. Let's consider just the square walls.
+
+488
+00:58:14,950 --> 00:58:24,249
+So in the case of square walls, you have a we have a clean decomposition of the epi, as you know, with the bias.
+
+489
+00:58:24,250 --> 00:58:29,079
+And but it's trade off. So let's work on that.
+
+490
+00:58:29,080 --> 00:58:34,480
+And then. Towards the end, we make a generalization of the statement.
+
+491
+00:58:34,840 --> 00:58:40,850
+Okay. So we're going to think about the. Square loss.
+
+492
+00:58:46,670 --> 00:58:51,860
+Right. So this is by definition, they expected.
+
+493
+00:58:54,510 --> 00:58:59,430
+Prediction aro using for a given algorithm.
+
+494
+00:59:00,420 --> 00:59:04,490
+Learning algorithm so the Y doesn't need to be explained.
+
+495
+00:59:04,510 --> 00:59:07,800
+That's the outcome. X is the input.
+
+496
+00:59:07,980 --> 00:59:12,180
+There's a feature either the outcome what is f t hat.
+
+497
+00:59:13,110 --> 00:59:16,889
+So actually hat though is so important.
+
+498
+00:59:16,890 --> 00:59:21,000
+So this is a function from your assume the family.
+
+499
+00:59:21,000 --> 00:59:26,690
+So in the previous example for the logistic regression, they have the functional form, right?
+
+500
+00:59:26,730 --> 00:59:38,340
+So this is about the particular logistic function and the hat means with the parameter with the estimate plot the in.
+
+501
+00:59:39,560 --> 00:59:46,320
+So the parameter estimate is solely dependent on the training data.
+
+502
+00:59:46,340 --> 00:59:51,560
+So it's a property of the training data. The other way to say it is somewhat different one.
+
+503
+00:59:53,210 --> 00:59:55,160
+A training day that you may get different. Well,
+
+504
+00:59:55,160 --> 01:00:07,430
+you're almost certain you get different estimate of the off of data and then you the same thing for Kate and for the Kate years
+
+505
+01:00:07,460 --> 01:00:17,840
+the neighbor so you can choose a different dataset and you may not have the same optimal Kate values for for your classifier.
+
+506
+01:00:17,990 --> 01:00:24,200
+Right. All these parameters depends on the training data you have you have obtained.
+
+507
+01:00:24,530 --> 01:00:29,080
+So this function is a you can see this is a random function, right?
+
+508
+01:00:29,210 --> 01:00:39,170
+So the we usually do that in the in the regression context, we say that how was that Max so consistent.
+
+509
+01:00:41,270 --> 01:00:46,399
+And now we see the b the hat as a run the ball. Where were you in the linear regression?
+
+510
+01:00:46,400 --> 01:00:51,500
+So we gave the center arrow. So this is the same concept here, right?
+
+511
+01:00:51,530 --> 01:00:54,860
+So the the beta is an estimate of the true beta.
+
+512
+01:00:55,370 --> 01:01:02,950
+However, because you get data from a random sample, you need to conserve, you need to consider the randomness of it.
+
+513
+01:01:02,960 --> 01:01:10,790
+So you can say the beta happened in some random variable so that make the your learning algorithm.
+
+514
+01:01:11,950 --> 01:01:14,950
+Um. A random function. Right.
+
+515
+01:01:15,310 --> 01:01:22,300
+So at that point, it's important. And now we're trying to decompose this into different parts.
+
+516
+01:01:22,990 --> 01:01:29,150
+And then you don't necessarily need to follow all these algebras I'm going to show later on.
+
+517
+01:01:29,180 --> 01:01:33,790
+But the you know, the most important thing is the conclusion.
+
+518
+01:01:34,150 --> 01:01:39,530
+But nevertheless, to convince, you have to shoulder the agitprop.
+
+519
+01:01:41,270 --> 01:01:54,700
+Okay. So how do we do this? So all of these are equations and then it's just trying to illustrate the contribution from different factors.
+
+520
+01:01:55,440 --> 01:02:03,080
+So what we're going to introduce the first the thing is, we're going to assume a true generative multiple, right?
+
+521
+01:02:03,090 --> 01:02:08,970
+So this is under the the theory perspective and then but not generally, although it's pretty.
+
+522
+01:02:14,480 --> 01:02:21,410
+The jury. General model is pretty general. So you have a true relationship between Y and X.
+
+523
+01:02:22,500 --> 01:02:25,920
+So that's enabled by this hidden latent function.
+
+524
+01:02:26,460 --> 01:02:36,890
+So you don't get to observe what it is. It may have nothing to do with what you assume in estimation or algorithm feeding.
+
+525
+01:02:37,230 --> 01:02:40,590
+Right. This is a just a placeholder for something.
+
+526
+01:02:40,590 --> 01:02:47,520
+The true deterministic relationship between Y on the X and then the epsilon here represent the random arrow.
+
+527
+01:02:47,550 --> 01:02:51,830
+So that's usually assumed to contaminate the observed data, right?
+
+528
+01:02:52,020 --> 01:03:02,380
+You also you will always know whether how precise your equipment is, how how good you you are to your job.
+
+529
+01:03:02,910 --> 01:03:05,940
+Collected data always has random arrows.
+
+530
+01:03:05,940 --> 01:03:12,509
+So for Epsilon we don't need to make any strong distributional assumption.
+
+531
+01:03:12,510 --> 01:03:20,730
+Nevertheless, we assume it's fair to assume. In general, the expected value of EU settlements.
+
+532
+01:03:20,810 --> 01:03:26,620
+Zero. So it could go either direction. The magnitude.
+
+533
+01:03:29,490 --> 01:03:37,470
+Right. It doesn't mean this has to be more widely distributed. It's just this is the magnitude of the center.
+
+534
+01:03:37,780 --> 01:03:41,670
+And then this is basically saying the first moment the saying this.
+
+535
+01:03:42,930 --> 01:03:47,010
+It's not going to a particular direction, positive or negative to.
+
+536
+01:03:48,840 --> 01:03:59,380
+And then. It's also fair to assume the the feature data and if so, are independent.
+
+537
+01:04:04,990 --> 01:04:09,940
+This is not this. Well, by the way, I mean, if you're interested that this is not necessarily.
+
+538
+01:04:12,960 --> 01:04:18,360
+A general assumption or a weak assumption, but nevertheless, I think.
+
+539
+01:04:21,340 --> 01:04:34,000
+It's a reasonable assumption. So I'm just saying, I think the contaminated arrow is sort of after the fact of this deterministic relationship.
+
+540
+01:04:34,870 --> 01:04:41,170
+All right. So if you have the true F of X, then you can rewrite Y in this way.
+
+541
+01:04:44,190 --> 01:04:48,930
+It's why, instead of why, I'm just doing games at all now.
+
+542
+01:04:50,860 --> 01:04:57,910
+So this is becomes f x plus epsilon minus had.
+
+543
+01:04:59,070 --> 01:05:03,650
+X. This whole thing's squared. All right.
+
+544
+01:05:04,310 --> 01:05:08,670
+And then I'm going to expand this quadratic. So.
+
+545
+01:05:09,910 --> 01:05:16,040
+So. Instead of. You know, integrate over all the why now?
+
+546
+01:05:16,040 --> 01:05:19,370
+Because of this additive assumption I'm just working on.
+
+547
+01:05:19,430 --> 01:05:31,310
+I just need to work out some. Well, I think the rest of the are.
+
+548
+01:05:33,040 --> 01:05:36,970
+Pretty straightforward. Oh, you're so. Only one thing to explain.
+
+549
+01:05:37,300 --> 01:05:40,570
+So this one because you get to.
+
+550
+01:05:40,630 --> 01:05:43,690
+You use the linearity of the expectation.
+
+551
+01:05:44,140 --> 01:05:49,580
+So what you get is. He acts.
+
+552
+01:05:55,420 --> 01:05:58,120
+That's Max minus Max.
+
+553
+01:06:02,530 --> 01:06:22,090
+Squared plus epsilon squared plus a cross term two expected the value of Pascal facts is the true one minus the stated one minus times h so.
+
+554
+01:06:23,990 --> 01:06:27,170
+So this expectation is with respect to.
+
+555
+01:06:29,810 --> 01:06:37,100
+Right. So. Well, you combine this term and this term tree, that's a one and then I'll just do the square.
+
+556
+01:06:37,110 --> 01:06:43,670
+And now you got this three times. So this one we know by assumption this is a Sigma Square.
+
+557
+01:06:44,810 --> 01:06:48,230
+So I write this up from the second term.
+
+558
+01:06:48,470 --> 01:06:57,650
+We're going to work on that. We're going to keep working on the second term.
+
+559
+01:07:02,750 --> 01:07:05,000
+The third term I claim is zero.
+
+560
+01:07:06,050 --> 01:07:16,879
+This is not obvious, but this is the way you can argue the cross talking zero is by using this each corrective integration.
+
+561
+01:07:16,880 --> 01:07:24,020
+So the the expectation is is an integration and you should understand that point or you can
+
+562
+01:07:24,020 --> 01:07:30,330
+use total expectation law so you can first calculate the expectation with respect to two.
+
+563
+01:07:36,830 --> 01:07:43,040
+Condition on the training date. For any training, they decide that there is an independent relationship.
+
+564
+01:07:43,430 --> 01:07:47,030
+So what I'm trying to say is that this term, the whole term is zero.
+
+565
+01:07:47,510 --> 01:07:51,110
+So if you have trouble arguing that, come to my office.
+
+566
+01:07:51,110 --> 01:07:53,350
+All right. That's not really important for this class.
+
+567
+01:07:53,360 --> 01:08:01,759
+But if you are just, you know, trying to figure out all the details and mathematical details, I'm happy to answer that question.
+
+568
+01:08:01,760 --> 01:08:08,810
+But just to say save the time, this whole term is a zero, because if you're conditional t first to calculate this,
+
+569
+01:08:09,770 --> 01:08:16,879
+then you find that epsilon and then this difference because epsilon is independent of x, right?
+
+570
+01:08:16,880 --> 01:08:25,180
+So. And then they. You know, they just the cross will be zero.
+
+571
+01:08:25,690 --> 01:08:30,010
+Based on that independence assumption. Anyway.
+
+572
+01:08:30,070 --> 01:08:35,710
+So we leave with this term. So this part is not surprising.
+
+573
+01:08:35,760 --> 01:08:42,990
+So this part we call irreducible error. So this is coming from the contamination of any data.
+
+574
+01:08:43,500 --> 01:08:49,890
+So the contamination of the deterministic relationship between X and Y, they are going to be always there.
+
+575
+01:08:50,010 --> 01:08:55,620
+So this is a irreducible. So you cannot do anything to remove the Sigma Square.
+
+576
+01:08:55,650 --> 01:09:00,530
+You may estimate that, but you estimate the best you can estimate is Sigma Square.
+
+577
+01:09:00,540 --> 01:09:07,160
+So the magnitude of that. But you cannot completely remove the individual in on the data.
+
+578
+01:09:08,120 --> 01:09:14,300
+The second term, though, is still a complicated expression, and we are going to focus on that.
+
+579
+01:09:16,200 --> 01:09:22,430
+The next 10 minutes. All right.
+
+580
+01:09:23,120 --> 01:09:26,809
+So this is the key thing so far, so straightforward.
+
+581
+01:09:26,810 --> 01:09:39,410
+And it's not just algebra, but we're going to introduce another quantity that makes a huge difference in terms of explaining the whole thing.
+
+582
+01:09:39,650 --> 01:09:44,360
+So the next thing we're going to introduce is this forex.
+
+583
+01:09:46,010 --> 01:09:57,350
+So what is forex? Marks is mathematically defined as the expectation of x over.
+
+584
+01:09:59,550 --> 01:10:02,670
+All possible training data.
+
+585
+01:10:04,740 --> 01:10:10,960
+Right. So this may be a little bit of poor sort of notation.
+
+586
+01:10:10,980 --> 01:10:23,160
+What does it even mean? But in practice, we always do that because in linear regression, for example, if you have a Y, you have of that X.
+
+587
+01:10:24,370 --> 01:10:29,550
+So what this forex represented here is, of course, volume from here.
+
+588
+01:10:29,560 --> 01:10:39,540
+So this one is actually. So all this new hat and then the offer has to be depends on the team.
+
+589
+01:10:40,350 --> 01:10:48,810
+But if you are kind of doing this, you do the linear regression over and over again with respect to re sample the training data.
+
+590
+01:10:49,350 --> 01:10:54,870
+And if you take expectation, you can get something like million plus minus.
+
+591
+01:10:55,950 --> 01:10:59,190
+So what the benefit of this as far as.
+
+592
+01:11:02,230 --> 01:11:09,260
+So all the MEU had an op had to be. Random.
+
+593
+01:11:10,180 --> 01:11:12,740
+In the way they don't represent the population.
+
+594
+01:11:13,360 --> 01:11:23,470
+So the meal and the I'm trying to not use the world to offer them the truth, but this is the best that you can get.
+
+595
+01:11:24,210 --> 01:11:29,700
+Right. So if you're supporting everything and then feed them all that, then you get a new one.
+
+596
+01:11:30,270 --> 01:11:33,360
+So this is a consistent with using the expectation.
+
+597
+01:11:36,200 --> 01:11:45,890
+So if you assume a linear model like this, there is something you can think of with cloning.
+
+598
+01:11:46,040 --> 01:11:49,320
+Well, it's the best estimate, right?
+
+599
+01:11:49,340 --> 01:12:00,550
+Not given the sample, but the best the point estimate. So they always say the mule had a normal mule and then there is a variance.
+
+600
+01:12:02,370 --> 01:12:07,770
+So this is what I'm trying to say here.
+
+601
+01:12:08,910 --> 01:12:15,090
+But I'm not saying the bar is the same as the F off x.
+
+602
+01:12:16,560 --> 01:12:21,600
+So the difference. So. Well, first of all, understand, I've had my rights.
+
+603
+01:12:21,750 --> 01:12:31,440
+Right. So within this parametric family, if you have sufficient or even finite amount of the data, that's the estimate you can get.
+
+604
+01:12:32,650 --> 01:12:36,690
+But doesn't mean this is the truly deterministic relationship, right?
+
+605
+01:12:36,970 --> 01:12:40,400
+Go back to our example, our culture.
+
+606
+01:12:40,420 --> 01:12:51,550
+So the true boundary is for the warmer polynomial, but our x bar acts, it's a linear one, so they're not the same.
+
+607
+01:12:53,050 --> 01:12:59,400
+So the F bar is the best you can estimate. That's a linear decision boundary.
+
+608
+01:12:59,710 --> 01:13:04,690
+But this bar and then the F all facts are fundamentally different.
+
+609
+01:13:06,160 --> 01:13:14,530
+Right. So this is a super model and of the best you can get, this is the true generative model.
+
+610
+01:13:15,070 --> 01:13:18,590
+Okay. All right. So this is an important.
+
+611
+01:13:22,680 --> 01:13:31,170
+Once you introduce this, you can further decompose that second term into the two terms.
+
+612
+01:13:33,390 --> 01:13:38,880
+Again. I'm going to skip the. The man.
+
+613
+01:13:41,030 --> 01:13:45,590
+The the argument, not the maths. So there's a Sigma Square and then.
+
+614
+01:13:46,780 --> 01:13:50,730
+The final decomposition is going to be used this year.
+
+615
+01:13:51,700 --> 01:14:00,890
+So this one is only a function of X. iPhone X minus X, bar x.
+
+616
+01:14:03,970 --> 01:14:08,290
+Squared. As we said, there are different things.
+
+617
+01:14:08,310 --> 01:14:12,300
+One is this is a true deterministic relationship between X and Y.
+
+618
+01:14:12,900 --> 01:14:16,709
+This is a soon relationship between X and Y.
+
+619
+01:14:16,710 --> 01:14:21,200
+But this is the best that you can get or that there's some sort of.
+
+620
+01:14:24,090 --> 01:14:33,690
+I don't want to use the word true, but you know what I mean. The optimal assumed estimates function from the assumed the family.
+
+621
+01:14:35,770 --> 01:14:40,440
+Sun plus. He X.
+
+622
+01:14:44,370 --> 01:14:48,510
+Bah X minus F hat, he adds.
+
+623
+01:14:49,290 --> 01:15:02,950
+So this decomposition becomes very intuitive because this is a way then assuming the family, the optimal you can get versus the the one you actually.
+
+624
+01:15:05,040 --> 01:15:17,279
+Right. So while they're both linear and then but the f, t x is based on your training data, so you may not get the so-called optimal one.
+
+625
+01:15:17,280 --> 01:15:22,470
+You get some of it. Well, I mean, there's based on your sample, you get a random version of that.
+
+626
+01:15:22,830 --> 01:15:33,090
+So this is a basically the difference between Y is of a plus theta axial versus Y plus theta.
+
+627
+01:15:33,870 --> 01:15:39,480
+So the discrepancy is due to the estimation from the training data.
+
+628
+01:15:39,930 --> 01:15:46,840
+So we call this a sum variance, also known as estimation, right?
+
+629
+01:15:46,980 --> 01:15:55,230
+Even you assume there's a linear relationship, you get estimation, you don't get the best or the optimal or.
+
+630
+01:15:56,060 --> 01:15:59,740
+But. Linear vs Asian boundary.
+
+631
+01:16:00,160 --> 01:16:07,470
+So this one is some very. Also known as estimation.
+
+632
+01:16:14,540 --> 01:16:18,560
+Let's look at this one. So this one, it's known by is.
+
+633
+01:16:18,950 --> 01:16:27,800
+But the bias is kind of a you know, it's generally a misuse, though, or is too many meetings in statistical terminology.
+
+634
+01:16:27,950 --> 01:16:31,240
+I think the best way to say it is approximation error.
+
+635
+01:16:31,730 --> 01:16:39,610
+So this is reflective of the the mistake you're going to make in terms of determining in
+
+636
+01:16:39,650 --> 01:16:46,610
+determining you are your generated model or the family of you're going to choose from.
+
+637
+01:16:47,030 --> 01:16:55,220
+So there is a true deterministic a relationship that is f all facts, but you completely assume it wrong.
+
+638
+01:16:56,100 --> 01:17:02,940
+Right. It's supposed to be a force word or polynomial, but you assume it's a quadratic or assume it's something.
+
+639
+01:17:03,570 --> 01:17:06,690
+So y you get out of the door. You are only wrong.
+
+640
+01:17:07,080 --> 01:17:11,500
+But that's very. Well, that's almost. It's not all.
+
+641
+01:17:11,520 --> 01:17:16,380
+And this is always the case. Remember that famous saying all models are wrong?
+
+642
+01:17:16,590 --> 01:17:20,790
+This is because I assume the model and then it's not.
+
+643
+01:17:21,630 --> 01:17:26,070
+It's always not be the same on the troop generated model so this capture that.
+
+644
+01:17:27,010 --> 01:17:34,010
+So this is the call to. Or approximation.
+
+645
+01:17:35,150 --> 01:17:42,770
+So you are trying to use a family to approximate the true relationship or the true deterministic relationship.
+
+646
+01:17:43,160 --> 01:17:49,610
+And know you always wrong. So that's the bias. This is actually based squared and then this is the variance.
+
+647
+01:17:50,450 --> 01:17:55,460
+So now we achieve a decomposition of the overall.
+
+648
+01:17:58,430 --> 01:18:03,409
+You know, the overall expected prediction out there come from three different sources.
+
+649
+01:18:03,410 --> 01:18:06,470
+One is irreducible. So this is such random noise.
+
+650
+01:18:06,860 --> 01:18:11,090
+It's always going to be there. You do not you can do nothing about it.
+
+651
+01:18:11,540 --> 01:18:16,070
+The second one is so called the bias or approximation error.
+
+652
+01:18:16,370 --> 01:18:19,760
+That's because you made the wrong assumptions on the model,
+
+653
+01:18:20,420 --> 01:18:28,090
+right on the I'm the one if the true really it's not necessarily the model in the sense of probabilistic whole.
+
+654
+01:18:28,170 --> 01:18:37,909
+You think you're doing a functional study of the function though I'm assuming you still can make this type of the approximation error, right?
+
+655
+01:18:37,910 --> 01:18:47,330
+So you'll just assume that the wrong functional family is supposed to be quadratic, but you do linear assumption, so on and so forth.
+
+656
+01:18:47,330 --> 01:18:52,270
+But the third one is uh, estimation narrow.
+
+657
+01:18:52,280 --> 01:18:55,370
+You have limited amount of the.
+
+658
+01:18:56,700 --> 01:18:59,880
+Training data, then you cannot. If you.
+
+659
+01:18:59,910 --> 01:19:04,170
+Well, I mean, this thing can be blown off if that sample size is really small.
+
+660
+01:19:04,260 --> 01:19:08,100
+Right. We understand that the relationship between the variance and some full size.
+
+661
+01:19:10,030 --> 01:19:14,230
+Well, they come from all three. So that's the statement.
+
+662
+01:19:14,350 --> 01:19:17,800
+What is the trade off? We can explain that next week.
+
+663
+01:19:18,190 --> 01:19:21,880
+But you can see the bias.
+
+664
+01:19:22,000 --> 01:19:31,240
+So if you require something that's being because this is a kind of a compound contribution to the overall,
+
+665
+01:19:31,570 --> 01:19:38,680
+it seems illogical just to focus on reduce the error of one source.
+
+666
+01:19:39,310 --> 01:19:44,950
+Right. So there is that's the reason where the the trade off come from.
+
+667
+01:19:45,340 --> 01:19:55,600
+Right. So if you are just. Just dislike the bias like some of the statisticians, like I want the the zero bias model.
+
+668
+01:19:55,750 --> 01:19:57,910
+Well, I mean, that's the.
+

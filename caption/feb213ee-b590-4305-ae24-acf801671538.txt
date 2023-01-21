@@ -1,0 +1,504 @@
+1
+00:00:02,610 --> 00:00:09,810
+OK, great. So in this segment, we are going to use some of the functions that you saw earlier on.
+
+2
+00:00:09,810 --> 00:00:20,220
+We're going to use that to analyze real time COVID-19 data, to clean the data a bit and just make it more meaningful to us in general.
+
+3
+00:00:20,220 --> 00:00:23,700
+Now, what you're looking at is a R markedown file
+
+4
+00:00:23,700 --> 00:00:31,590
+It's a different kind of file. Earlier on, I was using a R script and to do it a R markedown file, you go to new file.
+
+5
+00:00:31,590 --> 00:00:36,010
+And then just click on R markdown and then you would enter
+
+6
+00:00:36,010 --> 00:00:39,870
+obviously the title, my name is already there. By default
+
+7
+00:00:39,870 --> 00:00:46,320
+HTML is checked because most times I and I, you know, exploit it as a HTML file.
+
+8
+00:00:46,320 --> 00:00:54,990
+So that's how you would do a R markdown file. And so let's go through our file and see what we have here.
+
+9
+00:00:54,990 --> 00:01:00,910
+And this is just the standard code to set up your file. And, you know, we run that at
+
+10
+00:01:00,910 --> 00:01:05,310
+the start. Now always starts with loading libraries.
+
+11
+00:01:05,310 --> 00:01:12,600
+And if you notice, I have message=F because a lot of times when you load libraries, a lot of messages appear
+
+12
+00:01:12,600 --> 00:01:19,500
+but we don't need that. Within what you're noticing right here is called a R chunk within this chunk
+
+13
+00:01:19,500 --> 00:01:28,800
+we can execute a code. So this is the difference between a R markdown file and a R script. R script doesn't use a chunk,
+
+14
+00:01:28,800 --> 00:01:34,200
+but with your markdown file, you have to enter your code that you need.
+
+15
+00:01:34,200 --> 00:01:39,930
+And you this is sort of like the coding that was used right.
+
+16
+00:01:39,930 --> 00:01:49,150
+So im using three libraries, covid19.analytics, ggplot2 and dplyr that you saw earlier.
+
+17
+00:01:49,150 --> 00:01:53,250
+The covid19.analytics library is able to read in real time
+
+18
+00:01:53,250 --> 00:02:05,310
+Covid 19 Data. Gplot2 is a powerful, powerful package for creating data visuals and ddplyr is just great for data manipulation and data cleaning.
+
+19
+00:02:05,310 --> 00:02:09,710
+Now so let's run this.
+
+20
+00:02:09,710 --> 00:02:14,400
+The first thing I have is real time data on covid cases.
+
+21
+00:02:14,400 --> 00:02:18,290
+This is going to show me the deaths and cases and it's global data.
+
+22
+00:02:18,290 --> 00:02:24,300
+It's and this is current as of today's date, which is before the 4th of march.
+
+23
+00:02:24,300 --> 00:02:33,000
+So you saw what I did earlier on. Anything that's to the left of my assignment operator, that's the object that I'm creating.
+
+24
+00:02:33,000 --> 00:02:37,830
+So whatever is done on the right will be saved in this object. So let's do this.
+
+25
+00:02:37,830 --> 00:02:43,630
+I'm saying all the data that I'm reading in should be stored in an object called covid19.data.ALLcases
+
+26
+00:02:43,630 --> 00:02:47,550
+All right. So let's do that.
+
+27
+00:02:47,550 --> 00:02:55,470
+And this actually reads in data from the same source, the same repository that the Johns Hopkins map uses.
+
+28
+00:02:55,470 --> 00:03:02,850
+And I'm sure you all know the Johns Hopkins map that displays live, you know, Real-Time Covid-19 data.
+
+29
+00:03:02,850 --> 00:03:08,670
+So I just created that objects. And let's take a quick look at that.
+
+30
+00:03:08,670 --> 00:03:17,250
+And it's already telling me that this has, let's say, 4000 entries so there are 4000 observations and 14 columns.
+
+31
+00:03:17,250 --> 00:03:21,090
+And let's take a quick look. As I noted, it's shown you global data, right?
+
+32
+00:03:21,090 --> 00:03:26,250
+So it has various countries, Afghanistan, Australia.
+
+33
+00:03:26,250 --> 00:03:31,830
+And, you know, you can start because what I'm looking at right now is a data viewer.
+
+34
+00:03:31,830 --> 00:03:35,790
+And as you can see, the layout is just like an Excel spreadsheet.
+
+35
+00:03:35,790 --> 00:03:40,050
+Right. So we can we can store it by country if we want to.
+
+36
+00:03:40,050 --> 00:03:47,250
+And, you know, this is showing me the United States now the province or state or state, sorry
+
+37
+00:03:47,250 --> 00:03:54,210
+province_underscore states essentially showing you the states where applicable or provinces, whatever is used.
+
+38
+00:03:54,210 --> 00:04:00,780
+This also has spatial data. So it's showing me the latitude and longitude points.
+
+39
+00:04:00,780 --> 00:04:06,540
+Confirmed mean for confirmed covid-19 cases. The death's mean the covid-19 deaths.
+
+40
+00:04:06,540 --> 00:04:11,130
+And another cool thing that it has, it shows you the case fatality ratio.
+
+41
+00:04:11,130 --> 00:04:15,010
+It shows you the incident rate. Well, like I said
+
+42
+00:04:15,010 --> 00:04:20,680
+this is global data. We can kind of manipulate this to make it more meaningful to us here.
+
+43
+00:04:20,680 --> 00:04:25,570
+Right. It has a lot of um, it has 4000 observations
+
+44
+00:04:25,570 --> 00:04:30,720
+A lot. So let's see what we can do next with this data.
+
+45
+00:04:30,720 --> 00:04:40,290
+So if I go back to my main R markdown file. So I'm going to use the filter function you saw had to use a filter function earlier and
+
+46
+00:04:40,290 --> 00:04:45,870
+I'm going to filter for deaths that are more than five hundred in the state of Michigan.
+
+47
+00:04:45,870 --> 00:04:51,090
+Right. To do this again, it's the same function that you saw earlier.
+
+48
+00:04:51,090 --> 00:04:59,970
+I'm going to stores it in an object called MI.Covid and covid19.data.Allcases
+
+49
+00:04:59,970 --> 00:05:04,790
+That is the main data structure that I'm manipulating I'm reading from that.
+
+50
+00:05:04,790 --> 00:05:12,420
+I'm saying whatever is in that, I want you to pipe. This is the pipe operator that I mentioned wanting to pipe with into a filter function.
+
+51
+00:05:12,420 --> 00:05:14,880
+And once I'm there at the filter function,
+
+52
+00:05:14,880 --> 00:05:23,650
+I'm saying I need of filter by country or region and I want to filter for where the country or region is exactly equals
+
+53
+00:05:23,650 --> 00:05:29,370
+The United States. I'm testing to make sure, you know, this is just for the United States, US.
+
+54
+00:05:29,370 --> 00:05:35,190
+And in addition to that, I wanted for where the province or state is Michigan
+
+55
+00:05:35,190 --> 00:05:42,540
+I only need Michigan. And another thing is that I only needed for where the debts are greater than five hundred.
+
+56
+00:05:42,540 --> 00:05:48,450
+Right. So the cool thing about the filter function is that you can filter by different criteria.
+
+57
+00:05:48,450 --> 00:05:52,560
+Earlier on, I only showed you just by one criterion,
+
+58
+00:05:52,560 --> 00:05:57,900
+but now you can choose to several. So let's run this and see what
+
+59
+00:05:57,900 --> 00:06:12,750
+our new data structure looks like. So I always like to view my data structure in the data viewer and its showing me, you know, Admin2.
+
+60
+00:06:12,750 --> 00:06:19,290
+So, again, whatever is on top, these are your variables, right? Your columns is showing me the province or state.
+
+61
+00:06:19,290 --> 00:06:23,820
+What does Admin2 mean? This is the county its showing me the country,
+
+62
+00:06:23,820 --> 00:06:29,790
+the data last update, my points, latitude.
+
+63
+00:06:29,790 --> 00:06:34,230
+Showing me the confirmed cases. And these are the confirmed deaths.
+
+64
+00:06:34,230 --> 00:06:45,720
+So this is just a quick way to extract the data that we need and to see how else we can use this to to kind of make it
+
+65
+00:06:45,720 --> 00:06:52,230
+more meaningful to us. So we'll do some more kind of analysis in our next step.
+
+66
+00:06:52,230 --> 00:06:56,700
+But this is obviously more digestible, more workable.
+
+67
+00:06:56,700 --> 00:07:02,250
+So that was the whole point of seeing how to filter your data, how to manipulate your data.
+
+68
+00:07:02,250 --> 00:07:07,890
+Now, if we go back to or main file that we're working with, we can rename a variable.
+
+69
+00:07:07,890 --> 00:07:14,700
+And you saw how to do that earlier on because I noted that we have this variable called Admin2.
+
+70
+00:07:14,700 --> 00:07:24,010
+That's not very intuitive to me. So I'm going to rename that and I'm using the rename function and im renaming Admin2
+
+71
+00:07:24,010 --> 00:07:31,890
+I'm changing the name to County and I'm storing it in the same data frame that I created above.
+
+72
+00:07:31,890 --> 00:07:38,760
+And this is MI.Covid I entered it because that's where my variable is that I need to rename.
+
+73
+00:07:38,760 --> 00:07:45,920
+And let's run this and see what happens if I go back to MI.Covid
+
+74
+00:07:45,920 --> 00:07:49,440
+Now I see that it has been renamed right. Okay, great
+
+75
+00:07:49,440 --> 00:07:53,190
+so we rename that because I am a visual learner
+
+76
+00:07:53,190 --> 00:07:57,330
+I want to visualize my data on a graph. So let's do a bar chart
+
+77
+00:07:57,330 --> 00:08:02,640
+of the Covid death counts for the top counties in the state of Michigan.
+
+78
+00:08:02,640 --> 00:08:06,150
+And within my R chunk right here
+
+79
+00:08:06,150 --> 00:08:10,470
+what you're seeing is bar.chart.covid.
+
+80
+00:08:10,470 --> 00:08:17,010
+So essentially, I wrote the code that I use to generate the bar charts earlier on.
+
+81
+00:08:17,010 --> 00:08:21,480
+And I stored in this object called Bar.Chart.Covid, right.
+
+82
+00:08:21,480 --> 00:08:25,830
+I didn't show my code here because it's a lot of lines of code.
+
+83
+00:08:25,830 --> 00:08:30,240
+I didn't want this to look so cluttered, but I will show you how I generated this.
+
+84
+00:08:30,240 --> 00:08:35,550
+So, OK, I'm saying, listen, my code for the for my chart, my graph is stored here.
+
+85
+00:08:35,550 --> 00:08:39,570
+If I run this, it should generate the graph for me.
+
+86
+00:08:39,570 --> 00:08:48,090
+So this is what my graph looks like. The top six counties in the state of Michigan for Covid-19 deaths.
+
+87
+00:08:48,090 --> 00:08:56,580
+And we can see that actually Wayne is leading, right, with over 4000 dead.
+
+88
+00:08:56,580 --> 00:09:04,950
+So let's go back to first just to get a quick snapshot of what the number is 4,147.
+
+89
+00:09:04,950 --> 00:09:12,960
+OK. That's interesting. I want you guys to think about Wayne County, and you know what is it about Wayne County
+
+90
+00:09:12,960 --> 00:09:19,500
+why you would have so many deaths compared to other counties like Kent County for example.
+
+91
+00:09:19,500 --> 00:09:26,820
+Right. So many Covid-19 deaths. So this is just an easy way to sort of visualize your data.
+
+92
+00:09:26,820 --> 00:09:32,160
+And we started from our main data with, you know, over 3000 observations
+
+93
+00:09:32,160 --> 00:09:37,280
+3000 rows, but then from that we were able to extract
+
+94
+00:09:37,280 --> 00:09:43,670
+data that we need and create this kind of visual. But to do the bar charts
+
+95
+00:09:43,670 --> 00:09:50,150
+this is the code for the charts and I use the ggplot function.
+
+96
+00:09:50,150 --> 00:09:55,980
+So that's why I loaded the ggplot to library earlier on.
+
+97
+00:09:55,980 --> 00:10:02,210
+And what I did is that I customized my graphs. So that's why you're seeing just so many lines of code.
+
+98
+00:10:02,210 --> 00:10:06,560
+But in general, you don't need so much code to do a graph.
+
+99
+00:10:06,560 --> 00:10:11,180
+I could have stopped here, essentially, but I kept adding layers.
+
+100
+00:10:11,180 --> 00:10:18,000
+So. If I just wanted to do just a quick graph, I could have just, you know.
+
+101
+00:10:18,000 --> 00:10:21,540
+Entered, my x variable right here, which I did.
+
+102
+00:10:21,540 --> 00:10:28,770
+I added my title, my x label, but I kept customizing it because I wanted to change the background color,
+
+103
+00:10:28,770 --> 00:10:35,460
+the size of the tic marks, you know, things of that nature just to show you really the capability of ggplot
+
+104
+00:10:35,460 --> 00:10:41,640
+It's just a powerful, powerful package when it comes onto data visualization.
+
+105
+00:10:41,640 --> 00:10:48,690
+OK, fine. Another thing we can do, and this is built in with the package itself, Covid-19 analytics.
+
+106
+00:10:48,690 --> 00:10:57,630
+So I didn't write this code this code came with a package so we can generate a quick global Covid-19 report.
+
+107
+00:10:57,630 --> 00:11:03,310
+So that's loading at the moment. And it's showing you, of course.
+
+108
+00:11:03,310 --> 00:11:13,610
+Let's see when it comes up. Right.
+
+109
+00:11:13,610 --> 00:11:23,450
+Its showing you that the United States leads. Currently we account for, let's say, twenty five percent of all Covid-19 cases globally.
+
+110
+00:11:23,450 --> 00:11:33,110
+Right. So it's over twenty eight million cases at this point, accounting for a quarter of the world's Covid-19 cases.
+
+111
+00:11:33,110 --> 00:11:42,680
+And we can all these functions that I'm using right now, they come with a Covid-19 package, the library that I loaded earlier on.
+
+112
+00:11:42,680 --> 00:11:49,880
+So it basically, doing this will allow me to generate a plot.
+
+113
+00:11:49,880 --> 00:11:55,760
+This is the one that shows me the plot of the totals. And you can see this is
+
+114
+00:11:55,760 --> 00:12:04,040
+you know, 90 million, so perhaps at this point in March, for close to 100 million Covid-19 cases globally.
+
+115
+00:12:04,040 --> 00:12:11,960
+And another thing this does this will make more sense to you if you do, you know, genetics or molecular biology
+
+116
+00:12:11,960 --> 00:12:18,890
+It shows you the genome distribution. So it's showing you the various bases.
+
+117
+00:12:18,890 --> 00:12:23,600
+And lastly, you can view the actual RNA sequence.
+
+118
+00:12:23,600 --> 00:12:26,740
+This is not showing the full sequence but it shows part of it.
+
+119
+00:12:26,740 --> 00:12:30,920
+Right. It says emitted twenty eight thousand entries.
+
+120
+00:12:30,920 --> 00:12:38,720
+So this is just really to show you the capability of R, how you can access real time data,
+
+121
+00:12:38,720 --> 00:12:47,540
+but essentially using software tools like, R, you can analyze your own data,
+
+122
+00:12:47,540 --> 00:12:52,460
+you can report your findings, you can conduct your research,
+
+123
+00:12:52,460 --> 00:12:58,280
+and you can share your findings, which can obviously change
+
+124
+00:12:58,280 --> 00:13:03,440
+obviously help the change, you know, the narrative on things like Covid-19.
+
+125
+00:13:03,440 --> 00:13:09,800
+So that's obviously a major focus and a major goal of public health research.
+
+126
+00:13:09,800 --> 00:13:17,320
+And this is how we use data to drive our research.
+

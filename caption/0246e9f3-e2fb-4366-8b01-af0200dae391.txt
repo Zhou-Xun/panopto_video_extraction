@@ -1,0 +1,2536 @@
+1
+00:00:00,240 --> 00:00:04,770
+Divided by everybody who was at risk at the beginning of the observation period.
+
+2
+00:00:05,610 --> 00:00:18,180
+But then we founded Risk has a number of limitations, and one of them is that it assumes equal follow up for everyone.
+
+3
+00:00:19,170 --> 00:00:23,580
+And we also discussed that that is not a very realistic.
+
+4
+00:00:24,570 --> 00:00:29,220
+Assumption. Because of a number of reasons.
+
+5
+00:00:29,880 --> 00:00:35,520
+In fact, getting the outcome itself is the main reason why not everybody has equal follow up.
+
+6
+00:00:35,520 --> 00:00:38,880
+When somebody gets the outcome, we stop following that person.
+
+7
+00:00:39,960 --> 00:00:46,500
+But yet we assume that the person continues in the denominator, even though the person is no longer at risk.
+
+8
+00:00:48,720 --> 00:00:56,549
+It also ignores losses to follow up. And, you know, not everybody may wish to continue in the study.
+
+9
+00:00:56,550 --> 00:01:06,360
+Some people move away, become untraceable, and some people may also die for reasons other than the outcome.
+
+10
+00:01:06,360 --> 00:01:09,660
+And. Don't have a chance to.
+
+11
+00:01:10,850 --> 00:01:14,670
+Get the outcome and will not have the same length of follow up as said.
+
+12
+00:01:16,910 --> 00:01:23,510
+So we had started discussing one of the options that we have to better estimate.
+
+13
+00:01:24,710 --> 00:01:31,930
+Risk when there is an equal follow up. Um, and I tried to, um.
+
+14
+00:01:33,380 --> 00:01:40,490
+Describe these again, sort of from scratch to try to make it more than just them.
+
+15
+00:01:42,020 --> 00:01:46,550
+So what we were trying to do really was this.
+
+16
+00:01:48,380 --> 00:01:55,810
+We could estimate the risk every time a new outcome occurs within a small time.
+
+17
+00:01:55,970 --> 00:02:00,710
+So be intervals. Are they doing the denominate?
+
+18
+00:02:01,740 --> 00:02:11,550
+That's really the key for what we could do to take into account and equal follow up updating the denominator.
+
+19
+00:02:12,450 --> 00:02:20,080
+What does that mean? Well. We would include in the denominator only people who were at risk at the time.
+
+20
+00:02:21,290 --> 00:02:33,980
+That outcome happened. That means we can exclude or should exclude people who were censored before that, given the outcome and people who had already.
+
+21
+00:02:35,050 --> 00:02:43,540
+Develop them because they would not really be part of the group of people who are at risk of developing.
+
+22
+00:02:43,810 --> 00:02:48,640
+They would come within that shorter time interval that I was calling a time junk.
+
+23
+00:02:49,660 --> 00:03:01,940
+Right. Then for those smaller intervals, we can estimate the survival survival recall.
+
+24
+00:03:03,250 --> 00:03:10,950
+He's the. Complement of risk, meaning survival means not getting an outcome right.
+
+25
+00:03:11,400 --> 00:03:15,030
+And it just simply calculated as one minus risk.
+
+26
+00:03:16,650 --> 00:03:21,630
+So we would estimate survival for each of those chunks, smaller times of intervals.
+
+27
+00:03:23,800 --> 00:03:31,030
+And we have to be mindful that. That calculation for each time interval is actually conditional.
+
+28
+00:03:31,450 --> 00:03:38,020
+The survival is conditional on having survived before, have invaded their without the outcome,
+
+29
+00:03:38,080 --> 00:03:42,220
+without being censored, without dying from other reasons.
+
+30
+00:03:42,370 --> 00:03:51,170
+Right. Oh. Then when we have the survival probabilities for each sub interval,
+
+31
+00:03:51,560 --> 00:04:00,830
+we can actually estimate the overall survival probability throughout the whole follow up period by multiplying those conditional probabilities.
+
+32
+00:04:01,400 --> 00:04:08,840
+Conditional survival probability. So this is what we could do calculate the overall cumulative survival proportion over the whole
+
+33
+00:04:08,840 --> 00:04:16,640
+follow up as the product of the conditional survival proportions for this molar times of intervals.
+
+34
+00:04:18,640 --> 00:04:21,100
+And once we have that number,
+
+35
+00:04:22,000 --> 00:04:33,640
+we could also estimate the overall risk after accounting for those losses and those unequal follow up linked by subtracted from one.
+
+36
+00:04:35,520 --> 00:04:41,399
+That would give us the overall estimate of risk that takes into account unequal follow up.
+
+37
+00:04:41,400 --> 00:04:47,230
+And that process is called. The product limit or kaplan-meier formula.
+
+38
+00:04:48,220 --> 00:04:52,480
+So I hope with this. Um.
+
+39
+00:04:54,860 --> 00:04:57,890
+Lubricant or anesthesia. We can now.
+
+40
+00:05:00,070 --> 00:05:03,370
+Revisit the actual process of how to.
+
+41
+00:05:06,830 --> 00:05:14,610
+Implement. That proceeded. So you recall these these example, I'm going to skip the details.
+
+42
+00:05:14,610 --> 00:05:20,610
+But this is a hypothetical population of ten people.
+
+43
+00:05:20,610 --> 00:05:26,630
+We then. We're supposed to be followed for as long as two years, 24 months.
+
+44
+00:05:26,680 --> 00:05:36,450
+That's the administrative and follow up. We discussed the outcome is represented with an X is that here and saying so these
+
+45
+00:05:36,490 --> 00:05:42,400
+are represented with a bar and in parentheses you have the length of follow up.
+
+46
+00:05:43,420 --> 00:05:53,870
+So we said that the first. Thing to do to implement Kaplan-Meier is to reorganize people,
+
+47
+00:05:54,620 --> 00:06:00,050
+sort them according to the length of follow up from the shortest follow up to the longest.
+
+48
+00:06:00,470 --> 00:06:13,670
+All right. So this is what we have done here. And the next thing also, according to our initial summary description, is going to be to estimate.
+
+49
+00:06:14,730 --> 00:06:23,940
+The risk for smaller times of intervals, which are going to be defined by the occurrence of each new case.
+
+50
+00:06:25,970 --> 00:06:34,910
+Updating the denominator to represent only the people who were at risk for that particular outcome.
+
+51
+00:06:36,520 --> 00:06:44,810
+Okay. So we organize the information on a on a little table here.
+
+52
+00:06:45,170 --> 00:06:52,670
+I carried over the the graph, you know, to have a visual look here.
+
+53
+00:06:55,600 --> 00:07:00,200
+Um. So the first. Time.
+
+54
+00:07:00,220 --> 00:07:09,440
+So in the event that I was calling a time junk. Will be defined by the occurrence of the first case which in.
+
+55
+00:07:10,350 --> 00:07:17,460
+This particular cohort happened to the first person and was the first thing that happened that year.
+
+56
+00:07:18,210 --> 00:07:23,490
+So after a month, this person developed an out. That means.
+
+57
+00:07:24,880 --> 00:07:33,160
+The first Thanksgiving interval is defined, but by one month, because that's when the first event happened.
+
+58
+00:07:36,020 --> 00:07:43,360
+Also, as I mentioned in this example, which is simplified, there was only one event at each time.
+
+59
+00:07:43,370 --> 00:07:47,810
+One event happened is to make it simpler, but you could have more than one.
+
+60
+00:07:48,500 --> 00:07:52,459
+So this is why in this column everything is one.
+
+61
+00:07:52,460 --> 00:07:56,180
+But this one represents this number.
+
+62
+00:07:57,420 --> 00:08:03,900
+One event here. Not this one in parentheses is the length of follow up is the fact that there is just one x there.
+
+63
+00:08:07,010 --> 00:08:10,960
+All right. To update the denominator.
+
+64
+00:08:14,960 --> 00:08:18,830
+Of people who were at risk for this particular case,
+
+65
+00:08:19,670 --> 00:08:26,690
+we will have to take into account and exclude anybody who was censored before
+
+66
+00:08:26,690 --> 00:08:32,630
+that particular case and anybody who had a case before that particular case.
+
+67
+00:08:35,240 --> 00:08:38,620
+Was anybody censored before this case happened?
+
+68
+00:08:39,440 --> 00:08:44,520
+No. Had any other case happen before this case?
+
+69
+00:08:45,540 --> 00:08:50,130
+No. So we have. Zero sensor.
+
+70
+00:08:51,320 --> 00:08:56,600
+And because it's the first one, we don't have to update really anything.
+
+71
+00:08:56,600 --> 00:08:59,330
+We don't have to exclude any previous cases because he's the first.
+
+72
+00:08:59,960 --> 00:09:07,640
+So for this first person, in this first chunk of time or some interval, everybody was still at risk.
+
+73
+00:09:08,390 --> 00:09:14,490
+Then people. So the risk for this first subway in general is one.
+
+74
+00:09:14,880 --> 00:09:18,790
+The case divided by ten. The number of people at risk and its volume.
+
+75
+00:09:19,500 --> 00:09:23,420
+All right. There's a revival proportion for that.
+
+76
+00:09:23,430 --> 00:09:29,350
+So interval is one minus. In one which is poignant.
+
+77
+00:09:29,510 --> 00:09:33,440
+So this column is this arrival proportion for each into.
+
+78
+00:09:34,690 --> 00:09:41,430
+Now let's do the second one, which is probably more interesting. When did the second case happen?
+
+79
+00:09:43,210 --> 00:09:44,620
+At three months, right?
+
+80
+00:09:46,010 --> 00:09:55,760
+That means the next time be interval is defined as what happened between one and three months, right between the previous case and the new one.
+
+81
+00:09:57,260 --> 00:10:04,290
+So this is represented here by three. How many cases happen exactly?
+
+82
+00:10:04,290 --> 00:10:09,390
+At three months? Just one case. So this is the one here again.
+
+83
+00:10:10,110 --> 00:10:16,260
+Had there been two cases happening at the same time at three months, these number would be two.
+
+84
+00:10:19,150 --> 00:10:26,420
+In this case, there's only one. Now we are going to update the denominator for this particular case.
+
+85
+00:10:27,360 --> 00:10:32,370
+In other words, we have to figure out how many people were at risk when that case happened.
+
+86
+00:10:35,750 --> 00:10:42,950
+How many were censored before this case happened and after the initial case?
+
+87
+00:10:44,230 --> 00:10:47,380
+One, which is this. Number two. Right.
+
+88
+00:10:49,880 --> 00:10:54,040
+How many previous cases there were. One.
+
+89
+00:10:54,410 --> 00:11:02,190
+Which is this one? So this person and this person were not.
+
+90
+00:11:03,290 --> 00:11:09,020
+At risk any more. When this case happened, when this outcome occurred.
+
+91
+00:11:10,040 --> 00:11:18,160
+Do you agree? This one had already had the outcome at month one.
+
+92
+00:11:18,640 --> 00:11:25,830
+So they couldn't. Have been under observation at month three.
+
+93
+00:11:26,700 --> 00:11:27,450
+You're already gone.
+
+94
+00:11:29,070 --> 00:11:39,720
+This person was sensor could have been lost to follow up may maybe moved out of the study due at month two so it was not under observation.
+
+95
+00:11:41,060 --> 00:11:44,900
+When this album happened at Monterey. Right.
+
+96
+00:11:48,610 --> 00:11:55,930
+So from the previous number of people who were at risk, which we carry over here, we have to remove.
+
+97
+00:11:57,410 --> 00:12:02,480
+The previous case and then. The person who sends censored.
+
+98
+00:12:03,080 --> 00:12:13,100
+And then we get a new updated denominator, which is eight that corresponds exactly to the people who are at risk when this person got out.
+
+99
+00:12:15,210 --> 00:12:20,220
+It has to include the person that was questioned by it being CG this time.
+
+100
+00:12:20,830 --> 00:12:24,870
+What is CG? So, um.
+
+101
+00:12:29,180 --> 00:12:33,570
+Because. To get an outcome, you have to be at risk.
+
+102
+00:12:33,870 --> 00:12:41,370
+So you always have to include the person who gets the outcome in the denominator is like right before the outcome happens.
+
+103
+00:12:41,550 --> 00:12:45,990
+Obviously that person has to be at risk, so that person has to be in the denominator, right?
+
+104
+00:12:49,360 --> 00:12:55,809
+In this graphical representation. It's it's also helpful that you could, if you will,
+
+105
+00:12:55,810 --> 00:13:08,950
+you could trace a vertical line from the person who got a gaze down to the x axis and count the number of lines that cross that vertical line.
+
+106
+00:13:09,670 --> 00:13:16,659
+And that count is going to be the number of people who were at risk for that particular time.
+
+107
+00:13:16,660 --> 00:13:23,370
+So. You know, one, two, three, four, five, six, seven, eight.
+
+108
+00:13:24,350 --> 00:13:28,000
+The same name. Yes.
+
+109
+00:13:28,810 --> 00:13:33,730
+That's subjective. We need.
+
+110
+00:13:36,810 --> 00:13:43,980
+Great question. What if this person, number seven, had dropped out exactly at Monty?
+
+111
+00:13:46,000 --> 00:13:49,660
+We have to make an executive decision. You know what it means?
+
+112
+00:13:50,620 --> 00:13:57,880
+It means it can go either way. But you have to decide in advance how are you going to treat those situations?
+
+113
+00:13:58,630 --> 00:14:08,530
+It can go either way. And it's a great question because it's actually an arbitrary decision and it may have consequences, of course, underestimates.
+
+114
+00:14:10,050 --> 00:14:13,290
+But it is so true that that is a decision.
+
+115
+00:14:13,290 --> 00:14:20,000
+Because when you are calling this, you know, you know. Statistical software to actually it is one of the options.
+
+116
+00:14:21,150 --> 00:14:28,950
+So your excellent question actually is one you have to answer for the software that you are programing to get this thing done.
+
+117
+00:14:32,490 --> 00:14:45,860
+You know, in real life, you know, sometimes in many studies, you actually have the luxury of having a time in very fine unit, for example, days.
+
+118
+00:14:47,190 --> 00:14:54,120
+So when you have days rather than, say, months, that would minimize the number of physical ties.
+
+119
+00:14:54,420 --> 00:14:58,890
+In fact, technically school ties that would minimize the number of days.
+
+120
+00:14:59,920 --> 00:15:04,710
+But really. All right. Let's let's move on to.
+
+121
+00:15:04,720 --> 00:15:09,310
+Okay, so so you estimate the risk for that particular time interval as the number
+
+122
+00:15:09,310 --> 00:15:15,520
+of cases one divided by the people at risk in the denominator at that time?
+
+123
+00:15:15,970 --> 00:15:22,480
+Eight And you get from 1 to 5, that would be the risk for that time interval.
+
+124
+00:15:22,480 --> 00:15:28,629
+And then the condition survival proportion would be one minus that right for that time.
+
+125
+00:15:28,630 --> 00:15:40,390
+So we. If you were to estimate this, the overall survival proportion by that time interval,
+
+126
+00:15:40,870 --> 00:15:48,930
+you could do it by multiplying the previous survival proportion times, the survival proportion for that times of interval.
+
+127
+00:15:49,980 --> 00:15:58,400
+Because they are condition. And when you have conditional probabilities delivered, all one is always the product of the conditional probability.
+
+128
+00:15:59,910 --> 00:16:04,340
+Right. Let's do the third Thanksgiving.
+
+129
+00:16:04,580 --> 00:16:08,130
+So. When did the next case happen?
+
+130
+00:16:12,270 --> 00:16:20,320
+At nine months. So that's already telling you that the length of the next interval is going to be from three months to nine months.
+
+131
+00:16:20,340 --> 00:16:23,940
+Right. So that's represented here. How many cases happen?
+
+132
+00:16:24,420 --> 00:16:33,730
+Just one. Just one. How many people were censored between the previous case and this one?
+
+133
+00:16:34,300 --> 00:16:39,520
+Nobody so censored to zero because, you know, there is nobody censored between these two lengths.
+
+134
+00:16:41,440 --> 00:16:46,780
+And we can update the denominator now with that information carryover.
+
+135
+00:16:46,900 --> 00:16:50,230
+The previous denominator eight subtract.
+
+136
+00:16:51,190 --> 00:16:58,210
+The one case from the previous period and subtract the numbers inserted in this case is nobody.
+
+137
+00:16:58,750 --> 00:17:03,510
+So you get seven. Does your new denominator for that time so integral?
+
+138
+00:17:04,350 --> 00:17:08,879
+Same thing if you like to do it graphically.
+
+139
+00:17:08,880 --> 00:17:13,170
+You know, again, you trace your vertical line here and you should come seven.
+
+140
+00:17:18,370 --> 00:17:26,350
+Estimate your risk estimated year and what proportion you could estimate was the cumulative proportion up to that point for.
+
+141
+00:17:28,560 --> 00:17:31,920
+Is that clear? Can I?
+
+142
+00:17:33,680 --> 00:17:37,370
+Move on and assume that we went through all the cases.
+
+143
+00:17:38,380 --> 00:17:42,050
+Okay. So we get to the last one.
+
+144
+00:17:43,560 --> 00:17:49,110
+You know, for example, the denominator for that one was only two is one and two.
+
+145
+00:17:49,500 --> 00:18:01,450
+Estimate three, estimate the proportion and then estimate the overall cumulative survival proportion by multiplying all the previous, uh.
+
+146
+00:18:02,800 --> 00:18:12,280
+So we interview specific survivor proportions. And we get that the overall survival proportion at the end of follow up was 8.18.
+
+147
+00:18:14,050 --> 00:18:20,990
+18%. So what's the risk?
+
+148
+00:18:22,240 --> 00:18:27,100
+The overall risk in the cumulative survival proportion is .18.
+
+149
+00:18:34,910 --> 00:18:41,300
+Only two. Excellent. One minus the survival proportion is equal to the risk.
+
+150
+00:18:44,510 --> 00:18:49,610
+Now. If you had ignored.
+
+151
+00:18:51,160 --> 00:19:02,590
+There are different lengths of follow up and just estimated the risk as we were doing it at the beginning before we introduce this computation.
+
+152
+00:19:03,620 --> 00:19:06,710
+What would be that risk? How would you estimate that risk?
+
+153
+00:19:07,910 --> 00:19:17,280
+And what would that be? Six out of ten.
+
+154
+00:19:18,510 --> 00:19:22,170
+Precisely. So you are. Jamie, thank you.
+
+155
+00:19:23,550 --> 00:19:26,790
+So I agree with Jamie. He's just a number of cases over.
+
+156
+00:19:27,150 --> 00:19:31,260
+Six divided by everybody who was at risk at the beginning of follow ups used in.
+
+157
+00:19:33,350 --> 00:19:37,130
+And then you get, oops, 60%.
+
+158
+00:19:37,370 --> 00:19:41,630
+Oh, I didn't write 60% here, but it is 60%.
+
+159
+00:19:42,290 --> 00:19:46,300
+Everybody clear why it is 60%? Okay.
+
+160
+00:19:47,080 --> 00:19:56,680
+How do you compare? They naively estimate that risk ignoring differences in length of follow up with the risk that takes into account.
+
+161
+00:19:57,720 --> 00:20:01,520
+And it will follow. He's nowhere.
+
+162
+00:20:03,240 --> 00:20:14,310
+So if you ignore differences in follow up between people in your population, you are going to underestimate risk.
+
+163
+00:20:16,290 --> 00:20:24,060
+And that's explained because you are keeping a spuriously large denominator.
+
+164
+00:20:25,040 --> 00:20:28,730
+When the denominator, in fact, keeps decreasing.
+
+165
+00:20:30,010 --> 00:20:34,450
+Because people who get outcomes drop out of the denominator.
+
+166
+00:20:34,750 --> 00:20:40,750
+And also these other people who just get lost to follow up for other reasons without even getting the outcome.
+
+167
+00:20:41,690 --> 00:20:50,090
+Okay. So ignoring an equal follow up in a close cohort study will underestimate the risk.
+
+168
+00:20:55,770 --> 00:20:59,999
+Look, you can plot this, you can graph it.
+
+169
+00:21:00,000 --> 00:21:05,100
+And this, perhaps you may have seen is called a kaplan-meier plot.
+
+170
+00:21:05,100 --> 00:21:11,860
+And it simply represents the. Cumulative probabilities.
+
+171
+00:21:13,460 --> 00:21:20,120
+Either of risk or you can also plot the survival at every.
+
+172
+00:21:21,210 --> 00:21:25,860
+Times of interval defined as when a new outcome occurs.
+
+173
+00:21:27,630 --> 00:21:31,120
+Have you seen lots like this? Who had seen plots like this?
+
+174
+00:21:32,130 --> 00:21:35,730
+So this is where they come from. Right.
+
+175
+00:21:37,490 --> 00:21:48,720
+Okay. There are a couple of assumptions for this formula and we'll probably go quickly through them.
+
+176
+00:21:49,470 --> 00:21:55,620
+But one is that this is called independence between censoring and surveilling.
+
+177
+00:21:57,980 --> 00:22:07,400
+What that basically means is that the people who are lost to follow up before getting a chance to have the outcome.
+
+178
+00:22:08,430 --> 00:22:13,350
+Would have had the same probability of getting the outcome as those who remain.
+
+179
+00:22:13,350 --> 00:22:16,830
+And their follow up. Right.
+
+180
+00:22:18,340 --> 00:22:22,980
+So if the people who are lost to follow up. Would have had a different.
+
+181
+00:22:24,570 --> 00:22:30,210
+Probability of getting the outcome a different risk than you would overall risk would be.
+
+182
+00:22:32,300 --> 00:22:37,890
+Based. And here you have the direction of of the bias.
+
+183
+00:22:37,890 --> 00:22:42,660
+But that's probably not necessarily relevant at this stage.
+
+184
+00:22:43,380 --> 00:22:47,220
+All you have to know is conceptually, you need to assume that.
+
+185
+00:22:49,120 --> 00:22:54,070
+If the people we lost to follow up had continued actually on their follow up,
+
+186
+00:22:54,250 --> 00:22:58,740
+the risk would have been the same as for those who in fact continued on their follow up.
+
+187
+00:23:01,490 --> 00:23:05,270
+The other assumption is a lack of secular trends.
+
+188
+00:23:05,270 --> 00:23:12,570
+And basically what that means is that. In cohorts that are recruited over a longer period.
+
+189
+00:23:15,930 --> 00:23:23,110
+The risk. Of people is the same regardless of when they are recruited.
+
+190
+00:23:23,380 --> 00:23:28,990
+So the reason they're saying change as a function of when people enter the code.
+
+191
+00:23:29,500 --> 00:23:35,920
+And one example of this idea of equal holds, for example, that.
+
+192
+00:23:36,990 --> 00:23:41,840
+We were recruited toward the end of the. 1990.
+
+193
+00:23:43,360 --> 00:23:51,600
+Because. Any anybody knows what happened in 1997.
+
+194
+00:23:53,040 --> 00:23:57,160
+With respect to HIV. Right.
+
+195
+00:23:57,420 --> 00:24:01,360
+Some very, very effective antiretrovirals became available.
+
+196
+00:24:01,380 --> 00:24:09,030
+I think they must have been the, uh, reverse transcriptase inhibitors.
+
+197
+00:24:10,820 --> 00:24:27,110
+So. Other people who entered the cohort in 1995 have the same overall risk of, say, developing full blown AIDS than people who entered in 1999.
+
+198
+00:24:27,130 --> 00:24:32,160
+Probably not because the people who entered later had the benefit.
+
+199
+00:24:33,560 --> 00:24:38,470
+Of vaccine. These are very effective antiretrovirals.
+
+200
+00:24:39,580 --> 00:24:47,940
+Lack of secular. Right now, a couple of pointers on on the Kaplan-Meier formula.
+
+201
+00:24:48,050 --> 00:24:56,900
+Sort of from a more practical point of view, these belong to the material family of of methods which are called time to event.
+
+202
+00:24:58,910 --> 00:25:02,590
+Um. And also are extended into.
+
+203
+00:25:03,710 --> 00:25:09,520
+An umbrella that's called survival analysis. Um.
+
+204
+00:25:11,200 --> 00:25:18,430
+We have full courses on survival analysis that incorporate this and other extensions.
+
+205
+00:25:19,930 --> 00:25:25,770
+And know. When do we use these methods?
+
+206
+00:25:25,790 --> 00:25:32,470
+When do we use the kaplan-meier? Uh, let's say, as opposed to risk or other options?
+
+207
+00:25:32,480 --> 00:25:35,990
+Well, in addition to when we have of use an equal for lot.
+
+208
+00:25:39,280 --> 00:25:45,510
+They are particularly helpful when. Our question of interest is whether.
+
+209
+00:25:46,660 --> 00:25:51,970
+An outcome happens faster or more slowly.
+
+210
+00:25:53,210 --> 00:25:59,510
+That is done, whether it happens at all. And we talked about mortality rates.
+
+211
+00:26:00,720 --> 00:26:10,170
+So over a given period, the period is long enough and the population perhaps is old enough for an entry, but everybody's going to die.
+
+212
+00:26:10,200 --> 00:26:13,320
+You know, that's just the sad reality, I guess.
+
+213
+00:26:13,620 --> 00:26:21,390
+Or maybe not sad is the reality. Um, so it is, you know, we have dichotomous exposure.
+
+214
+00:26:22,680 --> 00:26:31,520
+The risk of dying is going to be one in both. Exposure levels and we will not be able to make any causal link.
+
+215
+00:26:32,720 --> 00:26:36,890
+But we want to know is on which exposure level.
+
+216
+00:26:36,920 --> 00:26:42,260
+People die first there. So this method gives you that answer.
+
+217
+00:26:44,550 --> 00:26:47,940
+And here are some examples of those outcomes.
+
+218
+00:26:48,340 --> 00:26:52,350
+So outcomes expected to happen to everybody. Death.
+
+219
+00:26:53,470 --> 00:26:59,350
+Sometimes life events that are very common. I mean, they may not happen to everybody, but to almost everybody.
+
+220
+00:26:59,350 --> 00:27:09,460
+So some reproductive outcomes like having a pregnancy or giving birth, some developmental milestones, you know, like the onset of puberty.
+
+221
+00:27:11,470 --> 00:27:14,830
+And also sometimes outcomes are that define themselves by time.
+
+222
+00:27:15,760 --> 00:27:21,960
+Let's say a change in a condition, a biomarker or symptoms after an intervention.
+
+223
+00:27:26,250 --> 00:27:31,240
+They are really good examples of this. Like.
+
+224
+00:27:33,860 --> 00:27:38,690
+When does when does a person become. When does an infected person become?
+
+225
+00:27:39,870 --> 00:27:47,240
+Infectious to others. So most likely every infected person will become infectious.
+
+226
+00:27:48,830 --> 00:27:56,210
+But what you are interested in is really. How long does it take that person to become infectious?
+
+227
+00:27:56,300 --> 00:28:05,230
+Right. Also when you are interested in a first event of an outcome that may happen repeatedly.
+
+228
+00:28:06,960 --> 00:28:15,540
+And sometimes when an outcome is recurrent and everybody has had the outcome and you are interested to know when will the next one happen?
+
+229
+00:28:16,510 --> 00:28:19,570
+So those are called recidivism studies.
+
+230
+00:28:21,190 --> 00:28:27,180
+Right. There is another option. And is there any questions on Kaplan-Meier before we move on?
+
+231
+00:28:32,270 --> 00:28:50,760
+Yes. Great question, if I may repeat it.
+
+232
+00:28:51,660 --> 00:28:57,060
+So in this particular example, we began follow up for everybody at the same time.
+
+233
+00:28:57,750 --> 00:29:04,380
+Could we begin follow up for somebody sometime in the middle of the observation peak?
+
+234
+00:29:05,490 --> 00:29:11,260
+Densities. Strictly speaking, no.
+
+235
+00:29:12,420 --> 00:29:17,030
+But. You can read the fine.
+
+236
+00:29:18,490 --> 00:29:27,270
+You're a starting point. To be at the same time to scale on some scale for everyone.
+
+237
+00:29:31,460 --> 00:29:43,710
+If acceptable. But strictly speaking, in some timescale, everybody needs to begin follow up at the same time.
+
+238
+00:29:45,310 --> 00:29:50,990
+But also. There was a few.
+
+239
+00:29:54,210 --> 00:29:57,330
+It depends on your assumptions and on your outcome.
+
+240
+00:29:58,270 --> 00:30:01,480
+If, uh. If you are willing to leave.
+
+241
+00:30:01,810 --> 00:30:07,380
+We. Assuming that the person did not develop the outcome unless he did.
+
+242
+00:30:08,400 --> 00:30:12,330
+During the time you did not observe the person, then it's fine.
+
+243
+00:30:15,140 --> 00:30:22,940
+If it's an outcome that requires people to actually come back, you can fill in the missing time.
+
+244
+00:30:24,130 --> 00:30:30,120
+But it's an outcome that. Uh, could be recurrent, for example.
+
+245
+00:30:30,450 --> 00:30:32,160
+And you are interesting. First occurrence.
+
+246
+00:30:32,760 --> 00:30:41,130
+You may not feel comfortable with with including that there's because that person could have had the outcome during the observation period you missed.
+
+247
+00:30:44,890 --> 00:30:51,360
+Anything else? All right.
+
+248
+00:30:51,570 --> 00:30:56,610
+So let's move on with another option for an equal follow up.
+
+249
+00:30:56,880 --> 00:31:00,480
+This was a revolutionary concept. You ready?
+
+250
+00:31:01,410 --> 00:31:06,720
+Well, how about using time itself as the denominator?
+
+251
+00:31:09,010 --> 00:31:15,570
+And they actually. Uh, would be an option for the question.
+
+252
+00:31:15,750 --> 00:31:24,710
+Sorry. Your name again? In it. So the question that Anna was was asking, this could do away with that problem.
+
+253
+00:31:27,010 --> 00:31:35,230
+So if we do that, we would be using a metric that is called person time.
+
+254
+00:31:36,950 --> 00:31:41,420
+And person. Time is defined as the sum of the time at risk in the cohort for each participant.
+
+255
+00:31:42,880 --> 00:31:47,370
+So. In a cohort for each person.
+
+256
+00:31:47,370 --> 00:31:52,900
+They observe time from the origin or baseline until the outcome occurs.
+
+257
+00:31:54,210 --> 00:32:00,990
+If it's a single occurrence outcome or until sensory until they reach the administrative in a follow up,
+
+258
+00:32:01,860 --> 00:32:05,730
+or until they have a competing risk or until they are lost to follow up.
+
+259
+00:32:05,850 --> 00:32:11,490
+So again, it will account exactly for the time observed.
+
+260
+00:32:12,520 --> 00:32:26,780
+In the cold. One huge advantage of this metric is that there's one thing that can be calculated both in closed and open calls.
+
+261
+00:32:27,970 --> 00:32:32,710
+Risk and kaplan-meier risk really can only be estimated in close quarters.
+
+262
+00:32:34,230 --> 00:32:38,890
+Key difference. So.
+
+263
+00:32:40,090 --> 00:32:48,040
+I want to go back to my schematic. And again, there is to begin with a simple example, and I'm assuming it's a close call.
+
+264
+00:32:48,880 --> 00:32:54,040
+So we are going to calculate person time in this close call.
+
+265
+00:32:54,550 --> 00:33:05,320
+And the way to do that is simply to count the number of time units each person contributed to the observation period.
+
+266
+00:33:07,020 --> 00:33:11,690
+Ready? So recall, let's say, you know, I make my administrative annual follow up.
+
+267
+00:33:11,690 --> 00:33:20,520
+Here was ten time units, let's say ten years. So how many time units did the first person contributed?
+
+268
+00:33:22,600 --> 00:33:27,410
+Then how about the second one? So in that there.
+
+269
+00:33:29,760 --> 00:33:33,270
+Next. Well, I sort of.
+
+270
+00:33:34,300 --> 00:33:40,690
+Got a little bit impatient, but I'm just counting, right?
+
+271
+00:33:41,350 --> 00:33:45,780
+I guess it is clear. Just. So.
+
+272
+00:33:48,740 --> 00:33:54,230
+Then you can estimate the total amount of person time in the cohort.
+
+273
+00:33:54,860 --> 00:34:01,060
+By adding up the individual person time contributed by each member of the court.
+
+274
+00:34:01,070 --> 00:34:06,690
+So this is what you can do here. So. If you can make this calculation.
+
+275
+00:34:07,530 --> 00:34:16,050
+Uh, well, I can the or if you want to have some faith these are the some of these numbers is 235.
+
+276
+00:34:16,890 --> 00:34:21,960
+There's some unique. So that would be the denominator.
+
+277
+00:34:23,270 --> 00:34:32,160
+Of. The metric that we are going to use to represent sort of the first of these these is here.
+
+278
+00:34:34,200 --> 00:34:39,900
+And that metric has another proper name, which is the incidence rate.
+
+279
+00:34:42,330 --> 00:34:46,290
+So in the numerator of an incidence rate you have.
+
+280
+00:34:47,110 --> 00:34:55,500
+A number of new outcomes during follow up. And in the denominator you have that there's some time at risk in the code.
+
+281
+00:34:56,670 --> 00:35:00,120
+So how many neocons were there during follow up in this call?
+
+282
+00:35:01,150 --> 00:35:05,660
+Six. And how much person time was at risk observed.
+
+283
+00:35:06,630 --> 00:35:16,030
+235. So we have 0.0 to 6 events per person year.
+
+284
+00:35:17,170 --> 00:35:20,340
+And this is. The units.
+
+285
+00:35:21,530 --> 00:35:25,750
+Okay. Incidence rate, the key word is rate.
+
+286
+00:35:25,960 --> 00:35:29,140
+So these are rates. You remember we mentioned what?
+
+287
+00:35:30,190 --> 00:35:34,090
+We're not rates, but these are rates. Voila.
+
+288
+00:35:35,860 --> 00:35:40,870
+They have synonyms. You can also find them referred to as incidence density.
+
+289
+00:35:41,650 --> 00:35:51,440
+There's some time incidence. Sometimes if you just see incidents without any other words around it, they are referring to rates.
+
+290
+00:35:53,110 --> 00:35:58,560
+And sometimes also as hazard rates. Okay.
+
+291
+00:35:59,630 --> 00:36:03,860
+Now a few really good advantages of of rates.
+
+292
+00:36:04,400 --> 00:36:07,130
+They also accommodate recurrent outcomes.
+
+293
+00:36:07,760 --> 00:36:14,030
+Recall recurrent outcomes are outcomes that may happen more than once to a person during a given for up period.
+
+294
+00:36:14,990 --> 00:36:20,090
+And I brought you an example courtesy of I guess myself, insomnia.
+
+295
+00:36:21,470 --> 00:36:27,350
+Supposedly we have an outcome that may happen more than once. And this is the situation in this particular call.
+
+296
+00:36:29,420 --> 00:36:41,440
+So. We have to count again the percent that right because we have continued following people
+
+297
+00:36:41,440 --> 00:36:46,830
+after the first outcome happened since we thought perhaps they could have another.
+
+298
+00:36:48,290 --> 00:36:56,060
+So I've done this for you here and we have a total of 249 person time, unique person years.
+
+299
+00:36:57,600 --> 00:37:01,350
+And we can estimate again the incidence rate, how many outcomes there were.
+
+300
+00:37:07,940 --> 00:37:12,090
+Yes. 13. Key issue here.
+
+301
+00:37:13,600 --> 00:37:20,410
+You are not counting people. Very important difference.
+
+302
+00:37:20,830 --> 00:37:24,340
+You are no longer counting people. You are only counting.
+
+303
+00:37:25,940 --> 00:37:31,339
+Outcomes events, right? And there are 13 full circles.
+
+304
+00:37:31,340 --> 00:37:34,730
+So that's the number of outcomes you have to ignore.
+
+305
+00:37:36,280 --> 00:37:39,610
+The actual number of people in the Corps.
+
+306
+00:37:40,150 --> 00:37:49,260
+You're only interested in them. And the denominator is going to be these two under 14 and you have point over five events per person.
+
+307
+00:37:49,320 --> 00:37:53,630
+You write. Everything clear with.
+
+308
+00:37:55,540 --> 00:37:59,320
+Incidence rates so far. Oh, good.
+
+309
+00:38:00,560 --> 00:38:06,670
+A few pointers. So they out the units are going to be outcomes or events or cases.
+
+310
+00:38:07,570 --> 00:38:12,490
+Did that by person, year or month or day time unit.
+
+311
+00:38:15,300 --> 00:38:20,070
+From this description of the units are great proportions.
+
+312
+00:38:24,280 --> 00:38:31,210
+They are not proportions. Record proportions need to have the same units in the numerator and denominator and also.
+
+313
+00:38:32,750 --> 00:38:40,280
+The numerator needs to be included in the denominator. If you have different units, there is no way the numerator can be included in the nominee.
+
+314
+00:38:40,520 --> 00:38:44,510
+Right. They are not the persons. They do not measured risk.
+
+315
+00:38:45,350 --> 00:38:50,910
+They do not measure risk. Because risk requires.
+
+316
+00:38:51,910 --> 00:38:59,320
+People both in the numerator and denominator. Was the range if.
+
+317
+00:39:00,520 --> 00:39:08,830
+If this is how our rate is calculated was it was arranged and I have a little poll here, we can probably try to run it quickly.
+
+318
+00:39:09,760 --> 00:39:13,090
+So this is mine is 121021.
+
+319
+00:39:13,540 --> 00:39:19,090
+Minus infinity to infinity. Zero to infinity and minus infinity to one.
+
+320
+00:39:20,910 --> 00:39:27,540
+So to try to gauge the range, my suggestion is that you think how large can the numerator be?
+
+321
+00:39:27,900 --> 00:39:33,240
+How large can the denominator be, and are they constricted by each other?
+
+322
+00:39:33,780 --> 00:40:14,810
+Well, I can't reveal too much, but we. Look.
+
+323
+00:40:15,210 --> 00:40:18,840
+Hey. Ready? Okay. Still some answers coming.
+
+324
+00:40:18,840 --> 00:40:23,490
+Some votes. So you reach 60.
+
+325
+00:40:25,950 --> 00:40:31,030
+Okay. All right.
+
+326
+00:40:32,100 --> 00:40:36,210
+So we have a minority of correct answers.
+
+327
+00:40:38,490 --> 00:40:43,480
+The range is zero to infinity. Why?
+
+328
+00:40:44,620 --> 00:40:50,900
+Who would like to get. Okay.
+
+329
+00:40:51,260 --> 00:40:54,740
+So the minimum number in the numerator is zero.
+
+330
+00:40:55,490 --> 00:41:03,880
+What are the implications of that? Zero.
+
+331
+00:41:12,260 --> 00:41:19,760
+Because the numerator can be as large as you want is not restricted or constricted by the denominator and the denominator can be.
+
+332
+00:41:29,510 --> 00:41:41,310
+But, you know, in in sort of in a. In practical terms, the denominator can be as large as or as low as.
+
+333
+00:41:43,440 --> 00:41:48,190
+It could approach zero. It could you could have very little.
+
+334
+00:41:49,120 --> 00:41:59,500
+Um, there's one a follow up. And if that were the case, then their maximum range would approach infinity.
+
+335
+00:42:01,140 --> 00:42:04,260
+Who can give me an example, a real life example.
+
+336
+00:42:06,310 --> 00:42:11,160
+When I read. Has approached, sadly, infinity.
+
+337
+00:42:21,140 --> 00:42:31,070
+So for the rate to approach infinity, you probably want or need a very large numerator and a pretty small denominator.
+
+338
+00:42:31,100 --> 00:42:34,520
+In other words, a pretty short exposure period.
+
+339
+00:42:47,010 --> 00:42:57,350
+Could be. But the thing is for. In epidemics, you not always used rates.
+
+340
+00:42:58,280 --> 00:43:03,330
+So, uh. Yeah. Okay.
+
+341
+00:43:03,750 --> 00:43:09,570
+Nobody like to try your luck thinking outside the box.
+
+342
+00:43:10,940 --> 00:43:20,739
+Well, death by bombing. It is it is one of the most, you know, terrible, I guess, situations.
+
+343
+00:43:20,740 --> 00:43:28,290
+But, um, like in, in, uh, Hiroshima and Nagasaki, you know, of course.
+
+344
+00:43:28,330 --> 00:43:41,950
+Six 1945. The atom bomb is dropped and it kills 70,000 people on the spot, by the way, mostly all mostly unarmed civilians.
+
+345
+00:43:41,950 --> 00:43:45,759
+Women, kids. The men had already been killed.
+
+346
+00:43:45,760 --> 00:43:49,670
+Pretty much. And was the exposure period.
+
+347
+00:43:51,760 --> 00:43:55,250
+Fraction of seconds. 4 seconds at best.
+
+348
+00:43:55,940 --> 00:44:01,070
+Right. So the interest rate in situations like this could approach infinity.
+
+349
+00:44:01,910 --> 00:44:07,900
+All right. So rates can increase or decrease over time.
+
+350
+00:44:08,980 --> 00:44:16,150
+So that calculation, in fact, just represents the average rate over the whole observation bill.
+
+351
+00:44:17,220 --> 00:44:24,060
+That's just an assumption you have to make that the rate is constant, but in reality, it may not be in a long, long observation.
+
+352
+00:44:24,060 --> 00:44:29,040
+You can have a higher rate at some point of Europe's original period, a lower rate at another.
+
+353
+00:44:29,700 --> 00:44:33,130
+So overall, what you have is an average.
+
+354
+00:44:34,910 --> 00:44:39,920
+As we said it accounts for. Actual follow up,
+
+355
+00:44:39,920 --> 00:44:51,230
+including censoring competing risk and when it accommodates recurrent outcomes and it actually also accommodates exposures that change over time.
+
+356
+00:44:51,530 --> 00:45:02,720
+So this would be perfect for what our ice cream intake experiments and exposure that may not be constant, but that changes sporadically.
+
+357
+00:45:03,950 --> 00:45:11,209
+Now there is a mathematical relation between risk and rate based donation rates.
+
+358
+00:45:11,210 --> 00:45:14,530
+Don't measure that. It is a mathematical relation.
+
+359
+00:45:15,740 --> 00:45:22,879
+There are many, and I think I have included them in this legislative version for you to have.
+
+360
+00:45:22,880 --> 00:45:30,170
+But mainly going to talk about the simplest is basically the risk or cumulative incidence.
+
+361
+00:45:31,550 --> 00:45:39,350
+Can be approximated as the product of the incidence rate times, the delta time or duration of follow up.
+
+362
+00:45:40,940 --> 00:45:46,220
+There are some assumptions here, but, you know, you can you can live with this.
+
+363
+00:45:46,700 --> 00:45:52,370
+Here's an example. Suppose you have an incidence rate of 11,000 person years.
+
+364
+00:45:54,130 --> 00:45:57,280
+The total population is 1000 people.
+
+365
+00:45:58,620 --> 00:46:02,880
+Nobody was censored. So everybody made it to the administrative.
+
+366
+00:46:03,300 --> 00:46:07,670
+And a follow up question is, was there risk over a 20 year follow up?
+
+367
+00:46:09,300 --> 00:46:19,230
+So in this case, you just like in the numbers, the incidence rate is 11 divided by 8000 and the Delta time is 20.
+
+368
+00:46:20,010 --> 00:46:28,680
+So the approximate risk corresponding to this incidence rate over a 20 year period would be 22%.
+
+369
+00:46:30,450 --> 00:46:38,140
+Okay. So what all these formulas try to do is to adjust the denominator.
+
+370
+00:46:39,250 --> 00:46:43,330
+Two losses, particularly due to.
+
+371
+00:46:45,180 --> 00:46:49,020
+Events happen. This one doesn't do that.
+
+372
+00:46:49,170 --> 00:46:53,010
+So you have to assume that there are relatively few events.
+
+373
+00:46:53,190 --> 00:46:57,270
+So these would work in a situation where there are relatively few outcomes.
+
+374
+00:46:58,720 --> 00:47:05,980
+And you also have to assume that the rate is constant and that there is no censoring due to
+
+375
+00:47:05,980 --> 00:47:12,340
+loss to follow up or competing risks because no adjustments are being made to the look.
+
+376
+00:47:12,820 --> 00:47:20,830
+But again, I guess is a helpful thing to to know is at this stage.
+
+377
+00:47:22,080 --> 00:47:26,140
+There is also a relation. Between.
+
+378
+00:47:27,620 --> 00:47:34,400
+IT rate and the prevalence that you estimate at any given point of follow up.
+
+379
+00:47:35,030 --> 00:47:43,220
+You remember prevalence, what we estimated in cross-sectional studies when we traced a window across a single time unit.
+
+380
+00:47:44,120 --> 00:47:49,980
+So if you think of a of cohort study with several time units, you know,
+
+381
+00:47:50,300 --> 00:47:56,930
+they may not be equally populated because we have discussed ad nauseum that not everybody is followed up equally.
+
+382
+00:47:58,380 --> 00:48:05,070
+But in theory you could estimate what the prevalence would be on average at any.
+
+383
+00:48:06,240 --> 00:48:11,010
+Given. Time window. During the follow up.
+
+384
+00:48:12,360 --> 00:48:17,819
+And then assumptions as usual. And this is one way to do it.
+
+385
+00:48:17,820 --> 00:48:27,030
+The point prevalence is equal to the incidence rate times the disease duration divided by one man less that same term.
+
+386
+00:48:28,320 --> 00:48:36,870
+And again, this probably ringing a bell. You recall when we studied prevalence that we said that it depended on two things.
+
+387
+00:48:38,930 --> 00:48:44,030
+One of them was the duration of the disease and the other was the incidence rate.
+
+388
+00:48:44,030 --> 00:48:47,630
+And I told you not to worry so much about it.
+
+389
+00:48:48,860 --> 00:48:54,010
+Well, this is it. This is what I was to. Talking about.
+
+390
+00:48:55,390 --> 00:48:59,440
+Okay. And this is the mathematical relation.
+
+391
+00:49:00,280 --> 00:49:05,140
+There is an example. We have the same rate as in the previous example, 11 divided by a thousand person years.
+
+392
+00:49:05,710 --> 00:49:12,250
+And let's say that the duration of the disease in this case, represented by survival of diagnosis, is 15 years.
+
+393
+00:49:13,120 --> 00:49:17,610
+So what would be the prevalence approximately at any given time point that goal?
+
+394
+00:49:18,730 --> 00:49:26,620
+The point prevalence would be the incidence rate times the duration divided by one last that same term.
+
+395
+00:49:26,860 --> 00:49:37,250
+And that would be 14.2%. There are assumptions, as I mentioned.
+
+396
+00:49:37,260 --> 00:49:48,839
+So you have to assume that the incidence rate is again constant here, that that is explained as that the disease is in steady state,
+
+397
+00:49:48,840 --> 00:49:56,489
+meaning there are no areas during which you expect a surge of cases and then a decrease of cases.
+
+398
+00:49:56,490 --> 00:50:01,110
+But the cases remain constant during the observation period.
+
+399
+00:50:02,490 --> 00:50:09,059
+Um, and then there is one detail here, which is that if the prevalence is low enough,
+
+400
+00:50:09,060 --> 00:50:17,640
+then the prevalence is approximately equal to the incidence rate times the duration because this term, you know, would be almost equal to one.
+
+401
+00:50:18,770 --> 00:50:24,290
+If this is low enough, it's as if you were adding almost nothing to this one.
+
+402
+00:50:24,680 --> 00:50:29,000
+So the formula becomes just the enumerate.
+
+403
+00:50:30,440 --> 00:50:40,370
+Okay. Here is here some examples of that relation between the prevalence and the rate and maybe we can focus on on two of them.
+
+404
+00:50:41,750 --> 00:50:46,730
+Here is amyotrophic lateral sclerosis is a thing.
+
+405
+00:50:46,940 --> 00:50:50,780
+This is Lou Gehrig's disease. What are they? Yeah. Okay.
+
+406
+00:50:51,770 --> 00:50:55,220
+You know, is is is a terrible neurodegenerative disease.
+
+407
+00:50:56,370 --> 00:51:02,720
+Um, it has a, you know, it has a really low incidence in a population point seven, a low rate.
+
+408
+00:51:03,740 --> 00:51:08,900
+The duration is five years. You know, people can deteriorate and die.
+
+409
+00:51:10,010 --> 00:51:14,180
+So if you apply that formula, the prevalence you would get would be 3.9.
+
+410
+00:51:16,940 --> 00:51:20,830
+And then here is the extreme example.
+
+411
+00:51:20,840 --> 00:51:29,360
+In the in the other direction, the common core, the easiest is extremely high, low in the population and the duration is very short.
+
+412
+00:51:30,330 --> 00:51:34,500
+Right. So if you apply the formula, you get a much higher premium.
+
+413
+00:51:35,680 --> 00:51:41,740
+So this illustrates that again where the prevalence depends on the incidence and the duration.
+
+414
+00:51:42,860 --> 00:51:49,030
+And then you see, this depends on the prevalence and the duration. If you have.
+
+415
+00:51:50,640 --> 00:51:55,890
+And outcome of long duration. Even if the incidence is low, you will have a higher prevalence.
+
+416
+00:51:57,160 --> 00:52:02,260
+And if you have an event of short duration, even if the incidence is high, you may have a lower.
+
+417
+00:52:04,940 --> 00:52:15,980
+So from a more practical standpoint, the prevalence can be expected to decrease if people remain in the population for a shorter time.
+
+418
+00:52:16,250 --> 00:52:19,900
+So if a disease becomes. Fatal.
+
+419
+00:52:21,130 --> 00:52:25,180
+Or if a cure is found.
+
+420
+00:52:27,980 --> 00:52:31,940
+And the prevalence can also decrease. If the incidence decreases.
+
+421
+00:52:33,520 --> 00:52:38,070
+Right. Because recall it was in the roommate.
+
+422
+00:52:40,910 --> 00:52:49,129
+Okay. Now let's go back to our schematic and to our true selves.
+
+423
+00:52:49,130 --> 00:52:52,520
+As epidemiologists, we want to make causal inference.
+
+424
+00:52:53,030 --> 00:52:58,940
+Right. So we have studied so far the measures of frequency.
+
+425
+00:53:00,230 --> 00:53:05,820
+How to count. What happens? Now what we want to do.
+
+426
+00:53:07,920 --> 00:53:19,360
+Is to examine. How to do the same count what happens, but separately for different exposure groups.
+
+427
+00:53:20,330 --> 00:53:24,950
+To be able to compare what happens between exposure groups, which is the first step to counseling, right.
+
+428
+00:53:26,980 --> 00:53:34,990
+So I start with my naive population is naive to exposure to status and let's assume I.
+
+429
+00:53:37,210 --> 00:53:42,880
+I decide to administer a measurement procedure and obtain a measurement of exposure.
+
+430
+00:53:43,750 --> 00:53:47,020
+You can think of any exposure of your.
+
+431
+00:53:48,500 --> 00:53:55,320
+Reference. Let's say the time fixed exposure could be, let's say, the polymorphism of a gene.
+
+432
+00:53:55,340 --> 00:54:05,059
+So I could send samples to allow for genotyping and everybody can be either exposed or unexposed as usual.
+
+433
+00:54:05,060 --> 00:54:08,090
+So let's just keep it simple with a two level exposure.
+
+434
+00:54:09,020 --> 00:54:17,990
+So I get my results back from the lab and I have a number of people unexposed which appear in blue and number of people exposed.
+
+435
+00:54:20,830 --> 00:54:28,480
+I could organize my data on a table. So if you count the total number of exposed people in red, you had eight.
+
+436
+00:54:29,080 --> 00:54:36,970
+And if you count all those unexposed in blue, you get 18 out of the eight exposures that were for.
+
+437
+00:54:38,560 --> 00:54:44,200
+Outcomes, right? And out of the 18 unexposed there were two of.
+
+438
+00:54:48,560 --> 00:54:59,340
+We can summarize. These numbers by estimating a close cohort, let's assume equal follow up to begin with.
+
+439
+00:54:59,790 --> 00:55:04,200
+So we could summarize this data by estimating the proportion of.
+
+440
+00:55:07,060 --> 00:55:12,870
+Cases. For each exposure group overall we have.
+
+441
+00:55:14,390 --> 00:55:20,930
+A probability of six divided by 26 outcomes, 23.1% in ten years.
+
+442
+00:55:21,500 --> 00:55:27,110
+And then among the exposed the conditional probabilities four divided by eight or 50% in ten years,
+
+443
+00:55:27,860 --> 00:55:33,200
+among the unexposed two divided by 18 or 11.1% in ten years.
+
+444
+00:55:37,620 --> 00:55:47,699
+We have two options, as always, to compare quantitatively these probabilities and for the sake of what's coming next,
+
+445
+00:55:47,700 --> 00:55:51,330
+let's begin with the relative or multiplicative scale.
+
+446
+00:55:52,440 --> 00:55:56,700
+So these probabilities have actually the interpretation of risk.
+
+447
+00:55:57,030 --> 00:56:01,240
+Right. Is all we are estimating conditional risk release.
+
+448
+00:56:01,250 --> 00:56:07,840
+Conditional on exposure to states. Yes. The scale.
+
+449
+00:56:09,010 --> 00:56:11,380
+In terms of the actual.
+
+450
+00:56:18,000 --> 00:56:25,050
+Um, I guess it depends on what message you want to convey fact from a public point of view or from an ideological point of view.
+
+451
+00:56:25,440 --> 00:56:32,550
+Conventionally, you tend to put the unexposed in the denominator, but again, it just depends on you don't have to.
+
+452
+00:56:32,850 --> 00:56:36,660
+It depends on what you do want to craft your message.
+
+453
+00:56:38,120 --> 00:56:42,260
+Like if it's a vaccine, you know, being exposed might be a good thing.
+
+454
+00:56:45,730 --> 00:56:48,310
+So on the relative scale,
+
+455
+00:56:48,820 --> 00:56:57,970
+the relation between the risk or cumulative incidence of the exposure to the unexposed is called the cumulative incidence ratio.
+
+456
+00:56:59,080 --> 00:57:06,340
+And it's simply again the ratio of the cumulative incidence or risk in the exposed divided by the cumulative incidence or risk in the unexposed.
+
+457
+00:57:06,910 --> 00:57:11,610
+So in this case would be 50% divided by 11.1% risk.
+
+458
+00:57:12,160 --> 00:57:18,200
+That's 4.5%. This has a couple of synonyms.
+
+459
+00:57:19,130 --> 00:57:27,770
+It's also called the relative risk or the risk ratio. Very, very common measure of association that you may find may have seen in the literature.
+
+460
+00:57:28,700 --> 00:57:34,700
+And the interpretation could be there is a positive association between exposure and disease.
+
+461
+00:57:35,390 --> 00:57:39,590
+The risk in the exposed is four point times or 300% higher.
+
+462
+00:57:40,560 --> 00:57:44,700
+Um. Compared to the unexposed. There is a typo here.
+
+463
+00:57:44,970 --> 00:57:49,660
+Sorry about that. Okay.
+
+464
+00:57:51,160 --> 00:57:58,480
+So that's that's the main mission, the multiplicative risk in the absolute or additive scale.
+
+465
+00:57:59,170 --> 00:58:05,020
+We have the difference. Cumulative incidence difference and again is just the difference in the.
+
+466
+00:58:06,340 --> 00:58:16,450
+Condition at risk by exposure status risk in exposed risk in unexposed living five minus on 11 38.9% in ten years.
+
+467
+00:58:18,500 --> 00:58:24,530
+It has a couple of synonyms also. It's also called the risk difference or the excess risk.
+
+468
+00:58:27,900 --> 00:58:31,800
+And the interpretation is that there is a positive association between exposure and this is
+
+469
+00:58:32,310 --> 00:58:39,990
+the risk in the exposed is 38.9% in excess of the risk in the unexposed over ten years.
+
+470
+00:58:40,650 --> 00:58:48,570
+Because we are still talking about risk, we have to specify a timescale because recall over time the risk tends to one.
+
+471
+00:58:52,080 --> 00:59:03,680
+Okay. There are other measures when we use risk as our measure of frequency.
+
+472
+00:59:06,240 --> 00:59:13,650
+A common measure that you may find, you know, specifically in the public literature is the excess fraction.
+
+473
+00:59:14,840 --> 00:59:22,100
+And the expression is basically there is a difference as a function of the risk in the exposed.
+
+474
+00:59:23,030 --> 00:59:29,299
+So in this particular case, you would divide the risk difference by the risk in the exposed.
+
+475
+00:59:29,300 --> 00:59:33,620
+And this case you get 77.8%.
+
+476
+00:59:37,520 --> 00:59:42,800
+This is also called the risk fraction. And the important thing is the interpretation, which is.
+
+477
+00:59:43,980 --> 00:59:48,690
+If you were to assume exchange ability. So if you assume there is causation.
+
+478
+00:59:50,260 --> 00:59:58,870
+77.8% of the risk of disease in the exposed is attributable to that exposure.
+
+479
+01:00:01,820 --> 01:00:12,670
+Um, you know, it, this really is used in relatively limited circumstances because the assumption is huge.
+
+480
+01:00:12,680 --> 01:00:14,990
+You have to assume causation or exchange ability.
+
+481
+01:00:15,890 --> 01:00:26,570
+You use it often times in the context of randomized trials, and there is a really good example if the exposure is beneficial.
+
+482
+01:00:28,770 --> 01:00:33,510
+You could estimate a version of the fraction, which is called the preventable French.
+
+483
+01:00:34,930 --> 01:00:38,200
+In this case, you switch the expose with the unexposed. So.
+
+484
+01:00:39,380 --> 01:00:42,410
+I guess, as Maria says, you know, this is one example of that.
+
+485
+01:00:43,100 --> 01:00:51,050
+You can switch the reference category and divide this difference in the risk among the unexposed.
+
+486
+01:00:53,870 --> 01:01:01,610
+The interpretation would be these and the exchange rate is a fraction of risk among the unexposed that could be prevented by exposure.
+
+487
+01:01:03,130 --> 01:01:08,240
+So. This is commonly used because in the context of.
+
+488
+01:01:10,650 --> 01:01:16,360
+Vaccines. This is called vaccine efficacy.
+
+489
+01:01:16,660 --> 01:01:26,380
+So when you hear about vaccine efficacy, let's say for the COVID vaccine, this is what people are talking about.
+
+490
+01:01:27,540 --> 01:01:36,990
+This is where that percentage comes from. So again, it's pretty helpful in the context of randomized trials where you can assume causation.
+
+491
+01:01:40,540 --> 01:01:44,350
+Okay. And there is another measure.
+
+492
+01:01:45,390 --> 01:01:49,560
+That that's also based on risk and is called the population attributable risk.
+
+493
+01:01:51,050 --> 01:02:02,000
+The population at risk is the overall risk in the cohort, minus the risk in the unexposed, divided, or as a function of the overall risk in the core.
+
+494
+01:02:03,410 --> 01:02:11,090
+This particular example, you can make the calculation in this manner and get 51.9%.
+
+495
+01:02:13,250 --> 01:02:21,310
+These are synonyms of. This metric population attributable fraction or population attributable risk percent.
+
+496
+01:02:22,570 --> 01:02:28,930
+And again, the important thing is the interpretation. If you assume exchange, ability and causation,
+
+497
+01:02:28,930 --> 01:02:38,380
+51.9% of the risk of disease in the cohort Linda exposed in the cohort would be attributable to that particular exposure.
+
+498
+01:02:40,960 --> 01:02:50,620
+Another problem with this matrix is that they ignore the fact that most things are caused by more than one exposure.
+
+499
+01:02:50,620 --> 01:02:59,660
+And sometimes. The effect of joint exposures can be greater than what you would expect by the expected by the effect of each exposure separately.
+
+500
+01:02:59,960 --> 01:03:09,440
+So you have to take it with a. With a grain of salt, but you will still sitting there in the literature and it still has a helpful interpretation,
+
+501
+01:03:09,440 --> 01:03:12,770
+again, particularly in the context of randomized studies.
+
+502
+01:03:13,720 --> 01:03:21,380
+Going to escape this in the interest of time. And to illustrate, how would you?
+
+503
+01:03:26,670 --> 01:03:31,050
+Deal with associations quantifying associations when you have very some.
+
+504
+01:03:34,140 --> 01:03:40,850
+So. Again, the first thing you have to do is count the person time units.
+
+505
+01:03:40,860 --> 01:03:47,290
+Everybody contributes. In this case separately by exposure status.
+
+506
+01:03:47,290 --> 01:03:50,590
+And I have done that following the color code.
+
+507
+01:03:50,650 --> 01:03:57,600
+Right. Then you add them up also separately by exposure status.
+
+508
+01:03:57,600 --> 01:04:03,050
+So you have separated the exposed person time from the unexposed person time.
+
+509
+01:04:03,530 --> 01:04:11,750
+These are the totals 68 exposed person time units and 167 unexposed person time units.
+
+510
+01:04:12,840 --> 01:04:24,450
+And then you have to count the events that occurred during each exposure period during a given person time unit.
+
+511
+01:04:26,620 --> 01:04:38,589
+So here again, well, we have four cases that happened during exposed person time because these false calls are having to be read and
+
+512
+01:04:38,590 --> 01:04:45,220
+two cases or outcomes that happened during an exposed person time period because these circles happen to be blue.
+
+513
+01:04:49,260 --> 01:04:53,940
+And to quantify this, again, we have the two scales.
+
+514
+01:04:56,180 --> 01:05:02,370
+So. We first estimate the incidence rates within each exposure group.
+
+515
+01:05:02,610 --> 01:05:04,620
+This would be it for the exposed,
+
+516
+01:05:04,640 --> 01:05:14,820
+these would be for the unexposed and in the absolute scale we estimate the incidence rate difference as the difference between these two numbers.
+
+517
+01:05:16,180 --> 01:05:23,960
+BOLLING Zero for seven per person year. The interpretation is it is a positive association between exposure and disease.
+
+518
+01:05:24,410 --> 01:05:30,620
+The rating to expose this point over seven person years in excess of that of the unexposed.
+
+519
+01:05:32,400 --> 01:05:39,180
+Or you could use the multiplicative scale, take the ratio of those two rates.
+
+520
+01:05:40,440 --> 01:05:48,220
+And that ratio is called the incidence rate ratio. And in these cases, 4.9 interpretation is.
+
+521
+01:05:49,260 --> 01:05:56,340
+What is the association they read in the post is 4.9 times or 391% higher compared to the unexposed.
+
+522
+01:05:56,820 --> 01:06:08,410
+So is this empty? I guess what's more interesting is you remember I said that insurance rates can be used in helping couples.
+
+523
+01:06:09,320 --> 01:06:17,270
+And in fact, it's about the only measure of association of of frequency and association we can estimate in open court.
+
+524
+01:06:18,350 --> 01:06:21,860
+So suppose this is our situation. These are population.
+
+525
+01:06:21,870 --> 01:06:33,830
+We have recurrent outcomes because each person can have it more than one and we also have a time varying exposure.
+
+526
+01:06:35,310 --> 01:06:41,220
+Because for one person they can go from being unexposed to being exposed back to an exposure and so on.
+
+527
+01:06:41,900 --> 01:06:50,750
+It's kind of the more complex scenario, right? So suppose this is our observation window.
+
+528
+01:06:52,790 --> 01:06:56,870
+And our job is to estimate the association.
+
+529
+01:06:58,210 --> 01:07:03,070
+Between exposure and disease. How do we do that?
+
+530
+01:07:06,520 --> 01:07:09,610
+Well, we have to, first of all, separate.
+
+531
+01:07:10,720 --> 01:07:22,400
+Exposed from unexposed person to. An estimate rates in the exposed and rates in the unexposed.
+
+532
+01:07:23,560 --> 01:07:30,010
+Note that in this case the rates will be the number of events during the specific exposure period
+
+533
+01:07:30,430 --> 01:07:36,400
+divided by the total number of person time units contributed during that particular exposure.
+
+534
+01:07:37,450 --> 01:07:42,519
+Level. So, you know, I have done this sort of graphically here.
+
+535
+01:07:42,520 --> 01:07:50,500
+I'm going to separate the exposure periods. Totally disregarding the individual people they come from.
+
+536
+01:07:51,450 --> 01:07:55,080
+You have to forget about the fact that.
+
+537
+01:07:56,220 --> 01:08:01,100
+Time comes from specific persons and just comes from, you know.
+
+538
+01:08:02,140 --> 01:08:05,310
+Uh. Expose your experiences. Okay.
+
+539
+01:08:06,540 --> 01:08:17,700
+So here is the exposed. There's some time and I'm preserving, obviously, the events that happened during that spokesperson time.
+
+540
+01:08:21,990 --> 01:08:28,240
+Okay. You separate? Regardless of the people they count.
+
+541
+01:08:32,430 --> 01:08:36,790
+How many overall exposed? Very soon.
+
+542
+01:08:36,790 --> 01:08:40,080
+Ten units are there. Here. I'm not going to ask you to count.
+
+543
+01:08:40,090 --> 01:08:44,200
+I mean, you can, if you want, maybe in the comfort of your own homes or offices.
+
+544
+01:08:45,550 --> 01:08:52,990
+So if you have some faith, there are 130 knots overall, including both open and full.
+
+545
+01:08:53,470 --> 01:08:57,850
+So that will be the denominator. Those are the units.
+
+546
+01:08:58,720 --> 01:09:02,260
+And in the numerator, you will have only the full circle.
+
+547
+01:09:02,270 --> 01:09:05,830
+Right? And again, you believe me, there are 18 of them.
+
+548
+01:09:08,990 --> 01:09:12,470
+So the rate for the ex post is going one for per person.
+
+549
+01:09:12,480 --> 01:09:15,750
+You. We do the same in the unexposed.
+
+550
+01:09:15,930 --> 01:09:24,910
+There are 323 exposed periods and in those exposed periods where there were 13 outcomes.
+
+551
+01:09:24,930 --> 01:09:30,520
+So the relative risk point of four per person year. And you know, we are doing the index.
+
+552
+01:09:30,910 --> 01:09:35,890
+We can estimate the incidence rate ratios, the ratio between those two numbers in 3.4.
+
+553
+01:09:37,000 --> 01:09:40,420
+And the interpretation is that the rate.
+
+554
+01:09:41,490 --> 01:09:47,670
+During periods of exposure. It is 3.4 times higher than the rate during periods of no exposure.
+
+555
+01:09:49,310 --> 01:09:59,469
+Okay. This is a very scary summary, uh, uh, that you can really ignore.
+
+556
+01:09:59,470 --> 01:10:06,160
+I mean, is, is just, you know, as I said, I don't really believe much in this notation,
+
+557
+01:10:06,160 --> 01:10:09,580
+but some of you may find it helpful at some point of your careers.
+
+558
+01:10:09,610 --> 01:10:14,010
+But he's not going to be in the exam or anything. Don't about. Um.
+
+559
+01:10:17,140 --> 01:10:20,350
+And finally, I guess, a promise I would touch on.
+
+560
+01:10:21,280 --> 01:10:28,480
+Vital statistics rights which are actually derived are measures of occurrence.
+
+561
+01:10:29,440 --> 01:10:35,100
+We know from open cohort studies. So they come from populations like this.
+
+562
+01:10:35,960 --> 01:10:39,990
+You may have heard about the mortality rate, the cancer incidence rate, etc.
+
+563
+01:10:41,260 --> 01:10:52,720
+So these these are measures that are obtained typically for, well, geographically defined locations, you know, cities, counties, states, countries.
+
+564
+01:10:53,680 --> 01:11:01,300
+As the number of events during a specified period that the population is observed divided by.
+
+565
+01:11:03,000 --> 01:11:08,940
+The person died and the person time is calculated as the average population size.
+
+566
+01:11:09,970 --> 01:11:15,220
+It could be this size, estimated size at the midpoint of the observation period,
+
+567
+01:11:15,220 --> 01:11:22,180
+or could be the average from the beginning to the end times, the length of follow up.
+
+568
+01:11:22,420 --> 01:11:27,460
+And for most vital statistics, the length of follow up by convention is one year.
+
+569
+01:11:29,070 --> 01:11:38,640
+Right. So. The assumptions are that the events and the censoring occurred at a uniform rate.
+
+570
+01:11:40,970 --> 01:11:52,280
+And here is a numerical example. These are data from the state of Michigan in 2000 and then the media population was 9,800,000.
+
+571
+01:11:53,490 --> 01:11:57,630
+If you assume a follow up of one year conventionally that would be the person time.
+
+572
+01:11:59,500 --> 01:12:05,740
+There were a total 89,000 deaths during that year, 2010.
+
+573
+01:12:06,160 --> 01:12:11,080
+So you can estimate, well, there were some 20,000 cardiovascular diseases that so.
+
+574
+01:12:12,040 --> 01:12:24,470
+You can estimate the total mortality rate. As the number of deaths during a year divided by the estimated population size times one year follow up.
+
+575
+01:12:25,100 --> 01:12:28,940
+This is 90.4 per 10,000 person years.
+
+576
+01:12:35,260 --> 01:12:42,370
+Can use this rate the cardiovascular disease mortality rates will certainly you just replace the numerator
+
+577
+01:12:43,360 --> 01:12:52,690
+with the deaths from cardiovascular disease specifically and you get 20.4 per 10,000 person years.
+
+578
+01:12:56,030 --> 01:13:01,360
+So what would be the maternal mortality? That is a this is an important indicator,
+
+579
+01:13:02,090 --> 01:13:11,000
+international health and you would replace the numerator by the number number of deaths from, you know, is maternal related causes.
+
+580
+01:13:14,110 --> 01:13:20,200
+And there is one additional metric that sometimes is estimated, which is called the proportional mortality.
+
+581
+01:13:21,820 --> 01:13:29,470
+The proportional mortality is the proportion of deaths from one specific cause out of total deaths.
+
+582
+01:13:30,860 --> 01:13:35,839
+So here you could estimate the proportion and mortality for cardiovascular disease as
+
+583
+01:13:35,840 --> 01:13:39,740
+the number of deaths from cardiovascular disease divided by the total number of deaths.
+
+584
+01:13:40,490 --> 01:13:48,290
+And this would be 22.6%. So the interpretation is that of all that's happening in Michigan 2010.
+
+585
+01:13:49,810 --> 01:13:53,920
+22.6% fewer deaths from cardiovascular disease.
+
+586
+01:13:56,540 --> 01:14:00,270
+Okay. All right.
+
+587
+01:14:00,600 --> 01:14:09,419
+Are there any questions so far? Okay.
+
+588
+01:14:09,420 --> 01:14:13,270
+So to wrap up. Causes.
+
+589
+01:14:14,240 --> 01:14:20,930
+They have challenges. So even though they allow us to examine the temporal relation between exposure and disease,
+
+590
+01:14:21,470 --> 01:14:27,860
+that is still susceptible of lack of exchange, ability and other biases.
+
+591
+01:14:28,840 --> 01:14:36,550
+Um, from a practical standpoint, uh, the follow up can be expensive, can be challenging.
+
+592
+01:14:39,320 --> 01:14:46,250
+Sometimes the findings from a given cohort study may not be generalizable to another population.
+
+593
+01:14:47,780 --> 01:14:51,170
+We will go back to that concept is called transport ability.
+
+594
+01:14:52,690 --> 01:15:00,700
+And when you have outcomes that are uncommon, rare or that take a long time to occur.
+
+595
+01:15:02,040 --> 01:15:06,269
+God studies may be very inefficient because if the outcomes are rare,
+
+596
+01:15:06,270 --> 01:15:14,340
+you would have to recruit a lot of people to be able to just get a few of those outcomes.
+
+597
+01:15:15,380 --> 01:15:20,840
+I need. The outcome takes a long time to be that knows or to occur.
+
+598
+01:15:21,200 --> 01:15:25,400
+You would have to follow all those many people for many, many, many years.
+
+599
+01:15:26,690 --> 01:15:35,630
+So when you have read outcomes or outcomes that take a long time to happen, cohort studies may not be the way to go.
+
+600
+01:15:35,660 --> 01:15:38,900
+The way to go may be what we will see next week.
+
+601
+01:15:41,400 --> 01:15:45,300
+But obviously they have advantages. They allow estimation of of risk.
+
+602
+01:15:46,490 --> 01:15:48,040
+At least close code studies.
+
+603
+01:15:48,980 --> 01:15:57,680
+They are low estimation of many outcomes and associations with many exposures because you typically include more than one in each.
+
+604
+01:15:57,950 --> 01:16:03,260
+They are so costly and so cumbersome that you typically take advantage of of that.
+
+605
+01:16:04,790 --> 01:16:09,620
+And again, it is possible to establish the temporality of the associations.
+
+606
+01:16:12,890 --> 01:16:21,860
+Any questions? Okay.
+
+607
+01:16:22,850 --> 01:16:31,010
+So here is your progress report for two sessions. You have learned the key elements of cohort studies.
+
+608
+01:16:31,310 --> 01:16:32,420
+You remember those?
+
+609
+01:16:34,360 --> 01:16:44,860
+And be able to classify them according to at least two systems defined risk, namely assumptions, limitations of cumulative issues or risk.
+
+610
+01:16:46,040 --> 01:16:49,340
+Identify alternative measures when follow up is an equal.
+
+611
+01:16:53,430 --> 01:16:57,960
+What are they? It's still.
+
+612
+01:16:59,160 --> 01:17:06,030
+The knowledge here. Kaplan.
+
+613
+01:17:06,570 --> 01:17:12,270
+Student Kaplan. Meyer and. There's something easy and exciting.
+
+614
+01:17:14,230 --> 01:17:17,620
+All right. Calculate cumulative survival proportions.
+
+615
+01:17:18,220 --> 01:17:24,490
+You apply the kaplan-meier in a simple scenario. Identify advantages of person time incidence rates.
+
+616
+01:17:24,760 --> 01:17:29,390
+They take into account an equal follow up. And calculate them.
+
+617
+01:17:29,840 --> 01:17:33,020
+Identify the assumptions in the calculation of incidence rates.
+
+618
+01:17:34,200 --> 01:17:38,850
+Describe one relation between risk and rate and the assumptions.
+
+619
+01:17:39,720 --> 01:17:41,910
+Describe the relation of prevalence with rate.
+
+620
+01:17:43,150 --> 01:17:52,180
+Calculate and interpret measures of associations again, because if you have risk, you always have two options depending on the scale.
+
+621
+01:17:52,540 --> 01:17:55,720
+And for risk particularly, you have some additional measures.
+
+622
+01:17:56,290 --> 01:18:03,930
+No excess fraction population with risk, you have rates, you have just the absolute and the relative scales.
+
+623
+01:18:04,510 --> 01:18:10,770
+So ratios and difference. I understand how vital statistics are.
+
+624
+01:18:10,770 --> 01:18:13,800
+Calculate. All right.
+
+625
+01:18:15,650 --> 01:18:22,020
+So if there are no questions, I will see you Monday.
+
+626
+01:18:22,040 --> 01:18:25,280
+Have a good weekend. The homework is posted.
+
+627
+01:18:25,580 --> 01:18:31,490
+Number four needs you. Tuesday, maybe a bit on the along side, so please plan accordingly.
+
+628
+01:18:44,770 --> 01:19:00,280
+Yes, sir. How would you? Oh, it's okay, because we should we.
+
+629
+01:19:05,600 --> 01:19:09,050
+Yes. I think we need a bit of a randomized trial.
+
+630
+01:19:10,400 --> 01:19:20,790
+Honestly, the guy that you said he'd be okay.
+
+631
+01:19:20,940 --> 01:19:24,920
+Yeah. I'll be back on Monday.
+
+632
+01:19:27,720 --> 01:19:35,600
+But I don't want to hear that. We need to make an example that makes us feel better.
+
+633
+01:19:36,390 --> 01:19:40,879
+This ain't right.
+
+634
+01:19:40,880 --> 01:19:54,960
+I mean, you can do the right thing, and I'm.
+

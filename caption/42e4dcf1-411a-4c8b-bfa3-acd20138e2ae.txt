@@ -1,0 +1,1006 @@
+1
+00:00:09,230 --> 00:00:11,685
+Hey, this is Matthew Zawistowski.
+
+2
+00:00:11,685 --> 00:00:14,550
+Back to talk longitudinal
+data analysis.
+
+3
+00:00:14,550 --> 00:00:17,190
+In this lecture, we'll
+take our first shot at
+
+4
+00:00:17,190 --> 00:00:20,415
+a formal statistical analysis
+of longitudinal data.
+
+5
+00:00:20,415 --> 00:00:23,010
+We'll use something
+that you might already
+
+6
+00:00:23,010 --> 00:00:26,175
+even be familiar with,
+the paired t-test.
+
+7
+00:00:26,175 --> 00:00:28,130
+Up to now, we've introduced
+
+8
+00:00:28,130 --> 00:00:30,620
+techniques for visual
+representation of
+
+9
+00:00:30,620 --> 00:00:33,350
+longitudinal data and
+descriptive statistics
+
+10
+00:00:33,350 --> 00:00:34,915
+to summarize the data.
+
+11
+00:00:34,915 --> 00:00:36,810
+In this lecture we'll show
+
+12
+00:00:36,810 --> 00:00:38,930
+a statistical method for formally
+
+13
+00:00:38,930 --> 00:00:41,090
+accomplishing the first
+goal of determining
+
+14
+00:00:41,090 --> 00:00:43,640
+if the outcome changes over time.
+
+15
+00:00:43,640 --> 00:00:45,874
+We'll use the paired t-test,
+
+16
+00:00:45,874 --> 00:00:47,810
+a simple test for change in
+
+17
+00:00:47,810 --> 00:00:51,620
+paired data that accounts
+for correlated outcomes.
+
+18
+00:00:51,620 --> 00:00:55,940
+Let's do a quick review of
+t-tests before we dive in.
+
+19
+00:00:55,940 --> 00:00:58,430
+You probably remember
+that there are
+
+20
+00:00:58,430 --> 00:01:01,745
+one-sample t-tests and
+two-sample t-tests.
+
+21
+00:01:01,745 --> 00:01:03,439
+As the names imply,
+
+22
+00:01:03,439 --> 00:01:06,170
+these different methods
+are related but are
+
+23
+00:01:06,170 --> 00:01:09,040
+applied to different types
+of data in questions.
+
+24
+00:01:09,040 --> 00:01:11,240
+The one-sample t-test is
+
+25
+00:01:11,240 --> 00:01:13,550
+a statistical test
+for the equality of
+
+26
+00:01:13,550 --> 00:01:14,990
+a population mean in
+
+27
+00:01:14,990 --> 00:01:16,700
+a single population to
+
+28
+00:01:16,700 --> 00:01:19,835
+some pre-specified
+value called Mu naught.
+
+29
+00:01:19,835 --> 00:01:21,710
+In the example shown,
+
+30
+00:01:21,710 --> 00:01:24,320
+we might be looking
+at ages of onset for
+
+31
+00:01:24,320 --> 00:01:26,480
+a particular disease
+and testing if
+
+32
+00:01:26,480 --> 00:01:29,765
+the mean age of onset
+is 25 years old.
+
+33
+00:01:29,765 --> 00:01:33,065
+The two-sample t-test
+is a statistical method
+
+34
+00:01:33,065 --> 00:01:36,280
+for the equality of means in
+two different populations.
+
+35
+00:01:36,280 --> 00:01:39,260
+For example, we might be
+looking at the ages of
+
+36
+00:01:39,260 --> 00:01:42,455
+onset for a particular
+disease in men versus women,
+
+37
+00:01:42,455 --> 00:01:44,240
+and formally testing if
+
+38
+00:01:44,240 --> 00:01:46,525
+there's a difference
+between the two groups.
+
+39
+00:01:46,525 --> 00:01:47,880
+A key assumption for
+
+40
+00:01:47,880 --> 00:01:50,820
+the two-sample t-test is
+that all the measurements,
+
+41
+00:01:50,820 --> 00:01:52,100
+both within the groups and
+
+42
+00:01:52,100 --> 00:01:54,739
+between the groups
+are independent.
+
+43
+00:01:54,739 --> 00:01:57,320
+The paired t-test is
+
+44
+00:01:57,320 --> 00:02:00,325
+the third member in
+the family of t-test.
+
+45
+00:02:00,325 --> 00:02:03,320
+Like the setup for the
+two-sample t-test,
+
+46
+00:02:03,320 --> 00:02:05,585
+we have two groups
+of measurements.
+
+47
+00:02:05,585 --> 00:02:07,340
+But in this situation,
+
+48
+00:02:07,340 --> 00:02:09,590
+there is a natural matching or
+
+49
+00:02:09,590 --> 00:02:11,330
+pairing between measurements in
+
+50
+00:02:11,330 --> 00:02:13,780
+the first group and
+the second group.
+
+51
+00:02:13,780 --> 00:02:17,435
+Put another way, we can
+use a line to connect
+
+52
+00:02:17,435 --> 00:02:19,520
+each measurement in
+the first group with
+
+53
+00:02:19,520 --> 00:02:22,070
+the corresponding measurement
+in the second group.
+
+54
+00:02:22,070 --> 00:02:24,350
+We can imagine numerous scenarios
+
+55
+00:02:24,350 --> 00:02:25,880
+in which this might occur.
+
+56
+00:02:25,880 --> 00:02:28,010
+For example, the two groups
+
+57
+00:02:28,010 --> 00:02:29,720
+have measurements
+might correspond
+
+58
+00:02:29,720 --> 00:02:32,240
+to blood pressure
+measurements taken
+
+59
+00:02:32,240 --> 00:02:35,365
+on patients before and after
+a new prescription drug,
+
+60
+00:02:35,365 --> 00:02:37,580
+levels of a chemical
+contaminants in
+
+61
+00:02:37,580 --> 00:02:41,030
+drinking water before and
+after a filtering process,
+
+62
+00:02:41,030 --> 00:02:44,395
+or the heights of children
+at ages two and three.
+
+63
+00:02:44,395 --> 00:02:46,820
+In each case, the outcomes are
+
+64
+00:02:46,820 --> 00:02:48,140
+correlated because
+
+65
+00:02:48,140 --> 00:02:50,785
+the paired measurements
+are not independent.
+
+66
+00:02:50,785 --> 00:02:52,985
+Remember that repeated measure,
+
+67
+00:02:52,985 --> 00:02:56,660
+longitudinal data also
+contains correlated outcomes.
+
+68
+00:02:56,660 --> 00:03:00,110
+Let's see how the paired
+t-test is used and think
+
+69
+00:03:00,110 --> 00:03:01,790
+about how it might
+be applied more
+
+70
+00:03:01,790 --> 00:03:04,645
+generally to longitudinal data.
+
+71
+00:03:04,645 --> 00:03:06,940
+The paired t-test is
+
+72
+00:03:06,940 --> 00:03:09,250
+specifically designed
+to look for a change in
+
+73
+00:03:09,250 --> 00:03:11,080
+means between groups with
+
+74
+00:03:11,080 --> 00:03:13,330
+correlated or paired
+measurements.
+
+75
+00:03:13,330 --> 00:03:16,990
+The way it handles correlation
+is to simply remove it.
+
+76
+00:03:16,990 --> 00:03:19,180
+This is done by
+computing the difference
+
+77
+00:03:19,180 --> 00:03:21,770
+between each set of
+paired measurements.
+
+78
+00:03:21,770 --> 00:03:24,820
+For example, if we
+imagine the paired data
+
+79
+00:03:24,820 --> 00:03:28,135
+being heights of children
+at ages two and three,
+
+80
+00:03:28,135 --> 00:03:30,460
+the difference between
+these measurements is
+
+81
+00:03:30,460 --> 00:03:33,710
+the change in height over
+the one-year period.
+
+82
+00:03:33,710 --> 00:03:36,460
+Note that these
+differences are now
+
+83
+00:03:36,460 --> 00:03:39,700
+a single set of
+independent outcomes.
+
+84
+00:03:39,700 --> 00:03:41,110
+We compute the mean and
+
+85
+00:03:41,110 --> 00:03:43,525
+standard deviation of
+the differences and
+
+86
+00:03:43,525 --> 00:03:44,980
+enter them into a formula for
+
+87
+00:03:44,980 --> 00:03:47,630
+the paired t-test as shown here.
+
+88
+00:03:47,630 --> 00:03:51,305
+The paired t-test is a
+formal statistical test
+
+89
+00:03:51,305 --> 00:03:52,865
+of the null hypotheses
+
+90
+00:03:52,865 --> 00:03:54,770
+that the mean difference
+in measurements,
+
+91
+00:03:54,770 --> 00:03:57,355
+called Mu_diff is equal to zero.
+
+92
+00:03:57,355 --> 00:03:59,420
+The corresponding p value for
+
+93
+00:03:59,420 --> 00:04:02,060
+the paired t-test is
+determined by comparing
+
+94
+00:04:02,060 --> 00:04:03,620
+the test statistic to
+
+95
+00:04:03,620 --> 00:04:07,115
+the t distribution with n
+minus one degrees of freedom,
+
+96
+00:04:07,115 --> 00:04:08,450
+where n is the number of
+
+97
+00:04:08,450 --> 00:04:10,495
+samples with paired measurements.
+
+98
+00:04:10,495 --> 00:04:14,105
+If the p-value is below a
+pre-specified Alpha level,
+
+99
+00:04:14,105 --> 00:04:15,800
+for example five percent,
+
+100
+00:04:15,800 --> 00:04:17,240
+then we would reject the null
+
+101
+00:04:17,240 --> 00:04:19,310
+hypotheses that the
+mean difference is
+
+102
+00:04:19,310 --> 00:04:20,900
+zero in favor of
+
+103
+00:04:20,900 --> 00:04:22,970
+the alternative hypotheses that
+
+104
+00:04:22,970 --> 00:04:24,635
+the mean difference is non-zero,
+
+105
+00:04:24,635 --> 00:04:26,360
+meaning there is evidence of
+
+106
+00:04:26,360 --> 00:04:28,900
+a change in the
+paired measurements.
+
+107
+00:04:28,900 --> 00:04:32,600
+The key idea in the
+paired t-test is that by
+
+108
+00:04:32,600 --> 00:04:34,804
+subtracting the paired dependent
+
+109
+00:04:34,804 --> 00:04:36,515
+outcomes from the two groups,
+
+110
+00:04:36,515 --> 00:04:39,305
+we actually create
+a single group of
+
+111
+00:04:39,305 --> 00:04:43,195
+independent outcomes with
+one measurement per sample.
+
+112
+00:04:43,195 --> 00:04:45,290
+Now let's think about how we can
+
+113
+00:04:45,290 --> 00:04:46,970
+apply the paired t-test to
+
+114
+00:04:46,970 --> 00:04:48,980
+longitudinal data to test
+
+115
+00:04:48,980 --> 00:04:51,505
+for a change in the
+outcome over time.
+
+116
+00:04:51,505 --> 00:04:54,410
+Remember that longitudinal
+data contains
+
+117
+00:04:54,410 --> 00:04:56,630
+correlated outcomes
+that we visualize
+
+118
+00:04:56,630 --> 00:04:59,300
+as being connected
+by lines over time.
+
+119
+00:04:59,300 --> 00:05:01,460
+If we are interested
+in determining
+
+120
+00:05:01,460 --> 00:05:03,680
+whether the outcome
+changed over time,
+
+121
+00:05:03,680 --> 00:05:06,604
+we could just look at the
+first and last measurements,
+
+122
+00:05:06,604 --> 00:05:10,280
+ignoring all intermediate
+measurements of the outcome.
+
+123
+00:05:10,280 --> 00:05:12,560
+By doing this, we
+have essentially
+
+124
+00:05:12,560 --> 00:05:15,380
+created paired data from
+our longitudinal data,
+
+125
+00:05:15,380 --> 00:05:17,030
+consisting of the measurements of
+
+126
+00:05:17,030 --> 00:05:20,000
+the outcome at the first
+and last time points.
+
+127
+00:05:20,000 --> 00:05:21,950
+This is precisely
+the scenario that
+
+128
+00:05:21,950 --> 00:05:24,620
+the paired t-test
+is designed for.
+
+129
+00:05:24,620 --> 00:05:27,140
+Applying the paired t-test to
+
+130
+00:05:27,140 --> 00:05:29,540
+longitudinal repeated
+measures data is
+
+131
+00:05:29,540 --> 00:05:32,510
+a valid analysis that
+is simple to apply,
+
+132
+00:05:32,510 --> 00:05:35,239
+accounts for the correlation
+among the outcomes,
+
+133
+00:05:35,239 --> 00:05:37,129
+and provides a formal hypotheses
+
+134
+00:05:37,129 --> 00:05:39,895
+testing framework for
+evaluating the change.
+
+135
+00:05:39,895 --> 00:05:43,565
+There are however, several
+drawbacks to this analysis.
+
+136
+00:05:43,565 --> 00:05:45,725
+First and most problematic,
+
+137
+00:05:45,725 --> 00:05:47,675
+by using only two time points,
+
+138
+00:05:47,675 --> 00:05:50,360
+we are potentially throwing
+out a lot of data.
+
+139
+00:05:50,360 --> 00:05:52,190
+Think about how much
+effort might have
+
+140
+00:05:52,190 --> 00:05:53,810
+gone into collecting that data,
+
+141
+00:05:53,810 --> 00:05:55,880
+and we are just tossing it aside.
+
+142
+00:05:55,880 --> 00:05:59,375
+The paired t-test is also
+not a statistical model.
+
+143
+00:05:59,375 --> 00:06:01,700
+It does not specify
+a pattern for how
+
+144
+00:06:01,700 --> 00:06:04,040
+the outcome changes over time.
+
+145
+00:06:04,040 --> 00:06:07,630
+For example, in a linear
+or quadratic fashion.
+
+146
+00:06:07,630 --> 00:06:09,860
+Finally, the paired t-test
+
+147
+00:06:09,860 --> 00:06:11,840
+does not allow us to
+account for potential
+
+148
+00:06:11,840 --> 00:06:13,865
+confounding variables that might
+
+149
+00:06:13,865 --> 00:06:16,115
+alter the interpretation
+of the data.
+
+150
+00:06:16,115 --> 00:06:18,380
+Still, a closer inspection of
+
+151
+00:06:18,380 --> 00:06:21,320
+the paired t-test is valuable
+for understanding how
+
+152
+00:06:21,320 --> 00:06:24,950
+it handles correlated data
+and building intuition for
+
+153
+00:06:24,950 --> 00:06:27,260
+statistical models
+of longitudinal data
+
+154
+00:06:27,260 --> 00:06:29,635
+that we will encounter later.
+
+155
+00:06:29,635 --> 00:06:32,750
+Let's take a closer look
+at the math involved in
+
+156
+00:06:32,750 --> 00:06:35,855
+the two-sample t-test
+and the paired t-test.
+
+157
+00:06:35,855 --> 00:06:39,080
+First, let's consider
+the t-statistic
+
+158
+00:06:39,080 --> 00:06:40,825
+for the two-sample t-test.
+
+159
+00:06:40,825 --> 00:06:42,500
+In the numerator, we have
+
+160
+00:06:42,500 --> 00:06:45,080
+the difference between the
+sample means in each group.
+
+161
+00:06:45,080 --> 00:06:46,700
+In the denominator, we have
+
+162
+00:06:46,700 --> 00:06:48,574
+the standard error
+of this quantity,
+
+163
+00:06:48,574 --> 00:06:51,800
+which simplifies to the
+quantity shown and involves
+
+164
+00:06:51,800 --> 00:06:55,495
+the estimated variances and
+sample sizes for each group.
+
+165
+00:06:55,495 --> 00:06:57,555
+Remember the denominator here.
+
+166
+00:06:57,555 --> 00:07:01,505
+That is what's going to
+change for the paired t-test.
+
+167
+00:07:01,505 --> 00:07:05,224
+Here's the t-statistic
+for the paired t-test.
+
+168
+00:07:05,224 --> 00:07:08,480
+Note that by simple
+arithmetic, the numerator,
+
+169
+00:07:08,480 --> 00:07:10,715
+which starts as the mean
+of the differences,
+
+170
+00:07:10,715 --> 00:07:13,355
+is actually equal to the
+difference of the means.
+
+171
+00:07:13,355 --> 00:07:14,990
+This is the exact same as
+
+172
+00:07:14,990 --> 00:07:18,100
+the numerator for the
+two-sample t-test.
+
+173
+00:07:18,100 --> 00:07:20,645
+But the denominator is different.
+
+174
+00:07:20,645 --> 00:07:22,010
+The quantity is still
+
+175
+00:07:22,010 --> 00:07:23,930
+the standard error
+of the numerator,
+
+176
+00:07:23,930 --> 00:07:25,235
+but as you can see,
+
+177
+00:07:25,235 --> 00:07:27,380
+the standard error now
+includes a term for
+
+178
+00:07:27,380 --> 00:07:29,300
+the covariance between
+the measurements
+
+179
+00:07:29,300 --> 00:07:31,160
+in the two groups.
+
+180
+00:07:31,160 --> 00:07:33,740
+A direct comparison shows
+
+181
+00:07:33,740 --> 00:07:36,215
+how the two test
+statistics differ.
+
+182
+00:07:36,215 --> 00:07:38,960
+Remember that the
+two-sample t-test
+
+183
+00:07:38,960 --> 00:07:41,515
+assumes independent observations.
+
+184
+00:07:41,515 --> 00:07:45,410
+If you were to apply the
+two-sample t-test to pair data,
+
+185
+00:07:45,410 --> 00:07:47,030
+you would essentially be ignoring
+
+186
+00:07:47,030 --> 00:07:49,505
+the correlation between
+the paired outcomes.
+
+187
+00:07:49,505 --> 00:07:51,740
+You would be making
+a faulty assumption
+
+188
+00:07:51,740 --> 00:07:54,125
+and your analysis
+would not be valid.
+
+189
+00:07:54,125 --> 00:07:57,875
+This is analogous to applying
+standard linear regression,
+
+190
+00:07:57,875 --> 00:08:01,655
+which assumes independent
+outcomes to longitudinal data,
+
+191
+00:08:01,655 --> 00:08:03,895
+which contains
+correlated outcomes.
+
+192
+00:08:03,895 --> 00:08:07,040
+The strength and direction
+of the covariance will
+
+193
+00:08:07,040 --> 00:08:10,340
+decide the actual effect of
+ignoring the correlation.
+
+194
+00:08:10,340 --> 00:08:13,010
+That is, whether you
+increase your chance
+
+195
+00:08:13,010 --> 00:08:16,390
+of committing a type
+one or type two error.
+
+196
+00:08:16,390 --> 00:08:18,920
+In this lecture, we introduced
+
+197
+00:08:18,920 --> 00:08:20,630
+a fairly straightforward
+technique
+
+198
+00:08:20,630 --> 00:08:24,805
+for analyzing longitudinal
+data using the paired t-test.
+
+199
+00:08:24,805 --> 00:08:27,605
+By reducing the
+repeated measures data
+
+200
+00:08:27,605 --> 00:08:29,510
+down to two time points,
+
+201
+00:08:29,510 --> 00:08:33,110
+we can apply the paired
+t-test to formally test for
+
+202
+00:08:33,110 --> 00:08:34,730
+a change in the outcome over
+
+203
+00:08:34,730 --> 00:08:37,600
+time while accounting
+for correlation.
+
+204
+00:08:37,600 --> 00:08:40,940
+The key idea is
+that as opposed to
+
+205
+00:08:40,940 --> 00:08:44,495
+the two-sample t-test which
+assumes independent outcomes,
+
+206
+00:08:44,495 --> 00:08:46,910
+the paired t-test
+includes a term for
+
+207
+00:08:46,910 --> 00:08:49,430
+the covariance of the
+paired measurements.
+
+208
+00:08:49,430 --> 00:08:52,430
+That is, the strength of
+the relationship between
+
+209
+00:08:52,430 --> 00:08:54,140
+the paired data points is
+
+210
+00:08:54,140 --> 00:08:57,020
+properly accounted
+for in the analysis.
+
+211
+00:08:57,020 --> 00:09:00,049
+The paired t-test is
+likely too simplistic
+
+212
+00:09:00,049 --> 00:09:02,945
+to use in most longitudinal
+data analyses.
+
+213
+00:09:02,945 --> 00:09:04,190
+But it does provide
+
+214
+00:09:04,190 --> 00:09:06,020
+some excellent intuition for
+
+215
+00:09:06,020 --> 00:09:08,345
+the impact of
+ignoring correlation,
+
+216
+00:09:08,345 --> 00:09:10,880
+and also for how correlation
+will be accounted
+
+217
+00:09:10,880 --> 00:09:14,752
+for in subsequent
+models we discuss.
+

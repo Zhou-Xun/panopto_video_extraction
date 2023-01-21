@@ -1,0 +1,472 @@
+1
+00:00:10,105 --> 00:00:14,406
+Hey, this is Matt Zawistowski,
+back to talk about mixed models for
+
+2
+00:00:14,406 --> 00:00:16,375
+longitudinal data analysis.
+
+3
+00:00:16,375 --> 00:00:21,710
+In previous lectures we introduced
+the random intercept mixed model.
+
+4
+00:00:21,710 --> 00:00:26,606
+In this lecture, we're going to extend
+that model by introducing an additional
+
+5
+00:00:26,606 --> 00:00:33,020
+random effect term, one that will allow
+for between subject differences in slopes.
+
+6
+00:00:33,020 --> 00:00:37,899
+As a reminder, the random intercept mixed
+model was introduced as a means to account
+
+7
+00:00:37,899 --> 00:00:43,110
+for within subject correlation of outcomes
+due to repeated measure sampling.
+
+8
+00:00:43,110 --> 00:00:48,050
+Conceptually, the random intercept model
+assumes that each subject has its own
+
+9
+00:00:48,050 --> 00:00:50,457
+subject-specific regression line.
+
+10
+00:00:50,457 --> 00:00:53,679
+And that the intercepts between
+these lines can differ, but
+
+11
+00:00:53,679 --> 00:00:59,100
+they are parallel and also parallel
+to the population regression line.
+
+12
+00:00:59,100 --> 00:01:03,922
+This was achieved by including
+the random intercept term b sub 0 i to
+
+13
+00:01:03,922 --> 00:01:05,620
+the regression model.
+
+14
+00:01:05,620 --> 00:01:10,515
+As the i in the model indicates, this
+term differs by subject, allowing each
+
+15
+00:01:10,515 --> 00:01:15,805
+subject to have a unique intercept for
+their subject-specific regression line.
+
+16
+00:01:15,805 --> 00:01:19,469
+But again, this model assumes that
+these lines are all parallel,
+
+17
+00:01:19,469 --> 00:01:22,660
+with the common slope of beta 1.
+
+18
+00:01:22,660 --> 00:01:27,254
+However, the assumption of parallel
+subject-specific lines might not
+
+19
+00:01:27,254 --> 00:01:28,891
+always hold in practice.
+
+20
+00:01:28,891 --> 00:01:31,118
+In fact, it is fairly common for
+
+21
+00:01:31,118 --> 00:01:35,994
+the slopes of the subject-specific
+lines to vary between subjects.
+
+22
+00:01:35,994 --> 00:01:40,192
+Meaning they each have slightly different
+trajectories from each other and
+
+23
+00:01:40,192 --> 00:01:42,365
+from the population regression line.
+
+24
+00:01:42,365 --> 00:01:47,150
+A visual inspection of the data can
+help determine if this is the case.
+
+25
+00:01:47,150 --> 00:01:50,562
+Like the subject-specific
+differences in intercept,
+
+26
+00:01:50,562 --> 00:01:54,191
+the differences in slope are not
+really random error noise.
+
+27
+00:01:54,191 --> 00:01:56,618
+So we would want to account for
+this in the model,
+
+28
+00:01:56,618 --> 00:02:00,580
+rather than simply attributing it
+to the random error component.
+
+29
+00:02:00,580 --> 00:02:04,461
+We can accomplish this by including
+an additional random effect term to
+
+30
+00:02:04,461 --> 00:02:07,920
+the random intercept mixed model.
+
+31
+00:02:07,920 --> 00:02:12,890
+Let's construct a random intercept,
+random slope mixed effect regression
+
+32
+00:02:12,890 --> 00:02:18,660
+model that allows for subject
+variation in both intercept and slope.
+
+33
+00:02:18,660 --> 00:02:22,906
+We'll start with the standard linear
+regression equation that related
+
+34
+00:02:22,906 --> 00:02:28,130
+the outcome of interest to a linear
+equation of time and a random error.
+
+35
+00:02:28,130 --> 00:02:32,882
+To this model we have already seen how
+adding a random intercept term allows for
+
+36
+00:02:32,882 --> 00:02:38,480
+between-subject variation in
+the subject-specific regression lines.
+
+37
+00:02:38,480 --> 00:02:43,138
+Remember that we make the assumption that
+the random intercept terms follow a normal
+
+38
+00:02:43,138 --> 00:02:47,544
+distribution, and we estimate the standard
+deviation of that distribution.
+
+39
+00:02:47,544 --> 00:02:51,029
+This assumption effectively
+partitions the overall error,
+
+40
+00:02:51,029 --> 00:02:55,519
+or the differences between the observed
+outcomes and the outcomes predicted by
+
+41
+00:02:55,519 --> 00:03:01,990
+the red population regression line, into
+subject specific error and random error.
+
+42
+00:03:01,990 --> 00:03:06,692
+We can next add an additional random
+effect term called the random slope term
+
+43
+00:03:06,692 --> 00:03:08,790
+to our mixed model.
+
+44
+00:03:08,790 --> 00:03:13,003
+This model now has two random
+effect terms for each subject,
+
+45
+00:03:13,003 --> 00:03:15,735
+a random intercept and a random slope.
+
+46
+00:03:15,735 --> 00:03:20,847
+The random slope term, b sub 1 i,
+quantifies the difference in slope between
+
+47
+00:03:20,847 --> 00:03:25,899
+the population regression line and
+the regression line for the ith subject.
+
+48
+00:03:25,899 --> 00:03:31,377
+This random intercept, random slope
+mixed model now allows the subject
+
+49
+00:03:31,377 --> 00:03:36,245
+specific regression lines to vary
+both in intercept and slope.
+
+50
+00:03:36,245 --> 00:03:41,864
+The terms in the random intercept, random
+slope model can be neatly organized so
+
+51
+00:03:41,864 --> 00:03:45,670
+that intercept and
+slope terms are grouped together.
+
+52
+00:03:45,670 --> 00:03:50,665
+We have two fixed effect terms,
+one for intercept and one for slope.
+
+53
+00:03:50,665 --> 00:03:56,310
+These are population parameters that
+define the red population regression line.
+
+54
+00:03:56,310 --> 00:03:59,574
+We also have two random effect
+terms in the model, which
+
+55
+00:03:59,574 --> 00:04:05,880
+facilitates the between subject variation
+from the population regression line.
+
+56
+00:04:05,880 --> 00:04:10,526
+Finally, we have the random error term
+that captures within subject variation or
+
+57
+00:04:10,526 --> 00:04:14,368
+the variation of points about
+their respective subject-specific
+
+58
+00:04:14,368 --> 00:04:16,950
+regression lines.
+
+59
+00:04:16,950 --> 00:04:19,341
+Like the random intercept mixed model,
+
+60
+00:04:19,341 --> 00:04:23,634
+this model partitions overall variation
+between observed outcomes and
+
+61
+00:04:23,634 --> 00:04:29,810
+predicted outcomes into between
+subject and within subject components.
+
+62
+00:04:29,810 --> 00:04:34,524
+With the addition of the random slope
+term we need to revisit our modeling
+
+63
+00:04:34,524 --> 00:04:35,536
+assumptions.
+
+64
+00:04:35,536 --> 00:04:40,033
+Recall that for the random intercept model
+we made the following assumptions, 1,
+
+65
+00:04:40,033 --> 00:04:42,590
+the random errors are independent.
+
+66
+00:04:42,590 --> 00:04:46,128
+2, the random errors
+are normally distributed, 3,
+
+67
+00:04:46,128 --> 00:04:49,678
+the random intercepts are also
+normally distributed.
+
+68
+00:04:49,678 --> 00:04:55,490
+And 4, the random intercepts and
+the random errors are independent.
+
+69
+00:04:55,490 --> 00:04:59,742
+To those we will further assume
+that the random slopes also follow
+
+70
+00:04:59,742 --> 00:05:04,220
+a normal distribution with
+standard deviation sigma b1.
+
+71
+00:05:04,220 --> 00:05:08,965
+Like the random intercepts, we will
+estimate the parameter sigma b1 rather
+
+72
+00:05:08,965 --> 00:05:12,470
+than the individual random slope terms.
+
+73
+00:05:12,470 --> 00:05:14,326
+Also like the random intercepts,
+
+74
+00:05:14,326 --> 00:05:18,740
+we will assume the random slopes
+are independent of the random errors.
+
+75
+00:05:18,740 --> 00:05:22,969
+However, we will allow for correlation
+between the random effect terms.
+
+76
+00:05:22,969 --> 00:05:27,514
+That is, the random effects will follow
+a bivariate normal distribution.
+
+77
+00:05:27,514 --> 00:05:31,405
+And we will need to estimate the
+correlation between the random intercept
+
+78
+00:05:31,405 --> 00:05:34,410
+and slope within a subject.
+
+79
+00:05:34,410 --> 00:05:38,975
+That was a lot, so let's clarify what
+exactly we need to estimate in the random
+
+80
+00:05:38,975 --> 00:05:42,310
+intercept, random slope mixed model.
+
+81
+00:05:42,310 --> 00:05:45,263
+We now have six parameters for this model.
+
+82
+00:05:45,263 --> 00:05:50,876
+The two fixed effect population
+parameters beta 0 and beta 1.
+
+83
+00:05:50,876 --> 00:05:55,855
+Three variance terms, the variance of
+the random errors, sigma e squared,
+
+84
+00:05:55,855 --> 00:05:58,768
+and the variances of
+the random intercept and
+
+85
+00:05:58,768 --> 00:06:04,140
+random slopes, sigma b0 squared and
+sigma b1 squared respectively.
+
+86
+00:06:04,140 --> 00:06:07,456
+And if we allow for
+correlation between the random effects,
+
+87
+00:06:07,456 --> 00:06:09,603
+we will also estimate the covariance or
+
+88
+00:06:09,603 --> 00:06:15,440
+equivalently the correlation between
+random intercepts and random slopes.
+
+89
+00:06:15,440 --> 00:06:18,673
+With that we've now extended
+are mixed model to include
+
+90
+00:06:18,673 --> 00:06:21,950
+both random intercepts and random slopes.
+
+91
+00:06:21,950 --> 00:06:25,617
+This provides a more general framework for
+us to account for
+
+92
+00:06:25,617 --> 00:06:31,060
+between subject variation and
+subject-specific regression lines.
+
+93
+00:06:31,060 --> 00:06:35,057
+Importantly, we have further partitioned
+variation about the population
+
+94
+00:06:35,057 --> 00:06:36,710
+regression line.
+
+95
+00:06:36,710 --> 00:06:39,199
+By accounting for differences in slopes,
+
+96
+00:06:39,199 --> 00:06:44,160
+we further reduce error attributed
+to within subject random error.
+
+97
+00:06:44,160 --> 00:06:48,311
+Note that not all repeated measure
+data will require a random slope.
+
+98
+00:06:48,311 --> 00:06:51,624
+Visual inspection of individual
+trajectory curves and
+
+99
+00:06:51,624 --> 00:06:58,283
+analysis of model-based residuals can help
+determine if random slopes are justified.
+

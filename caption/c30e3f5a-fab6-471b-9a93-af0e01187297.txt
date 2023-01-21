@@ -1,0 +1,808 @@
+1
+00:00:02,660 --> 00:00:07,070
+Okay. Good afternoon, everybody. Go and get started here.
+
+2
+00:00:08,540 --> 00:00:15,350
+One note about the reporting. Apparently last week's reporting for these slides didn't have any audio.
+
+3
+00:00:16,400 --> 00:00:20,720
+As far as I can tell. It is working today. So we'll see what happens.
+
+4
+00:00:21,830 --> 00:00:23,840
+Today is going to be primarily a lab day,
+
+5
+00:00:23,850 --> 00:00:32,570
+but I wanted to added a couple more slides to the continuous multistate models just because that's largely what we mean working with in the lab.
+
+6
+00:00:32,990 --> 00:00:38,630
+And just to finish up the last couple of slides of examples from the literature.
+
+7
+00:00:39,620 --> 00:00:47,480
+I also have graded all the lab ones and I wanted to kind of go over some of that way at the end of these slides,
+
+8
+00:00:47,750 --> 00:00:56,960
+then I'll start reporting and try and get started. So last time we talked a bit about continuous time multistate models,
+
+9
+00:00:57,410 --> 00:01:04,100
+which are in some ways an extension of the discrete time multi-state models where transitions can happen only at discrete times.
+
+10
+00:01:04,170 --> 00:01:05,239
+Now, with continuous time,
+
+11
+00:01:05,240 --> 00:01:16,160
+they can happen at any point in the way that we specify these continuous time models is with transition intensities and these
+
+12
+00:01:16,160 --> 00:01:22,730
+transits and intensities all sort of come together to create the transition probabilities using this idea of the matrix exponential.
+
+13
+00:01:24,140 --> 00:01:29,770
+So we may have a situation where we have State one and State two going back and forth.
+
+14
+00:01:29,780 --> 00:01:36,530
+Maybe that's well and sick and death due to disease, for example.
+
+15
+00:01:36,890 --> 00:01:45,050
+And so the way that we're going to think about this is we say for each row, we say, where can a person transition to?
+
+16
+00:01:45,380 --> 00:01:49,610
+And someone that's in state, one can only transition to state two.
+
+17
+00:01:49,610 --> 00:01:57,590
+And so we see that transition intensity included here and they can't there's no arrow from state one to state three three, four, two zero here.
+
+18
+00:01:57,920 --> 00:02:07,100
+And then, you know, our entries are always defined as the negative reason that they need to the road sums have to add to zero.
+
+19
+00:02:07,100 --> 00:02:11,989
+So it's the negative sum of everything else for state to be.
+
+20
+00:02:11,990 --> 00:02:15,320
+You can transition back to state one or two, state three.
+
+21
+00:02:15,860 --> 00:02:18,890
+So we have both of those transition entities there.
+
+22
+00:02:19,250 --> 00:02:24,440
+And the diagonal is that again, that negative road to State three is an absorbing state.
+
+23
+00:02:25,190 --> 00:02:35,210
+So we have zero along the bottom row and we see that for any fixed sum,
+
+24
+00:02:36,230 --> 00:02:42,590
+the alpha elements are telling you about the relative probability of transitioning to either that two one or two three.
+
+25
+00:02:42,600 --> 00:02:44,360
+So for a fixed sum here,
+
+26
+00:02:44,720 --> 00:02:54,110
+these tell you either more and we can see that this can kind of get a little bit complicated because if you just are intervening on one of these,
+
+27
+00:02:54,110 --> 00:02:58,460
+you're actually changing both the overall and the relative.
+
+28
+00:02:58,730 --> 00:03:03,310
+And so it's not always clear how think that's going to change the overall impact.
+
+29
+00:03:03,320 --> 00:03:10,340
+So for example, if I put some numbers in here, I'm saying that my rate of 1.5 per year,
+
+30
+00:03:10,760 --> 00:03:19,310
+it's an exponential rate, continuous rate, 0.4 from 2 to 1 and 0.1 from 2 to 3.
+
+31
+00:03:21,280 --> 00:03:25,040
+Then I can do my exponential and get my probability matrix.
+
+32
+00:03:25,720 --> 00:03:29,620
+And I might ask, Well, what happens if I were to intervene?
+
+33
+00:03:30,580 --> 00:03:33,850
+Um, let's see. I went there.
+
+34
+00:03:33,850 --> 00:03:37,840
+So why is there a positive probability in transitioning from State 1 to 3?
+
+35
+00:03:38,050 --> 00:03:45,970
+So 1/1 question is there's an entry here in the probability matrix from 1 to 3.
+
+36
+00:03:46,300 --> 00:03:51,910
+Can anyone tell me why this is nonzero when Q is zero?
+
+37
+00:03:52,540 --> 00:04:04,330
+What is this capturing? Apparently the probability from one to 2 to 3.
+
+38
+00:04:04,760 --> 00:04:13,870
+Yeah. Yeah. So multiple transitions potentially. And not only 1 to 2 and 2 to 3, but 1 to 2 to 2 to 1 to 2 to 3.
+
+39
+00:04:14,050 --> 00:04:20,120
+And all of those other possible jumps that could have happened in the times that we were not observing.
+
+40
+00:04:20,140 --> 00:04:24,580
+So this is the real difference with this continuous time as opposed to discrete time.
+
+41
+00:04:25,060 --> 00:04:30,340
+So that's one thing they're pointing out. The second is what happens if I were to like,
+
+42
+00:04:31,510 --> 00:04:35,620
+maybe this is not an intervention if we're describing it as the the disease to well state
+
+43
+00:04:35,620 --> 00:04:43,060
+but maybe something has gone badly and now that there's less likely to return to the state.
+
+44
+00:04:43,720 --> 00:04:47,290
+And we might say well, how does this impact the transition probabilities?
+
+45
+00:04:47,680 --> 00:04:53,110
+And what turns out is that it infects impacts almost all of the transition probabilities,
+
+46
+00:04:53,110 --> 00:05:00,700
+although it's even though the transition intensity is only affecting one transition because it's capturing basically all holistic transition,
+
+47
+00:05:00,710 --> 00:05:08,290
+because you can go from 2 to 1 to 2 to 3 and so on, it impacts all the probabilities.
+
+48
+00:05:08,290 --> 00:05:12,730
+And so, um, we all have to be careful about, uh,
+
+49
+00:05:13,630 --> 00:05:17,470
+assuming we know what's going to happen to the probabilities when we change things in the intensities.
+
+50
+00:05:18,490 --> 00:05:23,110
+Okay. So that's what I wanted to add about that.
+
+51
+00:05:23,780 --> 00:05:30,340
+Um, the next thing is I want to just kind of bring up a couple of examples from the literature.
+
+52
+00:05:30,670 --> 00:05:38,890
+This one's going to come to play next week when we continue a little bit more of the cancer risk part of cancer risk benefit immunology modeling.
+
+53
+00:05:39,730 --> 00:05:45,490
+This is from a paper David Mendez, who is a faculty member here.
+
+54
+00:05:45,930 --> 00:05:52,000
+Um, and, uh, he, I think in school public health.
+
+55
+00:05:52,300 --> 00:06:00,340
+And this is about whether smoking cessation had basically ceased around the year 2000.
+
+56
+00:06:00,820 --> 00:06:04,930
+And so projected trends in the prevalence and this was a really influential paper because
+
+57
+00:06:04,930 --> 00:06:08,950
+that kind of set the stage for a lot of what has happened with smoking models since then.
+
+58
+00:06:09,550 --> 00:06:15,040
+So, um, David and his coauthors, um, used a cohort model.
+
+59
+00:06:16,120 --> 00:06:18,870
+And so we're taking all everybody born in one year.
+
+60
+00:06:18,890 --> 00:06:29,230
+We're following them as fractions of the population that were the first non adults transitioning to either current
+
+61
+00:06:29,230 --> 00:06:39,880
+smokers or noncurrent adult smokers and thinking about how they transitioned to initiation and cessation and death.
+
+62
+00:06:40,150 --> 00:06:46,180
+And we're actually going to be using this model in lab three, another cohort model.
+
+63
+00:06:46,570 --> 00:06:56,830
+This is about diabetes. So these models are often used in chronic disease, not just cancer and things like, um, risk factors.
+
+64
+00:06:57,730 --> 00:07:01,930
+This is a dynamic market model. Again, a cohort based.
+
+65
+00:07:01,930 --> 00:07:07,630
+So we start with each year of birth. People are not born typically with diabetes,
+
+66
+00:07:08,890 --> 00:07:15,760
+they account for net migration into or out of the catchment area and sort of incidence of diabetes
+
+67
+00:07:16,240 --> 00:07:24,430
+is specific and taking into account mortality risk for people with out and people with diabetes.
+
+68
+00:07:25,390 --> 00:07:29,920
+And so it's a fairly stable model in terms of it only has again, three states.
+
+69
+00:07:30,430 --> 00:07:36,490
+Um, but when you start taking into account, um, sort of per year birth cohorts,
+
+70
+00:07:38,260 --> 00:07:47,230
+this is a sort of thing that at least gets you a first attempt at thinking about things like forecasting, which we are.
+
+71
+00:07:47,290 --> 00:07:52,300
+So taking some fairly simple assumptions and moving forward, those were cohort models.
+
+72
+00:07:52,810 --> 00:08:01,000
+We can also think about micro simulation models. So again, our models are focusing on fractions of a population and seeing where they transition.
+
+73
+00:08:02,200 --> 00:08:07,000
+Micro simulation models look at individuals and follow each individual moving forward.
+
+74
+00:08:07,670 --> 00:08:14,110
+This now can bring us back to cancer, an example of colorectal adenoma in natural history.
+
+75
+00:08:14,440 --> 00:08:24,190
+So as a colorectal lesion starts to grow, um, it starts small, it can increase in size.
+
+76
+00:08:24,520 --> 00:08:30,060
+At some point, it becomes large enough to be screening detectable through colonoscopy.
+
+77
+00:08:30,850 --> 00:08:37,390
+Um, and that can progress through different preclinical stages or move to clinical stages once it's diagnosed.
+
+78
+00:08:38,410 --> 00:08:53,590
+And so this model has been used to estimate and I think about what are appropriate screening guidelines for colorectal cancer.
+
+79
+00:08:53,830 --> 00:08:56,680
+And it also addresses certain issues and racial disparities.
+
+80
+00:08:59,380 --> 00:09:08,110
+And this last example from the literature again is of diabetes and a few influential model from the UK,
+
+81
+00:09:08,440 --> 00:09:17,379
+UK prospective diabetes study and taking a lot of information about both demographic factors but also risk factors,
+
+82
+00:09:17,380 --> 00:09:24,190
+a lot of biomarkers here and a history of things like myocardial infarction,
+
+83
+00:09:24,370 --> 00:09:33,430
+heart attack, stroke, other things like blindness, renal failure, diabetic ulcer.
+
+84
+00:09:33,850 --> 00:09:41,020
+And they're going to thought they're going to have a very detailed year by year simulation of what might happen to this person.
+
+85
+00:09:42,040 --> 00:09:48,910
+And so, for example, this is just one piece of it is probability of heart failure, congestive heart failure.
+
+86
+00:09:49,450 --> 00:09:57,460
+And so they're modeling it with a label model, which is one kind of one, what am I saying?
+
+87
+00:09:58,240 --> 00:10:06,460
+One way to specify a hazard and have a proportional hazard model based on some of these covariates that they have.
+
+88
+00:10:07,840 --> 00:10:12,580
+As you can imagine, that becomes kind of challenging to parameter as well.
+
+89
+00:10:13,000 --> 00:10:18,130
+But they have a lot of data and so they have a lot of potential events.
+
+90
+00:10:18,820 --> 00:10:25,270
+Uh, heart disease, stroke, myocardial infarction, heart failure, amputation.
+
+91
+00:10:25,960 --> 00:10:33,850
+And this is all in a population for which these are fairly likely because of diabetes or elevated likelihood at least.
+
+92
+00:10:34,540 --> 00:10:46,480
+And each of these is saying how the hazards of these events are increased or decreased based on age, sex, atrial fibrillation.
+
+93
+00:10:47,150 --> 00:10:54,459
+I'm not sure at all what they stand for, but that that basically saying I have a person I can estimate,
+
+94
+00:10:54,460 --> 00:10:57,400
+I can simulate what their history is going to look like.
+
+95
+00:10:58,000 --> 00:11:03,700
+And so what you might do is you say every year I run the model and there's some I'm rolling the dice.
+
+96
+00:11:03,700 --> 00:11:09,700
+My Monte Carlo simulation of whether an event each of the events happens here.
+
+97
+00:11:10,390 --> 00:11:21,790
+Um they had a think that a myocardial infarction they pick a number, um, where the probability of death due to that event really increases.
+
+98
+00:11:22,120 --> 00:11:29,889
+They didn't die. So it kind of goes back down. But because they've already had one event, the next event becomes more likely and so on and so forth.
+
+99
+00:11:29,890 --> 00:11:32,550
+And so this is just one single micro simulation.
+
+100
+00:11:32,590 --> 00:11:40,629
+You can do this hundreds of thousands of times for each individual with different starting, uh, information.
+
+101
+00:11:40,630 --> 00:11:45,610
+So questions about any of the stuff we've talked about today.
+
+102
+00:11:50,110 --> 00:11:53,589
+Note. We'll skip the discussion questions.
+
+103
+00:11:53,590 --> 00:12:01,350
+Feel free to think about them on your own. They were comparing contrast individual versus cohort approaches in multistate modeling.
+
+104
+00:12:01,720 --> 00:12:05,590
+This will come up as one of the questions in the lab today, kind of.
+
+105
+00:12:07,870 --> 00:12:11,019
+And then this other question that kind of comes back to that last example.
+
+106
+00:12:11,020 --> 00:12:15,520
+We talked about the multistage transition models that we mostly been using.
+
+107
+00:12:15,730 --> 00:12:20,260
+Take this marks of memory loss assumption, which is convenient and often approximately true.
+
+108
+00:12:20,500 --> 00:12:28,390
+But if we want to move away from it like they did in that diabetes model with all those pieces, how does that change our approach to simulation?
+
+109
+00:12:28,780 --> 00:12:33,040
+And so for one thing, we probably are going to have to use micro simulation, but it's helpful to kind of think.
+
+110
+00:12:35,880 --> 00:12:39,840
+I'll come back to lab two in a second because I want to talk a little bit about Lab one.
+
+111
+00:12:40,560 --> 00:12:44,720
+Now that I've made them all. So this is a specific incidence.
+
+112
+00:12:46,290 --> 00:12:50,340
+I saw some good suggestions for why the shape is what it is.
+
+113
+00:12:50,670 --> 00:12:57,660
+So I'm not sure what's convincing. And so the ones that I want to highlight are are the following.
+
+114
+00:12:57,690 --> 00:13:09,930
+So one explanation is that this is simply the true shape that older people are less likely to have to have cancer, develop oropharyngeal cancer.
+
+115
+00:13:12,000 --> 00:13:18,930
+Probably that's not true because risk generally increases for cancer, but it is one possible explanation.
+
+116
+00:13:19,770 --> 00:13:27,270
+Another explanation is that it's a competing risks issue so that not that older people
+
+117
+00:13:27,270 --> 00:13:31,980
+have higher risks that were the case would affect both the numerator and denominator,
+
+118
+00:13:32,250 --> 00:13:39,450
+but that there is this correlation between the people who have a higher risk for our original cancer, also have a higher risk of other cause death.
+
+119
+00:13:39,810 --> 00:13:42,240
+And so that you just basically have healthier people left.
+
+120
+00:13:42,720 --> 00:13:50,610
+Once they've been, they've died of other causes and those healthier people that are left have less oropharyngeal cancer.
+
+121
+00:13:52,380 --> 00:14:01,470
+This is probably at least a little bit true, but you would expect this to basically be true for many cancers or,
+
+122
+00:14:01,530 --> 00:14:06,990
+you know, kind of depending on the risk factor profiles. So there probably is some part of here.
+
+123
+00:14:07,800 --> 00:14:15,120
+The thing that I think is probably the has the largest contribution is that it's due to actually earlier in life risk factors.
+
+124
+00:14:15,540 --> 00:14:23,380
+So if you don't get cancer by age 70 or so, then it's less likely that you had HPV earlier in life.
+
+125
+00:14:23,400 --> 00:14:29,610
+That's sort of an integrated approach, you know. This could also be true of alcohol or smoking use.
+
+126
+00:14:30,690 --> 00:14:38,040
+It's kind of saying if you haven't gotten cancer by this point, then you don't have the risk factor that would have given it to you by that point.
+
+127
+00:14:40,230 --> 00:14:51,000
+A couple of people said something like, um, they don't have HPV now, and so they have less, like less likelihood of getting cancer.
+
+128
+00:14:51,600 --> 00:15:04,319
+And so that might be true for some things like smoking, which can exacerbate cancer or be a continual, uh, risk.
+
+129
+00:15:04,320 --> 00:15:06,479
+But cancer takes a long time to develop.
+
+130
+00:15:06,480 --> 00:15:15,180
+And so when we think about cancer risk factors, we have to often be sort of looking backwards for decades potentially.
+
+131
+00:15:16,310 --> 00:15:21,290
+Um. Okay. This one was pretty straightforward.
+
+132
+00:15:21,440 --> 00:15:30,530
+I don't think that points are on anybody's, but what we generally see is that age adjusted incidence matches accrued before 2000.
+
+133
+00:15:30,890 --> 00:15:37,610
+And so afterwards we see some overestimates in incidence due to changing population age structure in the catchment population.
+
+134
+00:15:37,940 --> 00:15:42,020
+One thing that I think is kind of interesting is that they actually don't even match for the year 2000.
+
+135
+00:15:43,130 --> 00:15:44,300
+I don't know if you've noticed that.
+
+136
+00:15:44,960 --> 00:15:57,650
+And that's because the catchment of this data set is not the entire U.S. it's a subset of the U.S. that participates in the zero cancer registry.
+
+137
+00:15:57,980 --> 00:16:07,490
+And I expect you have known this talking about it in week four, but just to kind of try to try to build those connections.
+
+138
+00:16:10,040 --> 00:16:19,130
+These are pretty much fine. One thing I want to know is on the left is you kind of have this earlier peak for the 1973.
+
+139
+00:16:19,340 --> 00:16:22,790
+They kind of get a little bit later peaks for the others.
+
+140
+00:16:24,680 --> 00:16:32,470
+And I always find it kind of challenging to look at incidence groups by year because it's very hard to tell.
+
+141
+00:16:32,480 --> 00:16:36,770
+Do I really believe that this is actually a period effect or is it more likely,
+
+142
+00:16:37,280 --> 00:16:44,300
+you know, a cohort effect that's that is being visualized as a period effect.
+
+143
+00:16:45,260 --> 00:16:47,240
+So for birth cohort on the right,
+
+144
+00:16:47,510 --> 00:16:55,940
+it can be often a little bit easier to see the trends because you kind of have this the 1910 and the 1920s birth cohorts,
+
+145
+00:16:56,210 --> 00:17:00,230
+they kind of fit a little bit higher than the next couple.
+
+146
+00:17:00,770 --> 00:17:06,589
+But as you have noticed, we don't have information, full information on all of the cohorts.
+
+147
+00:17:06,590 --> 00:17:14,900
+Right. So for these like 1960s and later, no idea if it's going to be higher or lower.
+
+148
+00:17:15,230 --> 00:17:24,440
+Right. And so what we can say is generally looks like there's kind of been a decrease, but we don't know where that's going to take us in the future.
+
+149
+00:17:26,700 --> 00:17:38,360
+Um, these are also pretty good, um, kind of couple of things I want to point out really this really huge increase in cancer incidence among white men.
+
+150
+00:17:38,780 --> 00:17:44,060
+Um, I think we had a big increase in black men back in the late 1970s.
+
+151
+00:17:45,350 --> 00:17:52,729
+Uh, for women it's been fairly consistent. And in fact, this recent increase in, well,
+
+152
+00:17:52,730 --> 00:17:59,600
+pharyngeal cancer has changed the most common HPV associated cancer from being cervical
+
+153
+00:17:59,600 --> 00:18:05,860
+cancer to oropharyngeal cancer just due to the increase and oropharyngeal kids.
+
+154
+00:18:05,900 --> 00:18:18,260
+And that, um, one note here this is by year so we really need to be saying whether it's crude or age adjusted incidence because if
+
+155
+00:18:18,260 --> 00:18:25,730
+we don't say it and the reader doesn't know automatically and a quick question is should we age adjust these plots?
+
+156
+00:18:26,720 --> 00:18:34,220
+Um, and the answer is arguably yes, but I actually didn't really give you enough information to do it well because the
+
+157
+00:18:34,220 --> 00:18:39,800
+age adjusted incidence is by the population overall and not by specific group.
+
+158
+00:18:40,500 --> 00:18:52,879
+Um, and so what I would say is, is the bias introduced by, um, kind of adjusting sort of right,
+
+159
+00:18:52,880 --> 00:18:58,520
+sort of wrong any better or worse than just giving the current incidence by itself?
+
+160
+00:18:59,150 --> 00:19:01,370
+I'm not sure that there's necessarily a right or wrong answer.
+
+161
+00:19:01,370 --> 00:19:13,069
+I would probably lean towards crude incidence rather than age adjusted right here with reporting by age,
+
+162
+00:19:13,070 --> 00:19:20,480
+there's no need to age adjust because it doesn't make sense or there's no there's no change because you're doing it by age.
+
+163
+00:19:21,650 --> 00:19:25,729
+The things that I wanted you to pick up here are that we see higher incidence.
+
+164
+00:19:25,730 --> 00:19:37,190
+And then in women that we see in black men and black women, earlier increases in both cases, earlier increases in the incidence.
+
+165
+00:19:37,190 --> 00:19:45,950
+So earlier in life. And that might, as we'll see much later in the semester, have biological implications for tumor growth.
+
+166
+00:19:47,300 --> 00:19:55,310
+Okay. Any questions about Lab one? If you have any questions, feel free about reading.
+
+167
+00:19:55,580 --> 00:19:59,630
+Feel free to email me. I can sort that out.
+
+168
+00:20:00,910 --> 00:20:11,030
+Okay. So today we're going to do lab to use a multistate model to estimate and interpret transition parameters for smoking and vaping transitions.
+
+169
+00:20:11,750 --> 00:20:18,620
+So we go. Hear this.
+
+170
+00:20:18,990 --> 00:20:26,930
+You can read the intro here. We know that smoking causes cancer is in fact the largest preventable causes.
+
+171
+00:20:26,930 --> 00:20:32,870
+Cancer we know. Lung cancer particularly, but also many other types of cancer.
+
+172
+00:20:33,140 --> 00:20:36,680
+Oral bladder, stomach or all.
+
+173
+00:20:36,740 --> 00:20:44,510
+All have smoking as a big cancer risk factor. Cancer risk depends on not whether or not, just whether or not,
+
+174
+00:20:44,520 --> 00:20:51,650
+even if you but for how long and how intensely we often think about that in terms of cumulative exposure or patch years.
+
+175
+00:20:53,110 --> 00:20:58,100
+Um, and so one thing we might be interested in is having kind of a smoking history generator
+
+176
+00:20:58,550 --> 00:21:03,260
+that we would need to parameter that in some way to say what are the transitions,
+
+177
+00:21:03,260 --> 00:21:08,809
+how fast are they going? And so we need to find some data to do that.
+
+178
+00:21:08,810 --> 00:21:12,050
+We're going to be using the Population Assessment of Tobacco and Health Study.
+
+179
+00:21:12,740 --> 00:21:18,380
+Um, we're going to disregard health. We'd say it's a little bit too complicated.
+
+180
+00:21:18,760 --> 00:21:20,300
+I'm happy to chat about that, though,
+
+181
+00:21:20,840 --> 00:21:30,770
+but the goal of this is to identify those transition intensities between some different tobacco use states for cigarets and e-cigarettes.
+
+182
+00:21:31,670 --> 00:21:37,730
+So what you'll be doing today is my goals for for your learning are to specify,
+
+183
+00:21:37,750 --> 00:21:48,470
+be able to specify instantaneous transitions and a multistate transition model estimate interpret those rates and confidence intervals from data.
+
+184
+00:21:49,490 --> 00:21:56,059
+Um, turn those, those instantaneous transition intensities into transition probabilities and use
+
+185
+00:21:56,060 --> 00:22:02,480
+the estimate them and forecast them and start to think about how hazard ratios,
+
+186
+00:22:03,410 --> 00:22:09,740
+transition hazard ratios and covariates hazard ratios. Not all of these words maybe are familiar to you yet.
+
+187
+00:22:09,890 --> 00:22:21,170
+We'll learn them in the course of the lab. This lab is going to be a lot of read, follow the code and interpret the results.
+
+188
+00:22:22,310 --> 00:22:28,790
+It's not going to be a lot of coding on your part, so it's going to be a little bit more of an interpretation focused lab.
+
+189
+00:22:29,150 --> 00:22:32,510
+Again, you can work in groups but submit your own.
+
+190
+00:22:33,290 --> 00:22:34,940
+I forgot to specify last time,
+
+191
+00:22:36,050 --> 00:22:42,410
+but please submit a new document rather than copy and paste into this because it just makes it all the easier for me to create.
+
+192
+00:22:43,730 --> 00:22:53,060
+Um. Okay. So we switch now to the code here.
+
+193
+00:22:53,960 --> 00:23:01,430
+This code is structured in parts. The parts correspond to the questions or the parts in the lab.
+
+194
+00:23:02,010 --> 00:23:10,130
+All of them have questions, I guess. And I've given you the data and most of the code.
+
+195
+00:23:10,610 --> 00:23:18,440
+So your job will basically run out line by line and make sure that you understand what the code is doing and interpret the results.
+
+196
+00:23:20,440 --> 00:23:27,179
+Any questions? I guess one other point is I have set office hours.
+
+197
+00:23:27,180 --> 00:23:31,170
+You'll probably have seen the announcement. There'll be Mondays and Wednesdays after class.
+
+198
+00:23:31,740 --> 00:23:34,770
+Most of that will probably mean I stick around here because there's no class
+
+199
+00:23:34,770 --> 00:23:40,650
+after until there are no questions in my office and you can find me there.
+
+200
+00:23:41,670 --> 00:23:43,170
+Today I have to leave a little bit early,
+
+201
+00:23:45,600 --> 00:23:57,000
+but I also have a virtual office hour on Fridays and you can find that here on canvas under the Zoom description.
+
+202
+00:23:58,260 --> 00:24:00,660
+Let's go ahead and start recording and let you all get started.
+

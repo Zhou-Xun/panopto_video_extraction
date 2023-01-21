@@ -1,0 +1,368 @@
+1
+00:00:02,510 --> 00:00:07,100
+This is MP 826 Chapter three Logit and Probit Models.
+
+2
+00:00:09,540 --> 00:00:14,230
+So. We're going to talk about logit and probit models.
+
+3
+00:00:14,800 --> 00:00:22,630
+These are models that are used whenever you have a binary dependent variable, such as readmitted or not readmitted.
+
+4
+00:00:23,080 --> 00:00:30,370
+Low birth weight or not low birth weight with insurance or not having health insurance.
+
+5
+00:00:30,850 --> 00:00:37,840
+Both of these models are really common. Some people have a preference for one or the other, but it's really important to learn both.
+
+6
+00:00:38,410 --> 00:00:44,559
+As you will see, you get essentially the same result from either logit or prove it.
+
+7
+00:00:44,560 --> 00:00:47,560
+But it's really important to learn both. Okay.
+
+8
+00:00:47,560 --> 00:00:51,520
+So we're going to try and combine two things in this class.
+
+9
+00:00:51,940 --> 00:00:55,780
+One is we've been talking about likelihood functions and probabilities.
+
+10
+00:00:56,770 --> 00:01:04,420
+Parties have all been very simple coin spinning problems, that sort of thing with a single parameter, not very useful or realistic.
+
+11
+00:01:05,290 --> 00:01:13,930
+We also have used ordinarily squares regression, which typically has lots of covariates, lots of things you can control for.
+
+12
+00:01:14,320 --> 00:01:16,600
+And we sort of want to combine the best of both worlds.
+
+13
+00:01:16,610 --> 00:01:23,650
+You want to be able to model probabilities and outcomes that are binary, and we want to be able to have lots of covariance.
+
+14
+00:01:25,270 --> 00:01:30,640
+So we're going to start by talking about the linear probability model,
+
+15
+00:01:31,270 --> 00:01:38,530
+which is basically ordinarily squares that has a binary outcome and you can do this less works for any kind of outcome.
+
+16
+00:01:39,760 --> 00:01:46,479
+You can run a model with a binary outcome with ordinary least squares, and you'll get results.
+
+17
+00:01:46,480 --> 00:01:55,440
+And they have a certain interpretation. And as you'll see, they're both easy to use and interpret and they have some problems.
+
+18
+00:01:55,450 --> 00:02:01,900
+So let's let's talk about the strengths and weaknesses of this model.
+
+19
+00:02:03,930 --> 00:02:06,210
+First of all, one bit of notation.
+
+20
+00:02:06,960 --> 00:02:17,010
+Whenever I write x prime beta or sometimes just x beta, that is a shorthand notation for what I call the linear index,
+
+21
+00:02:17,010 --> 00:02:20,969
+or a whole set of variables, including the constant term.
+
+22
+00:02:20,970 --> 00:02:28,830
+So beat or not, the constant term plus beta one times the first covariate plus beta, two times the second covariate and so on.
+
+23
+00:02:29,190 --> 00:02:35,070
+However many variables you have. So we use x beta because it's much simpler to write than the whole set of covariance.
+
+24
+00:02:37,770 --> 00:02:39,540
+In this second Panopto lecture,
+
+25
+00:02:39,540 --> 00:02:49,200
+I'm going to talk about a specific low birth weight example where the dependent variable is low birth weight or not using a stated data set.
+
+26
+00:02:50,610 --> 00:03:00,960
+So in the second Panopto lecture, I'll show how to estimate a linear probability model in Stata with a real data set.
+
+27
+00:03:04,520 --> 00:03:10,550
+There are three main problems with a linear probability model, and we'll talk about each of these.
+
+28
+00:03:10,580 --> 00:03:21,620
+So first of all, you can have predictions that are outside the zero one interval that is less than 0% or greater than 100%.
+
+29
+00:03:22,160 --> 00:03:24,800
+Second, the errors are hetero get tastic.
+
+30
+00:03:25,160 --> 00:03:34,010
+And third, this assumes constant marginal effects for both low probability events, medium probability events and high probability events.
+
+31
+00:03:35,210 --> 00:03:41,630
+So let's talk about each of those. First of all, here, people say they give more than 100% effort on whatever.
+
+32
+00:03:42,410 --> 00:03:47,480
+But. You cannot have probabilities that are negative or greater than one.
+
+33
+00:03:47,500 --> 00:03:52,000
+You just cannot have that. But alas, has no such restriction.
+
+34
+00:03:52,870 --> 00:03:57,880
+And it is extremely common with real data to estimate, say,
+
+35
+00:03:57,910 --> 00:04:02,920
+a linear probability model and get predicted probabilities that are outside of the zero one interval.
+
+36
+00:04:03,430 --> 00:04:15,610
+It just happens all the time and it makes no sense. And it's especially true when you have rare outcomes or an outcome that is fairly close to 100%.
+
+37
+00:04:17,770 --> 00:04:21,970
+Then small deviations from that are likely to get you outside the zero one interval.
+
+38
+00:04:22,150 --> 00:04:27,129
+Or another thing is, if you have a very wide range of x values, I don't know,
+
+39
+00:04:27,130 --> 00:04:34,980
+like income or something else with extremely wide range of values, it's quite easy to get outside that.
+
+40
+00:04:35,800 --> 00:04:41,920
+So the you know, it's a little crazy then to think about estimating a model where, you know,
+
+41
+00:04:41,920 --> 00:04:48,910
+that the outcome has to be either zero or one, and you cannot have probabilities that are above one or less than zero.
+
+42
+00:04:49,390 --> 00:04:56,620
+And yet maybe, you know, why in the world would you ever estimate a model that would violate that basic property?
+
+43
+00:04:58,840 --> 00:05:07,520
+Second problem is hetero scholasticism. Linear probability models are Hatteras tastic by construction.
+
+44
+00:05:07,540 --> 00:05:11,710
+There's a little bit of math here on on the screen.
+
+45
+00:05:12,010 --> 00:05:24,580
+We know that because the outcome is either zero or one, that the error term must either be zero -0 or one minus x.
+
+46
+00:05:24,600 --> 00:05:29,169
+Peter, remember that in the linear probability model y is equal to X.
+
+47
+00:05:29,170 --> 00:05:35,350
+Peter Plus the error. So if you rearrange, that means the error is y minus x beta.
+
+48
+00:05:37,900 --> 00:05:43,240
+There's no way to write this. There's no way to express the error term.
+
+49
+00:05:44,310 --> 00:05:53,490
+In a way that does not include x. So remember that heterozygous TCT means that the variance is a function of the axes.
+
+50
+00:05:54,840 --> 00:06:02,700
+We know that the variance is basically p times one minus P or in this case two times one minus x beta hat.
+
+51
+00:06:03,420 --> 00:06:13,350
+You can't get rid of the speed as it's there. It's not equal to a constant as it as it typically is in ordinary least squares.
+
+52
+00:06:15,720 --> 00:06:19,860
+Leaner, probably leaner probability models are hetero scholastic.
+
+53
+00:06:21,930 --> 00:06:27,870
+This is not actually all that big of a problem in practice.
+
+54
+00:06:27,900 --> 00:06:31,470
+Yes, you could do. Where do these squares of? Well, that has some issues.
+
+55
+00:06:31,710 --> 00:06:37,460
+In practice, we use robust standard errors in stadia.
+
+56
+00:06:38,070 --> 00:06:41,730
+There's an option for robust.
+
+57
+00:06:42,030 --> 00:06:46,379
+This is variance, covariance estimate, robust.
+
+58
+00:06:46,380 --> 00:06:52,980
+Or if you have cluster data, say patients clustered within hospitals, then use VCC cluster.
+
+59
+00:06:52,980 --> 00:06:58,920
+And like the hospital ID variable, it's actually not that big a deal.
+
+60
+00:07:00,270 --> 00:07:09,540
+Adjusting for heterozygous to see typically increases the size of the standard errors, but not by a huge amount in most cases.
+
+61
+00:07:11,580 --> 00:07:18,920
+So that actually is not that big a deal. But it's important to control for hetero scholastic standard errors.
+
+62
+00:07:20,180 --> 00:07:23,510
+You shouldn't completely ignore it. But it's not a deal breaker.
+
+63
+00:07:24,710 --> 00:07:29,330
+Finally, CPMs estimate constant marginal effects.
+
+64
+00:07:29,340 --> 00:07:41,569
+That is the the effect of a change in one variable on the outcome is is constant unless you have like higher order terms,
+
+65
+00:07:41,570 --> 00:07:47,840
+like a squared term or interactions or that sort of thing. But if you just have a one variable on the right hand side,
+
+66
+00:07:48,410 --> 00:07:59,630
+the marginal effect of that is going to be something like a one unit change in age leads to a, you know, three percentage point change in the outcome.
+
+67
+00:08:00,440 --> 00:08:08,959
+And that's going to be true if age is smaller for ages large, if if the predicted probability is small, predicted probability is large.
+
+68
+00:08:08,960 --> 00:08:12,650
+It's a constant marginal effect that's easy to interpret.
+
+69
+00:08:12,650 --> 00:08:20,660
+It's easy to say, but it may not really be accurate or a good representation of what's really going on.
+
+70
+00:08:21,410 --> 00:08:27,230
+Typically, if you have a probability that's very close to zero, it's not a lot of wiggle room.
+
+71
+00:08:27,440 --> 00:08:33,799
+There's a flaw of fact you can't move the predicted probability very much for a change in any X value.
+
+72
+00:08:33,800 --> 00:08:42,200
+You would expect to have very small marginal effects, or if you're close to the upper bound of 100%,
+
+73
+00:08:42,830 --> 00:08:53,330
+whereas in the middle there's more room, shall we say, to wiggle around and have an effect of a variable on the outcome.
+
+74
+00:08:54,200 --> 00:08:56,420
+We're going to cover this more in Chapter five.
+
+75
+00:08:57,290 --> 00:09:07,579
+So taking all that into account, yes, the linear probability model has some problems and limitations, but it also has some advantages.
+
+76
+00:09:07,580 --> 00:09:14,520
+It's really easy to estimate less. You can estimate it on basically any data set.
+
+77
+00:09:14,520 --> 00:09:21,499
+He estimates it quickly, as you will see as we go further with Logan,
+
+78
+00:09:21,500 --> 00:09:32,020
+Probit estimation is sometimes complicated and the interpretation is sometimes going to be very complicated compared with oh well,
+
+79
+00:09:32,020 --> 00:09:37,100
+less so depending on what your purposes are.
+
+80
+00:09:37,130 --> 00:09:41,090
+You care about the predicted probabilities or do you just care about marginal effects?
+
+81
+00:09:42,350 --> 00:09:51,080
+Sometimes LPM is a very useful tool, recognizing that it has some weaknesses, so we want to keep that in mind.
+
+82
+00:09:51,410 --> 00:09:58,160
+But this course is primarily about maximum likelihood, estimation and logic and probe it and extension.
+
+83
+00:09:58,160 --> 00:10:00,050
+So we're going to focus on those models,
+
+84
+00:10:00,650 --> 00:10:05,990
+but sometimes we'll we'll estimate a linear probability model and just kind of compare and see how we're doing.
+
+85
+00:10:09,740 --> 00:10:20,469
+So. Again with the predictions if you care about the value of the predictions and linear probability model is going to be more problematic.
+
+86
+00:10:20,470 --> 00:10:24,510
+But if you just care about marginal effects, it may be maybe okay.
+
+87
+00:10:25,000 --> 00:10:31,300
+Login profit models, as it turns out, are also hetero scholastic and will solve that problem in pretty much the same way.
+
+88
+00:10:32,470 --> 00:10:39,990
+Logan Prove it. Models do have non constant marginal effects, which is both good and bad.
+
+89
+00:10:40,000 --> 00:10:43,420
+It will make interpretation a little more subtle and complicated.
+
+90
+00:10:44,980 --> 00:10:50,260
+And there's some other issues around Logan profit model that we'll get to over the next few weeks.
+
+91
+00:10:53,590 --> 00:10:55,840
+Okay. I'm going to stop here on this.
+
+92
+00:10:55,840 --> 00:11:03,580
+And then the second Panopto lecture is going to be going through a linear probability model with low birth weight data.
+

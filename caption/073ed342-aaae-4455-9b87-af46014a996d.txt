@@ -1,0 +1,2388 @@
+1
+00:00:00,360 --> 00:00:03,420
+All right. Good afternoon, everybody. Happy Monday.
+
+2
+00:00:04,230 --> 00:00:08,850
+So we are still in the process of finalizing the midterm grading.
+
+3
+00:00:08,850 --> 00:00:14,610
+So once we have done, we'll send out news, hopefully sometime in the middle of this week.
+
+4
+00:00:17,610 --> 00:00:23,850
+Today's goal is trying to cover margin a model I.
+
+5
+00:00:26,650 --> 00:00:31,360
+The generalized estimating equation. So let me make sure that all these slides are on here.
+
+6
+00:00:32,330 --> 00:00:43,530
+Okay. There we go. So first I am going to just quickly refresh the memory for everybody.
+
+7
+00:00:43,830 --> 00:00:48,960
+So in the last lecture, we have started talking about model models.
+
+8
+00:00:49,320 --> 00:00:53,730
+And the first question you would ask yourself is what is margin models and why do we need to learn it?
+
+9
+00:00:54,150 --> 00:00:59,580
+And the short answer is that this is a generalization generalizes.
+
+10
+00:01:03,570 --> 00:01:07,500
+Genome to dependent data setting.
+
+11
+00:01:13,770 --> 00:01:18,420
+So this is the goal and clearly this is just one of the two approaches that we can do.
+
+12
+00:01:18,450 --> 00:01:26,640
+So this is the module model. Later on in Handout ten, we will be talking about generalize and unit mix model.
+
+13
+00:01:27,450 --> 00:01:34,320
+They will have some relationships between each other, complicated ones that we are going to talk about that later.
+
+14
+00:01:34,950 --> 00:01:41,489
+So when you are learning, at least when you're reviewing the slides, I think you want to ask yourself,
+
+15
+00:01:41,490 --> 00:01:47,400
+what are the differences between this formulation and the one you've learned in 651, which is the generalized linear model?
+
+16
+00:01:48,840 --> 00:01:55,470
+And for the marginal model, the first thing the second thing you want to ask is what does the word marginal mean?
+
+17
+00:01:56,190 --> 00:01:59,850
+So this word marginal is relative to a word called conditional.
+
+18
+00:01:59,940 --> 00:02:05,520
+So as we have learned in. General.
+
+19
+00:02:05,600 --> 00:02:08,860
+The model. You model. Why? I give an x.
+
+20
+00:02:08,860 --> 00:02:12,180
+So. Like this.
+
+21
+00:02:12,630 --> 00:02:16,470
+All right. So this is not conditional on any beaches.
+
+22
+00:02:17,310 --> 00:02:21,240
+So this is what we meant by population, average model.
+
+23
+00:02:23,810 --> 00:02:31,370
+In contrast, if you your modeling y, I give an x cy and by using something like this.
+
+24
+00:02:32,070 --> 00:02:40,740
+Right. So. Now you are conditioning on the individual specific random effect.
+
+25
+00:02:41,130 --> 00:02:44,700
+So these two models are connected. Through what?
+
+26
+00:02:44,730 --> 00:02:48,030
+Through the expectation calculation.
+
+27
+00:02:51,580 --> 00:02:55,090
+We do this, then this will return back to here. Okay.
+
+28
+00:02:55,930 --> 00:03:05,320
+So this is the case in genomics model. And my analogy for this handle, it's focused on how to do these models.
+
+29
+00:03:06,280 --> 00:03:09,850
+Now, this brings us to the specification of marginal model.
+
+30
+00:03:10,960 --> 00:03:16,110
+Oh, by the way, we call this marginal model. We call this conditional.
+
+31
+00:03:18,560 --> 00:03:27,560
+Margin over what? Conditional on what? So the. It is conditional on buy marginal over buy.
+
+32
+00:03:28,080 --> 00:03:36,560
+I think and say that. For specifying margin model.
+
+33
+00:03:37,490 --> 00:03:50,780
+Um. We will have a few components. So the first let me go to this slide where we have those specifications.
+
+34
+00:03:53,570 --> 00:03:57,970
+There we go. Three parts of specification.
+
+35
+00:03:58,150 --> 00:04:02,080
+The first one is the marginal me given the covert information.
+
+36
+00:04:02,470 --> 00:04:06,880
+How is the outcomes average related to the covert right?
+
+37
+00:04:07,180 --> 00:04:10,780
+And this is that should be most familiar to you.
+
+38
+00:04:11,560 --> 00:04:15,400
+This is the meaning of the outcome for the subject number i.
+
+39
+00:04:16,560 --> 00:04:27,600
+At JS occasion you transform that via a link, function G and connect that to a vector of covariance obtained for subject I at the occasion.
+
+40
+00:04:27,600 --> 00:04:38,850
+J Right. And the difference from generalized model is that here we have two indices i for subject i j for occasion.
+
+41
+00:04:39,240 --> 00:04:43,500
+So this is a new relative to 651 otherwise is pretty much the same.
+
+42
+00:04:44,010 --> 00:04:51,950
+You just transform on the main connector to cover. Now, this is only a bell to me.
+
+43
+00:04:52,310 --> 00:05:01,310
+And as we have alluded to, we need to consider the dependance among the response variables within the subject.
+
+44
+00:05:04,830 --> 00:05:09,000
+So there are two parts that are needed for this specification.
+
+45
+00:05:09,300 --> 00:05:12,710
+The first one is the variance, the margin of variance.
+
+46
+00:05:13,770 --> 00:05:18,870
+Given the cover, how is the marginal variance for the JFK is?
+
+47
+00:05:19,420 --> 00:05:26,310
+How does that relate to the culvert? And when you're specifying this, often you write them in two parts.
+
+48
+00:05:26,550 --> 00:05:29,640
+The first is the FY, which we call dispersion parameter.
+
+49
+00:05:30,030 --> 00:05:35,550
+The second is the Vijay, which is called the variance function.
+
+50
+00:05:36,300 --> 00:05:42,540
+So again, it's a naming convention. Although Vijay is called variance function, it's not exactly variance.
+
+51
+00:05:42,540 --> 00:05:50,190
+You still need to multiply a potential additional factor called this dispersion parameter.
+
+52
+00:05:52,050 --> 00:05:56,070
+So once you specify the right. What do you know?
+
+53
+00:05:56,100 --> 00:06:02,460
+Well, given the coverage and Jeff occasion, you know, the variation of the outcome at that time,
+
+54
+00:06:02,880 --> 00:06:11,670
+but still you have not described how measurements at multiple occasions are going to be related.
+
+55
+00:06:12,090 --> 00:06:15,240
+So this brings us to the final part of the specification.
+
+56
+00:06:15,840 --> 00:06:22,110
+It is trying to provide within subject association for this kind of model.
+
+57
+00:06:22,740 --> 00:06:30,150
+Here you don't see any formula. It's because that I am using the word association.
+
+58
+00:06:30,510 --> 00:06:38,670
+And that is that has a broad meaning. So for continuous outcomes, that can be pairs and correlation for binary outcomes,
+
+59
+00:06:39,390 --> 00:06:47,160
+the association can be characterized by many different quantities, such as the long odds ratio, as I have illustrate on the right.
+
+60
+00:06:47,160 --> 00:06:56,219
+Right. If you have y j like on both either margin and you can have the probability of
+
+61
+00:06:56,220 --> 00:07:02,470
+the two outcomes taking a combination 11100100 and you have those probabilities.
+
+62
+00:07:02,940 --> 00:07:09,780
+To characterize association, you can use the log odds ratio. If this thing is zero, then the two variables are not associated.
+
+63
+00:07:09,990 --> 00:07:17,640
+If these two variable is if the log odds ratio is say positive, then these two variables y as you like, are positively associated.
+
+64
+00:07:17,820 --> 00:07:22,230
+And if log odds ratios negative, then negatively associated for these two binary variables.
+
+65
+00:07:23,550 --> 00:07:30,210
+And I can also use other association measures like log relative risk or risk difference.
+
+66
+00:07:30,720 --> 00:07:33,540
+But for the sake of just introducing the general scheme,
+
+67
+00:07:33,540 --> 00:07:42,310
+I'm not going to talk about that until we reach the, I believe the 09c where we provide some examples on.
+
+68
+00:07:43,810 --> 00:07:46,480
+So. If I scroll back.
+
+69
+00:07:46,480 --> 00:07:56,080
+So three parts of the module main with potential link function to deal with the non continuous outcome because when it's continuous g, just identity.
+
+70
+00:07:56,080 --> 00:08:05,200
+So we just did not make that prominent. Right now it is representing the success probability of subject I occasion.
+
+71
+00:08:05,200 --> 00:08:12,460
+Then my j is a number between zero and one. So we do need to transform that into a onto real line.
+
+72
+00:08:12,910 --> 00:08:16,480
+So that's on the right hand side. It can take any value.
+
+73
+00:08:18,590 --> 00:08:22,390
+Second, you need to specify the margin of variance. Okay.
+
+74
+00:08:22,700 --> 00:08:30,200
+And it is specified in two parts. Again by itself may depend on excise excise area so that.
+
+75
+00:08:32,590 --> 00:08:40,990
+Meanwhile, Jim may depend on. Excite J and beta, right?
+
+76
+00:08:42,260 --> 00:08:49,580
+Number three, the association. So that's pretty much a quick review of what we talked about conceptually.
+
+77
+00:08:59,610 --> 00:09:06,090
+So now I want to spend some time just a.
+
+78
+00:09:07,530 --> 00:09:12,210
+Preparing some additional remarks because we will be using these terms quite frequently.
+
+79
+00:09:13,260 --> 00:09:22,800
+I want to just skip directly to this. I think we talked about this already, but it is about the population averaged interpretation for margin models.
+
+80
+00:09:24,060 --> 00:09:26,500
+So. What does this mean?
+
+81
+00:09:27,880 --> 00:09:35,890
+Regression parameters in the model model might have interpretation in terms of contrast of changes in the responses in subpopulations.
+
+82
+00:09:36,520 --> 00:09:50,310
+Okay. So they may not be the same person. When we are.
+
+83
+00:09:51,820 --> 00:09:57,100
+Changing the covariance. So we're changing. X i j say.
+
+84
+00:09:58,620 --> 00:10:03,190
+Okay. For one unit, right? I may not be.
+
+85
+00:10:07,830 --> 00:10:11,550
+To see this essentially when you write down the model, right.
+
+86
+00:10:15,090 --> 00:10:38,360
+Uh. So this is the under the special case of a continuous outcome.
+
+87
+00:10:38,900 --> 00:10:43,290
+And for example. So e.g. means the example.
+
+88
+00:10:43,590 --> 00:10:52,320
+We do this right. Suppose we just have one scalar coverage, right.
+
+89
+00:10:52,740 --> 00:11:00,750
+So how do you interpret the coefficient? Well, you basically said x AJ equals x plus one.
+
+90
+00:11:00,750 --> 00:11:05,950
+You said excited j equals x. Right. So this is what you do.
+
+91
+00:11:05,950 --> 00:11:13,030
+And you calculate the meaning and take the difference. So we are making a contrast.
+
+92
+00:11:13,780 --> 00:11:18,670
+But here you're contrasting people who have.
+
+93
+00:11:19,660 --> 00:11:27,640
+The cover value add x plus one level. Potentially with another subpopulation who has a different color value, right?
+
+94
+00:11:28,060 --> 00:11:32,380
+It may not necessarily represent the covert change within the subject.
+
+95
+00:11:33,550 --> 00:11:38,830
+In contrast to make that point clear when you are interpreting this model.
+
+96
+00:11:43,480 --> 00:11:52,290
+Suppose you do it a zero plus b0i plus beta one excite j right.
+
+97
+00:11:52,360 --> 00:11:57,910
+Oh, sorry. When you have this kind of model, you have to condition buy.
+
+98
+00:11:58,270 --> 00:12:01,900
+So whenever you're doing an imitation, you have to say given.
+
+99
+00:12:03,010 --> 00:12:09,350
+A typical individual. And typical basically means that bb03 can be zero.
+
+100
+00:12:19,450 --> 00:12:24,370
+Then you say, okay, for this particular individual, for every unit change.
+
+101
+00:12:31,810 --> 00:12:43,900
+You can trust. You contrast the average outcome at to cover the values.
+
+102
+00:12:44,410 --> 00:12:54,550
+So it is because we have this given the typical individual that this b one has a within subject effect interpretation.
+
+103
+00:12:54,670 --> 00:13:01,210
+While for the beta one here, we do not condition on any particular individual.
+
+104
+00:13:01,630 --> 00:13:08,530
+So it may represent contrasts between sub populations that are complete, it may be complete different people.
+
+105
+00:13:09,280 --> 00:13:16,030
+Okay, so this kind of interpretation will persist even if we put in all these.
+
+106
+00:13:17,320 --> 00:13:24,310
+Link function there. I will not elaborate on this point any more, but as you can see,
+
+107
+00:13:24,650 --> 00:13:30,790
+whenever we put G to transform the mean still there will be some differences in
+
+108
+00:13:30,790 --> 00:13:37,180
+the invitation for the beta one and for for this kind of model whatever beta.
+
+109
+00:13:38,620 --> 00:13:45,399
+Bay two zero beta one. We will say they have a population average invitation and the reason why we say its
+
+110
+00:13:45,400 --> 00:13:51,100
+population average the same reason we say it's marginal because we average over all the ice.
+
+111
+00:13:51,880 --> 00:13:56,680
+Okay, so marginal model is also called population average model.
+
+112
+00:14:03,680 --> 00:14:11,570
+And another technical point, which is about the assumption we have made in constructing the margin models.
+
+113
+00:14:12,140 --> 00:14:15,340
+So this is a rather important point.
+
+114
+00:14:15,380 --> 00:14:23,030
+I have to say that in the original paper that proposed this method, which happens to be, I believe, 1980.
+
+115
+00:14:27,210 --> 00:14:47,860
+I think 86. Yeah.
+
+116
+00:14:47,870 --> 00:14:52,490
+So it's the, uh. Come on.
+
+117
+00:14:53,880 --> 00:14:56,950
+That's. Okay.
+
+118
+00:14:56,960 --> 00:15:02,540
+So this is the paper that. Propose this generalized estimating equation.
+
+119
+00:15:04,010 --> 00:15:08,230
+It's pretty old method. Pretty old messed up.
+
+120
+00:15:08,440 --> 00:15:12,220
+And this. This guy is my PSU advisor. And this guy taught me.
+
+121
+00:15:12,890 --> 00:15:16,060
+Generalized model. So quite fortunate there. So.
+
+122
+00:15:19,170 --> 00:15:25,380
+So they in their original paper, they actually did not talk about this assumption in.
+
+123
+00:15:26,240 --> 00:15:30,740
+In great detail. Why? I don't know. But this caused a lot of confusion.
+
+124
+00:15:31,250 --> 00:15:37,670
+So later on, actually, people made explicit this assumption and then turns out to be pretty important.
+
+125
+00:15:38,180 --> 00:15:43,370
+So the lesson is that when you have a good idea that may be cited for.
+
+126
+00:15:45,770 --> 00:15:49,020
+More than. 20,000 times.
+
+127
+00:15:49,040 --> 00:15:56,240
+Just go publish it. I mean, people understand it's an important idea and they will fix the small potholes if there will be.
+
+128
+00:15:57,080 --> 00:16:00,540
+So do not go for perfection, but rather go for on.
+
+129
+00:16:01,980 --> 00:16:08,370
+Make something happen. You know, not for perfection anyway. So this assumption takes this form.
+
+130
+00:16:08,880 --> 00:16:14,700
+So this is expectation of the outcome for subject I at jth occasion.
+
+131
+00:16:15,920 --> 00:16:19,190
+Okay. Look at a conditional event. Oh, let me.
+
+132
+00:16:20,970 --> 00:16:26,320
+The conditioning event is the exi didn't miss anything.
+
+133
+00:16:26,340 --> 00:16:32,930
+I did not put Jane there. So XA is representing the entire set of culverts regardless of the occasion.
+
+134
+00:16:32,940 --> 00:16:40,070
+So collects all the cover and information. Info before.
+
+135
+00:16:41,290 --> 00:16:44,790
+At. And after.
+
+136
+00:16:46,280 --> 00:16:51,430
+JS the occasion. Okay.
+
+137
+00:16:52,090 --> 00:16:56,970
+Now, if we expand that out, basically it is what is written down in the middle, right.
+
+138
+00:16:56,980 --> 00:17:01,150
+So nothing special here. While here, this is an assumption.
+
+139
+00:17:01,300 --> 00:17:09,230
+This is the. Assumption means that is not always true.
+
+140
+00:17:09,410 --> 00:17:13,190
+We are assuming this is the case when developing the model.
+
+141
+00:17:13,670 --> 00:17:17,540
+Now the difference is that we are only saying this is the covariance.
+
+142
+00:17:20,180 --> 00:17:23,870
+Info at the Chase occasion.
+
+143
+00:17:33,000 --> 00:17:41,400
+Okay. So this is called the full covariate conditional model assumption, which is to say that when you are trying to model the outcome,
+
+144
+00:17:41,760 --> 00:17:50,280
+the average outcome for a subject, I just occasion you only need to focus on the covariate information at that time.
+
+145
+00:17:50,610 --> 00:17:57,180
+Not before. Not after. Maybe you're wondering, Hey, Jim, what if there is some covariance that's just always there?
+
+146
+00:17:57,690 --> 00:18:02,410
+That's not changing over time? Well, you just include that into the adaptive CIJ.
+
+147
+00:18:02,760 --> 00:18:10,290
+And, you know, if that's included in every upsurge, it will be there in the Jessa Covariate information vector.
+
+148
+00:18:12,810 --> 00:18:17,160
+So I have just explained this slide.
+
+149
+00:18:18,300 --> 00:18:22,830
+Essentially, it doesn't hurt to repeat the technical meaning of this.
+
+150
+00:18:23,250 --> 00:18:36,370
+So the f cm four. Covariate conditional model assumption says given the current covert information vector,
+
+151
+00:18:36,910 --> 00:18:43,180
+there is no dependance of YJ on other time points or information, right?
+
+152
+00:18:43,810 --> 00:18:47,380
+So it is to say that if you want to explain why J.
+
+153
+00:18:47,590 --> 00:18:55,800
+All you need is the current times coding information that we knew from the mathematical expression and four timing variant cohorts.
+
+154
+00:18:55,810 --> 00:18:59,260
+This automatically holds because all these covariates were the same.
+
+155
+00:18:59,710 --> 00:19:07,690
+But clearly in many real data applications there is no hope that all the covers or timing variants, some of them will be time varying.
+
+156
+00:19:09,180 --> 00:19:14,040
+But, um, there are some special cases where you don't need to worry too much.
+
+157
+00:19:14,280 --> 00:19:23,250
+For example, if you have a pervert called time, but you have decided to measure it, the subject's at fixed time points.
+
+158
+00:19:23,580 --> 00:19:24,330
+So those are.
+
+159
+00:19:25,350 --> 00:19:33,230
+So some people were asking was can age and good can can we incorporate some time varying covers and they have actually the time between the model.
+
+160
+00:19:33,240 --> 00:19:38,220
+So I ask them is time time very much covered? And I think the obvious answer is yes.
+
+161
+00:19:38,670 --> 00:19:43,250
+But in many study designs, the timings of the measurements were often pre fixed.
+
+162
+00:19:44,010 --> 00:19:50,190
+There will be studies where the subjects are allowed to come in on their own choice.
+
+163
+00:19:51,970 --> 00:19:55,900
+But many studies have determined this at times.
+
+164
+00:20:01,450 --> 00:20:05,410
+However, if you have a time varying covariance you cannot fully control.
+
+165
+00:20:05,440 --> 00:20:10,180
+It is possible that the FCC assumption might be violated.
+
+166
+00:20:11,080 --> 00:20:19,060
+So this is one example I want to first just read now the example with you and then draw a figure so you know what that means.
+
+167
+00:20:21,970 --> 00:20:25,480
+The assumption will be violated when the current value of the response, say,
+
+168
+00:20:25,480 --> 00:20:30,850
+y jake given the current culverts, predicts a subsequent value of x eight plus one.
+
+169
+00:20:31,510 --> 00:20:40,330
+So in terms of the graph I'm going to write, I'm going to draw y i j minus one.
+
+170
+00:20:42,840 --> 00:20:46,000
+Y. I. J. This is EXI.
+
+171
+00:20:47,220 --> 00:20:50,990
+J minus one. Jay.
+
+172
+00:20:51,170 --> 00:20:55,580
+Let's try one more. Y i j plus one.
+
+173
+00:20:56,150 --> 00:21:00,210
+And this is. Ex i j plus one.
+
+174
+00:21:01,800 --> 00:21:10,000
+Okay. So let's say. Way represents a glucose level.
+
+175
+00:21:17,200 --> 00:21:25,070
+Glucose level. Okay. And. X AJ represents the physical activity level.
+
+176
+00:21:41,500 --> 00:21:49,030
+So it is clearly possible that if you do more exercise, you will have a direct impact upon the glucose level, right?
+
+177
+00:21:49,050 --> 00:21:59,170
+Because exercise causes energy, there will be some possibility that this these kind of errors may also occur.
+
+178
+00:22:07,840 --> 00:22:16,730
+How can this occur? Well, for example, if I have been exercising and I felt great to maintain a, you know,
+
+179
+00:22:17,020 --> 00:22:24,730
+a feeling that the glucose level was not always very high, because if you have just spiky glucose levels, you tend to be very sluggish.
+
+180
+00:22:25,240 --> 00:22:36,340
+And so it is possible that for people who have maintained a relatively low or normal glucose level, they tend to keep exercising.
+
+181
+00:22:36,970 --> 00:22:43,740
+So these kind of areas will tend to cause problems. You know, for these kind of assumptions.
+
+182
+00:22:47,880 --> 00:22:52,260
+And there are crazier areas like you can go have go from here to here.
+
+183
+00:22:52,530 --> 00:22:59,700
+Indicating some time logged information so all the of so this is to say that this example.
+
+184
+00:23:02,390 --> 00:23:07,620
+May calls. Violation.
+
+185
+00:23:09,200 --> 00:23:20,020
+Of FCC. So when you're doing modeling, all you need to ask yourself is that do you have these kind of arrows present?
+
+186
+00:23:21,180 --> 00:23:25,980
+If so, then you have to pause and question whether it's okay to use the marginal model.
+
+187
+00:23:28,240 --> 00:23:34,300
+So moving on, we need to provide some simple examples of the margin models.
+
+188
+00:23:34,690 --> 00:23:42,880
+They're not extremely exciting because they are just trying to specify what is G, what is the variance function, and what are the association.
+
+189
+00:23:43,150 --> 00:23:47,470
+But hopefully and we will not do any programing for in this now.
+
+190
+00:23:47,770 --> 00:23:55,660
+So hopefully they can give you some sense that when you are analyzing correlated binary outcomes or correlated count outcomes,
+
+191
+00:23:55,900 --> 00:23:57,940
+how can you specify them in the first place?
+
+192
+00:23:59,800 --> 00:24:08,320
+So again, we know we need to specify three things the mean response at each occasion, the variance and the pairwise within subject association.
+
+193
+00:24:09,880 --> 00:24:13,090
+We consider continuous binary count and ordinal responses.
+
+194
+00:24:13,660 --> 00:24:20,370
+I think all these examples were providing the textbook. I don't believe I have all the details laid out.
+
+195
+00:24:20,380 --> 00:24:27,010
+I think I will just choose some of them. Oh, actually do have everything here.
+
+196
+00:24:27,700 --> 00:24:34,660
+Okay, so let's just go over them for the continuous buttons to specify the main structure.
+
+197
+00:24:35,290 --> 00:24:41,170
+We just do what we were very familiar with. Do this right. And G here essentially is the identity.
+
+198
+00:24:43,820 --> 00:24:53,240
+And as you have done using like the gloss function, right, you have to specify the variance and you have to specify the association.
+
+199
+00:24:56,970 --> 00:25:02,290
+So in this particular example, it's not intended to be a universal specification.
+
+200
+00:25:02,310 --> 00:25:07,680
+I'm just providing one example so the variance can be specified as five times the variance function.
+
+201
+00:25:07,980 --> 00:25:12,059
+When you are modeling the continuous outcome, unless you have very strong reason,
+
+202
+00:25:12,060 --> 00:25:17,270
+you can just assume that variance is constant, or you can assume that the variance is occasion specific.
+
+203
+00:25:17,280 --> 00:25:21,420
+For example, the variance can go up or go down as you as time evolves.
+
+204
+00:25:25,280 --> 00:25:28,820
+The final. The third component is about associations.
+
+205
+00:25:28,970 --> 00:25:36,130
+We have learned many covariance pattern models and this is just one example that is possible here.
+
+206
+00:25:36,140 --> 00:25:44,120
+It is just the auto regressive correlation structure, which is to say that for two occasions J and K within subject I,
+
+207
+00:25:45,110 --> 00:25:50,360
+the level of association as characterized by pairs and correlation takes this form.
+
+208
+00:25:51,400 --> 00:25:54,410
+You know, the further apart, the lower the correlation.
+
+209
+00:25:55,430 --> 00:26:00,560
+As you have noticed, I have used Alpha to represent association parameters.
+
+210
+00:26:04,400 --> 00:26:07,460
+Four counts. It's actually pretty similar.
+
+211
+00:26:08,620 --> 00:26:11,620
+So this value will be always greater than equal to zero, right?
+
+212
+00:26:12,850 --> 00:26:18,940
+We just transform using log unless the account is centered at zero.
+
+213
+00:26:20,470 --> 00:26:32,140
+Supported at zero. If you have zero or any non-zero integers as possible values for this outcome, then the magic will not be zero.
+
+214
+00:26:32,140 --> 00:26:41,380
+So it's okay to take a log and if after transforming the log you take, you just equate that to one in the near term here and now.
+
+215
+00:26:41,740 --> 00:26:44,920
+The second part, we need to specify the variance margin of error, right?
+
+216
+00:26:45,730 --> 00:26:50,080
+So it is again two parts phi is the dispersion parameter.
+
+217
+00:26:50,380 --> 00:26:56,620
+My j is the variance function. Well, it is clear that our starting point is a sum model.
+
+218
+00:26:57,600 --> 00:27:01,560
+Which says that the variance is just the mean. Hence the big part.
+
+219
+00:27:01,920 --> 00:27:09,090
+But we want to be careful. We want to accommodate potential over dispersion in the response.
+
+220
+00:27:09,570 --> 00:27:15,900
+So we multiply that by a dispersion parameter there so that the model can account for excess variability.
+
+221
+00:27:16,320 --> 00:27:25,370
+The third part is how? Are to count variables associated so we can again use the Pearson correlation.
+
+222
+00:27:25,490 --> 00:27:35,390
+So we just use Alpha J and you can see here up for every pair that every pair of jake we may have a different correlation parameter.
+
+223
+00:27:35,570 --> 00:27:42,950
+And this is in contrast to what we have done above where we just have one single alpha and we
+
+224
+00:27:42,950 --> 00:27:48,140
+just use the separation between the two occasions to control the strength of the correlation.
+
+225
+00:27:48,770 --> 00:27:51,860
+So again, this is intend to be one example.
+
+226
+00:27:52,130 --> 00:27:55,820
+There is possibly some other models you can specify for those.
+
+227
+00:27:55,820 --> 00:28:02,390
+For example, just remove the Jake. You say regardless of which pair of Jake you choose the association the same.
+
+228
+00:28:02,990 --> 00:28:06,200
+So that's the model you would specify. Again, this is just a one example.
+
+229
+00:28:07,100 --> 00:28:13,680
+In this case, it is just unstructured. For binary responses.
+
+230
+00:28:14,250 --> 00:28:21,390
+Again, I think now you know what I'm talking about. The module specification is just to transform the knowledge,
+
+231
+00:28:21,420 --> 00:28:27,900
+which is a success probability for subject II at occasions j via the logit transformation link now to the convert.
+
+232
+00:28:28,440 --> 00:28:40,800
+And in this case again as an example, I'm forcing the dispersion parameter to be one and then just use the common Bernoulli variance here.
+
+233
+00:28:40,980 --> 00:28:45,900
+Right, and there there's of course no reason I must specify to be one.
+
+234
+00:28:45,900 --> 00:28:49,830
+You can play with a model that has to have the FY estimated.
+
+235
+00:28:50,220 --> 00:28:55,470
+Again, this is one example for association, as we alluded to, for binary outcomes.
+
+236
+00:28:55,470 --> 00:29:00,780
+It's probably the best idea to use long odds ratio to characterize association.
+
+237
+00:29:01,440 --> 00:29:06,180
+So this is the form of the odds ratio.
+
+238
+00:29:07,440 --> 00:29:10,170
+The numerators are the concordance probabilities.
+
+239
+00:29:17,460 --> 00:29:27,810
+Because, you know, the two factors are the probabilities when both outcomes takes ones or zeros at the same time.
+
+240
+00:29:28,290 --> 00:29:31,800
+For the bottom four, the denominator is called discordant.
+
+241
+00:29:34,310 --> 00:29:47,800
+Probabilities. So this means that when one outcome takes the value of one, the other takes a value of zero and you multiply the two.
+
+242
+00:29:48,490 --> 00:29:52,960
+So this is what we call alpha actually exponential alpha.
+
+243
+00:29:53,650 --> 00:29:56,890
+Sorry, Alpha, Jake, because look the log here.
+
+244
+00:29:57,450 --> 00:30:07,320
+Okay. On. So a natural question is for binary responses.
+
+245
+00:30:07,410 --> 00:30:10,890
+Why do not why don't we use a pair some correlation?
+
+246
+00:30:27,220 --> 00:30:39,880
+For a pair of binary responses. So the reason is a little bit technical, but I think this is well,
+
+247
+00:30:39,900 --> 00:30:44,700
+if you are thinking about this problem, this should be a natural question you would raise. So it is technical.
+
+248
+00:30:45,600 --> 00:30:52,860
+Basically the range. Of the should I write core to represent the person?
+
+249
+00:30:52,860 --> 00:31:00,210
+Correlation is restricted. Restricted by the marginal prevalence.
+
+250
+00:31:06,830 --> 00:31:11,000
+Of the two out of the two outcomes of the two responses.
+
+251
+00:31:13,070 --> 00:31:21,190
+Which is to say that if we're considering Y a Gen Y, okay, if both are very highly prevalent,
+
+252
+00:31:21,920 --> 00:31:30,200
+the person coalition will only be within the range that's impacted, that's determined by those preferences.
+
+253
+00:31:30,890 --> 00:31:34,070
+On the other hand. Log odds ratio.
+
+254
+00:31:35,090 --> 00:31:50,960
+Is completely unrestricted. So it is because it is completely unrestricted.
+
+255
+00:31:52,040 --> 00:31:55,400
+When the R code is running the optimization algorithm.
+
+256
+00:31:55,490 --> 00:31:57,050
+It is much easier.
+
+257
+00:31:57,970 --> 00:32:06,050
+I'm not sure how many experience how much experience you have with the whatever optimization algorithm you have, even if you don't know how to do it.
+
+258
+00:32:06,070 --> 00:32:09,250
+You have been using it since you have been learning statistics, right?
+
+259
+00:32:09,280 --> 00:32:15,400
+Maximum likelihood. It relies on some optimization procedure alpha.
+
+260
+00:32:15,460 --> 00:32:17,890
+These are the parameters, although they are not beta,
+
+261
+00:32:17,890 --> 00:32:23,980
+but we still need to estimate them and it's usually much easier when these parameters are not restricted in range.
+
+262
+00:32:24,370 --> 00:32:30,310
+So that's why often we prefer that when we are modeling multiple binary outcomes,
+
+263
+00:32:30,580 --> 00:32:36,820
+we use odds ratio as the association association choice unless otherwise justified.
+
+264
+00:32:42,720 --> 00:32:48,480
+Okay. Now a quick summary.
+
+265
+00:32:48,780 --> 00:32:58,880
+So this represents the finals slide of the hand down, which is the conceptual introduction to the margin model and three big points.
+
+266
+00:32:58,890 --> 00:33:04,130
+The first one is that margin model do not require distribution or assumptions for the observations,
+
+267
+00:33:04,140 --> 00:33:10,680
+only a regression model for the main and the separate model for characterizing the variance and the within subject association.
+
+268
+00:33:11,100 --> 00:33:14,670
+We recall when we were modeling the continuous outcome.
+
+269
+00:33:15,000 --> 00:33:18,350
+We didn't even mention the name of Gaussian or normal, right?
+
+270
+00:33:18,360 --> 00:33:24,030
+We just specify the mean and the variance and association and then the job is done.
+
+271
+00:33:24,030 --> 00:33:29,370
+Well, hopefully the job is done because I sort of promised you that once you specify those,
+
+272
+00:33:29,790 --> 00:33:36,600
+there is an there's a technique called G that can estimate the betas with a good guarantee of the variance estimate.
+
+273
+00:33:37,080 --> 00:33:45,540
+So anyway, that promise will be fulfilled. So. So in general, margin models will not require distributional assumptions.
+
+274
+00:33:48,210 --> 00:34:00,540
+Complete the distribution assumptions. And, you know, there are two reasons for not involving complete distribution assumptions.
+
+275
+00:34:00,930 --> 00:34:08,250
+The first reason is that in general, it's just ridiculously hard to specify the joint distribution of many long continuous outcomes.
+
+276
+00:34:08,550 --> 00:34:13,270
+For example. If you have why one to why I say ten.
+
+277
+00:34:13,360 --> 00:34:25,990
+Right. If they're all continuous. What is the what is a joint distribution that pops into a mind to to characterize how they may be correlated.
+
+278
+00:34:27,390 --> 00:34:32,120
+The multivariate Gaussian. Okay.
+
+279
+00:34:32,140 --> 00:34:36,110
+Now what if. What if these are all binary?
+
+280
+00:34:37,610 --> 00:34:42,740
+Okay. Give me a name of a joint distribution for ten binary outcomes.
+
+281
+00:34:46,060 --> 00:34:57,299
+Yeah. It's not that easy. At least you have not learned. Yeah.
+
+282
+00:34:57,300 --> 00:35:02,040
+So it is because of the fact that traditionally there are not too many.
+
+283
+00:35:03,440 --> 00:35:14,180
+Mathematically simple joint distributions. It is actually advantageous to avoid specifying the joint distribution for, say, ten binary responses.
+
+284
+00:35:17,080 --> 00:35:24,190
+Well, later on when you become more senior or if you do research in this domain, clearly you will learn more advanced distributions.
+
+285
+00:35:24,190 --> 00:35:29,890
+But in general, they're not that simple. So this is first reason.
+
+286
+00:35:29,980 --> 00:35:33,010
+It's just a ridiculously hard to specify joint distribution. Second.
+
+287
+00:35:36,250 --> 00:35:46,310
+Second, it confers some level of. So some protection against model MIS specification.
+
+288
+00:36:09,710 --> 00:36:15,740
+Okay. Well, if I say that, hey, you don't need to specify that for joint distribution,
+
+289
+00:36:16,430 --> 00:36:20,990
+I can provide you a method to estimate beta and we show it's theoretically valid.
+
+290
+00:36:21,140 --> 00:36:24,770
+Well, that paper has been cited 20,000 times. There must be some reason why it's popular.
+
+291
+00:36:25,190 --> 00:36:34,250
+So isn't that a good thing to have some protection against a random or possibly wrong specification on distribution?
+
+292
+00:36:34,700 --> 00:36:39,080
+So we have not covered technically, technically how we do that.
+
+293
+00:36:39,440 --> 00:36:50,450
+And that's the content of G. Which is Hendo 09b But I think these two points represents two major reasons why
+
+294
+00:36:50,450 --> 00:36:54,500
+people were saying what we're thinking about formulating this margin model.
+
+295
+00:36:54,830 --> 00:37:00,469
+And actually in 1986, I was still not born.
+
+296
+00:37:00,470 --> 00:37:03,620
+So they were saying this is a frontier research question.
+
+297
+00:37:04,790 --> 00:37:10,430
+And whenever you are thinking about your research question, if you are in the research position,
+
+298
+00:37:11,390 --> 00:37:18,680
+then clearly if you found that you have some difficulty in doing something that should be simple in some special cases that may represent opportunity.
+
+299
+00:37:21,150 --> 00:37:26,180
+So I think that bridge as well to the next handout, which is handout on line B,
+
+300
+00:37:26,840 --> 00:37:35,870
+I will just give you that like 30 seconds to see if we have any burning questions regarding this conceptual lecture.
+
+301
+00:38:10,290 --> 00:38:13,350
+Okay. So let's go to the handouts.
+
+302
+00:38:14,130 --> 00:38:25,850
+09p. So are you guys having this hand out in front of you?
+
+303
+00:38:27,240 --> 00:38:34,410
+Okay. All right. Let me know if you still need some time. So, in general, I feel that this is probably.
+
+304
+00:38:35,870 --> 00:38:39,510
+The harder lecture in this class. Why?
+
+305
+00:38:39,530 --> 00:38:46,460
+Because there are so many weird things you have to think about regarding the working versions, covariance and true variance covariance.
+
+306
+00:38:46,790 --> 00:38:53,880
+And there's this thing called sandwich variance, covariance estimate. If you have been talking to the other section students, maybe they have learned.
+
+307
+00:38:55,010 --> 00:39:01,220
+But I but I think that this is our first time we introduced this, and I think we're in a good position to learn this.
+
+308
+00:39:01,730 --> 00:39:07,430
+And it is simply based on the paper I showed you, the 1986 paper.
+
+309
+00:39:08,690 --> 00:39:18,050
+And and as you will see, it indeed requires you to be a little bit more on how to say with some attention to details.
+
+310
+00:39:18,080 --> 00:39:23,060
+That's all I'm going to say. Okay. And let's review the objectives.
+
+311
+00:39:24,590 --> 00:39:31,010
+So the first objective is that after you have learned this lecture or when you're reviewing for other purposes,
+
+312
+00:39:31,910 --> 00:39:38,090
+you will need to be able to clearly describe the need of generalized estimating equations.
+
+313
+00:39:38,630 --> 00:39:49,370
+And so first, it can be used to estimate regression parameters which are beta a margin models and.
+
+314
+00:39:50,580 --> 00:39:56,130
+It does not require a joint distribution for the multiple non non continuous responses.
+
+315
+00:39:57,390 --> 00:40:10,200
+Number two, you will need to be able to explain how to achieve the goal of estimating the beta while not having the full distributional assumption.
+
+316
+00:40:11,530 --> 00:40:20,070
+And whenever you are doing estimation right, we need to estimate beta using beta hat and we need to estimate errors.
+
+317
+00:40:21,670 --> 00:40:31,900
+Of beta hats. Right. So in general, we will talk about the statistical property in terms of the point estimate.
+
+318
+00:40:31,920 --> 00:40:34,980
+So in general, it's consistent if you have a large number of people.
+
+319
+00:40:37,060 --> 00:40:49,840
+And the standard error is that we will be able to obtain a good and correct variance estimate for the estimate you obtained.
+
+320
+00:40:50,200 --> 00:40:56,580
+And there we will explain a difference between the working variance covariance and the true variance coherence.
+
+321
+00:40:58,060 --> 00:41:04,450
+As you recall in the module model specification, I asked you to specify the association.
+
+322
+00:41:04,570 --> 00:41:07,600
+Right. Auto. Auto. Regressive.
+
+323
+00:41:08,350 --> 00:41:11,409
+Exchangeable. Unstructured.
+
+324
+00:41:11,410 --> 00:41:18,160
+Well, unstructured. It must be right. Versus other models. Right. Those are working association models.
+
+325
+00:41:18,190 --> 00:41:21,400
+You specify them and you are not gods. So you may be wrong.
+
+326
+00:41:22,090 --> 00:41:27,579
+And the true events programs model, on the other hand, is how the nature works.
+
+327
+00:41:27,580 --> 00:41:33,790
+What is a true there is coherence. So I will refrain from talking too much before we see the formula.
+
+328
+00:41:34,270 --> 00:41:38,200
+But you need to know that you as a modeler, you are only.
+
+329
+00:41:40,040 --> 00:41:44,870
+Able to specify the working various governments assumption while the nature as your.
+
+330
+00:41:47,200 --> 00:41:53,230
+You know, the nature always has a true appearance coherence. So your goal is trying to recognize these two things are different.
+
+331
+00:41:53,740 --> 00:41:57,520
+And that's the weird part I'm talking about. Finally,
+
+332
+00:41:58,240 --> 00:42:06,850
+three is trying to say that when you have the clear distinction between these two various currencies and we will see the sandwich form arising.
+
+333
+00:42:07,840 --> 00:42:12,850
+So let's get started. The first one is basically.
+
+334
+00:42:14,520 --> 00:42:25,860
+The general overview of the idea. As we have seen for margin model, we avoided the assumptions for the full joint distribution of the outcomes.
+
+335
+00:42:26,940 --> 00:42:32,760
+It's not convenient as we have explained, and it leads the technique.
+
+336
+00:42:34,290 --> 00:42:40,260
+Of course, otherwise we will not be talking about this in the lecture and it provides certain level of protection against the
+
+337
+00:42:40,380 --> 00:42:53,250
+specification of the general idea of G is that now we cannot use the maximum local estimation because we have given up.
+
+338
+00:42:54,240 --> 00:42:57,750
+We have not adopted the approach of specifying it for distribution.
+
+339
+00:42:58,230 --> 00:43:02,040
+So we have to find other ways. And fortunately you have learned other techniques, right?
+
+340
+00:43:02,760 --> 00:43:06,630
+Least squares. We really squares. Do they require Gaussian assumptions?
+
+341
+00:43:07,320 --> 00:43:15,660
+Probably not. If you have learned 650. Well, you know, the Markov theorem requires no Gaussian assumption.
+
+342
+00:43:16,140 --> 00:43:19,650
+It just says rescore estimate of blah, blah, blah. It's blue. So.
+
+343
+00:43:21,960 --> 00:43:27,950
+Generalized estimating equation actually generalizes those kind of square ideas, as we'll explain.
+
+344
+00:43:29,130 --> 00:43:34,320
+So G for short is going to be able to work even if you don't have a likelihood.
+
+345
+00:43:35,070 --> 00:43:41,850
+So it extends to use your likely to function for a general model for universe response by incorporating covariance matrix.
+
+346
+00:43:41,850 --> 00:43:51,059
+So the vector of responses is a mouthful, but I'll make them clear through the formula of point number four is what I am saying.
+
+347
+00:43:51,060 --> 00:44:04,560
+You know, whenever actually it's a general good thing to remember a a new technique will be very powerful if it includes.
+
+348
+00:44:06,210 --> 00:44:09,630
+Some existing techniques as a special case. Okay.
+
+349
+00:44:09,840 --> 00:44:18,060
+So in this case, what you have learned generalized in your skirts and actually gear includes.
+
+350
+00:44:19,190 --> 00:44:23,690
+Glass is a special case because she works for non continuous outcomes.
+
+351
+00:44:23,810 --> 00:44:42,240
+So it's more general. Many models with correlated errors.
+
+352
+00:44:44,030 --> 00:44:47,270
+And we have the glm with.
+
+353
+00:44:48,670 --> 00:44:57,620
+Correlated errors. And in here we have the technique called Aguilas.
+
+354
+00:44:58,040 --> 00:45:05,420
+And here we have the technique called gear. And because G applies to the bigger circle, it actually includes the technique of jealous.
+
+355
+00:45:06,760 --> 00:45:15,290
+As a special case. And I really want to say this.
+
+356
+00:45:15,290 --> 00:45:25,040
+This is totally an aside about this kind of how do you make your own judgment about whether a a theory is worthwhile for you to learn?
+
+357
+00:45:25,730 --> 00:45:29,690
+It is only when the theory includes some very powerful symbol tools, a special case.
+
+358
+00:45:30,200 --> 00:45:35,530
+I'm going to use the relative relative a the theory of relativity again.
+
+359
+00:45:36,300 --> 00:45:40,610
+It is important not because it proved Newton wrong.
+
+360
+00:45:41,830 --> 00:45:51,300
+Right. It proved that under special. Asymptotic right when the speed of the object is not close to the speed of light.
+
+361
+00:45:51,630 --> 00:45:53,880
+Actually, Newton's law works pretty well. Right?
+
+362
+00:45:54,270 --> 00:46:01,590
+So in those cases, you can see that that's partly the reason why the theory of relativity is important.
+
+363
+00:46:01,800 --> 00:46:06,420
+It is so encompassing. And we turning back to this case.
+
+364
+00:46:07,020 --> 00:46:11,550
+G is powerful for the same reason. Includes the jealousy as a special case.
+
+365
+00:46:12,070 --> 00:46:18,660
+Okay, enough said. The next three slides are basically the reviews because we have just talk about them.
+
+366
+00:46:18,870 --> 00:46:23,040
+I'm not going to labor or labor on these points.
+
+367
+00:46:23,370 --> 00:46:26,560
+The three parts of the specification. Okay.
+
+368
+00:46:28,100 --> 00:46:39,320
+Now here. So this is a formula you have not seen before, but hopefully I can explain this very quickly.
+
+369
+00:46:40,070 --> 00:46:45,920
+When you are dealing with pairwise correlations. Harrison correlations.
+
+370
+00:46:47,730 --> 00:46:54,770
+Okay. You actually can use these kind of expressions quite easily.
+
+371
+00:46:55,640 --> 00:46:59,890
+So the AI is the. Various.
+
+372
+00:47:01,240 --> 00:47:04,450
+You specified various currencies specified. So this is what we call.
+
+373
+00:47:06,700 --> 00:47:09,730
+A working. Various.
+
+374
+00:47:11,130 --> 00:47:18,140
+Covariance model. And it can be satirize into three parts.
+
+375
+00:47:21,150 --> 00:47:27,480
+I screwed. Screwed by the correlation matrix and the screw screw.
+
+376
+00:47:27,750 --> 00:47:31,600
+What are they? So. I essentially is the.
+
+377
+00:47:33,500 --> 00:47:56,400
+Diagonal matrix. Of why I one given insight, one variance of why I to given x side to the variance of y i and I given x y and I write.
+
+378
+00:48:05,020 --> 00:48:13,380
+And if you do this. It basically means that any element will need to take the square root.
+
+379
+00:48:13,860 --> 00:48:21,870
+I'm not going to write everything down, but you know what I mean. And it should have after eigenvalues of zero.
+
+380
+00:48:22,410 --> 00:48:28,920
+So so this is the form of a API and correlation y is simply just a coalition matrix.
+
+381
+00:48:34,290 --> 00:48:40,650
+Okay. So this is just a super compact representation using the matrix.
+
+382
+00:48:43,780 --> 00:48:50,120
+So that so now you know when you're specifying the working in various quadrants model you can do this via the correlation,
+
+383
+00:48:50,150 --> 00:48:58,150
+you can do this via the specification, all the A's and that's what we have done in the second or third steps of module model specification,
+
+384
+00:48:59,980 --> 00:49:08,080
+a contrast that working versus a true variance covariance matrices so the is often reserved for working.
+
+385
+00:49:09,890 --> 00:49:15,350
+Sigma is often reserved for the true. Burns.
+
+386
+00:49:16,580 --> 00:49:21,740
+How do you remember this? Well, V as a Roman letter and sigma as a Greek letter.
+
+387
+00:49:22,310 --> 00:49:26,130
+And Greek letter is often one. Mysterious.
+
+388
+00:49:26,250 --> 00:49:30,299
+So you can treat that as a, you know, whatever how you want to remember it.
+
+389
+00:49:30,300 --> 00:49:32,040
+A sigma is the true events occurrence.
+
+390
+00:49:33,180 --> 00:49:38,790
+So the term working acknowledges our uncertainty about assume the model for the variances and within subject associations.
+
+391
+00:49:39,210 --> 00:49:47,270
+So VI could be different from. So both are possible.
+
+392
+00:49:48,050 --> 00:49:52,580
+Both are possible. This would be great. And this will be less great.
+
+393
+00:49:52,580 --> 00:50:08,890
+But, you know, the g can handle this. There will be some benefit if you have guest.
+
+394
+00:50:10,290 --> 00:50:15,730
+The Sigma rate. Okay. We will talk about that benefit. It primarily comes from, you know.
+
+395
+00:50:17,000 --> 00:50:26,570
+No awareness of the beta harassment, but Judy can handle both situation by providing a correct variability estimation for the beta hat's.
+
+396
+00:50:35,880 --> 00:50:45,060
+So. From Page 12, we will be starting to talk about how do we motivate gear?
+
+397
+00:50:45,600 --> 00:50:49,410
+And as you will see, it's actually extremely intuitive.
+
+398
+00:50:50,520 --> 00:50:58,290
+So I will leave that to the second part of this lecture and let's take a five minute break and come back at to 4 p.m.
+
+399
+00:53:27,430 --> 00:53:57,170
+Yeah. So it. And screens.
+
+400
+00:53:58,100 --> 00:54:48,350
+Given. Yeah.
+
+401
+00:57:14,530 --> 00:57:20,720
+Okay. So let's use the final 20 minutes to get us started on this G.
+
+402
+00:57:21,320 --> 00:57:27,150
+Introduction. Again, G represents the generalized estimating equation.
+
+403
+00:57:27,180 --> 00:57:34,770
+It is a technique that you can use to estimate the model models, and we are going to focus on motivating this thing.
+
+404
+00:57:34,980 --> 00:57:39,090
+And in all of these slides, there will be some formula.
+
+405
+00:57:39,090 --> 00:57:45,150
+There will be some notation. I will try to explain what they are and how you would place your emphases when you're reading this notation.
+
+406
+00:57:45,600 --> 00:57:48,180
+Because when you are first reading, learning it,
+
+407
+00:57:48,450 --> 00:57:53,760
+it can be a little bit overwhelming because there are so many new ways of how the notations are put together.
+
+408
+00:57:54,840 --> 00:58:00,300
+So my goal is trying to give you some guidance when you're learning the, you know, what's under the hood here.
+
+409
+00:58:01,590 --> 00:58:09,120
+First, let's look at generalized at least squares. So generalized these squares was motivated in the context of continuous outcomes.
+
+410
+00:58:09,540 --> 00:58:13,680
+We have the residuals, which means whatever. That's not explained by keywords, right?
+
+411
+00:58:13,920 --> 00:58:19,680
+We have the transpose here indicating that this is a vector residuals for one person at multiple occasions.
+
+412
+00:58:19,680 --> 00:58:24,660
+Right. So if it's if it's a column vector and transpose it, it becomes flat.
+
+413
+00:58:24,750 --> 00:58:29,850
+Right. And same thing here. So it's this one times this one.
+
+414
+00:58:30,420 --> 00:58:33,950
+And in the middle it is the inverse of the true events. Right.
+
+415
+00:58:34,260 --> 00:58:37,260
+And the homework number two. Right.
+
+416
+00:58:37,380 --> 00:58:44,730
+I think there is a question that my intention not have you struggle on it, but hopefully you have practice a little bit on,
+
+417
+00:58:45,030 --> 00:58:51,780
+you know, on the notion that we have we can derive the way at least squares using this kind of formulation.
+
+418
+00:58:52,080 --> 00:58:56,940
+So this this matrix will be of dimension in I by and I.
+
+419
+00:58:58,780 --> 00:59:02,010
+This will be in. I buy one. This will be one by night. Right.
+
+420
+00:59:02,620 --> 00:59:06,810
+So what you get will be a single number. A scalar, right?
+
+421
+00:59:07,990 --> 00:59:13,540
+And the generalized description says, let's sum this up over individuals.
+
+422
+00:59:15,270 --> 00:59:20,010
+So that the weighted residuals squared will be small.
+
+423
+00:59:20,460 --> 00:59:24,960
+And so they're trying to minimize this thing, and that's what we call it, generalize these squares.
+
+424
+00:59:25,650 --> 00:59:28,830
+And G is actually doing similar things.
+
+425
+00:59:29,880 --> 00:59:36,450
+So returning to the geos, how do we go ahead and minimize this thing?
+
+426
+00:59:36,450 --> 00:59:43,350
+Well, we just say, hey, let's take the derivative of this objective function with respect to the unknown, which is beta in this case.
+
+427
+00:59:43,890 --> 00:59:48,680
+And let's solve it. Right. So we call this.
+
+428
+00:59:50,920 --> 00:59:55,299
+We basically let's see, this is one. Basically what we did is partial one.
+
+429
+00:59:55,300 --> 00:59:58,570
+Partial beta. Okay.
+
+430
+00:59:59,860 --> 01:00:03,070
+So Peter say it is of dimension P by one.
+
+431
+01:00:06,250 --> 01:00:10,830
+Okay. So the resulting quantity will be.
+
+432
+01:00:14,380 --> 01:00:18,130
+Actually, we'll be just this one, right. And we said that to zero.
+
+433
+01:00:18,400 --> 01:00:23,230
+That's how we get the beat estimate.
+
+434
+01:00:24,420 --> 01:00:28,799
+Now if you look at this. So here clearly there is a technical point.
+
+435
+01:00:28,800 --> 01:00:36,810
+You know, how do we do the. Do the partial different partial derivatives.
+
+436
+01:00:41,210 --> 01:00:46,490
+I will try. I will avoid talking about this today because that will distract us.
+
+437
+01:00:48,750 --> 01:00:52,490
+If you want to know more, you can come to my office where I can derive this for you.
+
+438
+01:00:52,500 --> 01:00:59,760
+And I think there is a handout, text of a handout, a multivariate Gaussian that has some materials there.
+
+439
+01:01:00,780 --> 01:01:06,030
+I want to go straight to the point that suppose if you trust me, this is the partial derivative.
+
+440
+01:01:07,380 --> 01:01:12,650
+Why don't you why don't why didn't you see any beta there? There's no better.
+
+441
+01:01:17,290 --> 01:01:21,790
+But Peter is here, right? Peter is. Is.
+
+442
+01:01:23,080 --> 01:01:26,550
+In our models. This is related to the.
+
+443
+01:01:29,710 --> 01:01:32,950
+Related to the beta through the main right is always in me.
+
+444
+01:01:33,250 --> 01:01:37,870
+So here you can see that this is why I minus my is the residual.
+
+445
+01:01:38,740 --> 01:01:47,110
+And these are representing. This is representing the actually some calculation caused by taking the partial
+
+446
+01:01:47,110 --> 01:01:53,290
+derivative and sigma I in inverse essentially is what you have in the goals.
+
+447
+01:01:53,710 --> 01:01:57,640
+So this is a equation about beta.
+
+448
+01:01:57,910 --> 01:02:02,650
+So you can create that is zero and solve it. Once you solve it, you've got this.
+
+449
+01:02:03,940 --> 01:02:07,299
+And you should be familiar with this. This is what we call the jewelers.
+
+450
+01:02:07,300 --> 01:02:16,600
+Estimate her right now, if you look at this. The reason why we call this an estimate is because we assumed that.
+
+451
+01:02:19,830 --> 01:02:24,280
+We plug in? The best.
+
+452
+01:02:25,980 --> 01:02:33,710
+The best way to matrix. Which is the sigma inverse.
+
+453
+01:02:34,070 --> 01:02:40,740
+But clearly you can plug in something like, I don't know, I w i.
+
+454
+01:02:41,570 --> 01:02:54,760
+And then this would equal. Sorry.
+
+455
+01:03:09,810 --> 01:03:14,030
+All right. So. The formula is quite general.
+
+456
+01:03:14,390 --> 01:03:22,070
+As long as you decide what way to do using the middle, you will have this general formula in the slide.
+
+457
+01:03:22,160 --> 01:03:25,970
+We just happened to have used the most optimal one.
+
+458
+01:03:27,560 --> 01:03:30,710
+Now that is the generalized least squares.
+
+459
+01:03:31,640 --> 01:03:34,840
+Nothing new there. We want to use this to motivate G.
+
+460
+01:03:35,990 --> 01:03:41,120
+So this is the objective function for deriving G.
+
+461
+01:03:42,470 --> 01:03:50,970
+Now let's take a closer look. My question for you is that when you're looking at this thing, you got to ask, did I specify this in the margin model?
+
+462
+01:03:51,150 --> 01:03:55,560
+If so, which part? So in here you can see some over individuals.
+
+463
+01:03:55,640 --> 01:04:02,130
+Okay, let's see what each term for each individual. These two terms are going to be the residuals, right?
+
+464
+01:04:02,730 --> 01:04:07,700
+The residuals. So it is and I buy one.
+
+465
+01:04:08,480 --> 01:04:12,220
+If you transpose it, it will be one by and I. Right, vi.
+
+466
+01:04:12,920 --> 01:04:17,030
+This is the working variance or working association specification.
+
+467
+01:04:17,030 --> 01:04:22,520
+I will work in variance covariance matrix. So this will be in I by any.
+
+468
+01:04:23,630 --> 01:04:28,660
+Finally it's in I by one here. Right. So again it is if you are using these are.
+
+469
+01:04:30,240 --> 01:04:34,800
+As shapes, then this is again a scalar, right? So you can minimize this thing.
+
+470
+01:04:36,330 --> 01:04:42,720
+And in margin model specification, right? You have specified the first one, the J, because that's required.
+
+471
+01:04:43,080 --> 01:04:47,190
+You got to specify how the covers are related to the mean of the response.
+
+472
+01:04:47,520 --> 01:04:54,419
+Now, the only difference is that now you have the G, I'm just just writing that G in verse because I put that on the right hand side.
+
+473
+01:04:54,420 --> 01:04:58,380
+If you put it on the left hand side, you say, gee, mew equals exi j prime beater.
+
+474
+01:04:59,730 --> 01:05:05,000
+Now we also specified the working variants coherence model, right?
+
+475
+01:05:05,010 --> 01:05:08,280
+So we just to review that there is a.
+
+476
+01:05:11,860 --> 01:05:15,300
+Decomposition. That can be written like this.
+
+477
+01:05:17,210 --> 01:05:20,990
+Right. So we specified this, we specify this, we specify this as well.
+
+478
+01:05:21,410 --> 01:05:31,880
+So in general, we often write VI equals VI alpha because we sort of reserve beta for the regression parameter and for the association parameters.
+
+479
+01:05:32,090 --> 01:05:35,660
+We often use the Greek letter alpha. And there can be some unknowns there.
+
+480
+01:05:36,590 --> 01:05:43,049
+So we have specified this part. For the discussion.
+
+481
+01:05:43,050 --> 01:05:48,090
+In the next few slides, we're going to say, let's fix the eye.
+
+482
+01:05:48,990 --> 01:05:53,430
+And then derive how the G will look like.
+
+483
+01:05:55,050 --> 01:06:00,690
+Ultimately, in the after estimation, we will be iterating between estimating beta and estimating alpha.
+
+484
+01:06:01,230 --> 01:06:09,690
+So we will be given a value of alpha and then estimate what's the best beta at that iteration and then give a beta and estimate alpha.
+
+485
+01:06:09,990 --> 01:06:20,160
+So that's a numerical complication. I think for the purpose of drawing analogy between G and goals, we will fix V as known.
+
+486
+01:06:21,540 --> 01:06:29,740
+For now. Okay. So. An immediate, immediate question is we call G.
+
+487
+01:06:29,860 --> 01:06:33,820
+Equation equations actually generalized estimating equations.
+
+488
+01:06:34,540 --> 01:06:39,460
+So we need to explain why. See the equation and second y's equations not equation.
+
+489
+01:06:40,120 --> 01:06:44,420
+Okay, so we have this objective function.
+
+490
+01:06:44,440 --> 01:06:49,850
+One thing you can do. Is to take the derivative with respect to beta.
+
+491
+01:06:52,700 --> 01:06:55,820
+Partial to partial beta, right?
+
+492
+01:06:58,430 --> 01:07:00,280
+Just want to give you some time to look at this.
+
+493
+01:07:01,420 --> 01:07:10,330
+I want to reassure you that if you have the eye fixed in equation number two, everything and all the things this unknown is about beta, right?
+
+494
+01:07:10,510 --> 01:07:16,900
+So you can. So your goal is trying to find a way to solve for the minimum and taking the derivative is a natural one.
+
+495
+01:07:18,100 --> 01:07:27,520
+Some will ask me. Hitchin, but you have to verify the Haitian matrix to make sure that it is a, you know, a positive, definite Haitian matrix at the.
+
+496
+01:07:30,860 --> 01:07:35,660
+Many at the helm say this at the beta value where it makes it the to be zero.
+
+497
+01:07:35,690 --> 01:07:40,820
+Yes, it's true. But here, let's save the trouble. We can always, always verify that.
+
+498
+01:07:41,540 --> 01:07:47,540
+So let's just focus on solving the sequel. Zero. When you are remembered.
+
+499
+01:07:47,810 --> 01:07:52,850
+Two is scalar, right? Two is scalar and beta is a P by one vector.
+
+500
+01:07:53,360 --> 01:07:57,589
+So again, I'm offering my personal way of remembering this.
+
+501
+01:07:57,590 --> 01:08:05,780
+So if you have a scalar taking derivative with respect to vector, the resulting thing will always be a p by one vector.
+
+502
+01:08:06,840 --> 01:08:11,280
+Why all the mathematicians have decided that this is the most efficient way to represent it.
+
+503
+01:08:11,610 --> 01:08:17,970
+I do not invented this. But the message here is that it is a bunch of zeros, not a10.
+
+504
+01:08:18,690 --> 01:08:22,290
+So that's why it's called equations. Equations.
+
+505
+01:08:22,620 --> 01:08:25,640
+So for every beta, you will have one equation.
+
+506
+01:08:25,650 --> 01:08:31,740
+So for ten meters you have ten equations. So the two things combined, we have got the equation.
+
+507
+01:08:33,360 --> 01:08:36,900
+And for every beta it will be equated to zero.
+
+508
+01:08:38,370 --> 01:08:42,419
+To summarize VI here is the working versions covariance matrix.
+
+509
+01:08:42,420 --> 01:08:47,040
+For now we take that as fixed. DI is the grade matrix.
+
+510
+01:08:47,550 --> 01:08:54,060
+The reason why we have that is because when we are taking this derivative, this thing, this term emerges pretty naturally.
+
+511
+01:08:54,510 --> 01:09:00,270
+I choose not to do it right now because I just want to go over the conceptual PS pretty quickly.
+
+512
+01:09:01,440 --> 01:09:08,340
+And again, it's called equations because we have possibly more than one beta that we need to estimate of.
+
+513
+01:09:14,350 --> 01:09:18,940
+So I want to again, offer a kind of a very.
+
+514
+01:09:20,850 --> 01:09:29,700
+Memorable way to remember this thing. So it's caught on getting get the baby out of the crib.
+
+515
+01:09:30,780 --> 01:09:40,280
+Yeah. I did not even this.
+
+516
+01:09:40,430 --> 01:09:44,350
+Actually, a guy called a. Go then be.
+
+517
+01:09:45,930 --> 01:09:51,209
+Who is the father of estimating equations. So can you guess?
+
+518
+01:09:51,210 --> 01:09:56,260
+What's the baby here? What a Greek letter pronounces a.
+
+519
+01:09:57,990 --> 01:10:01,090
+Like baby. Peter.
+
+520
+01:10:02,530 --> 01:10:09,700
+What's the crib? This is a career, right?
+
+521
+01:10:12,600 --> 01:10:18,780
+Why do we call it the crib? Well, first up, so can you can you reassure herself that Peter is in here?
+
+522
+01:10:26,230 --> 01:10:31,270
+So I have a, b, c, three circles.
+
+523
+01:10:31,900 --> 01:10:36,549
+Can you nod or shake your head? Whether its term contains beta?
+
+524
+01:10:36,550 --> 01:10:40,600
+Possibly. So for seed does that contain beta?
+
+525
+01:10:41,950 --> 01:10:46,510
+Yes. It contains beta. Very easy beat. Does it possibly contain beta?
+
+526
+01:10:48,130 --> 01:10:50,860
+Could be. Depends on what kind of outcome you're modeling.
+
+527
+01:10:51,130 --> 01:10:56,770
+If you're modeling like multiple binary outcomes, then because when you specify the variance,
+
+528
+01:10:56,770 --> 01:11:04,930
+you probably specify the five times the new Y times one minus me y includes a beta so the possible it depends on bit as well.
+
+529
+01:11:06,190 --> 01:11:12,590
+How about the prime? Which is this one? So could be it depend on bailout.
+
+530
+01:11:12,800 --> 01:11:17,360
+May not be. Why? Well, why is a mean so?
+
+531
+01:11:17,360 --> 01:11:24,360
+It depends on beta already. Well, if it depends on better in a nonlinear way after you take the derivative, it still depends on beta.
+
+532
+01:11:25,020 --> 01:11:31,020
+So these ABC terms may contain beta most certainly C terms.
+
+533
+01:11:31,020 --> 01:11:36,150
+C contains beta. Okay. So that's for sure. So that's what that's what I meant by a crib.
+
+534
+01:11:36,210 --> 01:11:39,420
+Okay. It's a it is something that has the baby in it.
+
+535
+01:11:39,930 --> 01:11:44,150
+But what's the parameter? You know, what's the. It's a crib, right?
+
+536
+01:11:44,160 --> 01:11:49,139
+Crib has all those kind of restrictions. So baby cannot pronouns or run away.
+
+537
+01:11:49,140 --> 01:11:55,140
+Right. What's the analogy there? It is setting that thing to zero.
+
+538
+01:11:55,840 --> 01:12:01,110
+You have to get the beta. By respecting this estimating equation.
+
+539
+01:12:01,500 --> 01:12:06,960
+So it's almost as if there is a range of data that might be plausible and there may be a most plausible one,
+
+540
+01:12:07,350 --> 01:12:10,470
+and you have to solve for the data using this equation.
+
+541
+01:12:10,800 --> 01:12:14,550
+So I find this analogy to be quite useful for beginners.
+
+542
+01:12:16,230 --> 01:12:20,410
+Some of you definitely, I hope maybe the first time you learned this.
+
+543
+01:12:20,430 --> 01:12:27,360
+So even if you find this little bit, you know, I don't know.
+
+544
+01:12:31,980 --> 01:12:36,270
+I encourage you this can be a mental aid to understanding this technique.
+
+545
+01:12:36,630 --> 01:12:47,010
+That's all I'm going to say. So for this technique, essentially, we have we have estimated we have provide a framework to estimate data.
+
+546
+01:12:47,220 --> 01:12:51,150
+And in the previous discussion, we have fixed the eye.
+
+547
+01:12:51,420 --> 01:12:57,120
+Clearly, the eye may have its own parameter like Alpha. After all, it is working model for the various quadrants.
+
+548
+01:12:58,080 --> 01:13:04,740
+So in the actual estimation, we will have to do iterative estimations.
+
+549
+01:13:05,490 --> 01:13:18,520
+So this is what we what I meant. Given the current estimates of Alpha and Phi so you can initialize them, fix them.
+
+550
+01:13:18,530 --> 01:13:21,830
+So that means VI is fixed. And then you.
+
+551
+01:13:24,280 --> 01:13:32,050
+Then you update data by using this equation to solve data, and then you fix data and then you go back and solve Phi and Alpha.
+
+552
+01:13:32,460 --> 01:13:40,210
+Okay. So this is how the G algorithms are generally implemented.
+
+553
+01:13:46,390 --> 01:13:53,770
+So the next few bullet points are going to talk about how do we estimate the alpha parameters and the five parameters?
+
+554
+01:13:54,340 --> 01:13:59,919
+So these parameters are not of primary interest because we care about the baby,
+
+555
+01:13:59,920 --> 01:14:06,070
+the betas, but they do need to be estimated because, you know, it's a trait of algorithm.
+
+556
+01:14:06,940 --> 01:14:12,910
+How do we estimate them? So the primary quantity we rely on is this standardized residuals.
+
+557
+01:14:13,810 --> 01:14:17,770
+You have the Y, you have the estimated mean.
+
+558
+01:14:18,370 --> 01:14:25,810
+But why is it that you have it? Why the data we had is essentially it is excited times beta hat.
+
+559
+01:14:26,440 --> 01:14:31,540
+Once you have a beta estimate, you have it. So this first term is a residual, right?
+
+560
+01:14:31,930 --> 01:14:41,500
+And it regardless of whether y j is a one or zero binary variable, continuous verbal count variable, that term is always the residual.
+
+561
+01:14:41,950 --> 01:14:53,500
+And in the denominator denominator, this is the you just plug in the variance function in your original marginal model specification.
+
+562
+01:14:54,010 --> 01:14:57,400
+If you do the standardization, you will give you a standardized residuals.
+
+563
+01:14:57,730 --> 01:15:07,080
+Then the standardized ratio can help you estimate, you know, the PHI parameter and the alpha parameter.
+
+564
+01:15:07,090 --> 01:15:17,830
+For example, the PHI parameter can be estimated this way. It's basically trying to mimic how you would standardize to a squared residuals.
+
+565
+01:15:18,070 --> 01:15:28,240
+I will not explain too much here. Hopefully it will become clear when you are looking at the examples in handout on nine.
+
+566
+01:15:28,240 --> 01:15:34,870
+See. So for estimating alpha, essentially alpha often are representing, say,
+
+567
+01:15:34,870 --> 01:15:43,930
+correlation parameters or other log odds ratio parameters of just use the Pearson correlation.
+
+568
+01:15:44,750 --> 01:15:47,990
+As an example. Suppose Alpha J k needs to be estimated.
+
+569
+01:15:48,560 --> 01:15:56,960
+All you need to do is basically to get the JS and case residuals and then estimate their sample.
+
+570
+01:15:58,650 --> 01:16:02,010
+Simple. Association.
+
+571
+01:16:02,460 --> 01:16:07,080
+Simple correlation. Okay.
+
+572
+01:16:07,290 --> 01:16:10,440
+And then you standardize that by the dispersion parameter.
+
+573
+01:16:13,570 --> 01:16:17,800
+I do have notes that driving this, but I think it's probably too tedious.
+
+574
+01:16:19,000 --> 01:16:23,200
+Anyway, if you want to refer to a formula, this is one we can use.
+
+575
+01:16:23,980 --> 01:16:31,470
+So the bottom line is all these steps can be summarized by iterative procedure.
+
+576
+01:16:31,480 --> 01:16:39,220
+You start with a beta, you estimate Alpha Phi, and then you fix Alpha Phi and the essence of beta.
+
+577
+01:16:40,510 --> 01:16:43,480
+And the question now is how do you even initialize beta?
+
+578
+01:16:44,260 --> 01:16:52,510
+So a common thing you can do is to fit a colon, assuming depending observations, you can do this.
+
+579
+01:16:54,610 --> 01:16:58,960
+As follows. So you have the ID. You have the Y.
+
+580
+01:16:59,050 --> 01:17:04,600
+You have the time. Say time is one, two, three, four.
+
+581
+01:17:04,750 --> 01:17:07,780
+It is one, one, one, one, two, two, two, two.
+
+582
+01:17:07,810 --> 01:17:11,560
+So you have two people. All right. And this is the outcome, say 1.0.
+
+583
+01:17:13,190 --> 01:17:23,470
+Actually let me use just binary. 10010001 time 1234.
+
+584
+01:17:23,770 --> 01:17:28,989
+So you have two people, right? When you initializing for a model,
+
+585
+01:17:28,990 --> 01:17:40,840
+say expected value of y j given x at j equals x j times beta one plus beta zero where exaggerated just a t i j here.
+
+586
+01:17:42,010 --> 01:17:47,560
+So what you can do is just to use the g m function r and then do y request on time.
+
+587
+01:17:49,420 --> 01:17:54,430
+Okay. So this will give you the better estimate for the with independent assumptions.
+
+588
+01:17:54,910 --> 01:17:59,140
+With all these roles regarded as independent. Okay.
+
+589
+01:18:00,130 --> 01:18:09,110
+So this clearly might be wrong because the reason why you have the first column is to say, hey, these observations come from the same person.
+
+590
+01:18:09,130 --> 01:18:13,300
+They may be correlated, but for the purpose of initialization it is good enough.
+
+591
+01:18:14,260 --> 01:18:19,750
+And actually you can show that. So it can be consistent. It is just that is not the best way to estimate beta.
+
+592
+01:18:24,010 --> 01:18:31,600
+And finally, once you have the iterative algorithm running, the final estimate will be the G estimate.
+
+593
+01:18:33,340 --> 01:18:40,480
+So in the I will stop here. So in the next lecture, we will be talking about the statistical properties of G.
+
+594
+01:18:40,810 --> 01:18:43,810
+That's where we will be talking about sandwich estimation.
+
+595
+01:18:44,200 --> 01:18:48,850
+And then we will go through the handout online c for some case studies.
+
+596
+01:18:49,150 --> 01:18:54,850
+The data encode are already on the canvas, so if you want to play with it, please feel free to do so.
+
+597
+01:18:55,450 --> 01:18:58,690
+All right. This is this is what I have today. And I have. Good day, everybody.
+

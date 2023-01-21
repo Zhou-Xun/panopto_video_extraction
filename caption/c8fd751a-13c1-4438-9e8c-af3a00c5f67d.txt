@@ -1,0 +1,3692 @@
+1
+00:00:02,040 --> 00:00:07,229
+Okay. So just checking in where we are in the course.
+
+2
+00:00:07,230 --> 00:00:12,450
+We are working on survival analysis still for a couple more handouts.
+
+3
+00:00:13,170 --> 00:00:18,510
+Your homework for has been posted and is.
+
+4
+00:00:19,810 --> 00:00:25,150
+Covering the the first couple of handouts on survival analysis, estimation and testing.
+
+5
+00:00:26,240 --> 00:00:32,570
+And that homework is due November 9th, which seems like a long way away, but it's really not that long away.
+
+6
+00:00:33,350 --> 00:00:48,360
+Well, maybe it is. I will be posting the following homework sometime this weekend just so that you can started if you want to,
+
+7
+00:00:48,360 --> 00:00:53,790
+that that next homework will be on, you know, regression methods for survival analysis.
+
+8
+00:00:53,790 --> 00:00:55,679
+And we're covering some of that now.
+
+9
+00:00:55,680 --> 00:01:03,870
+So depending on how far we get today, I might post homework so that you can start it even on homework five if you want,
+
+10
+00:01:04,050 --> 00:01:08,460
+but I know it's a busy time right now, so. For sure.
+
+11
+00:01:08,470 --> 00:01:13,270
+Concentrate on homework. For homework five will be there for those of you who are really kind of working ahead.
+
+12
+00:01:15,630 --> 00:01:23,570
+All right. Okay.
+
+13
+00:01:23,580 --> 00:01:34,440
+Anything else administrative we've got? The quiz results have been posted, so let me know if that a weird echo is that.
+
+14
+00:01:35,400 --> 00:01:41,290
+Is it because of this thing? I bet. Is that a little better?
+
+15
+00:01:41,920 --> 00:01:48,160
+Okay, great. All right, so let me know if you have trouble finding your quiz results.
+
+16
+00:01:48,310 --> 00:01:54,520
+I did curve the quiz quite a bit with the handy dandy canvas curve tool.
+
+17
+00:01:55,540 --> 00:02:03,220
+Which to me is a black box. I don't know exactly what it does except force the mean to be something attractive
+
+18
+00:02:03,640 --> 00:02:08,260
+for the class and something that a student pointed out to me who had done very,
+
+19
+00:02:08,530 --> 00:02:15,340
+very well. I got a 98 in the court in the quiz you've heard this hour.
+
+20
+00:02:17,680 --> 00:02:24,600
+So the Canvas Curved Tool actually took down some of the students grade from 95 to something lower.
+
+21
+00:02:24,610 --> 00:02:26,829
+So I've corrected all of that.
+
+22
+00:02:26,830 --> 00:02:36,430
+If you can tell what happened to your quiz, there's something called fudged points that the Curve tool adjusts your score,
+
+23
+00:02:37,030 --> 00:02:42,700
+and if you have positive points, that means your score was bumped by that amount of points.
+
+24
+00:02:42,880 --> 00:02:46,540
+If you have negative fetch points, it would it mean that reduce your score.
+
+25
+00:02:46,540 --> 00:02:54,280
+But I've changed all those to be zeros. So just to let you know if you saw your score.
+
+26
+00:02:55,220 --> 00:02:57,970
+On the first moment it was posted, and then suddenly it was higher.
+
+27
+00:02:57,980 --> 00:03:05,930
+It's because some student let me know to look for negative points so that I could reverse it and give you those points back.
+
+28
+00:03:07,990 --> 00:03:16,870
+Okay. All right. And I have office hours this Friday, as usual.
+
+29
+00:03:16,890 --> 00:03:26,670
+I'm not traveling this weekend. So if you want to talk to me about different parts of the exam or the homework, you know,
+
+30
+00:03:26,670 --> 00:03:33,960
+just let me know if you if you need a private conversation with me or if it's just general questions.
+
+31
+00:03:34,860 --> 00:03:41,010
+Okay. That's all the administrative stuff for today. So last time we were on hand at 11.
+
+32
+00:03:42,470 --> 00:03:50,570
+Around Slide 26. But I kind of want to go backwards just a little bit to just remind you of the notation, since there's so much of it.
+
+33
+00:03:53,820 --> 00:03:58,770
+So just real briefly. Well, that's really big.
+
+34
+00:03:59,100 --> 00:04:12,739
+It's just you. The slide show. So just really briefly, just to remind you, the notation behind the scenes,
+
+35
+00:04:12,740 --> 00:04:18,440
+there are two random variables that are kind of trying to capture the event.
+
+36
+00:04:18,440 --> 00:04:22,550
+We're interested in time to death, time to some event of interest,
+
+37
+00:04:23,090 --> 00:04:28,790
+and the potential for the potential follow up time that we might be able to have observed.
+
+38
+00:04:29,240 --> 00:04:34,540
+And we only get to see the earliest of these two time points for each person.
+
+39
+00:04:34,550 --> 00:04:41,420
+So I often talk about exercise being the observation time are the time followed
+
+40
+00:04:42,230 --> 00:04:46,670
+and it's either the minimum of an event time that was like a death or something,
+
+41
+00:04:46,670 --> 00:04:52,550
+or they're censoring time due to not being able to follow them anymore.
+
+42
+00:04:53,270 --> 00:04:59,780
+So Delta is telling us the reason why we were not able to follow them anymore.
+
+43
+00:04:59,780 --> 00:05:04,790
+So it's either because if it's a one, it's because they had their event like a death.
+
+44
+00:05:05,180 --> 00:05:10,040
+And if it's zero, it's because, you know, they were alive or the last time we saw them, but we couldn't follow them up anymore.
+
+45
+00:05:10,700 --> 00:05:12,829
+So X and Delta are in your dataset,
+
+46
+00:05:12,830 --> 00:05:19,100
+but what you kind of always have this random variable T in mind as the thing we really want to analyze and understand.
+
+47
+00:05:21,220 --> 00:05:26,860
+We started talking about covariates a bit at this point and the proportional hazards model.
+
+48
+00:05:27,280 --> 00:05:31,900
+All right. So we're going to kind of just briefly, let me see if I can.
+
+49
+00:05:36,200 --> 00:05:40,250
+That's kind of annoying for you. Let me just sort of find a good slide here just to kind of review.
+
+50
+00:05:45,390 --> 00:05:48,940
+All right, we have this. This is probably worth a reminder.
+
+51
+00:05:49,910 --> 00:05:54,240
+The hazard function because this is the thing that we're modeling and the hazard function.
+
+52
+00:05:54,260 --> 00:05:58,700
+This is a lot of kind of notation that's, you know, maybe not so fun.
+
+53
+00:05:58,700 --> 00:06:07,310
+The general idea is that the hazard is kind of a relative probability of having the event in a very short window,
+
+54
+00:06:07,550 --> 00:06:14,480
+given you were at risk for that event. And there's some scaling and some limit as Delta goes to zero of that scaling.
+
+55
+00:06:16,430 --> 00:06:23,809
+The the intuition that I really want you to own is not necessarily this formula, but when the hazard is high, that's very bad.
+
+56
+00:06:23,810 --> 00:06:33,530
+When the hazard is low, that's good. Right? So the direction and the fact that it's always positive, it doesn't have to be between zero and one.
+
+57
+00:06:33,530 --> 00:06:36,920
+It could be any number that's positive.
+
+58
+00:06:37,520 --> 00:06:41,690
+And we're going to be modeling it. All right.
+
+59
+00:06:41,690 --> 00:06:47,870
+So there's the reverse view of the hazard. Oh, and we've we're going to be working with this data set.
+
+60
+00:06:47,870 --> 00:06:53,420
+Let's just go ahead and look at this one, too. We're working with this data set that we've played with a little bit already.
+
+61
+00:06:54,380 --> 00:06:58,580
+The time this is the X variable that we call time here,
+
+62
+00:06:59,120 --> 00:07:04,700
+measured in months is the time from diagnosis to death or censoring in 65 multiple myeloma patient.
+
+63
+00:07:04,710 --> 00:07:11,060
+So this is how long we were watching the patients and the status variable is telling us why we stopped watching.
+
+64
+00:07:11,480 --> 00:07:15,330
+So it's one if they died. And zero.
+
+65
+00:07:15,720 --> 00:07:21,800
+If they were alive the last time we were watching them. And we have a lot of covariates here.
+
+66
+00:07:21,890 --> 00:07:25,969
+We're going to eventually get into a lot more of the covariates in the next handout.
+
+67
+00:07:25,970 --> 00:07:34,160
+But for this handout, at least for the beginning, we're looking just at the platelet variable with one equals normal and zero abnormal.
+
+68
+00:07:34,160 --> 00:07:38,569
+And we were kind of trying to write out the Cox model for this very simple case where
+
+69
+00:07:38,570 --> 00:07:42,800
+you have one binary covariate just to get used to the way the model is formulated.
+
+70
+00:07:45,120 --> 00:07:52,680
+All right, let's see here. So.
+
+71
+00:07:58,590 --> 00:08:03,820
+Think I want to skip a little bit to. More or less where we left off.
+
+72
+00:08:07,080 --> 00:08:13,299
+All right, so we were kind of here. All right.
+
+73
+00:08:13,300 --> 00:08:19,780
+So this is we're getting closer and closer to the the way people generally write the Cox model.
+
+74
+00:08:19,780 --> 00:08:22,900
+And this is very, very close to how that's done.
+
+75
+00:08:23,620 --> 00:08:27,279
+We want to model the hazard function over time.
+
+76
+00:08:27,280 --> 00:08:38,230
+So the little T is study time. And we have here, this is what we call the baseline hazard function.
+
+77
+00:08:38,240 --> 00:08:44,920
+So that it's just a specific example where here I have that platelet variable equal to zero.
+
+78
+00:08:45,220 --> 00:08:51,130
+But generally we're going to have a function here with all covariates in the model set to zero.
+
+79
+00:08:52,200 --> 00:08:58,379
+So this is one specific example of a baseline zero function where it means something because the
+
+80
+00:08:58,380 --> 00:09:02,910
+platelet variable equals to zero is actually representing a group of people in the data set.
+
+81
+00:09:03,660 --> 00:09:12,209
+But just like intercepts and other regression models, when all the covariates are equal to zero, it may or may not make sense biologically.
+
+82
+00:09:12,210 --> 00:09:16,830
+If we had age in the model, age of zero wouldn't probably be a person in our dataset.
+
+83
+00:09:16,830 --> 00:09:22,410
+Right? So it's, it's, we think of it in general as a reference curve.
+
+84
+00:09:22,890 --> 00:09:26,280
+In this case, that reference curve applies to a real group of people.
+
+85
+00:09:26,640 --> 00:09:31,380
+And then this is where all the modeling happens. So in our example, we just have a single covariate.
+
+86
+00:09:32,590 --> 00:09:40,840
+This is the proportionality constant, right? Because the difference in the hazards are depends on what we put here.
+
+87
+00:09:42,230 --> 00:09:52,580
+And so we kind of model it is either the Beta Z and we're talking about two real covariate values here.
+
+88
+00:09:52,580 --> 00:09:58,159
+So when Z is equal to zero, this becomes E to the zero or one.
+
+89
+00:09:58,160 --> 00:10:01,670
+And we're just talking about our reference hazard again, our baseline hazard.
+
+90
+00:10:03,440 --> 00:10:10,480
+And when Z is equal to one. We're talking about the normal platelet group.
+
+91
+00:10:12,270 --> 00:10:19,770
+Right when plug in and so that has it over here is the reference hazard times e to the later times one.
+
+92
+00:10:22,850 --> 00:10:29,410
+Okay. And so notice I don't have an intercept in this expression.
+
+93
+00:10:29,420 --> 00:10:33,170
+I don't have beta not plus beta one Z here. I just have beta Z.
+
+94
+00:10:34,140 --> 00:10:42,150
+So there's no if we're going to be modeling this as beta one, Z one plus beta one, beta two, Z2 plus is the three, Z three.
+
+95
+00:10:42,690 --> 00:10:50,879
+But we're never going to have an intercept in this particular model with the whole reference group is based on the baseline hazard.
+
+96
+00:10:50,880 --> 00:10:57,420
+And if we actually even try to force an intercept, it would end up looking like a constant that gets absorbed here.
+
+97
+00:10:57,630 --> 00:11:01,020
+So the model fitting doesn't even allow that as an option.
+
+98
+00:11:01,500 --> 00:11:06,750
+Instead of a reference value like beta, not as an intercept, you have a whole curve.
+
+99
+00:11:06,810 --> 00:11:15,250
+That's your reference curve. So again, Wednesdays equal to zero.
+
+100
+00:11:15,760 --> 00:11:23,680
+This lambda t is general notation, you know, for the hazard and the special case when z is equal to zero.
+
+101
+00:11:25,570 --> 00:11:30,639
+We're looking at the abnormal platelets group hazard and we just get that by plugging in.
+
+102
+00:11:30,640 --> 00:11:35,740
+Z is equal to zero here and we're we're actually looking at the reference hazard as we should be.
+
+103
+00:11:37,020 --> 00:11:40,530
+And when Z is equal to one, the same hazards, the same formula.
+
+104
+00:11:41,520 --> 00:11:45,510
+Is the reference hazard ratio multiplied by E to the beta.
+
+105
+00:11:47,290 --> 00:11:50,630
+So in general, this is how we're going to write Cox Models.
+
+106
+00:11:50,650 --> 00:11:55,930
+This is going to be the general way that from now on we're going to be thinking about Cox models,
+
+107
+00:11:56,770 --> 00:12:05,710
+that it's the hazard over time for a person's patient profile that has these values of the coverage.
+
+108
+00:12:05,730 --> 00:12:11,620
+Z one through Z are. Is going to be the reference hazard, which they call the baseline hazard.
+
+109
+00:12:14,010 --> 00:12:18,900
+Times the power that depends on these parameters and the coefficients.
+
+110
+00:12:19,380 --> 00:12:24,060
+So this beta one z went through beta RDR. That's the part that we're modeling.
+
+111
+00:12:24,330 --> 00:12:31,740
+We have to figure out which covariates are useful for describing the hazards, whether interaction, terms related, all of that stuff.
+
+112
+00:12:32,790 --> 00:12:38,370
+Uh, to, to model a hazard for any of the patient profiles that depend on these covariates.
+
+113
+00:12:39,990 --> 00:12:47,560
+And it's a proportional hazards model. Because this part that we're modeling doesn't depend on time t.
+
+114
+00:12:48,250 --> 00:12:54,470
+It's going to be some number. For every possible patient profile.
+
+115
+00:12:55,220 --> 00:13:03,500
+And so every hazard, no matter what the patient profile is, is going to be a constant times the reference hazard.
+
+116
+00:13:07,800 --> 00:13:12,090
+All right. So we're going to look at this a little bit more here. So this is just rewriting what we just had before.
+
+117
+00:13:13,510 --> 00:13:19,540
+And this function lambda not t is meant to be very flexible.
+
+118
+00:13:19,540 --> 00:13:28,029
+We don't place any restrictive assumptions on the former the baseline hazard, the reference hazard, lambda non t it can change according to time.
+
+119
+00:13:28,030 --> 00:13:35,889
+It can be any shape you want. So whether it's a squiggle or a straight line, the data will, you know,
+
+120
+00:13:35,890 --> 00:13:45,549
+the model will estimate as best it can a form that fits the data, that doesn't force any straight lines or lines or anything like that.
+
+121
+00:13:45,550 --> 00:13:54,459
+It does whatever it wants. And again, just to emphasize this, this baseline hazard,
+
+122
+00:13:54,460 --> 00:14:02,350
+this reference hazard is the hazard function for the reference group that has all covariates equal to zero.
+
+123
+00:14:02,350 --> 00:14:05,229
+And it may mean nothing at all if there's no such person.
+
+124
+00:14:05,230 --> 00:14:13,540
+But it's always going to be, you know, the hazards are going to be some multiple of the reference hazard function over time.
+
+125
+00:14:16,820 --> 00:14:23,060
+No interceptor, no bait or not, it's not going to ever be included as part of the base line has a term.
+
+126
+00:14:23,450 --> 00:14:30,110
+And so when you're writing out estimate statements or contrasts for this model, the intercept is not going to be involved.
+
+127
+00:14:35,490 --> 00:14:44,700
+All right. So the rest of this part is the hazard ratio, comparing a person with covariate z one through z, r.
+
+128
+00:14:45,640 --> 00:14:51,160
+To a person with our cover, it's equal to zero. So you can fill in any corporate values over here.
+
+129
+00:14:51,970 --> 00:14:56,710
+And this is a hazard ratio comparing that person to the reference hazard.
+
+130
+00:15:00,790 --> 00:15:07,479
+So we can actually write that out. So the top part is the hazard for the person with it.
+
+131
+00:15:07,480 --> 00:15:14,170
+Z one through Z are and the bottom is the hazard when you plug in zeros for all the covariates.
+
+132
+00:15:15,250 --> 00:15:22,210
+And you can sort of see the the reference hazards cancel, the baseline hazards cancel.
+
+133
+00:15:22,240 --> 00:15:28,540
+I'm trying to use both notations because Baseline Hazardous is not as descriptive as reference hazard in my opinion.
+
+134
+00:15:29,550 --> 00:15:35,190
+And then all the bottom part is just going to be a one. When you plug in all the zeros, it's e to the zero.
+
+135
+00:15:35,190 --> 00:15:40,200
+Basically, that's going to be one. And so what you're left is the side over here.
+
+136
+00:15:42,990 --> 00:15:46,010
+And it's a constant. Over time.
+
+137
+00:15:46,030 --> 00:15:51,549
+There's nothing about time in this expression. So the hazard ratio is constant over time.
+
+138
+00:15:51,550 --> 00:15:58,770
+Hence proportional hazards, the multiple each hazard, no matter what is a multiple of the reference hazard.
+
+139
+00:15:58,780 --> 00:16:03,040
+So if if the reference hazard is doing something wacky like this,
+
+140
+00:16:04,000 --> 00:16:09,250
+then every other hazard for every other patient profile is always doing like is also doing that,
+
+141
+00:16:09,250 --> 00:16:16,300
+but may be higher or lower depending on the risk profile for that for that patient.
+
+142
+00:16:20,450 --> 00:16:28,280
+So in general, if we increase the coverage Z K by one unit and hold all other converts, constant hazard ratios e of the beta k.
+
+143
+00:16:29,570 --> 00:16:32,820
+So this is the way we usually try to interpret coefficients, right?
+
+144
+00:16:32,840 --> 00:16:37,430
+If the if the predictor increases by one unit, what does that mean?
+
+145
+00:16:37,790 --> 00:16:41,730
+And in this case, the hazard ratios E to the beta k.
+
+146
+00:16:41,750 --> 00:16:46,489
+And so we can actually algebraically figure that out.
+
+147
+00:16:46,490 --> 00:16:52,790
+Like we figure out all of our formulas by looking at the hazard where that z k that the covariate
+
+148
+00:16:52,790 --> 00:16:58,250
+is one unit higher versus the corporate profile where you don't have the ck1 unit higher.
+
+149
+00:17:00,050 --> 00:17:07,520
+And write out the model with C K plus one divided by the model with the K and do the
+
+150
+00:17:07,520 --> 00:17:17,479
+appropriate cancelations and everything cancels except for beta k times one in this top part.
+
+151
+00:17:17,480 --> 00:17:22,420
+So that's going to be either the BTK. All right.
+
+152
+00:17:22,420 --> 00:17:26,230
+And just as a reminder, this is always how we figure out our formulas.
+
+153
+00:17:26,830 --> 00:17:31,659
+Sometimes you after you do this a while, you can do the formulas in your head.
+
+154
+00:17:31,660 --> 00:17:35,140
+You just know what to look for. But in general,
+
+155
+00:17:35,980 --> 00:17:41,469
+writing out the formula for what you're estimating on the top of your ratio and running out the
+
+156
+00:17:41,470 --> 00:17:45,310
+formula for what you're estimating on the bottom of your ratio and figuring out what cancels out.
+
+157
+00:17:45,310 --> 00:17:49,459
+That's what we always do. You know, where the ratio for the top thing,
+
+158
+00:17:49,460 --> 00:17:56,870
+we've got some corporate profile that maybe is changed by one and the bottom another coverage profile we're comparing it to.
+
+159
+00:17:58,240 --> 00:18:01,750
+And so this is an exercise that I.
+
+160
+00:18:03,490 --> 00:18:12,260
+I want you to be very, very good at. We've certainly seen how important it is for interactions and spline terms.
+
+161
+00:18:12,770 --> 00:18:25,250
+And I need you to own this because when we get to models of data that we collect over time, all of the interesting stuff is going to be interactions.
+
+162
+00:18:25,940 --> 00:18:31,099
+Anything that changes over time, that interacts with the couvert, that's where all the action is.
+
+163
+00:18:31,100 --> 00:18:31,850
+In those models,
+
+164
+00:18:31,850 --> 00:18:38,990
+you have to know how to deal with interactions because that's where everything interesting is happening in the later models for the course.
+
+165
+00:18:39,320 --> 00:18:43,790
+So we're, we're, we're exercising these muscles all the way through the class.
+
+166
+00:18:44,420 --> 00:18:47,960
+And this is the surefire way to always figure out what's going on.
+
+167
+00:18:48,200 --> 00:18:56,210
+And I only mention this because this was the one area on the quiz where if you missed some points related to an interaction,
+
+168
+00:18:56,480 --> 00:18:59,540
+this is just a nice, easy, breezy reminder.
+
+169
+00:18:59,780 --> 00:19:04,280
+You need to own that material. You know, the quiz is worth 15%.
+
+170
+00:19:04,280 --> 00:19:08,270
+So it's a low cost signal. You need to own that material.
+
+171
+00:19:10,210 --> 00:19:13,420
+Right. I don't know why that turned so preachy in momma. Like I'm a mom.
+
+172
+00:19:13,420 --> 00:19:16,510
+I can't help myself. Okay, so we're going to go on.
+
+173
+00:19:16,780 --> 00:19:21,970
+So let's look at this hypothetical example with AZT.
+
+174
+00:19:22,150 --> 00:19:28,450
+So I thought it was connected to look at the influence of high dose AZT in extending mortality in AIDS patients.
+
+175
+00:19:28,450 --> 00:19:33,790
+And the covariates are Z, which is AZT treatment equals one versus control.
+
+176
+00:19:34,120 --> 00:19:40,840
+And then we have some confounders A stands for age and years, and F stands for an indicator that it's the person was female.
+
+177
+00:19:42,840 --> 00:19:48,840
+And so this is how we might write our first model involving all these predictors.
+
+178
+00:19:48,850 --> 00:20:00,600
+So the hazard over time is the reference group hazard times this term e to the and I just want to call this a linear predictor,
+
+179
+00:20:00,600 --> 00:20:05,910
+you know, a beta one time Z plus beta two times a plus Baidu three times F.
+
+180
+00:20:06,600 --> 00:20:11,880
+So I don't have any interactions in here at this point. I just have the three covariates.
+
+181
+00:20:12,990 --> 00:20:22,920
+And so let's kind of exercise our brain and figure out what the mortality hazards are for two patients, one that's treated with AZT.
+
+182
+00:20:22,950 --> 00:20:29,490
+So Z is equal to one versus the control that was not treated with AZT with the same age and gender.
+
+183
+00:20:31,800 --> 00:20:37,200
+And so for patient one, that hazard is the reference hazard function.
+
+184
+00:20:38,400 --> 00:20:45,120
+And I'm just plugging in the covariates here. So Treatment Z was equal to one for this particular profile.
+
+185
+00:20:45,420 --> 00:20:54,059
+And I know that there's some age and gender. I don't have to say what it is, as long as I say it's the same in the top and the bottom.
+
+186
+00:20:54,060 --> 00:21:01,110
+So it's going to stand in for whatever age I want and F is going to stand in for whatever I want gender wise.
+
+187
+00:21:02,090 --> 00:21:05,360
+And Patient two is the person I want to compare them to.
+
+188
+00:21:05,360 --> 00:21:09,020
+And the only difference is that they didn't take AZT.
+
+189
+00:21:09,050 --> 00:21:12,890
+So Z is equal to zero. So there's no beta one term, right?
+
+190
+00:21:12,890 --> 00:21:14,930
+If I put zero in here, that goes away.
+
+191
+00:21:15,500 --> 00:21:24,560
+But I still have beta to a plus beta three f so if I want to compare the mortality hazards for these two patients with a hazard ratio.
+
+192
+00:21:25,580 --> 00:21:37,299
+You know, I would divide these two. And this whole function for the baseline hazard is going to cancel and so are the beta two times
+
+193
+00:21:37,300 --> 00:21:44,530
+age and the beta three times the the gender and all that I will have left is either the beta one.
+
+194
+00:21:45,930 --> 00:21:55,260
+So the hazard ratio comparing these to. Risk profiles were the only thing has changed is which treatment they're on is either the beta one.
+
+195
+00:21:57,530 --> 00:22:06,840
+And so it it doesn't depend on age or gender, mainly because there's no interaction term, if I want that to depend on age and gender.
+
+196
+00:22:06,860 --> 00:22:09,980
+I would add an interaction term to the model to figure that out.
+
+197
+00:22:13,980 --> 00:22:27,840
+All right. Here's another example. So 312 patients with primary cirrhosis of the liver or PBC c were randomized to either the drug.
+
+198
+00:22:28,320 --> 00:22:32,040
+I'm just going to say DPC or placebo.
+
+199
+00:22:33,710 --> 00:22:41,780
+So it gets another treatment trial and we have other covariates here as well so age in years drug is that whether
+
+200
+00:22:41,780 --> 00:22:52,849
+they're taking the DPS or not zero is placebo and there's an edema variable that was coded with three levels 0.5 or one.
+
+201
+00:22:52,850 --> 00:23:02,270
+So it looks like it was intended to maybe be an ordinal variable where zero was no edema and no diuretic therapy.
+
+202
+00:23:02,570 --> 00:23:11,900
+One was edema despite diuretic therapy. And point five is that edema was present without or resolved by diuretics.
+
+203
+00:23:14,720 --> 00:23:23,350
+And so the fitted model code not shown here, but the fitted model is the beta for age was 0.035.
+
+204
+00:23:23,360 --> 00:23:33,560
+Here's the beta for the edema variable and it's kind of being treated as a and ordinal but with the weird coding 0.51.
+
+205
+00:23:34,880 --> 00:23:44,810
+And drug. And so we want to you know, a big goal is figuring out how to interpret these things and how to write sentences about these things.
+
+206
+00:23:44,870 --> 00:23:48,350
+This is the model it's given me. I don't have any direct actions in this model.
+
+207
+00:23:49,960 --> 00:23:58,440
+So if I want to know what's going on with the effect of the drug, I look at e to the beta for drug and that should be a hazard ratio.
+
+208
+00:23:58,450 --> 00:24:05,710
+Right? We said heated debate is some hazard ratio. So E to the minus .11 is the hazard ratio.
+
+209
+00:24:06,100 --> 00:24:09,910
+Comparing someone who was on drug or drug was equal to one.
+
+210
+00:24:11,320 --> 00:24:19,330
+Versus someone who was not on drug. Drug equals zero. So for this one unit increase in the drug variable going from 0 to 1, this is the hazard ratio.
+
+211
+00:24:20,330 --> 00:24:27,560
+So 0.89 is a hazard ratio comparing the drug to placebo groups adjusted for age and edema because they're in the model,
+
+212
+00:24:27,860 --> 00:24:31,579
+you know, so they're adjusted for because we just sort of worked out,
+
+213
+00:24:31,580 --> 00:24:35,750
+you know, that in these types of models,
+
+214
+00:24:35,750 --> 00:24:41,510
+it doesn't really matter what these other variables are as long as they're the same in the risk profiles you're comparing on top and bottom.
+
+215
+00:24:45,410 --> 00:24:53,840
+So the estimated hazard ratio comparing a patient age 50 edema point five and Douglas one to a patient with age 40,
+
+216
+00:24:53,840 --> 00:24:56,660
+edema zero and drug zero and drug one.
+
+217
+00:24:56,900 --> 00:25:04,370
+I can also it's a weird hazard ratio to want to look at, but it is something that we can compute with this model easily, right?
+
+218
+00:25:04,880 --> 00:25:10,250
+So we just have to look at the risk profile for the person on top and get their
+
+219
+00:25:10,250 --> 00:25:13,580
+hazard and the divided by the risk profile for the person on the bottom.
+
+220
+00:25:13,970 --> 00:25:26,450
+And we can get the hazard ratio. So for the age variable, the math is going to work out to be E to the parameter for age.
+
+221
+00:25:26,690 --> 00:25:34,220
+And then whatever the age is for the top part of the ratio, minus whatever the age is for the bottom part of the ratio.
+
+222
+00:25:35,650 --> 00:25:39,969
+So I've kind of already written out the ratio top and bottom and just I'm
+
+223
+00:25:39,970 --> 00:25:46,200
+doing the algebra for what happens to the difference in ages in that formula.
+
+224
+00:25:46,210 --> 00:25:52,290
+So this is kind of short shorthand for how that. The cancelations will work.
+
+225
+00:25:54,360 --> 00:26:01,500
+So e to the beta for age. The person on top was 50, the person on the bottom was 40 in our hazard ratio.
+
+226
+00:26:02,190 --> 00:26:05,259
+And then we're looking at the difference in edema values.
+
+227
+00:26:05,260 --> 00:26:10,350
+So here's the parameter for edema. The person on the top of our hazard ratio had 0.5.
+
+228
+00:26:10,350 --> 00:26:15,059
+For edema, the person on the bottom had zero. So that's going to look like 0.5 -0.
+
+229
+00:26:15,060 --> 00:26:23,250
+When you look at the ratio and and combine those terms from the top and the bottom and then the parameter for drug.
+
+230
+00:26:24,970 --> 00:26:32,470
+Is over here. And both people were on drug, both in the top profile and bottom profile.
+
+231
+00:26:32,710 --> 00:26:33,820
+So that's one minus one.
+
+232
+00:26:34,420 --> 00:26:42,660
+So as you would probably never be really interested in this hazard ratio in person, but this is just an exercise to show you how you can do that.
+
+233
+00:26:42,670 --> 00:26:45,190
+You can compare any two covert profiles you want.
+
+234
+00:26:45,670 --> 00:26:52,840
+By plugging in, you know, to the hazard, the the values of age, edema and drug on the top of the hazard ratio,
+
+235
+00:26:52,840 --> 00:26:56,410
+and then the values of a demand drug on the bottom of the hazard ratio.
+
+236
+00:26:56,950 --> 00:27:00,520
+And the when you reduce terms, it's going to look like this.
+
+237
+00:27:03,820 --> 00:27:13,390
+And just in case I'm jumping over something that isn't obvious to someone who's new to this, because you're unpacking so much all at once.
+
+238
+00:27:13,930 --> 00:27:17,520
+When I have a high hazard ratio, let's just take a moment.
+
+239
+00:27:17,530 --> 00:27:22,630
+What does that mean? Which which patient is the. The patient with the worst survival?
+
+240
+00:27:23,660 --> 00:27:33,080
+The person. The person that's 50. With edema equals 0.5 or the person is 40 with edema zero.
+
+241
+00:27:33,350 --> 00:27:39,230
+Based on this 4.33. Which one is the one who has the worst survival outcome?
+
+242
+00:27:42,820 --> 00:27:46,450
+So we have to. What does the hazard mean? All right.
+
+243
+00:27:46,690 --> 00:27:49,710
+What does it mean if one hazard is smaller than the other?
+
+244
+00:27:49,720 --> 00:27:53,049
+You have to kind of go. This is a new muscle we're stretching, right?
+
+245
+00:27:53,050 --> 00:27:57,010
+You haven't had to do this before, so you haven't already.
+
+246
+00:27:57,280 --> 00:28:01,030
+Kind of ingrained is a hazard greater than one bad?
+
+247
+00:28:01,030 --> 00:28:06,399
+It's a hazard ratio greater than one bad. Or is a hazard ratio greater than one good for the person on top?
+
+248
+00:28:06,400 --> 00:28:14,330
+Which is it? Who wants to be the 50 year old in this scenario?
+
+249
+00:28:16,760 --> 00:28:22,530
+Who wants to be the 40 year old in this scenario? All right, so let's unpack it.
+
+250
+00:28:22,830 --> 00:28:27,690
+So if your hazard's high, is that good or bad for survival in general?
+
+251
+00:28:29,080 --> 00:28:32,230
+Like if my head was going like this. Tick, tick, tick. Tick, tick, tick, tick.
+
+252
+00:28:33,650 --> 00:28:37,460
+That's bad, right? Even in English, it sounds like you don't want to have a high hazard.
+
+253
+00:28:38,780 --> 00:28:45,480
+So when you're looking at a hazard ratio. If it's above one, you don't want to be that person on top.
+
+254
+00:28:47,450 --> 00:28:52,640
+Right, because that meant that their hazard was higher than the person whose hazard was on the bottom.
+
+255
+00:28:54,080 --> 00:28:58,309
+So in this case, you don't want to be the 50 year old. I mean, in general, I'd rather be 40 than 50.
+
+256
+00:28:58,310 --> 00:29:09,620
+But for this specific example, the hazard ratio says this person who was 50 with edema point five had a much higher hazard for mortality.
+
+257
+00:29:10,250 --> 00:29:13,340
+That's bad compared to the person who's 40.
+
+258
+00:29:16,170 --> 00:29:21,420
+All right. So we're going to eventually ingrain that whenever we see a hazard ratio greater than one,
+
+259
+00:29:21,630 --> 00:29:27,000
+we're going to be like they're having that event more often and with a higher chance.
+
+260
+00:29:27,000 --> 00:29:31,260
+I mean, we're going to associate hazard ratios greater than one with having the event.
+
+261
+00:29:31,560 --> 00:29:35,720
+Most of the time, the event we're modeling is bad and we're like, Oh, bad, okay.
+
+262
+00:29:36,060 --> 00:29:42,600
+And when the hazard ratio is less than one, we're going to kind of be ingrained to say, Oh, that's protective for the event.
+
+263
+00:29:42,600 --> 00:29:46,720
+That's good. So we need to kind of get in that mindset.
+
+264
+00:29:49,310 --> 00:29:57,879
+All right. So. You're going to be very happy to know that hypothesis testing and figuring out the statistical
+
+265
+00:29:57,880 --> 00:30:02,500
+significance of the parameter estimates is going to look just like it has for every other model.
+
+266
+00:30:02,980 --> 00:30:05,260
+The output is going to look very similar.
+
+267
+00:30:05,800 --> 00:30:12,250
+So just as with every other model, if you want to assess whether a predictor is significantly associated with mortality,
+
+268
+00:30:12,250 --> 00:30:15,880
+you test the hypothesis that it zero versus non zero.
+
+269
+00:30:17,110 --> 00:30:22,750
+And in this case, that's equivalent to a test that the hazard ratio is one.
+
+270
+00:30:23,730 --> 00:30:28,170
+Uh, versus not one when you have a one unit increase in the predictor.
+
+271
+00:30:31,630 --> 00:30:38,410
+And so the software output is going to look very, very similar to every other software output you've seen for regression.
+
+272
+00:30:38,410 --> 00:30:43,270
+You're going to have estimates for Medicare, you're going to have estimates for the standard error of BTK.
+
+273
+00:30:43,600 --> 00:30:46,839
+You're going to have wall tests on the same line with their P values.
+
+274
+00:30:46,840 --> 00:30:48,430
+All that stuff is going to look the same.
+
+275
+00:30:48,880 --> 00:31:00,010
+And so for data with large numbers of events, the usual wild test here is going to be just like it's been for other regression models.
+
+276
+00:31:00,010 --> 00:31:04,330
+It's going to look at Chi Square distribution with one degree of freedom weight. It's not as true.
+
+277
+00:31:05,630 --> 00:31:06,980
+And that's the version that sells,
+
+278
+00:31:06,980 --> 00:31:15,469
+puts out or tends to give the square root of this statistic and compare that statistic to a normal zero one distribution.
+
+279
+00:31:15,470 --> 00:31:20,700
+But you get the same p value. All right, so I slipped something by you that was so subtle.
+
+280
+00:31:20,700 --> 00:31:26,160
+I bet no one noticed it. But I said, for large number of events, you have this.
+
+281
+00:31:27,210 --> 00:31:30,960
+Statistics behaving? Well, I didn't say sample size.
+
+282
+00:31:30,960 --> 00:31:32,400
+I said the number of events.
+
+283
+00:31:34,130 --> 00:31:41,120
+So if you have a data set where no one's had the event, you have no statistical information about what when the event happens more often.
+
+284
+00:31:41,120 --> 00:31:44,339
+Right. So you could have 1000 people.
+
+285
+00:31:44,340 --> 00:31:50,400
+But if no one had the event, you don't. You have no way to figure out what risk profiles are worse than the others.
+
+286
+00:31:51,700 --> 00:32:01,510
+So in censored survival datasets, all the statistical information is related to the people who actually had observed events.
+
+287
+00:32:02,140 --> 00:32:06,400
+And you need to have a lot of them to be able to model the data with covariates.
+
+288
+00:32:07,450 --> 00:32:13,389
+So another kind of subtlety of using this data is that your power for being able
+
+289
+00:32:13,390 --> 00:32:17,290
+to understand what's going on with your data depends not on the sample size,
+
+290
+00:32:17,290 --> 00:32:21,070
+but the number of people who actually reach the event.
+
+291
+00:32:21,970 --> 00:32:28,030
+And that's the information that's going to help you discriminate between people and how risky their profile is.
+
+292
+00:32:28,750 --> 00:32:31,750
+And so this is a concept you haven't had to think about before. You've.
+
+293
+00:32:31,900 --> 00:32:34,210
+It's always been sample size, sample size, sample size.
+
+294
+00:32:34,840 --> 00:32:41,320
+But now you have to have enough observed events in the dataset to be able to tell what's going on with mortality.
+
+295
+00:32:42,160 --> 00:32:45,510
+They can't all be censored. Right.
+
+296
+00:32:50,730 --> 00:32:53,969
+So going back to our multiple myeloma data set,
+
+297
+00:32:53,970 --> 00:33:01,170
+this is where girlfriend the platelet covariate and what the model looks like the Cox
+
+298
+00:33:01,170 --> 00:33:04,709
+proportional hazards model looks like in the output and it looks just like every other thing.
+
+299
+00:33:04,710 --> 00:33:16,710
+Except now you've got this part. So this hazard ratio and the 95% hazard ratio, confidence limits, this is e to the parameter estimate.
+
+300
+00:33:16,720 --> 00:33:26,340
+So each of the beta e to the -0.69366 6.5, which is just weird that this is a real data set was .500.
+
+301
+00:33:26,850 --> 00:33:32,290
+Just the way it turned out. With its with its hazard ratio confidence limits.
+
+302
+00:33:32,290 --> 00:33:43,540
+And here's the p value for if the association between platelet being normal or abnormal is is you know, really affecting mortality.
+
+303
+00:33:43,550 --> 00:33:49,060
+So this this .08 is the P value and our code looks very similar.
+
+304
+00:33:50,230 --> 00:33:56,330
+So here is the the beta from R. And the P value from R.
+
+305
+00:33:56,540 --> 00:34:00,320
+So everything looks very, very similar to what you've seen already.
+
+306
+00:34:01,810 --> 00:34:06,370
+And you can certainly calculate the Chi Square statistic if you wish.
+
+307
+00:34:07,450 --> 00:34:11,979
+I will never be hiding that value from you. But that is where it comes from.
+
+308
+00:34:11,980 --> 00:34:20,320
+The parameter estimate minus the null hypothesis for that parameter estimate, which is zero divided by the standard error and then squaring it.
+
+309
+00:34:20,320 --> 00:34:26,350
+That's where that number comes from. And it's the square root of that same thing for the Z value here.
+
+310
+00:34:26,350 --> 00:34:31,690
+So this, this test statistic and our output is compared to our normal zero one.
+
+311
+00:34:31,690 --> 00:34:34,710
+But if you square this number, you'll get 3.0583.
+
+312
+00:34:34,720 --> 00:34:40,480
+It's the same statistical information that's being processed just slightly differently in the two packages.
+
+313
+00:34:40,780 --> 00:34:44,680
+P values the same. Within maybe some round off air.
+
+314
+00:34:47,080 --> 00:34:51,760
+Right. So there's the algebra for what people in R would see.
+
+315
+00:34:53,980 --> 00:34:59,139
+And the real test is going to be the square of the Z test.
+
+316
+00:34:59,140 --> 00:35:05,050
+So it even shows up here in the R output if you look for it with this particular model, which is one predictor.
+
+317
+00:35:07,600 --> 00:35:16,010
+Hazard ratio, confidence intervals are going to be based on very, very similar kind of algebra that you've had and other models.
+
+318
+00:35:16,030 --> 00:35:23,019
+So we first find that algebra for the confidence interval for beta K so beta plus or -1.9,
+
+319
+00:35:23,020 --> 00:35:31,630
+six times the standard error to have K and to get to the 95% confidence interval for the hazard ratio, we exponentially.
+
+320
+00:35:34,080 --> 00:35:38,069
+We exponentially better care to get to the hazard ratio and we exponentially the lower
+
+321
+00:35:38,070 --> 00:35:43,200
+and upper limits of this guy to get the confidence limits for the hazard ratio.
+
+322
+00:35:44,130 --> 00:35:48,690
+And so I've kind of shown you two equivalent algebraic ways to express that.
+
+323
+00:35:48,690 --> 00:35:56,730
+So you can just exponential. This is kind of like the whole confidence limit for lower and upper with the beta.
+
+324
+00:35:57,900 --> 00:36:03,240
+Or equivalently, you can just take the estimated hazard ratio this this term,
+
+325
+00:36:03,240 --> 00:36:10,620
+pull it out side and just do the plus or -1.96 standard aerobatic exponential those two numbers to get the lower
+
+326
+00:36:10,620 --> 00:36:21,360
+in the upper so exponent algebra always kind of works this way where anything that you're adding or subtracting,
+
+327
+00:36:21,660 --> 00:36:29,340
+you can just say E to the first term times E to the second term and it's the same algebra is the same.
+
+328
+00:36:29,940 --> 00:36:35,099
+You can you can prove this to yourself with real numbers in the privacy of your own room.
+
+329
+00:36:35,100 --> 00:36:39,090
+If you don't like x one in algebra, you can just plug in numbers and see that it does happen every time.
+
+330
+00:36:41,930 --> 00:36:48,460
+So here is more output that you see the hazard ratio,
+
+331
+00:36:48,470 --> 00:36:56,990
+confidence interval in the SAS and ah this is where you find it in SAS you have to put in the SAS code that we had earlier.
+
+332
+00:36:57,290 --> 00:37:01,190
+There's something called R limits and that's what pulls this stuff out.
+
+333
+00:37:02,090 --> 00:37:09,140
+And we had some R code earlier that kind of put everything out very prettily.
+
+334
+00:37:10,010 --> 00:37:18,530
+So here's the confidence interval for the platelet covariate in that nice output that we had in the code earlier.
+
+335
+00:37:20,740 --> 00:37:26,860
+And so you can in the privacy of your own room, you can kind of verify that you get these numbers.
+
+336
+00:37:26,860 --> 00:37:35,790
+Or one way to get these numbers is to have the hazard ratio which is over here times e to the plus or -1.9, six times the standard error.
+
+337
+00:37:35,800 --> 00:37:37,540
+And that'll get you these numbers.
+
+338
+00:37:37,540 --> 00:37:46,390
+Or you can do the algebra the way you know the other way where you exponential at a lower and upper confidence limit for Baidu app for Baidu.
+
+339
+00:37:48,460 --> 00:37:54,370
+Same thing over here. So.
+
+340
+00:37:56,350 --> 00:37:58,540
+Hazards are really it's really good.
+
+341
+00:37:58,540 --> 00:38:08,520
+We can get an intuitive idea of what's going on with mortality by modeling these hazards, but it's very difficult to understand what a hazard is.
+
+342
+00:38:08,530 --> 00:38:10,359
+I mean, we know if it gets higher, it's bad,
+
+343
+00:38:10,360 --> 00:38:17,260
+but it's always kind of difficult to know exactly what does a hazard ratio of to mean, you know, if you get that number.
+
+344
+00:38:17,800 --> 00:38:25,270
+So for myself and for most people looking at this data, looking at the survival estimates from the model is kind of useful.
+
+345
+00:38:25,900 --> 00:38:32,980
+And so I'm going to show you how to get survival estimates from the Cox model again with just a binary covariate to start.
+
+346
+00:38:35,310 --> 00:38:40,200
+And so remember, we're making this proportional hazards assumption with the model,
+
+347
+00:38:40,210 --> 00:38:46,980
+and that is also going to affect how the survivor curves the survival estimates relate to one another.
+
+348
+00:38:47,790 --> 00:38:51,210
+So for a binary binary covariate.
+
+349
+00:38:53,050 --> 00:38:59,140
+With the hazard ratio each of the better. So this is the hazard ratio we've been looking for, save for the platelet.
+
+350
+00:39:00,860 --> 00:39:04,820
+Normal versus abnormal if I got the ones and zeros ordered correctly.
+
+351
+00:39:06,500 --> 00:39:12,220
+This is the way the survival curves for those two groups relate to one another.
+
+352
+00:39:12,230 --> 00:39:19,240
+So. This is the survival curve for the reference distribution where the covariates are all zero.
+
+353
+00:39:19,260 --> 00:39:22,680
+So this is something that people will call baseline survival curve.
+
+354
+00:39:23,430 --> 00:39:30,089
+The survival curve when all converts are zero here is just for the the platelets equals zero group and all
+
+355
+00:39:30,090 --> 00:39:38,130
+other survival curves for any other risk profile is going to be a power of that reference survival curve.
+
+356
+00:39:39,600 --> 00:39:47,580
+So I put see here, just because it's really difficult to look at something that's raised as something that's raised yet again to something.
+
+357
+00:39:47,910 --> 00:40:00,780
+But the C is going to be E to the beta or, you know, in general, it's going to be E to the risk the risk profile for the models.
+
+358
+00:40:00,780 --> 00:40:05,980
+So here was beta times one. For the Z equals one group.
+
+359
+00:40:06,160 --> 00:40:10,209
+You know. Eat to the better times.
+
+360
+00:40:10,210 --> 00:40:14,850
+Zero for the Z equals zero group. All right.
+
+361
+00:40:15,210 --> 00:40:21,330
+So every survival curve, every possible risk profile that you fit is going to be a,
+
+362
+00:40:21,570 --> 00:40:27,540
+you know, a power of this reference survival curve, which is kind of a strong assumption.
+
+363
+00:40:30,910 --> 00:40:36,549
+And so just giving your brain a little bit of time to exercise this muscle with this new information.
+
+364
+00:40:36,550 --> 00:40:42,250
+So if you're looking at the hazard ratio and it's a you get a value greater than one.
+
+365
+00:40:42,760 --> 00:40:50,409
+So hazard ratio greater than one means the person in the top of the hazard is doing very, very much worse mortality wise.
+
+366
+00:40:50,410 --> 00:40:54,850
+Right. Higher hazard is bad. So a hazard ratio greater than one.
+
+367
+00:40:55,830 --> 00:41:02,040
+Is going to imply that the person on top also has poorer survival.
+
+368
+00:41:02,040 --> 00:41:06,000
+So as one of t is going to be less than as zero of t.
+
+369
+00:41:09,910 --> 00:41:19,270
+So higher hazard ratio means that the risk profile on top is worse and that the survival curve for that same group is worse.
+
+370
+00:41:19,330 --> 00:41:29,190
+Lower. And so just again, exercising this muscle.
+
+371
+00:41:29,580 --> 00:41:37,550
+So if you have a hazard ratio that's less than one. The risk profile on top has a smaller hazard.
+
+372
+00:41:37,560 --> 00:41:40,740
+That's good, right? Hazard ratio is less than what I'm trying to train you to think.
+
+373
+00:41:40,740 --> 00:41:43,470
+That's good. That means it's protective for the event happening.
+
+374
+00:41:45,100 --> 00:41:53,200
+And that's going to mean that the person, that same person with the top profile is going to have a higher survival probability over time.
+
+375
+00:41:53,740 --> 00:41:58,180
+So better survival on the scale of the survival function as well.
+
+376
+00:41:59,180 --> 00:41:59,780
+It's a hazard.
+
+377
+00:41:59,990 --> 00:42:10,980
+So there's this kind of switch in the air quality signs when you're looking at a hazard ratio as opposed to comparing survival curves in the same way.
+
+378
+00:42:11,000 --> 00:42:14,540
+Higher hazard is bad. Higher survival is good.
+
+379
+00:42:17,910 --> 00:42:30,160
+So we just kind of have to get used to that. So the software behind the scenes is calculating the estimated baseline survival curve as not
+
+380
+00:42:30,160 --> 00:42:37,120
+a T and as using all the available events and the proportional hazards assumption to do this.
+
+381
+00:42:38,550 --> 00:42:43,440
+And we're also going to have each of the data from the Cox models so that we can,
+
+382
+00:42:43,800 --> 00:42:48,210
+you know, figure out the curves for the Z equals zero and Z equals one group.
+
+383
+00:42:49,760 --> 00:42:51,140
+And so from the data,
+
+384
+00:42:51,260 --> 00:43:00,560
+we're going to have something from our output that gives us this whole curve over time and we're going to be able to put in our estimate.
+
+385
+00:43:01,750 --> 00:43:10,300
+Four, beat a hat and raise it to this power to get to the survival curve for the planet equals one group.
+
+386
+00:43:13,670 --> 00:43:17,150
+And this is a moment for you.
+
+387
+00:43:17,540 --> 00:43:24,530
+Okay. Because we've just gotten used to kaplan-meier curves and how they look.
+
+388
+00:43:25,460 --> 00:43:30,830
+This model is making some assumptions that change the way these survival estimates look.
+
+389
+00:43:30,830 --> 00:43:33,440
+It's not going to look like the Kaplan-Meier estimate anymore.
+
+390
+00:43:34,130 --> 00:43:38,810
+So because of the algebra that relies on this proportional hazards assumption behind the scenes,
+
+391
+00:43:39,380 --> 00:43:46,850
+the curve estimates that you're going to get are going to drop at all unique event times in the combined dataset for both groups.
+
+392
+00:43:48,790 --> 00:43:53,499
+I'm going to show you what that looks like in a minute. All right.
+
+393
+00:43:53,500 --> 00:43:59,260
+So. I. If you print.
+
+394
+00:44:00,300 --> 00:44:04,980
+The data that we saved in code earlier I think was so long ago.
+
+395
+00:44:04,980 --> 00:44:06,770
+Do you want to just look at that code again real quick?
+
+396
+00:44:06,770 --> 00:44:12,839
+Because I think that was from last time and I keep on referring to it, but we haven't seen it in a couple of days.
+
+397
+00:44:12,840 --> 00:44:19,390
+So let's find the code again here. It's really far back.
+
+398
+00:44:20,200 --> 00:44:23,320
+What flag number is this so I can find it again? Slide 39.
+
+399
+00:44:23,350 --> 00:44:28,360
+Okay. Look how far back this was.
+
+400
+00:44:30,300 --> 00:44:35,700
+Okay. So we have to. We have so much code here.
+
+401
+00:44:35,750 --> 00:44:42,170
+Okay. Oh, so many sites because of the animations, maybe.
+
+402
+00:44:42,430 --> 00:44:46,380
+Anyway. Here's the Stars code.
+
+403
+00:44:49,020 --> 00:45:00,420
+And this this my career code, which we've probably forgotten about, is I want to save output related to person who has.
+
+404
+00:45:01,350 --> 00:45:06,470
+Platelet equals one and output related to platelet equals zero.
+
+405
+00:45:06,480 --> 00:45:13,470
+So this is the data set that lets me ask for a survival curve for each of these risk profiles.
+
+406
+00:45:14,100 --> 00:45:19,770
+So in I'm sure in a future homework, when I'm having you work on Cox Models,
+
+407
+00:45:19,770 --> 00:45:23,940
+I'm going to ask for different risk profiles with survival curves plotted.
+
+408
+00:45:24,150 --> 00:45:31,770
+And you, you create the risk profiles here. So you put all the covariates that you're using in your risk profile and you just line up all
+
+409
+00:45:31,770 --> 00:45:35,710
+the values for the risk profile in the first row and the risk profile and the second row.
+
+410
+00:45:35,730 --> 00:45:45,300
+So we only have two risk profiles here equals one equals zero per page rag with the model statement with our covariate over here,
+
+411
+00:45:45,510 --> 00:45:49,020
+risk limits gave our hazard ratio confidence limit. So that's kind of important.
+
+412
+00:45:49,620 --> 00:45:52,830
+And then we're saving into the fit value.
+
+413
+00:45:52,860 --> 00:45:54,330
+That's what we were just looking at.
+
+414
+00:45:55,230 --> 00:46:03,870
+This data set is going to have survival curves for these two risk profiles, so it's going to have a whole survival curve over time.
+
+415
+00:46:03,870 --> 00:46:12,060
+For Plato equals one group, whole survival curve over time for the platelet equals zero group that that's based on this proportional hazards model.
+
+416
+00:46:14,330 --> 00:46:22,230
+All right. And so in our. The code that.
+
+417
+00:46:25,450 --> 00:46:29,350
+We're going to probably be looking at more in a minute. Came from here.
+
+418
+00:46:29,800 --> 00:46:38,209
+I think this is cover everything. Yeah. Okay.
+
+419
+00:46:38,210 --> 00:46:41,410
+So we set up the formula here.
+
+420
+00:46:41,420 --> 00:46:47,450
+So this is the survival outcome information serve and then the x variable comma,
+
+421
+00:46:47,450 --> 00:46:55,159
+the delta variable and then this tilde and platelet for the model are then we finally there's
+
+422
+00:46:55,160 --> 00:47:00,050
+some plots and stuff from this script that code for now the Cox model fit is done here.
+
+423
+00:47:00,290 --> 00:47:08,100
+So we took that formula in here. And then the nice output that we got from earlier is here.
+
+424
+00:47:09,110 --> 00:47:19,040
+And I. I don't think I showed you how to get the survival curves yet for our.
+
+425
+00:47:21,080 --> 00:47:25,460
+So let's now jump back to 36 now that we've reminded ourselves what that code is doing.
+
+426
+00:47:29,200 --> 00:47:34,540
+Oh, wait, it wasn't 36. Which one was it? 39. Yeah.
+
+427
+00:47:37,750 --> 00:47:46,930
+So this is what the fit validator said that we saved from fast looks like so it's got this first column is telling
+
+428
+00:47:46,930 --> 00:47:55,240
+you which risk profile you're dealing with so this is platelet equals one and here is that the little t variable,
+
+429
+00:47:55,930 --> 00:48:04,680
+you know, and here is the survival estimate. And here is the same thing for Group Zero.
+
+430
+00:48:04,710 --> 00:48:11,790
+So this is, you know, I just sort of. Crompton moved it over here so we can see them side by side, more or less.
+
+431
+00:48:12,240 --> 00:48:21,660
+And so here's for the Platelet Zero group. So if you have several rows in your my career data set, you can have even more of these come up.
+
+432
+00:48:21,660 --> 00:48:27,390
+But we only have two choices for that. One binary covariate. So here is for the platelet equals zero group.
+
+433
+00:48:28,050 --> 00:48:34,380
+And so this. This because it's all covariates are equal to zero here.
+
+434
+00:48:34,390 --> 00:48:40,720
+This is actually our baseline survival estimate for this particular model.
+
+435
+00:48:41,140 --> 00:48:43,150
+This is the reference survival curve.
+
+436
+00:48:44,310 --> 00:48:54,100
+And this is the only other survival curve that we can look at for the S1 hat because it's we only have this single covariate with a one or a zero.
+
+437
+00:48:54,540 --> 00:49:04,140
+And what we've seen on previous slides is that if for any profile, any risk profile, the survival curve estimate is some power.
+
+438
+00:49:05,090 --> 00:49:10,940
+Of the the reference survival curve. So s one of t here is some power.
+
+439
+00:49:11,720 --> 00:49:16,640
+It's actually e to the beta, which turned out strangely to be 0.5.
+
+440
+00:49:16,640 --> 00:49:23,270
+So this is as one of t is as zero of t raised to the point five in this data set.
+
+441
+00:49:26,880 --> 00:49:32,880
+So yeah. So just look at this time 19 just to sort of look at that in more detail.
+
+442
+00:49:32,880 --> 00:49:37,290
+So due to the proportional hazards assumption, when little T is 19,
+
+443
+00:49:38,700 --> 00:49:46,259
+the survival estimate at time 19 for the platelet equals one group is the survival estimate at
+
+444
+00:49:46,260 --> 00:49:53,969
+19 for the platelet equals zero group is ref the reference or baseline hazard raised to the 0.5.
+
+445
+00:49:53,970 --> 00:50:00,930
+This is either the beta for this model and so you can sort of see algebraically that's determined.
+
+446
+00:50:00,930 --> 00:50:05,700
+So if I know as not of t for all time points and I know the hazard ratio.
+
+447
+00:50:06,710 --> 00:50:10,790
+I also know I'll s1 t for all the time points.
+
+448
+00:50:11,330 --> 00:50:18,799
+It's always going to have this algebra to it. So that's a kind of strong assumption that a portion hazard's is making that we didn't
+
+449
+00:50:18,800 --> 00:50:22,960
+make when we were spinning to different survival curves using the Kaplan-Meier estimate.
+
+450
+00:50:23,030 --> 00:50:35,319
+Right. And so here's kind of a comparison of what it looks like when you're estimating with a cap of Myers this is Capcom for Kaplan.
+
+451
+00:50:35,320 --> 00:50:39,870
+Meyer and the two groups. This is what the actual data looked like, right?
+
+452
+00:50:39,880 --> 00:50:46,510
+So you can sort of see, you know, remember, there is fewer people with abnormal platelets and we can kind of tell just from the
+
+453
+00:50:46,510 --> 00:50:52,630
+plot because it has very big drops when the deaths are happening in that group.
+
+454
+00:50:53,200 --> 00:50:55,659
+And there's a lot more people with normal platelets.
+
+455
+00:50:55,660 --> 00:51:00,670
+And you can sort of see because every time it drops, there's an event over there and you can just see there's more people.
+
+456
+00:51:01,210 --> 00:51:09,040
+When you look at the kaplan-meier curves, you can kind of get a sense of the raw data from these kaplan-meier curves because of when they drop.
+
+457
+00:51:09,790 --> 00:51:14,350
+The Cox proportional hazards model doesn't let you see that.
+
+458
+00:51:14,620 --> 00:51:17,230
+When you look at the survival estimates based on the model,
+
+459
+00:51:18,790 --> 00:51:25,090
+both of these curves are dropping at every one of the combined event times from this top plot.
+
+460
+00:51:26,280 --> 00:51:36,720
+And so if you use a kaplan-meier survival estimate, I never by the way, I never pluck Cox survival estimates in papers for this reason,
+
+461
+00:51:37,980 --> 00:51:46,320
+because I think it artificially suggests that the abnormal platelet group has many more people in it than it really does.
+
+462
+00:51:46,500 --> 00:51:51,240
+So that's the first problem I have with this, with the Cox Survival Estimates.
+
+463
+00:51:51,510 --> 00:51:58,720
+I don't like this false look of us having lots of information on people with ADM platelets.
+
+464
+00:51:58,740 --> 00:52:00,300
+That's just not correct.
+
+465
+00:52:00,810 --> 00:52:09,600
+And the second problem I have is that this whole shape of the curves have been governed by this proportional hazards assumption.
+
+466
+00:52:10,680 --> 00:52:15,360
+Remember, one curve is a power of the other curve for every time point.
+
+467
+00:52:16,050 --> 00:52:19,830
+And that's not that's just not what the raw data would look like.
+
+468
+00:52:20,310 --> 00:52:26,910
+It's all based on the proportional hazards assumption and not what the actual data looked like.
+
+469
+00:52:28,010 --> 00:52:31,140
+So this is stuff to be very aware of when you're using this model.
+
+470
+00:52:31,180 --> 00:52:36,540
+Yes. Question in back. Okay.
+
+471
+00:52:36,540 --> 00:52:40,380
+So the question from the back is, when do we use one versus the other?
+
+472
+00:52:40,740 --> 00:52:45,059
+Well, I can only use the kaplan-meier if I've got categorical covariates.
+
+473
+00:52:45,060 --> 00:52:50,490
+Right. I can't compare continuous covariates.
+
+474
+00:52:50,500 --> 00:52:54,910
+So, you know, we're going to use the Cox model.
+
+475
+00:52:56,100 --> 00:53:00,950
+When we have more covariates than we can stratify into nice pretty kaplan-meier curves.
+
+476
+00:53:00,960 --> 00:53:05,880
+We just. We don't have a choice if we have more sophisticated information.
+
+477
+00:53:06,480 --> 00:53:13,290
+If you have a subgroup that you can create, you know, you can still do a kaplan-meier curve, but you have to have enough people to generate a curve.
+
+478
+00:53:13,740 --> 00:53:18,180
+And we just don't have that once we move to this regression setting with lots of covariates and stuff.
+
+479
+00:53:18,570 --> 00:53:23,010
+So we need to know how we we need to understand this, right?
+
+480
+00:53:23,010 --> 00:53:28,680
+We need to understand how much of the story is coming from the model and how much and the
+
+481
+00:53:28,680 --> 00:53:34,200
+assumptions for that model and how much of the story is is truly generated by the data.
+
+482
+00:53:34,200 --> 00:53:37,800
+So we need to understand this distinction.
+
+483
+00:53:38,340 --> 00:53:46,140
+So as we move through the Cox model, this is message one. I need you to know if you're doing survival curve estimates from this model,
+
+484
+00:53:46,440 --> 00:53:51,209
+you're relying on a strong assumption that's kind of saying this is what's going on
+
+485
+00:53:51,210 --> 00:53:56,010
+behind the scenes and that may or may not be an accurate reflection of the data.
+
+486
+00:53:57,550 --> 00:54:02,080
+So we'll have to come up with model diagnostics. That's going to be another handout.
+
+487
+00:54:02,470 --> 00:54:09,160
+We're going to have to come up with model diagnostics to help us figure out when it's a reasonable assumption and when it's not.
+
+488
+00:54:09,490 --> 00:54:13,660
+That's going to be quite important for this model, because this assumption is so strong.
+
+489
+00:54:14,910 --> 00:54:22,590
+You know. So we're going to eventually really go to town.
+
+490
+00:54:23,220 --> 00:54:27,740
+We're figuring that out. But this is your first peak on what that assumption is doing.
+
+491
+00:54:28,990 --> 00:54:32,860
+Behind the scenes to the to the the way we think about the data.
+
+492
+00:54:35,510 --> 00:54:40,520
+And here is similar code for the the plot in ah.
+
+493
+00:54:41,420 --> 00:54:46,110
+And so in ah. You know they save a lot in this fear.
+
+494
+00:54:46,130 --> 00:54:59,150
+So when you save all the output into fit or they sure save a lot of stuff so you can plot that fit for the the same risk profile.
+
+495
+00:54:59,150 --> 00:55:04,820
+And here's how I've put together the risk profile, my career and ah, I've used this expand grid,
+
+496
+00:55:04,820 --> 00:55:10,820
+which for this example isn't real exciting, it's just making a row for zero and for one.
+
+497
+00:55:11,240 --> 00:55:15,980
+But when you have lots of covariates, expand grid grid is going to be a lot more useful.
+
+498
+00:55:16,370 --> 00:55:21,710
+So you can play with that in R and sort of see how you can get these different profiles going on.
+
+499
+00:55:26,800 --> 00:55:33,130
+Okay. So in the general case, actually, let me just take a peek.
+
+500
+00:55:34,000 --> 00:55:37,690
+All right. This is probably a good time. Just to take a quick break.
+
+501
+00:55:38,290 --> 00:55:44,290
+I'm stuffing your brain full and you need to to stretch it out or something.
+
+502
+00:55:45,340 --> 00:55:50,020
+So let's meet, uh, in 10 minutes at 906.
+
+503
+00:56:01,540 --> 00:56:19,510
+I was. I never.
+
+504
+00:56:32,470 --> 00:56:48,620
+Here. But.
+
+505
+00:57:05,730 --> 00:57:12,530
+We? I feel.
+
+506
+00:57:17,310 --> 00:57:20,640
+Well. I need to learn.
+
+507
+00:57:33,040 --> 00:57:37,840
+Exactly. Anyway, so.
+
+508
+00:57:39,510 --> 00:57:45,630
+So there. You guys are saying that's the case?
+
+509
+00:57:45,750 --> 00:57:51,600
+Oh, yeah. I do.
+
+510
+00:57:54,670 --> 00:58:27,500
+She was responsible. It's.
+
+511
+00:58:37,670 --> 00:59:30,720
+If you like. I'm well aware.
+
+512
+00:59:58,990 --> 01:00:05,280
+Because. So.
+
+513
+01:01:27,710 --> 01:01:42,310
+Oh. Oh.
+
+514
+01:01:51,610 --> 01:01:59,040
+You. But it's.
+
+515
+01:02:03,330 --> 01:02:07,760
+All. Every.
+
+516
+01:02:12,150 --> 01:02:19,000
+So you have three surviving. And then we really thought, you know, this is our.
+
+517
+01:02:19,910 --> 01:02:23,650
+But they will all be impressed. You.
+
+518
+01:02:26,040 --> 01:02:31,520
+So survival is really. We had a terrible.
+
+519
+01:02:37,770 --> 01:02:55,980
+Yeah. I mean. So that you have all kinds of questions here that you may find in the week.
+
+520
+01:02:56,270 --> 01:02:59,420
+So it's a separate as far as how.
+
+521
+01:03:17,280 --> 01:03:23,350
+There's. But then.
+
+522
+01:03:44,800 --> 01:03:49,440
+She's there. Well, it's.
+
+523
+01:05:02,950 --> 01:05:16,520
+And so there was no. Everything is.
+
+524
+01:05:25,260 --> 01:05:28,830
+Yeah. It's like a brother. Yeah.
+
+525
+01:05:47,300 --> 01:05:55,220
+That's. I.
+
+526
+01:06:00,870 --> 01:06:07,340
+My. A smaller.
+
+527
+01:06:11,510 --> 01:06:16,290
+In. Yeah.
+
+528
+01:06:20,070 --> 01:06:24,870
+Okay. Are you ready to get back to work? Okay.
+
+529
+01:06:27,110 --> 01:06:34,090
+All right. So I. Let's look more at survival estimation here.
+
+530
+01:06:34,120 --> 01:06:37,990
+So software calculates the estimated baseline survival curve,
+
+531
+01:06:38,530 --> 01:06:45,280
+which I'm using as hat with a little not down here zero down here for the baseline
+
+532
+01:06:45,280 --> 01:06:50,100
+survival curve it based on all available events and the proportional hazards assumption.
+
+533
+01:06:52,880 --> 01:07:04,280
+And then it's the part of the model that's, you know, accounting for the risk profile in terms of your covariate, say, Z one through Z.
+
+534
+01:07:04,310 --> 01:07:06,080
+Ah, looks like this.
+
+535
+01:07:08,160 --> 01:07:17,970
+And so the survival curve for any risk profile based on those covariates is going to be the reference survival curve raised to that power.
+
+536
+01:07:20,260 --> 01:07:24,999
+And so all the survival curves for any risk profile that you put together.
+
+537
+01:07:25,000 --> 01:07:29,470
+So any version of discoveries that you might happen to have or a particular person.
+
+538
+01:07:31,310 --> 01:07:38,600
+Can be found by raising the reference curve to that power of each of the beta one, hat, Z one, and so on.
+
+539
+01:07:41,050 --> 01:07:43,480
+And that's coming from the proportional hazards assumption.
+
+540
+01:07:44,440 --> 01:07:51,250
+So here's just written it out with the the power written in all of this is in the exponent.
+
+541
+01:07:53,390 --> 01:07:57,650
+And because of this algebra that's relying on that proportional hazards assumption,
+
+542
+01:07:57,650 --> 01:08:07,160
+all curves based on any risk profile that you tend that you want to look at will drop at all the unique event times in the overall data set.
+
+543
+01:08:13,490 --> 01:08:17,130
+So I have a little technical detail related to baseline survival estimation.
+
+544
+01:08:17,150 --> 01:08:21,350
+I don't want you to get too hung up on this, but I,
+
+545
+01:08:22,280 --> 01:08:29,139
+I do want to kind of give you this information just so you have more ability to to compare to kaplan-meier curves.
+
+546
+01:08:29,140 --> 01:08:34,250
+So there's two different estimation methods for the baseline survival function.
+
+547
+01:08:35,210 --> 01:08:38,420
+There's a version that's done by calculation, Prentice,
+
+548
+01:08:39,050 --> 01:08:45,680
+that if you don't have any covariates in your model at all and you're just estimating one group's survival,
+
+549
+01:08:46,100 --> 01:08:50,210
+it'll give the Kaplan-Meier estimate in that special case with no covariates.
+
+550
+01:08:50,900 --> 01:08:58,430
+But it's not the default option. The default option is using this Nelson Alan Bradlow method,
+
+551
+01:08:58,640 --> 01:09:05,150
+and it's more common just because they were the first ones to to come up with the estimate based on this model.
+
+552
+01:09:05,900 --> 01:09:14,480
+So the the SAS or the R output generally will give you this version of a survival estimate if you have no covariates in your model.
+
+553
+01:09:14,780 --> 01:09:17,239
+It won't exactly agree with the kaplan-meier.
+
+554
+01:09:17,240 --> 01:09:23,510
+If you use this version, it'll be the more events you have in your data set, it'll it'll look closer and closer and closer.
+
+555
+01:09:24,020 --> 01:09:28,150
+But it's not going to be algebraic that li the same unless you choose this other option.
+
+556
+01:09:28,580 --> 01:09:34,760
+That's not the default. So both methods are going to be similar for large samples with lots of events.
+
+557
+01:09:37,340 --> 01:09:42,530
+We're going to kind of look at that a little, you know, later on and hand out.
+
+558
+01:09:42,530 --> 01:09:49,759
+I might show you what it looks like when you use the different methods, but I wanted to just make you aware of that,
+
+559
+01:09:49,760 --> 01:09:55,280
+that if you have no covariates in your model, you don't necessarily get the kaplan-meier back unless you change that option.
+
+560
+01:09:56,840 --> 01:10:01,760
+All right. So let's look at estimating the zero function for a given credit profile.
+
+561
+01:10:01,760 --> 01:10:09,229
+So we're looking at this p c example again, and this is our Cox model that we're going to be looking at.
+
+562
+01:10:09,230 --> 01:10:13,790
+So the hazard function that little time T is the reference hazard or the baseline hazard
+
+563
+01:10:13,790 --> 01:10:18,919
+at time T and then here is filling out all the parameter estimates with our covariates.
+
+564
+01:10:18,920 --> 01:10:22,940
+So I've got a few more covariates in here compared to last time.
+
+565
+01:10:22,940 --> 01:10:32,690
+So I've got e to the coefficient times the edema variable plus the coefficient times age and the coefficient times log albumin the
+
+566
+01:10:32,690 --> 01:10:39,860
+coefficient times log bilirubin and the coefficient times log growth thrombin time which I have to actually think about to say.
+
+567
+01:10:40,370 --> 01:10:49,070
+And so if I want to look at the risk profile for this low risk patient with all of these values plugged in for their covariate,
+
+568
+01:10:49,080 --> 01:11:01,940
+so edema zero 52 age albumin and bilirubin per prothrombin time and I want to figure out the baseline, the five year baseline.
+
+569
+01:11:02,510 --> 01:11:05,570
+Sorry, I don't know why I'm reading this bullet here.
+
+570
+01:11:05,750 --> 01:11:10,700
+I want to know what the survival probability is based on the model for this risk profile.
+
+571
+01:11:11,210 --> 01:11:17,300
+I need to know all these covariates, but I also need to know the baseline reference survival at time five.
+
+572
+01:11:17,300 --> 01:11:20,330
+And so from the output I can grab that number.
+
+573
+01:11:20,330 --> 01:11:28,190
+So it's 0.9991 then to get the survival estimate for this risk profile.
+
+574
+01:11:29,700 --> 01:11:36,029
+I am plugging in all of these covariates into this e to the all this model stuff.
+
+575
+01:11:36,030 --> 01:11:39,570
+I'm plugging in the edema variable and the log albumin variable, etc.
+
+576
+01:11:40,670 --> 01:11:48,050
+And you know, raising this reference curve to the power of all this e to the model stuff.
+
+577
+01:11:50,070 --> 01:11:57,710
+So for this set of risk factors, the better the parts are going to look like this.
+
+578
+01:11:57,720 --> 01:12:02,879
+This is plugging in all the variables, like a dimmer age and so on into the models.
+
+579
+01:12:02,880 --> 01:12:09,960
+This is going to be the the beta one, z one plus the beta five, Z five.
+
+580
+01:12:10,930 --> 01:12:14,800
+And then I take the exponent of that and I get this.
+
+581
+01:12:15,490 --> 01:12:17,170
+32.79.
+
+582
+01:12:19,070 --> 01:12:32,520
+And so the survival at five years for this particular risk profile is the baseline, the reference survival curve at five years raised to that power.
+
+583
+01:12:33,170 --> 01:12:40,040
+And so I will warn you that because this is such a so close to one,
+
+584
+01:12:40,580 --> 01:12:46,910
+that round off air will really hurt you if you don't put a lot of significant digits here.
+
+585
+01:12:47,210 --> 01:12:51,230
+It. And this is such a big power, it changes the number a lot.
+
+586
+01:12:51,230 --> 01:12:58,040
+So if you're doing this by hand and trying to match it up with output that you've saved as part of like put I
+
+587
+01:12:58,040 --> 01:13:04,490
+could have put this risk profile into a little makeover data set if I wanted to get it this algebra done for me.
+
+588
+01:13:04,820 --> 01:13:11,000
+If you're trying to compare what it looks like by hand, you really have to be careful about around off air.
+
+589
+01:13:12,800 --> 01:13:19,970
+The numbers can change a lot based on having a few more significant digits and having this power involved.
+
+590
+01:13:22,410 --> 01:13:28,920
+But that's how you do it. If you know the reference curve survival and you can figure out this e to the beat of Z stuff.
+
+591
+01:13:29,400 --> 01:13:33,240
+It's it's as easy as that to get back and forth between one another.
+
+592
+01:13:36,410 --> 01:13:46,070
+So. So I don't like this whole relying on the proportional hazards assumption when I'm doing when I'm looking at survival curves.
+
+593
+01:13:46,190 --> 01:13:53,420
+I mean, I know that it's necessary to be able to make inferences about, say, continuous covariates or not or whatnot.
+
+594
+01:13:53,720 --> 01:13:55,459
+But if I have categorical covariates,
+
+595
+01:13:55,460 --> 01:14:04,670
+I have choices and so are one of the choices that I'm going to show you is to use what's called a stratified baseline.
+
+596
+01:14:06,070 --> 01:14:18,080
+Survival option. So it turns out that one may request baseline survival functions to be estimated separately in the different strata and its you.
+
+597
+01:14:18,330 --> 01:14:26,970
+So this is basically also asking, by the way, that you're estimating two different or strata specific hazard functions as well.
+
+598
+01:14:28,890 --> 01:14:33,210
+And this is this is good and bad.
+
+599
+01:14:33,630 --> 01:14:37,820
+You have to work it up to think about when we want to do this versus not.
+
+600
+01:14:37,830 --> 01:14:41,700
+But it weakens the proportional hazards assumption, which is good.
+
+601
+01:14:41,710 --> 01:14:44,760
+We don't need the proportional hazards. That's actually be true.
+
+602
+01:14:45,210 --> 01:14:50,640
+If we estimate different baseline reference groups, then the different strata.
+
+603
+01:14:51,640 --> 01:14:57,640
+But it makes it hard to estimate hazard ratios related to the street if they're not proportional anymore,
+
+604
+01:14:57,640 --> 01:15:01,030
+that suddenly you have a ratio that depends on time to.
+
+605
+01:15:01,030 --> 01:15:04,030
+And and that's a very difficult to summarize in a paper.
+
+606
+01:15:04,030 --> 01:15:07,389
+And, you know, how do you get penalized for that?
+
+607
+01:15:07,390 --> 01:15:11,760
+You really can't. So we're going to explore that.
+
+608
+01:15:12,020 --> 01:15:19,960
+Oh, that's the last line of the unit. So we're explore that next. So go ahead and open up your next handout and we'll get right into that.
+
+609
+01:15:23,830 --> 01:15:37,540
+So hand out 12. Okay.
+
+610
+01:15:42,090 --> 01:15:46,620
+All right. Some of this is going to be kind of a memory jog at the beginning.
+
+611
+01:15:46,770 --> 01:15:50,489
+So I think we're going to be able to skip past the notation slide.
+
+612
+01:15:50,490 --> 01:16:00,370
+We already reviewed this. And we we just talked about the the way that we write the proportional hazards model.
+
+613
+01:16:00,390 --> 01:16:09,700
+This is sort of review. That we already covered in today's lecture.
+
+614
+01:16:10,820 --> 01:16:16,160
+So Oh, we didn't cover this. So hypothesis testing for multiple coefficients.
+
+615
+01:16:16,580 --> 01:16:20,180
+We had only been playing with the bait, the platelet and just a few coefficients.
+
+616
+01:16:20,180 --> 01:16:23,450
+So just this also works the same way as other regression models.
+
+617
+01:16:23,450 --> 01:16:32,480
+So if you want to test that several betas or zero in a model, you know you have the partial likelihood ratio test.
+
+618
+01:16:33,020 --> 01:16:40,580
+It's like the liquid ratio test. The partial is sort of a technical detail that you don't necessarily need to think about too, too much.
+
+619
+01:16:41,720 --> 01:16:46,910
+But you can look you can fit the full model with all the covariates in versus the reduced model where you
+
+620
+01:16:47,120 --> 01:16:53,719
+remove some covariates and then perform a liquid ratio test very much the way you've done in past models.
+
+621
+01:16:53,720 --> 01:17:00,320
+So there's going to be output in in SAS for minus to the log likelihood for the reduced model.
+
+622
+01:17:00,320 --> 01:17:07,100
+And there's going to be output for the full model as well. And it's that difference is going to be distributed as a chi squared.
+
+623
+01:17:09,060 --> 01:17:15,370
+Statistic where the degrees of freedom is, the number of parameters that you've removed and to get to the reduced model.
+
+624
+01:17:15,540 --> 01:17:19,930
+So this is going to be very much like what you've done before.
+
+625
+01:17:19,950 --> 01:17:24,659
+The technical detail that I don't want you to get hung up on is that behind the scenes,
+
+626
+01:17:24,660 --> 01:17:29,160
+the software is using a slightly different algorithm from a full likelihood.
+
+627
+01:17:29,160 --> 01:17:35,729
+It's using something that's called a partial likelihood. But from our point of view and using the model and interpreting the results,
+
+628
+01:17:35,730 --> 01:17:39,600
+there's no difference in how we construct or interpret our test results from the output.
+
+629
+01:17:39,960 --> 01:17:44,970
+That detail behind the scenes is not something you need to really dig into.
+
+630
+01:17:45,810 --> 01:17:49,530
+We'll just use the output as if it was a regular likelihood.
+
+631
+01:17:51,880 --> 01:17:54,760
+So as usual, non nested models,
+
+632
+01:17:54,760 --> 01:18:01,780
+as long as you're in the same modeling framework can be compared using AIC values with lower being the preferred model.
+
+633
+01:18:03,760 --> 01:18:09,610
+We have to be careful about missing data. So remember, the sample size must be the same in both models or they're not comparable.
+
+634
+01:18:10,420 --> 01:18:19,710
+So you've had that before. And this is going to come up later, but I'm going to allude to it now, just so that you have all of this on the same page.
+
+635
+01:18:20,100 --> 01:18:26,490
+The baseline hazard must be modeled the same way for you to use likelihood ratio tests or I.
+
+636
+01:18:26,880 --> 01:18:34,200
+So for instance, if I model a single reference curve for everybody and then I want to try out a
+
+637
+01:18:34,200 --> 01:18:40,470
+model where I have to reference curves based on some categorical covariate.
+
+638
+01:18:40,950 --> 01:18:45,180
+I can't compare those anymore with like good ratio where I see if you,
+
+639
+01:18:45,300 --> 01:18:52,440
+if you change the way the reference curves are done to be more than one reference curve, they're not comparable anymore.
+
+640
+01:18:52,440 --> 01:18:57,780
+So we'll kind of get back to that idea later since we just started talking about two different reference curves.
+
+641
+01:18:58,810 --> 01:19:03,680
+But but that is going to be in this handout. All right.
+
+642
+01:19:04,070 --> 01:19:12,410
+So this is more or less where we left off in the last handout. So what do you do when you don't believe the proportional hazards hazards assumption?
+
+643
+01:19:12,680 --> 01:19:19,850
+You know, remember, we have this big, strong assumption about how the curves will all look when you're assuming proportional hazards.
+
+644
+01:19:19,850 --> 01:19:24,920
+And what if you just don't believe that the shape of the curves should be forced into that mold?
+
+645
+01:19:25,790 --> 01:19:34,069
+So the Cox model has this option for estimating separate baseline hazards, and I can equivalently say separate baseline survival curves,
+
+646
+01:19:34,070 --> 01:19:38,150
+if you like, for categorical variables that don't follow proportional hazards.
+
+647
+01:19:38,630 --> 01:19:44,960
+So I can't use this particular trick I'm going to show you if I have a continuous career unless I break it up into categories.
+
+648
+01:19:45,410 --> 01:19:52,130
+But you can as long as you have enough data. And in the various groups that are in the various categories, you can use this trick.
+
+649
+01:19:53,770 --> 01:20:02,499
+And the way we write the model when we're estimating separate baseline hazards or
+
+650
+01:20:02,500 --> 01:20:06,380
+baseline survival curves as we write the model like this where there's a J here.
+
+651
+01:20:06,400 --> 01:20:12,150
+So this before we just had lambda not of T. And now I've got a J here.
+
+652
+01:20:13,510 --> 01:20:20,079
+With J equals one the k saying that I'm going to allow four k different baseline
+
+653
+01:20:20,080 --> 01:20:26,170
+hazards for that variable in the model that doesn't follow proportional hazards.
+
+654
+01:20:27,950 --> 01:20:33,320
+All right. So this is suddenly a lot more to unpack. I've just stretched it in a different way for you here.
+
+655
+01:20:34,830 --> 01:20:38,380
+So. So let's just take a look. What do we notice about this?
+
+656
+01:20:38,400 --> 01:20:41,970
+So I haven't put j is on all the betas.
+
+657
+01:20:42,030 --> 01:20:52,250
+So the betas are still overall betas associated with a one unit increase, you know, for the covariates, you know,
+
+658
+01:20:52,260 --> 01:21:01,680
+so these betas don't depend on the straight at just the base line hazards for that for for this categorical covariate with K levels.
+
+659
+01:21:05,910 --> 01:21:10,889
+So this affects the way we estimate hazard ratios for the stratified variables.
+
+660
+01:21:10,890 --> 01:21:14,850
+So suddenly for this variable with K levels that I.
+
+661
+01:21:14,850 --> 01:21:20,870
+That I. Have written with, you know, where I've used a stratified baseline hazard.
+
+662
+01:21:23,460 --> 01:21:25,890
+It's not going to, you know, for the hazard ratios,
+
+663
+01:21:25,890 --> 01:21:30,500
+comparing different levels of that categorical variable aren't going to end up being a concern any more.
+
+664
+01:21:30,510 --> 01:21:34,320
+They're going to pan on time. So.
+
+665
+01:21:37,130 --> 01:21:42,980
+So looking at that, a little bit further hazard ratios for stratified based on hazard coverage for the stratified baseline hazards.
+
+666
+01:21:42,980 --> 01:21:50,000
+If we construct the hazard ratio between two straight OJ one and J two holding all the cover, it's constant.
+
+667
+01:21:50,360 --> 01:22:00,680
+It would look like this. So here's what the model would look like if you have a coverage that that categorical over equal to the J one level.
+
+668
+01:22:03,140 --> 01:22:08,900
+And here is what the hazard looks like if you have that categorical covariate at the J two level.
+
+669
+01:22:10,600 --> 01:22:15,910
+And all the other variables held constant. They're going to that part of the model is going to cancel out.
+
+670
+01:22:16,420 --> 01:22:23,560
+And what you get at the end of the exercise is this ratio that may that still depends on time potentially.
+
+671
+01:22:23,590 --> 01:22:32,510
+Right. And so my hazard ratio comparing two levels of this categorical covariate that I've used to stratify.
+
+672
+01:22:34,450 --> 01:22:37,940
+The the hazards. You know.
+
+673
+01:22:39,040 --> 01:22:42,250
+I can't really summarize with a single number anymore.
+
+674
+01:22:42,280 --> 01:22:50,200
+The hazard ratio for that variable. So what I've successfully done is I haven't forced an assumption about proportional hazards.
+
+675
+01:22:50,590 --> 01:22:52,840
+I mean, they still could be proportional over time.
+
+676
+01:22:53,140 --> 01:23:00,130
+And if it was like two the exact letter, you know, a constant, this thing would look like a constant or very close to one.
+
+677
+01:23:00,640 --> 01:23:05,830
+But I haven't forced that assumption. This can still do. This hazard ratio itself can depend on time.
+
+678
+01:23:06,460 --> 01:23:14,220
+So I've my model has benefited from that. If I don't think proportional hazards for this variables true that I don't that
+
+679
+01:23:14,230 --> 01:23:17,410
+I haven't forced an assumption that will make that look weird in the data.
+
+680
+01:23:19,010 --> 01:23:28,310
+But I also can't easily summarize what has is looked like for different levels of discovery in a table in a paper because of the function.
+
+681
+01:23:29,430 --> 01:23:33,030
+So there's pros and cons to this method so it doesn't have a concern over time.
+
+682
+01:23:33,240 --> 01:23:43,590
+And hence it's not really easy to interpret or explain in a paper without maybe graphics, but no one will enjoy that in your favor.
+
+683
+01:23:44,970 --> 01:23:49,200
+But the benefit is it doesn't require proportional hazards assumptions for the stratified variables.
+
+684
+01:23:49,200 --> 01:23:52,770
+So you've made one less assumption for your model.
+
+685
+01:23:55,160 --> 01:24:03,590
+So let's go back to the multiple myeloma, multiple myeloma example again and kind of look at what this is with our platelet variable.
+
+686
+01:24:04,070 --> 01:24:13,010
+So this is just repeating the code from before to get the stratified baseline hazard where the only covert I'm using is platelet.
+
+687
+01:24:13,040 --> 01:24:16,730
+So I've moved before we had platelet in the model statement.
+
+688
+01:24:17,850 --> 01:24:23,180
+And so per cut, this is a pickup up moment because I'm using the same cover, but I'm throwing it into the model in a different way.
+
+689
+01:24:23,600 --> 01:24:28,820
+So instead of having platelet as a covered over here in the model line, I'm putting it into this straight A.
+
+690
+01:24:30,140 --> 01:24:41,200
+Strata Command. And I actually am changing the method for the baseline hazard baseline survival estimation.
+
+691
+01:24:41,210 --> 01:24:47,050
+So it's going to look like, you know, the version that does something similar to Kaplan-Meier.
+
+692
+01:24:49,450 --> 01:24:56,860
+All right. So I'm saving all the information on baseline survival into this fit val variable again.
+
+693
+01:24:57,010 --> 01:25:07,290
+We'll do something similar soon. But this is going to assume that I that I don't need proportional hazards for platelet.
+
+694
+01:25:07,300 --> 01:25:19,760
+It'll estimate its own curve for each of those groups. And so this is what the output for fit val looks for the platelet equals zero group.
+
+695
+01:25:19,760 --> 01:25:24,710
+So we know it's the platelet equals zero group because it's showing us that here in this column for platelet.
+
+696
+01:25:26,170 --> 01:25:31,660
+And here's the survival estimate. And because we used that option that asked for the Kaplan-Meier version of this,
+
+697
+01:25:31,930 --> 01:25:35,319
+this is going to be exactly the same as the Kaplan-Meier estimate for the platelet
+
+698
+01:25:35,320 --> 01:25:38,830
+equals zero group because we didn't have any other covariates in the model.
+
+699
+01:25:39,520 --> 01:25:43,000
+All we're really doing is producing these two baseline curves again.
+
+700
+01:25:45,140 --> 01:25:52,120
+And same thing. This is different from what we got when we had platelet in the model statement.
+
+701
+01:25:52,130 --> 01:26:02,300
+So when we had platelet in the model statement, we had this weird baseline survival curve that changed it at the death times across,
+
+702
+01:26:03,020 --> 01:26:06,170
+you know, for the death times across the combined groups. And so.
+
+703
+01:26:08,090 --> 01:26:13,350
+When you don't have baseline strata. For the platelet variable.
+
+704
+01:26:14,650 --> 01:26:19,720
+It gives you a curve that looks like this. You know, we saw it in a plot earlier.
+
+705
+01:26:20,560 --> 01:26:28,959
+When you do use stratified by platelet in your Cox model, it'll kind of estimate a separate curve for each of the strata,
+
+706
+01:26:28,960 --> 01:26:33,010
+and it will look just like the kaplan-meier curve if you don't have any other covariates in your model.
+
+707
+01:26:38,680 --> 01:26:44,620
+So in order to get the the curve that looks like the cap of Maya,
+
+708
+01:26:44,710 --> 01:26:51,430
+we put as type equals one here to get the stratified curves for the different levels of platelet.
+
+709
+01:26:51,760 --> 01:26:57,010
+We use the straight parentheses and then the variable that we want to have stratified.
+
+710
+01:26:58,480 --> 01:27:06,850
+So it's right in the equals part of the models. So we would have straight it and the variable we want to have different baseline hazards are baseline.
+
+711
+01:27:06,850 --> 01:27:11,500
+So right before and then you would add in other covariates with pluses that you want in your model.
+
+712
+01:27:15,390 --> 01:27:23,850
+And so, again, if you have if you use different baseline survival curves for the platelets groups, that will look like the kaplan-meier curves again.
+
+713
+01:27:27,150 --> 01:27:35,040
+And this is just more output. Again for the platelets equals zero group showing everything for the platelet goes one group showing everything.
+
+714
+01:27:36,250 --> 01:27:45,720
+It's just like the kaplan-meier curve. So now that we've learned that we can stratify, uh, to under, you know,
+
+715
+01:27:45,750 --> 01:27:49,890
+within the Cox model, if you've got chemical covariates, we can stratify some variables.
+
+716
+01:27:50,400 --> 01:27:55,709
+And we have to kind of understand, well, what's the difference between stratifying and putting in your model statement?
+
+717
+01:27:55,710 --> 01:27:58,950
+Because you can only do one or the other. You can't do both at the same time.
+
+718
+01:27:59,550 --> 01:28:06,960
+It's either a stratification variable for your baseline hazard or it's in the model statement and you're assuming proportional hazards.
+
+719
+01:28:08,620 --> 01:28:14,530
+And so to understand this, I want to kind of think about, you know.
+
+720
+01:28:15,550 --> 01:28:21,640
+Poser Mate interested in estimating a hazard ratio for those exposed to a risk factor versus those not exposed.
+
+721
+01:28:21,640 --> 01:28:31,540
+But I have confounders. So the hazard ratio for the exposed I one on top the hazard ratio for the not exposed having the bottom.
+
+722
+01:28:31,540 --> 01:28:35,950
+That's the hazard ratio I really want to estimate. But I have a confounder.
+
+723
+01:28:36,310 --> 01:28:41,350
+I'm going to just call it Capital C for Confounder. And that confounder has three categories.
+
+724
+01:28:41,950 --> 01:28:50,319
+And I want to adjust for that confounder when I'm thinking about the hazard ratio and I need to think about how I'm going to do it,
+
+725
+01:28:50,320 --> 01:28:54,940
+am I going to put it in the model statement or I'm going to am I going to use a stratified based on hazard?
+
+726
+01:28:57,500 --> 01:29:03,260
+So Cox regression offers two ways to approach that adjustment for that categorical confounder.
+
+727
+01:29:03,260 --> 01:29:07,090
+So method one is to do what we usually do.
+
+728
+01:29:07,100 --> 01:29:12,050
+So either use a class statement in SAS or an asked factor in R,
+
+729
+01:29:12,770 --> 01:29:17,510
+or you can even create your own indicator variables for C and just put them in the model statement.
+
+730
+01:29:19,890 --> 01:29:22,980
+That's what we're used to. But now we have a new for this.
+
+731
+01:29:22,980 --> 01:29:25,709
+COX Proportional hazards. Well, we have another option,
+
+732
+01:29:25,710 --> 01:29:35,190
+and that is to stratify the baseline hazard by the three levels of the confounder and estimate the overall hazard ratio associated with the exposure.
+
+733
+01:29:35,190 --> 01:29:41,760
+So the exposure variable will still be in the model statement, but the confounder we use as a stratifying variable.
+
+734
+01:29:43,560 --> 01:29:48,780
+And again, I don't want you to get too hung up on the technical. Technical idea of this helps you think about it.
+
+735
+01:29:48,780 --> 01:29:55,560
+Great. But otherwise, don't worry about it. You're coming up with an overall hazard ratio adjusted for the level of the confounder,
+
+736
+01:29:55,890 --> 01:29:59,850
+and that's going to be based on this EDI, the beta term for the exposure variable.
+
+737
+01:30:00,120 --> 01:30:05,669
+And it's it's somewhat similar to the idea that Mantel Hansell has of coming
+
+738
+01:30:05,670 --> 01:30:10,440
+up with a simple single odds ratio that adjusts for levels of a confounder.
+
+739
+01:30:10,890 --> 01:30:14,280
+The mechanics behind the scenes is not quite the same, but it's the same idea.
+
+740
+01:30:14,280 --> 01:30:21,030
+We're using the same e to the beta to capture the overall hazard ratio, accounting for these different strata for the confounder.
+
+741
+01:30:23,540 --> 01:30:26,269
+So method of one method to use different assumptions.
+
+742
+01:30:26,270 --> 01:30:31,520
+So I want to unpack it a little bit more so we can understand what those assumptions are and what we want to do.
+
+743
+01:30:33,410 --> 01:30:38,540
+So some of this unpacking is going to seem maybe tedious because it'll seem obvious.
+
+744
+01:30:38,540 --> 01:30:43,360
+But I want to be able to compare the two methods clearly. So here here's.
+
+745
+01:30:45,560 --> 01:30:47,750
+You know the method one indicator variables.
+
+746
+01:30:47,750 --> 01:30:55,700
+And just to be clear, I'm going to have indicators that I create rather than having a class statement or as a factor.
+
+747
+01:30:55,720 --> 01:30:59,840
+So the reference level is going to be level one of the confounder.
+
+748
+01:30:59,840 --> 01:31:05,690
+And then I have this do you see two for the second level of the confounder and Z three for the third level of the confounder.
+
+749
+01:31:05,690 --> 01:31:10,850
+So Z the Z with the C subscripts, those are capturing the confounder.
+
+750
+01:31:11,690 --> 01:31:18,259
+And then the variable I'm really interested in is the z e e the subscript being for exposed versus unexposed.
+
+751
+01:31:18,260 --> 01:31:20,930
+So this is, these are the only variables I'm thinking about right now.
+
+752
+01:31:21,320 --> 01:31:26,750
+My science is around z e, but I have this confounder that I need to deal with and adjust for.
+
+753
+01:31:28,850 --> 01:31:37,009
+So if we use the first method of adjusting for the confounder the way we have of in every other regression model to date,
+
+754
+01:31:37,010 --> 01:31:41,420
+we would just put in these confounder levels into our model.
+
+755
+01:31:42,410 --> 01:31:46,639
+Right. And this is what our hazard would look like.
+
+756
+01:31:46,640 --> 01:31:49,700
+Our hazard function would be one single reference curve.
+
+757
+01:31:49,700 --> 01:31:56,540
+And then depending on what risk profile you have here, you multiply it by whatever these terms end up being.
+
+758
+01:31:56,540 --> 01:32:00,350
+But all the hazards for every possible combination of risk profile,
+
+759
+01:32:00,620 --> 01:32:08,479
+all of those hazards are assumed to be proportional to one another, regardless of, you know, whether we have level two of sea,
+
+760
+01:32:08,480 --> 01:32:14,030
+level three of sea, and regardless of what your exposure status, any combination of those with numbers plugged in,
+
+761
+01:32:14,300 --> 01:32:21,150
+those hazard functions are assumed to be proportional to one another. So what are the what?
+
+762
+01:32:21,180 --> 01:32:31,540
+What are the mortality hazard ratios comparing the exposed to the unexposed within each level of the confounder?
+
+763
+01:32:31,560 --> 01:32:36,060
+This is kind of how we think about adjustment right within any level of confounder.
+
+764
+01:32:36,510 --> 01:32:47,149
+What's the hazard ratio? And so for this particular way of doing the model, this is where it's going to seem really obvious perhaps to you.
+
+765
+01:32:47,150 --> 01:32:55,879
+But we want to have a clear comparison. So when I'm in level one of the confounder, that's the reference groups as these T two is zero, z,
+
+766
+01:32:55,880 --> 01:33:05,540
+c three is a zero and all I've got is the beta three times the plugged in value for the exposure.
+
+767
+01:33:05,540 --> 01:33:08,569
+So when I'm exposed it just becomes lambda not t two.
+
+768
+01:33:08,570 --> 01:33:12,320
+The beta three with the z equals one, z equals one.
+
+769
+01:33:12,920 --> 01:33:22,130
+And when I'm not exposed, all of the variables are zero and I just get the reference hazard, the baseline hazard again.
+
+770
+01:33:22,640 --> 01:33:30,740
+And so when I'm looking at the hazard ratio, if you're in the first level of the confounder, that hazard ratio is just eat of the beta three.
+
+771
+01:33:31,830 --> 01:33:33,629
+And as you get used to these models,
+
+772
+01:33:33,630 --> 01:33:40,440
+whenever you're assuming proportional hazards with this same baseline reference curve and there's no interaction terms or anything,
+
+773
+01:33:40,440 --> 01:33:44,310
+the algebra is always going to end up being e to that beta, right?
+
+774
+01:33:46,940 --> 01:33:54,180
+And. So this is where the algebra seems kind of tedious if I'm within level two of the confounder.
+
+775
+01:33:55,660 --> 01:34:00,550
+Then my zc2 is the one. zc3 is a zero.
+
+776
+01:34:01,480 --> 01:34:09,130
+And so for the exposure group, my hazard is going to be the reference hazard times e to the beta one because this was a one.
+
+777
+01:34:10,270 --> 01:34:16,270
+And this is this disappears. And I have been to three times one for the exposure, right?
+
+778
+01:34:16,270 --> 01:34:19,870
+So I have e to the beta one plus beta three times the reference hazard.
+
+779
+01:34:20,320 --> 01:34:24,660
+And if I'm not exposed I. It's the.
+
+780
+01:34:27,040 --> 01:34:31,270
+It's just the beta one that shows up because this is a zero and this is a zero.
+
+781
+01:34:31,930 --> 01:34:34,990
+And so the hazard ratio, again, it's just either the beta three.
+
+782
+01:34:36,950 --> 01:34:44,390
+And the same thing's going to happen. Without me even having to do the algebra, it's going to be the same thing if you're within level three.
+
+783
+01:34:45,580 --> 01:34:51,850
+You're going to still get eat of the beta three once you plug in the you know what the curve looks what
+
+784
+01:34:51,850 --> 01:34:56,110
+the hazard function looks like for the expose and the hazard function looks like for the unexposed.
+
+785
+01:34:56,680 --> 01:35:01,090
+Everything cancels but the the beta three. All right.
+
+786
+01:35:01,450 --> 01:35:07,900
+And this is going to be a common thing that you see with partial hazards, as long as there's no interactions with the exposure with other stuff.
+
+787
+01:35:08,170 --> 01:35:14,410
+It's always going to be each of the beta three for a one you two increase in this variable for your hazard ratio.
+
+788
+01:35:16,260 --> 01:35:20,010
+So what happens when we try the second wave adjusting?
+
+789
+01:35:24,440 --> 01:35:31,910
+Oh, I have some remarks for the remarks. So landing not to is the hazard function for unexposed subjects.
+
+790
+01:35:32,890 --> 01:35:40,210
+With the first level of the confounders, though, the reference hazard in this situation actually is a real group of people.
+
+791
+01:35:41,120 --> 01:35:46,700
+Because there actually is a meaningful interpretation when all the covariates are equal to zero.
+
+792
+01:35:47,570 --> 01:35:50,990
+This curve is actually representing a real group of people.
+
+793
+01:35:50,990 --> 01:35:53,780
+It's not always going to be the case, but in this case it is.
+
+794
+01:35:54,890 --> 01:35:59,570
+The shapes of the hazards are the same within each level of the Confounder and Exposure Group.
+
+795
+01:36:02,080 --> 01:36:04,240
+You know, because we're assuming proportional hazards.
+
+796
+01:36:04,870 --> 01:36:12,309
+So if the if the reference hazard peaks at time T hazards and all the levels of the confounder exposure
+
+797
+01:36:12,310 --> 01:36:18,400
+groups will also peak at the same time t they're all following the model is forcing them to do that.
+
+798
+01:36:21,000 --> 01:36:26,450
+And so we've assumed proportional hazards for each possible coverage profile when we do this method.
+
+799
+01:36:26,840 --> 01:36:34,790
+So proportional hazards is not really the case for any of these culverts or models going to not be correct?
+
+800
+01:36:34,880 --> 01:36:40,550
+Right. So let's now look at the stratified baseline hazard method.
+
+801
+01:36:41,360 --> 01:36:51,190
+So here. We're going to take the levels that the confounder and we're going to have separate reference curves for each level of the confounder.
+
+802
+01:36:51,210 --> 01:36:58,950
+So we have three levels of the confounder. So we're going to have one reference curve for the hazard for each of those confounder levels.
+
+803
+01:37:00,030 --> 01:37:03,750
+And the only term in the model is going to be the exposure variable.
+
+804
+01:37:05,260 --> 01:37:08,860
+Right in the model statement. That's going to be the only variable here.
+
+805
+01:37:09,070 --> 01:37:13,030
+I can't have see both here in the baseline strata and over here.
+
+806
+01:37:14,210 --> 01:37:19,440
+The model doesn't allow for that possibility. You have to choose.
+
+807
+01:37:20,310 --> 01:37:25,020
+And so if I'm in level one of the confounder, where does that show up in this model?
+
+808
+01:37:25,050 --> 01:37:32,190
+Well, that means that I am looking at the curve lambda, where the subscripts zero and one.
+
+809
+01:37:34,630 --> 01:37:45,420
+Right. And so if they're in the exposed group, my hazard is lambda with the subscript 011, meaning that's the first level of confounder.
+
+810
+01:37:46,720 --> 01:37:50,470
+And then e to the beta three because I've got z equals one.
+
+811
+01:37:52,330 --> 01:37:54,760
+And if I am in the zero group.
+
+812
+01:37:56,500 --> 01:38:04,930
+For the exposure, then my hazard is this again this hazard for the reference group for that level one of the confounder.
+
+813
+01:38:06,160 --> 01:38:11,260
+So the subscripts here are the same because I'm within the same level of the computer for each and
+
+814
+01:38:11,260 --> 01:38:16,870
+they're using the same baseline survival function when you're within the same level of the confounder.
+
+815
+01:38:17,500 --> 01:38:20,950
+And so the hazard ratio is E to the beta three.
+
+816
+01:38:23,350 --> 01:38:27,009
+Now this, this number is not going even though I'm using the same notation.
+
+817
+01:38:27,010 --> 01:38:32,050
+This is this number is not algebraically identical to what we saw in the previous model.
+
+818
+01:38:32,410 --> 01:38:40,330
+Behind the scenes are betas are going to shift around if we're assuming proportional hazards versus not assuming proportional hazards,
+
+819
+01:38:40,330 --> 01:38:45,010
+but the form of the hazard ratio looks the same.
+
+820
+01:38:45,190 --> 01:38:51,190
+It just depends on this beta three parameter that is probably changed based on having to estimate this part differently.
+
+821
+01:38:53,910 --> 01:39:01,610
+But this estimate of Beta three has it relied on a fourth personality assumption for for the confounder.
+
+822
+01:39:05,370 --> 01:39:10,439
+And so the algebra is going to look the same if you're in different levels of the confounder.
+
+823
+01:39:10,440 --> 01:39:15,629
+The part that changes is the reference hazard that you're using.
+
+824
+01:39:15,630 --> 01:39:20,070
+So if you're in the second level of the confounder, there's a whole different reference curve for that.
+
+825
+01:39:21,150 --> 01:39:26,910
+Whether you're in the exposed group like I have here or whether you're not in the exposed group like I have here.
+
+826
+01:39:27,540 --> 01:39:30,270
+So as long as you're within that same level of confounder,
+
+827
+01:39:30,540 --> 01:39:37,020
+the the reference curves for that group still cancel and you still have the same hazard ratio.
+
+828
+01:39:38,360 --> 01:39:42,400
+That's that's being taken from the data. It depends on the same parameter.
+
+829
+01:39:42,410 --> 01:39:49,100
+So even though I'm talking about two different levels of the confounder, the model only gives you one hazard ratio.
+
+830
+01:39:49,100 --> 01:39:53,870
+Now this e to the beta three and this either the beta three from the same model three, that's the same number.
+
+831
+01:39:54,970 --> 01:40:01,270
+So I'm forcing a common hazard ratio for the exposure, regardless of the level, the confounder.
+
+832
+01:40:03,920 --> 01:40:09,379
+And the same thing's going to happen over here. The main thing that changes is that my reference curve.
+
+833
+01:40:09,380 --> 01:40:11,630
+For the third level, the confounder has changed.
+
+834
+01:40:12,840 --> 01:40:18,810
+But when I look at the hazard ratio for the exposed versus the non exposed, I still get you to the beta three.
+
+835
+01:40:19,200 --> 01:40:22,290
+So the same hazard ratio based on this part of the model.
+
+836
+01:40:22,560 --> 01:40:27,000
+Either the beta three is the same regardless of the level of the confounder.
+
+837
+01:40:27,180 --> 01:40:35,880
+And so this is this hazard ratio either by three has adjusted for confounder in this different way than what we've done before.
+
+838
+01:40:36,780 --> 01:40:45,060
+So each is adjusting for the confounder, whether we use indicators in the model or we use stratified baseline hazards.
+
+839
+01:40:46,290 --> 01:40:53,459
+So the advantages of this method are that I you know, the the hazards for these levels are the contrary.
+
+840
+01:40:53,460 --> 01:40:57,870
+It could be all different wacky shapes that don't shadow each other at all.
+
+841
+01:40:59,040 --> 01:41:05,010
+They don't have to have proportional hazards. And my hazard ratio for the exposure will be correct.
+
+842
+01:41:06,620 --> 01:41:12,770
+If you use the first method of adjustment with indicators in the model but only one reference curve,
+
+843
+01:41:12,860 --> 01:41:20,330
+you really need the proportional for the confounder to be proportional for that hazard ratio to be correct.
+
+844
+01:41:21,110 --> 01:41:27,489
+Right. So these can have whatever shapes we want.
+
+845
+01:41:27,490 --> 01:41:31,390
+They don't have to have the same pattern over time at all.
+
+846
+01:41:32,170 --> 01:41:38,379
+They can be really radically different. So some further remarks.
+
+847
+01:41:38,380 --> 01:41:42,010
+Some of these I'm just repeating myself, but they're getting into your notes this way.
+
+848
+01:41:42,010 --> 01:41:47,080
+So the shapes of the hazards are the same within each exposure group.
+
+849
+01:41:47,890 --> 01:41:54,880
+So we have the same reference curve. If we're in level one of the confounder, it's reference it's lambdas zero one of T.
+
+850
+01:41:55,930 --> 01:42:00,100
+Same curves if you're in level two of the confounder is lambda zero two of t
+
+851
+01:42:00,550 --> 01:42:04,330
+you know they're the same within the shapes of the heads that are the same.
+
+852
+01:42:05,680 --> 01:42:09,070
+Within each exposure group, it can be different across the sea levels.
+
+853
+01:42:14,290 --> 01:42:19,060
+So we've assumed proportional hazards within each stratum, but not across strata.
+
+854
+01:42:21,940 --> 01:42:27,040
+And again, I don't want you to get too hung up on the idea, but in my own mind,
+
+855
+01:42:27,040 --> 01:42:34,449
+this is this is very similar to the man landslide idea of obtaining a common estimate from stratified analysis behind the scenes.
+
+856
+01:42:34,450 --> 01:42:43,300
+The mechanics are different, but you're still coming up with an overall hazard ratio combining information across the various strata.
+
+857
+01:42:45,770 --> 01:42:51,770
+So here the common hazard ratio for the exposure as fit as part of the model estimation rather than averaging across strata.
+
+858
+01:42:52,250 --> 01:42:56,000
+As with the mental Hansell method where you can actually see the averaging happening,
+
+859
+01:42:56,000 --> 01:43:01,889
+we we can't quite algebraically show you that averaging but there's a similar idea in place
+
+860
+01:43:01,890 --> 01:43:06,410
+that the models getting fit in the background with the likelihood the partial likelihood.
+
+861
+01:43:07,590 --> 01:43:15,749
+All right. So here's another example. Just I think we'll have time to look at this example, just to understand this a little bit better.
+
+862
+01:43:15,750 --> 01:43:21,150
+So let's look at time to the first recurrence of herpes simplex virus.
+
+863
+01:43:22,090 --> 01:43:31,239
+And this clinical trial. So acyclovir is an antiviral in common use for herpes simplex simplex virus HSV with
+
+864
+01:43:31,240 --> 01:43:35,350
+a few different formulations under consideration for this hypothetical example.
+
+865
+01:43:36,500 --> 01:43:43,070
+And the goals to model time from the resolution of the lesion to the first recurrence of the disease.
+
+866
+01:43:43,940 --> 01:43:50,250
+So the predictors are the treatment. And so acyclovir treatment type is coded with indicator variables.
+
+867
+01:43:50,610 --> 01:43:54,479
+The reference group is going to be no acyclovir treatment. So we have three treatments.
+
+868
+01:43:54,480 --> 01:43:58,260
+We're comparing topical, oral or IV.
+
+869
+01:44:02,830 --> 01:44:12,520
+And the there's also this confounder the type of herpes simplex virus coded with indicator variables.
+
+870
+01:44:12,790 --> 01:44:17,290
+The reference group is HSV one, but there's something called HSV two.
+
+871
+01:44:17,290 --> 01:44:20,820
+HSV three. As well.
+
+872
+01:44:21,690 --> 01:44:27,059
+And we we have other confounders as well, age, gender, duration of prior lesion and days.
+
+873
+01:44:27,060 --> 01:44:35,910
+But I'm going to be just looking at this type as a confounder just to exercise this idea of of different stratified hazards and things.
+
+874
+01:44:36,750 --> 01:44:40,230
+So the confounder adjustment approach that we use depends on whether we not
+
+875
+01:44:40,470 --> 01:44:43,800
+we think proportional hazards assumptions are reasonable for that variable.
+
+876
+01:44:44,900 --> 01:44:49,790
+And we're going to focus again on this type of HCV as the confounder,
+
+877
+01:44:49,970 --> 01:44:56,330
+even though there's more confounders here that we might want to think about later. Male We could think about the continuous covariates.
+
+878
+01:44:56,330 --> 01:45:03,860
+If we wanted to study this, we would have to break them into categories to even think about stratifying variables based on those.
+
+879
+01:45:07,160 --> 01:45:16,910
+So the indicator variable approach would assume each covariate profile obeys proportional hazards, all different combinations of them.
+
+880
+01:45:17,420 --> 01:45:24,110
+And so this is the way we would write the hazard where there's only a single
+
+881
+01:45:24,110 --> 01:45:30,110
+reference curve for everybody and we put the confounder of type in the model.
+
+882
+01:45:32,950 --> 01:45:41,979
+And so if we do this stratification approach where we're adjusting for HSV types using different baseline strata,
+
+883
+01:45:41,980 --> 01:45:52,720
+that would allow hazards between the type strata to be more flexible so that we wouldn't assume that the hazard relating to HSV is proportional.
+
+884
+01:45:53,020 --> 01:46:02,320
+But everything else in the model, we would still have proportional hazards assumptions in play within any particular HSV group.
+
+885
+01:46:05,450 --> 01:46:13,430
+And so the model, the type shows up here in the model instead of in the model statement part over here.
+
+886
+01:46:13,820 --> 01:46:16,790
+The type is now no longer in this list.
+
+887
+01:46:17,120 --> 01:46:27,260
+It shows up here in the baseline strata that will have three curves depending on whether they have HSV type one, two or three, three reference curves.
+
+888
+01:46:27,650 --> 01:46:31,730
+And within each of those curves, if J is equal to one, for example.
+
+889
+01:46:32,980 --> 01:46:39,670
+These are, you know, the hazards related to all these other risk factors.
+
+890
+01:46:39,850 --> 01:46:45,340
+Any profile is assumed to have a potential hazards within the level one of the confounder.
+
+891
+01:46:46,180 --> 01:46:50,979
+You're also assuming proportional hazards for all these other factors within level two of the confounder,
+
+892
+01:46:50,980 --> 01:46:54,250
+even though that shape of the reference Kirk could be wakeley different.
+
+893
+01:46:55,090 --> 01:46:57,430
+And similarly, for level three of the confounder,
+
+894
+01:46:58,300 --> 01:47:03,550
+you're assuming that all of these risk factors have proportional hazards assumptions correctly going on.
+
+895
+01:47:07,520 --> 01:47:12,479
+Here's another example. Time to drug use relapse.
+
+896
+01:47:12,480 --> 01:47:18,120
+And so this is data from a randomized trial of two inpatient treatment courses for drug addiction,
+
+897
+01:47:18,690 --> 01:47:22,620
+heroin, cocaine and unspecified other drugs outcomes.
+
+898
+01:47:22,620 --> 01:47:30,060
+Time to drug relapse. And we're looking at a short versus a long treatment plan.
+
+899
+01:47:32,570 --> 01:47:36,770
+And there are other variables in the dataset as well.
+
+900
+01:47:37,190 --> 01:47:40,549
+Variables like age, sorry, and a few others we won't focus on for now.
+
+901
+01:47:40,550 --> 01:47:45,860
+But we're going to looking look at site in some detail and to see, you know,
+
+902
+01:47:45,860 --> 01:47:53,450
+whether how it works if you use it as a covered in the model statement versus a stratified variable.
+
+903
+01:47:53,690 --> 01:47:59,060
+And the data source comes from a really great text book that it's old but it's good,
+
+904
+01:48:00,200 --> 01:48:04,310
+I think is freely available actually through library if you really want to do more reading.
+
+905
+01:48:05,810 --> 01:48:09,710
+So this is a data set that I put on canvas that you can play with if you want to.
+
+906
+01:48:10,490 --> 01:48:14,590
+So there's the the X and the Delta looks like this.
+
+907
+01:48:14,600 --> 01:48:22,160
+So the X is time to drug relapse in days, real days.
+
+908
+01:48:22,280 --> 01:48:25,280
+So it's not a death of and it's time to drug, relax, relapse.
+
+909
+01:48:25,280 --> 01:48:35,810
+So it's still bad. So hazards that are high are going to mean you return to drug use more quickly and then the delta variables called censored.
+
+910
+01:48:36,080 --> 01:48:40,070
+So return to drug use is one for yes and zero censored.
+
+911
+01:48:40,460 --> 01:48:44,150
+So the long treatment is the treatment assignment.
+
+912
+01:48:44,270 --> 01:48:50,839
+So one, if they got the long treatment versus zero for the short treatment and then age and years and site,
+
+913
+01:48:50,840 --> 01:48:55,400
+there were two sites are zero and label zero and one.
+
+914
+01:48:57,790 --> 01:49:03,940
+And so just this is just reading in the data behind the scenes and taking a look at it.
+
+915
+01:49:05,140 --> 01:49:14,860
+There's just a little snippet shown here. So here's our X variable, here's our Delta variable, and here are covariates and the cover it.
+
+916
+01:49:14,860 --> 01:49:22,230
+We really want to understand this long treatment variable. We have confounders including age and site, so site is categorical.
+
+917
+01:49:22,240 --> 01:49:27,250
+We can play with the proportional hazards and how we model it. And we've run out of time.
+
+918
+01:49:27,580 --> 01:49:30,700
+So we're going to have to pick up here next time.
+
+919
+01:49:33,530 --> 01:49:39,170
+And that's going to be we'll come back to it Monday. I guess I'll remind ourselves, what date is that we're looking at?
+
+920
+01:49:39,190 --> 01:49:43,400
+So slide I guess that's what this is the slide numbers way up here, 26.
+
+921
+01:49:43,940 --> 01:49:49,579
+All right, so have a great weekend. And I guess the next time I see you will be Halloween.
+
+922
+01:49:49,580 --> 01:50:02,200
+I think we have class on Halloween. Oh, it's great.
+
+923
+01:50:08,890 --> 01:50:09,360
+Well there.
+

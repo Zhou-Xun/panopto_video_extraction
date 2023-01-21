@@ -1,0 +1,4244 @@
+1
+00:00:00,884 --> 00:00:06,424
+we have a very intense chapter on modeling and my intention
+
+2
+00:00:06,424 --> 00:00:11,724
+in this chapter is not to scare you away or anything to catch you to
+
+3
+00:00:11,724 --> 00:00:17,084
+talk to language of modelers. okay. and we'll go through some concepts
+
+4
+00:00:17,084 --> 00:00:22,164
+in environmental fate and transport and bio kinetic modeling to the extent we came to
+
+5
+00:00:22,164 --> 00:00:27,284
+ours. so I'm gonna go pretty fast I'm gonna skip certain parts and
+
+6
+00:00:27,284 --> 00:00:32,304
+I want you to learn the language. so if I say sensitivity analysis
+
+7
+00:00:32,304 --> 00:00:37,684
+or variability or uncertainty I want you know what that means for model product gnostic modeling
+
+8
+00:00:37,684 --> 00:00:43,724
+things like this it's a language that I'm after and then we'll get more into applications as we go. again
+
+9
+00:00:43,724 --> 00:00:48,764
+along in the semester. so how maybe which is a climate strike on Fridays to shift
+
+10
+00:00:48,764 --> 00:00:54,284
+gears a little bit. okay. and
+
+11
+00:00:54,284 --> 00:00:59,764
+you know yesterday at the UN was a big climate meeting right and this is probably
+
+12
+00:00:59,764 --> 00:01:05,004
+the preeminent environmental model of our time is with climate change
+
+13
+00:01:05,004 --> 00:01:10,304
+in global circulation and these types of models okay. and so
+
+14
+00:01:10,304 --> 00:01:16,224
+I was looking for one that you might be able to use and Ron and I encourage you to
+
+15
+00:01:16,224 --> 00:01:21,584
+check out this site it's called global calculator and it's a very simple spreadsheet
+
+16
+00:01:21,584 --> 00:01:27,264
+type of model but what it allows you to do is to
+
+17
+00:01:27,264 --> 00:01:32,264
+put in different scenarios like how much travel you're gonna do or what's the
+
+18
+00:01:32,264 --> 00:01:38,284
+energy mix gonna be and then predicts the
+
+19
+00:01:38,284 --> 00:01:46,801
+a number different impacts including cost and
+
+20
+00:01:46,801 --> 00:01:52,141
+energy futures and things like this and I just encourage you to look at it
+
+21
+00:01:52,141 --> 00:01:57,241
+and okay and give it a try. it's it's very simple in some ways but it's
+
+22
+00:01:57,241 --> 00:02:02,581
+also very complex in other ways and this is just showing you for example the historical
+
+23
+00:02:02,581 --> 00:02:07,641
+temperatures and then based on the scenarios here that can include lifestyle
+
+24
+00:02:07,641 --> 00:02:12,881
+technology land and other parameters that I can change it comes up with upper
+
+25
+00:02:12,881 --> 00:02:18,581
+and lower boundary for temperatures over the next seventy
+
+26
+00:02:18,581 --> 00:02:24,281
+years something like that. so it's a cool little application. it's actually a spreadsheet model.
+
+27
+00:02:24,281 --> 00:02:29,441
+okay just been reported to the web. you know nice interface. so you can make
+
+28
+00:02:29,441 --> 00:02:34,701
+simple calculations look really jazzy if you want give that a shot.
+
+29
+00:02:34,701 --> 00:02:40,061
+bye. have much more structured models that we're gonna use in the course.
+
+30
+00:02:40,061 --> 00:02:45,935
+so should a goal is to try to get through all of this stuff here and
+
+31
+00:02:45,935 --> 00:02:51,035
+the readings are not as essential as understanding the slides. but you should take a look
+
+32
+00:02:51,035 --> 00:02:56,095
+at the readings. so I wanna cover a little bit of reasons tomorrow
+
+33
+00:02:56,095 --> 00:03:01,335
+and focus really on mass balance modeling. will
+
+34
+00:03:01,335 --> 00:03:06,355
+talk about some of the language for modeling and then I'll go through a progression of very trivial
+
+35
+00:03:06,355 --> 00:03:11,515
+to fairly sophisticated model examples with a little bit of math. so brush that off
+
+36
+00:03:11,515 --> 00:03:16,715
+with us back to science and math and physics and stuff like that. then we'll talk about
+
+37
+00:03:16,715 --> 00:03:22,115
+model of valuation with how you formulate models. what makes good models and and some of the modeling
+
+38
+00:03:22,115 --> 00:03:27,175
+issues. this is an awful lot to do. okay. so I've said
+
+39
+00:03:27,175 --> 00:03:32,235
+all of this and some of the readings that I have
+
+40
+00:03:32,235 --> 00:03:37,535
+put on canvas I listed here. this is a national research
+
+41
+00:03:37,535 --> 00:03:43,135
+council report from what about twelve years ago. describing how models are used in the regulatory
+
+42
+00:03:43,135 --> 00:03:48,913
+process they are an essential piece of the regulators to kids.
+
+43
+00:03:48,913 --> 00:03:54,313
+they should also be major portions of policy makers toolkits
+
+44
+00:03:54,313 --> 00:03:59,433
+as well. okay. and so having some understanding not just to
+
+45
+00:03:59,433 --> 00:04:05,533
+be able to say you know you've left this out your models not good. it's you know show me the the proof
+
+46
+00:04:05,533 --> 00:04:12,013
+but to make things better as well. so we have to look at it on both pros and cons. bye.
+
+47
+00:04:12,013 --> 00:04:17,133
+okay. so models you guys have various types of definitions but
+
+48
+00:04:17,133 --> 00:04:22,453
+one is this is a simplification reduction of reality utilize for some purpose.
+
+49
+00:04:22,453 --> 00:04:27,633
+and this is one of the definition of mathematical definition is
+
+50
+00:04:27,633 --> 00:04:32,693
+that it's some simplified version
+
+51
+00:04:32,693 --> 00:04:38,353
+of the system and the processes that take place within it and third
+
+52
+00:04:38,353 --> 00:04:43,955
+type definition is a mathematical one. we're basically I have. why is equal to half of
+
+53
+00:04:43,955 --> 00:04:49,055
+now in each of these three definitions are just very quickly going through there is a tremendous
+
+54
+00:04:49,055 --> 00:04:54,055
+amount of subtleties let's look at the third one when you have a function like why because
+
+55
+00:04:54,055 --> 00:04:59,135
+after tax what's the dependent variable line of course
+
+56
+00:04:59,135 --> 00:05:04,495
+what's the independent variable vector of access okay. and so the idea
+
+57
+00:05:04,495 --> 00:05:10,215
+is that why depends on these axes the exes are for independent
+
+58
+00:05:10,215 --> 00:05:15,415
+variables and presumably not affected by why but relationship goes
+
+59
+00:05:15,415 --> 00:05:20,555
+one way. okay they affect why we can break this down into two pieces you have
+
+60
+00:05:20,555 --> 00:05:25,555
+the exes those of the parameters and they have specific values that go into the model and then there's some
+
+61
+00:05:25,555 --> 00:05:30,655
+sort of algebraic relationship between them and that's the structure. so why this is equal half to
+
+62
+00:05:30,655 --> 00:05:36,935
+of ex is a model that has two basic parts structure and the parameters go into it.
+
+63
+00:05:36,935 --> 00:05:42,135
+okay. in engineering or some policy applications. we talk about taxes
+
+64
+00:05:42,135 --> 00:05:47,533
+is the things that we can control okay so we'll change the dynamics
+
+65
+00:05:47,533 --> 00:05:52,533
+of electrical power system by increasing or decreasing Hydro. okay that might be an
+
+66
+00:05:52,533 --> 00:05:58,073
+ex. okay and why might be one of us you know CO2
+
+67
+00:05:58,073 --> 00:06:03,113
+emissions or something like that. climate change and okay from these
+
+68
+00:06:03,113 --> 00:06:08,193
+other definitions here. the things I want to emphasize the seems very basic but it's important. we
+
+69
+00:06:08,193 --> 00:06:13,513
+have a reason to do this. okay. and we have an application.
+
+70
+00:06:13,513 --> 00:06:18,633
+so it's important that we get this right. so
+
+71
+00:06:18,633 --> 00:06:23,873
+you know we talked about impact analysis and the definitions and approaches
+
+72
+00:06:23,873 --> 00:06:29,293
+ours. describe here we have a review of what the problem is the scoping. we select
+
+73
+00:06:29,293 --> 00:06:34,833
+indicators are measuring something that we care about. we come up with
+
+74
+00:06:34,833 --> 00:06:40,153
+an impact assessment where we evaluate the indicators often numerically. we might use
+
+75
+00:06:40,153 --> 00:06:45,583
+modeling to figure out what's gonna happen in the future okay and then in the EIS
+
+76
+00:06:45,583 --> 00:06:50,923
+process we look at alternatives and those alternatives have to be evaluated so we would use the modeling
+
+77
+00:06:50,923 --> 00:06:56,343
+for that as well. we put it all together and we make recommendations and decisions. so in this
+
+78
+00:06:56,343 --> 00:07:01,343
+modeling plays a central park. okay. because we need to figure out what are
+
+79
+00:07:01,343 --> 00:07:08,743
+the future impacts of alternatives. so that's how it relates to impact analysis.
+
+80
+00:07:08,743 --> 00:07:13,843
+so this slide has some of the jargon that you need to know. okay.
+
+81
+00:07:13,843 --> 00:07:18,883
+if I am modeling to predict what's gonna happen. okay.
+
+82
+00:07:18,883 --> 00:07:24,101
+I call that simulation and in the context of say climate
+
+83
+00:07:24,101 --> 00:07:29,261
+change in temperatures I might say we're gonna have a business as usual and
+
+84
+00:07:29,261 --> 00:07:34,661
+that's the scenario that we're gonna look at and again I will simulate that scenario.
+
+85
+00:07:34,661 --> 00:07:40,061
+okay. if I wanna learn what's important to the functioning
+
+86
+00:07:40,061 --> 00:07:45,661
+of the system. you know the words how important is it that I
+
+87
+00:07:45,661 --> 00:07:51,921
+put back the café standards that the administration remove these are the mileage standards.
+
+88
+00:07:51,921 --> 00:07:57,221
+how much of a difference at is me then I'm trying to see what's
+
+89
+00:07:57,221 --> 00:08:02,441
+important and we call that a sensitivity analysis mathematically.
+
+90
+00:08:02,441 --> 00:08:08,521
+I take my again my simple dependent and independent
+
+91
+00:08:08,521 --> 00:08:14,761
+structure and parameter model relationship and I change one of the inputs.
+
+92
+00:08:14,761 --> 00:08:20,281
+okay and I see how much the model result changes and that's one way to to investigate
+
+93
+00:08:20,281 --> 00:08:25,658
+us instantly okay another example if you're into
+
+94
+00:08:25,658 --> 00:08:30,738
+natural systems or water systems. what's the limiting nutrient. okay and
+
+95
+00:08:30,738 --> 00:08:35,818
+how much is that change results as compared to something that's not limited. well it oughta
+
+96
+00:08:35,818 --> 00:08:40,938
+be greatly different if it's a limiting. talk more about that. okay.
+
+97
+00:08:40,938 --> 00:08:45,978
+so this is what we call sensitivity now also sometimes called Prog gnostic modeling.
+
+98
+00:08:45,978 --> 00:08:51,438
+okay to try to understand what's happening. Sir Bruce. reason
+
+99
+00:08:51,438 --> 00:08:56,898
+or tomorrow is to generate alternatives or determine the best alternative
+
+100
+00:08:56,898 --> 00:09:01,958
+and this might be done in a cost effective manner. what's the most bank you can get
+
+101
+00:09:01,958 --> 00:09:07,078
+with the box. this is what we call maximization for optimization.
+
+102
+00:09:07,078 --> 00:09:12,078
+and this is typically structured as a maximization or house com or the
+
+103
+00:09:12,078 --> 00:09:19,278
+minimization of the outcome subject to different constraints. what would be an example of a constrained
+
+104
+00:09:19,278 --> 00:09:24,862
+budget for example you only have so much money or you can only push the technology
+
+105
+00:09:24,862 --> 00:09:30,062
+so hard. we'll talk a little bit more about all these. I'm a fourth reason is
+
+106
+00:09:30,062 --> 00:09:35,942
+to identify behaviors that might affect the ability to
+
+107
+00:09:35,942 --> 00:09:41,062
+model to implement or change system and this needs to incorporate things
+
+108
+00:09:41,062 --> 00:09:46,182
+like risk averse medicine. how much people will cooperate with one another and this
+
+109
+00:09:46,182 --> 00:09:51,502
+is typically a different type of model than most of the others we call it again. unfortunately
+
+110
+00:09:51,502 --> 00:09:56,682
+simulations but it's also called gaming. okay. and they're all kinds of features based models
+
+111
+00:09:56,682 --> 00:10:01,942
+for example that might be used for simple rules to figure out how collected but he's
+
+112
+00:10:01,942 --> 00:10:07,342
+okay. questions on this. so again what I want you know is simulation sensitivity
+
+113
+00:10:07,342 --> 00:10:13,762
+analysis optimization and gaming. just kind of application.
+
+114
+00:10:13,762 --> 00:10:19,486
+there's more. okay if I wanna know what's gonna happen in the future to forecast something
+
+115
+00:10:19,486 --> 00:10:24,846
+I call that forecasting. okay so basically we might simulate an energy scenario and forecast
+
+116
+00:10:24,846 --> 00:10:30,586
+what is the time change now. no other reason
+
+117
+00:10:30,586 --> 00:10:36,166
+to model is a little more complex in the sense of assigning culpability
+
+118
+00:10:36,166 --> 00:10:42,406
+or who's responsible in this folder spank him to figuring out what's a good way to control the situation.
+
+119
+00:10:42,406 --> 00:10:47,666
+the example that I work with the most is a portion minutes of particulate
+
+120
+00:10:47,666 --> 00:10:53,646
+matter in the air for example if we go out and measure air quality we might see that
+
+121
+00:10:53,646 --> 00:10:58,866
+today it's very clear day but if I go back a few other days some of those hot and hazy days.
+
+122
+00:10:58,866 --> 00:11:04,186
+we might've had a particulate matter concentration of say twenty five micrograms per cubic meter.
+
+123
+00:11:04,186 --> 00:11:09,766
+okay who's responsible for that. there are
+
+124
+00:11:09,766 --> 00:11:14,786
+millions of sources. pollutants coming from long range they come in
+
+125
+00:11:14,786 --> 00:11:19,788
+from nearby. I wanna know how to bring the p.m. level down
+
+126
+00:11:19,788 --> 00:11:29,968
+how why figure out who's responsible. so anybody you know how to do this.
+
+127
+00:11:29,968 --> 00:11:48,528
+yeah.
+
+128
+00:11:48,528 --> 00:11:53,528
+okay so what you're telling me is what we call receptor modeling which is based on the composition of the
+
+129
+00:11:53,528 --> 00:11:58,528
+particles that I measure and matching that to different source characteristics that's
+
+130
+00:11:58,528 --> 00:12:04,168
+model. that's a statistical model. I could also use a simulation model by modeling
+
+131
+00:12:04,168 --> 00:12:09,348
+contributions from cars power plants and other things and then seeing who is
+
+132
+00:12:09,348 --> 00:12:14,608
+actually putting out the pollution I calls this level at this location.
+
+133
+00:12:14,608 --> 00:12:19,802
+so those are two very different approaches ones receptor modeling based on what I measure
+
+134
+00:12:19,802 --> 00:12:25,142
+location and the other is a simulation model using typically a dispersion model.
+
+135
+00:12:25,142 --> 00:12:30,722
+good. seventh reasons
+
+136
+00:12:30,722 --> 00:12:35,902
+model is just because it's cheaper to manipulate a system with a computer and you know with
+
+137
+00:12:35,902 --> 00:12:41,082
+and actually build something and test it out and so it's
+
+138
+00:12:41,082 --> 00:12:46,282
+clearly not feasible to do a lot of things that you can actually quite simply model
+
+139
+00:12:46,282 --> 00:12:51,442
+the complexity of the world is another reason you know for talking
+
+140
+00:12:51,442 --> 00:12:56,442
+about things like climate change or some many factors that go into it and she using
+
+141
+00:12:56,442 --> 00:13:02,082
+the parts of different pieces and their significance as possible without a mathematical
+
+142
+00:13:02,082 --> 00:13:07,442
+structure and then finally will use models
+
+143
+00:13:07,442 --> 00:13:12,762
+because we have to. okay. EPA says you need must do this.
+
+144
+00:13:12,762 --> 00:13:18,462
+okay. or whatever. alright questions on this page
+
+145
+00:13:18,462 --> 00:13:23,522
+good. so I'm from the NRC
+
+146
+00:13:23,522 --> 00:13:29,582
+review. there's a little bit of text about how the EPA is using models and
+
+147
+00:13:29,582 --> 00:13:34,902
+you know they have a very long history here and you know all models
+
+148
+00:13:34,902 --> 00:13:40,442
+simplification 's. but you know what we need to do is focus on what's important
+
+149
+00:13:40,442 --> 00:13:45,462
+and we need to understand how good the model. 's. okay and
+
+150
+00:13:45,462 --> 00:13:50,742
+so that's really some of the points that are made here. lot of other points as well. now I talk
+
+151
+00:13:50,742 --> 00:13:56,662
+to you about optimization. I mean if you have ever run an optimization model before.
+
+152
+00:13:56,662 --> 00:14:01,670
+okay. good you know this is some sort
+
+153
+00:14:01,670 --> 00:14:07,150
+of micro economic types of things but for example if you're looking at chemical exposure could be a worker
+
+154
+00:14:07,150 --> 00:14:12,370
+or a community whatever as I tried to bring it down by using better source controls
+
+155
+00:14:12,370 --> 00:14:18,050
+or possibly different materials. the cost of doing this may increase.
+
+156
+00:14:18,050 --> 00:14:23,610
+okay. and we have sort of a exponentially increasing cost
+
+157
+00:14:23,610 --> 00:14:28,990
+in this picture as I tried to eliminate eliminate the chemical exposure.
+
+158
+00:14:28,990 --> 00:14:34,170
+alright so this is just sort of hypothetical graph now for
+
+159
+00:14:34,170 --> 00:14:39,210
+any particular little point on this
+
+160
+00:14:39,210 --> 00:14:44,410
+plot. some of them are feasible and some are not feasible and what I'm showing you here
+
+161
+00:14:44,410 --> 00:14:49,650
+is a location where I have say moderate chemical exposure. okay. based on
+
+162
+00:14:49,650 --> 00:14:54,750
+the X scale and the control cost is fairly high and based on this
+
+163
+00:14:54,750 --> 00:14:59,847
+plot. what I should be able to do is to bring down the cost
+
+164
+00:14:59,847 --> 00:15:05,227
+get the same chemical exposures so I could optimize this
+
+165
+00:15:05,227 --> 00:15:11,147
+by reducing the control cost by maybe improving the process for the technology and achieve the same
+
+166
+00:15:11,147 --> 00:15:17,787
+level of chemical exposure maybe better than that would be to go in this direction
+
+167
+00:15:17,787 --> 00:15:22,907
+by which I greatly reduced the chemical exposure. but
+
+168
+00:15:22,907 --> 00:15:28,347
+the control post doesn't change. okay so both of these are examples
+
+169
+00:15:28,347 --> 00:15:33,607
+of optimization and the point of the optimization is to get on this curve
+
+170
+00:15:33,607 --> 00:15:39,047
+which we may call the French here is a production service curve or something like that depending on where you are in economics
+
+171
+00:15:39,047 --> 00:15:44,127
+and social well for things and stuff like that. okay. but the main point is don't
+
+172
+00:15:44,127 --> 00:15:49,187
+be in this yellow area because you can always do better in terms of lower cost
+
+173
+00:15:49,187 --> 00:15:56,787
+or better for for everybody see that. okay. question.
+
+174
+00:15:56,787 --> 00:16:04,771
+yeah. so
+
+175
+00:16:04,771 --> 00:16:09,811
+yeah. so you know technology changes things get you
+
+176
+00:16:09,811 --> 00:16:14,931
+know your cell phone gets more powerful for the same cost and so forth. so you know if
+
+177
+00:16:14,931 --> 00:16:19,951
+you're looking at your cell phone performance or something on a load of high scale.
+
+178
+00:16:19,951 --> 00:16:29,811
+maybe you can upgrade without increasing your cost. okay.
+
+179
+00:16:29,811 --> 00:16:36,791
+okay so let's talk about the doesn't that's completely unrelated samples. let's say you have um
+
+180
+00:16:36,791 --> 00:16:42,231
+a water treatment plant it's discharging some pollutants
+
+181
+00:16:42,231 --> 00:16:47,731
+and it's deciding whether to put on primary treatment secondary
+
+182
+00:16:47,731 --> 00:16:52,931
+treatment for serious treatments go up and clean up or whatever. each of those things
+
+183
+00:16:52,931 --> 00:16:57,971
+cost money. okay. and as I put on the additional layers of cleanup.
+
+184
+00:16:57,971 --> 00:17:05,605
+I reduce the exposure. but my cost goes up okay so the question is
+
+185
+00:17:05,605 --> 00:17:11,385
+up here. I might not have a very effective choice of cleanup strategy.
+
+186
+00:17:11,385 --> 00:17:16,625
+so I can do the same performance. okay. by using
+
+187
+00:17:16,625 --> 00:17:23,885
+a better. 's smarter selection of cleanup strategies. that's all. so. okay.
+
+188
+00:17:23,885 --> 00:17:28,985
+can I get to this point right here. the
+
+189
+00:17:28,985 --> 00:17:34,045
+reason is that this to find is what's feasible or possible to do and you
+
+190
+00:17:34,045 --> 00:17:39,265
+know the point I'd like to be as low. we're zero chemical exposure and low
+
+191
+00:17:39,265 --> 00:17:44,725
+cost. but technically that's not feasible. okay. so this is what's called and feasible
+
+192
+00:17:44,725 --> 00:17:49,745
+region. this is a feasible region. but the only possible reason. region or
+
+193
+00:17:49,745 --> 00:17:54,905
+set of solutions is on the score everybody with me on us.
+
+194
+00:17:54,905 --> 00:18:01,293
+now that was a good. simple question. first question is
+
+195
+00:18:01,293 --> 00:18:10,793
+what's the best solution.
+
+196
+00:18:10,793 --> 00:18:16,093
+what doing are you. okay. my reasons for anything.
+
+197
+00:18:16,093 --> 00:18:22,373
+okay. when
+
+198
+00:18:22,373 --> 00:18:28,353
+yeah visual privileges anywhere you want be disappointed is woman's role black loss.
+
+199
+00:18:28,353 --> 00:18:38,433
+okay. because the rush is sort of contextual policy determines whatever
+
+200
+00:18:38,433 --> 00:18:44,353
+like the regulated except you're looking at this like this is their basement
+
+201
+00:18:44,353 --> 00:18:50,073
+right across from us right there probably had a
+
+202
+00:18:50,073 --> 00:18:55,573
+lower cost that they can achieve. they were the
+
+203
+00:18:55,573 --> 00:19:00,845
+first year was a story sure. so if you know the regulator
+
+204
+00:19:00,845 --> 00:19:06,385
+said you can't have exposure. more 's. this is where. they are okay.
+
+205
+00:19:06,385 --> 00:19:12,025
+so this is basically you know some sort of micro economic types of approaches
+
+206
+00:19:12,025 --> 00:19:17,425
+or basic optimization thinking about a trade off with one parameter
+
+207
+00:19:17,425 --> 00:19:23,365
+here. okay and showing you feasible and infeasible and optimal solutions.
+
+208
+00:19:23,365 --> 00:19:28,765
+okay. models can be used to define this person
+
+209
+00:19:28,765 --> 00:19:33,885
+right to figure out the best that you can do and I'll show you an example now.
+
+210
+00:19:33,885 --> 00:19:39,565
+if you look at any reasonable projects for example the highway expansion.
+
+211
+00:19:39,565 --> 00:19:44,725
+you've got cost issues you've got air quality issues you got safety you've got noise you got all kinds
+
+212
+00:19:44,725 --> 00:19:49,725
+of other issues and that kind of production front here here it has to be
+
+213
+00:19:49,725 --> 00:19:54,805
+looked at in multiple dimensions because you got multiple trade-offs going on. okay. so there may
+
+214
+00:19:54,805 --> 00:19:59,989
+not be a simple solution to it but still models can help clarify this
+
+215
+00:19:59,989 --> 00:20:05,389
+kind of example is typical for pretty much all projects that require modeling.
+
+216
+00:20:05,389 --> 00:20:10,469
+there's a lot of information many people are involved boundaries and even
+
+217
+00:20:10,469 --> 00:20:15,669
+the scope of the problem is not is not clearly defined the loss of objective
+
+218
+00:20:15,669 --> 00:20:20,789
+lots of constraints. complex relationships. nonetheless you know I would still argue
+
+219
+00:20:20,789 --> 00:20:25,829
+the models play a pretty essential role here. okay. because it's an explicit statement of
+
+220
+00:20:25,829 --> 00:20:31,409
+what you think is happening. okay. may not be the way policy is made.
+
+221
+00:20:31,409 --> 00:20:38,979
+but is your best kind of technical rational turn to to improving the outcomes
+
+222
+00:20:38,979 --> 00:20:44,319
+okay. 's founders. so bold reasonable model really important. the
+
+223
+00:20:44,319 --> 00:20:49,319
+climate change model. 's and I mentioned is got an this enormous boundaries the
+
+224
+00:20:49,319 --> 00:20:54,619
+entire globe for example that might be needed
+
+225
+00:20:54,619 --> 00:20:59,799
+given the nature of the problem. typically though that kind of model is not tractable
+
+226
+00:20:59,799 --> 00:21:05,179
+and amenable to analysis and we need to break it up and simplify it.
+
+227
+00:21:05,179 --> 00:21:11,399
+so selection of a boundary is really important for that. boundaries can be institutional
+
+228
+00:21:11,399 --> 00:21:16,919
+defined by the regulator can be economic can be environmental.
+
+229
+00:21:16,919 --> 00:21:22,319
+these are all factors that can influence the boundary and the boundary of the model
+
+230
+00:21:22,319 --> 00:21:27,479
+environment is different. often is a geographic scale of temporal scales
+
+231
+00:21:27,479 --> 00:21:34,099
+and functional with media pathways and contaminants are involved.
+
+232
+00:21:34,099 --> 00:21:39,308
+one of the examples that sometimes I use for this is an application for
+
+233
+00:21:39,308 --> 00:21:44,328
+that steam assisted gravity oil sands extraction that I showed you on
+
+234
+00:21:44,328 --> 00:21:49,728
+the first day and this is like third of the third. it's a huge
+
+235
+00:21:49,728 --> 00:21:55,888
+state you know huge province in Canada and they do find the study area
+
+236
+00:21:55,888 --> 00:22:02,328
+for water quality impacts based on the drainage
+
+237
+00:22:02,328 --> 00:22:08,948
+with the idea that this is where water quality impacts would
+
+238
+00:22:08,948 --> 00:22:14,328
+apply on the other hand the air quality impacts for much broader
+
+239
+00:22:14,328 --> 00:22:19,488
+and so you know I can go on at length here but you can have multiple types of projects or model
+
+240
+00:22:19,488 --> 00:22:26,128
+boundaries depending on what you're looking in the same so much.
+
+241
+00:22:26,128 --> 00:22:31,308
+okay. next destination. mass balance modeling. some of you. I hope
+
+242
+00:22:31,308 --> 00:22:36,568
+are familiar with those sort to be familiar with us. yes no.
+
+243
+00:22:36,568 --> 00:22:41,604
+alright well this is important message balance modeling is a process of
+
+244
+00:22:41,604 --> 00:22:47,044
+accounting for transport that's the chemical movements in the face
+
+245
+00:22:47,044 --> 00:22:52,184
+that's a degradation accumulation vibe accumulation et cetera. of typically
+
+246
+00:22:52,184 --> 00:22:57,264
+contaminants in different environmental compartments. you are an environmental
+
+247
+00:22:57,264 --> 00:23:02,444
+compartment. okay. or what body is an environmental
+
+248
+00:23:02,444 --> 00:23:07,804
+compartment key terms in the mass balance modeling.
+
+249
+00:23:07,804 --> 00:23:13,464
+are the source. where is the mass and this is really contemporary
+
+250
+00:23:13,464 --> 00:23:19,244
+and it's coming from what's up halfway house getting there.
+
+251
+00:23:19,244 --> 00:23:24,444
+what's the sinks. this is a location where the containment is ultimately stored
+
+252
+00:23:24,444 --> 00:23:29,664
+or integrated or transferred out loading toward input or flux
+
+253
+00:23:29,664 --> 00:23:34,824
+deals with the rate at which the sources and meeting the contaminants
+
+254
+00:23:34,824 --> 00:23:39,904
+and the mass balance is that this home of everything entering that
+
+255
+00:23:39,904 --> 00:23:44,984
+compartment should match with leaving it in what's being
+
+256
+00:23:44,984 --> 00:23:50,424
+stored. okay. so let me make this more real to you.
+
+257
+00:23:50,424 --> 00:23:56,144
+hey if you go swimming in like Michigan or boating rooms and look. alright. good big like right.
+
+258
+00:23:56,144 --> 00:24:01,164
+so on the left panel we're showing estimates from a very large study that
+
+259
+00:24:01,164 --> 00:24:06,624
+was done a while back for mass balance of PC bees and this one is Mercury
+
+260
+00:24:06,624 --> 00:24:11,764
+doesn't matter which one we look at DC Beach. most of the PC bees coming
+
+261
+00:24:11,764 --> 00:24:16,944
+into the lake. okay. come in from the Fox River because
+
+262
+00:24:16,944 --> 00:24:22,744
+it's contaminated superfund site. so they come in through this water pathway.
+
+263
+00:24:22,744 --> 00:24:27,764
+there is Kalamazoo River. we talked about that. okay we know it's contaminated because of those
+
+264
+00:24:27,764 --> 00:24:33,124
+paper mills. there is smaller loading 's and the size of these bars indicate
+
+265
+00:24:33,124 --> 00:24:38,744
+about how much is coming in from some of the other ports along the harbor
+
+266
+00:24:38,744 --> 00:24:45,106
+where's most of the PC becoming
+
+267
+00:24:45,106 --> 00:24:50,306
+from the Fox however the blue arrow showing that hair
+
+268
+00:24:50,306 --> 00:24:55,806
+deposition atmospheric loading over the surface of the lake which is large
+
+269
+00:24:55,806 --> 00:25:01,006
+is in fact responsible for most of it. okay. almost a twenty year or more
+
+270
+00:25:01,006 --> 00:25:06,526
+that's more than twenty years. 's son and a half year. okay.
+
+271
+00:25:06,526 --> 00:25:11,786
+somewhat larger than the combined tributary loading switcher three one twenty five kilograms.
+
+272
+00:25:11,786 --> 00:25:16,966
+okay. same thing on the rights for Mercury we have tributary a
+
+273
+00:25:16,966 --> 00:25:22,066
+loading 's of Mercury coming in some of the same locations are there but
+
+274
+00:25:22,066 --> 00:25:27,066
+the atmosphere closings are also dominant. interestingly the levels are about
+
+275
+00:25:27,066 --> 00:25:32,306
+half of the Mercury cases it's coming but their
+
+276
+00:25:32,306 --> 00:25:37,326
+portion to someone something. so what we have in those pictures is
+
+277
+00:25:37,326 --> 00:25:42,644
+depicted better here. we have stuff coming in from the air okay
+
+278
+00:25:42,644 --> 00:25:47,644
+in terms of kilograms per year comes in and rainfall comes dry particles comes
+
+279
+00:25:47,644 --> 00:25:53,044
+from absorption gas to the water. okay. we have some coming from shoreline
+
+280
+00:25:53,044 --> 00:25:58,344
+discharges and river discharges and things like that. okay. and
+
+281
+00:25:58,344 --> 00:26:03,944
+this qualifies in a different estimate the kilograms per year that are coming in
+
+282
+00:26:03,944 --> 00:26:09,024
+now in billboard the or call here. we have a
+
+283
+00:26:09,024 --> 00:26:14,244
+balance between what's coming in from the atmosphere and the tributaries and
+
+284
+00:26:14,244 --> 00:26:19,284
+what's being incorporated into the surface sentiments down here. so some of the stuff. I
+
+285
+00:26:19,284 --> 00:26:24,444
+mean it likes carbon rich fatty stuff so it's gonna be fine too and so soon
+
+286
+00:26:24,444 --> 00:26:30,004
+and will be incorporated in surface items. okay. some of those settlements get buried
+
+287
+00:26:30,004 --> 00:26:35,004
+and they get into what's considered deeper less successful or deeper real.
+
+288
+00:26:35,004 --> 00:26:40,184
+basically gone from circulation. okay. and then we also have
+
+289
+00:26:40,184 --> 00:26:45,310
+some losses do to a little bit of degradation transformation and we
+
+290
+00:26:45,310 --> 00:26:50,450
+have Al flows via St. Mary's River at the top of the legs. so we lose a little
+
+291
+00:26:50,450 --> 00:26:55,870
+bit of peace TVs that way. the idea of the mass balances that all of these
+
+292
+00:26:55,870 --> 00:27:01,330
+songs at together in Mass.. okay.
+
+293
+00:27:01,330 --> 00:27:17,820
+so it's very complicated.
+
+294
+00:27:17,820 --> 00:27:22,820
+Joe that's a very good point yeah and as they degrade it may change their bio
+
+295
+00:27:22,820 --> 00:27:27,880
+accumulation characteristics and so forth. so yeah it's a multi step process for PC bees
+
+296
+00:27:27,880 --> 00:27:37,380
+and this is one of the concerns that just they're so persistent.
+
+297
+00:27:37,380 --> 00:27:42,520
+yeah bio it is kinda incorporated into this and it's not really brought out separately.
+
+298
+00:27:42,520 --> 00:27:47,920
+this is very complicated. okay. my point here is to not get into the subtleties
+
+299
+00:27:47,920 --> 00:27:54,280
+but to talk early mostly about the past wage but you're up.
+
+300
+00:27:54,280 --> 00:27:59,300
+okay. a couple other points from this. we have pathways that are two way here
+
+301
+00:27:59,300 --> 00:28:04,880
+we have deposition absorption coming in but we also involve socialization. okay. so it's
+
+302
+00:28:04,880 --> 00:28:10,200
+really we need to look at the net. okay. second thing is where
+
+303
+00:28:10,200 --> 00:28:16,225
+is most of the PC being in the system
+
+304
+00:28:16,225 --> 00:28:22,065
+absolutely look at the settlements and here it says forty two hundred kilograms in the settlements
+
+305
+00:28:22,065 --> 00:28:27,485
+in the water column. we have thirteen hundred kilograms still quite a lot.
+
+306
+00:28:27,485 --> 00:28:32,485
+okay but most of it's in the settlements and they don't even talk about the deeper buried settlements is
+
+307
+00:28:32,485 --> 00:28:37,585
+probably much much more there. we. don't okay. so the mass.
+
+308
+00:28:37,585 --> 00:28:42,885
+also tell the mass balance also tells us where the stuff is and in this particular
+
+309
+00:28:42,885 --> 00:28:48,385
+example. I have really models the water column the surface
+
+310
+00:28:48,385 --> 00:28:53,945
+settlements in the deep settlements the separate compartments and I'm tracking PC
+
+311
+00:28:53,945 --> 00:29:00,685
+that are flowing into and out of each of those compartments.
+
+312
+00:29:00,685 --> 00:29:07,845
+we reduce you. hello
+
+313
+00:29:07,845 --> 00:29:12,865
+I can't recall okay that's
+
+314
+00:29:12,865 --> 00:29:17,905
+a very complicated picture let's make it simple practical for us. we have inputs coming
+
+315
+00:29:17,905 --> 00:29:23,665
+in to some control volume some compartments and we have outputs.
+
+316
+00:29:23,665 --> 00:29:28,745
+okay so it maybe a stream flowing into a lake discharging and
+
+317
+00:29:28,745 --> 00:29:33,765
+generate the flow downstream. okay. what we want to do is track
+
+318
+00:29:33,765 --> 00:29:39,105
+what comes into our control volume. understand the slowest mass inputs or flux
+
+319
+00:29:39,105 --> 00:29:44,245
+is coming in. flux is or discharge is coming out
+
+320
+00:29:44,245 --> 00:29:49,885
+and any reactions and accumulations that are occurring within this control going.
+
+321
+00:29:49,885 --> 00:29:54,945
+it's important to understand this language okay. control volume is something I do fine.
+
+322
+00:29:54,945 --> 00:30:00,245
+okay it could be discrete logical things like a lake
+
+323
+00:30:00,245 --> 00:30:05,305
+it could be as cells in your body. okay. and in fact
+
+324
+00:30:05,305 --> 00:30:11,051
+exactly the same types of approaches might be use at the cellular or organist mistake level
+
+325
+00:30:11,051 --> 00:30:16,251
+okay so I might look at your liver your brain or something like that and that's what form two kinetic models
+
+326
+00:30:16,251 --> 00:30:21,471
+with the mass balance puts together the boundary
+
+327
+00:30:21,471 --> 00:30:26,731
+and the flows and it says that what I accumulate in the control volume
+
+328
+00:30:26,731 --> 00:30:31,731
+is equal to what flows in minus what flows out plus
+
+329
+00:30:31,731 --> 00:30:36,751
+or minus the reactions formation that occur within that control
+
+330
+00:30:36,751 --> 00:30:41,751
+bye. okay. and those reactions are typically negative
+
+331
+00:30:41,751 --> 00:30:46,891
+losing mass. we could be positive like with forms of contaminants or if there's no
+
+332
+00:30:46,891 --> 00:30:55,971
+is that zero and it's life simple and happy. Michael.
+
+333
+00:30:55,971 --> 00:31:01,071
+everybody okay on this. if you don't like this. you gotta stop now
+
+334
+00:31:01,071 --> 00:31:07,151
+because guess much worse. alright. if you wanna think of this as a bathtub
+
+335
+00:31:07,151 --> 00:31:12,225
+and you're running the water in and then if it slows out you've
+
+336
+00:31:12,225 --> 00:31:17,805
+got your. okay. I don't care how you think about. if you wanna think about it is
+
+337
+00:31:17,805 --> 00:31:23,005
+you're making a recipe. okay and you're cooking and you're adding stuff into the pot. I don't
+
+338
+00:31:23,005 --> 00:31:30,225
+care. but you gotta have a conception in your mind. alright.
+
+339
+00:31:30,225 --> 00:31:35,285
+so what I wanna do then is take that reaction and expression differential terms
+
+340
+00:31:35,285 --> 00:31:41,085
+where I have the mass flowing in but now I'm gonna look at in terms of a mass time per so it's rate
+
+341
+00:31:41,085 --> 00:31:46,105
+and then that's the inflow coming in minus the outflow plus or minus
+
+342
+00:31:46,105 --> 00:31:53,465
+a reaction. so I've taken exactly the same thing right here and I've just made it into a differential
+
+343
+00:31:53,465 --> 00:31:59,065
+and I express this is rates now and then it's steady state
+
+344
+00:31:59,065 --> 00:32:04,406
+and this is a very critical assumption that means that the mass
+
+345
+00:32:04,406 --> 00:32:09,505
+in the control volume is changing on not changing over time.
+
+346
+00:32:09,505 --> 00:32:14,845
+so I can set the left side of the sequel to zero and that means that the inflows
+
+347
+00:32:14,845 --> 00:32:20,005
+are equal to the flows. so your bathtub has the same amount of water running as it does coming
+
+348
+00:32:20,005 --> 00:32:25,325
+out. so it doesn't overflow. okay. or whatever your model
+
+349
+00:32:25,325 --> 00:32:30,565
+is plus or minus the reaction to take place. Stacy is key
+
+350
+00:32:30,565 --> 00:32:35,585
+concepts because it allows us to really simplify model. if that
+
+351
+00:32:35,585 --> 00:32:41,565
+sometimes the case next. if there is no reaction
+
+352
+00:32:41,565 --> 00:32:46,945
+degradation or whatever. then what I'm modeling is what's called a conservative in
+
+353
+00:32:46,945 --> 00:32:52,025
+contaminants and there's no reaction. so that means that last term goes
+
+354
+00:32:52,025 --> 00:32:57,745
+away and then if I'm both conservative
+
+355
+00:32:57,745 --> 00:33:03,445
+and it's steady state. it's really sucks what flows and flows out
+
+356
+00:33:03,445 --> 00:33:08,905
+to Mass.. so many PC bees per year coming into Lake Michigan. is exactly
+
+357
+00:33:08,905 --> 00:33:14,028
+equal to what's leaving weakness the amount of PCP in the lake
+
+358
+00:33:14,028 --> 00:33:19,447
+system doesn't change. okay. everybody with me.
+
+359
+00:33:19,447 --> 00:33:24,907
+conservative in our study state mass balance modeling. that's really
+
+360
+00:33:24,907 --> 00:33:39,427
+key. alright. good move on.
+
+361
+00:33:39,427 --> 00:33:44,468
+absolute enough. okay. so you could have stuff coming in. you could degrade and
+
+362
+00:33:44,468 --> 00:33:49,468
+nothing slows out and and I case you have a steady state system for different
+
+363
+00:33:49,468 --> 00:33:54,548
+reasons. okay. study state is kind of a birds eye view you don't necessarily know what's
+
+364
+00:33:54,548 --> 00:34:00,392
+going on just and know it's not change good question. others.
+
+365
+00:34:00,392 --> 00:34:05,511
+okay. so really the key expression here is shown up here.
+
+366
+00:34:05,511 --> 00:34:10,612
+alright so stare at that recap mass balance
+
+367
+00:34:10,612 --> 00:34:15,771
+modeling you need some well defined reactor system. you need to know what's flowing
+
+368
+00:34:15,771 --> 00:34:21,191
+across that boundary that reactor system. ideally you know about the transport
+
+369
+00:34:21,191 --> 00:34:26,531
+within the control volume and the kinetics the reactions take place
+
+370
+00:34:26,531 --> 00:34:32,471
+and you need to ensure that the model structure has some relevance to reality.
+
+371
+00:34:32,471 --> 00:34:37,572
+okay. which what we just did for like Michigan I know. okay. but you know we're
+
+372
+00:34:37,572 --> 00:34:42,612
+simplifying. alright let's do a couple of silly
+
+373
+00:34:42,612 --> 00:34:48,191
+examples to make some of the stuff come home in other ways.
+
+374
+00:34:48,191 --> 00:34:53,431
+okay. imagine you have a stream flowing from left to right here and it is flowing
+
+375
+00:34:53,431 --> 00:34:58,512
+at specified volume and or or flow rate and we have an industrial
+
+376
+00:34:58,512 --> 00:35:03,672
+plant making a discharge and some of the parameters here are that these
+
+377
+00:35:03,672 --> 00:35:08,932
+discharges seven hundred fifty milligrams per liter or total dissolved solids TES and
+
+378
+00:35:08,932 --> 00:35:14,712
+the discharge rate is a hundred cubic feet per second and I'm sorry about the whole class.
+
+379
+00:35:14,712 --> 00:35:19,833
+okay it doesn't matter the receiving water body has a height
+
+380
+00:35:19,833 --> 00:35:24,972
+of a velocity of a meter foot and a half for second with the forty five
+
+381
+00:35:24,972 --> 00:35:30,472
+feet depth of two feet and it has already. GTS involved
+
+382
+00:35:30,472 --> 00:35:35,512
+at three hundred and ten milligrams per liter. okay. so my question to you is will achieve
+
+383
+00:35:35,512 --> 00:35:40,532
+your standard of say five hundred milligrams per liter be via lead. we and I turn
+
+384
+00:35:40,532 --> 00:35:45,792
+on we district. okay. just
+
+385
+00:35:45,792 --> 00:35:51,252
+a mass balance because I'm adding stuff I need to track it goes into a
+
+386
+00:35:51,252 --> 00:35:56,414
+receiving order I have the dimensions of that and so forth now there's
+
+387
+00:35:56,414 --> 00:36:01,635
+a lotta subtlety in these problems and I'm going to simplify it
+
+388
+00:36:01,635 --> 00:36:06,714
+in reality will have a mixing zone such that the discharge from this facility
+
+389
+00:36:06,714 --> 00:36:11,814
+isn't going to be completely diluted or mixed and this is gonna have a mixing zone where concentrations
+
+390
+00:36:11,814 --> 00:36:19,074
+might be high. okay. blow that away. ignore that right now.
+
+391
+00:36:19,074 --> 00:36:24,374
+I have flows upstream and downstream I have concentrations upstream
+
+392
+00:36:24,374 --> 00:36:29,434
+I need to figure out what is the concentration downstream. recognize that
+
+393
+00:36:29,434 --> 00:36:34,874
+flow downstream is equal to both what the river 's flow was here plus the discharge
+
+394
+00:36:34,874 --> 00:36:40,635
+so I'm gonna need to account for that. I need to do a mass balance on move order for us
+
+395
+00:36:40,635 --> 00:36:45,635
+less. okay. I also need to do a mass balance on the containment
+
+396
+00:36:45,635 --> 00:36:51,174
+tedious. okay. so you guys could recognize
+
+397
+00:36:51,174 --> 00:36:56,254
+easily that this is just dilution case where the concentration is defined
+
+398
+00:36:56,254 --> 00:37:01,354
+as the mass over the volume or the flow rate coming in for
+
+399
+00:37:01,354 --> 00:37:06,435
+walks mass per time. divided by the flow per time
+
+400
+00:37:06,435 --> 00:37:11,435
+the flow rates and so I can take the product of the concentration and the
+
+401
+00:37:11,435 --> 00:37:16,614
+discharge and this will give me a mass for time.
+
+402
+00:37:16,614 --> 00:37:21,614
+okay because the units here are milligrams per liter and if I say liters
+
+403
+00:37:21,614 --> 00:37:26,974
+per minute. then I get milligrams per minute. okay.
+
+404
+00:37:26,974 --> 00:37:32,175
+and then the same for the river because I already have upstream stuff here.
+
+405
+00:37:32,175 --> 00:37:37,214
+so slow in the river times the concentration the river gives me another flux rate
+
+406
+00:37:37,214 --> 00:37:42,774
+a contaminant and then I just had to two flows and so basically what I'm getting here is the
+
+407
+00:37:42,774 --> 00:37:48,114
+milligrams per minutes for example divided
+
+408
+00:37:48,114 --> 00:37:53,334
+by the liters per minute the flow rate. the minutes cross off and then I just end
+
+409
+00:37:53,334 --> 00:37:59,178
+up with milligrams per liter concentration
+
+410
+00:37:59,178 --> 00:38:04,259
+okay. so this is why the previous line said make sure your units work out they match they need
+
+411
+00:38:04,259 --> 00:38:09,259
+to everybody with me on here. so you know I
+
+412
+00:38:09,259 --> 00:38:14,379
+throw in the data here and put in the parameters I do not have that flowing the river
+
+413
+00:38:14,379 --> 00:38:19,398
+and get a make a simplistic assumption that it's just cross sectional area times
+
+414
+00:38:19,398 --> 00:38:24,438
+the flow rate. thank as you me this long this flow here and I substitute the data
+
+415
+00:38:24,438 --> 00:38:30,079
+in there and plug away the unit should cancel out in the result like it is there.
+
+416
+00:38:30,079 --> 00:38:35,839
+okay it's just simple voucher right so if I was
+
+417
+00:38:35,839 --> 00:38:40,839
+working for CMS mass or
+
+418
+00:38:40,839 --> 00:38:46,279
+ramble environmental some other consulting firm and you know I pick my clients
+
+419
+00:38:46,279 --> 00:38:52,218
+would pay my normal rate of whatever it is because I do cheesy standard
+
+420
+00:38:52,218 --> 00:38:58,059
+and you can see I have a pretty precise answer.
+
+421
+00:38:58,059 --> 00:39:03,078
+so I can't are you guys are smiling with
+
+422
+00:39:03,078 --> 00:39:08,158
+a basket. so this is incredibly simplistic model that kind
+
+423
+00:39:08,158 --> 00:39:14,358
+of precision is not warranted right there so many things I've potentially left out.
+
+424
+00:39:14,358 --> 00:39:19,398
+but I do get a result. okay and it is mass balance based. okay.
+
+425
+00:39:19,398 --> 00:39:24,519
+it's a simple dilution questions on. 's. why
+
+426
+00:39:24,519 --> 00:39:34,698
+might this be wrong.
+
+427
+00:39:34,698 --> 00:39:40,019
+you know and certainly
+
+428
+00:39:40,019 --> 00:39:48,398
+you know variation. great what else
+
+429
+00:39:48,398 --> 00:39:53,538
+well search this yet I could be wrong. what else I leave I'll
+
+430
+00:39:53,538 --> 00:40:02,213
+leave out anything besides variation
+
+431
+00:40:02,213 --> 00:40:09,153
+hey it's physically boost plus # maybe it's okay.
+
+432
+00:40:09,153 --> 00:40:14,312
+so you know we assumes a lot of things okay and it's really
+
+433
+00:40:14,312 --> 00:40:19,693
+need to look at the assumptions that you're made implicitly here. we assumed that the
+
+434
+00:40:19,693 --> 00:40:25,032
+mixing zones didn't occur it was uniformly and instantaneously mixed across
+
+435
+00:40:25,032 --> 00:40:30,572
+the reach of the river and as we'll talk later states to impose
+
+436
+00:40:30,572 --> 00:40:36,532
+separate requirements for the near field zone years of discharge okay but downstream
+
+437
+00:40:36,532 --> 00:40:41,593
+it will be fully it's just a question of how far downstream you to go I assume
+
+438
+00:40:41,593 --> 00:40:48,673
+infinite accuracy and we talked about that. I did assume that the mask was
+
+439
+00:40:48,673 --> 00:40:53,693
+in to did the grade were conservative. okay. and so you
+
+440
+00:40:53,693 --> 00:40:58,792
+know there is a physical basis to this model and that basis is again a match. I
+
+441
+00:40:58,792 --> 00:41:03,913
+actually did too bad spouses I just the water flow. I didn't account for evaporation or anything
+
+442
+00:41:03,913 --> 00:41:09,493
+like that and I did mass balance on the.
+
+443
+00:41:09,493 --> 00:41:14,753
+okay. so the critical point here in mass balance
+
+444
+00:41:14,753 --> 00:41:20,032
+modeling is that you preserve mass. got 's a physical basis and the output he inflict those
+
+445
+00:41:20,032 --> 00:41:25,713
+changes plus reactions by I happen. okay.
+
+446
+00:41:25,713 --> 00:41:30,753
+that's a critical. let's take the same model boosted up a level of complexity
+
+447
+00:41:30,753 --> 00:41:36,021
+here. essentially the same type of approach but this case this is
+
+448
+00:41:36,021 --> 00:41:41,142
+Marlene let's model DOD anybody heard of DOD before biological
+
+449
+00:41:41,142 --> 00:41:46,322
+oxygen demand. it's a measure of how much oxygen is gonna be sucked out to metabolize
+
+450
+00:41:46,322 --> 00:41:51,422
+typically ways. okay that's. present. you can think of it is just
+
+451
+00:41:51,422 --> 00:41:57,382
+another contaminants. okay. beauty. same river parameters
+
+452
+00:41:57,382 --> 00:42:02,761
+in this case we're discharging eight hundred milligrams per liter of DOD.
+
+453
+00:42:02,761 --> 00:42:08,662
+that's actually a law how much oxygen is in the water.
+
+454
+00:42:08,662 --> 00:42:15,541
+so anybody know often got some water in here.
+
+455
+00:42:15,541 --> 00:42:23,922
+smells like coffee though.
+
+456
+00:42:23,922 --> 00:42:29,362
+yeah much dissolved oxygen is the water does contain oxygen
+
+457
+00:42:29,362 --> 00:42:34,681
+need because fish to get the oxygen yeah it depends
+
+458
+00:42:34,681 --> 00:42:40,141
+on temperature. give me an order of magnitude.
+
+459
+00:42:40,141 --> 00:42:45,582
+good so you learn stuff here. it's not much of like ten milligrams per liter.
+
+460
+00:42:45,582 --> 00:42:50,822
+okay. not very much at all. alright. so it's easy to use it up and here were discharging
+
+461
+00:42:50,822 --> 00:42:55,901
+eight hundred milligrams per liter which means that you know we are super
+
+462
+00:42:55,901 --> 00:43:01,761
+saturating and it's not really work but I mean there's gonna be this is a big
+
+463
+00:43:01,761 --> 00:43:06,822
+source of case going to a hundred liters to dilute each
+
+464
+00:43:06,822 --> 00:43:11,941
+leader come up with something it's reasonable. okay. so again
+
+465
+00:43:11,941 --> 00:43:17,082
+I wanna figure out what's the deal D downstream and I care about dissolved oxygen
+
+466
+00:43:17,082 --> 00:43:22,801
+because if it goes too low. what happens for us to high return belly up. okay.
+
+467
+00:43:22,801 --> 00:43:28,721
+typically we have rules to keep it above five or six milligrams per liter.
+
+468
+00:43:28,721 --> 00:43:33,944
+okay so let's do the same thing
+
+469
+00:43:33,944 --> 00:43:39,023
+let's figure out what the DOD is in the receiving water by doing the mass
+
+470
+00:43:39,023 --> 00:43:44,283
+balance again multiplying the beauties just charge concentration
+
+471
+00:43:44,283 --> 00:43:49,404
+times the flow units again should match out and match up and I get three
+
+472
+00:43:49,404 --> 00:43:54,583
+hundred twenty milligrams. this shouldn't surprise you because discharge here
+
+473
+00:43:54,583 --> 00:44:00,083
+is diluted like a factor of two or three. okay. and so we end up with a just fresh
+
+474
+00:44:00,083 --> 00:44:07,364
+start. okay. this is still really hot right
+
+475
+00:44:07,364 --> 00:44:12,763
+now. beauty is a little different because
+
+476
+00:44:12,763 --> 00:44:18,303
+from TV because you know is it not conservative. it disappears
+
+477
+00:44:18,303 --> 00:44:23,664
+oxygen comes in the uh the surface of the water and plants and algae
+
+478
+00:44:23,664 --> 00:44:29,124
+and stuff in the water will save the water a little bit and it's common to describe
+
+479
+00:44:29,124 --> 00:44:34,152
+the DOD disappearance with the first order to Kay or reaction
+
+480
+00:44:34,152 --> 00:44:39,152
+like this such that the DOD I call that else the change with respect
+
+481
+00:44:39,152 --> 00:44:44,291
+to time follows the first order reaction with the rate constant eight one which is that the
+
+482
+00:44:44,291 --> 00:44:49,751
+oxygen nation rate times the concentration. typically Kay
+
+483
+00:44:49,751 --> 00:44:54,791
+is on the order of point two point three per day. so that means that if I
+
+484
+00:44:54,791 --> 00:45:00,251
+start off with a PO Dave what did I say it was three hundred and twenty
+
+485
+00:45:00,251 --> 00:45:05,332
+after one day. I lose roughly twenty three percent of it.
+
+486
+00:45:05,332 --> 00:45:10,612
+okay. because variation comes in beauty to grace. I can take
+
+487
+00:45:10,612 --> 00:45:16,031
+this solution by integrating it and I come up with a curve that looks like this for the boundary
+
+488
+00:45:16,031 --> 00:45:21,112
+conditions plus the beauty needs to disappear at equal. and if
+
+489
+00:45:21,112 --> 00:45:26,672
+I look at the you know the DOD at time team compared to the initial DOD.
+
+490
+00:45:26,672 --> 00:45:31,672
+just they'll right at the or source a time T four zero. it's just a racial
+
+491
+00:45:31,672 --> 00:45:37,202
+one and as I moved down in time it disappears and so at the
+
+492
+00:45:37,202 --> 00:45:42,242
+and I can take the log of that and you get a straight line. okay you seem us in
+
+493
+00:45:42,242 --> 00:45:47,242
+calculus before the key idea here is that how long this is take for LT did
+
+494
+00:45:47,242 --> 00:45:52,462
+this decreased by half half would be here. go down I guess three
+
+495
+00:45:52,462 --> 00:45:57,521
+or four days something like that. okay that makes sense if I'm losing about twenty percent per
+
+496
+00:45:57,521 --> 00:46:02,822
+day. everybody with me on this first order disappearances
+
+497
+00:46:02,822 --> 00:46:07,902
+exponential decay to first order process. alright. this is the way
+
+498
+00:46:07,902 --> 00:46:13,202
+we typically model kinetics of something that has been fairly
+
+499
+00:46:13,202 --> 00:46:18,281
+constant worry. so let's apply that model and the
+
+500
+00:46:18,281 --> 00:46:23,422
+key governing piece of this models that expression there and here to
+
+501
+00:46:23,422 --> 00:46:29,382
+answer this question I need to understand what time to live close in to my model
+
+502
+00:46:29,382 --> 00:46:34,683
+because rate is continuously decreasing over time so I need to determine
+
+503
+00:46:34,683 --> 00:46:40,063
+the travel time and in this always use the river velocity
+
+504
+00:46:40,063 --> 00:46:45,364
+and just to find the travel time is that distance. Jesus of interest. bless you.
+
+505
+00:46:45,364 --> 00:46:50,803
+divided by the velocity and the prom asked you to calculate the beauty
+
+506
+00:46:50,803 --> 00:46:57,604
+at different distances and so for example at point one mile.
+
+507
+00:46:57,604 --> 00:47:02,803
+I do the math and it's six point zero zero four days to get there. alright
+
+508
+00:47:02,803 --> 00:47:08,483
+so the river is moving along at a meter and a half a second I mean not that fast going
+
+509
+00:47:08,483 --> 00:47:13,921
+only point one miles paper for long distance okay then
+
+510
+00:47:13,921 --> 00:47:19,361
+I'd take the concentration right downstream plug it into that
+
+511
+00:47:19,361 --> 00:47:24,441
+expression that I had before which was EXT to the rate
+
+512
+00:47:24,441 --> 00:47:29,661
+constant Kay one times the travel time that works out to be a point nine nine nine one
+
+513
+00:47:29,661 --> 00:47:34,681
+and multiply those two together and I get still three hundred
+
+514
+00:47:34,681 --> 00:47:39,701
+and twenty. 's. so what what's going on. I just said that
+
+515
+00:47:39,701 --> 00:47:45,401
+I have first older loss. but I'm ending up with the same concentration ability.
+
+516
+00:47:45,401 --> 00:47:52,001
+why
+
+517
+00:47:52,001 --> 00:47:58,981
+I accounted for decay.
+
+518
+00:47:58,981 --> 00:48:04,822
+yeah
+
+519
+00:48:04,822 --> 00:48:10,624
+yeah there's been no time it's the same as when I took water I didn't have enough time goodbye.. exactly
+
+520
+00:48:10,624 --> 00:48:15,685
+okay. so ten miles downstream it takes point four days. I do
+
+521
+00:48:15,685 --> 00:48:21,485
+the same and. okay. and now I start to see about a ten percent loss.
+
+522
+00:48:21,485 --> 00:48:26,624
+okay. okay. I just didn't give
+
+523
+00:48:26,624 --> 00:48:31,705
+the system enough time to actually do anything. point one.
+
+524
+00:48:31,705 --> 00:48:36,845
+okay. so here I had to add an additional kind of calculation to figure
+
+525
+00:48:36,845 --> 00:48:41,864
+out the travel time to put that into the model. I have pretty much the same assumptions
+
+526
+00:48:41,864 --> 00:48:47,665
+as the instantaneous mixing model. I had dilution. I assume constant geometry
+
+527
+00:48:47,665 --> 00:48:52,805
+constant velocity constant a rate with the first order disappearance and
+
+528
+00:48:52,805 --> 00:48:57,885
+so what I've actually done is solved a fairly complicated brawl by making up three models
+
+529
+00:48:57,885 --> 00:49:03,185
+dilution model of degradation model transport models putting those together and coming
+
+530
+00:49:03,185 --> 00:49:08,325
+up with us. 's. okay. so we in fact have a little
+
+531
+00:49:08,325 --> 00:49:13,395
+model system here what's the sensitivity of parameters
+
+532
+00:49:13,395 --> 00:49:21,935
+remember what sense of you know this is what is it
+
+533
+00:49:21,935 --> 00:49:35,814
+somebody did you guys. okay. nobody knew.
+
+534
+00:49:35,814 --> 00:49:45,775
+yeah. so based on what you saw here what do you think are most sensitive parameters.
+
+535
+00:49:45,775 --> 00:49:54,034
+so what do you think would happen if I doubled –
+
+536
+00:49:54,034 --> 00:50:00,034
+yeah but probably wanna change huge amount because we only saw a ten percent change.
+
+537
+00:50:00,034 --> 00:50:05,294
+good. so again this is physically based there's an empirical
+
+538
+00:50:05,294 --> 00:50:10,294
+portion of the beauty model because the option nation rate constant K one
+
+539
+00:50:10,294 --> 00:50:15,299
+I just talked it from somewhere okay. and we have that parameter and testing that sense
+
+540
+00:50:15,299 --> 00:50:20,438
+to reach that parameter could be important. okay. good. alright let's
+
+541
+00:50:20,438 --> 00:50:25,879
+get to something a little more useful but importantly more complicated. okay.
+
+542
+00:50:25,879 --> 00:50:30,999
+here is a classical picture of a 3D chemical transport and state problems.
+
+543
+00:50:30,999 --> 00:50:36,999
+we're basically I rid up my world into little control volumes.
+
+544
+00:50:36,999 --> 00:50:41,999
+I have bulk flow through this control volume. so you might have
+
+545
+00:50:41,999 --> 00:50:47,099
+a current flow number from this face of the cube exiting the space of the queue.
+
+546
+00:50:47,099 --> 00:50:52,539
+I have a geometry or actually set up such that axis
+
+547
+00:50:52,539 --> 00:50:57,559
+that direction of flow. this is the convention. why is the
+
+548
+00:50:57,559 --> 00:51:03,859
+height is he is coming out to us this is not much of a convention it depends on the application.
+
+549
+00:51:03,859 --> 00:51:09,158
+the contaminate comes into the control volume. something might happen to it in here
+
+550
+00:51:09,158 --> 00:51:15,243
+including it might react it might move up
+
+551
+00:51:15,243 --> 00:51:21,063
+down towards us or away from us. okay. and it could flow out.
+
+552
+00:51:21,063 --> 00:51:26,163
+alright. so we have to consider all the processes that are occurring within this cube
+
+553
+00:51:26,163 --> 00:51:32,343
+or control volume as well as the ones next to us in each dimension.
+
+554
+00:51:32,343 --> 00:51:37,883
+okay. and this is kind of the basis of multiple
+
+555
+00:51:37,883 --> 00:51:43,403
+models including things like circulation models or climate models or river models and so forth.
+
+556
+00:51:43,403 --> 00:51:48,463
+where for example this cube is just one of those surrounding the earth
+
+557
+00:51:48,463 --> 00:51:53,623
+or water body or something like that and you know one of the powers of
+
+558
+00:51:53,623 --> 00:51:58,863
+computers is to be able to have potentially thousands or millions
+
+559
+00:51:58,863 --> 00:52:04,103
+of these control volumes are that all couple together with a number of equations and actually
+
+560
+00:52:04,103 --> 00:52:09,383
+get solutions. 's and so you can think
+
+561
+00:52:09,383 --> 00:52:14,395
+of these 's mass balance models for each of those control
+
+562
+00:52:14,395 --> 00:52:19,395
+volumes that are Hubble and the current
+
+563
+00:52:19,395 --> 00:52:24,555
+state of the art in global models like this might be to have eleven to thirteen
+
+564
+00:52:24,555 --> 00:52:29,635
+levels here are potentially even more and
+
+565
+00:52:29,635 --> 00:52:35,175
+now depending. one degree point something degrees
+
+566
+00:52:35,175 --> 00:52:40,235
+something like this. dimensions. so you'd have you know
+
+567
+00:52:40,235 --> 00:52:46,675
+thousands of
+
+568
+00:52:46,675 --> 00:52:53,815
+that models kind of work and pictured one media
+
+569
+00:52:53,815 --> 00:52:59,995
+system. this picture is showing how we might couple those to
+
+570
+00:52:59,995 --> 00:53:05,055
+multiple media including water and soil and we would be looking at
+
+571
+00:53:05,055 --> 00:53:10,183
+processes section expertise as well and so we have for example
+
+572
+00:53:10,183 --> 00:53:15,503
+volatile as a nation absorption deposition settling and so forth.
+
+573
+00:53:15,503 --> 00:53:21,123
+it's just these compartments represent well these represent environmental compartments oil
+
+574
+00:53:21,123 --> 00:53:26,403
+soil air border. we could add the biological component to that people
+
+575
+00:53:26,403 --> 00:53:31,703
+to industry to it whatever you like. the key idea here is that we have these different part
+
+576
+00:53:31,703 --> 00:53:38,583
+of our mental compartments in different pathways.
+
+577
+00:53:38,583 --> 00:53:43,963
+so I I think I mentioned the other week that we have in the Great Lakes she's confined
+
+578
+00:53:43,963 --> 00:53:50,346
+disposal facilities for glass hills basically and they are um
+
+579
+00:53:50,346 --> 00:53:55,866
+taking contaminated sediments that dump the in between two [INAUDIBLE] or the [INAUDIBLE] around
+
+580
+00:53:55,866 --> 00:54:01,566
+the system and this picture is just showing you some of the pathways that might be operating
+
+581
+00:54:01,566 --> 00:54:06,666
+for contaminants like PC beans or whatever. we'd leak out.
+
+582
+00:54:06,666 --> 00:54:12,066
+they can include seepage see kids seepage. sorry
+
+583
+00:54:12,066 --> 00:54:17,386
+through the type which is typically not that well protected they have
+
+584
+00:54:17,386 --> 00:54:22,586
+precipitation coming through leading to infiltration and generations we changed into
+
+585
+00:54:22,586 --> 00:54:27,666
+the sub soils. there are wind blown involved in relation to plant
+
+586
+00:54:27,666 --> 00:54:32,666
+uptake and loss plant materials. those are additional pathways. okay.
+
+587
+00:54:32,666 --> 00:54:37,886
+so here this picture is just showing you air water and
+
+588
+00:54:37,886 --> 00:54:46,346
+soil compartments in the link 's.
+
+589
+00:54:46,346 --> 00:54:52,753
+very good question
+
+590
+00:54:52,753 --> 00:54:58,073
+one guess what do you think that's good. it's also
+
+591
+00:54:58,073 --> 00:55:03,093
+not very expensive and it's an
+
+592
+00:55:03,093 --> 00:55:08,473
+issue though. absolutely very vulnerable to storms and things like this
+
+593
+00:55:08,473 --> 00:55:19,653
+as well as not actually confining the material.
+
+594
+00:55:19,653 --> 00:55:24,693
+burns a better picture of contaminant migration pathways is this kind of classic picture
+
+595
+00:55:24,693 --> 00:55:29,833
+that I no longer remember where I stole it from him but you know here we have
+
+596
+00:55:29,833 --> 00:55:34,893
+maybe agricultural runoff and industry discharge and it makes its
+
+597
+00:55:34,893 --> 00:55:39,913
+way into the lake and what this is showing is five accumulation up through the food
+
+598
+00:55:39,913 --> 00:55:45,053
+chain. you know and then into the fish and potentially
+
+599
+00:55:45,053 --> 00:55:50,189
+into the fisher people there's also exchange with the atmosphere three deposition
+
+600
+00:55:50,189 --> 00:55:55,550
+involved civilization there's also the migration this way as well so this is the norm.
+
+601
+00:55:55,550 --> 00:56:01,310
+it should be considered the exception but
+
+602
+00:56:01,310 --> 00:56:07,050
+still quite complicated and most of our environmental laws regulate single media.
+
+603
+00:56:07,050 --> 00:56:12,590
+so you know if you look at the clean air act for example we didn't
+
+604
+00:56:12,590 --> 00:56:17,830
+until quite recently consider bio accumulation. mercury was not viewed as an issue because
+
+605
+00:56:17,830 --> 00:56:22,989
+the concentrations in here were very very low. however it added to
+
+606
+00:56:22,989 --> 00:56:29,310
+the burden these aquatic systems.
+
+607
+00:56:29,310 --> 00:56:34,570
+another model more recent for Ben 's always hiring one of the
+
+608
+00:56:34,570 --> 00:56:39,649
+pH is that's considered a carcinogen. DAH is a probably cyclic our matter card you're curved
+
+609
+00:56:39,649 --> 00:56:44,889
+at least a couple of benzene ring stuck together the simplest thing Vaseline been
+
+610
+00:56:44,889 --> 00:56:49,926
+zero eight. is one that is considered among the more toxic this
+
+611
+00:56:49,926 --> 00:56:55,186
+is a result of a combustion byproducts and complete combustion anytime you burn
+
+612
+00:56:55,186 --> 00:57:01,806
+something produces Beatrice and so we did a
+
+613
+00:57:01,806 --> 00:57:06,926
+model. we're looking at the flows and so forth into the settlement quarter comps
+
+614
+00:57:06,926 --> 00:57:12,446
+soil air and the same sort of thing that might be done
+
+615
+00:57:12,446 --> 00:57:18,406
+that was done with cities the and 's Mercury.
+
+616
+00:57:18,406 --> 00:57:24,846
+okay. I'm gonna switch gears a bit. any questions where we are right now
+
+617
+00:57:24,846 --> 00:57:27,866
+and time for for free. the number. okay.
+
+618
+00:57:29,575 --> 00:57:38,541
+but it's really interesting. okay. okay
+
+619
+00:57:38,541 --> 00:57:43,761
+models can be very complicated and solutions may not be the same sort of thing that we
+
+620
+00:57:43,761 --> 00:57:49,061
+use before with the dilution models. we might not have the algebraic equations
+
+621
+00:57:49,061 --> 00:57:54,581
+we might have only differential equations and we need to be able solve them. this schematic
+
+622
+00:57:54,581 --> 00:58:00,281
+here is just showing that you know if I have a true prediction on the blue line here.
+
+623
+00:58:00,281 --> 00:58:05,621
+I can estimate this by knowing the slope at this point and moving out to the future
+
+624
+00:58:05,621 --> 00:58:10,741
+for example coming up with an estimate. even if I don't know the true function.
+
+625
+00:58:10,741 --> 00:58:15,881
+okay. and so this is just an example of using the boiler point slope method or
+
+626
+00:58:15,881 --> 00:58:21,441
+something like that to come up with an estimate models protection.
+
+627
+00:58:21,441 --> 00:58:26,621
+if var varies from the true value. okay. and you guys have done this
+
+628
+00:58:26,621 --> 00:58:31,681
+when you think about oh my bank account is paying two percent interest
+
+629
+00:58:31,681 --> 00:58:36,715
+so I have a hundred dollars the hundred and two dollars next year right but in fact if
+
+630
+00:58:36,715 --> 00:58:41,875
+they do daily compounding you know you'll have a little bit more. you just estimated with two percent.
+
+631
+00:58:41,875 --> 00:58:47,055
+alright. so you know this is the same sort of approach that might be used
+
+632
+00:58:47,055 --> 00:58:52,415
+by growth models. and if you go back to
+
+633
+00:58:52,415 --> 00:58:57,735
+sixties I think with Jay Forester. Mister Gross model where he predicted
+
+634
+00:58:57,735 --> 00:59:02,795
+the population will continue to increase and we would over consumer resources and we
+
+635
+00:59:02,795 --> 00:59:07,875
+have a crash as a result of running out of oil and food and everything. used he to
+
+636
+00:59:07,875 --> 00:59:13,475
+model such that the new population at the time she plus delta Chi
+
+637
+00:59:13,475 --> 00:59:18,723
+'s a one year or ten years or fifty years into the future is equal to the old
+
+638
+00:59:18,723 --> 00:59:23,743
+population plus the when I say old the population at
+
+639
+00:59:23,743 --> 00:59:29,203
+the current time she plus the birth rate and the birth rate is expressed
+
+640
+00:59:29,203 --> 00:59:34,843
+in terms of birds per population time of or other ways times the population
+
+641
+00:59:34,843 --> 00:59:40,083
+that we had times the delta T and then subtract all set the death rate.
+
+642
+00:59:40,083 --> 00:59:45,423
+express the same way with the death rate like this and so you can simplify by
+
+643
+00:59:45,423 --> 00:59:50,423
+pulling together the fact that and tea and Delta team multiplies both
+
+644
+00:59:50,423 --> 00:59:55,683
+D and D. so I can associate that and I get that new population time
+
+645
+00:59:55,683 --> 01:00:00,823
+to close delta T is the current population times the birth minus the death
+
+646
+01:00:00,823 --> 01:00:05,883
+rate times the same stuff over here and then I can K who's
+
+647
+01:00:05,883 --> 01:00:11,083
+B- D and make that substitution and then have an it's plus delta
+
+648
+01:00:11,083 --> 01:00:16,604
+T minus and it's you over Delta T be very rates
+
+649
+01:00:16,604 --> 01:00:22,244
+and that's going to be just what's left on the right hand side and then if you remember the fundamental
+
+650
+01:00:22,244 --> 01:00:27,404
+of fear calculus he let Delta T go to zero or two very small values and
+
+651
+01:00:27,404 --> 01:00:32,604
+you come up with a differential equation such that the change in population with respect to time
+
+652
+01:00:32,604 --> 01:00:37,684
+is equal to cater to people 's looks familiar. yes because we did
+
+653
+01:00:37,684 --> 01:00:43,704
+the same thing for the beauty disappearance just sort of first.
+
+654
+01:00:43,704 --> 01:00:50,364
+you know what process. okay. now it's for is a population.
+
+655
+01:00:50,364 --> 01:00:55,584
+I'm so we can solve that in different ways we could use calculus solution
+
+656
+01:00:55,584 --> 01:01:00,704
+we could use an iterative solution where we say okay. plus
+
+657
+01:01:00,704 --> 01:01:05,844
+a one year and we calculate that and that gives us next year 's population we plug
+
+658
+01:01:05,844 --> 01:01:10,924
+that in here and get a year after that and so we could use this and this is called
+
+659
+01:01:10,924 --> 01:01:15,932
+the oilers mess that point slow method and point here and it's not worth going through
+
+660
+01:01:15,932 --> 01:01:21,352
+much you know as I do incremental calculations and
+
+661
+01:01:21,352 --> 01:01:26,672
+I can come up with estimates for population over next you know fifty years.
+
+662
+01:01:26,672 --> 01:01:31,692
+and of course I'm making errors because I'm assuming it's a linear step in each of those and
+
+663
+01:01:31,692 --> 01:01:37,012
+it's not one way to reduce the error is to make a smaller
+
+664
+01:01:37,012 --> 01:01:42,452
+time intervals. okay. and if I love those time intervals go to very very small.
+
+665
+01:01:42,452 --> 01:01:47,452
+I'll probably gonna get more results so this is just showing you the numerical
+
+666
+01:01:47,452 --> 01:01:52,712
+integration or differentiation technique can come up with good answers. if you
+
+667
+01:01:52,712 --> 01:01:59,392
+have small enough step sizes but
+
+668
+01:01:59,392 --> 01:02:04,452
+for this problem since I have an algebraic
+
+669
+01:02:04,452 --> 01:02:10,552
+solution to that governing equation. I should use a calculus
+
+670
+01:02:10,552 --> 01:02:15,728
+because I make no errors right. so basically here
+
+671
+01:02:15,728 --> 01:02:21,348
+use the analytical solution because it's correct. I don't need to use in the need differential
+
+672
+01:02:21,348 --> 01:02:26,428
+or the iterative or approximate solution. okay.
+
+673
+01:02:26,428 --> 01:02:31,768
+so if you have a choice which one to use use analytical
+
+674
+01:02:31,768 --> 01:02:37,748
+wanted to develop obviously but still realistically
+
+675
+01:02:37,748 --> 01:02:44,368
+most of the numerical message that would be used are pretty good to you states.
+
+676
+01:02:44,368 --> 01:02:49,768
+this brings me to another really important and this is really the central piece the of
+
+677
+01:02:49,768 --> 01:02:54,788
+lecture today is the notion of the governing equation and this is usually
+
+678
+01:02:54,788 --> 01:02:59,908
+a differential equation represents the way we think about process what is
+
+679
+01:02:59,908 --> 01:03:05,588
+actually in know mass balance context happening. okay to
+
+680
+01:03:05,588 --> 01:03:10,768
+get differential equation or a governing equations solved we need initial and boundary
+
+681
+01:03:10,768 --> 01:03:15,796
+conditions and then in cases there are analytical solutions can be used
+
+682
+01:03:15,796 --> 01:03:20,816
+and we've already talked about the one for the disappearance of. good. I wanna move on
+
+683
+01:03:20,816 --> 01:03:26,756
+with his questions in most cases in this course.
+
+684
+01:03:26,756 --> 01:03:31,796
+governing equation is related to mass amounts. okay we
+
+685
+01:03:31,796 --> 01:03:36,796
+can also do the energy balance. okay. we can do temperature
+
+686
+01:03:36,796 --> 01:03:42,596
+balance. please all interacting types of
+
+687
+01:03:42,596 --> 01:03:47,876
+systems. so this is compares numerical and Kosovo solutions
+
+688
+01:03:47,876 --> 01:03:55,056
+I'm not gonna do that next model. most important one. okay.
+
+689
+01:03:55,056 --> 01:04:00,116
+full Easter. conservative chemical reactor what's most important here is the and snows
+
+690
+01:04:00,116 --> 01:04:05,436
+chemical reactor. same kind of box I had before control volume has a concentration
+
+691
+01:04:05,436 --> 01:04:10,476
+inside seal volume inside the. we have stuff flowing in the concentration coming
+
+692
+01:04:10,476 --> 01:04:15,682
+in enough low rate to we have stuff flowing out at a
+
+693
+01:04:15,682 --> 01:04:21,342
+concentration see out queue out. I have stuck in a little propeller here
+
+694
+01:04:21,342 --> 01:04:26,542
+which means that it's fully mixed in size. okay. so if you're thinking about
+
+695
+01:04:26,542 --> 01:04:33,022
+late. no structure to lake is completely mixed.
+
+696
+01:04:33,022 --> 01:04:38,282
+we're gonna study the transient response of this we're gonna assume again if a defined volume
+
+697
+01:04:38,282 --> 01:04:43,542
+and has rigid walls. we have the masters inside of this is the product
+
+698
+01:04:43,542 --> 01:04:48,602
+of the concentration times the volume right because milligrams per liter time a 's number of
+
+699
+01:04:48,602 --> 01:04:53,882
+leaders multiply those together I get milligrams mass. alright and
+
+700
+01:04:53,882 --> 01:04:59,002
+we're also gonna say this is basically completely full. okay so what flows and flows out
+
+701
+01:04:59,002 --> 01:05:04,002
+because the walls are rigid
+
+702
+01:05:04,002 --> 01:05:09,062
+everybody weather. so then we're gonna try to Mass. in that reactor
+
+703
+01:05:09,062 --> 01:05:14,622
+exactly the same thing I did for the mass change with respect to the time is
+
+704
+01:05:14,622 --> 01:05:19,738
+been changed in the time speak over time. this is equal
+
+705
+01:05:19,738 --> 01:05:25,618
+to a close and minus four close out that's all there is to it. conservative so there's no reaction.
+
+706
+01:05:25,618 --> 01:05:30,738
+alright. the volume is constant
+
+707
+01:05:30,738 --> 01:05:35,958
+queuing it is equal to queue out. see how is that equal to see and so I convinced do a few
+
+708
+01:05:35,958 --> 01:05:41,458
+substitutions and I get the governing equation. the volume of the system times a change in concentration
+
+709
+01:05:41,458 --> 01:05:48,198
+overtime is equal to the difference between what flows and flows
+
+710
+01:05:48,198 --> 01:05:55,730
+differential equations. so be careful
+
+711
+01:05:55,730 --> 01:06:00,890
+so again I have this differential equation but solve it. I'm not gonna send
+
+712
+01:06:00,890 --> 01:06:05,910
+much time in solving and I'll just give you the solution but we need an initial conditions.
+
+713
+01:06:05,910 --> 01:06:10,930
+let's assume that the parameters of the flow rate
+
+714
+01:06:10,930 --> 01:06:15,930
+is constant. just to make it simple. let's assume that flow the and
+
+715
+01:06:15,930 --> 01:06:21,170
+the concentration in the slogan is Constance. okay so if it's a water body
+
+716
+01:06:21,170 --> 01:06:26,750
+with the stream feeding into it the stream is the same flow in the same concentration. okay.
+
+717
+01:06:26,750 --> 01:06:31,990
+and let's assume for the initial condition that the reactor has
+
+718
+01:06:31,990 --> 01:06:37,470
+a concentration seasonal whatever happens to be just known at the initial time.
+
+719
+01:06:37,470 --> 01:06:42,570
+okay. the solution is shown here quick concentration
+
+720
+01:06:42,570 --> 01:06:48,110
+of time she is equal to the concentration of the influence.
+
+721
+01:06:48,110 --> 01:06:53,330
+times is one minus Ext 's to to you over V. this term here. 's
+
+722
+01:06:53,330 --> 01:06:58,599
+plus the initial concentration seen often times the storm over here.
+
+723
+01:06:58,599 --> 01:07:04,499
+so what we have is two pieces to this. we have the affect of the inflows
+
+724
+01:07:04,499 --> 01:07:09,859
+and if you look at this expression as she gets big yak speed to the minus
+
+725
+01:07:09,859 --> 01:07:16,119
+infinity goes to zero and so we have one minus zero so we end up with CNN.
+
+726
+01:07:16,119 --> 01:07:21,539
+save us in picture the on second the over here we have the effect of the initial condition
+
+727
+01:07:21,539 --> 01:07:27,219
+as she equals to zero and this is one
+
+728
+01:07:27,219 --> 01:07:32,579
+and we have just seen. off so basically what happens
+
+729
+01:07:32,579 --> 01:07:37,719
+is we have these two pieces that song together reflecting the
+
+730
+01:07:37,719 --> 01:07:42,899
+inflows and what we started with and there's a balance between us. let me give you a couple
+
+731
+01:07:42,899 --> 01:07:48,439
+of examples before I do that. let me just know that you've heard of fox models before
+
+732
+01:07:48,439 --> 01:07:53,639
+this is a box model but we're looking at it dynamically completely
+
+733
+01:07:53,639 --> 01:07:58,659
+weirded example. our renters in Ann Arbor.
+
+734
+01:07:58,659 --> 01:08:04,539
+you if measure the humidity in your apartment bed it's pretty high at times.
+
+735
+01:08:04,539 --> 01:08:09,579
+I don't want to get you excited. but you know mold and bed bugs and all this kinda stuff like
+
+736
+01:08:09,579 --> 01:08:16,339
+warm or humid conditions. anyway
+
+737
+01:08:16,339 --> 01:08:21,739
+let's assume you just purchased or rented a damp apartment
+
+738
+01:08:21,739 --> 01:08:26,759
+and you have fire aerosol concentration in there and I'm just gonna call the
+
+739
+01:08:26,759 --> 01:08:33,799
+thousand see if use per cubic meter which is see if you
+
+740
+01:08:33,799 --> 01:08:38,799
+call me farming unit so it's some viable bio. errors okay. Reynolds
+
+741
+01:08:38,799 --> 01:08:44,259
+bro. that's a little high we you don't like it to be a thousand years of use
+
+742
+01:08:44,259 --> 01:08:49,539
+and so your ventilation rate in your apartment is about a thirty change
+
+743
+01:08:49,539 --> 01:08:54,567
+for our pretty low because you're trying to save energy. okay you don't want see to so you
+
+744
+01:08:54,567 --> 01:09:00,407
+take up the windows. okay. how long would just hate
+
+745
+01:09:00,407 --> 01:09:05,487
+assuming that there's no internal sources of mold for you
+
+746
+01:09:05,487 --> 01:09:10,587
+to drop a bio aerosol concentration
+
+747
+01:09:10,587 --> 01:09:17,267
+from say a thousand a three hundred just five gallons
+
+748
+01:09:17,267 --> 01:09:22,287
+the apartment volume is six hundred cubic meters the outdoor air concentration is two hundred. I mean
+
+749
+01:09:22,287 --> 01:09:27,347
+thereby worse falls outside that's where they came from. okay. so when this
+
+750
+01:09:27,347 --> 01:09:32,487
+case can we use a east full coast volume conservative reactors the answer is yes.
+
+751
+01:09:32,487 --> 01:09:37,587
+your apartment is shown here we have a concentration outside of two hundred
+
+752
+01:09:37,587 --> 01:09:43,467
+we have initial concentration here of a thousand. let's plug in shop here with the equation.
+
+753
+01:09:43,467 --> 01:09:48,687
+the parameters are seen on his one thousand. the volume is
+
+754
+01:09:48,687 --> 01:09:53,807
+six hundred. concentration inside. I'm sorry flowing in is two
+
+755
+01:09:53,807 --> 01:09:59,531
+hundred and the airflow flow rate is the air change
+
+756
+01:09:59,531 --> 01:10:05,951
+one third per hour times the volume. six hundred. so it's two hundred cubic meters
+
+757
+01:10:05,951 --> 01:10:11,671
+per hour. okay. everybody with me. so then
+
+758
+01:10:11,671 --> 01:10:17,191
+I plug in Charlotte and I put that in there see units express
+
+759
+01:10:17,191 --> 01:10:22,431
+and here is the solution express graphically. we started off at a thousand
+
+760
+01:10:22,431 --> 01:10:27,571
+after ten hours we're down to two hundred fifty or three hundred. as time
+
+761
+01:10:27,571 --> 01:10:32,711
+goes on to infinity. we end up with a concentration doesn't go down to zero.
+
+762
+01:10:32,711 --> 01:10:38,911
+why not because that's a outdoor concentration.
+
+763
+01:10:38,911 --> 01:10:44,771
+okay. if I looked at the model. remember I told you the model was the sum of two pieces
+
+764
+01:10:44,771 --> 01:10:49,851
+that piece reflected the outdoor air coming in is the blue line it builds up to two
+
+765
+01:10:49,851 --> 01:10:55,051
+hundred. the initial fees from the thousand that was inside is the green
+
+766
+01:10:55,051 --> 01:11:00,223
+line that drops down. the results is the sun shone us up
+
+767
+01:11:00,223 --> 01:11:05,923
+that's the two pieces of this model right here the flight. effective the inflows
+
+768
+01:11:05,923 --> 01:11:11,883
+and the effect of the initial condition. so this is the transient response to
+
+769
+01:11:11,883 --> 01:11:17,603
+this model. and it's a for we stirred constant volume.
+
+770
+01:11:17,603 --> 01:11:24,023
+conservative chemical reactor everybody with me on this.
+
+771
+01:11:24,023 --> 01:11:29,203
+okay. now I want to take it up and knots and
+
+772
+01:11:29,203 --> 01:11:34,443
+swing those Pyro 's come inside their particles. okay
+
+773
+01:11:34,443 --> 01:11:39,763
+their diameter is depending on the or mold whatever it could be ten microns diameter.
+
+774
+01:11:39,763 --> 01:11:45,883
+okay that's a fairly big aerosol it'll drop out and it will code your
+
+775
+01:11:45,883 --> 01:11:50,963
+table top and your flooring your carpet or whatever. okay so there's
+
+776
+01:11:50,963 --> 01:11:56,883
+a loss mechanism inside the apartment. so let's add
+
+777
+01:11:56,883 --> 01:12:01,929
+to this chemical reactor this area going down which we have is Casey or first
+
+778
+01:12:01,929 --> 01:12:07,369
+order loss we've seen this now. couple of times. everybody was me.
+
+779
+01:12:07,369 --> 01:12:12,569
+okay. so less than exactly the same assumptions
+
+780
+01:12:12,569 --> 01:12:17,609
+we add this mine is Casey to the governing equation.
+
+781
+01:12:17,609 --> 01:12:22,809
+okay. gets more complicated now. but essentially we have the info
+
+782
+01:12:22,809 --> 01:12:30,689
+is my see how flows plus or minus the reaction a reaction this case is really just.
+
+783
+01:12:30,689 --> 01:12:35,723
+again I can defined governing equation
+
+784
+01:12:35,723 --> 01:12:41,263
+have my parameters make it simple that there constant. I added the degradation
+
+785
+01:12:41,263 --> 01:12:46,963
+lost now. I need to do find a couple of things to handle that in this framework.
+
+786
+01:12:46,963 --> 01:12:52,043
+I'm gonna talk about retention time. and this is the meantime particle would spend
+
+787
+01:12:52,043 --> 01:12:58,123
+in this in room my apartment or my control volume and that is equal to
+
+788
+01:12:58,123 --> 01:13:05,863
+the over a queue or I do find this as beta and
+
+789
+01:13:05,863 --> 01:13:10,863
+it's the one over the attention time. which gives me units of time in
+
+790
+01:13:10,863 --> 01:13:15,863
+verse and then I can add Kay which is also expressed in the same units of time
+
+791
+01:13:15,863 --> 01:13:21,003
+and verse. 's I and can substitute
+
+792
+01:13:21,003 --> 01:13:27,023
+that instead of simple care change I had before. into the calculus solution.
+
+793
+01:13:27,023 --> 01:13:33,122
+don't worry about us. okay. just mechanics you need. you may need to. 's
+
+794
+01:13:33,122 --> 01:13:41,002
+so same problem. but in this case. I'm going to use a
+
+795
+01:13:41,002 --> 01:13:47,942
+the GED as being
+
+796
+01:13:47,942 --> 01:13:53,082
+one half per hour in other words half of the particles drop
+
+797
+01:13:53,082 --> 01:13:58,302
+out in one hour in my apartment. okay. and
+
+798
+01:13:58,302 --> 01:14:03,522
+I have the air change rate before which was one third for our fight eight
+
+799
+01:14:03,522 --> 01:14:09,322
+feet. she to it it's a third hour inverse
+
+800
+01:14:09,322 --> 01:14:16,242
+plug and chug again and this is the result that I guess. okay. and the green line.
+
+801
+01:14:16,242 --> 01:14:21,322
+what's important here is less. so the man but the interpretation before I
+
+802
+01:14:21,322 --> 01:14:27,042
+got the verbal one. the concentration came down to two hundred.
+
+803
+01:14:27,042 --> 01:14:32,062
+that was the same as the outsider concentration. now I have the same
+
+804
+01:14:32,062 --> 01:14:37,460
+starting point but it comes down faster and then it approaches a level
+
+805
+01:14:37,460 --> 01:14:50,660
+of about a hundred one. tell me what's going on.
+
+806
+01:14:50,660 --> 01:14:55,940
+I lose your guys.
+
+807
+01:14:55,940 --> 01:15:01,040
+I have another process which is settling or loss that's occurring inside
+
+808
+01:15:01,040 --> 01:15:06,080
+the space. okay. and those aerosols come in but they are removed in
+
+809
+01:15:06,080 --> 01:15:11,500
+part and that's what I'm saying. please everybody with me on this.
+
+810
+01:15:11,500 --> 01:15:16,640
+this is actually a pollution control technology. okay. if
+
+811
+01:15:16,640 --> 01:15:22,560
+you had a settling pond in for example waste water treatment facility.
+
+812
+01:15:22,560 --> 01:15:27,800
+you just slow the water through a big pond or tank and the particles
+
+813
+01:15:27,800 --> 01:15:33,140
+settle out and then it moves along. okay. that's what your apartments is
+
+814
+01:15:33,140 --> 01:15:40,318
+with respect to the air exiting is cleaner.
+
+815
+01:15:40,318 --> 01:15:51,858
+okay next question. 's this is student state.
+
+816
+01:15:51,858 --> 01:16:04,258
+you say yes. tell me what you mean
+
+817
+01:16:04,258 --> 01:16:10,738
+which variable do I care about air flows constant
+
+818
+01:16:10,738 --> 01:16:15,998
+settling rate is constant. the amount that settle. could very five
+
+819
+01:16:15,998 --> 01:16:21,258
+high concentration side pass settle by below concentration has to settle in an hour.
+
+820
+01:16:21,258 --> 01:16:26,558
+so that is going to change steady state is defined
+
+821
+01:16:26,558 --> 01:16:31,558
+as the mass in the control volume is not changing the control volume
+
+822
+01:16:31,558 --> 01:16:37,076
+is the apartment here it is changing so it's clearly not a steady state
+
+823
+01:16:37,076 --> 01:16:43,096
+but once I get past maybe a day or so. it's not changing.
+
+824
+01:16:43,096 --> 01:16:48,616
+so as long term aims the system is a certain.
+
+825
+01:16:48,616 --> 01:16:53,856
+so make sense. this
+
+826
+01:16:53,856 --> 01:16:58,896
+is chemical reactor is not hypothetical it's been used thousands
+
+827
+01:16:58,896 --> 01:17:04,916
+of not tens of thousands of times. here's a very simple example of an
+
+828
+01:17:04,916 --> 01:17:10,316
+on events in gas fireplace. you can buy these things. okay so put you
+
+829
+01:17:10,316 --> 01:17:15,956
+them in the wall you just touch a gas line but you don't have an exhaust for it because
+
+830
+01:17:15,956 --> 01:17:21,136
+industry says the combustion is very complete. just produces CO2 these
+
+831
+01:17:21,136 --> 01:17:26,216
+folks measure carbon monoxide and they turned it on to medium
+
+832
+01:17:26,216 --> 01:17:31,356
+flame and the CO levels increase like this. they turned it off
+
+833
+01:17:31,356 --> 01:17:36,574
+to decreased places. guess what that exactly follows the predictions from
+
+834
+01:17:36,574 --> 01:17:42,294
+our police third chemical costs involving reactor model okay
+
+835
+01:17:42,294 --> 01:17:47,834
+interesting way when they had it on high flame CEO the level did not increase is
+
+836
+01:17:47,834 --> 01:17:54,714
+much anybody able to interpret these CEO numbers by the way
+
+837
+01:17:54,714 --> 01:17:59,974
+you know what the standards are for Seo. it's about nine
+
+838
+01:17:59,974 --> 01:18:07,414
+PPM. okay. so clearly we have a problem here. Houston
+
+839
+01:18:07,414 --> 01:18:12,434
+and it's fire CEO with medium flame because combustion is not so good you've got like a
+
+840
+01:18:12,434 --> 01:18:17,474
+yellow flames compared to a blue flame so it's more product of incomplete combustion which
+
+841
+01:18:17,474 --> 01:18:22,834
+include you. alright. switching
+
+842
+01:18:22,834 --> 01:18:28,294
+gears. this development of the model is not a straightforward
+
+843
+01:18:28,294 --> 01:18:33,394
+simple thing you need to have a client and application off model developer.
+
+844
+01:18:33,394 --> 01:18:38,736
+if he's under ago conceptual development
+
+845
+01:18:38,736 --> 01:18:43,856
+so I understand what you want and it needs to be implemented with the equations
+
+846
+01:18:43,856 --> 01:18:49,316
+and coding and the interface it needs to be evaluated in terms of
+
+847
+01:18:49,316 --> 01:18:54,396
+peer review and quality of short data sets and so forth and then
+
+848
+01:18:54,396 --> 01:18:59,656
+is only useful in fact if it's used and so when it's used you wanna be able to communicate
+
+849
+01:18:59,656 --> 01:19:05,096
+for example what the model says the uncertainty and so forth and this can be an iterative
+
+850
+01:19:05,096 --> 01:19:10,726
+process. okay so this game just so so shows you that in terms
+
+851
+01:19:10,726 --> 01:19:15,726
+of the language that I want you to understand the formulation of the model typically
+
+852
+01:19:15,726 --> 01:19:21,126
+follows this framework to find what you're trying to do in terms of objectives
+
+853
+01:19:21,126 --> 01:19:26,486
+identified indicators or the outcomes that you care about. this is something
+
+854
+01:19:26,486 --> 01:19:31,806
+I want to stress figure out conceptually what you're trying to do draw the conceptual
+
+855
+01:19:31,806 --> 01:19:37,566
+model. make a picture. okay. identify the relationships the parameters
+
+856
+01:19:37,566 --> 01:19:42,766
+constraints implemented and verify that it's functioning and check to see that it gives you something
+
+857
+01:19:42,766 --> 01:19:47,806
+that's reasonable and feasible conceptual models I've added the
+
+858
+01:19:47,806 --> 01:19:52,826
+slide because you need to think hard about what's important we get
+
+859
+01:19:52,826 --> 01:19:58,186
+lost in the details you need to focus on what's important. some of the aspects of conceptual
+
+860
+01:19:58,186 --> 01:20:03,186
+models are shown in the structure here. boundaries dimensions
+
+861
+01:20:03,186 --> 01:20:08,187
+whether it's steady state or time depending. big choice you know what that means now
+
+862
+01:20:08,187 --> 01:20:13,307
+mechanisms that affect transport and safety multimedia aspects of chemical
+
+863
+01:20:13,307 --> 01:20:22,207
+physical biological sinks and sources and initial conditions need to the finals
+
+864
+01:20:22,207 --> 01:20:27,227
+as a completely different example. were concerned about particle
+
+865
+01:20:27,227 --> 01:20:32,707
+exposures causing cardiac and pulmonary offense. particles
+
+866
+01:20:32,707 --> 01:20:37,907
+come from all kinds of sources traffic was the origins this particular conceptual model.
+
+867
+01:20:37,907 --> 01:20:43,347
+it showing you that you have a fax on the autonomic and systematic systems in your body
+
+868
+01:20:43,347 --> 01:20:49,007
+and very sick well I that occur as a result of exposure.
+
+869
+01:20:49,007 --> 01:20:57,007
+not simple picture at least we've got a conceptually laid out here.
+
+870
+01:20:57,007 --> 01:21:02,547
+there's another approach. if you are taking your stance course and
+
+871
+01:21:02,547 --> 01:21:08,027
+you all have some stance and model formulation and variable selection you throw everything
+
+872
+01:21:08,027 --> 01:21:13,153
+into the pot stepwise or all possible subsets
+
+873
+01:21:13,153 --> 01:21:18,213
+or some other kind of statistical techniques just make sense and you see what
+
+874
+01:21:18,213 --> 01:21:23,493
+pops up. okay. and this is another kind of approach and you know I'm not gonna talk
+
+875
+01:21:23,493 --> 01:21:28,913
+much about statistical models or next thank you. models
+
+876
+01:21:28,913 --> 01:21:34,213
+are best developed for mass balance. you know hierarchical structure.
+
+877
+01:21:34,213 --> 01:21:40,193
+and we need to find a system as the complex and the components that are interrelated
+
+878
+01:21:40,193 --> 01:21:45,373
+because they share some purpose they. represent mastery different components and so
+
+879
+01:21:45,373 --> 01:21:50,513
+forth. here's a picture of the Hydro power project we've already talked about this little bit. you
+
+880
+01:21:50,513 --> 01:21:55,793
+could break us down into environmental system with water quality land recreation
+
+881
+01:21:55,793 --> 01:22:00,853
+sedan itself the reservoir the power plant each of these can be further broken down. each
+
+882
+01:22:00,853 --> 01:22:06,013
+of these could be modeled separately. the overall analysis might pull together
+
+883
+01:22:06,013 --> 01:22:11,069
+these different models for the water treatment and distribution system the system slant
+
+884
+01:22:11,069 --> 01:22:16,169
+but it could be. we have different steps involved in treating water. we might
+
+885
+01:22:16,169 --> 01:22:21,669
+fluctuate out some of the stuff set out those clock filter at this in fact
+
+886
+01:22:21,669 --> 01:22:26,909
+distribute this is a schema tries to here with an additional
+
+887
+01:22:26,909 --> 01:22:32,509
+steps up Rio 's in nation rapid minutes this is pretty common for most water treatment plants.
+
+888
+01:22:32,509 --> 01:22:37,629
+the reason I'm bringing this up is that each of the steps. we break down and we call
+
+889
+01:22:37,629 --> 01:22:42,729
+it unit operation today and this is an engineering
+
+890
+01:22:42,729 --> 01:22:47,769
+term but basically we analyze what's happening in one of these boxes develop
+
+891
+01:22:47,769 --> 01:22:52,769
+a model Ford a couple lives inputs to what happened before and it outputs what
+
+892
+01:22:52,769 --> 01:22:58,409
+happened after it and we can come up with a very complex but very usable
+
+893
+01:22:58,409 --> 01:23:03,569
+model by building movies by putting together these basic building blocks okay
+
+894
+01:23:03,569 --> 01:23:19,965
+in the building blocks unit office um-hum
+
+895
+01:23:19,965 --> 01:23:25,325
+it all depends we're not starting from scratch hardly anything but it depends
+
+896
+01:23:25,325 --> 01:23:30,325
+on what your purpose. the data that you have available. so forth.
+
+897
+01:23:30,325 --> 01:23:35,805
+free question. I'm gonna get to some of them gonna try anyway
+
+898
+01:23:35,805 --> 01:23:41,185
+in these black and these unit office. they can be mechanistic week based. they can also
+
+899
+01:23:41,185 --> 01:23:46,645
+be a black box. 's an example of a black box might be for example
+
+900
+01:23:46,645 --> 01:23:52,165
+looking at combustion process where I know I put in fuel and I come out with CO2
+
+901
+01:23:52,165 --> 01:23:57,225
+and it's car monoxide and there might be proportionality 's that I use.
+
+902
+01:23:57,225 --> 01:24:02,525
+I could feed nutrients in to an organism and produce products here. I am not
+
+903
+01:24:02,525 --> 01:24:07,605
+gonna simulate probably every cellular thing that's happening in there but again treated
+
+904
+01:24:07,605 --> 01:24:12,805
+as a black box okay. even being a black fox. we
+
+905
+01:24:12,805 --> 01:24:17,865
+have constraints. we have to conserve mass storage geometry equilibrium
+
+906
+01:24:17,865 --> 01:24:23,285
+kinetics energy and so forth potentially in Mass. balance models for usually
+
+907
+01:24:23,285 --> 01:24:28,505
+looking at mass mass balance. so
+
+908
+01:24:28,505 --> 01:24:34,265
+putting some of this together and what are useful models for us. we have
+
+909
+01:24:34,265 --> 01:24:39,265
+for environmental models for fate and transport contaminant migration. we have
+
+910
+01:24:39,265 --> 01:24:44,485
+basically the emission sources for discharge and air pollution source of water pollution
+
+911
+01:24:44,485 --> 01:24:49,985
+source whatever characterized by parameters that include emission rate
+
+912
+01:24:49,985 --> 01:24:55,385
+chemicals properties of them. we have feet transport characterize
+
+913
+01:24:55,385 --> 01:25:01,025
+five dominant processes transport dilution reactions transformations
+
+914
+01:25:01,025 --> 01:25:06,445
+and then we have receptors. what we were trying to predict typically human health
+
+915
+01:25:06,445 --> 01:25:12,763
+and ecosystems and so forth okay. a couple of other points on here. take your questions.
+
+916
+01:25:12,763 --> 01:25:18,023
+also different types of permission sources in the air context we might talk about point
+
+917
+01:25:18,023 --> 01:25:23,303
+sources like the smoke mobile sources trucks and things like this in terms
+
+918
+01:25:23,303 --> 01:25:28,523
+of fate and transport processes. we typically are looking at transformations
+
+919
+01:25:28,523 --> 01:25:33,623
+of what we call primary pollutants for example in the air case you might it
+
+920
+01:25:33,623 --> 01:25:38,683
+so has too but this gets transformed in the atmosphere to a reaction product.
+
+921
+01:25:38,683 --> 01:25:44,183
+say sulfate ammonium sulfate or sulfuric acids. that's the second.
+
+922
+01:25:44,183 --> 01:25:51,447
+okay. car here for us
+
+923
+01:25:51,447 --> 01:25:56,567
+yeah so what's happening in a black box is that I am not
+
+924
+01:25:56,567 --> 01:26:02,227
+God. I do don't have a model that has equations for every transformation that's occurring
+
+925
+01:26:02,227 --> 01:26:07,507
+and I have very much simplified the processes that are occurring in that system
+
+926
+01:26:07,507 --> 01:26:12,567
+and so I specifically have it. relationship between what's going
+
+927
+01:26:12,567 --> 01:26:21,827
+in and what's coming out as compared to say a mechanistic or engineering type relations.
+
+928
+01:26:21,827 --> 01:26:27,147
+associates are a fairly high level approach
+
+929
+01:26:27,147 --> 01:26:32,387
+schema ties in what's happening in your model. they can show linkages of mass
+
+930
+01:26:32,387 --> 01:26:37,607
+or energy or information or whatever. this is one that we used for many
+
+931
+01:26:37,607 --> 01:26:42,887
+years still being used in Europe where we soak energy pathways and still being used time in
+
+932
+01:26:42,887 --> 01:26:48,998
+and change. we have emission control strategies.
+
+933
+01:26:48,998 --> 01:26:54,218
+so if we're going partly cold partly gas partly nuclear.
+
+934
+01:26:54,218 --> 01:26:59,299
+we might to look see what is the emissions from each of those units. this
+
+935
+01:26:59,299 --> 01:27:04,458
+results and omissions in this case to air their atmospheric processes like and form
+
+936
+01:27:04,458 --> 01:27:10,018
+that ammonium sulfate that comes down as acid rain for example affecting the forest ecosystem
+
+937
+01:27:10,018 --> 01:27:16,198
+and then we might have an environmental impacts that result as a result of that mission
+
+938
+01:27:16,198 --> 01:27:21,198
+and this whole time. okay. we saw this before women
+
+939
+01:27:21,198 --> 01:27:26,759
+were running this from left to right. this is a forecast.
+
+940
+01:27:26,759 --> 01:27:32,319
+what's gonna happen in terms of aquatic lake forest
+
+941
+01:27:32,319 --> 01:27:38,178
+in packs and so forth. okay. that's the scenario analysis
+
+942
+01:27:38,178 --> 01:27:43,259
+right for a particular scenario on the other hand. what we've also done and this
+
+943
+01:27:43,259 --> 01:27:48,538
+happened in Europe and it happened to an extent in the US was we said you have to
+
+944
+01:27:48,538 --> 01:27:54,010
+keep the amount of acid that's falling on these forest
+
+945
+01:27:54,010 --> 01:27:59,150
+systems below a critical load and below this
+
+946
+01:27:59,150 --> 01:28:05,350
+critical level buffering is sufficient not to sit a fine.
+
+947
+01:28:05,350 --> 01:28:11,310
+everybody with me. so this is a notion of critical loads of the maximum tolerable impact
+
+948
+01:28:11,310 --> 01:28:16,390
+without causing damage or maximum tolerable loading without causing damage.
+
+949
+01:28:16,390 --> 01:28:21,530
+that's that's a limit over here and then we moved backwards
+
+950
+01:28:21,530 --> 01:28:26,930
+to optimize this to come up with a lease cost strategy
+
+951
+01:28:26,930 --> 01:28:32,070
+to achieve that. okay. so again. system. a big
+
+952
+01:28:32,070 --> 01:28:40,450
+modeling system used forward and and reverse modes or some error analysis or.
+
+953
+01:28:40,450 --> 01:28:45,510
+so coming back to the question how to develop models. you know in a sense
+
+954
+01:28:45,510 --> 01:28:51,111
+it's a combination of the darkness I am sick heart there's many subjective issues science
+
+955
+01:28:51,111 --> 01:28:56,251
+you know clearly there's a lot going on in terms of content knowledge here. couple
+
+956
+01:28:56,251 --> 01:29:01,530
+of rules. know what you're doing okay. I mean that's kinda common
+
+957
+01:29:01,530 --> 01:29:06,631
+sense so you need an expert. you need data as well because you can't
+
+958
+01:29:06,631 --> 01:29:11,711
+develop a model for any practical purpose without updated. tell
+
+959
+01:29:11,711 --> 01:29:16,850
+you if it's working and so there a lot of are issues and model
+
+960
+01:29:16,850 --> 01:29:21,990
+development some you know some of them are listed here. again we're not starting from
+
+961
+01:29:21,990 --> 01:29:27,091
+scratch off and it's a question of what model is most appropriate overall those might
+
+962
+01:29:27,091 --> 01:29:32,410
+be used in those that might be used might be back of the envelope calculations for some incredibly
+
+963
+01:29:32,410 --> 01:29:38,071
+complicated system. so how do you select among them. models
+
+964
+01:29:38,071 --> 01:29:43,251
+taken off the shelf and calibration. they need to be applied to local context.
+
+965
+01:29:43,251 --> 01:29:48,731
+people are interested in how accurate they are. what errors. what are the areas for me.
+
+966
+01:29:48,731 --> 01:29:53,789
+what fax results and so forth so you know if I'm looking at
+
+967
+01:29:53,789 --> 01:29:59,928
+models. I want something that explains what's going on. so my explanatory
+
+968
+01:29:59,928 --> 01:30:05,488
+power are squared could be should be what
+
+969
+01:30:05,488 --> 01:30:10,809
+you guys are taking stuff and epidemiology.
+
+970
+01:30:10,809 --> 01:30:18,189
+what's the good of our square
+
+971
+01:30:18,189 --> 01:30:23,309
+that would be marvelous. but I can get very useful results with point one point
+
+972
+01:30:23,309 --> 01:30:29,029
+two as well. so it depends on the context. absolutely. okay.
+
+973
+01:30:29,029 --> 01:30:34,229
+second thing I want and I I wanna have point one point two for my feet and transport
+
+974
+01:30:34,229 --> 01:30:39,448
+model that's awfully low. okay. I also want the model to be consistent with
+
+975
+01:30:39,448 --> 01:30:44,448
+explanations of mechanisms that I understand. okay. and that's what we'll call
+
+976
+01:30:44,448 --> 01:30:49,549
+verification and then I wanted to be personally. 's. okay. basically as
+
+977
+01:30:49,549 --> 01:30:54,967
+simple as possible still but roll and so in here in practice
+
+978
+01:30:54,967 --> 01:31:00,227
+this means that I need to validate the model with real world data that I need to have appropriate structure
+
+979
+01:31:00,227 --> 01:31:05,426
+and outputs and inputs to make it consistent with the mechanistic or structures and
+
+980
+01:31:05,426 --> 01:31:11,047
+I wanted to be as simple as possible. so these are things that I look for
+
+981
+01:31:11,047 --> 01:31:16,507
+now. I have too much stuff here to deal with errors. but all models makes
+
+982
+01:31:16,507 --> 01:31:21,767
+different types of errors and some of those errors are listed here. I'm not gonna spend any time on this right
+
+983
+01:31:21,767 --> 01:31:26,787
+now. additional deficiencies are shown here as well. so please just take
+
+984
+01:31:26,787 --> 01:31:31,866
+a look at this. so you know you
+
+985
+01:31:31,866 --> 01:31:38,467
+have this famous quote from George fox at all models are wrong but some useful.
+
+986
+01:31:38,467 --> 01:31:45,127
+okay. how much air and is tolerable is requesting question it really depends on the application.
+
+987
+01:31:45,127 --> 01:31:51,797
+it depends on you know the ability of data to support
+
+988
+01:31:51,797 --> 01:31:56,977
+the application the model. and so forth. but you guys may not
+
+989
+01:31:56,977 --> 01:32:02,156
+be model developers but you are gonna be models users and
+
+990
+01:32:02,156 --> 01:32:07,717
+interpreters and you need to be able to understand the structure function
+
+991
+01:32:07,717 --> 01:32:13,196
+of models. you need to understand where they diverge from measure.
+
+992
+01:32:13,196 --> 01:32:18,937
+I won't say reality because measurements are not reality
+
+993
+01:32:18,937 --> 01:32:24,477
+and so you need to be able to discuss and quantify those in certain. and you need to understand
+
+994
+01:32:24,477 --> 01:32:30,091
+when your knowledge picks out. need to get somebody else
+
+995
+01:32:30,091 --> 01:32:35,571
+but the most important lesson and I've seen some many times you go a in court room
+
+996
+01:32:35,571 --> 01:32:40,691
+and as an example and some of the Texas flooding an expert was there
+
+997
+01:32:40,691 --> 01:32:45,890
+and said you know we design the spillway 's and the cold birds and it should've handled. five hundred
+
+998
+01:32:45,890 --> 01:32:51,010
+year storm. okay and there's billions of dollars of
+
+999
+01:32:51,010 --> 01:32:56,490
+damage and insurance companies and see out everybody else are suing everybody
+
+1000
+01:32:56,490 --> 01:33:01,530
+left and right and the expert says you know but we engineer this is Central
+
+1001
+01:33:01,530 --> 01:33:06,611
+flooded and you know the defense or whoever says
+
+1002
+01:33:06,611 --> 01:33:11,611
+did you inspect the river or the covert Burger whatever you know since I
+
+1003
+01:33:11,611 --> 01:33:17,010
+looked it at with the satellite photo I know the slope got the roughness program and all this kinda stuff.
+
+1004
+01:33:17,010 --> 01:33:22,091
+if you go on there you would've seen the trees and the brushes and everything else growing in what
+
+1005
+01:33:22,091 --> 01:33:27,593
+he assumed was a completely smooth toll for okay and the water obviously backed up
+
+1006
+01:33:27,593 --> 01:33:33,633
+in something like this. so you need to know what you're dealing with as the well physical
+
+1007
+01:33:33,633 --> 01:33:38,893
+ground truth is really important. 's lots of some examples like that.
+
+1008
+01:33:38,893 --> 01:33:43,893
+some ways to find a good model. are listed here. choose the simplest one you
+
+1009
+01:33:43,893 --> 01:33:48,893
+think is applicable applicable easy to validate provides what you want as the
+
+1010
+01:33:48,893 --> 01:33:54,033
+features that you want. EPA. often doesn't give you that flexibility
+
+1011
+01:33:54,033 --> 01:33:59,154
+they're gonna say use Emacs use our line. use whatever
+
+1012
+01:33:59,154 --> 01:34:04,393
+newsies had one models for whatever they're gonna specify what you have to do. sometimes
+
+1013
+01:34:04,393 --> 01:34:09,613
+they allow you to it use for phone models. typically people
+
+1014
+01:34:09,613 --> 01:34:14,654
+don't use specified miles. I've got
+
+1015
+01:34:14,654 --> 01:34:19,654
+two or three minutes left for a couple of important thing.
+
+1016
+01:34:19,654 --> 01:34:25,493
+models need to be evaluated prior to use. there's a language that corresponds
+
+1017
+01:34:25,493 --> 01:34:30,516
+to this process. I wanna go over that. make sure
+
+1018
+01:34:30,516 --> 01:34:35,555
+you get that today verification is the first in the
+
+1019
+01:34:35,555 --> 01:34:40,796
+model. it's a hypothetical test to see that the model works as you expect
+
+1020
+01:34:40,796 --> 01:34:45,996
+in our apartment with the bio aerosol model. if I have more
+
+1021
+01:34:45,996 --> 01:34:51,055
+rapid settling. would you expect the concentration to be higher or lower in the
+
+1022
+01:34:51,055 --> 01:34:56,175
+or lower. yes it's better work that
+
+1023
+01:34:56,175 --> 01:35:02,276
+way. okay so test model your with these hypothetical test calibration
+
+1024
+01:35:02,276 --> 01:35:07,555
+is the process of finding an appropriate value of the parameter. okay
+
+1025
+01:35:07,555 --> 01:35:12,716
+so what's at here change rate. make sure it's the right one. okay.
+
+1026
+01:35:12,716 --> 01:35:18,595
+you need data to do this evaluation is taking
+
+1027
+01:35:18,595 --> 01:35:23,836
+small data set typically in comparing your prediction with that data from
+
+1028
+01:35:23,836 --> 01:35:28,930
+the real world. okay. it's a case by case evaluation
+
+1029
+01:35:28,930 --> 01:35:34,390
+because it's like one or two studies it doesn't tell you except whether working that context
+
+1030
+01:35:34,390 --> 01:35:39,430
+is not general logical validation as a result of doing
+
+1031
+01:35:39,430 --> 01:35:44,650
+a valuations many times using multiple data
+
+1032
+01:35:44,650 --> 01:35:50,270
+sets by different people. it's a much stronger standard. okay.
+
+1033
+01:35:50,270 --> 01:35:55,650
+and then solidity of the model is that it's been deemed
+
+1034
+01:35:55,650 --> 01:36:00,969
+to give you adequate accuracy. okay after being validated
+
+1035
+01:36:00,969 --> 01:36:05,989
+for that particular application. alright so we see we've gone
+
+1036
+01:36:05,989 --> 01:36:11,250
+through a variety of different increasingly high bars to
+
+1037
+01:36:11,250 --> 01:36:16,290
+assess the model performance reasonable
+
+1038
+01:36:16,290 --> 01:36:22,050
+to you. who should do this. I just developed the pattern and model
+
+1039
+01:36:22,050 --> 01:36:27,370
+which is like five thousand dollars. probably needs to be evaluated by an outside
+
+1040
+01:36:27,370 --> 01:36:34,314
+party okay. this would be ideal. really don't
+
+1041
+01:36:34,314 --> 01:36:41,754
+hates GM believe it or not has a standard for model validation third-party
+
+1042
+01:36:41,754 --> 01:36:47,314
+assessors. you can look at that model validation is often very very difficult
+
+1043
+01:36:47,314 --> 01:36:53,234
+I mean climate change models how we validate them. use we historical data. there's lots of gaps in the data
+
+1044
+01:36:53,234 --> 01:36:58,714
+right. if things change in the future then we're gonna make a fallacy of extrapolation.
+
+1045
+01:36:58,714 --> 01:37:04,154
+you know it's gets really really nice point is we need to do this despite
+
+1046
+01:37:04,154 --> 01:37:10,234
+the shortcomings some of the questions here for validation are
+
+1047
+01:37:10,234 --> 01:37:15,734
+highlighted. if I told you hardly any of the environmental models
+
+1048
+01:37:15,734 --> 01:37:20,814
+are sufficiently validated but we still have to use them. if I tell
+
+1049
+01:37:20,814 --> 01:37:26,013
+you in general many models are on validated. you still get on that airplane.
+
+1050
+01:37:26,013 --> 01:37:31,241
+right that's been assembled with all kinds of structural models to figure
+
+1051
+01:37:31,241 --> 01:37:36,442
+out whether it's strong enough to survive. who knows wind gust of lightning strike whatever
+
+1052
+01:37:36,442 --> 01:37:41,542
+you still get on that plane right. well we do that because we
+
+1053
+01:37:41,542 --> 01:37:48,122
+have coping mechanisms some of the coping medicine mechanisms for example or to use a margin of safety.
+
+1054
+01:37:48,122 --> 01:37:53,181
+okay. I mean this could be important. we also do
+
+1055
+01:37:53,181 --> 01:37:58,181
+sensitivity analyses and things like this but there's a cost to all. 's. alright.
+
+1056
+01:37:58,181 --> 01:38:03,602
+and if you get into that plane and I can only take
+
+1057
+01:38:03,602 --> 01:38:08,681
+ten passengers are better example you get into a skyscraper and they've made the concrete pillars
+
+1058
+01:38:08,681 --> 01:38:14,161
+so strong that there's so little space last. okay for the occupied portion.
+
+1059
+01:38:14,161 --> 01:38:19,502
+obviously there's a huge cost us. so we want to have efforts that reduce the
+
+1060
+01:38:19,502 --> 01:38:24,542
+uncertainties. it's really important. expressing the uncertainty is really
+
+1061
+01:38:24,542 --> 01:38:25,493
+important. I was just trying to quit yes
+

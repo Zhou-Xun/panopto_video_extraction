@@ -1,0 +1,1596 @@
+1
+00:00:09,150 --> 00:00:12,660
+Oh, not.
+
+2
+00:00:23,090 --> 00:00:34,210
+Morning, everybody. Hope you're all doing well this morning.
+
+3
+00:00:35,260 --> 00:00:40,710
+Ready to learn fast. Yeah, I know.
+
+4
+00:00:41,380 --> 00:00:44,920
+I know you are. Inside. Deep inside you. Are you ready?
+
+5
+00:00:48,610 --> 00:00:54,670
+Yeah. Before we get started to Jade and anyone have any questions about last time or the lab?
+
+6
+00:00:59,550 --> 00:01:08,730
+One thing I'd like to mention and those homeworks, some of you are still missing that 5% because of,
+
+7
+00:01:10,410 --> 00:01:18,390
+you know, making comments and formatting your code. This is something that's it's a it's a really, really good habit to get yourself into.
+
+8
+00:01:18,720 --> 00:01:23,580
+And that's why we're kind of trying to stress that it helps the readability of your code.
+
+9
+00:01:24,090 --> 00:01:29,580
+It's going to help you later when you look at your code again to understand exactly what you were doing.
+
+10
+00:01:30,150 --> 00:01:38,940
+So it's it's really something we want you to get in the habit of doing, make sure you're commenting all your all your code,
+
+11
+00:01:38,940 --> 00:01:44,790
+your every question we'd like you to have the your name and in the homework number at the top is a comment as well.
+
+12
+00:01:45,870 --> 00:01:56,700
+And, and make sure you're inventing sections of code that that are within data procedure steps and really helps the readability
+
+13
+00:01:57,270 --> 00:02:05,130
+and helps us grade it helps helps you read it later as well for any of your colleagues so make sure you're doing that.
+
+14
+00:02:06,420 --> 00:02:10,970
+Okay. Any questions about that?
+
+15
+00:02:12,020 --> 00:02:19,330
+As I understood when we want there. Right.
+
+16
+00:02:20,960 --> 00:02:29,470
+Yes. But.
+
+17
+00:02:37,750 --> 00:02:42,400
+What's in the code. Yeah. Is actually what what we are looking at.
+
+18
+00:02:46,380 --> 00:02:49,740
+Okay. Well, we're certainly willing to to look at those things.
+
+19
+00:02:50,370 --> 00:02:54,410
+If you if you find something like that, it's you know, it's a.
+
+20
+00:02:55,660 --> 00:03:00,790
+There's nine years or so of you. So, you know, there's bound to be a mistake here and there.
+
+21
+00:03:01,790 --> 00:03:05,650
+Don't worry about those. If there's mistakes, we'll fix them. Okay.
+
+22
+00:03:09,730 --> 00:03:16,630
+Anything else? All right.
+
+23
+00:03:19,400 --> 00:03:26,760
+Let me know if you have anything else. So today we're going to we're going to talk more about creating variables.
+
+24
+00:03:28,890 --> 00:03:37,560
+Epidemiology is a comparative science. So that means that we're going to have to recode things quite often in our data.
+
+25
+00:03:39,020 --> 00:03:44,540
+If you remember from last week, we did a lot of transformations on on all our observations.
+
+26
+00:03:44,540 --> 00:03:51,290
+So we did date and time manipulations such as extracting hours or months from a date or time.
+
+27
+00:03:51,860 --> 00:03:57,020
+We detect manipulations using substring or scan, that kind of thing.
+
+28
+00:03:57,740 --> 00:04:02,090
+And we did mathematical transformations with all those mathematical operators.
+
+29
+00:04:02,660 --> 00:04:09,020
+So we had a general format of new var equals expression, right?
+
+30
+00:04:12,090 --> 00:04:17,790
+But today we're going to select variables to subset using logic.
+
+31
+00:04:18,840 --> 00:04:25,260
+Okay. So we're going to recode things conditionally instead of on all observations at once.
+
+32
+00:04:26,810 --> 00:04:35,660
+We might want to do this if we're trying to group like things or splitting up different things or if we're having to recode missing this.
+
+33
+00:04:37,350 --> 00:04:40,500
+Or if we need to interpret based on some group.
+
+34
+00:04:41,620 --> 00:04:48,840
+So that's what we're going to do today. So we're going to have to remember our sub setting logic that we talked about previously.
+
+35
+00:04:49,380 --> 00:04:55,400
+You remember this? So if you recall SAS. Thinks of things as true or false, right?
+
+36
+00:04:55,490 --> 00:05:00,340
+These statements are true or false. So wearing mesas is true.
+
+37
+00:05:00,580 --> 00:05:04,310
+So that gets a one. If it's a false, it gets zero. Right.
+
+38
+00:05:04,330 --> 00:05:13,050
+So that's something we have to remember. And we're going to be using our if then do logic.
+
+39
+00:05:15,650 --> 00:05:18,740
+So this was something we saw previously.
+
+40
+00:05:19,220 --> 00:05:23,300
+It's a data step where we're creating a new data set where we're sub setting.
+
+41
+00:05:23,900 --> 00:05:31,760
+If May's equals one or blue equals one, which means Mays equals true or blue equals true.
+
+42
+00:05:33,510 --> 00:05:40,260
+Okay. If either one of those conditions is true, then it will keep that particular observation.
+
+43
+00:05:42,930 --> 00:05:48,840
+So we're learning objectives for this section are to conditionally recode observations using logic.
+
+44
+00:05:50,780 --> 00:05:53,900
+We want to use proper procedures to check our coding.
+
+45
+00:05:55,950 --> 00:06:00,300
+And leverage temporary data sets to ensure that your work is correct. Correct before saving it.
+
+46
+00:06:03,040 --> 00:06:12,080
+So let's start with recoding and missing this. We're going to use it then logic generally for this.
+
+47
+00:06:13,160 --> 00:06:18,320
+And it's going to be really important for you to look at your code books.
+
+48
+00:06:19,010 --> 00:06:23,270
+And Haynes has these really nice code books, which is very convenient.
+
+49
+00:06:24,050 --> 00:06:27,650
+It tells you all the possible values for any particular variable.
+
+50
+00:06:29,320 --> 00:06:38,830
+So this is just a piece of a codebook which is describing the variable d010, which is the current self-reported height in inches.
+
+51
+00:06:40,700 --> 00:06:44,840
+You can see it tells you the range of values there, 53 to 81.
+
+52
+00:06:45,830 --> 00:06:50,600
+How many people are in in those values? 6363.
+
+53
+00:06:52,130 --> 00:07:00,470
+And there's some other values as well. But seven, seven, seven seven is four refused the 99994 don't know.
+
+54
+00:07:02,270 --> 00:07:08,980
+And there is a dock there as well for missing. So.
+
+55
+00:07:09,910 --> 00:07:16,150
+Obviously for different variables, these might be different. So you have to check your codebook and for different data sets.
+
+56
+00:07:16,300 --> 00:07:21,540
+Other than engines, they might be coded differently as well. So you really need to know what you're dealing with.
+
+57
+00:07:22,850 --> 00:07:29,040
+So check your codebook. So a lot of times what we're going to want to do here is recode.
+
+58
+00:07:29,160 --> 00:07:32,780
+I was refused and don't knows. Into missing.
+
+59
+00:07:33,560 --> 00:07:40,640
+They don't give us a lot of information. Now it's it's a different type of missing maybe.
+
+60
+00:07:41,180 --> 00:07:49,040
+And if you're going to be doing some analysis on like what type of people refuse, then that might be a different type of coding altogether.
+
+61
+00:07:49,970 --> 00:07:56,270
+But in most cases, these are responses that don't help us.
+
+62
+00:07:56,450 --> 00:08:02,420
+So we want to recode those two missing. There's regular old sass missing, which is a dot.
+
+63
+00:08:05,340 --> 00:08:15,750
+So here's an example. Data set. You can see that height variable that FDO 1000 as a9999 down there in observation 16.
+
+64
+00:08:16,260 --> 00:08:22,290
+There's another variable over there, which I believe is the weight, which has five nines in it.
+
+65
+00:08:24,460 --> 00:08:29,890
+Which is its missing code. And the don't know the don't know code.
+
+66
+00:08:31,830 --> 00:08:36,780
+So one way we can recode this is with if then logic.
+
+67
+00:08:38,370 --> 00:08:42,810
+So here in this data step, we're creating a new data set called HQ.
+
+68
+00:08:42,840 --> 00:08:47,790
+No Miss, which starts with the original HQ data set.
+
+69
+00:08:49,420 --> 00:08:54,010
+And we say if the height variable equals 9999.
+
+70
+00:08:55,120 --> 00:08:58,180
+Or the height variable equals seven seven, seven, seven.
+
+71
+00:09:00,310 --> 00:09:03,820
+Then. The Hyde variable equals to.
+
+72
+00:09:08,620 --> 00:09:12,310
+You can do that similar thing for that weight variable.
+
+73
+00:09:16,630 --> 00:09:22,330
+Okay. So this is going to take those variables height and weight.
+
+74
+00:09:24,110 --> 00:09:30,319
+It's going to find any observations where it equals nine, nine, nine, nine or seven, seven, seven,
+
+75
+00:09:30,320 --> 00:09:37,940
+seven or the five nines and five sevens depending on the variable, and replace those values with a dot.
+
+76
+00:09:40,960 --> 00:09:45,240
+This does overwrite the original variable. Okay.
+
+77
+00:09:47,270 --> 00:09:54,320
+So before and after you can see it is simply replaced those unwanted values with missing.
+
+78
+00:09:57,730 --> 00:10:06,320
+Okay. It is important how you order these things a lot.
+
+79
+00:10:08,130 --> 00:10:14,010
+So if you wanted to do some calculation on those variables, say you wanted to multiply together.
+
+80
+00:10:16,450 --> 00:10:20,740
+It would be important. To recode the missing before.
+
+81
+00:10:22,260 --> 00:10:33,240
+You multiply them, right? Because if you take the product first and then recode them, you're going to end up with this ridiculous, huge number.
+
+82
+00:10:33,480 --> 00:10:46,060
+Right? Which is definitely not wanted. So you're going to want to put these two recoded missing lines ahead of the product line.
+
+83
+00:10:48,050 --> 00:10:53,050
+Does that makes sense? All right.
+
+84
+00:10:57,950 --> 00:11:05,690
+It is often better to recode missing like this as a new variable.
+
+85
+00:11:06,830 --> 00:11:11,480
+Now. There's there's some exceptions to this rule.
+
+86
+00:11:12,710 --> 00:11:21,410
+I think if you're dealing within Heinz, these kind of values and you really don't, you're never going to use them in any analysis you do.
+
+87
+00:11:21,800 --> 00:11:31,580
+It might be okay, just overwrite the original variable, but often that's not the case in my it's you don't want to overwrite what's originally there.
+
+88
+00:11:32,270 --> 00:11:39,020
+So you can create a new variable that's the same as the old one, except with the missing set appropriately.
+
+89
+00:11:40,340 --> 00:11:41,780
+So that's what this example does.
+
+90
+00:11:42,470 --> 00:11:53,990
+So it's basically the same, except now we're saying we're giving this this a new variable name in underscore are on the end indicator recode.
+
+91
+00:11:55,990 --> 00:12:01,260
+Right. So if it's the unwanted values, either one.
+
+92
+00:12:02,280 --> 00:12:08,270
+Then set the new variable Recode the missing, and then you can use an else statement.
+
+93
+00:12:10,290 --> 00:12:16,860
+To indicate that you want in all other conditions for it to be the same as the original one.
+
+94
+00:12:24,180 --> 00:12:28,400
+Does that make sense to everyone? Now if you don't have that else.
+
+95
+00:12:31,390 --> 00:12:34,870
+You're not telling SAS what to do with the other values. You're only telling it to.
+
+96
+00:12:34,960 --> 00:12:38,530
+What to do with the 99997777.
+
+97
+00:12:39,580 --> 00:12:44,650
+So it's. It's not going to do anything to them and it's going to be missing still.
+
+98
+00:12:45,910 --> 00:12:51,060
+Okay. So it's important to make sure you have that statement in there with it.
+
+99
+00:12:52,430 --> 00:12:58,840
+If you're doing this kind of recode. Right.
+
+100
+00:13:00,910 --> 00:13:07,450
+And that's what I'm talking about here. If you don't have the else, then everything is just going to show up as missing.
+
+101
+00:13:09,710 --> 00:13:14,960
+Obviously that's not what you want. Okay.
+
+102
+00:13:17,760 --> 00:13:23,160
+Now. It's also really important to check your work to make sure your recoding works as you expect.
+
+103
+00:13:24,860 --> 00:13:28,370
+So for continuous variables, proc means is the best choice.
+
+104
+00:13:31,220 --> 00:13:37,430
+So here to check that recoding I'm running a proc means on my new dataset and I created.
+
+105
+00:13:39,260 --> 00:13:44,630
+And I'm looking at each of the variables, the two original ones and the two recoded versions.
+
+106
+00:13:46,620 --> 00:13:55,020
+And you can see from the table there that I have those max values, which are the ones I don't want on the original.
+
+107
+00:13:56,180 --> 00:14:01,960
+And on the codes. They're more of an acceptable value that we expect.
+
+108
+00:14:03,000 --> 00:14:07,980
+So that's what we want to see. We want to make sure the minimums and maximums make sense.
+
+109
+00:14:09,320 --> 00:14:13,390
+And. This second example here.
+
+110
+00:14:15,020 --> 00:14:21,390
+Um. Subsets to those unwanted values using a wear statement.
+
+111
+00:14:23,860 --> 00:14:31,390
+And from that table we can see that our new recorded version doesn't have any of those values in it, which is exactly what we want.
+
+112
+00:14:34,010 --> 00:14:41,030
+Okay. So this is a way you can check to make sure things are are right and that it did what you expected it to do.
+
+113
+00:14:43,280 --> 00:14:46,650
+Okay? Yes. I am.
+
+114
+00:14:48,680 --> 00:14:53,900
+Yeah. So that's a in operator. So basically if.
+
+115
+00:14:55,290 --> 00:15:00,620
+The height variable here that FDO went to. Is in this set of values.
+
+116
+00:15:00,920 --> 00:15:10,980
+So it could be any one of those values. Yeah in a in operator operators a nice shortcut so that you don't have to write it like this.
+
+117
+00:15:13,040 --> 00:15:17,090
+So you got to state two different clauses here, right?
+
+118
+00:15:18,530 --> 00:15:21,980
+You could have HBO four or five in.
+
+119
+00:15:23,130 --> 00:15:26,760
+The set. 99999977777.
+
+120
+00:15:28,520 --> 00:15:33,480
+And that would have worked equally well. Okay.
+
+121
+00:15:34,030 --> 00:15:38,650
+There's many ways to go. Things? Quite often. So you use whatever works best for you.
+
+122
+00:15:39,890 --> 00:15:43,840
+As long as it logically makes sense. Okay.
+
+123
+00:15:49,530 --> 00:15:55,590
+Right. So key takeaways in that section. Responses like don't know or refuse.
+
+124
+00:15:57,280 --> 00:16:01,840
+Often don't provide helpful information. And so we're going to want to recode those two missing.
+
+125
+00:16:03,200 --> 00:16:07,070
+You can use if and statements to conditionally recode those observations using logic.
+
+126
+00:16:09,780 --> 00:16:17,610
+Creating new variables is a safer way to recode, but you do need to make sure you have an A+ statement when doing that.
+
+127
+00:16:19,370 --> 00:16:23,530
+And. Use PROC means to check you work for continuous variables.
+
+128
+00:16:26,860 --> 00:16:31,920
+Okay. All right.
+
+129
+00:16:32,310 --> 00:16:42,580
+Let's talk about regrouping data. So here's an example of a frequency table produced by PROC Freak.
+
+130
+00:16:43,950 --> 00:16:49,380
+For a variable called race f race ethnicity is what that stands for there.
+
+131
+00:16:51,120 --> 00:16:57,170
+So we have four categories in that. So.
+
+132
+00:16:58,690 --> 00:17:02,770
+We may find it necessary to regroup these.
+
+133
+00:17:03,970 --> 00:17:10,690
+In this case, that other Hispanic category is quite small and it would be difficult.
+
+134
+00:17:12,820 --> 00:17:17,260
+Analytically to do much with that category.
+
+135
+00:17:18,180 --> 00:17:22,180
+There's just not enough people in. In this particular dataset.
+
+136
+00:17:23,770 --> 00:17:30,810
+So we may want to do something with that. So in this section we'll conditionally recode using if and again.
+
+137
+00:17:32,650 --> 00:17:35,830
+So we're going to collapse across categories.
+
+138
+00:17:39,000 --> 00:17:43,110
+Russ Going to learn? LCF Which is really nice.
+
+139
+00:17:46,160 --> 00:17:51,090
+Logical phrase as well. And we'll check our work using proc freak.
+
+140
+00:17:54,730 --> 00:17:59,170
+So since our other Hispanic category is rather small.
+
+141
+00:18:01,230 --> 00:18:11,880
+We may want to combine it. With the Mexican category to create a Hispanic category as a whole.
+
+142
+00:18:14,820 --> 00:18:20,080
+Okay. So here's an example.
+
+143
+00:18:20,100 --> 00:18:25,290
+One way to do that, an example of one way to do this we can use if statements.
+
+144
+00:18:28,220 --> 00:18:33,730
+So if the original race ethnicity variable equals. non-Hispanic black.
+
+145
+00:18:34,180 --> 00:18:37,390
+Then a recoded version of it equals one.
+
+146
+00:18:41,850 --> 00:18:46,770
+If that original equals non-Hispanic white, then the recorded version equals two.
+
+147
+00:18:47,760 --> 00:18:58,350
+And if the original is equal to other Hispanic or the original is equal to Mexican, then the new recorded version equals three.
+
+148
+00:19:02,610 --> 00:19:14,700
+Okay. Equivalent coding, we can use that in operator in the same way.
+
+149
+00:19:15,450 --> 00:19:22,660
+So I'm the only one that's changed. Here is this last line. You can use the inner operator to get some equivalent coding.
+
+150
+00:19:23,840 --> 00:19:27,610
+Little less typing. I'm always in favor for.
+
+151
+00:19:27,610 --> 00:19:30,790
+In favor of. So I like the interpreter.
+
+152
+00:19:33,100 --> 00:19:37,090
+But it's certainly equivalent either way, whichever way makes more sense to you.
+
+153
+00:19:38,780 --> 00:19:47,630
+What you can't do, however, is say if race, ethnicity equals Hispanic or Mexican without having this part.
+
+154
+00:19:49,720 --> 00:19:53,920
+Right. That doesn't make sense to says needs to have.
+
+155
+00:19:54,970 --> 00:19:58,300
+This part in order to make logical sense.
+
+156
+00:20:00,510 --> 00:20:05,210
+Okay. All right.
+
+157
+00:20:10,220 --> 00:20:16,830
+All right. Any questions about that? Okay.
+
+158
+00:20:19,190 --> 00:20:22,910
+Another question do I have to explicitly code the missing here in this?
+
+159
+00:20:23,980 --> 00:20:27,120
+In this data step. What do you think?
+
+160
+00:20:28,620 --> 00:20:34,200
+You can see from the table there's 465 missing. From the frequency table.
+
+161
+00:20:39,610 --> 00:20:45,380
+What's going to happen to those? For my new recoded race ethnicity variable.
+
+162
+00:20:51,950 --> 00:21:00,670
+And the idea. Well, I haven't told SAS to do anything with them.
+
+163
+00:21:01,330 --> 00:21:04,500
+Right. And since I'm creating this new variable.
+
+164
+00:21:06,660 --> 00:21:09,930
+It doesn't we haven't told it to do anything with them.
+
+165
+00:21:09,930 --> 00:21:16,720
+And so the default is just to leave them missing. So in fact, I don't explicitly have to.
+
+166
+00:21:17,740 --> 00:21:23,270
+To code for those missing. It'll do it automatically.
+
+167
+00:21:26,260 --> 00:21:30,700
+Which is convenient. One less line of code.
+
+168
+00:21:31,960 --> 00:21:36,560
+It's always better. All right.
+
+169
+00:21:41,620 --> 00:21:44,770
+If then checks all observations for each statement.
+
+170
+00:21:45,610 --> 00:21:49,270
+Okay. So what that means is when I run this code.
+
+171
+00:21:50,450 --> 00:21:55,310
+It's going to check each of these conditions for every observation.
+
+172
+00:21:57,620 --> 00:22:02,660
+But there's an alternative which is more efficient. And let's see else if statement.
+
+173
+00:22:04,500 --> 00:22:09,600
+So it works kind of like this graphic here. If you use else.
+
+174
+00:22:09,600 --> 00:22:18,710
+If. It'll check the first expression. And if it's true, it does what it supposed to do.
+
+175
+00:22:19,190 --> 00:22:25,290
+And if it's false. It will move on to the next expression.
+
+176
+00:22:26,180 --> 00:22:32,240
+And check it. The difference, though, is that you can see in the first case where it's true.
+
+177
+00:22:32,840 --> 00:22:37,480
+It skips all the other. Logical sameness.
+
+178
+00:22:37,490 --> 00:22:41,850
+It doesn't need to check them anymore. Right.
+
+179
+00:22:42,330 --> 00:22:50,360
+So it's more efficient in that way. It also ensures that you don't put the same observation in multiple categories.
+
+180
+00:22:53,360 --> 00:22:59,380
+Okay. So here's an equivalent example of what we did before, but it's much more efficient.
+
+181
+00:23:01,350 --> 00:23:06,630
+So now we're saying if race ethnicity equals non-Hispanic black, then code two one.
+
+182
+00:23:07,860 --> 00:23:11,530
+Else if it's non-Hispanic white encouraged to.
+
+183
+00:23:12,000 --> 00:23:16,290
+Else if it's in other Hispanic or Mexican, then three.
+
+184
+00:23:17,310 --> 00:23:21,100
+And we can finish that off if we like. To be very.
+
+185
+00:23:22,880 --> 00:23:26,990
+You have a nice closer with her else.
+
+186
+00:23:27,530 --> 00:23:32,620
+It's missing. That isn't technically necessary because it won't.
+
+187
+00:23:33,190 --> 00:23:37,930
+It'll do that automatically. But it does complete this fall.
+
+188
+00:23:38,260 --> 00:23:43,990
+If else, if else. Logical black, if you will.
+
+189
+00:23:46,290 --> 00:23:55,830
+It also makes sure that you are accounting for every possible value you can have for that for that variable.
+
+190
+00:23:59,020 --> 00:24:02,290
+Okay. So, again, this is this is better.
+
+191
+00:24:02,290 --> 00:24:15,350
+It's more efficient. Because if it looks at an observations and finds that it is non-Hispanic black, it's going to skip all the other phrases.
+
+192
+00:24:15,500 --> 00:24:19,610
+It's just going to set it to one and not even check the other ones for that observation.
+
+193
+00:24:21,400 --> 00:24:27,570
+Does that make sense? Or if it finds it false, it's then going to check the next one.
+
+194
+00:24:28,230 --> 00:24:34,750
+If it's true, then it's going to skip the rest. If it's false, it'll go in the next one and so on.
+
+195
+00:24:36,100 --> 00:24:39,370
+So it's much more efficient way to go.
+
+196
+00:24:40,880 --> 00:24:44,090
+Especially if you have a very large data set, this might actually save time.
+
+197
+00:24:45,940 --> 00:24:50,300
+Okay. All right.
+
+198
+00:24:51,320 --> 00:24:56,420
+And again, we want to make sure we're checking our work to make sure our code worked as we expected.
+
+199
+00:24:57,110 --> 00:25:03,890
+So you can do this with proc freak. For categorical variables. So the easiest way to do this is just.
+
+200
+00:25:04,890 --> 00:25:09,250
+Run track freak with a cross tab of your original times.
+
+201
+00:25:09,690 --> 00:25:16,780
+Your new version. And make sure you include.
+
+202
+00:25:18,450 --> 00:25:23,380
+That missing option in the table statement. By default.
+
+203
+00:25:24,250 --> 00:25:29,830
+If you've noticed, SAS will not put any mRNAs in this proc free table.
+
+204
+00:25:30,670 --> 00:25:37,200
+But if you use a missing option. It'll create a category for that missing.
+
+205
+00:25:39,460 --> 00:25:45,200
+Okay. So here's our table. We can see that.
+
+206
+00:25:46,490 --> 00:25:49,940
+The missing arms in the original.
+
+207
+00:25:50,510 --> 00:26:00,420
+All ended up with dot. My new one. Everyone who is in the Mexican category ended up with three.
+
+208
+00:26:01,230 --> 00:26:08,420
+Everyone in non-Hispanic black ended up with one. Everyone in non-Hispanic white ended up with a two.
+
+209
+00:26:09,230 --> 00:26:14,000
+And everyone in other Hispanic ended up with a three. And that's exactly what we wanted.
+
+210
+00:26:14,340 --> 00:26:19,900
+Yes. If you didn't have the missing option.
+
+211
+00:26:21,490 --> 00:26:26,170
+Yeah. So this whole dot column here would not show up.
+
+212
+00:26:27,780 --> 00:26:31,139
+You'd end up with a with a bar down here.
+
+213
+00:26:31,140 --> 00:26:35,530
+That said, there's so many missing. You've seen that before, right? Yeah.
+
+214
+00:26:35,540 --> 00:26:41,500
+So that would show up instead. But this missing option allows it to be a category in that variable.
+
+215
+00:26:45,660 --> 00:26:56,770
+Okay. Now, you might have noticed also that we've recoded this this carried this character variable into numeric.
+
+216
+00:26:59,040 --> 00:27:03,990
+Right. That's generally easier to do.
+
+217
+00:27:05,730 --> 00:27:15,450
+It allows you to. It's a safer way to go.
+
+218
+00:27:15,480 --> 00:27:21,330
+Let's say that, because then if you're recalling different categories, is totally possible.
+
+219
+00:27:22,390 --> 00:27:30,740
+That's. In some datasets you'll have non-Hispanic white to show up as just white.
+
+220
+00:27:31,280 --> 00:27:41,500
+Or it might be. Capital completely capitalized or not at all capitalized, and those as a character variable are all different.
+
+221
+00:27:42,930 --> 00:27:46,120
+Right. But we want them all to be the same category.
+
+222
+00:27:46,130 --> 00:27:50,750
+So the safest, easiest way to do that is just to give it a number. Right.
+
+223
+00:27:53,020 --> 00:28:00,060
+You can always put a format on this thing. We've learned how to do that with format.
+
+224
+00:28:00,540 --> 00:28:09,920
+So we can always create a format where one is then going to show up as non-Hispanic black.
+
+225
+00:28:11,080 --> 00:28:14,230
+Right. You can always create that format.
+
+226
+00:28:18,100 --> 00:28:26,530
+All right. Key takeaways in that section. Can you use if then with LCF to conditionally recode observations using sequences of logic.
+
+227
+00:28:29,200 --> 00:28:33,730
+Elsa's statements have the benefits of efficiency and accuracy over a series of if statements.
+
+228
+00:28:38,570 --> 00:28:41,810
+I guess we didn't talk about the accuracy part. What do I mean by that?
+
+229
+00:28:47,230 --> 00:28:52,510
+Well. Remember in this case with the laughs.
+
+230
+00:28:55,830 --> 00:29:02,380
+If it finds a true, it skips the rest. What would happen if you had some kind of code?
+
+231
+00:29:04,760 --> 00:29:10,890
+Where? The groups weren't mutually exclusive.
+
+232
+00:29:13,540 --> 00:29:16,930
+So in other words, you had a series of ifs like this.
+
+233
+00:29:17,710 --> 00:29:22,840
+These are mutually exclusive. So this doesn't make sense. But let's say the first statement was true.
+
+234
+00:29:24,240 --> 00:29:30,480
+And the second was true. Well.
+
+235
+00:29:33,320 --> 00:29:42,980
+If. If that was the case and you were recoding the same variable in those two lines, then it would overwrite the first true with the second true.
+
+236
+00:29:43,900 --> 00:29:47,830
+We'll just take the last one. That was true. Okay.
+
+237
+00:29:48,400 --> 00:29:54,850
+So this really works super well for mutually exclusive categories.
+
+238
+00:29:56,700 --> 00:30:01,030
+Okay. So keep that in mind as well.
+
+239
+00:30:06,660 --> 00:30:10,020
+In the last takeaway there. Do make sure you're checking your work.
+
+240
+00:30:10,710 --> 00:30:15,390
+In fact, freak is the way to go. For records of categorical variables.
+
+241
+00:30:19,250 --> 00:30:30,120
+Okay. Well, what if we want to code categories from continuous data?
+
+242
+00:30:31,820 --> 00:30:38,990
+We can do that. This is some output output from proc univariate.
+
+243
+00:30:39,920 --> 00:30:45,900
+If you remember that procedure. So this is that recoded height variable, in fact.
+
+244
+00:30:48,730 --> 00:30:53,440
+And it gives us some nice quintiles over here so we can use that information.
+
+245
+00:30:55,260 --> 00:31:00,900
+To create categories from a continuous if we want and we'll do that with if then logic again.
+
+246
+00:31:04,090 --> 00:31:11,710
+So here's an example. Attempt one at recoding that recoded height variable into a.
+
+247
+00:31:13,080 --> 00:31:17,590
+Into quartiles. Okay.
+
+248
+00:31:22,140 --> 00:31:33,959
+So we're starting with the original data set. We're saying if the Recode height is less than 63 and high categories one, well,
+
+249
+00:31:33,960 --> 00:31:39,220
+we got the 63 because that was the first quartile from univariate and we've run already.
+
+250
+00:31:39,940 --> 00:31:44,050
+You see that? The median is 66.
+
+251
+00:31:44,380 --> 00:31:51,790
+So then we go on to an LCF statement. Else if the RE code is less than 66, then the high cat is to.
+
+252
+00:31:56,410 --> 00:31:59,350
+Else. If it's less than 69, then three.
+
+253
+00:31:59,350 --> 00:32:07,690
+And then finally, if it's greater than or equal to 69, which is the third quartile, then center like category two for.
+
+254
+00:32:10,430 --> 00:32:17,510
+Why do you suppose I don't need a greater sign also in my also statements.
+
+255
+00:32:22,590 --> 00:32:28,020
+So certainly it would work and make logical sense to say in that second line elseif.
+
+256
+00:32:29,450 --> 00:32:34,430
+The height record is between 63 and 66.
+
+257
+00:32:34,850 --> 00:32:41,370
+Right. That might actually make more more logical sense to you?
+
+258
+00:32:42,210 --> 00:32:53,310
+It does mean. But this particular coating is taking advantage of the fact that says Skips.
+
+259
+00:32:54,760 --> 00:32:59,470
+Lines skips the remainder of the LCF clauses if it finds a true.
+
+260
+00:33:00,870 --> 00:33:04,830
+Right. So if it is.
+
+261
+00:33:07,950 --> 00:33:16,080
+If it ends up checking that else, if less than 66 line, it means that it's already been false for less than 63.
+
+262
+00:33:18,980 --> 00:33:23,450
+Does that make sense? So we don't really need the lower bound.
+
+263
+00:33:25,870 --> 00:33:29,770
+Do you want to put it in? Because it makes more sense to you. Do it, but you don't need it.
+
+264
+00:33:31,650 --> 00:33:35,610
+Okay. As long as you're using it. If you're using. If, if, if.
+
+265
+00:33:36,210 --> 00:33:41,500
+Then you will need the lower bounds. Right. Okay.
+
+266
+00:33:42,100 --> 00:33:49,550
+There's many ways to code this. Just make sure you're using appropriate logic and you'll be fine.
+
+267
+00:33:54,960 --> 00:34:01,510
+And like before, we want to make sure we're checking our work. So you can do that with Barack means.
+
+268
+00:34:04,760 --> 00:34:15,440
+Include. The end miss option in there to get the number of missing and use a class statement on your new categorical height variable.
+
+269
+00:34:16,880 --> 00:34:22,960
+To see the. Statistics within each category.
+
+270
+00:34:24,580 --> 00:34:37,820
+So if we run this, this is what we see. And what we notice here is that we do have missing in that first category.
+
+271
+00:34:41,960 --> 00:34:45,200
+Well, that's not really what we wanted. Why did that happen?
+
+272
+00:34:45,440 --> 00:34:50,230
+Let's look at our code. Mean when he spot why that happened?
+
+273
+00:34:50,620 --> 00:35:05,780
+Yes. That's exactly right.
+
+274
+00:35:05,860 --> 00:35:13,160
+Yeah. Yeah. We have to be very careful with missing, because if there's missing on that variable.
+
+275
+00:35:14,700 --> 00:35:18,690
+Remember, Sass interprets missing as minus infinity.
+
+276
+00:35:19,320 --> 00:35:26,140
+Well, minus infinity. Less than 63. So it's including those in the first category.
+
+277
+00:35:28,180 --> 00:35:35,020
+So we need to fix that somehow. We can do that with an initial recording of The Missing.
+
+278
+00:35:36,570 --> 00:35:41,580
+Or accounting of the missing. So we can start with if.
+
+279
+00:35:42,770 --> 00:35:47,180
+The code is missing. And set the high category to missing as well.
+
+280
+00:35:51,290 --> 00:35:59,210
+Equally equally fine would be to put a lower bound on the first.
+
+281
+00:36:00,530 --> 00:36:03,530
+The first if statement. So if we went back here.
+
+282
+00:36:05,090 --> 00:36:15,590
+And put in a lower bound on that first if statement say zero or we know the minimum is 53 unless we can put 53 in there.
+
+283
+00:36:16,920 --> 00:36:21,520
+52. Whenever something smaller than 53, right.
+
+284
+00:36:22,630 --> 00:36:26,380
+So we can put that lower bound on that first statement. And it would work also.
+
+285
+00:36:27,430 --> 00:36:33,400
+Because then anything that isn't in any of these clauses will end up missing anyway.
+
+286
+00:36:36,780 --> 00:36:40,010
+Right. That's what sisters do by default.
+
+287
+00:36:40,200 --> 00:36:45,919
+Yes, they. Yeah.
+
+288
+00:36:45,920 --> 00:36:49,310
+We'll talk about that a little bit more later, but there's many ways to do it.
+
+289
+00:36:50,490 --> 00:36:54,510
+You can. We. We can do it.
+
+290
+00:36:54,550 --> 00:36:58,840
+And. Recode greater than zero.
+
+291
+00:37:00,300 --> 00:37:11,100
+We can actually use more of a mathematical approach, which is an inequality where you say zero less and recode less than 63.
+
+292
+00:37:15,260 --> 00:37:20,520
+That works just as well. You can use the.
+
+293
+00:37:23,570 --> 00:37:31,720
+The. Letter annotation for those for those lessons in equal twos as well.
+
+294
+00:37:31,990 --> 00:37:37,030
+So L E or l t and so on.
+
+295
+00:37:38,350 --> 00:37:43,360
+So you can use those. There's many ways to do it. But yeah, we'll talk a little bit more about that.
+
+296
+00:37:48,810 --> 00:37:57,810
+Any other questions? So if you do have missing, make sure you're accounting for them in some way.
+
+297
+00:37:59,990 --> 00:38:09,640
+Whether. By recoding them first, which is usually the best idea, or make sure you're accounting for everything else.
+
+298
+00:38:11,500 --> 00:38:20,410
+So that the missing they end up missing. Okay so if we ran our proc means on this after this recode.
+
+299
+00:38:22,240 --> 00:38:27,050
+The same prac means we we now see our each criteria has no missing.
+
+300
+00:38:28,960 --> 00:38:36,570
+In our means of is makes sense. Okay.
+
+301
+00:38:41,510 --> 00:38:44,960
+Do you check your work? It's a good idea. Really good idea.
+
+302
+00:38:46,510 --> 00:38:49,600
+Make sure you're doing that. Oh.
+
+303
+00:38:49,610 --> 00:38:53,990
+So this is what we were just talking about. There's there's many ways to phrase.
+
+304
+00:38:55,050 --> 00:39:02,940
+These statements, these logical statements. So here are some examples of the same thing.
+
+305
+00:39:03,820 --> 00:39:10,360
+So you've got Recode greater than or equal to 63 and Rico two less than 66,
+
+306
+00:39:10,990 --> 00:39:22,270
+which would be equivalent to Rico G 63 and Recode LTE 66, which is same as that compound inequality there.
+
+307
+00:39:25,950 --> 00:39:29,990
+These are all the same. Okay.
+
+308
+00:39:30,560 --> 00:39:36,440
+So the point is there's lots of ways to do it and you should pick whatever makes the most sense to you.
+
+309
+00:39:39,130 --> 00:39:43,230
+All right. Now, when you remember better that way and you make less mistakes.
+
+310
+00:39:44,830 --> 00:39:50,380
+I like the company inequality. I have more of a math background, so that's more my style.
+
+311
+00:39:50,920 --> 00:39:56,130
+I don't like the letters and I really kind of despise that. But you do it if you want.
+
+312
+00:39:56,380 --> 00:40:00,550
+I don't care. I think that makes sense. Right.
+
+313
+00:40:05,090 --> 00:40:14,410
+Okay. Key takeaways there. You can use it then with elseif statements recode continuous observations into categories.
+
+314
+00:40:15,650 --> 00:40:22,820
+Using our sequences of logic. Make sure you're counting for missing this.
+
+315
+00:40:23,800 --> 00:40:27,730
+And remember that that takes on the mathematical value of minus infinity.
+
+316
+00:40:31,050 --> 00:40:34,400
+And there are many options. For for coding.
+
+317
+00:40:35,270 --> 00:40:41,420
+So you should do whatever makes most sense to you. All right.
+
+318
+00:40:46,490 --> 00:40:55,050
+Any questions on that section? Right now, dummy variables.
+
+319
+00:40:57,900 --> 00:41:00,000
+So we're going to want to conditionally recode those.
+
+320
+00:41:04,690 --> 00:41:13,180
+So what we mean by a dummy variable or a binary variable is you might also hear it called an indicator variable.
+
+321
+00:41:14,630 --> 00:41:17,860
+It's a kind of a yes no. Variable.
+
+322
+00:41:21,700 --> 00:41:26,140
+So in this example, we're creating four dummy variables one for the first quartile.
+
+323
+00:41:27,300 --> 00:41:29,820
+One for the second. One for the third. One for the fourth.
+
+324
+00:41:32,260 --> 00:41:37,870
+Really all that means is we want to say if it is in the first quartile, the height category.
+
+325
+00:41:39,520 --> 00:41:42,640
+Then the indicator or the dummy is equal to one.
+
+326
+00:41:43,090 --> 00:41:56,200
+And if it's not in that first quartile, set it to zero. So we can do that here with a series of if and else if statements for each quartile.
+
+327
+00:42:03,420 --> 00:42:07,490
+I'm using the in apparaitre. As well.
+
+328
+00:42:09,100 --> 00:42:19,100
+To be a little bit more efficient. So essentially.
+
+329
+00:42:21,410 --> 00:42:24,650
+If it's one, then set Q on equal to one.
+
+330
+00:42:25,130 --> 00:42:30,840
+If it's any of the other categories. Then Q1 equals zero.
+
+331
+00:42:32,370 --> 00:42:39,600
+In the same for all the other court times. Notice I didn't just say.
+
+332
+00:42:39,860 --> 00:42:49,710
+Else. Zero. Because there are missing that I have to make sure that I'm not including.
+
+333
+00:42:50,920 --> 00:42:59,820
+Right. If there were no missing, and that would be a perfectly valid, logical way to code it.
+
+334
+00:43:00,480 --> 00:43:03,540
+It's a fight. Equals one. Then one equals one.
+
+335
+00:43:04,080 --> 00:43:08,940
+ElseIf Fight cat. Else else Q one equals zero.
+
+336
+00:43:09,570 --> 00:43:14,180
+And it was. It would be all you need. But there are missing. We know there's missing.
+
+337
+00:43:15,250 --> 00:43:21,210
+So we need to make sure we're not including them. Okay.
+
+338
+00:43:21,990 --> 00:43:28,940
+Those missing should remain missing. Any questions about this coding?
+
+339
+00:43:29,180 --> 00:43:36,600
+This all makes sense. Yes.
+
+340
+00:43:43,210 --> 00:43:46,780
+There is not a reason it works either way. Yeah.
+
+341
+00:43:48,720 --> 00:43:55,170
+Yeah. No, I actually work either way. You can have commas between the the inset there.
+
+342
+00:43:56,370 --> 00:44:09,080
+Values or just spaces will still work. You may have noticed, I'm a fan of taping as little as possible, so I don't put them in.
+
+343
+00:44:09,560 --> 00:44:17,500
+But you can put them in. Yeah. All right, another.
+
+344
+00:44:18,910 --> 00:44:23,170
+Possible way to do this recoding is with a do.
+
+345
+00:44:24,240 --> 00:44:27,630
+Statement. So.
+
+346
+00:44:30,360 --> 00:44:40,870
+SAS has this nice little. Do logical, where if a condition holds, then you can tell it to do a whole set of actions.
+
+347
+00:44:41,590 --> 00:44:45,280
+Not just one thing like we do with a just a then right.
+
+348
+00:44:46,720 --> 00:44:51,160
+So we might actually recode those dummies in this way.
+
+349
+00:44:53,260 --> 00:44:57,130
+We could say if high cat equals that, then do.
+
+350
+00:44:59,020 --> 00:45:06,220
+And if that is true for the observation, then it'll set all the quartile new quartile dummy variables to missing.
+
+351
+00:45:07,630 --> 00:45:15,100
+And then we can move on to an else. If it's one, then do, and then it'll set you 1 to 1 and everything else to zero.
+
+352
+00:45:16,700 --> 00:45:26,750
+Notice if you have a do. You have to tell them when you're done with your your statements you wanted to do and you knew that with an end statement.
+
+353
+00:45:28,740 --> 00:45:41,970
+So I do always ends with an end statement. You might also notice how I've organized this code with indentation.
+
+354
+00:45:42,360 --> 00:45:55,860
+Right. All my statements that are under the data step are indented and inside the do block there.
+
+355
+00:45:56,220 --> 00:46:01,950
+Those things are indented one step further. It sets them apart and shows that there's.
+
+356
+00:46:03,170 --> 00:46:06,450
+You know, a separate block. To pay attention to.
+
+357
+00:46:08,710 --> 00:46:16,520
+So this is a good way to organize that. Obviously you'd have to do this a couple more times to get the other quartiles.
+
+358
+00:46:18,400 --> 00:46:22,440
+Okay. Does this make sense?
+
+359
+00:46:24,870 --> 00:46:29,090
+This is coming real handy when we do. Two loops and.
+
+360
+00:46:30,270 --> 00:46:36,600
+Um. Macros and stuff like that later to come in handy?
+
+361
+00:46:36,630 --> 00:46:45,140
+Yes. Oh, the run would happen at the end of the data step.
+
+362
+00:46:45,690 --> 00:46:48,300
+Right. So this is still all within the data step.
+
+363
+00:46:48,930 --> 00:46:55,110
+So then you would you would do the same thing for quartile three and four, and then you'd finish it off with a run statement.
+
+364
+00:46:55,530 --> 00:46:59,360
+Yep. That's a good point. This was just kind of an abbreviated.
+
+365
+00:47:00,490 --> 00:47:04,600
+Version because it was a lot of code. One slide.
+
+366
+00:47:07,900 --> 00:47:11,660
+Good question. All right.
+
+367
+00:47:13,320 --> 00:47:18,030
+Here's another option, which is nice and short and concise.
+
+368
+00:47:20,380 --> 00:47:23,710
+Doesn't quite make as much sense for for the human logical.
+
+369
+00:47:24,400 --> 00:47:27,450
+But a computer like this. Um.
+
+370
+00:47:28,060 --> 00:47:31,500
+So we could say. If.
+
+371
+00:47:32,790 --> 00:47:36,439
+Hype cat is missing. It's not missing.
+
+372
+00:47:36,440 --> 00:47:39,680
+I'm sorry. I see the carrot there, and that's not equal to that.
+
+373
+00:47:40,250 --> 00:47:44,000
+So if it's not missing, then do these things.
+
+374
+00:47:45,140 --> 00:47:52,300
+Well. Logically, we're used to saying something equals a value.
+
+375
+00:47:52,990 --> 00:48:02,530
+But in this case. We can. We can put in another logical there another logical phrase.
+
+376
+00:48:03,820 --> 00:48:08,560
+And this works because if SAS.
+
+377
+00:48:10,160 --> 00:48:13,640
+Evaluates a logical and decides it's true.
+
+378
+00:48:15,240 --> 00:48:22,240
+It'll set the value to one for true. And if it's false, it'll set the value to zero for false.
+
+379
+00:48:25,170 --> 00:48:28,620
+So this essentially does exactly the same thing as the other Ricos.
+
+380
+00:48:31,760 --> 00:48:36,579
+So if height care equals one. It's going to set.
+
+381
+00:48:36,580 --> 00:48:40,540
+Q One, two, one. If it's false, it'll set it equal to zero.
+
+382
+00:48:41,730 --> 00:48:48,810
+And the same for the other quartiles. So this is this is a nice, efficient.
+
+383
+00:48:49,830 --> 00:49:01,970
+Way to code. Again, it doesn't it's less obvious and obvious to it, to a human that this makes sense.
+
+384
+00:49:03,920 --> 00:49:07,550
+So oftentimes, even I will stick to this kind of thing here.
+
+385
+00:49:10,590 --> 00:49:16,020
+It's all spelled out. It's very clear. All the categories are accounted for.
+
+386
+00:49:17,090 --> 00:49:21,860
+Okay. So if this makes more sense to do it, even if it's even if it's more typing,
+
+387
+00:49:21,860 --> 00:49:25,670
+this is maybe the one case where I say it might be worth typing a little more.
+
+388
+00:49:27,400 --> 00:49:33,440
+If it makes me better sense to you. Look. Right.
+
+389
+00:49:38,130 --> 00:49:47,160
+If we didn't have the right cat already created here we use the high cat for in our lounge because if we didn't have that already,
+
+390
+00:49:47,520 --> 00:49:51,090
+we could use the original recode as well in the same way.
+
+391
+00:49:53,520 --> 00:49:58,630
+Hey. So this could also work.
+
+392
+00:50:12,210 --> 00:50:16,590
+You're all ready to go practice this now, right? Okay.
+
+393
+00:50:17,490 --> 00:50:21,930
+Just to a couple of slides here. Again, I want to emphasize check your work.
+
+394
+00:50:23,200 --> 00:50:26,710
+So proc means can do that. Here.
+
+395
+00:50:27,100 --> 00:50:35,980
+I'm using a class statement on the quartiles individually just to make sure that I don't have any missing my means and maxes look appropriate.
+
+396
+00:50:37,000 --> 00:50:40,870
+Okay. You would repeat this proc means for each of those quartiles like recoded.
+
+397
+00:50:42,650 --> 00:50:46,560
+Okay. Any questions?
+
+398
+00:50:52,730 --> 00:50:56,090
+All right. Well, good luck with your lab today.
+
+399
+00:51:02,830 --> 00:51:03,210
+Yeah.
+
